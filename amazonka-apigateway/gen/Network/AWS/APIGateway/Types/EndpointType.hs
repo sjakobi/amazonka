@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,67 @@
 module Network.AWS.APIGateway.Types.EndpointType
   ( EndpointType
       ( ..,
-        Edge,
-        Private,
-        Regional
+        EndpointTypeEDGE,
+        EndpointTypePRIVATE,
+        EndpointTypeREGIONAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The endpoint type. The valid values are @EDGE@ for edge-optimized API setup, most suitable for mobile applications; @REGIONAL@ for regional API endpoint setup, most suitable for calling from AWS Region; and @PRIVATE@ for private APIs.
-data EndpointType = EndpointType' (CI Text)
+-- | The endpoint type. The valid values are @EDGE@ for edge-optimized API
+-- setup, most suitable for mobile applications; @REGIONAL@ for regional
+-- API endpoint setup, most suitable for calling from AWS Region; and
+-- @PRIVATE@ for private APIs.
+newtype EndpointType = EndpointType'
+  { fromEndpointType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Edge :: EndpointType
-pattern Edge = EndpointType' "EDGE"
+pattern EndpointTypeEDGE :: EndpointType
+pattern EndpointTypeEDGE = EndpointType' "EDGE"
 
-pattern Private :: EndpointType
-pattern Private = EndpointType' "PRIVATE"
+pattern EndpointTypePRIVATE :: EndpointType
+pattern EndpointTypePRIVATE = EndpointType' "PRIVATE"
 
-pattern Regional :: EndpointType
-pattern Regional = EndpointType' "REGIONAL"
+pattern EndpointTypeREGIONAL :: EndpointType
+pattern EndpointTypeREGIONAL = EndpointType' "REGIONAL"
 
 {-# COMPLETE
-  Edge,
-  Private,
-  Regional,
+  EndpointTypeEDGE,
+  EndpointTypePRIVATE,
+  EndpointTypeREGIONAL,
   EndpointType'
   #-}
 
-instance FromText EndpointType where
-  parser = (EndpointType' . mk) <$> takeText
+instance Prelude.FromText EndpointType where
+  parser = EndpointType' Prelude.<$> Prelude.takeText
 
-instance ToText EndpointType where
-  toText (EndpointType' ci) = original ci
+instance Prelude.ToText EndpointType where
+  toText (EndpointType' x) = x
 
-instance Hashable EndpointType
+instance Prelude.Hashable EndpointType
 
-instance NFData EndpointType
+instance Prelude.NFData EndpointType
 
-instance ToByteString EndpointType
+instance Prelude.ToByteString EndpointType
 
-instance ToQuery EndpointType
+instance Prelude.ToQuery EndpointType
 
-instance ToHeader EndpointType
+instance Prelude.ToHeader EndpointType
 
-instance ToJSON EndpointType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EndpointType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EndpointType where
-  parseJSON = parseJSONText "EndpointType"
+instance Prelude.FromJSON EndpointType where
+  parseJSON = Prelude.parseJSONText "EndpointType"

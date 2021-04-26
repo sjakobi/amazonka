@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,210 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a 'MethodResponse' to an existing 'Method' resource.
+-- Adds a MethodResponse to an existing Method resource.
 module Network.AWS.APIGateway.PutMethodResponse
   ( -- * Creating a Request
-    putMethodResponse,
-    PutMethodResponse,
+    PutMethodResponse (..),
+    newPutMethodResponse,
 
     -- * Request Lenses
-    pmrResponseModels,
-    pmrResponseParameters,
-    pmrRestAPIId,
-    pmrResourceId,
-    pmrHttpMethod,
-    pmrStatusCode,
+    putMethodResponse_responseModels,
+    putMethodResponse_responseParameters,
+    putMethodResponse_restApiId,
+    putMethodResponse_resourceId,
+    putMethodResponse_httpMethod,
+    putMethodResponse_statusCode,
 
     -- * Destructuring the Response
-    methodResponse,
-    MethodResponse,
+    MethodResponse (..),
+    newMethodResponse,
 
     -- * Response Lenses
-    mrResponseModels,
-    mrStatusCode,
-    mrResponseParameters,
+    methodResponse_responseModels,
+    methodResponse_statusCode,
+    methodResponse_responseParameters,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.MethodResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to add a 'MethodResponse' to an existing 'Method' resource.
+-- | Request to add a MethodResponse to an existing Method resource.
 --
---
---
--- /See:/ 'putMethodResponse' smart constructor.
+-- /See:/ 'newPutMethodResponse' smart constructor.
 data PutMethodResponse = PutMethodResponse'
-  { _pmrResponseModels ::
-      !(Maybe (Map Text Text)),
-    _pmrResponseParameters ::
-      !(Maybe (Map Text Bool)),
-    _pmrRestAPIId :: !Text,
-    _pmrResourceId :: !Text,
-    _pmrHttpMethod :: !Text,
-    _pmrStatusCode :: !Text
+  { -- | Specifies the Model resources used for the response\'s content type.
+    -- Response models are represented as a key\/value map, with a content type
+    -- as the key and a Model name as the value.
+    responseModels :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A key-value map specifying required or optional response parameters that
+    -- API Gateway can send back to the caller. A key defines a method response
+    -- header name and the associated value is a Boolean flag indicating
+    -- whether the method response parameter is required or not. The method
+    -- response header names must match the pattern of
+    -- @method.response.header.{name}@, where @name@ is a valid and unique
+    -- header name. The response parameter names defined here are available in
+    -- the integration response to be mapped from an integration response
+    -- header expressed in @integration.response.header.{name}@, a static value
+    -- enclosed within a pair of single quotes (e.g., @\'application\/json\'@),
+    -- or a JSON expression from the back-end response payload in the form of
+    -- @integration.response.body.{JSON-expression}@, where @JSON-expression@
+    -- is a valid JSON expression without the @$@ prefix.)
+    responseParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Bool),
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The Resource identifier for the Method resource.
+    resourceId :: Prelude.Text,
+    -- | [Required] The HTTP verb of the Method resource.
+    httpMethod :: Prelude.Text,
+    -- | [Required] The method response\'s status code.
+    statusCode :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutMethodResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutMethodResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pmrResponseModels' - Specifies the 'Model' resources used for the response's content type. Response models are represented as a key/value map, with a content type as the key and a 'Model' name as the value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pmrResponseParameters' - A key-value map specifying required or optional response parameters that API Gateway can send back to the caller. A key defines a method response header name and the associated value is a Boolean flag indicating whether the method response parameter is required or not. The method response header names must match the pattern of @method.response.header.{name}@ , where @name@ is a valid and unique header name. The response parameter names defined here are available in the integration response to be mapped from an integration response header expressed in @integration.response.header.{name}@ , a static value enclosed within a pair of single quotes (e.g., @'application/json'@ ), or a JSON expression from the back-end response payload in the form of @integration.response.body.{JSON-expression}@ , where @JSON-expression@ is a valid JSON expression without the @> @ prefix.)
+-- 'responseModels', 'putMethodResponse_responseModels' - Specifies the Model resources used for the response\'s content type.
+-- Response models are represented as a key\/value map, with a content type
+-- as the key and a Model name as the value.
 --
--- * 'pmrRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'responseParameters', 'putMethodResponse_responseParameters' - A key-value map specifying required or optional response parameters that
+-- API Gateway can send back to the caller. A key defines a method response
+-- header name and the associated value is a Boolean flag indicating
+-- whether the method response parameter is required or not. The method
+-- response header names must match the pattern of
+-- @method.response.header.{name}@, where @name@ is a valid and unique
+-- header name. The response parameter names defined here are available in
+-- the integration response to be mapped from an integration response
+-- header expressed in @integration.response.header.{name}@, a static value
+-- enclosed within a pair of single quotes (e.g., @\'application\/json\'@),
+-- or a JSON expression from the back-end response payload in the form of
+-- @integration.response.body.{JSON-expression}@, where @JSON-expression@
+-- is a valid JSON expression without the @$@ prefix.)
 --
--- * 'pmrResourceId' - [Required] The 'Resource' identifier for the 'Method' resource.
+-- 'restApiId', 'putMethodResponse_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'pmrHttpMethod' - [Required] The HTTP verb of the 'Method' resource.
+-- 'resourceId', 'putMethodResponse_resourceId' - [Required] The Resource identifier for the Method resource.
 --
--- * 'pmrStatusCode' - [Required] The method response's status code.
-putMethodResponse ::
-  -- | 'pmrRestAPIId'
-  Text ->
-  -- | 'pmrResourceId'
-  Text ->
-  -- | 'pmrHttpMethod'
-  Text ->
-  -- | 'pmrStatusCode'
-  Text ->
+-- 'httpMethod', 'putMethodResponse_httpMethod' - [Required] The HTTP verb of the Method resource.
+--
+-- 'statusCode', 'putMethodResponse_statusCode' - [Required] The method response\'s status code.
+newPutMethodResponse ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'httpMethod'
+  Prelude.Text ->
+  -- | 'statusCode'
+  Prelude.Text ->
   PutMethodResponse
-putMethodResponse
-  pRestAPIId_
+newPutMethodResponse
+  pRestApiId_
   pResourceId_
   pHttpMethod_
   pStatusCode_ =
     PutMethodResponse'
-      { _pmrResponseModels = Nothing,
-        _pmrResponseParameters = Nothing,
-        _pmrRestAPIId = pRestAPIId_,
-        _pmrResourceId = pResourceId_,
-        _pmrHttpMethod = pHttpMethod_,
-        _pmrStatusCode = pStatusCode_
+      { responseModels =
+          Prelude.Nothing,
+        responseParameters = Prelude.Nothing,
+        restApiId = pRestApiId_,
+        resourceId = pResourceId_,
+        httpMethod = pHttpMethod_,
+        statusCode = pStatusCode_
       }
 
--- | Specifies the 'Model' resources used for the response's content type. Response models are represented as a key/value map, with a content type as the key and a 'Model' name as the value.
-pmrResponseModels :: Lens' PutMethodResponse (HashMap Text Text)
-pmrResponseModels = lens _pmrResponseModels (\s a -> s {_pmrResponseModels = a}) . _Default . _Map
+-- | Specifies the Model resources used for the response\'s content type.
+-- Response models are represented as a key\/value map, with a content type
+-- as the key and a Model name as the value.
+putMethodResponse_responseModels :: Lens.Lens' PutMethodResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+putMethodResponse_responseModels = Lens.lens (\PutMethodResponse' {responseModels} -> responseModels) (\s@PutMethodResponse' {} a -> s {responseModels = a} :: PutMethodResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | A key-value map specifying required or optional response parameters that API Gateway can send back to the caller. A key defines a method response header name and the associated value is a Boolean flag indicating whether the method response parameter is required or not. The method response header names must match the pattern of @method.response.header.{name}@ , where @name@ is a valid and unique header name. The response parameter names defined here are available in the integration response to be mapped from an integration response header expressed in @integration.response.header.{name}@ , a static value enclosed within a pair of single quotes (e.g., @'application/json'@ ), or a JSON expression from the back-end response payload in the form of @integration.response.body.{JSON-expression}@ , where @JSON-expression@ is a valid JSON expression without the @> @ prefix.)
-pmrResponseParameters :: Lens' PutMethodResponse (HashMap Text Bool)
-pmrResponseParameters = lens _pmrResponseParameters (\s a -> s {_pmrResponseParameters = a}) . _Default . _Map
+-- | A key-value map specifying required or optional response parameters that
+-- API Gateway can send back to the caller. A key defines a method response
+-- header name and the associated value is a Boolean flag indicating
+-- whether the method response parameter is required or not. The method
+-- response header names must match the pattern of
+-- @method.response.header.{name}@, where @name@ is a valid and unique
+-- header name. The response parameter names defined here are available in
+-- the integration response to be mapped from an integration response
+-- header expressed in @integration.response.header.{name}@, a static value
+-- enclosed within a pair of single quotes (e.g., @\'application\/json\'@),
+-- or a JSON expression from the back-end response payload in the form of
+-- @integration.response.body.{JSON-expression}@, where @JSON-expression@
+-- is a valid JSON expression without the @$@ prefix.)
+putMethodResponse_responseParameters :: Lens.Lens' PutMethodResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Bool))
+putMethodResponse_responseParameters = Lens.lens (\PutMethodResponse' {responseParameters} -> responseParameters) (\s@PutMethodResponse' {} a -> s {responseParameters = a} :: PutMethodResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | [Required] The string identifier of the associated 'RestApi' .
-pmrRestAPIId :: Lens' PutMethodResponse Text
-pmrRestAPIId = lens _pmrRestAPIId (\s a -> s {_pmrRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+putMethodResponse_restApiId :: Lens.Lens' PutMethodResponse Prelude.Text
+putMethodResponse_restApiId = Lens.lens (\PutMethodResponse' {restApiId} -> restApiId) (\s@PutMethodResponse' {} a -> s {restApiId = a} :: PutMethodResponse)
 
--- | [Required] The 'Resource' identifier for the 'Method' resource.
-pmrResourceId :: Lens' PutMethodResponse Text
-pmrResourceId = lens _pmrResourceId (\s a -> s {_pmrResourceId = a})
+-- | [Required] The Resource identifier for the Method resource.
+putMethodResponse_resourceId :: Lens.Lens' PutMethodResponse Prelude.Text
+putMethodResponse_resourceId = Lens.lens (\PutMethodResponse' {resourceId} -> resourceId) (\s@PutMethodResponse' {} a -> s {resourceId = a} :: PutMethodResponse)
 
--- | [Required] The HTTP verb of the 'Method' resource.
-pmrHttpMethod :: Lens' PutMethodResponse Text
-pmrHttpMethod = lens _pmrHttpMethod (\s a -> s {_pmrHttpMethod = a})
+-- | [Required] The HTTP verb of the Method resource.
+putMethodResponse_httpMethod :: Lens.Lens' PutMethodResponse Prelude.Text
+putMethodResponse_httpMethod = Lens.lens (\PutMethodResponse' {httpMethod} -> httpMethod) (\s@PutMethodResponse' {} a -> s {httpMethod = a} :: PutMethodResponse)
 
--- | [Required] The method response's status code.
-pmrStatusCode :: Lens' PutMethodResponse Text
-pmrStatusCode = lens _pmrStatusCode (\s a -> s {_pmrStatusCode = a})
+-- | [Required] The method response\'s status code.
+putMethodResponse_statusCode :: Lens.Lens' PutMethodResponse Prelude.Text
+putMethodResponse_statusCode = Lens.lens (\PutMethodResponse' {statusCode} -> statusCode) (\s@PutMethodResponse' {} a -> s {statusCode = a} :: PutMethodResponse)
 
-instance AWSRequest PutMethodResponse where
+instance Prelude.AWSRequest PutMethodResponse where
   type Rs PutMethodResponse = MethodResponse
-  request = putJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable PutMethodResponse
+instance Prelude.Hashable PutMethodResponse
 
-instance NFData PutMethodResponse
+instance Prelude.NFData PutMethodResponse
 
-instance ToHeaders PutMethodResponse where
+instance Prelude.ToHeaders PutMethodResponse where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
-      )
-
-instance ToJSON PutMethodResponse where
-  toJSON PutMethodResponse' {..} =
-    object
-      ( catMaybes
-          [ ("responseModels" .=) <$> _pmrResponseModels,
-            ("responseParameters" .=)
-              <$> _pmrResponseParameters
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance ToPath PutMethodResponse where
+instance Prelude.ToJSON PutMethodResponse where
+  toJSON PutMethodResponse' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("responseModels" Prelude..=)
+              Prelude.<$> responseModels,
+            ("responseParameters" Prelude..=)
+              Prelude.<$> responseParameters
+          ]
+      )
+
+instance Prelude.ToPath PutMethodResponse where
   toPath PutMethodResponse' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _pmrRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _pmrResourceId,
+        Prelude.toBS resourceId,
         "/methods/",
-        toBS _pmrHttpMethod,
+        Prelude.toBS httpMethod,
         "/responses/",
-        toBS _pmrStatusCode
+        Prelude.toBS statusCode
       ]
 
-instance ToQuery PutMethodResponse where
-  toQuery = const mempty
+instance Prelude.ToQuery PutMethodResponse where
+  toQuery = Prelude.const Prelude.mempty

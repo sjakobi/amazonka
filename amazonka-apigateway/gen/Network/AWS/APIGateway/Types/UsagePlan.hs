@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,113 +19,135 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.APIGateway.Types.UsagePlan where
 
-import Network.AWS.APIGateway.Types.APIStage
+import Network.AWS.APIGateway.Types.ApiStage
 import Network.AWS.APIGateway.Types.QuotaSettings
 import Network.AWS.APIGateway.Types.ThrottleSettings
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a usage plan than can specify who can assess associated API stages with specified request limits and quotas.
+-- | Represents a usage plan than can specify who can assess associated API
+-- stages with specified request limits and quotas.
 --
---
--- In a usage plan, you associate an API by specifying the API's Id and a stage name of the specified API. You add plan customers by adding API keys to the plan.
+-- In a usage plan, you associate an API by specifying the API\'s Id and a
+-- stage name of the specified API. You add plan customers by adding API
+-- keys to the plan.
 --
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html Create and Use Usage Plans>
 --
--- /See:/ 'usagePlan' smart constructor.
+-- /See:/ 'newUsagePlan' smart constructor.
 data UsagePlan = UsagePlan'
-  { _upId :: !(Maybe Text),
-    _upName :: !(Maybe Text),
-    _upApiStages :: !(Maybe [APIStage]),
-    _upTags :: !(Maybe (Map Text Text)),
-    _upDescription :: !(Maybe Text),
-    _upQuota :: !(Maybe QuotaSettings),
-    _upProductCode :: !(Maybe Text),
-    _upThrottle :: !(Maybe ThrottleSettings)
+  { -- | The identifier of a UsagePlan resource.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of a usage plan.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The associated API stages of a usage plan.
+    apiStages :: Prelude.Maybe [ApiStage],
+    -- | The collection of tags. Each tag element is associated with a given
+    -- resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description of a usage plan.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of permitted requests per a given unit time interval.
+    quota :: Prelude.Maybe QuotaSettings,
+    -- | The AWS Markeplace product identifier to associate with the usage plan
+    -- as a SaaS product on AWS Marketplace.
+    productCode :: Prelude.Maybe Prelude.Text,
+    -- | The request throttle limits of a usage plan.
+    throttle :: Prelude.Maybe ThrottleSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UsagePlan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UsagePlan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upId' - The identifier of a 'UsagePlan' resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upName' - The name of a usage plan.
+-- 'id', 'usagePlan_id' - The identifier of a UsagePlan resource.
 --
--- * 'upApiStages' - The associated API stages of a usage plan.
+-- 'name', 'usagePlan_name' - The name of a usage plan.
 --
--- * 'upTags' - The collection of tags. Each tag element is associated with a given resource.
+-- 'apiStages', 'usagePlan_apiStages' - The associated API stages of a usage plan.
 --
--- * 'upDescription' - The description of a usage plan.
+-- 'tags', 'usagePlan_tags' - The collection of tags. Each tag element is associated with a given
+-- resource.
 --
--- * 'upQuota' - The maximum number of permitted requests per a given unit time interval.
+-- 'description', 'usagePlan_description' - The description of a usage plan.
 --
--- * 'upProductCode' - The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
+-- 'quota', 'usagePlan_quota' - The maximum number of permitted requests per a given unit time interval.
 --
--- * 'upThrottle' - The request throttle limits of a usage plan.
-usagePlan ::
+-- 'productCode', 'usagePlan_productCode' - The AWS Markeplace product identifier to associate with the usage plan
+-- as a SaaS product on AWS Marketplace.
+--
+-- 'throttle', 'usagePlan_throttle' - The request throttle limits of a usage plan.
+newUsagePlan ::
   UsagePlan
-usagePlan =
+newUsagePlan =
   UsagePlan'
-    { _upId = Nothing,
-      _upName = Nothing,
-      _upApiStages = Nothing,
-      _upTags = Nothing,
-      _upDescription = Nothing,
-      _upQuota = Nothing,
-      _upProductCode = Nothing,
-      _upThrottle = Nothing
+    { id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      apiStages = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      quota = Prelude.Nothing,
+      productCode = Prelude.Nothing,
+      throttle = Prelude.Nothing
     }
 
--- | The identifier of a 'UsagePlan' resource.
-upId :: Lens' UsagePlan (Maybe Text)
-upId = lens _upId (\s a -> s {_upId = a})
+-- | The identifier of a UsagePlan resource.
+usagePlan_id :: Lens.Lens' UsagePlan (Prelude.Maybe Prelude.Text)
+usagePlan_id = Lens.lens (\UsagePlan' {id} -> id) (\s@UsagePlan' {} a -> s {id = a} :: UsagePlan)
 
 -- | The name of a usage plan.
-upName :: Lens' UsagePlan (Maybe Text)
-upName = lens _upName (\s a -> s {_upName = a})
+usagePlan_name :: Lens.Lens' UsagePlan (Prelude.Maybe Prelude.Text)
+usagePlan_name = Lens.lens (\UsagePlan' {name} -> name) (\s@UsagePlan' {} a -> s {name = a} :: UsagePlan)
 
 -- | The associated API stages of a usage plan.
-upApiStages :: Lens' UsagePlan [APIStage]
-upApiStages = lens _upApiStages (\s a -> s {_upApiStages = a}) . _Default . _Coerce
+usagePlan_apiStages :: Lens.Lens' UsagePlan (Prelude.Maybe [ApiStage])
+usagePlan_apiStages = Lens.lens (\UsagePlan' {apiStages} -> apiStages) (\s@UsagePlan' {} a -> s {apiStages = a} :: UsagePlan) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The collection of tags. Each tag element is associated with a given resource.
-upTags :: Lens' UsagePlan (HashMap Text Text)
-upTags = lens _upTags (\s a -> s {_upTags = a}) . _Default . _Map
+-- | The collection of tags. Each tag element is associated with a given
+-- resource.
+usagePlan_tags :: Lens.Lens' UsagePlan (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+usagePlan_tags = Lens.lens (\UsagePlan' {tags} -> tags) (\s@UsagePlan' {} a -> s {tags = a} :: UsagePlan) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description of a usage plan.
-upDescription :: Lens' UsagePlan (Maybe Text)
-upDescription = lens _upDescription (\s a -> s {_upDescription = a})
+usagePlan_description :: Lens.Lens' UsagePlan (Prelude.Maybe Prelude.Text)
+usagePlan_description = Lens.lens (\UsagePlan' {description} -> description) (\s@UsagePlan' {} a -> s {description = a} :: UsagePlan)
 
 -- | The maximum number of permitted requests per a given unit time interval.
-upQuota :: Lens' UsagePlan (Maybe QuotaSettings)
-upQuota = lens _upQuota (\s a -> s {_upQuota = a})
+usagePlan_quota :: Lens.Lens' UsagePlan (Prelude.Maybe QuotaSettings)
+usagePlan_quota = Lens.lens (\UsagePlan' {quota} -> quota) (\s@UsagePlan' {} a -> s {quota = a} :: UsagePlan)
 
--- | The AWS Markeplace product identifier to associate with the usage plan as a SaaS product on AWS Marketplace.
-upProductCode :: Lens' UsagePlan (Maybe Text)
-upProductCode = lens _upProductCode (\s a -> s {_upProductCode = a})
+-- | The AWS Markeplace product identifier to associate with the usage plan
+-- as a SaaS product on AWS Marketplace.
+usagePlan_productCode :: Lens.Lens' UsagePlan (Prelude.Maybe Prelude.Text)
+usagePlan_productCode = Lens.lens (\UsagePlan' {productCode} -> productCode) (\s@UsagePlan' {} a -> s {productCode = a} :: UsagePlan)
 
 -- | The request throttle limits of a usage plan.
-upThrottle :: Lens' UsagePlan (Maybe ThrottleSettings)
-upThrottle = lens _upThrottle (\s a -> s {_upThrottle = a})
+usagePlan_throttle :: Lens.Lens' UsagePlan (Prelude.Maybe ThrottleSettings)
+usagePlan_throttle = Lens.lens (\UsagePlan' {throttle} -> throttle) (\s@UsagePlan' {} a -> s {throttle = a} :: UsagePlan)
 
-instance FromJSON UsagePlan where
+instance Prelude.FromJSON UsagePlan where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UsagePlan"
       ( \x ->
           UsagePlan'
-            <$> (x .:? "id")
-            <*> (x .:? "name")
-            <*> (x .:? "apiStages" .!= mempty)
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "description")
-            <*> (x .:? "quota")
-            <*> (x .:? "productCode")
-            <*> (x .:? "throttle")
+            Prelude.<$> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "apiStages"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "quota")
+            Prelude.<*> (x Prelude..:? "productCode")
+            Prelude.<*> (x Prelude..:? "throttle")
       )
 
-instance Hashable UsagePlan
+instance Prelude.Hashable UsagePlan
 
-instance NFData UsagePlan
+instance Prelude.NFData UsagePlan

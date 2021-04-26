@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,133 +24,139 @@
 -- Represents a get integration response.
 module Network.AWS.APIGateway.GetIntegrationResponse
   ( -- * Creating a Request
-    getIntegrationResponse,
-    GetIntegrationResponse,
+    GetIntegrationResponse (..),
+    newGetIntegrationResponse,
 
     -- * Request Lenses
-    girRestAPIId,
-    girResourceId,
-    girHttpMethod,
-    girStatusCode,
+    getIntegrationResponse_restApiId,
+    getIntegrationResponse_resourceId,
+    getIntegrationResponse_httpMethod,
+    getIntegrationResponse_statusCode,
 
     -- * Destructuring the Response
-    integrationResponse,
-    IntegrationResponse,
+    IntegrationResponse (..),
+    newIntegrationResponse,
 
     -- * Response Lenses
-    irContentHandling,
-    irResponseTemplates,
-    irStatusCode,
-    irResponseParameters,
-    irSelectionPattern,
+    integrationResponse_contentHandling,
+    integrationResponse_responseTemplates,
+    integrationResponse_statusCode,
+    integrationResponse_responseParameters,
+    integrationResponse_selectionPattern,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.ContentHandlingStrategy
+import Network.AWS.APIGateway.Types.IntegrationResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a get integration response request.
 --
---
---
--- /See:/ 'getIntegrationResponse' smart constructor.
+-- /See:/ 'newGetIntegrationResponse' smart constructor.
 data GetIntegrationResponse = GetIntegrationResponse'
-  { _girRestAPIId ::
-      !Text,
-    _girResourceId :: !Text,
-    _girHttpMethod :: !Text,
-    _girStatusCode :: !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] Specifies a get integration response request\'s resource
+    -- identifier.
+    resourceId :: Prelude.Text,
+    -- | [Required] Specifies a get integration response request\'s HTTP method.
+    httpMethod :: Prelude.Text,
+    -- | [Required] Specifies a get integration response request\'s status code.
+    statusCode :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetIntegrationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetIntegrationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'girRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'girResourceId' - [Required] Specifies a get integration response request's resource identifier.
+-- 'restApiId', 'getIntegrationResponse_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'girHttpMethod' - [Required] Specifies a get integration response request's HTTP method.
+-- 'resourceId', 'getIntegrationResponse_resourceId' - [Required] Specifies a get integration response request\'s resource
+-- identifier.
 --
--- * 'girStatusCode' - [Required] Specifies a get integration response request's status code.
-getIntegrationResponse ::
-  -- | 'girRestAPIId'
-  Text ->
-  -- | 'girResourceId'
-  Text ->
-  -- | 'girHttpMethod'
-  Text ->
-  -- | 'girStatusCode'
-  Text ->
+-- 'httpMethod', 'getIntegrationResponse_httpMethod' - [Required] Specifies a get integration response request\'s HTTP method.
+--
+-- 'statusCode', 'getIntegrationResponse_statusCode' - [Required] Specifies a get integration response request\'s status code.
+newGetIntegrationResponse ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'httpMethod'
+  Prelude.Text ->
+  -- | 'statusCode'
+  Prelude.Text ->
   GetIntegrationResponse
-getIntegrationResponse
-  pRestAPIId_
+newGetIntegrationResponse
+  pRestApiId_
   pResourceId_
   pHttpMethod_
   pStatusCode_ =
     GetIntegrationResponse'
-      { _girRestAPIId =
-          pRestAPIId_,
-        _girResourceId = pResourceId_,
-        _girHttpMethod = pHttpMethod_,
-        _girStatusCode = pStatusCode_
+      { restApiId = pRestApiId_,
+        resourceId = pResourceId_,
+        httpMethod = pHttpMethod_,
+        statusCode = pStatusCode_
       }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-girRestAPIId :: Lens' GetIntegrationResponse Text
-girRestAPIId = lens _girRestAPIId (\s a -> s {_girRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getIntegrationResponse_restApiId :: Lens.Lens' GetIntegrationResponse Prelude.Text
+getIntegrationResponse_restApiId = Lens.lens (\GetIntegrationResponse' {restApiId} -> restApiId) (\s@GetIntegrationResponse' {} a -> s {restApiId = a} :: GetIntegrationResponse)
 
--- | [Required] Specifies a get integration response request's resource identifier.
-girResourceId :: Lens' GetIntegrationResponse Text
-girResourceId = lens _girResourceId (\s a -> s {_girResourceId = a})
+-- | [Required] Specifies a get integration response request\'s resource
+-- identifier.
+getIntegrationResponse_resourceId :: Lens.Lens' GetIntegrationResponse Prelude.Text
+getIntegrationResponse_resourceId = Lens.lens (\GetIntegrationResponse' {resourceId} -> resourceId) (\s@GetIntegrationResponse' {} a -> s {resourceId = a} :: GetIntegrationResponse)
 
--- | [Required] Specifies a get integration response request's HTTP method.
-girHttpMethod :: Lens' GetIntegrationResponse Text
-girHttpMethod = lens _girHttpMethod (\s a -> s {_girHttpMethod = a})
+-- | [Required] Specifies a get integration response request\'s HTTP method.
+getIntegrationResponse_httpMethod :: Lens.Lens' GetIntegrationResponse Prelude.Text
+getIntegrationResponse_httpMethod = Lens.lens (\GetIntegrationResponse' {httpMethod} -> httpMethod) (\s@GetIntegrationResponse' {} a -> s {httpMethod = a} :: GetIntegrationResponse)
 
--- | [Required] Specifies a get integration response request's status code.
-girStatusCode :: Lens' GetIntegrationResponse Text
-girStatusCode = lens _girStatusCode (\s a -> s {_girStatusCode = a})
+-- | [Required] Specifies a get integration response request\'s status code.
+getIntegrationResponse_statusCode :: Lens.Lens' GetIntegrationResponse Prelude.Text
+getIntegrationResponse_statusCode = Lens.lens (\GetIntegrationResponse' {statusCode} -> statusCode) (\s@GetIntegrationResponse' {} a -> s {statusCode = a} :: GetIntegrationResponse)
 
-instance AWSRequest GetIntegrationResponse where
+instance Prelude.AWSRequest GetIntegrationResponse where
   type Rs GetIntegrationResponse = IntegrationResponse
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetIntegrationResponse
+instance Prelude.Hashable GetIntegrationResponse
 
-instance NFData GetIntegrationResponse
+instance Prelude.NFData GetIntegrationResponse
 
-instance ToHeaders GetIntegrationResponse where
+instance Prelude.ToHeaders GetIntegrationResponse where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetIntegrationResponse where
+instance Prelude.ToPath GetIntegrationResponse where
   toPath GetIntegrationResponse' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _girRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _girResourceId,
+        Prelude.toBS resourceId,
         "/methods/",
-        toBS _girHttpMethod,
+        Prelude.toBS httpMethod,
         "/integration/responses/",
-        toBS _girStatusCode
+        Prelude.toBS statusCode
       ]
 
-instance ToQuery GetIntegrationResponse where
-  toQuery = const mempty
+instance Prelude.ToQuery GetIntegrationResponse where
+  toQuery = Prelude.const Prelude.mempty

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,111 +24,125 @@
 -- Changes information about a model.
 module Network.AWS.APIGateway.UpdateModel
   ( -- * Creating a Request
-    updateModel,
-    UpdateModel,
+    UpdateModel (..),
+    newUpdateModel,
 
     -- * Request Lenses
-    uPatchOperations,
-    uRestAPIId,
-    uModelName,
+    updateModel_patchOperations,
+    updateModel_restApiId,
+    updateModel_modelName,
 
     -- * Destructuring the Response
-    model,
-    Model,
+    Model (..),
+    newModel,
 
     -- * Response Lenses
-    mContentType,
-    mSchema,
-    mId,
-    mName,
-    mDescription,
+    model_contentType,
+    model_schema,
+    model_id,
+    model_name,
+    model_description,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Model
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to update an existing model in an existing 'RestApi' resource.
+-- | Request to update an existing model in an existing RestApi resource.
 --
---
---
--- /See:/ 'updateModel' smart constructor.
+-- /See:/ 'newUpdateModel' smart constructor.
 data UpdateModel = UpdateModel'
-  { _uPatchOperations ::
-      !(Maybe [PatchOperation]),
-    _uRestAPIId :: !Text,
-    _uModelName :: !Text
+  { -- | A list of update operations to be applied to the specified resource and
+    -- in the order specified in this list.
+    patchOperations :: Prelude.Maybe [PatchOperation],
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The name of the model to update.
+    modelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uPatchOperations' - A list of update operations to be applied to the specified resource and in the order specified in this list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'patchOperations', 'updateModel_patchOperations' - A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
 --
--- * 'uModelName' - [Required] The name of the model to update.
-updateModel ::
-  -- | 'uRestAPIId'
-  Text ->
-  -- | 'uModelName'
-  Text ->
+-- 'restApiId', 'updateModel_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'modelName', 'updateModel_modelName' - [Required] The name of the model to update.
+newUpdateModel ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'modelName'
+  Prelude.Text ->
   UpdateModel
-updateModel pRestAPIId_ pModelName_ =
+newUpdateModel pRestApiId_ pModelName_ =
   UpdateModel'
-    { _uPatchOperations = Nothing,
-      _uRestAPIId = pRestAPIId_,
-      _uModelName = pModelName_
+    { patchOperations = Prelude.Nothing,
+      restApiId = pRestApiId_,
+      modelName = pModelName_
     }
 
--- | A list of update operations to be applied to the specified resource and in the order specified in this list.
-uPatchOperations :: Lens' UpdateModel [PatchOperation]
-uPatchOperations = lens _uPatchOperations (\s a -> s {_uPatchOperations = a}) . _Default . _Coerce
+-- | A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
+updateModel_patchOperations :: Lens.Lens' UpdateModel (Prelude.Maybe [PatchOperation])
+updateModel_patchOperations = Lens.lens (\UpdateModel' {patchOperations} -> patchOperations) (\s@UpdateModel' {} a -> s {patchOperations = a} :: UpdateModel) Prelude.. Lens.mapping Prelude._Coerce
 
--- | [Required] The string identifier of the associated 'RestApi' .
-uRestAPIId :: Lens' UpdateModel Text
-uRestAPIId = lens _uRestAPIId (\s a -> s {_uRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+updateModel_restApiId :: Lens.Lens' UpdateModel Prelude.Text
+updateModel_restApiId = Lens.lens (\UpdateModel' {restApiId} -> restApiId) (\s@UpdateModel' {} a -> s {restApiId = a} :: UpdateModel)
 
 -- | [Required] The name of the model to update.
-uModelName :: Lens' UpdateModel Text
-uModelName = lens _uModelName (\s a -> s {_uModelName = a})
+updateModel_modelName :: Lens.Lens' UpdateModel Prelude.Text
+updateModel_modelName = Lens.lens (\UpdateModel' {modelName} -> modelName) (\s@UpdateModel' {} a -> s {modelName = a} :: UpdateModel)
 
-instance AWSRequest UpdateModel where
+instance Prelude.AWSRequest UpdateModel where
   type Rs UpdateModel = Model
-  request = patchJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.patchJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateModel
+instance Prelude.Hashable UpdateModel
 
-instance NFData UpdateModel
+instance Prelude.NFData UpdateModel
 
-instance ToHeaders UpdateModel where
+instance Prelude.ToHeaders UpdateModel where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToJSON UpdateModel where
+instance Prelude.ToJSON UpdateModel where
   toJSON UpdateModel' {..} =
-    object
-      ( catMaybes
-          [("patchOperations" .=) <$> _uPatchOperations]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("patchOperations" Prelude..=)
+              Prelude.<$> patchOperations
+          ]
       )
 
-instance ToPath UpdateModel where
+instance Prelude.ToPath UpdateModel where
   toPath UpdateModel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _uRestAPIId,
+        Prelude.toBS restApiId,
         "/models/",
-        toBS _uModelName
+        Prelude.toBS modelName
       ]
 
-instance ToQuery UpdateModel where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateModel where
+  toQuery = Prelude.const Prelude.mempty

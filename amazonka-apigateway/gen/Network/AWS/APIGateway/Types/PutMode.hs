@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.APIGateway.Types.PutMode
   ( PutMode
       ( ..,
-        Merge,
-        Overwrite
+        PutModeMerge,
+        PutModeOverwrite
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PutMode = PutMode' (CI Text)
+newtype PutMode = PutMode'
+  { fromPutMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Merge :: PutMode
-pattern Merge = PutMode' "merge"
+pattern PutModeMerge :: PutMode
+pattern PutModeMerge = PutMode' "merge"
 
-pattern Overwrite :: PutMode
-pattern Overwrite = PutMode' "overwrite"
+pattern PutModeOverwrite :: PutMode
+pattern PutModeOverwrite = PutMode' "overwrite"
 
 {-# COMPLETE
-  Merge,
-  Overwrite,
+  PutModeMerge,
+  PutModeOverwrite,
   PutMode'
   #-}
 
-instance FromText PutMode where
-  parser = (PutMode' . mk) <$> takeText
+instance Prelude.FromText PutMode where
+  parser = PutMode' Prelude.<$> Prelude.takeText
 
-instance ToText PutMode where
-  toText (PutMode' ci) = original ci
+instance Prelude.ToText PutMode where
+  toText (PutMode' x) = x
 
-instance Hashable PutMode
+instance Prelude.Hashable PutMode
 
-instance NFData PutMode
+instance Prelude.NFData PutMode
 
-instance ToByteString PutMode
+instance Prelude.ToByteString PutMode
 
-instance ToQuery PutMode
+instance Prelude.ToQuery PutMode
 
-instance ToHeader PutMode
+instance Prelude.ToHeader PutMode
 
-instance ToJSON PutMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON PutMode where
+  toJSON = Prelude.toJSONText

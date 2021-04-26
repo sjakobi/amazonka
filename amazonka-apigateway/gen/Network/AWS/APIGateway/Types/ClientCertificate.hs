@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,93 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.APIGateway.Types.ClientCertificate where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a client certificate used to configure client-side SSL authentication while sending requests to the integration endpoint.
+-- | Represents a client certificate used to configure client-side SSL
+-- authentication while sending requests to the integration endpoint.
 --
+-- Client certificates are used to authenticate an API by the backend
+-- server. To authenticate an API client (or user), use IAM roles and
+-- policies, a custom Authorizer or an Amazon Cognito user pool.
 --
--- Client certificates are used to authenticate an API by the backend server. To authenticate an API client (or user), use IAM roles and policies, a custom 'Authorizer' or an Amazon Cognito user pool.<https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html Use Client-Side Certificate>
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html Use Client-Side Certificate>
 --
--- /See:/ 'clientCertificate' smart constructor.
+-- /See:/ 'newClientCertificate' smart constructor.
 data ClientCertificate = ClientCertificate'
-  { _ccCreatedDate ::
-      !(Maybe POSIX),
-    _ccExpirationDate :: !(Maybe POSIX),
-    _ccPemEncodedCertificate ::
-      !(Maybe Text),
-    _ccTags :: !(Maybe (Map Text Text)),
-    _ccClientCertificateId ::
-      !(Maybe Text),
-    _ccDescription :: !(Maybe Text)
+  { -- | The timestamp when the client certificate was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The timestamp when the client certificate will expire.
+    expirationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The PEM-encoded public key of the client certificate, which can be used
+    -- to configure certificate authentication in the integration endpoint .
+    pemEncodedCertificate :: Prelude.Maybe Prelude.Text,
+    -- | The collection of tags. Each tag element is associated with a given
+    -- resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The identifier of the client certificate.
+    clientCertificateId :: Prelude.Maybe Prelude.Text,
+    -- | The description of the client certificate.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ClientCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ClientCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccCreatedDate' - The timestamp when the client certificate was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccExpirationDate' - The timestamp when the client certificate will expire.
+-- 'createdDate', 'clientCertificate_createdDate' - The timestamp when the client certificate was created.
 --
--- * 'ccPemEncodedCertificate' - The PEM-encoded public key of the client certificate, which can be used to configure certificate authentication in the integration endpoint .
+-- 'expirationDate', 'clientCertificate_expirationDate' - The timestamp when the client certificate will expire.
 --
--- * 'ccTags' - The collection of tags. Each tag element is associated with a given resource.
+-- 'pemEncodedCertificate', 'clientCertificate_pemEncodedCertificate' - The PEM-encoded public key of the client certificate, which can be used
+-- to configure certificate authentication in the integration endpoint .
 --
--- * 'ccClientCertificateId' - The identifier of the client certificate.
+-- 'tags', 'clientCertificate_tags' - The collection of tags. Each tag element is associated with a given
+-- resource.
 --
--- * 'ccDescription' - The description of the client certificate.
-clientCertificate ::
+-- 'clientCertificateId', 'clientCertificate_clientCertificateId' - The identifier of the client certificate.
+--
+-- 'description', 'clientCertificate_description' - The description of the client certificate.
+newClientCertificate ::
   ClientCertificate
-clientCertificate =
+newClientCertificate =
   ClientCertificate'
-    { _ccCreatedDate = Nothing,
-      _ccExpirationDate = Nothing,
-      _ccPemEncodedCertificate = Nothing,
-      _ccTags = Nothing,
-      _ccClientCertificateId = Nothing,
-      _ccDescription = Nothing
+    { createdDate = Prelude.Nothing,
+      expirationDate = Prelude.Nothing,
+      pemEncodedCertificate = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      clientCertificateId = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The timestamp when the client certificate was created.
-ccCreatedDate :: Lens' ClientCertificate (Maybe UTCTime)
-ccCreatedDate = lens _ccCreatedDate (\s a -> s {_ccCreatedDate = a}) . mapping _Time
+clientCertificate_createdDate :: Lens.Lens' ClientCertificate (Prelude.Maybe Prelude.UTCTime)
+clientCertificate_createdDate = Lens.lens (\ClientCertificate' {createdDate} -> createdDate) (\s@ClientCertificate' {} a -> s {createdDate = a} :: ClientCertificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The timestamp when the client certificate will expire.
-ccExpirationDate :: Lens' ClientCertificate (Maybe UTCTime)
-ccExpirationDate = lens _ccExpirationDate (\s a -> s {_ccExpirationDate = a}) . mapping _Time
+clientCertificate_expirationDate :: Lens.Lens' ClientCertificate (Prelude.Maybe Prelude.UTCTime)
+clientCertificate_expirationDate = Lens.lens (\ClientCertificate' {expirationDate} -> expirationDate) (\s@ClientCertificate' {} a -> s {expirationDate = a} :: ClientCertificate) Prelude.. Lens.mapping Prelude._Time
 
--- | The PEM-encoded public key of the client certificate, which can be used to configure certificate authentication in the integration endpoint .
-ccPemEncodedCertificate :: Lens' ClientCertificate (Maybe Text)
-ccPemEncodedCertificate = lens _ccPemEncodedCertificate (\s a -> s {_ccPemEncodedCertificate = a})
+-- | The PEM-encoded public key of the client certificate, which can be used
+-- to configure certificate authentication in the integration endpoint .
+clientCertificate_pemEncodedCertificate :: Lens.Lens' ClientCertificate (Prelude.Maybe Prelude.Text)
+clientCertificate_pemEncodedCertificate = Lens.lens (\ClientCertificate' {pemEncodedCertificate} -> pemEncodedCertificate) (\s@ClientCertificate' {} a -> s {pemEncodedCertificate = a} :: ClientCertificate)
 
--- | The collection of tags. Each tag element is associated with a given resource.
-ccTags :: Lens' ClientCertificate (HashMap Text Text)
-ccTags = lens _ccTags (\s a -> s {_ccTags = a}) . _Default . _Map
+-- | The collection of tags. Each tag element is associated with a given
+-- resource.
+clientCertificate_tags :: Lens.Lens' ClientCertificate (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+clientCertificate_tags = Lens.lens (\ClientCertificate' {tags} -> tags) (\s@ClientCertificate' {} a -> s {tags = a} :: ClientCertificate) Prelude.. Lens.mapping Prelude._Map
 
 -- | The identifier of the client certificate.
-ccClientCertificateId :: Lens' ClientCertificate (Maybe Text)
-ccClientCertificateId = lens _ccClientCertificateId (\s a -> s {_ccClientCertificateId = a})
+clientCertificate_clientCertificateId :: Lens.Lens' ClientCertificate (Prelude.Maybe Prelude.Text)
+clientCertificate_clientCertificateId = Lens.lens (\ClientCertificate' {clientCertificateId} -> clientCertificateId) (\s@ClientCertificate' {} a -> s {clientCertificateId = a} :: ClientCertificate)
 
 -- | The description of the client certificate.
-ccDescription :: Lens' ClientCertificate (Maybe Text)
-ccDescription = lens _ccDescription (\s a -> s {_ccDescription = a})
+clientCertificate_description :: Lens.Lens' ClientCertificate (Prelude.Maybe Prelude.Text)
+clientCertificate_description = Lens.lens (\ClientCertificate' {description} -> description) (\s@ClientCertificate' {} a -> s {description = a} :: ClientCertificate)
 
-instance FromJSON ClientCertificate where
+instance Prelude.FromJSON ClientCertificate where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ClientCertificate"
       ( \x ->
           ClientCertificate'
-            <$> (x .:? "createdDate")
-            <*> (x .:? "expirationDate")
-            <*> (x .:? "pemEncodedCertificate")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "clientCertificateId")
-            <*> (x .:? "description")
+            Prelude.<$> (x Prelude..:? "createdDate")
+            Prelude.<*> (x Prelude..:? "expirationDate")
+            Prelude.<*> (x Prelude..:? "pemEncodedCertificate")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "clientCertificateId")
+            Prelude.<*> (x Prelude..:? "description")
       )
 
-instance Hashable ClientCertificate
+instance Prelude.Hashable ClientCertificate
 
-instance NFData ClientCertificate
+instance Prelude.NFData ClientCertificate

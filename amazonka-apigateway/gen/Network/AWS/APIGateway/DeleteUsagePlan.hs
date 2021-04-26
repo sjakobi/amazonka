@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,88 +24,92 @@
 -- Deletes a usage plan of a given plan Id.
 module Network.AWS.APIGateway.DeleteUsagePlan
   ( -- * Creating a Request
-    deleteUsagePlan,
-    DeleteUsagePlan,
+    DeleteUsagePlan (..),
+    newDeleteUsagePlan,
 
     -- * Request Lenses
-    dupUsagePlanId,
+    deleteUsagePlan_usagePlanId,
 
     -- * Destructuring the Response
-    deleteUsagePlanResponse,
-    DeleteUsagePlanResponse,
+    DeleteUsagePlanResponse (..),
+    newDeleteUsagePlanResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The DELETE request to delete a usage plan of a given plan Id.
 --
---
---
--- /See:/ 'deleteUsagePlan' smart constructor.
-newtype DeleteUsagePlan = DeleteUsagePlan'
-  { _dupUsagePlanId ::
-      Text
+-- /See:/ 'newDeleteUsagePlan' smart constructor.
+data DeleteUsagePlan = DeleteUsagePlan'
+  { -- | [Required] The Id of the to-be-deleted usage plan.
+    usagePlanId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUsagePlan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUsagePlan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dupUsagePlanId' - [Required] The Id of the to-be-deleted usage plan.
-deleteUsagePlan ::
-  -- | 'dupUsagePlanId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'usagePlanId', 'deleteUsagePlan_usagePlanId' - [Required] The Id of the to-be-deleted usage plan.
+newDeleteUsagePlan ::
+  -- | 'usagePlanId'
+  Prelude.Text ->
   DeleteUsagePlan
-deleteUsagePlan pUsagePlanId_ =
-  DeleteUsagePlan' {_dupUsagePlanId = pUsagePlanId_}
+newDeleteUsagePlan pUsagePlanId_ =
+  DeleteUsagePlan' {usagePlanId = pUsagePlanId_}
 
 -- | [Required] The Id of the to-be-deleted usage plan.
-dupUsagePlanId :: Lens' DeleteUsagePlan Text
-dupUsagePlanId = lens _dupUsagePlanId (\s a -> s {_dupUsagePlanId = a})
+deleteUsagePlan_usagePlanId :: Lens.Lens' DeleteUsagePlan Prelude.Text
+deleteUsagePlan_usagePlanId = Lens.lens (\DeleteUsagePlan' {usagePlanId} -> usagePlanId) (\s@DeleteUsagePlan' {} a -> s {usagePlanId = a} :: DeleteUsagePlan)
 
-instance AWSRequest DeleteUsagePlan where
+instance Prelude.AWSRequest DeleteUsagePlan where
   type Rs DeleteUsagePlan = DeleteUsagePlanResponse
-  request = delete apiGateway
-  response = receiveNull DeleteUsagePlanResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteUsagePlanResponse'
 
-instance Hashable DeleteUsagePlan
+instance Prelude.Hashable DeleteUsagePlan
 
-instance NFData DeleteUsagePlan
+instance Prelude.NFData DeleteUsagePlan
 
-instance ToHeaders DeleteUsagePlan where
+instance Prelude.ToHeaders DeleteUsagePlan where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteUsagePlan where
+instance Prelude.ToPath DeleteUsagePlan where
   toPath DeleteUsagePlan' {..} =
-    mconcat ["/usageplans/", toBS _dupUsagePlanId]
+    Prelude.mconcat
+      ["/usageplans/", Prelude.toBS usagePlanId]
 
-instance ToQuery DeleteUsagePlan where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUsagePlan where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUsagePlanResponse' smart constructor.
+-- | /See:/ 'newDeleteUsagePlanResponse' smart constructor.
 data DeleteUsagePlanResponse = DeleteUsagePlanResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUsagePlanResponse' with the minimum fields required to make a request.
-deleteUsagePlanResponse ::
+-- |
+-- Create a value of 'DeleteUsagePlanResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUsagePlanResponse ::
   DeleteUsagePlanResponse
-deleteUsagePlanResponse = DeleteUsagePlanResponse'
+newDeleteUsagePlanResponse = DeleteUsagePlanResponse'
 
-instance NFData DeleteUsagePlanResponse
+instance Prelude.NFData DeleteUsagePlanResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.APIGateway.Types.CacheClusterStatus
   ( CacheClusterStatus
       ( ..,
-        Available,
-        CreateInProgress,
-        DeleteInProgress,
-        FlushInProgress,
-        NotAvailable
+        CacheClusterStatusAVAILABLE,
+        CacheClusterStatusCREATEINPROGRESS,
+        CacheClusterStatusDELETEINPROGRESS,
+        CacheClusterStatusFLUSHINPROGRESS,
+        CacheClusterStatusNOTAVAILABLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns the status of the __CacheCluster__ .
-data CacheClusterStatus
-  = CacheClusterStatus'
-      ( CI
-          Text
-      )
+-- | Returns the status of the __CacheCluster__.
+newtype CacheClusterStatus = CacheClusterStatus'
+  { fromCacheClusterStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Available :: CacheClusterStatus
-pattern Available = CacheClusterStatus' "AVAILABLE"
+pattern CacheClusterStatusAVAILABLE :: CacheClusterStatus
+pattern CacheClusterStatusAVAILABLE = CacheClusterStatus' "AVAILABLE"
 
-pattern CreateInProgress :: CacheClusterStatus
-pattern CreateInProgress = CacheClusterStatus' "CREATE_IN_PROGRESS"
+pattern CacheClusterStatusCREATEINPROGRESS :: CacheClusterStatus
+pattern CacheClusterStatusCREATEINPROGRESS = CacheClusterStatus' "CREATE_IN_PROGRESS"
 
-pattern DeleteInProgress :: CacheClusterStatus
-pattern DeleteInProgress = CacheClusterStatus' "DELETE_IN_PROGRESS"
+pattern CacheClusterStatusDELETEINPROGRESS :: CacheClusterStatus
+pattern CacheClusterStatusDELETEINPROGRESS = CacheClusterStatus' "DELETE_IN_PROGRESS"
 
-pattern FlushInProgress :: CacheClusterStatus
-pattern FlushInProgress = CacheClusterStatus' "FLUSH_IN_PROGRESS"
+pattern CacheClusterStatusFLUSHINPROGRESS :: CacheClusterStatus
+pattern CacheClusterStatusFLUSHINPROGRESS = CacheClusterStatus' "FLUSH_IN_PROGRESS"
 
-pattern NotAvailable :: CacheClusterStatus
-pattern NotAvailable = CacheClusterStatus' "NOT_AVAILABLE"
+pattern CacheClusterStatusNOTAVAILABLE :: CacheClusterStatus
+pattern CacheClusterStatusNOTAVAILABLE = CacheClusterStatus' "NOT_AVAILABLE"
 
 {-# COMPLETE
-  Available,
-  CreateInProgress,
-  DeleteInProgress,
-  FlushInProgress,
-  NotAvailable,
+  CacheClusterStatusAVAILABLE,
+  CacheClusterStatusCREATEINPROGRESS,
+  CacheClusterStatusDELETEINPROGRESS,
+  CacheClusterStatusFLUSHINPROGRESS,
+  CacheClusterStatusNOTAVAILABLE,
   CacheClusterStatus'
   #-}
 
-instance FromText CacheClusterStatus where
-  parser = (CacheClusterStatus' . mk) <$> takeText
+instance Prelude.FromText CacheClusterStatus where
+  parser = CacheClusterStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CacheClusterStatus where
-  toText (CacheClusterStatus' ci) = original ci
+instance Prelude.ToText CacheClusterStatus where
+  toText (CacheClusterStatus' x) = x
 
-instance Hashable CacheClusterStatus
+instance Prelude.Hashable CacheClusterStatus
 
-instance NFData CacheClusterStatus
+instance Prelude.NFData CacheClusterStatus
 
-instance ToByteString CacheClusterStatus
+instance Prelude.ToByteString CacheClusterStatus
 
-instance ToQuery CacheClusterStatus
+instance Prelude.ToQuery CacheClusterStatus
 
-instance ToHeader CacheClusterStatus
+instance Prelude.ToHeader CacheClusterStatus
 
-instance FromJSON CacheClusterStatus where
-  parseJSON = parseJSONText "CacheClusterStatus"
+instance Prelude.FromJSON CacheClusterStatus where
+  parseJSON = Prelude.parseJSONText "CacheClusterStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,78 @@
 module Network.AWS.APIGateway.Types.IntegrationType
   ( IntegrationType
       ( ..,
-        AWS,
-        AWSProxy,
-        HTTP,
-        HTTPProxy,
-        Mock
+        IntegrationTypeAWS,
+        IntegrationTypeAWSPROXY,
+        IntegrationTypeHTTP,
+        IntegrationTypeHTTPPROXY,
+        IntegrationTypeMOCK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The integration type. The valid value is @HTTP@ for integrating an API method with an HTTP backend; @AWS@ with any AWS service endpoints; @MOCK@ for testing without actually invoking the backend; @HTTP_PROXY@ for integrating with the HTTP proxy integration; @AWS_PROXY@ for integrating with the Lambda proxy integration.
-data IntegrationType = IntegrationType' (CI Text)
+-- | The integration type. The valid value is @HTTP@ for integrating an API
+-- method with an HTTP backend; @AWS@ with any AWS service endpoints;
+-- @MOCK@ for testing without actually invoking the backend; @HTTP_PROXY@
+-- for integrating with the HTTP proxy integration; @AWS_PROXY@ for
+-- integrating with the Lambda proxy integration.
+newtype IntegrationType = IntegrationType'
+  { fromIntegrationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWS :: IntegrationType
-pattern AWS = IntegrationType' "AWS"
+pattern IntegrationTypeAWS :: IntegrationType
+pattern IntegrationTypeAWS = IntegrationType' "AWS"
 
-pattern AWSProxy :: IntegrationType
-pattern AWSProxy = IntegrationType' "AWS_PROXY"
+pattern IntegrationTypeAWSPROXY :: IntegrationType
+pattern IntegrationTypeAWSPROXY = IntegrationType' "AWS_PROXY"
 
-pattern HTTP :: IntegrationType
-pattern HTTP = IntegrationType' "HTTP"
+pattern IntegrationTypeHTTP :: IntegrationType
+pattern IntegrationTypeHTTP = IntegrationType' "HTTP"
 
-pattern HTTPProxy :: IntegrationType
-pattern HTTPProxy = IntegrationType' "HTTP_PROXY"
+pattern IntegrationTypeHTTPPROXY :: IntegrationType
+pattern IntegrationTypeHTTPPROXY = IntegrationType' "HTTP_PROXY"
 
-pattern Mock :: IntegrationType
-pattern Mock = IntegrationType' "MOCK"
+pattern IntegrationTypeMOCK :: IntegrationType
+pattern IntegrationTypeMOCK = IntegrationType' "MOCK"
 
 {-# COMPLETE
-  AWS,
-  AWSProxy,
-  HTTP,
-  HTTPProxy,
-  Mock,
+  IntegrationTypeAWS,
+  IntegrationTypeAWSPROXY,
+  IntegrationTypeHTTP,
+  IntegrationTypeHTTPPROXY,
+  IntegrationTypeMOCK,
   IntegrationType'
   #-}
 
-instance FromText IntegrationType where
-  parser = (IntegrationType' . mk) <$> takeText
+instance Prelude.FromText IntegrationType where
+  parser = IntegrationType' Prelude.<$> Prelude.takeText
 
-instance ToText IntegrationType where
-  toText (IntegrationType' ci) = original ci
+instance Prelude.ToText IntegrationType where
+  toText (IntegrationType' x) = x
 
-instance Hashable IntegrationType
+instance Prelude.Hashable IntegrationType
 
-instance NFData IntegrationType
+instance Prelude.NFData IntegrationType
 
-instance ToByteString IntegrationType
+instance Prelude.ToByteString IntegrationType
 
-instance ToQuery IntegrationType
+instance Prelude.ToQuery IntegrationType
 
-instance ToHeader IntegrationType
+instance Prelude.ToHeader IntegrationType
 
-instance ToJSON IntegrationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON IntegrationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON IntegrationType where
-  parseJSON = parseJSONText "IntegrationType"
+instance Prelude.FromJSON IntegrationType where
+  parseJSON = Prelude.parseJSONText "IntegrationType"

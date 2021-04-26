@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,72 @@
 module Network.AWS.APIGateway.Types.Op
   ( Op
       ( ..,
-        Add,
-        Copy,
-        Move,
-        Remove,
-        Replace,
-        Test
+        OpAdd,
+        OpCopy,
+        OpMove,
+        OpRemove,
+        OpReplace,
+        OpTest
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Op = Op' (CI Text)
+newtype Op = Op' {fromOp :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Add :: Op
-pattern Add = Op' "add"
+pattern OpAdd :: Op
+pattern OpAdd = Op' "add"
 
-pattern Copy :: Op
-pattern Copy = Op' "copy"
+pattern OpCopy :: Op
+pattern OpCopy = Op' "copy"
 
-pattern Move :: Op
-pattern Move = Op' "move"
+pattern OpMove :: Op
+pattern OpMove = Op' "move"
 
-pattern Remove :: Op
-pattern Remove = Op' "remove"
+pattern OpRemove :: Op
+pattern OpRemove = Op' "remove"
 
-pattern Replace :: Op
-pattern Replace = Op' "replace"
+pattern OpReplace :: Op
+pattern OpReplace = Op' "replace"
 
-pattern Test :: Op
-pattern Test = Op' "test"
+pattern OpTest :: Op
+pattern OpTest = Op' "test"
 
 {-# COMPLETE
-  Add,
-  Copy,
-  Move,
-  Remove,
-  Replace,
-  Test,
+  OpAdd,
+  OpCopy,
+  OpMove,
+  OpRemove,
+  OpReplace,
+  OpTest,
   Op'
   #-}
 
-instance FromText Op where
-  parser = (Op' . mk) <$> takeText
+instance Prelude.FromText Op where
+  parser = Op' Prelude.<$> Prelude.takeText
 
-instance ToText Op where
-  toText (Op' ci) = original ci
+instance Prelude.ToText Op where
+  toText (Op' x) = x
 
-instance Hashable Op
+instance Prelude.Hashable Op
 
-instance NFData Op
+instance Prelude.NFData Op
 
-instance ToByteString Op
+instance Prelude.ToByteString Op
 
-instance ToQuery Op
+instance Prelude.ToQuery Op
 
-instance ToHeader Op
+instance Prelude.ToHeader Op
 
-instance ToJSON Op where
-  toJSON = toJSONText
+instance Prelude.ToJSON Op where
+  toJSON = Prelude.toJSONText

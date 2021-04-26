@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,150 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing 'Method' resource.
+-- Updates an existing Method resource.
 module Network.AWS.APIGateway.UpdateMethod
   ( -- * Creating a Request
-    updateMethod,
-    UpdateMethod,
+    UpdateMethod (..),
+    newUpdateMethod,
 
     -- * Request Lenses
-    umPatchOperations,
-    umRestAPIId,
-    umResourceId,
-    umHttpMethod,
+    updateMethod_patchOperations,
+    updateMethod_restApiId,
+    updateMethod_resourceId,
+    updateMethod_httpMethod,
 
     -- * Destructuring the Response
-    method,
-    Method,
+    Method (..),
+    newMethod,
 
     -- * Response Lenses
-    mHttpMethod,
-    mMethodIntegration,
-    mApiKeyRequired,
-    mAuthorizationType,
-    mRequestModels,
-    mOperationName,
-    mRequestValidatorId,
-    mMethodResponses,
-    mAuthorizerId,
-    mRequestParameters,
-    mAuthorizationScopes,
+    method_httpMethod,
+    method_methodIntegration,
+    method_apiKeyRequired,
+    method_authorizationType,
+    method_requestModels,
+    method_operationName,
+    method_requestValidatorId,
+    method_methodResponses,
+    method_authorizerId,
+    method_requestParameters,
+    method_authorizationScopes,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Integration
+import Network.AWS.APIGateway.Types.Method
+import Network.AWS.APIGateway.Types.MethodResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to update an existing 'Method' resource.
+-- | Request to update an existing Method resource.
 --
---
---
--- /See:/ 'updateMethod' smart constructor.
+-- /See:/ 'newUpdateMethod' smart constructor.
 data UpdateMethod = UpdateMethod'
-  { _umPatchOperations ::
-      !(Maybe [PatchOperation]),
-    _umRestAPIId :: !Text,
-    _umResourceId :: !Text,
-    _umHttpMethod :: !Text
+  { -- | A list of update operations to be applied to the specified resource and
+    -- in the order specified in this list.
+    patchOperations :: Prelude.Maybe [PatchOperation],
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The Resource identifier for the Method resource.
+    resourceId :: Prelude.Text,
+    -- | [Required] The HTTP verb of the Method resource.
+    httpMethod :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMethod' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMethod' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umPatchOperations' - A list of update operations to be applied to the specified resource and in the order specified in this list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'patchOperations', 'updateMethod_patchOperations' - A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
 --
--- * 'umResourceId' - [Required] The 'Resource' identifier for the 'Method' resource.
+-- 'restApiId', 'updateMethod_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'umHttpMethod' - [Required] The HTTP verb of the 'Method' resource.
-updateMethod ::
-  -- | 'umRestAPIId'
-  Text ->
-  -- | 'umResourceId'
-  Text ->
-  -- | 'umHttpMethod'
-  Text ->
+-- 'resourceId', 'updateMethod_resourceId' - [Required] The Resource identifier for the Method resource.
+--
+-- 'httpMethod', 'updateMethod_httpMethod' - [Required] The HTTP verb of the Method resource.
+newUpdateMethod ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'httpMethod'
+  Prelude.Text ->
   UpdateMethod
-updateMethod pRestAPIId_ pResourceId_ pHttpMethod_ =
+newUpdateMethod pRestApiId_ pResourceId_ pHttpMethod_ =
   UpdateMethod'
-    { _umPatchOperations = Nothing,
-      _umRestAPIId = pRestAPIId_,
-      _umResourceId = pResourceId_,
-      _umHttpMethod = pHttpMethod_
+    { patchOperations = Prelude.Nothing,
+      restApiId = pRestApiId_,
+      resourceId = pResourceId_,
+      httpMethod = pHttpMethod_
     }
 
--- | A list of update operations to be applied to the specified resource and in the order specified in this list.
-umPatchOperations :: Lens' UpdateMethod [PatchOperation]
-umPatchOperations = lens _umPatchOperations (\s a -> s {_umPatchOperations = a}) . _Default . _Coerce
+-- | A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
+updateMethod_patchOperations :: Lens.Lens' UpdateMethod (Prelude.Maybe [PatchOperation])
+updateMethod_patchOperations = Lens.lens (\UpdateMethod' {patchOperations} -> patchOperations) (\s@UpdateMethod' {} a -> s {patchOperations = a} :: UpdateMethod) Prelude.. Lens.mapping Prelude._Coerce
 
--- | [Required] The string identifier of the associated 'RestApi' .
-umRestAPIId :: Lens' UpdateMethod Text
-umRestAPIId = lens _umRestAPIId (\s a -> s {_umRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+updateMethod_restApiId :: Lens.Lens' UpdateMethod Prelude.Text
+updateMethod_restApiId = Lens.lens (\UpdateMethod' {restApiId} -> restApiId) (\s@UpdateMethod' {} a -> s {restApiId = a} :: UpdateMethod)
 
--- | [Required] The 'Resource' identifier for the 'Method' resource.
-umResourceId :: Lens' UpdateMethod Text
-umResourceId = lens _umResourceId (\s a -> s {_umResourceId = a})
+-- | [Required] The Resource identifier for the Method resource.
+updateMethod_resourceId :: Lens.Lens' UpdateMethod Prelude.Text
+updateMethod_resourceId = Lens.lens (\UpdateMethod' {resourceId} -> resourceId) (\s@UpdateMethod' {} a -> s {resourceId = a} :: UpdateMethod)
 
--- | [Required] The HTTP verb of the 'Method' resource.
-umHttpMethod :: Lens' UpdateMethod Text
-umHttpMethod = lens _umHttpMethod (\s a -> s {_umHttpMethod = a})
+-- | [Required] The HTTP verb of the Method resource.
+updateMethod_httpMethod :: Lens.Lens' UpdateMethod Prelude.Text
+updateMethod_httpMethod = Lens.lens (\UpdateMethod' {httpMethod} -> httpMethod) (\s@UpdateMethod' {} a -> s {httpMethod = a} :: UpdateMethod)
 
-instance AWSRequest UpdateMethod where
+instance Prelude.AWSRequest UpdateMethod where
   type Rs UpdateMethod = Method
-  request = patchJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.patchJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateMethod
+instance Prelude.Hashable UpdateMethod
 
-instance NFData UpdateMethod
+instance Prelude.NFData UpdateMethod
 
-instance ToHeaders UpdateMethod where
+instance Prelude.ToHeaders UpdateMethod where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToJSON UpdateMethod where
+instance Prelude.ToJSON UpdateMethod where
   toJSON UpdateMethod' {..} =
-    object
-      ( catMaybes
-          [("patchOperations" .=) <$> _umPatchOperations]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("patchOperations" Prelude..=)
+              Prelude.<$> patchOperations
+          ]
       )
 
-instance ToPath UpdateMethod where
+instance Prelude.ToPath UpdateMethod where
   toPath UpdateMethod' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _umRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _umResourceId,
+        Prelude.toBS resourceId,
         "/methods/",
-        toBS _umHttpMethod
+        Prelude.toBS httpMethod
       ]
 
-instance ToQuery UpdateMethod where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateMethod where
+  toQuery = Prelude.const Prelude.mempty

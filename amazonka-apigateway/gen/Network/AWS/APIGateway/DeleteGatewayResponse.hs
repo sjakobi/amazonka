@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,120 +21,187 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Clears any customization of a 'GatewayResponse' of a specified response type on the given 'RestApi' and resets it with the default settings.
+-- Clears any customization of a GatewayResponse of a specified response
+-- type on the given RestApi and resets it with the default settings.
 module Network.AWS.APIGateway.DeleteGatewayResponse
   ( -- * Creating a Request
-    deleteGatewayResponse,
-    DeleteGatewayResponse,
+    DeleteGatewayResponse (..),
+    newDeleteGatewayResponse,
 
     -- * Request Lenses
-    dgrRestAPIId,
-    dgrResponseType,
+    deleteGatewayResponse_restApiId,
+    deleteGatewayResponse_responseType,
 
     -- * Destructuring the Response
-    deleteGatewayResponseResponse,
-    DeleteGatewayResponseResponse,
+    DeleteGatewayResponseResponse (..),
+    newDeleteGatewayResponseResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Clears any customization of a 'GatewayResponse' of a specified response type on the given 'RestApi' and resets it with the default settings.
+-- | Clears any customization of a GatewayResponse of a specified response
+-- type on the given RestApi and resets it with the default settings.
 --
---
---
--- /See:/ 'deleteGatewayResponse' smart constructor.
+-- /See:/ 'newDeleteGatewayResponse' smart constructor.
 data DeleteGatewayResponse = DeleteGatewayResponse'
-  { _dgrRestAPIId ::
-      !Text,
-    _dgrResponseType ::
-      !GatewayResponseType
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required]
+    --
+    -- The response type of the associated GatewayResponse. Valid values are
+    --
+    -- -   ACCESS_DENIED
+    -- -   API_CONFIGURATION_ERROR
+    -- -   AUTHORIZER_FAILURE
+    -- -   AUTHORIZER_CONFIGURATION_ERROR
+    -- -   BAD_REQUEST_PARAMETERS
+    -- -   BAD_REQUEST_BODY
+    -- -   DEFAULT_4XX
+    -- -   DEFAULT_5XX
+    -- -   EXPIRED_TOKEN
+    -- -   INVALID_SIGNATURE
+    -- -   INTEGRATION_FAILURE
+    -- -   INTEGRATION_TIMEOUT
+    -- -   INVALID_API_KEY
+    -- -   MISSING_AUTHENTICATION_TOKEN
+    -- -   QUOTA_EXCEEDED
+    -- -   REQUEST_TOO_LARGE
+    -- -   RESOURCE_NOT_FOUND
+    -- -   THROTTLED
+    -- -   UNAUTHORIZED
+    -- -   UNSUPPORTED_MEDIA_TYPE
+    responseType :: GatewayResponseType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgrRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dgrResponseType' - [Required] The response type of the associated 'GatewayResponse' . Valid values are     * ACCESS_DENIED    * API_CONFIGURATION_ERROR    * AUTHORIZER_FAILURE    * AUTHORIZER_CONFIGURATION_ERROR    * BAD_REQUEST_PARAMETERS    * BAD_REQUEST_BODY    * DEFAULT_4XX    * DEFAULT_5XX    * EXPIRED_TOKEN    * INVALID_SIGNATURE    * INTEGRATION_FAILURE    * INTEGRATION_TIMEOUT    * INVALID_API_KEY    * MISSING_AUTHENTICATION_TOKEN    * QUOTA_EXCEEDED    * REQUEST_TOO_LARGE    * RESOURCE_NOT_FOUND    * THROTTLED    * UNAUTHORIZED    * UNSUPPORTED_MEDIA_TYPE
-deleteGatewayResponse ::
-  -- | 'dgrRestAPIId'
-  Text ->
-  -- | 'dgrResponseType'
+-- 'restApiId', 'deleteGatewayResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'responseType', 'deleteGatewayResponse_responseType' - [Required]
+--
+-- The response type of the associated GatewayResponse. Valid values are
+--
+-- -   ACCESS_DENIED
+-- -   API_CONFIGURATION_ERROR
+-- -   AUTHORIZER_FAILURE
+-- -   AUTHORIZER_CONFIGURATION_ERROR
+-- -   BAD_REQUEST_PARAMETERS
+-- -   BAD_REQUEST_BODY
+-- -   DEFAULT_4XX
+-- -   DEFAULT_5XX
+-- -   EXPIRED_TOKEN
+-- -   INVALID_SIGNATURE
+-- -   INTEGRATION_FAILURE
+-- -   INTEGRATION_TIMEOUT
+-- -   INVALID_API_KEY
+-- -   MISSING_AUTHENTICATION_TOKEN
+-- -   QUOTA_EXCEEDED
+-- -   REQUEST_TOO_LARGE
+-- -   RESOURCE_NOT_FOUND
+-- -   THROTTLED
+-- -   UNAUTHORIZED
+-- -   UNSUPPORTED_MEDIA_TYPE
+newDeleteGatewayResponse ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'responseType'
   GatewayResponseType ->
   DeleteGatewayResponse
-deleteGatewayResponse pRestAPIId_ pResponseType_ =
+newDeleteGatewayResponse pRestApiId_ pResponseType_ =
   DeleteGatewayResponse'
-    { _dgrRestAPIId = pRestAPIId_,
-      _dgrResponseType = pResponseType_
+    { restApiId = pRestApiId_,
+      responseType = pResponseType_
     }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-dgrRestAPIId :: Lens' DeleteGatewayResponse Text
-dgrRestAPIId = lens _dgrRestAPIId (\s a -> s {_dgrRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+deleteGatewayResponse_restApiId :: Lens.Lens' DeleteGatewayResponse Prelude.Text
+deleteGatewayResponse_restApiId = Lens.lens (\DeleteGatewayResponse' {restApiId} -> restApiId) (\s@DeleteGatewayResponse' {} a -> s {restApiId = a} :: DeleteGatewayResponse)
 
--- | [Required] The response type of the associated 'GatewayResponse' . Valid values are     * ACCESS_DENIED    * API_CONFIGURATION_ERROR    * AUTHORIZER_FAILURE    * AUTHORIZER_CONFIGURATION_ERROR    * BAD_REQUEST_PARAMETERS    * BAD_REQUEST_BODY    * DEFAULT_4XX    * DEFAULT_5XX    * EXPIRED_TOKEN    * INVALID_SIGNATURE    * INTEGRATION_FAILURE    * INTEGRATION_TIMEOUT    * INVALID_API_KEY    * MISSING_AUTHENTICATION_TOKEN    * QUOTA_EXCEEDED    * REQUEST_TOO_LARGE    * RESOURCE_NOT_FOUND    * THROTTLED    * UNAUTHORIZED    * UNSUPPORTED_MEDIA_TYPE
-dgrResponseType :: Lens' DeleteGatewayResponse GatewayResponseType
-dgrResponseType = lens _dgrResponseType (\s a -> s {_dgrResponseType = a})
+-- | [Required]
+--
+-- The response type of the associated GatewayResponse. Valid values are
+--
+-- -   ACCESS_DENIED
+-- -   API_CONFIGURATION_ERROR
+-- -   AUTHORIZER_FAILURE
+-- -   AUTHORIZER_CONFIGURATION_ERROR
+-- -   BAD_REQUEST_PARAMETERS
+-- -   BAD_REQUEST_BODY
+-- -   DEFAULT_4XX
+-- -   DEFAULT_5XX
+-- -   EXPIRED_TOKEN
+-- -   INVALID_SIGNATURE
+-- -   INTEGRATION_FAILURE
+-- -   INTEGRATION_TIMEOUT
+-- -   INVALID_API_KEY
+-- -   MISSING_AUTHENTICATION_TOKEN
+-- -   QUOTA_EXCEEDED
+-- -   REQUEST_TOO_LARGE
+-- -   RESOURCE_NOT_FOUND
+-- -   THROTTLED
+-- -   UNAUTHORIZED
+-- -   UNSUPPORTED_MEDIA_TYPE
+deleteGatewayResponse_responseType :: Lens.Lens' DeleteGatewayResponse GatewayResponseType
+deleteGatewayResponse_responseType = Lens.lens (\DeleteGatewayResponse' {responseType} -> responseType) (\s@DeleteGatewayResponse' {} a -> s {responseType = a} :: DeleteGatewayResponse)
 
-instance AWSRequest DeleteGatewayResponse where
+instance Prelude.AWSRequest DeleteGatewayResponse where
   type
     Rs DeleteGatewayResponse =
       DeleteGatewayResponseResponse
-  request = delete apiGateway
-  response = receiveNull DeleteGatewayResponseResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteGatewayResponseResponse'
 
-instance Hashable DeleteGatewayResponse
+instance Prelude.Hashable DeleteGatewayResponse
 
-instance NFData DeleteGatewayResponse
+instance Prelude.NFData DeleteGatewayResponse
 
-instance ToHeaders DeleteGatewayResponse where
+instance Prelude.ToHeaders DeleteGatewayResponse where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteGatewayResponse where
+instance Prelude.ToPath DeleteGatewayResponse where
   toPath DeleteGatewayResponse' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _dgrRestAPIId,
+        Prelude.toBS restApiId,
         "/gatewayresponses/",
-        toBS _dgrResponseType
+        Prelude.toBS responseType
       ]
 
-instance ToQuery DeleteGatewayResponse where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteGatewayResponse where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteGatewayResponseResponse' smart constructor.
+-- | /See:/ 'newDeleteGatewayResponseResponse' smart constructor.
 data DeleteGatewayResponseResponse = DeleteGatewayResponseResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGatewayResponseResponse' with the minimum fields required to make a request.
-deleteGatewayResponseResponse ::
+-- |
+-- Create a value of 'DeleteGatewayResponseResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteGatewayResponseResponse ::
   DeleteGatewayResponseResponse
-deleteGatewayResponseResponse =
+newDeleteGatewayResponseResponse =
   DeleteGatewayResponseResponse'
 
-instance NFData DeleteGatewayResponseResponse
+instance Prelude.NFData DeleteGatewayResponseResponse

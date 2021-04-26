@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,109 +21,113 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a 'Resource' resource.
+-- Deletes a Resource resource.
 module Network.AWS.APIGateway.DeleteResource
   ( -- * Creating a Request
-    deleteResource,
-    DeleteResource,
+    DeleteResource (..),
+    newDeleteResource,
 
     -- * Request Lenses
-    drRestAPIId,
-    drResourceId,
+    deleteResource_restApiId,
+    deleteResource_resourceId,
 
     -- * Destructuring the Response
-    deleteResourceResponse,
-    DeleteResourceResponse,
+    DeleteResourceResponse (..),
+    newDeleteResourceResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to delete a 'Resource' .
+-- | Request to delete a Resource.
 --
---
---
--- /See:/ 'deleteResource' smart constructor.
+-- /See:/ 'newDeleteResource' smart constructor.
 data DeleteResource = DeleteResource'
-  { _drRestAPIId ::
-      !Text,
-    _drResourceId :: !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The identifier of the Resource resource.
+    resourceId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drResourceId' - [Required] The identifier of the 'Resource' resource.
-deleteResource ::
-  -- | 'drRestAPIId'
-  Text ->
-  -- | 'drResourceId'
-  Text ->
+-- 'restApiId', 'deleteResource_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'resourceId', 'deleteResource_resourceId' - [Required] The identifier of the Resource resource.
+newDeleteResource ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
   DeleteResource
-deleteResource pRestAPIId_ pResourceId_ =
+newDeleteResource pRestApiId_ pResourceId_ =
   DeleteResource'
-    { _drRestAPIId = pRestAPIId_,
-      _drResourceId = pResourceId_
+    { restApiId = pRestApiId_,
+      resourceId = pResourceId_
     }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-drRestAPIId :: Lens' DeleteResource Text
-drRestAPIId = lens _drRestAPIId (\s a -> s {_drRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+deleteResource_restApiId :: Lens.Lens' DeleteResource Prelude.Text
+deleteResource_restApiId = Lens.lens (\DeleteResource' {restApiId} -> restApiId) (\s@DeleteResource' {} a -> s {restApiId = a} :: DeleteResource)
 
--- | [Required] The identifier of the 'Resource' resource.
-drResourceId :: Lens' DeleteResource Text
-drResourceId = lens _drResourceId (\s a -> s {_drResourceId = a})
+-- | [Required] The identifier of the Resource resource.
+deleteResource_resourceId :: Lens.Lens' DeleteResource Prelude.Text
+deleteResource_resourceId = Lens.lens (\DeleteResource' {resourceId} -> resourceId) (\s@DeleteResource' {} a -> s {resourceId = a} :: DeleteResource)
 
-instance AWSRequest DeleteResource where
+instance Prelude.AWSRequest DeleteResource where
   type Rs DeleteResource = DeleteResourceResponse
-  request = delete apiGateway
-  response = receiveNull DeleteResourceResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteResourceResponse'
 
-instance Hashable DeleteResource
+instance Prelude.Hashable DeleteResource
 
-instance NFData DeleteResource
+instance Prelude.NFData DeleteResource
 
-instance ToHeaders DeleteResource where
+instance Prelude.ToHeaders DeleteResource where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteResource where
+instance Prelude.ToPath DeleteResource where
   toPath DeleteResource' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _drRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _drResourceId
+        Prelude.toBS resourceId
       ]
 
-instance ToQuery DeleteResource where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteResourceResponse' smart constructor.
+-- | /See:/ 'newDeleteResourceResponse' smart constructor.
 data DeleteResourceResponse = DeleteResourceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteResourceResponse' with the minimum fields required to make a request.
-deleteResourceResponse ::
+-- |
+-- Create a value of 'DeleteResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteResourceResponse ::
   DeleteResourceResponse
-deleteResourceResponse = DeleteResourceResponse'
+newDeleteResourceResponse = DeleteResourceResponse'
 
-instance NFData DeleteResourceResponse
+instance Prelude.NFData DeleteResourceResponse

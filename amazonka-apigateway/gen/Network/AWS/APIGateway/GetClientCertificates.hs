@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,187 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a collection of 'ClientCertificate' resources.
---
---
+-- Gets a collection of ClientCertificate resources.
 --
 -- This operation returns paginated results.
 module Network.AWS.APIGateway.GetClientCertificates
   ( -- * Creating a Request
-    getClientCertificates,
-    GetClientCertificates,
+    GetClientCertificates (..),
+    newGetClientCertificates,
 
     -- * Request Lenses
-    gccPosition,
-    gccLimit,
+    getClientCertificates_position,
+    getClientCertificates_limit,
 
     -- * Destructuring the Response
-    getClientCertificatesResponse,
-    GetClientCertificatesResponse,
+    GetClientCertificatesResponse (..),
+    newGetClientCertificatesResponse,
 
     -- * Response Lenses
-    gccrrsItems,
-    gccrrsPosition,
-    gccrrsResponseStatus,
+    getClientCertificatesResponse_items,
+    getClientCertificatesResponse_position,
+    getClientCertificatesResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.ClientCertificate
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | A request to get information about a collection of 'ClientCertificate' resources.
+-- | A request to get information about a collection of ClientCertificate
+-- resources.
 --
---
---
--- /See:/ 'getClientCertificates' smart constructor.
+-- /See:/ 'newGetClientCertificates' smart constructor.
 data GetClientCertificates = GetClientCertificates'
-  { _gccPosition ::
-      !(Maybe Text),
-    _gccLimit :: !(Maybe Int)
+  { -- | The current pagination position in the paged result set.
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of returned results per page. The default value is 25
+    -- and the maximum value is 500.
+    limit :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetClientCertificates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetClientCertificates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gccPosition' - The current pagination position in the paged result set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gccLimit' - The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-getClientCertificates ::
+-- 'position', 'getClientCertificates_position' - The current pagination position in the paged result set.
+--
+-- 'limit', 'getClientCertificates_limit' - The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+newGetClientCertificates ::
   GetClientCertificates
-getClientCertificates =
+newGetClientCertificates =
   GetClientCertificates'
-    { _gccPosition = Nothing,
-      _gccLimit = Nothing
+    { position = Prelude.Nothing,
+      limit = Prelude.Nothing
     }
 
 -- | The current pagination position in the paged result set.
-gccPosition :: Lens' GetClientCertificates (Maybe Text)
-gccPosition = lens _gccPosition (\s a -> s {_gccPosition = a})
+getClientCertificates_position :: Lens.Lens' GetClientCertificates (Prelude.Maybe Prelude.Text)
+getClientCertificates_position = Lens.lens (\GetClientCertificates' {position} -> position) (\s@GetClientCertificates' {} a -> s {position = a} :: GetClientCertificates)
 
--- | The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-gccLimit :: Lens' GetClientCertificates (Maybe Int)
-gccLimit = lens _gccLimit (\s a -> s {_gccLimit = a})
+-- | The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+getClientCertificates_limit :: Lens.Lens' GetClientCertificates (Prelude.Maybe Prelude.Int)
+getClientCertificates_limit = Lens.lens (\GetClientCertificates' {limit} -> limit) (\s@GetClientCertificates' {} a -> s {limit = a} :: GetClientCertificates)
 
-instance AWSPager GetClientCertificates where
+instance Pager.AWSPager GetClientCertificates where
   page rq rs
-    | stop (rs ^. gccrrsPosition) = Nothing
-    | stop (rs ^. gccrrsItems) = Nothing
-    | otherwise =
-      Just $ rq & gccPosition .~ rs ^. gccrrsPosition
+    | Pager.stop
+        ( rs
+            Lens.^? getClientCertificatesResponse_position
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getClientCertificatesResponse_items
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getClientCertificates_position
+          Lens..~ rs
+          Lens.^? getClientCertificatesResponse_position
+            Prelude.. Lens._Just
 
-instance AWSRequest GetClientCertificates where
+instance Prelude.AWSRequest GetClientCertificates where
   type
     Rs GetClientCertificates =
       GetClientCertificatesResponse
-  request = get apiGateway
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetClientCertificatesResponse'
-            <$> (x .?> "item" .!@ mempty)
-            <*> (x .?> "position")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "item" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "position")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetClientCertificates
+instance Prelude.Hashable GetClientCertificates
 
-instance NFData GetClientCertificates
+instance Prelude.NFData GetClientCertificates
 
-instance ToHeaders GetClientCertificates where
+instance Prelude.ToHeaders GetClientCertificates where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetClientCertificates where
-  toPath = const "/clientcertificates"
+instance Prelude.ToPath GetClientCertificates where
+  toPath = Prelude.const "/clientcertificates"
 
-instance ToQuery GetClientCertificates where
+instance Prelude.ToQuery GetClientCertificates where
   toQuery GetClientCertificates' {..} =
-    mconcat
-      ["position" =: _gccPosition, "limit" =: _gccLimit]
+    Prelude.mconcat
+      [ "position" Prelude.=: position,
+        "limit" Prelude.=: limit
+      ]
 
--- | Represents a collection of 'ClientCertificate' resources.
---
+-- | Represents a collection of ClientCertificate resources.
 --
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started-client-side-ssl-authentication.html Use Client-Side Certificate>
 --
--- /See:/ 'getClientCertificatesResponse' smart constructor.
+-- /See:/ 'newGetClientCertificatesResponse' smart constructor.
 data GetClientCertificatesResponse = GetClientCertificatesResponse'
-  { _gccrrsItems ::
-      !( Maybe
-           [ClientCertificate]
-       ),
-    _gccrrsPosition ::
-      !( Maybe
-           Text
-       ),
-    _gccrrsResponseStatus ::
-      !Int
+  { -- | The current page of elements from this collection.
+    items :: Prelude.Maybe [ClientCertificate],
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetClientCertificatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetClientCertificatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gccrrsItems' - The current page of elements from this collection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gccrrsPosition' - Undocumented member.
+-- 'items', 'getClientCertificatesResponse_items' - The current page of elements from this collection.
 --
--- * 'gccrrsResponseStatus' - -- | The response status code.
-getClientCertificatesResponse ::
-  -- | 'gccrrsResponseStatus'
-  Int ->
+-- 'position', 'getClientCertificatesResponse_position' - Undocumented member.
+--
+-- 'httpStatus', 'getClientCertificatesResponse_httpStatus' - The response's http status code.
+newGetClientCertificatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetClientCertificatesResponse
-getClientCertificatesResponse pResponseStatus_ =
+newGetClientCertificatesResponse pHttpStatus_ =
   GetClientCertificatesResponse'
-    { _gccrrsItems =
-        Nothing,
-      _gccrrsPosition = Nothing,
-      _gccrrsResponseStatus = pResponseStatus_
+    { items =
+        Prelude.Nothing,
+      position = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current page of elements from this collection.
-gccrrsItems :: Lens' GetClientCertificatesResponse [ClientCertificate]
-gccrrsItems = lens _gccrrsItems (\s a -> s {_gccrrsItems = a}) . _Default . _Coerce
+getClientCertificatesResponse_items :: Lens.Lens' GetClientCertificatesResponse (Prelude.Maybe [ClientCertificate])
+getClientCertificatesResponse_items = Lens.lens (\GetClientCertificatesResponse' {items} -> items) (\s@GetClientCertificatesResponse' {} a -> s {items = a} :: GetClientCertificatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-gccrrsPosition :: Lens' GetClientCertificatesResponse (Maybe Text)
-gccrrsPosition = lens _gccrrsPosition (\s a -> s {_gccrrsPosition = a})
+getClientCertificatesResponse_position :: Lens.Lens' GetClientCertificatesResponse (Prelude.Maybe Prelude.Text)
+getClientCertificatesResponse_position = Lens.lens (\GetClientCertificatesResponse' {position} -> position) (\s@GetClientCertificatesResponse' {} a -> s {position = a} :: GetClientCertificatesResponse)
 
--- | -- | The response status code.
-gccrrsResponseStatus :: Lens' GetClientCertificatesResponse Int
-gccrrsResponseStatus = lens _gccrrsResponseStatus (\s a -> s {_gccrrsResponseStatus = a})
+-- | The response's http status code.
+getClientCertificatesResponse_httpStatus :: Lens.Lens' GetClientCertificatesResponse Prelude.Int
+getClientCertificatesResponse_httpStatus = Lens.lens (\GetClientCertificatesResponse' {httpStatus} -> httpStatus) (\s@GetClientCertificatesResponse' {} a -> s {httpStatus = a} :: GetClientCertificatesResponse)
 
-instance NFData GetClientCertificatesResponse
+instance Prelude.NFData GetClientCertificatesResponse

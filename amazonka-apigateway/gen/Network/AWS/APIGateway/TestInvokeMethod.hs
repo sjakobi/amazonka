@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,300 +21,320 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Simulate the execution of a 'Method' in your 'RestApi' with headers, parameters, and an incoming request body.
+-- Simulate the execution of a Method in your RestApi with headers,
+-- parameters, and an incoming request body.
 module Network.AWS.APIGateway.TestInvokeMethod
   ( -- * Creating a Request
-    testInvokeMethod,
-    TestInvokeMethod,
+    TestInvokeMethod (..),
+    newTestInvokeMethod,
 
     -- * Request Lenses
-    timHeaders,
-    timStageVariables,
-    timBody,
-    timClientCertificateId,
-    timMultiValueHeaders,
-    timPathWithQueryString,
-    timRestAPIId,
-    timResourceId,
-    timHttpMethod,
+    testInvokeMethod_headers,
+    testInvokeMethod_stageVariables,
+    testInvokeMethod_body,
+    testInvokeMethod_clientCertificateId,
+    testInvokeMethod_multiValueHeaders,
+    testInvokeMethod_pathWithQueryString,
+    testInvokeMethod_restApiId,
+    testInvokeMethod_resourceId,
+    testInvokeMethod_httpMethod,
 
     -- * Destructuring the Response
-    testInvokeMethodResponse,
-    TestInvokeMethodResponse,
+    TestInvokeMethodResponse (..),
+    newTestInvokeMethodResponse,
 
     -- * Response Lenses
-    timrrsStatus,
-    timrrsHeaders,
-    timrrsBody,
-    timrrsLog,
-    timrrsMultiValueHeaders,
-    timrrsLatency,
-    timrrsResponseStatus,
+    testInvokeMethodResponse_status,
+    testInvokeMethodResponse_headers,
+    testInvokeMethodResponse_body,
+    testInvokeMethodResponse_log,
+    testInvokeMethodResponse_multiValueHeaders,
+    testInvokeMethodResponse_latency,
+    testInvokeMethodResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Make a request to simulate the execution of a 'Method' .
+-- | Make a request to simulate the execution of a Method.
 --
---
---
--- /See:/ 'testInvokeMethod' smart constructor.
+-- /See:/ 'newTestInvokeMethod' smart constructor.
 data TestInvokeMethod = TestInvokeMethod'
-  { _timHeaders ::
-      !(Maybe (Map Text Text)),
-    _timStageVariables ::
-      !(Maybe (Map Text Text)),
-    _timBody :: !(Maybe Text),
-    _timClientCertificateId ::
-      !(Maybe Text),
-    _timMultiValueHeaders ::
-      !(Maybe (Map Text [Text])),
-    _timPathWithQueryString ::
-      !(Maybe Text),
-    _timRestAPIId :: !Text,
-    _timResourceId :: !Text,
-    _timHttpMethod :: !Text
+  { -- | A key-value map of headers to simulate an incoming invocation request.
+    headers :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A key-value map of stage variables to simulate an invocation on a
+    -- deployed Stage.
+    stageVariables :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The simulated request body of an incoming invocation request.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | A ClientCertificate identifier to use in the test invocation. API
+    -- Gateway will use the certificate when making the HTTPS request to the
+    -- defined back-end endpoint.
+    clientCertificateId :: Prelude.Maybe Prelude.Text,
+    -- | The headers as a map from string to list of values to simulate an
+    -- incoming invocation request.
+    multiValueHeaders :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The URI path, including query string, of the simulated invocation
+    -- request. Use this to specify path parameters and query string
+    -- parameters.
+    pathWithQueryString :: Prelude.Maybe Prelude.Text,
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] Specifies a test invoke method request\'s resource ID.
+    resourceId :: Prelude.Text,
+    -- | [Required] Specifies a test invoke method request\'s HTTP method.
+    httpMethod :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestInvokeMethod' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestInvokeMethod' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'timHeaders' - A key-value map of headers to simulate an incoming invocation request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'timStageVariables' - A key-value map of stage variables to simulate an invocation on a deployed 'Stage' .
+-- 'headers', 'testInvokeMethod_headers' - A key-value map of headers to simulate an incoming invocation request.
 --
--- * 'timBody' - The simulated request body of an incoming invocation request.
+-- 'stageVariables', 'testInvokeMethod_stageVariables' - A key-value map of stage variables to simulate an invocation on a
+-- deployed Stage.
 --
--- * 'timClientCertificateId' - A 'ClientCertificate' identifier to use in the test invocation. API Gateway will use the certificate when making the HTTPS request to the defined back-end endpoint.
+-- 'body', 'testInvokeMethod_body' - The simulated request body of an incoming invocation request.
 --
--- * 'timMultiValueHeaders' - The headers as a map from string to list of values to simulate an incoming invocation request.
+-- 'clientCertificateId', 'testInvokeMethod_clientCertificateId' - A ClientCertificate identifier to use in the test invocation. API
+-- Gateway will use the certificate when making the HTTPS request to the
+-- defined back-end endpoint.
 --
--- * 'timPathWithQueryString' - The URI path, including query string, of the simulated invocation request. Use this to specify path parameters and query string parameters.
+-- 'multiValueHeaders', 'testInvokeMethod_multiValueHeaders' - The headers as a map from string to list of values to simulate an
+-- incoming invocation request.
 --
--- * 'timRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'pathWithQueryString', 'testInvokeMethod_pathWithQueryString' - The URI path, including query string, of the simulated invocation
+-- request. Use this to specify path parameters and query string
+-- parameters.
 --
--- * 'timResourceId' - [Required] Specifies a test invoke method request's resource ID.
+-- 'restApiId', 'testInvokeMethod_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'timHttpMethod' - [Required] Specifies a test invoke method request's HTTP method.
-testInvokeMethod ::
-  -- | 'timRestAPIId'
-  Text ->
-  -- | 'timResourceId'
-  Text ->
-  -- | 'timHttpMethod'
-  Text ->
+-- 'resourceId', 'testInvokeMethod_resourceId' - [Required] Specifies a test invoke method request\'s resource ID.
+--
+-- 'httpMethod', 'testInvokeMethod_httpMethod' - [Required] Specifies a test invoke method request\'s HTTP method.
+newTestInvokeMethod ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'httpMethod'
+  Prelude.Text ->
   TestInvokeMethod
-testInvokeMethod
-  pRestAPIId_
+newTestInvokeMethod
+  pRestApiId_
   pResourceId_
   pHttpMethod_ =
     TestInvokeMethod'
-      { _timHeaders = Nothing,
-        _timStageVariables = Nothing,
-        _timBody = Nothing,
-        _timClientCertificateId = Nothing,
-        _timMultiValueHeaders = Nothing,
-        _timPathWithQueryString = Nothing,
-        _timRestAPIId = pRestAPIId_,
-        _timResourceId = pResourceId_,
-        _timHttpMethod = pHttpMethod_
+      { headers = Prelude.Nothing,
+        stageVariables = Prelude.Nothing,
+        body = Prelude.Nothing,
+        clientCertificateId = Prelude.Nothing,
+        multiValueHeaders = Prelude.Nothing,
+        pathWithQueryString = Prelude.Nothing,
+        restApiId = pRestApiId_,
+        resourceId = pResourceId_,
+        httpMethod = pHttpMethod_
       }
 
 -- | A key-value map of headers to simulate an incoming invocation request.
-timHeaders :: Lens' TestInvokeMethod (HashMap Text Text)
-timHeaders = lens _timHeaders (\s a -> s {_timHeaders = a}) . _Default . _Map
+testInvokeMethod_headers :: Lens.Lens' TestInvokeMethod (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+testInvokeMethod_headers = Lens.lens (\TestInvokeMethod' {headers} -> headers) (\s@TestInvokeMethod' {} a -> s {headers = a} :: TestInvokeMethod) Prelude.. Lens.mapping Prelude._Map
 
--- | A key-value map of stage variables to simulate an invocation on a deployed 'Stage' .
-timStageVariables :: Lens' TestInvokeMethod (HashMap Text Text)
-timStageVariables = lens _timStageVariables (\s a -> s {_timStageVariables = a}) . _Default . _Map
+-- | A key-value map of stage variables to simulate an invocation on a
+-- deployed Stage.
+testInvokeMethod_stageVariables :: Lens.Lens' TestInvokeMethod (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+testInvokeMethod_stageVariables = Lens.lens (\TestInvokeMethod' {stageVariables} -> stageVariables) (\s@TestInvokeMethod' {} a -> s {stageVariables = a} :: TestInvokeMethod) Prelude.. Lens.mapping Prelude._Map
 
 -- | The simulated request body of an incoming invocation request.
-timBody :: Lens' TestInvokeMethod (Maybe Text)
-timBody = lens _timBody (\s a -> s {_timBody = a})
+testInvokeMethod_body :: Lens.Lens' TestInvokeMethod (Prelude.Maybe Prelude.Text)
+testInvokeMethod_body = Lens.lens (\TestInvokeMethod' {body} -> body) (\s@TestInvokeMethod' {} a -> s {body = a} :: TestInvokeMethod)
 
--- | A 'ClientCertificate' identifier to use in the test invocation. API Gateway will use the certificate when making the HTTPS request to the defined back-end endpoint.
-timClientCertificateId :: Lens' TestInvokeMethod (Maybe Text)
-timClientCertificateId = lens _timClientCertificateId (\s a -> s {_timClientCertificateId = a})
+-- | A ClientCertificate identifier to use in the test invocation. API
+-- Gateway will use the certificate when making the HTTPS request to the
+-- defined back-end endpoint.
+testInvokeMethod_clientCertificateId :: Lens.Lens' TestInvokeMethod (Prelude.Maybe Prelude.Text)
+testInvokeMethod_clientCertificateId = Lens.lens (\TestInvokeMethod' {clientCertificateId} -> clientCertificateId) (\s@TestInvokeMethod' {} a -> s {clientCertificateId = a} :: TestInvokeMethod)
 
--- | The headers as a map from string to list of values to simulate an incoming invocation request.
-timMultiValueHeaders :: Lens' TestInvokeMethod (HashMap Text [Text])
-timMultiValueHeaders = lens _timMultiValueHeaders (\s a -> s {_timMultiValueHeaders = a}) . _Default . _Map
+-- | The headers as a map from string to list of values to simulate an
+-- incoming invocation request.
+testInvokeMethod_multiValueHeaders :: Lens.Lens' TestInvokeMethod (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+testInvokeMethod_multiValueHeaders = Lens.lens (\TestInvokeMethod' {multiValueHeaders} -> multiValueHeaders) (\s@TestInvokeMethod' {} a -> s {multiValueHeaders = a} :: TestInvokeMethod) Prelude.. Lens.mapping Prelude._Map
 
--- | The URI path, including query string, of the simulated invocation request. Use this to specify path parameters and query string parameters.
-timPathWithQueryString :: Lens' TestInvokeMethod (Maybe Text)
-timPathWithQueryString = lens _timPathWithQueryString (\s a -> s {_timPathWithQueryString = a})
+-- | The URI path, including query string, of the simulated invocation
+-- request. Use this to specify path parameters and query string
+-- parameters.
+testInvokeMethod_pathWithQueryString :: Lens.Lens' TestInvokeMethod (Prelude.Maybe Prelude.Text)
+testInvokeMethod_pathWithQueryString = Lens.lens (\TestInvokeMethod' {pathWithQueryString} -> pathWithQueryString) (\s@TestInvokeMethod' {} a -> s {pathWithQueryString = a} :: TestInvokeMethod)
 
--- | [Required] The string identifier of the associated 'RestApi' .
-timRestAPIId :: Lens' TestInvokeMethod Text
-timRestAPIId = lens _timRestAPIId (\s a -> s {_timRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+testInvokeMethod_restApiId :: Lens.Lens' TestInvokeMethod Prelude.Text
+testInvokeMethod_restApiId = Lens.lens (\TestInvokeMethod' {restApiId} -> restApiId) (\s@TestInvokeMethod' {} a -> s {restApiId = a} :: TestInvokeMethod)
 
--- | [Required] Specifies a test invoke method request's resource ID.
-timResourceId :: Lens' TestInvokeMethod Text
-timResourceId = lens _timResourceId (\s a -> s {_timResourceId = a})
+-- | [Required] Specifies a test invoke method request\'s resource ID.
+testInvokeMethod_resourceId :: Lens.Lens' TestInvokeMethod Prelude.Text
+testInvokeMethod_resourceId = Lens.lens (\TestInvokeMethod' {resourceId} -> resourceId) (\s@TestInvokeMethod' {} a -> s {resourceId = a} :: TestInvokeMethod)
 
--- | [Required] Specifies a test invoke method request's HTTP method.
-timHttpMethod :: Lens' TestInvokeMethod Text
-timHttpMethod = lens _timHttpMethod (\s a -> s {_timHttpMethod = a})
+-- | [Required] Specifies a test invoke method request\'s HTTP method.
+testInvokeMethod_httpMethod :: Lens.Lens' TestInvokeMethod Prelude.Text
+testInvokeMethod_httpMethod = Lens.lens (\TestInvokeMethod' {httpMethod} -> httpMethod) (\s@TestInvokeMethod' {} a -> s {httpMethod = a} :: TestInvokeMethod)
 
-instance AWSRequest TestInvokeMethod where
+instance Prelude.AWSRequest TestInvokeMethod where
   type Rs TestInvokeMethod = TestInvokeMethodResponse
-  request = postJSON apiGateway
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TestInvokeMethodResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "headers" .!@ mempty)
-            <*> (x .?> "body")
-            <*> (x .?> "log")
-            <*> (x .?> "multiValueHeaders" .!@ mempty)
-            <*> (x .?> "latency")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "headers" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "body")
+            Prelude.<*> (x Prelude..?> "log")
+            Prelude.<*> ( x Prelude..?> "multiValueHeaders"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "latency")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TestInvokeMethod
+instance Prelude.Hashable TestInvokeMethod
 
-instance NFData TestInvokeMethod
+instance Prelude.NFData TestInvokeMethod
 
-instance ToHeaders TestInvokeMethod where
+instance Prelude.ToHeaders TestInvokeMethod where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
-      )
-
-instance ToJSON TestInvokeMethod where
-  toJSON TestInvokeMethod' {..} =
-    object
-      ( catMaybes
-          [ ("headers" .=) <$> _timHeaders,
-            ("stageVariables" .=) <$> _timStageVariables,
-            ("body" .=) <$> _timBody,
-            ("clientCertificateId" .=)
-              <$> _timClientCertificateId,
-            ("multiValueHeaders" .=) <$> _timMultiValueHeaders,
-            ("pathWithQueryString" .=)
-              <$> _timPathWithQueryString
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance ToPath TestInvokeMethod where
+instance Prelude.ToJSON TestInvokeMethod where
+  toJSON TestInvokeMethod' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("headers" Prelude..=) Prelude.<$> headers,
+            ("stageVariables" Prelude..=)
+              Prelude.<$> stageVariables,
+            ("body" Prelude..=) Prelude.<$> body,
+            ("clientCertificateId" Prelude..=)
+              Prelude.<$> clientCertificateId,
+            ("multiValueHeaders" Prelude..=)
+              Prelude.<$> multiValueHeaders,
+            ("pathWithQueryString" Prelude..=)
+              Prelude.<$> pathWithQueryString
+          ]
+      )
+
+instance Prelude.ToPath TestInvokeMethod where
   toPath TestInvokeMethod' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _timRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _timResourceId,
+        Prelude.toBS resourceId,
         "/methods/",
-        toBS _timHttpMethod
+        Prelude.toBS httpMethod
       ]
 
-instance ToQuery TestInvokeMethod where
-  toQuery = const mempty
+instance Prelude.ToQuery TestInvokeMethod where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response of the test invoke request in the HTTP method.
 --
---
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-test-method.html#how-to-test-method-console Test API using the API Gateway console>
 --
--- /See:/ 'testInvokeMethodResponse' smart constructor.
+-- /See:/ 'newTestInvokeMethodResponse' smart constructor.
 data TestInvokeMethodResponse = TestInvokeMethodResponse'
-  { _timrrsStatus ::
-      !(Maybe Int),
-    _timrrsHeaders ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _timrrsBody ::
-      !(Maybe Text),
-    _timrrsLog ::
-      !(Maybe Text),
-    _timrrsMultiValueHeaders ::
-      !( Maybe
-           ( Map
-               Text
-               [Text]
-           )
-       ),
-    _timrrsLatency ::
-      !(Maybe Integer),
-    _timrrsResponseStatus ::
-      !Int
+  { -- | The HTTP status code.
+    status :: Prelude.Maybe Prelude.Int,
+    -- | The headers of the HTTP response.
+    headers :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The body of the HTTP response.
+    body :: Prelude.Maybe Prelude.Text,
+    -- | The API Gateway execution log for the test invoke request.
+    log :: Prelude.Maybe Prelude.Text,
+    -- | The headers of the HTTP response as a map from string to list of values.
+    multiValueHeaders :: Prelude.Maybe (Prelude.Map Prelude.Text [Prelude.Text]),
+    -- | The execution latency of the test invoke request.
+    latency :: Prelude.Maybe Prelude.Integer,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestInvokeMethodResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestInvokeMethodResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'timrrsStatus' - The HTTP status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'timrrsHeaders' - The headers of the HTTP response.
+-- 'status', 'testInvokeMethodResponse_status' - The HTTP status code.
 --
--- * 'timrrsBody' - The body of the HTTP response.
+-- 'headers', 'testInvokeMethodResponse_headers' - The headers of the HTTP response.
 --
--- * 'timrrsLog' - The API Gateway execution log for the test invoke request.
+-- 'body', 'testInvokeMethodResponse_body' - The body of the HTTP response.
 --
--- * 'timrrsMultiValueHeaders' - The headers of the HTTP response as a map from string to list of values.
+-- 'log', 'testInvokeMethodResponse_log' - The API Gateway execution log for the test invoke request.
 --
--- * 'timrrsLatency' - The execution latency of the test invoke request.
+-- 'multiValueHeaders', 'testInvokeMethodResponse_multiValueHeaders' - The headers of the HTTP response as a map from string to list of values.
 --
--- * 'timrrsResponseStatus' - -- | The response status code.
-testInvokeMethodResponse ::
-  -- | 'timrrsResponseStatus'
-  Int ->
+-- 'latency', 'testInvokeMethodResponse_latency' - The execution latency of the test invoke request.
+--
+-- 'httpStatus', 'testInvokeMethodResponse_httpStatus' - The response's http status code.
+newTestInvokeMethodResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TestInvokeMethodResponse
-testInvokeMethodResponse pResponseStatus_ =
+newTestInvokeMethodResponse pHttpStatus_ =
   TestInvokeMethodResponse'
-    { _timrrsStatus = Nothing,
-      _timrrsHeaders = Nothing,
-      _timrrsBody = Nothing,
-      _timrrsLog = Nothing,
-      _timrrsMultiValueHeaders = Nothing,
-      _timrrsLatency = Nothing,
-      _timrrsResponseStatus = pResponseStatus_
+    { status = Prelude.Nothing,
+      headers = Prelude.Nothing,
+      body = Prelude.Nothing,
+      log = Prelude.Nothing,
+      multiValueHeaders = Prelude.Nothing,
+      latency = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The HTTP status code.
-timrrsStatus :: Lens' TestInvokeMethodResponse (Maybe Int)
-timrrsStatus = lens _timrrsStatus (\s a -> s {_timrrsStatus = a})
+testInvokeMethodResponse_status :: Lens.Lens' TestInvokeMethodResponse (Prelude.Maybe Prelude.Int)
+testInvokeMethodResponse_status = Lens.lens (\TestInvokeMethodResponse' {status} -> status) (\s@TestInvokeMethodResponse' {} a -> s {status = a} :: TestInvokeMethodResponse)
 
 -- | The headers of the HTTP response.
-timrrsHeaders :: Lens' TestInvokeMethodResponse (HashMap Text Text)
-timrrsHeaders = lens _timrrsHeaders (\s a -> s {_timrrsHeaders = a}) . _Default . _Map
+testInvokeMethodResponse_headers :: Lens.Lens' TestInvokeMethodResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+testInvokeMethodResponse_headers = Lens.lens (\TestInvokeMethodResponse' {headers} -> headers) (\s@TestInvokeMethodResponse' {} a -> s {headers = a} :: TestInvokeMethodResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The body of the HTTP response.
-timrrsBody :: Lens' TestInvokeMethodResponse (Maybe Text)
-timrrsBody = lens _timrrsBody (\s a -> s {_timrrsBody = a})
+testInvokeMethodResponse_body :: Lens.Lens' TestInvokeMethodResponse (Prelude.Maybe Prelude.Text)
+testInvokeMethodResponse_body = Lens.lens (\TestInvokeMethodResponse' {body} -> body) (\s@TestInvokeMethodResponse' {} a -> s {body = a} :: TestInvokeMethodResponse)
 
 -- | The API Gateway execution log for the test invoke request.
-timrrsLog :: Lens' TestInvokeMethodResponse (Maybe Text)
-timrrsLog = lens _timrrsLog (\s a -> s {_timrrsLog = a})
+testInvokeMethodResponse_log :: Lens.Lens' TestInvokeMethodResponse (Prelude.Maybe Prelude.Text)
+testInvokeMethodResponse_log = Lens.lens (\TestInvokeMethodResponse' {log} -> log) (\s@TestInvokeMethodResponse' {} a -> s {log = a} :: TestInvokeMethodResponse)
 
 -- | The headers of the HTTP response as a map from string to list of values.
-timrrsMultiValueHeaders :: Lens' TestInvokeMethodResponse (HashMap Text [Text])
-timrrsMultiValueHeaders = lens _timrrsMultiValueHeaders (\s a -> s {_timrrsMultiValueHeaders = a}) . _Default . _Map
+testInvokeMethodResponse_multiValueHeaders :: Lens.Lens' TestInvokeMethodResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+testInvokeMethodResponse_multiValueHeaders = Lens.lens (\TestInvokeMethodResponse' {multiValueHeaders} -> multiValueHeaders) (\s@TestInvokeMethodResponse' {} a -> s {multiValueHeaders = a} :: TestInvokeMethodResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The execution latency of the test invoke request.
-timrrsLatency :: Lens' TestInvokeMethodResponse (Maybe Integer)
-timrrsLatency = lens _timrrsLatency (\s a -> s {_timrrsLatency = a})
+testInvokeMethodResponse_latency :: Lens.Lens' TestInvokeMethodResponse (Prelude.Maybe Prelude.Integer)
+testInvokeMethodResponse_latency = Lens.lens (\TestInvokeMethodResponse' {latency} -> latency) (\s@TestInvokeMethodResponse' {} a -> s {latency = a} :: TestInvokeMethodResponse)
 
--- | -- | The response status code.
-timrrsResponseStatus :: Lens' TestInvokeMethodResponse Int
-timrrsResponseStatus = lens _timrrsResponseStatus (\s a -> s {_timrrsResponseStatus = a})
+-- | The response's http status code.
+testInvokeMethodResponse_httpStatus :: Lens.Lens' TestInvokeMethodResponse Prelude.Int
+testInvokeMethodResponse_httpStatus = Lens.lens (\TestInvokeMethodResponse' {httpStatus} -> httpStatus) (\s@TestInvokeMethodResponse' {} a -> s {httpStatus = a} :: TestInvokeMethodResponse)
 
-instance NFData TestInvokeMethodResponse
+instance Prelude.NFData TestInvokeMethodResponse

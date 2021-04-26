@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,190 +24,241 @@ import Network.AWS.APIGateway.Types.CacheClusterSize
 import Network.AWS.APIGateway.Types.CacheClusterStatus
 import Network.AWS.APIGateway.Types.CanarySettings
 import Network.AWS.APIGateway.Types.MethodSetting
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a unique identifier for a version of a deployed 'RestApi' that is callable by users.
---
+-- | Represents a unique identifier for a version of a deployed RestApi that
+-- is callable by users.
 --
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html Deploy an API>
 --
--- /See:/ 'stage' smart constructor.
+-- /See:/ 'newStage' smart constructor.
 data Stage = Stage'
-  { _sDeploymentId :: !(Maybe Text),
-    _sCreatedDate :: !(Maybe POSIX),
-    _sTracingEnabled :: !(Maybe Bool),
-    _sWebACLARN :: !(Maybe Text),
-    _sLastUpdatedDate :: !(Maybe POSIX),
-    _sCacheClusterEnabled :: !(Maybe Bool),
-    _sStageName :: !(Maybe Text),
-    _sDocumentationVersion :: !(Maybe Text),
-    _sVariables :: !(Maybe (Map Text Text)),
-    _sAccessLogSettings :: !(Maybe AccessLogSettings),
-    _sTags :: !(Maybe (Map Text Text)),
-    _sClientCertificateId :: !(Maybe Text),
-    _sDescription :: !(Maybe Text),
-    _sCanarySettings :: !(Maybe CanarySettings),
-    _sCacheClusterSize :: !(Maybe CacheClusterSize),
-    _sMethodSettings ::
-      !(Maybe (Map Text MethodSetting)),
-    _sCacheClusterStatus :: !(Maybe CacheClusterStatus)
+  { -- | The identifier of the Deployment that the stage points to.
+    deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the stage was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies whether active tracing with X-ray is enabled for the Stage.
+    tracingEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The ARN of the WebAcl associated with the Stage.
+    webAclArn :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the stage last updated.
+    lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Specifies whether a cache cluster is enabled for the stage.
+    cacheClusterEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the stage is the first path segment in the Uniform Resource
+    -- Identifier (URI) of a call to API Gateway. Stage names can only contain
+    -- alphanumeric characters, hyphens, and underscores. Maximum length is 128
+    -- characters.
+    stageName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the associated API documentation.
+    documentationVersion :: Prelude.Maybe Prelude.Text,
+    -- | A map that defines the stage variables for a Stage resource. Variable
+    -- names can have alphanumeric and underscore characters, and the values
+    -- must match @[A-Za-z0-9-._~:\/?#&=,]+@.
+    variables :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Settings for logging access in this stage.
+    accessLogSettings :: Prelude.Maybe AccessLogSettings,
+    -- | The collection of tags. Each tag element is associated with a given
+    -- resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The identifier of a client certificate for an API stage.
+    clientCertificateId :: Prelude.Maybe Prelude.Text,
+    -- | The stage\'s description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Settings for the canary deployment in this stage.
+    canarySettings :: Prelude.Maybe CanarySettings,
+    -- | The size of the cache cluster for the stage, if enabled.
+    cacheClusterSize :: Prelude.Maybe CacheClusterSize,
+    -- | A map that defines the method settings for a Stage resource. Keys
+    -- (designated as @\/{method_setting_key@ below) are method paths defined
+    -- as @{resource_path}\/{http_method}@ for an individual method override,
+    -- or @\/\\*\/\\*@ for overriding all methods in the stage.
+    methodSettings :: Prelude.Maybe (Prelude.Map Prelude.Text MethodSetting),
+    -- | The status of the cache cluster for the stage, if enabled.
+    cacheClusterStatus :: Prelude.Maybe CacheClusterStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Stage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Stage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sDeploymentId' - The identifier of the 'Deployment' that the stage points to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sCreatedDate' - The timestamp when the stage was created.
+-- 'deploymentId', 'stage_deploymentId' - The identifier of the Deployment that the stage points to.
 --
--- * 'sTracingEnabled' - Specifies whether active tracing with X-ray is enabled for the 'Stage' .
+-- 'createdDate', 'stage_createdDate' - The timestamp when the stage was created.
 --
--- * 'sWebACLARN' - The ARN of the WebAcl associated with the 'Stage' .
+-- 'tracingEnabled', 'stage_tracingEnabled' - Specifies whether active tracing with X-ray is enabled for the Stage.
 --
--- * 'sLastUpdatedDate' - The timestamp when the stage last updated.
+-- 'webAclArn', 'stage_webAclArn' - The ARN of the WebAcl associated with the Stage.
 --
--- * 'sCacheClusterEnabled' - Specifies whether a cache cluster is enabled for the stage.
+-- 'lastUpdatedDate', 'stage_lastUpdatedDate' - The timestamp when the stage last updated.
 --
--- * 'sStageName' - The name of the stage is the first path segment in the Uniform Resource Identifier (URI) of a call to API Gateway. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
+-- 'cacheClusterEnabled', 'stage_cacheClusterEnabled' - Specifies whether a cache cluster is enabled for the stage.
 --
--- * 'sDocumentationVersion' - The version of the associated API documentation.
+-- 'stageName', 'stage_stageName' - The name of the stage is the first path segment in the Uniform Resource
+-- Identifier (URI) of a call to API Gateway. Stage names can only contain
+-- alphanumeric characters, hyphens, and underscores. Maximum length is 128
+-- characters.
 --
--- * 'sVariables' - A map that defines the stage variables for a 'Stage' resource. Variable names can have alphanumeric and underscore characters, and the values must match @[A-Za-z0-9-._~:/?#&=,]+@ .
+-- 'documentationVersion', 'stage_documentationVersion' - The version of the associated API documentation.
 --
--- * 'sAccessLogSettings' - Settings for logging access in this stage.
+-- 'variables', 'stage_variables' - A map that defines the stage variables for a Stage resource. Variable
+-- names can have alphanumeric and underscore characters, and the values
+-- must match @[A-Za-z0-9-._~:\/?#&=,]+@.
 --
--- * 'sTags' - The collection of tags. Each tag element is associated with a given resource.
+-- 'accessLogSettings', 'stage_accessLogSettings' - Settings for logging access in this stage.
 --
--- * 'sClientCertificateId' - The identifier of a client certificate for an API stage.
+-- 'tags', 'stage_tags' - The collection of tags. Each tag element is associated with a given
+-- resource.
 --
--- * 'sDescription' - The stage's description.
+-- 'clientCertificateId', 'stage_clientCertificateId' - The identifier of a client certificate for an API stage.
 --
--- * 'sCanarySettings' - Settings for the canary deployment in this stage.
+-- 'description', 'stage_description' - The stage\'s description.
 --
--- * 'sCacheClusterSize' - The size of the cache cluster for the stage, if enabled.
+-- 'canarySettings', 'stage_canarySettings' - Settings for the canary deployment in this stage.
 --
--- * 'sMethodSettings' - A map that defines the method settings for a 'Stage' resource. Keys (designated as @/{method_setting_key@ below) are method paths defined as @{resource_path}/{http_method}@ for an individual method override, or @/\*/\*@ for overriding all methods in the stage.
+-- 'cacheClusterSize', 'stage_cacheClusterSize' - The size of the cache cluster for the stage, if enabled.
 --
--- * 'sCacheClusterStatus' - The status of the cache cluster for the stage, if enabled.
-stage ::
+-- 'methodSettings', 'stage_methodSettings' - A map that defines the method settings for a Stage resource. Keys
+-- (designated as @\/{method_setting_key@ below) are method paths defined
+-- as @{resource_path}\/{http_method}@ for an individual method override,
+-- or @\/\\*\/\\*@ for overriding all methods in the stage.
+--
+-- 'cacheClusterStatus', 'stage_cacheClusterStatus' - The status of the cache cluster for the stage, if enabled.
+newStage ::
   Stage
-stage =
+newStage =
   Stage'
-    { _sDeploymentId = Nothing,
-      _sCreatedDate = Nothing,
-      _sTracingEnabled = Nothing,
-      _sWebACLARN = Nothing,
-      _sLastUpdatedDate = Nothing,
-      _sCacheClusterEnabled = Nothing,
-      _sStageName = Nothing,
-      _sDocumentationVersion = Nothing,
-      _sVariables = Nothing,
-      _sAccessLogSettings = Nothing,
-      _sTags = Nothing,
-      _sClientCertificateId = Nothing,
-      _sDescription = Nothing,
-      _sCanarySettings = Nothing,
-      _sCacheClusterSize = Nothing,
-      _sMethodSettings = Nothing,
-      _sCacheClusterStatus = Nothing
+    { deploymentId = Prelude.Nothing,
+      createdDate = Prelude.Nothing,
+      tracingEnabled = Prelude.Nothing,
+      webAclArn = Prelude.Nothing,
+      lastUpdatedDate = Prelude.Nothing,
+      cacheClusterEnabled = Prelude.Nothing,
+      stageName = Prelude.Nothing,
+      documentationVersion = Prelude.Nothing,
+      variables = Prelude.Nothing,
+      accessLogSettings = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      clientCertificateId = Prelude.Nothing,
+      description = Prelude.Nothing,
+      canarySettings = Prelude.Nothing,
+      cacheClusterSize = Prelude.Nothing,
+      methodSettings = Prelude.Nothing,
+      cacheClusterStatus = Prelude.Nothing
     }
 
--- | The identifier of the 'Deployment' that the stage points to.
-sDeploymentId :: Lens' Stage (Maybe Text)
-sDeploymentId = lens _sDeploymentId (\s a -> s {_sDeploymentId = a})
+-- | The identifier of the Deployment that the stage points to.
+stage_deploymentId :: Lens.Lens' Stage (Prelude.Maybe Prelude.Text)
+stage_deploymentId = Lens.lens (\Stage' {deploymentId} -> deploymentId) (\s@Stage' {} a -> s {deploymentId = a} :: Stage)
 
 -- | The timestamp when the stage was created.
-sCreatedDate :: Lens' Stage (Maybe UTCTime)
-sCreatedDate = lens _sCreatedDate (\s a -> s {_sCreatedDate = a}) . mapping _Time
+stage_createdDate :: Lens.Lens' Stage (Prelude.Maybe Prelude.UTCTime)
+stage_createdDate = Lens.lens (\Stage' {createdDate} -> createdDate) (\s@Stage' {} a -> s {createdDate = a} :: Stage) Prelude.. Lens.mapping Prelude._Time
 
--- | Specifies whether active tracing with X-ray is enabled for the 'Stage' .
-sTracingEnabled :: Lens' Stage (Maybe Bool)
-sTracingEnabled = lens _sTracingEnabled (\s a -> s {_sTracingEnabled = a})
+-- | Specifies whether active tracing with X-ray is enabled for the Stage.
+stage_tracingEnabled :: Lens.Lens' Stage (Prelude.Maybe Prelude.Bool)
+stage_tracingEnabled = Lens.lens (\Stage' {tracingEnabled} -> tracingEnabled) (\s@Stage' {} a -> s {tracingEnabled = a} :: Stage)
 
--- | The ARN of the WebAcl associated with the 'Stage' .
-sWebACLARN :: Lens' Stage (Maybe Text)
-sWebACLARN = lens _sWebACLARN (\s a -> s {_sWebACLARN = a})
+-- | The ARN of the WebAcl associated with the Stage.
+stage_webAclArn :: Lens.Lens' Stage (Prelude.Maybe Prelude.Text)
+stage_webAclArn = Lens.lens (\Stage' {webAclArn} -> webAclArn) (\s@Stage' {} a -> s {webAclArn = a} :: Stage)
 
 -- | The timestamp when the stage last updated.
-sLastUpdatedDate :: Lens' Stage (Maybe UTCTime)
-sLastUpdatedDate = lens _sLastUpdatedDate (\s a -> s {_sLastUpdatedDate = a}) . mapping _Time
+stage_lastUpdatedDate :: Lens.Lens' Stage (Prelude.Maybe Prelude.UTCTime)
+stage_lastUpdatedDate = Lens.lens (\Stage' {lastUpdatedDate} -> lastUpdatedDate) (\s@Stage' {} a -> s {lastUpdatedDate = a} :: Stage) Prelude.. Lens.mapping Prelude._Time
 
 -- | Specifies whether a cache cluster is enabled for the stage.
-sCacheClusterEnabled :: Lens' Stage (Maybe Bool)
-sCacheClusterEnabled = lens _sCacheClusterEnabled (\s a -> s {_sCacheClusterEnabled = a})
+stage_cacheClusterEnabled :: Lens.Lens' Stage (Prelude.Maybe Prelude.Bool)
+stage_cacheClusterEnabled = Lens.lens (\Stage' {cacheClusterEnabled} -> cacheClusterEnabled) (\s@Stage' {} a -> s {cacheClusterEnabled = a} :: Stage)
 
--- | The name of the stage is the first path segment in the Uniform Resource Identifier (URI) of a call to API Gateway. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.
-sStageName :: Lens' Stage (Maybe Text)
-sStageName = lens _sStageName (\s a -> s {_sStageName = a})
+-- | The name of the stage is the first path segment in the Uniform Resource
+-- Identifier (URI) of a call to API Gateway. Stage names can only contain
+-- alphanumeric characters, hyphens, and underscores. Maximum length is 128
+-- characters.
+stage_stageName :: Lens.Lens' Stage (Prelude.Maybe Prelude.Text)
+stage_stageName = Lens.lens (\Stage' {stageName} -> stageName) (\s@Stage' {} a -> s {stageName = a} :: Stage)
 
 -- | The version of the associated API documentation.
-sDocumentationVersion :: Lens' Stage (Maybe Text)
-sDocumentationVersion = lens _sDocumentationVersion (\s a -> s {_sDocumentationVersion = a})
+stage_documentationVersion :: Lens.Lens' Stage (Prelude.Maybe Prelude.Text)
+stage_documentationVersion = Lens.lens (\Stage' {documentationVersion} -> documentationVersion) (\s@Stage' {} a -> s {documentationVersion = a} :: Stage)
 
--- | A map that defines the stage variables for a 'Stage' resource. Variable names can have alphanumeric and underscore characters, and the values must match @[A-Za-z0-9-._~:/?#&=,]+@ .
-sVariables :: Lens' Stage (HashMap Text Text)
-sVariables = lens _sVariables (\s a -> s {_sVariables = a}) . _Default . _Map
+-- | A map that defines the stage variables for a Stage resource. Variable
+-- names can have alphanumeric and underscore characters, and the values
+-- must match @[A-Za-z0-9-._~:\/?#&=,]+@.
+stage_variables :: Lens.Lens' Stage (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+stage_variables = Lens.lens (\Stage' {variables} -> variables) (\s@Stage' {} a -> s {variables = a} :: Stage) Prelude.. Lens.mapping Prelude._Map
 
 -- | Settings for logging access in this stage.
-sAccessLogSettings :: Lens' Stage (Maybe AccessLogSettings)
-sAccessLogSettings = lens _sAccessLogSettings (\s a -> s {_sAccessLogSettings = a})
+stage_accessLogSettings :: Lens.Lens' Stage (Prelude.Maybe AccessLogSettings)
+stage_accessLogSettings = Lens.lens (\Stage' {accessLogSettings} -> accessLogSettings) (\s@Stage' {} a -> s {accessLogSettings = a} :: Stage)
 
--- | The collection of tags. Each tag element is associated with a given resource.
-sTags :: Lens' Stage (HashMap Text Text)
-sTags = lens _sTags (\s a -> s {_sTags = a}) . _Default . _Map
+-- | The collection of tags. Each tag element is associated with a given
+-- resource.
+stage_tags :: Lens.Lens' Stage (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+stage_tags = Lens.lens (\Stage' {tags} -> tags) (\s@Stage' {} a -> s {tags = a} :: Stage) Prelude.. Lens.mapping Prelude._Map
 
 -- | The identifier of a client certificate for an API stage.
-sClientCertificateId :: Lens' Stage (Maybe Text)
-sClientCertificateId = lens _sClientCertificateId (\s a -> s {_sClientCertificateId = a})
+stage_clientCertificateId :: Lens.Lens' Stage (Prelude.Maybe Prelude.Text)
+stage_clientCertificateId = Lens.lens (\Stage' {clientCertificateId} -> clientCertificateId) (\s@Stage' {} a -> s {clientCertificateId = a} :: Stage)
 
--- | The stage's description.
-sDescription :: Lens' Stage (Maybe Text)
-sDescription = lens _sDescription (\s a -> s {_sDescription = a})
+-- | The stage\'s description.
+stage_description :: Lens.Lens' Stage (Prelude.Maybe Prelude.Text)
+stage_description = Lens.lens (\Stage' {description} -> description) (\s@Stage' {} a -> s {description = a} :: Stage)
 
 -- | Settings for the canary deployment in this stage.
-sCanarySettings :: Lens' Stage (Maybe CanarySettings)
-sCanarySettings = lens _sCanarySettings (\s a -> s {_sCanarySettings = a})
+stage_canarySettings :: Lens.Lens' Stage (Prelude.Maybe CanarySettings)
+stage_canarySettings = Lens.lens (\Stage' {canarySettings} -> canarySettings) (\s@Stage' {} a -> s {canarySettings = a} :: Stage)
 
 -- | The size of the cache cluster for the stage, if enabled.
-sCacheClusterSize :: Lens' Stage (Maybe CacheClusterSize)
-sCacheClusterSize = lens _sCacheClusterSize (\s a -> s {_sCacheClusterSize = a})
+stage_cacheClusterSize :: Lens.Lens' Stage (Prelude.Maybe CacheClusterSize)
+stage_cacheClusterSize = Lens.lens (\Stage' {cacheClusterSize} -> cacheClusterSize) (\s@Stage' {} a -> s {cacheClusterSize = a} :: Stage)
 
--- | A map that defines the method settings for a 'Stage' resource. Keys (designated as @/{method_setting_key@ below) are method paths defined as @{resource_path}/{http_method}@ for an individual method override, or @/\*/\*@ for overriding all methods in the stage.
-sMethodSettings :: Lens' Stage (HashMap Text MethodSetting)
-sMethodSettings = lens _sMethodSettings (\s a -> s {_sMethodSettings = a}) . _Default . _Map
+-- | A map that defines the method settings for a Stage resource. Keys
+-- (designated as @\/{method_setting_key@ below) are method paths defined
+-- as @{resource_path}\/{http_method}@ for an individual method override,
+-- or @\/\\*\/\\*@ for overriding all methods in the stage.
+stage_methodSettings :: Lens.Lens' Stage (Prelude.Maybe (Prelude.HashMap Prelude.Text MethodSetting))
+stage_methodSettings = Lens.lens (\Stage' {methodSettings} -> methodSettings) (\s@Stage' {} a -> s {methodSettings = a} :: Stage) Prelude.. Lens.mapping Prelude._Map
 
 -- | The status of the cache cluster for the stage, if enabled.
-sCacheClusterStatus :: Lens' Stage (Maybe CacheClusterStatus)
-sCacheClusterStatus = lens _sCacheClusterStatus (\s a -> s {_sCacheClusterStatus = a})
+stage_cacheClusterStatus :: Lens.Lens' Stage (Prelude.Maybe CacheClusterStatus)
+stage_cacheClusterStatus = Lens.lens (\Stage' {cacheClusterStatus} -> cacheClusterStatus) (\s@Stage' {} a -> s {cacheClusterStatus = a} :: Stage)
 
-instance FromJSON Stage where
+instance Prelude.FromJSON Stage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Stage"
       ( \x ->
           Stage'
-            <$> (x .:? "deploymentId")
-            <*> (x .:? "createdDate")
-            <*> (x .:? "tracingEnabled")
-            <*> (x .:? "webAclArn")
-            <*> (x .:? "lastUpdatedDate")
-            <*> (x .:? "cacheClusterEnabled")
-            <*> (x .:? "stageName")
-            <*> (x .:? "documentationVersion")
-            <*> (x .:? "variables" .!= mempty)
-            <*> (x .:? "accessLogSettings")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "clientCertificateId")
-            <*> (x .:? "description")
-            <*> (x .:? "canarySettings")
-            <*> (x .:? "cacheClusterSize")
-            <*> (x .:? "methodSettings" .!= mempty)
-            <*> (x .:? "cacheClusterStatus")
+            Prelude.<$> (x Prelude..:? "deploymentId")
+            Prelude.<*> (x Prelude..:? "createdDate")
+            Prelude.<*> (x Prelude..:? "tracingEnabled")
+            Prelude.<*> (x Prelude..:? "webAclArn")
+            Prelude.<*> (x Prelude..:? "lastUpdatedDate")
+            Prelude.<*> (x Prelude..:? "cacheClusterEnabled")
+            Prelude.<*> (x Prelude..:? "stageName")
+            Prelude.<*> (x Prelude..:? "documentationVersion")
+            Prelude.<*> ( x Prelude..:? "variables"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "accessLogSettings")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "clientCertificateId")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "canarySettings")
+            Prelude.<*> (x Prelude..:? "cacheClusterSize")
+            Prelude.<*> ( x Prelude..:? "methodSettings"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "cacheClusterStatus")
       )
 
-instance Hashable Stage
+instance Prelude.Hashable Stage
 
-instance NFData Stage
+instance Prelude.NFData Stage

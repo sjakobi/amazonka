@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.APIGateway.Types.SecurityPolicy
   ( SecurityPolicy
       ( ..,
-        TLS10,
-        TLS12
+        SecurityPolicyTLS10,
+        SecurityPolicyTLS12
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SecurityPolicy = SecurityPolicy' (CI Text)
+newtype SecurityPolicy = SecurityPolicy'
+  { fromSecurityPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TLS10 :: SecurityPolicy
-pattern TLS10 = SecurityPolicy' "TLS_1_0"
+pattern SecurityPolicyTLS10 :: SecurityPolicy
+pattern SecurityPolicyTLS10 = SecurityPolicy' "TLS_1_0"
 
-pattern TLS12 :: SecurityPolicy
-pattern TLS12 = SecurityPolicy' "TLS_1_2"
+pattern SecurityPolicyTLS12 :: SecurityPolicy
+pattern SecurityPolicyTLS12 = SecurityPolicy' "TLS_1_2"
 
 {-# COMPLETE
-  TLS10,
-  TLS12,
+  SecurityPolicyTLS10,
+  SecurityPolicyTLS12,
   SecurityPolicy'
   #-}
 
-instance FromText SecurityPolicy where
-  parser = (SecurityPolicy' . mk) <$> takeText
+instance Prelude.FromText SecurityPolicy where
+  parser = SecurityPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText SecurityPolicy where
-  toText (SecurityPolicy' ci) = original ci
+instance Prelude.ToText SecurityPolicy where
+  toText (SecurityPolicy' x) = x
 
-instance Hashable SecurityPolicy
+instance Prelude.Hashable SecurityPolicy
 
-instance NFData SecurityPolicy
+instance Prelude.NFData SecurityPolicy
 
-instance ToByteString SecurityPolicy
+instance Prelude.ToByteString SecurityPolicy
 
-instance ToQuery SecurityPolicy
+instance Prelude.ToQuery SecurityPolicy
 
-instance ToHeader SecurityPolicy
+instance Prelude.ToHeader SecurityPolicy
 
-instance ToJSON SecurityPolicy where
-  toJSON = toJSONText
+instance Prelude.ToJSON SecurityPolicy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SecurityPolicy where
-  parseJSON = parseJSONText "SecurityPolicy"
+instance Prelude.FromJSON SecurityPolicy where
+  parseJSON = Prelude.parseJSONText "SecurityPolicy"

@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.APIGateway" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.APIGateway.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.APIGateway" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,15 +37,15 @@ source-repository head
   subdir:   amazonka-apigateway
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
 
   exposed-modules:
     Network.AWS.APIGateway
-    Network.AWS.APIGateway.CreateAPIKey
+    Network.AWS.APIGateway.CreateApiKey
     Network.AWS.APIGateway.CreateAuthorizer
     Network.AWS.APIGateway.CreateBasePathMapping
     Network.AWS.APIGateway.CreateDeployment
@@ -57,12 +55,12 @@ library
     Network.AWS.APIGateway.CreateModel
     Network.AWS.APIGateway.CreateRequestValidator
     Network.AWS.APIGateway.CreateResource
-    Network.AWS.APIGateway.CreateRestAPI
+    Network.AWS.APIGateway.CreateRestApi
     Network.AWS.APIGateway.CreateStage
     Network.AWS.APIGateway.CreateUsagePlan
     Network.AWS.APIGateway.CreateUsagePlanKey
-    Network.AWS.APIGateway.CreateVPCLink
-    Network.AWS.APIGateway.DeleteAPIKey
+    Network.AWS.APIGateway.CreateVpcLink
+    Network.AWS.APIGateway.DeleteApiKey
     Network.AWS.APIGateway.DeleteAuthorizer
     Network.AWS.APIGateway.DeleteBasePathMapping
     Network.AWS.APIGateway.DeleteClientCertificate
@@ -78,17 +76,17 @@ library
     Network.AWS.APIGateway.DeleteModel
     Network.AWS.APIGateway.DeleteRequestValidator
     Network.AWS.APIGateway.DeleteResource
-    Network.AWS.APIGateway.DeleteRestAPI
+    Network.AWS.APIGateway.DeleteRestApi
     Network.AWS.APIGateway.DeleteStage
     Network.AWS.APIGateway.DeleteUsagePlan
     Network.AWS.APIGateway.DeleteUsagePlanKey
-    Network.AWS.APIGateway.DeleteVPCLink
+    Network.AWS.APIGateway.DeleteVpcLink
     Network.AWS.APIGateway.FlushStageAuthorizersCache
     Network.AWS.APIGateway.FlushStageCache
     Network.AWS.APIGateway.GenerateClientCertificate
     Network.AWS.APIGateway.GetAccount
-    Network.AWS.APIGateway.GetAPIKey
-    Network.AWS.APIGateway.GetAPIKeys
+    Network.AWS.APIGateway.GetApiKey
+    Network.AWS.APIGateway.GetApiKeys
     Network.AWS.APIGateway.GetAuthorizer
     Network.AWS.APIGateway.GetAuthorizers
     Network.AWS.APIGateway.GetBasePathMapping
@@ -117,11 +115,11 @@ library
     Network.AWS.APIGateway.GetRequestValidators
     Network.AWS.APIGateway.GetResource
     Network.AWS.APIGateway.GetResources
-    Network.AWS.APIGateway.GetRestAPI
-    Network.AWS.APIGateway.GetRestAPIs
-    Network.AWS.APIGateway.GetSDK
-    Network.AWS.APIGateway.GetSDKType
-    Network.AWS.APIGateway.GetSDKTypes
+    Network.AWS.APIGateway.GetRestApi
+    Network.AWS.APIGateway.GetRestApis
+    Network.AWS.APIGateway.GetSdk
+    Network.AWS.APIGateway.GetSdkType
+    Network.AWS.APIGateway.GetSdkTypes
     Network.AWS.APIGateway.GetStage
     Network.AWS.APIGateway.GetStages
     Network.AWS.APIGateway.GetTags
@@ -130,53 +128,28 @@ library
     Network.AWS.APIGateway.GetUsagePlanKey
     Network.AWS.APIGateway.GetUsagePlanKeys
     Network.AWS.APIGateway.GetUsagePlans
-    Network.AWS.APIGateway.GetVPCLink
-    Network.AWS.APIGateway.GetVPCLinks
-    Network.AWS.APIGateway.ImportAPIKeys
+    Network.AWS.APIGateway.GetVpcLink
+    Network.AWS.APIGateway.GetVpcLinks
+    Network.AWS.APIGateway.ImportApiKeys
     Network.AWS.APIGateway.ImportDocumentationParts
-    Network.AWS.APIGateway.ImportRestAPI
+    Network.AWS.APIGateway.ImportRestApi
+    Network.AWS.APIGateway.Lens
     Network.AWS.APIGateway.PutGatewayResponse
     Network.AWS.APIGateway.PutIntegration
     Network.AWS.APIGateway.PutIntegrationResponse
     Network.AWS.APIGateway.PutMethod
     Network.AWS.APIGateway.PutMethodResponse
-    Network.AWS.APIGateway.PutRestAPI
+    Network.AWS.APIGateway.PutRestApi
     Network.AWS.APIGateway.TagResource
     Network.AWS.APIGateway.TestInvokeAuthorizer
     Network.AWS.APIGateway.TestInvokeMethod
     Network.AWS.APIGateway.Types
-    Network.AWS.APIGateway.UntagResource
-    Network.AWS.APIGateway.UpdateAccount
-    Network.AWS.APIGateway.UpdateAPIKey
-    Network.AWS.APIGateway.UpdateAuthorizer
-    Network.AWS.APIGateway.UpdateBasePathMapping
-    Network.AWS.APIGateway.UpdateClientCertificate
-    Network.AWS.APIGateway.UpdateDeployment
-    Network.AWS.APIGateway.UpdateDocumentationPart
-    Network.AWS.APIGateway.UpdateDocumentationVersion
-    Network.AWS.APIGateway.UpdateDomainName
-    Network.AWS.APIGateway.UpdateGatewayResponse
-    Network.AWS.APIGateway.UpdateIntegration
-    Network.AWS.APIGateway.UpdateIntegrationResponse
-    Network.AWS.APIGateway.UpdateMethod
-    Network.AWS.APIGateway.UpdateMethodResponse
-    Network.AWS.APIGateway.UpdateModel
-    Network.AWS.APIGateway.UpdateRequestValidator
-    Network.AWS.APIGateway.UpdateResource
-    Network.AWS.APIGateway.UpdateRestAPI
-    Network.AWS.APIGateway.UpdateStage
-    Network.AWS.APIGateway.UpdateUsage
-    Network.AWS.APIGateway.UpdateUsagePlan
-    Network.AWS.APIGateway.UpdateVPCLink
-    Network.AWS.APIGateway.Waiters
-
-  other-modules:
     Network.AWS.APIGateway.Types.AccessLogSettings
     Network.AWS.APIGateway.Types.Account
-    Network.AWS.APIGateway.Types.APIKey
-    Network.AWS.APIGateway.Types.APIKeysFormat
-    Network.AWS.APIGateway.Types.APIKeySourceType
-    Network.AWS.APIGateway.Types.APIStage
+    Network.AWS.APIGateway.Types.ApiKey
+    Network.AWS.APIGateway.Types.ApiKeysFormat
+    Network.AWS.APIGateway.Types.ApiKeySourceType
+    Network.AWS.APIGateway.Types.ApiStage
     Network.AWS.APIGateway.Types.Authorizer
     Network.AWS.APIGateway.Types.AuthorizerType
     Network.AWS.APIGateway.Types.BasePathMapping
@@ -207,8 +180,8 @@ library
     Network.AWS.APIGateway.Types.MethodSetting
     Network.AWS.APIGateway.Types.MethodSnapshot
     Network.AWS.APIGateway.Types.Model
-    Network.AWS.APIGateway.Types.MutualTLSAuthentication
-    Network.AWS.APIGateway.Types.MutualTLSAuthenticationInput
+    Network.AWS.APIGateway.Types.MutualTlsAuthentication
+    Network.AWS.APIGateway.Types.MutualTlsAuthenticationInput
     Network.AWS.APIGateway.Types.Op
     Network.AWS.APIGateway.Types.PatchOperation
     Network.AWS.APIGateway.Types.PutMode
@@ -216,25 +189,49 @@ library
     Network.AWS.APIGateway.Types.QuotaSettings
     Network.AWS.APIGateway.Types.RequestValidator
     Network.AWS.APIGateway.Types.Resource
-    Network.AWS.APIGateway.Types.RestAPI
-    Network.AWS.APIGateway.Types.SDKConfigurationProperty
-    Network.AWS.APIGateway.Types.SDKType
+    Network.AWS.APIGateway.Types.RestApi
+    Network.AWS.APIGateway.Types.SdkConfigurationProperty
+    Network.AWS.APIGateway.Types.SdkType
     Network.AWS.APIGateway.Types.SecurityPolicy
     Network.AWS.APIGateway.Types.Stage
     Network.AWS.APIGateway.Types.StageKey
     Network.AWS.APIGateway.Types.ThrottleSettings
-    Network.AWS.APIGateway.Types.TLSConfig
+    Network.AWS.APIGateway.Types.TlsConfig
     Network.AWS.APIGateway.Types.UnauthorizedCacheControlHeaderStrategy
     Network.AWS.APIGateway.Types.Usage
     Network.AWS.APIGateway.Types.UsagePlan
     Network.AWS.APIGateway.Types.UsagePlanKey
-    Network.AWS.APIGateway.Types.VPCLink
-    Network.AWS.APIGateway.Types.VPCLinkStatus
+    Network.AWS.APIGateway.Types.VpcLink
+    Network.AWS.APIGateway.Types.VpcLinkStatus
+    Network.AWS.APIGateway.UntagResource
+    Network.AWS.APIGateway.UpdateAccount
+    Network.AWS.APIGateway.UpdateApiKey
+    Network.AWS.APIGateway.UpdateAuthorizer
+    Network.AWS.APIGateway.UpdateBasePathMapping
+    Network.AWS.APIGateway.UpdateClientCertificate
+    Network.AWS.APIGateway.UpdateDeployment
+    Network.AWS.APIGateway.UpdateDocumentationPart
+    Network.AWS.APIGateway.UpdateDocumentationVersion
+    Network.AWS.APIGateway.UpdateDomainName
+    Network.AWS.APIGateway.UpdateGatewayResponse
+    Network.AWS.APIGateway.UpdateIntegration
+    Network.AWS.APIGateway.UpdateIntegrationResponse
+    Network.AWS.APIGateway.UpdateMethod
+    Network.AWS.APIGateway.UpdateMethodResponse
+    Network.AWS.APIGateway.UpdateModel
+    Network.AWS.APIGateway.UpdateRequestValidator
+    Network.AWS.APIGateway.UpdateResource
+    Network.AWS.APIGateway.UpdateRestApi
+    Network.AWS.APIGateway.UpdateStage
+    Network.AWS.APIGateway.UpdateUsage
+    Network.AWS.APIGateway.UpdateUsagePlan
+    Network.AWS.APIGateway.UpdateVpcLink
+    Network.AWS.APIGateway.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-apigateway-test
   type:             exitcode-stdio-1.0

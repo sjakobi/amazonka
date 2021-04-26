@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,150 +19,148 @@
 module Network.AWS.APIGateway.Types.GatewayResponseType
   ( GatewayResponseType
       ( ..,
-        APIConfigurationError,
-        AccessDenied,
-        AuthorizerConfigurationError,
-        AuthorizerFailure,
-        BadRequestBody,
-        BadRequestParameters,
-        Default4XX,
-        Default5XX,
-        ExpiredToken,
-        IntegrationFailure,
-        IntegrationTimeout,
-        InvalidAPIKey,
-        InvalidSignature,
-        MissingAuthenticationToken,
-        QuotaExceeded,
-        RequestTooLarge,
-        ResourceNotFound,
-        Throttled,
-        Unauthorized,
-        UnsupportedMediaType
+        GatewayResponseTypeACCESSDENIED,
+        GatewayResponseTypeAPICONFIGURATIONERROR,
+        GatewayResponseTypeAUTHORIZERCONFIGURATIONERROR,
+        GatewayResponseTypeAUTHORIZERFAILURE,
+        GatewayResponseTypeBADREQUESTBODY,
+        GatewayResponseTypeBADREQUESTPARAMETERS,
+        GatewayResponseTypeDEFAULT4XX,
+        GatewayResponseTypeDEFAULT5XX,
+        GatewayResponseTypeEXPIREDTOKEN,
+        GatewayResponseTypeINTEGRATIONFAILURE,
+        GatewayResponseTypeINTEGRATIONTIMEOUT,
+        GatewayResponseTypeINVALIDAPIKEY,
+        GatewayResponseTypeINVALIDSIGNATURE,
+        GatewayResponseTypeMISSINGAUTHENTICATIONTOKEN,
+        GatewayResponseTypeQUOTAEXCEEDED,
+        GatewayResponseTypeREQUESTTOOLARGE,
+        GatewayResponseTypeRESOURCENOTFOUND,
+        GatewayResponseTypeTHROTTLED,
+        GatewayResponseTypeUNAUTHORIZED,
+        GatewayResponseTypeUNSUPPORTEDMEDIATYPE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GatewayResponseType
-  = GatewayResponseType'
-      ( CI
-          Text
-      )
+newtype GatewayResponseType = GatewayResponseType'
+  { fromGatewayResponseType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern APIConfigurationError :: GatewayResponseType
-pattern APIConfigurationError = GatewayResponseType' "API_CONFIGURATION_ERROR"
+pattern GatewayResponseTypeACCESSDENIED :: GatewayResponseType
+pattern GatewayResponseTypeACCESSDENIED = GatewayResponseType' "ACCESS_DENIED"
 
-pattern AccessDenied :: GatewayResponseType
-pattern AccessDenied = GatewayResponseType' "ACCESS_DENIED"
+pattern GatewayResponseTypeAPICONFIGURATIONERROR :: GatewayResponseType
+pattern GatewayResponseTypeAPICONFIGURATIONERROR = GatewayResponseType' "API_CONFIGURATION_ERROR"
 
-pattern AuthorizerConfigurationError :: GatewayResponseType
-pattern AuthorizerConfigurationError = GatewayResponseType' "AUTHORIZER_CONFIGURATION_ERROR"
+pattern GatewayResponseTypeAUTHORIZERCONFIGURATIONERROR :: GatewayResponseType
+pattern GatewayResponseTypeAUTHORIZERCONFIGURATIONERROR = GatewayResponseType' "AUTHORIZER_CONFIGURATION_ERROR"
 
-pattern AuthorizerFailure :: GatewayResponseType
-pattern AuthorizerFailure = GatewayResponseType' "AUTHORIZER_FAILURE"
+pattern GatewayResponseTypeAUTHORIZERFAILURE :: GatewayResponseType
+pattern GatewayResponseTypeAUTHORIZERFAILURE = GatewayResponseType' "AUTHORIZER_FAILURE"
 
-pattern BadRequestBody :: GatewayResponseType
-pattern BadRequestBody = GatewayResponseType' "BAD_REQUEST_BODY"
+pattern GatewayResponseTypeBADREQUESTBODY :: GatewayResponseType
+pattern GatewayResponseTypeBADREQUESTBODY = GatewayResponseType' "BAD_REQUEST_BODY"
 
-pattern BadRequestParameters :: GatewayResponseType
-pattern BadRequestParameters = GatewayResponseType' "BAD_REQUEST_PARAMETERS"
+pattern GatewayResponseTypeBADREQUESTPARAMETERS :: GatewayResponseType
+pattern GatewayResponseTypeBADREQUESTPARAMETERS = GatewayResponseType' "BAD_REQUEST_PARAMETERS"
 
-pattern Default4XX :: GatewayResponseType
-pattern Default4XX = GatewayResponseType' "DEFAULT_4XX"
+pattern GatewayResponseTypeDEFAULT4XX :: GatewayResponseType
+pattern GatewayResponseTypeDEFAULT4XX = GatewayResponseType' "DEFAULT_4XX"
 
-pattern Default5XX :: GatewayResponseType
-pattern Default5XX = GatewayResponseType' "DEFAULT_5XX"
+pattern GatewayResponseTypeDEFAULT5XX :: GatewayResponseType
+pattern GatewayResponseTypeDEFAULT5XX = GatewayResponseType' "DEFAULT_5XX"
 
-pattern ExpiredToken :: GatewayResponseType
-pattern ExpiredToken = GatewayResponseType' "EXPIRED_TOKEN"
+pattern GatewayResponseTypeEXPIREDTOKEN :: GatewayResponseType
+pattern GatewayResponseTypeEXPIREDTOKEN = GatewayResponseType' "EXPIRED_TOKEN"
 
-pattern IntegrationFailure :: GatewayResponseType
-pattern IntegrationFailure = GatewayResponseType' "INTEGRATION_FAILURE"
+pattern GatewayResponseTypeINTEGRATIONFAILURE :: GatewayResponseType
+pattern GatewayResponseTypeINTEGRATIONFAILURE = GatewayResponseType' "INTEGRATION_FAILURE"
 
-pattern IntegrationTimeout :: GatewayResponseType
-pattern IntegrationTimeout = GatewayResponseType' "INTEGRATION_TIMEOUT"
+pattern GatewayResponseTypeINTEGRATIONTIMEOUT :: GatewayResponseType
+pattern GatewayResponseTypeINTEGRATIONTIMEOUT = GatewayResponseType' "INTEGRATION_TIMEOUT"
 
-pattern InvalidAPIKey :: GatewayResponseType
-pattern InvalidAPIKey = GatewayResponseType' "INVALID_API_KEY"
+pattern GatewayResponseTypeINVALIDAPIKEY :: GatewayResponseType
+pattern GatewayResponseTypeINVALIDAPIKEY = GatewayResponseType' "INVALID_API_KEY"
 
-pattern InvalidSignature :: GatewayResponseType
-pattern InvalidSignature = GatewayResponseType' "INVALID_SIGNATURE"
+pattern GatewayResponseTypeINVALIDSIGNATURE :: GatewayResponseType
+pattern GatewayResponseTypeINVALIDSIGNATURE = GatewayResponseType' "INVALID_SIGNATURE"
 
-pattern MissingAuthenticationToken :: GatewayResponseType
-pattern MissingAuthenticationToken = GatewayResponseType' "MISSING_AUTHENTICATION_TOKEN"
+pattern GatewayResponseTypeMISSINGAUTHENTICATIONTOKEN :: GatewayResponseType
+pattern GatewayResponseTypeMISSINGAUTHENTICATIONTOKEN = GatewayResponseType' "MISSING_AUTHENTICATION_TOKEN"
 
-pattern QuotaExceeded :: GatewayResponseType
-pattern QuotaExceeded = GatewayResponseType' "QUOTA_EXCEEDED"
+pattern GatewayResponseTypeQUOTAEXCEEDED :: GatewayResponseType
+pattern GatewayResponseTypeQUOTAEXCEEDED = GatewayResponseType' "QUOTA_EXCEEDED"
 
-pattern RequestTooLarge :: GatewayResponseType
-pattern RequestTooLarge = GatewayResponseType' "REQUEST_TOO_LARGE"
+pattern GatewayResponseTypeREQUESTTOOLARGE :: GatewayResponseType
+pattern GatewayResponseTypeREQUESTTOOLARGE = GatewayResponseType' "REQUEST_TOO_LARGE"
 
-pattern ResourceNotFound :: GatewayResponseType
-pattern ResourceNotFound = GatewayResponseType' "RESOURCE_NOT_FOUND"
+pattern GatewayResponseTypeRESOURCENOTFOUND :: GatewayResponseType
+pattern GatewayResponseTypeRESOURCENOTFOUND = GatewayResponseType' "RESOURCE_NOT_FOUND"
 
-pattern Throttled :: GatewayResponseType
-pattern Throttled = GatewayResponseType' "THROTTLED"
+pattern GatewayResponseTypeTHROTTLED :: GatewayResponseType
+pattern GatewayResponseTypeTHROTTLED = GatewayResponseType' "THROTTLED"
 
-pattern Unauthorized :: GatewayResponseType
-pattern Unauthorized = GatewayResponseType' "UNAUTHORIZED"
+pattern GatewayResponseTypeUNAUTHORIZED :: GatewayResponseType
+pattern GatewayResponseTypeUNAUTHORIZED = GatewayResponseType' "UNAUTHORIZED"
 
-pattern UnsupportedMediaType :: GatewayResponseType
-pattern UnsupportedMediaType = GatewayResponseType' "UNSUPPORTED_MEDIA_TYPE"
+pattern GatewayResponseTypeUNSUPPORTEDMEDIATYPE :: GatewayResponseType
+pattern GatewayResponseTypeUNSUPPORTEDMEDIATYPE = GatewayResponseType' "UNSUPPORTED_MEDIA_TYPE"
 
 {-# COMPLETE
-  APIConfigurationError,
-  AccessDenied,
-  AuthorizerConfigurationError,
-  AuthorizerFailure,
-  BadRequestBody,
-  BadRequestParameters,
-  Default4XX,
-  Default5XX,
-  ExpiredToken,
-  IntegrationFailure,
-  IntegrationTimeout,
-  InvalidAPIKey,
-  InvalidSignature,
-  MissingAuthenticationToken,
-  QuotaExceeded,
-  RequestTooLarge,
-  ResourceNotFound,
-  Throttled,
-  Unauthorized,
-  UnsupportedMediaType,
+  GatewayResponseTypeACCESSDENIED,
+  GatewayResponseTypeAPICONFIGURATIONERROR,
+  GatewayResponseTypeAUTHORIZERCONFIGURATIONERROR,
+  GatewayResponseTypeAUTHORIZERFAILURE,
+  GatewayResponseTypeBADREQUESTBODY,
+  GatewayResponseTypeBADREQUESTPARAMETERS,
+  GatewayResponseTypeDEFAULT4XX,
+  GatewayResponseTypeDEFAULT5XX,
+  GatewayResponseTypeEXPIREDTOKEN,
+  GatewayResponseTypeINTEGRATIONFAILURE,
+  GatewayResponseTypeINTEGRATIONTIMEOUT,
+  GatewayResponseTypeINVALIDAPIKEY,
+  GatewayResponseTypeINVALIDSIGNATURE,
+  GatewayResponseTypeMISSINGAUTHENTICATIONTOKEN,
+  GatewayResponseTypeQUOTAEXCEEDED,
+  GatewayResponseTypeREQUESTTOOLARGE,
+  GatewayResponseTypeRESOURCENOTFOUND,
+  GatewayResponseTypeTHROTTLED,
+  GatewayResponseTypeUNAUTHORIZED,
+  GatewayResponseTypeUNSUPPORTEDMEDIATYPE,
   GatewayResponseType'
   #-}
 
-instance FromText GatewayResponseType where
-  parser = (GatewayResponseType' . mk) <$> takeText
+instance Prelude.FromText GatewayResponseType where
+  parser = GatewayResponseType' Prelude.<$> Prelude.takeText
 
-instance ToText GatewayResponseType where
-  toText (GatewayResponseType' ci) = original ci
+instance Prelude.ToText GatewayResponseType where
+  toText (GatewayResponseType' x) = x
 
-instance Hashable GatewayResponseType
+instance Prelude.Hashable GatewayResponseType
 
-instance NFData GatewayResponseType
+instance Prelude.NFData GatewayResponseType
 
-instance ToByteString GatewayResponseType
+instance Prelude.ToByteString GatewayResponseType
 
-instance ToQuery GatewayResponseType
+instance Prelude.ToQuery GatewayResponseType
 
-instance ToHeader GatewayResponseType
+instance Prelude.ToHeader GatewayResponseType
 
-instance ToJSON GatewayResponseType where
-  toJSON = toJSONText
+instance Prelude.ToJSON GatewayResponseType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GatewayResponseType where
-  parseJSON = parseJSONText "GatewayResponseType"
+instance Prelude.FromJSON GatewayResponseType where
+  parseJSON = Prelude.parseJSONText "GatewayResponseType"

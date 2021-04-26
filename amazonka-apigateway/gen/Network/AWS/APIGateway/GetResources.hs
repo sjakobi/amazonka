@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,182 +21,225 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists information about a collection of 'Resource' resources.
---
---
+-- Lists information about a collection of Resource resources.
 --
 -- This operation returns paginated results.
 module Network.AWS.APIGateway.GetResources
   ( -- * Creating a Request
-    getResources,
-    GetResources,
+    GetResources (..),
+    newGetResources,
 
     -- * Request Lenses
-    grPosition,
-    grEmbed,
-    grLimit,
-    grRestAPIId,
+    getResources_position,
+    getResources_embed,
+    getResources_limit,
+    getResources_restApiId,
 
     -- * Destructuring the Response
-    getResourcesResponse,
-    GetResourcesResponse,
+    GetResourcesResponse (..),
+    newGetResourcesResponse,
 
     -- * Response Lenses
-    grrrsItems,
-    grrrsPosition,
-    grrrsResponseStatus,
+    getResourcesResponse_items,
+    getResourcesResponse_position,
+    getResourcesResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Resource
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request to list information about a collection of resources.
 --
---
---
--- /See:/ 'getResources' smart constructor.
+-- /See:/ 'newGetResources' smart constructor.
 data GetResources = GetResources'
-  { _grPosition ::
-      !(Maybe Text),
-    _grEmbed :: !(Maybe [Text]),
-    _grLimit :: !(Maybe Int),
-    _grRestAPIId :: !Text
+  { -- | The current pagination position in the paged result set.
+    position :: Prelude.Maybe Prelude.Text,
+    -- | A query parameter used to retrieve the specified resources embedded in
+    -- the returned Resources resource in the response. This @embed@ parameter
+    -- value is a list of comma-separated strings. Currently, the request
+    -- supports only retrieval of the embedded Method resources this way. The
+    -- query parameter value must be a single-valued list and contain the
+    -- @\"methods\"@ string. For example,
+    -- @GET \/restapis\/{restapi_id}\/resources?embed=methods@.
+    embed :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of returned results per page. The default value is 25
+    -- and the maximum value is 500.
+    limit :: Prelude.Maybe Prelude.Int,
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grPosition' - The current pagination position in the paged result set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grEmbed' - A query parameter used to retrieve the specified resources embedded in the returned 'Resources' resource in the response. This @embed@ parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded 'Method' resources this way. The query parameter value must be a single-valued list and contain the @"methods"@ string. For example, @GET /restapis/{restapi_id}/resources?embed=methods@ .
+-- 'position', 'getResources_position' - The current pagination position in the paged result set.
 --
--- * 'grLimit' - The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+-- 'embed', 'getResources_embed' - A query parameter used to retrieve the specified resources embedded in
+-- the returned Resources resource in the response. This @embed@ parameter
+-- value is a list of comma-separated strings. Currently, the request
+-- supports only retrieval of the embedded Method resources this way. The
+-- query parameter value must be a single-valued list and contain the
+-- @\"methods\"@ string. For example,
+-- @GET \/restapis\/{restapi_id}\/resources?embed=methods@.
 --
--- * 'grRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
-getResources ::
-  -- | 'grRestAPIId'
-  Text ->
+-- 'limit', 'getResources_limit' - The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+--
+-- 'restApiId', 'getResources_restApiId' - [Required] The string identifier of the associated RestApi.
+newGetResources ::
+  -- | 'restApiId'
+  Prelude.Text ->
   GetResources
-getResources pRestAPIId_ =
+newGetResources pRestApiId_ =
   GetResources'
-    { _grPosition = Nothing,
-      _grEmbed = Nothing,
-      _grLimit = Nothing,
-      _grRestAPIId = pRestAPIId_
+    { position = Prelude.Nothing,
+      embed = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      restApiId = pRestApiId_
     }
 
 -- | The current pagination position in the paged result set.
-grPosition :: Lens' GetResources (Maybe Text)
-grPosition = lens _grPosition (\s a -> s {_grPosition = a})
+getResources_position :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Text)
+getResources_position = Lens.lens (\GetResources' {position} -> position) (\s@GetResources' {} a -> s {position = a} :: GetResources)
 
--- | A query parameter used to retrieve the specified resources embedded in the returned 'Resources' resource in the response. This @embed@ parameter value is a list of comma-separated strings. Currently, the request supports only retrieval of the embedded 'Method' resources this way. The query parameter value must be a single-valued list and contain the @"methods"@ string. For example, @GET /restapis/{restapi_id}/resources?embed=methods@ .
-grEmbed :: Lens' GetResources [Text]
-grEmbed = lens _grEmbed (\s a -> s {_grEmbed = a}) . _Default . _Coerce
+-- | A query parameter used to retrieve the specified resources embedded in
+-- the returned Resources resource in the response. This @embed@ parameter
+-- value is a list of comma-separated strings. Currently, the request
+-- supports only retrieval of the embedded Method resources this way. The
+-- query parameter value must be a single-valued list and contain the
+-- @\"methods\"@ string. For example,
+-- @GET \/restapis\/{restapi_id}\/resources?embed=methods@.
+getResources_embed :: Lens.Lens' GetResources (Prelude.Maybe [Prelude.Text])
+getResources_embed = Lens.lens (\GetResources' {embed} -> embed) (\s@GetResources' {} a -> s {embed = a} :: GetResources) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-grLimit :: Lens' GetResources (Maybe Int)
-grLimit = lens _grLimit (\s a -> s {_grLimit = a})
+-- | The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+getResources_limit :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Int)
+getResources_limit = Lens.lens (\GetResources' {limit} -> limit) (\s@GetResources' {} a -> s {limit = a} :: GetResources)
 
--- | [Required] The string identifier of the associated 'RestApi' .
-grRestAPIId :: Lens' GetResources Text
-grRestAPIId = lens _grRestAPIId (\s a -> s {_grRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getResources_restApiId :: Lens.Lens' GetResources Prelude.Text
+getResources_restApiId = Lens.lens (\GetResources' {restApiId} -> restApiId) (\s@GetResources' {} a -> s {restApiId = a} :: GetResources)
 
-instance AWSPager GetResources where
+instance Pager.AWSPager GetResources where
   page rq rs
-    | stop (rs ^. grrrsPosition) = Nothing
-    | stop (rs ^. grrrsItems) = Nothing
-    | otherwise =
-      Just $ rq & grPosition .~ rs ^. grrrsPosition
+    | Pager.stop
+        ( rs
+            Lens.^? getResourcesResponse_position Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getResourcesResponse_items Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getResources_position
+          Lens..~ rs
+          Lens.^? getResourcesResponse_position Prelude.. Lens._Just
 
-instance AWSRequest GetResources where
+instance Prelude.AWSRequest GetResources where
   type Rs GetResources = GetResourcesResponse
-  request = get apiGateway
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetResourcesResponse'
-            <$> (x .?> "item" .!@ mempty)
-            <*> (x .?> "position")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "item" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "position")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetResources
+instance Prelude.Hashable GetResources
 
-instance NFData GetResources
+instance Prelude.NFData GetResources
 
-instance ToHeaders GetResources where
+instance Prelude.ToHeaders GetResources where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetResources where
+instance Prelude.ToPath GetResources where
   toPath GetResources' {..} =
-    mconcat
-      ["/restapis/", toBS _grRestAPIId, "/resources"]
+    Prelude.mconcat
+      ["/restapis/", Prelude.toBS restApiId, "/resources"]
 
-instance ToQuery GetResources where
+instance Prelude.ToQuery GetResources where
   toQuery GetResources' {..} =
-    mconcat
-      [ "position" =: _grPosition,
+    Prelude.mconcat
+      [ "position" Prelude.=: position,
         "embed"
-          =: toQuery (toQueryList "member" <$> _grEmbed),
-        "limit" =: _grLimit
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> embed),
+        "limit" Prelude.=: limit
       ]
 
--- | Represents a collection of 'Resource' resources.
---
+-- | Represents a collection of Resource resources.
 --
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-create-api.html Create an API>
 --
--- /See:/ 'getResourcesResponse' smart constructor.
+-- /See:/ 'newGetResourcesResponse' smart constructor.
 data GetResourcesResponse = GetResourcesResponse'
-  { _grrrsItems ::
-      !(Maybe [Resource]),
-    _grrrsPosition ::
-      !(Maybe Text),
-    _grrrsResponseStatus :: !Int
+  { -- | The current page of elements from this collection.
+    items :: Prelude.Maybe [Resource],
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrrsItems' - The current page of elements from this collection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrrsPosition' - Undocumented member.
+-- 'items', 'getResourcesResponse_items' - The current page of elements from this collection.
 --
--- * 'grrrsResponseStatus' - -- | The response status code.
-getResourcesResponse ::
-  -- | 'grrrsResponseStatus'
-  Int ->
+-- 'position', 'getResourcesResponse_position' - Undocumented member.
+--
+-- 'httpStatus', 'getResourcesResponse_httpStatus' - The response's http status code.
+newGetResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetResourcesResponse
-getResourcesResponse pResponseStatus_ =
+newGetResourcesResponse pHttpStatus_ =
   GetResourcesResponse'
-    { _grrrsItems = Nothing,
-      _grrrsPosition = Nothing,
-      _grrrsResponseStatus = pResponseStatus_
+    { items = Prelude.Nothing,
+      position = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current page of elements from this collection.
-grrrsItems :: Lens' GetResourcesResponse [Resource]
-grrrsItems = lens _grrrsItems (\s a -> s {_grrrsItems = a}) . _Default . _Coerce
+getResourcesResponse_items :: Lens.Lens' GetResourcesResponse (Prelude.Maybe [Resource])
+getResourcesResponse_items = Lens.lens (\GetResourcesResponse' {items} -> items) (\s@GetResourcesResponse' {} a -> s {items = a} :: GetResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-grrrsPosition :: Lens' GetResourcesResponse (Maybe Text)
-grrrsPosition = lens _grrrsPosition (\s a -> s {_grrrsPosition = a})
+getResourcesResponse_position :: Lens.Lens' GetResourcesResponse (Prelude.Maybe Prelude.Text)
+getResourcesResponse_position = Lens.lens (\GetResourcesResponse' {position} -> position) (\s@GetResourcesResponse' {} a -> s {position = a} :: GetResourcesResponse)
 
--- | -- | The response status code.
-grrrsResponseStatus :: Lens' GetResourcesResponse Int
-grrrsResponseStatus = lens _grrrsResponseStatus (\s a -> s {_grrrsResponseStatus = a})
+-- | The response's http status code.
+getResourcesResponse_httpStatus :: Lens.Lens' GetResourcesResponse Prelude.Int
+getResourcesResponse_httpStatus = Lens.lens (\GetResourcesResponse' {httpStatus} -> httpStatus) (\s@GetResourcesResponse' {} a -> s {httpStatus = a} :: GetResourcesResponse)
 
-instance NFData GetResourcesResponse
+instance Prelude.NFData GetResourcesResponse

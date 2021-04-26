@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,110 +19,108 @@
 module Network.AWS.APIGateway.Types.DocumentationPartType
   ( DocumentationPartType
       ( ..,
-        DPTAPI,
-        DPTAuthorizer,
-        DPTMethod,
-        DPTModel,
-        DPTPathParameter,
-        DPTQueryParameter,
-        DPTRequestBody,
-        DPTRequestHeader,
-        DPTResource,
-        DPTResponse,
-        DPTResponseBody,
-        DPTResponseHeader
+        DocumentationPartTypeAPI,
+        DocumentationPartTypeAUTHORIZER,
+        DocumentationPartTypeMETHOD,
+        DocumentationPartTypeMODEL,
+        DocumentationPartTypePATHPARAMETER,
+        DocumentationPartTypeQUERYPARAMETER,
+        DocumentationPartTypeREQUESTBODY,
+        DocumentationPartTypeREQUESTHEADER,
+        DocumentationPartTypeRESOURCE,
+        DocumentationPartTypeRESPONSE,
+        DocumentationPartTypeRESPONSEBODY,
+        DocumentationPartTypeRESPONSEHEADER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DocumentationPartType
-  = DocumentationPartType'
-      ( CI
-          Text
-      )
+newtype DocumentationPartType = DocumentationPartType'
+  { fromDocumentationPartType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DPTAPI :: DocumentationPartType
-pattern DPTAPI = DocumentationPartType' "API"
+pattern DocumentationPartTypeAPI :: DocumentationPartType
+pattern DocumentationPartTypeAPI = DocumentationPartType' "API"
 
-pattern DPTAuthorizer :: DocumentationPartType
-pattern DPTAuthorizer = DocumentationPartType' "AUTHORIZER"
+pattern DocumentationPartTypeAUTHORIZER :: DocumentationPartType
+pattern DocumentationPartTypeAUTHORIZER = DocumentationPartType' "AUTHORIZER"
 
-pattern DPTMethod :: DocumentationPartType
-pattern DPTMethod = DocumentationPartType' "METHOD"
+pattern DocumentationPartTypeMETHOD :: DocumentationPartType
+pattern DocumentationPartTypeMETHOD = DocumentationPartType' "METHOD"
 
-pattern DPTModel :: DocumentationPartType
-pattern DPTModel = DocumentationPartType' "MODEL"
+pattern DocumentationPartTypeMODEL :: DocumentationPartType
+pattern DocumentationPartTypeMODEL = DocumentationPartType' "MODEL"
 
-pattern DPTPathParameter :: DocumentationPartType
-pattern DPTPathParameter = DocumentationPartType' "PATH_PARAMETER"
+pattern DocumentationPartTypePATHPARAMETER :: DocumentationPartType
+pattern DocumentationPartTypePATHPARAMETER = DocumentationPartType' "PATH_PARAMETER"
 
-pattern DPTQueryParameter :: DocumentationPartType
-pattern DPTQueryParameter = DocumentationPartType' "QUERY_PARAMETER"
+pattern DocumentationPartTypeQUERYPARAMETER :: DocumentationPartType
+pattern DocumentationPartTypeQUERYPARAMETER = DocumentationPartType' "QUERY_PARAMETER"
 
-pattern DPTRequestBody :: DocumentationPartType
-pattern DPTRequestBody = DocumentationPartType' "REQUEST_BODY"
+pattern DocumentationPartTypeREQUESTBODY :: DocumentationPartType
+pattern DocumentationPartTypeREQUESTBODY = DocumentationPartType' "REQUEST_BODY"
 
-pattern DPTRequestHeader :: DocumentationPartType
-pattern DPTRequestHeader = DocumentationPartType' "REQUEST_HEADER"
+pattern DocumentationPartTypeREQUESTHEADER :: DocumentationPartType
+pattern DocumentationPartTypeREQUESTHEADER = DocumentationPartType' "REQUEST_HEADER"
 
-pattern DPTResource :: DocumentationPartType
-pattern DPTResource = DocumentationPartType' "RESOURCE"
+pattern DocumentationPartTypeRESOURCE :: DocumentationPartType
+pattern DocumentationPartTypeRESOURCE = DocumentationPartType' "RESOURCE"
 
-pattern DPTResponse :: DocumentationPartType
-pattern DPTResponse = DocumentationPartType' "RESPONSE"
+pattern DocumentationPartTypeRESPONSE :: DocumentationPartType
+pattern DocumentationPartTypeRESPONSE = DocumentationPartType' "RESPONSE"
 
-pattern DPTResponseBody :: DocumentationPartType
-pattern DPTResponseBody = DocumentationPartType' "RESPONSE_BODY"
+pattern DocumentationPartTypeRESPONSEBODY :: DocumentationPartType
+pattern DocumentationPartTypeRESPONSEBODY = DocumentationPartType' "RESPONSE_BODY"
 
-pattern DPTResponseHeader :: DocumentationPartType
-pattern DPTResponseHeader = DocumentationPartType' "RESPONSE_HEADER"
+pattern DocumentationPartTypeRESPONSEHEADER :: DocumentationPartType
+pattern DocumentationPartTypeRESPONSEHEADER = DocumentationPartType' "RESPONSE_HEADER"
 
 {-# COMPLETE
-  DPTAPI,
-  DPTAuthorizer,
-  DPTMethod,
-  DPTModel,
-  DPTPathParameter,
-  DPTQueryParameter,
-  DPTRequestBody,
-  DPTRequestHeader,
-  DPTResource,
-  DPTResponse,
-  DPTResponseBody,
-  DPTResponseHeader,
+  DocumentationPartTypeAPI,
+  DocumentationPartTypeAUTHORIZER,
+  DocumentationPartTypeMETHOD,
+  DocumentationPartTypeMODEL,
+  DocumentationPartTypePATHPARAMETER,
+  DocumentationPartTypeQUERYPARAMETER,
+  DocumentationPartTypeREQUESTBODY,
+  DocumentationPartTypeREQUESTHEADER,
+  DocumentationPartTypeRESOURCE,
+  DocumentationPartTypeRESPONSE,
+  DocumentationPartTypeRESPONSEBODY,
+  DocumentationPartTypeRESPONSEHEADER,
   DocumentationPartType'
   #-}
 
-instance FromText DocumentationPartType where
-  parser = (DocumentationPartType' . mk) <$> takeText
+instance Prelude.FromText DocumentationPartType where
+  parser = DocumentationPartType' Prelude.<$> Prelude.takeText
 
-instance ToText DocumentationPartType where
-  toText (DocumentationPartType' ci) = original ci
+instance Prelude.ToText DocumentationPartType where
+  toText (DocumentationPartType' x) = x
 
-instance Hashable DocumentationPartType
+instance Prelude.Hashable DocumentationPartType
 
-instance NFData DocumentationPartType
+instance Prelude.NFData DocumentationPartType
 
-instance ToByteString DocumentationPartType
+instance Prelude.ToByteString DocumentationPartType
 
-instance ToQuery DocumentationPartType
+instance Prelude.ToQuery DocumentationPartType
 
-instance ToHeader DocumentationPartType
+instance Prelude.ToHeader DocumentationPartType
 
-instance ToJSON DocumentationPartType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DocumentationPartType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DocumentationPartType where
-  parseJSON = parseJSONText "DocumentationPartType"
+instance Prelude.FromJSON DocumentationPartType where
+  parseJSON = Prelude.parseJSONText "DocumentationPartType"

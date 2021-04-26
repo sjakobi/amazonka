@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,99 +21,107 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Undocumented operation.
+-- -- | Undocumented operation.
 module Network.AWS.APIGateway.GetDocumentationPart
   ( -- * Creating a Request
-    getDocumentationPart,
-    GetDocumentationPart,
+    GetDocumentationPart (..),
+    newGetDocumentationPart,
 
     -- * Request Lenses
-    gdpRestAPIId,
-    gdpDocumentationPartId,
+    getDocumentationPart_restApiId,
+    getDocumentationPart_documentationPartId,
 
     -- * Destructuring the Response
-    documentationPart,
-    DocumentationPart,
+    DocumentationPart (..),
+    newDocumentationPart,
 
     -- * Response Lenses
-    dpId,
-    dpProperties,
-    dpLocation,
+    documentationPart_id,
+    documentationPart_properties,
+    documentationPart_location,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.DocumentationPart
+import Network.AWS.APIGateway.Types.DocumentationPartLocation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Gets a specified documentation part of a given API.
 --
---
---
--- /See:/ 'getDocumentationPart' smart constructor.
+-- /See:/ 'newGetDocumentationPart' smart constructor.
 data GetDocumentationPart = GetDocumentationPart'
-  { _gdpRestAPIId ::
-      !Text,
-    _gdpDocumentationPartId ::
-      !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The string identifier of the associated RestApi.
+    documentationPartId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocumentationPart' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocumentationPart' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdpDocumentationPartId' - [Required] The string identifier of the associated 'RestApi' .
-getDocumentationPart ::
-  -- | 'gdpRestAPIId'
-  Text ->
-  -- | 'gdpDocumentationPartId'
-  Text ->
+-- 'restApiId', 'getDocumentationPart_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'documentationPartId', 'getDocumentationPart_documentationPartId' - [Required] The string identifier of the associated RestApi.
+newGetDocumentationPart ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'documentationPartId'
+  Prelude.Text ->
   GetDocumentationPart
-getDocumentationPart
-  pRestAPIId_
+newGetDocumentationPart
+  pRestApiId_
   pDocumentationPartId_ =
     GetDocumentationPart'
-      { _gdpRestAPIId = pRestAPIId_,
-        _gdpDocumentationPartId = pDocumentationPartId_
+      { restApiId = pRestApiId_,
+        documentationPartId = pDocumentationPartId_
       }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-gdpRestAPIId :: Lens' GetDocumentationPart Text
-gdpRestAPIId = lens _gdpRestAPIId (\s a -> s {_gdpRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getDocumentationPart_restApiId :: Lens.Lens' GetDocumentationPart Prelude.Text
+getDocumentationPart_restApiId = Lens.lens (\GetDocumentationPart' {restApiId} -> restApiId) (\s@GetDocumentationPart' {} a -> s {restApiId = a} :: GetDocumentationPart)
 
--- | [Required] The string identifier of the associated 'RestApi' .
-gdpDocumentationPartId :: Lens' GetDocumentationPart Text
-gdpDocumentationPartId = lens _gdpDocumentationPartId (\s a -> s {_gdpDocumentationPartId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getDocumentationPart_documentationPartId :: Lens.Lens' GetDocumentationPart Prelude.Text
+getDocumentationPart_documentationPartId = Lens.lens (\GetDocumentationPart' {documentationPartId} -> documentationPartId) (\s@GetDocumentationPart' {} a -> s {documentationPartId = a} :: GetDocumentationPart)
 
-instance AWSRequest GetDocumentationPart where
+instance Prelude.AWSRequest GetDocumentationPart where
   type Rs GetDocumentationPart = DocumentationPart
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetDocumentationPart
+instance Prelude.Hashable GetDocumentationPart
 
-instance NFData GetDocumentationPart
+instance Prelude.NFData GetDocumentationPart
 
-instance ToHeaders GetDocumentationPart where
+instance Prelude.ToHeaders GetDocumentationPart where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetDocumentationPart where
+instance Prelude.ToPath GetDocumentationPart where
   toPath GetDocumentationPart' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _gdpRestAPIId,
+        Prelude.toBS restApiId,
         "/documentation/parts/",
-        toBS _gdpDocumentationPartId
+        Prelude.toBS documentationPartId
       ]
 
-instance ToQuery GetDocumentationPart where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDocumentationPart where
+  toQuery = Prelude.const Prelude.mempty

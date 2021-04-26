@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,218 +24,296 @@
 -- Creates a new domain name.
 module Network.AWS.APIGateway.CreateDomainName
   ( -- * Creating a Request
-    createDomainName,
-    CreateDomainName,
+    CreateDomainName (..),
+    newCreateDomainName,
 
     -- * Request Lenses
-    cdnCertificatePrivateKey,
-    cdnRegionalCertificateName,
-    cdnMutualTLSAuthentication,
-    cdnEndpointConfiguration,
-    cdnCertificateARN,
-    cdnTags,
-    cdnSecurityPolicy,
-    cdnCertificateChain,
-    cdnCertificateBody,
-    cdnRegionalCertificateARN,
-    cdnCertificateName,
-    cdnDomainName,
+    createDomainName_certificatePrivateKey,
+    createDomainName_regionalCertificateName,
+    createDomainName_mutualTlsAuthentication,
+    createDomainName_endpointConfiguration,
+    createDomainName_certificateArn,
+    createDomainName_tags,
+    createDomainName_securityPolicy,
+    createDomainName_certificateChain,
+    createDomainName_certificateBody,
+    createDomainName_regionalCertificateArn,
+    createDomainName_certificateName,
+    createDomainName_domainName,
 
     -- * Destructuring the Response
-    domainName,
-    DomainName,
+    DomainName (..),
+    newDomainName,
 
     -- * Response Lenses
-    dnRegionalHostedZoneId,
-    dnRegionalCertificateName,
-    dnMutualTLSAuthentication,
-    dnEndpointConfiguration,
-    dnDistributionHostedZoneId,
-    dnCertificateARN,
-    dnDomainNameStatusMessage,
-    dnDistributionDomainName,
-    dnCertificateUploadDate,
-    dnDomainName,
-    dnTags,
-    dnSecurityPolicy,
-    dnDomainNameStatus,
-    dnRegionalCertificateARN,
-    dnCertificateName,
-    dnRegionalDomainName,
+    domainName_regionalHostedZoneId,
+    domainName_regionalCertificateName,
+    domainName_mutualTlsAuthentication,
+    domainName_endpointConfiguration,
+    domainName_distributionHostedZoneId,
+    domainName_certificateArn,
+    domainName_domainNameStatusMessage,
+    domainName_distributionDomainName,
+    domainName_certificateUploadDate,
+    domainName_domainName,
+    domainName_tags,
+    domainName_securityPolicy,
+    domainName_domainNameStatus,
+    domainName_regionalCertificateArn,
+    domainName_certificateName,
+    domainName_regionalDomainName,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.DomainName
+import Network.AWS.APIGateway.Types.DomainNameStatus
+import Network.AWS.APIGateway.Types.EndpointConfiguration
+import Network.AWS.APIGateway.Types.MutualTlsAuthentication
+import Network.AWS.APIGateway.Types.SecurityPolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to create a new domain name.
 --
---
---
--- /See:/ 'createDomainName' smart constructor.
+-- /See:/ 'newCreateDomainName' smart constructor.
 data CreateDomainName = CreateDomainName'
-  { _cdnCertificatePrivateKey ::
-      !(Maybe Text),
-    _cdnRegionalCertificateName ::
-      !(Maybe Text),
-    _cdnMutualTLSAuthentication ::
-      !(Maybe MutualTLSAuthenticationInput),
-    _cdnEndpointConfiguration ::
-      !(Maybe EndpointConfiguration),
-    _cdnCertificateARN :: !(Maybe Text),
-    _cdnTags :: !(Maybe (Map Text Text)),
-    _cdnSecurityPolicy ::
-      !(Maybe SecurityPolicy),
-    _cdnCertificateChain :: !(Maybe Text),
-    _cdnCertificateBody :: !(Maybe Text),
-    _cdnRegionalCertificateARN ::
-      !(Maybe Text),
-    _cdnCertificateName :: !(Maybe Text),
-    _cdnDomainName :: !Text
+  { -- | [Deprecated] Your edge-optimized endpoint\'s domain name certificate\'s
+    -- private key.
+    certificatePrivateKey :: Prelude.Maybe Prelude.Text,
+    -- | The user-friendly name of the certificate that will be used by regional
+    -- endpoint for this domain name.
+    regionalCertificateName :: Prelude.Maybe Prelude.Text,
+    mutualTlsAuthentication :: Prelude.Maybe MutualTlsAuthenticationInput,
+    -- | The endpoint configuration of this DomainName showing the endpoint types
+    -- of the domain name.
+    endpointConfiguration :: Prelude.Maybe EndpointConfiguration,
+    -- | The reference to an AWS-managed certificate that will be used by
+    -- edge-optimized endpoint for this domain name. AWS Certificate Manager is
+    -- the only supported source.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The key-value map of strings. The valid character set is
+    -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
+    -- start with @aws:@. The tag value can be up to 256 characters.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The Transport Layer Security (TLS) version + cipher suite for this
+    -- DomainName. The valid values are @TLS_1_0@ and @TLS_1_2@.
+    securityPolicy :: Prelude.Maybe SecurityPolicy,
+    -- | [Deprecated] The intermediate certificates and optionally the root
+    -- certificate, one after the other without any blank lines, used by an
+    -- edge-optimized endpoint for this domain name. If you include the root
+    -- certificate, your certificate chain must start with intermediate
+    -- certificates and end with the root certificate. Use the intermediate
+    -- certificates that were provided by your certificate authority. Do not
+    -- include any intermediaries that are not in the chain of trust path.
+    certificateChain :: Prelude.Maybe Prelude.Text,
+    -- | [Deprecated] The body of the server certificate that will be used by
+    -- edge-optimized endpoint for this domain name provided by your
+    -- certificate authority.
+    certificateBody :: Prelude.Maybe Prelude.Text,
+    -- | The reference to an AWS-managed certificate that will be used by
+    -- regional endpoint for this domain name. AWS Certificate Manager is the
+    -- only supported source.
+    regionalCertificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The user-friendly name of the certificate that will be used by
+    -- edge-optimized endpoint for this domain name.
+    certificateName :: Prelude.Maybe Prelude.Text,
+    -- | [Required] The name of the DomainName resource.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDomainName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDomainName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdnCertificatePrivateKey' - [Deprecated] Your edge-optimized endpoint's domain name certificate's private key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdnRegionalCertificateName' - The user-friendly name of the certificate that will be used by regional endpoint for this domain name.
+-- 'certificatePrivateKey', 'createDomainName_certificatePrivateKey' - [Deprecated] Your edge-optimized endpoint\'s domain name certificate\'s
+-- private key.
 --
--- * 'cdnMutualTLSAuthentication' - Undocumented member.
+-- 'regionalCertificateName', 'createDomainName_regionalCertificateName' - The user-friendly name of the certificate that will be used by regional
+-- endpoint for this domain name.
 --
--- * 'cdnEndpointConfiguration' - The endpoint configuration of this 'DomainName' showing the endpoint types of the domain name.
+-- 'mutualTlsAuthentication', 'createDomainName_mutualTlsAuthentication' - Undocumented member.
 --
--- * 'cdnCertificateARN' - The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
+-- 'endpointConfiguration', 'createDomainName_endpointConfiguration' - The endpoint configuration of this DomainName showing the endpoint types
+-- of the domain name.
 --
--- * 'cdnTags' - The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not start with @aws:@ . The tag value can be up to 256 characters.
+-- 'certificateArn', 'createDomainName_certificateArn' - The reference to an AWS-managed certificate that will be used by
+-- edge-optimized endpoint for this domain name. AWS Certificate Manager is
+-- the only supported source.
 --
--- * 'cdnSecurityPolicy' - The Transport Layer Security (TLS) version + cipher suite for this 'DomainName' . The valid values are @TLS_1_0@ and @TLS_1_2@ .
+-- 'tags', 'createDomainName_tags' - The key-value map of strings. The valid character set is
+-- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
+-- start with @aws:@. The tag value can be up to 256 characters.
 --
--- * 'cdnCertificateChain' - [Deprecated] The intermediate certificates and optionally the root certificate, one after the other without any blank lines, used by an edge-optimized endpoint for this domain name. If you include the root certificate, your certificate chain must start with intermediate certificates and end with the root certificate. Use the intermediate certificates that were provided by your certificate authority. Do not include any intermediaries that are not in the chain of trust path.
+-- 'securityPolicy', 'createDomainName_securityPolicy' - The Transport Layer Security (TLS) version + cipher suite for this
+-- DomainName. The valid values are @TLS_1_0@ and @TLS_1_2@.
 --
--- * 'cdnCertificateBody' - [Deprecated] The body of the server certificate that will be used by edge-optimized endpoint for this domain name provided by your certificate authority.
+-- 'certificateChain', 'createDomainName_certificateChain' - [Deprecated] The intermediate certificates and optionally the root
+-- certificate, one after the other without any blank lines, used by an
+-- edge-optimized endpoint for this domain name. If you include the root
+-- certificate, your certificate chain must start with intermediate
+-- certificates and end with the root certificate. Use the intermediate
+-- certificates that were provided by your certificate authority. Do not
+-- include any intermediaries that are not in the chain of trust path.
 --
--- * 'cdnRegionalCertificateARN' - The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name. AWS Certificate Manager is the only supported source.
+-- 'certificateBody', 'createDomainName_certificateBody' - [Deprecated] The body of the server certificate that will be used by
+-- edge-optimized endpoint for this domain name provided by your
+-- certificate authority.
 --
--- * 'cdnCertificateName' - The user-friendly name of the certificate that will be used by edge-optimized endpoint for this domain name.
+-- 'regionalCertificateArn', 'createDomainName_regionalCertificateArn' - The reference to an AWS-managed certificate that will be used by
+-- regional endpoint for this domain name. AWS Certificate Manager is the
+-- only supported source.
 --
--- * 'cdnDomainName' - [Required] The name of the 'DomainName' resource.
-createDomainName ::
-  -- | 'cdnDomainName'
-  Text ->
+-- 'certificateName', 'createDomainName_certificateName' - The user-friendly name of the certificate that will be used by
+-- edge-optimized endpoint for this domain name.
+--
+-- 'domainName', 'createDomainName_domainName' - [Required] The name of the DomainName resource.
+newCreateDomainName ::
+  -- | 'domainName'
+  Prelude.Text ->
   CreateDomainName
-createDomainName pDomainName_ =
+newCreateDomainName pDomainName_ =
   CreateDomainName'
-    { _cdnCertificatePrivateKey =
-        Nothing,
-      _cdnRegionalCertificateName = Nothing,
-      _cdnMutualTLSAuthentication = Nothing,
-      _cdnEndpointConfiguration = Nothing,
-      _cdnCertificateARN = Nothing,
-      _cdnTags = Nothing,
-      _cdnSecurityPolicy = Nothing,
-      _cdnCertificateChain = Nothing,
-      _cdnCertificateBody = Nothing,
-      _cdnRegionalCertificateARN = Nothing,
-      _cdnCertificateName = Nothing,
-      _cdnDomainName = pDomainName_
+    { certificatePrivateKey =
+        Prelude.Nothing,
+      regionalCertificateName = Prelude.Nothing,
+      mutualTlsAuthentication = Prelude.Nothing,
+      endpointConfiguration = Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      securityPolicy = Prelude.Nothing,
+      certificateChain = Prelude.Nothing,
+      certificateBody = Prelude.Nothing,
+      regionalCertificateArn = Prelude.Nothing,
+      certificateName = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
--- | [Deprecated] Your edge-optimized endpoint's domain name certificate's private key.
-cdnCertificatePrivateKey :: Lens' CreateDomainName (Maybe Text)
-cdnCertificatePrivateKey = lens _cdnCertificatePrivateKey (\s a -> s {_cdnCertificatePrivateKey = a})
+-- | [Deprecated] Your edge-optimized endpoint\'s domain name certificate\'s
+-- private key.
+createDomainName_certificatePrivateKey :: Lens.Lens' CreateDomainName (Prelude.Maybe Prelude.Text)
+createDomainName_certificatePrivateKey = Lens.lens (\CreateDomainName' {certificatePrivateKey} -> certificatePrivateKey) (\s@CreateDomainName' {} a -> s {certificatePrivateKey = a} :: CreateDomainName)
 
--- | The user-friendly name of the certificate that will be used by regional endpoint for this domain name.
-cdnRegionalCertificateName :: Lens' CreateDomainName (Maybe Text)
-cdnRegionalCertificateName = lens _cdnRegionalCertificateName (\s a -> s {_cdnRegionalCertificateName = a})
+-- | The user-friendly name of the certificate that will be used by regional
+-- endpoint for this domain name.
+createDomainName_regionalCertificateName :: Lens.Lens' CreateDomainName (Prelude.Maybe Prelude.Text)
+createDomainName_regionalCertificateName = Lens.lens (\CreateDomainName' {regionalCertificateName} -> regionalCertificateName) (\s@CreateDomainName' {} a -> s {regionalCertificateName = a} :: CreateDomainName)
 
 -- | Undocumented member.
-cdnMutualTLSAuthentication :: Lens' CreateDomainName (Maybe MutualTLSAuthenticationInput)
-cdnMutualTLSAuthentication = lens _cdnMutualTLSAuthentication (\s a -> s {_cdnMutualTLSAuthentication = a})
+createDomainName_mutualTlsAuthentication :: Lens.Lens' CreateDomainName (Prelude.Maybe MutualTlsAuthenticationInput)
+createDomainName_mutualTlsAuthentication = Lens.lens (\CreateDomainName' {mutualTlsAuthentication} -> mutualTlsAuthentication) (\s@CreateDomainName' {} a -> s {mutualTlsAuthentication = a} :: CreateDomainName)
 
--- | The endpoint configuration of this 'DomainName' showing the endpoint types of the domain name.
-cdnEndpointConfiguration :: Lens' CreateDomainName (Maybe EndpointConfiguration)
-cdnEndpointConfiguration = lens _cdnEndpointConfiguration (\s a -> s {_cdnEndpointConfiguration = a})
+-- | The endpoint configuration of this DomainName showing the endpoint types
+-- of the domain name.
+createDomainName_endpointConfiguration :: Lens.Lens' CreateDomainName (Prelude.Maybe EndpointConfiguration)
+createDomainName_endpointConfiguration = Lens.lens (\CreateDomainName' {endpointConfiguration} -> endpointConfiguration) (\s@CreateDomainName' {} a -> s {endpointConfiguration = a} :: CreateDomainName)
 
--- | The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.
-cdnCertificateARN :: Lens' CreateDomainName (Maybe Text)
-cdnCertificateARN = lens _cdnCertificateARN (\s a -> s {_cdnCertificateARN = a})
+-- | The reference to an AWS-managed certificate that will be used by
+-- edge-optimized endpoint for this domain name. AWS Certificate Manager is
+-- the only supported source.
+createDomainName_certificateArn :: Lens.Lens' CreateDomainName (Prelude.Maybe Prelude.Text)
+createDomainName_certificateArn = Lens.lens (\CreateDomainName' {certificateArn} -> certificateArn) (\s@CreateDomainName' {} a -> s {certificateArn = a} :: CreateDomainName)
 
--- | The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not start with @aws:@ . The tag value can be up to 256 characters.
-cdnTags :: Lens' CreateDomainName (HashMap Text Text)
-cdnTags = lens _cdnTags (\s a -> s {_cdnTags = a}) . _Default . _Map
+-- | The key-value map of strings. The valid character set is
+-- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
+-- start with @aws:@. The tag value can be up to 256 characters.
+createDomainName_tags :: Lens.Lens' CreateDomainName (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createDomainName_tags = Lens.lens (\CreateDomainName' {tags} -> tags) (\s@CreateDomainName' {} a -> s {tags = a} :: CreateDomainName) Prelude.. Lens.mapping Prelude._Map
 
--- | The Transport Layer Security (TLS) version + cipher suite for this 'DomainName' . The valid values are @TLS_1_0@ and @TLS_1_2@ .
-cdnSecurityPolicy :: Lens' CreateDomainName (Maybe SecurityPolicy)
-cdnSecurityPolicy = lens _cdnSecurityPolicy (\s a -> s {_cdnSecurityPolicy = a})
+-- | The Transport Layer Security (TLS) version + cipher suite for this
+-- DomainName. The valid values are @TLS_1_0@ and @TLS_1_2@.
+createDomainName_securityPolicy :: Lens.Lens' CreateDomainName (Prelude.Maybe SecurityPolicy)
+createDomainName_securityPolicy = Lens.lens (\CreateDomainName' {securityPolicy} -> securityPolicy) (\s@CreateDomainName' {} a -> s {securityPolicy = a} :: CreateDomainName)
 
--- | [Deprecated] The intermediate certificates and optionally the root certificate, one after the other without any blank lines, used by an edge-optimized endpoint for this domain name. If you include the root certificate, your certificate chain must start with intermediate certificates and end with the root certificate. Use the intermediate certificates that were provided by your certificate authority. Do not include any intermediaries that are not in the chain of trust path.
-cdnCertificateChain :: Lens' CreateDomainName (Maybe Text)
-cdnCertificateChain = lens _cdnCertificateChain (\s a -> s {_cdnCertificateChain = a})
+-- | [Deprecated] The intermediate certificates and optionally the root
+-- certificate, one after the other without any blank lines, used by an
+-- edge-optimized endpoint for this domain name. If you include the root
+-- certificate, your certificate chain must start with intermediate
+-- certificates and end with the root certificate. Use the intermediate
+-- certificates that were provided by your certificate authority. Do not
+-- include any intermediaries that are not in the chain of trust path.
+createDomainName_certificateChain :: Lens.Lens' CreateDomainName (Prelude.Maybe Prelude.Text)
+createDomainName_certificateChain = Lens.lens (\CreateDomainName' {certificateChain} -> certificateChain) (\s@CreateDomainName' {} a -> s {certificateChain = a} :: CreateDomainName)
 
--- | [Deprecated] The body of the server certificate that will be used by edge-optimized endpoint for this domain name provided by your certificate authority.
-cdnCertificateBody :: Lens' CreateDomainName (Maybe Text)
-cdnCertificateBody = lens _cdnCertificateBody (\s a -> s {_cdnCertificateBody = a})
+-- | [Deprecated] The body of the server certificate that will be used by
+-- edge-optimized endpoint for this domain name provided by your
+-- certificate authority.
+createDomainName_certificateBody :: Lens.Lens' CreateDomainName (Prelude.Maybe Prelude.Text)
+createDomainName_certificateBody = Lens.lens (\CreateDomainName' {certificateBody} -> certificateBody) (\s@CreateDomainName' {} a -> s {certificateBody = a} :: CreateDomainName)
 
--- | The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name. AWS Certificate Manager is the only supported source.
-cdnRegionalCertificateARN :: Lens' CreateDomainName (Maybe Text)
-cdnRegionalCertificateARN = lens _cdnRegionalCertificateARN (\s a -> s {_cdnRegionalCertificateARN = a})
+-- | The reference to an AWS-managed certificate that will be used by
+-- regional endpoint for this domain name. AWS Certificate Manager is the
+-- only supported source.
+createDomainName_regionalCertificateArn :: Lens.Lens' CreateDomainName (Prelude.Maybe Prelude.Text)
+createDomainName_regionalCertificateArn = Lens.lens (\CreateDomainName' {regionalCertificateArn} -> regionalCertificateArn) (\s@CreateDomainName' {} a -> s {regionalCertificateArn = a} :: CreateDomainName)
 
--- | The user-friendly name of the certificate that will be used by edge-optimized endpoint for this domain name.
-cdnCertificateName :: Lens' CreateDomainName (Maybe Text)
-cdnCertificateName = lens _cdnCertificateName (\s a -> s {_cdnCertificateName = a})
+-- | The user-friendly name of the certificate that will be used by
+-- edge-optimized endpoint for this domain name.
+createDomainName_certificateName :: Lens.Lens' CreateDomainName (Prelude.Maybe Prelude.Text)
+createDomainName_certificateName = Lens.lens (\CreateDomainName' {certificateName} -> certificateName) (\s@CreateDomainName' {} a -> s {certificateName = a} :: CreateDomainName)
 
--- | [Required] The name of the 'DomainName' resource.
-cdnDomainName :: Lens' CreateDomainName Text
-cdnDomainName = lens _cdnDomainName (\s a -> s {_cdnDomainName = a})
+-- | [Required] The name of the DomainName resource.
+createDomainName_domainName :: Lens.Lens' CreateDomainName Prelude.Text
+createDomainName_domainName = Lens.lens (\CreateDomainName' {domainName} -> domainName) (\s@CreateDomainName' {} a -> s {domainName = a} :: CreateDomainName)
 
-instance AWSRequest CreateDomainName where
+instance Prelude.AWSRequest CreateDomainName where
   type Rs CreateDomainName = DomainName
-  request = postJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable CreateDomainName
+instance Prelude.Hashable CreateDomainName
 
-instance NFData CreateDomainName
+instance Prelude.NFData CreateDomainName
 
-instance ToHeaders CreateDomainName where
+instance Prelude.ToHeaders CreateDomainName where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
-      )
-
-instance ToJSON CreateDomainName where
-  toJSON CreateDomainName' {..} =
-    object
-      ( catMaybes
-          [ ("certificatePrivateKey" .=)
-              <$> _cdnCertificatePrivateKey,
-            ("regionalCertificateName" .=)
-              <$> _cdnRegionalCertificateName,
-            ("mutualTlsAuthentication" .=)
-              <$> _cdnMutualTLSAuthentication,
-            ("endpointConfiguration" .=)
-              <$> _cdnEndpointConfiguration,
-            ("certificateArn" .=) <$> _cdnCertificateARN,
-            ("tags" .=) <$> _cdnTags,
-            ("securityPolicy" .=) <$> _cdnSecurityPolicy,
-            ("certificateChain" .=) <$> _cdnCertificateChain,
-            ("certificateBody" .=) <$> _cdnCertificateBody,
-            ("regionalCertificateArn" .=)
-              <$> _cdnRegionalCertificateARN,
-            ("certificateName" .=) <$> _cdnCertificateName,
-            Just ("domainName" .= _cdnDomainName)
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance ToPath CreateDomainName where
-  toPath = const "/domainnames"
+instance Prelude.ToJSON CreateDomainName where
+  toJSON CreateDomainName' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("certificatePrivateKey" Prelude..=)
+              Prelude.<$> certificatePrivateKey,
+            ("regionalCertificateName" Prelude..=)
+              Prelude.<$> regionalCertificateName,
+            ("mutualTlsAuthentication" Prelude..=)
+              Prelude.<$> mutualTlsAuthentication,
+            ("endpointConfiguration" Prelude..=)
+              Prelude.<$> endpointConfiguration,
+            ("certificateArn" Prelude..=)
+              Prelude.<$> certificateArn,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("securityPolicy" Prelude..=)
+              Prelude.<$> securityPolicy,
+            ("certificateChain" Prelude..=)
+              Prelude.<$> certificateChain,
+            ("certificateBody" Prelude..=)
+              Prelude.<$> certificateBody,
+            ("regionalCertificateArn" Prelude..=)
+              Prelude.<$> regionalCertificateArn,
+            ("certificateName" Prelude..=)
+              Prelude.<$> certificateName,
+            Prelude.Just ("domainName" Prelude..= domainName)
+          ]
+      )
 
-instance ToQuery CreateDomainName where
-  toQuery = const mempty
+instance Prelude.ToPath CreateDomainName where
+  toPath = Prelude.const "/domainnames"
+
+instance Prelude.ToQuery CreateDomainName where
+  toQuery = Prelude.const Prelude.mempty

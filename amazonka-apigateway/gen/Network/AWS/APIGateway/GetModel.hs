@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,108 +21,124 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes an existing model defined for a 'RestApi' resource.
+-- Describes an existing model defined for a RestApi resource.
 module Network.AWS.APIGateway.GetModel
   ( -- * Creating a Request
-    getModel,
-    GetModel,
+    GetModel (..),
+    newGetModel,
 
     -- * Request Lenses
-    gmFlatten,
-    gmRestAPIId,
-    gmModelName,
+    getModel_flatten,
+    getModel_restApiId,
+    getModel_modelName,
 
     -- * Destructuring the Response
-    model,
-    Model,
+    Model (..),
+    newModel,
 
     -- * Response Lenses
-    mContentType,
-    mSchema,
-    mId,
-    mName,
-    mDescription,
+    model_contentType,
+    model_schema,
+    model_id,
+    model_name,
+    model_description,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Model
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to list information about a model in an existing 'RestApi' resource.
+-- | Request to list information about a model in an existing RestApi
+-- resource.
 --
---
---
--- /See:/ 'getModel' smart constructor.
+-- /See:/ 'newGetModel' smart constructor.
 data GetModel = GetModel'
-  { _gmFlatten ::
-      !(Maybe Bool),
-    _gmRestAPIId :: !Text,
-    _gmModelName :: !Text
+  { -- | A query parameter of a Boolean value to resolve (@true@) all external
+    -- model references and returns a flattened model schema or not (@false@)
+    -- The default is @false@.
+    flatten :: Prelude.Maybe Prelude.Bool,
+    -- | [Required] The RestApi identifier under which the Model exists.
+    restApiId :: Prelude.Text,
+    -- | [Required] The name of the model as an identifier.
+    modelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmFlatten' - A query parameter of a Boolean value to resolve (@true@ ) all external model references and returns a flattened model schema or not (@false@ ) The default is @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmRestAPIId' - [Required] The 'RestApi' identifier under which the 'Model' exists.
+-- 'flatten', 'getModel_flatten' - A query parameter of a Boolean value to resolve (@true@) all external
+-- model references and returns a flattened model schema or not (@false@)
+-- The default is @false@.
 --
--- * 'gmModelName' - [Required] The name of the model as an identifier.
-getModel ::
-  -- | 'gmRestAPIId'
-  Text ->
-  -- | 'gmModelName'
-  Text ->
+-- 'restApiId', 'getModel_restApiId' - [Required] The RestApi identifier under which the Model exists.
+--
+-- 'modelName', 'getModel_modelName' - [Required] The name of the model as an identifier.
+newGetModel ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'modelName'
+  Prelude.Text ->
   GetModel
-getModel pRestAPIId_ pModelName_ =
+newGetModel pRestApiId_ pModelName_ =
   GetModel'
-    { _gmFlatten = Nothing,
-      _gmRestAPIId = pRestAPIId_,
-      _gmModelName = pModelName_
+    { flatten = Prelude.Nothing,
+      restApiId = pRestApiId_,
+      modelName = pModelName_
     }
 
--- | A query parameter of a Boolean value to resolve (@true@ ) all external model references and returns a flattened model schema or not (@false@ ) The default is @false@ .
-gmFlatten :: Lens' GetModel (Maybe Bool)
-gmFlatten = lens _gmFlatten (\s a -> s {_gmFlatten = a})
+-- | A query parameter of a Boolean value to resolve (@true@) all external
+-- model references and returns a flattened model schema or not (@false@)
+-- The default is @false@.
+getModel_flatten :: Lens.Lens' GetModel (Prelude.Maybe Prelude.Bool)
+getModel_flatten = Lens.lens (\GetModel' {flatten} -> flatten) (\s@GetModel' {} a -> s {flatten = a} :: GetModel)
 
--- | [Required] The 'RestApi' identifier under which the 'Model' exists.
-gmRestAPIId :: Lens' GetModel Text
-gmRestAPIId = lens _gmRestAPIId (\s a -> s {_gmRestAPIId = a})
+-- | [Required] The RestApi identifier under which the Model exists.
+getModel_restApiId :: Lens.Lens' GetModel Prelude.Text
+getModel_restApiId = Lens.lens (\GetModel' {restApiId} -> restApiId) (\s@GetModel' {} a -> s {restApiId = a} :: GetModel)
 
 -- | [Required] The name of the model as an identifier.
-gmModelName :: Lens' GetModel Text
-gmModelName = lens _gmModelName (\s a -> s {_gmModelName = a})
+getModel_modelName :: Lens.Lens' GetModel Prelude.Text
+getModel_modelName = Lens.lens (\GetModel' {modelName} -> modelName) (\s@GetModel' {} a -> s {modelName = a} :: GetModel)
 
-instance AWSRequest GetModel where
+instance Prelude.AWSRequest GetModel where
   type Rs GetModel = Model
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetModel
+instance Prelude.Hashable GetModel
 
-instance NFData GetModel
+instance Prelude.NFData GetModel
 
-instance ToHeaders GetModel where
+instance Prelude.ToHeaders GetModel where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetModel where
+instance Prelude.ToPath GetModel where
   toPath GetModel' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _gmRestAPIId,
+        Prelude.toBS restApiId,
         "/models/",
-        toBS _gmModelName
+        Prelude.toBS modelName
       ]
 
-instance ToQuery GetModel where
+instance Prelude.ToQuery GetModel where
   toQuery GetModel' {..} =
-    mconcat ["flatten" =: _gmFlatten]
+    Prelude.mconcat ["flatten" Prelude.=: flatten]

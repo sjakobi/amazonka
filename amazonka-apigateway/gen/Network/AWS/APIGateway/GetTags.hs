@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the 'Tags' collection for a given resource.
+-- Gets the Tags collection for a given resource.
 module Network.AWS.APIGateway.GetTags
   ( -- * Creating a Request
-    getTags,
-    GetTags,
+    GetTags (..),
+    newGetTags,
 
     -- * Request Lenses
-    gtPosition,
-    gtLimit,
-    gtResourceARN,
+    getTags_position,
+    getTags_limit,
+    getTags_resourceArn,
 
     -- * Destructuring the Response
-    getTagsResponse,
-    GetTagsResponse,
+    GetTagsResponse (..),
+    newGetTagsResponse,
 
     -- * Response Lenses
-    gtrrsTags,
-    gtrrsResponseStatus,
+    getTagsResponse_tags,
+    getTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Gets the 'Tags' collection for a given resource.
+-- | Gets the Tags collection for a given resource.
 --
---
---
--- /See:/ 'getTags' smart constructor.
+-- /See:/ 'newGetTags' smart constructor.
 data GetTags = GetTags'
-  { _gtPosition :: !(Maybe Text),
-    _gtLimit :: !(Maybe Int),
-    _gtResourceARN :: !Text
+  { -- | (Not currently supported) The current pagination position in the paged
+    -- result set.
+    position :: Prelude.Maybe Prelude.Text,
+    -- | (Not currently supported) The maximum number of returned results per
+    -- page. The default value is 25 and the maximum value is 500.
+    limit :: Prelude.Maybe Prelude.Int,
+    -- | [Required] The ARN of a resource that can be tagged.
+    resourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtPosition' - (Not currently supported) The current pagination position in the paged result set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtLimit' - (Not currently supported) The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+-- 'position', 'getTags_position' - (Not currently supported) The current pagination position in the paged
+-- result set.
 --
--- * 'gtResourceARN' - [Required] The ARN of a resource that can be tagged.
-getTags ::
-  -- | 'gtResourceARN'
-  Text ->
+-- 'limit', 'getTags_limit' - (Not currently supported) The maximum number of returned results per
+-- page. The default value is 25 and the maximum value is 500.
+--
+-- 'resourceArn', 'getTags_resourceArn' - [Required] The ARN of a resource that can be tagged.
+newGetTags ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   GetTags
-getTags pResourceARN_ =
+newGetTags pResourceArn_ =
   GetTags'
-    { _gtPosition = Nothing,
-      _gtLimit = Nothing,
-      _gtResourceARN = pResourceARN_
+    { position = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      resourceArn = pResourceArn_
     }
 
--- | (Not currently supported) The current pagination position in the paged result set.
-gtPosition :: Lens' GetTags (Maybe Text)
-gtPosition = lens _gtPosition (\s a -> s {_gtPosition = a})
+-- | (Not currently supported) The current pagination position in the paged
+-- result set.
+getTags_position :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
+getTags_position = Lens.lens (\GetTags' {position} -> position) (\s@GetTags' {} a -> s {position = a} :: GetTags)
 
--- | (Not currently supported) The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-gtLimit :: Lens' GetTags (Maybe Int)
-gtLimit = lens _gtLimit (\s a -> s {_gtLimit = a})
+-- | (Not currently supported) The maximum number of returned results per
+-- page. The default value is 25 and the maximum value is 500.
+getTags_limit :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Int)
+getTags_limit = Lens.lens (\GetTags' {limit} -> limit) (\s@GetTags' {} a -> s {limit = a} :: GetTags)
 
 -- | [Required] The ARN of a resource that can be tagged.
-gtResourceARN :: Lens' GetTags Text
-gtResourceARN = lens _gtResourceARN (\s a -> s {_gtResourceARN = a})
+getTags_resourceArn :: Lens.Lens' GetTags Prelude.Text
+getTags_resourceArn = Lens.lens (\GetTags' {resourceArn} -> resourceArn) (\s@GetTags' {} a -> s {resourceArn = a} :: GetTags)
 
-instance AWSRequest GetTags where
+instance Prelude.AWSRequest GetTags where
   type Rs GetTags = GetTagsResponse
-  request = get apiGateway
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTagsResponse'
-            <$> (x .?> "tags" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTags
+instance Prelude.Hashable GetTags
 
-instance NFData GetTags
+instance Prelude.NFData GetTags
 
-instance ToHeaders GetTags where
+instance Prelude.ToHeaders GetTags where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetTags where
+instance Prelude.ToPath GetTags where
   toPath GetTags' {..} =
-    mconcat ["/tags/", toBS _gtResourceARN]
+    Prelude.mconcat
+      ["/tags/", Prelude.toBS resourceArn]
 
-instance ToQuery GetTags where
+instance Prelude.ToQuery GetTags where
   toQuery GetTags' {..} =
-    mconcat
-      ["position" =: _gtPosition, "limit" =: _gtLimit]
+    Prelude.mconcat
+      [ "position" Prelude.=: position,
+        "limit" Prelude.=: limit
+      ]
 
--- | The collection of tags. Each tag element is associated with a given resource.
+-- | The collection of tags. Each tag element is associated with a given
+-- resource.
 --
---
---
--- /See:/ 'getTagsResponse' smart constructor.
+-- /See:/ 'newGetTagsResponse' smart constructor.
 data GetTagsResponse = GetTagsResponse'
-  { _gtrrsTags ::
-      !(Maybe (Map Text Text)),
-    _gtrrsResponseStatus :: !Int
+  { -- | The collection of tags. Each tag element is associated with a given
+    -- resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrrsTags' - The collection of tags. Each tag element is associated with a given resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrrsResponseStatus' - -- | The response status code.
-getTagsResponse ::
-  -- | 'gtrrsResponseStatus'
-  Int ->
+-- 'tags', 'getTagsResponse_tags' - The collection of tags. Each tag element is associated with a given
+-- resource.
+--
+-- 'httpStatus', 'getTagsResponse_httpStatus' - The response's http status code.
+newGetTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTagsResponse
-getTagsResponse pResponseStatus_ =
+newGetTagsResponse pHttpStatus_ =
   GetTagsResponse'
-    { _gtrrsTags = Nothing,
-      _gtrrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The collection of tags. Each tag element is associated with a given resource.
-gtrrsTags :: Lens' GetTagsResponse (HashMap Text Text)
-gtrrsTags = lens _gtrrsTags (\s a -> s {_gtrrsTags = a}) . _Default . _Map
+-- | The collection of tags. Each tag element is associated with a given
+-- resource.
+getTagsResponse_tags :: Lens.Lens' GetTagsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getTagsResponse_tags = Lens.lens (\GetTagsResponse' {tags} -> tags) (\s@GetTagsResponse' {} a -> s {tags = a} :: GetTagsResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gtrrsResponseStatus :: Lens' GetTagsResponse Int
-gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+-- | The response's http status code.
+getTagsResponse_httpStatus :: Lens.Lens' GetTagsResponse Prelude.Int
+getTagsResponse_httpStatus = Lens.lens (\GetTagsResponse' {httpStatus} -> httpStatus) (\s@GetTagsResponse' {} a -> s {httpStatus = a} :: GetTagsResponse)
 
-instance NFData GetTagsResponse
+instance Prelude.NFData GetTagsResponse

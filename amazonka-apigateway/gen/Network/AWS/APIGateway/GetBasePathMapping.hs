@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,96 +21,116 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describe a 'BasePathMapping' resource.
+-- Describe a BasePathMapping resource.
 module Network.AWS.APIGateway.GetBasePathMapping
   ( -- * Creating a Request
-    getBasePathMapping,
-    GetBasePathMapping,
+    GetBasePathMapping (..),
+    newGetBasePathMapping,
 
     -- * Request Lenses
-    gDomainName,
-    gBasePath,
+    getBasePathMapping_domainName,
+    getBasePathMapping_basePath,
 
     -- * Destructuring the Response
-    basePathMapping,
-    BasePathMapping,
+    BasePathMapping (..),
+    newBasePathMapping,
 
     -- * Response Lenses
-    bpmBasePath,
-    bpmStage,
-    bpmRestAPIId,
+    basePathMapping_basePath,
+    basePathMapping_stage,
+    basePathMapping_restApiId,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.BasePathMapping
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to describe a 'BasePathMapping' resource.
+-- | Request to describe a BasePathMapping resource.
 --
---
---
--- /See:/ 'getBasePathMapping' smart constructor.
+-- /See:/ 'newGetBasePathMapping' smart constructor.
 data GetBasePathMapping = GetBasePathMapping'
-  { _gDomainName ::
-      !Text,
-    _gBasePath :: !Text
+  { -- | [Required] The domain name of the BasePathMapping resource to be
+    -- described.
+    domainName :: Prelude.Text,
+    -- | [Required] The base path name that callers of the API must provide as
+    -- part of the URL after the domain name. This value must be unique for all
+    -- of the mappings across a single API. Specify \'(none)\' if you do not
+    -- want callers to specify any base path name after the domain name.
+    basePath :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBasePathMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBasePathMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gDomainName' - [Required] The domain name of the 'BasePathMapping' resource to be described.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gBasePath' - [Required] The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify any base path name after the domain name.
-getBasePathMapping ::
-  -- | 'gDomainName'
-  Text ->
-  -- | 'gBasePath'
-  Text ->
+-- 'domainName', 'getBasePathMapping_domainName' - [Required] The domain name of the BasePathMapping resource to be
+-- described.
+--
+-- 'basePath', 'getBasePathMapping_basePath' - [Required] The base path name that callers of the API must provide as
+-- part of the URL after the domain name. This value must be unique for all
+-- of the mappings across a single API. Specify \'(none)\' if you do not
+-- want callers to specify any base path name after the domain name.
+newGetBasePathMapping ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'basePath'
+  Prelude.Text ->
   GetBasePathMapping
-getBasePathMapping pDomainName_ pBasePath_ =
+newGetBasePathMapping pDomainName_ pBasePath_ =
   GetBasePathMapping'
-    { _gDomainName = pDomainName_,
-      _gBasePath = pBasePath_
+    { domainName = pDomainName_,
+      basePath = pBasePath_
     }
 
--- | [Required] The domain name of the 'BasePathMapping' resource to be described.
-gDomainName :: Lens' GetBasePathMapping Text
-gDomainName = lens _gDomainName (\s a -> s {_gDomainName = a})
+-- | [Required] The domain name of the BasePathMapping resource to be
+-- described.
+getBasePathMapping_domainName :: Lens.Lens' GetBasePathMapping Prelude.Text
+getBasePathMapping_domainName = Lens.lens (\GetBasePathMapping' {domainName} -> domainName) (\s@GetBasePathMapping' {} a -> s {domainName = a} :: GetBasePathMapping)
 
--- | [Required] The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Specify '(none)' if you do not want callers to specify any base path name after the domain name.
-gBasePath :: Lens' GetBasePathMapping Text
-gBasePath = lens _gBasePath (\s a -> s {_gBasePath = a})
+-- | [Required] The base path name that callers of the API must provide as
+-- part of the URL after the domain name. This value must be unique for all
+-- of the mappings across a single API. Specify \'(none)\' if you do not
+-- want callers to specify any base path name after the domain name.
+getBasePathMapping_basePath :: Lens.Lens' GetBasePathMapping Prelude.Text
+getBasePathMapping_basePath = Lens.lens (\GetBasePathMapping' {basePath} -> basePath) (\s@GetBasePathMapping' {} a -> s {basePath = a} :: GetBasePathMapping)
 
-instance AWSRequest GetBasePathMapping where
+instance Prelude.AWSRequest GetBasePathMapping where
   type Rs GetBasePathMapping = BasePathMapping
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetBasePathMapping
+instance Prelude.Hashable GetBasePathMapping
 
-instance NFData GetBasePathMapping
+instance Prelude.NFData GetBasePathMapping
 
-instance ToHeaders GetBasePathMapping where
+instance Prelude.ToHeaders GetBasePathMapping where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetBasePathMapping where
+instance Prelude.ToPath GetBasePathMapping where
   toPath GetBasePathMapping' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/domainnames/",
-        toBS _gDomainName,
+        Prelude.toBS domainName,
         "/basepathmappings/",
-        toBS _gBasePath
+        Prelude.toBS basePath
       ]
 
-instance ToQuery GetBasePathMapping where
-  toQuery = const mempty
+instance Prelude.ToQuery GetBasePathMapping where
+  toQuery = Prelude.const Prelude.mempty

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,138 +24,162 @@
 -- Represents an update integration.
 module Network.AWS.APIGateway.UpdateIntegration
   ( -- * Creating a Request
-    updateIntegration,
-    UpdateIntegration,
+    UpdateIntegration (..),
+    newUpdateIntegration,
 
     -- * Request Lenses
-    uiPatchOperations,
-    uiRestAPIId,
-    uiResourceId,
-    uiHttpMethod,
+    updateIntegration_patchOperations,
+    updateIntegration_restApiId,
+    updateIntegration_resourceId,
+    updateIntegration_httpMethod,
 
     -- * Destructuring the Response
-    integration,
-    Integration,
+    Integration (..),
+    newIntegration,
 
     -- * Response Lenses
-    iHttpMethod,
-    iPassthroughBehavior,
-    iContentHandling,
-    iUri,
-    iConnectionType,
-    iConnectionId,
-    iRequestTemplates,
-    iTimeoutInMillis,
-    iCacheNamespace,
-    iCacheKeyParameters,
-    iTlsConfig,
-    iIntegrationResponses,
-    iRequestParameters,
-    iType,
-    iCredentials,
+    integration_httpMethod,
+    integration_passthroughBehavior,
+    integration_contentHandling,
+    integration_uri,
+    integration_connectionType,
+    integration_connectionId,
+    integration_requestTemplates,
+    integration_timeoutInMillis,
+    integration_cacheNamespace,
+    integration_cacheKeyParameters,
+    integration_tlsConfig,
+    integration_integrationResponses,
+    integration_requestParameters,
+    integration_type,
+    integration_credentials,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.ConnectionType
+import Network.AWS.APIGateway.Types.ContentHandlingStrategy
+import Network.AWS.APIGateway.Types.Integration
+import Network.AWS.APIGateway.Types.IntegrationResponse
+import Network.AWS.APIGateway.Types.IntegrationType
+import Network.AWS.APIGateway.Types.TlsConfig
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents an update integration request.
 --
---
---
--- /See:/ 'updateIntegration' smart constructor.
+-- /See:/ 'newUpdateIntegration' smart constructor.
 data UpdateIntegration = UpdateIntegration'
-  { _uiPatchOperations ::
-      !(Maybe [PatchOperation]),
-    _uiRestAPIId :: !Text,
-    _uiResourceId :: !Text,
-    _uiHttpMethod :: !Text
+  { -- | A list of update operations to be applied to the specified resource and
+    -- in the order specified in this list.
+    patchOperations :: Prelude.Maybe [PatchOperation],
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] Represents an update integration request\'s resource
+    -- identifier.
+    resourceId :: Prelude.Text,
+    -- | [Required] Represents an update integration request\'s HTTP method.
+    httpMethod :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateIntegration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateIntegration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uiPatchOperations' - A list of update operations to be applied to the specified resource and in the order specified in this list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uiRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'patchOperations', 'updateIntegration_patchOperations' - A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
 --
--- * 'uiResourceId' - [Required] Represents an update integration request's resource identifier.
+-- 'restApiId', 'updateIntegration_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'uiHttpMethod' - [Required] Represents an update integration request's HTTP method.
-updateIntegration ::
-  -- | 'uiRestAPIId'
-  Text ->
-  -- | 'uiResourceId'
-  Text ->
-  -- | 'uiHttpMethod'
-  Text ->
+-- 'resourceId', 'updateIntegration_resourceId' - [Required] Represents an update integration request\'s resource
+-- identifier.
+--
+-- 'httpMethod', 'updateIntegration_httpMethod' - [Required] Represents an update integration request\'s HTTP method.
+newUpdateIntegration ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'httpMethod'
+  Prelude.Text ->
   UpdateIntegration
-updateIntegration
-  pRestAPIId_
+newUpdateIntegration
+  pRestApiId_
   pResourceId_
   pHttpMethod_ =
     UpdateIntegration'
-      { _uiPatchOperations = Nothing,
-        _uiRestAPIId = pRestAPIId_,
-        _uiResourceId = pResourceId_,
-        _uiHttpMethod = pHttpMethod_
+      { patchOperations =
+          Prelude.Nothing,
+        restApiId = pRestApiId_,
+        resourceId = pResourceId_,
+        httpMethod = pHttpMethod_
       }
 
--- | A list of update operations to be applied to the specified resource and in the order specified in this list.
-uiPatchOperations :: Lens' UpdateIntegration [PatchOperation]
-uiPatchOperations = lens _uiPatchOperations (\s a -> s {_uiPatchOperations = a}) . _Default . _Coerce
+-- | A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
+updateIntegration_patchOperations :: Lens.Lens' UpdateIntegration (Prelude.Maybe [PatchOperation])
+updateIntegration_patchOperations = Lens.lens (\UpdateIntegration' {patchOperations} -> patchOperations) (\s@UpdateIntegration' {} a -> s {patchOperations = a} :: UpdateIntegration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | [Required] The string identifier of the associated 'RestApi' .
-uiRestAPIId :: Lens' UpdateIntegration Text
-uiRestAPIId = lens _uiRestAPIId (\s a -> s {_uiRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+updateIntegration_restApiId :: Lens.Lens' UpdateIntegration Prelude.Text
+updateIntegration_restApiId = Lens.lens (\UpdateIntegration' {restApiId} -> restApiId) (\s@UpdateIntegration' {} a -> s {restApiId = a} :: UpdateIntegration)
 
--- | [Required] Represents an update integration request's resource identifier.
-uiResourceId :: Lens' UpdateIntegration Text
-uiResourceId = lens _uiResourceId (\s a -> s {_uiResourceId = a})
+-- | [Required] Represents an update integration request\'s resource
+-- identifier.
+updateIntegration_resourceId :: Lens.Lens' UpdateIntegration Prelude.Text
+updateIntegration_resourceId = Lens.lens (\UpdateIntegration' {resourceId} -> resourceId) (\s@UpdateIntegration' {} a -> s {resourceId = a} :: UpdateIntegration)
 
--- | [Required] Represents an update integration request's HTTP method.
-uiHttpMethod :: Lens' UpdateIntegration Text
-uiHttpMethod = lens _uiHttpMethod (\s a -> s {_uiHttpMethod = a})
+-- | [Required] Represents an update integration request\'s HTTP method.
+updateIntegration_httpMethod :: Lens.Lens' UpdateIntegration Prelude.Text
+updateIntegration_httpMethod = Lens.lens (\UpdateIntegration' {httpMethod} -> httpMethod) (\s@UpdateIntegration' {} a -> s {httpMethod = a} :: UpdateIntegration)
 
-instance AWSRequest UpdateIntegration where
+instance Prelude.AWSRequest UpdateIntegration where
   type Rs UpdateIntegration = Integration
-  request = patchJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.patchJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateIntegration
+instance Prelude.Hashable UpdateIntegration
 
-instance NFData UpdateIntegration
+instance Prelude.NFData UpdateIntegration
 
-instance ToHeaders UpdateIntegration where
+instance Prelude.ToHeaders UpdateIntegration where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToJSON UpdateIntegration where
+instance Prelude.ToJSON UpdateIntegration where
   toJSON UpdateIntegration' {..} =
-    object
-      ( catMaybes
-          [("patchOperations" .=) <$> _uiPatchOperations]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("patchOperations" Prelude..=)
+              Prelude.<$> patchOperations
+          ]
       )
 
-instance ToPath UpdateIntegration where
+instance Prelude.ToPath UpdateIntegration where
   toPath UpdateIntegration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _uiRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _uiResourceId,
+        Prelude.toBS resourceId,
         "/methods/",
-        toBS _uiHttpMethod,
+        Prelude.toBS httpMethod,
         "/integration"
       ]
 
-instance ToQuery UpdateIntegration where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateIntegration where
+  toQuery = Prelude.const Prelude.mempty

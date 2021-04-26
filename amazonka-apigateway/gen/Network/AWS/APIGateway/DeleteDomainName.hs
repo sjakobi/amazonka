@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,91 +21,96 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the 'DomainName' resource.
+-- Deletes the DomainName resource.
 module Network.AWS.APIGateway.DeleteDomainName
   ( -- * Creating a Request
-    deleteDomainName,
-    DeleteDomainName,
+    DeleteDomainName (..),
+    newDeleteDomainName,
 
     -- * Request Lenses
-    ddnDomainName,
+    deleteDomainName_domainName,
 
     -- * Destructuring the Response
-    deleteDomainNameResponse,
-    DeleteDomainNameResponse,
+    DeleteDomainNameResponse (..),
+    newDeleteDomainNameResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | A request to delete the 'DomainName' resource.
+-- | A request to delete the DomainName resource.
 --
---
---
--- /See:/ 'deleteDomainName' smart constructor.
-newtype DeleteDomainName = DeleteDomainName'
-  { _ddnDomainName ::
-      Text
+-- /See:/ 'newDeleteDomainName' smart constructor.
+data DeleteDomainName = DeleteDomainName'
+  { -- | [Required] The name of the DomainName resource to be deleted.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDomainName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDomainName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddnDomainName' - [Required] The name of the 'DomainName' resource to be deleted.
-deleteDomainName ::
-  -- | 'ddnDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'deleteDomainName_domainName' - [Required] The name of the DomainName resource to be deleted.
+newDeleteDomainName ::
+  -- | 'domainName'
+  Prelude.Text ->
   DeleteDomainName
-deleteDomainName pDomainName_ =
-  DeleteDomainName' {_ddnDomainName = pDomainName_}
+newDeleteDomainName pDomainName_ =
+  DeleteDomainName' {domainName = pDomainName_}
 
--- | [Required] The name of the 'DomainName' resource to be deleted.
-ddnDomainName :: Lens' DeleteDomainName Text
-ddnDomainName = lens _ddnDomainName (\s a -> s {_ddnDomainName = a})
+-- | [Required] The name of the DomainName resource to be deleted.
+deleteDomainName_domainName :: Lens.Lens' DeleteDomainName Prelude.Text
+deleteDomainName_domainName = Lens.lens (\DeleteDomainName' {domainName} -> domainName) (\s@DeleteDomainName' {} a -> s {domainName = a} :: DeleteDomainName)
 
-instance AWSRequest DeleteDomainName where
+instance Prelude.AWSRequest DeleteDomainName where
   type Rs DeleteDomainName = DeleteDomainNameResponse
-  request = delete apiGateway
-  response = receiveNull DeleteDomainNameResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteDomainNameResponse'
 
-instance Hashable DeleteDomainName
+instance Prelude.Hashable DeleteDomainName
 
-instance NFData DeleteDomainName
+instance Prelude.NFData DeleteDomainName
 
-instance ToHeaders DeleteDomainName where
+instance Prelude.ToHeaders DeleteDomainName where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteDomainName where
+instance Prelude.ToPath DeleteDomainName where
   toPath DeleteDomainName' {..} =
-    mconcat ["/domainnames/", toBS _ddnDomainName]
+    Prelude.mconcat
+      ["/domainnames/", Prelude.toBS domainName]
 
-instance ToQuery DeleteDomainName where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDomainName where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDomainNameResponse' smart constructor.
+-- | /See:/ 'newDeleteDomainNameResponse' smart constructor.
 data DeleteDomainNameResponse = DeleteDomainNameResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDomainNameResponse' with the minimum fields required to make a request.
-deleteDomainNameResponse ::
+-- |
+-- Create a value of 'DeleteDomainNameResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteDomainNameResponse ::
   DeleteDomainNameResponse
-deleteDomainNameResponse = DeleteDomainNameResponse'
+newDeleteDomainNameResponse =
+  DeleteDomainNameResponse'
 
-instance NFData DeleteDomainNameResponse
+instance Prelude.NFData DeleteDomainNameResponse

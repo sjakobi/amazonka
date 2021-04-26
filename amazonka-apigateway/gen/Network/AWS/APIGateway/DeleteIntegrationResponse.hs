@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,151 +24,157 @@
 -- Represents a delete integration response.
 module Network.AWS.APIGateway.DeleteIntegrationResponse
   ( -- * Creating a Request
-    deleteIntegrationResponse,
-    DeleteIntegrationResponse,
+    DeleteIntegrationResponse (..),
+    newDeleteIntegrationResponse,
 
     -- * Request Lenses
-    dirRestAPIId,
-    dirResourceId,
-    dirHttpMethod,
-    dirStatusCode,
+    deleteIntegrationResponse_restApiId,
+    deleteIntegrationResponse_resourceId,
+    deleteIntegrationResponse_httpMethod,
+    deleteIntegrationResponse_statusCode,
 
     -- * Destructuring the Response
-    deleteIntegrationResponseResponse,
-    DeleteIntegrationResponseResponse,
+    DeleteIntegrationResponseResponse (..),
+    newDeleteIntegrationResponseResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents a delete integration response request.
 --
---
---
--- /See:/ 'deleteIntegrationResponse' smart constructor.
+-- /See:/ 'newDeleteIntegrationResponse' smart constructor.
 data DeleteIntegrationResponse = DeleteIntegrationResponse'
-  { _dirRestAPIId ::
-      !Text,
-    _dirResourceId ::
-      !Text,
-    _dirHttpMethod ::
-      !Text,
-    _dirStatusCode ::
-      !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] Specifies a delete integration response request\'s resource
+    -- identifier.
+    resourceId :: Prelude.Text,
+    -- | [Required] Specifies a delete integration response request\'s HTTP
+    -- method.
+    httpMethod :: Prelude.Text,
+    -- | [Required] Specifies a delete integration response request\'s status
+    -- code.
+    statusCode :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIntegrationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIntegrationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dirResourceId' - [Required] Specifies a delete integration response request's resource identifier.
+-- 'restApiId', 'deleteIntegrationResponse_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'dirHttpMethod' - [Required] Specifies a delete integration response request's HTTP method.
+-- 'resourceId', 'deleteIntegrationResponse_resourceId' - [Required] Specifies a delete integration response request\'s resource
+-- identifier.
 --
--- * 'dirStatusCode' - [Required] Specifies a delete integration response request's status code.
-deleteIntegrationResponse ::
-  -- | 'dirRestAPIId'
-  Text ->
-  -- | 'dirResourceId'
-  Text ->
-  -- | 'dirHttpMethod'
-  Text ->
-  -- | 'dirStatusCode'
-  Text ->
+-- 'httpMethod', 'deleteIntegrationResponse_httpMethod' - [Required] Specifies a delete integration response request\'s HTTP
+-- method.
+--
+-- 'statusCode', 'deleteIntegrationResponse_statusCode' - [Required] Specifies a delete integration response request\'s status
+-- code.
+newDeleteIntegrationResponse ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'httpMethod'
+  Prelude.Text ->
+  -- | 'statusCode'
+  Prelude.Text ->
   DeleteIntegrationResponse
-deleteIntegrationResponse
-  pRestAPIId_
+newDeleteIntegrationResponse
+  pRestApiId_
   pResourceId_
   pHttpMethod_
   pStatusCode_ =
     DeleteIntegrationResponse'
-      { _dirRestAPIId =
-          pRestAPIId_,
-        _dirResourceId = pResourceId_,
-        _dirHttpMethod = pHttpMethod_,
-        _dirStatusCode = pStatusCode_
+      { restApiId = pRestApiId_,
+        resourceId = pResourceId_,
+        httpMethod = pHttpMethod_,
+        statusCode = pStatusCode_
       }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-dirRestAPIId :: Lens' DeleteIntegrationResponse Text
-dirRestAPIId = lens _dirRestAPIId (\s a -> s {_dirRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+deleteIntegrationResponse_restApiId :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
+deleteIntegrationResponse_restApiId = Lens.lens (\DeleteIntegrationResponse' {restApiId} -> restApiId) (\s@DeleteIntegrationResponse' {} a -> s {restApiId = a} :: DeleteIntegrationResponse)
 
--- | [Required] Specifies a delete integration response request's resource identifier.
-dirResourceId :: Lens' DeleteIntegrationResponse Text
-dirResourceId = lens _dirResourceId (\s a -> s {_dirResourceId = a})
+-- | [Required] Specifies a delete integration response request\'s resource
+-- identifier.
+deleteIntegrationResponse_resourceId :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
+deleteIntegrationResponse_resourceId = Lens.lens (\DeleteIntegrationResponse' {resourceId} -> resourceId) (\s@DeleteIntegrationResponse' {} a -> s {resourceId = a} :: DeleteIntegrationResponse)
 
--- | [Required] Specifies a delete integration response request's HTTP method.
-dirHttpMethod :: Lens' DeleteIntegrationResponse Text
-dirHttpMethod = lens _dirHttpMethod (\s a -> s {_dirHttpMethod = a})
+-- | [Required] Specifies a delete integration response request\'s HTTP
+-- method.
+deleteIntegrationResponse_httpMethod :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
+deleteIntegrationResponse_httpMethod = Lens.lens (\DeleteIntegrationResponse' {httpMethod} -> httpMethod) (\s@DeleteIntegrationResponse' {} a -> s {httpMethod = a} :: DeleteIntegrationResponse)
 
--- | [Required] Specifies a delete integration response request's status code.
-dirStatusCode :: Lens' DeleteIntegrationResponse Text
-dirStatusCode = lens _dirStatusCode (\s a -> s {_dirStatusCode = a})
+-- | [Required] Specifies a delete integration response request\'s status
+-- code.
+deleteIntegrationResponse_statusCode :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
+deleteIntegrationResponse_statusCode = Lens.lens (\DeleteIntegrationResponse' {statusCode} -> statusCode) (\s@DeleteIntegrationResponse' {} a -> s {statusCode = a} :: DeleteIntegrationResponse)
 
-instance AWSRequest DeleteIntegrationResponse where
+instance Prelude.AWSRequest DeleteIntegrationResponse where
   type
     Rs DeleteIntegrationResponse =
       DeleteIntegrationResponseResponse
-  request = delete apiGateway
+  request = Request.delete defaultService
   response =
-    receiveNull DeleteIntegrationResponseResponse'
+    Response.receiveNull
+      DeleteIntegrationResponseResponse'
 
-instance Hashable DeleteIntegrationResponse
+instance Prelude.Hashable DeleteIntegrationResponse
 
-instance NFData DeleteIntegrationResponse
+instance Prelude.NFData DeleteIntegrationResponse
 
-instance ToHeaders DeleteIntegrationResponse where
+instance Prelude.ToHeaders DeleteIntegrationResponse where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteIntegrationResponse where
+instance Prelude.ToPath DeleteIntegrationResponse where
   toPath DeleteIntegrationResponse' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _dirRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _dirResourceId,
+        Prelude.toBS resourceId,
         "/methods/",
-        toBS _dirHttpMethod,
+        Prelude.toBS httpMethod,
         "/integration/responses/",
-        toBS _dirStatusCode
+        Prelude.toBS statusCode
       ]
 
-instance ToQuery DeleteIntegrationResponse where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteIntegrationResponse where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteIntegrationResponseResponse' smart constructor.
+-- | /See:/ 'newDeleteIntegrationResponseResponse' smart constructor.
 data DeleteIntegrationResponseResponse = DeleteIntegrationResponseResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIntegrationResponseResponse' with the minimum fields required to make a request.
-deleteIntegrationResponseResponse ::
+-- |
+-- Create a value of 'DeleteIntegrationResponseResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteIntegrationResponseResponse ::
   DeleteIntegrationResponseResponse
-deleteIntegrationResponseResponse =
+newDeleteIntegrationResponseResponse =
   DeleteIntegrationResponseResponse'
 
-instance NFData DeleteIntegrationResponseResponse
+instance
+  Prelude.NFData
+    DeleteIntegrationResponseResponse

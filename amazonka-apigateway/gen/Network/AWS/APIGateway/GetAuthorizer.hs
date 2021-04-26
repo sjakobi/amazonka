@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,114 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describe an existing 'Authorizer' resource.
---
+-- Describe an existing Authorizer resource.
 --
 -- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html AWS CLI>
 module Network.AWS.APIGateway.GetAuthorizer
   ( -- * Creating a Request
-    getAuthorizer,
-    GetAuthorizer,
+    GetAuthorizer (..),
+    newGetAuthorizer,
 
     -- * Request Lenses
-    gaRestAPIId,
-    gaAuthorizerId,
+    getAuthorizer_restApiId,
+    getAuthorizer_authorizerId,
 
     -- * Destructuring the Response
-    authorizer,
-    Authorizer,
+    Authorizer (..),
+    newAuthorizer,
 
     -- * Response Lenses
-    aIdentityValidationExpression,
-    aAuthorizerCredentials,
-    aId,
-    aName,
-    aProviderARNs,
-    aAuthorizerURI,
-    aIdentitySource,
-    aType,
-    aAuthType,
-    aAuthorizerResultTtlInSeconds,
+    authorizer_identityValidationExpression,
+    authorizer_authorizerCredentials,
+    authorizer_id,
+    authorizer_name,
+    authorizer_providerARNs,
+    authorizer_authorizerUri,
+    authorizer_identitySource,
+    authorizer_type,
+    authorizer_authType,
+    authorizer_authorizerResultTtlInSeconds,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Authorizer
+import Network.AWS.APIGateway.Types.AuthorizerType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to describe an existing 'Authorizer' resource.
+-- | Request to describe an existing Authorizer resource.
 --
---
---
--- /See:/ 'getAuthorizer' smart constructor.
+-- /See:/ 'newGetAuthorizer' smart constructor.
 data GetAuthorizer = GetAuthorizer'
-  { _gaRestAPIId ::
-      !Text,
-    _gaAuthorizerId :: !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The identifier of the Authorizer resource.
+    authorizerId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAuthorizer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAuthorizer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaAuthorizerId' - [Required] The identifier of the 'Authorizer' resource.
-getAuthorizer ::
-  -- | 'gaRestAPIId'
-  Text ->
-  -- | 'gaAuthorizerId'
-  Text ->
+-- 'restApiId', 'getAuthorizer_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'authorizerId', 'getAuthorizer_authorizerId' - [Required] The identifier of the Authorizer resource.
+newGetAuthorizer ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'authorizerId'
+  Prelude.Text ->
   GetAuthorizer
-getAuthorizer pRestAPIId_ pAuthorizerId_ =
+newGetAuthorizer pRestApiId_ pAuthorizerId_ =
   GetAuthorizer'
-    { _gaRestAPIId = pRestAPIId_,
-      _gaAuthorizerId = pAuthorizerId_
+    { restApiId = pRestApiId_,
+      authorizerId = pAuthorizerId_
     }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-gaRestAPIId :: Lens' GetAuthorizer Text
-gaRestAPIId = lens _gaRestAPIId (\s a -> s {_gaRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getAuthorizer_restApiId :: Lens.Lens' GetAuthorizer Prelude.Text
+getAuthorizer_restApiId = Lens.lens (\GetAuthorizer' {restApiId} -> restApiId) (\s@GetAuthorizer' {} a -> s {restApiId = a} :: GetAuthorizer)
 
--- | [Required] The identifier of the 'Authorizer' resource.
-gaAuthorizerId :: Lens' GetAuthorizer Text
-gaAuthorizerId = lens _gaAuthorizerId (\s a -> s {_gaAuthorizerId = a})
+-- | [Required] The identifier of the Authorizer resource.
+getAuthorizer_authorizerId :: Lens.Lens' GetAuthorizer Prelude.Text
+getAuthorizer_authorizerId = Lens.lens (\GetAuthorizer' {authorizerId} -> authorizerId) (\s@GetAuthorizer' {} a -> s {authorizerId = a} :: GetAuthorizer)
 
-instance AWSRequest GetAuthorizer where
+instance Prelude.AWSRequest GetAuthorizer where
   type Rs GetAuthorizer = Authorizer
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetAuthorizer
+instance Prelude.Hashable GetAuthorizer
 
-instance NFData GetAuthorizer
+instance Prelude.NFData GetAuthorizer
 
-instance ToHeaders GetAuthorizer where
+instance Prelude.ToHeaders GetAuthorizer where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetAuthorizer where
+instance Prelude.ToPath GetAuthorizer where
   toPath GetAuthorizer' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _gaRestAPIId,
+        Prelude.toBS restApiId,
         "/authorizers/",
-        toBS _gaAuthorizerId
+        Prelude.toBS authorizerId
       ]
 
-instance ToQuery GetAuthorizer where
-  toQuery = const mempty
+instance Prelude.ToQuery GetAuthorizer where
+  toQuery = Prelude.const Prelude.mempty

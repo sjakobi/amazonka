@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,212 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a 'Deployment' resource, which makes a specified 'RestApi' callable over the internet.
+-- Creates a Deployment resource, which makes a specified RestApi callable
+-- over the internet.
 module Network.AWS.APIGateway.CreateDeployment
   ( -- * Creating a Request
-    createDeployment,
-    CreateDeployment,
+    CreateDeployment (..),
+    newCreateDeployment,
 
     -- * Request Lenses
-    cdTracingEnabled,
-    cdCacheClusterEnabled,
-    cdStageName,
-    cdVariables,
-    cdStageDescription,
-    cdDescription,
-    cdCanarySettings,
-    cdCacheClusterSize,
-    cdRestAPIId,
+    createDeployment_tracingEnabled,
+    createDeployment_cacheClusterEnabled,
+    createDeployment_stageName,
+    createDeployment_variables,
+    createDeployment_stageDescription,
+    createDeployment_description,
+    createDeployment_canarySettings,
+    createDeployment_cacheClusterSize,
+    createDeployment_restApiId,
 
     -- * Destructuring the Response
-    deployment,
-    Deployment,
+    Deployment (..),
+    newDeployment,
 
     -- * Response Lenses
-    dCreatedDate,
-    dId,
-    dApiSummary,
-    dDescription,
+    deployment_createdDate,
+    deployment_id,
+    deployment_apiSummary,
+    deployment_description,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Deployment
+import Network.AWS.APIGateway.Types.MethodSnapshot
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Requests API Gateway to create a 'Deployment' resource.
+-- | Requests API Gateway to create a Deployment resource.
 --
---
---
--- /See:/ 'createDeployment' smart constructor.
+-- /See:/ 'newCreateDeployment' smart constructor.
 data CreateDeployment = CreateDeployment'
-  { _cdTracingEnabled ::
-      !(Maybe Bool),
-    _cdCacheClusterEnabled ::
-      !(Maybe Bool),
-    _cdStageName :: !(Maybe Text),
-    _cdVariables ::
-      !(Maybe (Map Text Text)),
-    _cdStageDescription :: !(Maybe Text),
-    _cdDescription :: !(Maybe Text),
-    _cdCanarySettings ::
-      !(Maybe DeploymentCanarySettings),
-    _cdCacheClusterSize ::
-      !(Maybe CacheClusterSize),
-    _cdRestAPIId :: !Text
+  { -- | Specifies whether active tracing with X-ray is enabled for the Stage.
+    tracingEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Enables a cache cluster for the Stage resource specified in the input.
+    cacheClusterEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the Stage resource for the Deployment resource to create.
+    stageName :: Prelude.Maybe Prelude.Text,
+    -- | A map that defines the stage variables for the Stage resource that is
+    -- associated with the new deployment. Variable names can have alphanumeric
+    -- and underscore characters, and the values must match
+    -- @[A-Za-z0-9-._~:\/?#&=,]+@.
+    variables :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description of the Stage resource for the Deployment resource to
+    -- create.
+    stageDescription :: Prelude.Maybe Prelude.Text,
+    -- | The description for the Deployment resource to create.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The input configuration for the canary deployment when the deployment is
+    -- a canary release deployment.
+    canarySettings :: Prelude.Maybe DeploymentCanarySettings,
+    -- | Specifies the cache cluster size for the Stage resource specified in the
+    -- input, if a cache cluster is enabled.
+    cacheClusterSize :: Prelude.Maybe CacheClusterSize,
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDeployment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDeployment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdTracingEnabled' - Specifies whether active tracing with X-ray is enabled for the 'Stage' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdCacheClusterEnabled' - Enables a cache cluster for the 'Stage' resource specified in the input.
+-- 'tracingEnabled', 'createDeployment_tracingEnabled' - Specifies whether active tracing with X-ray is enabled for the Stage.
 --
--- * 'cdStageName' - The name of the 'Stage' resource for the 'Deployment' resource to create.
+-- 'cacheClusterEnabled', 'createDeployment_cacheClusterEnabled' - Enables a cache cluster for the Stage resource specified in the input.
 --
--- * 'cdVariables' - A map that defines the stage variables for the 'Stage' resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match @[A-Za-z0-9-._~:/?#&=,]+@ .
+-- 'stageName', 'createDeployment_stageName' - The name of the Stage resource for the Deployment resource to create.
 --
--- * 'cdStageDescription' - The description of the 'Stage' resource for the 'Deployment' resource to create.
+-- 'variables', 'createDeployment_variables' - A map that defines the stage variables for the Stage resource that is
+-- associated with the new deployment. Variable names can have alphanumeric
+-- and underscore characters, and the values must match
+-- @[A-Za-z0-9-._~:\/?#&=,]+@.
 --
--- * 'cdDescription' - The description for the 'Deployment' resource to create.
+-- 'stageDescription', 'createDeployment_stageDescription' - The description of the Stage resource for the Deployment resource to
+-- create.
 --
--- * 'cdCanarySettings' - The input configuration for the canary deployment when the deployment is a canary release deployment.
+-- 'description', 'createDeployment_description' - The description for the Deployment resource to create.
 --
--- * 'cdCacheClusterSize' - Specifies the cache cluster size for the 'Stage' resource specified in the input, if a cache cluster is enabled.
+-- 'canarySettings', 'createDeployment_canarySettings' - The input configuration for the canary deployment when the deployment is
+-- a canary release deployment.
 --
--- * 'cdRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
-createDeployment ::
-  -- | 'cdRestAPIId'
-  Text ->
+-- 'cacheClusterSize', 'createDeployment_cacheClusterSize' - Specifies the cache cluster size for the Stage resource specified in the
+-- input, if a cache cluster is enabled.
+--
+-- 'restApiId', 'createDeployment_restApiId' - [Required] The string identifier of the associated RestApi.
+newCreateDeployment ::
+  -- | 'restApiId'
+  Prelude.Text ->
   CreateDeployment
-createDeployment pRestAPIId_ =
+newCreateDeployment pRestApiId_ =
   CreateDeployment'
-    { _cdTracingEnabled = Nothing,
-      _cdCacheClusterEnabled = Nothing,
-      _cdStageName = Nothing,
-      _cdVariables = Nothing,
-      _cdStageDescription = Nothing,
-      _cdDescription = Nothing,
-      _cdCanarySettings = Nothing,
-      _cdCacheClusterSize = Nothing,
-      _cdRestAPIId = pRestAPIId_
+    { tracingEnabled = Prelude.Nothing,
+      cacheClusterEnabled = Prelude.Nothing,
+      stageName = Prelude.Nothing,
+      variables = Prelude.Nothing,
+      stageDescription = Prelude.Nothing,
+      description = Prelude.Nothing,
+      canarySettings = Prelude.Nothing,
+      cacheClusterSize = Prelude.Nothing,
+      restApiId = pRestApiId_
     }
 
--- | Specifies whether active tracing with X-ray is enabled for the 'Stage' .
-cdTracingEnabled :: Lens' CreateDeployment (Maybe Bool)
-cdTracingEnabled = lens _cdTracingEnabled (\s a -> s {_cdTracingEnabled = a})
+-- | Specifies whether active tracing with X-ray is enabled for the Stage.
+createDeployment_tracingEnabled :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Bool)
+createDeployment_tracingEnabled = Lens.lens (\CreateDeployment' {tracingEnabled} -> tracingEnabled) (\s@CreateDeployment' {} a -> s {tracingEnabled = a} :: CreateDeployment)
 
--- | Enables a cache cluster for the 'Stage' resource specified in the input.
-cdCacheClusterEnabled :: Lens' CreateDeployment (Maybe Bool)
-cdCacheClusterEnabled = lens _cdCacheClusterEnabled (\s a -> s {_cdCacheClusterEnabled = a})
+-- | Enables a cache cluster for the Stage resource specified in the input.
+createDeployment_cacheClusterEnabled :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Bool)
+createDeployment_cacheClusterEnabled = Lens.lens (\CreateDeployment' {cacheClusterEnabled} -> cacheClusterEnabled) (\s@CreateDeployment' {} a -> s {cacheClusterEnabled = a} :: CreateDeployment)
 
--- | The name of the 'Stage' resource for the 'Deployment' resource to create.
-cdStageName :: Lens' CreateDeployment (Maybe Text)
-cdStageName = lens _cdStageName (\s a -> s {_cdStageName = a})
+-- | The name of the Stage resource for the Deployment resource to create.
+createDeployment_stageName :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Text)
+createDeployment_stageName = Lens.lens (\CreateDeployment' {stageName} -> stageName) (\s@CreateDeployment' {} a -> s {stageName = a} :: CreateDeployment)
 
--- | A map that defines the stage variables for the 'Stage' resource that is associated with the new deployment. Variable names can have alphanumeric and underscore characters, and the values must match @[A-Za-z0-9-._~:/?#&=,]+@ .
-cdVariables :: Lens' CreateDeployment (HashMap Text Text)
-cdVariables = lens _cdVariables (\s a -> s {_cdVariables = a}) . _Default . _Map
+-- | A map that defines the stage variables for the Stage resource that is
+-- associated with the new deployment. Variable names can have alphanumeric
+-- and underscore characters, and the values must match
+-- @[A-Za-z0-9-._~:\/?#&=,]+@.
+createDeployment_variables :: Lens.Lens' CreateDeployment (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createDeployment_variables = Lens.lens (\CreateDeployment' {variables} -> variables) (\s@CreateDeployment' {} a -> s {variables = a} :: CreateDeployment) Prelude.. Lens.mapping Prelude._Map
 
--- | The description of the 'Stage' resource for the 'Deployment' resource to create.
-cdStageDescription :: Lens' CreateDeployment (Maybe Text)
-cdStageDescription = lens _cdStageDescription (\s a -> s {_cdStageDescription = a})
+-- | The description of the Stage resource for the Deployment resource to
+-- create.
+createDeployment_stageDescription :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Text)
+createDeployment_stageDescription = Lens.lens (\CreateDeployment' {stageDescription} -> stageDescription) (\s@CreateDeployment' {} a -> s {stageDescription = a} :: CreateDeployment)
 
--- | The description for the 'Deployment' resource to create.
-cdDescription :: Lens' CreateDeployment (Maybe Text)
-cdDescription = lens _cdDescription (\s a -> s {_cdDescription = a})
+-- | The description for the Deployment resource to create.
+createDeployment_description :: Lens.Lens' CreateDeployment (Prelude.Maybe Prelude.Text)
+createDeployment_description = Lens.lens (\CreateDeployment' {description} -> description) (\s@CreateDeployment' {} a -> s {description = a} :: CreateDeployment)
 
--- | The input configuration for the canary deployment when the deployment is a canary release deployment.
-cdCanarySettings :: Lens' CreateDeployment (Maybe DeploymentCanarySettings)
-cdCanarySettings = lens _cdCanarySettings (\s a -> s {_cdCanarySettings = a})
+-- | The input configuration for the canary deployment when the deployment is
+-- a canary release deployment.
+createDeployment_canarySettings :: Lens.Lens' CreateDeployment (Prelude.Maybe DeploymentCanarySettings)
+createDeployment_canarySettings = Lens.lens (\CreateDeployment' {canarySettings} -> canarySettings) (\s@CreateDeployment' {} a -> s {canarySettings = a} :: CreateDeployment)
 
--- | Specifies the cache cluster size for the 'Stage' resource specified in the input, if a cache cluster is enabled.
-cdCacheClusterSize :: Lens' CreateDeployment (Maybe CacheClusterSize)
-cdCacheClusterSize = lens _cdCacheClusterSize (\s a -> s {_cdCacheClusterSize = a})
+-- | Specifies the cache cluster size for the Stage resource specified in the
+-- input, if a cache cluster is enabled.
+createDeployment_cacheClusterSize :: Lens.Lens' CreateDeployment (Prelude.Maybe CacheClusterSize)
+createDeployment_cacheClusterSize = Lens.lens (\CreateDeployment' {cacheClusterSize} -> cacheClusterSize) (\s@CreateDeployment' {} a -> s {cacheClusterSize = a} :: CreateDeployment)
 
--- | [Required] The string identifier of the associated 'RestApi' .
-cdRestAPIId :: Lens' CreateDeployment Text
-cdRestAPIId = lens _cdRestAPIId (\s a -> s {_cdRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+createDeployment_restApiId :: Lens.Lens' CreateDeployment Prelude.Text
+createDeployment_restApiId = Lens.lens (\CreateDeployment' {restApiId} -> restApiId) (\s@CreateDeployment' {} a -> s {restApiId = a} :: CreateDeployment)
 
-instance AWSRequest CreateDeployment where
+instance Prelude.AWSRequest CreateDeployment where
   type Rs CreateDeployment = Deployment
-  request = postJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable CreateDeployment
+instance Prelude.Hashable CreateDeployment
 
-instance NFData CreateDeployment
+instance Prelude.NFData CreateDeployment
 
-instance ToHeaders CreateDeployment where
+instance Prelude.ToHeaders CreateDeployment where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
-      )
-
-instance ToJSON CreateDeployment where
-  toJSON CreateDeployment' {..} =
-    object
-      ( catMaybes
-          [ ("tracingEnabled" .=) <$> _cdTracingEnabled,
-            ("cacheClusterEnabled" .=)
-              <$> _cdCacheClusterEnabled,
-            ("stageName" .=) <$> _cdStageName,
-            ("variables" .=) <$> _cdVariables,
-            ("stageDescription" .=) <$> _cdStageDescription,
-            ("description" .=) <$> _cdDescription,
-            ("canarySettings" .=) <$> _cdCanarySettings,
-            ("cacheClusterSize" .=) <$> _cdCacheClusterSize
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance ToPath CreateDeployment where
-  toPath CreateDeployment' {..} =
-    mconcat
-      ["/restapis/", toBS _cdRestAPIId, "/deployments"]
+instance Prelude.ToJSON CreateDeployment where
+  toJSON CreateDeployment' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tracingEnabled" Prelude..=)
+              Prelude.<$> tracingEnabled,
+            ("cacheClusterEnabled" Prelude..=)
+              Prelude.<$> cacheClusterEnabled,
+            ("stageName" Prelude..=) Prelude.<$> stageName,
+            ("variables" Prelude..=) Prelude.<$> variables,
+            ("stageDescription" Prelude..=)
+              Prelude.<$> stageDescription,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("canarySettings" Prelude..=)
+              Prelude.<$> canarySettings,
+            ("cacheClusterSize" Prelude..=)
+              Prelude.<$> cacheClusterSize
+          ]
+      )
 
-instance ToQuery CreateDeployment where
-  toQuery = const mempty
+instance Prelude.ToPath CreateDeployment where
+  toPath CreateDeployment' {..} =
+    Prelude.mconcat
+      [ "/restapis/",
+        Prelude.toBS restApiId,
+        "/deployments"
+      ]
+
+instance Prelude.ToQuery CreateDeployment where
+  toQuery = Prelude.const Prelude.mempty

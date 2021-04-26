@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,114 +21,126 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a 'Resource' resource.
+-- Creates a Resource resource.
 module Network.AWS.APIGateway.CreateResource
   ( -- * Creating a Request
-    createResource,
-    CreateResource,
+    CreateResource (..),
+    newCreateResource,
 
     -- * Request Lenses
-    crRestAPIId,
-    crParentId,
-    crPathPart,
+    createResource_restApiId,
+    createResource_parentId,
+    createResource_pathPart,
 
     -- * Destructuring the Response
-    resource,
-    Resource,
+    Resource (..),
+    newResource,
 
     -- * Response Lenses
-    rId,
-    rPathPart,
-    rParentId,
-    rResourceMethods,
-    rPath,
+    resource_id,
+    resource_pathPart,
+    resource_parentId,
+    resource_resourceMethods,
+    resource_path,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Method
+import Network.AWS.APIGateway.Types.Resource
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Requests API Gateway to create a 'Resource' resource.
+-- | Requests API Gateway to create a Resource resource.
 --
---
---
--- /See:/ 'createResource' smart constructor.
+-- /See:/ 'newCreateResource' smart constructor.
 data CreateResource = CreateResource'
-  { _crRestAPIId ::
-      !Text,
-    _crParentId :: !Text,
-    _crPathPart :: !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The parent resource\'s identifier.
+    parentId :: Prelude.Text,
+    -- | The last path segment for this resource.
+    pathPart :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crParentId' - [Required] The parent resource's identifier.
+-- 'restApiId', 'createResource_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'crPathPart' - The last path segment for this resource.
-createResource ::
-  -- | 'crRestAPIId'
-  Text ->
-  -- | 'crParentId'
-  Text ->
-  -- | 'crPathPart'
-  Text ->
+-- 'parentId', 'createResource_parentId' - [Required] The parent resource\'s identifier.
+--
+-- 'pathPart', 'createResource_pathPart' - The last path segment for this resource.
+newCreateResource ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'parentId'
+  Prelude.Text ->
+  -- | 'pathPart'
+  Prelude.Text ->
   CreateResource
-createResource pRestAPIId_ pParentId_ pPathPart_ =
+newCreateResource pRestApiId_ pParentId_ pPathPart_ =
   CreateResource'
-    { _crRestAPIId = pRestAPIId_,
-      _crParentId = pParentId_,
-      _crPathPart = pPathPart_
+    { restApiId = pRestApiId_,
+      parentId = pParentId_,
+      pathPart = pPathPart_
     }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-crRestAPIId :: Lens' CreateResource Text
-crRestAPIId = lens _crRestAPIId (\s a -> s {_crRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+createResource_restApiId :: Lens.Lens' CreateResource Prelude.Text
+createResource_restApiId = Lens.lens (\CreateResource' {restApiId} -> restApiId) (\s@CreateResource' {} a -> s {restApiId = a} :: CreateResource)
 
--- | [Required] The parent resource's identifier.
-crParentId :: Lens' CreateResource Text
-crParentId = lens _crParentId (\s a -> s {_crParentId = a})
+-- | [Required] The parent resource\'s identifier.
+createResource_parentId :: Lens.Lens' CreateResource Prelude.Text
+createResource_parentId = Lens.lens (\CreateResource' {parentId} -> parentId) (\s@CreateResource' {} a -> s {parentId = a} :: CreateResource)
 
 -- | The last path segment for this resource.
-crPathPart :: Lens' CreateResource Text
-crPathPart = lens _crPathPart (\s a -> s {_crPathPart = a})
+createResource_pathPart :: Lens.Lens' CreateResource Prelude.Text
+createResource_pathPart = Lens.lens (\CreateResource' {pathPart} -> pathPart) (\s@CreateResource' {} a -> s {pathPart = a} :: CreateResource)
 
-instance AWSRequest CreateResource where
+instance Prelude.AWSRequest CreateResource where
   type Rs CreateResource = Resource
-  request = postJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable CreateResource
+instance Prelude.Hashable CreateResource
 
-instance NFData CreateResource
+instance Prelude.NFData CreateResource
 
-instance ToHeaders CreateResource where
+instance Prelude.ToHeaders CreateResource where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToJSON CreateResource where
+instance Prelude.ToJSON CreateResource where
   toJSON CreateResource' {..} =
-    object
-      (catMaybes [Just ("pathPart" .= _crPathPart)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("pathPart" Prelude..= pathPart)]
+      )
 
-instance ToPath CreateResource where
+instance Prelude.ToPath CreateResource where
   toPath CreateResource' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _crRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _crParentId
+        Prelude.toBS parentId
       ]
 
-instance ToQuery CreateResource where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateResource where
+  toQuery = Prelude.const Prelude.mempty

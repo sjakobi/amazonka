@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.APIGateway.Types.ContentHandlingStrategy
   ( ContentHandlingStrategy
       ( ..,
-        ConvertToBinary,
-        ConvertToText
+        ContentHandlingStrategyCONVERTTOBINARY,
+        ContentHandlingStrategyCONVERTTOTEXT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContentHandlingStrategy
-  = ContentHandlingStrategy'
-      ( CI
-          Text
-      )
+newtype ContentHandlingStrategy = ContentHandlingStrategy'
+  { fromContentHandlingStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConvertToBinary :: ContentHandlingStrategy
-pattern ConvertToBinary = ContentHandlingStrategy' "CONVERT_TO_BINARY"
+pattern ContentHandlingStrategyCONVERTTOBINARY :: ContentHandlingStrategy
+pattern ContentHandlingStrategyCONVERTTOBINARY = ContentHandlingStrategy' "CONVERT_TO_BINARY"
 
-pattern ConvertToText :: ContentHandlingStrategy
-pattern ConvertToText = ContentHandlingStrategy' "CONVERT_TO_TEXT"
+pattern ContentHandlingStrategyCONVERTTOTEXT :: ContentHandlingStrategy
+pattern ContentHandlingStrategyCONVERTTOTEXT = ContentHandlingStrategy' "CONVERT_TO_TEXT"
 
 {-# COMPLETE
-  ConvertToBinary,
-  ConvertToText,
+  ContentHandlingStrategyCONVERTTOBINARY,
+  ContentHandlingStrategyCONVERTTOTEXT,
   ContentHandlingStrategy'
   #-}
 
-instance FromText ContentHandlingStrategy where
-  parser = (ContentHandlingStrategy' . mk) <$> takeText
+instance Prelude.FromText ContentHandlingStrategy where
+  parser = ContentHandlingStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText ContentHandlingStrategy where
-  toText (ContentHandlingStrategy' ci) = original ci
+instance Prelude.ToText ContentHandlingStrategy where
+  toText (ContentHandlingStrategy' x) = x
 
-instance Hashable ContentHandlingStrategy
+instance Prelude.Hashable ContentHandlingStrategy
 
-instance NFData ContentHandlingStrategy
+instance Prelude.NFData ContentHandlingStrategy
 
-instance ToByteString ContentHandlingStrategy
+instance Prelude.ToByteString ContentHandlingStrategy
 
-instance ToQuery ContentHandlingStrategy
+instance Prelude.ToQuery ContentHandlingStrategy
 
-instance ToHeader ContentHandlingStrategy
+instance Prelude.ToHeader ContentHandlingStrategy
 
-instance ToJSON ContentHandlingStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContentHandlingStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContentHandlingStrategy where
-  parseJSON = parseJSONText "ContentHandlingStrategy"
+instance Prelude.FromJSON ContentHandlingStrategy where
+  parseJSON = Prelude.parseJSONText "ContentHandlingStrategy"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,85 @@
 module Network.AWS.APIGateway.Types.EndpointConfiguration where
 
 import Network.AWS.APIGateway.Types.EndpointType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The endpoint configuration to indicate the types of endpoints an API ('RestApi' ) or its custom domain name ('DomainName' ) has.
+-- | The endpoint configuration to indicate the types of endpoints an API
+-- (RestApi) or its custom domain name (DomainName) has.
 --
---
---
--- /See:/ 'endpointConfiguration' smart constructor.
+-- /See:/ 'newEndpointConfiguration' smart constructor.
 data EndpointConfiguration = EndpointConfiguration'
-  { _ecTypes ::
-      !(Maybe [EndpointType]),
-    _ecVpcEndpointIds ::
-      !(Maybe [Text])
+  { -- | A list of endpoint types of an API (RestApi) or its custom domain name
+    -- (DomainName). For an edge-optimized API and its custom domain name, the
+    -- endpoint type is @\"EDGE\"@. For a regional API and its custom domain
+    -- name, the endpoint type is @REGIONAL@. For a private API, the endpoint
+    -- type is @PRIVATE@.
+    types :: Prelude.Maybe [EndpointType],
+    -- | A list of VpcEndpointIds of an API (RestApi) against which to create
+    -- Route53 ALIASes. It is only supported for @PRIVATE@ endpoint type.
+    vpcEndpointIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EndpointConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EndpointConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ecTypes' - A list of endpoint types of an API ('RestApi' ) or its custom domain name ('DomainName' ). For an edge-optimized API and its custom domain name, the endpoint type is @"EDGE"@ . For a regional API and its custom domain name, the endpoint type is @REGIONAL@ . For a private API, the endpoint type is @PRIVATE@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ecVpcEndpointIds' - A list of VpcEndpointIds of an API ('RestApi' ) against which to create Route53 ALIASes. It is only supported for @PRIVATE@ endpoint type.
-endpointConfiguration ::
+-- 'types', 'endpointConfiguration_types' - A list of endpoint types of an API (RestApi) or its custom domain name
+-- (DomainName). For an edge-optimized API and its custom domain name, the
+-- endpoint type is @\"EDGE\"@. For a regional API and its custom domain
+-- name, the endpoint type is @REGIONAL@. For a private API, the endpoint
+-- type is @PRIVATE@.
+--
+-- 'vpcEndpointIds', 'endpointConfiguration_vpcEndpointIds' - A list of VpcEndpointIds of an API (RestApi) against which to create
+-- Route53 ALIASes. It is only supported for @PRIVATE@ endpoint type.
+newEndpointConfiguration ::
   EndpointConfiguration
-endpointConfiguration =
+newEndpointConfiguration =
   EndpointConfiguration'
-    { _ecTypes = Nothing,
-      _ecVpcEndpointIds = Nothing
+    { types = Prelude.Nothing,
+      vpcEndpointIds = Prelude.Nothing
     }
 
--- | A list of endpoint types of an API ('RestApi' ) or its custom domain name ('DomainName' ). For an edge-optimized API and its custom domain name, the endpoint type is @"EDGE"@ . For a regional API and its custom domain name, the endpoint type is @REGIONAL@ . For a private API, the endpoint type is @PRIVATE@ .
-ecTypes :: Lens' EndpointConfiguration [EndpointType]
-ecTypes = lens _ecTypes (\s a -> s {_ecTypes = a}) . _Default . _Coerce
+-- | A list of endpoint types of an API (RestApi) or its custom domain name
+-- (DomainName). For an edge-optimized API and its custom domain name, the
+-- endpoint type is @\"EDGE\"@. For a regional API and its custom domain
+-- name, the endpoint type is @REGIONAL@. For a private API, the endpoint
+-- type is @PRIVATE@.
+endpointConfiguration_types :: Lens.Lens' EndpointConfiguration (Prelude.Maybe [EndpointType])
+endpointConfiguration_types = Lens.lens (\EndpointConfiguration' {types} -> types) (\s@EndpointConfiguration' {} a -> s {types = a} :: EndpointConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of VpcEndpointIds of an API ('RestApi' ) against which to create Route53 ALIASes. It is only supported for @PRIVATE@ endpoint type.
-ecVpcEndpointIds :: Lens' EndpointConfiguration [Text]
-ecVpcEndpointIds = lens _ecVpcEndpointIds (\s a -> s {_ecVpcEndpointIds = a}) . _Default . _Coerce
+-- | A list of VpcEndpointIds of an API (RestApi) against which to create
+-- Route53 ALIASes. It is only supported for @PRIVATE@ endpoint type.
+endpointConfiguration_vpcEndpointIds :: Lens.Lens' EndpointConfiguration (Prelude.Maybe [Prelude.Text])
+endpointConfiguration_vpcEndpointIds = Lens.lens (\EndpointConfiguration' {vpcEndpointIds} -> vpcEndpointIds) (\s@EndpointConfiguration' {} a -> s {vpcEndpointIds = a} :: EndpointConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON EndpointConfiguration where
+instance Prelude.FromJSON EndpointConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EndpointConfiguration"
       ( \x ->
           EndpointConfiguration'
-            <$> (x .:? "types" .!= mempty)
-            <*> (x .:? "vpcEndpointIds" .!= mempty)
+            Prelude.<$> (x Prelude..:? "types" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x Prelude..:? "vpcEndpointIds"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable EndpointConfiguration
+instance Prelude.Hashable EndpointConfiguration
 
-instance NFData EndpointConfiguration
+instance Prelude.NFData EndpointConfiguration
 
-instance ToJSON EndpointConfiguration where
+instance Prelude.ToJSON EndpointConfiguration where
   toJSON EndpointConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("types" .=) <$> _ecTypes,
-            ("vpcEndpointIds" .=) <$> _ecVpcEndpointIds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("types" Prelude..=) Prelude.<$> types,
+            ("vpcEndpointIds" Prelude..=)
+              Prelude.<$> vpcEndpointIds
           ]
       )

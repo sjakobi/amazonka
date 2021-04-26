@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,125 +21,130 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Undocumented operation.
+-- -- | Undocumented operation.
 module Network.AWS.APIGateway.UpdateDocumentationPart
   ( -- * Creating a Request
-    updateDocumentationPart,
-    UpdateDocumentationPart,
+    UpdateDocumentationPart (..),
+    newUpdateDocumentationPart,
 
     -- * Request Lenses
-    udpPatchOperations,
-    udpRestAPIId,
-    udpDocumentationPartId,
+    updateDocumentationPart_patchOperations,
+    updateDocumentationPart_restApiId,
+    updateDocumentationPart_documentationPartId,
 
     -- * Destructuring the Response
-    documentationPart,
-    DocumentationPart,
+    DocumentationPart (..),
+    newDocumentationPart,
 
     -- * Response Lenses
-    dpId,
-    dpProperties,
-    dpLocation,
+    documentationPart_id,
+    documentationPart_properties,
+    documentationPart_location,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.DocumentationPart
+import Network.AWS.APIGateway.Types.DocumentationPartLocation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Updates an existing documentation part of a given API.
 --
---
---
--- /See:/ 'updateDocumentationPart' smart constructor.
+-- /See:/ 'newUpdateDocumentationPart' smart constructor.
 data UpdateDocumentationPart = UpdateDocumentationPart'
-  { _udpPatchOperations ::
-      !( Maybe
-           [PatchOperation]
-       ),
-    _udpRestAPIId :: !Text,
-    _udpDocumentationPartId ::
-      !Text
+  { -- | A list of update operations to be applied to the specified resource and
+    -- in the order specified in this list.
+    patchOperations :: Prelude.Maybe [PatchOperation],
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The identifier of the to-be-updated documentation part.
+    documentationPartId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDocumentationPart' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDocumentationPart' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udpPatchOperations' - A list of update operations to be applied to the specified resource and in the order specified in this list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udpRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'patchOperations', 'updateDocumentationPart_patchOperations' - A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
 --
--- * 'udpDocumentationPartId' - [Required] The identifier of the to-be-updated documentation part.
-updateDocumentationPart ::
-  -- | 'udpRestAPIId'
-  Text ->
-  -- | 'udpDocumentationPartId'
-  Text ->
+-- 'restApiId', 'updateDocumentationPart_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'documentationPartId', 'updateDocumentationPart_documentationPartId' - [Required] The identifier of the to-be-updated documentation part.
+newUpdateDocumentationPart ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'documentationPartId'
+  Prelude.Text ->
   UpdateDocumentationPart
-updateDocumentationPart
-  pRestAPIId_
+newUpdateDocumentationPart
+  pRestApiId_
   pDocumentationPartId_ =
     UpdateDocumentationPart'
-      { _udpPatchOperations =
-          Nothing,
-        _udpRestAPIId = pRestAPIId_,
-        _udpDocumentationPartId = pDocumentationPartId_
+      { patchOperations =
+          Prelude.Nothing,
+        restApiId = pRestApiId_,
+        documentationPartId = pDocumentationPartId_
       }
 
--- | A list of update operations to be applied to the specified resource and in the order specified in this list.
-udpPatchOperations :: Lens' UpdateDocumentationPart [PatchOperation]
-udpPatchOperations = lens _udpPatchOperations (\s a -> s {_udpPatchOperations = a}) . _Default . _Coerce
+-- | A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
+updateDocumentationPart_patchOperations :: Lens.Lens' UpdateDocumentationPart (Prelude.Maybe [PatchOperation])
+updateDocumentationPart_patchOperations = Lens.lens (\UpdateDocumentationPart' {patchOperations} -> patchOperations) (\s@UpdateDocumentationPart' {} a -> s {patchOperations = a} :: UpdateDocumentationPart) Prelude.. Lens.mapping Prelude._Coerce
 
--- | [Required] The string identifier of the associated 'RestApi' .
-udpRestAPIId :: Lens' UpdateDocumentationPart Text
-udpRestAPIId = lens _udpRestAPIId (\s a -> s {_udpRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+updateDocumentationPart_restApiId :: Lens.Lens' UpdateDocumentationPart Prelude.Text
+updateDocumentationPart_restApiId = Lens.lens (\UpdateDocumentationPart' {restApiId} -> restApiId) (\s@UpdateDocumentationPart' {} a -> s {restApiId = a} :: UpdateDocumentationPart)
 
 -- | [Required] The identifier of the to-be-updated documentation part.
-udpDocumentationPartId :: Lens' UpdateDocumentationPart Text
-udpDocumentationPartId = lens _udpDocumentationPartId (\s a -> s {_udpDocumentationPartId = a})
+updateDocumentationPart_documentationPartId :: Lens.Lens' UpdateDocumentationPart Prelude.Text
+updateDocumentationPart_documentationPartId = Lens.lens (\UpdateDocumentationPart' {documentationPartId} -> documentationPartId) (\s@UpdateDocumentationPart' {} a -> s {documentationPartId = a} :: UpdateDocumentationPart)
 
-instance AWSRequest UpdateDocumentationPart where
+instance Prelude.AWSRequest UpdateDocumentationPart where
   type Rs UpdateDocumentationPart = DocumentationPart
-  request = patchJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.patchJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateDocumentationPart
+instance Prelude.Hashable UpdateDocumentationPart
 
-instance NFData UpdateDocumentationPart
+instance Prelude.NFData UpdateDocumentationPart
 
-instance ToHeaders UpdateDocumentationPart where
+instance Prelude.ToHeaders UpdateDocumentationPart where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToJSON UpdateDocumentationPart where
+instance Prelude.ToJSON UpdateDocumentationPart where
   toJSON UpdateDocumentationPart' {..} =
-    object
-      ( catMaybes
-          [("patchOperations" .=) <$> _udpPatchOperations]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("patchOperations" Prelude..=)
+              Prelude.<$> patchOperations
+          ]
       )
 
-instance ToPath UpdateDocumentationPart where
+instance Prelude.ToPath UpdateDocumentationPart where
   toPath UpdateDocumentationPart' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _udpRestAPIId,
+        Prelude.toBS restApiId,
         "/documentation/parts/",
-        toBS _udpDocumentationPartId
+        Prelude.toBS documentationPartId
       ]
 
-instance ToQuery UpdateDocumentationPart where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDocumentationPart where
+  toQuery = Prelude.const Prelude.mempty

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,91 +21,104 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Represents a domain name that is contained in a simpler, more intuitive URL that can be called.
+-- Represents a domain name that is contained in a simpler, more intuitive
+-- URL that can be called.
 module Network.AWS.APIGateway.GetDomainName
   ( -- * Creating a Request
-    getDomainName,
-    GetDomainName,
+    GetDomainName (..),
+    newGetDomainName,
 
     -- * Request Lenses
-    gdnDomainName,
+    getDomainName_domainName,
 
     -- * Destructuring the Response
-    domainName,
-    DomainName,
+    DomainName (..),
+    newDomainName,
 
     -- * Response Lenses
-    dnRegionalHostedZoneId,
-    dnRegionalCertificateName,
-    dnMutualTLSAuthentication,
-    dnEndpointConfiguration,
-    dnDistributionHostedZoneId,
-    dnCertificateARN,
-    dnDomainNameStatusMessage,
-    dnDistributionDomainName,
-    dnCertificateUploadDate,
-    dnDomainName,
-    dnTags,
-    dnSecurityPolicy,
-    dnDomainNameStatus,
-    dnRegionalCertificateARN,
-    dnCertificateName,
-    dnRegionalDomainName,
+    domainName_regionalHostedZoneId,
+    domainName_regionalCertificateName,
+    domainName_mutualTlsAuthentication,
+    domainName_endpointConfiguration,
+    domainName_distributionHostedZoneId,
+    domainName_certificateArn,
+    domainName_domainNameStatusMessage,
+    domainName_distributionDomainName,
+    domainName_certificateUploadDate,
+    domainName_domainName,
+    domainName_tags,
+    domainName_securityPolicy,
+    domainName_domainNameStatus,
+    domainName_regionalCertificateArn,
+    domainName_certificateName,
+    domainName_regionalDomainName,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.DomainName
+import Network.AWS.APIGateway.Types.DomainNameStatus
+import Network.AWS.APIGateway.Types.EndpointConfiguration
+import Network.AWS.APIGateway.Types.MutualTlsAuthentication
+import Network.AWS.APIGateway.Types.SecurityPolicy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to get the name of a 'DomainName' resource.
+-- | Request to get the name of a DomainName resource.
 --
---
---
--- /See:/ 'getDomainName' smart constructor.
-newtype GetDomainName = GetDomainName'
-  { _gdnDomainName ::
-      Text
+-- /See:/ 'newGetDomainName' smart constructor.
+data GetDomainName = GetDomainName'
+  { -- | [Required] The name of the DomainName resource.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDomainName' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDomainName' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdnDomainName' - [Required] The name of the 'DomainName' resource.
-getDomainName ::
-  -- | 'gdnDomainName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domainName', 'getDomainName_domainName' - [Required] The name of the DomainName resource.
+newGetDomainName ::
+  -- | 'domainName'
+  Prelude.Text ->
   GetDomainName
-getDomainName pDomainName_ =
-  GetDomainName' {_gdnDomainName = pDomainName_}
+newGetDomainName pDomainName_ =
+  GetDomainName' {domainName = pDomainName_}
 
--- | [Required] The name of the 'DomainName' resource.
-gdnDomainName :: Lens' GetDomainName Text
-gdnDomainName = lens _gdnDomainName (\s a -> s {_gdnDomainName = a})
+-- | [Required] The name of the DomainName resource.
+getDomainName_domainName :: Lens.Lens' GetDomainName Prelude.Text
+getDomainName_domainName = Lens.lens (\GetDomainName' {domainName} -> domainName) (\s@GetDomainName' {} a -> s {domainName = a} :: GetDomainName)
 
-instance AWSRequest GetDomainName where
+instance Prelude.AWSRequest GetDomainName where
   type Rs GetDomainName = DomainName
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetDomainName
+instance Prelude.Hashable GetDomainName
 
-instance NFData GetDomainName
+instance Prelude.NFData GetDomainName
 
-instance ToHeaders GetDomainName where
+instance Prelude.ToHeaders GetDomainName where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetDomainName where
+instance Prelude.ToPath GetDomainName where
   toPath GetDomainName' {..} =
-    mconcat ["/domainnames/", toBS _gdnDomainName]
+    Prelude.mconcat
+      ["/domainnames/", Prelude.toBS domainName]
 
-instance ToQuery GetDomainName where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDomainName where
+  toQuery = Prelude.const Prelude.mempty

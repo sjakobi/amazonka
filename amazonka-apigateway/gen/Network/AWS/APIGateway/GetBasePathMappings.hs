@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,185 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Represents a collection of 'BasePathMapping' resources.
---
---
+-- Represents a collection of BasePathMapping resources.
 --
 -- This operation returns paginated results.
 module Network.AWS.APIGateway.GetBasePathMappings
   ( -- * Creating a Request
-    getBasePathMappings,
-    GetBasePathMappings,
+    GetBasePathMappings (..),
+    newGetBasePathMappings,
 
     -- * Request Lenses
-    gbpmPosition,
-    gbpmLimit,
-    gbpmDomainName,
+    getBasePathMappings_position,
+    getBasePathMappings_limit,
+    getBasePathMappings_domainName,
 
     -- * Destructuring the Response
-    getBasePathMappingsResponse,
-    GetBasePathMappingsResponse,
+    GetBasePathMappingsResponse (..),
+    newGetBasePathMappingsResponse,
 
     -- * Response Lenses
-    gbpmrrsItems,
-    gbpmrrsPosition,
-    gbpmrrsResponseStatus,
+    getBasePathMappingsResponse_items,
+    getBasePathMappingsResponse_position,
+    getBasePathMappingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.BasePathMapping
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | A request to get information about a collection of 'BasePathMapping' resources.
+-- | A request to get information about a collection of BasePathMapping
+-- resources.
 --
---
---
--- /See:/ 'getBasePathMappings' smart constructor.
+-- /See:/ 'newGetBasePathMappings' smart constructor.
 data GetBasePathMappings = GetBasePathMappings'
-  { _gbpmPosition ::
-      !(Maybe Text),
-    _gbpmLimit :: !(Maybe Int),
-    _gbpmDomainName :: !Text
+  { -- | The current pagination position in the paged result set.
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of returned results per page. The default value is 25
+    -- and the maximum value is 500.
+    limit :: Prelude.Maybe Prelude.Int,
+    -- | [Required] The domain name of a BasePathMapping resource.
+    domainName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBasePathMappings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBasePathMappings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbpmPosition' - The current pagination position in the paged result set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbpmLimit' - The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+-- 'position', 'getBasePathMappings_position' - The current pagination position in the paged result set.
 --
--- * 'gbpmDomainName' - [Required] The domain name of a 'BasePathMapping' resource.
-getBasePathMappings ::
-  -- | 'gbpmDomainName'
-  Text ->
+-- 'limit', 'getBasePathMappings_limit' - The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+--
+-- 'domainName', 'getBasePathMappings_domainName' - [Required] The domain name of a BasePathMapping resource.
+newGetBasePathMappings ::
+  -- | 'domainName'
+  Prelude.Text ->
   GetBasePathMappings
-getBasePathMappings pDomainName_ =
+newGetBasePathMappings pDomainName_ =
   GetBasePathMappings'
-    { _gbpmPosition = Nothing,
-      _gbpmLimit = Nothing,
-      _gbpmDomainName = pDomainName_
+    { position = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      domainName = pDomainName_
     }
 
 -- | The current pagination position in the paged result set.
-gbpmPosition :: Lens' GetBasePathMappings (Maybe Text)
-gbpmPosition = lens _gbpmPosition (\s a -> s {_gbpmPosition = a})
+getBasePathMappings_position :: Lens.Lens' GetBasePathMappings (Prelude.Maybe Prelude.Text)
+getBasePathMappings_position = Lens.lens (\GetBasePathMappings' {position} -> position) (\s@GetBasePathMappings' {} a -> s {position = a} :: GetBasePathMappings)
 
--- | The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-gbpmLimit :: Lens' GetBasePathMappings (Maybe Int)
-gbpmLimit = lens _gbpmLimit (\s a -> s {_gbpmLimit = a})
+-- | The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+getBasePathMappings_limit :: Lens.Lens' GetBasePathMappings (Prelude.Maybe Prelude.Int)
+getBasePathMappings_limit = Lens.lens (\GetBasePathMappings' {limit} -> limit) (\s@GetBasePathMappings' {} a -> s {limit = a} :: GetBasePathMappings)
 
--- | [Required] The domain name of a 'BasePathMapping' resource.
-gbpmDomainName :: Lens' GetBasePathMappings Text
-gbpmDomainName = lens _gbpmDomainName (\s a -> s {_gbpmDomainName = a})
+-- | [Required] The domain name of a BasePathMapping resource.
+getBasePathMappings_domainName :: Lens.Lens' GetBasePathMappings Prelude.Text
+getBasePathMappings_domainName = Lens.lens (\GetBasePathMappings' {domainName} -> domainName) (\s@GetBasePathMappings' {} a -> s {domainName = a} :: GetBasePathMappings)
 
-instance AWSPager GetBasePathMappings where
+instance Pager.AWSPager GetBasePathMappings where
   page rq rs
-    | stop (rs ^. gbpmrrsPosition) = Nothing
-    | stop (rs ^. gbpmrrsItems) = Nothing
-    | otherwise =
-      Just $ rq & gbpmPosition .~ rs ^. gbpmrrsPosition
+    | Pager.stop
+        ( rs
+            Lens.^? getBasePathMappingsResponse_position
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getBasePathMappingsResponse_items
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getBasePathMappings_position
+          Lens..~ rs
+          Lens.^? getBasePathMappingsResponse_position
+            Prelude.. Lens._Just
 
-instance AWSRequest GetBasePathMappings where
+instance Prelude.AWSRequest GetBasePathMappings where
   type
     Rs GetBasePathMappings =
       GetBasePathMappingsResponse
-  request = get apiGateway
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetBasePathMappingsResponse'
-            <$> (x .?> "item" .!@ mempty)
-            <*> (x .?> "position")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "item" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "position")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBasePathMappings
+instance Prelude.Hashable GetBasePathMappings
 
-instance NFData GetBasePathMappings
+instance Prelude.NFData GetBasePathMappings
 
-instance ToHeaders GetBasePathMappings where
+instance Prelude.ToHeaders GetBasePathMappings where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetBasePathMappings where
+instance Prelude.ToPath GetBasePathMappings where
   toPath GetBasePathMappings' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/domainnames/",
-        toBS _gbpmDomainName,
+        Prelude.toBS domainName,
         "/basepathmappings"
       ]
 
-instance ToQuery GetBasePathMappings where
+instance Prelude.ToQuery GetBasePathMappings where
   toQuery GetBasePathMappings' {..} =
-    mconcat
-      ["position" =: _gbpmPosition, "limit" =: _gbpmLimit]
+    Prelude.mconcat
+      [ "position" Prelude.=: position,
+        "limit" Prelude.=: limit
+      ]
 
--- | Represents a collection of 'BasePathMapping' resources.
---
+-- | Represents a collection of BasePathMapping resources.
 --
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html Use Custom Domain Names>
 --
--- /See:/ 'getBasePathMappingsResponse' smart constructor.
+-- /See:/ 'newGetBasePathMappingsResponse' smart constructor.
 data GetBasePathMappingsResponse = GetBasePathMappingsResponse'
-  { _gbpmrrsItems ::
-      !( Maybe
-           [BasePathMapping]
-       ),
-    _gbpmrrsPosition ::
-      !(Maybe Text),
-    _gbpmrrsResponseStatus ::
-      !Int
+  { -- | The current page of elements from this collection.
+    items :: Prelude.Maybe [BasePathMapping],
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBasePathMappingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBasePathMappingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbpmrrsItems' - The current page of elements from this collection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbpmrrsPosition' - Undocumented member.
+-- 'items', 'getBasePathMappingsResponse_items' - The current page of elements from this collection.
 --
--- * 'gbpmrrsResponseStatus' - -- | The response status code.
-getBasePathMappingsResponse ::
-  -- | 'gbpmrrsResponseStatus'
-  Int ->
+-- 'position', 'getBasePathMappingsResponse_position' - Undocumented member.
+--
+-- 'httpStatus', 'getBasePathMappingsResponse_httpStatus' - The response's http status code.
+newGetBasePathMappingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBasePathMappingsResponse
-getBasePathMappingsResponse pResponseStatus_ =
+newGetBasePathMappingsResponse pHttpStatus_ =
   GetBasePathMappingsResponse'
-    { _gbpmrrsItems =
-        Nothing,
-      _gbpmrrsPosition = Nothing,
-      _gbpmrrsResponseStatus = pResponseStatus_
+    { items =
+        Prelude.Nothing,
+      position = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current page of elements from this collection.
-gbpmrrsItems :: Lens' GetBasePathMappingsResponse [BasePathMapping]
-gbpmrrsItems = lens _gbpmrrsItems (\s a -> s {_gbpmrrsItems = a}) . _Default . _Coerce
+getBasePathMappingsResponse_items :: Lens.Lens' GetBasePathMappingsResponse (Prelude.Maybe [BasePathMapping])
+getBasePathMappingsResponse_items = Lens.lens (\GetBasePathMappingsResponse' {items} -> items) (\s@GetBasePathMappingsResponse' {} a -> s {items = a} :: GetBasePathMappingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-gbpmrrsPosition :: Lens' GetBasePathMappingsResponse (Maybe Text)
-gbpmrrsPosition = lens _gbpmrrsPosition (\s a -> s {_gbpmrrsPosition = a})
+getBasePathMappingsResponse_position :: Lens.Lens' GetBasePathMappingsResponse (Prelude.Maybe Prelude.Text)
+getBasePathMappingsResponse_position = Lens.lens (\GetBasePathMappingsResponse' {position} -> position) (\s@GetBasePathMappingsResponse' {} a -> s {position = a} :: GetBasePathMappingsResponse)
 
--- | -- | The response status code.
-gbpmrrsResponseStatus :: Lens' GetBasePathMappingsResponse Int
-gbpmrrsResponseStatus = lens _gbpmrrsResponseStatus (\s a -> s {_gbpmrrsResponseStatus = a})
+-- | The response's http status code.
+getBasePathMappingsResponse_httpStatus :: Lens.Lens' GetBasePathMappingsResponse Prelude.Int
+getBasePathMappingsResponse_httpStatus = Lens.lens (\GetBasePathMappingsResponse' {httpStatus} -> httpStatus) (\s@GetBasePathMappingsResponse' {} a -> s {httpStatus = a} :: GetBasePathMappingsResponse)
 
-instance NFData GetBasePathMappingsResponse
+instance Prelude.NFData GetBasePathMappingsResponse

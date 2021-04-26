@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,102 +21,112 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a 'Stage' resource.
+-- Deletes a Stage resource.
 module Network.AWS.APIGateway.DeleteStage
   ( -- * Creating a Request
-    deleteStage,
-    DeleteStage,
+    DeleteStage (..),
+    newDeleteStage,
 
     -- * Request Lenses
-    dsRestAPIId,
-    dsStageName,
+    deleteStage_restApiId,
+    deleteStage_stageName,
 
     -- * Destructuring the Response
-    deleteStageResponse,
-    DeleteStageResponse,
+    DeleteStageResponse (..),
+    newDeleteStageResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Requests API Gateway to delete a 'Stage' resource.
+-- | Requests API Gateway to delete a Stage resource.
 --
---
---
--- /See:/ 'deleteStage' smart constructor.
+-- /See:/ 'newDeleteStage' smart constructor.
 data DeleteStage = DeleteStage'
-  { _dsRestAPIId ::
-      !Text,
-    _dsStageName :: !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The name of the Stage resource to delete.
+    stageName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteStage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsStageName' - [Required] The name of the 'Stage' resource to delete.
-deleteStage ::
-  -- | 'dsRestAPIId'
-  Text ->
-  -- | 'dsStageName'
-  Text ->
+-- 'restApiId', 'deleteStage_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'stageName', 'deleteStage_stageName' - [Required] The name of the Stage resource to delete.
+newDeleteStage ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'stageName'
+  Prelude.Text ->
   DeleteStage
-deleteStage pRestAPIId_ pStageName_ =
+newDeleteStage pRestApiId_ pStageName_ =
   DeleteStage'
-    { _dsRestAPIId = pRestAPIId_,
-      _dsStageName = pStageName_
+    { restApiId = pRestApiId_,
+      stageName = pStageName_
     }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-dsRestAPIId :: Lens' DeleteStage Text
-dsRestAPIId = lens _dsRestAPIId (\s a -> s {_dsRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+deleteStage_restApiId :: Lens.Lens' DeleteStage Prelude.Text
+deleteStage_restApiId = Lens.lens (\DeleteStage' {restApiId} -> restApiId) (\s@DeleteStage' {} a -> s {restApiId = a} :: DeleteStage)
 
--- | [Required] The name of the 'Stage' resource to delete.
-dsStageName :: Lens' DeleteStage Text
-dsStageName = lens _dsStageName (\s a -> s {_dsStageName = a})
+-- | [Required] The name of the Stage resource to delete.
+deleteStage_stageName :: Lens.Lens' DeleteStage Prelude.Text
+deleteStage_stageName = Lens.lens (\DeleteStage' {stageName} -> stageName) (\s@DeleteStage' {} a -> s {stageName = a} :: DeleteStage)
 
-instance AWSRequest DeleteStage where
+instance Prelude.AWSRequest DeleteStage where
   type Rs DeleteStage = DeleteStageResponse
-  request = delete apiGateway
-  response = receiveNull DeleteStageResponse'
+  request = Request.delete defaultService
+  response = Response.receiveNull DeleteStageResponse'
 
-instance Hashable DeleteStage
+instance Prelude.Hashable DeleteStage
 
-instance NFData DeleteStage
+instance Prelude.NFData DeleteStage
 
-instance ToHeaders DeleteStage where
+instance Prelude.ToHeaders DeleteStage where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteStage where
+instance Prelude.ToPath DeleteStage where
   toPath DeleteStage' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _dsRestAPIId,
+        Prelude.toBS restApiId,
         "/stages/",
-        toBS _dsStageName
+        Prelude.toBS stageName
       ]
 
-instance ToQuery DeleteStage where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteStage where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteStageResponse' smart constructor.
+-- | /See:/ 'newDeleteStageResponse' smart constructor.
 data DeleteStageResponse = DeleteStageResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteStageResponse' with the minimum fields required to make a request.
-deleteStageResponse ::
+-- |
+-- Create a value of 'DeleteStageResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteStageResponse ::
   DeleteStageResponse
-deleteStageResponse = DeleteStageResponse'
+newDeleteStageResponse = DeleteStageResponse'
 
-instance NFData DeleteStageResponse
+instance Prelude.NFData DeleteStageResponse

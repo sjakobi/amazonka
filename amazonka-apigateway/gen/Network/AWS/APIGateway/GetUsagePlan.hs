@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,80 +24,91 @@
 -- Gets a usage plan of a given plan identifier.
 module Network.AWS.APIGateway.GetUsagePlan
   ( -- * Creating a Request
-    getUsagePlan,
-    GetUsagePlan,
+    GetUsagePlan (..),
+    newGetUsagePlan,
 
     -- * Request Lenses
-    gupUsagePlanId,
+    getUsagePlan_usagePlanId,
 
     -- * Destructuring the Response
-    usagePlan,
-    UsagePlan,
+    UsagePlan (..),
+    newUsagePlan,
 
     -- * Response Lenses
-    upId,
-    upName,
-    upApiStages,
-    upTags,
-    upDescription,
-    upQuota,
-    upProductCode,
-    upThrottle,
+    usagePlan_id,
+    usagePlan_name,
+    usagePlan_apiStages,
+    usagePlan_tags,
+    usagePlan_description,
+    usagePlan_quota,
+    usagePlan_productCode,
+    usagePlan_throttle,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.ApiStage
+import Network.AWS.APIGateway.Types.QuotaSettings
+import Network.AWS.APIGateway.Types.ThrottleSettings
+import Network.AWS.APIGateway.Types.UsagePlan
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The GET request to get a usage plan of a given plan identifier.
 --
---
---
--- /See:/ 'getUsagePlan' smart constructor.
-newtype GetUsagePlan = GetUsagePlan'
-  { _gupUsagePlanId ::
-      Text
+-- /See:/ 'newGetUsagePlan' smart constructor.
+data GetUsagePlan = GetUsagePlan'
+  { -- | [Required] The identifier of the UsagePlan resource to be retrieved.
+    usagePlanId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUsagePlan' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUsagePlan' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gupUsagePlanId' - [Required] The identifier of the 'UsagePlan' resource to be retrieved.
-getUsagePlan ::
-  -- | 'gupUsagePlanId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'usagePlanId', 'getUsagePlan_usagePlanId' - [Required] The identifier of the UsagePlan resource to be retrieved.
+newGetUsagePlan ::
+  -- | 'usagePlanId'
+  Prelude.Text ->
   GetUsagePlan
-getUsagePlan pUsagePlanId_ =
-  GetUsagePlan' {_gupUsagePlanId = pUsagePlanId_}
+newGetUsagePlan pUsagePlanId_ =
+  GetUsagePlan' {usagePlanId = pUsagePlanId_}
 
--- | [Required] The identifier of the 'UsagePlan' resource to be retrieved.
-gupUsagePlanId :: Lens' GetUsagePlan Text
-gupUsagePlanId = lens _gupUsagePlanId (\s a -> s {_gupUsagePlanId = a})
+-- | [Required] The identifier of the UsagePlan resource to be retrieved.
+getUsagePlan_usagePlanId :: Lens.Lens' GetUsagePlan Prelude.Text
+getUsagePlan_usagePlanId = Lens.lens (\GetUsagePlan' {usagePlanId} -> usagePlanId) (\s@GetUsagePlan' {} a -> s {usagePlanId = a} :: GetUsagePlan)
 
-instance AWSRequest GetUsagePlan where
+instance Prelude.AWSRequest GetUsagePlan where
   type Rs GetUsagePlan = UsagePlan
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetUsagePlan
+instance Prelude.Hashable GetUsagePlan
 
-instance NFData GetUsagePlan
+instance Prelude.NFData GetUsagePlan
 
-instance ToHeaders GetUsagePlan where
+instance Prelude.ToHeaders GetUsagePlan where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetUsagePlan where
+instance Prelude.ToPath GetUsagePlan where
   toPath GetUsagePlan' {..} =
-    mconcat ["/usageplans/", toBS _gupUsagePlanId]
+    Prelude.mconcat
+      ["/usageplans/", Prelude.toBS usagePlanId]
 
-instance ToQuery GetUsagePlan where
-  toQuery = const mempty
+instance Prelude.ToQuery GetUsagePlan where
+  toQuery = Prelude.const Prelude.mempty

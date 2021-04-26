@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,110 +21,151 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about a 'Deployment' resource.
+-- Gets information about a Deployment resource.
 module Network.AWS.APIGateway.GetDeployment
   ( -- * Creating a Request
-    getDeployment,
-    GetDeployment,
+    GetDeployment (..),
+    newGetDeployment,
 
     -- * Request Lenses
-    getEmbed,
-    getRestAPIId,
-    getDeploymentId,
+    getDeployment_embed,
+    getDeployment_restApiId,
+    getDeployment_deploymentId,
 
     -- * Destructuring the Response
-    deployment,
-    Deployment,
+    Deployment (..),
+    newDeployment,
 
     -- * Response Lenses
-    dCreatedDate,
-    dId,
-    dApiSummary,
-    dDescription,
+    deployment_createdDate,
+    deployment_id,
+    deployment_apiSummary,
+    deployment_description,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.Deployment
+import Network.AWS.APIGateway.Types.MethodSnapshot
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Requests API Gateway to get information about a 'Deployment' resource.
+-- | Requests API Gateway to get information about a Deployment resource.
 --
---
---
--- /See:/ 'getDeployment' smart constructor.
+-- /See:/ 'newGetDeployment' smart constructor.
 data GetDeployment = GetDeployment'
-  { _getEmbed ::
-      !(Maybe [Text]),
-    _getRestAPIId :: !Text,
-    _getDeploymentId :: !Text
+  { -- | A query parameter to retrieve the specified embedded resources of the
+    -- returned Deployment resource in the response. In a REST API call, this
+    -- @embed@ parameter value is a list of comma-separated strings, as in
+    -- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=var1,var2@.
+    -- The SDK and other platform-dependent libraries might use a different
+    -- format for the list. Currently, this request supports only retrieval of
+    -- the embedded API summary this way. Hence, the parameter value must be a
+    -- single-valued list containing only the @\"apisummary\"@ string. For
+    -- example,
+    -- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=apisummary@.
+    embed :: Prelude.Maybe [Prelude.Text],
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The identifier of the Deployment resource to get information
+    -- about.
+    deploymentId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDeployment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDeployment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'getEmbed' - A query parameter to retrieve the specified embedded resources of the returned 'Deployment' resource in the response. In a REST API call, this @embed@ parameter value is a list of comma-separated strings, as in @GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=var1,var2@ . The SDK and other platform-dependent libraries might use a different format for the list. Currently, this request supports only retrieval of the embedded API summary this way. Hence, the parameter value must be a single-valued list containing only the @"apisummary"@ string. For example, @GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=apisummary@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'getRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'embed', 'getDeployment_embed' - A query parameter to retrieve the specified embedded resources of the
+-- returned Deployment resource in the response. In a REST API call, this
+-- @embed@ parameter value is a list of comma-separated strings, as in
+-- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=var1,var2@.
+-- The SDK and other platform-dependent libraries might use a different
+-- format for the list. Currently, this request supports only retrieval of
+-- the embedded API summary this way. Hence, the parameter value must be a
+-- single-valued list containing only the @\"apisummary\"@ string. For
+-- example,
+-- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=apisummary@.
 --
--- * 'getDeploymentId' - [Required] The identifier of the 'Deployment' resource to get information about.
-getDeployment ::
-  -- | 'getRestAPIId'
-  Text ->
-  -- | 'getDeploymentId'
-  Text ->
+-- 'restApiId', 'getDeployment_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'deploymentId', 'getDeployment_deploymentId' - [Required] The identifier of the Deployment resource to get information
+-- about.
+newGetDeployment ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'deploymentId'
+  Prelude.Text ->
   GetDeployment
-getDeployment pRestAPIId_ pDeploymentId_ =
+newGetDeployment pRestApiId_ pDeploymentId_ =
   GetDeployment'
-    { _getEmbed = Nothing,
-      _getRestAPIId = pRestAPIId_,
-      _getDeploymentId = pDeploymentId_
+    { embed = Prelude.Nothing,
+      restApiId = pRestApiId_,
+      deploymentId = pDeploymentId_
     }
 
--- | A query parameter to retrieve the specified embedded resources of the returned 'Deployment' resource in the response. In a REST API call, this @embed@ parameter value is a list of comma-separated strings, as in @GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=var1,var2@ . The SDK and other platform-dependent libraries might use a different format for the list. Currently, this request supports only retrieval of the embedded API summary this way. Hence, the parameter value must be a single-valued list containing only the @"apisummary"@ string. For example, @GET /restapis/{restapi_id}/deployments/{deployment_id}?embed=apisummary@ .
-getEmbed :: Lens' GetDeployment [Text]
-getEmbed = lens _getEmbed (\s a -> s {_getEmbed = a}) . _Default . _Coerce
+-- | A query parameter to retrieve the specified embedded resources of the
+-- returned Deployment resource in the response. In a REST API call, this
+-- @embed@ parameter value is a list of comma-separated strings, as in
+-- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=var1,var2@.
+-- The SDK and other platform-dependent libraries might use a different
+-- format for the list. Currently, this request supports only retrieval of
+-- the embedded API summary this way. Hence, the parameter value must be a
+-- single-valued list containing only the @\"apisummary\"@ string. For
+-- example,
+-- @GET \/restapis\/{restapi_id}\/deployments\/{deployment_id}?embed=apisummary@.
+getDeployment_embed :: Lens.Lens' GetDeployment (Prelude.Maybe [Prelude.Text])
+getDeployment_embed = Lens.lens (\GetDeployment' {embed} -> embed) (\s@GetDeployment' {} a -> s {embed = a} :: GetDeployment) Prelude.. Lens.mapping Prelude._Coerce
 
--- | [Required] The string identifier of the associated 'RestApi' .
-getRestAPIId :: Lens' GetDeployment Text
-getRestAPIId = lens _getRestAPIId (\s a -> s {_getRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getDeployment_restApiId :: Lens.Lens' GetDeployment Prelude.Text
+getDeployment_restApiId = Lens.lens (\GetDeployment' {restApiId} -> restApiId) (\s@GetDeployment' {} a -> s {restApiId = a} :: GetDeployment)
 
--- | [Required] The identifier of the 'Deployment' resource to get information about.
-getDeploymentId :: Lens' GetDeployment Text
-getDeploymentId = lens _getDeploymentId (\s a -> s {_getDeploymentId = a})
+-- | [Required] The identifier of the Deployment resource to get information
+-- about.
+getDeployment_deploymentId :: Lens.Lens' GetDeployment Prelude.Text
+getDeployment_deploymentId = Lens.lens (\GetDeployment' {deploymentId} -> deploymentId) (\s@GetDeployment' {} a -> s {deploymentId = a} :: GetDeployment)
 
-instance AWSRequest GetDeployment where
+instance Prelude.AWSRequest GetDeployment where
   type Rs GetDeployment = Deployment
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetDeployment
+instance Prelude.Hashable GetDeployment
 
-instance NFData GetDeployment
+instance Prelude.NFData GetDeployment
 
-instance ToHeaders GetDeployment where
+instance Prelude.ToHeaders GetDeployment where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetDeployment where
+instance Prelude.ToPath GetDeployment where
   toPath GetDeployment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _getRestAPIId,
+        Prelude.toBS restApiId,
         "/deployments/",
-        toBS _getDeploymentId
+        Prelude.toBS deploymentId
       ]
 
-instance ToQuery GetDeployment where
+instance Prelude.ToQuery GetDeployment where
   toQuery GetDeployment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "embed"
-          =: toQuery (toQueryList "member" <$> _getEmbed)
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> embed)
       ]

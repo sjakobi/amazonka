@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,93 @@
 module Network.AWS.APIGateway.Types.Deployment where
 
 import Network.AWS.APIGateway.Types.MethodSnapshot
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An immutable representation of a 'RestApi' resource that can be called by users using 'Stages' . A deployment must be associated with a 'Stage' for it to be callable over the Internet.
+-- | An immutable representation of a RestApi resource that can be called by
+-- users using Stages. A deployment must be associated with a Stage for it
+-- to be callable over the Internet.
 --
+-- To create a deployment, call @POST@ on the Deployments resource of a
+-- RestApi. To view, update, or delete a deployment, call @GET@, @PATCH@,
+-- or @DELETE@ on the specified deployment resource
+-- (@\/restapis\/{restapi_id}\/deployments\/{deployment_id}@).
 --
--- To create a deployment, call @POST@ on the 'Deployments' resource of a 'RestApi' . To view, update, or delete a deployment, call @GET@ , @PATCH@ , or @DELETE@ on the specified deployment resource (@/restapis/{restapi_id}/deployments/{deployment_id}@ ).'RestApi' , 'Deployments' , 'Stage' , <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-deployment.html AWS CLI> , <https://aws.amazon.com/tools/ AWS SDKs>
+-- RestApi, Deployments, Stage,
+-- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-deployment.html AWS CLI>,
+-- <https://aws.amazon.com/tools/ AWS SDKs>
 --
--- /See:/ 'deployment' smart constructor.
+-- /See:/ 'newDeployment' smart constructor.
 data Deployment = Deployment'
-  { _dCreatedDate ::
-      !(Maybe POSIX),
-    _dId :: !(Maybe Text),
-    _dApiSummary ::
-      !(Maybe (Map Text (Map Text MethodSnapshot))),
-    _dDescription :: !(Maybe Text)
+  { -- | The date and time that the deployment resource was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The identifier for the deployment resource.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | A summary of the RestApi at the date and time that the deployment
+    -- resource was created.
+    apiSummary :: Prelude.Maybe (Prelude.Map Prelude.Text (Prelude.Map Prelude.Text MethodSnapshot)),
+    -- | The description for the deployment resource.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Deployment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Deployment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dCreatedDate' - The date and time that the deployment resource was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dId' - The identifier for the deployment resource.
+-- 'createdDate', 'deployment_createdDate' - The date and time that the deployment resource was created.
 --
--- * 'dApiSummary' - A summary of the 'RestApi' at the date and time that the deployment resource was created.
+-- 'id', 'deployment_id' - The identifier for the deployment resource.
 --
--- * 'dDescription' - The description for the deployment resource.
-deployment ::
+-- 'apiSummary', 'deployment_apiSummary' - A summary of the RestApi at the date and time that the deployment
+-- resource was created.
+--
+-- 'description', 'deployment_description' - The description for the deployment resource.
+newDeployment ::
   Deployment
-deployment =
+newDeployment =
   Deployment'
-    { _dCreatedDate = Nothing,
-      _dId = Nothing,
-      _dApiSummary = Nothing,
-      _dDescription = Nothing
+    { createdDate = Prelude.Nothing,
+      id = Prelude.Nothing,
+      apiSummary = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The date and time that the deployment resource was created.
-dCreatedDate :: Lens' Deployment (Maybe UTCTime)
-dCreatedDate = lens _dCreatedDate (\s a -> s {_dCreatedDate = a}) . mapping _Time
+deployment_createdDate :: Lens.Lens' Deployment (Prelude.Maybe Prelude.UTCTime)
+deployment_createdDate = Lens.lens (\Deployment' {createdDate} -> createdDate) (\s@Deployment' {} a -> s {createdDate = a} :: Deployment) Prelude.. Lens.mapping Prelude._Time
 
 -- | The identifier for the deployment resource.
-dId :: Lens' Deployment (Maybe Text)
-dId = lens _dId (\s a -> s {_dId = a})
+deployment_id :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_id = Lens.lens (\Deployment' {id} -> id) (\s@Deployment' {} a -> s {id = a} :: Deployment)
 
--- | A summary of the 'RestApi' at the date and time that the deployment resource was created.
-dApiSummary :: Lens' Deployment (HashMap Text (HashMap Text MethodSnapshot))
-dApiSummary = lens _dApiSummary (\s a -> s {_dApiSummary = a}) . _Default . _Map
+-- | A summary of the RestApi at the date and time that the deployment
+-- resource was created.
+deployment_apiSummary :: Lens.Lens' Deployment (Prelude.Maybe (Prelude.HashMap Prelude.Text (Prelude.HashMap Prelude.Text MethodSnapshot)))
+deployment_apiSummary = Lens.lens (\Deployment' {apiSummary} -> apiSummary) (\s@Deployment' {} a -> s {apiSummary = a} :: Deployment) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description for the deployment resource.
-dDescription :: Lens' Deployment (Maybe Text)
-dDescription = lens _dDescription (\s a -> s {_dDescription = a})
+deployment_description :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_description = Lens.lens (\Deployment' {description} -> description) (\s@Deployment' {} a -> s {description = a} :: Deployment)
 
-instance FromJSON Deployment where
+instance Prelude.FromJSON Deployment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Deployment"
       ( \x ->
           Deployment'
-            <$> (x .:? "createdDate")
-            <*> (x .:? "id")
-            <*> (x .:? "apiSummary" .!= mempty)
-            <*> (x .:? "description")
+            Prelude.<$> (x Prelude..:? "createdDate")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> ( x Prelude..:? "apiSummary"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "description")
       )
 
-instance Hashable Deployment
+instance Prelude.Hashable Deployment
 
-instance NFData Deployment
+instance Prelude.NFData Deployment

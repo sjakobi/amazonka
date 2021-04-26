@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.APIGateway.Types.QuotaPeriodType
   ( QuotaPeriodType
       ( ..,
-        Day,
-        Month,
-        Week
+        QuotaPeriodTypeDAY,
+        QuotaPeriodTypeMONTH,
+        QuotaPeriodTypeWEEK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QuotaPeriodType = QuotaPeriodType' (CI Text)
+newtype QuotaPeriodType = QuotaPeriodType'
+  { fromQuotaPeriodType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Day :: QuotaPeriodType
-pattern Day = QuotaPeriodType' "DAY"
+pattern QuotaPeriodTypeDAY :: QuotaPeriodType
+pattern QuotaPeriodTypeDAY = QuotaPeriodType' "DAY"
 
-pattern Month :: QuotaPeriodType
-pattern Month = QuotaPeriodType' "MONTH"
+pattern QuotaPeriodTypeMONTH :: QuotaPeriodType
+pattern QuotaPeriodTypeMONTH = QuotaPeriodType' "MONTH"
 
-pattern Week :: QuotaPeriodType
-pattern Week = QuotaPeriodType' "WEEK"
+pattern QuotaPeriodTypeWEEK :: QuotaPeriodType
+pattern QuotaPeriodTypeWEEK = QuotaPeriodType' "WEEK"
 
 {-# COMPLETE
-  Day,
-  Month,
-  Week,
+  QuotaPeriodTypeDAY,
+  QuotaPeriodTypeMONTH,
+  QuotaPeriodTypeWEEK,
   QuotaPeriodType'
   #-}
 
-instance FromText QuotaPeriodType where
-  parser = (QuotaPeriodType' . mk) <$> takeText
+instance Prelude.FromText QuotaPeriodType where
+  parser = QuotaPeriodType' Prelude.<$> Prelude.takeText
 
-instance ToText QuotaPeriodType where
-  toText (QuotaPeriodType' ci) = original ci
+instance Prelude.ToText QuotaPeriodType where
+  toText (QuotaPeriodType' x) = x
 
-instance Hashable QuotaPeriodType
+instance Prelude.Hashable QuotaPeriodType
 
-instance NFData QuotaPeriodType
+instance Prelude.NFData QuotaPeriodType
 
-instance ToByteString QuotaPeriodType
+instance Prelude.ToByteString QuotaPeriodType
 
-instance ToQuery QuotaPeriodType
+instance Prelude.ToQuery QuotaPeriodType
 
-instance ToHeader QuotaPeriodType
+instance Prelude.ToHeader QuotaPeriodType
 
-instance ToJSON QuotaPeriodType where
-  toJSON = toJSONText
+instance Prelude.ToJSON QuotaPeriodType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON QuotaPeriodType where
-  parseJSON = parseJSONText "QuotaPeriodType"
+instance Prelude.FromJSON QuotaPeriodType where
+  parseJSON = Prelude.parseJSONText "QuotaPeriodType"

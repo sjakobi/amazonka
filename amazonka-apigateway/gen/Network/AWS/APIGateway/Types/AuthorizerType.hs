@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,67 @@
 module Network.AWS.APIGateway.Types.AuthorizerType
   ( AuthorizerType
       ( ..,
-        AuthorizerCognitoUserPools,
-        AuthorizerRequest,
-        AuthorizerToken
+        AuthorizerTypeAuthorizerCOGNITOUSERPOOLS,
+        AuthorizerTypeAuthorizerREQUEST,
+        AuthorizerTypeAuthorizerTOKEN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The authorizer type. Valid values are @TOKEN@ for a Lambda function using a single authorization token submitted in a custom header, @REQUEST@ for a Lambda function using incoming request parameters, and @COGNITO_USER_POOLS@ for using an Amazon Cognito user pool.
-data AuthorizerType = AuthorizerType' (CI Text)
+-- | The authorizer type. Valid values are @TOKEN@ for a Lambda function
+-- using a single authorization token submitted in a custom header,
+-- @REQUEST@ for a Lambda function using incoming request parameters, and
+-- @COGNITO_USER_POOLS@ for using an Amazon Cognito user pool.
+newtype AuthorizerType = AuthorizerType'
+  { fromAuthorizerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AuthorizerCognitoUserPools :: AuthorizerType
-pattern AuthorizerCognitoUserPools = AuthorizerType' "COGNITO_USER_POOLS"
+pattern AuthorizerTypeAuthorizerCOGNITOUSERPOOLS :: AuthorizerType
+pattern AuthorizerTypeAuthorizerCOGNITOUSERPOOLS = AuthorizerType' "COGNITO_USER_POOLS"
 
-pattern AuthorizerRequest :: AuthorizerType
-pattern AuthorizerRequest = AuthorizerType' "REQUEST"
+pattern AuthorizerTypeAuthorizerREQUEST :: AuthorizerType
+pattern AuthorizerTypeAuthorizerREQUEST = AuthorizerType' "REQUEST"
 
-pattern AuthorizerToken :: AuthorizerType
-pattern AuthorizerToken = AuthorizerType' "TOKEN"
+pattern AuthorizerTypeAuthorizerTOKEN :: AuthorizerType
+pattern AuthorizerTypeAuthorizerTOKEN = AuthorizerType' "TOKEN"
 
 {-# COMPLETE
-  AuthorizerCognitoUserPools,
-  AuthorizerRequest,
-  AuthorizerToken,
+  AuthorizerTypeAuthorizerCOGNITOUSERPOOLS,
+  AuthorizerTypeAuthorizerREQUEST,
+  AuthorizerTypeAuthorizerTOKEN,
   AuthorizerType'
   #-}
 
-instance FromText AuthorizerType where
-  parser = (AuthorizerType' . mk) <$> takeText
+instance Prelude.FromText AuthorizerType where
+  parser = AuthorizerType' Prelude.<$> Prelude.takeText
 
-instance ToText AuthorizerType where
-  toText (AuthorizerType' ci) = original ci
+instance Prelude.ToText AuthorizerType where
+  toText (AuthorizerType' x) = x
 
-instance Hashable AuthorizerType
+instance Prelude.Hashable AuthorizerType
 
-instance NFData AuthorizerType
+instance Prelude.NFData AuthorizerType
 
-instance ToByteString AuthorizerType
+instance Prelude.ToByteString AuthorizerType
 
-instance ToQuery AuthorizerType
+instance Prelude.ToQuery AuthorizerType
 
-instance ToHeader AuthorizerType
+instance Prelude.ToHeader AuthorizerType
 
-instance ToJSON AuthorizerType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthorizerType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthorizerType where
-  parseJSON = parseJSONText "AuthorizerType"
+instance Prelude.FromJSON AuthorizerType where
+  parseJSON = Prelude.parseJSONText "AuthorizerType"

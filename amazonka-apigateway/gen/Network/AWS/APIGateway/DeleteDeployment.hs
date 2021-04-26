@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,109 +21,115 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a 'Deployment' resource. Deleting a deployment will only succeed if there are no 'Stage' resources associated with it.
+-- Deletes a Deployment resource. Deleting a deployment will only succeed
+-- if there are no Stage resources associated with it.
 module Network.AWS.APIGateway.DeleteDeployment
   ( -- * Creating a Request
-    deleteDeployment,
-    DeleteDeployment,
+    DeleteDeployment (..),
+    newDeleteDeployment,
 
     -- * Request Lenses
-    ddRestAPIId,
-    ddDeploymentId,
+    deleteDeployment_restApiId,
+    deleteDeployment_deploymentId,
 
     -- * Destructuring the Response
-    deleteDeploymentResponse,
-    DeleteDeploymentResponse,
+    DeleteDeploymentResponse (..),
+    newDeleteDeploymentResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Requests API Gateway to delete a 'Deployment' resource.
+-- | Requests API Gateway to delete a Deployment resource.
 --
---
---
--- /See:/ 'deleteDeployment' smart constructor.
+-- /See:/ 'newDeleteDeployment' smart constructor.
 data DeleteDeployment = DeleteDeployment'
-  { _ddRestAPIId ::
-      !Text,
-    _ddDeploymentId :: !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The identifier of the Deployment resource to delete.
+    deploymentId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDeployment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDeployment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddDeploymentId' - [Required] The identifier of the 'Deployment' resource to delete.
-deleteDeployment ::
-  -- | 'ddRestAPIId'
-  Text ->
-  -- | 'ddDeploymentId'
-  Text ->
+-- 'restApiId', 'deleteDeployment_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'deploymentId', 'deleteDeployment_deploymentId' - [Required] The identifier of the Deployment resource to delete.
+newDeleteDeployment ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'deploymentId'
+  Prelude.Text ->
   DeleteDeployment
-deleteDeployment pRestAPIId_ pDeploymentId_ =
+newDeleteDeployment pRestApiId_ pDeploymentId_ =
   DeleteDeployment'
-    { _ddRestAPIId = pRestAPIId_,
-      _ddDeploymentId = pDeploymentId_
+    { restApiId = pRestApiId_,
+      deploymentId = pDeploymentId_
     }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-ddRestAPIId :: Lens' DeleteDeployment Text
-ddRestAPIId = lens _ddRestAPIId (\s a -> s {_ddRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+deleteDeployment_restApiId :: Lens.Lens' DeleteDeployment Prelude.Text
+deleteDeployment_restApiId = Lens.lens (\DeleteDeployment' {restApiId} -> restApiId) (\s@DeleteDeployment' {} a -> s {restApiId = a} :: DeleteDeployment)
 
--- | [Required] The identifier of the 'Deployment' resource to delete.
-ddDeploymentId :: Lens' DeleteDeployment Text
-ddDeploymentId = lens _ddDeploymentId (\s a -> s {_ddDeploymentId = a})
+-- | [Required] The identifier of the Deployment resource to delete.
+deleteDeployment_deploymentId :: Lens.Lens' DeleteDeployment Prelude.Text
+deleteDeployment_deploymentId = Lens.lens (\DeleteDeployment' {deploymentId} -> deploymentId) (\s@DeleteDeployment' {} a -> s {deploymentId = a} :: DeleteDeployment)
 
-instance AWSRequest DeleteDeployment where
+instance Prelude.AWSRequest DeleteDeployment where
   type Rs DeleteDeployment = DeleteDeploymentResponse
-  request = delete apiGateway
-  response = receiveNull DeleteDeploymentResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteDeploymentResponse'
 
-instance Hashable DeleteDeployment
+instance Prelude.Hashable DeleteDeployment
 
-instance NFData DeleteDeployment
+instance Prelude.NFData DeleteDeployment
 
-instance ToHeaders DeleteDeployment where
+instance Prelude.ToHeaders DeleteDeployment where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteDeployment where
+instance Prelude.ToPath DeleteDeployment where
   toPath DeleteDeployment' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _ddRestAPIId,
+        Prelude.toBS restApiId,
         "/deployments/",
-        toBS _ddDeploymentId
+        Prelude.toBS deploymentId
       ]
 
-instance ToQuery DeleteDeployment where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDeployment where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDeploymentResponse' smart constructor.
+-- | /See:/ 'newDeleteDeploymentResponse' smart constructor.
 data DeleteDeploymentResponse = DeleteDeploymentResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDeploymentResponse' with the minimum fields required to make a request.
-deleteDeploymentResponse ::
+-- |
+-- Create a value of 'DeleteDeploymentResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteDeploymentResponse ::
   DeleteDeploymentResponse
-deleteDeploymentResponse = DeleteDeploymentResponse'
+newDeleteDeploymentResponse =
+  DeleteDeploymentResponse'
 
-instance NFData DeleteDeploymentResponse
+instance Prelude.NFData DeleteDeploymentResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,120 +21,122 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the 'BasePathMapping' resource.
+-- Deletes the BasePathMapping resource.
 module Network.AWS.APIGateway.DeleteBasePathMapping
   ( -- * Creating a Request
-    deleteBasePathMapping,
-    DeleteBasePathMapping,
+    DeleteBasePathMapping (..),
+    newDeleteBasePathMapping,
 
     -- * Request Lenses
-    dbpmDomainName,
-    dbpmBasePath,
+    deleteBasePathMapping_domainName,
+    deleteBasePathMapping_basePath,
 
     -- * Destructuring the Response
-    deleteBasePathMappingResponse,
-    DeleteBasePathMappingResponse,
+    DeleteBasePathMappingResponse (..),
+    newDeleteBasePathMappingResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | A request to delete the 'BasePathMapping' resource.
+-- | A request to delete the BasePathMapping resource.
 --
---
---
--- /See:/ 'deleteBasePathMapping' smart constructor.
+-- /See:/ 'newDeleteBasePathMapping' smart constructor.
 data DeleteBasePathMapping = DeleteBasePathMapping'
-  { _dbpmDomainName ::
-      !Text,
-    _dbpmBasePath :: !Text
+  { -- | [Required] The domain name of the BasePathMapping resource to delete.
+    domainName :: Prelude.Text,
+    -- | [Required] The base path name of the BasePathMapping resource to delete.
+    --
+    -- To specify an empty base path, set this parameter to @\'(none)\'@.
+    basePath :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBasePathMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBasePathMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbpmDomainName' - [Required] The domain name of the 'BasePathMapping' resource to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbpmBasePath' - [Required] The base path name of the 'BasePathMapping' resource to delete. To specify an empty base path, set this parameter to @'(none)'@ .
-deleteBasePathMapping ::
-  -- | 'dbpmDomainName'
-  Text ->
-  -- | 'dbpmBasePath'
-  Text ->
+-- 'domainName', 'deleteBasePathMapping_domainName' - [Required] The domain name of the BasePathMapping resource to delete.
+--
+-- 'basePath', 'deleteBasePathMapping_basePath' - [Required] The base path name of the BasePathMapping resource to delete.
+--
+-- To specify an empty base path, set this parameter to @\'(none)\'@.
+newDeleteBasePathMapping ::
+  -- | 'domainName'
+  Prelude.Text ->
+  -- | 'basePath'
+  Prelude.Text ->
   DeleteBasePathMapping
-deleteBasePathMapping pDomainName_ pBasePath_ =
+newDeleteBasePathMapping pDomainName_ pBasePath_ =
   DeleteBasePathMapping'
-    { _dbpmDomainName =
-        pDomainName_,
-      _dbpmBasePath = pBasePath_
+    { domainName = pDomainName_,
+      basePath = pBasePath_
     }
 
--- | [Required] The domain name of the 'BasePathMapping' resource to delete.
-dbpmDomainName :: Lens' DeleteBasePathMapping Text
-dbpmDomainName = lens _dbpmDomainName (\s a -> s {_dbpmDomainName = a})
+-- | [Required] The domain name of the BasePathMapping resource to delete.
+deleteBasePathMapping_domainName :: Lens.Lens' DeleteBasePathMapping Prelude.Text
+deleteBasePathMapping_domainName = Lens.lens (\DeleteBasePathMapping' {domainName} -> domainName) (\s@DeleteBasePathMapping' {} a -> s {domainName = a} :: DeleteBasePathMapping)
 
--- | [Required] The base path name of the 'BasePathMapping' resource to delete. To specify an empty base path, set this parameter to @'(none)'@ .
-dbpmBasePath :: Lens' DeleteBasePathMapping Text
-dbpmBasePath = lens _dbpmBasePath (\s a -> s {_dbpmBasePath = a})
+-- | [Required] The base path name of the BasePathMapping resource to delete.
+--
+-- To specify an empty base path, set this parameter to @\'(none)\'@.
+deleteBasePathMapping_basePath :: Lens.Lens' DeleteBasePathMapping Prelude.Text
+deleteBasePathMapping_basePath = Lens.lens (\DeleteBasePathMapping' {basePath} -> basePath) (\s@DeleteBasePathMapping' {} a -> s {basePath = a} :: DeleteBasePathMapping)
 
-instance AWSRequest DeleteBasePathMapping where
+instance Prelude.AWSRequest DeleteBasePathMapping where
   type
     Rs DeleteBasePathMapping =
       DeleteBasePathMappingResponse
-  request = delete apiGateway
-  response = receiveNull DeleteBasePathMappingResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteBasePathMappingResponse'
 
-instance Hashable DeleteBasePathMapping
+instance Prelude.Hashable DeleteBasePathMapping
 
-instance NFData DeleteBasePathMapping
+instance Prelude.NFData DeleteBasePathMapping
 
-instance ToHeaders DeleteBasePathMapping where
+instance Prelude.ToHeaders DeleteBasePathMapping where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath DeleteBasePathMapping where
+instance Prelude.ToPath DeleteBasePathMapping where
   toPath DeleteBasePathMapping' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/domainnames/",
-        toBS _dbpmDomainName,
+        Prelude.toBS domainName,
         "/basepathmappings/",
-        toBS _dbpmBasePath
+        Prelude.toBS basePath
       ]
 
-instance ToQuery DeleteBasePathMapping where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteBasePathMapping where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteBasePathMappingResponse' smart constructor.
+-- | /See:/ 'newDeleteBasePathMappingResponse' smart constructor.
 data DeleteBasePathMappingResponse = DeleteBasePathMappingResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBasePathMappingResponse' with the minimum fields required to make a request.
-deleteBasePathMappingResponse ::
+-- |
+-- Create a value of 'DeleteBasePathMappingResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteBasePathMappingResponse ::
   DeleteBasePathMappingResponse
-deleteBasePathMappingResponse =
+newDeleteBasePathMappingResponse =
   DeleteBasePathMappingResponse'
 
-instance NFData DeleteBasePathMappingResponse
+instance Prelude.NFData DeleteBasePathMappingResponse

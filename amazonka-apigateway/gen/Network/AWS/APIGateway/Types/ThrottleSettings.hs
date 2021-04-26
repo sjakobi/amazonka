@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.APIGateway.Types.ThrottleSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The API request rate limits.
 --
---
---
--- /See:/ 'throttleSettings' smart constructor.
+-- /See:/ 'newThrottleSettings' smart constructor.
 data ThrottleSettings = ThrottleSettings'
-  { _tsBurstLimit ::
-      !(Maybe Int),
-    _tsRateLimit :: !(Maybe Double)
+  { -- | The API request burst limit, the maximum rate limit over a time ranging
+    -- from one to a few seconds, depending upon whether the underlying token
+    -- bucket is at its full capacity.
+    burstLimit :: Prelude.Maybe Prelude.Int,
+    -- | The API request steady-state rate limit.
+    rateLimit :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ThrottleSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ThrottleSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsBurstLimit' - The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon whether the underlying token bucket is at its full capacity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsRateLimit' - The API request steady-state rate limit.
-throttleSettings ::
+-- 'burstLimit', 'throttleSettings_burstLimit' - The API request burst limit, the maximum rate limit over a time ranging
+-- from one to a few seconds, depending upon whether the underlying token
+-- bucket is at its full capacity.
+--
+-- 'rateLimit', 'throttleSettings_rateLimit' - The API request steady-state rate limit.
+newThrottleSettings ::
   ThrottleSettings
-throttleSettings =
+newThrottleSettings =
   ThrottleSettings'
-    { _tsBurstLimit = Nothing,
-      _tsRateLimit = Nothing
+    { burstLimit = Prelude.Nothing,
+      rateLimit = Prelude.Nothing
     }
 
--- | The API request burst limit, the maximum rate limit over a time ranging from one to a few seconds, depending upon whether the underlying token bucket is at its full capacity.
-tsBurstLimit :: Lens' ThrottleSettings (Maybe Int)
-tsBurstLimit = lens _tsBurstLimit (\s a -> s {_tsBurstLimit = a})
+-- | The API request burst limit, the maximum rate limit over a time ranging
+-- from one to a few seconds, depending upon whether the underlying token
+-- bucket is at its full capacity.
+throttleSettings_burstLimit :: Lens.Lens' ThrottleSettings (Prelude.Maybe Prelude.Int)
+throttleSettings_burstLimit = Lens.lens (\ThrottleSettings' {burstLimit} -> burstLimit) (\s@ThrottleSettings' {} a -> s {burstLimit = a} :: ThrottleSettings)
 
 -- | The API request steady-state rate limit.
-tsRateLimit :: Lens' ThrottleSettings (Maybe Double)
-tsRateLimit = lens _tsRateLimit (\s a -> s {_tsRateLimit = a})
+throttleSettings_rateLimit :: Lens.Lens' ThrottleSettings (Prelude.Maybe Prelude.Double)
+throttleSettings_rateLimit = Lens.lens (\ThrottleSettings' {rateLimit} -> rateLimit) (\s@ThrottleSettings' {} a -> s {rateLimit = a} :: ThrottleSettings)
 
-instance FromJSON ThrottleSettings where
+instance Prelude.FromJSON ThrottleSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ThrottleSettings"
       ( \x ->
           ThrottleSettings'
-            <$> (x .:? "burstLimit") <*> (x .:? "rateLimit")
+            Prelude.<$> (x Prelude..:? "burstLimit")
+            Prelude.<*> (x Prelude..:? "rateLimit")
       )
 
-instance Hashable ThrottleSettings
+instance Prelude.Hashable ThrottleSettings
 
-instance NFData ThrottleSettings
+instance Prelude.NFData ThrottleSettings
 
-instance ToJSON ThrottleSettings where
+instance Prelude.ToJSON ThrottleSettings where
   toJSON ThrottleSettings' {..} =
-    object
-      ( catMaybes
-          [ ("burstLimit" .=) <$> _tsBurstLimit,
-            ("rateLimit" .=) <$> _tsRateLimit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("burstLimit" Prelude..=) Prelude.<$> burstLimit,
+            ("rateLimit" Prelude..=) Prelude.<$> rateLimit
           ]
       )

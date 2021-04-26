@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,138 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.APIGateway.Types.MethodResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents a method response of a given HTTP status code returned to the client. The method response is passed from the back end through the associated integration response that can be transformed using a mapping template.
+-- | Represents a method response of a given HTTP status code returned to the
+-- client. The method response is passed from the back end through the
+-- associated integration response that can be transformed using a mapping
+-- template.
 --
+-- ==== Example: A __MethodResponse__ instance of an API
 --
+-- ===== Request
 --
+-- The example request retrieves a __MethodResponse__ of the 200 status
+-- code.
 --
--- __Example: A __MethodResponse__ instance of an API__
--- __Request__
--- The example request retrieves a __MethodResponse__ of the 200 status code.
+-- > GET /restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200 HTTP/1.1 Content-Type: application/json Host: apigateway.us-east-1.amazonaws.com X-Amz-Date: 20160603T222952Z Authorization: AWS4-HMAC-SHA256 Credential={access_key_ID}/20160603/us-east-1/apigateway/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature={sig4_hash}
 --
--- @@GET /restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200 HTTP/1.1 Content-Type: application/json Host: apigateway.us-east-1.amazonaws.com X-Amz-Date: 20160603T222952Z Authorization: AWS4-HMAC-SHA256 Credential={access_key_ID}/20160603/us-east-1/apigateway/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature={sig4_hash}@ @ __Response__
--- The successful response returns @200 OK@ status and a payload as follows:
+-- ===== Response
 --
--- @@{ "_links": { "curies": { "href": "https://docs.aws.amazon.com/apigateway/latest/developerguide/restapi-method-response-{rel}.html", "name": "methodresponse", "templated": true }, "self": { "href": "/restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200", "title": "200" }, "methodresponse:delete": { "href": "/restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200" }, "methodresponse:update": { "href": "/restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200" } }, "responseModels": { "application/json": "Empty" }, "responseParameters": { "method.response.header.Content-Type": false }, "statusCode": "200" }@ @
+-- The successful response returns @200 OK@ status and a payload as
+-- follows:
 --
--- 'Method' , 'IntegrationResponse' , 'Integration' <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-create-api.html Creating an API>
+-- > { "_links": { "curies": { "href": "https://docs.aws.amazon.com/apigateway/latest/developerguide/restapi-method-response-{rel}.html", "name": "methodresponse", "templated": true }, "self": { "href": "/restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200", "title": "200" }, "methodresponse:delete": { "href": "/restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200" }, "methodresponse:update": { "href": "/restapis/fugvjdxtri/resources/3kzxbg5sa2/methods/GET/responses/200" } }, "responseModels": { "application/json": "Empty" }, "responseParameters": { "method.response.header.Content-Type": false }, "statusCode": "200" }
 --
--- /See:/ 'methodResponse' smart constructor.
+-- Method, IntegrationResponse, Integration
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-create-api.html Creating an API>
+--
+-- /See:/ 'newMethodResponse' smart constructor.
 data MethodResponse = MethodResponse'
-  { _mrResponseModels ::
-      !(Maybe (Map Text Text)),
-    _mrStatusCode :: !(Maybe Text),
-    _mrResponseParameters ::
-      !(Maybe (Map Text Bool))
+  { -- | Specifies the Model resources used for the response\'s content-type.
+    -- Response models are represented as a key\/value map, with a content-type
+    -- as the key and a Model name as the value.
+    responseModels :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The method response\'s status code.
+    statusCode :: Prelude.Maybe Prelude.Text,
+    -- | A key-value map specifying required or optional response parameters that
+    -- API Gateway can send back to the caller. A key defines a method response
+    -- header and the value specifies whether the associated method response
+    -- header is required or not. The expression of the key must match the
+    -- pattern @method.response.header.{name}@, where @name@ is a valid and
+    -- unique header name. API Gateway passes certain integration response data
+    -- to the method response headers specified here according to the mapping
+    -- you prescribe in the API\'s IntegrationResponse. The integration
+    -- response data that can be mapped include an integration response header
+    -- expressed in @integration.response.header.{name}@, a static value
+    -- enclosed within a pair of single quotes (e.g., @\'application\/json\'@),
+    -- or a JSON expression from the back-end response payload in the form of
+    -- @integration.response.body.{JSON-expression}@, where @JSON-expression@
+    -- is a valid JSON expression without the @$@ prefix.)
+    responseParameters :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Bool)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MethodResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MethodResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mrResponseModels' - Specifies the 'Model' resources used for the response's content-type. Response models are represented as a key/value map, with a content-type as the key and a 'Model' name as the value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mrStatusCode' - The method response's status code.
+-- 'responseModels', 'methodResponse_responseModels' - Specifies the Model resources used for the response\'s content-type.
+-- Response models are represented as a key\/value map, with a content-type
+-- as the key and a Model name as the value.
 --
--- * 'mrResponseParameters' - A key-value map specifying required or optional response parameters that API Gateway can send back to the caller. A key defines a method response header and the value specifies whether the associated method response header is required or not. The expression of the key must match the pattern @method.response.header.{name}@ , where @name@ is a valid and unique header name. API Gateway passes certain integration response data to the method response headers specified here according to the mapping you prescribe in the API's 'IntegrationResponse' . The integration response data that can be mapped include an integration response header expressed in @integration.response.header.{name}@ , a static value enclosed within a pair of single quotes (e.g., @'application/json'@ ), or a JSON expression from the back-end response payload in the form of @integration.response.body.{JSON-expression}@ , where @JSON-expression@ is a valid JSON expression without the @> @ prefix.)
-methodResponse ::
+-- 'statusCode', 'methodResponse_statusCode' - The method response\'s status code.
+--
+-- 'responseParameters', 'methodResponse_responseParameters' - A key-value map specifying required or optional response parameters that
+-- API Gateway can send back to the caller. A key defines a method response
+-- header and the value specifies whether the associated method response
+-- header is required or not. The expression of the key must match the
+-- pattern @method.response.header.{name}@, where @name@ is a valid and
+-- unique header name. API Gateway passes certain integration response data
+-- to the method response headers specified here according to the mapping
+-- you prescribe in the API\'s IntegrationResponse. The integration
+-- response data that can be mapped include an integration response header
+-- expressed in @integration.response.header.{name}@, a static value
+-- enclosed within a pair of single quotes (e.g., @\'application\/json\'@),
+-- or a JSON expression from the back-end response payload in the form of
+-- @integration.response.body.{JSON-expression}@, where @JSON-expression@
+-- is a valid JSON expression without the @$@ prefix.)
+newMethodResponse ::
   MethodResponse
-methodResponse =
+newMethodResponse =
   MethodResponse'
-    { _mrResponseModels = Nothing,
-      _mrStatusCode = Nothing,
-      _mrResponseParameters = Nothing
+    { responseModels = Prelude.Nothing,
+      statusCode = Prelude.Nothing,
+      responseParameters = Prelude.Nothing
     }
 
--- | Specifies the 'Model' resources used for the response's content-type. Response models are represented as a key/value map, with a content-type as the key and a 'Model' name as the value.
-mrResponseModels :: Lens' MethodResponse (HashMap Text Text)
-mrResponseModels = lens _mrResponseModels (\s a -> s {_mrResponseModels = a}) . _Default . _Map
+-- | Specifies the Model resources used for the response\'s content-type.
+-- Response models are represented as a key\/value map, with a content-type
+-- as the key and a Model name as the value.
+methodResponse_responseModels :: Lens.Lens' MethodResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+methodResponse_responseModels = Lens.lens (\MethodResponse' {responseModels} -> responseModels) (\s@MethodResponse' {} a -> s {responseModels = a} :: MethodResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | The method response's status code.
-mrStatusCode :: Lens' MethodResponse (Maybe Text)
-mrStatusCode = lens _mrStatusCode (\s a -> s {_mrStatusCode = a})
+-- | The method response\'s status code.
+methodResponse_statusCode :: Lens.Lens' MethodResponse (Prelude.Maybe Prelude.Text)
+methodResponse_statusCode = Lens.lens (\MethodResponse' {statusCode} -> statusCode) (\s@MethodResponse' {} a -> s {statusCode = a} :: MethodResponse)
 
--- | A key-value map specifying required or optional response parameters that API Gateway can send back to the caller. A key defines a method response header and the value specifies whether the associated method response header is required or not. The expression of the key must match the pattern @method.response.header.{name}@ , where @name@ is a valid and unique header name. API Gateway passes certain integration response data to the method response headers specified here according to the mapping you prescribe in the API's 'IntegrationResponse' . The integration response data that can be mapped include an integration response header expressed in @integration.response.header.{name}@ , a static value enclosed within a pair of single quotes (e.g., @'application/json'@ ), or a JSON expression from the back-end response payload in the form of @integration.response.body.{JSON-expression}@ , where @JSON-expression@ is a valid JSON expression without the @> @ prefix.)
-mrResponseParameters :: Lens' MethodResponse (HashMap Text Bool)
-mrResponseParameters = lens _mrResponseParameters (\s a -> s {_mrResponseParameters = a}) . _Default . _Map
+-- | A key-value map specifying required or optional response parameters that
+-- API Gateway can send back to the caller. A key defines a method response
+-- header and the value specifies whether the associated method response
+-- header is required or not. The expression of the key must match the
+-- pattern @method.response.header.{name}@, where @name@ is a valid and
+-- unique header name. API Gateway passes certain integration response data
+-- to the method response headers specified here according to the mapping
+-- you prescribe in the API\'s IntegrationResponse. The integration
+-- response data that can be mapped include an integration response header
+-- expressed in @integration.response.header.{name}@, a static value
+-- enclosed within a pair of single quotes (e.g., @\'application\/json\'@),
+-- or a JSON expression from the back-end response payload in the form of
+-- @integration.response.body.{JSON-expression}@, where @JSON-expression@
+-- is a valid JSON expression without the @$@ prefix.)
+methodResponse_responseParameters :: Lens.Lens' MethodResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Bool))
+methodResponse_responseParameters = Lens.lens (\MethodResponse' {responseParameters} -> responseParameters) (\s@MethodResponse' {} a -> s {responseParameters = a} :: MethodResponse) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON MethodResponse where
+instance Prelude.FromJSON MethodResponse where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MethodResponse"
       ( \x ->
           MethodResponse'
-            <$> (x .:? "responseModels" .!= mempty)
-            <*> (x .:? "statusCode")
-            <*> (x .:? "responseParameters" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "responseModels"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "statusCode")
+            Prelude.<*> ( x Prelude..:? "responseParameters"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable MethodResponse
+instance Prelude.Hashable MethodResponse
 
-instance NFData MethodResponse
+instance Prelude.NFData MethodResponse

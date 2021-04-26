@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,149 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a sample mapping template that can be used to transform a payload into the structure of a model.
+-- Generates a sample mapping template that can be used to transform a
+-- payload into the structure of a model.
 module Network.AWS.APIGateway.GetModelTemplate
   ( -- * Creating a Request
-    getModelTemplate,
-    GetModelTemplate,
+    GetModelTemplate (..),
+    newGetModelTemplate,
 
     -- * Request Lenses
-    gmtRestAPIId,
-    gmtModelName,
+    getModelTemplate_restApiId,
+    getModelTemplate_modelName,
 
     -- * Destructuring the Response
-    getModelTemplateResponse,
-    GetModelTemplateResponse,
+    GetModelTemplateResponse (..),
+    newGetModelTemplateResponse,
 
     -- * Response Lenses
-    gmtrrsValue,
-    gmtrrsResponseStatus,
+    getModelTemplateResponse_value,
+    getModelTemplateResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request to generate a sample mapping template used to transform the payload.
+-- | Request to generate a sample mapping template used to transform the
+-- payload.
 --
---
---
--- /See:/ 'getModelTemplate' smart constructor.
+-- /See:/ 'newGetModelTemplate' smart constructor.
 data GetModelTemplate = GetModelTemplate'
-  { _gmtRestAPIId ::
-      !Text,
-    _gmtModelName :: !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The name of the model for which to generate a template.
+    modelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetModelTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetModelTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmtRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmtModelName' - [Required] The name of the model for which to generate a template.
-getModelTemplate ::
-  -- | 'gmtRestAPIId'
-  Text ->
-  -- | 'gmtModelName'
-  Text ->
+-- 'restApiId', 'getModelTemplate_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'modelName', 'getModelTemplate_modelName' - [Required] The name of the model for which to generate a template.
+newGetModelTemplate ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'modelName'
+  Prelude.Text ->
   GetModelTemplate
-getModelTemplate pRestAPIId_ pModelName_ =
+newGetModelTemplate pRestApiId_ pModelName_ =
   GetModelTemplate'
-    { _gmtRestAPIId = pRestAPIId_,
-      _gmtModelName = pModelName_
+    { restApiId = pRestApiId_,
+      modelName = pModelName_
     }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-gmtRestAPIId :: Lens' GetModelTemplate Text
-gmtRestAPIId = lens _gmtRestAPIId (\s a -> s {_gmtRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getModelTemplate_restApiId :: Lens.Lens' GetModelTemplate Prelude.Text
+getModelTemplate_restApiId = Lens.lens (\GetModelTemplate' {restApiId} -> restApiId) (\s@GetModelTemplate' {} a -> s {restApiId = a} :: GetModelTemplate)
 
 -- | [Required] The name of the model for which to generate a template.
-gmtModelName :: Lens' GetModelTemplate Text
-gmtModelName = lens _gmtModelName (\s a -> s {_gmtModelName = a})
+getModelTemplate_modelName :: Lens.Lens' GetModelTemplate Prelude.Text
+getModelTemplate_modelName = Lens.lens (\GetModelTemplate' {modelName} -> modelName) (\s@GetModelTemplate' {} a -> s {modelName = a} :: GetModelTemplate)
 
-instance AWSRequest GetModelTemplate where
+instance Prelude.AWSRequest GetModelTemplate where
   type Rs GetModelTemplate = GetModelTemplateResponse
-  request = get apiGateway
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetModelTemplateResponse'
-            <$> (x .?> "value") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "value")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetModelTemplate
+instance Prelude.Hashable GetModelTemplate
 
-instance NFData GetModelTemplate
+instance Prelude.NFData GetModelTemplate
 
-instance ToHeaders GetModelTemplate where
+instance Prelude.ToHeaders GetModelTemplate where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetModelTemplate where
+instance Prelude.ToPath GetModelTemplate where
   toPath GetModelTemplate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _gmtRestAPIId,
+        Prelude.toBS restApiId,
         "/models/",
-        toBS _gmtModelName,
+        Prelude.toBS modelName,
         "/default_template"
       ]
 
-instance ToQuery GetModelTemplate where
-  toQuery = const mempty
+instance Prelude.ToQuery GetModelTemplate where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Represents a mapping template used to transform a payload.
 --
---
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html#models-mappings-mappings Mapping Templates>
 --
--- /See:/ 'getModelTemplateResponse' smart constructor.
+-- /See:/ 'newGetModelTemplateResponse' smart constructor.
 data GetModelTemplateResponse = GetModelTemplateResponse'
-  { _gmtrrsValue ::
-      !(Maybe Text),
-    _gmtrrsResponseStatus ::
-      !Int
+  { -- | The Apache
+    -- <https://velocity.apache.org/engine/devel/vtl-reference.html Velocity Template Language (VTL)>
+    -- template content used for the template resource.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetModelTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetModelTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmtrrsValue' - The Apache <https://velocity.apache.org/engine/devel/vtl-reference.html Velocity Template Language (VTL)> template content used for the template resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmtrrsResponseStatus' - -- | The response status code.
-getModelTemplateResponse ::
-  -- | 'gmtrrsResponseStatus'
-  Int ->
+-- 'value', 'getModelTemplateResponse_value' - The Apache
+-- <https://velocity.apache.org/engine/devel/vtl-reference.html Velocity Template Language (VTL)>
+-- template content used for the template resource.
+--
+-- 'httpStatus', 'getModelTemplateResponse_httpStatus' - The response's http status code.
+newGetModelTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetModelTemplateResponse
-getModelTemplateResponse pResponseStatus_ =
+newGetModelTemplateResponse pHttpStatus_ =
   GetModelTemplateResponse'
-    { _gmtrrsValue = Nothing,
-      _gmtrrsResponseStatus = pResponseStatus_
+    { value = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The Apache <https://velocity.apache.org/engine/devel/vtl-reference.html Velocity Template Language (VTL)> template content used for the template resource.
-gmtrrsValue :: Lens' GetModelTemplateResponse (Maybe Text)
-gmtrrsValue = lens _gmtrrsValue (\s a -> s {_gmtrrsValue = a})
+-- | The Apache
+-- <https://velocity.apache.org/engine/devel/vtl-reference.html Velocity Template Language (VTL)>
+-- template content used for the template resource.
+getModelTemplateResponse_value :: Lens.Lens' GetModelTemplateResponse (Prelude.Maybe Prelude.Text)
+getModelTemplateResponse_value = Lens.lens (\GetModelTemplateResponse' {value} -> value) (\s@GetModelTemplateResponse' {} a -> s {value = a} :: GetModelTemplateResponse)
 
--- | -- | The response status code.
-gmtrrsResponseStatus :: Lens' GetModelTemplateResponse Int
-gmtrrsResponseStatus = lens _gmtrrsResponseStatus (\s a -> s {_gmtrrsResponseStatus = a})
+-- | The response's http status code.
+getModelTemplateResponse_httpStatus :: Lens.Lens' GetModelTemplateResponse Prelude.Int
+getModelTemplateResponse_httpStatus = Lens.lens (\GetModelTemplateResponse' {httpStatus} -> httpStatus) (\s@GetModelTemplateResponse' {} a -> s {httpStatus = a} :: GetModelTemplateResponse)
 
-instance NFData GetModelTemplateResponse
+instance Prelude.NFData GetModelTemplateResponse

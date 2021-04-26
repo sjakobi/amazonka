@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,96 +24,116 @@
 -- Adds or updates a tag on a given resource.
 module Network.AWS.APIGateway.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trResourceARN,
-    trTags,
+    tagResource_resourceArn,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Adds or updates a tag on a given resource.
 --
---
---
--- /See:/ 'tagResource' smart constructor.
+-- /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trResourceARN ::
-      !Text,
-    _trTags :: !(Map Text Text)
+  { -- | [Required] The ARN of a resource that can be tagged.
+    resourceArn :: Prelude.Text,
+    -- | [Required] The key-value map of strings. The valid character set is
+    -- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
+    -- start with @aws:@. The tag value can be up to 256 characters.
+    tags :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trResourceARN' - [Required] The ARN of a resource that can be tagged.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - [Required] The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not start with @aws:@ . The tag value can be up to 256 characters.
-tagResource ::
-  -- | 'trResourceARN'
-  Text ->
+-- 'resourceArn', 'tagResource_resourceArn' - [Required] The ARN of a resource that can be tagged.
+--
+-- 'tags', 'tagResource_tags' - [Required] The key-value map of strings. The valid character set is
+-- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
+-- start with @aws:@. The tag value can be up to 256 characters.
+newTagResource ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   TagResource
-tagResource pResourceARN_ =
+newTagResource pResourceArn_ =
   TagResource'
-    { _trResourceARN = pResourceARN_,
-      _trTags = mempty
+    { resourceArn = pResourceArn_,
+      tags = Prelude.mempty
     }
 
 -- | [Required] The ARN of a resource that can be tagged.
-trResourceARN :: Lens' TagResource Text
-trResourceARN = lens _trResourceARN (\s a -> s {_trResourceARN = a})
+tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
+tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
--- | [Required] The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not start with @aws:@ . The tag value can be up to 256 characters.
-trTags :: Lens' TagResource (HashMap Text Text)
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _Map
+-- | [Required] The key-value map of strings. The valid character set is
+-- [a-zA-Z+-=._:\/]. The tag key can be up to 128 characters and must not
+-- start with @aws:@. The tag value can be up to 256 characters.
+tagResource_tags :: Lens.Lens' TagResource (Prelude.HashMap Prelude.Text Prelude.Text)
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._Map
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = putJSON apiGateway
-  response = receiveNull TagResourceResponse'
+  request = Request.putJSON defaultService
+  response = Response.receiveNull TagResourceResponse'
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
+instance Prelude.ToHeaders TagResource where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object (catMaybes [Just ("tags" .= _trTags)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("tags" Prelude..= tags)]
+      )
 
-instance ToPath TagResource where
+instance Prelude.ToPath TagResource where
   toPath TagResource' {..} =
-    mconcat ["/tags/", toBS _trResourceARN]
+    Prelude.mconcat
+      ["/tags/", Prelude.toBS resourceArn]
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
+-- | /See:/ 'newTagResourceResponse' smart constructor.
 data TagResourceResponse = TagResourceResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
-tagResourceResponse ::
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newTagResourceResponse ::
   TagResourceResponse
-tagResourceResponse = TagResourceResponse'
+newTagResourceResponse = TagResourceResponse'
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

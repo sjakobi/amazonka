@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,176 +21,191 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets all the usage plans of the caller's account.
---
---
+-- Gets all the usage plans of the caller\'s account.
 --
 -- This operation returns paginated results.
 module Network.AWS.APIGateway.GetUsagePlans
   ( -- * Creating a Request
-    getUsagePlans,
-    GetUsagePlans,
+    GetUsagePlans (..),
+    newGetUsagePlans,
 
     -- * Request Lenses
-    gupPosition,
-    gupLimit,
-    gupKeyId,
+    getUsagePlans_position,
+    getUsagePlans_limit,
+    getUsagePlans_keyId,
 
     -- * Destructuring the Response
-    getUsagePlansResponse,
-    GetUsagePlansResponse,
+    GetUsagePlansResponse (..),
+    newGetUsagePlansResponse,
 
     -- * Response Lenses
-    guprrsItems,
-    guprrsPosition,
-    guprrsResponseStatus,
+    getUsagePlansResponse_items,
+    getUsagePlansResponse_position,
+    getUsagePlansResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.UsagePlan
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | The GET request to get all the usage plans of the caller's account.
+-- | The GET request to get all the usage plans of the caller\'s account.
 --
---
---
--- /See:/ 'getUsagePlans' smart constructor.
+-- /See:/ 'newGetUsagePlans' smart constructor.
 data GetUsagePlans = GetUsagePlans'
-  { _gupPosition ::
-      !(Maybe Text),
-    _gupLimit :: !(Maybe Int),
-    _gupKeyId :: !(Maybe Text)
+  { -- | The current pagination position in the paged result set.
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of returned results per page. The default value is 25
+    -- and the maximum value is 500.
+    limit :: Prelude.Maybe Prelude.Int,
+    -- | The identifier of the API key associated with the usage plans.
+    keyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUsagePlans' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUsagePlans' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gupPosition' - The current pagination position in the paged result set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gupLimit' - The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+-- 'position', 'getUsagePlans_position' - The current pagination position in the paged result set.
 --
--- * 'gupKeyId' - The identifier of the API key associated with the usage plans.
-getUsagePlans ::
+-- 'limit', 'getUsagePlans_limit' - The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+--
+-- 'keyId', 'getUsagePlans_keyId' - The identifier of the API key associated with the usage plans.
+newGetUsagePlans ::
   GetUsagePlans
-getUsagePlans =
+newGetUsagePlans =
   GetUsagePlans'
-    { _gupPosition = Nothing,
-      _gupLimit = Nothing,
-      _gupKeyId = Nothing
+    { position = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      keyId = Prelude.Nothing
     }
 
 -- | The current pagination position in the paged result set.
-gupPosition :: Lens' GetUsagePlans (Maybe Text)
-gupPosition = lens _gupPosition (\s a -> s {_gupPosition = a})
+getUsagePlans_position :: Lens.Lens' GetUsagePlans (Prelude.Maybe Prelude.Text)
+getUsagePlans_position = Lens.lens (\GetUsagePlans' {position} -> position) (\s@GetUsagePlans' {} a -> s {position = a} :: GetUsagePlans)
 
--- | The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-gupLimit :: Lens' GetUsagePlans (Maybe Int)
-gupLimit = lens _gupLimit (\s a -> s {_gupLimit = a})
+-- | The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+getUsagePlans_limit :: Lens.Lens' GetUsagePlans (Prelude.Maybe Prelude.Int)
+getUsagePlans_limit = Lens.lens (\GetUsagePlans' {limit} -> limit) (\s@GetUsagePlans' {} a -> s {limit = a} :: GetUsagePlans)
 
 -- | The identifier of the API key associated with the usage plans.
-gupKeyId :: Lens' GetUsagePlans (Maybe Text)
-gupKeyId = lens _gupKeyId (\s a -> s {_gupKeyId = a})
+getUsagePlans_keyId :: Lens.Lens' GetUsagePlans (Prelude.Maybe Prelude.Text)
+getUsagePlans_keyId = Lens.lens (\GetUsagePlans' {keyId} -> keyId) (\s@GetUsagePlans' {} a -> s {keyId = a} :: GetUsagePlans)
 
-instance AWSPager GetUsagePlans where
+instance Pager.AWSPager GetUsagePlans where
   page rq rs
-    | stop (rs ^. guprrsPosition) = Nothing
-    | stop (rs ^. guprrsItems) = Nothing
-    | otherwise =
-      Just $ rq & gupPosition .~ rs ^. guprrsPosition
+    | Pager.stop
+        ( rs
+            Lens.^? getUsagePlansResponse_position Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getUsagePlansResponse_items Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getUsagePlans_position
+          Lens..~ rs
+          Lens.^? getUsagePlansResponse_position Prelude.. Lens._Just
 
-instance AWSRequest GetUsagePlans where
+instance Prelude.AWSRequest GetUsagePlans where
   type Rs GetUsagePlans = GetUsagePlansResponse
-  request = get apiGateway
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetUsagePlansResponse'
-            <$> (x .?> "item" .!@ mempty)
-            <*> (x .?> "position")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "item" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "position")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetUsagePlans
+instance Prelude.Hashable GetUsagePlans
 
-instance NFData GetUsagePlans
+instance Prelude.NFData GetUsagePlans
 
-instance ToHeaders GetUsagePlans where
+instance Prelude.ToHeaders GetUsagePlans where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetUsagePlans where
-  toPath = const "/usageplans"
+instance Prelude.ToPath GetUsagePlans where
+  toPath = Prelude.const "/usageplans"
 
-instance ToQuery GetUsagePlans where
+instance Prelude.ToQuery GetUsagePlans where
   toQuery GetUsagePlans' {..} =
-    mconcat
-      [ "position" =: _gupPosition,
-        "limit" =: _gupLimit,
-        "keyId" =: _gupKeyId
+    Prelude.mconcat
+      [ "position" Prelude.=: position,
+        "limit" Prelude.=: limit,
+        "keyId" Prelude.=: keyId
       ]
 
 -- | Represents a collection of usage plans for an AWS account.
 --
---
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html Create and Use Usage Plans>
 --
--- /See:/ 'getUsagePlansResponse' smart constructor.
+-- /See:/ 'newGetUsagePlansResponse' smart constructor.
 data GetUsagePlansResponse = GetUsagePlansResponse'
-  { _guprrsItems ::
-      !(Maybe [UsagePlan]),
-    _guprrsPosition ::
-      !(Maybe Text),
-    _guprrsResponseStatus ::
-      !Int
+  { -- | The current page of elements from this collection.
+    items :: Prelude.Maybe [UsagePlan],
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUsagePlansResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUsagePlansResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guprrsItems' - The current page of elements from this collection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guprrsPosition' - Undocumented member.
+-- 'items', 'getUsagePlansResponse_items' - The current page of elements from this collection.
 --
--- * 'guprrsResponseStatus' - -- | The response status code.
-getUsagePlansResponse ::
-  -- | 'guprrsResponseStatus'
-  Int ->
+-- 'position', 'getUsagePlansResponse_position' - Undocumented member.
+--
+-- 'httpStatus', 'getUsagePlansResponse_httpStatus' - The response's http status code.
+newGetUsagePlansResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetUsagePlansResponse
-getUsagePlansResponse pResponseStatus_ =
+newGetUsagePlansResponse pHttpStatus_ =
   GetUsagePlansResponse'
-    { _guprrsItems = Nothing,
-      _guprrsPosition = Nothing,
-      _guprrsResponseStatus = pResponseStatus_
+    { items = Prelude.Nothing,
+      position = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current page of elements from this collection.
-guprrsItems :: Lens' GetUsagePlansResponse [UsagePlan]
-guprrsItems = lens _guprrsItems (\s a -> s {_guprrsItems = a}) . _Default . _Coerce
+getUsagePlansResponse_items :: Lens.Lens' GetUsagePlansResponse (Prelude.Maybe [UsagePlan])
+getUsagePlansResponse_items = Lens.lens (\GetUsagePlansResponse' {items} -> items) (\s@GetUsagePlansResponse' {} a -> s {items = a} :: GetUsagePlansResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-guprrsPosition :: Lens' GetUsagePlansResponse (Maybe Text)
-guprrsPosition = lens _guprrsPosition (\s a -> s {_guprrsPosition = a})
+getUsagePlansResponse_position :: Lens.Lens' GetUsagePlansResponse (Prelude.Maybe Prelude.Text)
+getUsagePlansResponse_position = Lens.lens (\GetUsagePlansResponse' {position} -> position) (\s@GetUsagePlansResponse' {} a -> s {position = a} :: GetUsagePlansResponse)
 
--- | -- | The response status code.
-guprrsResponseStatus :: Lens' GetUsagePlansResponse Int
-guprrsResponseStatus = lens _guprrsResponseStatus (\s a -> s {_guprrsResponseStatus = a})
+-- | The response's http status code.
+getUsagePlansResponse_httpStatus :: Lens.Lens' GetUsagePlansResponse Prelude.Int
+getUsagePlansResponse_httpStatus = Lens.lens (\GetUsagePlansResponse' {httpStatus} -> httpStatus) (\s@GetUsagePlansResponse' {} a -> s {httpStatus = a} :: GetUsagePlansResponse)
 
-instance NFData GetUsagePlansResponse
+instance Prelude.NFData GetUsagePlansResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,240 +21,256 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Undocumented operation.
+-- -- | Undocumented operation.
 --
 -- This operation returns paginated results.
 module Network.AWS.APIGateway.GetDocumentationParts
   ( -- * Creating a Request
-    getDocumentationParts,
-    GetDocumentationParts,
+    GetDocumentationParts (..),
+    newGetDocumentationParts,
 
     -- * Request Lenses
-    gdpsLocationStatus,
-    gdpsPosition,
-    gdpsType,
-    gdpsLimit,
-    gdpsPath,
-    gdpsNameQuery,
-    gdpsRestAPIId,
+    getDocumentationParts_locationStatus,
+    getDocumentationParts_position,
+    getDocumentationParts_type,
+    getDocumentationParts_limit,
+    getDocumentationParts_path,
+    getDocumentationParts_nameQuery,
+    getDocumentationParts_restApiId,
 
     -- * Destructuring the Response
-    getDocumentationPartsResponse,
-    GetDocumentationPartsResponse,
+    GetDocumentationPartsResponse (..),
+    newGetDocumentationPartsResponse,
 
     -- * Response Lenses
-    gdprrsItems,
-    gdprrsPosition,
-    gdprrsResponseStatus,
+    getDocumentationPartsResponse_items,
+    getDocumentationPartsResponse_position,
+    getDocumentationPartsResponse_httpStatus,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.DocumentationPart
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Gets the documentation parts of an API. The result may be filtered by the type, name, or path of API entities (targets).
+-- | Gets the documentation parts of an API. The result may be filtered by
+-- the type, name, or path of API entities (targets).
 --
---
---
--- /See:/ 'getDocumentationParts' smart constructor.
+-- /See:/ 'newGetDocumentationParts' smart constructor.
 data GetDocumentationParts = GetDocumentationParts'
-  { _gdpsLocationStatus ::
-      !(Maybe LocationStatusType),
-    _gdpsPosition ::
-      !(Maybe Text),
-    _gdpsType ::
-      !( Maybe
-           DocumentationPartType
-       ),
-    _gdpsLimit :: !(Maybe Int),
-    _gdpsPath :: !(Maybe Text),
-    _gdpsNameQuery ::
-      !(Maybe Text),
-    _gdpsRestAPIId :: !Text
+  { -- | The status of the API documentation parts to retrieve. Valid values are
+    -- @DOCUMENTED@ for retrieving DocumentationPart resources with content and
+    -- @UNDOCUMENTED@ for DocumentationPart resources without content.
+    locationStatus :: Prelude.Maybe LocationStatusType,
+    -- | The current pagination position in the paged result set.
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The type of API entities of the to-be-retrieved documentation parts.
+    type' :: Prelude.Maybe DocumentationPartType,
+    -- | The maximum number of returned results per page. The default value is 25
+    -- and the maximum value is 500.
+    limit :: Prelude.Maybe Prelude.Int,
+    -- | The path of API entities of the to-be-retrieved documentation parts.
+    path :: Prelude.Maybe Prelude.Text,
+    -- | The name of API entities of the to-be-retrieved documentation parts.
+    nameQuery :: Prelude.Maybe Prelude.Text,
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocumentationParts' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocumentationParts' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdpsLocationStatus' - The status of the API documentation parts to retrieve. Valid values are @DOCUMENTED@ for retrieving 'DocumentationPart' resources with content and @UNDOCUMENTED@ for 'DocumentationPart' resources without content.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdpsPosition' - The current pagination position in the paged result set.
+-- 'locationStatus', 'getDocumentationParts_locationStatus' - The status of the API documentation parts to retrieve. Valid values are
+-- @DOCUMENTED@ for retrieving DocumentationPart resources with content and
+-- @UNDOCUMENTED@ for DocumentationPart resources without content.
 --
--- * 'gdpsType' - The type of API entities of the to-be-retrieved documentation parts.
+-- 'position', 'getDocumentationParts_position' - The current pagination position in the paged result set.
 --
--- * 'gdpsLimit' - The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
+-- 'type'', 'getDocumentationParts_type' - The type of API entities of the to-be-retrieved documentation parts.
 --
--- * 'gdpsPath' - The path of API entities of the to-be-retrieved documentation parts.
+-- 'limit', 'getDocumentationParts_limit' - The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
 --
--- * 'gdpsNameQuery' - The name of API entities of the to-be-retrieved documentation parts.
+-- 'path', 'getDocumentationParts_path' - The path of API entities of the to-be-retrieved documentation parts.
 --
--- * 'gdpsRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
-getDocumentationParts ::
-  -- | 'gdpsRestAPIId'
-  Text ->
+-- 'nameQuery', 'getDocumentationParts_nameQuery' - The name of API entities of the to-be-retrieved documentation parts.
+--
+-- 'restApiId', 'getDocumentationParts_restApiId' - [Required] The string identifier of the associated RestApi.
+newGetDocumentationParts ::
+  -- | 'restApiId'
+  Prelude.Text ->
   GetDocumentationParts
-getDocumentationParts pRestAPIId_ =
+newGetDocumentationParts pRestApiId_ =
   GetDocumentationParts'
-    { _gdpsLocationStatus =
-        Nothing,
-      _gdpsPosition = Nothing,
-      _gdpsType = Nothing,
-      _gdpsLimit = Nothing,
-      _gdpsPath = Nothing,
-      _gdpsNameQuery = Nothing,
-      _gdpsRestAPIId = pRestAPIId_
+    { locationStatus =
+        Prelude.Nothing,
+      position = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      path = Prelude.Nothing,
+      nameQuery = Prelude.Nothing,
+      restApiId = pRestApiId_
     }
 
--- | The status of the API documentation parts to retrieve. Valid values are @DOCUMENTED@ for retrieving 'DocumentationPart' resources with content and @UNDOCUMENTED@ for 'DocumentationPart' resources without content.
-gdpsLocationStatus :: Lens' GetDocumentationParts (Maybe LocationStatusType)
-gdpsLocationStatus = lens _gdpsLocationStatus (\s a -> s {_gdpsLocationStatus = a})
+-- | The status of the API documentation parts to retrieve. Valid values are
+-- @DOCUMENTED@ for retrieving DocumentationPart resources with content and
+-- @UNDOCUMENTED@ for DocumentationPart resources without content.
+getDocumentationParts_locationStatus :: Lens.Lens' GetDocumentationParts (Prelude.Maybe LocationStatusType)
+getDocumentationParts_locationStatus = Lens.lens (\GetDocumentationParts' {locationStatus} -> locationStatus) (\s@GetDocumentationParts' {} a -> s {locationStatus = a} :: GetDocumentationParts)
 
 -- | The current pagination position in the paged result set.
-gdpsPosition :: Lens' GetDocumentationParts (Maybe Text)
-gdpsPosition = lens _gdpsPosition (\s a -> s {_gdpsPosition = a})
+getDocumentationParts_position :: Lens.Lens' GetDocumentationParts (Prelude.Maybe Prelude.Text)
+getDocumentationParts_position = Lens.lens (\GetDocumentationParts' {position} -> position) (\s@GetDocumentationParts' {} a -> s {position = a} :: GetDocumentationParts)
 
 -- | The type of API entities of the to-be-retrieved documentation parts.
-gdpsType :: Lens' GetDocumentationParts (Maybe DocumentationPartType)
-gdpsType = lens _gdpsType (\s a -> s {_gdpsType = a})
+getDocumentationParts_type :: Lens.Lens' GetDocumentationParts (Prelude.Maybe DocumentationPartType)
+getDocumentationParts_type = Lens.lens (\GetDocumentationParts' {type'} -> type') (\s@GetDocumentationParts' {} a -> s {type' = a} :: GetDocumentationParts)
 
--- | The maximum number of returned results per page. The default value is 25 and the maximum value is 500.
-gdpsLimit :: Lens' GetDocumentationParts (Maybe Int)
-gdpsLimit = lens _gdpsLimit (\s a -> s {_gdpsLimit = a})
+-- | The maximum number of returned results per page. The default value is 25
+-- and the maximum value is 500.
+getDocumentationParts_limit :: Lens.Lens' GetDocumentationParts (Prelude.Maybe Prelude.Int)
+getDocumentationParts_limit = Lens.lens (\GetDocumentationParts' {limit} -> limit) (\s@GetDocumentationParts' {} a -> s {limit = a} :: GetDocumentationParts)
 
 -- | The path of API entities of the to-be-retrieved documentation parts.
-gdpsPath :: Lens' GetDocumentationParts (Maybe Text)
-gdpsPath = lens _gdpsPath (\s a -> s {_gdpsPath = a})
+getDocumentationParts_path :: Lens.Lens' GetDocumentationParts (Prelude.Maybe Prelude.Text)
+getDocumentationParts_path = Lens.lens (\GetDocumentationParts' {path} -> path) (\s@GetDocumentationParts' {} a -> s {path = a} :: GetDocumentationParts)
 
 -- | The name of API entities of the to-be-retrieved documentation parts.
-gdpsNameQuery :: Lens' GetDocumentationParts (Maybe Text)
-gdpsNameQuery = lens _gdpsNameQuery (\s a -> s {_gdpsNameQuery = a})
+getDocumentationParts_nameQuery :: Lens.Lens' GetDocumentationParts (Prelude.Maybe Prelude.Text)
+getDocumentationParts_nameQuery = Lens.lens (\GetDocumentationParts' {nameQuery} -> nameQuery) (\s@GetDocumentationParts' {} a -> s {nameQuery = a} :: GetDocumentationParts)
 
--- | [Required] The string identifier of the associated 'RestApi' .
-gdpsRestAPIId :: Lens' GetDocumentationParts Text
-gdpsRestAPIId = lens _gdpsRestAPIId (\s a -> s {_gdpsRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getDocumentationParts_restApiId :: Lens.Lens' GetDocumentationParts Prelude.Text
+getDocumentationParts_restApiId = Lens.lens (\GetDocumentationParts' {restApiId} -> restApiId) (\s@GetDocumentationParts' {} a -> s {restApiId = a} :: GetDocumentationParts)
 
-instance AWSPager GetDocumentationParts where
+instance Pager.AWSPager GetDocumentationParts where
   page rq rs
-    | stop (rs ^. gdprrsPosition) = Nothing
-    | stop (rs ^. gdprrsItems) = Nothing
-    | otherwise =
-      Just $ rq & gdpsPosition .~ rs ^. gdprrsPosition
+    | Pager.stop
+        ( rs
+            Lens.^? getDocumentationPartsResponse_position
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? getDocumentationPartsResponse_items
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getDocumentationParts_position
+          Lens..~ rs
+          Lens.^? getDocumentationPartsResponse_position
+            Prelude.. Lens._Just
 
-instance AWSRequest GetDocumentationParts where
+instance Prelude.AWSRequest GetDocumentationParts where
   type
     Rs GetDocumentationParts =
       GetDocumentationPartsResponse
-  request = get apiGateway
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDocumentationPartsResponse'
-            <$> (x .?> "item" .!@ mempty)
-            <*> (x .?> "position")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "item" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "position")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetDocumentationParts
+instance Prelude.Hashable GetDocumentationParts
 
-instance NFData GetDocumentationParts
+instance Prelude.NFData GetDocumentationParts
 
-instance ToHeaders GetDocumentationParts where
+instance Prelude.ToHeaders GetDocumentationParts where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetDocumentationParts where
+instance Prelude.ToPath GetDocumentationParts where
   toPath GetDocumentationParts' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _gdpsRestAPIId,
+        Prelude.toBS restApiId,
         "/documentation/parts"
       ]
 
-instance ToQuery GetDocumentationParts where
+instance Prelude.ToQuery GetDocumentationParts where
   toQuery GetDocumentationParts' {..} =
-    mconcat
-      [ "locationStatus" =: _gdpsLocationStatus,
-        "position" =: _gdpsPosition,
-        "type" =: _gdpsType,
-        "limit" =: _gdpsLimit,
-        "path" =: _gdpsPath,
-        "name" =: _gdpsNameQuery
+    Prelude.mconcat
+      [ "locationStatus" Prelude.=: locationStatus,
+        "position" Prelude.=: position,
+        "type" Prelude.=: type',
+        "limit" Prelude.=: limit,
+        "path" Prelude.=: path,
+        "name" Prelude.=: nameQuery
       ]
 
 -- | The collection of documentation parts of an API.
 --
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html Documenting an API>,
+-- DocumentationPart
 --
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-documenting-api.html Documenting an API> , 'DocumentationPart'
---
--- /See:/ 'getDocumentationPartsResponse' smart constructor.
+-- /See:/ 'newGetDocumentationPartsResponse' smart constructor.
 data GetDocumentationPartsResponse = GetDocumentationPartsResponse'
-  { _gdprrsItems ::
-      !( Maybe
-           [DocumentationPart]
-       ),
-    _gdprrsPosition ::
-      !( Maybe
-           Text
-       ),
-    _gdprrsResponseStatus ::
-      !Int
+  { -- | The current page of elements from this collection.
+    items :: Prelude.Maybe [DocumentationPart],
+    position :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDocumentationPartsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDocumentationPartsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdprrsItems' - The current page of elements from this collection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdprrsPosition' - Undocumented member.
+-- 'items', 'getDocumentationPartsResponse_items' - The current page of elements from this collection.
 --
--- * 'gdprrsResponseStatus' - -- | The response status code.
-getDocumentationPartsResponse ::
-  -- | 'gdprrsResponseStatus'
-  Int ->
+-- 'position', 'getDocumentationPartsResponse_position' - Undocumented member.
+--
+-- 'httpStatus', 'getDocumentationPartsResponse_httpStatus' - The response's http status code.
+newGetDocumentationPartsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetDocumentationPartsResponse
-getDocumentationPartsResponse pResponseStatus_ =
+newGetDocumentationPartsResponse pHttpStatus_ =
   GetDocumentationPartsResponse'
-    { _gdprrsItems =
-        Nothing,
-      _gdprrsPosition = Nothing,
-      _gdprrsResponseStatus = pResponseStatus_
+    { items =
+        Prelude.Nothing,
+      position = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current page of elements from this collection.
-gdprrsItems :: Lens' GetDocumentationPartsResponse [DocumentationPart]
-gdprrsItems = lens _gdprrsItems (\s a -> s {_gdprrsItems = a}) . _Default . _Coerce
+getDocumentationPartsResponse_items :: Lens.Lens' GetDocumentationPartsResponse (Prelude.Maybe [DocumentationPart])
+getDocumentationPartsResponse_items = Lens.lens (\GetDocumentationPartsResponse' {items} -> items) (\s@GetDocumentationPartsResponse' {} a -> s {items = a} :: GetDocumentationPartsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-gdprrsPosition :: Lens' GetDocumentationPartsResponse (Maybe Text)
-gdprrsPosition = lens _gdprrsPosition (\s a -> s {_gdprrsPosition = a})
+getDocumentationPartsResponse_position :: Lens.Lens' GetDocumentationPartsResponse (Prelude.Maybe Prelude.Text)
+getDocumentationPartsResponse_position = Lens.lens (\GetDocumentationPartsResponse' {position} -> position) (\s@GetDocumentationPartsResponse' {} a -> s {position = a} :: GetDocumentationPartsResponse)
 
--- | -- | The response status code.
-gdprrsResponseStatus :: Lens' GetDocumentationPartsResponse Int
-gdprrsResponseStatus = lens _gdprrsResponseStatus (\s a -> s {_gdprrsResponseStatus = a})
+-- | The response's http status code.
+getDocumentationPartsResponse_httpStatus :: Lens.Lens' GetDocumentationPartsResponse Prelude.Int
+getDocumentationPartsResponse_httpStatus = Lens.lens (\GetDocumentationPartsResponse' {httpStatus} -> httpStatus) (\s@GetDocumentationPartsResponse' {} a -> s {httpStatus = a} :: GetDocumentationPartsResponse)
 
-instance NFData GetDocumentationPartsResponse
+instance Prelude.NFData GetDocumentationPartsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,106 +20,182 @@
 module Network.AWS.APIGateway.Types.DocumentationPartLocation where
 
 import Network.AWS.APIGateway.Types.DocumentationPartType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the target API entity to which the documentation applies.
 --
---
---
--- /See:/ 'documentationPartLocation' smart constructor.
+-- /See:/ 'newDocumentationPartLocation' smart constructor.
 data DocumentationPartLocation = DocumentationPartLocation'
-  { _dplName ::
-      !(Maybe Text),
-    _dplMethod ::
-      !(Maybe Text),
-    _dplStatusCode ::
-      !(Maybe Text),
-    _dplPath ::
-      !(Maybe Text),
-    _dplType ::
-      !DocumentationPartType
+  { -- | The name of the targeted API entity. It is a valid and required field
+    -- for the API entity types of @AUTHORIZER@, @MODEL@, @PATH_PARAMETER@,
+    -- @QUERY_PARAMETER@, @REQUEST_HEADER@, @REQUEST_BODY@ and
+    -- @RESPONSE_HEADER@. It is an invalid field for any other entity type.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The HTTP verb of a method. It is a valid field for the API entity types
+    -- of @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@, @REQUEST_HEADER@,
+    -- @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@. The
+    -- default value is @*@ for any method. When an applicable child entity
+    -- inherits the content of an entity of the same type with more general
+    -- specifications of the other @location@ attributes, the child entity\'s
+    -- @method@ attribute must match that of the parent entity exactly.
+    method :: Prelude.Maybe Prelude.Text,
+    -- | The HTTP status code of a response. It is a valid field for the API
+    -- entity types of @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@. The
+    -- default value is @*@ for any status code. When an applicable child
+    -- entity inherits the content of an entity of the same type with more
+    -- general specifications of the other @location@ attributes, the child
+    -- entity\'s @statusCode@ attribute must match that of the parent entity
+    -- exactly.
+    statusCode :: Prelude.Maybe Prelude.Text,
+    -- | The URL path of the target. It is a valid field for the API entity types
+    -- of @RESOURCE@, @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@,
+    -- @REQUEST_HEADER@, @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and
+    -- @RESPONSE_BODY@. The default value is @\/@ for the root resource. When
+    -- an applicable child entity inherits the content of another entity of the
+    -- same type with more general specifications of the other @location@
+    -- attributes, the child entity\'s @path@ attribute must match that of the
+    -- parent entity as a prefix.
+    path :: Prelude.Maybe Prelude.Text,
+    -- | [Required] The type of API entity to which the documentation content
+    -- applies. Valid values are @API@, @AUTHORIZER@, @MODEL@, @RESOURCE@,
+    -- @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@, @REQUEST_HEADER@,
+    -- @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@.
+    -- Content inheritance does not apply to any entity of the @API@,
+    -- @AUTHORIZER@, @METHOD@, @MODEL@, @REQUEST_BODY@, or @RESOURCE@ type.
+    type' :: DocumentationPartType
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DocumentationPartLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DocumentationPartLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dplName' - The name of the targeted API entity. It is a valid and required field for the API entity types of @AUTHORIZER@ , @MODEL@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ and @RESPONSE_HEADER@ . It is an invalid field for any other entity type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dplMethod' - The HTTP verb of a method. It is a valid field for the API entity types of @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @*@ for any method. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other @location@ attributes, the child entity's @method@ attribute must match that of the parent entity exactly.
+-- 'name', 'documentationPartLocation_name' - The name of the targeted API entity. It is a valid and required field
+-- for the API entity types of @AUTHORIZER@, @MODEL@, @PATH_PARAMETER@,
+-- @QUERY_PARAMETER@, @REQUEST_HEADER@, @REQUEST_BODY@ and
+-- @RESPONSE_HEADER@. It is an invalid field for any other entity type.
 --
--- * 'dplStatusCode' - The HTTP status code of a response. It is a valid field for the API entity types of @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @*@ for any status code. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other @location@ attributes, the child entity's @statusCode@ attribute must match that of the parent entity exactly.
+-- 'method', 'documentationPartLocation_method' - The HTTP verb of a method. It is a valid field for the API entity types
+-- of @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@, @REQUEST_HEADER@,
+-- @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@. The
+-- default value is @*@ for any method. When an applicable child entity
+-- inherits the content of an entity of the same type with more general
+-- specifications of the other @location@ attributes, the child entity\'s
+-- @method@ attribute must match that of the parent entity exactly.
 --
--- * 'dplPath' - The URL path of the target. It is a valid field for the API entity types of @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @/@ for the root resource. When an applicable child entity inherits the content of another entity of the same type with more general specifications of the other @location@ attributes, the child entity's @path@ attribute must match that of the parent entity as a prefix.
+-- 'statusCode', 'documentationPartLocation_statusCode' - The HTTP status code of a response. It is a valid field for the API
+-- entity types of @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@. The
+-- default value is @*@ for any status code. When an applicable child
+-- entity inherits the content of an entity of the same type with more
+-- general specifications of the other @location@ attributes, the child
+-- entity\'s @statusCode@ attribute must match that of the parent entity
+-- exactly.
 --
--- * 'dplType' - [Required] The type of API entity to which the documentation content applies. Valid values are @API@ , @AUTHORIZER@ , @MODEL@ , @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . Content inheritance does not apply to any entity of the @API@ , @AUTHORIZER@ , @METHOD@ , @MODEL@ , @REQUEST_BODY@ , or @RESOURCE@ type.
-documentationPartLocation ::
-  -- | 'dplType'
+-- 'path', 'documentationPartLocation_path' - The URL path of the target. It is a valid field for the API entity types
+-- of @RESOURCE@, @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@,
+-- @REQUEST_HEADER@, @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and
+-- @RESPONSE_BODY@. The default value is @\/@ for the root resource. When
+-- an applicable child entity inherits the content of another entity of the
+-- same type with more general specifications of the other @location@
+-- attributes, the child entity\'s @path@ attribute must match that of the
+-- parent entity as a prefix.
+--
+-- 'type'', 'documentationPartLocation_type' - [Required] The type of API entity to which the documentation content
+-- applies. Valid values are @API@, @AUTHORIZER@, @MODEL@, @RESOURCE@,
+-- @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@, @REQUEST_HEADER@,
+-- @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@.
+-- Content inheritance does not apply to any entity of the @API@,
+-- @AUTHORIZER@, @METHOD@, @MODEL@, @REQUEST_BODY@, or @RESOURCE@ type.
+newDocumentationPartLocation ::
+  -- | 'type''
   DocumentationPartType ->
   DocumentationPartLocation
-documentationPartLocation pType_ =
+newDocumentationPartLocation pType_ =
   DocumentationPartLocation'
-    { _dplName = Nothing,
-      _dplMethod = Nothing,
-      _dplStatusCode = Nothing,
-      _dplPath = Nothing,
-      _dplType = pType_
+    { name = Prelude.Nothing,
+      method = Prelude.Nothing,
+      statusCode = Prelude.Nothing,
+      path = Prelude.Nothing,
+      type' = pType_
     }
 
--- | The name of the targeted API entity. It is a valid and required field for the API entity types of @AUTHORIZER@ , @MODEL@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ and @RESPONSE_HEADER@ . It is an invalid field for any other entity type.
-dplName :: Lens' DocumentationPartLocation (Maybe Text)
-dplName = lens _dplName (\s a -> s {_dplName = a})
+-- | The name of the targeted API entity. It is a valid and required field
+-- for the API entity types of @AUTHORIZER@, @MODEL@, @PATH_PARAMETER@,
+-- @QUERY_PARAMETER@, @REQUEST_HEADER@, @REQUEST_BODY@ and
+-- @RESPONSE_HEADER@. It is an invalid field for any other entity type.
+documentationPartLocation_name :: Lens.Lens' DocumentationPartLocation (Prelude.Maybe Prelude.Text)
+documentationPartLocation_name = Lens.lens (\DocumentationPartLocation' {name} -> name) (\s@DocumentationPartLocation' {} a -> s {name = a} :: DocumentationPartLocation)
 
--- | The HTTP verb of a method. It is a valid field for the API entity types of @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @*@ for any method. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other @location@ attributes, the child entity's @method@ attribute must match that of the parent entity exactly.
-dplMethod :: Lens' DocumentationPartLocation (Maybe Text)
-dplMethod = lens _dplMethod (\s a -> s {_dplMethod = a})
+-- | The HTTP verb of a method. It is a valid field for the API entity types
+-- of @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@, @REQUEST_HEADER@,
+-- @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@. The
+-- default value is @*@ for any method. When an applicable child entity
+-- inherits the content of an entity of the same type with more general
+-- specifications of the other @location@ attributes, the child entity\'s
+-- @method@ attribute must match that of the parent entity exactly.
+documentationPartLocation_method :: Lens.Lens' DocumentationPartLocation (Prelude.Maybe Prelude.Text)
+documentationPartLocation_method = Lens.lens (\DocumentationPartLocation' {method} -> method) (\s@DocumentationPartLocation' {} a -> s {method = a} :: DocumentationPartLocation)
 
--- | The HTTP status code of a response. It is a valid field for the API entity types of @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @*@ for any status code. When an applicable child entity inherits the content of an entity of the same type with more general specifications of the other @location@ attributes, the child entity's @statusCode@ attribute must match that of the parent entity exactly.
-dplStatusCode :: Lens' DocumentationPartLocation (Maybe Text)
-dplStatusCode = lens _dplStatusCode (\s a -> s {_dplStatusCode = a})
+-- | The HTTP status code of a response. It is a valid field for the API
+-- entity types of @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@. The
+-- default value is @*@ for any status code. When an applicable child
+-- entity inherits the content of an entity of the same type with more
+-- general specifications of the other @location@ attributes, the child
+-- entity\'s @statusCode@ attribute must match that of the parent entity
+-- exactly.
+documentationPartLocation_statusCode :: Lens.Lens' DocumentationPartLocation (Prelude.Maybe Prelude.Text)
+documentationPartLocation_statusCode = Lens.lens (\DocumentationPartLocation' {statusCode} -> statusCode) (\s@DocumentationPartLocation' {} a -> s {statusCode = a} :: DocumentationPartLocation)
 
--- | The URL path of the target. It is a valid field for the API entity types of @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . The default value is @/@ for the root resource. When an applicable child entity inherits the content of another entity of the same type with more general specifications of the other @location@ attributes, the child entity's @path@ attribute must match that of the parent entity as a prefix.
-dplPath :: Lens' DocumentationPartLocation (Maybe Text)
-dplPath = lens _dplPath (\s a -> s {_dplPath = a})
+-- | The URL path of the target. It is a valid field for the API entity types
+-- of @RESOURCE@, @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@,
+-- @REQUEST_HEADER@, @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and
+-- @RESPONSE_BODY@. The default value is @\/@ for the root resource. When
+-- an applicable child entity inherits the content of another entity of the
+-- same type with more general specifications of the other @location@
+-- attributes, the child entity\'s @path@ attribute must match that of the
+-- parent entity as a prefix.
+documentationPartLocation_path :: Lens.Lens' DocumentationPartLocation (Prelude.Maybe Prelude.Text)
+documentationPartLocation_path = Lens.lens (\DocumentationPartLocation' {path} -> path) (\s@DocumentationPartLocation' {} a -> s {path = a} :: DocumentationPartLocation)
 
--- | [Required] The type of API entity to which the documentation content applies. Valid values are @API@ , @AUTHORIZER@ , @MODEL@ , @RESOURCE@ , @METHOD@ , @PATH_PARAMETER@ , @QUERY_PARAMETER@ , @REQUEST_HEADER@ , @REQUEST_BODY@ , @RESPONSE@ , @RESPONSE_HEADER@ , and @RESPONSE_BODY@ . Content inheritance does not apply to any entity of the @API@ , @AUTHORIZER@ , @METHOD@ , @MODEL@ , @REQUEST_BODY@ , or @RESOURCE@ type.
-dplType :: Lens' DocumentationPartLocation DocumentationPartType
-dplType = lens _dplType (\s a -> s {_dplType = a})
+-- | [Required] The type of API entity to which the documentation content
+-- applies. Valid values are @API@, @AUTHORIZER@, @MODEL@, @RESOURCE@,
+-- @METHOD@, @PATH_PARAMETER@, @QUERY_PARAMETER@, @REQUEST_HEADER@,
+-- @REQUEST_BODY@, @RESPONSE@, @RESPONSE_HEADER@, and @RESPONSE_BODY@.
+-- Content inheritance does not apply to any entity of the @API@,
+-- @AUTHORIZER@, @METHOD@, @MODEL@, @REQUEST_BODY@, or @RESOURCE@ type.
+documentationPartLocation_type :: Lens.Lens' DocumentationPartLocation DocumentationPartType
+documentationPartLocation_type = Lens.lens (\DocumentationPartLocation' {type'} -> type') (\s@DocumentationPartLocation' {} a -> s {type' = a} :: DocumentationPartLocation)
 
-instance FromJSON DocumentationPartLocation where
+instance Prelude.FromJSON DocumentationPartLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DocumentationPartLocation"
       ( \x ->
           DocumentationPartLocation'
-            <$> (x .:? "name")
-            <*> (x .:? "method")
-            <*> (x .:? "statusCode")
-            <*> (x .:? "path")
-            <*> (x .: "type")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "method")
+            Prelude.<*> (x Prelude..:? "statusCode")
+            Prelude.<*> (x Prelude..:? "path")
+            Prelude.<*> (x Prelude..: "type")
       )
 
-instance Hashable DocumentationPartLocation
+instance Prelude.Hashable DocumentationPartLocation
 
-instance NFData DocumentationPartLocation
+instance Prelude.NFData DocumentationPartLocation
 
-instance ToJSON DocumentationPartLocation where
+instance Prelude.ToJSON DocumentationPartLocation where
   toJSON DocumentationPartLocation' {..} =
-    object
-      ( catMaybes
-          [ ("name" .=) <$> _dplName,
-            ("method" .=) <$> _dplMethod,
-            ("statusCode" .=) <$> _dplStatusCode,
-            ("path" .=) <$> _dplPath,
-            Just ("type" .= _dplType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            ("method" Prelude..=) Prelude.<$> method,
+            ("statusCode" Prelude..=) Prelude.<$> statusCode,
+            ("path" Prelude..=) Prelude.<$> path,
+            Prelude.Just ("type" Prelude..= type')
           ]
       )

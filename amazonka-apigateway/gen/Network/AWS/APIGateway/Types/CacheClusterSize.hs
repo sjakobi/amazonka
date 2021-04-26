@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,89 @@
 module Network.AWS.APIGateway.Types.CacheClusterSize
   ( CacheClusterSize
       ( ..,
-        D0_5,
-        D118,
-        D13_5,
-        D1_6,
-        D237,
-        D28_4,
-        D58_2,
-        D6_1
+        CacheClusterSizeD0_5,
+        CacheClusterSizeD118,
+        CacheClusterSizeD13_5,
+        CacheClusterSizeD1_6,
+        CacheClusterSizeD237,
+        CacheClusterSizeD28_4,
+        CacheClusterSizeD58_2,
+        CacheClusterSizeD6_1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns the size of the __CacheCluster__ .
-data CacheClusterSize = CacheClusterSize' (CI Text)
+-- | Returns the size of the __CacheCluster__.
+newtype CacheClusterSize = CacheClusterSize'
+  { fromCacheClusterSize ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern D0_5 :: CacheClusterSize
-pattern D0_5 = CacheClusterSize' "0.5"
+pattern CacheClusterSizeD0_5 :: CacheClusterSize
+pattern CacheClusterSizeD0_5 = CacheClusterSize' "0.5"
 
-pattern D118 :: CacheClusterSize
-pattern D118 = CacheClusterSize' "118"
+pattern CacheClusterSizeD118 :: CacheClusterSize
+pattern CacheClusterSizeD118 = CacheClusterSize' "118"
 
-pattern D13_5 :: CacheClusterSize
-pattern D13_5 = CacheClusterSize' "13.5"
+pattern CacheClusterSizeD13_5 :: CacheClusterSize
+pattern CacheClusterSizeD13_5 = CacheClusterSize' "13.5"
 
-pattern D1_6 :: CacheClusterSize
-pattern D1_6 = CacheClusterSize' "1.6"
+pattern CacheClusterSizeD1_6 :: CacheClusterSize
+pattern CacheClusterSizeD1_6 = CacheClusterSize' "1.6"
 
-pattern D237 :: CacheClusterSize
-pattern D237 = CacheClusterSize' "237"
+pattern CacheClusterSizeD237 :: CacheClusterSize
+pattern CacheClusterSizeD237 = CacheClusterSize' "237"
 
-pattern D28_4 :: CacheClusterSize
-pattern D28_4 = CacheClusterSize' "28.4"
+pattern CacheClusterSizeD28_4 :: CacheClusterSize
+pattern CacheClusterSizeD28_4 = CacheClusterSize' "28.4"
 
-pattern D58_2 :: CacheClusterSize
-pattern D58_2 = CacheClusterSize' "58.2"
+pattern CacheClusterSizeD58_2 :: CacheClusterSize
+pattern CacheClusterSizeD58_2 = CacheClusterSize' "58.2"
 
-pattern D6_1 :: CacheClusterSize
-pattern D6_1 = CacheClusterSize' "6.1"
+pattern CacheClusterSizeD6_1 :: CacheClusterSize
+pattern CacheClusterSizeD6_1 = CacheClusterSize' "6.1"
 
 {-# COMPLETE
-  D0_5,
-  D118,
-  D13_5,
-  D1_6,
-  D237,
-  D28_4,
-  D58_2,
-  D6_1,
+  CacheClusterSizeD0_5,
+  CacheClusterSizeD118,
+  CacheClusterSizeD13_5,
+  CacheClusterSizeD1_6,
+  CacheClusterSizeD237,
+  CacheClusterSizeD28_4,
+  CacheClusterSizeD58_2,
+  CacheClusterSizeD6_1,
   CacheClusterSize'
   #-}
 
-instance FromText CacheClusterSize where
-  parser = (CacheClusterSize' . mk) <$> takeText
+instance Prelude.FromText CacheClusterSize where
+  parser = CacheClusterSize' Prelude.<$> Prelude.takeText
 
-instance ToText CacheClusterSize where
-  toText (CacheClusterSize' ci) = original ci
+instance Prelude.ToText CacheClusterSize where
+  toText (CacheClusterSize' x) = x
 
-instance Hashable CacheClusterSize
+instance Prelude.Hashable CacheClusterSize
 
-instance NFData CacheClusterSize
+instance Prelude.NFData CacheClusterSize
 
-instance ToByteString CacheClusterSize
+instance Prelude.ToByteString CacheClusterSize
 
-instance ToQuery CacheClusterSize
+instance Prelude.ToQuery CacheClusterSize
 
-instance ToHeader CacheClusterSize
+instance Prelude.ToHeader CacheClusterSize
 
-instance ToJSON CacheClusterSize where
-  toJSON = toJSONText
+instance Prelude.ToJSON CacheClusterSize where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CacheClusterSize where
-  parseJSON = parseJSONText "CacheClusterSize"
+instance Prelude.FromJSON CacheClusterSize where
+  parseJSON = Prelude.parseJSONText "CacheClusterSize"

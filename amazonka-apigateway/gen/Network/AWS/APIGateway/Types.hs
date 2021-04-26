@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.APIGateway.Types
   ( -- * Service Configuration
-    apiGateway,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -22,11 +25,11 @@ module Network.AWS.APIGateway.Types
     _ConflictException,
     _TooManyRequestsException,
 
-    -- * APIKeySourceType
-    APIKeySourceType (..),
+    -- * ApiKeySourceType
+    ApiKeySourceType (..),
 
-    -- * APIKeysFormat
-    APIKeysFormat (..),
+    -- * ApiKeysFormat
+    ApiKeysFormat (..),
 
     -- * AuthorizerType
     AuthorizerType (..),
@@ -76,400 +79,177 @@ module Network.AWS.APIGateway.Types
     -- * UnauthorizedCacheControlHeaderStrategy
     UnauthorizedCacheControlHeaderStrategy (..),
 
-    -- * VPCLinkStatus
-    VPCLinkStatus (..),
-
-    -- * APIKey
-    APIKey (..),
-    apiKey,
-    akCreatedDate,
-    akCustomerId,
-    akLastUpdatedDate,
-    akStageKeys,
-    akEnabled,
-    akId,
-    akName,
-    akTags,
-    akDescription,
-    akValue,
-
-    -- * APIStage
-    APIStage (..),
-    apiStage,
-    asApiId,
-    asStage,
-    asThrottle,
+    -- * VpcLinkStatus
+    VpcLinkStatus (..),
 
     -- * AccessLogSettings
     AccessLogSettings (..),
-    accessLogSettings,
-    alsDestinationARN,
-    alsFormat,
+    newAccessLogSettings,
 
     -- * Account
     Account (..),
-    account,
-    aThrottleSettings,
-    aApiKeyVersion,
-    aFeatures,
-    aCloudwatchRoleARN,
+    newAccount,
+
+    -- * ApiKey
+    ApiKey (..),
+    newApiKey,
+
+    -- * ApiStage
+    ApiStage (..),
+    newApiStage,
 
     -- * Authorizer
     Authorizer (..),
-    authorizer,
-    aIdentityValidationExpression,
-    aAuthorizerCredentials,
-    aId,
-    aName,
-    aProviderARNs,
-    aAuthorizerURI,
-    aIdentitySource,
-    aType,
-    aAuthType,
-    aAuthorizerResultTtlInSeconds,
+    newAuthorizer,
 
     -- * BasePathMapping
     BasePathMapping (..),
-    basePathMapping,
-    bpmBasePath,
-    bpmStage,
-    bpmRestAPIId,
+    newBasePathMapping,
 
     -- * CanarySettings
     CanarySettings (..),
-    canarySettings,
-    csDeploymentId,
-    csPercentTraffic,
-    csUseStageCache,
-    csStageVariableOverrides,
+    newCanarySettings,
 
     -- * ClientCertificate
     ClientCertificate (..),
-    clientCertificate,
-    ccCreatedDate,
-    ccExpirationDate,
-    ccPemEncodedCertificate,
-    ccTags,
-    ccClientCertificateId,
-    ccDescription,
+    newClientCertificate,
 
     -- * Deployment
     Deployment (..),
-    deployment,
-    dCreatedDate,
-    dId,
-    dApiSummary,
-    dDescription,
+    newDeployment,
 
     -- * DeploymentCanarySettings
     DeploymentCanarySettings (..),
-    deploymentCanarySettings,
-    dcsPercentTraffic,
-    dcsUseStageCache,
-    dcsStageVariableOverrides,
+    newDeploymentCanarySettings,
 
     -- * DocumentationPart
     DocumentationPart (..),
-    documentationPart,
-    dpId,
-    dpProperties,
-    dpLocation,
+    newDocumentationPart,
 
     -- * DocumentationPartLocation
     DocumentationPartLocation (..),
-    documentationPartLocation,
-    dplName,
-    dplMethod,
-    dplStatusCode,
-    dplPath,
-    dplType,
+    newDocumentationPartLocation,
 
     -- * DocumentationVersion
     DocumentationVersion (..),
-    documentationVersion,
-    dvCreatedDate,
-    dvVersion,
-    dvDescription,
+    newDocumentationVersion,
 
     -- * DomainName
     DomainName (..),
-    domainName,
-    dnRegionalHostedZoneId,
-    dnRegionalCertificateName,
-    dnMutualTLSAuthentication,
-    dnEndpointConfiguration,
-    dnDistributionHostedZoneId,
-    dnCertificateARN,
-    dnDomainNameStatusMessage,
-    dnDistributionDomainName,
-    dnCertificateUploadDate,
-    dnDomainName,
-    dnTags,
-    dnSecurityPolicy,
-    dnDomainNameStatus,
-    dnRegionalCertificateARN,
-    dnCertificateName,
-    dnRegionalDomainName,
+    newDomainName,
 
     -- * EndpointConfiguration
     EndpointConfiguration (..),
-    endpointConfiguration,
-    ecTypes,
-    ecVpcEndpointIds,
+    newEndpointConfiguration,
 
     -- * GatewayResponse
     GatewayResponse (..),
-    gatewayResponse,
-    grResponseTemplates,
-    grStatusCode,
-    grResponseParameters,
-    grResponseType,
-    grDefaultResponse,
+    newGatewayResponse,
 
     -- * Integration
     Integration (..),
-    integration,
-    iHttpMethod,
-    iPassthroughBehavior,
-    iContentHandling,
-    iUri,
-    iConnectionType,
-    iConnectionId,
-    iRequestTemplates,
-    iTimeoutInMillis,
-    iCacheNamespace,
-    iCacheKeyParameters,
-    iTlsConfig,
-    iIntegrationResponses,
-    iRequestParameters,
-    iType,
-    iCredentials,
+    newIntegration,
 
     -- * IntegrationResponse
     IntegrationResponse (..),
-    integrationResponse,
-    irContentHandling,
-    irResponseTemplates,
-    irStatusCode,
-    irResponseParameters,
-    irSelectionPattern,
+    newIntegrationResponse,
 
     -- * Method
     Method (..),
-    method,
-    mHttpMethod,
-    mMethodIntegration,
-    mApiKeyRequired,
-    mAuthorizationType,
-    mRequestModels,
-    mOperationName,
-    mRequestValidatorId,
-    mMethodResponses,
-    mAuthorizerId,
-    mRequestParameters,
-    mAuthorizationScopes,
+    newMethod,
 
     -- * MethodResponse
     MethodResponse (..),
-    methodResponse,
-    mrResponseModels,
-    mrStatusCode,
-    mrResponseParameters,
+    newMethodResponse,
 
     -- * MethodSetting
     MethodSetting (..),
-    methodSetting,
-    msDataTraceEnabled,
-    msRequireAuthorizationForCacheControl,
-    msCacheDataEncrypted,
-    msThrottlingRateLimit,
-    msThrottlingBurstLimit,
-    msCacheTtlInSeconds,
-    msCachingEnabled,
-    msUnauthorizedCacheControlHeaderStrategy,
-    msLoggingLevel,
-    msMetricsEnabled,
+    newMethodSetting,
 
     -- * MethodSnapshot
     MethodSnapshot (..),
-    methodSnapshot,
-    msApiKeyRequired,
-    msAuthorizationType,
+    newMethodSnapshot,
 
     -- * Model
     Model (..),
-    model,
-    mContentType,
-    mSchema,
-    mId,
-    mName,
-    mDescription,
+    newModel,
 
-    -- * MutualTLSAuthentication
-    MutualTLSAuthentication (..),
-    mutualTLSAuthentication,
-    mtaTruststoreVersion,
-    mtaTruststoreURI,
-    mtaTruststoreWarnings,
+    -- * MutualTlsAuthentication
+    MutualTlsAuthentication (..),
+    newMutualTlsAuthentication,
 
-    -- * MutualTLSAuthenticationInput
-    MutualTLSAuthenticationInput (..),
-    mutualTLSAuthenticationInput,
-    mtaiTruststoreVersion,
-    mtaiTruststoreURI,
+    -- * MutualTlsAuthenticationInput
+    MutualTlsAuthenticationInput (..),
+    newMutualTlsAuthenticationInput,
 
     -- * PatchOperation
     PatchOperation (..),
-    patchOperation,
-    poOp,
-    poFrom,
-    poValue,
-    poPath,
+    newPatchOperation,
 
     -- * QuotaSettings
     QuotaSettings (..),
-    quotaSettings,
-    qsPeriod,
-    qsLimit,
-    qsOffset,
+    newQuotaSettings,
 
     -- * RequestValidator
     RequestValidator (..),
-    requestValidator,
-    rvValidateRequestBody,
-    rvId,
-    rvValidateRequestParameters,
-    rvName,
+    newRequestValidator,
 
     -- * Resource
     Resource (..),
-    resource,
-    rId,
-    rPathPart,
-    rParentId,
-    rResourceMethods,
-    rPath,
+    newResource,
 
-    -- * RestAPI
-    RestAPI (..),
-    restAPI,
-    raCreatedDate,
-    raWarnings,
-    raEndpointConfiguration,
-    raBinaryMediaTypes,
-    raId,
-    raVersion,
-    raName,
-    raTags,
-    raDescription,
-    raDisableExecuteAPIEndpoint,
-    raPolicy,
-    raMinimumCompressionSize,
-    raApiKeySource,
+    -- * RestApi
+    RestApi (..),
+    newRestApi,
 
-    -- * SDKConfigurationProperty
-    SDKConfigurationProperty (..),
-    sdkConfigurationProperty,
-    scpRequired,
-    scpFriendlyName,
-    scpName,
-    scpDescription,
-    scpDefaultValue,
+    -- * SdkConfigurationProperty
+    SdkConfigurationProperty (..),
+    newSdkConfigurationProperty,
 
-    -- * SDKType
-    SDKType (..),
-    sdkType,
-    stFriendlyName,
-    stId,
-    stConfigurationProperties,
-    stDescription,
+    -- * SdkType
+    SdkType (..),
+    newSdkType,
 
     -- * Stage
     Stage (..),
-    stage,
-    sDeploymentId,
-    sCreatedDate,
-    sTracingEnabled,
-    sWebACLARN,
-    sLastUpdatedDate,
-    sCacheClusterEnabled,
-    sStageName,
-    sDocumentationVersion,
-    sVariables,
-    sAccessLogSettings,
-    sTags,
-    sClientCertificateId,
-    sDescription,
-    sCanarySettings,
-    sCacheClusterSize,
-    sMethodSettings,
-    sCacheClusterStatus,
+    newStage,
 
     -- * StageKey
     StageKey (..),
-    stageKey,
-    skStageName,
-    skRestAPIId,
-
-    -- * TLSConfig
-    TLSConfig (..),
-    tlsConfig,
-    tcInsecureSkipVerification,
+    newStageKey,
 
     -- * ThrottleSettings
     ThrottleSettings (..),
-    throttleSettings,
-    tsBurstLimit,
-    tsRateLimit,
+    newThrottleSettings,
+
+    -- * TlsConfig
+    TlsConfig (..),
+    newTlsConfig,
 
     -- * Usage
     Usage (..),
-    usage,
-    uStartDate,
-    uItems,
-    uPosition,
-    uUsagePlanId,
-    uEndDate,
+    newUsage,
 
     -- * UsagePlan
     UsagePlan (..),
-    usagePlan,
-    upId,
-    upName,
-    upApiStages,
-    upTags,
-    upDescription,
-    upQuota,
-    upProductCode,
-    upThrottle,
+    newUsagePlan,
 
     -- * UsagePlanKey
     UsagePlanKey (..),
-    usagePlanKey,
-    upkId,
-    upkName,
-    upkValue,
-    upkType,
+    newUsagePlanKey,
 
-    -- * VPCLink
-    VPCLink (..),
-    vpcLink,
-    vlStatusMessage,
-    vlStatus,
-    vlId,
-    vlName,
-    vlTargetARNs,
-    vlTags,
-    vlDescription,
+    -- * VpcLink
+    VpcLink (..),
+    newVpcLink,
   )
 where
 
-import Network.AWS.APIGateway.Types.APIKey
-import Network.AWS.APIGateway.Types.APIKeySourceType
-import Network.AWS.APIGateway.Types.APIKeysFormat
-import Network.AWS.APIGateway.Types.APIStage
 import Network.AWS.APIGateway.Types.AccessLogSettings
 import Network.AWS.APIGateway.Types.Account
+import Network.AWS.APIGateway.Types.ApiKey
+import Network.AWS.APIGateway.Types.ApiKeySourceType
+import Network.AWS.APIGateway.Types.ApiKeysFormat
+import Network.AWS.APIGateway.Types.ApiStage
 import Network.AWS.APIGateway.Types.Authorizer
 import Network.AWS.APIGateway.Types.AuthorizerType
 import Network.AWS.APIGateway.Types.BasePathMapping
@@ -500,8 +280,8 @@ import Network.AWS.APIGateway.Types.MethodResponse
 import Network.AWS.APIGateway.Types.MethodSetting
 import Network.AWS.APIGateway.Types.MethodSnapshot
 import Network.AWS.APIGateway.Types.Model
-import Network.AWS.APIGateway.Types.MutualTLSAuthentication
-import Network.AWS.APIGateway.Types.MutualTLSAuthenticationInput
+import Network.AWS.APIGateway.Types.MutualTlsAuthentication
+import Network.AWS.APIGateway.Types.MutualTlsAuthenticationInput
 import Network.AWS.APIGateway.Types.Op
 import Network.AWS.APIGateway.Types.PatchOperation
 import Network.AWS.APIGateway.Types.PutMode
@@ -509,121 +289,152 @@ import Network.AWS.APIGateway.Types.QuotaPeriodType
 import Network.AWS.APIGateway.Types.QuotaSettings
 import Network.AWS.APIGateway.Types.RequestValidator
 import Network.AWS.APIGateway.Types.Resource
-import Network.AWS.APIGateway.Types.RestAPI
-import Network.AWS.APIGateway.Types.SDKConfigurationProperty
-import Network.AWS.APIGateway.Types.SDKType
+import Network.AWS.APIGateway.Types.RestApi
+import Network.AWS.APIGateway.Types.SdkConfigurationProperty
+import Network.AWS.APIGateway.Types.SdkType
 import Network.AWS.APIGateway.Types.SecurityPolicy
 import Network.AWS.APIGateway.Types.Stage
 import Network.AWS.APIGateway.Types.StageKey
-import Network.AWS.APIGateway.Types.TLSConfig
 import Network.AWS.APIGateway.Types.ThrottleSettings
+import Network.AWS.APIGateway.Types.TlsConfig
 import Network.AWS.APIGateway.Types.UnauthorizedCacheControlHeaderStrategy
 import Network.AWS.APIGateway.Types.Usage
 import Network.AWS.APIGateway.Types.UsagePlan
 import Network.AWS.APIGateway.Types.UsagePlanKey
-import Network.AWS.APIGateway.Types.VPCLink
-import Network.AWS.APIGateway.Types.VPCLinkStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import Network.AWS.APIGateway.Types.VpcLink
+import Network.AWS.APIGateway.Types.VpcLinkStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2015-07-09@ of the Amazon API Gateway SDK configuration.
-apiGateway :: Service
-apiGateway =
-  Service
-    { _svcAbbrev = "APIGateway",
-      _svcSigner = v4,
-      _svcPrefix = "apigateway",
-      _svcVersion = "2015-07-09",
-      _svcEndpoint = defaultEndpoint apiGateway,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "APIGateway",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "APIGateway",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "apigateway",
+      Prelude._svcVersion = "2015-07-09",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "APIGateway",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The requested resource is not found. Make sure that the request URI is correct.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested resource is not found. Make sure that the request URI is
+-- correct.
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError apiGateway "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
--- | The submitted request is not valid, for example, the input is incomplete or incorrect. See the accompanying error message for details.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The submitted request is not valid, for example, the input is incomplete
+-- or incorrect. See the accompanying error message for details.
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError apiGateway "BadRequestException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | The request is denied because the caller has insufficient permissions.
-_UnauthorizedException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnauthorizedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedException =
-  _MatchServiceError
-    apiGateway
+  Prelude._MatchServiceError
+    defaultService
     "UnauthorizedException"
-    . hasStatus 401
+    Prelude.. Prelude.hasStatus 401
 
--- | The requested service is not available. For details see the accompanying error message. Retry after the specified time period.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested service is not available. For details see the accompanying
+-- error message. Retry after the specified time period.
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    apiGateway
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
-    . hasStatus 503
+    Prelude.. Prelude.hasStatus 503
 
--- | The request exceeded the rate limit. Retry after the specified time period.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request exceeded the rate limit. Retry after the specified time
+-- period.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    apiGateway
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
--- | The request configuration has conflicts. For details, see the accompanying error message.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request configuration has conflicts. For details, see the
+-- accompanying error message.
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError apiGateway "ConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
+    Prelude.. Prelude.hasStatus 409
 
--- | The request has reached its throttling limit. Retry after the specified time period.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request has reached its throttling limit. Retry after the specified
+-- time period.
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    apiGateway
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429

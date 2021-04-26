@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,98 +21,107 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a 'RequestValidator' of a given 'RestApi' .
+-- Gets a RequestValidator of a given RestApi.
 module Network.AWS.APIGateway.GetRequestValidator
   ( -- * Creating a Request
-    getRequestValidator,
-    GetRequestValidator,
+    GetRequestValidator (..),
+    newGetRequestValidator,
 
     -- * Request Lenses
-    grvrRestAPIId,
-    grvrRequestValidatorId,
+    getRequestValidator_restApiId,
+    getRequestValidator_requestValidatorId,
 
     -- * Destructuring the Response
-    requestValidator,
-    RequestValidator,
+    RequestValidator (..),
+    newRequestValidator,
 
     -- * Response Lenses
-    rvValidateRequestBody,
-    rvId,
-    rvValidateRequestParameters,
-    rvName,
+    requestValidator_validateRequestBody,
+    requestValidator_id,
+    requestValidator_validateRequestParameters,
+    requestValidator_name,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.RequestValidator
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Gets a 'RequestValidator' of a given 'RestApi' .
+-- | Gets a RequestValidator of a given RestApi.
 --
---
---
--- /See:/ 'getRequestValidator' smart constructor.
+-- /See:/ 'newGetRequestValidator' smart constructor.
 data GetRequestValidator = GetRequestValidator'
-  { _grvrRestAPIId ::
-      !Text,
-    _grvrRequestValidatorId ::
-      !Text
+  { -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] The identifier of the RequestValidator to be retrieved.
+    requestValidatorId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRequestValidator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRequestValidator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grvrRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grvrRequestValidatorId' - [Required] The identifier of the 'RequestValidator' to be retrieved.
-getRequestValidator ::
-  -- | 'grvrRestAPIId'
-  Text ->
-  -- | 'grvrRequestValidatorId'
-  Text ->
+-- 'restApiId', 'getRequestValidator_restApiId' - [Required] The string identifier of the associated RestApi.
+--
+-- 'requestValidatorId', 'getRequestValidator_requestValidatorId' - [Required] The identifier of the RequestValidator to be retrieved.
+newGetRequestValidator ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'requestValidatorId'
+  Prelude.Text ->
   GetRequestValidator
-getRequestValidator pRestAPIId_ pRequestValidatorId_ =
-  GetRequestValidator'
-    { _grvrRestAPIId = pRestAPIId_,
-      _grvrRequestValidatorId = pRequestValidatorId_
-    }
+newGetRequestValidator
+  pRestApiId_
+  pRequestValidatorId_ =
+    GetRequestValidator'
+      { restApiId = pRestApiId_,
+        requestValidatorId = pRequestValidatorId_
+      }
 
--- | [Required] The string identifier of the associated 'RestApi' .
-grvrRestAPIId :: Lens' GetRequestValidator Text
-grvrRestAPIId = lens _grvrRestAPIId (\s a -> s {_grvrRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+getRequestValidator_restApiId :: Lens.Lens' GetRequestValidator Prelude.Text
+getRequestValidator_restApiId = Lens.lens (\GetRequestValidator' {restApiId} -> restApiId) (\s@GetRequestValidator' {} a -> s {restApiId = a} :: GetRequestValidator)
 
--- | [Required] The identifier of the 'RequestValidator' to be retrieved.
-grvrRequestValidatorId :: Lens' GetRequestValidator Text
-grvrRequestValidatorId = lens _grvrRequestValidatorId (\s a -> s {_grvrRequestValidatorId = a})
+-- | [Required] The identifier of the RequestValidator to be retrieved.
+getRequestValidator_requestValidatorId :: Lens.Lens' GetRequestValidator Prelude.Text
+getRequestValidator_requestValidatorId = Lens.lens (\GetRequestValidator' {requestValidatorId} -> requestValidatorId) (\s@GetRequestValidator' {} a -> s {requestValidatorId = a} :: GetRequestValidator)
 
-instance AWSRequest GetRequestValidator where
+instance Prelude.AWSRequest GetRequestValidator where
   type Rs GetRequestValidator = RequestValidator
-  request = get apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.get defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable GetRequestValidator
+instance Prelude.Hashable GetRequestValidator
 
-instance NFData GetRequestValidator
+instance Prelude.NFData GetRequestValidator
 
-instance ToHeaders GetRequestValidator where
+instance Prelude.ToHeaders GetRequestValidator where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToPath GetRequestValidator where
+instance Prelude.ToPath GetRequestValidator where
   toPath GetRequestValidator' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _grvrRestAPIId,
+        Prelude.toBS restApiId,
         "/requestvalidators/",
-        toBS _grvrRequestValidatorId
+        Prelude.toBS requestValidatorId
       ]
 
-instance ToQuery GetRequestValidator where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRequestValidator where
+  toQuery = Prelude.const Prelude.mempty

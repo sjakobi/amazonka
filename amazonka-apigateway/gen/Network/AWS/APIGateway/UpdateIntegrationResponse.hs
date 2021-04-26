@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,157 +24,170 @@
 -- Represents an update integration response.
 module Network.AWS.APIGateway.UpdateIntegrationResponse
   ( -- * Creating a Request
-    updateIntegrationResponse,
-    UpdateIntegrationResponse,
+    UpdateIntegrationResponse (..),
+    newUpdateIntegrationResponse,
 
     -- * Request Lenses
-    uirPatchOperations,
-    uirRestAPIId,
-    uirResourceId,
-    uirHttpMethod,
-    uirStatusCode,
+    updateIntegrationResponse_patchOperations,
+    updateIntegrationResponse_restApiId,
+    updateIntegrationResponse_resourceId,
+    updateIntegrationResponse_httpMethod,
+    updateIntegrationResponse_statusCode,
 
     -- * Destructuring the Response
-    integrationResponse,
-    IntegrationResponse,
+    IntegrationResponse (..),
+    newIntegrationResponse,
 
     -- * Response Lenses
-    irContentHandling,
-    irResponseTemplates,
-    irStatusCode,
-    irResponseParameters,
-    irSelectionPattern,
+    integrationResponse_contentHandling,
+    integrationResponse_responseTemplates,
+    integrationResponse_statusCode,
+    integrationResponse_responseParameters,
+    integrationResponse_selectionPattern,
   )
 where
 
 import Network.AWS.APIGateway.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.APIGateway.Types.ContentHandlingStrategy
+import Network.AWS.APIGateway.Types.IntegrationResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Represents an update integration response request.
 --
---
---
--- /See:/ 'updateIntegrationResponse' smart constructor.
+-- /See:/ 'newUpdateIntegrationResponse' smart constructor.
 data UpdateIntegrationResponse = UpdateIntegrationResponse'
-  { _uirPatchOperations ::
-      !( Maybe
-           [PatchOperation]
-       ),
-    _uirRestAPIId ::
-      !Text,
-    _uirResourceId ::
-      !Text,
-    _uirHttpMethod ::
-      !Text,
-    _uirStatusCode ::
-      !Text
+  { -- | A list of update operations to be applied to the specified resource and
+    -- in the order specified in this list.
+    patchOperations :: Prelude.Maybe [PatchOperation],
+    -- | [Required] The string identifier of the associated RestApi.
+    restApiId :: Prelude.Text,
+    -- | [Required] Specifies an update integration response request\'s resource
+    -- identifier.
+    resourceId :: Prelude.Text,
+    -- | [Required] Specifies an update integration response request\'s HTTP
+    -- method.
+    httpMethod :: Prelude.Text,
+    -- | [Required] Specifies an update integration response request\'s status
+    -- code.
+    statusCode :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateIntegrationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateIntegrationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uirPatchOperations' - A list of update operations to be applied to the specified resource and in the order specified in this list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uirRestAPIId' - [Required] The string identifier of the associated 'RestApi' .
+-- 'patchOperations', 'updateIntegrationResponse_patchOperations' - A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
 --
--- * 'uirResourceId' - [Required] Specifies an update integration response request's resource identifier.
+-- 'restApiId', 'updateIntegrationResponse_restApiId' - [Required] The string identifier of the associated RestApi.
 --
--- * 'uirHttpMethod' - [Required] Specifies an update integration response request's HTTP method.
+-- 'resourceId', 'updateIntegrationResponse_resourceId' - [Required] Specifies an update integration response request\'s resource
+-- identifier.
 --
--- * 'uirStatusCode' - [Required] Specifies an update integration response request's status code.
-updateIntegrationResponse ::
-  -- | 'uirRestAPIId'
-  Text ->
-  -- | 'uirResourceId'
-  Text ->
-  -- | 'uirHttpMethod'
-  Text ->
-  -- | 'uirStatusCode'
-  Text ->
+-- 'httpMethod', 'updateIntegrationResponse_httpMethod' - [Required] Specifies an update integration response request\'s HTTP
+-- method.
+--
+-- 'statusCode', 'updateIntegrationResponse_statusCode' - [Required] Specifies an update integration response request\'s status
+-- code.
+newUpdateIntegrationResponse ::
+  -- | 'restApiId'
+  Prelude.Text ->
+  -- | 'resourceId'
+  Prelude.Text ->
+  -- | 'httpMethod'
+  Prelude.Text ->
+  -- | 'statusCode'
+  Prelude.Text ->
   UpdateIntegrationResponse
-updateIntegrationResponse
-  pRestAPIId_
+newUpdateIntegrationResponse
+  pRestApiId_
   pResourceId_
   pHttpMethod_
   pStatusCode_ =
     UpdateIntegrationResponse'
-      { _uirPatchOperations =
-          Nothing,
-        _uirRestAPIId = pRestAPIId_,
-        _uirResourceId = pResourceId_,
-        _uirHttpMethod = pHttpMethod_,
-        _uirStatusCode = pStatusCode_
+      { patchOperations =
+          Prelude.Nothing,
+        restApiId = pRestApiId_,
+        resourceId = pResourceId_,
+        httpMethod = pHttpMethod_,
+        statusCode = pStatusCode_
       }
 
--- | A list of update operations to be applied to the specified resource and in the order specified in this list.
-uirPatchOperations :: Lens' UpdateIntegrationResponse [PatchOperation]
-uirPatchOperations = lens _uirPatchOperations (\s a -> s {_uirPatchOperations = a}) . _Default . _Coerce
+-- | A list of update operations to be applied to the specified resource and
+-- in the order specified in this list.
+updateIntegrationResponse_patchOperations :: Lens.Lens' UpdateIntegrationResponse (Prelude.Maybe [PatchOperation])
+updateIntegrationResponse_patchOperations = Lens.lens (\UpdateIntegrationResponse' {patchOperations} -> patchOperations) (\s@UpdateIntegrationResponse' {} a -> s {patchOperations = a} :: UpdateIntegrationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | [Required] The string identifier of the associated 'RestApi' .
-uirRestAPIId :: Lens' UpdateIntegrationResponse Text
-uirRestAPIId = lens _uirRestAPIId (\s a -> s {_uirRestAPIId = a})
+-- | [Required] The string identifier of the associated RestApi.
+updateIntegrationResponse_restApiId :: Lens.Lens' UpdateIntegrationResponse Prelude.Text
+updateIntegrationResponse_restApiId = Lens.lens (\UpdateIntegrationResponse' {restApiId} -> restApiId) (\s@UpdateIntegrationResponse' {} a -> s {restApiId = a} :: UpdateIntegrationResponse)
 
--- | [Required] Specifies an update integration response request's resource identifier.
-uirResourceId :: Lens' UpdateIntegrationResponse Text
-uirResourceId = lens _uirResourceId (\s a -> s {_uirResourceId = a})
+-- | [Required] Specifies an update integration response request\'s resource
+-- identifier.
+updateIntegrationResponse_resourceId :: Lens.Lens' UpdateIntegrationResponse Prelude.Text
+updateIntegrationResponse_resourceId = Lens.lens (\UpdateIntegrationResponse' {resourceId} -> resourceId) (\s@UpdateIntegrationResponse' {} a -> s {resourceId = a} :: UpdateIntegrationResponse)
 
--- | [Required] Specifies an update integration response request's HTTP method.
-uirHttpMethod :: Lens' UpdateIntegrationResponse Text
-uirHttpMethod = lens _uirHttpMethod (\s a -> s {_uirHttpMethod = a})
+-- | [Required] Specifies an update integration response request\'s HTTP
+-- method.
+updateIntegrationResponse_httpMethod :: Lens.Lens' UpdateIntegrationResponse Prelude.Text
+updateIntegrationResponse_httpMethod = Lens.lens (\UpdateIntegrationResponse' {httpMethod} -> httpMethod) (\s@UpdateIntegrationResponse' {} a -> s {httpMethod = a} :: UpdateIntegrationResponse)
 
--- | [Required] Specifies an update integration response request's status code.
-uirStatusCode :: Lens' UpdateIntegrationResponse Text
-uirStatusCode = lens _uirStatusCode (\s a -> s {_uirStatusCode = a})
+-- | [Required] Specifies an update integration response request\'s status
+-- code.
+updateIntegrationResponse_statusCode :: Lens.Lens' UpdateIntegrationResponse Prelude.Text
+updateIntegrationResponse_statusCode = Lens.lens (\UpdateIntegrationResponse' {statusCode} -> statusCode) (\s@UpdateIntegrationResponse' {} a -> s {statusCode = a} :: UpdateIntegrationResponse)
 
-instance AWSRequest UpdateIntegrationResponse where
+instance Prelude.AWSRequest UpdateIntegrationResponse where
   type
     Rs UpdateIntegrationResponse =
       IntegrationResponse
-  request = patchJSON apiGateway
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.patchJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable UpdateIntegrationResponse
+instance Prelude.Hashable UpdateIntegrationResponse
 
-instance NFData UpdateIntegrationResponse
+instance Prelude.NFData UpdateIntegrationResponse
 
-instance ToHeaders UpdateIntegrationResponse where
+instance Prelude.ToHeaders UpdateIntegrationResponse where
   toHeaders =
-    const
-      ( mconcat
-          ["Accept" =# ("application/json" :: ByteString)]
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Accept"
+              Prelude.=# ("application/json" :: Prelude.ByteString)
+          ]
       )
 
-instance ToJSON UpdateIntegrationResponse where
+instance Prelude.ToJSON UpdateIntegrationResponse where
   toJSON UpdateIntegrationResponse' {..} =
-    object
-      ( catMaybes
-          [("patchOperations" .=) <$> _uirPatchOperations]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("patchOperations" Prelude..=)
+              Prelude.<$> patchOperations
+          ]
       )
 
-instance ToPath UpdateIntegrationResponse where
+instance Prelude.ToPath UpdateIntegrationResponse where
   toPath UpdateIntegrationResponse' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/restapis/",
-        toBS _uirRestAPIId,
+        Prelude.toBS restApiId,
         "/resources/",
-        toBS _uirResourceId,
+        Prelude.toBS resourceId,
         "/methods/",
-        toBS _uirHttpMethod,
+        Prelude.toBS httpMethod,
         "/integration/responses/",
-        toBS _uirStatusCode
+        Prelude.toBS statusCode
       ]
 
-instance ToQuery UpdateIntegrationResponse where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateIntegrationResponse where
+  toQuery = Prelude.const Prelude.mempty
