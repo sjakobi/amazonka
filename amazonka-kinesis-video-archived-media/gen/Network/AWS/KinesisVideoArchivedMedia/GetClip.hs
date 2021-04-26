@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Downloads an MP4 file (clip) containing the archived, on-demand media from the specified video stream over the specified time range.
+-- Downloads an MP4 file (clip) containing the archived, on-demand media
+-- from the specified video stream over the specified time range.
 --
+-- Both the StreamName and the StreamARN parameters are optional, but you
+-- must specify either the StreamName or the StreamARN when invoking this
+-- API operation.
 --
--- Both the StreamName and the StreamARN parameters are optional, but you must specify either the StreamName or the StreamARN when invoking this API operation.
+-- As a prerequisite to using GetCLip API, you must obtain an endpoint
+-- using @GetDataEndpoint@, specifying GET_CLIP for@@ the @APIName@
+-- parameter.
 --
--- As a prerequisite to using GetCLip API, you must obtain an endpoint using @GetDataEndpoint@ , specifying GET_CLIP forthe @APIName@ parameter.
+-- An Amazon Kinesis video stream has the following requirements for
+-- providing data through MP4:
 --
--- An Amazon Kinesis video stream has the following requirements for providing data through MP4:
+-- -   The media must contain h.264 or h.265 encoded video and, optionally,
+--     AAC or G.711 encoded audio. Specifically, the codec ID of track 1
+--     should be @V_MPEG\/ISO\/AVC@ (for h.264) or V_MPEGH\/ISO\/HEVC (for
+--     H.265). Optionally, the codec ID of track 2 should be @A_AAC@ (for
+--     AAC) or A_MS\/ACM (for G.711).
 --
---     * The media must contain h.264 or h.265 encoded video and, optionally, AAC or G.711 encoded audio. Specifically, the codec ID of track 1 should be @V_MPEG/ISO/AVC@ (for h.264) or V_MPEGH/ISO/HEVC (for H.265). Optionally, the codec ID of track 2 should be @A_AAC@ (for AAC) or A_MS/ACM (for G.711).
+-- -   Data retention must be greater than 0.
 --
---     * Data retention must be greater than 0.
+-- -   The video track of each fragment must contain codec private data in
+--     the Advanced Video Coding (AVC) for H.264 format and HEVC for H.265
+--     format. For more information, see
+--     <https://www.iso.org/standard/55980.html MPEG-4 specification ISO\/IEC 14496-15>.
+--     For information about adapting stream data to a given format, see
+--     <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/producer-reference-nal.html NAL Adaptation Flags>.
 --
---     * The video track of each fragment must contain codec private data in the Advanced Video Coding (AVC) for H.264 format and HEVC for H.265 format. For more information, see <https://www.iso.org/standard/55980.html MPEG-4 specification ISO/IEC 14496-15> . For information about adapting stream data to a given format, see <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/producer-reference-nal.html NAL Adaptation Flags> .
+-- -   The audio track (if present) of each fragment must contain codec
+--     private data in the AAC format
+--     (<https://www.iso.org/standard/43345.html AAC specification ISO\/IEC 13818-7>)
+--     or the
+--     <http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html MS Wave format>.
 --
---     * The audio track (if present) of each fragment must contain codec private data in the AAC format (<https://www.iso.org/standard/43345.html AAC specification ISO/IEC 13818-7> ) or the <http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html MS Wave format> .
---
---
---
--- You can monitor the amount of outgoing data by monitoring the @GetClip.OutgoingBytes@ Amazon CloudWatch metric. For information about using CloudWatch to monitor Kinesis Video Streams, see <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html Monitoring Kinesis Video Streams> . For pricing information, see <https://aws.amazon.com/kinesis/video-streams/pricing/ Amazon Kinesis Video Streams Pricing> and <https://aws.amazon.com/pricing/ AWS Pricing> . Charges for outgoing AWS data apply.
+-- You can monitor the amount of outgoing data by monitoring the
+-- @GetClip.OutgoingBytes@ Amazon CloudWatch metric. For information about
+-- using CloudWatch to monitor Kinesis Video Streams, see
+-- <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html Monitoring Kinesis Video Streams>.
+-- For pricing information, see
+-- <https://aws.amazon.com/kinesis/video-streams/pricing/ Amazon Kinesis Video Streams Pricing>
+-- and <https://aws.amazon.com/pricing/ AWS Pricing>. Charges for outgoing
+-- AWS data apply.
 module Network.AWS.KinesisVideoArchivedMedia.GetClip
   ( -- * Creating a Request
-    getClip,
-    GetClip,
+    GetClip (..),
+    newGetClip,
 
     -- * Request Lenses
-    gcStreamARN,
-    gcStreamName,
-    gcClipFragmentSelector,
+    getClip_streamARN,
+    getClip_streamName,
+    getClip_clipFragmentSelector,
 
     -- * Destructuring the Response
-    getClipResponse,
-    GetClipResponse,
+    GetClipResponse (..),
+    newGetClipResponse,
 
     -- * Response Lenses
-    gcrrsContentType,
-    gcrrsResponseStatus,
-    gcrrsPayload,
+    getClipResponse_contentType,
+    getClipResponse_httpStatus,
+    getClipResponse_payload,
   )
 where
 
 import Network.AWS.KinesisVideoArchivedMedia.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getClip' smart constructor.
+-- | /See:/ 'newGetClip' smart constructor.
 data GetClip = GetClip'
-  { _gcStreamARN ::
-      !(Maybe Text),
-    _gcStreamName :: !(Maybe Text),
-    _gcClipFragmentSelector :: !ClipFragmentSelector
+  { -- | The Amazon Resource Name (ARN) of the stream for which to retrieve the
+    -- media clip.
+    --
+    -- You must specify either the StreamName or the StreamARN.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream for which to retrieve the media clip.
+    --
+    -- You must specify either the StreamName or the StreamARN.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | The time range of the requested clip and the source of the timestamps.
+    clipFragmentSelector :: ClipFragmentSelector
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetClip' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetClip' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcStreamARN' - The Amazon Resource Name (ARN) of the stream for which to retrieve the media clip.  You must specify either the StreamName or the StreamARN.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcStreamName' - The name of the stream for which to retrieve the media clip.  You must specify either the StreamName or the StreamARN.
+-- 'streamARN', 'getClip_streamARN' - The Amazon Resource Name (ARN) of the stream for which to retrieve the
+-- media clip.
 --
--- * 'gcClipFragmentSelector' - The time range of the requested clip and the source of the timestamps.
-getClip ::
-  -- | 'gcClipFragmentSelector'
+-- You must specify either the StreamName or the StreamARN.
+--
+-- 'streamName', 'getClip_streamName' - The name of the stream for which to retrieve the media clip.
+--
+-- You must specify either the StreamName or the StreamARN.
+--
+-- 'clipFragmentSelector', 'getClip_clipFragmentSelector' - The time range of the requested clip and the source of the timestamps.
+newGetClip ::
+  -- | 'clipFragmentSelector'
   ClipFragmentSelector ->
   GetClip
-getClip pClipFragmentSelector_ =
+newGetClip pClipFragmentSelector_ =
   GetClip'
-    { _gcStreamARN = Nothing,
-      _gcStreamName = Nothing,
-      _gcClipFragmentSelector = pClipFragmentSelector_
+    { streamARN = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      clipFragmentSelector = pClipFragmentSelector_
     }
 
--- | The Amazon Resource Name (ARN) of the stream for which to retrieve the media clip.  You must specify either the StreamName or the StreamARN.
-gcStreamARN :: Lens' GetClip (Maybe Text)
-gcStreamARN = lens _gcStreamARN (\s a -> s {_gcStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the stream for which to retrieve the
+-- media clip.
+--
+-- You must specify either the StreamName or the StreamARN.
+getClip_streamARN :: Lens.Lens' GetClip (Prelude.Maybe Prelude.Text)
+getClip_streamARN = Lens.lens (\GetClip' {streamARN} -> streamARN) (\s@GetClip' {} a -> s {streamARN = a} :: GetClip)
 
--- | The name of the stream for which to retrieve the media clip.  You must specify either the StreamName or the StreamARN.
-gcStreamName :: Lens' GetClip (Maybe Text)
-gcStreamName = lens _gcStreamName (\s a -> s {_gcStreamName = a})
+-- | The name of the stream for which to retrieve the media clip.
+--
+-- You must specify either the StreamName or the StreamARN.
+getClip_streamName :: Lens.Lens' GetClip (Prelude.Maybe Prelude.Text)
+getClip_streamName = Lens.lens (\GetClip' {streamName} -> streamName) (\s@GetClip' {} a -> s {streamName = a} :: GetClip)
 
 -- | The time range of the requested clip and the source of the timestamps.
-gcClipFragmentSelector :: Lens' GetClip ClipFragmentSelector
-gcClipFragmentSelector = lens _gcClipFragmentSelector (\s a -> s {_gcClipFragmentSelector = a})
+getClip_clipFragmentSelector :: Lens.Lens' GetClip ClipFragmentSelector
+getClip_clipFragmentSelector = Lens.lens (\GetClip' {clipFragmentSelector} -> clipFragmentSelector) (\s@GetClip' {} a -> s {clipFragmentSelector = a} :: GetClip)
 
-instance AWSRequest GetClip where
+instance Prelude.AWSRequest GetClip where
   type Rs GetClip = GetClipResponse
-  request = postJSON kinesisVideoArchivedMedia
+  request = Request.postJSON defaultService
   response =
-    receiveBody
+    Response.receiveBody
       ( \s h x ->
           GetClipResponse'
-            <$> (h .#? "Content-Type")
-            <*> (pure (fromEnum s))
-            <*> (pure x)
+            Prelude.<$> (h Prelude..#? "Content-Type")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.pure x)
       )
 
-instance Hashable GetClip
+instance Prelude.Hashable GetClip
 
-instance NFData GetClip
+instance Prelude.NFData GetClip
 
-instance ToHeaders GetClip where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetClip where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetClip where
+instance Prelude.ToJSON GetClip where
   toJSON GetClip' {..} =
-    object
-      ( catMaybes
-          [ ("StreamARN" .=) <$> _gcStreamARN,
-            ("StreamName" .=) <$> _gcStreamName,
-            Just
-              ("ClipFragmentSelector" .= _gcClipFragmentSelector)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just
+              ( "ClipFragmentSelector"
+                  Prelude..= clipFragmentSelector
+              )
           ]
       )
 
-instance ToPath GetClip where
-  toPath = const "/getClip"
+instance Prelude.ToPath GetClip where
+  toPath = Prelude.const "/getClip"
 
-instance ToQuery GetClip where
-  toQuery = const mempty
+instance Prelude.ToQuery GetClip where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getClipResponse' smart constructor.
+-- | /See:/ 'newGetClipResponse' smart constructor.
 data GetClipResponse = GetClipResponse'
-  { _gcrrsContentType ::
-      !(Maybe Text),
-    _gcrrsResponseStatus :: !Int,
-    _gcrrsPayload :: !RsBody
+  { -- | The content type of the media in the requested clip.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Traditional MP4 file that contains the media clip from the specified
+    -- video stream. The output will contain the first 100 MB or the first 200
+    -- fragments from the specified start timestamp. For more information, see
+    -- <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html Kinesis Video Streams Limits>.
+    payload :: Prelude.RsBody
   }
-  deriving (Show, Generic)
+  deriving (Prelude.Show, Prelude.Generic)
 
--- | Creates a value of 'GetClipResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetClipResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrrsContentType' - The content type of the media in the requested clip.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrrsResponseStatus' - -- | The response status code.
+-- 'contentType', 'getClipResponse_contentType' - The content type of the media in the requested clip.
 --
--- * 'gcrrsPayload' - Traditional MP4 file that contains the media clip from the specified video stream. The output will contain the first 100 MB or the first 200 fragments from the specified start timestamp. For more information, see <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html Kinesis Video Streams Limits> .
-getClipResponse ::
-  -- | 'gcrrsResponseStatus'
-  Int ->
-  -- | 'gcrrsPayload'
-  RsBody ->
+-- 'httpStatus', 'getClipResponse_httpStatus' - The response's http status code.
+--
+-- 'payload', 'getClipResponse_payload' - Traditional MP4 file that contains the media clip from the specified
+-- video stream. The output will contain the first 100 MB or the first 200
+-- fragments from the specified start timestamp. For more information, see
+-- <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html Kinesis Video Streams Limits>.
+newGetClipResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'payload'
+  Prelude.RsBody ->
   GetClipResponse
-getClipResponse pResponseStatus_ pPayload_ =
+newGetClipResponse pHttpStatus_ pPayload_ =
   GetClipResponse'
-    { _gcrrsContentType = Nothing,
-      _gcrrsResponseStatus = pResponseStatus_,
-      _gcrrsPayload = pPayload_
+    { contentType = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      payload = pPayload_
     }
 
 -- | The content type of the media in the requested clip.
-gcrrsContentType :: Lens' GetClipResponse (Maybe Text)
-gcrrsContentType = lens _gcrrsContentType (\s a -> s {_gcrrsContentType = a})
+getClipResponse_contentType :: Lens.Lens' GetClipResponse (Prelude.Maybe Prelude.Text)
+getClipResponse_contentType = Lens.lens (\GetClipResponse' {contentType} -> contentType) (\s@GetClipResponse' {} a -> s {contentType = a} :: GetClipResponse)
 
--- | -- | The response status code.
-gcrrsResponseStatus :: Lens' GetClipResponse Int
-gcrrsResponseStatus = lens _gcrrsResponseStatus (\s a -> s {_gcrrsResponseStatus = a})
+-- | The response's http status code.
+getClipResponse_httpStatus :: Lens.Lens' GetClipResponse Prelude.Int
+getClipResponse_httpStatus = Lens.lens (\GetClipResponse' {httpStatus} -> httpStatus) (\s@GetClipResponse' {} a -> s {httpStatus = a} :: GetClipResponse)
 
--- | Traditional MP4 file that contains the media clip from the specified video stream. The output will contain the first 100 MB or the first 200 fragments from the specified start timestamp. For more information, see <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html Kinesis Video Streams Limits> .
-gcrrsPayload :: Lens' GetClipResponse RsBody
-gcrrsPayload = lens _gcrrsPayload (\s a -> s {_gcrrsPayload = a})
+-- | Traditional MP4 file that contains the media clip from the specified
+-- video stream. The output will contain the first 100 MB or the first 200
+-- fragments from the specified start timestamp. For more information, see
+-- <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html Kinesis Video Streams Limits>.
+getClipResponse_payload :: Lens.Lens' GetClipResponse Prelude.RsBody
+getClipResponse_payload = Lens.lens (\GetClipResponse' {payload} -> payload) (\s@GetClipResponse' {} a -> s {payload = a} :: GetClipResponse)

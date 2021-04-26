@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.DASHDisplayFragmentNumber
   ( DASHDisplayFragmentNumber
       ( ..,
-        Always,
-        Never
+        DASHDisplayFragmentNumberALWAYS,
+        DASHDisplayFragmentNumberNEVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DASHDisplayFragmentNumber
-  = DASHDisplayFragmentNumber'
-      ( CI
-          Text
-      )
+newtype DASHDisplayFragmentNumber = DASHDisplayFragmentNumber'
+  { fromDASHDisplayFragmentNumber ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Always :: DASHDisplayFragmentNumber
-pattern Always = DASHDisplayFragmentNumber' "ALWAYS"
+pattern DASHDisplayFragmentNumberALWAYS :: DASHDisplayFragmentNumber
+pattern DASHDisplayFragmentNumberALWAYS = DASHDisplayFragmentNumber' "ALWAYS"
 
-pattern Never :: DASHDisplayFragmentNumber
-pattern Never = DASHDisplayFragmentNumber' "NEVER"
+pattern DASHDisplayFragmentNumberNEVER :: DASHDisplayFragmentNumber
+pattern DASHDisplayFragmentNumberNEVER = DASHDisplayFragmentNumber' "NEVER"
 
 {-# COMPLETE
-  Always,
-  Never,
+  DASHDisplayFragmentNumberALWAYS,
+  DASHDisplayFragmentNumberNEVER,
   DASHDisplayFragmentNumber'
   #-}
 
-instance FromText DASHDisplayFragmentNumber where
-  parser = (DASHDisplayFragmentNumber' . mk) <$> takeText
+instance Prelude.FromText DASHDisplayFragmentNumber where
+  parser = DASHDisplayFragmentNumber' Prelude.<$> Prelude.takeText
 
-instance ToText DASHDisplayFragmentNumber where
-  toText (DASHDisplayFragmentNumber' ci) = original ci
+instance Prelude.ToText DASHDisplayFragmentNumber where
+  toText (DASHDisplayFragmentNumber' x) = x
 
-instance Hashable DASHDisplayFragmentNumber
+instance Prelude.Hashable DASHDisplayFragmentNumber
 
-instance NFData DASHDisplayFragmentNumber
+instance Prelude.NFData DASHDisplayFragmentNumber
 
-instance ToByteString DASHDisplayFragmentNumber
+instance Prelude.ToByteString DASHDisplayFragmentNumber
 
-instance ToQuery DASHDisplayFragmentNumber
+instance Prelude.ToQuery DASHDisplayFragmentNumber
 
-instance ToHeader DASHDisplayFragmentNumber
+instance Prelude.ToHeader DASHDisplayFragmentNumber
 
-instance ToJSON DASHDisplayFragmentNumber where
-  toJSON = toJSONText
+instance Prelude.ToJSON DASHDisplayFragmentNumber where
+  toJSON = Prelude.toJSONText

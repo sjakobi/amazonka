@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,188 +21,289 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets media for a list of fragments (specified by fragment number) from the archived data in an Amazon Kinesis video stream.
+-- Gets media for a list of fragments (specified by fragment number) from
+-- the archived data in an Amazon Kinesis video stream.
 --
+-- You must first call the @GetDataEndpoint@ API to get an endpoint. Then
+-- send the @GetMediaForFragmentList@ requests to this endpoint using the
+-- <https://docs.aws.amazon.com/cli/latest/reference/ --endpoint-url parameter>.
 --
 -- The following limits apply when using the @GetMediaForFragmentList@ API:
 --
---     * A client can call @GetMediaForFragmentList@ up to five times per second per stream.
+-- -   A client can call @GetMediaForFragmentList@ up to five times per
+--     second per stream.
 --
---     * Kinesis Video Streams sends media data at a rate of up to 25 megabytes per second (or 200 megabits per second) during a @GetMediaForFragmentList@ session.
+-- -   Kinesis Video Streams sends media data at a rate of up to 25
+--     megabytes per second (or 200 megabits per second) during a
+--     @GetMediaForFragmentList@ session.
 --
+-- If an error is thrown after invoking a Kinesis Video Streams archived
+-- media API, in addition to the HTTP status code and the response body, it
+-- includes the following pieces of information:
 --
+-- -   @x-amz-ErrorType@ HTTP header – contains a more specific error type
+--     in addition to what the HTTP status code provides.
 --
--- /Important:/ If an error is thrown after invoking a Kinesis Video Streams archived media API, in addition to the HTTP status code and the response body, it includes the following pieces of information:
+-- -   @x-amz-RequestId@ HTTP header – if you want to report an issue to
+--     AWS, the support team can better diagnose the problem if given the
+--     Request Id.
 --
---     * @x-amz-ErrorType@ HTTP header – contains a more specific error type in addition to what the HTTP status code provides.
+-- Both the HTTP status code and the ErrorType header can be utilized to
+-- make programmatic decisions about whether errors are retry-able and
+-- under what conditions, as well as provide information on what actions
+-- the client programmer might need to take in order to successfully try
+-- again.
 --
---     * @x-amz-RequestId@ HTTP header – if you want to report an issue to AWS, the support team can better diagnose the problem if given the Request Id.
---
---
---
--- Both the HTTP status code and the ErrorType header can be utilized to make programmatic decisions about whether errors are retry-able and under what conditions, as well as provide information on what actions the client programmer might need to take in order to successfully try again.
---
--- For more information, see the __Errors__ section at the bottom of this topic, as well as <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html Common Errors> .
+-- For more information, see the __Errors__ section at the bottom of this
+-- topic, as well as
+-- <https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html Common Errors>.
 module Network.AWS.KinesisVideoArchivedMedia.GetMediaForFragmentList
   ( -- * Creating a Request
-    getMediaForFragmentList,
-    GetMediaForFragmentList,
+    GetMediaForFragmentList (..),
+    newGetMediaForFragmentList,
 
     -- * Request Lenses
-    gmfflStreamARN,
-    gmfflStreamName,
-    gmfflFragments,
+    getMediaForFragmentList_streamARN,
+    getMediaForFragmentList_streamName,
+    getMediaForFragmentList_fragments,
 
     -- * Destructuring the Response
-    getMediaForFragmentListResponse,
-    GetMediaForFragmentListResponse,
+    GetMediaForFragmentListResponse (..),
+    newGetMediaForFragmentListResponse,
 
     -- * Response Lenses
-    gmfflrrsContentType,
-    gmfflrrsResponseStatus,
-    gmfflrrsPayload,
+    getMediaForFragmentListResponse_contentType,
+    getMediaForFragmentListResponse_httpStatus,
+    getMediaForFragmentListResponse_payload,
   )
 where
 
 import Network.AWS.KinesisVideoArchivedMedia.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMediaForFragmentList' smart constructor.
+-- | /See:/ 'newGetMediaForFragmentList' smart constructor.
 data GetMediaForFragmentList = GetMediaForFragmentList'
-  { _gmfflStreamARN ::
-      !(Maybe Text),
-    _gmfflStreamName ::
-      !(Maybe Text),
-    _gmfflFragments ::
-      !(List1 Text)
+  { -- | The Amazon Resource Name (ARN) of the stream from which to retrieve
+    -- fragment media. Specify either this parameter or the @StreamName@
+    -- parameter.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the stream from which to retrieve fragment media. Specify
+    -- either this parameter or the @StreamARN@ parameter.
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | A list of the numbers of fragments for which to retrieve media. You
+    -- retrieve these values with ListFragments.
+    fragments :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMediaForFragmentList' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMediaForFragmentList' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmfflStreamARN' - The Amazon Resource Name (ARN) of the stream from which to retrieve fragment media. Specify either this parameter or the @StreamName@ parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmfflStreamName' - The name of the stream from which to retrieve fragment media. Specify either this parameter or the @StreamARN@ parameter.
+-- 'streamARN', 'getMediaForFragmentList_streamARN' - The Amazon Resource Name (ARN) of the stream from which to retrieve
+-- fragment media. Specify either this parameter or the @StreamName@
+-- parameter.
 --
--- * 'gmfflFragments' - A list of the numbers of fragments for which to retrieve media. You retrieve these values with 'ListFragments' .
-getMediaForFragmentList ::
-  -- | 'gmfflFragments'
-  NonEmpty Text ->
+-- 'streamName', 'getMediaForFragmentList_streamName' - The name of the stream from which to retrieve fragment media. Specify
+-- either this parameter or the @StreamARN@ parameter.
+--
+-- 'fragments', 'getMediaForFragmentList_fragments' - A list of the numbers of fragments for which to retrieve media. You
+-- retrieve these values with ListFragments.
+newGetMediaForFragmentList ::
+  -- | 'fragments'
+  Prelude.NonEmpty Prelude.Text ->
   GetMediaForFragmentList
-getMediaForFragmentList pFragments_ =
+newGetMediaForFragmentList pFragments_ =
   GetMediaForFragmentList'
-    { _gmfflStreamARN = Nothing,
-      _gmfflStreamName = Nothing,
-      _gmfflFragments = _List1 # pFragments_
+    { streamARN =
+        Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      fragments = Prelude._List1 Lens.# pFragments_
     }
 
--- | The Amazon Resource Name (ARN) of the stream from which to retrieve fragment media. Specify either this parameter or the @StreamName@ parameter.
-gmfflStreamARN :: Lens' GetMediaForFragmentList (Maybe Text)
-gmfflStreamARN = lens _gmfflStreamARN (\s a -> s {_gmfflStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the stream from which to retrieve
+-- fragment media. Specify either this parameter or the @StreamName@
+-- parameter.
+getMediaForFragmentList_streamARN :: Lens.Lens' GetMediaForFragmentList (Prelude.Maybe Prelude.Text)
+getMediaForFragmentList_streamARN = Lens.lens (\GetMediaForFragmentList' {streamARN} -> streamARN) (\s@GetMediaForFragmentList' {} a -> s {streamARN = a} :: GetMediaForFragmentList)
 
--- | The name of the stream from which to retrieve fragment media. Specify either this parameter or the @StreamARN@ parameter.
-gmfflStreamName :: Lens' GetMediaForFragmentList (Maybe Text)
-gmfflStreamName = lens _gmfflStreamName (\s a -> s {_gmfflStreamName = a})
+-- | The name of the stream from which to retrieve fragment media. Specify
+-- either this parameter or the @StreamARN@ parameter.
+getMediaForFragmentList_streamName :: Lens.Lens' GetMediaForFragmentList (Prelude.Maybe Prelude.Text)
+getMediaForFragmentList_streamName = Lens.lens (\GetMediaForFragmentList' {streamName} -> streamName) (\s@GetMediaForFragmentList' {} a -> s {streamName = a} :: GetMediaForFragmentList)
 
--- | A list of the numbers of fragments for which to retrieve media. You retrieve these values with 'ListFragments' .
-gmfflFragments :: Lens' GetMediaForFragmentList (NonEmpty Text)
-gmfflFragments = lens _gmfflFragments (\s a -> s {_gmfflFragments = a}) . _List1
+-- | A list of the numbers of fragments for which to retrieve media. You
+-- retrieve these values with ListFragments.
+getMediaForFragmentList_fragments :: Lens.Lens' GetMediaForFragmentList (Prelude.NonEmpty Prelude.Text)
+getMediaForFragmentList_fragments = Lens.lens (\GetMediaForFragmentList' {fragments} -> fragments) (\s@GetMediaForFragmentList' {} a -> s {fragments = a} :: GetMediaForFragmentList) Prelude.. Prelude._List1
 
-instance AWSRequest GetMediaForFragmentList where
+instance Prelude.AWSRequest GetMediaForFragmentList where
   type
     Rs GetMediaForFragmentList =
       GetMediaForFragmentListResponse
-  request = postJSON kinesisVideoArchivedMedia
+  request = Request.postJSON defaultService
   response =
-    receiveBody
+    Response.receiveBody
       ( \s h x ->
           GetMediaForFragmentListResponse'
-            <$> (h .#? "Content-Type")
-            <*> (pure (fromEnum s))
-            <*> (pure x)
+            Prelude.<$> (h Prelude..#? "Content-Type")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.pure x)
       )
 
-instance Hashable GetMediaForFragmentList
+instance Prelude.Hashable GetMediaForFragmentList
 
-instance NFData GetMediaForFragmentList
+instance Prelude.NFData GetMediaForFragmentList
 
-instance ToHeaders GetMediaForFragmentList where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetMediaForFragmentList where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetMediaForFragmentList where
+instance Prelude.ToJSON GetMediaForFragmentList where
   toJSON GetMediaForFragmentList' {..} =
-    object
-      ( catMaybes
-          [ ("StreamARN" .=) <$> _gmfflStreamARN,
-            ("StreamName" .=) <$> _gmfflStreamName,
-            Just ("Fragments" .= _gmfflFragments)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("StreamName" Prelude..=) Prelude.<$> streamName,
+            Prelude.Just ("Fragments" Prelude..= fragments)
           ]
       )
 
-instance ToPath GetMediaForFragmentList where
-  toPath = const "/getMediaForFragmentList"
+instance Prelude.ToPath GetMediaForFragmentList where
+  toPath = Prelude.const "/getMediaForFragmentList"
 
-instance ToQuery GetMediaForFragmentList where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMediaForFragmentList where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMediaForFragmentListResponse' smart constructor.
+-- | /See:/ 'newGetMediaForFragmentListResponse' smart constructor.
 data GetMediaForFragmentListResponse = GetMediaForFragmentListResponse'
-  { _gmfflrrsContentType ::
-      !( Maybe
-           Text
-       ),
-    _gmfflrrsResponseStatus ::
-      !Int,
-    _gmfflrrsPayload ::
-      !RsBody
+  { -- | The content type of the requested media.
+    contentType :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The payload that Kinesis Video Streams returns is a sequence of chunks
+    -- from the specified stream. For information about the chunks, see
+    -- <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_dataplane_PutMedia.html PutMedia>.
+    -- The chunks that Kinesis Video Streams returns in the
+    -- @GetMediaForFragmentList@ call also include the following additional
+    -- Matroska (MKV) tags:
+    --
+    -- -   AWS_KINESISVIDEO_FRAGMENT_NUMBER - Fragment number returned in the
+    --     chunk.
+    --
+    -- -   AWS_KINESISVIDEO_SERVER_SIDE_TIMESTAMP - Server-side timestamp of
+    --     the fragment.
+    --
+    -- -   AWS_KINESISVIDEO_PRODUCER_SIDE_TIMESTAMP - Producer-side timestamp
+    --     of the fragment.
+    --
+    -- The following tags will be included if an exception occurs:
+    --
+    -- -   AWS_KINESISVIDEO_FRAGMENT_NUMBER - The number of the fragment that
+    --     threw the exception
+    --
+    -- -   AWS_KINESISVIDEO_EXCEPTION_ERROR_CODE - The integer code of the
+    --     exception
+    --
+    -- -   AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the
+    --     exception
+    payload :: Prelude.RsBody
   }
-  deriving (Show, Generic)
+  deriving (Prelude.Show, Prelude.Generic)
 
--- | Creates a value of 'GetMediaForFragmentListResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMediaForFragmentListResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmfflrrsContentType' - The content type of the requested media.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmfflrrsResponseStatus' - -- | The response status code.
+-- 'contentType', 'getMediaForFragmentListResponse_contentType' - The content type of the requested media.
 --
--- * 'gmfflrrsPayload' - The payload that Kinesis Video Streams returns is a sequence of chunks from the specified stream. For information about the chunks, see <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_dataplane_PutMedia.html PutMedia> . The chunks that Kinesis Video Streams returns in the @GetMediaForFragmentList@ call also include the following additional Matroska (MKV) tags:      * AWS_KINESISVIDEO_FRAGMENT_NUMBER - Fragment number returned in the chunk.     * AWS_KINESISVIDEO_SERVER_SIDE_TIMESTAMP - Server-side timestamp of the fragment.     * AWS_KINESISVIDEO_PRODUCER_SIDE_TIMESTAMP - Producer-side timestamp of the fragment. The following tags will be included if an exception occurs:     * AWS_KINESISVIDEO_FRAGMENT_NUMBER - The number of the fragment that threw the exception     * AWS_KINESISVIDEO_EXCEPTION_ERROR_CODE - The integer code of the exception     * AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the exception
-getMediaForFragmentListResponse ::
-  -- | 'gmfflrrsResponseStatus'
-  Int ->
-  -- | 'gmfflrrsPayload'
-  RsBody ->
+-- 'httpStatus', 'getMediaForFragmentListResponse_httpStatus' - The response's http status code.
+--
+-- 'payload', 'getMediaForFragmentListResponse_payload' - The payload that Kinesis Video Streams returns is a sequence of chunks
+-- from the specified stream. For information about the chunks, see
+-- <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_dataplane_PutMedia.html PutMedia>.
+-- The chunks that Kinesis Video Streams returns in the
+-- @GetMediaForFragmentList@ call also include the following additional
+-- Matroska (MKV) tags:
+--
+-- -   AWS_KINESISVIDEO_FRAGMENT_NUMBER - Fragment number returned in the
+--     chunk.
+--
+-- -   AWS_KINESISVIDEO_SERVER_SIDE_TIMESTAMP - Server-side timestamp of
+--     the fragment.
+--
+-- -   AWS_KINESISVIDEO_PRODUCER_SIDE_TIMESTAMP - Producer-side timestamp
+--     of the fragment.
+--
+-- The following tags will be included if an exception occurs:
+--
+-- -   AWS_KINESISVIDEO_FRAGMENT_NUMBER - The number of the fragment that
+--     threw the exception
+--
+-- -   AWS_KINESISVIDEO_EXCEPTION_ERROR_CODE - The integer code of the
+--     exception
+--
+-- -   AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the
+--     exception
+newGetMediaForFragmentListResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'payload'
+  Prelude.RsBody ->
   GetMediaForFragmentListResponse
-getMediaForFragmentListResponse
-  pResponseStatus_
+newGetMediaForFragmentListResponse
+  pHttpStatus_
   pPayload_ =
     GetMediaForFragmentListResponse'
-      { _gmfflrrsContentType =
-          Nothing,
-        _gmfflrrsResponseStatus = pResponseStatus_,
-        _gmfflrrsPayload = pPayload_
+      { contentType =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        payload = pPayload_
       }
 
 -- | The content type of the requested media.
-gmfflrrsContentType :: Lens' GetMediaForFragmentListResponse (Maybe Text)
-gmfflrrsContentType = lens _gmfflrrsContentType (\s a -> s {_gmfflrrsContentType = a})
+getMediaForFragmentListResponse_contentType :: Lens.Lens' GetMediaForFragmentListResponse (Prelude.Maybe Prelude.Text)
+getMediaForFragmentListResponse_contentType = Lens.lens (\GetMediaForFragmentListResponse' {contentType} -> contentType) (\s@GetMediaForFragmentListResponse' {} a -> s {contentType = a} :: GetMediaForFragmentListResponse)
 
--- | -- | The response status code.
-gmfflrrsResponseStatus :: Lens' GetMediaForFragmentListResponse Int
-gmfflrrsResponseStatus = lens _gmfflrrsResponseStatus (\s a -> s {_gmfflrrsResponseStatus = a})
+-- | The response's http status code.
+getMediaForFragmentListResponse_httpStatus :: Lens.Lens' GetMediaForFragmentListResponse Prelude.Int
+getMediaForFragmentListResponse_httpStatus = Lens.lens (\GetMediaForFragmentListResponse' {httpStatus} -> httpStatus) (\s@GetMediaForFragmentListResponse' {} a -> s {httpStatus = a} :: GetMediaForFragmentListResponse)
 
--- | The payload that Kinesis Video Streams returns is a sequence of chunks from the specified stream. For information about the chunks, see <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_dataplane_PutMedia.html PutMedia> . The chunks that Kinesis Video Streams returns in the @GetMediaForFragmentList@ call also include the following additional Matroska (MKV) tags:      * AWS_KINESISVIDEO_FRAGMENT_NUMBER - Fragment number returned in the chunk.     * AWS_KINESISVIDEO_SERVER_SIDE_TIMESTAMP - Server-side timestamp of the fragment.     * AWS_KINESISVIDEO_PRODUCER_SIDE_TIMESTAMP - Producer-side timestamp of the fragment. The following tags will be included if an exception occurs:     * AWS_KINESISVIDEO_FRAGMENT_NUMBER - The number of the fragment that threw the exception     * AWS_KINESISVIDEO_EXCEPTION_ERROR_CODE - The integer code of the exception     * AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the exception
-gmfflrrsPayload :: Lens' GetMediaForFragmentListResponse RsBody
-gmfflrrsPayload = lens _gmfflrrsPayload (\s a -> s {_gmfflrrsPayload = a})
+-- | The payload that Kinesis Video Streams returns is a sequence of chunks
+-- from the specified stream. For information about the chunks, see
+-- <http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_dataplane_PutMedia.html PutMedia>.
+-- The chunks that Kinesis Video Streams returns in the
+-- @GetMediaForFragmentList@ call also include the following additional
+-- Matroska (MKV) tags:
+--
+-- -   AWS_KINESISVIDEO_FRAGMENT_NUMBER - Fragment number returned in the
+--     chunk.
+--
+-- -   AWS_KINESISVIDEO_SERVER_SIDE_TIMESTAMP - Server-side timestamp of
+--     the fragment.
+--
+-- -   AWS_KINESISVIDEO_PRODUCER_SIDE_TIMESTAMP - Producer-side timestamp
+--     of the fragment.
+--
+-- The following tags will be included if an exception occurs:
+--
+-- -   AWS_KINESISVIDEO_FRAGMENT_NUMBER - The number of the fragment that
+--     threw the exception
+--
+-- -   AWS_KINESISVIDEO_EXCEPTION_ERROR_CODE - The integer code of the
+--     exception
+--
+-- -   AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the
+--     exception
+getMediaForFragmentListResponse_payload :: Lens.Lens' GetMediaForFragmentListResponse Prelude.RsBody
+getMediaForFragmentListResponse_payload = Lens.lens (\GetMediaForFragmentListResponse' {payload} -> payload) (\s@GetMediaForFragmentListResponse' {} a -> s {payload = a} :: GetMediaForFragmentListResponse)

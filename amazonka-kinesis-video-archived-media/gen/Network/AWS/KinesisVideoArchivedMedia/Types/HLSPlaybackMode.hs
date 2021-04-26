@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.HLSPlaybackMode
   ( HLSPlaybackMode
       ( ..,
-        Live,
-        LiveReplay,
-        OnDemand
+        HLSPlaybackModeLIVE,
+        HLSPlaybackModeLIVEREPLAY,
+        HLSPlaybackModeONDEMAND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HLSPlaybackMode = HLSPlaybackMode' (CI Text)
+newtype HLSPlaybackMode = HLSPlaybackMode'
+  { fromHLSPlaybackMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Live :: HLSPlaybackMode
-pattern Live = HLSPlaybackMode' "LIVE"
+pattern HLSPlaybackModeLIVE :: HLSPlaybackMode
+pattern HLSPlaybackModeLIVE = HLSPlaybackMode' "LIVE"
 
-pattern LiveReplay :: HLSPlaybackMode
-pattern LiveReplay = HLSPlaybackMode' "LIVE_REPLAY"
+pattern HLSPlaybackModeLIVEREPLAY :: HLSPlaybackMode
+pattern HLSPlaybackModeLIVEREPLAY = HLSPlaybackMode' "LIVE_REPLAY"
 
-pattern OnDemand :: HLSPlaybackMode
-pattern OnDemand = HLSPlaybackMode' "ON_DEMAND"
+pattern HLSPlaybackModeONDEMAND :: HLSPlaybackMode
+pattern HLSPlaybackModeONDEMAND = HLSPlaybackMode' "ON_DEMAND"
 
 {-# COMPLETE
-  Live,
-  LiveReplay,
-  OnDemand,
+  HLSPlaybackModeLIVE,
+  HLSPlaybackModeLIVEREPLAY,
+  HLSPlaybackModeONDEMAND,
   HLSPlaybackMode'
   #-}
 
-instance FromText HLSPlaybackMode where
-  parser = (HLSPlaybackMode' . mk) <$> takeText
+instance Prelude.FromText HLSPlaybackMode where
+  parser = HLSPlaybackMode' Prelude.<$> Prelude.takeText
 
-instance ToText HLSPlaybackMode where
-  toText (HLSPlaybackMode' ci) = original ci
+instance Prelude.ToText HLSPlaybackMode where
+  toText (HLSPlaybackMode' x) = x
 
-instance Hashable HLSPlaybackMode
+instance Prelude.Hashable HLSPlaybackMode
 
-instance NFData HLSPlaybackMode
+instance Prelude.NFData HLSPlaybackMode
 
-instance ToByteString HLSPlaybackMode
+instance Prelude.ToByteString HLSPlaybackMode
 
-instance ToQuery HLSPlaybackMode
+instance Prelude.ToQuery HLSPlaybackMode
 
-instance ToHeader HLSPlaybackMode
+instance Prelude.ToHeader HLSPlaybackMode
 
-instance ToJSON HLSPlaybackMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON HLSPlaybackMode where
+  toJSON = Prelude.toJSONText

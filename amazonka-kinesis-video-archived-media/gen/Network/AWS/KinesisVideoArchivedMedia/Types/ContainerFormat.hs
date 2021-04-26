@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.ContainerFormat
   ( ContainerFormat
       ( ..,
-        FragmentedMP4,
-        MpegTs
+        ContainerFormatFRAGMENTEDMP4,
+        ContainerFormatMPEGTS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContainerFormat = ContainerFormat' (CI Text)
+newtype ContainerFormat = ContainerFormat'
+  { fromContainerFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FragmentedMP4 :: ContainerFormat
-pattern FragmentedMP4 = ContainerFormat' "FRAGMENTED_MP4"
+pattern ContainerFormatFRAGMENTEDMP4 :: ContainerFormat
+pattern ContainerFormatFRAGMENTEDMP4 = ContainerFormat' "FRAGMENTED_MP4"
 
-pattern MpegTs :: ContainerFormat
-pattern MpegTs = ContainerFormat' "MPEG_TS"
+pattern ContainerFormatMPEGTS :: ContainerFormat
+pattern ContainerFormatMPEGTS = ContainerFormat' "MPEG_TS"
 
 {-# COMPLETE
-  FragmentedMP4,
-  MpegTs,
+  ContainerFormatFRAGMENTEDMP4,
+  ContainerFormatMPEGTS,
   ContainerFormat'
   #-}
 
-instance FromText ContainerFormat where
-  parser = (ContainerFormat' . mk) <$> takeText
+instance Prelude.FromText ContainerFormat where
+  parser = ContainerFormat' Prelude.<$> Prelude.takeText
 
-instance ToText ContainerFormat where
-  toText (ContainerFormat' ci) = original ci
+instance Prelude.ToText ContainerFormat where
+  toText (ContainerFormat' x) = x
 
-instance Hashable ContainerFormat
+instance Prelude.Hashable ContainerFormat
 
-instance NFData ContainerFormat
+instance Prelude.NFData ContainerFormat
 
-instance ToByteString ContainerFormat
+instance Prelude.ToByteString ContainerFormat
 
-instance ToQuery ContainerFormat
+instance Prelude.ToQuery ContainerFormat
 
-instance ToHeader ContainerFormat
+instance Prelude.ToHeader ContainerFormat
 
-instance ToJSON ContainerFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContainerFormat where
+  toJSON = Prelude.toJSONText

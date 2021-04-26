@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.DASHPlaybackMode
   ( DASHPlaybackMode
       ( ..,
-        DASHPMLive,
-        DASHPMLiveReplay,
-        DASHPMOnDemand
+        DASHPlaybackModeLIVE,
+        DASHPlaybackModeLIVEREPLAY,
+        DASHPlaybackModeONDEMAND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DASHPlaybackMode = DASHPlaybackMode' (CI Text)
+newtype DASHPlaybackMode = DASHPlaybackMode'
+  { fromDASHPlaybackMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DASHPMLive :: DASHPlaybackMode
-pattern DASHPMLive = DASHPlaybackMode' "LIVE"
+pattern DASHPlaybackModeLIVE :: DASHPlaybackMode
+pattern DASHPlaybackModeLIVE = DASHPlaybackMode' "LIVE"
 
-pattern DASHPMLiveReplay :: DASHPlaybackMode
-pattern DASHPMLiveReplay = DASHPlaybackMode' "LIVE_REPLAY"
+pattern DASHPlaybackModeLIVEREPLAY :: DASHPlaybackMode
+pattern DASHPlaybackModeLIVEREPLAY = DASHPlaybackMode' "LIVE_REPLAY"
 
-pattern DASHPMOnDemand :: DASHPlaybackMode
-pattern DASHPMOnDemand = DASHPlaybackMode' "ON_DEMAND"
+pattern DASHPlaybackModeONDEMAND :: DASHPlaybackMode
+pattern DASHPlaybackModeONDEMAND = DASHPlaybackMode' "ON_DEMAND"
 
 {-# COMPLETE
-  DASHPMLive,
-  DASHPMLiveReplay,
-  DASHPMOnDemand,
+  DASHPlaybackModeLIVE,
+  DASHPlaybackModeLIVEREPLAY,
+  DASHPlaybackModeONDEMAND,
   DASHPlaybackMode'
   #-}
 
-instance FromText DASHPlaybackMode where
-  parser = (DASHPlaybackMode' . mk) <$> takeText
+instance Prelude.FromText DASHPlaybackMode where
+  parser = DASHPlaybackMode' Prelude.<$> Prelude.takeText
 
-instance ToText DASHPlaybackMode where
-  toText (DASHPlaybackMode' ci) = original ci
+instance Prelude.ToText DASHPlaybackMode where
+  toText (DASHPlaybackMode' x) = x
 
-instance Hashable DASHPlaybackMode
+instance Prelude.Hashable DASHPlaybackMode
 
-instance NFData DASHPlaybackMode
+instance Prelude.NFData DASHPlaybackMode
 
-instance ToByteString DASHPlaybackMode
+instance Prelude.ToByteString DASHPlaybackMode
 
-instance ToQuery DASHPlaybackMode
+instance Prelude.ToQuery DASHPlaybackMode
 
-instance ToHeader DASHPlaybackMode
+instance Prelude.ToHeader DASHPlaybackMode
 
-instance ToJSON DASHPlaybackMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON DASHPlaybackMode where
+  toJSON = Prelude.toJSONText

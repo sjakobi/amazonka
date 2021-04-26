@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KinesisVideoArchivedMedia.Types.Fragment where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents a segment of video or other time-delimited data.
 --
---
---
--- /See:/ 'fragment' smart constructor.
+-- /See:/ 'newFragment' smart constructor.
 data Fragment = Fragment'
-  { _fProducerTimestamp ::
-      !(Maybe POSIX),
-    _fFragmentNumber :: !(Maybe Text),
-    _fFragmentSizeInBytes :: !(Maybe Integer),
-    _fServerTimestamp :: !(Maybe POSIX),
-    _fFragmentLengthInMilliseconds :: !(Maybe Integer)
+  { -- | The timestamp from the producer corresponding to the fragment.
+    producerTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The unique identifier of the fragment. This value monotonically
+    -- increases based on the ingestion order.
+    fragmentNumber :: Prelude.Maybe Prelude.Text,
+    -- | The total fragment size, including information about the fragment and
+    -- contained media data.
+    fragmentSizeInBytes :: Prelude.Maybe Prelude.Integer,
+    -- | The timestamp from the AWS server corresponding to the fragment.
+    serverTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The playback duration or other time value associated with the fragment.
+    fragmentLengthInMilliseconds :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Fragment' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Fragment' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fProducerTimestamp' - The timestamp from the producer corresponding to the fragment.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fFragmentNumber' - The unique identifier of the fragment. This value monotonically increases based on the ingestion order.
+-- 'producerTimestamp', 'fragment_producerTimestamp' - The timestamp from the producer corresponding to the fragment.
 --
--- * 'fFragmentSizeInBytes' - The total fragment size, including information about the fragment and contained media data.
+-- 'fragmentNumber', 'fragment_fragmentNumber' - The unique identifier of the fragment. This value monotonically
+-- increases based on the ingestion order.
 --
--- * 'fServerTimestamp' - The timestamp from the AWS server corresponding to the fragment.
+-- 'fragmentSizeInBytes', 'fragment_fragmentSizeInBytes' - The total fragment size, including information about the fragment and
+-- contained media data.
 --
--- * 'fFragmentLengthInMilliseconds' - The playback duration or other time value associated with the fragment.
-fragment ::
+-- 'serverTimestamp', 'fragment_serverTimestamp' - The timestamp from the AWS server corresponding to the fragment.
+--
+-- 'fragmentLengthInMilliseconds', 'fragment_fragmentLengthInMilliseconds' - The playback duration or other time value associated with the fragment.
+newFragment ::
   Fragment
-fragment =
+newFragment =
   Fragment'
-    { _fProducerTimestamp = Nothing,
-      _fFragmentNumber = Nothing,
-      _fFragmentSizeInBytes = Nothing,
-      _fServerTimestamp = Nothing,
-      _fFragmentLengthInMilliseconds = Nothing
+    { producerTimestamp = Prelude.Nothing,
+      fragmentNumber = Prelude.Nothing,
+      fragmentSizeInBytes = Prelude.Nothing,
+      serverTimestamp = Prelude.Nothing,
+      fragmentLengthInMilliseconds = Prelude.Nothing
     }
 
 -- | The timestamp from the producer corresponding to the fragment.
-fProducerTimestamp :: Lens' Fragment (Maybe UTCTime)
-fProducerTimestamp = lens _fProducerTimestamp (\s a -> s {_fProducerTimestamp = a}) . mapping _Time
+fragment_producerTimestamp :: Lens.Lens' Fragment (Prelude.Maybe Prelude.UTCTime)
+fragment_producerTimestamp = Lens.lens (\Fragment' {producerTimestamp} -> producerTimestamp) (\s@Fragment' {} a -> s {producerTimestamp = a} :: Fragment) Prelude.. Lens.mapping Prelude._Time
 
--- | The unique identifier of the fragment. This value monotonically increases based on the ingestion order.
-fFragmentNumber :: Lens' Fragment (Maybe Text)
-fFragmentNumber = lens _fFragmentNumber (\s a -> s {_fFragmentNumber = a})
+-- | The unique identifier of the fragment. This value monotonically
+-- increases based on the ingestion order.
+fragment_fragmentNumber :: Lens.Lens' Fragment (Prelude.Maybe Prelude.Text)
+fragment_fragmentNumber = Lens.lens (\Fragment' {fragmentNumber} -> fragmentNumber) (\s@Fragment' {} a -> s {fragmentNumber = a} :: Fragment)
 
--- | The total fragment size, including information about the fragment and contained media data.
-fFragmentSizeInBytes :: Lens' Fragment (Maybe Integer)
-fFragmentSizeInBytes = lens _fFragmentSizeInBytes (\s a -> s {_fFragmentSizeInBytes = a})
+-- | The total fragment size, including information about the fragment and
+-- contained media data.
+fragment_fragmentSizeInBytes :: Lens.Lens' Fragment (Prelude.Maybe Prelude.Integer)
+fragment_fragmentSizeInBytes = Lens.lens (\Fragment' {fragmentSizeInBytes} -> fragmentSizeInBytes) (\s@Fragment' {} a -> s {fragmentSizeInBytes = a} :: Fragment)
 
 -- | The timestamp from the AWS server corresponding to the fragment.
-fServerTimestamp :: Lens' Fragment (Maybe UTCTime)
-fServerTimestamp = lens _fServerTimestamp (\s a -> s {_fServerTimestamp = a}) . mapping _Time
+fragment_serverTimestamp :: Lens.Lens' Fragment (Prelude.Maybe Prelude.UTCTime)
+fragment_serverTimestamp = Lens.lens (\Fragment' {serverTimestamp} -> serverTimestamp) (\s@Fragment' {} a -> s {serverTimestamp = a} :: Fragment) Prelude.. Lens.mapping Prelude._Time
 
 -- | The playback duration or other time value associated with the fragment.
-fFragmentLengthInMilliseconds :: Lens' Fragment (Maybe Integer)
-fFragmentLengthInMilliseconds = lens _fFragmentLengthInMilliseconds (\s a -> s {_fFragmentLengthInMilliseconds = a})
+fragment_fragmentLengthInMilliseconds :: Lens.Lens' Fragment (Prelude.Maybe Prelude.Integer)
+fragment_fragmentLengthInMilliseconds = Lens.lens (\Fragment' {fragmentLengthInMilliseconds} -> fragmentLengthInMilliseconds) (\s@Fragment' {} a -> s {fragmentLengthInMilliseconds = a} :: Fragment)
 
-instance FromJSON Fragment where
+instance Prelude.FromJSON Fragment where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Fragment"
       ( \x ->
           Fragment'
-            <$> (x .:? "ProducerTimestamp")
-            <*> (x .:? "FragmentNumber")
-            <*> (x .:? "FragmentSizeInBytes")
-            <*> (x .:? "ServerTimestamp")
-            <*> (x .:? "FragmentLengthInMilliseconds")
+            Prelude.<$> (x Prelude..:? "ProducerTimestamp")
+            Prelude.<*> (x Prelude..:? "FragmentNumber")
+            Prelude.<*> (x Prelude..:? "FragmentSizeInBytes")
+            Prelude.<*> (x Prelude..:? "ServerTimestamp")
+            Prelude.<*> (x Prelude..:? "FragmentLengthInMilliseconds")
       )
 
-instance Hashable Fragment
+instance Prelude.Hashable Fragment
 
-instance NFData Fragment
+instance Prelude.NFData Fragment

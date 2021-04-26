@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.ClipFragmentSelectorType
   ( ClipFragmentSelectorType
       ( ..,
-        CFSTProducerTimestamp,
-        CFSTServerTimestamp
+        ClipFragmentSelectorTypePRODUCERTIMESTAMP,
+        ClipFragmentSelectorTypeSERVERTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ClipFragmentSelectorType
-  = ClipFragmentSelectorType'
-      ( CI
-          Text
-      )
+newtype ClipFragmentSelectorType = ClipFragmentSelectorType'
+  { fromClipFragmentSelectorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CFSTProducerTimestamp :: ClipFragmentSelectorType
-pattern CFSTProducerTimestamp = ClipFragmentSelectorType' "PRODUCER_TIMESTAMP"
+pattern ClipFragmentSelectorTypePRODUCERTIMESTAMP :: ClipFragmentSelectorType
+pattern ClipFragmentSelectorTypePRODUCERTIMESTAMP = ClipFragmentSelectorType' "PRODUCER_TIMESTAMP"
 
-pattern CFSTServerTimestamp :: ClipFragmentSelectorType
-pattern CFSTServerTimestamp = ClipFragmentSelectorType' "SERVER_TIMESTAMP"
+pattern ClipFragmentSelectorTypeSERVERTIMESTAMP :: ClipFragmentSelectorType
+pattern ClipFragmentSelectorTypeSERVERTIMESTAMP = ClipFragmentSelectorType' "SERVER_TIMESTAMP"
 
 {-# COMPLETE
-  CFSTProducerTimestamp,
-  CFSTServerTimestamp,
+  ClipFragmentSelectorTypePRODUCERTIMESTAMP,
+  ClipFragmentSelectorTypeSERVERTIMESTAMP,
   ClipFragmentSelectorType'
   #-}
 
-instance FromText ClipFragmentSelectorType where
-  parser = (ClipFragmentSelectorType' . mk) <$> takeText
+instance Prelude.FromText ClipFragmentSelectorType where
+  parser = ClipFragmentSelectorType' Prelude.<$> Prelude.takeText
 
-instance ToText ClipFragmentSelectorType where
-  toText (ClipFragmentSelectorType' ci) = original ci
+instance Prelude.ToText ClipFragmentSelectorType where
+  toText (ClipFragmentSelectorType' x) = x
 
-instance Hashable ClipFragmentSelectorType
+instance Prelude.Hashable ClipFragmentSelectorType
 
-instance NFData ClipFragmentSelectorType
+instance Prelude.NFData ClipFragmentSelectorType
 
-instance ToByteString ClipFragmentSelectorType
+instance Prelude.ToByteString ClipFragmentSelectorType
 
-instance ToQuery ClipFragmentSelectorType
+instance Prelude.ToQuery ClipFragmentSelectorType
 
-instance ToHeader ClipFragmentSelectorType
+instance Prelude.ToHeader ClipFragmentSelectorType
 
-instance ToJSON ClipFragmentSelectorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ClipFragmentSelectorType where
+  toJSON = Prelude.toJSONText

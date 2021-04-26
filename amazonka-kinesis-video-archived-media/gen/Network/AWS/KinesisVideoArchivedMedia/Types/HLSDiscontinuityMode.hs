@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.HLSDiscontinuityMode
   ( HLSDiscontinuityMode
       ( ..,
-        HLSDMAlways,
-        HLSDMNever,
-        HLSDMOnDiscontinuity
+        HLSDiscontinuityModeALWAYS,
+        HLSDiscontinuityModeNEVER,
+        HLSDiscontinuityModeONDISCONTINUITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HLSDiscontinuityMode
-  = HLSDiscontinuityMode'
-      ( CI
-          Text
-      )
+newtype HLSDiscontinuityMode = HLSDiscontinuityMode'
+  { fromHLSDiscontinuityMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HLSDMAlways :: HLSDiscontinuityMode
-pattern HLSDMAlways = HLSDiscontinuityMode' "ALWAYS"
+pattern HLSDiscontinuityModeALWAYS :: HLSDiscontinuityMode
+pattern HLSDiscontinuityModeALWAYS = HLSDiscontinuityMode' "ALWAYS"
 
-pattern HLSDMNever :: HLSDiscontinuityMode
-pattern HLSDMNever = HLSDiscontinuityMode' "NEVER"
+pattern HLSDiscontinuityModeNEVER :: HLSDiscontinuityMode
+pattern HLSDiscontinuityModeNEVER = HLSDiscontinuityMode' "NEVER"
 
-pattern HLSDMOnDiscontinuity :: HLSDiscontinuityMode
-pattern HLSDMOnDiscontinuity = HLSDiscontinuityMode' "ON_DISCONTINUITY"
+pattern HLSDiscontinuityModeONDISCONTINUITY :: HLSDiscontinuityMode
+pattern HLSDiscontinuityModeONDISCONTINUITY = HLSDiscontinuityMode' "ON_DISCONTINUITY"
 
 {-# COMPLETE
-  HLSDMAlways,
-  HLSDMNever,
-  HLSDMOnDiscontinuity,
+  HLSDiscontinuityModeALWAYS,
+  HLSDiscontinuityModeNEVER,
+  HLSDiscontinuityModeONDISCONTINUITY,
   HLSDiscontinuityMode'
   #-}
 
-instance FromText HLSDiscontinuityMode where
-  parser = (HLSDiscontinuityMode' . mk) <$> takeText
+instance Prelude.FromText HLSDiscontinuityMode where
+  parser = HLSDiscontinuityMode' Prelude.<$> Prelude.takeText
 
-instance ToText HLSDiscontinuityMode where
-  toText (HLSDiscontinuityMode' ci) = original ci
+instance Prelude.ToText HLSDiscontinuityMode where
+  toText (HLSDiscontinuityMode' x) = x
 
-instance Hashable HLSDiscontinuityMode
+instance Prelude.Hashable HLSDiscontinuityMode
 
-instance NFData HLSDiscontinuityMode
+instance Prelude.NFData HLSDiscontinuityMode
 
-instance ToByteString HLSDiscontinuityMode
+instance Prelude.ToByteString HLSDiscontinuityMode
 
-instance ToQuery HLSDiscontinuityMode
+instance Prelude.ToQuery HLSDiscontinuityMode
 
-instance ToHeader HLSDiscontinuityMode
+instance Prelude.ToHeader HLSDiscontinuityMode
 
-instance ToJSON HLSDiscontinuityMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON HLSDiscontinuityMode where
+  toJSON = Prelude.toJSONText

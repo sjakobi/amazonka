@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.FragmentSelectorType
   ( FragmentSelectorType
       ( ..,
-        ProducerTimestamp,
-        ServerTimestamp
+        FragmentSelectorTypePRODUCERTIMESTAMP,
+        FragmentSelectorTypeSERVERTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FragmentSelectorType
-  = FragmentSelectorType'
-      ( CI
-          Text
-      )
+newtype FragmentSelectorType = FragmentSelectorType'
+  { fromFragmentSelectorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ProducerTimestamp :: FragmentSelectorType
-pattern ProducerTimestamp = FragmentSelectorType' "PRODUCER_TIMESTAMP"
+pattern FragmentSelectorTypePRODUCERTIMESTAMP :: FragmentSelectorType
+pattern FragmentSelectorTypePRODUCERTIMESTAMP = FragmentSelectorType' "PRODUCER_TIMESTAMP"
 
-pattern ServerTimestamp :: FragmentSelectorType
-pattern ServerTimestamp = FragmentSelectorType' "SERVER_TIMESTAMP"
+pattern FragmentSelectorTypeSERVERTIMESTAMP :: FragmentSelectorType
+pattern FragmentSelectorTypeSERVERTIMESTAMP = FragmentSelectorType' "SERVER_TIMESTAMP"
 
 {-# COMPLETE
-  ProducerTimestamp,
-  ServerTimestamp,
+  FragmentSelectorTypePRODUCERTIMESTAMP,
+  FragmentSelectorTypeSERVERTIMESTAMP,
   FragmentSelectorType'
   #-}
 
-instance FromText FragmentSelectorType where
-  parser = (FragmentSelectorType' . mk) <$> takeText
+instance Prelude.FromText FragmentSelectorType where
+  parser = FragmentSelectorType' Prelude.<$> Prelude.takeText
 
-instance ToText FragmentSelectorType where
-  toText (FragmentSelectorType' ci) = original ci
+instance Prelude.ToText FragmentSelectorType where
+  toText (FragmentSelectorType' x) = x
 
-instance Hashable FragmentSelectorType
+instance Prelude.Hashable FragmentSelectorType
 
-instance NFData FragmentSelectorType
+instance Prelude.NFData FragmentSelectorType
 
-instance ToByteString FragmentSelectorType
+instance Prelude.ToByteString FragmentSelectorType
 
-instance ToQuery FragmentSelectorType
+instance Prelude.ToQuery FragmentSelectorType
 
-instance ToHeader FragmentSelectorType
+instance Prelude.ToHeader FragmentSelectorType
 
-instance ToJSON FragmentSelectorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FragmentSelectorType where
+  toJSON = Prelude.toJSONText

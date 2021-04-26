@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +21,85 @@ module Network.AWS.KinesisVideoArchivedMedia.Types.FragmentSelector where
 
 import Network.AWS.KinesisVideoArchivedMedia.Types.FragmentSelectorType
 import Network.AWS.KinesisVideoArchivedMedia.Types.TimestampRange
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the timestamp range and timestamp origin of a range of fragments.
+-- | Describes the timestamp range and timestamp origin of a range of
+-- fragments.
 --
+-- Only fragments with a start timestamp greater than or equal to the given
+-- start time and less than or equal to the end time are returned. For
+-- example, if a stream contains fragments with the following start
+-- timestamps:
 --
--- Only fragments with a start timestamp greater than or equal to the given start time and less than or equal to the end time are returned. For example, if a stream contains fragments with the following start timestamps:
+-- -   00:00:00
 --
---     * 00:00:00
+-- -   00:00:02
 --
---     * 00:00:02
+-- -   00:00:04
 --
---     * 00:00:04
+-- -   00:00:06
 --
---     * 00:00:06
+-- A fragment selector range with a start time of 00:00:01 and end time of
+-- 00:00:04 would return the fragments with start times of 00:00:02 and
+-- 00:00:04.
 --
---
---
--- A fragment selector range with a start time of 00:00:01 and end time of 00:00:04 would return the fragments with start times of 00:00:02 and 00:00:04.
---
---
--- /See:/ 'fragmentSelector' smart constructor.
+-- /See:/ 'newFragmentSelector' smart constructor.
 data FragmentSelector = FragmentSelector'
-  { _fsFragmentSelectorType ::
-      !FragmentSelectorType,
-    _fsTimestampRange :: !TimestampRange
+  { -- | The origin of the timestamps to use (Server or Producer).
+    fragmentSelectorType :: FragmentSelectorType,
+    -- | The range of timestamps to return.
+    timestampRange :: TimestampRange
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FragmentSelector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FragmentSelector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fsFragmentSelectorType' - The origin of the timestamps to use (Server or Producer).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fsTimestampRange' - The range of timestamps to return.
-fragmentSelector ::
-  -- | 'fsFragmentSelectorType'
+-- 'fragmentSelectorType', 'fragmentSelector_fragmentSelectorType' - The origin of the timestamps to use (Server or Producer).
+--
+-- 'timestampRange', 'fragmentSelector_timestampRange' - The range of timestamps to return.
+newFragmentSelector ::
+  -- | 'fragmentSelectorType'
   FragmentSelectorType ->
-  -- | 'fsTimestampRange'
+  -- | 'timestampRange'
   TimestampRange ->
   FragmentSelector
-fragmentSelector
+newFragmentSelector
   pFragmentSelectorType_
   pTimestampRange_ =
     FragmentSelector'
-      { _fsFragmentSelectorType =
+      { fragmentSelectorType =
           pFragmentSelectorType_,
-        _fsTimestampRange = pTimestampRange_
+        timestampRange = pTimestampRange_
       }
 
 -- | The origin of the timestamps to use (Server or Producer).
-fsFragmentSelectorType :: Lens' FragmentSelector FragmentSelectorType
-fsFragmentSelectorType = lens _fsFragmentSelectorType (\s a -> s {_fsFragmentSelectorType = a})
+fragmentSelector_fragmentSelectorType :: Lens.Lens' FragmentSelector FragmentSelectorType
+fragmentSelector_fragmentSelectorType = Lens.lens (\FragmentSelector' {fragmentSelectorType} -> fragmentSelectorType) (\s@FragmentSelector' {} a -> s {fragmentSelectorType = a} :: FragmentSelector)
 
 -- | The range of timestamps to return.
-fsTimestampRange :: Lens' FragmentSelector TimestampRange
-fsTimestampRange = lens _fsTimestampRange (\s a -> s {_fsTimestampRange = a})
+fragmentSelector_timestampRange :: Lens.Lens' FragmentSelector TimestampRange
+fragmentSelector_timestampRange = Lens.lens (\FragmentSelector' {timestampRange} -> timestampRange) (\s@FragmentSelector' {} a -> s {timestampRange = a} :: FragmentSelector)
 
-instance Hashable FragmentSelector
+instance Prelude.Hashable FragmentSelector
 
-instance NFData FragmentSelector
+instance Prelude.NFData FragmentSelector
 
-instance ToJSON FragmentSelector where
+instance Prelude.ToJSON FragmentSelector where
   toJSON FragmentSelector' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("FragmentSelectorType" .= _fsFragmentSelectorType),
-            Just ("TimestampRange" .= _fsTimestampRange)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ( "FragmentSelectorType"
+                  Prelude..= fragmentSelectorType
+              ),
+            Prelude.Just
+              ("TimestampRange" Prelude..= timestampRange)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.HLSDisplayFragmentTimestamp
   ( HLSDisplayFragmentTimestamp
       ( ..,
-        HLSDFTAlways,
-        HLSDFTNever
+        HLSDisplayFragmentTimestampALWAYS,
+        HLSDisplayFragmentTimestampNEVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HLSDisplayFragmentTimestamp
-  = HLSDisplayFragmentTimestamp'
-      ( CI
-          Text
-      )
+newtype HLSDisplayFragmentTimestamp = HLSDisplayFragmentTimestamp'
+  { fromHLSDisplayFragmentTimestamp ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HLSDFTAlways :: HLSDisplayFragmentTimestamp
-pattern HLSDFTAlways = HLSDisplayFragmentTimestamp' "ALWAYS"
+pattern HLSDisplayFragmentTimestampALWAYS :: HLSDisplayFragmentTimestamp
+pattern HLSDisplayFragmentTimestampALWAYS = HLSDisplayFragmentTimestamp' "ALWAYS"
 
-pattern HLSDFTNever :: HLSDisplayFragmentTimestamp
-pattern HLSDFTNever = HLSDisplayFragmentTimestamp' "NEVER"
+pattern HLSDisplayFragmentTimestampNEVER :: HLSDisplayFragmentTimestamp
+pattern HLSDisplayFragmentTimestampNEVER = HLSDisplayFragmentTimestamp' "NEVER"
 
 {-# COMPLETE
-  HLSDFTAlways,
-  HLSDFTNever,
+  HLSDisplayFragmentTimestampALWAYS,
+  HLSDisplayFragmentTimestampNEVER,
   HLSDisplayFragmentTimestamp'
   #-}
 
-instance FromText HLSDisplayFragmentTimestamp where
-  parser = (HLSDisplayFragmentTimestamp' . mk) <$> takeText
+instance Prelude.FromText HLSDisplayFragmentTimestamp where
+  parser = HLSDisplayFragmentTimestamp' Prelude.<$> Prelude.takeText
 
-instance ToText HLSDisplayFragmentTimestamp where
-  toText (HLSDisplayFragmentTimestamp' ci) = original ci
+instance Prelude.ToText HLSDisplayFragmentTimestamp where
+  toText (HLSDisplayFragmentTimestamp' x) = x
 
-instance Hashable HLSDisplayFragmentTimestamp
+instance Prelude.Hashable HLSDisplayFragmentTimestamp
 
-instance NFData HLSDisplayFragmentTimestamp
+instance Prelude.NFData HLSDisplayFragmentTimestamp
 
-instance ToByteString HLSDisplayFragmentTimestamp
+instance Prelude.ToByteString HLSDisplayFragmentTimestamp
 
-instance ToQuery HLSDisplayFragmentTimestamp
+instance Prelude.ToQuery HLSDisplayFragmentTimestamp
 
-instance ToHeader HLSDisplayFragmentTimestamp
+instance Prelude.ToHeader HLSDisplayFragmentTimestamp
 
-instance ToJSON HLSDisplayFragmentTimestamp where
-  toJSON = toJSONText
+instance Prelude.ToJSON HLSDisplayFragmentTimestamp where
+  toJSON = Prelude.toJSONText

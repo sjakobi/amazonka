@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.KinesisVideoArchivedMedia.Types.HLSFragmentSelectorType
   ( HLSFragmentSelectorType
       ( ..,
-        HLSFSTProducerTimestamp,
-        HLSFSTServerTimestamp
+        HLSFragmentSelectorTypePRODUCERTIMESTAMP,
+        HLSFragmentSelectorTypeSERVERTIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HLSFragmentSelectorType
-  = HLSFragmentSelectorType'
-      ( CI
-          Text
-      )
+newtype HLSFragmentSelectorType = HLSFragmentSelectorType'
+  { fromHLSFragmentSelectorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HLSFSTProducerTimestamp :: HLSFragmentSelectorType
-pattern HLSFSTProducerTimestamp = HLSFragmentSelectorType' "PRODUCER_TIMESTAMP"
+pattern HLSFragmentSelectorTypePRODUCERTIMESTAMP :: HLSFragmentSelectorType
+pattern HLSFragmentSelectorTypePRODUCERTIMESTAMP = HLSFragmentSelectorType' "PRODUCER_TIMESTAMP"
 
-pattern HLSFSTServerTimestamp :: HLSFragmentSelectorType
-pattern HLSFSTServerTimestamp = HLSFragmentSelectorType' "SERVER_TIMESTAMP"
+pattern HLSFragmentSelectorTypeSERVERTIMESTAMP :: HLSFragmentSelectorType
+pattern HLSFragmentSelectorTypeSERVERTIMESTAMP = HLSFragmentSelectorType' "SERVER_TIMESTAMP"
 
 {-# COMPLETE
-  HLSFSTProducerTimestamp,
-  HLSFSTServerTimestamp,
+  HLSFragmentSelectorTypePRODUCERTIMESTAMP,
+  HLSFragmentSelectorTypeSERVERTIMESTAMP,
   HLSFragmentSelectorType'
   #-}
 
-instance FromText HLSFragmentSelectorType where
-  parser = (HLSFragmentSelectorType' . mk) <$> takeText
+instance Prelude.FromText HLSFragmentSelectorType where
+  parser = HLSFragmentSelectorType' Prelude.<$> Prelude.takeText
 
-instance ToText HLSFragmentSelectorType where
-  toText (HLSFragmentSelectorType' ci) = original ci
+instance Prelude.ToText HLSFragmentSelectorType where
+  toText (HLSFragmentSelectorType' x) = x
 
-instance Hashable HLSFragmentSelectorType
+instance Prelude.Hashable HLSFragmentSelectorType
 
-instance NFData HLSFragmentSelectorType
+instance Prelude.NFData HLSFragmentSelectorType
 
-instance ToByteString HLSFragmentSelectorType
+instance Prelude.ToByteString HLSFragmentSelectorType
 
-instance ToQuery HLSFragmentSelectorType
+instance Prelude.ToQuery HLSFragmentSelectorType
 
-instance ToHeader HLSFragmentSelectorType
+instance Prelude.ToHeader HLSFragmentSelectorType
 
-instance ToJSON HLSFragmentSelectorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HLSFragmentSelectorType where
+  toJSON = Prelude.toJSONText
