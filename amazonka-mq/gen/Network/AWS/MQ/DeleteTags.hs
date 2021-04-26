@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,91 +24,107 @@
 -- Removes a tag from a resource.
 module Network.AWS.MQ.DeleteTags
   ( -- * Creating a Request
-    deleteTags,
-    DeleteTags,
+    DeleteTags (..),
+    newDeleteTags,
 
     -- * Request Lenses
-    dtTagKeys,
-    dtResourceARN,
+    deleteTags_tagKeys,
+    deleteTags_resourceArn,
 
     -- * Destructuring the Response
-    deleteTagsResponse,
-    DeleteTagsResponse,
+    DeleteTagsResponse (..),
+    newDeleteTagsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteTags' smart constructor.
+-- | /See:/ 'newDeleteTags' smart constructor.
 data DeleteTags = DeleteTags'
-  { _dtTagKeys :: ![Text],
-    _dtResourceARN :: !Text
+  { -- | An array of tag keys to delete
+    tagKeys :: [Prelude.Text],
+    -- | The Amazon Resource Name (ARN) of the resource tag.
+    resourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtTagKeys' - An array of tag keys to delete
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtResourceARN' - The Amazon Resource Name (ARN) of the resource tag.
-deleteTags ::
-  -- | 'dtResourceARN'
-  Text ->
+-- 'tagKeys', 'deleteTags_tagKeys' - An array of tag keys to delete
+--
+-- 'resourceArn', 'deleteTags_resourceArn' - The Amazon Resource Name (ARN) of the resource tag.
+newDeleteTags ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   DeleteTags
-deleteTags pResourceARN_ =
+newDeleteTags pResourceArn_ =
   DeleteTags'
-    { _dtTagKeys = mempty,
-      _dtResourceARN = pResourceARN_
+    { tagKeys = Prelude.mempty,
+      resourceArn = pResourceArn_
     }
 
 -- | An array of tag keys to delete
-dtTagKeys :: Lens' DeleteTags [Text]
-dtTagKeys = lens _dtTagKeys (\s a -> s {_dtTagKeys = a}) . _Coerce
+deleteTags_tagKeys :: Lens.Lens' DeleteTags [Prelude.Text]
+deleteTags_tagKeys = Lens.lens (\DeleteTags' {tagKeys} -> tagKeys) (\s@DeleteTags' {} a -> s {tagKeys = a} :: DeleteTags) Prelude.. Prelude._Coerce
 
 -- | The Amazon Resource Name (ARN) of the resource tag.
-dtResourceARN :: Lens' DeleteTags Text
-dtResourceARN = lens _dtResourceARN (\s a -> s {_dtResourceARN = a})
+deleteTags_resourceArn :: Lens.Lens' DeleteTags Prelude.Text
+deleteTags_resourceArn = Lens.lens (\DeleteTags' {resourceArn} -> resourceArn) (\s@DeleteTags' {} a -> s {resourceArn = a} :: DeleteTags)
 
-instance AWSRequest DeleteTags where
+instance Prelude.AWSRequest DeleteTags where
   type Rs DeleteTags = DeleteTagsResponse
-  request = delete mq
-  response = receiveNull DeleteTagsResponse'
+  request = Request.delete defaultService
+  response = Response.receiveNull DeleteTagsResponse'
 
-instance Hashable DeleteTags
+instance Prelude.Hashable DeleteTags
 
-instance NFData DeleteTags
+instance Prelude.NFData DeleteTags
 
-instance ToHeaders DeleteTags where
+instance Prelude.ToHeaders DeleteTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteTags where
+instance Prelude.ToPath DeleteTags where
   toPath DeleteTags' {..} =
-    mconcat ["/v1/tags/", toBS _dtResourceARN]
+    Prelude.mconcat
+      ["/v1/tags/", Prelude.toBS resourceArn]
 
-instance ToQuery DeleteTags where
+instance Prelude.ToQuery DeleteTags where
   toQuery DeleteTags' {..} =
-    mconcat
-      ["tagKeys" =: toQueryList "member" _dtTagKeys]
+    Prelude.mconcat
+      [ "tagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
+      ]
 
--- | /See:/ 'deleteTagsResponse' smart constructor.
+-- | /See:/ 'newDeleteTagsResponse' smart constructor.
 data DeleteTagsResponse = DeleteTagsResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteTagsResponse' with the minimum fields required to make a request.
-deleteTagsResponse ::
+-- |
+-- Create a value of 'DeleteTagsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteTagsResponse ::
   DeleteTagsResponse
-deleteTagsResponse = DeleteTagsResponse'
+newDeleteTagsResponse = DeleteTagsResponse'
 
-instance NFData DeleteTagsResponse
+instance Prelude.NFData DeleteTagsResponse

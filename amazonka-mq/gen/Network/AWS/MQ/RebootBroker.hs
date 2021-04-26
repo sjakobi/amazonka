@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,114 +24,116 @@
 -- Reboots a broker. Note: This API is asynchronous.
 module Network.AWS.MQ.RebootBroker
   ( -- * Creating a Request
-    rebootBroker,
-    RebootBroker,
+    RebootBroker (..),
+    newRebootBroker,
 
     -- * Request Lenses
-    rbBrokerId,
+    rebootBroker_brokerId,
 
     -- * Destructuring the Response
-    rebootBrokerResponse,
-    RebootBrokerResponse,
+    RebootBrokerResponse (..),
+    newRebootBrokerResponse,
 
     -- * Response Lenses
-    rbrrsResponseStatus,
+    rebootBrokerResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rebootBroker' smart constructor.
-newtype RebootBroker = RebootBroker'
-  { _rbBrokerId ::
-      Text
+-- | /See:/ 'newRebootBroker' smart constructor.
+data RebootBroker = RebootBroker'
+  { -- | The unique ID that Amazon MQ generates for the broker.
+    brokerId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootBroker' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootBroker' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbBrokerId' - The unique ID that Amazon MQ generates for the broker.
-rebootBroker ::
-  -- | 'rbBrokerId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'brokerId', 'rebootBroker_brokerId' - The unique ID that Amazon MQ generates for the broker.
+newRebootBroker ::
+  -- | 'brokerId'
+  Prelude.Text ->
   RebootBroker
-rebootBroker pBrokerId_ =
-  RebootBroker' {_rbBrokerId = pBrokerId_}
+newRebootBroker pBrokerId_ =
+  RebootBroker' {brokerId = pBrokerId_}
 
 -- | The unique ID that Amazon MQ generates for the broker.
-rbBrokerId :: Lens' RebootBroker Text
-rbBrokerId = lens _rbBrokerId (\s a -> s {_rbBrokerId = a})
+rebootBroker_brokerId :: Lens.Lens' RebootBroker Prelude.Text
+rebootBroker_brokerId = Lens.lens (\RebootBroker' {brokerId} -> brokerId) (\s@RebootBroker' {} a -> s {brokerId = a} :: RebootBroker)
 
-instance AWSRequest RebootBroker where
+instance Prelude.AWSRequest RebootBroker where
   type Rs RebootBroker = RebootBrokerResponse
-  request = postJSON mq
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          RebootBrokerResponse' <$> (pure (fromEnum s))
+          RebootBrokerResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RebootBroker
+instance Prelude.Hashable RebootBroker
 
-instance NFData RebootBroker
+instance Prelude.NFData RebootBroker
 
-instance ToHeaders RebootBroker where
+instance Prelude.ToHeaders RebootBroker where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RebootBroker where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON RebootBroker where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath RebootBroker where
+instance Prelude.ToPath RebootBroker where
   toPath RebootBroker' {..} =
-    mconcat
-      ["/v1/brokers/", toBS _rbBrokerId, "/reboot"]
+    Prelude.mconcat
+      ["/v1/brokers/", Prelude.toBS brokerId, "/reboot"]
 
-instance ToQuery RebootBroker where
-  toQuery = const mempty
+instance Prelude.ToQuery RebootBroker where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rebootBrokerResponse' smart constructor.
-newtype RebootBrokerResponse = RebootBrokerResponse'
-  { _rbrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRebootBrokerResponse' smart constructor.
+data RebootBrokerResponse = RebootBrokerResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RebootBrokerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RebootBrokerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rbrrsResponseStatus' - -- | The response status code.
-rebootBrokerResponse ::
-  -- | 'rbrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'rebootBrokerResponse_httpStatus' - The response's http status code.
+newRebootBrokerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RebootBrokerResponse
-rebootBrokerResponse pResponseStatus_ =
-  RebootBrokerResponse'
-    { _rbrrsResponseStatus =
-        pResponseStatus_
-    }
+newRebootBrokerResponse pHttpStatus_ =
+  RebootBrokerResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-rbrrsResponseStatus :: Lens' RebootBrokerResponse Int
-rbrrsResponseStatus = lens _rbrrsResponseStatus (\s a -> s {_rbrrsResponseStatus = a})
+-- | The response's http status code.
+rebootBrokerResponse_httpStatus :: Lens.Lens' RebootBrokerResponse Prelude.Int
+rebootBrokerResponse_httpStatus = Lens.lens (\RebootBrokerResponse' {httpStatus} -> httpStatus) (\s@RebootBrokerResponse' {} a -> s {httpStatus = a} :: RebootBrokerResponse)
 
-instance NFData RebootBrokerResponse
+instance Prelude.NFData RebootBrokerResponse

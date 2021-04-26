@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.Configurations where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types.ConfigurationId
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Broker configuration information
 --
--- /See:/ 'configurations' smart constructor.
+-- /See:/ 'newConfigurations' smart constructor.
 data Configurations = Configurations'
-  { _cPending ::
-      !(Maybe ConfigurationId),
-    _cCurrent :: !(Maybe ConfigurationId),
-    _cHistory :: !(Maybe [ConfigurationId])
+  { -- | The pending configuration of the broker.
+    pending :: Prelude.Maybe ConfigurationId,
+    -- | The current configuration of the broker.
+    current :: Prelude.Maybe ConfigurationId,
+    -- | The history of configurations applied to the broker.
+    history :: Prelude.Maybe [ConfigurationId]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Configurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Configurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cPending' - The pending configuration of the broker.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cCurrent' - The current configuration of the broker.
+-- 'pending', 'configurations_pending' - The pending configuration of the broker.
 --
--- * 'cHistory' - The history of configurations applied to the broker.
-configurations ::
+-- 'current', 'configurations_current' - The current configuration of the broker.
+--
+-- 'history', 'configurations_history' - The history of configurations applied to the broker.
+newConfigurations ::
   Configurations
-configurations =
+newConfigurations =
   Configurations'
-    { _cPending = Nothing,
-      _cCurrent = Nothing,
-      _cHistory = Nothing
+    { pending = Prelude.Nothing,
+      current = Prelude.Nothing,
+      history = Prelude.Nothing
     }
 
 -- | The pending configuration of the broker.
-cPending :: Lens' Configurations (Maybe ConfigurationId)
-cPending = lens _cPending (\s a -> s {_cPending = a})
+configurations_pending :: Lens.Lens' Configurations (Prelude.Maybe ConfigurationId)
+configurations_pending = Lens.lens (\Configurations' {pending} -> pending) (\s@Configurations' {} a -> s {pending = a} :: Configurations)
 
 -- | The current configuration of the broker.
-cCurrent :: Lens' Configurations (Maybe ConfigurationId)
-cCurrent = lens _cCurrent (\s a -> s {_cCurrent = a})
+configurations_current :: Lens.Lens' Configurations (Prelude.Maybe ConfigurationId)
+configurations_current = Lens.lens (\Configurations' {current} -> current) (\s@Configurations' {} a -> s {current = a} :: Configurations)
 
 -- | The history of configurations applied to the broker.
-cHistory :: Lens' Configurations [ConfigurationId]
-cHistory = lens _cHistory (\s a -> s {_cHistory = a}) . _Default . _Coerce
+configurations_history :: Lens.Lens' Configurations (Prelude.Maybe [ConfigurationId])
+configurations_history = Lens.lens (\Configurations' {history} -> history) (\s@Configurations' {} a -> s {history = a} :: Configurations) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Configurations where
+instance Prelude.FromJSON Configurations where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Configurations"
       ( \x ->
           Configurations'
-            <$> (x .:? "pending")
-            <*> (x .:? "current")
-            <*> (x .:? "history" .!= mempty)
+            Prelude.<$> (x Prelude..:? "pending")
+            Prelude.<*> (x Prelude..:? "current")
+            Prelude.<*> (x Prelude..:? "history" Prelude..!= Prelude.mempty)
       )
 
-instance Hashable Configurations
+instance Prelude.Hashable Configurations
 
-instance NFData Configurations
+instance Prelude.NFData Configurations

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,167 +24,194 @@
 -- Creates an ActiveMQ user.
 module Network.AWS.MQ.CreateUser
   ( -- * Creating a Request
-    createUser,
-    CreateUser,
+    CreateUser (..),
+    newCreateUser,
 
     -- * Request Lenses
-    cuGroups,
-    cuPassword,
-    cuConsoleAccess,
-    cuUsername,
-    cuBrokerId,
+    createUser_groups,
+    createUser_password,
+    createUser_consoleAccess,
+    createUser_username,
+    createUser_brokerId,
 
     -- * Destructuring the Response
-    createUserResponse,
-    CreateUserResponse,
+    CreateUserResponse (..),
+    newCreateUserResponse,
 
     -- * Response Lenses
-    currsResponseStatus,
+    createUserResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Creates a new ActiveMQ user.
 --
--- /See:/ 'createUser' smart constructor.
+-- /See:/ 'newCreateUser' smart constructor.
 data CreateUser = CreateUser'
-  { _cuGroups ::
-      !(Maybe [Text]),
-    _cuPassword :: !(Maybe Text),
-    _cuConsoleAccess :: !(Maybe Bool),
-    _cuUsername :: !Text,
-    _cuBrokerId :: !Text
+  { -- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This
+    -- value can contain only alphanumeric characters, dashes, periods,
+    -- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+    -- long.
+    groups :: Prelude.Maybe [Prelude.Text],
+    -- | Required. The password of the user. This value must be at least 12
+    -- characters long, must contain at least 4 unique characters, and must not
+    -- contain commas.
+    password :: Prelude.Maybe Prelude.Text,
+    -- | Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+    consoleAccess :: Prelude.Maybe Prelude.Bool,
+    -- | The username of the ActiveMQ user. This value can contain only
+    -- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+    -- ~). This value must be 2-100 characters long.
+    username :: Prelude.Text,
+    -- | The unique ID that Amazon MQ generates for the broker.
+    brokerId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuGroups' - The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuPassword' - Required. The password of the user. This value must be at least 12 characters long, must contain at least 4 unique characters, and must not contain commas.
+-- 'groups', 'createUser_groups' - The list of groups (20 maximum) to which the ActiveMQ user belongs. This
+-- value can contain only alphanumeric characters, dashes, periods,
+-- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+-- long.
 --
--- * 'cuConsoleAccess' - Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+-- 'password', 'createUser_password' - Required. The password of the user. This value must be at least 12
+-- characters long, must contain at least 4 unique characters, and must not
+-- contain commas.
 --
--- * 'cuUsername' - The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+-- 'consoleAccess', 'createUser_consoleAccess' - Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
 --
--- * 'cuBrokerId' - The unique ID that Amazon MQ generates for the broker.
-createUser ::
-  -- | 'cuUsername'
-  Text ->
-  -- | 'cuBrokerId'
-  Text ->
+-- 'username', 'createUser_username' - The username of the ActiveMQ user. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 2-100 characters long.
+--
+-- 'brokerId', 'createUser_brokerId' - The unique ID that Amazon MQ generates for the broker.
+newCreateUser ::
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'brokerId'
+  Prelude.Text ->
   CreateUser
-createUser pUsername_ pBrokerId_ =
+newCreateUser pUsername_ pBrokerId_ =
   CreateUser'
-    { _cuGroups = Nothing,
-      _cuPassword = Nothing,
-      _cuConsoleAccess = Nothing,
-      _cuUsername = pUsername_,
-      _cuBrokerId = pBrokerId_
+    { groups = Prelude.Nothing,
+      password = Prelude.Nothing,
+      consoleAccess = Prelude.Nothing,
+      username = pUsername_,
+      brokerId = pBrokerId_
     }
 
--- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
-cuGroups :: Lens' CreateUser [Text]
-cuGroups = lens _cuGroups (\s a -> s {_cuGroups = a}) . _Default . _Coerce
+-- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This
+-- value can contain only alphanumeric characters, dashes, periods,
+-- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+-- long.
+createUser_groups :: Lens.Lens' CreateUser (Prelude.Maybe [Prelude.Text])
+createUser_groups = Lens.lens (\CreateUser' {groups} -> groups) (\s@CreateUser' {} a -> s {groups = a} :: CreateUser) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Required. The password of the user. This value must be at least 12 characters long, must contain at least 4 unique characters, and must not contain commas.
-cuPassword :: Lens' CreateUser (Maybe Text)
-cuPassword = lens _cuPassword (\s a -> s {_cuPassword = a})
+-- | Required. The password of the user. This value must be at least 12
+-- characters long, must contain at least 4 unique characters, and must not
+-- contain commas.
+createUser_password :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_password = Lens.lens (\CreateUser' {password} -> password) (\s@CreateUser' {} a -> s {password = a} :: CreateUser)
 
 -- | Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
-cuConsoleAccess :: Lens' CreateUser (Maybe Bool)
-cuConsoleAccess = lens _cuConsoleAccess (\s a -> s {_cuConsoleAccess = a})
+createUser_consoleAccess :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Bool)
+createUser_consoleAccess = Lens.lens (\CreateUser' {consoleAccess} -> consoleAccess) (\s@CreateUser' {} a -> s {consoleAccess = a} :: CreateUser)
 
--- | The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
-cuUsername :: Lens' CreateUser Text
-cuUsername = lens _cuUsername (\s a -> s {_cuUsername = a})
+-- | The username of the ActiveMQ user. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 2-100 characters long.
+createUser_username :: Lens.Lens' CreateUser Prelude.Text
+createUser_username = Lens.lens (\CreateUser' {username} -> username) (\s@CreateUser' {} a -> s {username = a} :: CreateUser)
 
 -- | The unique ID that Amazon MQ generates for the broker.
-cuBrokerId :: Lens' CreateUser Text
-cuBrokerId = lens _cuBrokerId (\s a -> s {_cuBrokerId = a})
+createUser_brokerId :: Lens.Lens' CreateUser Prelude.Text
+createUser_brokerId = Lens.lens (\CreateUser' {brokerId} -> brokerId) (\s@CreateUser' {} a -> s {brokerId = a} :: CreateUser)
 
-instance AWSRequest CreateUser where
+instance Prelude.AWSRequest CreateUser where
   type Rs CreateUser = CreateUserResponse
-  request = postJSON mq
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          CreateUserResponse' <$> (pure (fromEnum s))
+          CreateUserResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateUser
+instance Prelude.Hashable CreateUser
 
-instance NFData CreateUser
+instance Prelude.NFData CreateUser
 
-instance ToHeaders CreateUser where
+instance Prelude.ToHeaders CreateUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUser where
+instance Prelude.ToJSON CreateUser where
   toJSON CreateUser' {..} =
-    object
-      ( catMaybes
-          [ ("groups" .=) <$> _cuGroups,
-            ("password" .=) <$> _cuPassword,
-            ("consoleAccess" .=) <$> _cuConsoleAccess
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("groups" Prelude..=) Prelude.<$> groups,
+            ("password" Prelude..=) Prelude.<$> password,
+            ("consoleAccess" Prelude..=)
+              Prelude.<$> consoleAccess
           ]
       )
 
-instance ToPath CreateUser where
+instance Prelude.ToPath CreateUser where
   toPath CreateUser' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/brokers/",
-        toBS _cuBrokerId,
+        Prelude.toBS brokerId,
         "/users/",
-        toBS _cuUsername
+        Prelude.toBS username
       ]
 
-instance ToQuery CreateUser where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createUserResponse' smart constructor.
-newtype CreateUserResponse = CreateUserResponse'
-  { _currsResponseStatus ::
-      Int
+-- | /See:/ 'newCreateUserResponse' smart constructor.
+data CreateUserResponse = CreateUserResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'currsResponseStatus' - -- | The response status code.
-createUserResponse ::
-  -- | 'currsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createUserResponse_httpStatus' - The response's http status code.
+newCreateUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateUserResponse
-createUserResponse pResponseStatus_ =
-  CreateUserResponse'
-    { _currsResponseStatus =
-        pResponseStatus_
-    }
+newCreateUserResponse pHttpStatus_ =
+  CreateUserResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-currsResponseStatus :: Lens' CreateUserResponse Int
-currsResponseStatus = lens _currsResponseStatus (\s a -> s {_currsResponseStatus = a})
+-- | The response's http status code.
+createUserResponse_httpStatus :: Lens.Lens' CreateUserResponse Prelude.Int
+createUserResponse_httpStatus = Lens.lens (\CreateUserResponse' {httpStatus} -> httpStatus) (\s@CreateUserResponse' {} a -> s {httpStatus = a} :: CreateUserResponse)
 
-instance NFData CreateUserResponse
+instance Prelude.NFData CreateUserResponse

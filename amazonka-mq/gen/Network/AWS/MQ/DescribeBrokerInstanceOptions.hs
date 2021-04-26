@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,219 +24,225 @@
 -- Describe available broker instance options.
 module Network.AWS.MQ.DescribeBrokerInstanceOptions
   ( -- * Creating a Request
-    describeBrokerInstanceOptions,
-    DescribeBrokerInstanceOptions,
+    DescribeBrokerInstanceOptions (..),
+    newDescribeBrokerInstanceOptions,
 
     -- * Request Lenses
-    dbioNextToken,
-    dbioStorageType,
-    dbioEngineType,
-    dbioMaxResults,
-    dbioHostInstanceType,
+    describeBrokerInstanceOptions_nextToken,
+    describeBrokerInstanceOptions_storageType,
+    describeBrokerInstanceOptions_engineType,
+    describeBrokerInstanceOptions_maxResults,
+    describeBrokerInstanceOptions_hostInstanceType,
 
     -- * Destructuring the Response
-    describeBrokerInstanceOptionsResponse,
-    DescribeBrokerInstanceOptionsResponse,
+    DescribeBrokerInstanceOptionsResponse (..),
+    newDescribeBrokerInstanceOptionsResponse,
 
     -- * Response Lenses
-    dbiorrsNextToken,
-    dbiorrsMaxResults,
-    dbiorrsBrokerInstanceOptions,
-    dbiorrsResponseStatus,
+    describeBrokerInstanceOptionsResponse_nextToken,
+    describeBrokerInstanceOptionsResponse_maxResults,
+    describeBrokerInstanceOptionsResponse_brokerInstanceOptions,
+    describeBrokerInstanceOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MQ.Types.BrokerInstanceOption
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeBrokerInstanceOptions' smart constructor.
+-- | /See:/ 'newDescribeBrokerInstanceOptions' smart constructor.
 data DescribeBrokerInstanceOptions = DescribeBrokerInstanceOptions'
-  { _dbioNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dbioStorageType ::
-      !( Maybe
-           Text
-       ),
-    _dbioEngineType ::
-      !( Maybe
-           Text
-       ),
-    _dbioMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dbioHostInstanceType ::
-      !( Maybe
-           Text
-       )
+  { -- | The token that specifies the next page of results Amazon MQ should
+    -- return. To request the first page, leave nextToken empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filter response by storage type.
+    storageType :: Prelude.Maybe Prelude.Text,
+    -- | Filter response by engine type.
+    engineType :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of instance options that Amazon MQ can return per
+    -- page (20 by default). This value must be an integer from 5 to 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filter response by host instance type.
+    hostInstanceType :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBrokerInstanceOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBrokerInstanceOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbioNextToken' - The token that specifies the next page of results Amazon MQ should return. To request the first page, leave nextToken empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbioStorageType' - Filter response by storage type.
+-- 'nextToken', 'describeBrokerInstanceOptions_nextToken' - The token that specifies the next page of results Amazon MQ should
+-- return. To request the first page, leave nextToken empty.
 --
--- * 'dbioEngineType' - Filter response by engine type.
+-- 'storageType', 'describeBrokerInstanceOptions_storageType' - Filter response by storage type.
 --
--- * 'dbioMaxResults' - The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must be an integer from 5 to 100.
+-- 'engineType', 'describeBrokerInstanceOptions_engineType' - Filter response by engine type.
 --
--- * 'dbioHostInstanceType' - Filter response by host instance type.
-describeBrokerInstanceOptions ::
+-- 'maxResults', 'describeBrokerInstanceOptions_maxResults' - The maximum number of instance options that Amazon MQ can return per
+-- page (20 by default). This value must be an integer from 5 to 100.
+--
+-- 'hostInstanceType', 'describeBrokerInstanceOptions_hostInstanceType' - Filter response by host instance type.
+newDescribeBrokerInstanceOptions ::
   DescribeBrokerInstanceOptions
-describeBrokerInstanceOptions =
+newDescribeBrokerInstanceOptions =
   DescribeBrokerInstanceOptions'
-    { _dbioNextToken =
-        Nothing,
-      _dbioStorageType = Nothing,
-      _dbioEngineType = Nothing,
-      _dbioMaxResults = Nothing,
-      _dbioHostInstanceType = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      storageType = Prelude.Nothing,
+      engineType = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      hostInstanceType = Prelude.Nothing
     }
 
--- | The token that specifies the next page of results Amazon MQ should return. To request the first page, leave nextToken empty.
-dbioNextToken :: Lens' DescribeBrokerInstanceOptions (Maybe Text)
-dbioNextToken = lens _dbioNextToken (\s a -> s {_dbioNextToken = a})
+-- | The token that specifies the next page of results Amazon MQ should
+-- return. To request the first page, leave nextToken empty.
+describeBrokerInstanceOptions_nextToken :: Lens.Lens' DescribeBrokerInstanceOptions (Prelude.Maybe Prelude.Text)
+describeBrokerInstanceOptions_nextToken = Lens.lens (\DescribeBrokerInstanceOptions' {nextToken} -> nextToken) (\s@DescribeBrokerInstanceOptions' {} a -> s {nextToken = a} :: DescribeBrokerInstanceOptions)
 
 -- | Filter response by storage type.
-dbioStorageType :: Lens' DescribeBrokerInstanceOptions (Maybe Text)
-dbioStorageType = lens _dbioStorageType (\s a -> s {_dbioStorageType = a})
+describeBrokerInstanceOptions_storageType :: Lens.Lens' DescribeBrokerInstanceOptions (Prelude.Maybe Prelude.Text)
+describeBrokerInstanceOptions_storageType = Lens.lens (\DescribeBrokerInstanceOptions' {storageType} -> storageType) (\s@DescribeBrokerInstanceOptions' {} a -> s {storageType = a} :: DescribeBrokerInstanceOptions)
 
 -- | Filter response by engine type.
-dbioEngineType :: Lens' DescribeBrokerInstanceOptions (Maybe Text)
-dbioEngineType = lens _dbioEngineType (\s a -> s {_dbioEngineType = a})
+describeBrokerInstanceOptions_engineType :: Lens.Lens' DescribeBrokerInstanceOptions (Prelude.Maybe Prelude.Text)
+describeBrokerInstanceOptions_engineType = Lens.lens (\DescribeBrokerInstanceOptions' {engineType} -> engineType) (\s@DescribeBrokerInstanceOptions' {} a -> s {engineType = a} :: DescribeBrokerInstanceOptions)
 
--- | The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must be an integer from 5 to 100.
-dbioMaxResults :: Lens' DescribeBrokerInstanceOptions (Maybe Natural)
-dbioMaxResults = lens _dbioMaxResults (\s a -> s {_dbioMaxResults = a}) . mapping _Nat
+-- | The maximum number of instance options that Amazon MQ can return per
+-- page (20 by default). This value must be an integer from 5 to 100.
+describeBrokerInstanceOptions_maxResults :: Lens.Lens' DescribeBrokerInstanceOptions (Prelude.Maybe Prelude.Natural)
+describeBrokerInstanceOptions_maxResults = Lens.lens (\DescribeBrokerInstanceOptions' {maxResults} -> maxResults) (\s@DescribeBrokerInstanceOptions' {} a -> s {maxResults = a} :: DescribeBrokerInstanceOptions) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Filter response by host instance type.
-dbioHostInstanceType :: Lens' DescribeBrokerInstanceOptions (Maybe Text)
-dbioHostInstanceType = lens _dbioHostInstanceType (\s a -> s {_dbioHostInstanceType = a})
+describeBrokerInstanceOptions_hostInstanceType :: Lens.Lens' DescribeBrokerInstanceOptions (Prelude.Maybe Prelude.Text)
+describeBrokerInstanceOptions_hostInstanceType = Lens.lens (\DescribeBrokerInstanceOptions' {hostInstanceType} -> hostInstanceType) (\s@DescribeBrokerInstanceOptions' {} a -> s {hostInstanceType = a} :: DescribeBrokerInstanceOptions)
 
-instance AWSRequest DescribeBrokerInstanceOptions where
+instance
+  Prelude.AWSRequest
+    DescribeBrokerInstanceOptions
+  where
   type
     Rs DescribeBrokerInstanceOptions =
       DescribeBrokerInstanceOptionsResponse
-  request = get mq
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeBrokerInstanceOptionsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "maxResults")
-            <*> (x .?> "brokerInstanceOptions" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "maxResults")
+            Prelude.<*> ( x Prelude..?> "brokerInstanceOptions"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeBrokerInstanceOptions
+instance
+  Prelude.Hashable
+    DescribeBrokerInstanceOptions
 
-instance NFData DescribeBrokerInstanceOptions
+instance Prelude.NFData DescribeBrokerInstanceOptions
 
-instance ToHeaders DescribeBrokerInstanceOptions where
+instance
+  Prelude.ToHeaders
+    DescribeBrokerInstanceOptions
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeBrokerInstanceOptions where
-  toPath = const "/v1/broker-instance-options"
+instance Prelude.ToPath DescribeBrokerInstanceOptions where
+  toPath = Prelude.const "/v1/broker-instance-options"
 
-instance ToQuery DescribeBrokerInstanceOptions where
+instance
+  Prelude.ToQuery
+    DescribeBrokerInstanceOptions
+  where
   toQuery DescribeBrokerInstanceOptions' {..} =
-    mconcat
-      [ "nextToken" =: _dbioNextToken,
-        "storageType" =: _dbioStorageType,
-        "engineType" =: _dbioEngineType,
-        "maxResults" =: _dbioMaxResults,
-        "hostInstanceType" =: _dbioHostInstanceType
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "storageType" Prelude.=: storageType,
+        "engineType" Prelude.=: engineType,
+        "maxResults" Prelude.=: maxResults,
+        "hostInstanceType" Prelude.=: hostInstanceType
       ]
 
--- | /See:/ 'describeBrokerInstanceOptionsResponse' smart constructor.
+-- | /See:/ 'newDescribeBrokerInstanceOptionsResponse' smart constructor.
 data DescribeBrokerInstanceOptionsResponse = DescribeBrokerInstanceOptionsResponse'
-  { _dbiorrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _dbiorrsMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _dbiorrsBrokerInstanceOptions ::
-      !( Maybe
-           [BrokerInstanceOption]
-       ),
-    _dbiorrsResponseStatus ::
-      !Int
+  { -- | The token that specifies the next page of results Amazon MQ should
+    -- return. To request the first page, leave nextToken empty.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Required. The maximum number of instance options that can be returned
+    -- per page (20 by default). This value must be an integer from 5 to 100.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | List of available broker instance options.
+    brokerInstanceOptions :: Prelude.Maybe [BrokerInstanceOption],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeBrokerInstanceOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeBrokerInstanceOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbiorrsNextToken' - The token that specifies the next page of results Amazon MQ should return. To request the first page, leave nextToken empty.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbiorrsMaxResults' - Required. The maximum number of instance options that can be returned per page (20 by default). This value must be an integer from 5 to 100.
+-- 'nextToken', 'describeBrokerInstanceOptionsResponse_nextToken' - The token that specifies the next page of results Amazon MQ should
+-- return. To request the first page, leave nextToken empty.
 --
--- * 'dbiorrsBrokerInstanceOptions' - List of available broker instance options.
+-- 'maxResults', 'describeBrokerInstanceOptionsResponse_maxResults' - Required. The maximum number of instance options that can be returned
+-- per page (20 by default). This value must be an integer from 5 to 100.
 --
--- * 'dbiorrsResponseStatus' - -- | The response status code.
-describeBrokerInstanceOptionsResponse ::
-  -- | 'dbiorrsResponseStatus'
-  Int ->
+-- 'brokerInstanceOptions', 'describeBrokerInstanceOptionsResponse_brokerInstanceOptions' - List of available broker instance options.
+--
+-- 'httpStatus', 'describeBrokerInstanceOptionsResponse_httpStatus' - The response's http status code.
+newDescribeBrokerInstanceOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeBrokerInstanceOptionsResponse
-describeBrokerInstanceOptionsResponse
-  pResponseStatus_ =
-    DescribeBrokerInstanceOptionsResponse'
-      { _dbiorrsNextToken =
-          Nothing,
-        _dbiorrsMaxResults = Nothing,
-        _dbiorrsBrokerInstanceOptions =
-          Nothing,
-        _dbiorrsResponseStatus =
-          pResponseStatus_
-      }
+newDescribeBrokerInstanceOptionsResponse pHttpStatus_ =
+  DescribeBrokerInstanceOptionsResponse'
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      brokerInstanceOptions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
--- | The token that specifies the next page of results Amazon MQ should return. To request the first page, leave nextToken empty.
-dbiorrsNextToken :: Lens' DescribeBrokerInstanceOptionsResponse (Maybe Text)
-dbiorrsNextToken = lens _dbiorrsNextToken (\s a -> s {_dbiorrsNextToken = a})
+-- | The token that specifies the next page of results Amazon MQ should
+-- return. To request the first page, leave nextToken empty.
+describeBrokerInstanceOptionsResponse_nextToken :: Lens.Lens' DescribeBrokerInstanceOptionsResponse (Prelude.Maybe Prelude.Text)
+describeBrokerInstanceOptionsResponse_nextToken = Lens.lens (\DescribeBrokerInstanceOptionsResponse' {nextToken} -> nextToken) (\s@DescribeBrokerInstanceOptionsResponse' {} a -> s {nextToken = a} :: DescribeBrokerInstanceOptionsResponse)
 
--- | Required. The maximum number of instance options that can be returned per page (20 by default). This value must be an integer from 5 to 100.
-dbiorrsMaxResults :: Lens' DescribeBrokerInstanceOptionsResponse (Maybe Natural)
-dbiorrsMaxResults = lens _dbiorrsMaxResults (\s a -> s {_dbiorrsMaxResults = a}) . mapping _Nat
+-- | Required. The maximum number of instance options that can be returned
+-- per page (20 by default). This value must be an integer from 5 to 100.
+describeBrokerInstanceOptionsResponse_maxResults :: Lens.Lens' DescribeBrokerInstanceOptionsResponse (Prelude.Maybe Prelude.Natural)
+describeBrokerInstanceOptionsResponse_maxResults = Lens.lens (\DescribeBrokerInstanceOptionsResponse' {maxResults} -> maxResults) (\s@DescribeBrokerInstanceOptionsResponse' {} a -> s {maxResults = a} :: DescribeBrokerInstanceOptionsResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | List of available broker instance options.
-dbiorrsBrokerInstanceOptions :: Lens' DescribeBrokerInstanceOptionsResponse [BrokerInstanceOption]
-dbiorrsBrokerInstanceOptions = lens _dbiorrsBrokerInstanceOptions (\s a -> s {_dbiorrsBrokerInstanceOptions = a}) . _Default . _Coerce
+describeBrokerInstanceOptionsResponse_brokerInstanceOptions :: Lens.Lens' DescribeBrokerInstanceOptionsResponse (Prelude.Maybe [BrokerInstanceOption])
+describeBrokerInstanceOptionsResponse_brokerInstanceOptions = Lens.lens (\DescribeBrokerInstanceOptionsResponse' {brokerInstanceOptions} -> brokerInstanceOptions) (\s@DescribeBrokerInstanceOptionsResponse' {} a -> s {brokerInstanceOptions = a} :: DescribeBrokerInstanceOptionsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-dbiorrsResponseStatus :: Lens' DescribeBrokerInstanceOptionsResponse Int
-dbiorrsResponseStatus = lens _dbiorrsResponseStatus (\s a -> s {_dbiorrsResponseStatus = a})
+-- | The response's http status code.
+describeBrokerInstanceOptionsResponse_httpStatus :: Lens.Lens' DescribeBrokerInstanceOptionsResponse Prelude.Int
+describeBrokerInstanceOptionsResponse_httpStatus = Lens.lens (\DescribeBrokerInstanceOptionsResponse' {httpStatus} -> httpStatus) (\s@DescribeBrokerInstanceOptionsResponse' {} a -> s {httpStatus = a} :: DescribeBrokerInstanceOptionsResponse)
 
-instance NFData DescribeBrokerInstanceOptionsResponse
+instance
+  Prelude.NFData
+    DescribeBrokerInstanceOptionsResponse

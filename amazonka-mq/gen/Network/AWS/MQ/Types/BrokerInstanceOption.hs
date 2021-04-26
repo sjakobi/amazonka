@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,98 +19,108 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.BrokerInstanceOption where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types.AvailabilityZone
 import Network.AWS.MQ.Types.BrokerStorageType
 import Network.AWS.MQ.Types.DeploymentMode
 import Network.AWS.MQ.Types.EngineType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Option for host instance type.
 --
--- /See:/ 'brokerInstanceOption' smart constructor.
+-- /See:/ 'newBrokerInstanceOption' smart constructor.
 data BrokerInstanceOption = BrokerInstanceOption'
-  { _bioAvailabilityZones ::
-      !(Maybe [AvailabilityZone]),
-    _bioStorageType ::
-      !(Maybe BrokerStorageType),
-    _bioEngineType ::
-      !(Maybe EngineType),
-    _bioSupportedDeploymentModes ::
-      !(Maybe [DeploymentMode]),
-    _bioSupportedEngineVersions ::
-      !(Maybe [Text]),
-    _bioHostInstanceType ::
-      !(Maybe Text)
+  { -- | The list of available az.
+    availabilityZones :: Prelude.Maybe [AvailabilityZone],
+    -- | The broker\'s storage type.
+    storageType :: Prelude.Maybe BrokerStorageType,
+    -- | The type of broker engine.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The list of supported deployment modes.
+    supportedDeploymentModes :: Prelude.Maybe [DeploymentMode],
+    -- | The list of supported engine versions.
+    supportedEngineVersions :: Prelude.Maybe [Prelude.Text],
+    -- | The type of broker instance.
+    hostInstanceType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BrokerInstanceOption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BrokerInstanceOption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bioAvailabilityZones' - The list of available az.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bioStorageType' - The broker's storage type.
+-- 'availabilityZones', 'brokerInstanceOption_availabilityZones' - The list of available az.
 --
--- * 'bioEngineType' - The type of broker engine.
+-- 'storageType', 'brokerInstanceOption_storageType' - The broker\'s storage type.
 --
--- * 'bioSupportedDeploymentModes' - The list of supported deployment modes.
+-- 'engineType', 'brokerInstanceOption_engineType' - The type of broker engine.
 --
--- * 'bioSupportedEngineVersions' - The list of supported engine versions.
+-- 'supportedDeploymentModes', 'brokerInstanceOption_supportedDeploymentModes' - The list of supported deployment modes.
 --
--- * 'bioHostInstanceType' - The type of broker instance.
-brokerInstanceOption ::
+-- 'supportedEngineVersions', 'brokerInstanceOption_supportedEngineVersions' - The list of supported engine versions.
+--
+-- 'hostInstanceType', 'brokerInstanceOption_hostInstanceType' - The type of broker instance.
+newBrokerInstanceOption ::
   BrokerInstanceOption
-brokerInstanceOption =
+newBrokerInstanceOption =
   BrokerInstanceOption'
-    { _bioAvailabilityZones =
-        Nothing,
-      _bioStorageType = Nothing,
-      _bioEngineType = Nothing,
-      _bioSupportedDeploymentModes = Nothing,
-      _bioSupportedEngineVersions = Nothing,
-      _bioHostInstanceType = Nothing
+    { availabilityZones =
+        Prelude.Nothing,
+      storageType = Prelude.Nothing,
+      engineType = Prelude.Nothing,
+      supportedDeploymentModes = Prelude.Nothing,
+      supportedEngineVersions = Prelude.Nothing,
+      hostInstanceType = Prelude.Nothing
     }
 
 -- | The list of available az.
-bioAvailabilityZones :: Lens' BrokerInstanceOption [AvailabilityZone]
-bioAvailabilityZones = lens _bioAvailabilityZones (\s a -> s {_bioAvailabilityZones = a}) . _Default . _Coerce
+brokerInstanceOption_availabilityZones :: Lens.Lens' BrokerInstanceOption (Prelude.Maybe [AvailabilityZone])
+brokerInstanceOption_availabilityZones = Lens.lens (\BrokerInstanceOption' {availabilityZones} -> availabilityZones) (\s@BrokerInstanceOption' {} a -> s {availabilityZones = a} :: BrokerInstanceOption) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The broker's storage type.
-bioStorageType :: Lens' BrokerInstanceOption (Maybe BrokerStorageType)
-bioStorageType = lens _bioStorageType (\s a -> s {_bioStorageType = a})
+-- | The broker\'s storage type.
+brokerInstanceOption_storageType :: Lens.Lens' BrokerInstanceOption (Prelude.Maybe BrokerStorageType)
+brokerInstanceOption_storageType = Lens.lens (\BrokerInstanceOption' {storageType} -> storageType) (\s@BrokerInstanceOption' {} a -> s {storageType = a} :: BrokerInstanceOption)
 
 -- | The type of broker engine.
-bioEngineType :: Lens' BrokerInstanceOption (Maybe EngineType)
-bioEngineType = lens _bioEngineType (\s a -> s {_bioEngineType = a})
+brokerInstanceOption_engineType :: Lens.Lens' BrokerInstanceOption (Prelude.Maybe EngineType)
+brokerInstanceOption_engineType = Lens.lens (\BrokerInstanceOption' {engineType} -> engineType) (\s@BrokerInstanceOption' {} a -> s {engineType = a} :: BrokerInstanceOption)
 
 -- | The list of supported deployment modes.
-bioSupportedDeploymentModes :: Lens' BrokerInstanceOption [DeploymentMode]
-bioSupportedDeploymentModes = lens _bioSupportedDeploymentModes (\s a -> s {_bioSupportedDeploymentModes = a}) . _Default . _Coerce
+brokerInstanceOption_supportedDeploymentModes :: Lens.Lens' BrokerInstanceOption (Prelude.Maybe [DeploymentMode])
+brokerInstanceOption_supportedDeploymentModes = Lens.lens (\BrokerInstanceOption' {supportedDeploymentModes} -> supportedDeploymentModes) (\s@BrokerInstanceOption' {} a -> s {supportedDeploymentModes = a} :: BrokerInstanceOption) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The list of supported engine versions.
-bioSupportedEngineVersions :: Lens' BrokerInstanceOption [Text]
-bioSupportedEngineVersions = lens _bioSupportedEngineVersions (\s a -> s {_bioSupportedEngineVersions = a}) . _Default . _Coerce
+brokerInstanceOption_supportedEngineVersions :: Lens.Lens' BrokerInstanceOption (Prelude.Maybe [Prelude.Text])
+brokerInstanceOption_supportedEngineVersions = Lens.lens (\BrokerInstanceOption' {supportedEngineVersions} -> supportedEngineVersions) (\s@BrokerInstanceOption' {} a -> s {supportedEngineVersions = a} :: BrokerInstanceOption) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The type of broker instance.
-bioHostInstanceType :: Lens' BrokerInstanceOption (Maybe Text)
-bioHostInstanceType = lens _bioHostInstanceType (\s a -> s {_bioHostInstanceType = a})
+brokerInstanceOption_hostInstanceType :: Lens.Lens' BrokerInstanceOption (Prelude.Maybe Prelude.Text)
+brokerInstanceOption_hostInstanceType = Lens.lens (\BrokerInstanceOption' {hostInstanceType} -> hostInstanceType) (\s@BrokerInstanceOption' {} a -> s {hostInstanceType = a} :: BrokerInstanceOption)
 
-instance FromJSON BrokerInstanceOption where
+instance Prelude.FromJSON BrokerInstanceOption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BrokerInstanceOption"
       ( \x ->
           BrokerInstanceOption'
-            <$> (x .:? "availabilityZones" .!= mempty)
-            <*> (x .:? "storageType")
-            <*> (x .:? "engineType")
-            <*> (x .:? "supportedDeploymentModes" .!= mempty)
-            <*> (x .:? "supportedEngineVersions" .!= mempty)
-            <*> (x .:? "hostInstanceType")
+            Prelude.<$> ( x Prelude..:? "availabilityZones"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "storageType")
+            Prelude.<*> (x Prelude..:? "engineType")
+            Prelude.<*> ( x Prelude..:? "supportedDeploymentModes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "supportedEngineVersions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "hostInstanceType")
       )
 
-instance Hashable BrokerInstanceOption
+instance Prelude.Hashable BrokerInstanceOption
 
-instance NFData BrokerInstanceOption
+instance Prelude.NFData BrokerInstanceOption

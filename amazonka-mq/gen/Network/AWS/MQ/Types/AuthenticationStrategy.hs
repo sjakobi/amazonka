@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MQ.Types.AuthenticationStrategy
   ( AuthenticationStrategy
       ( ..,
-        Ldap,
-        Simple
+        AuthenticationStrategyLDAP,
+        AuthenticationStrategySIMPLE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The authentication strategy used to secure the broker.
-data AuthenticationStrategy
-  = AuthenticationStrategy'
-      ( CI
-          Text
-      )
+newtype AuthenticationStrategy = AuthenticationStrategy'
+  { fromAuthenticationStrategy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ldap :: AuthenticationStrategy
-pattern Ldap = AuthenticationStrategy' "LDAP"
+pattern AuthenticationStrategyLDAP :: AuthenticationStrategy
+pattern AuthenticationStrategyLDAP = AuthenticationStrategy' "LDAP"
 
-pattern Simple :: AuthenticationStrategy
-pattern Simple = AuthenticationStrategy' "SIMPLE"
+pattern AuthenticationStrategySIMPLE :: AuthenticationStrategy
+pattern AuthenticationStrategySIMPLE = AuthenticationStrategy' "SIMPLE"
 
 {-# COMPLETE
-  Ldap,
-  Simple,
+  AuthenticationStrategyLDAP,
+  AuthenticationStrategySIMPLE,
   AuthenticationStrategy'
   #-}
 
-instance FromText AuthenticationStrategy where
-  parser = (AuthenticationStrategy' . mk) <$> takeText
+instance Prelude.FromText AuthenticationStrategy where
+  parser = AuthenticationStrategy' Prelude.<$> Prelude.takeText
 
-instance ToText AuthenticationStrategy where
-  toText (AuthenticationStrategy' ci) = original ci
+instance Prelude.ToText AuthenticationStrategy where
+  toText (AuthenticationStrategy' x) = x
 
-instance Hashable AuthenticationStrategy
+instance Prelude.Hashable AuthenticationStrategy
 
-instance NFData AuthenticationStrategy
+instance Prelude.NFData AuthenticationStrategy
 
-instance ToByteString AuthenticationStrategy
+instance Prelude.ToByteString AuthenticationStrategy
 
-instance ToQuery AuthenticationStrategy
+instance Prelude.ToQuery AuthenticationStrategy
 
-instance ToHeader AuthenticationStrategy
+instance Prelude.ToHeader AuthenticationStrategy
 
-instance ToJSON AuthenticationStrategy where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthenticationStrategy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthenticationStrategy where
-  parseJSON = parseJSONText "AuthenticationStrategy"
+instance Prelude.FromJSON AuthenticationStrategy where
+  parseJSON = Prelude.parseJSONText "AuthenticationStrategy"

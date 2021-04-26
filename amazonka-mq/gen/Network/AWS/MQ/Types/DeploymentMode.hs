@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MQ.Types.DeploymentMode
   ( DeploymentMode
       ( ..,
-        ActiveStandbyMultiAz,
-        ClusterMultiAz,
-        SingleInstance
+        DeploymentModeACTIVESTANDBYMULTIAZ,
+        DeploymentModeCLUSTERMULTIAZ,
+        DeploymentModeSINGLEINSTANCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The deployment mode of the broker.
-data DeploymentMode = DeploymentMode' (CI Text)
+newtype DeploymentMode = DeploymentMode'
+  { fromDeploymentMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ActiveStandbyMultiAz :: DeploymentMode
-pattern ActiveStandbyMultiAz = DeploymentMode' "ACTIVE_STANDBY_MULTI_AZ"
+pattern DeploymentModeACTIVESTANDBYMULTIAZ :: DeploymentMode
+pattern DeploymentModeACTIVESTANDBYMULTIAZ = DeploymentMode' "ACTIVE_STANDBY_MULTI_AZ"
 
-pattern ClusterMultiAz :: DeploymentMode
-pattern ClusterMultiAz = DeploymentMode' "CLUSTER_MULTI_AZ"
+pattern DeploymentModeCLUSTERMULTIAZ :: DeploymentMode
+pattern DeploymentModeCLUSTERMULTIAZ = DeploymentMode' "CLUSTER_MULTI_AZ"
 
-pattern SingleInstance :: DeploymentMode
-pattern SingleInstance = DeploymentMode' "SINGLE_INSTANCE"
+pattern DeploymentModeSINGLEINSTANCE :: DeploymentMode
+pattern DeploymentModeSINGLEINSTANCE = DeploymentMode' "SINGLE_INSTANCE"
 
 {-# COMPLETE
-  ActiveStandbyMultiAz,
-  ClusterMultiAz,
-  SingleInstance,
+  DeploymentModeACTIVESTANDBYMULTIAZ,
+  DeploymentModeCLUSTERMULTIAZ,
+  DeploymentModeSINGLEINSTANCE,
   DeploymentMode'
   #-}
 
-instance FromText DeploymentMode where
-  parser = (DeploymentMode' . mk) <$> takeText
+instance Prelude.FromText DeploymentMode where
+  parser = DeploymentMode' Prelude.<$> Prelude.takeText
 
-instance ToText DeploymentMode where
-  toText (DeploymentMode' ci) = original ci
+instance Prelude.ToText DeploymentMode where
+  toText (DeploymentMode' x) = x
 
-instance Hashable DeploymentMode
+instance Prelude.Hashable DeploymentMode
 
-instance NFData DeploymentMode
+instance Prelude.NFData DeploymentMode
 
-instance ToByteString DeploymentMode
+instance Prelude.ToByteString DeploymentMode
 
-instance ToQuery DeploymentMode
+instance Prelude.ToQuery DeploymentMode
 
-instance ToHeader DeploymentMode
+instance Prelude.ToHeader DeploymentMode
 
-instance ToJSON DeploymentMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeploymentMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeploymentMode where
-  parseJSON = parseJSONText "DeploymentMode"
+instance Prelude.FromJSON DeploymentMode where
+  parseJSON = Prelude.parseJSONText "DeploymentMode"

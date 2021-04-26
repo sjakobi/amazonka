@@ -28,139 +28,139 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCreateBroker $
---             createBroker
+--             newCreateBroker
 --
 --         , requestDescribeBrokerInstanceOptions $
---             describeBrokerInstanceOptions
+--             newDescribeBrokerInstanceOptions
 --
 --         , requestUpdateConfiguration $
---             updateConfiguration
+--             newUpdateConfiguration
 --
 --         , requestListConfigurations $
---             listConfigurations
+--             newListConfigurations
 --
 --         , requestDescribeBroker $
---             describeBroker
+--             newDescribeBroker
 --
 --         , requestDescribeBrokerEngineTypes $
---             describeBrokerEngineTypes
+--             newDescribeBrokerEngineTypes
 --
 --         , requestDeleteTags $
---             deleteTags
+--             newDeleteTags
 --
 --         , requestCreateUser $
---             createUser
+--             newCreateUser
 --
 --         , requestListBrokers $
---             listBrokers
+--             newListBrokers
 --
 --         , requestUpdateBroker $
---             updateBroker
+--             newUpdateBroker
 --
 --         , requestDeleteBroker $
---             deleteBroker
+--             newDeleteBroker
 --
 --         , requestRebootBroker $
---             rebootBroker
+--             newRebootBroker
 --
 --         , requestListConfigurationRevisions $
---             listConfigurationRevisions
+--             newListConfigurationRevisions
 --
 --         , requestCreateConfiguration $
---             createConfiguration
+--             newCreateConfiguration
 --
 --         , requestDescribeUser $
---             describeUser
+--             newDescribeUser
 --
 --         , requestDescribeConfigurationRevision $
---             describeConfigurationRevision
+--             newDescribeConfigurationRevision
 --
 --         , requestListTags $
---             listTags
+--             newListTags
 --
 --         , requestDeleteUser $
---             deleteUser
+--             newDeleteUser
 --
 --         , requestListUsers $
---             listUsers
+--             newListUsers
 --
 --         , requestUpdateUser $
---             updateUser
+--             newUpdateUser
 --
 --         , requestDescribeConfiguration $
---             describeConfiguration
+--             newDescribeConfiguration
 --
 --         , requestCreateTags $
---             createTags
+--             newCreateTags
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCreateBroker $
---             createBrokerResponse
+--             newCreateBrokerResponse
 --
 --         , responseDescribeBrokerInstanceOptions $
---             describeBrokerInstanceOptionsResponse
+--             newDescribeBrokerInstanceOptionsResponse
 --
 --         , responseUpdateConfiguration $
---             updateConfigurationResponse
+--             newUpdateConfigurationResponse
 --
 --         , responseListConfigurations $
---             listConfigurationsResponse
+--             newListConfigurationsResponse
 --
 --         , responseDescribeBroker $
---             describeBrokerResponse
+--             newDescribeBrokerResponse
 --
 --         , responseDescribeBrokerEngineTypes $
---             describeBrokerEngineTypesResponse
+--             newDescribeBrokerEngineTypesResponse
 --
 --         , responseDeleteTags $
---             deleteTagsResponse
+--             newDeleteTagsResponse
 --
 --         , responseCreateUser $
---             createUserResponse
+--             newCreateUserResponse
 --
 --         , responseListBrokers $
---             listBrokersResponse
+--             newListBrokersResponse
 --
 --         , responseUpdateBroker $
---             updateBrokerResponse
+--             newUpdateBrokerResponse
 --
 --         , responseDeleteBroker $
---             deleteBrokerResponse
+--             newDeleteBrokerResponse
 --
 --         , responseRebootBroker $
---             rebootBrokerResponse
+--             newRebootBrokerResponse
 --
 --         , responseListConfigurationRevisions $
---             listConfigurationRevisionsResponse
+--             newListConfigurationRevisionsResponse
 --
 --         , responseCreateConfiguration $
---             createConfigurationResponse
+--             newCreateConfigurationResponse
 --
 --         , responseDescribeUser $
---             describeUserResponse
+--             newDescribeUserResponse
 --
 --         , responseDescribeConfigurationRevision $
---             describeConfigurationRevisionResponse
+--             newDescribeConfigurationRevisionResponse
 --
 --         , responseListTags $
---             listTagsResponse
+--             newListTagsResponse
 --
 --         , responseDeleteUser $
---             deleteUserResponse
+--             newDeleteUserResponse
 --
 --         , responseListUsers $
---             listUsersResponse
+--             newListUsersResponse
 --
 --         , responseUpdateUser $
---             updateUserResponse
+--             newUpdateUserResponse
 --
 --         , responseDescribeConfiguration $
---             describeConfigurationResponse
+--             newDescribeConfigurationResponse
 --
 --         , responseCreateTags $
---             createTagsResponse
+--             newCreateTagsResponse
 --
 --           ]
 --     ]
@@ -306,7 +306,7 @@ responseCreateBroker =
   res
     "CreateBrokerResponse"
     "fixture/CreateBrokerResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy CreateBroker)
 
 responseDescribeBrokerInstanceOptions :: DescribeBrokerInstanceOptionsResponse -> TestTree
@@ -314,7 +314,7 @@ responseDescribeBrokerInstanceOptions =
   res
     "DescribeBrokerInstanceOptionsResponse"
     "fixture/DescribeBrokerInstanceOptionsResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DescribeBrokerInstanceOptions)
 
 responseUpdateConfiguration :: UpdateConfigurationResponse -> TestTree
@@ -322,7 +322,7 @@ responseUpdateConfiguration =
   res
     "UpdateConfigurationResponse"
     "fixture/UpdateConfigurationResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy UpdateConfiguration)
 
 responseListConfigurations :: ListConfigurationsResponse -> TestTree
@@ -330,7 +330,7 @@ responseListConfigurations =
   res
     "ListConfigurationsResponse"
     "fixture/ListConfigurationsResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy ListConfigurations)
 
 responseDescribeBroker :: DescribeBrokerResponse -> TestTree
@@ -338,7 +338,7 @@ responseDescribeBroker =
   res
     "DescribeBrokerResponse"
     "fixture/DescribeBrokerResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DescribeBroker)
 
 responseDescribeBrokerEngineTypes :: DescribeBrokerEngineTypesResponse -> TestTree
@@ -346,7 +346,7 @@ responseDescribeBrokerEngineTypes =
   res
     "DescribeBrokerEngineTypesResponse"
     "fixture/DescribeBrokerEngineTypesResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DescribeBrokerEngineTypes)
 
 responseDeleteTags :: DeleteTagsResponse -> TestTree
@@ -354,7 +354,7 @@ responseDeleteTags =
   res
     "DeleteTagsResponse"
     "fixture/DeleteTagsResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DeleteTags)
 
 responseCreateUser :: CreateUserResponse -> TestTree
@@ -362,7 +362,7 @@ responseCreateUser =
   res
     "CreateUserResponse"
     "fixture/CreateUserResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy CreateUser)
 
 responseListBrokers :: ListBrokersResponse -> TestTree
@@ -370,7 +370,7 @@ responseListBrokers =
   res
     "ListBrokersResponse"
     "fixture/ListBrokersResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy ListBrokers)
 
 responseUpdateBroker :: UpdateBrokerResponse -> TestTree
@@ -378,7 +378,7 @@ responseUpdateBroker =
   res
     "UpdateBrokerResponse"
     "fixture/UpdateBrokerResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy UpdateBroker)
 
 responseDeleteBroker :: DeleteBrokerResponse -> TestTree
@@ -386,7 +386,7 @@ responseDeleteBroker =
   res
     "DeleteBrokerResponse"
     "fixture/DeleteBrokerResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DeleteBroker)
 
 responseRebootBroker :: RebootBrokerResponse -> TestTree
@@ -394,7 +394,7 @@ responseRebootBroker =
   res
     "RebootBrokerResponse"
     "fixture/RebootBrokerResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy RebootBroker)
 
 responseListConfigurationRevisions :: ListConfigurationRevisionsResponse -> TestTree
@@ -402,7 +402,7 @@ responseListConfigurationRevisions =
   res
     "ListConfigurationRevisionsResponse"
     "fixture/ListConfigurationRevisionsResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy ListConfigurationRevisions)
 
 responseCreateConfiguration :: CreateConfigurationResponse -> TestTree
@@ -410,7 +410,7 @@ responseCreateConfiguration =
   res
     "CreateConfigurationResponse"
     "fixture/CreateConfigurationResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy CreateConfiguration)
 
 responseDescribeUser :: DescribeUserResponse -> TestTree
@@ -418,7 +418,7 @@ responseDescribeUser =
   res
     "DescribeUserResponse"
     "fixture/DescribeUserResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DescribeUser)
 
 responseDescribeConfigurationRevision :: DescribeConfigurationRevisionResponse -> TestTree
@@ -426,7 +426,7 @@ responseDescribeConfigurationRevision =
   res
     "DescribeConfigurationRevisionResponse"
     "fixture/DescribeConfigurationRevisionResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DescribeConfigurationRevision)
 
 responseListTags :: ListTagsResponse -> TestTree
@@ -434,7 +434,7 @@ responseListTags =
   res
     "ListTagsResponse"
     "fixture/ListTagsResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy ListTags)
 
 responseDeleteUser :: DeleteUserResponse -> TestTree
@@ -442,7 +442,7 @@ responseDeleteUser =
   res
     "DeleteUserResponse"
     "fixture/DeleteUserResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DeleteUser)
 
 responseListUsers :: ListUsersResponse -> TestTree
@@ -450,7 +450,7 @@ responseListUsers =
   res
     "ListUsersResponse"
     "fixture/ListUsersResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy ListUsers)
 
 responseUpdateUser :: UpdateUserResponse -> TestTree
@@ -458,7 +458,7 @@ responseUpdateUser =
   res
     "UpdateUserResponse"
     "fixture/UpdateUserResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy UpdateUser)
 
 responseDescribeConfiguration :: DescribeConfigurationResponse -> TestTree
@@ -466,7 +466,7 @@ responseDescribeConfiguration =
   res
     "DescribeConfigurationResponse"
     "fixture/DescribeConfigurationResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy DescribeConfiguration)
 
 responseCreateTags :: CreateTagsResponse -> TestTree
@@ -474,5 +474,5 @@ responseCreateTags =
   res
     "CreateTagsResponse"
     "fixture/CreateTagsResponse.proto"
-    mq
+    defaultService
     (Proxy :: Proxy CreateTags)

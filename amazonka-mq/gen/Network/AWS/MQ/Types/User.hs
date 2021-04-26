@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.User where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A user associated with the broker.
 --
--- /See:/ 'user' smart constructor.
+-- /See:/ 'newUser' smart constructor.
 data User = User'
-  { _uGroups :: !(Maybe [Text]),
-    _uPassword :: !(Maybe Text),
-    _uUsername :: !(Maybe Text),
-    _uConsoleAccess :: !(Maybe Bool)
+  { -- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This
+    -- value can contain only alphanumeric characters, dashes, periods,
+    -- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+    -- long.
+    groups :: Prelude.Maybe [Prelude.Text],
+    -- | Required. The password of the broker user. This value must be at least
+    -- 12 characters long, must contain at least 4 unique characters, and must
+    -- not contain commas.
+    password :: Prelude.Maybe Prelude.Text,
+    -- | Required. The username of the broker user. This value can contain only
+    -- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+    -- ~). This value must be 2-100 characters long.
+    username :: Prelude.Maybe Prelude.Text,
+    -- | Enables access to the ActiveMQ Web Console for the ActiveMQ user (Does
+    -- not apply to RabbitMQ brokers).
+    consoleAccess :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'User' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'User' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uGroups' - The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uPassword' - Required. The password of the broker user. This value must be at least 12 characters long, must contain at least 4 unique characters, and must not contain commas.
+-- 'groups', 'user_groups' - The list of groups (20 maximum) to which the ActiveMQ user belongs. This
+-- value can contain only alphanumeric characters, dashes, periods,
+-- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+-- long.
 --
--- * 'uUsername' - Required. The username of the broker user. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+-- 'password', 'user_password' - Required. The password of the broker user. This value must be at least
+-- 12 characters long, must contain at least 4 unique characters, and must
+-- not contain commas.
 --
--- * 'uConsoleAccess' - Enables access to the ActiveMQ Web Console for the ActiveMQ user (Does not apply to RabbitMQ brokers).
-user ::
+-- 'username', 'user_username' - Required. The username of the broker user. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 2-100 characters long.
+--
+-- 'consoleAccess', 'user_consoleAccess' - Enables access to the ActiveMQ Web Console for the ActiveMQ user (Does
+-- not apply to RabbitMQ brokers).
+newUser ::
   User
-user =
+newUser =
   User'
-    { _uGroups = Nothing,
-      _uPassword = Nothing,
-      _uUsername = Nothing,
-      _uConsoleAccess = Nothing
+    { groups = Prelude.Nothing,
+      password = Prelude.Nothing,
+      username = Prelude.Nothing,
+      consoleAccess = Prelude.Nothing
     }
 
--- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
-uGroups :: Lens' User [Text]
-uGroups = lens _uGroups (\s a -> s {_uGroups = a}) . _Default . _Coerce
+-- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This
+-- value can contain only alphanumeric characters, dashes, periods,
+-- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+-- long.
+user_groups :: Lens.Lens' User (Prelude.Maybe [Prelude.Text])
+user_groups = Lens.lens (\User' {groups} -> groups) (\s@User' {} a -> s {groups = a} :: User) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Required. The password of the broker user. This value must be at least 12 characters long, must contain at least 4 unique characters, and must not contain commas.
-uPassword :: Lens' User (Maybe Text)
-uPassword = lens _uPassword (\s a -> s {_uPassword = a})
+-- | Required. The password of the broker user. This value must be at least
+-- 12 characters long, must contain at least 4 unique characters, and must
+-- not contain commas.
+user_password :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_password = Lens.lens (\User' {password} -> password) (\s@User' {} a -> s {password = a} :: User)
 
--- | Required. The username of the broker user. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
-uUsername :: Lens' User (Maybe Text)
-uUsername = lens _uUsername (\s a -> s {_uUsername = a})
+-- | Required. The username of the broker user. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 2-100 characters long.
+user_username :: Lens.Lens' User (Prelude.Maybe Prelude.Text)
+user_username = Lens.lens (\User' {username} -> username) (\s@User' {} a -> s {username = a} :: User)
 
--- | Enables access to the ActiveMQ Web Console for the ActiveMQ user (Does not apply to RabbitMQ brokers).
-uConsoleAccess :: Lens' User (Maybe Bool)
-uConsoleAccess = lens _uConsoleAccess (\s a -> s {_uConsoleAccess = a})
+-- | Enables access to the ActiveMQ Web Console for the ActiveMQ user (Does
+-- not apply to RabbitMQ brokers).
+user_consoleAccess :: Lens.Lens' User (Prelude.Maybe Prelude.Bool)
+user_consoleAccess = Lens.lens (\User' {consoleAccess} -> consoleAccess) (\s@User' {} a -> s {consoleAccess = a} :: User)
 
-instance Hashable User
+instance Prelude.Hashable User
 
-instance NFData User
+instance Prelude.NFData User
 
-instance ToJSON User where
+instance Prelude.ToJSON User where
   toJSON User' {..} =
-    object
-      ( catMaybes
-          [ ("groups" .=) <$> _uGroups,
-            ("password" .=) <$> _uPassword,
-            ("username" .=) <$> _uUsername,
-            ("consoleAccess" .=) <$> _uConsoleAccess
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("groups" Prelude..=) Prelude.<$> groups,
+            ("password" Prelude..=) Prelude.<$> password,
+            ("username" Prelude..=) Prelude.<$> username,
+            ("consoleAccess" Prelude..=)
+              Prelude.<$> consoleAccess
           ]
       )

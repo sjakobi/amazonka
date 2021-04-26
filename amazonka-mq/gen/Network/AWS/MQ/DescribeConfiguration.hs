@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,257 +24,248 @@
 -- Returns information about the specified configuration.
 module Network.AWS.MQ.DescribeConfiguration
   ( -- * Creating a Request
-    describeConfiguration,
-    DescribeConfiguration,
+    DescribeConfiguration (..),
+    newDescribeConfiguration,
 
     -- * Request Lenses
-    dcConfigurationId,
+    describeConfiguration_configurationId,
 
     -- * Destructuring the Response
-    describeConfigurationResponse,
-    DescribeConfigurationResponse,
+    DescribeConfigurationResponse (..),
+    newDescribeConfigurationResponse,
 
     -- * Response Lenses
-    dcrrsEngineType,
-    dcrrsAuthenticationStrategy,
-    dcrrsLatestRevision,
-    dcrrsARN,
-    dcrrsId,
-    dcrrsName,
-    dcrrsEngineVersion,
-    dcrrsTags,
-    dcrrsDescription,
-    dcrrsCreated,
-    dcrrsResponseStatus,
+    describeConfigurationResponse_engineType,
+    describeConfigurationResponse_authenticationStrategy,
+    describeConfigurationResponse_latestRevision,
+    describeConfigurationResponse_arn,
+    describeConfigurationResponse_id,
+    describeConfigurationResponse_name,
+    describeConfigurationResponse_engineVersion,
+    describeConfigurationResponse_tags,
+    describeConfigurationResponse_description,
+    describeConfigurationResponse_created,
+    describeConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MQ.Types.AuthenticationStrategy
+import Network.AWS.MQ.Types.ConfigurationRevision
+import Network.AWS.MQ.Types.EngineType
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeConfiguration' smart constructor.
-newtype DescribeConfiguration = DescribeConfiguration'
-  { _dcConfigurationId ::
-      Text
+-- | /See:/ 'newDescribeConfiguration' smart constructor.
+data DescribeConfiguration = DescribeConfiguration'
+  { -- | The unique ID that Amazon MQ generates for the configuration.
+    configurationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcConfigurationId' - The unique ID that Amazon MQ generates for the configuration.
-describeConfiguration ::
-  -- | 'dcConfigurationId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'configurationId', 'describeConfiguration_configurationId' - The unique ID that Amazon MQ generates for the configuration.
+newDescribeConfiguration ::
+  -- | 'configurationId'
+  Prelude.Text ->
   DescribeConfiguration
-describeConfiguration pConfigurationId_ =
+newDescribeConfiguration pConfigurationId_ =
   DescribeConfiguration'
-    { _dcConfigurationId =
+    { configurationId =
         pConfigurationId_
     }
 
 -- | The unique ID that Amazon MQ generates for the configuration.
-dcConfigurationId :: Lens' DescribeConfiguration Text
-dcConfigurationId = lens _dcConfigurationId (\s a -> s {_dcConfigurationId = a})
+describeConfiguration_configurationId :: Lens.Lens' DescribeConfiguration Prelude.Text
+describeConfiguration_configurationId = Lens.lens (\DescribeConfiguration' {configurationId} -> configurationId) (\s@DescribeConfiguration' {} a -> s {configurationId = a} :: DescribeConfiguration)
 
-instance AWSRequest DescribeConfiguration where
+instance Prelude.AWSRequest DescribeConfiguration where
   type
     Rs DescribeConfiguration =
       DescribeConfigurationResponse
-  request = get mq
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeConfigurationResponse'
-            <$> (x .?> "engineType")
-            <*> (x .?> "authenticationStrategy")
-            <*> (x .?> "latestRevision")
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "name")
-            <*> (x .?> "engineVersion")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "description")
-            <*> (x .?> "created")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "engineType")
+            Prelude.<*> (x Prelude..?> "authenticationStrategy")
+            Prelude.<*> (x Prelude..?> "latestRevision")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "engineVersion")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "created")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeConfiguration
+instance Prelude.Hashable DescribeConfiguration
 
-instance NFData DescribeConfiguration
+instance Prelude.NFData DescribeConfiguration
 
-instance ToHeaders DescribeConfiguration where
+instance Prelude.ToHeaders DescribeConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeConfiguration where
+instance Prelude.ToPath DescribeConfiguration where
   toPath DescribeConfiguration' {..} =
-    mconcat
-      ["/v1/configurations/", toBS _dcConfigurationId]
+    Prelude.mconcat
+      ["/v1/configurations/", Prelude.toBS configurationId]
 
-instance ToQuery DescribeConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeConfigurationResponse' smart constructor.
+-- | /See:/ 'newDescribeConfigurationResponse' smart constructor.
 data DescribeConfigurationResponse = DescribeConfigurationResponse'
-  { _dcrrsEngineType ::
-      !( Maybe
-           EngineType
-       ),
-    _dcrrsAuthenticationStrategy ::
-      !( Maybe
-           AuthenticationStrategy
-       ),
-    _dcrrsLatestRevision ::
-      !( Maybe
-           ConfigurationRevision
-       ),
-    _dcrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _dcrrsId ::
-      !( Maybe
-           Text
-       ),
-    _dcrrsName ::
-      !( Maybe
-           Text
-       ),
-    _dcrrsEngineVersion ::
-      !( Maybe
-           Text
-       ),
-    _dcrrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _dcrrsDescription ::
-      !( Maybe
-           Text
-       ),
-    _dcrrsCreated ::
-      !( Maybe
-           POSIX
-       ),
-    _dcrrsResponseStatus ::
-      !Int
+  { -- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+    -- ACTIVEMQ and RABBITMQ.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The authentication strategy associated with the configuration.
+    authenticationStrategy :: Prelude.Maybe AuthenticationStrategy,
+    -- | Required. The latest revision of the configuration.
+    latestRevision :: Prelude.Maybe ConfigurationRevision,
+    -- | Required. The ARN of the configuration.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Required. The unique ID that Amazon MQ generates for the configuration.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Required. The name of the configuration. This value can contain only
+    -- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+    -- ~). This value must be 1-150 characters long.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Required. The version of the broker engine. For a list of supported
+    -- engine versions, see
+    -- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The list of all tags associated with this configuration.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Required. The description of the configuration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Required. The date and time of the configuration revision.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsEngineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcrrsAuthenticationStrategy' - The authentication strategy associated with the configuration.
+-- 'engineType', 'describeConfigurationResponse_engineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
 --
--- * 'dcrrsLatestRevision' - Required. The latest revision of the configuration.
+-- 'authenticationStrategy', 'describeConfigurationResponse_authenticationStrategy' - The authentication strategy associated with the configuration.
 --
--- * 'dcrrsARN' - Required. The ARN of the configuration.
+-- 'latestRevision', 'describeConfigurationResponse_latestRevision' - Required. The latest revision of the configuration.
 --
--- * 'dcrrsId' - Required. The unique ID that Amazon MQ generates for the configuration.
+-- 'arn', 'describeConfigurationResponse_arn' - Required. The ARN of the configuration.
 --
--- * 'dcrrsName' - Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+-- 'id', 'describeConfigurationResponse_id' - Required. The unique ID that Amazon MQ generates for the configuration.
 --
--- * 'dcrrsEngineVersion' - Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+-- 'name', 'describeConfigurationResponse_name' - Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
 --
--- * 'dcrrsTags' - The list of all tags associated with this configuration.
+-- 'engineVersion', 'describeConfigurationResponse_engineVersion' - Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
 --
--- * 'dcrrsDescription' - Required. The description of the configuration.
+-- 'tags', 'describeConfigurationResponse_tags' - The list of all tags associated with this configuration.
 --
--- * 'dcrrsCreated' - Required. The date and time of the configuration revision.
+-- 'description', 'describeConfigurationResponse_description' - Required. The description of the configuration.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-describeConfigurationResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- 'created', 'describeConfigurationResponse_created' - Required. The date and time of the configuration revision.
+--
+-- 'httpStatus', 'describeConfigurationResponse_httpStatus' - The response's http status code.
+newDescribeConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeConfigurationResponse
-describeConfigurationResponse pResponseStatus_ =
+newDescribeConfigurationResponse pHttpStatus_ =
   DescribeConfigurationResponse'
-    { _dcrrsEngineType =
-        Nothing,
-      _dcrrsAuthenticationStrategy = Nothing,
-      _dcrrsLatestRevision = Nothing,
-      _dcrrsARN = Nothing,
-      _dcrrsId = Nothing,
-      _dcrrsName = Nothing,
-      _dcrrsEngineVersion = Nothing,
-      _dcrrsTags = Nothing,
-      _dcrrsDescription = Nothing,
-      _dcrrsCreated = Nothing,
-      _dcrrsResponseStatus = pResponseStatus_
+    { engineType =
+        Prelude.Nothing,
+      authenticationStrategy = Prelude.Nothing,
+      latestRevision = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      created = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
-dcrrsEngineType :: Lens' DescribeConfigurationResponse (Maybe EngineType)
-dcrrsEngineType = lens _dcrrsEngineType (\s a -> s {_dcrrsEngineType = a})
+-- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
+describeConfigurationResponse_engineType :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe EngineType)
+describeConfigurationResponse_engineType = Lens.lens (\DescribeConfigurationResponse' {engineType} -> engineType) (\s@DescribeConfigurationResponse' {} a -> s {engineType = a} :: DescribeConfigurationResponse)
 
 -- | The authentication strategy associated with the configuration.
-dcrrsAuthenticationStrategy :: Lens' DescribeConfigurationResponse (Maybe AuthenticationStrategy)
-dcrrsAuthenticationStrategy = lens _dcrrsAuthenticationStrategy (\s a -> s {_dcrrsAuthenticationStrategy = a})
+describeConfigurationResponse_authenticationStrategy :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe AuthenticationStrategy)
+describeConfigurationResponse_authenticationStrategy = Lens.lens (\DescribeConfigurationResponse' {authenticationStrategy} -> authenticationStrategy) (\s@DescribeConfigurationResponse' {} a -> s {authenticationStrategy = a} :: DescribeConfigurationResponse)
 
 -- | Required. The latest revision of the configuration.
-dcrrsLatestRevision :: Lens' DescribeConfigurationResponse (Maybe ConfigurationRevision)
-dcrrsLatestRevision = lens _dcrrsLatestRevision (\s a -> s {_dcrrsLatestRevision = a})
+describeConfigurationResponse_latestRevision :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe ConfigurationRevision)
+describeConfigurationResponse_latestRevision = Lens.lens (\DescribeConfigurationResponse' {latestRevision} -> latestRevision) (\s@DescribeConfigurationResponse' {} a -> s {latestRevision = a} :: DescribeConfigurationResponse)
 
 -- | Required. The ARN of the configuration.
-dcrrsARN :: Lens' DescribeConfigurationResponse (Maybe Text)
-dcrrsARN = lens _dcrrsARN (\s a -> s {_dcrrsARN = a})
+describeConfigurationResponse_arn :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeConfigurationResponse_arn = Lens.lens (\DescribeConfigurationResponse' {arn} -> arn) (\s@DescribeConfigurationResponse' {} a -> s {arn = a} :: DescribeConfigurationResponse)
 
 -- | Required. The unique ID that Amazon MQ generates for the configuration.
-dcrrsId :: Lens' DescribeConfigurationResponse (Maybe Text)
-dcrrsId = lens _dcrrsId (\s a -> s {_dcrrsId = a})
+describeConfigurationResponse_id :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeConfigurationResponse_id = Lens.lens (\DescribeConfigurationResponse' {id} -> id) (\s@DescribeConfigurationResponse' {} a -> s {id = a} :: DescribeConfigurationResponse)
 
--- | Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
-dcrrsName :: Lens' DescribeConfigurationResponse (Maybe Text)
-dcrrsName = lens _dcrrsName (\s a -> s {_dcrrsName = a})
+-- | Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
+describeConfigurationResponse_name :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeConfigurationResponse_name = Lens.lens (\DescribeConfigurationResponse' {name} -> name) (\s@DescribeConfigurationResponse' {} a -> s {name = a} :: DescribeConfigurationResponse)
 
--- | Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
-dcrrsEngineVersion :: Lens' DescribeConfigurationResponse (Maybe Text)
-dcrrsEngineVersion = lens _dcrrsEngineVersion (\s a -> s {_dcrrsEngineVersion = a})
+-- | Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+describeConfigurationResponse_engineVersion :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeConfigurationResponse_engineVersion = Lens.lens (\DescribeConfigurationResponse' {engineVersion} -> engineVersion) (\s@DescribeConfigurationResponse' {} a -> s {engineVersion = a} :: DescribeConfigurationResponse)
 
 -- | The list of all tags associated with this configuration.
-dcrrsTags :: Lens' DescribeConfigurationResponse (HashMap Text Text)
-dcrrsTags = lens _dcrrsTags (\s a -> s {_dcrrsTags = a}) . _Default . _Map
+describeConfigurationResponse_tags :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+describeConfigurationResponse_tags = Lens.lens (\DescribeConfigurationResponse' {tags} -> tags) (\s@DescribeConfigurationResponse' {} a -> s {tags = a} :: DescribeConfigurationResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | Required. The description of the configuration.
-dcrrsDescription :: Lens' DescribeConfigurationResponse (Maybe Text)
-dcrrsDescription = lens _dcrrsDescription (\s a -> s {_dcrrsDescription = a})
+describeConfigurationResponse_description :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeConfigurationResponse_description = Lens.lens (\DescribeConfigurationResponse' {description} -> description) (\s@DescribeConfigurationResponse' {} a -> s {description = a} :: DescribeConfigurationResponse)
 
 -- | Required. The date and time of the configuration revision.
-dcrrsCreated :: Lens' DescribeConfigurationResponse (Maybe UTCTime)
-dcrrsCreated = lens _dcrrsCreated (\s a -> s {_dcrrsCreated = a}) . mapping _Time
+describeConfigurationResponse_created :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.UTCTime)
+describeConfigurationResponse_created = Lens.lens (\DescribeConfigurationResponse' {created} -> created) (\s@DescribeConfigurationResponse' {} a -> s {created = a} :: DescribeConfigurationResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DescribeConfigurationResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+describeConfigurationResponse_httpStatus :: Lens.Lens' DescribeConfigurationResponse Prelude.Int
+describeConfigurationResponse_httpStatus = Lens.lens (\DescribeConfigurationResponse' {httpStatus} -> httpStatus) (\s@DescribeConfigurationResponse' {} a -> s {httpStatus = a} :: DescribeConfigurationResponse)
 
-instance NFData DescribeConfigurationResponse
+instance Prelude.NFData DescribeConfigurationResponse

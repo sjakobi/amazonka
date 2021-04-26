@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,110 +19,129 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.BrokerSummary where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types.BrokerState
 import Network.AWS.MQ.Types.DeploymentMode
 import Network.AWS.MQ.Types.EngineType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The Amazon Resource Name (ARN) of the broker.
 --
--- /See:/ 'brokerSummary' smart constructor.
+-- /See:/ 'newBrokerSummary' smart constructor.
 data BrokerSummary = BrokerSummary'
-  { _bsBrokerName ::
-      !(Maybe Text),
-    _bsBrokerId :: !(Maybe Text),
-    _bsEngineType :: !(Maybe EngineType),
-    _bsBrokerState :: !(Maybe BrokerState),
-    _bsHostInstanceType :: !(Maybe Text),
-    _bsBrokerARN :: !(Maybe Text),
-    _bsCreated :: !(Maybe POSIX),
-    _bsDeploymentMode ::
-      !(Maybe DeploymentMode)
+  { -- | The name of the broker. This value must be unique in your AWS account,
+    -- 1-50 characters long, must contain only letters, numbers, dashes, and
+    -- underscores, and must not contain whitespaces, brackets, wildcard
+    -- characters, or special characters.
+    brokerName :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID that Amazon MQ generates for the broker.
+    brokerId :: Prelude.Maybe Prelude.Text,
+    -- | Required. The type of broker engine.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The status of the broker.
+    brokerState :: Prelude.Maybe BrokerState,
+    -- | The broker\'s instance type.
+    hostInstanceType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the broker.
+    brokerArn :: Prelude.Maybe Prelude.Text,
+    -- | The time when the broker was created.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | Required. The deployment mode of the broker.
+    deploymentMode :: Prelude.Maybe DeploymentMode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BrokerSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BrokerSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsBrokerName' - The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or special characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsBrokerId' - The unique ID that Amazon MQ generates for the broker.
+-- 'brokerName', 'brokerSummary_brokerName' - The name of the broker. This value must be unique in your AWS account,
+-- 1-50 characters long, must contain only letters, numbers, dashes, and
+-- underscores, and must not contain whitespaces, brackets, wildcard
+-- characters, or special characters.
 --
--- * 'bsEngineType' - Required. The type of broker engine.
+-- 'brokerId', 'brokerSummary_brokerId' - The unique ID that Amazon MQ generates for the broker.
 --
--- * 'bsBrokerState' - The status of the broker.
+-- 'engineType', 'brokerSummary_engineType' - Required. The type of broker engine.
 --
--- * 'bsHostInstanceType' - The broker's instance type.
+-- 'brokerState', 'brokerSummary_brokerState' - The status of the broker.
 --
--- * 'bsBrokerARN' - The Amazon Resource Name (ARN) of the broker.
+-- 'hostInstanceType', 'brokerSummary_hostInstanceType' - The broker\'s instance type.
 --
--- * 'bsCreated' - The time when the broker was created.
+-- 'brokerArn', 'brokerSummary_brokerArn' - The Amazon Resource Name (ARN) of the broker.
 --
--- * 'bsDeploymentMode' - Required. The deployment mode of the broker.
-brokerSummary ::
+-- 'created', 'brokerSummary_created' - The time when the broker was created.
+--
+-- 'deploymentMode', 'brokerSummary_deploymentMode' - Required. The deployment mode of the broker.
+newBrokerSummary ::
   BrokerSummary
-brokerSummary =
+newBrokerSummary =
   BrokerSummary'
-    { _bsBrokerName = Nothing,
-      _bsBrokerId = Nothing,
-      _bsEngineType = Nothing,
-      _bsBrokerState = Nothing,
-      _bsHostInstanceType = Nothing,
-      _bsBrokerARN = Nothing,
-      _bsCreated = Nothing,
-      _bsDeploymentMode = Nothing
+    { brokerName = Prelude.Nothing,
+      brokerId = Prelude.Nothing,
+      engineType = Prelude.Nothing,
+      brokerState = Prelude.Nothing,
+      hostInstanceType = Prelude.Nothing,
+      brokerArn = Prelude.Nothing,
+      created = Prelude.Nothing,
+      deploymentMode = Prelude.Nothing
     }
 
--- | The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or special characters.
-bsBrokerName :: Lens' BrokerSummary (Maybe Text)
-bsBrokerName = lens _bsBrokerName (\s a -> s {_bsBrokerName = a})
+-- | The name of the broker. This value must be unique in your AWS account,
+-- 1-50 characters long, must contain only letters, numbers, dashes, and
+-- underscores, and must not contain whitespaces, brackets, wildcard
+-- characters, or special characters.
+brokerSummary_brokerName :: Lens.Lens' BrokerSummary (Prelude.Maybe Prelude.Text)
+brokerSummary_brokerName = Lens.lens (\BrokerSummary' {brokerName} -> brokerName) (\s@BrokerSummary' {} a -> s {brokerName = a} :: BrokerSummary)
 
 -- | The unique ID that Amazon MQ generates for the broker.
-bsBrokerId :: Lens' BrokerSummary (Maybe Text)
-bsBrokerId = lens _bsBrokerId (\s a -> s {_bsBrokerId = a})
+brokerSummary_brokerId :: Lens.Lens' BrokerSummary (Prelude.Maybe Prelude.Text)
+brokerSummary_brokerId = Lens.lens (\BrokerSummary' {brokerId} -> brokerId) (\s@BrokerSummary' {} a -> s {brokerId = a} :: BrokerSummary)
 
 -- | Required. The type of broker engine.
-bsEngineType :: Lens' BrokerSummary (Maybe EngineType)
-bsEngineType = lens _bsEngineType (\s a -> s {_bsEngineType = a})
+brokerSummary_engineType :: Lens.Lens' BrokerSummary (Prelude.Maybe EngineType)
+brokerSummary_engineType = Lens.lens (\BrokerSummary' {engineType} -> engineType) (\s@BrokerSummary' {} a -> s {engineType = a} :: BrokerSummary)
 
 -- | The status of the broker.
-bsBrokerState :: Lens' BrokerSummary (Maybe BrokerState)
-bsBrokerState = lens _bsBrokerState (\s a -> s {_bsBrokerState = a})
+brokerSummary_brokerState :: Lens.Lens' BrokerSummary (Prelude.Maybe BrokerState)
+brokerSummary_brokerState = Lens.lens (\BrokerSummary' {brokerState} -> brokerState) (\s@BrokerSummary' {} a -> s {brokerState = a} :: BrokerSummary)
 
--- | The broker's instance type.
-bsHostInstanceType :: Lens' BrokerSummary (Maybe Text)
-bsHostInstanceType = lens _bsHostInstanceType (\s a -> s {_bsHostInstanceType = a})
+-- | The broker\'s instance type.
+brokerSummary_hostInstanceType :: Lens.Lens' BrokerSummary (Prelude.Maybe Prelude.Text)
+brokerSummary_hostInstanceType = Lens.lens (\BrokerSummary' {hostInstanceType} -> hostInstanceType) (\s@BrokerSummary' {} a -> s {hostInstanceType = a} :: BrokerSummary)
 
 -- | The Amazon Resource Name (ARN) of the broker.
-bsBrokerARN :: Lens' BrokerSummary (Maybe Text)
-bsBrokerARN = lens _bsBrokerARN (\s a -> s {_bsBrokerARN = a})
+brokerSummary_brokerArn :: Lens.Lens' BrokerSummary (Prelude.Maybe Prelude.Text)
+brokerSummary_brokerArn = Lens.lens (\BrokerSummary' {brokerArn} -> brokerArn) (\s@BrokerSummary' {} a -> s {brokerArn = a} :: BrokerSummary)
 
 -- | The time when the broker was created.
-bsCreated :: Lens' BrokerSummary (Maybe UTCTime)
-bsCreated = lens _bsCreated (\s a -> s {_bsCreated = a}) . mapping _Time
+brokerSummary_created :: Lens.Lens' BrokerSummary (Prelude.Maybe Prelude.UTCTime)
+brokerSummary_created = Lens.lens (\BrokerSummary' {created} -> created) (\s@BrokerSummary' {} a -> s {created = a} :: BrokerSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Required. The deployment mode of the broker.
-bsDeploymentMode :: Lens' BrokerSummary (Maybe DeploymentMode)
-bsDeploymentMode = lens _bsDeploymentMode (\s a -> s {_bsDeploymentMode = a})
+brokerSummary_deploymentMode :: Lens.Lens' BrokerSummary (Prelude.Maybe DeploymentMode)
+brokerSummary_deploymentMode = Lens.lens (\BrokerSummary' {deploymentMode} -> deploymentMode) (\s@BrokerSummary' {} a -> s {deploymentMode = a} :: BrokerSummary)
 
-instance FromJSON BrokerSummary where
+instance Prelude.FromJSON BrokerSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BrokerSummary"
       ( \x ->
           BrokerSummary'
-            <$> (x .:? "brokerName")
-            <*> (x .:? "brokerId")
-            <*> (x .:? "engineType")
-            <*> (x .:? "brokerState")
-            <*> (x .:? "hostInstanceType")
-            <*> (x .:? "brokerArn")
-            <*> (x .:? "created")
-            <*> (x .:? "deploymentMode")
+            Prelude.<$> (x Prelude..:? "brokerName")
+            Prelude.<*> (x Prelude..:? "brokerId")
+            Prelude.<*> (x Prelude..:? "engineType")
+            Prelude.<*> (x Prelude..:? "brokerState")
+            Prelude.<*> (x Prelude..:? "hostInstanceType")
+            Prelude.<*> (x Prelude..:? "brokerArn")
+            Prelude.<*> (x Prelude..:? "created")
+            Prelude.<*> (x Prelude..:? "deploymentMode")
       )
 
-instance Hashable BrokerSummary
+instance Prelude.Hashable BrokerSummary
 
-instance NFData BrokerSummary
+instance Prelude.NFData BrokerSummary

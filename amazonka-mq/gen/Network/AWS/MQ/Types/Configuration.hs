@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,129 +19,155 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.Configuration where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types.AuthenticationStrategy
 import Network.AWS.MQ.Types.ConfigurationRevision
 import Network.AWS.MQ.Types.EngineType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about all configurations.
 --
--- /See:/ 'configuration' smart constructor.
+-- /See:/ 'newConfiguration' smart constructor.
 data Configuration = Configuration'
-  { _cEngineType ::
-      !(Maybe EngineType),
-    _cAuthenticationStrategy ::
-      !(Maybe AuthenticationStrategy),
-    _cLatestRevision ::
-      !(Maybe ConfigurationRevision),
-    _cARN :: !(Maybe Text),
-    _cId :: !(Maybe Text),
-    _cName :: !(Maybe Text),
-    _cEngineVersion :: !(Maybe Text),
-    _cTags :: !(Maybe (Map Text Text)),
-    _cDescription :: !(Maybe Text),
-    _cCreated :: !(Maybe POSIX)
+  { -- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+    -- ACTIVEMQ and RABBITMQ.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The authentication strategy associated with the configuration.
+    authenticationStrategy :: Prelude.Maybe AuthenticationStrategy,
+    -- | Required. The latest revision of the configuration.
+    latestRevision :: Prelude.Maybe ConfigurationRevision,
+    -- | Required. The ARN of the configuration.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Required. The unique ID that Amazon MQ generates for the configuration.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Required. The name of the configuration. This value can contain only
+    -- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+    -- ~). This value must be 1-150 characters long.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Required. The version of the broker engine. For a list of supported
+    -- engine versions, see
+    -- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The list of all tags associated with this configuration.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Required. The description of the configuration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Required. The date and time of the configuration revision.
+    created :: Prelude.Maybe Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Configuration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Configuration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cEngineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cAuthenticationStrategy' - The authentication strategy associated with the configuration.
+-- 'engineType', 'configuration_engineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
 --
--- * 'cLatestRevision' - Required. The latest revision of the configuration.
+-- 'authenticationStrategy', 'configuration_authenticationStrategy' - The authentication strategy associated with the configuration.
 --
--- * 'cARN' - Required. The ARN of the configuration.
+-- 'latestRevision', 'configuration_latestRevision' - Required. The latest revision of the configuration.
 --
--- * 'cId' - Required. The unique ID that Amazon MQ generates for the configuration.
+-- 'arn', 'configuration_arn' - Required. The ARN of the configuration.
 --
--- * 'cName' - Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+-- 'id', 'configuration_id' - Required. The unique ID that Amazon MQ generates for the configuration.
 --
--- * 'cEngineVersion' - Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+-- 'name', 'configuration_name' - Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
 --
--- * 'cTags' - The list of all tags associated with this configuration.
+-- 'engineVersion', 'configuration_engineVersion' - Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
 --
--- * 'cDescription' - Required. The description of the configuration.
+-- 'tags', 'configuration_tags' - The list of all tags associated with this configuration.
 --
--- * 'cCreated' - Required. The date and time of the configuration revision.
-configuration ::
+-- 'description', 'configuration_description' - Required. The description of the configuration.
+--
+-- 'created', 'configuration_created' - Required. The date and time of the configuration revision.
+newConfiguration ::
   Configuration
-configuration =
+newConfiguration =
   Configuration'
-    { _cEngineType = Nothing,
-      _cAuthenticationStrategy = Nothing,
-      _cLatestRevision = Nothing,
-      _cARN = Nothing,
-      _cId = Nothing,
-      _cName = Nothing,
-      _cEngineVersion = Nothing,
-      _cTags = Nothing,
-      _cDescription = Nothing,
-      _cCreated = Nothing
+    { engineType = Prelude.Nothing,
+      authenticationStrategy = Prelude.Nothing,
+      latestRevision = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      created = Prelude.Nothing
     }
 
--- | Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
-cEngineType :: Lens' Configuration (Maybe EngineType)
-cEngineType = lens _cEngineType (\s a -> s {_cEngineType = a})
+-- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
+configuration_engineType :: Lens.Lens' Configuration (Prelude.Maybe EngineType)
+configuration_engineType = Lens.lens (\Configuration' {engineType} -> engineType) (\s@Configuration' {} a -> s {engineType = a} :: Configuration)
 
 -- | The authentication strategy associated with the configuration.
-cAuthenticationStrategy :: Lens' Configuration (Maybe AuthenticationStrategy)
-cAuthenticationStrategy = lens _cAuthenticationStrategy (\s a -> s {_cAuthenticationStrategy = a})
+configuration_authenticationStrategy :: Lens.Lens' Configuration (Prelude.Maybe AuthenticationStrategy)
+configuration_authenticationStrategy = Lens.lens (\Configuration' {authenticationStrategy} -> authenticationStrategy) (\s@Configuration' {} a -> s {authenticationStrategy = a} :: Configuration)
 
 -- | Required. The latest revision of the configuration.
-cLatestRevision :: Lens' Configuration (Maybe ConfigurationRevision)
-cLatestRevision = lens _cLatestRevision (\s a -> s {_cLatestRevision = a})
+configuration_latestRevision :: Lens.Lens' Configuration (Prelude.Maybe ConfigurationRevision)
+configuration_latestRevision = Lens.lens (\Configuration' {latestRevision} -> latestRevision) (\s@Configuration' {} a -> s {latestRevision = a} :: Configuration)
 
 -- | Required. The ARN of the configuration.
-cARN :: Lens' Configuration (Maybe Text)
-cARN = lens _cARN (\s a -> s {_cARN = a})
+configuration_arn :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
+configuration_arn = Lens.lens (\Configuration' {arn} -> arn) (\s@Configuration' {} a -> s {arn = a} :: Configuration)
 
 -- | Required. The unique ID that Amazon MQ generates for the configuration.
-cId :: Lens' Configuration (Maybe Text)
-cId = lens _cId (\s a -> s {_cId = a})
+configuration_id :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
+configuration_id = Lens.lens (\Configuration' {id} -> id) (\s@Configuration' {} a -> s {id = a} :: Configuration)
 
--- | Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
-cName :: Lens' Configuration (Maybe Text)
-cName = lens _cName (\s a -> s {_cName = a})
+-- | Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
+configuration_name :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
+configuration_name = Lens.lens (\Configuration' {name} -> name) (\s@Configuration' {} a -> s {name = a} :: Configuration)
 
--- | Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
-cEngineVersion :: Lens' Configuration (Maybe Text)
-cEngineVersion = lens _cEngineVersion (\s a -> s {_cEngineVersion = a})
+-- | Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+configuration_engineVersion :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
+configuration_engineVersion = Lens.lens (\Configuration' {engineVersion} -> engineVersion) (\s@Configuration' {} a -> s {engineVersion = a} :: Configuration)
 
 -- | The list of all tags associated with this configuration.
-cTags :: Lens' Configuration (HashMap Text Text)
-cTags = lens _cTags (\s a -> s {_cTags = a}) . _Default . _Map
+configuration_tags :: Lens.Lens' Configuration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+configuration_tags = Lens.lens (\Configuration' {tags} -> tags) (\s@Configuration' {} a -> s {tags = a} :: Configuration) Prelude.. Lens.mapping Prelude._Map
 
 -- | Required. The description of the configuration.
-cDescription :: Lens' Configuration (Maybe Text)
-cDescription = lens _cDescription (\s a -> s {_cDescription = a})
+configuration_description :: Lens.Lens' Configuration (Prelude.Maybe Prelude.Text)
+configuration_description = Lens.lens (\Configuration' {description} -> description) (\s@Configuration' {} a -> s {description = a} :: Configuration)
 
 -- | Required. The date and time of the configuration revision.
-cCreated :: Lens' Configuration (Maybe UTCTime)
-cCreated = lens _cCreated (\s a -> s {_cCreated = a}) . mapping _Time
+configuration_created :: Lens.Lens' Configuration (Prelude.Maybe Prelude.UTCTime)
+configuration_created = Lens.lens (\Configuration' {created} -> created) (\s@Configuration' {} a -> s {created = a} :: Configuration) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON Configuration where
+instance Prelude.FromJSON Configuration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Configuration"
       ( \x ->
           Configuration'
-            <$> (x .:? "engineType")
-            <*> (x .:? "authenticationStrategy")
-            <*> (x .:? "latestRevision")
-            <*> (x .:? "arn")
-            <*> (x .:? "id")
-            <*> (x .:? "name")
-            <*> (x .:? "engineVersion")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "description")
-            <*> (x .:? "created")
+            Prelude.<$> (x Prelude..:? "engineType")
+            Prelude.<*> (x Prelude..:? "authenticationStrategy")
+            Prelude.<*> (x Prelude..:? "latestRevision")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "engineVersion")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "created")
       )
 
-instance Hashable Configuration
+instance Prelude.Hashable Configuration
 
-instance NFData Configuration
+instance Prelude.NFData Configuration

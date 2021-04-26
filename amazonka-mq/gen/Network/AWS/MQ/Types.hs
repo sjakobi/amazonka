@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types
   ( -- * Service Configuration
-    mq,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -47,177 +50,91 @@ module Network.AWS.MQ.Types
 
     -- * AvailabilityZone
     AvailabilityZone (..),
-    availabilityZone,
-    azName,
+    newAvailabilityZone,
 
     -- * BrokerEngineType
     BrokerEngineType (..),
-    brokerEngineType,
-    betEngineType,
-    betEngineVersions,
+    newBrokerEngineType,
 
     -- * BrokerInstance
     BrokerInstance (..),
-    brokerInstance,
-    biEndpoints,
-    biIPAddress,
-    biConsoleURL,
+    newBrokerInstance,
 
     -- * BrokerInstanceOption
     BrokerInstanceOption (..),
-    brokerInstanceOption,
-    bioAvailabilityZones,
-    bioStorageType,
-    bioEngineType,
-    bioSupportedDeploymentModes,
-    bioSupportedEngineVersions,
-    bioHostInstanceType,
+    newBrokerInstanceOption,
 
     -- * BrokerSummary
     BrokerSummary (..),
-    brokerSummary,
-    bsBrokerName,
-    bsBrokerId,
-    bsEngineType,
-    bsBrokerState,
-    bsHostInstanceType,
-    bsBrokerARN,
-    bsCreated,
-    bsDeploymentMode,
+    newBrokerSummary,
 
     -- * Configuration
     Configuration (..),
-    configuration,
-    cEngineType,
-    cAuthenticationStrategy,
-    cLatestRevision,
-    cARN,
-    cId,
-    cName,
-    cEngineVersion,
-    cTags,
-    cDescription,
-    cCreated,
+    newConfiguration,
 
     -- * ConfigurationId
     ConfigurationId (..),
-    configurationId,
-    ciId,
-    ciRevision,
+    newConfigurationId,
 
     -- * ConfigurationRevision
     ConfigurationRevision (..),
-    configurationRevision,
-    crDescription,
-    crRevision,
-    crCreated,
+    newConfigurationRevision,
 
     -- * Configurations
     Configurations (..),
-    configurations,
-    cPending,
-    cCurrent,
-    cHistory,
+    newConfigurations,
 
     -- * EncryptionOptions
     EncryptionOptions (..),
-    encryptionOptions,
-    eoKMSKeyId,
-    eoUseAWSOwnedKey,
+    newEncryptionOptions,
 
     -- * EngineVersion
     EngineVersion (..),
-    engineVersion,
-    evName,
+    newEngineVersion,
 
     -- * LdapServerMetadataInput
     LdapServerMetadataInput (..),
-    ldapServerMetadataInput,
-    lsmiUserBase,
-    lsmiUserSearchMatching,
-    lsmiRoleName,
-    lsmiServiceAccountPassword,
-    lsmiUserSearchSubtree,
-    lsmiServiceAccountUsername,
-    lsmiUserRoleName,
-    lsmiRoleBase,
-    lsmiRoleSearchMatching,
-    lsmiHosts,
-    lsmiRoleSearchSubtree,
+    newLdapServerMetadataInput,
 
     -- * LdapServerMetadataOutput
     LdapServerMetadataOutput (..),
-    ldapServerMetadataOutput,
-    lsmoUserBase,
-    lsmoUserSearchMatching,
-    lsmoRoleName,
-    lsmoUserSearchSubtree,
-    lsmoServiceAccountUsername,
-    lsmoUserRoleName,
-    lsmoRoleBase,
-    lsmoRoleSearchMatching,
-    lsmoHosts,
-    lsmoRoleSearchSubtree,
+    newLdapServerMetadataOutput,
 
     -- * Logs
     Logs (..),
-    logs,
-    lGeneral,
-    lAudit,
+    newLogs,
 
     -- * LogsSummary
     LogsSummary (..),
-    logsSummary,
-    lsGeneral,
-    lsAudit,
-    lsPending,
-    lsAuditLogGroup,
-    lsGeneralLogGroup,
+    newLogsSummary,
 
     -- * PendingLogs
     PendingLogs (..),
-    pendingLogs,
-    plGeneral,
-    plAudit,
+    newPendingLogs,
 
     -- * SanitizationWarning
     SanitizationWarning (..),
-    sanitizationWarning,
-    swElementName,
-    swAttributeName,
-    swReason,
+    newSanitizationWarning,
 
     -- * User
     User (..),
-    user,
-    uGroups,
-    uPassword,
-    uUsername,
-    uConsoleAccess,
+    newUser,
 
     -- * UserPendingChanges
     UserPendingChanges (..),
-    userPendingChanges,
-    upcGroups,
-    upcPendingChange,
-    upcConsoleAccess,
+    newUserPendingChanges,
 
     -- * UserSummary
     UserSummary (..),
-    userSummary,
-    usPendingChange,
-    usUsername,
+    newUserSummary,
 
     -- * WeeklyStartTime
     WeeklyStartTime (..),
-    weeklyStartTime,
-    wstDayOfWeek,
-    wstTimeOfDay,
-    wstTimeZone,
+    newWeeklyStartTime,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types.AuthenticationStrategy
 import Network.AWS.MQ.Types.AvailabilityZone
 import Network.AWS.MQ.Types.BrokerEngineType
@@ -247,94 +164,122 @@ import Network.AWS.MQ.Types.User
 import Network.AWS.MQ.Types.UserPendingChanges
 import Network.AWS.MQ.Types.UserSummary
 import Network.AWS.MQ.Types.WeeklyStartTime
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-11-27@ of the Amazon MQ SDK configuration.
-mq :: Service
-mq =
-  Service
-    { _svcAbbrev = "MQ",
-      _svcSigner = v4,
-      _svcPrefix = "mq",
-      _svcVersion = "2017-11-27",
-      _svcEndpoint = defaultEndpoint mq,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "MQ",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "MQ",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "mq",
+      Prelude._svcVersion = "2017-11-27",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseJSONError "MQ",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | Returns information about an error.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError mq "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
 -- | Returns information about an error.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError mq "BadRequestException"
-    . hasStatus 400
+  Prelude._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Prelude.hasStatus 400
 
 -- | Returns information about an error.
-_UnauthorizedException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnauthorizedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedException =
-  _MatchServiceError mq "UnauthorizedException"
-    . hasStatus 401
+  Prelude._MatchServiceError
+    defaultService
+    "UnauthorizedException"
+    Prelude.. Prelude.hasStatus 401
 
 -- | Returns information about an error.
-_InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServerErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerErrorException =
-  _MatchServiceError
-    mq
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerErrorException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
 -- | Returns information about an error.
-_ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
+_ForbiddenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ForbiddenException =
-  _MatchServiceError mq "ForbiddenException"
-    . hasStatus 403
+  Prelude._MatchServiceError
+    defaultService
+    "ForbiddenException"
+    Prelude.. Prelude.hasStatus 403
 
 -- | Returns information about an error.
-_ConflictException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConflictException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConflictException =
-  _MatchServiceError mq "ConflictException"
-    . hasStatus 409
+  Prelude._MatchServiceError
+    defaultService
+    "ConflictException"
+    Prelude.. Prelude.hasStatus 409

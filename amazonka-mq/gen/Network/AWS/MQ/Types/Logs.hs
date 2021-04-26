@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.Logs where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The list of information about logs to be enabled for the specified broker.
+-- | The list of information about logs to be enabled for the specified
+-- broker.
 --
--- /See:/ 'logs' smart constructor.
+-- /See:/ 'newLogs' smart constructor.
 data Logs = Logs'
-  { _lGeneral :: !(Maybe Bool),
-    _lAudit :: !(Maybe Bool)
+  { -- | Enables general logging.
+    general :: Prelude.Maybe Prelude.Bool,
+    -- | Enables audit logging. Every user management action made using JMX or
+    -- the ActiveMQ Web Console is logged. Does not apply to RabbitMQ brokers.
+    audit :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Logs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Logs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lGeneral' - Enables general logging.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lAudit' - Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. Does not apply to RabbitMQ brokers.
-logs ::
+-- 'general', 'logs_general' - Enables general logging.
+--
+-- 'audit', 'logs_audit' - Enables audit logging. Every user management action made using JMX or
+-- the ActiveMQ Web Console is logged. Does not apply to RabbitMQ brokers.
+newLogs ::
   Logs
-logs = Logs' {_lGeneral = Nothing, _lAudit = Nothing}
+newLogs =
+  Logs'
+    { general = Prelude.Nothing,
+      audit = Prelude.Nothing
+    }
 
 -- | Enables general logging.
-lGeneral :: Lens' Logs (Maybe Bool)
-lGeneral = lens _lGeneral (\s a -> s {_lGeneral = a})
+logs_general :: Lens.Lens' Logs (Prelude.Maybe Prelude.Bool)
+logs_general = Lens.lens (\Logs' {general} -> general) (\s@Logs' {} a -> s {general = a} :: Logs)
 
--- | Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. Does not apply to RabbitMQ brokers.
-lAudit :: Lens' Logs (Maybe Bool)
-lAudit = lens _lAudit (\s a -> s {_lAudit = a})
+-- | Enables audit logging. Every user management action made using JMX or
+-- the ActiveMQ Web Console is logged. Does not apply to RabbitMQ brokers.
+logs_audit :: Lens.Lens' Logs (Prelude.Maybe Prelude.Bool)
+logs_audit = Lens.lens (\Logs' {audit} -> audit) (\s@Logs' {} a -> s {audit = a} :: Logs)
 
-instance FromJSON Logs where
+instance Prelude.FromJSON Logs where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Logs"
       ( \x ->
-          Logs' <$> (x .:? "general") <*> (x .:? "audit")
+          Logs'
+            Prelude.<$> (x Prelude..:? "general")
+            Prelude.<*> (x Prelude..:? "audit")
       )
 
-instance Hashable Logs
+instance Prelude.Hashable Logs
 
-instance NFData Logs
+instance Prelude.NFData Logs
 
-instance ToJSON Logs where
+instance Prelude.ToJSON Logs where
   toJSON Logs' {..} =
-    object
-      ( catMaybes
-          [ ("general" .=) <$> _lGeneral,
-            ("audit" .=) <$> _lAudit
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("general" Prelude..=) Prelude.<$> general,
+            ("audit" Prelude..=) Prelude.<$> audit
           ]
       )

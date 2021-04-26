@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.BrokerInstance where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about all brokers.
 --
--- /See:/ 'brokerInstance' smart constructor.
+-- /See:/ 'newBrokerInstance' smart constructor.
 data BrokerInstance = BrokerInstance'
-  { _biEndpoints ::
-      !(Maybe [Text]),
-    _biIPAddress :: !(Maybe Text),
-    _biConsoleURL :: !(Maybe Text)
+  { -- | The broker\'s wire-level protocol endpoints.
+    endpoints :: Prelude.Maybe [Prelude.Text],
+    -- | The IP address of the Elastic Network Interface (ENI) attached to the
+    -- broker. Does not apply to RabbitMQ brokers
+    ipAddress :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the broker\'s Web Console.
+    consoleURL :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BrokerInstance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BrokerInstance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'biEndpoints' - The broker's wire-level protocol endpoints.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'biIPAddress' - The IP address of the Elastic Network Interface (ENI) attached to the broker. Does not apply to RabbitMQ brokers
+-- 'endpoints', 'brokerInstance_endpoints' - The broker\'s wire-level protocol endpoints.
 --
--- * 'biConsoleURL' - The URL of the broker's Web Console.
-brokerInstance ::
+-- 'ipAddress', 'brokerInstance_ipAddress' - The IP address of the Elastic Network Interface (ENI) attached to the
+-- broker. Does not apply to RabbitMQ brokers
+--
+-- 'consoleURL', 'brokerInstance_consoleURL' - The URL of the broker\'s Web Console.
+newBrokerInstance ::
   BrokerInstance
-brokerInstance =
+newBrokerInstance =
   BrokerInstance'
-    { _biEndpoints = Nothing,
-      _biIPAddress = Nothing,
-      _biConsoleURL = Nothing
+    { endpoints = Prelude.Nothing,
+      ipAddress = Prelude.Nothing,
+      consoleURL = Prelude.Nothing
     }
 
--- | The broker's wire-level protocol endpoints.
-biEndpoints :: Lens' BrokerInstance [Text]
-biEndpoints = lens _biEndpoints (\s a -> s {_biEndpoints = a}) . _Default . _Coerce
+-- | The broker\'s wire-level protocol endpoints.
+brokerInstance_endpoints :: Lens.Lens' BrokerInstance (Prelude.Maybe [Prelude.Text])
+brokerInstance_endpoints = Lens.lens (\BrokerInstance' {endpoints} -> endpoints) (\s@BrokerInstance' {} a -> s {endpoints = a} :: BrokerInstance) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The IP address of the Elastic Network Interface (ENI) attached to the broker. Does not apply to RabbitMQ brokers
-biIPAddress :: Lens' BrokerInstance (Maybe Text)
-biIPAddress = lens _biIPAddress (\s a -> s {_biIPAddress = a})
+-- | The IP address of the Elastic Network Interface (ENI) attached to the
+-- broker. Does not apply to RabbitMQ brokers
+brokerInstance_ipAddress :: Lens.Lens' BrokerInstance (Prelude.Maybe Prelude.Text)
+brokerInstance_ipAddress = Lens.lens (\BrokerInstance' {ipAddress} -> ipAddress) (\s@BrokerInstance' {} a -> s {ipAddress = a} :: BrokerInstance)
 
--- | The URL of the broker's Web Console.
-biConsoleURL :: Lens' BrokerInstance (Maybe Text)
-biConsoleURL = lens _biConsoleURL (\s a -> s {_biConsoleURL = a})
+-- | The URL of the broker\'s Web Console.
+brokerInstance_consoleURL :: Lens.Lens' BrokerInstance (Prelude.Maybe Prelude.Text)
+brokerInstance_consoleURL = Lens.lens (\BrokerInstance' {consoleURL} -> consoleURL) (\s@BrokerInstance' {} a -> s {consoleURL = a} :: BrokerInstance)
 
-instance FromJSON BrokerInstance where
+instance Prelude.FromJSON BrokerInstance where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BrokerInstance"
       ( \x ->
           BrokerInstance'
-            <$> (x .:? "endpoints" .!= mempty)
-            <*> (x .:? "ipAddress")
-            <*> (x .:? "consoleURL")
+            Prelude.<$> ( x Prelude..:? "endpoints"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ipAddress")
+            Prelude.<*> (x Prelude..:? "consoleURL")
       )
 
-instance Hashable BrokerInstance
+instance Prelude.Hashable BrokerInstance
 
-instance NFData BrokerInstance
+instance Prelude.NFData BrokerInstance

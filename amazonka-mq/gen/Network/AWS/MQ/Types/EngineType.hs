@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MQ.Types.EngineType
   ( EngineType
       ( ..,
-        Activemq,
-        Rabbitmq
+        EngineTypeACTIVEMQ,
+        EngineTypeRABBITMQ
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The type of broker engine. Note: Currently, Amazon MQ supports ActiveMQ and RabbitMQ.
-data EngineType = EngineType' (CI Text)
+-- | The type of broker engine. Note: Currently, Amazon MQ supports ActiveMQ
+-- and RabbitMQ.
+newtype EngineType = EngineType'
+  { fromEngineType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Activemq :: EngineType
-pattern Activemq = EngineType' "ACTIVEMQ"
+pattern EngineTypeACTIVEMQ :: EngineType
+pattern EngineTypeACTIVEMQ = EngineType' "ACTIVEMQ"
 
-pattern Rabbitmq :: EngineType
-pattern Rabbitmq = EngineType' "RABBITMQ"
+pattern EngineTypeRABBITMQ :: EngineType
+pattern EngineTypeRABBITMQ = EngineType' "RABBITMQ"
 
 {-# COMPLETE
-  Activemq,
-  Rabbitmq,
+  EngineTypeACTIVEMQ,
+  EngineTypeRABBITMQ,
   EngineType'
   #-}
 
-instance FromText EngineType where
-  parser = (EngineType' . mk) <$> takeText
+instance Prelude.FromText EngineType where
+  parser = EngineType' Prelude.<$> Prelude.takeText
 
-instance ToText EngineType where
-  toText (EngineType' ci) = original ci
+instance Prelude.ToText EngineType where
+  toText (EngineType' x) = x
 
-instance Hashable EngineType
+instance Prelude.Hashable EngineType
 
-instance NFData EngineType
+instance Prelude.NFData EngineType
 
-instance ToByteString EngineType
+instance Prelude.ToByteString EngineType
 
-instance ToQuery EngineType
+instance Prelude.ToQuery EngineType
 
-instance ToHeader EngineType
+instance Prelude.ToHeader EngineType
 
-instance ToJSON EngineType where
-  toJSON = toJSONText
+instance Prelude.ToJSON EngineType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EngineType where
-  parseJSON = parseJSONText "EngineType"
+instance Prelude.FromJSON EngineType where
+  parseJSON = Prelude.parseJSONText "EngineType"

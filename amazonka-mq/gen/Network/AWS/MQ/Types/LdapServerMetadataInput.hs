@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,153 +19,169 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.LdapServerMetadataInput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+-- | The metadata of the LDAP server used to authenticate and authorize
+-- connections to the broker.
 --
--- /See:/ 'ldapServerMetadataInput' smart constructor.
+-- /See:/ 'newLdapServerMetadataInput' smart constructor.
 data LdapServerMetadataInput = LdapServerMetadataInput'
-  { _lsmiUserBase ::
-      !(Maybe Text),
-    _lsmiUserSearchMatching ::
-      !(Maybe Text),
-    _lsmiRoleName ::
-      !(Maybe Text),
-    _lsmiServiceAccountPassword ::
-      !(Maybe Text),
-    _lsmiUserSearchSubtree ::
-      !(Maybe Bool),
-    _lsmiServiceAccountUsername ::
-      !(Maybe Text),
-    _lsmiUserRoleName ::
-      !(Maybe Text),
-    _lsmiRoleBase ::
-      !(Maybe Text),
-    _lsmiRoleSearchMatching ::
-      !(Maybe Text),
-    _lsmiHosts ::
-      !(Maybe [Text]),
-    _lsmiRoleSearchSubtree ::
-      !(Maybe Bool)
+  { -- | Fully qualified name of the directory where you want to search for
+    -- users.
+    userBase :: Prelude.Maybe Prelude.Text,
+    -- | The search criteria for users.
+    userSearchMatching :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the LDAP attribute that identifies the group name attribute in
+    -- the object returned from the group membership query.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | Service account password.
+    serviceAccountPassword :: Prelude.Maybe Prelude.Text,
+    -- | The directory search scope for the user. If set to true, scope is to
+    -- search the entire sub-tree.
+    userSearchSubtree :: Prelude.Maybe Prelude.Bool,
+    -- | Service account username.
+    serviceAccountUsername :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of the LDAP attribute for the user group membership.
+    userRoleName :: Prelude.Maybe Prelude.Text,
+    -- | Fully qualified name of the directory to search for a user’s groups.
+    roleBase :: Prelude.Maybe Prelude.Text,
+    -- | The search criteria for groups.
+    roleSearchMatching :: Prelude.Maybe Prelude.Text,
+    -- | Fully qualified domain name of the LDAP server. Optional failover
+    -- server.
+    hosts :: Prelude.Maybe [Prelude.Text],
+    -- | The directory search scope for the role. If set to true, scope is to
+    -- search the entire sub-tree.
+    roleSearchSubtree :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LdapServerMetadataInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LdapServerMetadataInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsmiUserBase' - Fully qualified name of the directory where you want to search for users.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsmiUserSearchMatching' - The search criteria for users.
+-- 'userBase', 'ldapServerMetadataInput_userBase' - Fully qualified name of the directory where you want to search for
+-- users.
 --
--- * 'lsmiRoleName' - Specifies the LDAP attribute that identifies the group name attribute in the object returned from the group membership query.
+-- 'userSearchMatching', 'ldapServerMetadataInput_userSearchMatching' - The search criteria for users.
 --
--- * 'lsmiServiceAccountPassword' - Service account password.
+-- 'roleName', 'ldapServerMetadataInput_roleName' - Specifies the LDAP attribute that identifies the group name attribute in
+-- the object returned from the group membership query.
 --
--- * 'lsmiUserSearchSubtree' - The directory search scope for the user. If set to true, scope is to search the entire sub-tree.
+-- 'serviceAccountPassword', 'ldapServerMetadataInput_serviceAccountPassword' - Service account password.
 --
--- * 'lsmiServiceAccountUsername' - Service account username.
+-- 'userSearchSubtree', 'ldapServerMetadataInput_userSearchSubtree' - The directory search scope for the user. If set to true, scope is to
+-- search the entire sub-tree.
 --
--- * 'lsmiUserRoleName' - Specifies the name of the LDAP attribute for the user group membership.
+-- 'serviceAccountUsername', 'ldapServerMetadataInput_serviceAccountUsername' - Service account username.
 --
--- * 'lsmiRoleBase' - Fully qualified name of the directory to search for a user’s groups.
+-- 'userRoleName', 'ldapServerMetadataInput_userRoleName' - Specifies the name of the LDAP attribute for the user group membership.
 --
--- * 'lsmiRoleSearchMatching' - The search criteria for groups.
+-- 'roleBase', 'ldapServerMetadataInput_roleBase' - Fully qualified name of the directory to search for a user’s groups.
 --
--- * 'lsmiHosts' - Fully qualified domain name of the LDAP server. Optional failover server.
+-- 'roleSearchMatching', 'ldapServerMetadataInput_roleSearchMatching' - The search criteria for groups.
 --
--- * 'lsmiRoleSearchSubtree' - The directory search scope for the role. If set to true, scope is to search the entire sub-tree.
-ldapServerMetadataInput ::
+-- 'hosts', 'ldapServerMetadataInput_hosts' - Fully qualified domain name of the LDAP server. Optional failover
+-- server.
+--
+-- 'roleSearchSubtree', 'ldapServerMetadataInput_roleSearchSubtree' - The directory search scope for the role. If set to true, scope is to
+-- search the entire sub-tree.
+newLdapServerMetadataInput ::
   LdapServerMetadataInput
-ldapServerMetadataInput =
+newLdapServerMetadataInput =
   LdapServerMetadataInput'
-    { _lsmiUserBase = Nothing,
-      _lsmiUserSearchMatching = Nothing,
-      _lsmiRoleName = Nothing,
-      _lsmiServiceAccountPassword = Nothing,
-      _lsmiUserSearchSubtree = Nothing,
-      _lsmiServiceAccountUsername = Nothing,
-      _lsmiUserRoleName = Nothing,
-      _lsmiRoleBase = Nothing,
-      _lsmiRoleSearchMatching = Nothing,
-      _lsmiHosts = Nothing,
-      _lsmiRoleSearchSubtree = Nothing
+    { userBase =
+        Prelude.Nothing,
+      userSearchMatching = Prelude.Nothing,
+      roleName = Prelude.Nothing,
+      serviceAccountPassword = Prelude.Nothing,
+      userSearchSubtree = Prelude.Nothing,
+      serviceAccountUsername = Prelude.Nothing,
+      userRoleName = Prelude.Nothing,
+      roleBase = Prelude.Nothing,
+      roleSearchMatching = Prelude.Nothing,
+      hosts = Prelude.Nothing,
+      roleSearchSubtree = Prelude.Nothing
     }
 
--- | Fully qualified name of the directory where you want to search for users.
-lsmiUserBase :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiUserBase = lens _lsmiUserBase (\s a -> s {_lsmiUserBase = a})
+-- | Fully qualified name of the directory where you want to search for
+-- users.
+ldapServerMetadataInput_userBase :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_userBase = Lens.lens (\LdapServerMetadataInput' {userBase} -> userBase) (\s@LdapServerMetadataInput' {} a -> s {userBase = a} :: LdapServerMetadataInput)
 
 -- | The search criteria for users.
-lsmiUserSearchMatching :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiUserSearchMatching = lens _lsmiUserSearchMatching (\s a -> s {_lsmiUserSearchMatching = a})
+ldapServerMetadataInput_userSearchMatching :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_userSearchMatching = Lens.lens (\LdapServerMetadataInput' {userSearchMatching} -> userSearchMatching) (\s@LdapServerMetadataInput' {} a -> s {userSearchMatching = a} :: LdapServerMetadataInput)
 
--- | Specifies the LDAP attribute that identifies the group name attribute in the object returned from the group membership query.
-lsmiRoleName :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiRoleName = lens _lsmiRoleName (\s a -> s {_lsmiRoleName = a})
+-- | Specifies the LDAP attribute that identifies the group name attribute in
+-- the object returned from the group membership query.
+ldapServerMetadataInput_roleName :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_roleName = Lens.lens (\LdapServerMetadataInput' {roleName} -> roleName) (\s@LdapServerMetadataInput' {} a -> s {roleName = a} :: LdapServerMetadataInput)
 
 -- | Service account password.
-lsmiServiceAccountPassword :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiServiceAccountPassword = lens _lsmiServiceAccountPassword (\s a -> s {_lsmiServiceAccountPassword = a})
+ldapServerMetadataInput_serviceAccountPassword :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_serviceAccountPassword = Lens.lens (\LdapServerMetadataInput' {serviceAccountPassword} -> serviceAccountPassword) (\s@LdapServerMetadataInput' {} a -> s {serviceAccountPassword = a} :: LdapServerMetadataInput)
 
--- | The directory search scope for the user. If set to true, scope is to search the entire sub-tree.
-lsmiUserSearchSubtree :: Lens' LdapServerMetadataInput (Maybe Bool)
-lsmiUserSearchSubtree = lens _lsmiUserSearchSubtree (\s a -> s {_lsmiUserSearchSubtree = a})
+-- | The directory search scope for the user. If set to true, scope is to
+-- search the entire sub-tree.
+ldapServerMetadataInput_userSearchSubtree :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Bool)
+ldapServerMetadataInput_userSearchSubtree = Lens.lens (\LdapServerMetadataInput' {userSearchSubtree} -> userSearchSubtree) (\s@LdapServerMetadataInput' {} a -> s {userSearchSubtree = a} :: LdapServerMetadataInput)
 
 -- | Service account username.
-lsmiServiceAccountUsername :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiServiceAccountUsername = lens _lsmiServiceAccountUsername (\s a -> s {_lsmiServiceAccountUsername = a})
+ldapServerMetadataInput_serviceAccountUsername :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_serviceAccountUsername = Lens.lens (\LdapServerMetadataInput' {serviceAccountUsername} -> serviceAccountUsername) (\s@LdapServerMetadataInput' {} a -> s {serviceAccountUsername = a} :: LdapServerMetadataInput)
 
 -- | Specifies the name of the LDAP attribute for the user group membership.
-lsmiUserRoleName :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiUserRoleName = lens _lsmiUserRoleName (\s a -> s {_lsmiUserRoleName = a})
+ldapServerMetadataInput_userRoleName :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_userRoleName = Lens.lens (\LdapServerMetadataInput' {userRoleName} -> userRoleName) (\s@LdapServerMetadataInput' {} a -> s {userRoleName = a} :: LdapServerMetadataInput)
 
 -- | Fully qualified name of the directory to search for a user’s groups.
-lsmiRoleBase :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiRoleBase = lens _lsmiRoleBase (\s a -> s {_lsmiRoleBase = a})
+ldapServerMetadataInput_roleBase :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_roleBase = Lens.lens (\LdapServerMetadataInput' {roleBase} -> roleBase) (\s@LdapServerMetadataInput' {} a -> s {roleBase = a} :: LdapServerMetadataInput)
 
 -- | The search criteria for groups.
-lsmiRoleSearchMatching :: Lens' LdapServerMetadataInput (Maybe Text)
-lsmiRoleSearchMatching = lens _lsmiRoleSearchMatching (\s a -> s {_lsmiRoleSearchMatching = a})
+ldapServerMetadataInput_roleSearchMatching :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataInput_roleSearchMatching = Lens.lens (\LdapServerMetadataInput' {roleSearchMatching} -> roleSearchMatching) (\s@LdapServerMetadataInput' {} a -> s {roleSearchMatching = a} :: LdapServerMetadataInput)
 
--- | Fully qualified domain name of the LDAP server. Optional failover server.
-lsmiHosts :: Lens' LdapServerMetadataInput [Text]
-lsmiHosts = lens _lsmiHosts (\s a -> s {_lsmiHosts = a}) . _Default . _Coerce
+-- | Fully qualified domain name of the LDAP server. Optional failover
+-- server.
+ldapServerMetadataInput_hosts :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe [Prelude.Text])
+ldapServerMetadataInput_hosts = Lens.lens (\LdapServerMetadataInput' {hosts} -> hosts) (\s@LdapServerMetadataInput' {} a -> s {hosts = a} :: LdapServerMetadataInput) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The directory search scope for the role. If set to true, scope is to search the entire sub-tree.
-lsmiRoleSearchSubtree :: Lens' LdapServerMetadataInput (Maybe Bool)
-lsmiRoleSearchSubtree = lens _lsmiRoleSearchSubtree (\s a -> s {_lsmiRoleSearchSubtree = a})
+-- | The directory search scope for the role. If set to true, scope is to
+-- search the entire sub-tree.
+ldapServerMetadataInput_roleSearchSubtree :: Lens.Lens' LdapServerMetadataInput (Prelude.Maybe Prelude.Bool)
+ldapServerMetadataInput_roleSearchSubtree = Lens.lens (\LdapServerMetadataInput' {roleSearchSubtree} -> roleSearchSubtree) (\s@LdapServerMetadataInput' {} a -> s {roleSearchSubtree = a} :: LdapServerMetadataInput)
 
-instance Hashable LdapServerMetadataInput
+instance Prelude.Hashable LdapServerMetadataInput
 
-instance NFData LdapServerMetadataInput
+instance Prelude.NFData LdapServerMetadataInput
 
-instance ToJSON LdapServerMetadataInput where
+instance Prelude.ToJSON LdapServerMetadataInput where
   toJSON LdapServerMetadataInput' {..} =
-    object
-      ( catMaybes
-          [ ("userBase" .=) <$> _lsmiUserBase,
-            ("userSearchMatching" .=)
-              <$> _lsmiUserSearchMatching,
-            ("roleName" .=) <$> _lsmiRoleName,
-            ("serviceAccountPassword" .=)
-              <$> _lsmiServiceAccountPassword,
-            ("userSearchSubtree" .=) <$> _lsmiUserSearchSubtree,
-            ("serviceAccountUsername" .=)
-              <$> _lsmiServiceAccountUsername,
-            ("userRoleName" .=) <$> _lsmiUserRoleName,
-            ("roleBase" .=) <$> _lsmiRoleBase,
-            ("roleSearchMatching" .=)
-              <$> _lsmiRoleSearchMatching,
-            ("hosts" .=) <$> _lsmiHosts,
-            ("roleSearchSubtree" .=) <$> _lsmiRoleSearchSubtree
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("userBase" Prelude..=) Prelude.<$> userBase,
+            ("userSearchMatching" Prelude..=)
+              Prelude.<$> userSearchMatching,
+            ("roleName" Prelude..=) Prelude.<$> roleName,
+            ("serviceAccountPassword" Prelude..=)
+              Prelude.<$> serviceAccountPassword,
+            ("userSearchSubtree" Prelude..=)
+              Prelude.<$> userSearchSubtree,
+            ("serviceAccountUsername" Prelude..=)
+              Prelude.<$> serviceAccountUsername,
+            ("userRoleName" Prelude..=) Prelude.<$> userRoleName,
+            ("roleBase" Prelude..=) Prelude.<$> roleBase,
+            ("roleSearchMatching" Prelude..=)
+              Prelude.<$> roleSearchMatching,
+            ("hosts" Prelude..=) Prelude.<$> hosts,
+            ("roleSearchSubtree" Prelude..=)
+              Prelude.<$> roleSearchSubtree
           ]
       )

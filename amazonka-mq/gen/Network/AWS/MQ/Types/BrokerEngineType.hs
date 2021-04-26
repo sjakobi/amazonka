@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.BrokerEngineType where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types.EngineType
 import Network.AWS.MQ.Types.EngineVersion
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Types of broker engines.
 --
--- /See:/ 'brokerEngineType' smart constructor.
+-- /See:/ 'newBrokerEngineType' smart constructor.
 data BrokerEngineType = BrokerEngineType'
-  { _betEngineType ::
-      !(Maybe EngineType),
-    _betEngineVersions ::
-      !(Maybe [EngineVersion])
+  { -- | The type of broker engine.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The list of engine versions.
+    engineVersions :: Prelude.Maybe [EngineVersion]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BrokerEngineType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BrokerEngineType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'betEngineType' - The type of broker engine.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'betEngineVersions' - The list of engine versions.
-brokerEngineType ::
+-- 'engineType', 'brokerEngineType_engineType' - The type of broker engine.
+--
+-- 'engineVersions', 'brokerEngineType_engineVersions' - The list of engine versions.
+newBrokerEngineType ::
   BrokerEngineType
-brokerEngineType =
+newBrokerEngineType =
   BrokerEngineType'
-    { _betEngineType = Nothing,
-      _betEngineVersions = Nothing
+    { engineType = Prelude.Nothing,
+      engineVersions = Prelude.Nothing
     }
 
 -- | The type of broker engine.
-betEngineType :: Lens' BrokerEngineType (Maybe EngineType)
-betEngineType = lens _betEngineType (\s a -> s {_betEngineType = a})
+brokerEngineType_engineType :: Lens.Lens' BrokerEngineType (Prelude.Maybe EngineType)
+brokerEngineType_engineType = Lens.lens (\BrokerEngineType' {engineType} -> engineType) (\s@BrokerEngineType' {} a -> s {engineType = a} :: BrokerEngineType)
 
 -- | The list of engine versions.
-betEngineVersions :: Lens' BrokerEngineType [EngineVersion]
-betEngineVersions = lens _betEngineVersions (\s a -> s {_betEngineVersions = a}) . _Default . _Coerce
+brokerEngineType_engineVersions :: Lens.Lens' BrokerEngineType (Prelude.Maybe [EngineVersion])
+brokerEngineType_engineVersions = Lens.lens (\BrokerEngineType' {engineVersions} -> engineVersions) (\s@BrokerEngineType' {} a -> s {engineVersions = a} :: BrokerEngineType) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BrokerEngineType where
+instance Prelude.FromJSON BrokerEngineType where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BrokerEngineType"
       ( \x ->
           BrokerEngineType'
-            <$> (x .:? "engineType")
-            <*> (x .:? "engineVersions" .!= mempty)
+            Prelude.<$> (x Prelude..:? "engineType")
+            Prelude.<*> ( x Prelude..:? "engineVersions"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BrokerEngineType
+instance Prelude.Hashable BrokerEngineType
 
-instance NFData BrokerEngineType
+instance Prelude.NFData BrokerEngineType

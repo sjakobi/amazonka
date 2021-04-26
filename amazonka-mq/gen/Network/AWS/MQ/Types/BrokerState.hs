@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.MQ.Types.BrokerState
   ( BrokerState
       ( ..,
-        CreationFailed,
-        CreationInProgress,
-        DeletionInProgress,
-        RebootInProgress,
-        Running
+        BrokerStateCREATIONFAILED,
+        BrokerStateCREATIONINPROGRESS,
+        BrokerStateDELETIONINPROGRESS,
+        BrokerStateREBOOTINPROGRESS,
+        BrokerStateRUNNING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of the broker.
-data BrokerState = BrokerState' (CI Text)
+newtype BrokerState = BrokerState'
+  { fromBrokerState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreationFailed :: BrokerState
-pattern CreationFailed = BrokerState' "CREATION_FAILED"
+pattern BrokerStateCREATIONFAILED :: BrokerState
+pattern BrokerStateCREATIONFAILED = BrokerState' "CREATION_FAILED"
 
-pattern CreationInProgress :: BrokerState
-pattern CreationInProgress = BrokerState' "CREATION_IN_PROGRESS"
+pattern BrokerStateCREATIONINPROGRESS :: BrokerState
+pattern BrokerStateCREATIONINPROGRESS = BrokerState' "CREATION_IN_PROGRESS"
 
-pattern DeletionInProgress :: BrokerState
-pattern DeletionInProgress = BrokerState' "DELETION_IN_PROGRESS"
+pattern BrokerStateDELETIONINPROGRESS :: BrokerState
+pattern BrokerStateDELETIONINPROGRESS = BrokerState' "DELETION_IN_PROGRESS"
 
-pattern RebootInProgress :: BrokerState
-pattern RebootInProgress = BrokerState' "REBOOT_IN_PROGRESS"
+pattern BrokerStateREBOOTINPROGRESS :: BrokerState
+pattern BrokerStateREBOOTINPROGRESS = BrokerState' "REBOOT_IN_PROGRESS"
 
-pattern Running :: BrokerState
-pattern Running = BrokerState' "RUNNING"
+pattern BrokerStateRUNNING :: BrokerState
+pattern BrokerStateRUNNING = BrokerState' "RUNNING"
 
 {-# COMPLETE
-  CreationFailed,
-  CreationInProgress,
-  DeletionInProgress,
-  RebootInProgress,
-  Running,
+  BrokerStateCREATIONFAILED,
+  BrokerStateCREATIONINPROGRESS,
+  BrokerStateDELETIONINPROGRESS,
+  BrokerStateREBOOTINPROGRESS,
+  BrokerStateRUNNING,
   BrokerState'
   #-}
 
-instance FromText BrokerState where
-  parser = (BrokerState' . mk) <$> takeText
+instance Prelude.FromText BrokerState where
+  parser = BrokerState' Prelude.<$> Prelude.takeText
 
-instance ToText BrokerState where
-  toText (BrokerState' ci) = original ci
+instance Prelude.ToText BrokerState where
+  toText (BrokerState' x) = x
 
-instance Hashable BrokerState
+instance Prelude.Hashable BrokerState
 
-instance NFData BrokerState
+instance Prelude.NFData BrokerState
 
-instance ToByteString BrokerState
+instance Prelude.ToByteString BrokerState
 
-instance ToQuery BrokerState
+instance Prelude.ToQuery BrokerState
 
-instance ToHeader BrokerState
+instance Prelude.ToHeader BrokerState
 
-instance FromJSON BrokerState where
-  parseJSON = parseJSONText "BrokerState"
+instance Prelude.FromJSON BrokerState where
+  parseJSON = Prelude.parseJSONText "BrokerState"

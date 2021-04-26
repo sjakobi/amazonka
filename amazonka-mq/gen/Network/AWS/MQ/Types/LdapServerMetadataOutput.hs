@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,140 +19,154 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.LdapServerMetadataOutput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+-- | The metadata of the LDAP server used to authenticate and authorize
+-- connections to the broker.
 --
--- /See:/ 'ldapServerMetadataOutput' smart constructor.
+-- /See:/ 'newLdapServerMetadataOutput' smart constructor.
 data LdapServerMetadataOutput = LdapServerMetadataOutput'
-  { _lsmoUserBase ::
-      !(Maybe Text),
-    _lsmoUserSearchMatching ::
-      !(Maybe Text),
-    _lsmoRoleName ::
-      !(Maybe Text),
-    _lsmoUserSearchSubtree ::
-      !(Maybe Bool),
-    _lsmoServiceAccountUsername ::
-      !(Maybe Text),
-    _lsmoUserRoleName ::
-      !(Maybe Text),
-    _lsmoRoleBase ::
-      !(Maybe Text),
-    _lsmoRoleSearchMatching ::
-      !(Maybe Text),
-    _lsmoHosts ::
-      !(Maybe [Text]),
-    _lsmoRoleSearchSubtree ::
-      !(Maybe Bool)
+  { -- | Fully qualified name of the directory where you want to search for
+    -- users.
+    userBase :: Prelude.Maybe Prelude.Text,
+    -- | The search criteria for users.
+    userSearchMatching :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the LDAP attribute that identifies the group name attribute in
+    -- the object returned from the group membership query.
+    roleName :: Prelude.Maybe Prelude.Text,
+    -- | The directory search scope for the user. If set to true, scope is to
+    -- search the entire sub-tree.
+    userSearchSubtree :: Prelude.Maybe Prelude.Bool,
+    -- | Service account username.
+    serviceAccountUsername :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the name of the LDAP attribute for the user group membership.
+    userRoleName :: Prelude.Maybe Prelude.Text,
+    -- | Fully qualified name of the directory to search for a user’s groups.
+    roleBase :: Prelude.Maybe Prelude.Text,
+    -- | The search criteria for groups.
+    roleSearchMatching :: Prelude.Maybe Prelude.Text,
+    -- | Fully qualified domain name of the LDAP server. Optional failover
+    -- server.
+    hosts :: Prelude.Maybe [Prelude.Text],
+    -- | The directory search scope for the role. If set to true, scope is to
+    -- search the entire sub-tree.
+    roleSearchSubtree :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LdapServerMetadataOutput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LdapServerMetadataOutput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsmoUserBase' - Fully qualified name of the directory where you want to search for users.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsmoUserSearchMatching' - The search criteria for users.
+-- 'userBase', 'ldapServerMetadataOutput_userBase' - Fully qualified name of the directory where you want to search for
+-- users.
 --
--- * 'lsmoRoleName' - Specifies the LDAP attribute that identifies the group name attribute in the object returned from the group membership query.
+-- 'userSearchMatching', 'ldapServerMetadataOutput_userSearchMatching' - The search criteria for users.
 --
--- * 'lsmoUserSearchSubtree' - The directory search scope for the user. If set to true, scope is to search the entire sub-tree.
+-- 'roleName', 'ldapServerMetadataOutput_roleName' - Specifies the LDAP attribute that identifies the group name attribute in
+-- the object returned from the group membership query.
 --
--- * 'lsmoServiceAccountUsername' - Service account username.
+-- 'userSearchSubtree', 'ldapServerMetadataOutput_userSearchSubtree' - The directory search scope for the user. If set to true, scope is to
+-- search the entire sub-tree.
 --
--- * 'lsmoUserRoleName' - Specifies the name of the LDAP attribute for the user group membership.
+-- 'serviceAccountUsername', 'ldapServerMetadataOutput_serviceAccountUsername' - Service account username.
 --
--- * 'lsmoRoleBase' - Fully qualified name of the directory to search for a user’s groups.
+-- 'userRoleName', 'ldapServerMetadataOutput_userRoleName' - Specifies the name of the LDAP attribute for the user group membership.
 --
--- * 'lsmoRoleSearchMatching' - The search criteria for groups.
+-- 'roleBase', 'ldapServerMetadataOutput_roleBase' - Fully qualified name of the directory to search for a user’s groups.
 --
--- * 'lsmoHosts' - Fully qualified domain name of the LDAP server. Optional failover server.
+-- 'roleSearchMatching', 'ldapServerMetadataOutput_roleSearchMatching' - The search criteria for groups.
 --
--- * 'lsmoRoleSearchSubtree' - The directory search scope for the role. If set to true, scope is to search the entire sub-tree.
-ldapServerMetadataOutput ::
+-- 'hosts', 'ldapServerMetadataOutput_hosts' - Fully qualified domain name of the LDAP server. Optional failover
+-- server.
+--
+-- 'roleSearchSubtree', 'ldapServerMetadataOutput_roleSearchSubtree' - The directory search scope for the role. If set to true, scope is to
+-- search the entire sub-tree.
+newLdapServerMetadataOutput ::
   LdapServerMetadataOutput
-ldapServerMetadataOutput =
+newLdapServerMetadataOutput =
   LdapServerMetadataOutput'
-    { _lsmoUserBase = Nothing,
-      _lsmoUserSearchMatching = Nothing,
-      _lsmoRoleName = Nothing,
-      _lsmoUserSearchSubtree = Nothing,
-      _lsmoServiceAccountUsername = Nothing,
-      _lsmoUserRoleName = Nothing,
-      _lsmoRoleBase = Nothing,
-      _lsmoRoleSearchMatching = Nothing,
-      _lsmoHosts = Nothing,
-      _lsmoRoleSearchSubtree = Nothing
+    { userBase =
+        Prelude.Nothing,
+      userSearchMatching = Prelude.Nothing,
+      roleName = Prelude.Nothing,
+      userSearchSubtree = Prelude.Nothing,
+      serviceAccountUsername = Prelude.Nothing,
+      userRoleName = Prelude.Nothing,
+      roleBase = Prelude.Nothing,
+      roleSearchMatching = Prelude.Nothing,
+      hosts = Prelude.Nothing,
+      roleSearchSubtree = Prelude.Nothing
     }
 
--- | Fully qualified name of the directory where you want to search for users.
-lsmoUserBase :: Lens' LdapServerMetadataOutput (Maybe Text)
-lsmoUserBase = lens _lsmoUserBase (\s a -> s {_lsmoUserBase = a})
+-- | Fully qualified name of the directory where you want to search for
+-- users.
+ldapServerMetadataOutput_userBase :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataOutput_userBase = Lens.lens (\LdapServerMetadataOutput' {userBase} -> userBase) (\s@LdapServerMetadataOutput' {} a -> s {userBase = a} :: LdapServerMetadataOutput)
 
 -- | The search criteria for users.
-lsmoUserSearchMatching :: Lens' LdapServerMetadataOutput (Maybe Text)
-lsmoUserSearchMatching = lens _lsmoUserSearchMatching (\s a -> s {_lsmoUserSearchMatching = a})
+ldapServerMetadataOutput_userSearchMatching :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataOutput_userSearchMatching = Lens.lens (\LdapServerMetadataOutput' {userSearchMatching} -> userSearchMatching) (\s@LdapServerMetadataOutput' {} a -> s {userSearchMatching = a} :: LdapServerMetadataOutput)
 
--- | Specifies the LDAP attribute that identifies the group name attribute in the object returned from the group membership query.
-lsmoRoleName :: Lens' LdapServerMetadataOutput (Maybe Text)
-lsmoRoleName = lens _lsmoRoleName (\s a -> s {_lsmoRoleName = a})
+-- | Specifies the LDAP attribute that identifies the group name attribute in
+-- the object returned from the group membership query.
+ldapServerMetadataOutput_roleName :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataOutput_roleName = Lens.lens (\LdapServerMetadataOutput' {roleName} -> roleName) (\s@LdapServerMetadataOutput' {} a -> s {roleName = a} :: LdapServerMetadataOutput)
 
--- | The directory search scope for the user. If set to true, scope is to search the entire sub-tree.
-lsmoUserSearchSubtree :: Lens' LdapServerMetadataOutput (Maybe Bool)
-lsmoUserSearchSubtree = lens _lsmoUserSearchSubtree (\s a -> s {_lsmoUserSearchSubtree = a})
+-- | The directory search scope for the user. If set to true, scope is to
+-- search the entire sub-tree.
+ldapServerMetadataOutput_userSearchSubtree :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Bool)
+ldapServerMetadataOutput_userSearchSubtree = Lens.lens (\LdapServerMetadataOutput' {userSearchSubtree} -> userSearchSubtree) (\s@LdapServerMetadataOutput' {} a -> s {userSearchSubtree = a} :: LdapServerMetadataOutput)
 
 -- | Service account username.
-lsmoServiceAccountUsername :: Lens' LdapServerMetadataOutput (Maybe Text)
-lsmoServiceAccountUsername = lens _lsmoServiceAccountUsername (\s a -> s {_lsmoServiceAccountUsername = a})
+ldapServerMetadataOutput_serviceAccountUsername :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataOutput_serviceAccountUsername = Lens.lens (\LdapServerMetadataOutput' {serviceAccountUsername} -> serviceAccountUsername) (\s@LdapServerMetadataOutput' {} a -> s {serviceAccountUsername = a} :: LdapServerMetadataOutput)
 
 -- | Specifies the name of the LDAP attribute for the user group membership.
-lsmoUserRoleName :: Lens' LdapServerMetadataOutput (Maybe Text)
-lsmoUserRoleName = lens _lsmoUserRoleName (\s a -> s {_lsmoUserRoleName = a})
+ldapServerMetadataOutput_userRoleName :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataOutput_userRoleName = Lens.lens (\LdapServerMetadataOutput' {userRoleName} -> userRoleName) (\s@LdapServerMetadataOutput' {} a -> s {userRoleName = a} :: LdapServerMetadataOutput)
 
 -- | Fully qualified name of the directory to search for a user’s groups.
-lsmoRoleBase :: Lens' LdapServerMetadataOutput (Maybe Text)
-lsmoRoleBase = lens _lsmoRoleBase (\s a -> s {_lsmoRoleBase = a})
+ldapServerMetadataOutput_roleBase :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataOutput_roleBase = Lens.lens (\LdapServerMetadataOutput' {roleBase} -> roleBase) (\s@LdapServerMetadataOutput' {} a -> s {roleBase = a} :: LdapServerMetadataOutput)
 
 -- | The search criteria for groups.
-lsmoRoleSearchMatching :: Lens' LdapServerMetadataOutput (Maybe Text)
-lsmoRoleSearchMatching = lens _lsmoRoleSearchMatching (\s a -> s {_lsmoRoleSearchMatching = a})
+ldapServerMetadataOutput_roleSearchMatching :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Text)
+ldapServerMetadataOutput_roleSearchMatching = Lens.lens (\LdapServerMetadataOutput' {roleSearchMatching} -> roleSearchMatching) (\s@LdapServerMetadataOutput' {} a -> s {roleSearchMatching = a} :: LdapServerMetadataOutput)
 
--- | Fully qualified domain name of the LDAP server. Optional failover server.
-lsmoHosts :: Lens' LdapServerMetadataOutput [Text]
-lsmoHosts = lens _lsmoHosts (\s a -> s {_lsmoHosts = a}) . _Default . _Coerce
+-- | Fully qualified domain name of the LDAP server. Optional failover
+-- server.
+ldapServerMetadataOutput_hosts :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe [Prelude.Text])
+ldapServerMetadataOutput_hosts = Lens.lens (\LdapServerMetadataOutput' {hosts} -> hosts) (\s@LdapServerMetadataOutput' {} a -> s {hosts = a} :: LdapServerMetadataOutput) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The directory search scope for the role. If set to true, scope is to search the entire sub-tree.
-lsmoRoleSearchSubtree :: Lens' LdapServerMetadataOutput (Maybe Bool)
-lsmoRoleSearchSubtree = lens _lsmoRoleSearchSubtree (\s a -> s {_lsmoRoleSearchSubtree = a})
+-- | The directory search scope for the role. If set to true, scope is to
+-- search the entire sub-tree.
+ldapServerMetadataOutput_roleSearchSubtree :: Lens.Lens' LdapServerMetadataOutput (Prelude.Maybe Prelude.Bool)
+ldapServerMetadataOutput_roleSearchSubtree = Lens.lens (\LdapServerMetadataOutput' {roleSearchSubtree} -> roleSearchSubtree) (\s@LdapServerMetadataOutput' {} a -> s {roleSearchSubtree = a} :: LdapServerMetadataOutput)
 
-instance FromJSON LdapServerMetadataOutput where
+instance Prelude.FromJSON LdapServerMetadataOutput where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LdapServerMetadataOutput"
       ( \x ->
           LdapServerMetadataOutput'
-            <$> (x .:? "userBase")
-            <*> (x .:? "userSearchMatching")
-            <*> (x .:? "roleName")
-            <*> (x .:? "userSearchSubtree")
-            <*> (x .:? "serviceAccountUsername")
-            <*> (x .:? "userRoleName")
-            <*> (x .:? "roleBase")
-            <*> (x .:? "roleSearchMatching")
-            <*> (x .:? "hosts" .!= mempty)
-            <*> (x .:? "roleSearchSubtree")
+            Prelude.<$> (x Prelude..:? "userBase")
+            Prelude.<*> (x Prelude..:? "userSearchMatching")
+            Prelude.<*> (x Prelude..:? "roleName")
+            Prelude.<*> (x Prelude..:? "userSearchSubtree")
+            Prelude.<*> (x Prelude..:? "serviceAccountUsername")
+            Prelude.<*> (x Prelude..:? "userRoleName")
+            Prelude.<*> (x Prelude..:? "roleBase")
+            Prelude.<*> (x Prelude..:? "roleSearchMatching")
+            Prelude.<*> (x Prelude..:? "hosts" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "roleSearchSubtree")
       )
 
-instance Hashable LdapServerMetadataOutput
+instance Prelude.Hashable LdapServerMetadataOutput
 
-instance NFData LdapServerMetadataOutput
+instance Prelude.NFData LdapServerMetadataOutput

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,78 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.EncryptionOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Encryption options for the broker.
 --
--- /See:/ 'encryptionOptions' smart constructor.
+-- /See:/ 'newEncryptionOptions' smart constructor.
 data EncryptionOptions = EncryptionOptions'
-  { _eoKMSKeyId ::
-      !(Maybe Text),
-    _eoUseAWSOwnedKey :: !Bool
+  { -- | The symmetric customer master key (CMK) to use for the AWS Key
+    -- Management Service (KMS). This key is used to encrypt your data at rest.
+    -- If not provided, Amazon MQ will use a default CMK to encrypt your data.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Enables the use of an AWS owned CMK using AWS Key Management Service
+    -- (KMS).
+    useAwsOwnedKey :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncryptionOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncryptionOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eoKMSKeyId' - The symmetric customer master key (CMK) to use for the AWS Key Management Service (KMS). This key is used to encrypt your data at rest. If not provided, Amazon MQ will use a default CMK to encrypt your data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eoUseAWSOwnedKey' - Enables the use of an AWS owned CMK using AWS Key Management Service (KMS).
-encryptionOptions ::
-  -- | 'eoUseAWSOwnedKey'
-  Bool ->
+-- 'kmsKeyId', 'encryptionOptions_kmsKeyId' - The symmetric customer master key (CMK) to use for the AWS Key
+-- Management Service (KMS). This key is used to encrypt your data at rest.
+-- If not provided, Amazon MQ will use a default CMK to encrypt your data.
+--
+-- 'useAwsOwnedKey', 'encryptionOptions_useAwsOwnedKey' - Enables the use of an AWS owned CMK using AWS Key Management Service
+-- (KMS).
+newEncryptionOptions ::
+  -- | 'useAwsOwnedKey'
+  Prelude.Bool ->
   EncryptionOptions
-encryptionOptions pUseAWSOwnedKey_ =
+newEncryptionOptions pUseAwsOwnedKey_ =
   EncryptionOptions'
-    { _eoKMSKeyId = Nothing,
-      _eoUseAWSOwnedKey = pUseAWSOwnedKey_
+    { kmsKeyId = Prelude.Nothing,
+      useAwsOwnedKey = pUseAwsOwnedKey_
     }
 
--- | The symmetric customer master key (CMK) to use for the AWS Key Management Service (KMS). This key is used to encrypt your data at rest. If not provided, Amazon MQ will use a default CMK to encrypt your data.
-eoKMSKeyId :: Lens' EncryptionOptions (Maybe Text)
-eoKMSKeyId = lens _eoKMSKeyId (\s a -> s {_eoKMSKeyId = a})
+-- | The symmetric customer master key (CMK) to use for the AWS Key
+-- Management Service (KMS). This key is used to encrypt your data at rest.
+-- If not provided, Amazon MQ will use a default CMK to encrypt your data.
+encryptionOptions_kmsKeyId :: Lens.Lens' EncryptionOptions (Prelude.Maybe Prelude.Text)
+encryptionOptions_kmsKeyId = Lens.lens (\EncryptionOptions' {kmsKeyId} -> kmsKeyId) (\s@EncryptionOptions' {} a -> s {kmsKeyId = a} :: EncryptionOptions)
 
--- | Enables the use of an AWS owned CMK using AWS Key Management Service (KMS).
-eoUseAWSOwnedKey :: Lens' EncryptionOptions Bool
-eoUseAWSOwnedKey = lens _eoUseAWSOwnedKey (\s a -> s {_eoUseAWSOwnedKey = a})
+-- | Enables the use of an AWS owned CMK using AWS Key Management Service
+-- (KMS).
+encryptionOptions_useAwsOwnedKey :: Lens.Lens' EncryptionOptions Prelude.Bool
+encryptionOptions_useAwsOwnedKey = Lens.lens (\EncryptionOptions' {useAwsOwnedKey} -> useAwsOwnedKey) (\s@EncryptionOptions' {} a -> s {useAwsOwnedKey = a} :: EncryptionOptions)
 
-instance FromJSON EncryptionOptions where
+instance Prelude.FromJSON EncryptionOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncryptionOptions"
       ( \x ->
           EncryptionOptions'
-            <$> (x .:? "kmsKeyId") <*> (x .: "useAwsOwnedKey")
+            Prelude.<$> (x Prelude..:? "kmsKeyId")
+            Prelude.<*> (x Prelude..: "useAwsOwnedKey")
       )
 
-instance Hashable EncryptionOptions
+instance Prelude.Hashable EncryptionOptions
 
-instance NFData EncryptionOptions
+instance Prelude.NFData EncryptionOptions
 
-instance ToJSON EncryptionOptions where
+instance Prelude.ToJSON EncryptionOptions where
   toJSON EncryptionOptions' {..} =
-    object
-      ( catMaybes
-          [ ("kmsKeyId" .=) <$> _eoKMSKeyId,
-            Just ("useAwsOwnedKey" .= _eoUseAWSOwnedKey)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("kmsKeyId" Prelude..=) Prelude.<$> kmsKeyId,
+            Prelude.Just
+              ("useAwsOwnedKey" Prelude..= useAwsOwnedKey)
           ]
       )

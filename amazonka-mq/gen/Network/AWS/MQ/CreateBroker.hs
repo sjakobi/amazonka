@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,319 +24,438 @@
 -- Creates a broker. Note: This API is asynchronous.
 module Network.AWS.MQ.CreateBroker
   ( -- * Creating a Request
-    createBroker,
-    CreateBroker,
+    CreateBroker (..),
+    newCreateBroker,
 
     -- * Request Lenses
-    cbEncryptionOptions,
-    cbBrokerName,
-    cbStorageType,
-    cbLdapServerMetadata,
-    cbEngineType,
-    cbAuthenticationStrategy,
-    cbConfiguration,
-    cbCreatorRequestId,
-    cbSubnetIds,
-    cbPubliclyAccessible,
-    cbSecurityGroups,
-    cbLogs,
-    cbMaintenanceWindowStartTime,
-    cbEngineVersion,
-    cbTags,
-    cbHostInstanceType,
-    cbAutoMinorVersionUpgrade,
-    cbUsers,
-    cbDeploymentMode,
+    createBroker_encryptionOptions,
+    createBroker_brokerName,
+    createBroker_storageType,
+    createBroker_ldapServerMetadata,
+    createBroker_engineType,
+    createBroker_authenticationStrategy,
+    createBroker_configuration,
+    createBroker_creatorRequestId,
+    createBroker_subnetIds,
+    createBroker_publiclyAccessible,
+    createBroker_securityGroups,
+    createBroker_logs,
+    createBroker_maintenanceWindowStartTime,
+    createBroker_engineVersion,
+    createBroker_tags,
+    createBroker_hostInstanceType,
+    createBroker_autoMinorVersionUpgrade,
+    createBroker_users,
+    createBroker_deploymentMode,
 
     -- * Destructuring the Response
-    createBrokerResponse,
-    CreateBrokerResponse,
+    CreateBrokerResponse (..),
+    newCreateBrokerResponse,
 
     -- * Response Lenses
-    cbrrsBrokerId,
-    cbrrsBrokerARN,
-    cbrrsResponseStatus,
+    createBrokerResponse_brokerId,
+    createBrokerResponse_brokerArn,
+    createBrokerResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Creates a broker using the specified properties.
 --
--- /See:/ 'createBroker' smart constructor.
+-- /See:/ 'newCreateBroker' smart constructor.
 data CreateBroker = CreateBroker'
-  { _cbEncryptionOptions ::
-      !(Maybe EncryptionOptions),
-    _cbBrokerName :: !(Maybe Text),
-    _cbStorageType :: !(Maybe BrokerStorageType),
-    _cbLdapServerMetadata ::
-      !(Maybe LdapServerMetadataInput),
-    _cbEngineType :: !(Maybe EngineType),
-    _cbAuthenticationStrategy ::
-      !(Maybe AuthenticationStrategy),
-    _cbConfiguration :: !(Maybe ConfigurationId),
-    _cbCreatorRequestId :: !(Maybe Text),
-    _cbSubnetIds :: !(Maybe [Text]),
-    _cbPubliclyAccessible :: !(Maybe Bool),
-    _cbSecurityGroups :: !(Maybe [Text]),
-    _cbLogs :: !(Maybe Logs),
-    _cbMaintenanceWindowStartTime ::
-      !(Maybe WeeklyStartTime),
-    _cbEngineVersion :: !(Maybe Text),
-    _cbTags :: !(Maybe (Map Text Text)),
-    _cbHostInstanceType :: !(Maybe Text),
-    _cbAutoMinorVersionUpgrade :: !(Maybe Bool),
-    _cbUsers :: !(Maybe [User]),
-    _cbDeploymentMode :: !(Maybe DeploymentMode)
+  { -- | Encryption options for the broker.
+    encryptionOptions :: Prelude.Maybe EncryptionOptions,
+    -- | Required. The name of the broker. This value must be unique in your AWS
+    -- account, 1-50 characters long, must contain only letters, numbers,
+    -- dashes, and underscores, and must not contain whitespaces, brackets,
+    -- wildcard characters, or special characters.
+    brokerName :: Prelude.Maybe Prelude.Text,
+    -- | The broker\'s storage type.
+    storageType :: Prelude.Maybe BrokerStorageType,
+    -- | The metadata of the LDAP server used to authenticate and authorize
+    -- connections to the broker.
+    ldapServerMetadata :: Prelude.Maybe LdapServerMetadataInput,
+    -- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+    -- ACTIVEMQ and RABBITMQ.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The authentication strategy used to secure the broker.
+    authenticationStrategy :: Prelude.Maybe AuthenticationStrategy,
+    -- | A list of information about the configuration.
+    configuration :: Prelude.Maybe ConfigurationId,
+    -- | The unique ID that the requester receives for the created broker. Amazon
+    -- MQ passes your ID with the API action. Note: We recommend using a
+    -- Universally Unique Identifier (UUID) for the creatorRequestId. You may
+    -- omit the creatorRequestId if your application doesn\'t require
+    -- idempotency.
+    creatorRequestId :: Prelude.Maybe Prelude.Text,
+    -- | The list of groups that define which subnets and IP ranges the broker
+    -- can use from different Availability Zones. A SINGLE_INSTANCE deployment
+    -- requires one subnet (for example, the default subnet). An
+    -- ACTIVE_STANDBY_MULTI_AZ deployment (ACTIVEMQ) requires two subnets. A
+    -- CLUSTER_MULTI_AZ deployment (RABBITMQ) has no subnet requirements when
+    -- deployed with public accessibility, deployment without public
+    -- accessibility requires at least one subnet.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
+    -- | Required. Enables connections from applications outside of the VPC that
+    -- hosts the broker\'s subnets.
+    publiclyAccessible :: Prelude.Maybe Prelude.Bool,
+    -- | The list of security groups (1 minimum, 5 maximum) that authorizes
+    -- connections to brokers.
+    securityGroups :: Prelude.Maybe [Prelude.Text],
+    -- | Enables Amazon CloudWatch logging for brokers.
+    logs :: Prelude.Maybe Logs,
+    -- | The parameters that determine the WeeklyStartTime.
+    maintenanceWindowStartTime :: Prelude.Maybe WeeklyStartTime,
+    -- | Required. The version of the broker engine. For a list of supported
+    -- engine versions, see
+    -- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | Create tags when creating the broker.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Required. The broker\'s instance type.
+    hostInstanceType :: Prelude.Maybe Prelude.Text,
+    -- | Required. Enables automatic upgrades to new minor versions for brokers,
+    -- as Apache releases the versions. The automatic upgrades occur during the
+    -- maintenance window of the broker or after a manual broker reboot.
+    autoMinorVersionUpgrade :: Prelude.Maybe Prelude.Bool,
+    -- | Required. The list of broker users (persons or applications) who can
+    -- access queues and topics. For RabbitMQ brokers, one and only one
+    -- administrative user is accepted and created when a broker is first
+    -- provisioned. All subsequent broker users are created by making RabbitMQ
+    -- API calls directly to brokers or via the RabbitMQ Web Console. This
+    -- value can contain only alphanumeric characters, dashes, periods,
+    -- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+    -- long.
+    users :: Prelude.Maybe [User],
+    -- | Required. The deployment mode of the broker.
+    deploymentMode :: Prelude.Maybe DeploymentMode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBroker' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBroker' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbEncryptionOptions' - Encryption options for the broker.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbBrokerName' - Required. The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or special characters.
+-- 'encryptionOptions', 'createBroker_encryptionOptions' - Encryption options for the broker.
 --
--- * 'cbStorageType' - The broker's storage type.
+-- 'brokerName', 'createBroker_brokerName' - Required. The name of the broker. This value must be unique in your AWS
+-- account, 1-50 characters long, must contain only letters, numbers,
+-- dashes, and underscores, and must not contain whitespaces, brackets,
+-- wildcard characters, or special characters.
 --
--- * 'cbLdapServerMetadata' - The metadata of the LDAP server used to authenticate and authorize connections to the broker.
+-- 'storageType', 'createBroker_storageType' - The broker\'s storage type.
 --
--- * 'cbEngineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+-- 'ldapServerMetadata', 'createBroker_ldapServerMetadata' - The metadata of the LDAP server used to authenticate and authorize
+-- connections to the broker.
 --
--- * 'cbAuthenticationStrategy' - The authentication strategy used to secure the broker.
+-- 'engineType', 'createBroker_engineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
 --
--- * 'cbConfiguration' - A list of information about the configuration.
+-- 'authenticationStrategy', 'createBroker_authenticationStrategy' - The authentication strategy used to secure the broker.
 --
--- * 'cbCreatorRequestId' - The unique ID that the requester receives for the created broker. Amazon MQ passes your ID with the API action. Note: We recommend using a Universally Unique Identifier (UUID) for the creatorRequestId. You may omit the creatorRequestId if your application doesn't require idempotency.
+-- 'configuration', 'createBroker_configuration' - A list of information about the configuration.
 --
--- * 'cbSubnetIds' - The list of groups that define which subnets and IP ranges the broker can use from different Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An ACTIVE_STANDBY_MULTI_AZ deployment (ACTIVEMQ) requires two subnets. A CLUSTER_MULTI_AZ deployment (RABBITMQ) has no subnet requirements when deployed with public accessibility, deployment without public accessibility requires at least one subnet.
+-- 'creatorRequestId', 'createBroker_creatorRequestId' - The unique ID that the requester receives for the created broker. Amazon
+-- MQ passes your ID with the API action. Note: We recommend using a
+-- Universally Unique Identifier (UUID) for the creatorRequestId. You may
+-- omit the creatorRequestId if your application doesn\'t require
+-- idempotency.
 --
--- * 'cbPubliclyAccessible' - Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
+-- 'subnetIds', 'createBroker_subnetIds' - The list of groups that define which subnets and IP ranges the broker
+-- can use from different Availability Zones. A SINGLE_INSTANCE deployment
+-- requires one subnet (for example, the default subnet). An
+-- ACTIVE_STANDBY_MULTI_AZ deployment (ACTIVEMQ) requires two subnets. A
+-- CLUSTER_MULTI_AZ deployment (RABBITMQ) has no subnet requirements when
+-- deployed with public accessibility, deployment without public
+-- accessibility requires at least one subnet.
 --
--- * 'cbSecurityGroups' - The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
+-- 'publiclyAccessible', 'createBroker_publiclyAccessible' - Required. Enables connections from applications outside of the VPC that
+-- hosts the broker\'s subnets.
 --
--- * 'cbLogs' - Enables Amazon CloudWatch logging for brokers.
+-- 'securityGroups', 'createBroker_securityGroups' - The list of security groups (1 minimum, 5 maximum) that authorizes
+-- connections to brokers.
 --
--- * 'cbMaintenanceWindowStartTime' - The parameters that determine the WeeklyStartTime.
+-- 'logs', 'createBroker_logs' - Enables Amazon CloudWatch logging for brokers.
 --
--- * 'cbEngineVersion' - Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+-- 'maintenanceWindowStartTime', 'createBroker_maintenanceWindowStartTime' - The parameters that determine the WeeklyStartTime.
 --
--- * 'cbTags' - Create tags when creating the broker.
+-- 'engineVersion', 'createBroker_engineVersion' - Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
 --
--- * 'cbHostInstanceType' - Required. The broker's instance type.
+-- 'tags', 'createBroker_tags' - Create tags when creating the broker.
 --
--- * 'cbAutoMinorVersionUpgrade' - Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
+-- 'hostInstanceType', 'createBroker_hostInstanceType' - Required. The broker\'s instance type.
 --
--- * 'cbUsers' - Required. The list of broker users (persons or applications) who can access queues and topics. For RabbitMQ brokers, one and only one administrative user is accepted and created when a broker is first provisioned. All subsequent broker users are created by making RabbitMQ API calls directly to brokers or via the RabbitMQ Web Console. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+-- 'autoMinorVersionUpgrade', 'createBroker_autoMinorVersionUpgrade' - Required. Enables automatic upgrades to new minor versions for brokers,
+-- as Apache releases the versions. The automatic upgrades occur during the
+-- maintenance window of the broker or after a manual broker reboot.
 --
--- * 'cbDeploymentMode' - Required. The deployment mode of the broker.
-createBroker ::
+-- 'users', 'createBroker_users' - Required. The list of broker users (persons or applications) who can
+-- access queues and topics. For RabbitMQ brokers, one and only one
+-- administrative user is accepted and created when a broker is first
+-- provisioned. All subsequent broker users are created by making RabbitMQ
+-- API calls directly to brokers or via the RabbitMQ Web Console. This
+-- value can contain only alphanumeric characters, dashes, periods,
+-- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+-- long.
+--
+-- 'deploymentMode', 'createBroker_deploymentMode' - Required. The deployment mode of the broker.
+newCreateBroker ::
   CreateBroker
-createBroker =
+newCreateBroker =
   CreateBroker'
-    { _cbEncryptionOptions = Nothing,
-      _cbBrokerName = Nothing,
-      _cbStorageType = Nothing,
-      _cbLdapServerMetadata = Nothing,
-      _cbEngineType = Nothing,
-      _cbAuthenticationStrategy = Nothing,
-      _cbConfiguration = Nothing,
-      _cbCreatorRequestId = Nothing,
-      _cbSubnetIds = Nothing,
-      _cbPubliclyAccessible = Nothing,
-      _cbSecurityGroups = Nothing,
-      _cbLogs = Nothing,
-      _cbMaintenanceWindowStartTime = Nothing,
-      _cbEngineVersion = Nothing,
-      _cbTags = Nothing,
-      _cbHostInstanceType = Nothing,
-      _cbAutoMinorVersionUpgrade = Nothing,
-      _cbUsers = Nothing,
-      _cbDeploymentMode = Nothing
+    { encryptionOptions = Prelude.Nothing,
+      brokerName = Prelude.Nothing,
+      storageType = Prelude.Nothing,
+      ldapServerMetadata = Prelude.Nothing,
+      engineType = Prelude.Nothing,
+      authenticationStrategy = Prelude.Nothing,
+      configuration = Prelude.Nothing,
+      creatorRequestId = Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
+      publiclyAccessible = Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      logs = Prelude.Nothing,
+      maintenanceWindowStartTime = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      hostInstanceType = Prelude.Nothing,
+      autoMinorVersionUpgrade = Prelude.Nothing,
+      users = Prelude.Nothing,
+      deploymentMode = Prelude.Nothing
     }
 
 -- | Encryption options for the broker.
-cbEncryptionOptions :: Lens' CreateBroker (Maybe EncryptionOptions)
-cbEncryptionOptions = lens _cbEncryptionOptions (\s a -> s {_cbEncryptionOptions = a})
+createBroker_encryptionOptions :: Lens.Lens' CreateBroker (Prelude.Maybe EncryptionOptions)
+createBroker_encryptionOptions = Lens.lens (\CreateBroker' {encryptionOptions} -> encryptionOptions) (\s@CreateBroker' {} a -> s {encryptionOptions = a} :: CreateBroker)
 
--- | Required. The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or special characters.
-cbBrokerName :: Lens' CreateBroker (Maybe Text)
-cbBrokerName = lens _cbBrokerName (\s a -> s {_cbBrokerName = a})
+-- | Required. The name of the broker. This value must be unique in your AWS
+-- account, 1-50 characters long, must contain only letters, numbers,
+-- dashes, and underscores, and must not contain whitespaces, brackets,
+-- wildcard characters, or special characters.
+createBroker_brokerName :: Lens.Lens' CreateBroker (Prelude.Maybe Prelude.Text)
+createBroker_brokerName = Lens.lens (\CreateBroker' {brokerName} -> brokerName) (\s@CreateBroker' {} a -> s {brokerName = a} :: CreateBroker)
 
--- | The broker's storage type.
-cbStorageType :: Lens' CreateBroker (Maybe BrokerStorageType)
-cbStorageType = lens _cbStorageType (\s a -> s {_cbStorageType = a})
+-- | The broker\'s storage type.
+createBroker_storageType :: Lens.Lens' CreateBroker (Prelude.Maybe BrokerStorageType)
+createBroker_storageType = Lens.lens (\CreateBroker' {storageType} -> storageType) (\s@CreateBroker' {} a -> s {storageType = a} :: CreateBroker)
 
--- | The metadata of the LDAP server used to authenticate and authorize connections to the broker.
-cbLdapServerMetadata :: Lens' CreateBroker (Maybe LdapServerMetadataInput)
-cbLdapServerMetadata = lens _cbLdapServerMetadata (\s a -> s {_cbLdapServerMetadata = a})
+-- | The metadata of the LDAP server used to authenticate and authorize
+-- connections to the broker.
+createBroker_ldapServerMetadata :: Lens.Lens' CreateBroker (Prelude.Maybe LdapServerMetadataInput)
+createBroker_ldapServerMetadata = Lens.lens (\CreateBroker' {ldapServerMetadata} -> ldapServerMetadata) (\s@CreateBroker' {} a -> s {ldapServerMetadata = a} :: CreateBroker)
 
--- | Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
-cbEngineType :: Lens' CreateBroker (Maybe EngineType)
-cbEngineType = lens _cbEngineType (\s a -> s {_cbEngineType = a})
+-- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
+createBroker_engineType :: Lens.Lens' CreateBroker (Prelude.Maybe EngineType)
+createBroker_engineType = Lens.lens (\CreateBroker' {engineType} -> engineType) (\s@CreateBroker' {} a -> s {engineType = a} :: CreateBroker)
 
 -- | The authentication strategy used to secure the broker.
-cbAuthenticationStrategy :: Lens' CreateBroker (Maybe AuthenticationStrategy)
-cbAuthenticationStrategy = lens _cbAuthenticationStrategy (\s a -> s {_cbAuthenticationStrategy = a})
+createBroker_authenticationStrategy :: Lens.Lens' CreateBroker (Prelude.Maybe AuthenticationStrategy)
+createBroker_authenticationStrategy = Lens.lens (\CreateBroker' {authenticationStrategy} -> authenticationStrategy) (\s@CreateBroker' {} a -> s {authenticationStrategy = a} :: CreateBroker)
 
 -- | A list of information about the configuration.
-cbConfiguration :: Lens' CreateBroker (Maybe ConfigurationId)
-cbConfiguration = lens _cbConfiguration (\s a -> s {_cbConfiguration = a})
+createBroker_configuration :: Lens.Lens' CreateBroker (Prelude.Maybe ConfigurationId)
+createBroker_configuration = Lens.lens (\CreateBroker' {configuration} -> configuration) (\s@CreateBroker' {} a -> s {configuration = a} :: CreateBroker)
 
--- | The unique ID that the requester receives for the created broker. Amazon MQ passes your ID with the API action. Note: We recommend using a Universally Unique Identifier (UUID) for the creatorRequestId. You may omit the creatorRequestId if your application doesn't require idempotency.
-cbCreatorRequestId :: Lens' CreateBroker (Maybe Text)
-cbCreatorRequestId = lens _cbCreatorRequestId (\s a -> s {_cbCreatorRequestId = a})
+-- | The unique ID that the requester receives for the created broker. Amazon
+-- MQ passes your ID with the API action. Note: We recommend using a
+-- Universally Unique Identifier (UUID) for the creatorRequestId. You may
+-- omit the creatorRequestId if your application doesn\'t require
+-- idempotency.
+createBroker_creatorRequestId :: Lens.Lens' CreateBroker (Prelude.Maybe Prelude.Text)
+createBroker_creatorRequestId = Lens.lens (\CreateBroker' {creatorRequestId} -> creatorRequestId) (\s@CreateBroker' {} a -> s {creatorRequestId = a} :: CreateBroker)
 
--- | The list of groups that define which subnets and IP ranges the broker can use from different Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An ACTIVE_STANDBY_MULTI_AZ deployment (ACTIVEMQ) requires two subnets. A CLUSTER_MULTI_AZ deployment (RABBITMQ) has no subnet requirements when deployed with public accessibility, deployment without public accessibility requires at least one subnet.
-cbSubnetIds :: Lens' CreateBroker [Text]
-cbSubnetIds = lens _cbSubnetIds (\s a -> s {_cbSubnetIds = a}) . _Default . _Coerce
+-- | The list of groups that define which subnets and IP ranges the broker
+-- can use from different Availability Zones. A SINGLE_INSTANCE deployment
+-- requires one subnet (for example, the default subnet). An
+-- ACTIVE_STANDBY_MULTI_AZ deployment (ACTIVEMQ) requires two subnets. A
+-- CLUSTER_MULTI_AZ deployment (RABBITMQ) has no subnet requirements when
+-- deployed with public accessibility, deployment without public
+-- accessibility requires at least one subnet.
+createBroker_subnetIds :: Lens.Lens' CreateBroker (Prelude.Maybe [Prelude.Text])
+createBroker_subnetIds = Lens.lens (\CreateBroker' {subnetIds} -> subnetIds) (\s@CreateBroker' {} a -> s {subnetIds = a} :: CreateBroker) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.
-cbPubliclyAccessible :: Lens' CreateBroker (Maybe Bool)
-cbPubliclyAccessible = lens _cbPubliclyAccessible (\s a -> s {_cbPubliclyAccessible = a})
+-- | Required. Enables connections from applications outside of the VPC that
+-- hosts the broker\'s subnets.
+createBroker_publiclyAccessible :: Lens.Lens' CreateBroker (Prelude.Maybe Prelude.Bool)
+createBroker_publiclyAccessible = Lens.lens (\CreateBroker' {publiclyAccessible} -> publiclyAccessible) (\s@CreateBroker' {} a -> s {publiclyAccessible = a} :: CreateBroker)
 
--- | The list of security groups (1 minimum, 5 maximum) that authorizes connections to brokers.
-cbSecurityGroups :: Lens' CreateBroker [Text]
-cbSecurityGroups = lens _cbSecurityGroups (\s a -> s {_cbSecurityGroups = a}) . _Default . _Coerce
+-- | The list of security groups (1 minimum, 5 maximum) that authorizes
+-- connections to brokers.
+createBroker_securityGroups :: Lens.Lens' CreateBroker (Prelude.Maybe [Prelude.Text])
+createBroker_securityGroups = Lens.lens (\CreateBroker' {securityGroups} -> securityGroups) (\s@CreateBroker' {} a -> s {securityGroups = a} :: CreateBroker) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Enables Amazon CloudWatch logging for brokers.
-cbLogs :: Lens' CreateBroker (Maybe Logs)
-cbLogs = lens _cbLogs (\s a -> s {_cbLogs = a})
+createBroker_logs :: Lens.Lens' CreateBroker (Prelude.Maybe Logs)
+createBroker_logs = Lens.lens (\CreateBroker' {logs} -> logs) (\s@CreateBroker' {} a -> s {logs = a} :: CreateBroker)
 
 -- | The parameters that determine the WeeklyStartTime.
-cbMaintenanceWindowStartTime :: Lens' CreateBroker (Maybe WeeklyStartTime)
-cbMaintenanceWindowStartTime = lens _cbMaintenanceWindowStartTime (\s a -> s {_cbMaintenanceWindowStartTime = a})
+createBroker_maintenanceWindowStartTime :: Lens.Lens' CreateBroker (Prelude.Maybe WeeklyStartTime)
+createBroker_maintenanceWindowStartTime = Lens.lens (\CreateBroker' {maintenanceWindowStartTime} -> maintenanceWindowStartTime) (\s@CreateBroker' {} a -> s {maintenanceWindowStartTime = a} :: CreateBroker)
 
--- | Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
-cbEngineVersion :: Lens' CreateBroker (Maybe Text)
-cbEngineVersion = lens _cbEngineVersion (\s a -> s {_cbEngineVersion = a})
+-- | Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+createBroker_engineVersion :: Lens.Lens' CreateBroker (Prelude.Maybe Prelude.Text)
+createBroker_engineVersion = Lens.lens (\CreateBroker' {engineVersion} -> engineVersion) (\s@CreateBroker' {} a -> s {engineVersion = a} :: CreateBroker)
 
 -- | Create tags when creating the broker.
-cbTags :: Lens' CreateBroker (HashMap Text Text)
-cbTags = lens _cbTags (\s a -> s {_cbTags = a}) . _Default . _Map
+createBroker_tags :: Lens.Lens' CreateBroker (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createBroker_tags = Lens.lens (\CreateBroker' {tags} -> tags) (\s@CreateBroker' {} a -> s {tags = a} :: CreateBroker) Prelude.. Lens.mapping Prelude._Map
 
--- | Required. The broker's instance type.
-cbHostInstanceType :: Lens' CreateBroker (Maybe Text)
-cbHostInstanceType = lens _cbHostInstanceType (\s a -> s {_cbHostInstanceType = a})
+-- | Required. The broker\'s instance type.
+createBroker_hostInstanceType :: Lens.Lens' CreateBroker (Prelude.Maybe Prelude.Text)
+createBroker_hostInstanceType = Lens.lens (\CreateBroker' {hostInstanceType} -> hostInstanceType) (\s@CreateBroker' {} a -> s {hostInstanceType = a} :: CreateBroker)
 
--- | Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.
-cbAutoMinorVersionUpgrade :: Lens' CreateBroker (Maybe Bool)
-cbAutoMinorVersionUpgrade = lens _cbAutoMinorVersionUpgrade (\s a -> s {_cbAutoMinorVersionUpgrade = a})
+-- | Required. Enables automatic upgrades to new minor versions for brokers,
+-- as Apache releases the versions. The automatic upgrades occur during the
+-- maintenance window of the broker or after a manual broker reboot.
+createBroker_autoMinorVersionUpgrade :: Lens.Lens' CreateBroker (Prelude.Maybe Prelude.Bool)
+createBroker_autoMinorVersionUpgrade = Lens.lens (\CreateBroker' {autoMinorVersionUpgrade} -> autoMinorVersionUpgrade) (\s@CreateBroker' {} a -> s {autoMinorVersionUpgrade = a} :: CreateBroker)
 
--- | Required. The list of broker users (persons or applications) who can access queues and topics. For RabbitMQ brokers, one and only one administrative user is accepted and created when a broker is first provisioned. All subsequent broker users are created by making RabbitMQ API calls directly to brokers or via the RabbitMQ Web Console. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
-cbUsers :: Lens' CreateBroker [User]
-cbUsers = lens _cbUsers (\s a -> s {_cbUsers = a}) . _Default . _Coerce
+-- | Required. The list of broker users (persons or applications) who can
+-- access queues and topics. For RabbitMQ brokers, one and only one
+-- administrative user is accepted and created when a broker is first
+-- provisioned. All subsequent broker users are created by making RabbitMQ
+-- API calls directly to brokers or via the RabbitMQ Web Console. This
+-- value can contain only alphanumeric characters, dashes, periods,
+-- underscores, and tildes (- . _ ~). This value must be 2-100 characters
+-- long.
+createBroker_users :: Lens.Lens' CreateBroker (Prelude.Maybe [User])
+createBroker_users = Lens.lens (\CreateBroker' {users} -> users) (\s@CreateBroker' {} a -> s {users = a} :: CreateBroker) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Required. The deployment mode of the broker.
-cbDeploymentMode :: Lens' CreateBroker (Maybe DeploymentMode)
-cbDeploymentMode = lens _cbDeploymentMode (\s a -> s {_cbDeploymentMode = a})
+createBroker_deploymentMode :: Lens.Lens' CreateBroker (Prelude.Maybe DeploymentMode)
+createBroker_deploymentMode = Lens.lens (\CreateBroker' {deploymentMode} -> deploymentMode) (\s@CreateBroker' {} a -> s {deploymentMode = a} :: CreateBroker)
 
-instance AWSRequest CreateBroker where
+instance Prelude.AWSRequest CreateBroker where
   type Rs CreateBroker = CreateBrokerResponse
-  request = postJSON mq
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateBrokerResponse'
-            <$> (x .?> "brokerId")
-            <*> (x .?> "brokerArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "brokerId")
+            Prelude.<*> (x Prelude..?> "brokerArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateBroker
+instance Prelude.Hashable CreateBroker
 
-instance NFData CreateBroker
+instance Prelude.NFData CreateBroker
 
-instance ToHeaders CreateBroker where
+instance Prelude.ToHeaders CreateBroker where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateBroker where
+instance Prelude.ToJSON CreateBroker where
   toJSON CreateBroker' {..} =
-    object
-      ( catMaybes
-          [ ("encryptionOptions" .=) <$> _cbEncryptionOptions,
-            ("brokerName" .=) <$> _cbBrokerName,
-            ("storageType" .=) <$> _cbStorageType,
-            ("ldapServerMetadata" .=) <$> _cbLdapServerMetadata,
-            ("engineType" .=) <$> _cbEngineType,
-            ("authenticationStrategy" .=)
-              <$> _cbAuthenticationStrategy,
-            ("configuration" .=) <$> _cbConfiguration,
-            ("creatorRequestId" .=) <$> _cbCreatorRequestId,
-            ("subnetIds" .=) <$> _cbSubnetIds,
-            ("publiclyAccessible" .=) <$> _cbPubliclyAccessible,
-            ("securityGroups" .=) <$> _cbSecurityGroups,
-            ("logs" .=) <$> _cbLogs,
-            ("maintenanceWindowStartTime" .=)
-              <$> _cbMaintenanceWindowStartTime,
-            ("engineVersion" .=) <$> _cbEngineVersion,
-            ("tags" .=) <$> _cbTags,
-            ("hostInstanceType" .=) <$> _cbHostInstanceType,
-            ("autoMinorVersionUpgrade" .=)
-              <$> _cbAutoMinorVersionUpgrade,
-            ("users" .=) <$> _cbUsers,
-            ("deploymentMode" .=) <$> _cbDeploymentMode
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("encryptionOptions" Prelude..=)
+              Prelude.<$> encryptionOptions,
+            ("brokerName" Prelude..=) Prelude.<$> brokerName,
+            ("storageType" Prelude..=) Prelude.<$> storageType,
+            ("ldapServerMetadata" Prelude..=)
+              Prelude.<$> ldapServerMetadata,
+            ("engineType" Prelude..=) Prelude.<$> engineType,
+            ("authenticationStrategy" Prelude..=)
+              Prelude.<$> authenticationStrategy,
+            ("configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("creatorRequestId" Prelude..=)
+              Prelude.<$> creatorRequestId,
+            ("subnetIds" Prelude..=) Prelude.<$> subnetIds,
+            ("publiclyAccessible" Prelude..=)
+              Prelude.<$> publiclyAccessible,
+            ("securityGroups" Prelude..=)
+              Prelude.<$> securityGroups,
+            ("logs" Prelude..=) Prelude.<$> logs,
+            ("maintenanceWindowStartTime" Prelude..=)
+              Prelude.<$> maintenanceWindowStartTime,
+            ("engineVersion" Prelude..=)
+              Prelude.<$> engineVersion,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("hostInstanceType" Prelude..=)
+              Prelude.<$> hostInstanceType,
+            ("autoMinorVersionUpgrade" Prelude..=)
+              Prelude.<$> autoMinorVersionUpgrade,
+            ("users" Prelude..=) Prelude.<$> users,
+            ("deploymentMode" Prelude..=)
+              Prelude.<$> deploymentMode
           ]
       )
 
-instance ToPath CreateBroker where
-  toPath = const "/v1/brokers"
+instance Prelude.ToPath CreateBroker where
+  toPath = Prelude.const "/v1/brokers"
 
-instance ToQuery CreateBroker where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateBroker where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createBrokerResponse' smart constructor.
+-- | /See:/ 'newCreateBrokerResponse' smart constructor.
 data CreateBrokerResponse = CreateBrokerResponse'
-  { _cbrrsBrokerId ::
-      !(Maybe Text),
-    _cbrrsBrokerARN ::
-      !(Maybe Text),
-    _cbrrsResponseStatus :: !Int
+  { -- | The unique ID that Amazon MQ generates for the broker.
+    brokerId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the broker.
+    brokerArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBrokerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBrokerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbrrsBrokerId' - The unique ID that Amazon MQ generates for the broker.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbrrsBrokerARN' - The Amazon Resource Name (ARN) of the broker.
+-- 'brokerId', 'createBrokerResponse_brokerId' - The unique ID that Amazon MQ generates for the broker.
 --
--- * 'cbrrsResponseStatus' - -- | The response status code.
-createBrokerResponse ::
-  -- | 'cbrrsResponseStatus'
-  Int ->
+-- 'brokerArn', 'createBrokerResponse_brokerArn' - The Amazon Resource Name (ARN) of the broker.
+--
+-- 'httpStatus', 'createBrokerResponse_httpStatus' - The response's http status code.
+newCreateBrokerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateBrokerResponse
-createBrokerResponse pResponseStatus_ =
+newCreateBrokerResponse pHttpStatus_ =
   CreateBrokerResponse'
-    { _cbrrsBrokerId = Nothing,
-      _cbrrsBrokerARN = Nothing,
-      _cbrrsResponseStatus = pResponseStatus_
+    { brokerId = Prelude.Nothing,
+      brokerArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The unique ID that Amazon MQ generates for the broker.
-cbrrsBrokerId :: Lens' CreateBrokerResponse (Maybe Text)
-cbrrsBrokerId = lens _cbrrsBrokerId (\s a -> s {_cbrrsBrokerId = a})
+createBrokerResponse_brokerId :: Lens.Lens' CreateBrokerResponse (Prelude.Maybe Prelude.Text)
+createBrokerResponse_brokerId = Lens.lens (\CreateBrokerResponse' {brokerId} -> brokerId) (\s@CreateBrokerResponse' {} a -> s {brokerId = a} :: CreateBrokerResponse)
 
 -- | The Amazon Resource Name (ARN) of the broker.
-cbrrsBrokerARN :: Lens' CreateBrokerResponse (Maybe Text)
-cbrrsBrokerARN = lens _cbrrsBrokerARN (\s a -> s {_cbrrsBrokerARN = a})
+createBrokerResponse_brokerArn :: Lens.Lens' CreateBrokerResponse (Prelude.Maybe Prelude.Text)
+createBrokerResponse_brokerArn = Lens.lens (\CreateBrokerResponse' {brokerArn} -> brokerArn) (\s@CreateBrokerResponse' {} a -> s {brokerArn = a} :: CreateBrokerResponse)
 
--- | -- | The response status code.
-cbrrsResponseStatus :: Lens' CreateBrokerResponse Int
-cbrrsResponseStatus = lens _cbrrsResponseStatus (\s a -> s {_cbrrsResponseStatus = a})
+-- | The response's http status code.
+createBrokerResponse_httpStatus :: Lens.Lens' CreateBrokerResponse Prelude.Int
+createBrokerResponse_httpStatus = Lens.lens (\CreateBrokerResponse' {httpStatus} -> httpStatus) (\s@CreateBrokerResponse' {} a -> s {httpStatus = a} :: CreateBrokerResponse)
 
-instance NFData CreateBrokerResponse
+instance Prelude.NFData CreateBrokerResponse

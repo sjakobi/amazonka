@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,239 +21,265 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration (the engine type and version).
+-- Creates a new configuration for the specified configuration name. Amazon
+-- MQ uses the default configuration (the engine type and version).
 module Network.AWS.MQ.CreateConfiguration
   ( -- * Creating a Request
-    createConfiguration,
-    CreateConfiguration,
+    CreateConfiguration (..),
+    newCreateConfiguration,
 
     -- * Request Lenses
-    ccEngineType,
-    ccAuthenticationStrategy,
-    ccName,
-    ccEngineVersion,
-    ccTags,
+    createConfiguration_engineType,
+    createConfiguration_authenticationStrategy,
+    createConfiguration_name,
+    createConfiguration_engineVersion,
+    createConfiguration_tags,
 
     -- * Destructuring the Response
-    createConfigurationResponse,
-    CreateConfigurationResponse,
+    CreateConfigurationResponse (..),
+    newCreateConfigurationResponse,
 
     -- * Response Lenses
-    ccrrsAuthenticationStrategy,
-    ccrrsLatestRevision,
-    ccrrsARN,
-    ccrrsId,
-    ccrrsName,
-    ccrrsCreated,
-    ccrrsResponseStatus,
+    createConfigurationResponse_authenticationStrategy,
+    createConfigurationResponse_latestRevision,
+    createConfigurationResponse_arn,
+    createConfigurationResponse_id,
+    createConfigurationResponse_name,
+    createConfigurationResponse_created,
+    createConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MQ.Types.AuthenticationStrategy
+import Network.AWS.MQ.Types.ConfigurationRevision
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration (the engine type and version).
+-- | Creates a new configuration for the specified configuration name. Amazon
+-- MQ uses the default configuration (the engine type and version).
 --
--- /See:/ 'createConfiguration' smart constructor.
+-- /See:/ 'newCreateConfiguration' smart constructor.
 data CreateConfiguration = CreateConfiguration'
-  { _ccEngineType ::
-      !(Maybe EngineType),
-    _ccAuthenticationStrategy ::
-      !(Maybe AuthenticationStrategy),
-    _ccName :: !(Maybe Text),
-    _ccEngineVersion ::
-      !(Maybe Text),
-    _ccTags ::
-      !(Maybe (Map Text Text))
+  { -- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+    -- ACTIVEMQ and RABBITMQ.
+    engineType :: Prelude.Maybe EngineType,
+    -- | The authentication strategy associated with the configuration.
+    authenticationStrategy :: Prelude.Maybe AuthenticationStrategy,
+    -- | Required. The name of the configuration. This value can contain only
+    -- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+    -- ~). This value must be 1-150 characters long.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Required. The version of the broker engine. For a list of supported
+    -- engine versions, see
+    -- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | Create tags when creating the configuration.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccEngineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccAuthenticationStrategy' - The authentication strategy associated with the configuration.
+-- 'engineType', 'createConfiguration_engineType' - Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
 --
--- * 'ccName' - Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+-- 'authenticationStrategy', 'createConfiguration_authenticationStrategy' - The authentication strategy associated with the configuration.
 --
--- * 'ccEngineVersion' - Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
+-- 'name', 'createConfiguration_name' - Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
 --
--- * 'ccTags' - Create tags when creating the configuration.
-createConfiguration ::
+-- 'engineVersion', 'createConfiguration_engineVersion' - Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+--
+-- 'tags', 'createConfiguration_tags' - Create tags when creating the configuration.
+newCreateConfiguration ::
   CreateConfiguration
-createConfiguration =
+newCreateConfiguration =
   CreateConfiguration'
-    { _ccEngineType = Nothing,
-      _ccAuthenticationStrategy = Nothing,
-      _ccName = Nothing,
-      _ccEngineVersion = Nothing,
-      _ccTags = Nothing
+    { engineType = Prelude.Nothing,
+      authenticationStrategy = Prelude.Nothing,
+      name = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
--- | Required. The type of broker engine. Note: Currently, Amazon MQ supports ACTIVEMQ and RABBITMQ.
-ccEngineType :: Lens' CreateConfiguration (Maybe EngineType)
-ccEngineType = lens _ccEngineType (\s a -> s {_ccEngineType = a})
+-- | Required. The type of broker engine. Note: Currently, Amazon MQ supports
+-- ACTIVEMQ and RABBITMQ.
+createConfiguration_engineType :: Lens.Lens' CreateConfiguration (Prelude.Maybe EngineType)
+createConfiguration_engineType = Lens.lens (\CreateConfiguration' {engineType} -> engineType) (\s@CreateConfiguration' {} a -> s {engineType = a} :: CreateConfiguration)
 
 -- | The authentication strategy associated with the configuration.
-ccAuthenticationStrategy :: Lens' CreateConfiguration (Maybe AuthenticationStrategy)
-ccAuthenticationStrategy = lens _ccAuthenticationStrategy (\s a -> s {_ccAuthenticationStrategy = a})
+createConfiguration_authenticationStrategy :: Lens.Lens' CreateConfiguration (Prelude.Maybe AuthenticationStrategy)
+createConfiguration_authenticationStrategy = Lens.lens (\CreateConfiguration' {authenticationStrategy} -> authenticationStrategy) (\s@CreateConfiguration' {} a -> s {authenticationStrategy = a} :: CreateConfiguration)
 
--- | Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
-ccName :: Lens' CreateConfiguration (Maybe Text)
-ccName = lens _ccName (\s a -> s {_ccName = a})
+-- | Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
+createConfiguration_name :: Lens.Lens' CreateConfiguration (Prelude.Maybe Prelude.Text)
+createConfiguration_name = Lens.lens (\CreateConfiguration' {name} -> name) (\s@CreateConfiguration' {} a -> s {name = a} :: CreateConfiguration)
 
--- | Required. The version of the broker engine. For a list of supported engine versions, see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html
-ccEngineVersion :: Lens' CreateConfiguration (Maybe Text)
-ccEngineVersion = lens _ccEngineVersion (\s a -> s {_ccEngineVersion = a})
+-- | Required. The version of the broker engine. For a list of supported
+-- engine versions, see
+-- https:\/\/docs.aws.amazon.com\/amazon-mq\/latest\/developer-guide\/broker-engine.html
+createConfiguration_engineVersion :: Lens.Lens' CreateConfiguration (Prelude.Maybe Prelude.Text)
+createConfiguration_engineVersion = Lens.lens (\CreateConfiguration' {engineVersion} -> engineVersion) (\s@CreateConfiguration' {} a -> s {engineVersion = a} :: CreateConfiguration)
 
 -- | Create tags when creating the configuration.
-ccTags :: Lens' CreateConfiguration (HashMap Text Text)
-ccTags = lens _ccTags (\s a -> s {_ccTags = a}) . _Default . _Map
+createConfiguration_tags :: Lens.Lens' CreateConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createConfiguration_tags = Lens.lens (\CreateConfiguration' {tags} -> tags) (\s@CreateConfiguration' {} a -> s {tags = a} :: CreateConfiguration) Prelude.. Lens.mapping Prelude._Map
 
-instance AWSRequest CreateConfiguration where
+instance Prelude.AWSRequest CreateConfiguration where
   type
     Rs CreateConfiguration =
       CreateConfigurationResponse
-  request = postJSON mq
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateConfigurationResponse'
-            <$> (x .?> "authenticationStrategy")
-            <*> (x .?> "latestRevision")
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "name")
-            <*> (x .?> "created")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "authenticationStrategy")
+            Prelude.<*> (x Prelude..?> "latestRevision")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "created")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateConfiguration
+instance Prelude.Hashable CreateConfiguration
 
-instance NFData CreateConfiguration
+instance Prelude.NFData CreateConfiguration
 
-instance ToHeaders CreateConfiguration where
+instance Prelude.ToHeaders CreateConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateConfiguration where
+instance Prelude.ToJSON CreateConfiguration where
   toJSON CreateConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("engineType" .=) <$> _ccEngineType,
-            ("authenticationStrategy" .=)
-              <$> _ccAuthenticationStrategy,
-            ("name" .=) <$> _ccName,
-            ("engineVersion" .=) <$> _ccEngineVersion,
-            ("tags" .=) <$> _ccTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("engineType" Prelude..=) Prelude.<$> engineType,
+            ("authenticationStrategy" Prelude..=)
+              Prelude.<$> authenticationStrategy,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("engineVersion" Prelude..=)
+              Prelude.<$> engineVersion,
+            ("tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath CreateConfiguration where
-  toPath = const "/v1/configurations"
+instance Prelude.ToPath CreateConfiguration where
+  toPath = Prelude.const "/v1/configurations"
 
-instance ToQuery CreateConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createConfigurationResponse' smart constructor.
+-- | /See:/ 'newCreateConfigurationResponse' smart constructor.
 data CreateConfigurationResponse = CreateConfigurationResponse'
-  { _ccrrsAuthenticationStrategy ::
-      !( Maybe
-           AuthenticationStrategy
-       ),
-    _ccrrsLatestRevision ::
-      !( Maybe
-           ConfigurationRevision
-       ),
-    _ccrrsARN ::
-      !(Maybe Text),
-    _ccrrsId ::
-      !(Maybe Text),
-    _ccrrsName ::
-      !(Maybe Text),
-    _ccrrsCreated ::
-      !(Maybe POSIX),
-    _ccrrsResponseStatus ::
-      !Int
+  { -- | The authentication strategy associated with the configuration.
+    authenticationStrategy :: Prelude.Maybe AuthenticationStrategy,
+    -- | The latest revision of the configuration.
+    latestRevision :: Prelude.Maybe ConfigurationRevision,
+    -- | Required. The Amazon Resource Name (ARN) of the configuration.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Required. The unique ID that Amazon MQ generates for the configuration.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Required. The name of the configuration. This value can contain only
+    -- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+    -- ~). This value must be 1-150 characters long.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Required. The date and time of the configuration.
+    created :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrrsAuthenticationStrategy' - The authentication strategy associated with the configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrrsLatestRevision' - The latest revision of the configuration.
+-- 'authenticationStrategy', 'createConfigurationResponse_authenticationStrategy' - The authentication strategy associated with the configuration.
 --
--- * 'ccrrsARN' - Required. The Amazon Resource Name (ARN) of the configuration.
+-- 'latestRevision', 'createConfigurationResponse_latestRevision' - The latest revision of the configuration.
 --
--- * 'ccrrsId' - Required. The unique ID that Amazon MQ generates for the configuration.
+-- 'arn', 'createConfigurationResponse_arn' - Required. The Amazon Resource Name (ARN) of the configuration.
 --
--- * 'ccrrsName' - Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+-- 'id', 'createConfigurationResponse_id' - Required. The unique ID that Amazon MQ generates for the configuration.
 --
--- * 'ccrrsCreated' - Required. The date and time of the configuration.
+-- 'name', 'createConfigurationResponse_name' - Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
 --
--- * 'ccrrsResponseStatus' - -- | The response status code.
-createConfigurationResponse ::
-  -- | 'ccrrsResponseStatus'
-  Int ->
+-- 'created', 'createConfigurationResponse_created' - Required. The date and time of the configuration.
+--
+-- 'httpStatus', 'createConfigurationResponse_httpStatus' - The response's http status code.
+newCreateConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateConfigurationResponse
-createConfigurationResponse pResponseStatus_ =
+newCreateConfigurationResponse pHttpStatus_ =
   CreateConfigurationResponse'
-    { _ccrrsAuthenticationStrategy =
-        Nothing,
-      _ccrrsLatestRevision = Nothing,
-      _ccrrsARN = Nothing,
-      _ccrrsId = Nothing,
-      _ccrrsName = Nothing,
-      _ccrrsCreated = Nothing,
-      _ccrrsResponseStatus = pResponseStatus_
+    { authenticationStrategy =
+        Prelude.Nothing,
+      latestRevision = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      created = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The authentication strategy associated with the configuration.
-ccrrsAuthenticationStrategy :: Lens' CreateConfigurationResponse (Maybe AuthenticationStrategy)
-ccrrsAuthenticationStrategy = lens _ccrrsAuthenticationStrategy (\s a -> s {_ccrrsAuthenticationStrategy = a})
+createConfigurationResponse_authenticationStrategy :: Lens.Lens' CreateConfigurationResponse (Prelude.Maybe AuthenticationStrategy)
+createConfigurationResponse_authenticationStrategy = Lens.lens (\CreateConfigurationResponse' {authenticationStrategy} -> authenticationStrategy) (\s@CreateConfigurationResponse' {} a -> s {authenticationStrategy = a} :: CreateConfigurationResponse)
 
 -- | The latest revision of the configuration.
-ccrrsLatestRevision :: Lens' CreateConfigurationResponse (Maybe ConfigurationRevision)
-ccrrsLatestRevision = lens _ccrrsLatestRevision (\s a -> s {_ccrrsLatestRevision = a})
+createConfigurationResponse_latestRevision :: Lens.Lens' CreateConfigurationResponse (Prelude.Maybe ConfigurationRevision)
+createConfigurationResponse_latestRevision = Lens.lens (\CreateConfigurationResponse' {latestRevision} -> latestRevision) (\s@CreateConfigurationResponse' {} a -> s {latestRevision = a} :: CreateConfigurationResponse)
 
 -- | Required. The Amazon Resource Name (ARN) of the configuration.
-ccrrsARN :: Lens' CreateConfigurationResponse (Maybe Text)
-ccrrsARN = lens _ccrrsARN (\s a -> s {_ccrrsARN = a})
+createConfigurationResponse_arn :: Lens.Lens' CreateConfigurationResponse (Prelude.Maybe Prelude.Text)
+createConfigurationResponse_arn = Lens.lens (\CreateConfigurationResponse' {arn} -> arn) (\s@CreateConfigurationResponse' {} a -> s {arn = a} :: CreateConfigurationResponse)
 
 -- | Required. The unique ID that Amazon MQ generates for the configuration.
-ccrrsId :: Lens' CreateConfigurationResponse (Maybe Text)
-ccrrsId = lens _ccrrsId (\s a -> s {_ccrrsId = a})
+createConfigurationResponse_id :: Lens.Lens' CreateConfigurationResponse (Prelude.Maybe Prelude.Text)
+createConfigurationResponse_id = Lens.lens (\CreateConfigurationResponse' {id} -> id) (\s@CreateConfigurationResponse' {} a -> s {id = a} :: CreateConfigurationResponse)
 
--- | Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
-ccrrsName :: Lens' CreateConfigurationResponse (Maybe Text)
-ccrrsName = lens _ccrrsName (\s a -> s {_ccrrsName = a})
+-- | Required. The name of the configuration. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 1-150 characters long.
+createConfigurationResponse_name :: Lens.Lens' CreateConfigurationResponse (Prelude.Maybe Prelude.Text)
+createConfigurationResponse_name = Lens.lens (\CreateConfigurationResponse' {name} -> name) (\s@CreateConfigurationResponse' {} a -> s {name = a} :: CreateConfigurationResponse)
 
 -- | Required. The date and time of the configuration.
-ccrrsCreated :: Lens' CreateConfigurationResponse (Maybe UTCTime)
-ccrrsCreated = lens _ccrrsCreated (\s a -> s {_ccrrsCreated = a}) . mapping _Time
+createConfigurationResponse_created :: Lens.Lens' CreateConfigurationResponse (Prelude.Maybe Prelude.UTCTime)
+createConfigurationResponse_created = Lens.lens (\CreateConfigurationResponse' {created} -> created) (\s@CreateConfigurationResponse' {} a -> s {created = a} :: CreateConfigurationResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-ccrrsResponseStatus :: Lens' CreateConfigurationResponse Int
-ccrrsResponseStatus = lens _ccrrsResponseStatus (\s a -> s {_ccrrsResponseStatus = a})
+-- | The response's http status code.
+createConfigurationResponse_httpStatus :: Lens.Lens' CreateConfigurationResponse Prelude.Int
+createConfigurationResponse_httpStatus = Lens.lens (\CreateConfigurationResponse' {httpStatus} -> httpStatus) (\s@CreateConfigurationResponse' {} a -> s {httpStatus = a} :: CreateConfigurationResponse)
 
-instance NFData CreateConfigurationResponse
+instance Prelude.NFData CreateConfigurationResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.ConfigurationRevision where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Returns information about the specified configuration revision.
 --
--- /See:/ 'configurationRevision' smart constructor.
+-- /See:/ 'newConfigurationRevision' smart constructor.
 data ConfigurationRevision = ConfigurationRevision'
-  { _crDescription ::
-      !(Maybe Text),
-    _crRevision :: !(Maybe Int),
-    _crCreated ::
-      !(Maybe POSIX)
+  { -- | The description of the configuration revision.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Required. The revision number of the configuration.
+    revision :: Prelude.Maybe Prelude.Int,
+    -- | Required. The date and time of the configuration revision.
+    created :: Prelude.Maybe Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigurationRevision' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigurationRevision' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crDescription' - The description of the configuration revision.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crRevision' - Required. The revision number of the configuration.
+-- 'description', 'configurationRevision_description' - The description of the configuration revision.
 --
--- * 'crCreated' - Required. The date and time of the configuration revision.
-configurationRevision ::
+-- 'revision', 'configurationRevision_revision' - Required. The revision number of the configuration.
+--
+-- 'created', 'configurationRevision_created' - Required. The date and time of the configuration revision.
+newConfigurationRevision ::
   ConfigurationRevision
-configurationRevision =
+newConfigurationRevision =
   ConfigurationRevision'
-    { _crDescription = Nothing,
-      _crRevision = Nothing,
-      _crCreated = Nothing
+    { description =
+        Prelude.Nothing,
+      revision = Prelude.Nothing,
+      created = Prelude.Nothing
     }
 
 -- | The description of the configuration revision.
-crDescription :: Lens' ConfigurationRevision (Maybe Text)
-crDescription = lens _crDescription (\s a -> s {_crDescription = a})
+configurationRevision_description :: Lens.Lens' ConfigurationRevision (Prelude.Maybe Prelude.Text)
+configurationRevision_description = Lens.lens (\ConfigurationRevision' {description} -> description) (\s@ConfigurationRevision' {} a -> s {description = a} :: ConfigurationRevision)
 
 -- | Required. The revision number of the configuration.
-crRevision :: Lens' ConfigurationRevision (Maybe Int)
-crRevision = lens _crRevision (\s a -> s {_crRevision = a})
+configurationRevision_revision :: Lens.Lens' ConfigurationRevision (Prelude.Maybe Prelude.Int)
+configurationRevision_revision = Lens.lens (\ConfigurationRevision' {revision} -> revision) (\s@ConfigurationRevision' {} a -> s {revision = a} :: ConfigurationRevision)
 
 -- | Required. The date and time of the configuration revision.
-crCreated :: Lens' ConfigurationRevision (Maybe UTCTime)
-crCreated = lens _crCreated (\s a -> s {_crCreated = a}) . mapping _Time
+configurationRevision_created :: Lens.Lens' ConfigurationRevision (Prelude.Maybe Prelude.UTCTime)
+configurationRevision_created = Lens.lens (\ConfigurationRevision' {created} -> created) (\s@ConfigurationRevision' {} a -> s {created = a} :: ConfigurationRevision) Prelude.. Lens.mapping Prelude._Time
 
-instance FromJSON ConfigurationRevision where
+instance Prelude.FromJSON ConfigurationRevision where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConfigurationRevision"
       ( \x ->
           ConfigurationRevision'
-            <$> (x .:? "description")
-            <*> (x .:? "revision")
-            <*> (x .:? "created")
+            Prelude.<$> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..:? "revision")
+            Prelude.<*> (x Prelude..:? "created")
       )
 
-instance Hashable ConfigurationRevision
+instance Prelude.Hashable ConfigurationRevision
 
-instance NFData ConfigurationRevision
+instance Prelude.NFData ConfigurationRevision

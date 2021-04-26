@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,109 +24,125 @@
 -- Lists tags for a resource.
 module Network.AWS.MQ.ListTags
   ( -- * Creating a Request
-    listTags,
-    ListTags,
+    ListTags (..),
+    newListTags,
 
     -- * Request Lenses
-    ltResourceARN,
+    listTags_resourceArn,
 
     -- * Destructuring the Response
-    listTagsResponse,
-    ListTagsResponse,
+    ListTagsResponse (..),
+    newListTagsResponse,
 
     -- * Response Lenses
-    ltrrsTags,
-    ltrrsResponseStatus,
+    listTagsResponse_tags,
+    listTagsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTags' smart constructor.
-newtype ListTags = ListTags' {_ltResourceARN :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newListTags' smart constructor.
+data ListTags = ListTags'
+  { -- | The Amazon Resource Name (ARN) of the resource tag.
+    resourceArn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltResourceARN' - The Amazon Resource Name (ARN) of the resource tag.
-listTags ::
-  -- | 'ltResourceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'listTags_resourceArn' - The Amazon Resource Name (ARN) of the resource tag.
+newListTags ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   ListTags
-listTags pResourceARN_ =
-  ListTags' {_ltResourceARN = pResourceARN_}
+newListTags pResourceArn_ =
+  ListTags' {resourceArn = pResourceArn_}
 
 -- | The Amazon Resource Name (ARN) of the resource tag.
-ltResourceARN :: Lens' ListTags Text
-ltResourceARN = lens _ltResourceARN (\s a -> s {_ltResourceARN = a})
+listTags_resourceArn :: Lens.Lens' ListTags Prelude.Text
+listTags_resourceArn = Lens.lens (\ListTags' {resourceArn} -> resourceArn) (\s@ListTags' {} a -> s {resourceArn = a} :: ListTags)
 
-instance AWSRequest ListTags where
+instance Prelude.AWSRequest ListTags where
   type Rs ListTags = ListTagsResponse
-  request = get mq
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            <$> (x .?> "tags" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTags
+instance Prelude.Hashable ListTags
 
-instance NFData ListTags
+instance Prelude.NFData ListTags
 
-instance ToHeaders ListTags where
+instance Prelude.ToHeaders ListTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListTags where
+instance Prelude.ToPath ListTags where
   toPath ListTags' {..} =
-    mconcat ["/v1/tags/", toBS _ltResourceARN]
+    Prelude.mconcat
+      ["/v1/tags/", Prelude.toBS resourceArn]
 
-instance ToQuery ListTags where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagsResponse' smart constructor.
+-- | /See:/ 'newListTagsResponse' smart constructor.
 data ListTagsResponse = ListTagsResponse'
-  { _ltrrsTags ::
-      !(Maybe (Map Text Text)),
-    _ltrrsResponseStatus :: !Int
+  { -- | The key-value pair for the resource tag.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsTags' - The key-value pair for the resource tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTagsResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'tags', 'listTagsResponse_tags' - The key-value pair for the resource tag.
+--
+-- 'httpStatus', 'listTagsResponse_httpStatus' - The response's http status code.
+newListTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsResponse
-listTagsResponse pResponseStatus_ =
+newListTagsResponse pHttpStatus_ =
   ListTagsResponse'
-    { _ltrrsTags = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The key-value pair for the resource tag.
-ltrrsTags :: Lens' ListTagsResponse (HashMap Text Text)
-ltrrsTags = lens _ltrrsTags (\s a -> s {_ltrrsTags = a}) . _Default . _Map
+listTagsResponse_tags :: Lens.Lens' ListTagsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listTagsResponse_tags = Lens.lens (\ListTagsResponse' {tags} -> tags) (\s@ListTagsResponse' {} a -> s {tags = a} :: ListTagsResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTagsResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsResponse_httpStatus :: Lens.Lens' ListTagsResponse Prelude.Int
+listTagsResponse_httpStatus = Lens.lens (\ListTagsResponse' {httpStatus} -> httpStatus) (\s@ListTagsResponse' {} a -> s {httpStatus = a} :: ListTagsResponse)
 
-instance NFData ListTagsResponse
+instance Prelude.NFData ListTagsResponse

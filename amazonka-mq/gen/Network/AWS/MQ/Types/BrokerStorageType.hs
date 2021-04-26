@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MQ.Types.BrokerStorageType
   ( BrokerStorageType
       ( ..,
-        EBS,
-        Efs
+        BrokerStorageTypeEBS,
+        BrokerStorageTypeEFS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | /Important:/ EFS is currently not Supported for RabbitMQ engine type.
-data BrokerStorageType = BrokerStorageType' (CI Text)
+-- | The broker\'s storage type.
+-- EFS is currently not Supported for RabbitMQ engine type.
+newtype BrokerStorageType = BrokerStorageType'
+  { fromBrokerStorageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EBS :: BrokerStorageType
-pattern EBS = BrokerStorageType' "EBS"
+pattern BrokerStorageTypeEBS :: BrokerStorageType
+pattern BrokerStorageTypeEBS = BrokerStorageType' "EBS"
 
-pattern Efs :: BrokerStorageType
-pattern Efs = BrokerStorageType' "EFS"
+pattern BrokerStorageTypeEFS :: BrokerStorageType
+pattern BrokerStorageTypeEFS = BrokerStorageType' "EFS"
 
 {-# COMPLETE
-  EBS,
-  Efs,
+  BrokerStorageTypeEBS,
+  BrokerStorageTypeEFS,
   BrokerStorageType'
   #-}
 
-instance FromText BrokerStorageType where
-  parser = (BrokerStorageType' . mk) <$> takeText
+instance Prelude.FromText BrokerStorageType where
+  parser = BrokerStorageType' Prelude.<$> Prelude.takeText
 
-instance ToText BrokerStorageType where
-  toText (BrokerStorageType' ci) = original ci
+instance Prelude.ToText BrokerStorageType where
+  toText (BrokerStorageType' x) = x
 
-instance Hashable BrokerStorageType
+instance Prelude.Hashable BrokerStorageType
 
-instance NFData BrokerStorageType
+instance Prelude.NFData BrokerStorageType
 
-instance ToByteString BrokerStorageType
+instance Prelude.ToByteString BrokerStorageType
 
-instance ToQuery BrokerStorageType
+instance Prelude.ToQuery BrokerStorageType
 
-instance ToHeader BrokerStorageType
+instance Prelude.ToHeader BrokerStorageType
 
-instance ToJSON BrokerStorageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON BrokerStorageType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BrokerStorageType where
-  parseJSON = parseJSONText "BrokerStorageType"
+instance Prelude.FromJSON BrokerStorageType where
+  parseJSON = Prelude.parseJSONText "BrokerStorageType"

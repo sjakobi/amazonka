@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,72 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MQ.Types.SanitizationWarning where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types.SanitizationWarningReason
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Returns information about the XML element or attribute that was sanitized in the configuration.
+-- | Returns information about the XML element or attribute that was
+-- sanitized in the configuration.
 --
--- /See:/ 'sanitizationWarning' smart constructor.
+-- /See:/ 'newSanitizationWarning' smart constructor.
 data SanitizationWarning = SanitizationWarning'
-  { _swElementName ::
-      !(Maybe Text),
-    _swAttributeName ::
-      !(Maybe Text),
-    _swReason ::
-      !( Maybe
-           SanitizationWarningReason
-       )
+  { -- | The name of the XML element that has been sanitized.
+    elementName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the XML attribute that has been sanitized.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | Required. The reason for which the XML elements or attributes were
+    -- sanitized.
+    reason :: Prelude.Maybe SanitizationWarningReason
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SanitizationWarning' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SanitizationWarning' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'swElementName' - The name of the XML element that has been sanitized.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'swAttributeName' - The name of the XML attribute that has been sanitized.
+-- 'elementName', 'sanitizationWarning_elementName' - The name of the XML element that has been sanitized.
 --
--- * 'swReason' - Required. The reason for which the XML elements or attributes were sanitized.
-sanitizationWarning ::
+-- 'attributeName', 'sanitizationWarning_attributeName' - The name of the XML attribute that has been sanitized.
+--
+-- 'reason', 'sanitizationWarning_reason' - Required. The reason for which the XML elements or attributes were
+-- sanitized.
+newSanitizationWarning ::
   SanitizationWarning
-sanitizationWarning =
+newSanitizationWarning =
   SanitizationWarning'
-    { _swElementName = Nothing,
-      _swAttributeName = Nothing,
-      _swReason = Nothing
+    { elementName = Prelude.Nothing,
+      attributeName = Prelude.Nothing,
+      reason = Prelude.Nothing
     }
 
 -- | The name of the XML element that has been sanitized.
-swElementName :: Lens' SanitizationWarning (Maybe Text)
-swElementName = lens _swElementName (\s a -> s {_swElementName = a})
+sanitizationWarning_elementName :: Lens.Lens' SanitizationWarning (Prelude.Maybe Prelude.Text)
+sanitizationWarning_elementName = Lens.lens (\SanitizationWarning' {elementName} -> elementName) (\s@SanitizationWarning' {} a -> s {elementName = a} :: SanitizationWarning)
 
 -- | The name of the XML attribute that has been sanitized.
-swAttributeName :: Lens' SanitizationWarning (Maybe Text)
-swAttributeName = lens _swAttributeName (\s a -> s {_swAttributeName = a})
+sanitizationWarning_attributeName :: Lens.Lens' SanitizationWarning (Prelude.Maybe Prelude.Text)
+sanitizationWarning_attributeName = Lens.lens (\SanitizationWarning' {attributeName} -> attributeName) (\s@SanitizationWarning' {} a -> s {attributeName = a} :: SanitizationWarning)
 
--- | Required. The reason for which the XML elements or attributes were sanitized.
-swReason :: Lens' SanitizationWarning (Maybe SanitizationWarningReason)
-swReason = lens _swReason (\s a -> s {_swReason = a})
+-- | Required. The reason for which the XML elements or attributes were
+-- sanitized.
+sanitizationWarning_reason :: Lens.Lens' SanitizationWarning (Prelude.Maybe SanitizationWarningReason)
+sanitizationWarning_reason = Lens.lens (\SanitizationWarning' {reason} -> reason) (\s@SanitizationWarning' {} a -> s {reason = a} :: SanitizationWarning)
 
-instance FromJSON SanitizationWarning where
+instance Prelude.FromJSON SanitizationWarning where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SanitizationWarning"
       ( \x ->
           SanitizationWarning'
-            <$> (x .:? "elementName")
-            <*> (x .:? "attributeName")
-            <*> (x .:? "reason")
+            Prelude.<$> (x Prelude..:? "elementName")
+            Prelude.<*> (x Prelude..:? "attributeName")
+            Prelude.<*> (x Prelude..:? "reason")
       )
 
-instance Hashable SanitizationWarning
+instance Prelude.Hashable SanitizationWarning
 
-instance NFData SanitizationWarning
+instance Prelude.NFData SanitizationWarning

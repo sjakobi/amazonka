@@ -11,10 +11,14 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ that makes it easy to set up and operate message brokers in the cloud. A message broker allows software applications and components to communicate using various programming languages, operating systems, and formal messaging protocols.
+-- Amazon MQ is a managed message broker service for Apache ActiveMQ and
+-- RabbitMQ that makes it easy to set up and operate message brokers in the
+-- cloud. A message broker allows software applications and components to
+-- communicate using various programming languages, operating systems, and
+-- formal messaging protocols.
 module Network.AWS.MQ
   ( -- * Service Configuration
-    mq,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -44,70 +48,136 @@ module Network.AWS.MQ
     -- $operations
 
     -- ** CreateBroker
-    module Network.AWS.MQ.CreateBroker,
+    CreateBroker (CreateBroker'),
+    newCreateBroker,
+    CreateBrokerResponse (CreateBrokerResponse'),
+    newCreateBrokerResponse,
 
     -- ** DescribeBrokerInstanceOptions
-    module Network.AWS.MQ.DescribeBrokerInstanceOptions,
+    DescribeBrokerInstanceOptions (DescribeBrokerInstanceOptions'),
+    newDescribeBrokerInstanceOptions,
+    DescribeBrokerInstanceOptionsResponse (DescribeBrokerInstanceOptionsResponse'),
+    newDescribeBrokerInstanceOptionsResponse,
 
     -- ** UpdateConfiguration
-    module Network.AWS.MQ.UpdateConfiguration,
+    UpdateConfiguration (UpdateConfiguration'),
+    newUpdateConfiguration,
+    UpdateConfigurationResponse (UpdateConfigurationResponse'),
+    newUpdateConfigurationResponse,
 
     -- ** ListConfigurations
-    module Network.AWS.MQ.ListConfigurations,
+    ListConfigurations (ListConfigurations'),
+    newListConfigurations,
+    ListConfigurationsResponse (ListConfigurationsResponse'),
+    newListConfigurationsResponse,
 
     -- ** DescribeBroker
-    module Network.AWS.MQ.DescribeBroker,
+    DescribeBroker (DescribeBroker'),
+    newDescribeBroker,
+    DescribeBrokerResponse (DescribeBrokerResponse'),
+    newDescribeBrokerResponse,
 
     -- ** DescribeBrokerEngineTypes
-    module Network.AWS.MQ.DescribeBrokerEngineTypes,
+    DescribeBrokerEngineTypes (DescribeBrokerEngineTypes'),
+    newDescribeBrokerEngineTypes,
+    DescribeBrokerEngineTypesResponse (DescribeBrokerEngineTypesResponse'),
+    newDescribeBrokerEngineTypesResponse,
 
     -- ** DeleteTags
-    module Network.AWS.MQ.DeleteTags,
+    DeleteTags (DeleteTags'),
+    newDeleteTags,
+    DeleteTagsResponse (DeleteTagsResponse'),
+    newDeleteTagsResponse,
 
     -- ** CreateUser
-    module Network.AWS.MQ.CreateUser,
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
 
     -- ** ListBrokers (Paginated)
-    module Network.AWS.MQ.ListBrokers,
+    ListBrokers (ListBrokers'),
+    newListBrokers,
+    ListBrokersResponse (ListBrokersResponse'),
+    newListBrokersResponse,
 
     -- ** UpdateBroker
-    module Network.AWS.MQ.UpdateBroker,
+    UpdateBroker (UpdateBroker'),
+    newUpdateBroker,
+    UpdateBrokerResponse (UpdateBrokerResponse'),
+    newUpdateBrokerResponse,
 
     -- ** DeleteBroker
-    module Network.AWS.MQ.DeleteBroker,
+    DeleteBroker (DeleteBroker'),
+    newDeleteBroker,
+    DeleteBrokerResponse (DeleteBrokerResponse'),
+    newDeleteBrokerResponse,
 
     -- ** RebootBroker
-    module Network.AWS.MQ.RebootBroker,
+    RebootBroker (RebootBroker'),
+    newRebootBroker,
+    RebootBrokerResponse (RebootBrokerResponse'),
+    newRebootBrokerResponse,
 
     -- ** ListConfigurationRevisions
-    module Network.AWS.MQ.ListConfigurationRevisions,
+    ListConfigurationRevisions (ListConfigurationRevisions'),
+    newListConfigurationRevisions,
+    ListConfigurationRevisionsResponse (ListConfigurationRevisionsResponse'),
+    newListConfigurationRevisionsResponse,
 
     -- ** CreateConfiguration
-    module Network.AWS.MQ.CreateConfiguration,
+    CreateConfiguration (CreateConfiguration'),
+    newCreateConfiguration,
+    CreateConfigurationResponse (CreateConfigurationResponse'),
+    newCreateConfigurationResponse,
 
     -- ** DescribeUser
-    module Network.AWS.MQ.DescribeUser,
+    DescribeUser (DescribeUser'),
+    newDescribeUser,
+    DescribeUserResponse (DescribeUserResponse'),
+    newDescribeUserResponse,
 
     -- ** DescribeConfigurationRevision
-    module Network.AWS.MQ.DescribeConfigurationRevision,
+    DescribeConfigurationRevision (DescribeConfigurationRevision'),
+    newDescribeConfigurationRevision,
+    DescribeConfigurationRevisionResponse (DescribeConfigurationRevisionResponse'),
+    newDescribeConfigurationRevisionResponse,
 
     -- ** ListTags
-    module Network.AWS.MQ.ListTags,
+    ListTags (ListTags'),
+    newListTags,
+    ListTagsResponse (ListTagsResponse'),
+    newListTagsResponse,
 
     -- ** DeleteUser
-    module Network.AWS.MQ.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** ListUsers
-    module Network.AWS.MQ.ListUsers,
+    ListUsers (ListUsers'),
+    newListUsers,
+    ListUsersResponse (ListUsersResponse'),
+    newListUsersResponse,
 
     -- ** UpdateUser
-    module Network.AWS.MQ.UpdateUser,
+    UpdateUser (UpdateUser'),
+    newUpdateUser,
+    UpdateUserResponse (UpdateUserResponse'),
+    newUpdateUserResponse,
 
     -- ** DescribeConfiguration
-    module Network.AWS.MQ.DescribeConfiguration,
+    DescribeConfiguration (DescribeConfiguration'),
+    newDescribeConfiguration,
+    DescribeConfigurationResponse (DescribeConfigurationResponse'),
+    newDescribeConfigurationResponse,
 
     -- ** CreateTags
-    module Network.AWS.MQ.CreateTags,
+    CreateTags (CreateTags'),
+    newCreateTags,
+    CreateTagsResponse (CreateTagsResponse'),
+    newCreateTagsResponse,
 
     -- * Types
 
@@ -136,174 +206,88 @@ module Network.AWS.MQ
     SanitizationWarningReason (..),
 
     -- ** AvailabilityZone
-    AvailabilityZone,
-    availabilityZone,
-    azName,
+    AvailabilityZone (AvailabilityZone'),
+    newAvailabilityZone,
 
     -- ** BrokerEngineType
-    BrokerEngineType,
-    brokerEngineType,
-    betEngineType,
-    betEngineVersions,
+    BrokerEngineType (BrokerEngineType'),
+    newBrokerEngineType,
 
     -- ** BrokerInstance
-    BrokerInstance,
-    brokerInstance,
-    biEndpoints,
-    biIPAddress,
-    biConsoleURL,
+    BrokerInstance (BrokerInstance'),
+    newBrokerInstance,
 
     -- ** BrokerInstanceOption
-    BrokerInstanceOption,
-    brokerInstanceOption,
-    bioAvailabilityZones,
-    bioStorageType,
-    bioEngineType,
-    bioSupportedDeploymentModes,
-    bioSupportedEngineVersions,
-    bioHostInstanceType,
+    BrokerInstanceOption (BrokerInstanceOption'),
+    newBrokerInstanceOption,
 
     -- ** BrokerSummary
-    BrokerSummary,
-    brokerSummary,
-    bsBrokerName,
-    bsBrokerId,
-    bsEngineType,
-    bsBrokerState,
-    bsHostInstanceType,
-    bsBrokerARN,
-    bsCreated,
-    bsDeploymentMode,
+    BrokerSummary (BrokerSummary'),
+    newBrokerSummary,
 
     -- ** Configuration
-    Configuration,
-    configuration,
-    cEngineType,
-    cAuthenticationStrategy,
-    cLatestRevision,
-    cARN,
-    cId,
-    cName,
-    cEngineVersion,
-    cTags,
-    cDescription,
-    cCreated,
+    Configuration (Configuration'),
+    newConfiguration,
 
     -- ** ConfigurationId
-    ConfigurationId,
-    configurationId,
-    ciId,
-    ciRevision,
+    ConfigurationId (ConfigurationId'),
+    newConfigurationId,
 
     -- ** ConfigurationRevision
-    ConfigurationRevision,
-    configurationRevision,
-    crDescription,
-    crRevision,
-    crCreated,
+    ConfigurationRevision (ConfigurationRevision'),
+    newConfigurationRevision,
 
     -- ** Configurations
-    Configurations,
-    configurations,
-    cPending,
-    cCurrent,
-    cHistory,
+    Configurations (Configurations'),
+    newConfigurations,
 
     -- ** EncryptionOptions
-    EncryptionOptions,
-    encryptionOptions,
-    eoKMSKeyId,
-    eoUseAWSOwnedKey,
+    EncryptionOptions (EncryptionOptions'),
+    newEncryptionOptions,
 
     -- ** EngineVersion
-    EngineVersion,
-    engineVersion,
-    evName,
+    EngineVersion (EngineVersion'),
+    newEngineVersion,
 
     -- ** LdapServerMetadataInput
-    LdapServerMetadataInput,
-    ldapServerMetadataInput,
-    lsmiUserBase,
-    lsmiUserSearchMatching,
-    lsmiRoleName,
-    lsmiServiceAccountPassword,
-    lsmiUserSearchSubtree,
-    lsmiServiceAccountUsername,
-    lsmiUserRoleName,
-    lsmiRoleBase,
-    lsmiRoleSearchMatching,
-    lsmiHosts,
-    lsmiRoleSearchSubtree,
+    LdapServerMetadataInput (LdapServerMetadataInput'),
+    newLdapServerMetadataInput,
 
     -- ** LdapServerMetadataOutput
-    LdapServerMetadataOutput,
-    ldapServerMetadataOutput,
-    lsmoUserBase,
-    lsmoUserSearchMatching,
-    lsmoRoleName,
-    lsmoUserSearchSubtree,
-    lsmoServiceAccountUsername,
-    lsmoUserRoleName,
-    lsmoRoleBase,
-    lsmoRoleSearchMatching,
-    lsmoHosts,
-    lsmoRoleSearchSubtree,
+    LdapServerMetadataOutput (LdapServerMetadataOutput'),
+    newLdapServerMetadataOutput,
 
     -- ** Logs
-    Logs,
-    logs,
-    lGeneral,
-    lAudit,
+    Logs (Logs'),
+    newLogs,
 
     -- ** LogsSummary
-    LogsSummary,
-    logsSummary,
-    lsGeneral,
-    lsAudit,
-    lsPending,
-    lsAuditLogGroup,
-    lsGeneralLogGroup,
+    LogsSummary (LogsSummary'),
+    newLogsSummary,
 
     -- ** PendingLogs
-    PendingLogs,
-    pendingLogs,
-    plGeneral,
-    plAudit,
+    PendingLogs (PendingLogs'),
+    newPendingLogs,
 
     -- ** SanitizationWarning
-    SanitizationWarning,
-    sanitizationWarning,
-    swElementName,
-    swAttributeName,
-    swReason,
+    SanitizationWarning (SanitizationWarning'),
+    newSanitizationWarning,
 
     -- ** User
-    User,
-    user,
-    uGroups,
-    uPassword,
-    uUsername,
-    uConsoleAccess,
+    User (User'),
+    newUser,
 
     -- ** UserPendingChanges
-    UserPendingChanges,
-    userPendingChanges,
-    upcGroups,
-    upcPendingChange,
-    upcConsoleAccess,
+    UserPendingChanges (UserPendingChanges'),
+    newUserPendingChanges,
 
     -- ** UserSummary
-    UserSummary,
-    userSummary,
-    usPendingChange,
-    usUsername,
+    UserSummary (UserSummary'),
+    newUserSummary,
 
     -- ** WeeklyStartTime
-    WeeklyStartTime,
-    weeklyStartTime,
-    wstDayOfWeek,
-    wstTimeOfDay,
-    wstTimeZone,
+    WeeklyStartTime (WeeklyStartTime'),
+    newWeeklyStartTime,
   )
 where
 
@@ -320,6 +304,7 @@ import Network.AWS.MQ.DescribeBrokerInstanceOptions
 import Network.AWS.MQ.DescribeConfiguration
 import Network.AWS.MQ.DescribeConfigurationRevision
 import Network.AWS.MQ.DescribeUser
+import Network.AWS.MQ.Lens
 import Network.AWS.MQ.ListBrokers
 import Network.AWS.MQ.ListConfigurationRevisions
 import Network.AWS.MQ.ListConfigurations

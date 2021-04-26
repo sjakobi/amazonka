@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,136 @@
 -- Deletes an ActiveMQ user.
 module Network.AWS.MQ.DeleteUser
   ( -- * Creating a Request
-    deleteUser,
-    DeleteUser,
+    DeleteUser (..),
+    newDeleteUser,
 
     -- * Request Lenses
-    delUsername,
-    delBrokerId,
+    deleteUser_username,
+    deleteUser_brokerId,
 
     -- * Destructuring the Response
-    deleteUserResponse,
-    DeleteUserResponse,
+    DeleteUserResponse (..),
+    newDeleteUserResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteUserResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MQ.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUser' smart constructor.
+-- | /See:/ 'newDeleteUser' smart constructor.
 data DeleteUser = DeleteUser'
-  { _delUsername :: !Text,
-    _delBrokerId :: !Text
+  { -- | The username of the ActiveMQ user. This value can contain only
+    -- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+    -- ~). This value must be 2-100 characters long.
+    username :: Prelude.Text,
+    -- | The unique ID that Amazon MQ generates for the broker.
+    brokerId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delUsername' - The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delBrokerId' - The unique ID that Amazon MQ generates for the broker.
-deleteUser ::
-  -- | 'delUsername'
-  Text ->
-  -- | 'delBrokerId'
-  Text ->
+-- 'username', 'deleteUser_username' - The username of the ActiveMQ user. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 2-100 characters long.
+--
+-- 'brokerId', 'deleteUser_brokerId' - The unique ID that Amazon MQ generates for the broker.
+newDeleteUser ::
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'brokerId'
+  Prelude.Text ->
   DeleteUser
-deleteUser pUsername_ pBrokerId_ =
+newDeleteUser pUsername_ pBrokerId_ =
   DeleteUser'
-    { _delUsername = pUsername_,
-      _delBrokerId = pBrokerId_
+    { username = pUsername_,
+      brokerId = pBrokerId_
     }
 
--- | The username of the ActiveMQ user. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.
-delUsername :: Lens' DeleteUser Text
-delUsername = lens _delUsername (\s a -> s {_delUsername = a})
+-- | The username of the ActiveMQ user. This value can contain only
+-- alphanumeric characters, dashes, periods, underscores, and tildes (- . _
+-- ~). This value must be 2-100 characters long.
+deleteUser_username :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_username = Lens.lens (\DeleteUser' {username} -> username) (\s@DeleteUser' {} a -> s {username = a} :: DeleteUser)
 
 -- | The unique ID that Amazon MQ generates for the broker.
-delBrokerId :: Lens' DeleteUser Text
-delBrokerId = lens _delBrokerId (\s a -> s {_delBrokerId = a})
+deleteUser_brokerId :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_brokerId = Lens.lens (\DeleteUser' {brokerId} -> brokerId) (\s@DeleteUser' {} a -> s {brokerId = a} :: DeleteUser)
 
-instance AWSRequest DeleteUser where
+instance Prelude.AWSRequest DeleteUser where
   type Rs DeleteUser = DeleteUserResponse
-  request = delete mq
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteUserResponse' <$> (pure (fromEnum s))
+          DeleteUserResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteUser
+instance Prelude.Hashable DeleteUser
 
-instance NFData DeleteUser
+instance Prelude.NFData DeleteUser
 
-instance ToHeaders DeleteUser where
+instance Prelude.ToHeaders DeleteUser where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteUser where
+instance Prelude.ToPath DeleteUser where
   toPath DeleteUser' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/v1/brokers/",
-        toBS _delBrokerId,
+        Prelude.toBS brokerId,
         "/users/",
-        toBS _delUsername
+        Prelude.toBS username
       ]
 
-instance ToQuery DeleteUser where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteUser where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteUserResponse' smart constructor.
-newtype DeleteUserResponse = DeleteUserResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteUserResponse' smart constructor.
+data DeleteUserResponse = DeleteUserResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteUserResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteUserResponse_httpStatus' - The response's http status code.
+newDeleteUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteUserResponse
-deleteUserResponse pResponseStatus_ =
-  DeleteUserResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteUserResponse pHttpStatus_ =
+  DeleteUserResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteUserResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteUserResponse_httpStatus :: Lens.Lens' DeleteUserResponse Prelude.Int
+deleteUserResponse_httpStatus = Lens.lens (\DeleteUserResponse' {httpStatus} -> httpStatus) (\s@DeleteUserResponse' {} a -> s {httpStatus = a} :: DeleteUserResponse)
 
-instance NFData DeleteUserResponse
+instance Prelude.NFData DeleteUserResponse
