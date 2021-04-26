@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Mobile.Types.Resource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about an instance of an AWS resource associated with a project.
+-- | Information about an instance of an AWS resource associated with a
+-- project.
 --
---
---
--- /See:/ 'resource' smart constructor.
+-- /See:/ 'newResource' smart constructor.
 data Resource = Resource'
-  { _rArn :: !(Maybe Text),
-    _rName :: !(Maybe Text),
-    _rAttributes :: !(Maybe (Map Text Text)),
-    _rFeature :: !(Maybe Text),
-    _rType :: !(Maybe Text)
+  { arn :: Prelude.Maybe Prelude.Text,
+    name :: Prelude.Maybe Prelude.Text,
+    attributes :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    feature :: Prelude.Maybe Prelude.Text,
+    type' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Resource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Resource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rArn' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rName' - Undocumented member.
+-- 'arn', 'resource_arn' - Undocumented member.
 --
--- * 'rAttributes' - Undocumented member.
+-- 'name', 'resource_name' - Undocumented member.
 --
--- * 'rFeature' - Undocumented member.
+-- 'attributes', 'resource_attributes' - Undocumented member.
 --
--- * 'rType' - Undocumented member.
-resource ::
+-- 'feature', 'resource_feature' - Undocumented member.
+--
+-- 'type'', 'resource_type' - Undocumented member.
+newResource ::
   Resource
-resource =
+newResource =
   Resource'
-    { _rArn = Nothing,
-      _rName = Nothing,
-      _rAttributes = Nothing,
-      _rFeature = Nothing,
-      _rType = Nothing
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      attributes = Prelude.Nothing,
+      feature = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | Undocumented member.
-rArn :: Lens' Resource (Maybe Text)
-rArn = lens _rArn (\s a -> s {_rArn = a})
+resource_arn :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_arn = Lens.lens (\Resource' {arn} -> arn) (\s@Resource' {} a -> s {arn = a} :: Resource)
 
 -- | Undocumented member.
-rName :: Lens' Resource (Maybe Text)
-rName = lens _rName (\s a -> s {_rName = a})
+resource_name :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_name = Lens.lens (\Resource' {name} -> name) (\s@Resource' {} a -> s {name = a} :: Resource)
 
 -- | Undocumented member.
-rAttributes :: Lens' Resource (HashMap Text Text)
-rAttributes = lens _rAttributes (\s a -> s {_rAttributes = a}) . _Default . _Map
+resource_attributes :: Lens.Lens' Resource (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+resource_attributes = Lens.lens (\Resource' {attributes} -> attributes) (\s@Resource' {} a -> s {attributes = a} :: Resource) Prelude.. Lens.mapping Prelude._Map
 
 -- | Undocumented member.
-rFeature :: Lens' Resource (Maybe Text)
-rFeature = lens _rFeature (\s a -> s {_rFeature = a})
+resource_feature :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_feature = Lens.lens (\Resource' {feature} -> feature) (\s@Resource' {} a -> s {feature = a} :: Resource)
 
 -- | Undocumented member.
-rType :: Lens' Resource (Maybe Text)
-rType = lens _rType (\s a -> s {_rType = a})
+resource_type :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_type = Lens.lens (\Resource' {type'} -> type') (\s@Resource' {} a -> s {type' = a} :: Resource)
 
-instance FromJSON Resource where
+instance Prelude.FromJSON Resource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Resource"
       ( \x ->
           Resource'
-            <$> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "attributes" .!= mempty)
-            <*> (x .:? "feature")
-            <*> (x .:? "type")
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "feature")
+            Prelude.<*> (x Prelude..:? "type")
       )
 
-instance Hashable Resource
+instance Prelude.Hashable Resource
 
-instance NFData Resource
+instance Prelude.NFData Resource

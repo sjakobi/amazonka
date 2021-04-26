@@ -11,10 +11,13 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS Mobile Service provides mobile app and website developers with capabilities required to configure AWS resources and bootstrap their developer desktop projects with the necessary SDKs, constants, tools and samples to make use of those resources.
+-- AWS Mobile Service provides mobile app and website developers with
+-- capabilities required to configure AWS resources and bootstrap their
+-- developer desktop projects with the necessary SDKs, constants, tools and
+-- samples to make use of those resources.
 module Network.AWS.Mobile
   ( -- * Service Configuration
-    mobile,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -50,31 +53,58 @@ module Network.AWS.Mobile
     -- $operations
 
     -- ** ListProjects (Paginated)
-    module Network.AWS.Mobile.ListProjects,
+    ListProjects (ListProjects'),
+    newListProjects,
+    ListProjectsResponse (ListProjectsResponse'),
+    newListProjectsResponse,
 
     -- ** DescribeBundle
-    module Network.AWS.Mobile.DescribeBundle,
+    DescribeBundle (DescribeBundle'),
+    newDescribeBundle,
+    DescribeBundleResponse (DescribeBundleResponse'),
+    newDescribeBundleResponse,
 
     -- ** CreateProject
-    module Network.AWS.Mobile.CreateProject,
+    CreateProject (CreateProject'),
+    newCreateProject,
+    CreateProjectResponse (CreateProjectResponse'),
+    newCreateProjectResponse,
 
     -- ** ListBundles (Paginated)
-    module Network.AWS.Mobile.ListBundles,
+    ListBundles (ListBundles'),
+    newListBundles,
+    ListBundlesResponse (ListBundlesResponse'),
+    newListBundlesResponse,
 
     -- ** DeleteProject
-    module Network.AWS.Mobile.DeleteProject,
+    DeleteProject (DeleteProject'),
+    newDeleteProject,
+    DeleteProjectResponse (DeleteProjectResponse'),
+    newDeleteProjectResponse,
 
     -- ** UpdateProject
-    module Network.AWS.Mobile.UpdateProject,
+    UpdateProject (UpdateProject'),
+    newUpdateProject,
+    UpdateProjectResponse (UpdateProjectResponse'),
+    newUpdateProjectResponse,
 
     -- ** ExportProject
-    module Network.AWS.Mobile.ExportProject,
+    ExportProject (ExportProject'),
+    newExportProject,
+    ExportProjectResponse (ExportProjectResponse'),
+    newExportProjectResponse,
 
     -- ** ExportBundle
-    module Network.AWS.Mobile.ExportBundle,
+    ExportBundle (ExportBundle'),
+    newExportBundle,
+    ExportBundleResponse (ExportBundleResponse'),
+    newExportBundleResponse,
 
     -- ** DescribeProject
-    module Network.AWS.Mobile.DescribeProject,
+    DescribeProject (DescribeProject'),
+    newDescribeProject,
+    DescribeProjectResponse (DescribeProjectResponse'),
+    newDescribeProjectResponse,
 
     -- * Types
 
@@ -85,41 +115,20 @@ module Network.AWS.Mobile
     ProjectState (..),
 
     -- ** BundleDetails
-    BundleDetails,
-    bundleDetails,
-    bdBundleId,
-    bdTitle,
-    bdIconURL,
-    bdVersion,
-    bdDescription,
-    bdAvailablePlatforms,
+    BundleDetails (BundleDetails'),
+    newBundleDetails,
 
     -- ** ProjectDetails
-    ProjectDetails,
-    projectDetails,
-    pdCreatedDate,
-    pdLastUpdatedDate,
-    pdProjectId,
-    pdState,
-    pdName,
-    pdConsoleURL,
-    pdResources,
-    pdRegion,
+    ProjectDetails (ProjectDetails'),
+    newProjectDetails,
 
     -- ** ProjectSummary
-    ProjectSummary,
-    projectSummary,
-    psProjectId,
-    psName,
+    ProjectSummary (ProjectSummary'),
+    newProjectSummary,
 
     -- ** Resource
-    Resource,
-    resource,
-    rArn,
-    rName,
-    rAttributes,
-    rFeature,
-    rType,
+    Resource (Resource'),
+    newResource,
   )
 where
 
@@ -129,6 +138,7 @@ import Network.AWS.Mobile.DescribeBundle
 import Network.AWS.Mobile.DescribeProject
 import Network.AWS.Mobile.ExportBundle
 import Network.AWS.Mobile.ExportProject
+import Network.AWS.Mobile.Lens
 import Network.AWS.Mobile.ListBundles
 import Network.AWS.Mobile.ListProjects
 import Network.AWS.Mobile.Types

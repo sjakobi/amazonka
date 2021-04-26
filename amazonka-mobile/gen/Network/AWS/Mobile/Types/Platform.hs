@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,84 @@
 module Network.AWS.Mobile.Types.Platform
   ( Platform
       ( ..,
-        Android,
-        Javascript,
-        Linux,
-        OSx,
-        Objc,
-        Swift,
-        Windows
+        PlatformANDROID,
+        PlatformJAVASCRIPT,
+        PlatformLINUX,
+        PlatformOBJC,
+        PlatformOSX,
+        PlatformSWIFT,
+        PlatformWINDOWS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Developer desktop or target mobile app or website platform.
-data Platform = Platform' (CI Text)
+newtype Platform = Platform'
+  { fromPlatform ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Android :: Platform
-pattern Android = Platform' "ANDROID"
+pattern PlatformANDROID :: Platform
+pattern PlatformANDROID = Platform' "ANDROID"
 
-pattern Javascript :: Platform
-pattern Javascript = Platform' "JAVASCRIPT"
+pattern PlatformJAVASCRIPT :: Platform
+pattern PlatformJAVASCRIPT = Platform' "JAVASCRIPT"
 
-pattern Linux :: Platform
-pattern Linux = Platform' "LINUX"
+pattern PlatformLINUX :: Platform
+pattern PlatformLINUX = Platform' "LINUX"
 
-pattern OSx :: Platform
-pattern OSx = Platform' "OSX"
+pattern PlatformOBJC :: Platform
+pattern PlatformOBJC = Platform' "OBJC"
 
-pattern Objc :: Platform
-pattern Objc = Platform' "OBJC"
+pattern PlatformOSX :: Platform
+pattern PlatformOSX = Platform' "OSX"
 
-pattern Swift :: Platform
-pattern Swift = Platform' "SWIFT"
+pattern PlatformSWIFT :: Platform
+pattern PlatformSWIFT = Platform' "SWIFT"
 
-pattern Windows :: Platform
-pattern Windows = Platform' "WINDOWS"
+pattern PlatformWINDOWS :: Platform
+pattern PlatformWINDOWS = Platform' "WINDOWS"
 
 {-# COMPLETE
-  Android,
-  Javascript,
-  Linux,
-  OSx,
-  Objc,
-  Swift,
-  Windows,
+  PlatformANDROID,
+  PlatformJAVASCRIPT,
+  PlatformLINUX,
+  PlatformOBJC,
+  PlatformOSX,
+  PlatformSWIFT,
+  PlatformWINDOWS,
   Platform'
   #-}
 
-instance FromText Platform where
-  parser = (Platform' . mk) <$> takeText
+instance Prelude.FromText Platform where
+  parser = Platform' Prelude.<$> Prelude.takeText
 
-instance ToText Platform where
-  toText (Platform' ci) = original ci
+instance Prelude.ToText Platform where
+  toText (Platform' x) = x
 
-instance Hashable Platform
+instance Prelude.Hashable Platform
 
-instance NFData Platform
+instance Prelude.NFData Platform
 
-instance ToByteString Platform
+instance Prelude.ToByteString Platform
 
-instance ToQuery Platform
+instance Prelude.ToQuery Platform
 
-instance ToHeader Platform
+instance Prelude.ToHeader Platform
 
-instance ToJSON Platform where
-  toJSON = toJSONText
+instance Prelude.ToJSON Platform where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Platform where
-  parseJSON = parseJSONText "Platform"
+instance Prelude.FromJSON Platform where
+  parseJSON = Prelude.parseJSONText "Platform"

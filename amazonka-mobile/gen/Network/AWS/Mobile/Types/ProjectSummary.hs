@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Mobile.Types.ProjectSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary information about an AWS Mobile Hub project.
 --
---
---
--- /See:/ 'projectSummary' smart constructor.
+-- /See:/ 'newProjectSummary' smart constructor.
 data ProjectSummary = ProjectSummary'
-  { _psProjectId ::
-      !(Maybe Text),
-    _psName :: !(Maybe Text)
+  { -- | Unique project identifier.
+    projectId :: Prelude.Maybe Prelude.Text,
+    -- | Name of the project.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProjectSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProjectSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psProjectId' - Unique project identifier.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psName' - Name of the project.
-projectSummary ::
+-- 'projectId', 'projectSummary_projectId' - Unique project identifier.
+--
+-- 'name', 'projectSummary_name' - Name of the project.
+newProjectSummary ::
   ProjectSummary
-projectSummary =
+newProjectSummary =
   ProjectSummary'
-    { _psProjectId = Nothing,
-      _psName = Nothing
+    { projectId = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | Unique project identifier.
-psProjectId :: Lens' ProjectSummary (Maybe Text)
-psProjectId = lens _psProjectId (\s a -> s {_psProjectId = a})
+projectSummary_projectId :: Lens.Lens' ProjectSummary (Prelude.Maybe Prelude.Text)
+projectSummary_projectId = Lens.lens (\ProjectSummary' {projectId} -> projectId) (\s@ProjectSummary' {} a -> s {projectId = a} :: ProjectSummary)
 
 -- | Name of the project.
-psName :: Lens' ProjectSummary (Maybe Text)
-psName = lens _psName (\s a -> s {_psName = a})
+projectSummary_name :: Lens.Lens' ProjectSummary (Prelude.Maybe Prelude.Text)
+projectSummary_name = Lens.lens (\ProjectSummary' {name} -> name) (\s@ProjectSummary' {} a -> s {name = a} :: ProjectSummary)
 
-instance FromJSON ProjectSummary where
+instance Prelude.FromJSON ProjectSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProjectSummary"
       ( \x ->
           ProjectSummary'
-            <$> (x .:? "projectId") <*> (x .:? "name")
+            Prelude.<$> (x Prelude..:? "projectId")
+            Prelude.<*> (x Prelude..:? "name")
       )
 
-instance Hashable ProjectSummary
+instance Prelude.Hashable ProjectSummary
 
-instance NFData ProjectSummary
+instance Prelude.NFData ProjectSummary

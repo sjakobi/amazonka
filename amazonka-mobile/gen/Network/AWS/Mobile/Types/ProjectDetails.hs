@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,110 +19,116 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Mobile.Types.ProjectDetails where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Mobile.Types.ProjectState
 import Network.AWS.Mobile.Types.Resource
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Detailed information about an AWS Mobile Hub project.
 --
---
---
--- /See:/ 'projectDetails' smart constructor.
+-- /See:/ 'newProjectDetails' smart constructor.
 data ProjectDetails = ProjectDetails'
-  { _pdCreatedDate ::
-      !(Maybe POSIX),
-    _pdLastUpdatedDate :: !(Maybe POSIX),
-    _pdProjectId :: !(Maybe Text),
-    _pdState :: !(Maybe ProjectState),
-    _pdName :: !(Maybe Text),
-    _pdConsoleURL :: !(Maybe Text),
-    _pdResources :: !(Maybe [Resource]),
-    _pdRegion :: !(Maybe Text)
+  { -- | Date the project was created.
+    createdDate :: Prelude.Maybe Prelude.POSIX,
+    -- | Date of the last modification of the project.
+    lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    projectId :: Prelude.Maybe Prelude.Text,
+    state :: Prelude.Maybe ProjectState,
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Website URL for this project in the AWS Mobile Hub console.
+    consoleUrl :: Prelude.Maybe Prelude.Text,
+    resources :: Prelude.Maybe [Resource],
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProjectDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProjectDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdCreatedDate' - Date the project was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdLastUpdatedDate' - Date of the last modification of the project.
+-- 'createdDate', 'projectDetails_createdDate' - Date the project was created.
 --
--- * 'pdProjectId' - Undocumented member.
+-- 'lastUpdatedDate', 'projectDetails_lastUpdatedDate' - Date of the last modification of the project.
 --
--- * 'pdState' - Undocumented member.
+-- 'projectId', 'projectDetails_projectId' - Undocumented member.
 --
--- * 'pdName' - Undocumented member.
+-- 'state', 'projectDetails_state' - Undocumented member.
 --
--- * 'pdConsoleURL' - Website URL for this project in the AWS Mobile Hub console.
+-- 'name', 'projectDetails_name' - Undocumented member.
 --
--- * 'pdResources' - Undocumented member.
+-- 'consoleUrl', 'projectDetails_consoleUrl' - Website URL for this project in the AWS Mobile Hub console.
 --
--- * 'pdRegion' - Undocumented member.
-projectDetails ::
+-- 'resources', 'projectDetails_resources' - Undocumented member.
+--
+-- 'region', 'projectDetails_region' - Undocumented member.
+newProjectDetails ::
   ProjectDetails
-projectDetails =
+newProjectDetails =
   ProjectDetails'
-    { _pdCreatedDate = Nothing,
-      _pdLastUpdatedDate = Nothing,
-      _pdProjectId = Nothing,
-      _pdState = Nothing,
-      _pdName = Nothing,
-      _pdConsoleURL = Nothing,
-      _pdResources = Nothing,
-      _pdRegion = Nothing
+    { createdDate = Prelude.Nothing,
+      lastUpdatedDate = Prelude.Nothing,
+      projectId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      consoleUrl = Prelude.Nothing,
+      resources = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
 -- | Date the project was created.
-pdCreatedDate :: Lens' ProjectDetails (Maybe UTCTime)
-pdCreatedDate = lens _pdCreatedDate (\s a -> s {_pdCreatedDate = a}) . mapping _Time
+projectDetails_createdDate :: Lens.Lens' ProjectDetails (Prelude.Maybe Prelude.UTCTime)
+projectDetails_createdDate = Lens.lens (\ProjectDetails' {createdDate} -> createdDate) (\s@ProjectDetails' {} a -> s {createdDate = a} :: ProjectDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | Date of the last modification of the project.
-pdLastUpdatedDate :: Lens' ProjectDetails (Maybe UTCTime)
-pdLastUpdatedDate = lens _pdLastUpdatedDate (\s a -> s {_pdLastUpdatedDate = a}) . mapping _Time
+projectDetails_lastUpdatedDate :: Lens.Lens' ProjectDetails (Prelude.Maybe Prelude.UTCTime)
+projectDetails_lastUpdatedDate = Lens.lens (\ProjectDetails' {lastUpdatedDate} -> lastUpdatedDate) (\s@ProjectDetails' {} a -> s {lastUpdatedDate = a} :: ProjectDetails) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-pdProjectId :: Lens' ProjectDetails (Maybe Text)
-pdProjectId = lens _pdProjectId (\s a -> s {_pdProjectId = a})
+projectDetails_projectId :: Lens.Lens' ProjectDetails (Prelude.Maybe Prelude.Text)
+projectDetails_projectId = Lens.lens (\ProjectDetails' {projectId} -> projectId) (\s@ProjectDetails' {} a -> s {projectId = a} :: ProjectDetails)
 
 -- | Undocumented member.
-pdState :: Lens' ProjectDetails (Maybe ProjectState)
-pdState = lens _pdState (\s a -> s {_pdState = a})
+projectDetails_state :: Lens.Lens' ProjectDetails (Prelude.Maybe ProjectState)
+projectDetails_state = Lens.lens (\ProjectDetails' {state} -> state) (\s@ProjectDetails' {} a -> s {state = a} :: ProjectDetails)
 
 -- | Undocumented member.
-pdName :: Lens' ProjectDetails (Maybe Text)
-pdName = lens _pdName (\s a -> s {_pdName = a})
+projectDetails_name :: Lens.Lens' ProjectDetails (Prelude.Maybe Prelude.Text)
+projectDetails_name = Lens.lens (\ProjectDetails' {name} -> name) (\s@ProjectDetails' {} a -> s {name = a} :: ProjectDetails)
 
 -- | Website URL for this project in the AWS Mobile Hub console.
-pdConsoleURL :: Lens' ProjectDetails (Maybe Text)
-pdConsoleURL = lens _pdConsoleURL (\s a -> s {_pdConsoleURL = a})
+projectDetails_consoleUrl :: Lens.Lens' ProjectDetails (Prelude.Maybe Prelude.Text)
+projectDetails_consoleUrl = Lens.lens (\ProjectDetails' {consoleUrl} -> consoleUrl) (\s@ProjectDetails' {} a -> s {consoleUrl = a} :: ProjectDetails)
 
 -- | Undocumented member.
-pdResources :: Lens' ProjectDetails [Resource]
-pdResources = lens _pdResources (\s a -> s {_pdResources = a}) . _Default . _Coerce
+projectDetails_resources :: Lens.Lens' ProjectDetails (Prelude.Maybe [Resource])
+projectDetails_resources = Lens.lens (\ProjectDetails' {resources} -> resources) (\s@ProjectDetails' {} a -> s {resources = a} :: ProjectDetails) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-pdRegion :: Lens' ProjectDetails (Maybe Text)
-pdRegion = lens _pdRegion (\s a -> s {_pdRegion = a})
+projectDetails_region :: Lens.Lens' ProjectDetails (Prelude.Maybe Prelude.Text)
+projectDetails_region = Lens.lens (\ProjectDetails' {region} -> region) (\s@ProjectDetails' {} a -> s {region = a} :: ProjectDetails)
 
-instance FromJSON ProjectDetails where
+instance Prelude.FromJSON ProjectDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProjectDetails"
       ( \x ->
           ProjectDetails'
-            <$> (x .:? "createdDate")
-            <*> (x .:? "lastUpdatedDate")
-            <*> (x .:? "projectId")
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "consoleUrl")
-            <*> (x .:? "resources" .!= mempty)
-            <*> (x .:? "region")
+            Prelude.<$> (x Prelude..:? "createdDate")
+            Prelude.<*> (x Prelude..:? "lastUpdatedDate")
+            Prelude.<*> (x Prelude..:? "projectId")
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "consoleUrl")
+            Prelude.<*> ( x Prelude..:? "resources"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "region")
       )
 
-instance Hashable ProjectDetails
+instance Prelude.Hashable ProjectDetails
 
-instance NFData ProjectDetails
+instance Prelude.NFData ProjectDetails

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,185 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Exports project configuration to a snapshot which can be downloaded and shared. Note that mobile app push credentials are encrypted in exported projects, so they can only be shared successfully within the same AWS account.
+-- Exports project configuration to a snapshot which can be downloaded and
+-- shared. Note that mobile app push credentials are encrypted in exported
+-- projects, so they can only be shared successfully within the same AWS
+-- account.
 module Network.AWS.Mobile.ExportProject
   ( -- * Creating a Request
-    exportProject,
-    ExportProject,
+    ExportProject (..),
+    newExportProject,
 
     -- * Request Lenses
-    epProjectId,
+    exportProject_projectId,
 
     -- * Destructuring the Response
-    exportProjectResponse,
-    ExportProjectResponse,
+    ExportProjectResponse (..),
+    newExportProjectResponse,
 
     -- * Response Lenses
-    eprrsDownloadURL,
-    eprrsSnapshotId,
-    eprrsShareURL,
-    eprrsResponseStatus,
+    exportProjectResponse_downloadUrl,
+    exportProjectResponse_snapshotId,
+    exportProjectResponse_shareUrl,
+    exportProjectResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Mobile.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Request structure used in requests to export project configuration details.
+-- | Request structure used in requests to export project configuration
+-- details.
 --
---
---
--- /See:/ 'exportProject' smart constructor.
-newtype ExportProject = ExportProject'
-  { _epProjectId ::
-      Text
+-- /See:/ 'newExportProject' smart constructor.
+data ExportProject = ExportProject'
+  { -- | Unique project identifier.
+    projectId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'epProjectId' - Unique project identifier.
-exportProject ::
-  -- | 'epProjectId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'projectId', 'exportProject_projectId' - Unique project identifier.
+newExportProject ::
+  -- | 'projectId'
+  Prelude.Text ->
   ExportProject
-exportProject pProjectId_ =
-  ExportProject' {_epProjectId = pProjectId_}
+newExportProject pProjectId_ =
+  ExportProject' {projectId = pProjectId_}
 
 -- | Unique project identifier.
-epProjectId :: Lens' ExportProject Text
-epProjectId = lens _epProjectId (\s a -> s {_epProjectId = a})
+exportProject_projectId :: Lens.Lens' ExportProject Prelude.Text
+exportProject_projectId = Lens.lens (\ExportProject' {projectId} -> projectId) (\s@ExportProject' {} a -> s {projectId = a} :: ExportProject)
 
-instance AWSRequest ExportProject where
+instance Prelude.AWSRequest ExportProject where
   type Rs ExportProject = ExportProjectResponse
-  request = postJSON mobile
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ExportProjectResponse'
-            <$> (x .?> "downloadUrl")
-            <*> (x .?> "snapshotId")
-            <*> (x .?> "shareUrl")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "downloadUrl")
+            Prelude.<*> (x Prelude..?> "snapshotId")
+            Prelude.<*> (x Prelude..?> "shareUrl")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ExportProject
+instance Prelude.Hashable ExportProject
 
-instance NFData ExportProject
+instance Prelude.NFData ExportProject
 
-instance ToHeaders ExportProject where
+instance Prelude.ToHeaders ExportProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ExportProject where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON ExportProject where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath ExportProject where
+instance Prelude.ToPath ExportProject where
   toPath ExportProject' {..} =
-    mconcat ["/exports/", toBS _epProjectId]
+    Prelude.mconcat
+      ["/exports/", Prelude.toBS projectId]
 
-instance ToQuery ExportProject where
-  toQuery = const mempty
+instance Prelude.ToQuery ExportProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | Result structure used for requests to export project configuration details.
+-- | Result structure used for requests to export project configuration
+-- details.
 --
---
---
--- /See:/ 'exportProjectResponse' smart constructor.
+-- /See:/ 'newExportProjectResponse' smart constructor.
 data ExportProjectResponse = ExportProjectResponse'
-  { _eprrsDownloadURL ::
-      !(Maybe Text),
-    _eprrsSnapshotId ::
-      !(Maybe Text),
-    _eprrsShareURL ::
-      !(Maybe Text),
-    _eprrsResponseStatus ::
-      !Int
+  { -- | URL which can be used to download the exported project configuation
+    -- file(s).
+    downloadUrl :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier for the exported snapshot of the project
+    -- configuration. This snapshot identifier is included in the share URL.
+    snapshotId :: Prelude.Maybe Prelude.Text,
+    -- | URL which can be shared to allow other AWS users to create their own
+    -- project in AWS Mobile Hub with the same configuration as the specified
+    -- project. This URL pertains to a snapshot in time of the project
+    -- configuration that is created when this API is called. If you want to
+    -- share additional changes to your project configuration, then you will
+    -- need to create and share a new snapshot by calling this method again.
+    shareUrl :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExportProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExportProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eprrsDownloadURL' - URL which can be used to download the exported project configuation file(s).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eprrsSnapshotId' - Unique identifier for the exported snapshot of the project configuration. This snapshot identifier is included in the share URL.
+-- 'downloadUrl', 'exportProjectResponse_downloadUrl' - URL which can be used to download the exported project configuation
+-- file(s).
 --
--- * 'eprrsShareURL' - URL which can be shared to allow other AWS users to create their own project in AWS Mobile Hub with the same configuration as the specified project. This URL pertains to a snapshot in time of the project configuration that is created when this API is called. If you want to share additional changes to your project configuration, then you will need to create and share a new snapshot by calling this method again.
+-- 'snapshotId', 'exportProjectResponse_snapshotId' - Unique identifier for the exported snapshot of the project
+-- configuration. This snapshot identifier is included in the share URL.
 --
--- * 'eprrsResponseStatus' - -- | The response status code.
-exportProjectResponse ::
-  -- | 'eprrsResponseStatus'
-  Int ->
+-- 'shareUrl', 'exportProjectResponse_shareUrl' - URL which can be shared to allow other AWS users to create their own
+-- project in AWS Mobile Hub with the same configuration as the specified
+-- project. This URL pertains to a snapshot in time of the project
+-- configuration that is created when this API is called. If you want to
+-- share additional changes to your project configuration, then you will
+-- need to create and share a new snapshot by calling this method again.
+--
+-- 'httpStatus', 'exportProjectResponse_httpStatus' - The response's http status code.
+newExportProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ExportProjectResponse
-exportProjectResponse pResponseStatus_ =
+newExportProjectResponse pHttpStatus_ =
   ExportProjectResponse'
-    { _eprrsDownloadURL = Nothing,
-      _eprrsSnapshotId = Nothing,
-      _eprrsShareURL = Nothing,
-      _eprrsResponseStatus = pResponseStatus_
+    { downloadUrl =
+        Prelude.Nothing,
+      snapshotId = Prelude.Nothing,
+      shareUrl = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | URL which can be used to download the exported project configuation file(s).
-eprrsDownloadURL :: Lens' ExportProjectResponse (Maybe Text)
-eprrsDownloadURL = lens _eprrsDownloadURL (\s a -> s {_eprrsDownloadURL = a})
+-- | URL which can be used to download the exported project configuation
+-- file(s).
+exportProjectResponse_downloadUrl :: Lens.Lens' ExportProjectResponse (Prelude.Maybe Prelude.Text)
+exportProjectResponse_downloadUrl = Lens.lens (\ExportProjectResponse' {downloadUrl} -> downloadUrl) (\s@ExportProjectResponse' {} a -> s {downloadUrl = a} :: ExportProjectResponse)
 
--- | Unique identifier for the exported snapshot of the project configuration. This snapshot identifier is included in the share URL.
-eprrsSnapshotId :: Lens' ExportProjectResponse (Maybe Text)
-eprrsSnapshotId = lens _eprrsSnapshotId (\s a -> s {_eprrsSnapshotId = a})
+-- | Unique identifier for the exported snapshot of the project
+-- configuration. This snapshot identifier is included in the share URL.
+exportProjectResponse_snapshotId :: Lens.Lens' ExportProjectResponse (Prelude.Maybe Prelude.Text)
+exportProjectResponse_snapshotId = Lens.lens (\ExportProjectResponse' {snapshotId} -> snapshotId) (\s@ExportProjectResponse' {} a -> s {snapshotId = a} :: ExportProjectResponse)
 
--- | URL which can be shared to allow other AWS users to create their own project in AWS Mobile Hub with the same configuration as the specified project. This URL pertains to a snapshot in time of the project configuration that is created when this API is called. If you want to share additional changes to your project configuration, then you will need to create and share a new snapshot by calling this method again.
-eprrsShareURL :: Lens' ExportProjectResponse (Maybe Text)
-eprrsShareURL = lens _eprrsShareURL (\s a -> s {_eprrsShareURL = a})
+-- | URL which can be shared to allow other AWS users to create their own
+-- project in AWS Mobile Hub with the same configuration as the specified
+-- project. This URL pertains to a snapshot in time of the project
+-- configuration that is created when this API is called. If you want to
+-- share additional changes to your project configuration, then you will
+-- need to create and share a new snapshot by calling this method again.
+exportProjectResponse_shareUrl :: Lens.Lens' ExportProjectResponse (Prelude.Maybe Prelude.Text)
+exportProjectResponse_shareUrl = Lens.lens (\ExportProjectResponse' {shareUrl} -> shareUrl) (\s@ExportProjectResponse' {} a -> s {shareUrl = a} :: ExportProjectResponse)
 
--- | -- | The response status code.
-eprrsResponseStatus :: Lens' ExportProjectResponse Int
-eprrsResponseStatus = lens _eprrsResponseStatus (\s a -> s {_eprrsResponseStatus = a})
+-- | The response's http status code.
+exportProjectResponse_httpStatus :: Lens.Lens' ExportProjectResponse Prelude.Int
+exportProjectResponse_httpStatus = Lens.lens (\ExportProjectResponse' {httpStatus} -> httpStatus) (\s@ExportProjectResponse' {} a -> s {httpStatus = a} :: ExportProjectResponse)
 
-instance NFData ExportProjectResponse
+instance Prelude.NFData ExportProjectResponse

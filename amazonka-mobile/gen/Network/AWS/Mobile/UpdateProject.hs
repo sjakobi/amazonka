@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,150 @@
 -- Update an existing project.
 module Network.AWS.Mobile.UpdateProject
   ( -- * Creating a Request
-    updateProject,
-    UpdateProject,
+    UpdateProject (..),
+    newUpdateProject,
 
     -- * Request Lenses
-    upContents,
-    upProjectId,
+    updateProject_contents,
+    updateProject_projectId,
 
     -- * Destructuring the Response
-    updateProjectResponse,
-    UpdateProjectResponse,
+    UpdateProjectResponse (..),
+    newUpdateProjectResponse,
 
     -- * Response Lenses
-    uprrsDetails,
-    uprrsResponseStatus,
+    updateProjectResponse_details,
+    updateProjectResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Mobile.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Mobile.Types.ProjectDetails
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request structure used for requests to update project configuration.
 --
---
---
--- /See:/ 'updateProject' smart constructor.
+-- /See:/ 'newUpdateProject' smart constructor.
 data UpdateProject = UpdateProject'
-  { _upContents ::
-      !(Maybe ByteString),
-    _upProjectId :: !Text
+  { -- | ZIP or YAML file which contains project configuration to be updated.
+    -- This should be the contents of the file downloaded from the URL provided
+    -- in an export project operation.
+    contents :: Prelude.Maybe Prelude.ByteString,
+    -- | Unique project identifier.
+    projectId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upContents' - ZIP or YAML file which contains project configuration to be updated. This should be the contents of the file downloaded from the URL provided in an export project operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upProjectId' - Unique project identifier.
-updateProject ::
-  -- | 'upProjectId'
-  Text ->
+-- 'contents', 'updateProject_contents' - ZIP or YAML file which contains project configuration to be updated.
+-- This should be the contents of the file downloaded from the URL provided
+-- in an export project operation.
+--
+-- 'projectId', 'updateProject_projectId' - Unique project identifier.
+newUpdateProject ::
+  -- | 'projectId'
+  Prelude.Text ->
   UpdateProject
-updateProject pProjectId_ =
+newUpdateProject pProjectId_ =
   UpdateProject'
-    { _upContents = Nothing,
-      _upProjectId = pProjectId_
+    { contents = Prelude.Nothing,
+      projectId = pProjectId_
     }
 
--- | ZIP or YAML file which contains project configuration to be updated. This should be the contents of the file downloaded from the URL provided in an export project operation.
-upContents :: Lens' UpdateProject (Maybe ByteString)
-upContents = lens _upContents (\s a -> s {_upContents = a})
+-- | ZIP or YAML file which contains project configuration to be updated.
+-- This should be the contents of the file downloaded from the URL provided
+-- in an export project operation.
+updateProject_contents :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.ByteString)
+updateProject_contents = Lens.lens (\UpdateProject' {contents} -> contents) (\s@UpdateProject' {} a -> s {contents = a} :: UpdateProject)
 
 -- | Unique project identifier.
-upProjectId :: Lens' UpdateProject Text
-upProjectId = lens _upProjectId (\s a -> s {_upProjectId = a})
+updateProject_projectId :: Lens.Lens' UpdateProject Prelude.Text
+updateProject_projectId = Lens.lens (\UpdateProject' {projectId} -> projectId) (\s@UpdateProject' {} a -> s {projectId = a} :: UpdateProject)
 
-instance AWSRequest UpdateProject where
+instance Prelude.AWSRequest UpdateProject where
   type Rs UpdateProject = UpdateProjectResponse
-  request = postBody mobile
+  request = Request.postBody defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateProjectResponse'
-            <$> (x .?> "details") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "details")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateProject
+instance Prelude.Hashable UpdateProject
 
-instance NFData UpdateProject
+instance Prelude.NFData UpdateProject
 
-instance ToBody UpdateProject where
-  toBody = toBody . _upContents
+instance Prelude.ToBody UpdateProject where
+  toBody = Prelude.toBody Prelude.. contents
 
-instance ToHeaders UpdateProject where
+instance Prelude.ToHeaders UpdateProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath UpdateProject where
-  toPath = const "/update"
+instance Prelude.ToPath UpdateProject where
+  toPath = Prelude.const "/update"
 
-instance ToQuery UpdateProject where
+instance Prelude.ToQuery UpdateProject where
   toQuery UpdateProject' {..} =
-    mconcat ["projectId" =: _upProjectId]
+    Prelude.mconcat ["projectId" Prelude.=: projectId]
 
 -- | Result structure used for requests to updated project configuration.
 --
---
---
--- /See:/ 'updateProjectResponse' smart constructor.
+-- /See:/ 'newUpdateProjectResponse' smart constructor.
 data UpdateProjectResponse = UpdateProjectResponse'
-  { _uprrsDetails ::
-      !(Maybe ProjectDetails),
-    _uprrsResponseStatus ::
-      !Int
+  { -- | Detailed information about the updated AWS Mobile Hub project.
+    details :: Prelude.Maybe ProjectDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprrsDetails' - Detailed information about the updated AWS Mobile Hub project.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uprrsResponseStatus' - -- | The response status code.
-updateProjectResponse ::
-  -- | 'uprrsResponseStatus'
-  Int ->
+-- 'details', 'updateProjectResponse_details' - Detailed information about the updated AWS Mobile Hub project.
+--
+-- 'httpStatus', 'updateProjectResponse_httpStatus' - The response's http status code.
+newUpdateProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateProjectResponse
-updateProjectResponse pResponseStatus_ =
+newUpdateProjectResponse pHttpStatus_ =
   UpdateProjectResponse'
-    { _uprrsDetails = Nothing,
-      _uprrsResponseStatus = pResponseStatus_
+    { details = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Detailed information about the updated AWS Mobile Hub project.
-uprrsDetails :: Lens' UpdateProjectResponse (Maybe ProjectDetails)
-uprrsDetails = lens _uprrsDetails (\s a -> s {_uprrsDetails = a})
+updateProjectResponse_details :: Lens.Lens' UpdateProjectResponse (Prelude.Maybe ProjectDetails)
+updateProjectResponse_details = Lens.lens (\UpdateProjectResponse' {details} -> details) (\s@UpdateProjectResponse' {} a -> s {details = a} :: UpdateProjectResponse)
 
--- | -- | The response status code.
-uprrsResponseStatus :: Lens' UpdateProjectResponse Int
-uprrsResponseStatus = lens _uprrsResponseStatus (\s a -> s {_uprrsResponseStatus = a})
+-- | The response's http status code.
+updateProjectResponse_httpStatus :: Lens.Lens' UpdateProjectResponse Prelude.Int
+updateProjectResponse_httpStatus = Lens.lens (\UpdateProjectResponse' {httpStatus} -> httpStatus) (\s@UpdateProjectResponse' {} a -> s {httpStatus = a} :: UpdateProjectResponse)
 
-instance NFData UpdateProjectResponse
+instance Prelude.NFData UpdateProjectResponse

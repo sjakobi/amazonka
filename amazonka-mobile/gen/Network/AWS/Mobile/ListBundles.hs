@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,157 +23,187 @@
 --
 -- List all available bundles.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.Mobile.ListBundles
   ( -- * Creating a Request
-    listBundles,
-    ListBundles,
+    ListBundles (..),
+    newListBundles,
 
     -- * Request Lenses
-    lbNextToken,
-    lbMaxResults,
+    listBundles_nextToken,
+    listBundles_maxResults,
 
     -- * Destructuring the Response
-    listBundlesResponse,
-    ListBundlesResponse,
+    ListBundlesResponse (..),
+    newListBundlesResponse,
 
     -- * Response Lenses
-    lbrrsNextToken,
-    lbrrsBundleList,
-    lbrrsResponseStatus,
+    listBundlesResponse_nextToken,
+    listBundlesResponse_bundleList,
+    listBundlesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Mobile.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Mobile.Types.BundleDetails
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request structure to request all available bundles.
 --
---
---
--- /See:/ 'listBundles' smart constructor.
+-- /See:/ 'newListBundles' smart constructor.
 data ListBundles = ListBundles'
-  { _lbNextToken ::
-      !(Maybe Text),
-    _lbMaxResults :: !(Maybe Int)
+  { -- | Pagination token. Set to null to start listing bundles from start. If
+    -- non-null pagination token is returned in a result, then pass its value
+    -- in here in another request to list more bundles.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of records to list in a single response.
+    maxResults :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBundles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBundles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbNextToken' - Pagination token. Set to null to start listing bundles from start. If non-null pagination token is returned in a result, then pass its value in here in another request to list more bundles.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbMaxResults' - Maximum number of records to list in a single response.
-listBundles ::
+-- 'nextToken', 'listBundles_nextToken' - Pagination token. Set to null to start listing bundles from start. If
+-- non-null pagination token is returned in a result, then pass its value
+-- in here in another request to list more bundles.
+--
+-- 'maxResults', 'listBundles_maxResults' - Maximum number of records to list in a single response.
+newListBundles ::
   ListBundles
-listBundles =
+newListBundles =
   ListBundles'
-    { _lbNextToken = Nothing,
-      _lbMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | Pagination token. Set to null to start listing bundles from start. If non-null pagination token is returned in a result, then pass its value in here in another request to list more bundles.
-lbNextToken :: Lens' ListBundles (Maybe Text)
-lbNextToken = lens _lbNextToken (\s a -> s {_lbNextToken = a})
+-- | Pagination token. Set to null to start listing bundles from start. If
+-- non-null pagination token is returned in a result, then pass its value
+-- in here in another request to list more bundles.
+listBundles_nextToken :: Lens.Lens' ListBundles (Prelude.Maybe Prelude.Text)
+listBundles_nextToken = Lens.lens (\ListBundles' {nextToken} -> nextToken) (\s@ListBundles' {} a -> s {nextToken = a} :: ListBundles)
 
 -- | Maximum number of records to list in a single response.
-lbMaxResults :: Lens' ListBundles (Maybe Int)
-lbMaxResults = lens _lbMaxResults (\s a -> s {_lbMaxResults = a})
+listBundles_maxResults :: Lens.Lens' ListBundles (Prelude.Maybe Prelude.Int)
+listBundles_maxResults = Lens.lens (\ListBundles' {maxResults} -> maxResults) (\s@ListBundles' {} a -> s {maxResults = a} :: ListBundles)
 
-instance AWSPager ListBundles where
+instance Pager.AWSPager ListBundles where
   page rq rs
-    | stop (rs ^. lbrrsNextToken) = Nothing
-    | stop (rs ^. lbrrsBundleList) = Nothing
-    | otherwise =
-      Just $ rq & lbNextToken .~ rs ^. lbrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listBundlesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listBundlesResponse_bundleList Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listBundles_nextToken
+          Lens..~ rs
+          Lens.^? listBundlesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListBundles where
+instance Prelude.AWSRequest ListBundles where
   type Rs ListBundles = ListBundlesResponse
-  request = get mobile
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListBundlesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "bundleList" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "bundleList"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListBundles
+instance Prelude.Hashable ListBundles
 
-instance NFData ListBundles
+instance Prelude.NFData ListBundles
 
-instance ToHeaders ListBundles where
+instance Prelude.ToHeaders ListBundles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListBundles where
-  toPath = const "/bundles"
+instance Prelude.ToPath ListBundles where
+  toPath = Prelude.const "/bundles"
 
-instance ToQuery ListBundles where
+instance Prelude.ToQuery ListBundles where
   toQuery ListBundles' {..} =
-    mconcat
-      [ "nextToken" =: _lbNextToken,
-        "maxResults" =: _lbMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
 -- | Result structure contains a list of all available bundles with details.
 --
---
---
--- /See:/ 'listBundlesResponse' smart constructor.
+-- /See:/ 'newListBundlesResponse' smart constructor.
 data ListBundlesResponse = ListBundlesResponse'
-  { _lbrrsNextToken ::
-      !(Maybe Text),
-    _lbrrsBundleList ::
-      !(Maybe [BundleDetails]),
-    _lbrrsResponseStatus :: !Int
+  { -- | Pagination token. If non-null pagination token is returned in a result,
+    -- then pass its value in another request to fetch more entries.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of bundles.
+    bundleList :: Prelude.Maybe [BundleDetails],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBundlesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBundlesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbrrsNextToken' - Pagination token. If non-null pagination token is returned in a result, then pass its value in another request to fetch more entries.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbrrsBundleList' - A list of bundles.
+-- 'nextToken', 'listBundlesResponse_nextToken' - Pagination token. If non-null pagination token is returned in a result,
+-- then pass its value in another request to fetch more entries.
 --
--- * 'lbrrsResponseStatus' - -- | The response status code.
-listBundlesResponse ::
-  -- | 'lbrrsResponseStatus'
-  Int ->
+-- 'bundleList', 'listBundlesResponse_bundleList' - A list of bundles.
+--
+-- 'httpStatus', 'listBundlesResponse_httpStatus' - The response's http status code.
+newListBundlesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListBundlesResponse
-listBundlesResponse pResponseStatus_ =
+newListBundlesResponse pHttpStatus_ =
   ListBundlesResponse'
-    { _lbrrsNextToken = Nothing,
-      _lbrrsBundleList = Nothing,
-      _lbrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      bundleList = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Pagination token. If non-null pagination token is returned in a result, then pass its value in another request to fetch more entries.
-lbrrsNextToken :: Lens' ListBundlesResponse (Maybe Text)
-lbrrsNextToken = lens _lbrrsNextToken (\s a -> s {_lbrrsNextToken = a})
+-- | Pagination token. If non-null pagination token is returned in a result,
+-- then pass its value in another request to fetch more entries.
+listBundlesResponse_nextToken :: Lens.Lens' ListBundlesResponse (Prelude.Maybe Prelude.Text)
+listBundlesResponse_nextToken = Lens.lens (\ListBundlesResponse' {nextToken} -> nextToken) (\s@ListBundlesResponse' {} a -> s {nextToken = a} :: ListBundlesResponse)
 
 -- | A list of bundles.
-lbrrsBundleList :: Lens' ListBundlesResponse [BundleDetails]
-lbrrsBundleList = lens _lbrrsBundleList (\s a -> s {_lbrrsBundleList = a}) . _Default . _Coerce
+listBundlesResponse_bundleList :: Lens.Lens' ListBundlesResponse (Prelude.Maybe [BundleDetails])
+listBundlesResponse_bundleList = Lens.lens (\ListBundlesResponse' {bundleList} -> bundleList) (\s@ListBundlesResponse' {} a -> s {bundleList = a} :: ListBundlesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lbrrsResponseStatus :: Lens' ListBundlesResponse Int
-lbrrsResponseStatus = lens _lbrrsResponseStatus (\s a -> s {_lbrrsResponseStatus = a})
+-- | The response's http status code.
+listBundlesResponse_httpStatus :: Lens.Lens' ListBundlesResponse Prelude.Int
+listBundlesResponse_httpStatus = Lens.lens (\ListBundlesResponse' {httpStatus} -> httpStatus) (\s@ListBundlesResponse' {} a -> s {httpStatus = a} :: ListBundlesResponse)
 
-instance NFData ListBundlesResponse
+instance Prelude.NFData ListBundlesResponse

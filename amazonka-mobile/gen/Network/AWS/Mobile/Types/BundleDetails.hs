@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Mobile.Types.BundleDetails where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.Mobile.Types.Platform
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of the bundle.
 --
---
---
--- /See:/ 'bundleDetails' smart constructor.
+-- /See:/ 'newBundleDetails' smart constructor.
 data BundleDetails = BundleDetails'
-  { _bdBundleId ::
-      !(Maybe Text),
-    _bdTitle :: !(Maybe Text),
-    _bdIconURL :: !(Maybe Text),
-    _bdVersion :: !(Maybe Text),
-    _bdDescription :: !(Maybe Text),
-    _bdAvailablePlatforms ::
-      !(Maybe [Platform])
+  { bundleId :: Prelude.Maybe Prelude.Text,
+    title :: Prelude.Maybe Prelude.Text,
+    iconUrl :: Prelude.Maybe Prelude.Text,
+    version :: Prelude.Maybe Prelude.Text,
+    description :: Prelude.Maybe Prelude.Text,
+    availablePlatforms :: Prelude.Maybe [Platform]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BundleDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BundleDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdBundleId' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdTitle' - Undocumented member.
+-- 'bundleId', 'bundleDetails_bundleId' - Undocumented member.
 --
--- * 'bdIconURL' - Undocumented member.
+-- 'title', 'bundleDetails_title' - Undocumented member.
 --
--- * 'bdVersion' - Undocumented member.
+-- 'iconUrl', 'bundleDetails_iconUrl' - Undocumented member.
 --
--- * 'bdDescription' - Undocumented member.
+-- 'version', 'bundleDetails_version' - Undocumented member.
 --
--- * 'bdAvailablePlatforms' - Undocumented member.
-bundleDetails ::
+-- 'description', 'bundleDetails_description' - Undocumented member.
+--
+-- 'availablePlatforms', 'bundleDetails_availablePlatforms' - Undocumented member.
+newBundleDetails ::
   BundleDetails
-bundleDetails =
+newBundleDetails =
   BundleDetails'
-    { _bdBundleId = Nothing,
-      _bdTitle = Nothing,
-      _bdIconURL = Nothing,
-      _bdVersion = Nothing,
-      _bdDescription = Nothing,
-      _bdAvailablePlatforms = Nothing
+    { bundleId = Prelude.Nothing,
+      title = Prelude.Nothing,
+      iconUrl = Prelude.Nothing,
+      version = Prelude.Nothing,
+      description = Prelude.Nothing,
+      availablePlatforms = Prelude.Nothing
     }
 
 -- | Undocumented member.
-bdBundleId :: Lens' BundleDetails (Maybe Text)
-bdBundleId = lens _bdBundleId (\s a -> s {_bdBundleId = a})
+bundleDetails_bundleId :: Lens.Lens' BundleDetails (Prelude.Maybe Prelude.Text)
+bundleDetails_bundleId = Lens.lens (\BundleDetails' {bundleId} -> bundleId) (\s@BundleDetails' {} a -> s {bundleId = a} :: BundleDetails)
 
 -- | Undocumented member.
-bdTitle :: Lens' BundleDetails (Maybe Text)
-bdTitle = lens _bdTitle (\s a -> s {_bdTitle = a})
+bundleDetails_title :: Lens.Lens' BundleDetails (Prelude.Maybe Prelude.Text)
+bundleDetails_title = Lens.lens (\BundleDetails' {title} -> title) (\s@BundleDetails' {} a -> s {title = a} :: BundleDetails)
 
 -- | Undocumented member.
-bdIconURL :: Lens' BundleDetails (Maybe Text)
-bdIconURL = lens _bdIconURL (\s a -> s {_bdIconURL = a})
+bundleDetails_iconUrl :: Lens.Lens' BundleDetails (Prelude.Maybe Prelude.Text)
+bundleDetails_iconUrl = Lens.lens (\BundleDetails' {iconUrl} -> iconUrl) (\s@BundleDetails' {} a -> s {iconUrl = a} :: BundleDetails)
 
 -- | Undocumented member.
-bdVersion :: Lens' BundleDetails (Maybe Text)
-bdVersion = lens _bdVersion (\s a -> s {_bdVersion = a})
+bundleDetails_version :: Lens.Lens' BundleDetails (Prelude.Maybe Prelude.Text)
+bundleDetails_version = Lens.lens (\BundleDetails' {version} -> version) (\s@BundleDetails' {} a -> s {version = a} :: BundleDetails)
 
 -- | Undocumented member.
-bdDescription :: Lens' BundleDetails (Maybe Text)
-bdDescription = lens _bdDescription (\s a -> s {_bdDescription = a})
+bundleDetails_description :: Lens.Lens' BundleDetails (Prelude.Maybe Prelude.Text)
+bundleDetails_description = Lens.lens (\BundleDetails' {description} -> description) (\s@BundleDetails' {} a -> s {description = a} :: BundleDetails)
 
 -- | Undocumented member.
-bdAvailablePlatforms :: Lens' BundleDetails [Platform]
-bdAvailablePlatforms = lens _bdAvailablePlatforms (\s a -> s {_bdAvailablePlatforms = a}) . _Default . _Coerce
+bundleDetails_availablePlatforms :: Lens.Lens' BundleDetails (Prelude.Maybe [Platform])
+bundleDetails_availablePlatforms = Lens.lens (\BundleDetails' {availablePlatforms} -> availablePlatforms) (\s@BundleDetails' {} a -> s {availablePlatforms = a} :: BundleDetails) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON BundleDetails where
+instance Prelude.FromJSON BundleDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BundleDetails"
       ( \x ->
           BundleDetails'
-            <$> (x .:? "bundleId")
-            <*> (x .:? "title")
-            <*> (x .:? "iconUrl")
-            <*> (x .:? "version")
-            <*> (x .:? "description")
-            <*> (x .:? "availablePlatforms" .!= mempty)
+            Prelude.<$> (x Prelude..:? "bundleId")
+            Prelude.<*> (x Prelude..:? "title")
+            Prelude.<*> (x Prelude..:? "iconUrl")
+            Prelude.<*> (x Prelude..:? "version")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> ( x Prelude..:? "availablePlatforms"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable BundleDetails
+instance Prelude.Hashable BundleDetails
 
-instance NFData BundleDetails
+instance Prelude.NFData BundleDetails
