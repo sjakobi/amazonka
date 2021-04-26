@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,189 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- To get the description of a registered consumer, provide the ARN of the consumer. Alternatively, you can provide the ARN of the data stream and the name you gave the consumer when you registered it. You may also provide all three parameters, as long as they don't conflict with each other. If you don't know the name or ARN of the consumer that you want to describe, you can use the 'ListStreamConsumers' operation to get a list of the descriptions of all the consumers that are currently registered with a given data stream.
---
+-- To get the description of a registered consumer, provide the ARN of the
+-- consumer. Alternatively, you can provide the ARN of the data stream and
+-- the name you gave the consumer when you registered it. You may also
+-- provide all three parameters, as long as they don\'t conflict with each
+-- other. If you don\'t know the name or ARN of the consumer that you want
+-- to describe, you can use the ListStreamConsumers operation to get a list
+-- of the descriptions of all the consumers that are currently registered
+-- with a given data stream.
 --
 -- This operation has a limit of 20 transactions per second per stream.
 module Network.AWS.Kinesis.DescribeStreamConsumer
   ( -- * Creating a Request
-    describeStreamConsumer,
-    DescribeStreamConsumer,
+    DescribeStreamConsumer (..),
+    newDescribeStreamConsumer,
 
     -- * Request Lenses
-    dStreamARN,
-    dConsumerName,
-    dConsumerARN,
+    describeStreamConsumer_streamARN,
+    describeStreamConsumer_consumerName,
+    describeStreamConsumer_consumerARN,
 
     -- * Destructuring the Response
-    describeStreamConsumerResponse,
-    DescribeStreamConsumerResponse,
+    DescribeStreamConsumerResponse (..),
+    newDescribeStreamConsumerResponse,
 
     -- * Response Lenses
-    dscrrsResponseStatus,
-    dscrrsConsumerDescription,
+    describeStreamConsumerResponse_httpStatus,
+    describeStreamConsumerResponse_consumerDescription,
   )
 where
 
 import Network.AWS.Kinesis.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Kinesis.Types.ConsumerDescription
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeStreamConsumer' smart constructor.
+-- | /See:/ 'newDescribeStreamConsumer' smart constructor.
 data DescribeStreamConsumer = DescribeStreamConsumer'
-  { _dStreamARN ::
-      !(Maybe Text),
-    _dConsumerName ::
-      !(Maybe Text),
-    _dConsumerARN ::
-      !(Maybe Text)
+  { -- | The ARN of the Kinesis data stream that the consumer is registered with.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    streamARN :: Prelude.Maybe Prelude.Text,
+    -- | The name that you gave to the consumer.
+    consumerName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN returned by Kinesis Data Streams when you registered the
+    -- consumer.
+    consumerARN :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStreamConsumer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStreamConsumer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dStreamARN' - The ARN of the Kinesis data stream that the consumer is registered with. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dConsumerName' - The name that you gave to the consumer.
+-- 'streamARN', 'describeStreamConsumer_streamARN' - The ARN of the Kinesis data stream that the consumer is registered with.
+-- For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
 --
--- * 'dConsumerARN' - The ARN returned by Kinesis Data Streams when you registered the consumer.
-describeStreamConsumer ::
+-- 'consumerName', 'describeStreamConsumer_consumerName' - The name that you gave to the consumer.
+--
+-- 'consumerARN', 'describeStreamConsumer_consumerARN' - The ARN returned by Kinesis Data Streams when you registered the
+-- consumer.
+newDescribeStreamConsumer ::
   DescribeStreamConsumer
-describeStreamConsumer =
+newDescribeStreamConsumer =
   DescribeStreamConsumer'
-    { _dStreamARN = Nothing,
-      _dConsumerName = Nothing,
-      _dConsumerARN = Nothing
+    { streamARN =
+        Prelude.Nothing,
+      consumerName = Prelude.Nothing,
+      consumerARN = Prelude.Nothing
     }
 
--- | The ARN of the Kinesis data stream that the consumer is registered with. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces> .
-dStreamARN :: Lens' DescribeStreamConsumer (Maybe Text)
-dStreamARN = lens _dStreamARN (\s a -> s {_dStreamARN = a})
+-- | The ARN of the Kinesis data stream that the consumer is registered with.
+-- For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+describeStreamConsumer_streamARN :: Lens.Lens' DescribeStreamConsumer (Prelude.Maybe Prelude.Text)
+describeStreamConsumer_streamARN = Lens.lens (\DescribeStreamConsumer' {streamARN} -> streamARN) (\s@DescribeStreamConsumer' {} a -> s {streamARN = a} :: DescribeStreamConsumer)
 
 -- | The name that you gave to the consumer.
-dConsumerName :: Lens' DescribeStreamConsumer (Maybe Text)
-dConsumerName = lens _dConsumerName (\s a -> s {_dConsumerName = a})
+describeStreamConsumer_consumerName :: Lens.Lens' DescribeStreamConsumer (Prelude.Maybe Prelude.Text)
+describeStreamConsumer_consumerName = Lens.lens (\DescribeStreamConsumer' {consumerName} -> consumerName) (\s@DescribeStreamConsumer' {} a -> s {consumerName = a} :: DescribeStreamConsumer)
 
--- | The ARN returned by Kinesis Data Streams when you registered the consumer.
-dConsumerARN :: Lens' DescribeStreamConsumer (Maybe Text)
-dConsumerARN = lens _dConsumerARN (\s a -> s {_dConsumerARN = a})
+-- | The ARN returned by Kinesis Data Streams when you registered the
+-- consumer.
+describeStreamConsumer_consumerARN :: Lens.Lens' DescribeStreamConsumer (Prelude.Maybe Prelude.Text)
+describeStreamConsumer_consumerARN = Lens.lens (\DescribeStreamConsumer' {consumerARN} -> consumerARN) (\s@DescribeStreamConsumer' {} a -> s {consumerARN = a} :: DescribeStreamConsumer)
 
-instance AWSRequest DescribeStreamConsumer where
+instance Prelude.AWSRequest DescribeStreamConsumer where
   type
     Rs DescribeStreamConsumer =
       DescribeStreamConsumerResponse
-  request = postJSON kinesis
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeStreamConsumerResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "ConsumerDescription")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ConsumerDescription")
       )
 
-instance Hashable DescribeStreamConsumer
+instance Prelude.Hashable DescribeStreamConsumer
 
-instance NFData DescribeStreamConsumer
+instance Prelude.NFData DescribeStreamConsumer
 
-instance ToHeaders DescribeStreamConsumer where
+instance Prelude.ToHeaders DescribeStreamConsumer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Kinesis_20131202.DescribeStreamConsumer" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Kinesis_20131202.DescribeStreamConsumer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeStreamConsumer where
+instance Prelude.ToJSON DescribeStreamConsumer where
   toJSON DescribeStreamConsumer' {..} =
-    object
-      ( catMaybes
-          [ ("StreamARN" .=) <$> _dStreamARN,
-            ("ConsumerName" .=) <$> _dConsumerName,
-            ("ConsumerARN" .=) <$> _dConsumerARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("StreamARN" Prelude..=) Prelude.<$> streamARN,
+            ("ConsumerName" Prelude..=) Prelude.<$> consumerName,
+            ("ConsumerARN" Prelude..=) Prelude.<$> consumerARN
           ]
       )
 
-instance ToPath DescribeStreamConsumer where
-  toPath = const "/"
+instance Prelude.ToPath DescribeStreamConsumer where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeStreamConsumer where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeStreamConsumer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeStreamConsumerResponse' smart constructor.
+-- | /See:/ 'newDescribeStreamConsumerResponse' smart constructor.
 data DescribeStreamConsumerResponse = DescribeStreamConsumerResponse'
-  { _dscrrsResponseStatus ::
-      !Int,
-    _dscrrsConsumerDescription ::
-      !ConsumerDescription
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An object that represents the details of the consumer.
+    consumerDescription :: ConsumerDescription
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStreamConsumerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStreamConsumerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscrrsConsumerDescription' - An object that represents the details of the consumer.
-describeStreamConsumerResponse ::
-  -- | 'dscrrsResponseStatus'
-  Int ->
-  -- | 'dscrrsConsumerDescription'
+-- 'httpStatus', 'describeStreamConsumerResponse_httpStatus' - The response's http status code.
+--
+-- 'consumerDescription', 'describeStreamConsumerResponse_consumerDescription' - An object that represents the details of the consumer.
+newDescribeStreamConsumerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'consumerDescription'
   ConsumerDescription ->
   DescribeStreamConsumerResponse
-describeStreamConsumerResponse
-  pResponseStatus_
+newDescribeStreamConsumerResponse
+  pHttpStatus_
   pConsumerDescription_ =
     DescribeStreamConsumerResponse'
-      { _dscrrsResponseStatus =
-          pResponseStatus_,
-        _dscrrsConsumerDescription =
-          pConsumerDescription_
+      { httpStatus =
+          pHttpStatus_,
+        consumerDescription = pConsumerDescription_
       }
 
--- | -- | The response status code.
-dscrrsResponseStatus :: Lens' DescribeStreamConsumerResponse Int
-dscrrsResponseStatus = lens _dscrrsResponseStatus (\s a -> s {_dscrrsResponseStatus = a})
+-- | The response's http status code.
+describeStreamConsumerResponse_httpStatus :: Lens.Lens' DescribeStreamConsumerResponse Prelude.Int
+describeStreamConsumerResponse_httpStatus = Lens.lens (\DescribeStreamConsumerResponse' {httpStatus} -> httpStatus) (\s@DescribeStreamConsumerResponse' {} a -> s {httpStatus = a} :: DescribeStreamConsumerResponse)
 
 -- | An object that represents the details of the consumer.
-dscrrsConsumerDescription :: Lens' DescribeStreamConsumerResponse ConsumerDescription
-dscrrsConsumerDescription = lens _dscrrsConsumerDescription (\s a -> s {_dscrrsConsumerDescription = a})
+describeStreamConsumerResponse_consumerDescription :: Lens.Lens' DescribeStreamConsumerResponse ConsumerDescription
+describeStreamConsumerResponse_consumerDescription = Lens.lens (\DescribeStreamConsumerResponse' {consumerDescription} -> consumerDescription) (\s@DescribeStreamConsumerResponse' {} a -> s {consumerDescription = a} :: DescribeStreamConsumerResponse)
 
-instance NFData DescribeStreamConsumerResponse
+instance
+  Prelude.NFData
+    DescribeStreamConsumerResponse

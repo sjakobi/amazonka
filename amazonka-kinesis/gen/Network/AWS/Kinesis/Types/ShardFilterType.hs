@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,75 @@
 module Network.AWS.Kinesis.Types.ShardFilterType
   ( ShardFilterType
       ( ..,
-        SFTAfterShardId,
-        SFTAtLatest,
-        SFTAtTimestamp,
-        SFTAtTrimHorizon,
-        SFTFromTimestamp,
-        SFTFromTrimHorizon
+        ShardFilterTypeAFTERSHARDID,
+        ShardFilterTypeATLATEST,
+        ShardFilterTypeATTIMESTAMP,
+        ShardFilterTypeATTRIMHORIZON,
+        ShardFilterTypeFROMTIMESTAMP,
+        ShardFilterTypeFROMTRIMHORIZON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ShardFilterType = ShardFilterType' (CI Text)
+newtype ShardFilterType = ShardFilterType'
+  { fromShardFilterType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SFTAfterShardId :: ShardFilterType
-pattern SFTAfterShardId = ShardFilterType' "AFTER_SHARD_ID"
+pattern ShardFilterTypeAFTERSHARDID :: ShardFilterType
+pattern ShardFilterTypeAFTERSHARDID = ShardFilterType' "AFTER_SHARD_ID"
 
-pattern SFTAtLatest :: ShardFilterType
-pattern SFTAtLatest = ShardFilterType' "AT_LATEST"
+pattern ShardFilterTypeATLATEST :: ShardFilterType
+pattern ShardFilterTypeATLATEST = ShardFilterType' "AT_LATEST"
 
-pattern SFTAtTimestamp :: ShardFilterType
-pattern SFTAtTimestamp = ShardFilterType' "AT_TIMESTAMP"
+pattern ShardFilterTypeATTIMESTAMP :: ShardFilterType
+pattern ShardFilterTypeATTIMESTAMP = ShardFilterType' "AT_TIMESTAMP"
 
-pattern SFTAtTrimHorizon :: ShardFilterType
-pattern SFTAtTrimHorizon = ShardFilterType' "AT_TRIM_HORIZON"
+pattern ShardFilterTypeATTRIMHORIZON :: ShardFilterType
+pattern ShardFilterTypeATTRIMHORIZON = ShardFilterType' "AT_TRIM_HORIZON"
 
-pattern SFTFromTimestamp :: ShardFilterType
-pattern SFTFromTimestamp = ShardFilterType' "FROM_TIMESTAMP"
+pattern ShardFilterTypeFROMTIMESTAMP :: ShardFilterType
+pattern ShardFilterTypeFROMTIMESTAMP = ShardFilterType' "FROM_TIMESTAMP"
 
-pattern SFTFromTrimHorizon :: ShardFilterType
-pattern SFTFromTrimHorizon = ShardFilterType' "FROM_TRIM_HORIZON"
+pattern ShardFilterTypeFROMTRIMHORIZON :: ShardFilterType
+pattern ShardFilterTypeFROMTRIMHORIZON = ShardFilterType' "FROM_TRIM_HORIZON"
 
 {-# COMPLETE
-  SFTAfterShardId,
-  SFTAtLatest,
-  SFTAtTimestamp,
-  SFTAtTrimHorizon,
-  SFTFromTimestamp,
-  SFTFromTrimHorizon,
+  ShardFilterTypeAFTERSHARDID,
+  ShardFilterTypeATLATEST,
+  ShardFilterTypeATTIMESTAMP,
+  ShardFilterTypeATTRIMHORIZON,
+  ShardFilterTypeFROMTIMESTAMP,
+  ShardFilterTypeFROMTRIMHORIZON,
   ShardFilterType'
   #-}
 
-instance FromText ShardFilterType where
-  parser = (ShardFilterType' . mk) <$> takeText
+instance Prelude.FromText ShardFilterType where
+  parser = ShardFilterType' Prelude.<$> Prelude.takeText
 
-instance ToText ShardFilterType where
-  toText (ShardFilterType' ci) = original ci
+instance Prelude.ToText ShardFilterType where
+  toText (ShardFilterType' x) = x
 
-instance Hashable ShardFilterType
+instance Prelude.Hashable ShardFilterType
 
-instance NFData ShardFilterType
+instance Prelude.NFData ShardFilterType
 
-instance ToByteString ShardFilterType
+instance Prelude.ToByteString ShardFilterType
 
-instance ToQuery ShardFilterType
+instance Prelude.ToQuery ShardFilterType
 
-instance ToHeader ShardFilterType
+instance Prelude.ToHeader ShardFilterType
 
-instance ToJSON ShardFilterType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ShardFilterType where
+  toJSON = Prelude.toJSONText

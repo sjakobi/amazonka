@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.Kinesis.Types.ConsumerStatus
   ( ConsumerStatus
       ( ..,
-        Active,
-        Creating,
-        Deleting
+        ConsumerStatusACTIVE,
+        ConsumerStatusCREATING,
+        ConsumerStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConsumerStatus = ConsumerStatus' (CI Text)
+newtype ConsumerStatus = ConsumerStatus'
+  { fromConsumerStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ConsumerStatus
-pattern Active = ConsumerStatus' "ACTIVE"
+pattern ConsumerStatusACTIVE :: ConsumerStatus
+pattern ConsumerStatusACTIVE = ConsumerStatus' "ACTIVE"
 
-pattern Creating :: ConsumerStatus
-pattern Creating = ConsumerStatus' "CREATING"
+pattern ConsumerStatusCREATING :: ConsumerStatus
+pattern ConsumerStatusCREATING = ConsumerStatus' "CREATING"
 
-pattern Deleting :: ConsumerStatus
-pattern Deleting = ConsumerStatus' "DELETING"
+pattern ConsumerStatusDELETING :: ConsumerStatus
+pattern ConsumerStatusDELETING = ConsumerStatus' "DELETING"
 
 {-# COMPLETE
-  Active,
-  Creating,
-  Deleting,
+  ConsumerStatusACTIVE,
+  ConsumerStatusCREATING,
+  ConsumerStatusDELETING,
   ConsumerStatus'
   #-}
 
-instance FromText ConsumerStatus where
-  parser = (ConsumerStatus' . mk) <$> takeText
+instance Prelude.FromText ConsumerStatus where
+  parser = ConsumerStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ConsumerStatus where
-  toText (ConsumerStatus' ci) = original ci
+instance Prelude.ToText ConsumerStatus where
+  toText (ConsumerStatus' x) = x
 
-instance Hashable ConsumerStatus
+instance Prelude.Hashable ConsumerStatus
 
-instance NFData ConsumerStatus
+instance Prelude.NFData ConsumerStatus
 
-instance ToByteString ConsumerStatus
+instance Prelude.ToByteString ConsumerStatus
 
-instance ToQuery ConsumerStatus
+instance Prelude.ToQuery ConsumerStatus
 
-instance ToHeader ConsumerStatus
+instance Prelude.ToHeader ConsumerStatus
 
-instance FromJSON ConsumerStatus where
-  parseJSON = parseJSONText "ConsumerStatus"
+instance Prelude.FromJSON ConsumerStatus where
+  parseJSON = Prelude.parseJSONText "ConsumerStatus"

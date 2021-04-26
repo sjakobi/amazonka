@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Decreases the Kinesis data stream's retention period, which is the length of time data records are accessible after they are added to the stream. The minimum value of a stream's retention period is 24 hours.
+-- Decreases the Kinesis data stream\'s retention period, which is the
+-- length of time data records are accessible after they are added to the
+-- stream. The minimum value of a stream\'s retention period is 24 hours.
 --
---
--- This operation may result in lost data. For example, if the stream's retention period is 48 hours and is decreased to 24 hours, any data already in the stream that is older than 24 hours is inaccessible.
+-- This operation may result in lost data. For example, if the stream\'s
+-- retention period is 48 hours and is decreased to 24 hours, any data
+-- already in the stream that is older than 24 hours is inaccessible.
 module Network.AWS.Kinesis.DecreaseStreamRetentionPeriod
   ( -- * Creating a Request
-    decreaseStreamRetentionPeriod,
-    DecreaseStreamRetentionPeriod,
+    DecreaseStreamRetentionPeriod (..),
+    newDecreaseStreamRetentionPeriod,
 
     -- * Request Lenses
-    dsrpStreamName,
-    dsrpRetentionPeriodHours,
+    decreaseStreamRetentionPeriod_streamName,
+    decreaseStreamRetentionPeriod_retentionPeriodHours,
 
     -- * Destructuring the Response
-    decreaseStreamRetentionPeriodResponse,
-    DecreaseStreamRetentionPeriodResponse,
+    DecreaseStreamRetentionPeriodResponse (..),
+    newDecreaseStreamRetentionPeriodResponse,
   )
 where
 
 import Network.AWS.Kinesis.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Represents the input for 'DecreaseStreamRetentionPeriod' .
+-- | Represents the input for DecreaseStreamRetentionPeriod.
 --
---
---
--- /See:/ 'decreaseStreamRetentionPeriod' smart constructor.
+-- /See:/ 'newDecreaseStreamRetentionPeriod' smart constructor.
 data DecreaseStreamRetentionPeriod = DecreaseStreamRetentionPeriod'
-  { _dsrpStreamName ::
-      !Text,
-    _dsrpRetentionPeriodHours ::
-      !Int
+  { -- | The name of the stream to modify.
+    streamName :: Prelude.Text,
+    -- | The new retention period of the stream, in hours. Must be less than the
+    -- current retention period.
+    retentionPeriodHours :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecreaseStreamRetentionPeriod' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DecreaseStreamRetentionPeriod' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrpStreamName' - The name of the stream to modify.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsrpRetentionPeriodHours' - The new retention period of the stream, in hours. Must be less than the current retention period.
-decreaseStreamRetentionPeriod ::
-  -- | 'dsrpStreamName'
-  Text ->
-  -- | 'dsrpRetentionPeriodHours'
-  Int ->
+-- 'streamName', 'decreaseStreamRetentionPeriod_streamName' - The name of the stream to modify.
+--
+-- 'retentionPeriodHours', 'decreaseStreamRetentionPeriod_retentionPeriodHours' - The new retention period of the stream, in hours. Must be less than the
+-- current retention period.
+newDecreaseStreamRetentionPeriod ::
+  -- | 'streamName'
+  Prelude.Text ->
+  -- | 'retentionPeriodHours'
+  Prelude.Int ->
   DecreaseStreamRetentionPeriod
-decreaseStreamRetentionPeriod
+newDecreaseStreamRetentionPeriod
   pStreamName_
   pRetentionPeriodHours_ =
     DecreaseStreamRetentionPeriod'
-      { _dsrpStreamName =
+      { streamName =
           pStreamName_,
-        _dsrpRetentionPeriodHours =
+        retentionPeriodHours =
           pRetentionPeriodHours_
       }
 
 -- | The name of the stream to modify.
-dsrpStreamName :: Lens' DecreaseStreamRetentionPeriod Text
-dsrpStreamName = lens _dsrpStreamName (\s a -> s {_dsrpStreamName = a})
+decreaseStreamRetentionPeriod_streamName :: Lens.Lens' DecreaseStreamRetentionPeriod Prelude.Text
+decreaseStreamRetentionPeriod_streamName = Lens.lens (\DecreaseStreamRetentionPeriod' {streamName} -> streamName) (\s@DecreaseStreamRetentionPeriod' {} a -> s {streamName = a} :: DecreaseStreamRetentionPeriod)
 
--- | The new retention period of the stream, in hours. Must be less than the current retention period.
-dsrpRetentionPeriodHours :: Lens' DecreaseStreamRetentionPeriod Int
-dsrpRetentionPeriodHours = lens _dsrpRetentionPeriodHours (\s a -> s {_dsrpRetentionPeriodHours = a})
+-- | The new retention period of the stream, in hours. Must be less than the
+-- current retention period.
+decreaseStreamRetentionPeriod_retentionPeriodHours :: Lens.Lens' DecreaseStreamRetentionPeriod Prelude.Int
+decreaseStreamRetentionPeriod_retentionPeriodHours = Lens.lens (\DecreaseStreamRetentionPeriod' {retentionPeriodHours} -> retentionPeriodHours) (\s@DecreaseStreamRetentionPeriod' {} a -> s {retentionPeriodHours = a} :: DecreaseStreamRetentionPeriod)
 
-instance AWSRequest DecreaseStreamRetentionPeriod where
+instance
+  Prelude.AWSRequest
+    DecreaseStreamRetentionPeriod
+  where
   type
     Rs DecreaseStreamRetentionPeriod =
       DecreaseStreamRetentionPeriodResponse
-  request = postJSON kinesis
+  request = Request.postJSON defaultService
   response =
-    receiveNull DecreaseStreamRetentionPeriodResponse'
+    Response.receiveNull
+      DecreaseStreamRetentionPeriodResponse'
 
-instance Hashable DecreaseStreamRetentionPeriod
+instance
+  Prelude.Hashable
+    DecreaseStreamRetentionPeriod
 
-instance NFData DecreaseStreamRetentionPeriod
+instance Prelude.NFData DecreaseStreamRetentionPeriod
 
-instance ToHeaders DecreaseStreamRetentionPeriod where
+instance
+  Prelude.ToHeaders
+    DecreaseStreamRetentionPeriod
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Kinesis_20131202.DecreaseStreamRetentionPeriod" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Kinesis_20131202.DecreaseStreamRetentionPeriod" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DecreaseStreamRetentionPeriod where
+instance Prelude.ToJSON DecreaseStreamRetentionPeriod where
   toJSON DecreaseStreamRetentionPeriod' {..} =
-    object
-      ( catMaybes
-          [ Just ("StreamName" .= _dsrpStreamName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("StreamName" Prelude..= streamName),
+            Prelude.Just
               ( "RetentionPeriodHours"
-                  .= _dsrpRetentionPeriodHours
+                  Prelude..= retentionPeriodHours
               )
           ]
       )
 
-instance ToPath DecreaseStreamRetentionPeriod where
-  toPath = const "/"
+instance Prelude.ToPath DecreaseStreamRetentionPeriod where
+  toPath = Prelude.const "/"
 
-instance ToQuery DecreaseStreamRetentionPeriod where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DecreaseStreamRetentionPeriod
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'decreaseStreamRetentionPeriodResponse' smart constructor.
+-- | /See:/ 'newDecreaseStreamRetentionPeriodResponse' smart constructor.
 data DecreaseStreamRetentionPeriodResponse = DecreaseStreamRetentionPeriodResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DecreaseStreamRetentionPeriodResponse' with the minimum fields required to make a request.
-decreaseStreamRetentionPeriodResponse ::
+-- |
+-- Create a value of 'DecreaseStreamRetentionPeriodResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDecreaseStreamRetentionPeriodResponse ::
   DecreaseStreamRetentionPeriodResponse
-decreaseStreamRetentionPeriodResponse =
+newDecreaseStreamRetentionPeriodResponse =
   DecreaseStreamRetentionPeriodResponse'
 
-instance NFData DecreaseStreamRetentionPeriodResponse
+instance
+  Prelude.NFData
+    DecreaseStreamRetentionPeriodResponse

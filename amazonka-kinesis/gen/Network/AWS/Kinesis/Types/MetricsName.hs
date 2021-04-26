@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.Kinesis.Types.MetricsName
   ( MetricsName
       ( ..,
-        All,
-        IncomingBytes,
-        IncomingRecords,
-        IteratorAgeMilliseconds,
-        OutgoingBytes,
-        OutgoingRecords,
-        ReadProvisionedThroughputExceeded,
-        WriteProvisionedThroughputExceeded
+        MetricsNameALL,
+        MetricsNameIncomingBytes,
+        MetricsNameIncomingRecords,
+        MetricsNameIteratorAgeMilliseconds,
+        MetricsNameOutgoingBytes,
+        MetricsNameOutgoingRecords,
+        MetricsNameReadProvisionedThroughputExceeded,
+        MetricsNameWriteProvisionedThroughputExceeded
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MetricsName = MetricsName' (CI Text)
+newtype MetricsName = MetricsName'
+  { fromMetricsName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: MetricsName
-pattern All = MetricsName' "ALL"
+pattern MetricsNameALL :: MetricsName
+pattern MetricsNameALL = MetricsName' "ALL"
 
-pattern IncomingBytes :: MetricsName
-pattern IncomingBytes = MetricsName' "IncomingBytes"
+pattern MetricsNameIncomingBytes :: MetricsName
+pattern MetricsNameIncomingBytes = MetricsName' "IncomingBytes"
 
-pattern IncomingRecords :: MetricsName
-pattern IncomingRecords = MetricsName' "IncomingRecords"
+pattern MetricsNameIncomingRecords :: MetricsName
+pattern MetricsNameIncomingRecords = MetricsName' "IncomingRecords"
 
-pattern IteratorAgeMilliseconds :: MetricsName
-pattern IteratorAgeMilliseconds = MetricsName' "IteratorAgeMilliseconds"
+pattern MetricsNameIteratorAgeMilliseconds :: MetricsName
+pattern MetricsNameIteratorAgeMilliseconds = MetricsName' "IteratorAgeMilliseconds"
 
-pattern OutgoingBytes :: MetricsName
-pattern OutgoingBytes = MetricsName' "OutgoingBytes"
+pattern MetricsNameOutgoingBytes :: MetricsName
+pattern MetricsNameOutgoingBytes = MetricsName' "OutgoingBytes"
 
-pattern OutgoingRecords :: MetricsName
-pattern OutgoingRecords = MetricsName' "OutgoingRecords"
+pattern MetricsNameOutgoingRecords :: MetricsName
+pattern MetricsNameOutgoingRecords = MetricsName' "OutgoingRecords"
 
-pattern ReadProvisionedThroughputExceeded :: MetricsName
-pattern ReadProvisionedThroughputExceeded = MetricsName' "ReadProvisionedThroughputExceeded"
+pattern MetricsNameReadProvisionedThroughputExceeded :: MetricsName
+pattern MetricsNameReadProvisionedThroughputExceeded = MetricsName' "ReadProvisionedThroughputExceeded"
 
-pattern WriteProvisionedThroughputExceeded :: MetricsName
-pattern WriteProvisionedThroughputExceeded = MetricsName' "WriteProvisionedThroughputExceeded"
+pattern MetricsNameWriteProvisionedThroughputExceeded :: MetricsName
+pattern MetricsNameWriteProvisionedThroughputExceeded = MetricsName' "WriteProvisionedThroughputExceeded"
 
 {-# COMPLETE
-  All,
-  IncomingBytes,
-  IncomingRecords,
-  IteratorAgeMilliseconds,
-  OutgoingBytes,
-  OutgoingRecords,
-  ReadProvisionedThroughputExceeded,
-  WriteProvisionedThroughputExceeded,
+  MetricsNameALL,
+  MetricsNameIncomingBytes,
+  MetricsNameIncomingRecords,
+  MetricsNameIteratorAgeMilliseconds,
+  MetricsNameOutgoingBytes,
+  MetricsNameOutgoingRecords,
+  MetricsNameReadProvisionedThroughputExceeded,
+  MetricsNameWriteProvisionedThroughputExceeded,
   MetricsName'
   #-}
 
-instance FromText MetricsName where
-  parser = (MetricsName' . mk) <$> takeText
+instance Prelude.FromText MetricsName where
+  parser = MetricsName' Prelude.<$> Prelude.takeText
 
-instance ToText MetricsName where
-  toText (MetricsName' ci) = original ci
+instance Prelude.ToText MetricsName where
+  toText (MetricsName' x) = x
 
-instance Hashable MetricsName
+instance Prelude.Hashable MetricsName
 
-instance NFData MetricsName
+instance Prelude.NFData MetricsName
 
-instance ToByteString MetricsName
+instance Prelude.ToByteString MetricsName
 
-instance ToQuery MetricsName
+instance Prelude.ToQuery MetricsName
 
-instance ToHeader MetricsName
+instance Prelude.ToHeader MetricsName
 
-instance ToJSON MetricsName where
-  toJSON = toJSONText
+instance Prelude.ToJSON MetricsName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MetricsName where
-  parseJSON = parseJSONText "MetricsName"
+instance Prelude.FromJSON MetricsName where
+  parseJSON = Prelude.parseJSONText "MetricsName"

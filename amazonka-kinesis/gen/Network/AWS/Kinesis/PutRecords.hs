@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,287 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Writes multiple data records into a Kinesis data stream in a single call (also referred to as a @PutRecords@ request). Use this operation to send data into the stream for data ingestion and processing.
+-- Writes multiple data records into a Kinesis data stream in a single call
+-- (also referred to as a @PutRecords@ request). Use this operation to send
+-- data into the stream for data ingestion and processing.
 --
+-- Each @PutRecords@ request can support up to 500 records. Each record in
+-- the request can be as large as 1 MiB, up to a limit of 5 MiB for the
+-- entire request, including partition keys. Each shard can support writes
+-- up to 1,000 records per second, up to a maximum data write total of 1
+-- MiB per second.
 --
--- Each @PutRecords@ request can support up to 500 records. Each record in the request can be as large as 1 MiB, up to a limit of 5 MiB for the entire request, including partition keys. Each shard can support writes up to 1,000 records per second, up to a maximum data write total of 1 MiB per second.
+-- You must specify the name of the stream that captures, stores, and
+-- transports the data; and an array of request @Records@, with each record
+-- in the array requiring a partition key and data blob. The record size
+-- limit applies to the total size of the partition key and data blob.
 --
--- You must specify the name of the stream that captures, stores, and transports the data; and an array of request @Records@ , with each record in the array requiring a partition key and data blob. The record size limit applies to the total size of the partition key and data blob.
+-- The data blob can be any type of data; for example, a segment from a log
+-- file, geographic\/location data, website clickstream data, and so on.
 --
--- The data blob can be any type of data; for example, a segment from a log file, geographic/location data, website clickstream data, and so on.
+-- The partition key is used by Kinesis Data Streams as input to a hash
+-- function that maps the partition key and associated data to a specific
+-- shard. An MD5 hash function is used to map partition keys to 128-bit
+-- integer values and to map associated data records to shards. As a result
+-- of this hashing mechanism, all data records with the same partition key
+-- map to the same shard within the stream. For more information, see
+-- <https://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream Adding Data to a Stream>
+-- in the /Amazon Kinesis Data Streams Developer Guide/.
 --
--- The partition key is used by Kinesis Data Streams as input to a hash function that maps the partition key and associated data to a specific shard. An MD5 hash function is used to map partition keys to 128-bit integer values and to map associated data records to shards. As a result of this hashing mechanism, all data records with the same partition key map to the same shard within the stream. For more information, see <https://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream Adding Data to a Stream> in the /Amazon Kinesis Data Streams Developer Guide/ .
+-- Each record in the @Records@ array may include an optional parameter,
+-- @ExplicitHashKey@, which overrides the partition key to shard mapping.
+-- This parameter allows a data producer to determine explicitly the shard
+-- where the record is stored. For more information, see
+-- <https://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords Adding Multiple Records with PutRecords>
+-- in the /Amazon Kinesis Data Streams Developer Guide/.
 --
--- Each record in the @Records@ array may include an optional parameter, @ExplicitHashKey@ , which overrides the partition key to shard mapping. This parameter allows a data producer to determine explicitly the shard where the record is stored. For more information, see <https://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords Adding Multiple Records with PutRecords> in the /Amazon Kinesis Data Streams Developer Guide/ .
+-- The @PutRecords@ response includes an array of response @Records@. Each
+-- record in the response array directly correlates with a record in the
+-- request array using natural ordering, from the top to the bottom of the
+-- request and response. The response @Records@ array always includes the
+-- same number of records as the request array.
 --
--- The @PutRecords@ response includes an array of response @Records@ . Each record in the response array directly correlates with a record in the request array using natural ordering, from the top to the bottom of the request and response. The response @Records@ array always includes the same number of records as the request array.
+-- The response @Records@ array includes both successfully and
+-- unsuccessfully processed records. Kinesis Data Streams attempts to
+-- process all records in each @PutRecords@ request. A single record
+-- failure does not stop the processing of subsequent records. As a result,
+-- PutRecords doesn\'t guarantee the ordering of records. If you need to
+-- read records in the same order they are written to the stream, use
+-- PutRecord instead of @PutRecords@, and write to the same shard.
 --
--- The response @Records@ array includes both successfully and unsuccessfully processed records. Kinesis Data Streams attempts to process all records in each @PutRecords@ request. A single record failure does not stop the processing of subsequent records. As a result, PutRecords doesn't guarantee the ordering of records. If you need to read records in the same order they are written to the stream, use 'PutRecord' instead of @PutRecords@ , and write to the same shard.
+-- A successfully processed record includes @ShardId@ and @SequenceNumber@
+-- values. The @ShardId@ parameter identifies the shard in the stream where
+-- the record is stored. The @SequenceNumber@ parameter is an identifier
+-- assigned to the put record, unique to all records in the stream.
 --
--- A successfully processed record includes @ShardId@ and @SequenceNumber@ values. The @ShardId@ parameter identifies the shard in the stream where the record is stored. The @SequenceNumber@ parameter is an identifier assigned to the put record, unique to all records in the stream.
+-- An unsuccessfully processed record includes @ErrorCode@ and
+-- @ErrorMessage@ values. @ErrorCode@ reflects the type of error and can be
+-- one of the following values: @ProvisionedThroughputExceededException@ or
+-- @InternalFailure@. @ErrorMessage@ provides more detailed information
+-- about the @ProvisionedThroughputExceededException@ exception including
+-- the account ID, stream name, and shard ID of the record that was
+-- throttled. For more information about partially successful responses,
+-- see
+-- <https://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-add-data-to-stream.html#kinesis-using-sdk-java-putrecords Adding Multiple Records with PutRecords>
+-- in the /Amazon Kinesis Data Streams Developer Guide/.
 --
--- An unsuccessfully processed record includes @ErrorCode@ and @ErrorMessage@ values. @ErrorCode@ reflects the type of error and can be one of the following values: @ProvisionedThroughputExceededException@ or @InternalFailure@ . @ErrorMessage@ provides more detailed information about the @ProvisionedThroughputExceededException@ exception including the account ID, stream name, and shard ID of the record that was throttled. For more information about partially successful responses, see <https://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-add-data-to-stream.html#kinesis-using-sdk-java-putrecords Adding Multiple Records with PutRecords> in the /Amazon Kinesis Data Streams Developer Guide/ .
+-- After you write a record to a stream, you cannot modify that record or
+-- its order within the stream.
 --
--- /Important:/ After you write a record to a stream, you cannot modify that record or its order within the stream.
---
--- By default, data records are accessible for 24 hours from the time that they are added to a stream. You can use 'IncreaseStreamRetentionPeriod' or 'DecreaseStreamRetentionPeriod' to modify this retention period.
+-- By default, data records are accessible for 24 hours from the time that
+-- they are added to a stream. You can use IncreaseStreamRetentionPeriod or
+-- DecreaseStreamRetentionPeriod to modify this retention period.
 module Network.AWS.Kinesis.PutRecords
   ( -- * Creating a Request
-    putRecords,
-    PutRecords,
+    PutRecords (..),
+    newPutRecords,
 
     -- * Request Lenses
-    prRecordEntries,
-    prStreamName,
+    putRecords_recordEntries,
+    putRecords_streamName,
 
     -- * Destructuring the Response
-    putRecordsResponse,
-    PutRecordsResponse,
+    PutRecordsResponse (..),
+    newPutRecordsResponse,
 
     -- * Response Lenses
-    prsEncryptionType,
-    prsFailedRecordCount,
-    prsResponseStatus,
-    prsRecords,
+    putRecordsResponse_encryptionType,
+    putRecordsResponse_failedRecordCount,
+    putRecordsResponse_httpStatus,
+    putRecordsResponse_records,
   )
 where
 
 import Network.AWS.Kinesis.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Kinesis.Types.EncryptionType
+import Network.AWS.Kinesis.Types.PutRecordsResultEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A @PutRecords@ request.
 --
---
---
--- /See:/ 'putRecords' smart constructor.
+-- /See:/ 'newPutRecords' smart constructor.
 data PutRecords = PutRecords'
-  { _prRecordEntries ::
-      !(List1 PutRecordsRequestEntry),
-    _prStreamName :: !Text
+  { -- | The records associated with the request.
+    records :: Prelude.List1 PutRecordsRequestEntry,
+    -- | The stream name associated with the request.
+    streamName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRecords' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRecords' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prRecordEntries' - The records associated with the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prStreamName' - The stream name associated with the request.
-putRecords ::
-  -- | 'prRecordEntries'
-  NonEmpty PutRecordsRequestEntry ->
-  -- | 'prStreamName'
-  Text ->
+-- 'records', 'putRecords_recordEntries' - The records associated with the request.
+--
+-- 'streamName', 'putRecords_streamName' - The stream name associated with the request.
+newPutRecords ::
+  -- | 'records'
+  Prelude.NonEmpty PutRecordsRequestEntry ->
+  -- | 'streamName'
+  Prelude.Text ->
   PutRecords
-putRecords pRecordEntries_ pStreamName_ =
+newPutRecords pRecordEntries_ pStreamName_ =
   PutRecords'
-    { _prRecordEntries =
-        _List1 # pRecordEntries_,
-      _prStreamName = pStreamName_
+    { records =
+        Prelude._List1 Lens.# pRecordEntries_,
+      streamName = pStreamName_
     }
 
 -- | The records associated with the request.
-prRecordEntries :: Lens' PutRecords (NonEmpty PutRecordsRequestEntry)
-prRecordEntries = lens _prRecordEntries (\s a -> s {_prRecordEntries = a}) . _List1
+putRecords_recordEntries :: Lens.Lens' PutRecords (Prelude.NonEmpty PutRecordsRequestEntry)
+putRecords_recordEntries = Lens.lens (\PutRecords' {records} -> records) (\s@PutRecords' {} a -> s {records = a} :: PutRecords) Prelude.. Prelude._List1
 
 -- | The stream name associated with the request.
-prStreamName :: Lens' PutRecords Text
-prStreamName = lens _prStreamName (\s a -> s {_prStreamName = a})
+putRecords_streamName :: Lens.Lens' PutRecords Prelude.Text
+putRecords_streamName = Lens.lens (\PutRecords' {streamName} -> streamName) (\s@PutRecords' {} a -> s {streamName = a} :: PutRecords)
 
-instance AWSRequest PutRecords where
+instance Prelude.AWSRequest PutRecords where
   type Rs PutRecords = PutRecordsResponse
-  request = postJSON kinesis
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutRecordsResponse'
-            <$> (x .?> "EncryptionType")
-            <*> (x .?> "FailedRecordCount")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "Records")
+            Prelude.<$> (x Prelude..?> "EncryptionType")
+            Prelude.<*> (x Prelude..?> "FailedRecordCount")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Records")
       )
 
-instance Hashable PutRecords
+instance Prelude.Hashable PutRecords
 
-instance NFData PutRecords
+instance Prelude.NFData PutRecords
 
-instance ToHeaders PutRecords where
+instance Prelude.ToHeaders PutRecords where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Kinesis_20131202.PutRecords" :: ByteString),
+              Prelude.=# ( "Kinesis_20131202.PutRecords" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutRecords where
+instance Prelude.ToJSON PutRecords where
   toJSON PutRecords' {..} =
-    object
-      ( catMaybes
-          [ Just ("Records" .= _prRecordEntries),
-            Just ("StreamName" .= _prStreamName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Records" Prelude..= records),
+            Prelude.Just ("StreamName" Prelude..= streamName)
           ]
       )
 
-instance ToPath PutRecords where
-  toPath = const "/"
+instance Prelude.ToPath PutRecords where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutRecords where
-  toQuery = const mempty
+instance Prelude.ToQuery PutRecords where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | @PutRecords@ results.
 --
---
---
--- /See:/ 'putRecordsResponse' smart constructor.
+-- /See:/ 'newPutRecordsResponse' smart constructor.
 data PutRecordsResponse = PutRecordsResponse'
-  { _prsEncryptionType ::
-      !(Maybe EncryptionType),
-    _prsFailedRecordCount ::
-      !(Maybe Nat),
-    _prsResponseStatus :: !Int,
-    _prsRecords ::
-      !(List1 PutRecordsResultEntry)
+  { -- | The encryption type used on the records. This parameter can be one of
+    -- the following values:
+    --
+    -- -   @NONE@: Do not encrypt the records.
+    --
+    -- -   @KMS@: Use server-side encryption on the records using a
+    --     customer-managed AWS KMS key.
+    encryptionType :: Prelude.Maybe EncryptionType,
+    -- | The number of unsuccessfully processed records in a @PutRecords@
+    -- request.
+    failedRecordCount :: Prelude.Maybe Prelude.Nat,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An array of successfully and unsuccessfully processed record results,
+    -- correlated with the request by natural ordering. A record that is
+    -- successfully added to a stream includes @SequenceNumber@ and @ShardId@
+    -- in the result. A record that fails to be added to a stream includes
+    -- @ErrorCode@ and @ErrorMessage@ in the result.
+    records :: Prelude.List1 PutRecordsResultEntry
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRecordsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRecordsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prsEncryptionType' - The encryption type used on the records. This parameter can be one of the following values:     * @NONE@ : Do not encrypt the records.     * @KMS@ : Use server-side encryption on the records using a customer-managed AWS KMS key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prsFailedRecordCount' - The number of unsuccessfully processed records in a @PutRecords@ request.
+-- 'encryptionType', 'putRecordsResponse_encryptionType' - The encryption type used on the records. This parameter can be one of
+-- the following values:
 --
--- * 'prsResponseStatus' - -- | The response status code.
+-- -   @NONE@: Do not encrypt the records.
 --
--- * 'prsRecords' - An array of successfully and unsuccessfully processed record results, correlated with the request by natural ordering. A record that is successfully added to a stream includes @SequenceNumber@ and @ShardId@ in the result. A record that fails to be added to a stream includes @ErrorCode@ and @ErrorMessage@ in the result.
-putRecordsResponse ::
-  -- | 'prsResponseStatus'
-  Int ->
-  -- | 'prsRecords'
-  NonEmpty PutRecordsResultEntry ->
+-- -   @KMS@: Use server-side encryption on the records using a
+--     customer-managed AWS KMS key.
+--
+-- 'failedRecordCount', 'putRecordsResponse_failedRecordCount' - The number of unsuccessfully processed records in a @PutRecords@
+-- request.
+--
+-- 'httpStatus', 'putRecordsResponse_httpStatus' - The response's http status code.
+--
+-- 'records', 'putRecordsResponse_records' - An array of successfully and unsuccessfully processed record results,
+-- correlated with the request by natural ordering. A record that is
+-- successfully added to a stream includes @SequenceNumber@ and @ShardId@
+-- in the result. A record that fails to be added to a stream includes
+-- @ErrorCode@ and @ErrorMessage@ in the result.
+newPutRecordsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'records'
+  Prelude.NonEmpty PutRecordsResultEntry ->
   PutRecordsResponse
-putRecordsResponse pResponseStatus_ pRecords_ =
+newPutRecordsResponse pHttpStatus_ pRecords_ =
   PutRecordsResponse'
-    { _prsEncryptionType = Nothing,
-      _prsFailedRecordCount = Nothing,
-      _prsResponseStatus = pResponseStatus_,
-      _prsRecords = _List1 # pRecords_
+    { encryptionType =
+        Prelude.Nothing,
+      failedRecordCount = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      records = Prelude._List1 Lens.# pRecords_
     }
 
--- | The encryption type used on the records. This parameter can be one of the following values:     * @NONE@ : Do not encrypt the records.     * @KMS@ : Use server-side encryption on the records using a customer-managed AWS KMS key.
-prsEncryptionType :: Lens' PutRecordsResponse (Maybe EncryptionType)
-prsEncryptionType = lens _prsEncryptionType (\s a -> s {_prsEncryptionType = a})
+-- | The encryption type used on the records. This parameter can be one of
+-- the following values:
+--
+-- -   @NONE@: Do not encrypt the records.
+--
+-- -   @KMS@: Use server-side encryption on the records using a
+--     customer-managed AWS KMS key.
+putRecordsResponse_encryptionType :: Lens.Lens' PutRecordsResponse (Prelude.Maybe EncryptionType)
+putRecordsResponse_encryptionType = Lens.lens (\PutRecordsResponse' {encryptionType} -> encryptionType) (\s@PutRecordsResponse' {} a -> s {encryptionType = a} :: PutRecordsResponse)
 
--- | The number of unsuccessfully processed records in a @PutRecords@ request.
-prsFailedRecordCount :: Lens' PutRecordsResponse (Maybe Natural)
-prsFailedRecordCount = lens _prsFailedRecordCount (\s a -> s {_prsFailedRecordCount = a}) . mapping _Nat
+-- | The number of unsuccessfully processed records in a @PutRecords@
+-- request.
+putRecordsResponse_failedRecordCount :: Lens.Lens' PutRecordsResponse (Prelude.Maybe Prelude.Natural)
+putRecordsResponse_failedRecordCount = Lens.lens (\PutRecordsResponse' {failedRecordCount} -> failedRecordCount) (\s@PutRecordsResponse' {} a -> s {failedRecordCount = a} :: PutRecordsResponse) Prelude.. Lens.mapping Prelude._Nat
 
--- | -- | The response status code.
-prsResponseStatus :: Lens' PutRecordsResponse Int
-prsResponseStatus = lens _prsResponseStatus (\s a -> s {_prsResponseStatus = a})
+-- | The response's http status code.
+putRecordsResponse_httpStatus :: Lens.Lens' PutRecordsResponse Prelude.Int
+putRecordsResponse_httpStatus = Lens.lens (\PutRecordsResponse' {httpStatus} -> httpStatus) (\s@PutRecordsResponse' {} a -> s {httpStatus = a} :: PutRecordsResponse)
 
--- | An array of successfully and unsuccessfully processed record results, correlated with the request by natural ordering. A record that is successfully added to a stream includes @SequenceNumber@ and @ShardId@ in the result. A record that fails to be added to a stream includes @ErrorCode@ and @ErrorMessage@ in the result.
-prsRecords :: Lens' PutRecordsResponse (NonEmpty PutRecordsResultEntry)
-prsRecords = lens _prsRecords (\s a -> s {_prsRecords = a}) . _List1
+-- | An array of successfully and unsuccessfully processed record results,
+-- correlated with the request by natural ordering. A record that is
+-- successfully added to a stream includes @SequenceNumber@ and @ShardId@
+-- in the result. A record that fails to be added to a stream includes
+-- @ErrorCode@ and @ErrorMessage@ in the result.
+putRecordsResponse_records :: Lens.Lens' PutRecordsResponse (Prelude.NonEmpty PutRecordsResultEntry)
+putRecordsResponse_records = Lens.lens (\PutRecordsResponse' {records} -> records) (\s@PutRecordsResponse' {} a -> s {records = a} :: PutRecordsResponse) Prelude.. Prelude._List1
 
-instance NFData PutRecordsResponse
+instance Prelude.NFData PutRecordsResponse

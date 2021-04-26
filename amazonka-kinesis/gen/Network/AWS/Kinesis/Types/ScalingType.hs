@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.Kinesis.Types.ScalingType
   ( ScalingType
       ( ..,
-        UniformScaling
+        ScalingTypeUNIFORMSCALING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ScalingType = ScalingType' (CI Text)
+newtype ScalingType = ScalingType'
+  { fromScalingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UniformScaling :: ScalingType
-pattern UniformScaling = ScalingType' "UNIFORM_SCALING"
+pattern ScalingTypeUNIFORMSCALING :: ScalingType
+pattern ScalingTypeUNIFORMSCALING = ScalingType' "UNIFORM_SCALING"
 
 {-# COMPLETE
-  UniformScaling,
+  ScalingTypeUNIFORMSCALING,
   ScalingType'
   #-}
 
-instance FromText ScalingType where
-  parser = (ScalingType' . mk) <$> takeText
+instance Prelude.FromText ScalingType where
+  parser = ScalingType' Prelude.<$> Prelude.takeText
 
-instance ToText ScalingType where
-  toText (ScalingType' ci) = original ci
+instance Prelude.ToText ScalingType where
+  toText (ScalingType' x) = x
 
-instance Hashable ScalingType
+instance Prelude.Hashable ScalingType
 
-instance NFData ScalingType
+instance Prelude.NFData ScalingType
 
-instance ToByteString ScalingType
+instance Prelude.ToByteString ScalingType
 
-instance ToQuery ScalingType
+instance Prelude.ToQuery ScalingType
 
-instance ToHeader ScalingType
+instance Prelude.ToHeader ScalingType
 
-instance ToJSON ScalingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ScalingType where
+  toJSON = Prelude.toJSONText

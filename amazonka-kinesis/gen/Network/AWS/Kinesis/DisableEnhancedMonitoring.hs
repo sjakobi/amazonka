@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,111 +24,185 @@
 -- Disables enhanced monitoring.
 module Network.AWS.Kinesis.DisableEnhancedMonitoring
   ( -- * Creating a Request
-    disableEnhancedMonitoring,
-    DisableEnhancedMonitoring,
+    DisableEnhancedMonitoring (..),
+    newDisableEnhancedMonitoring,
 
     -- * Request Lenses
-    demStreamName,
-    demShardLevelMetrics,
+    disableEnhancedMonitoring_streamName,
+    disableEnhancedMonitoring_shardLevelMetrics,
 
     -- * Destructuring the Response
-    enhancedMonitoringOutput,
-    EnhancedMonitoringOutput,
+    EnhancedMonitoringOutput (..),
+    newEnhancedMonitoringOutput,
 
     -- * Response Lenses
-    emoCurrentShardLevelMetrics,
-    emoStreamName,
-    emoDesiredShardLevelMetrics,
+    enhancedMonitoringOutput_currentShardLevelMetrics,
+    enhancedMonitoringOutput_streamName,
+    enhancedMonitoringOutput_desiredShardLevelMetrics,
   )
 where
 
 import Network.AWS.Kinesis.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Kinesis.Types.EnhancedMonitoringOutput
+import Network.AWS.Kinesis.Types.MetricsName
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | Represents the input for 'DisableEnhancedMonitoring' .
+-- | Represents the input for DisableEnhancedMonitoring.
 --
---
---
--- /See:/ 'disableEnhancedMonitoring' smart constructor.
+-- /See:/ 'newDisableEnhancedMonitoring' smart constructor.
 data DisableEnhancedMonitoring = DisableEnhancedMonitoring'
-  { _demStreamName ::
-      !Text,
-    _demShardLevelMetrics ::
-      ![MetricsName]
+  { -- | The name of the Kinesis data stream for which to disable enhanced
+    -- monitoring.
+    streamName :: Prelude.Text,
+    -- | List of shard-level metrics to disable.
+    --
+    -- The following are the valid shard-level metrics. The value \"@ALL@\"
+    -- disables every metric.
+    --
+    -- -   @IncomingBytes@
+    --
+    -- -   @IncomingRecords@
+    --
+    -- -   @OutgoingBytes@
+    --
+    -- -   @OutgoingRecords@
+    --
+    -- -   @WriteProvisionedThroughputExceeded@
+    --
+    -- -   @ReadProvisionedThroughputExceeded@
+    --
+    -- -   @IteratorAgeMilliseconds@
+    --
+    -- -   @ALL@
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch>
+    -- in the /Amazon Kinesis Data Streams Developer Guide/.
+    shardLevelMetrics :: [MetricsName]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisableEnhancedMonitoring' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisableEnhancedMonitoring' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'demStreamName' - The name of the Kinesis data stream for which to disable enhanced monitoring.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'demShardLevelMetrics' - List of shard-level metrics to disable. The following are the valid shard-level metrics. The value "@ALL@ " disables every metric.     * @IncomingBytes@      * @IncomingRecords@      * @OutgoingBytes@      * @OutgoingRecords@      * @WriteProvisionedThroughputExceeded@      * @ReadProvisionedThroughputExceeded@      * @IteratorAgeMilliseconds@      * @ALL@  For more information, see <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch> in the /Amazon Kinesis Data Streams Developer Guide/ .
-disableEnhancedMonitoring ::
-  -- | 'demStreamName'
-  Text ->
+-- 'streamName', 'disableEnhancedMonitoring_streamName' - The name of the Kinesis data stream for which to disable enhanced
+-- monitoring.
+--
+-- 'shardLevelMetrics', 'disableEnhancedMonitoring_shardLevelMetrics' - List of shard-level metrics to disable.
+--
+-- The following are the valid shard-level metrics. The value \"@ALL@\"
+-- disables every metric.
+--
+-- -   @IncomingBytes@
+--
+-- -   @IncomingRecords@
+--
+-- -   @OutgoingBytes@
+--
+-- -   @OutgoingRecords@
+--
+-- -   @WriteProvisionedThroughputExceeded@
+--
+-- -   @ReadProvisionedThroughputExceeded@
+--
+-- -   @IteratorAgeMilliseconds@
+--
+-- -   @ALL@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch>
+-- in the /Amazon Kinesis Data Streams Developer Guide/.
+newDisableEnhancedMonitoring ::
+  -- | 'streamName'
+  Prelude.Text ->
   DisableEnhancedMonitoring
-disableEnhancedMonitoring pStreamName_ =
+newDisableEnhancedMonitoring pStreamName_ =
   DisableEnhancedMonitoring'
-    { _demStreamName =
+    { streamName =
         pStreamName_,
-      _demShardLevelMetrics = mempty
+      shardLevelMetrics = Prelude.mempty
     }
 
--- | The name of the Kinesis data stream for which to disable enhanced monitoring.
-demStreamName :: Lens' DisableEnhancedMonitoring Text
-demStreamName = lens _demStreamName (\s a -> s {_demStreamName = a})
+-- | The name of the Kinesis data stream for which to disable enhanced
+-- monitoring.
+disableEnhancedMonitoring_streamName :: Lens.Lens' DisableEnhancedMonitoring Prelude.Text
+disableEnhancedMonitoring_streamName = Lens.lens (\DisableEnhancedMonitoring' {streamName} -> streamName) (\s@DisableEnhancedMonitoring' {} a -> s {streamName = a} :: DisableEnhancedMonitoring)
 
--- | List of shard-level metrics to disable. The following are the valid shard-level metrics. The value "@ALL@ " disables every metric.     * @IncomingBytes@      * @IncomingRecords@      * @OutgoingBytes@      * @OutgoingRecords@      * @WriteProvisionedThroughputExceeded@      * @ReadProvisionedThroughputExceeded@      * @IteratorAgeMilliseconds@      * @ALL@  For more information, see <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch> in the /Amazon Kinesis Data Streams Developer Guide/ .
-demShardLevelMetrics :: Lens' DisableEnhancedMonitoring [MetricsName]
-demShardLevelMetrics = lens _demShardLevelMetrics (\s a -> s {_demShardLevelMetrics = a}) . _Coerce
+-- | List of shard-level metrics to disable.
+--
+-- The following are the valid shard-level metrics. The value \"@ALL@\"
+-- disables every metric.
+--
+-- -   @IncomingBytes@
+--
+-- -   @IncomingRecords@
+--
+-- -   @OutgoingBytes@
+--
+-- -   @OutgoingRecords@
+--
+-- -   @WriteProvisionedThroughputExceeded@
+--
+-- -   @ReadProvisionedThroughputExceeded@
+--
+-- -   @IteratorAgeMilliseconds@
+--
+-- -   @ALL@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch>
+-- in the /Amazon Kinesis Data Streams Developer Guide/.
+disableEnhancedMonitoring_shardLevelMetrics :: Lens.Lens' DisableEnhancedMonitoring [MetricsName]
+disableEnhancedMonitoring_shardLevelMetrics = Lens.lens (\DisableEnhancedMonitoring' {shardLevelMetrics} -> shardLevelMetrics) (\s@DisableEnhancedMonitoring' {} a -> s {shardLevelMetrics = a} :: DisableEnhancedMonitoring) Prelude.. Prelude._Coerce
 
-instance AWSRequest DisableEnhancedMonitoring where
+instance Prelude.AWSRequest DisableEnhancedMonitoring where
   type
     Rs DisableEnhancedMonitoring =
       EnhancedMonitoringOutput
-  request = postJSON kinesis
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable DisableEnhancedMonitoring
+instance Prelude.Hashable DisableEnhancedMonitoring
 
-instance NFData DisableEnhancedMonitoring
+instance Prelude.NFData DisableEnhancedMonitoring
 
-instance ToHeaders DisableEnhancedMonitoring where
+instance Prelude.ToHeaders DisableEnhancedMonitoring where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Kinesis_20131202.DisableEnhancedMonitoring" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Kinesis_20131202.DisableEnhancedMonitoring" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisableEnhancedMonitoring where
+instance Prelude.ToJSON DisableEnhancedMonitoring where
   toJSON DisableEnhancedMonitoring' {..} =
-    object
-      ( catMaybes
-          [ Just ("StreamName" .= _demStreamName),
-            Just ("ShardLevelMetrics" .= _demShardLevelMetrics)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("StreamName" Prelude..= streamName),
+            Prelude.Just
+              ("ShardLevelMetrics" Prelude..= shardLevelMetrics)
           ]
       )
 
-instance ToPath DisableEnhancedMonitoring where
-  toPath = const "/"
+instance Prelude.ToPath DisableEnhancedMonitoring where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisableEnhancedMonitoring where
-  toQuery = const mempty
+instance Prelude.ToQuery DisableEnhancedMonitoring where
+  toQuery = Prelude.const Prelude.mempty

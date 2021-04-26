@@ -11,12 +11,13 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __Amazon Kinesis Data Streams Service API Reference__
+-- Amazon Kinesis Data Streams Service API Reference
 --
--- Amazon Kinesis Data Streams is a managed service that scales elastically for real-time processing of streaming big data.
+-- Amazon Kinesis Data Streams is a managed service that scales elastically
+-- for real-time processing of streaming big data.
 module Network.AWS.Kinesis
   ( -- * Service Configuration
-    kinesis,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -67,97 +68,181 @@ module Network.AWS.Kinesis
     -- $waiters
 
     -- ** StreamExists
-    streamExists,
+    newStreamExists,
 
     -- ** StreamNotExists
-    streamNotExists,
+    newStreamNotExists,
 
     -- * Operations
     -- $operations
 
     -- ** SubscribeToShard
-    module Network.AWS.Kinesis.SubscribeToShard,
+    SubscribeToShard (SubscribeToShard'),
+    newSubscribeToShard,
+    SubscribeToShardResponse (SubscribeToShardResponse'),
+    newSubscribeToShardResponse,
 
     -- ** AddTagsToStream
-    module Network.AWS.Kinesis.AddTagsToStream,
+    AddTagsToStream (AddTagsToStream'),
+    newAddTagsToStream,
+    AddTagsToStreamResponse (AddTagsToStreamResponse'),
+    newAddTagsToStreamResponse,
 
     -- ** ListTagsForStream
-    module Network.AWS.Kinesis.ListTagsForStream,
+    ListTagsForStream (ListTagsForStream'),
+    newListTagsForStream,
+    ListTagsForStreamResponse (ListTagsForStreamResponse'),
+    newListTagsForStreamResponse,
 
     -- ** IncreaseStreamRetentionPeriod
-    module Network.AWS.Kinesis.IncreaseStreamRetentionPeriod,
+    IncreaseStreamRetentionPeriod (IncreaseStreamRetentionPeriod'),
+    newIncreaseStreamRetentionPeriod,
+    IncreaseStreamRetentionPeriodResponse (IncreaseStreamRetentionPeriodResponse'),
+    newIncreaseStreamRetentionPeriodResponse,
 
     -- ** DisableEnhancedMonitoring
-    module Network.AWS.Kinesis.DisableEnhancedMonitoring,
+    DisableEnhancedMonitoring (DisableEnhancedMonitoring'),
+    newDisableEnhancedMonitoring,
+    EnhancedMonitoringOutput (EnhancedMonitoringOutput'),
+    newEnhancedMonitoringOutput,
 
     -- ** SplitShard
-    module Network.AWS.Kinesis.SplitShard,
+    SplitShard (SplitShard'),
+    newSplitShard,
+    SplitShardResponse (SplitShardResponse'),
+    newSplitShardResponse,
 
     -- ** ListStreamConsumers (Paginated)
-    module Network.AWS.Kinesis.ListStreamConsumers,
+    ListStreamConsumers (ListStreamConsumers'),
+    newListStreamConsumers,
+    ListStreamConsumersResponse (ListStreamConsumersResponse'),
+    newListStreamConsumersResponse,
 
     -- ** DescribeLimits
-    module Network.AWS.Kinesis.DescribeLimits,
+    DescribeLimits (DescribeLimits'),
+    newDescribeLimits,
+    DescribeLimitsResponse (DescribeLimitsResponse'),
+    newDescribeLimitsResponse,
 
     -- ** StopStreamEncryption
-    module Network.AWS.Kinesis.StopStreamEncryption,
+    StopStreamEncryption (StopStreamEncryption'),
+    newStopStreamEncryption,
+    StopStreamEncryptionResponse (StopStreamEncryptionResponse'),
+    newStopStreamEncryptionResponse,
 
     -- ** RegisterStreamConsumer
-    module Network.AWS.Kinesis.RegisterStreamConsumer,
+    RegisterStreamConsumer (RegisterStreamConsumer'),
+    newRegisterStreamConsumer,
+    RegisterStreamConsumerResponse (RegisterStreamConsumerResponse'),
+    newRegisterStreamConsumerResponse,
 
     -- ** StartStreamEncryption
-    module Network.AWS.Kinesis.StartStreamEncryption,
+    StartStreamEncryption (StartStreamEncryption'),
+    newStartStreamEncryption,
+    StartStreamEncryptionResponse (StartStreamEncryptionResponse'),
+    newStartStreamEncryptionResponse,
 
     -- ** EnableEnhancedMonitoring
-    module Network.AWS.Kinesis.EnableEnhancedMonitoring,
+    EnableEnhancedMonitoring (EnableEnhancedMonitoring'),
+    newEnableEnhancedMonitoring,
+    EnhancedMonitoringOutput (EnhancedMonitoringOutput'),
+    newEnhancedMonitoringOutput,
 
     -- ** GetRecords
-    module Network.AWS.Kinesis.GetRecords,
+    GetRecords (GetRecords'),
+    newGetRecords,
+    GetRecordsResponse (GetRecordsResponse'),
+    newGetRecordsResponse,
 
     -- ** GetShardIterator
-    module Network.AWS.Kinesis.GetShardIterator,
+    GetShardIterator (GetShardIterator'),
+    newGetShardIterator,
+    GetShardIteratorResponse (GetShardIteratorResponse'),
+    newGetShardIteratorResponse,
 
     -- ** ListShards (Paginated)
-    module Network.AWS.Kinesis.ListShards,
+    ListShards (ListShards'),
+    newListShards,
+    ListShardsResponse (ListShardsResponse'),
+    newListShardsResponse,
 
     -- ** DeleteStream
-    module Network.AWS.Kinesis.DeleteStream,
+    DeleteStream (DeleteStream'),
+    newDeleteStream,
+    DeleteStreamResponse (DeleteStreamResponse'),
+    newDeleteStreamResponse,
 
     -- ** RemoveTagsFromStream
-    module Network.AWS.Kinesis.RemoveTagsFromStream,
+    RemoveTagsFromStream (RemoveTagsFromStream'),
+    newRemoveTagsFromStream,
+    RemoveTagsFromStreamResponse (RemoveTagsFromStreamResponse'),
+    newRemoveTagsFromStreamResponse,
 
     -- ** DescribeStreamSummary
-    module Network.AWS.Kinesis.DescribeStreamSummary,
+    DescribeStreamSummary (DescribeStreamSummary'),
+    newDescribeStreamSummary,
+    DescribeStreamSummaryResponse (DescribeStreamSummaryResponse'),
+    newDescribeStreamSummaryResponse,
 
     -- ** DeregisterStreamConsumer
-    module Network.AWS.Kinesis.DeregisterStreamConsumer,
+    DeregisterStreamConsumer (DeregisterStreamConsumer'),
+    newDeregisterStreamConsumer,
+    DeregisterStreamConsumerResponse (DeregisterStreamConsumerResponse'),
+    newDeregisterStreamConsumerResponse,
 
     -- ** PutRecords
-    module Network.AWS.Kinesis.PutRecords,
+    PutRecords (PutRecords'),
+    newPutRecords,
+    PutRecordsResponse (PutRecordsResponse'),
+    newPutRecordsResponse,
 
     -- ** MergeShards
-    module Network.AWS.Kinesis.MergeShards,
+    MergeShards (MergeShards'),
+    newMergeShards,
+    MergeShardsResponse (MergeShardsResponse'),
+    newMergeShardsResponse,
 
     -- ** DescribeStreamConsumer
-    module Network.AWS.Kinesis.DescribeStreamConsumer,
+    DescribeStreamConsumer (DescribeStreamConsumer'),
+    newDescribeStreamConsumer,
+    DescribeStreamConsumerResponse (DescribeStreamConsumerResponse'),
+    newDescribeStreamConsumerResponse,
 
     -- ** DecreaseStreamRetentionPeriod
-    module Network.AWS.Kinesis.DecreaseStreamRetentionPeriod,
+    DecreaseStreamRetentionPeriod (DecreaseStreamRetentionPeriod'),
+    newDecreaseStreamRetentionPeriod,
+    DecreaseStreamRetentionPeriodResponse (DecreaseStreamRetentionPeriodResponse'),
+    newDecreaseStreamRetentionPeriodResponse,
 
     -- ** PutRecord
-    module Network.AWS.Kinesis.PutRecord,
+    PutRecord (PutRecord'),
+    newPutRecord,
+    PutRecordResponse (PutRecordResponse'),
+    newPutRecordResponse,
 
     -- ** DescribeStream (Paginated)
-    module Network.AWS.Kinesis.DescribeStream,
+    DescribeStream (DescribeStream'),
+    newDescribeStream,
+    DescribeStreamResponse (DescribeStreamResponse'),
+    newDescribeStreamResponse,
 
     -- ** UpdateShardCount
-    module Network.AWS.Kinesis.UpdateShardCount,
+    UpdateShardCount (UpdateShardCount'),
+    newUpdateShardCount,
+    UpdateShardCountResponse (UpdateShardCountResponse'),
+    newUpdateShardCountResponse,
 
     -- ** CreateStream
-    module Network.AWS.Kinesis.CreateStream,
+    CreateStream (CreateStream'),
+    newCreateStream,
+    CreateStreamResponse (CreateStreamResponse'),
+    newCreateStreamResponse,
 
     -- ** ListStreams (Paginated)
-    module Network.AWS.Kinesis.ListStreams,
+    ListStreams (ListStreams'),
+    newListStreams,
+    ListStreamsResponse (ListStreamsResponse'),
+    newListStreamsResponse,
 
     -- * Types
 
@@ -183,155 +268,76 @@ module Network.AWS.Kinesis
     StreamStatus (..),
 
     -- ** ChildShard
-    ChildShard,
-    childShard,
-    csShardId,
-    csParentShards,
-    csHashKeyRange,
+    ChildShard (ChildShard'),
+    newChildShard,
 
     -- ** Consumer
-    Consumer,
-    consumer,
-    cConsumerName,
-    cConsumerARN,
-    cConsumerStatus,
-    cConsumerCreationTimestamp,
+    Consumer (Consumer'),
+    newConsumer,
 
     -- ** ConsumerDescription
-    ConsumerDescription,
-    consumerDescription,
-    cdConsumerName,
-    cdConsumerARN,
-    cdConsumerStatus,
-    cdConsumerCreationTimestamp,
-    cdStreamARN,
+    ConsumerDescription (ConsumerDescription'),
+    newConsumerDescription,
 
     -- ** EnhancedMetrics
-    EnhancedMetrics,
-    enhancedMetrics,
-    emShardLevelMetrics,
+    EnhancedMetrics (EnhancedMetrics'),
+    newEnhancedMetrics,
 
     -- ** EnhancedMonitoringOutput
-    EnhancedMonitoringOutput,
-    enhancedMonitoringOutput,
-    emoCurrentShardLevelMetrics,
-    emoStreamName,
-    emoDesiredShardLevelMetrics,
+    EnhancedMonitoringOutput (EnhancedMonitoringOutput'),
+    newEnhancedMonitoringOutput,
 
     -- ** HashKeyRange
-    HashKeyRange,
-    hashKeyRange,
-    hkrStartingHashKey,
-    hkrEndingHashKey,
+    HashKeyRange (HashKeyRange'),
+    newHashKeyRange,
 
     -- ** PutRecordsRequestEntry
-    PutRecordsRequestEntry,
-    putRecordsRequestEntry,
-    prreExplicitHashKey,
-    prreData,
-    prrePartitionKey,
+    PutRecordsRequestEntry (PutRecordsRequestEntry'),
+    newPutRecordsRequestEntry,
 
     -- ** PutRecordsResultEntry
-    PutRecordsResultEntry,
-    putRecordsResultEntry,
-    prreSequenceNumber,
-    prreShardId,
-    prreErrorMessage,
-    prreErrorCode,
+    PutRecordsResultEntry (PutRecordsResultEntry'),
+    newPutRecordsResultEntry,
 
     -- ** Record
-    Record,
-    record,
-    rEncryptionType,
-    rApproximateArrivalTimestamp,
-    rSequenceNumber,
-    rData,
-    rPartitionKey,
+    Record (Record'),
+    newRecord,
 
     -- ** SequenceNumberRange
-    SequenceNumberRange,
-    sequenceNumberRange,
-    snrEndingSequenceNumber,
-    snrStartingSequenceNumber,
+    SequenceNumberRange (SequenceNumberRange'),
+    newSequenceNumberRange,
 
     -- ** Shard
-    Shard,
-    shard,
-    sAdjacentParentShardId,
-    sParentShardId,
-    sShardId,
-    sHashKeyRange,
-    sSequenceNumberRange,
+    Shard (Shard'),
+    newShard,
 
     -- ** ShardFilter
-    ShardFilter,
-    shardFilter,
-    sfShardId,
-    sfTimestamp,
-    sfType,
+    ShardFilter (ShardFilter'),
+    newShardFilter,
 
     -- ** StartingPosition
-    StartingPosition,
-    startingPosition,
-    spSequenceNumber,
-    spTimestamp,
-    spType,
+    StartingPosition (StartingPosition'),
+    newStartingPosition,
 
     -- ** StreamDescription
-    StreamDescription,
-    streamDescription,
-    sdEncryptionType,
-    sdKeyId,
-    sdStreamName,
-    sdStreamARN,
-    sdStreamStatus,
-    sdShards,
-    sdHasMoreShards,
-    sdRetentionPeriodHours,
-    sdStreamCreationTimestamp,
-    sdEnhancedMonitoring,
+    StreamDescription (StreamDescription'),
+    newStreamDescription,
 
     -- ** StreamDescriptionSummary
-    StreamDescriptionSummary,
-    streamDescriptionSummary,
-    sdsEncryptionType,
-    sdsConsumerCount,
-    sdsKeyId,
-    sdsStreamName,
-    sdsStreamARN,
-    sdsStreamStatus,
-    sdsRetentionPeriodHours,
-    sdsStreamCreationTimestamp,
-    sdsEnhancedMonitoring,
-    sdsOpenShardCount,
+    StreamDescriptionSummary (StreamDescriptionSummary'),
+    newStreamDescriptionSummary,
 
     -- ** SubscribeToShardEvent
-    SubscribeToShardEvent,
-    subscribeToShardEvent,
-    stseChildShards,
-    stseRecords,
-    stseContinuationSequenceNumber,
-    stseMillisBehindLatest,
+    SubscribeToShardEvent (SubscribeToShardEvent'),
+    newSubscribeToShardEvent,
 
     -- ** SubscribeToShardEventStream
-    SubscribeToShardEventStream,
-    subscribeToShardEventStream,
-    stsesKMSThrottlingException,
-    stsesKMSInvalidStateException,
-    stsesKMSNotFoundException,
-    stsesKMSOptInRequired,
-    stsesResourceInUseException,
-    stsesKMSAccessDeniedException,
-    stsesResourceNotFoundException,
-    stsesInternalFailureException,
-    stsesKMSDisabledException,
-    stsesSubscribeToShardEvent,
+    SubscribeToShardEventStream (SubscribeToShardEventStream'),
+    newSubscribeToShardEventStream,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagValue,
-    tagKey,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -349,6 +355,7 @@ import Network.AWS.Kinesis.EnableEnhancedMonitoring
 import Network.AWS.Kinesis.GetRecords
 import Network.AWS.Kinesis.GetShardIterator
 import Network.AWS.Kinesis.IncreaseStreamRetentionPeriod
+import Network.AWS.Kinesis.Lens
 import Network.AWS.Kinesis.ListShards
 import Network.AWS.Kinesis.ListStreamConsumers
 import Network.AWS.Kinesis.ListStreams

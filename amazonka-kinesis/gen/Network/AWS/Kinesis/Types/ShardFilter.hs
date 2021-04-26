@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,60 +20,63 @@
 module Network.AWS.Kinesis.Types.ShardFilter where
 
 import Network.AWS.Kinesis.Types.ShardFilterType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | /See:/ 'shardFilter' smart constructor.
+-- | /See:/ 'newShardFilter' smart constructor.
 data ShardFilter = ShardFilter'
-  { _sfShardId ::
-      !(Maybe Text),
-    _sfTimestamp :: !(Maybe POSIX),
-    _sfType :: !ShardFilterType
+  { shardId :: Prelude.Maybe Prelude.Text,
+    timestamp :: Prelude.Maybe Prelude.POSIX,
+    type' :: ShardFilterType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ShardFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ShardFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sfShardId' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sfTimestamp' - Undocumented member.
+-- 'shardId', 'shardFilter_shardId' - Undocumented member.
 --
--- * 'sfType' - Undocumented member.
-shardFilter ::
-  -- | 'sfType'
+-- 'timestamp', 'shardFilter_timestamp' - Undocumented member.
+--
+-- 'type'', 'shardFilter_type' - Undocumented member.
+newShardFilter ::
+  -- | 'type''
   ShardFilterType ->
   ShardFilter
-shardFilter pType_ =
+newShardFilter pType_ =
   ShardFilter'
-    { _sfShardId = Nothing,
-      _sfTimestamp = Nothing,
-      _sfType = pType_
+    { shardId = Prelude.Nothing,
+      timestamp = Prelude.Nothing,
+      type' = pType_
     }
 
 -- | Undocumented member.
-sfShardId :: Lens' ShardFilter (Maybe Text)
-sfShardId = lens _sfShardId (\s a -> s {_sfShardId = a})
+shardFilter_shardId :: Lens.Lens' ShardFilter (Prelude.Maybe Prelude.Text)
+shardFilter_shardId = Lens.lens (\ShardFilter' {shardId} -> shardId) (\s@ShardFilter' {} a -> s {shardId = a} :: ShardFilter)
 
 -- | Undocumented member.
-sfTimestamp :: Lens' ShardFilter (Maybe UTCTime)
-sfTimestamp = lens _sfTimestamp (\s a -> s {_sfTimestamp = a}) . mapping _Time
+shardFilter_timestamp :: Lens.Lens' ShardFilter (Prelude.Maybe Prelude.UTCTime)
+shardFilter_timestamp = Lens.lens (\ShardFilter' {timestamp} -> timestamp) (\s@ShardFilter' {} a -> s {timestamp = a} :: ShardFilter) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-sfType :: Lens' ShardFilter ShardFilterType
-sfType = lens _sfType (\s a -> s {_sfType = a})
+shardFilter_type :: Lens.Lens' ShardFilter ShardFilterType
+shardFilter_type = Lens.lens (\ShardFilter' {type'} -> type') (\s@ShardFilter' {} a -> s {type' = a} :: ShardFilter)
 
-instance Hashable ShardFilter
+instance Prelude.Hashable ShardFilter
 
-instance NFData ShardFilter
+instance Prelude.NFData ShardFilter
 
-instance ToJSON ShardFilter where
+instance Prelude.ToJSON ShardFilter where
   toJSON ShardFilter' {..} =
-    object
-      ( catMaybes
-          [ ("ShardId" .=) <$> _sfShardId,
-            ("Timestamp" .=) <$> _sfTimestamp,
-            Just ("Type" .= _sfType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ShardId" Prelude..=) Prelude.<$> shardId,
+            ("Timestamp" Prelude..=) Prelude.<$> timestamp,
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )

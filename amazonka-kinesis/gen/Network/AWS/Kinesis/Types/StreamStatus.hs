@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.Kinesis.Types.StreamStatus
   ( StreamStatus
       ( ..,
-        SSActive,
-        SSCreating,
-        SSDeleting,
-        SSUpdating
+        StreamStatusACTIVE,
+        StreamStatusCREATING,
+        StreamStatusDELETING,
+        StreamStatusUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StreamStatus = StreamStatus' (CI Text)
+newtype StreamStatus = StreamStatus'
+  { fromStreamStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSActive :: StreamStatus
-pattern SSActive = StreamStatus' "ACTIVE"
+pattern StreamStatusACTIVE :: StreamStatus
+pattern StreamStatusACTIVE = StreamStatus' "ACTIVE"
 
-pattern SSCreating :: StreamStatus
-pattern SSCreating = StreamStatus' "CREATING"
+pattern StreamStatusCREATING :: StreamStatus
+pattern StreamStatusCREATING = StreamStatus' "CREATING"
 
-pattern SSDeleting :: StreamStatus
-pattern SSDeleting = StreamStatus' "DELETING"
+pattern StreamStatusDELETING :: StreamStatus
+pattern StreamStatusDELETING = StreamStatus' "DELETING"
 
-pattern SSUpdating :: StreamStatus
-pattern SSUpdating = StreamStatus' "UPDATING"
+pattern StreamStatusUPDATING :: StreamStatus
+pattern StreamStatusUPDATING = StreamStatus' "UPDATING"
 
 {-# COMPLETE
-  SSActive,
-  SSCreating,
-  SSDeleting,
-  SSUpdating,
+  StreamStatusACTIVE,
+  StreamStatusCREATING,
+  StreamStatusDELETING,
+  StreamStatusUPDATING,
   StreamStatus'
   #-}
 
-instance FromText StreamStatus where
-  parser = (StreamStatus' . mk) <$> takeText
+instance Prelude.FromText StreamStatus where
+  parser = StreamStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StreamStatus where
-  toText (StreamStatus' ci) = original ci
+instance Prelude.ToText StreamStatus where
+  toText (StreamStatus' x) = x
 
-instance Hashable StreamStatus
+instance Prelude.Hashable StreamStatus
 
-instance NFData StreamStatus
+instance Prelude.NFData StreamStatus
 
-instance ToByteString StreamStatus
+instance Prelude.ToByteString StreamStatus
 
-instance ToQuery StreamStatus
+instance Prelude.ToQuery StreamStatus
 
-instance ToHeader StreamStatus
+instance Prelude.ToHeader StreamStatus
 
-instance FromJSON StreamStatus where
-  parseJSON = parseJSONText "StreamStatus"
+instance Prelude.FromJSON StreamStatus where
+  parseJSON = Prelude.parseJSONText "StreamStatus"

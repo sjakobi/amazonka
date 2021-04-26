@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,209 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables or updates server-side encryption using an AWS KMS key for a specified stream.
+-- Enables or updates server-side encryption using an AWS KMS key for a
+-- specified stream.
 --
+-- Starting encryption is an asynchronous operation. Upon receiving the
+-- request, Kinesis Data Streams returns immediately and sets the status of
+-- the stream to @UPDATING@. After the update is complete, Kinesis Data
+-- Streams sets the status of the stream back to @ACTIVE@. Updating or
+-- applying encryption normally takes a few seconds to complete, but it can
+-- take minutes. You can continue to read and write data to your stream
+-- while its status is @UPDATING@. Once the status of the stream is
+-- @ACTIVE@, encryption begins for records written to the stream.
 --
--- Starting encryption is an asynchronous operation. Upon receiving the request, Kinesis Data Streams returns immediately and sets the status of the stream to @UPDATING@ . After the update is complete, Kinesis Data Streams sets the status of the stream back to @ACTIVE@ . Updating or applying encryption normally takes a few seconds to complete, but it can take minutes. You can continue to read and write data to your stream while its status is @UPDATING@ . Once the status of the stream is @ACTIVE@ , encryption begins for records written to the stream.
+-- API Limits: You can successfully apply a new AWS KMS key for server-side
+-- encryption 25 times in a rolling 24-hour period.
 --
--- API Limits: You can successfully apply a new AWS KMS key for server-side encryption 25 times in a rolling 24-hour period.
---
--- Note: It can take up to 5 seconds after the stream is in an @ACTIVE@ status before all records written to the stream are encrypted. After you enable encryption, you can verify that encryption is applied by inspecting the API response from @PutRecord@ or @PutRecords@ .
+-- Note: It can take up to 5 seconds after the stream is in an @ACTIVE@
+-- status before all records written to the stream are encrypted. After you
+-- enable encryption, you can verify that encryption is applied by
+-- inspecting the API response from @PutRecord@ or @PutRecords@.
 module Network.AWS.Kinesis.StartStreamEncryption
   ( -- * Creating a Request
-    startStreamEncryption,
-    StartStreamEncryption,
+    StartStreamEncryption (..),
+    newStartStreamEncryption,
 
     -- * Request Lenses
-    sStreamName,
-    sEncryptionType,
-    sKeyId,
+    startStreamEncryption_streamName,
+    startStreamEncryption_encryptionType,
+    startStreamEncryption_keyId,
 
     -- * Destructuring the Response
-    startStreamEncryptionResponse,
-    StartStreamEncryptionResponse,
+    StartStreamEncryptionResponse (..),
+    newStartStreamEncryptionResponse,
   )
 where
 
 import Network.AWS.Kinesis.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startStreamEncryption' smart constructor.
+-- | /See:/ 'newStartStreamEncryption' smart constructor.
 data StartStreamEncryption = StartStreamEncryption'
-  { _sStreamName ::
-      !Text,
-    _sEncryptionType ::
-      !EncryptionType,
-    _sKeyId :: !Text
+  { -- | The name of the stream for which to start encrypting records.
+    streamName :: Prelude.Text,
+    -- | The encryption type to use. The only valid value is @KMS@.
+    encryptionType :: EncryptionType,
+    -- | The GUID for the customer-managed AWS KMS key to use for encryption.
+    -- This value can be a globally unique identifier, a fully specified Amazon
+    -- Resource Name (ARN) to either an alias or a key, or an alias name
+    -- prefixed by \"alias\/\".You can also use a master key owned by Kinesis
+    -- Data Streams by specifying the alias @aws\/kinesis@.
+    --
+    -- -   Key ARN example:
+    --     @arn:aws:kms:us-east-1:123456789012:key\/12345678-1234-1234-1234-123456789012@
+    --
+    -- -   Alias ARN example:
+    --     @arn:aws:kms:us-east-1:123456789012:alias\/MyAliasName@
+    --
+    -- -   Globally unique key ID example:
+    --     @12345678-1234-1234-1234-123456789012@
+    --
+    -- -   Alias name example: @alias\/MyAliasName@
+    --
+    -- -   Master key owned by Kinesis Data Streams: @alias\/aws\/kinesis@
+    keyId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartStreamEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartStreamEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sStreamName' - The name of the stream for which to start encrypting records.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sEncryptionType' - The encryption type to use. The only valid value is @KMS@ .
+-- 'streamName', 'startStreamEncryption_streamName' - The name of the stream for which to start encrypting records.
 --
--- * 'sKeyId' - The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias @aws/kinesis@ .     * Key ARN example: @arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012@      * Alias ARN example: @arn:aws:kms:us-east-1:123456789012:alias/MyAliasName@      * Globally unique key ID example: @12345678-1234-1234-1234-123456789012@      * Alias name example: @alias/MyAliasName@      * Master key owned by Kinesis Data Streams: @alias/aws/kinesis@
-startStreamEncryption ::
-  -- | 'sStreamName'
-  Text ->
-  -- | 'sEncryptionType'
+-- 'encryptionType', 'startStreamEncryption_encryptionType' - The encryption type to use. The only valid value is @KMS@.
+--
+-- 'keyId', 'startStreamEncryption_keyId' - The GUID for the customer-managed AWS KMS key to use for encryption.
+-- This value can be a globally unique identifier, a fully specified Amazon
+-- Resource Name (ARN) to either an alias or a key, or an alias name
+-- prefixed by \"alias\/\".You can also use a master key owned by Kinesis
+-- Data Streams by specifying the alias @aws\/kinesis@.
+--
+-- -   Key ARN example:
+--     @arn:aws:kms:us-east-1:123456789012:key\/12345678-1234-1234-1234-123456789012@
+--
+-- -   Alias ARN example:
+--     @arn:aws:kms:us-east-1:123456789012:alias\/MyAliasName@
+--
+-- -   Globally unique key ID example:
+--     @12345678-1234-1234-1234-123456789012@
+--
+-- -   Alias name example: @alias\/MyAliasName@
+--
+-- -   Master key owned by Kinesis Data Streams: @alias\/aws\/kinesis@
+newStartStreamEncryption ::
+  -- | 'streamName'
+  Prelude.Text ->
+  -- | 'encryptionType'
   EncryptionType ->
-  -- | 'sKeyId'
-  Text ->
+  -- | 'keyId'
+  Prelude.Text ->
   StartStreamEncryption
-startStreamEncryption
+newStartStreamEncryption
   pStreamName_
   pEncryptionType_
   pKeyId_ =
     StartStreamEncryption'
-      { _sStreamName = pStreamName_,
-        _sEncryptionType = pEncryptionType_,
-        _sKeyId = pKeyId_
+      { streamName = pStreamName_,
+        encryptionType = pEncryptionType_,
+        keyId = pKeyId_
       }
 
 -- | The name of the stream for which to start encrypting records.
-sStreamName :: Lens' StartStreamEncryption Text
-sStreamName = lens _sStreamName (\s a -> s {_sStreamName = a})
+startStreamEncryption_streamName :: Lens.Lens' StartStreamEncryption Prelude.Text
+startStreamEncryption_streamName = Lens.lens (\StartStreamEncryption' {streamName} -> streamName) (\s@StartStreamEncryption' {} a -> s {streamName = a} :: StartStreamEncryption)
 
--- | The encryption type to use. The only valid value is @KMS@ .
-sEncryptionType :: Lens' StartStreamEncryption EncryptionType
-sEncryptionType = lens _sEncryptionType (\s a -> s {_sEncryptionType = a})
+-- | The encryption type to use. The only valid value is @KMS@.
+startStreamEncryption_encryptionType :: Lens.Lens' StartStreamEncryption EncryptionType
+startStreamEncryption_encryptionType = Lens.lens (\StartStreamEncryption' {encryptionType} -> encryptionType) (\s@StartStreamEncryption' {} a -> s {encryptionType = a} :: StartStreamEncryption)
 
--- | The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias @aws/kinesis@ .     * Key ARN example: @arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012@      * Alias ARN example: @arn:aws:kms:us-east-1:123456789012:alias/MyAliasName@      * Globally unique key ID example: @12345678-1234-1234-1234-123456789012@      * Alias name example: @alias/MyAliasName@      * Master key owned by Kinesis Data Streams: @alias/aws/kinesis@
-sKeyId :: Lens' StartStreamEncryption Text
-sKeyId = lens _sKeyId (\s a -> s {_sKeyId = a})
+-- | The GUID for the customer-managed AWS KMS key to use for encryption.
+-- This value can be a globally unique identifier, a fully specified Amazon
+-- Resource Name (ARN) to either an alias or a key, or an alias name
+-- prefixed by \"alias\/\".You can also use a master key owned by Kinesis
+-- Data Streams by specifying the alias @aws\/kinesis@.
+--
+-- -   Key ARN example:
+--     @arn:aws:kms:us-east-1:123456789012:key\/12345678-1234-1234-1234-123456789012@
+--
+-- -   Alias ARN example:
+--     @arn:aws:kms:us-east-1:123456789012:alias\/MyAliasName@
+--
+-- -   Globally unique key ID example:
+--     @12345678-1234-1234-1234-123456789012@
+--
+-- -   Alias name example: @alias\/MyAliasName@
+--
+-- -   Master key owned by Kinesis Data Streams: @alias\/aws\/kinesis@
+startStreamEncryption_keyId :: Lens.Lens' StartStreamEncryption Prelude.Text
+startStreamEncryption_keyId = Lens.lens (\StartStreamEncryption' {keyId} -> keyId) (\s@StartStreamEncryption' {} a -> s {keyId = a} :: StartStreamEncryption)
 
-instance AWSRequest StartStreamEncryption where
+instance Prelude.AWSRequest StartStreamEncryption where
   type
     Rs StartStreamEncryption =
       StartStreamEncryptionResponse
-  request = postJSON kinesis
-  response = receiveNull StartStreamEncryptionResponse'
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveNull StartStreamEncryptionResponse'
 
-instance Hashable StartStreamEncryption
+instance Prelude.Hashable StartStreamEncryption
 
-instance NFData StartStreamEncryption
+instance Prelude.NFData StartStreamEncryption
 
-instance ToHeaders StartStreamEncryption where
+instance Prelude.ToHeaders StartStreamEncryption where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Kinesis_20131202.StartStreamEncryption" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Kinesis_20131202.StartStreamEncryption" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartStreamEncryption where
+instance Prelude.ToJSON StartStreamEncryption where
   toJSON StartStreamEncryption' {..} =
-    object
-      ( catMaybes
-          [ Just ("StreamName" .= _sStreamName),
-            Just ("EncryptionType" .= _sEncryptionType),
-            Just ("KeyId" .= _sKeyId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("StreamName" Prelude..= streamName),
+            Prelude.Just
+              ("EncryptionType" Prelude..= encryptionType),
+            Prelude.Just ("KeyId" Prelude..= keyId)
           ]
       )
 
-instance ToPath StartStreamEncryption where
-  toPath = const "/"
+instance Prelude.ToPath StartStreamEncryption where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartStreamEncryption where
-  toQuery = const mempty
+instance Prelude.ToQuery StartStreamEncryption where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startStreamEncryptionResponse' smart constructor.
+-- | /See:/ 'newStartStreamEncryptionResponse' smart constructor.
 data StartStreamEncryptionResponse = StartStreamEncryptionResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartStreamEncryptionResponse' with the minimum fields required to make a request.
-startStreamEncryptionResponse ::
+-- |
+-- Create a value of 'StartStreamEncryptionResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newStartStreamEncryptionResponse ::
   StartStreamEncryptionResponse
-startStreamEncryptionResponse =
+newStartStreamEncryptionResponse =
   StartStreamEncryptionResponse'
 
-instance NFData StartStreamEncryptionResponse
+instance Prelude.NFData StartStreamEncryptionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,43 +20,119 @@
 module Network.AWS.Kinesis.Types.EnhancedMetrics where
 
 import Network.AWS.Kinesis.Types.MetricsName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Represents enhanced metrics types.
 --
---
---
--- /See:/ 'enhancedMetrics' smart constructor.
-newtype EnhancedMetrics = EnhancedMetrics'
-  { _emShardLevelMetrics ::
-      Maybe [MetricsName]
+-- /See:/ 'newEnhancedMetrics' smart constructor.
+data EnhancedMetrics = EnhancedMetrics'
+  { -- | List of shard-level metrics.
+    --
+    -- The following are the valid shard-level metrics. The value \"@ALL@\"
+    -- enhances every metric.
+    --
+    -- -   @IncomingBytes@
+    --
+    -- -   @IncomingRecords@
+    --
+    -- -   @OutgoingBytes@
+    --
+    -- -   @OutgoingRecords@
+    --
+    -- -   @WriteProvisionedThroughputExceeded@
+    --
+    -- -   @ReadProvisionedThroughputExceeded@
+    --
+    -- -   @IteratorAgeMilliseconds@
+    --
+    -- -   @ALL@
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch>
+    -- in the /Amazon Kinesis Data Streams Developer Guide/.
+    shardLevelMetrics :: Prelude.Maybe [MetricsName]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnhancedMetrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnhancedMetrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'emShardLevelMetrics' - List of shard-level metrics. The following are the valid shard-level metrics. The value "@ALL@ " enhances every metric.     * @IncomingBytes@      * @IncomingRecords@      * @OutgoingBytes@      * @OutgoingRecords@      * @WriteProvisionedThroughputExceeded@      * @ReadProvisionedThroughputExceeded@      * @IteratorAgeMilliseconds@      * @ALL@  For more information, see <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch> in the /Amazon Kinesis Data Streams Developer Guide/ .
-enhancedMetrics ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'shardLevelMetrics', 'enhancedMetrics_shardLevelMetrics' - List of shard-level metrics.
+--
+-- The following are the valid shard-level metrics. The value \"@ALL@\"
+-- enhances every metric.
+--
+-- -   @IncomingBytes@
+--
+-- -   @IncomingRecords@
+--
+-- -   @OutgoingBytes@
+--
+-- -   @OutgoingRecords@
+--
+-- -   @WriteProvisionedThroughputExceeded@
+--
+-- -   @ReadProvisionedThroughputExceeded@
+--
+-- -   @IteratorAgeMilliseconds@
+--
+-- -   @ALL@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch>
+-- in the /Amazon Kinesis Data Streams Developer Guide/.
+newEnhancedMetrics ::
   EnhancedMetrics
-enhancedMetrics =
-  EnhancedMetrics' {_emShardLevelMetrics = Nothing}
+newEnhancedMetrics =
+  EnhancedMetrics'
+    { shardLevelMetrics =
+        Prelude.Nothing
+    }
 
--- | List of shard-level metrics. The following are the valid shard-level metrics. The value "@ALL@ " enhances every metric.     * @IncomingBytes@      * @IncomingRecords@      * @OutgoingBytes@      * @OutgoingRecords@      * @WriteProvisionedThroughputExceeded@      * @ReadProvisionedThroughputExceeded@      * @IteratorAgeMilliseconds@      * @ALL@  For more information, see <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch> in the /Amazon Kinesis Data Streams Developer Guide/ .
-emShardLevelMetrics :: Lens' EnhancedMetrics [MetricsName]
-emShardLevelMetrics = lens _emShardLevelMetrics (\s a -> s {_emShardLevelMetrics = a}) . _Default . _Coerce
+-- | List of shard-level metrics.
+--
+-- The following are the valid shard-level metrics. The value \"@ALL@\"
+-- enhances every metric.
+--
+-- -   @IncomingBytes@
+--
+-- -   @IncomingRecords@
+--
+-- -   @OutgoingBytes@
+--
+-- -   @OutgoingRecords@
+--
+-- -   @WriteProvisionedThroughputExceeded@
+--
+-- -   @ReadProvisionedThroughputExceeded@
+--
+-- -   @IteratorAgeMilliseconds@
+--
+-- -   @ALL@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch>
+-- in the /Amazon Kinesis Data Streams Developer Guide/.
+enhancedMetrics_shardLevelMetrics :: Lens.Lens' EnhancedMetrics (Prelude.Maybe [MetricsName])
+enhancedMetrics_shardLevelMetrics = Lens.lens (\EnhancedMetrics' {shardLevelMetrics} -> shardLevelMetrics) (\s@EnhancedMetrics' {} a -> s {shardLevelMetrics = a} :: EnhancedMetrics) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON EnhancedMetrics where
+instance Prelude.FromJSON EnhancedMetrics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EnhancedMetrics"
       ( \x ->
           EnhancedMetrics'
-            <$> (x .:? "ShardLevelMetrics" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "ShardLevelMetrics"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable EnhancedMetrics
+instance Prelude.Hashable EnhancedMetrics
 
-instance NFData EnhancedMetrics
+instance Prelude.NFData EnhancedMetrics

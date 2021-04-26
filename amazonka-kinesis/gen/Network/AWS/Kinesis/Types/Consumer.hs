@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,84 +20,114 @@
 module Network.AWS.Kinesis.Types.Consumer where
 
 import Network.AWS.Kinesis.Types.ConsumerStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that represents the details of the consumer you registered. This type of object is returned by 'RegisterStreamConsumer' .
+-- | An object that represents the details of the consumer you registered.
+-- This type of object is returned by RegisterStreamConsumer.
 --
---
---
--- /See:/ 'consumer' smart constructor.
+-- /See:/ 'newConsumer' smart constructor.
 data Consumer = Consumer'
-  { _cConsumerName :: !Text,
-    _cConsumerARN :: !Text,
-    _cConsumerStatus :: !ConsumerStatus,
-    _cConsumerCreationTimestamp :: !POSIX
+  { -- | The name of the consumer is something you choose when you register the
+    -- consumer.
+    consumerName :: Prelude.Text,
+    -- | When you register a consumer, Kinesis Data Streams generates an ARN for
+    -- it. You need this ARN to be able to call SubscribeToShard.
+    --
+    -- If you delete a consumer and then create a new one with the same name,
+    -- it won\'t have the same ARN. That\'s because consumer ARNs contain the
+    -- creation timestamp. This is important to keep in mind if you have IAM
+    -- policies that reference consumer ARNs.
+    consumerARN :: Prelude.Text,
+    -- | A consumer can\'t read data while in the @CREATING@ or @DELETING@
+    -- states.
+    consumerStatus :: ConsumerStatus,
+    consumerCreationTimestamp :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Consumer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Consumer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cConsumerName' - The name of the consumer is something you choose when you register the consumer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cConsumerARN' - When you register a consumer, Kinesis Data Streams generates an ARN for it. You need this ARN to be able to call 'SubscribeToShard' . If you delete a consumer and then create a new one with the same name, it won't have the same ARN. That's because consumer ARNs contain the creation timestamp. This is important to keep in mind if you have IAM policies that reference consumer ARNs.
+-- 'consumerName', 'consumer_consumerName' - The name of the consumer is something you choose when you register the
+-- consumer.
 --
--- * 'cConsumerStatus' - A consumer can't read data while in the @CREATING@ or @DELETING@ states.
+-- 'consumerARN', 'consumer_consumerARN' - When you register a consumer, Kinesis Data Streams generates an ARN for
+-- it. You need this ARN to be able to call SubscribeToShard.
 --
--- * 'cConsumerCreationTimestamp' -
-consumer ::
-  -- | 'cConsumerName'
-  Text ->
-  -- | 'cConsumerARN'
-  Text ->
-  -- | 'cConsumerStatus'
+-- If you delete a consumer and then create a new one with the same name,
+-- it won\'t have the same ARN. That\'s because consumer ARNs contain the
+-- creation timestamp. This is important to keep in mind if you have IAM
+-- policies that reference consumer ARNs.
+--
+-- 'consumerStatus', 'consumer_consumerStatus' - A consumer can\'t read data while in the @CREATING@ or @DELETING@
+-- states.
+--
+-- 'consumerCreationTimestamp', 'consumer_consumerCreationTimestamp' -
+newConsumer ::
+  -- | 'consumerName'
+  Prelude.Text ->
+  -- | 'consumerARN'
+  Prelude.Text ->
+  -- | 'consumerStatus'
   ConsumerStatus ->
-  -- | 'cConsumerCreationTimestamp'
-  UTCTime ->
+  -- | 'consumerCreationTimestamp'
+  Prelude.UTCTime ->
   Consumer
-consumer
+newConsumer
   pConsumerName_
   pConsumerARN_
   pConsumerStatus_
   pConsumerCreationTimestamp_ =
     Consumer'
-      { _cConsumerName = pConsumerName_,
-        _cConsumerARN = pConsumerARN_,
-        _cConsumerStatus = pConsumerStatus_,
-        _cConsumerCreationTimestamp =
-          _Time # pConsumerCreationTimestamp_
+      { consumerName = pConsumerName_,
+        consumerARN = pConsumerARN_,
+        consumerStatus = pConsumerStatus_,
+        consumerCreationTimestamp =
+          Prelude._Time Lens.# pConsumerCreationTimestamp_
       }
 
--- | The name of the consumer is something you choose when you register the consumer.
-cConsumerName :: Lens' Consumer Text
-cConsumerName = lens _cConsumerName (\s a -> s {_cConsumerName = a})
+-- | The name of the consumer is something you choose when you register the
+-- consumer.
+consumer_consumerName :: Lens.Lens' Consumer Prelude.Text
+consumer_consumerName = Lens.lens (\Consumer' {consumerName} -> consumerName) (\s@Consumer' {} a -> s {consumerName = a} :: Consumer)
 
--- | When you register a consumer, Kinesis Data Streams generates an ARN for it. You need this ARN to be able to call 'SubscribeToShard' . If you delete a consumer and then create a new one with the same name, it won't have the same ARN. That's because consumer ARNs contain the creation timestamp. This is important to keep in mind if you have IAM policies that reference consumer ARNs.
-cConsumerARN :: Lens' Consumer Text
-cConsumerARN = lens _cConsumerARN (\s a -> s {_cConsumerARN = a})
+-- | When you register a consumer, Kinesis Data Streams generates an ARN for
+-- it. You need this ARN to be able to call SubscribeToShard.
+--
+-- If you delete a consumer and then create a new one with the same name,
+-- it won\'t have the same ARN. That\'s because consumer ARNs contain the
+-- creation timestamp. This is important to keep in mind if you have IAM
+-- policies that reference consumer ARNs.
+consumer_consumerARN :: Lens.Lens' Consumer Prelude.Text
+consumer_consumerARN = Lens.lens (\Consumer' {consumerARN} -> consumerARN) (\s@Consumer' {} a -> s {consumerARN = a} :: Consumer)
 
--- | A consumer can't read data while in the @CREATING@ or @DELETING@ states.
-cConsumerStatus :: Lens' Consumer ConsumerStatus
-cConsumerStatus = lens _cConsumerStatus (\s a -> s {_cConsumerStatus = a})
+-- | A consumer can\'t read data while in the @CREATING@ or @DELETING@
+-- states.
+consumer_consumerStatus :: Lens.Lens' Consumer ConsumerStatus
+consumer_consumerStatus = Lens.lens (\Consumer' {consumerStatus} -> consumerStatus) (\s@Consumer' {} a -> s {consumerStatus = a} :: Consumer)
 
 -- |
-cConsumerCreationTimestamp :: Lens' Consumer UTCTime
-cConsumerCreationTimestamp = lens _cConsumerCreationTimestamp (\s a -> s {_cConsumerCreationTimestamp = a}) . _Time
+consumer_consumerCreationTimestamp :: Lens.Lens' Consumer Prelude.UTCTime
+consumer_consumerCreationTimestamp = Lens.lens (\Consumer' {consumerCreationTimestamp} -> consumerCreationTimestamp) (\s@Consumer' {} a -> s {consumerCreationTimestamp = a} :: Consumer) Prelude.. Prelude._Time
 
-instance FromJSON Consumer where
+instance Prelude.FromJSON Consumer where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Consumer"
       ( \x ->
           Consumer'
-            <$> (x .: "ConsumerName")
-            <*> (x .: "ConsumerARN")
-            <*> (x .: "ConsumerStatus")
-            <*> (x .: "ConsumerCreationTimestamp")
+            Prelude.<$> (x Prelude..: "ConsumerName")
+            Prelude.<*> (x Prelude..: "ConsumerARN")
+            Prelude.<*> (x Prelude..: "ConsumerStatus")
+            Prelude.<*> (x Prelude..: "ConsumerCreationTimestamp")
       )
 
-instance Hashable Consumer
+instance Prelude.Hashable Consumer
 
-instance NFData Consumer
+instance Prelude.NFData Consumer

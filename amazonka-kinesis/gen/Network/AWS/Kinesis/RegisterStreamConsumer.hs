@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,170 +21,196 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers a consumer with a Kinesis data stream. When you use this operation, the consumer you register can then call 'SubscribeToShard' to receive data from the stream using enhanced fan-out, at a rate of up to 2 MiB per second for every shard you subscribe to. This rate is unaffected by the total number of consumers that read from the same stream.
+-- Registers a consumer with a Kinesis data stream. When you use this
+-- operation, the consumer you register can then call SubscribeToShard to
+-- receive data from the stream using enhanced fan-out, at a rate of up to
+-- 2 MiB per second for every shard you subscribe to. This rate is
+-- unaffected by the total number of consumers that read from the same
+-- stream.
 --
+-- You can register up to 20 consumers per stream. A given consumer can
+-- only be registered with one stream at a time.
 --
--- You can register up to 20 consumers per stream. A given consumer can only be registered with one stream at a time.
+-- For an example of how to use this operations, see
+-- </streams/latest/dev/building-enhanced-consumers-api.html Enhanced Fan-Out Using the Kinesis Data Streams API>.
 --
--- For an example of how to use this operations, see </streams/latest/dev/building-enhanced-consumers-api.html Enhanced Fan-Out Using the Kinesis Data Streams API> .
---
--- The use of this operation has a limit of five transactions per second per account. Also, only 5 consumers can be created simultaneously. In other words, you cannot have more than 5 consumers in a @CREATING@ status at the same time. Registering a 6th consumer while there are 5 in a @CREATING@ status results in a @LimitExceededException@ .
+-- The use of this operation has a limit of five transactions per second
+-- per account. Also, only 5 consumers can be created simultaneously. In
+-- other words, you cannot have more than 5 consumers in a @CREATING@
+-- status at the same time. Registering a 6th consumer while there are 5 in
+-- a @CREATING@ status results in a @LimitExceededException@.
 module Network.AWS.Kinesis.RegisterStreamConsumer
   ( -- * Creating a Request
-    registerStreamConsumer,
-    RegisterStreamConsumer,
+    RegisterStreamConsumer (..),
+    newRegisterStreamConsumer,
 
     -- * Request Lenses
-    rscStreamARN,
-    rscConsumerName,
+    registerStreamConsumer_streamARN,
+    registerStreamConsumer_consumerName,
 
     -- * Destructuring the Response
-    registerStreamConsumerResponse,
-    RegisterStreamConsumerResponse,
+    RegisterStreamConsumerResponse (..),
+    newRegisterStreamConsumerResponse,
 
     -- * Response Lenses
-    rscrrsResponseStatus,
-    rscrrsConsumer,
+    registerStreamConsumerResponse_httpStatus,
+    registerStreamConsumerResponse_consumer,
   )
 where
 
 import Network.AWS.Kinesis.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Kinesis.Types.Consumer
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'registerStreamConsumer' smart constructor.
+-- | /See:/ 'newRegisterStreamConsumer' smart constructor.
 data RegisterStreamConsumer = RegisterStreamConsumer'
-  { _rscStreamARN ::
-      !Text,
-    _rscConsumerName :: !Text
+  { -- | The ARN of the Kinesis data stream that you want to register the
+    -- consumer with. For more info, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    streamARN :: Prelude.Text,
+    -- | For a given Kinesis data stream, each consumer must have a unique name.
+    -- However, consumer names don\'t have to be unique across data streams.
+    consumerName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterStreamConsumer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterStreamConsumer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rscStreamARN' - The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rscConsumerName' - For a given Kinesis data stream, each consumer must have a unique name. However, consumer names don't have to be unique across data streams.
-registerStreamConsumer ::
-  -- | 'rscStreamARN'
-  Text ->
-  -- | 'rscConsumerName'
-  Text ->
+-- 'streamARN', 'registerStreamConsumer_streamARN' - The ARN of the Kinesis data stream that you want to register the
+-- consumer with. For more info, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+--
+-- 'consumerName', 'registerStreamConsumer_consumerName' - For a given Kinesis data stream, each consumer must have a unique name.
+-- However, consumer names don\'t have to be unique across data streams.
+newRegisterStreamConsumer ::
+  -- | 'streamARN'
+  Prelude.Text ->
+  -- | 'consumerName'
+  Prelude.Text ->
   RegisterStreamConsumer
-registerStreamConsumer pStreamARN_ pConsumerName_ =
+newRegisterStreamConsumer pStreamARN_ pConsumerName_ =
   RegisterStreamConsumer'
-    { _rscStreamARN =
-        pStreamARN_,
-      _rscConsumerName = pConsumerName_
+    { streamARN = pStreamARN_,
+      consumerName = pConsumerName_
     }
 
--- | The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces> .
-rscStreamARN :: Lens' RegisterStreamConsumer Text
-rscStreamARN = lens _rscStreamARN (\s a -> s {_rscStreamARN = a})
+-- | The ARN of the Kinesis data stream that you want to register the
+-- consumer with. For more info, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+registerStreamConsumer_streamARN :: Lens.Lens' RegisterStreamConsumer Prelude.Text
+registerStreamConsumer_streamARN = Lens.lens (\RegisterStreamConsumer' {streamARN} -> streamARN) (\s@RegisterStreamConsumer' {} a -> s {streamARN = a} :: RegisterStreamConsumer)
 
--- | For a given Kinesis data stream, each consumer must have a unique name. However, consumer names don't have to be unique across data streams.
-rscConsumerName :: Lens' RegisterStreamConsumer Text
-rscConsumerName = lens _rscConsumerName (\s a -> s {_rscConsumerName = a})
+-- | For a given Kinesis data stream, each consumer must have a unique name.
+-- However, consumer names don\'t have to be unique across data streams.
+registerStreamConsumer_consumerName :: Lens.Lens' RegisterStreamConsumer Prelude.Text
+registerStreamConsumer_consumerName = Lens.lens (\RegisterStreamConsumer' {consumerName} -> consumerName) (\s@RegisterStreamConsumer' {} a -> s {consumerName = a} :: RegisterStreamConsumer)
 
-instance AWSRequest RegisterStreamConsumer where
+instance Prelude.AWSRequest RegisterStreamConsumer where
   type
     Rs RegisterStreamConsumer =
       RegisterStreamConsumerResponse
-  request = postJSON kinesis
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RegisterStreamConsumerResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "Consumer")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "Consumer")
       )
 
-instance Hashable RegisterStreamConsumer
+instance Prelude.Hashable RegisterStreamConsumer
 
-instance NFData RegisterStreamConsumer
+instance Prelude.NFData RegisterStreamConsumer
 
-instance ToHeaders RegisterStreamConsumer where
+instance Prelude.ToHeaders RegisterStreamConsumer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Kinesis_20131202.RegisterStreamConsumer" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Kinesis_20131202.RegisterStreamConsumer" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RegisterStreamConsumer where
+instance Prelude.ToJSON RegisterStreamConsumer where
   toJSON RegisterStreamConsumer' {..} =
-    object
-      ( catMaybes
-          [ Just ("StreamARN" .= _rscStreamARN),
-            Just ("ConsumerName" .= _rscConsumerName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("StreamARN" Prelude..= streamARN),
+            Prelude.Just
+              ("ConsumerName" Prelude..= consumerName)
           ]
       )
 
-instance ToPath RegisterStreamConsumer where
-  toPath = const "/"
+instance Prelude.ToPath RegisterStreamConsumer where
+  toPath = Prelude.const "/"
 
-instance ToQuery RegisterStreamConsumer where
-  toQuery = const mempty
+instance Prelude.ToQuery RegisterStreamConsumer where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'registerStreamConsumerResponse' smart constructor.
+-- | /See:/ 'newRegisterStreamConsumerResponse' smart constructor.
 data RegisterStreamConsumerResponse = RegisterStreamConsumerResponse'
-  { _rscrrsResponseStatus ::
-      !Int,
-    _rscrrsConsumer ::
-      !Consumer
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | An object that represents the details of the consumer you registered.
+    -- When you register a consumer, it gets an ARN that is generated by
+    -- Kinesis Data Streams.
+    consumer :: Consumer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RegisterStreamConsumerResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RegisterStreamConsumerResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rscrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rscrrsConsumer' - An object that represents the details of the consumer you registered. When you register a consumer, it gets an ARN that is generated by Kinesis Data Streams.
-registerStreamConsumerResponse ::
-  -- | 'rscrrsResponseStatus'
-  Int ->
-  -- | 'rscrrsConsumer'
+-- 'httpStatus', 'registerStreamConsumerResponse_httpStatus' - The response's http status code.
+--
+-- 'consumer', 'registerStreamConsumerResponse_consumer' - An object that represents the details of the consumer you registered.
+-- When you register a consumer, it gets an ARN that is generated by
+-- Kinesis Data Streams.
+newRegisterStreamConsumerResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'consumer'
   Consumer ->
   RegisterStreamConsumerResponse
-registerStreamConsumerResponse
-  pResponseStatus_
+newRegisterStreamConsumerResponse
+  pHttpStatus_
   pConsumer_ =
     RegisterStreamConsumerResponse'
-      { _rscrrsResponseStatus =
-          pResponseStatus_,
-        _rscrrsConsumer = pConsumer_
+      { httpStatus =
+          pHttpStatus_,
+        consumer = pConsumer_
       }
 
--- | -- | The response status code.
-rscrrsResponseStatus :: Lens' RegisterStreamConsumerResponse Int
-rscrrsResponseStatus = lens _rscrrsResponseStatus (\s a -> s {_rscrrsResponseStatus = a})
+-- | The response's http status code.
+registerStreamConsumerResponse_httpStatus :: Lens.Lens' RegisterStreamConsumerResponse Prelude.Int
+registerStreamConsumerResponse_httpStatus = Lens.lens (\RegisterStreamConsumerResponse' {httpStatus} -> httpStatus) (\s@RegisterStreamConsumerResponse' {} a -> s {httpStatus = a} :: RegisterStreamConsumerResponse)
 
--- | An object that represents the details of the consumer you registered. When you register a consumer, it gets an ARN that is generated by Kinesis Data Streams.
-rscrrsConsumer :: Lens' RegisterStreamConsumerResponse Consumer
-rscrrsConsumer = lens _rscrrsConsumer (\s a -> s {_rscrrsConsumer = a})
+-- | An object that represents the details of the consumer you registered.
+-- When you register a consumer, it gets an ARN that is generated by
+-- Kinesis Data Streams.
+registerStreamConsumerResponse_consumer :: Lens.Lens' RegisterStreamConsumerResponse Consumer
+registerStreamConsumerResponse_consumer = Lens.lens (\RegisterStreamConsumerResponse' {consumer} -> consumer) (\s@RegisterStreamConsumerResponse' {} a -> s {consumer = a} :: RegisterStreamConsumerResponse)
 
-instance NFData RegisterStreamConsumerResponse
+instance
+  Prelude.NFData
+    RegisterStreamConsumerResponse
