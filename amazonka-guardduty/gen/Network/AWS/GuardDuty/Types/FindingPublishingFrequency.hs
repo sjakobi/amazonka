@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.GuardDuty.Types.FindingPublishingFrequency
   ( FindingPublishingFrequency
       ( ..,
-        FifteenMinutes,
-        OneHour,
-        SixHours
+        FindingPublishingFrequencyFIFTEENMINUTES,
+        FindingPublishingFrequencyONEHOUR,
+        FindingPublishingFrequencySIXHOURS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FindingPublishingFrequency
-  = FindingPublishingFrequency'
-      ( CI
-          Text
-      )
+newtype FindingPublishingFrequency = FindingPublishingFrequency'
+  { fromFindingPublishingFrequency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FifteenMinutes :: FindingPublishingFrequency
-pattern FifteenMinutes = FindingPublishingFrequency' "FIFTEEN_MINUTES"
+pattern FindingPublishingFrequencyFIFTEENMINUTES :: FindingPublishingFrequency
+pattern FindingPublishingFrequencyFIFTEENMINUTES = FindingPublishingFrequency' "FIFTEEN_MINUTES"
 
-pattern OneHour :: FindingPublishingFrequency
-pattern OneHour = FindingPublishingFrequency' "ONE_HOUR"
+pattern FindingPublishingFrequencyONEHOUR :: FindingPublishingFrequency
+pattern FindingPublishingFrequencyONEHOUR = FindingPublishingFrequency' "ONE_HOUR"
 
-pattern SixHours :: FindingPublishingFrequency
-pattern SixHours = FindingPublishingFrequency' "SIX_HOURS"
+pattern FindingPublishingFrequencySIXHOURS :: FindingPublishingFrequency
+pattern FindingPublishingFrequencySIXHOURS = FindingPublishingFrequency' "SIX_HOURS"
 
 {-# COMPLETE
-  FifteenMinutes,
-  OneHour,
-  SixHours,
+  FindingPublishingFrequencyFIFTEENMINUTES,
+  FindingPublishingFrequencyONEHOUR,
+  FindingPublishingFrequencySIXHOURS,
   FindingPublishingFrequency'
   #-}
 
-instance FromText FindingPublishingFrequency where
-  parser = (FindingPublishingFrequency' . mk) <$> takeText
+instance Prelude.FromText FindingPublishingFrequency where
+  parser = FindingPublishingFrequency' Prelude.<$> Prelude.takeText
 
-instance ToText FindingPublishingFrequency where
-  toText (FindingPublishingFrequency' ci) = original ci
+instance Prelude.ToText FindingPublishingFrequency where
+  toText (FindingPublishingFrequency' x) = x
 
-instance Hashable FindingPublishingFrequency
+instance Prelude.Hashable FindingPublishingFrequency
 
-instance NFData FindingPublishingFrequency
+instance Prelude.NFData FindingPublishingFrequency
 
-instance ToByteString FindingPublishingFrequency
+instance Prelude.ToByteString FindingPublishingFrequency
 
-instance ToQuery FindingPublishingFrequency
+instance Prelude.ToQuery FindingPublishingFrequency
 
-instance ToHeader FindingPublishingFrequency
+instance Prelude.ToHeader FindingPublishingFrequency
 
-instance ToJSON FindingPublishingFrequency where
-  toJSON = toJSONText
+instance Prelude.ToJSON FindingPublishingFrequency where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FindingPublishingFrequency where
-  parseJSON = parseJSONText "FindingPublishingFrequency"
+instance Prelude.FromJSON FindingPublishingFrequency where
+  parseJSON = Prelude.parseJSONText "FindingPublishingFrequency"

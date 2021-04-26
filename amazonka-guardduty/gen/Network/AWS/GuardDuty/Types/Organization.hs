@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.Organization where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the ISP organization of the remote IP address.
+-- | Contains information about the ISP organization of the remote IP
+-- address.
 --
---
---
--- /See:/ 'organization' smart constructor.
+-- /See:/ 'newOrganization' smart constructor.
 data Organization = Organization'
-  { _oASN ::
-      !(Maybe Text),
-    _oIsp :: !(Maybe Text),
-    _oASNOrg :: !(Maybe Text),
-    _oOrg :: !(Maybe Text)
+  { -- | The Autonomous System Number (ASN) of the internet provider of the
+    -- remote IP address.
+    asn :: Prelude.Maybe Prelude.Text,
+    -- | The ISP information for the internet provider.
+    isp :: Prelude.Maybe Prelude.Text,
+    -- | The organization that registered this ASN.
+    asnOrg :: Prelude.Maybe Prelude.Text,
+    -- | The name of the internet provider.
+    org :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Organization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Organization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oASN' - The Autonomous System Number (ASN) of the internet provider of the remote IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oIsp' - The ISP information for the internet provider.
+-- 'asn', 'organization_asn' - The Autonomous System Number (ASN) of the internet provider of the
+-- remote IP address.
 --
--- * 'oASNOrg' - The organization that registered this ASN.
+-- 'isp', 'organization_isp' - The ISP information for the internet provider.
 --
--- * 'oOrg' - The name of the internet provider.
-organization ::
+-- 'asnOrg', 'organization_asnOrg' - The organization that registered this ASN.
+--
+-- 'org', 'organization_org' - The name of the internet provider.
+newOrganization ::
   Organization
-organization =
+newOrganization =
   Organization'
-    { _oASN = Nothing,
-      _oIsp = Nothing,
-      _oASNOrg = Nothing,
-      _oOrg = Nothing
+    { asn = Prelude.Nothing,
+      isp = Prelude.Nothing,
+      asnOrg = Prelude.Nothing,
+      org = Prelude.Nothing
     }
 
--- | The Autonomous System Number (ASN) of the internet provider of the remote IP address.
-oASN :: Lens' Organization (Maybe Text)
-oASN = lens _oASN (\s a -> s {_oASN = a})
+-- | The Autonomous System Number (ASN) of the internet provider of the
+-- remote IP address.
+organization_asn :: Lens.Lens' Organization (Prelude.Maybe Prelude.Text)
+organization_asn = Lens.lens (\Organization' {asn} -> asn) (\s@Organization' {} a -> s {asn = a} :: Organization)
 
 -- | The ISP information for the internet provider.
-oIsp :: Lens' Organization (Maybe Text)
-oIsp = lens _oIsp (\s a -> s {_oIsp = a})
+organization_isp :: Lens.Lens' Organization (Prelude.Maybe Prelude.Text)
+organization_isp = Lens.lens (\Organization' {isp} -> isp) (\s@Organization' {} a -> s {isp = a} :: Organization)
 
 -- | The organization that registered this ASN.
-oASNOrg :: Lens' Organization (Maybe Text)
-oASNOrg = lens _oASNOrg (\s a -> s {_oASNOrg = a})
+organization_asnOrg :: Lens.Lens' Organization (Prelude.Maybe Prelude.Text)
+organization_asnOrg = Lens.lens (\Organization' {asnOrg} -> asnOrg) (\s@Organization' {} a -> s {asnOrg = a} :: Organization)
 
 -- | The name of the internet provider.
-oOrg :: Lens' Organization (Maybe Text)
-oOrg = lens _oOrg (\s a -> s {_oOrg = a})
+organization_org :: Lens.Lens' Organization (Prelude.Maybe Prelude.Text)
+organization_org = Lens.lens (\Organization' {org} -> org) (\s@Organization' {} a -> s {org = a} :: Organization)
 
-instance FromJSON Organization where
+instance Prelude.FromJSON Organization where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Organization"
       ( \x ->
           Organization'
-            <$> (x .:? "asn")
-            <*> (x .:? "isp")
-            <*> (x .:? "asnOrg")
-            <*> (x .:? "org")
+            Prelude.<$> (x Prelude..:? "asn")
+            Prelude.<*> (x Prelude..:? "isp")
+            Prelude.<*> (x Prelude..:? "asnOrg")
+            Prelude.<*> (x Prelude..:? "org")
       )
 
-instance Hashable Organization
+instance Prelude.Hashable Organization
 
-instance NFData Organization
+instance Prelude.NFData Organization

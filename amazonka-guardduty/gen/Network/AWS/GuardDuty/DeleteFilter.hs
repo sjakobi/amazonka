@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,128 +24,130 @@
 -- Deletes the filter specified by the filter name.
 module Network.AWS.GuardDuty.DeleteFilter
   ( -- * Creating a Request
-    deleteFilter,
-    DeleteFilter,
+    DeleteFilter (..),
+    newDeleteFilter,
 
     -- * Request Lenses
-    dfDetectorId,
-    dfFilterName,
+    deleteFilter_detectorId,
+    deleteFilter_filterName,
 
     -- * Destructuring the Response
-    deleteFilterResponse,
-    DeleteFilterResponse,
+    DeleteFilterResponse (..),
+    newDeleteFilterResponse,
 
     -- * Response Lenses
-    dfrrsResponseStatus,
+    deleteFilterResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteFilter' smart constructor.
+-- | /See:/ 'newDeleteFilter' smart constructor.
 data DeleteFilter = DeleteFilter'
-  { _dfDetectorId ::
-      !Text,
-    _dfFilterName :: !Text
+  { -- | The unique ID of the detector that the filter is associated with.
+    detectorId :: Prelude.Text,
+    -- | The name of the filter that you want to delete.
+    filterName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfDetectorId' - The unique ID of the detector that the filter is associated with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dfFilterName' - The name of the filter that you want to delete.
-deleteFilter ::
-  -- | 'dfDetectorId'
-  Text ->
-  -- | 'dfFilterName'
-  Text ->
+-- 'detectorId', 'deleteFilter_detectorId' - The unique ID of the detector that the filter is associated with.
+--
+-- 'filterName', 'deleteFilter_filterName' - The name of the filter that you want to delete.
+newDeleteFilter ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'filterName'
+  Prelude.Text ->
   DeleteFilter
-deleteFilter pDetectorId_ pFilterName_ =
+newDeleteFilter pDetectorId_ pFilterName_ =
   DeleteFilter'
-    { _dfDetectorId = pDetectorId_,
-      _dfFilterName = pFilterName_
+    { detectorId = pDetectorId_,
+      filterName = pFilterName_
     }
 
 -- | The unique ID of the detector that the filter is associated with.
-dfDetectorId :: Lens' DeleteFilter Text
-dfDetectorId = lens _dfDetectorId (\s a -> s {_dfDetectorId = a})
+deleteFilter_detectorId :: Lens.Lens' DeleteFilter Prelude.Text
+deleteFilter_detectorId = Lens.lens (\DeleteFilter' {detectorId} -> detectorId) (\s@DeleteFilter' {} a -> s {detectorId = a} :: DeleteFilter)
 
 -- | The name of the filter that you want to delete.
-dfFilterName :: Lens' DeleteFilter Text
-dfFilterName = lens _dfFilterName (\s a -> s {_dfFilterName = a})
+deleteFilter_filterName :: Lens.Lens' DeleteFilter Prelude.Text
+deleteFilter_filterName = Lens.lens (\DeleteFilter' {filterName} -> filterName) (\s@DeleteFilter' {} a -> s {filterName = a} :: DeleteFilter)
 
-instance AWSRequest DeleteFilter where
+instance Prelude.AWSRequest DeleteFilter where
   type Rs DeleteFilter = DeleteFilterResponse
-  request = delete guardDuty
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteFilterResponse' <$> (pure (fromEnum s))
+          DeleteFilterResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteFilter
+instance Prelude.Hashable DeleteFilter
 
-instance NFData DeleteFilter
+instance Prelude.NFData DeleteFilter
 
-instance ToHeaders DeleteFilter where
+instance Prelude.ToHeaders DeleteFilter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteFilter where
+instance Prelude.ToPath DeleteFilter where
   toPath DeleteFilter' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _dfDetectorId,
+        Prelude.toBS detectorId,
         "/filter/",
-        toBS _dfFilterName
+        Prelude.toBS filterName
       ]
 
-instance ToQuery DeleteFilter where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteFilter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteFilterResponse' smart constructor.
-newtype DeleteFilterResponse = DeleteFilterResponse'
-  { _dfrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteFilterResponse' smart constructor.
+data DeleteFilterResponse = DeleteFilterResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteFilterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteFilterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfrrsResponseStatus' - -- | The response status code.
-deleteFilterResponse ::
-  -- | 'dfrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteFilterResponse_httpStatus' - The response's http status code.
+newDeleteFilterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteFilterResponse
-deleteFilterResponse pResponseStatus_ =
-  DeleteFilterResponse'
-    { _dfrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteFilterResponse pHttpStatus_ =
+  DeleteFilterResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dfrrsResponseStatus :: Lens' DeleteFilterResponse Int
-dfrrsResponseStatus = lens _dfrrsResponseStatus (\s a -> s {_dfrrsResponseStatus = a})
+-- | The response's http status code.
+deleteFilterResponse_httpStatus :: Lens.Lens' DeleteFilterResponse Prelude.Int
+deleteFilterResponse_httpStatus = Lens.lens (\DeleteFilterResponse' {httpStatus} -> httpStatus) (\s@DeleteFilterResponse' {} a -> s {httpStatus = a} :: DeleteFilterResponse)
 
-instance NFData DeleteFilterResponse
+instance Prelude.NFData DeleteFilterResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.RemotePortDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the remote port.
 --
---
---
--- /See:/ 'remotePortDetails' smart constructor.
+-- /See:/ 'newRemotePortDetails' smart constructor.
 data RemotePortDetails = RemotePortDetails'
-  { _rpdPortName ::
-      !(Maybe Text),
-    _rpdPort :: !(Maybe Int)
+  { -- | The port name of the remote connection.
+    portName :: Prelude.Maybe Prelude.Text,
+    -- | The port number of the remote connection.
+    port :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemotePortDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemotePortDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpdPortName' - The port name of the remote connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rpdPort' - The port number of the remote connection.
-remotePortDetails ::
+-- 'portName', 'remotePortDetails_portName' - The port name of the remote connection.
+--
+-- 'port', 'remotePortDetails_port' - The port number of the remote connection.
+newRemotePortDetails ::
   RemotePortDetails
-remotePortDetails =
+newRemotePortDetails =
   RemotePortDetails'
-    { _rpdPortName = Nothing,
-      _rpdPort = Nothing
+    { portName = Prelude.Nothing,
+      port = Prelude.Nothing
     }
 
 -- | The port name of the remote connection.
-rpdPortName :: Lens' RemotePortDetails (Maybe Text)
-rpdPortName = lens _rpdPortName (\s a -> s {_rpdPortName = a})
+remotePortDetails_portName :: Lens.Lens' RemotePortDetails (Prelude.Maybe Prelude.Text)
+remotePortDetails_portName = Lens.lens (\RemotePortDetails' {portName} -> portName) (\s@RemotePortDetails' {} a -> s {portName = a} :: RemotePortDetails)
 
 -- | The port number of the remote connection.
-rpdPort :: Lens' RemotePortDetails (Maybe Int)
-rpdPort = lens _rpdPort (\s a -> s {_rpdPort = a})
+remotePortDetails_port :: Lens.Lens' RemotePortDetails (Prelude.Maybe Prelude.Int)
+remotePortDetails_port = Lens.lens (\RemotePortDetails' {port} -> port) (\s@RemotePortDetails' {} a -> s {port = a} :: RemotePortDetails)
 
-instance FromJSON RemotePortDetails where
+instance Prelude.FromJSON RemotePortDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RemotePortDetails"
       ( \x ->
           RemotePortDetails'
-            <$> (x .:? "portName") <*> (x .:? "port")
+            Prelude.<$> (x Prelude..:? "portName")
+            Prelude.<*> (x Prelude..:? "port")
       )
 
-instance Hashable RemotePortDetails
+instance Prelude.Hashable RemotePortDetails
 
-instance NFData RemotePortDetails
+instance Prelude.NFData RemotePortDetails

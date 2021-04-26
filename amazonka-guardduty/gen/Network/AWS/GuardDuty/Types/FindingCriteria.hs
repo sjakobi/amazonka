@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,47 +20,57 @@
 module Network.AWS.GuardDuty.Types.FindingCriteria where
 
 import Network.AWS.GuardDuty.Types.Condition
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the criteria used for querying findings.
 --
---
---
--- /See:/ 'findingCriteria' smart constructor.
-newtype FindingCriteria = FindingCriteria'
-  { _fcCriterion ::
-      Maybe (Map Text Condition)
+-- /See:/ 'newFindingCriteria' smart constructor.
+data FindingCriteria = FindingCriteria'
+  { -- | Represents a map of finding properties that match specified conditions
+    -- and values when querying findings.
+    criterion :: Prelude.Maybe (Prelude.Map Prelude.Text Condition)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FindingCriteria' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FindingCriteria' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fcCriterion' - Represents a map of finding properties that match specified conditions and values when querying findings.
-findingCriteria ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'criterion', 'findingCriteria_criterion' - Represents a map of finding properties that match specified conditions
+-- and values when querying findings.
+newFindingCriteria ::
   FindingCriteria
-findingCriteria =
-  FindingCriteria' {_fcCriterion = Nothing}
+newFindingCriteria =
+  FindingCriteria' {criterion = Prelude.Nothing}
 
--- | Represents a map of finding properties that match specified conditions and values when querying findings.
-fcCriterion :: Lens' FindingCriteria (HashMap Text Condition)
-fcCriterion = lens _fcCriterion (\s a -> s {_fcCriterion = a}) . _Default . _Map
+-- | Represents a map of finding properties that match specified conditions
+-- and values when querying findings.
+findingCriteria_criterion :: Lens.Lens' FindingCriteria (Prelude.Maybe (Prelude.HashMap Prelude.Text Condition))
+findingCriteria_criterion = Lens.lens (\FindingCriteria' {criterion} -> criterion) (\s@FindingCriteria' {} a -> s {criterion = a} :: FindingCriteria) Prelude.. Lens.mapping Prelude._Map
 
-instance FromJSON FindingCriteria where
+instance Prelude.FromJSON FindingCriteria where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FindingCriteria"
       ( \x ->
-          FindingCriteria' <$> (x .:? "criterion" .!= mempty)
+          FindingCriteria'
+            Prelude.<$> ( x Prelude..:? "criterion"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable FindingCriteria
+instance Prelude.Hashable FindingCriteria
 
-instance NFData FindingCriteria
+instance Prelude.NFData FindingCriteria
 
-instance ToJSON FindingCriteria where
+instance Prelude.ToJSON FindingCriteria where
   toJSON FindingCriteria' {..} =
-    object
-      (catMaybes [("criterion" .=) <$> _fcCriterion])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("criterion" Prelude..=) Prelude.<$> criterion]
+      )

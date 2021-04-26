@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,47 @@
 module Network.AWS.GuardDuty.Types.FlowLogsConfigurationResult where
 
 import Network.AWS.GuardDuty.Types.DataSourceStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information on the status of VPC flow logs as a data source.
 --
---
---
--- /See:/ 'flowLogsConfigurationResult' smart constructor.
-newtype FlowLogsConfigurationResult = FlowLogsConfigurationResult'
-  { _flcrStatus ::
-      DataSourceStatus
+-- /See:/ 'newFlowLogsConfigurationResult' smart constructor.
+data FlowLogsConfigurationResult = FlowLogsConfigurationResult'
+  { -- | Denotes whether VPC flow logs is enabled as a data source.
+    status :: DataSourceStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FlowLogsConfigurationResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FlowLogsConfigurationResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'flcrStatus' - Denotes whether VPC flow logs is enabled as a data source.
-flowLogsConfigurationResult ::
-  -- | 'flcrStatus'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'status', 'flowLogsConfigurationResult_status' - Denotes whether VPC flow logs is enabled as a data source.
+newFlowLogsConfigurationResult ::
+  -- | 'status'
   DataSourceStatus ->
   FlowLogsConfigurationResult
-flowLogsConfigurationResult pStatus_ =
-  FlowLogsConfigurationResult'
-    { _flcrStatus =
-        pStatus_
-    }
+newFlowLogsConfigurationResult pStatus_ =
+  FlowLogsConfigurationResult' {status = pStatus_}
 
 -- | Denotes whether VPC flow logs is enabled as a data source.
-flcrStatus :: Lens' FlowLogsConfigurationResult DataSourceStatus
-flcrStatus = lens _flcrStatus (\s a -> s {_flcrStatus = a})
+flowLogsConfigurationResult_status :: Lens.Lens' FlowLogsConfigurationResult DataSourceStatus
+flowLogsConfigurationResult_status = Lens.lens (\FlowLogsConfigurationResult' {status} -> status) (\s@FlowLogsConfigurationResult' {} a -> s {status = a} :: FlowLogsConfigurationResult)
 
-instance FromJSON FlowLogsConfigurationResult where
+instance Prelude.FromJSON FlowLogsConfigurationResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FlowLogsConfigurationResult"
       ( \x ->
-          FlowLogsConfigurationResult' <$> (x .: "status")
+          FlowLogsConfigurationResult'
+            Prelude.<$> (x Prelude..: "status")
       )
 
-instance Hashable FlowLogsConfigurationResult
+instance Prelude.Hashable FlowLogsConfigurationResult
 
-instance NFData FlowLogsConfigurationResult
+instance Prelude.NFData FlowLogsConfigurationResult

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,91 +21,107 @@ module Network.AWS.GuardDuty.Types.Finding where
 
 import Network.AWS.GuardDuty.Types.Resource
 import Network.AWS.GuardDuty.Types.ServiceInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the finding, which is generated when abnormal or suspicious activity is detected.
+-- | Contains information about the finding, which is generated when abnormal
+-- or suspicious activity is detected.
 --
---
---
--- /See:/ 'finding' smart constructor.
+-- /See:/ 'newFinding' smart constructor.
 data Finding = Finding'
-  { _fTitle :: !(Maybe Text),
-    _fService :: !(Maybe ServiceInfo),
-    _fPartition :: !(Maybe Text),
-    _fConfidence :: !(Maybe Double),
-    _fDescription :: !(Maybe Text),
-    _fAccountId :: !Text,
-    _fARN :: !Text,
-    _fCreatedAt :: !Text,
-    _fId :: !Text,
-    _fRegion :: !Text,
-    _fResource :: !Resource,
-    _fSchemaVersion :: !Text,
-    _fSeverity :: !Double,
-    _fType :: !Text,
-    _fUpdatedAt :: !Text
+  { -- | The title of the finding.
+    title :: Prelude.Maybe Prelude.Text,
+    service :: Prelude.Maybe ServiceInfo,
+    -- | The partition associated with the finding.
+    partition :: Prelude.Maybe Prelude.Text,
+    -- | The confidence score for the finding.
+    confidence :: Prelude.Maybe Prelude.Double,
+    -- | The description of the finding.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the account in which the finding was generated.
+    accountId :: Prelude.Text,
+    -- | The ARN of the finding.
+    arn :: Prelude.Text,
+    -- | The time and date when the finding was created.
+    createdAt :: Prelude.Text,
+    -- | The ID of the finding.
+    id :: Prelude.Text,
+    -- | The Region where the finding was generated.
+    region :: Prelude.Text,
+    resource :: Resource,
+    -- | The version of the schema used for the finding.
+    schemaVersion :: Prelude.Text,
+    -- | The severity of the finding.
+    severity :: Prelude.Double,
+    -- | The type of finding.
+    type' :: Prelude.Text,
+    -- | The time and date when the finding was last updated.
+    updatedAt :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Finding' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Finding' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fTitle' - The title of the finding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fService' - Undocumented member.
+-- 'title', 'finding_title' - The title of the finding.
 --
--- * 'fPartition' - The partition associated with the finding.
+-- 'service', 'finding_service' - Undocumented member.
 --
--- * 'fConfidence' - The confidence score for the finding.
+-- 'partition', 'finding_partition' - The partition associated with the finding.
 --
--- * 'fDescription' - The description of the finding.
+-- 'confidence', 'finding_confidence' - The confidence score for the finding.
 --
--- * 'fAccountId' - The ID of the account in which the finding was generated.
+-- 'description', 'finding_description' - The description of the finding.
 --
--- * 'fARN' - The ARN of the finding.
+-- 'accountId', 'finding_accountId' - The ID of the account in which the finding was generated.
 --
--- * 'fCreatedAt' - The time and date when the finding was created.
+-- 'arn', 'finding_arn' - The ARN of the finding.
 --
--- * 'fId' - The ID of the finding.
+-- 'createdAt', 'finding_createdAt' - The time and date when the finding was created.
 --
--- * 'fRegion' - The Region where the finding was generated.
+-- 'id', 'finding_id' - The ID of the finding.
 --
--- * 'fResource' - Undocumented member.
+-- 'region', 'finding_region' - The Region where the finding was generated.
 --
--- * 'fSchemaVersion' - The version of the schema used for the finding.
+-- 'resource', 'finding_resource' - Undocumented member.
 --
--- * 'fSeverity' - The severity of the finding.
+-- 'schemaVersion', 'finding_schemaVersion' - The version of the schema used for the finding.
 --
--- * 'fType' - The type of finding.
+-- 'severity', 'finding_severity' - The severity of the finding.
 --
--- * 'fUpdatedAt' - The time and date when the finding was last updated.
-finding ::
-  -- | 'fAccountId'
-  Text ->
-  -- | 'fARN'
-  Text ->
-  -- | 'fCreatedAt'
-  Text ->
-  -- | 'fId'
-  Text ->
-  -- | 'fRegion'
-  Text ->
-  -- | 'fResource'
+-- 'type'', 'finding_type' - The type of finding.
+--
+-- 'updatedAt', 'finding_updatedAt' - The time and date when the finding was last updated.
+newFinding ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'createdAt'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'region'
+  Prelude.Text ->
+  -- | 'resource'
   Resource ->
-  -- | 'fSchemaVersion'
-  Text ->
-  -- | 'fSeverity'
-  Double ->
-  -- | 'fType'
-  Text ->
-  -- | 'fUpdatedAt'
-  Text ->
+  -- | 'schemaVersion'
+  Prelude.Text ->
+  -- | 'severity'
+  Prelude.Double ->
+  -- | 'type''
+  Prelude.Text ->
+  -- | 'updatedAt'
+  Prelude.Text ->
   Finding
-finding
+newFinding
   pAccountId_
-  pARN_
+  pArn_
   pCreatedAt_
   pId_
   pRegion_
@@ -111,106 +131,106 @@ finding
   pType_
   pUpdatedAt_ =
     Finding'
-      { _fTitle = Nothing,
-        _fService = Nothing,
-        _fPartition = Nothing,
-        _fConfidence = Nothing,
-        _fDescription = Nothing,
-        _fAccountId = pAccountId_,
-        _fARN = pARN_,
-        _fCreatedAt = pCreatedAt_,
-        _fId = pId_,
-        _fRegion = pRegion_,
-        _fResource = pResource_,
-        _fSchemaVersion = pSchemaVersion_,
-        _fSeverity = pSeverity_,
-        _fType = pType_,
-        _fUpdatedAt = pUpdatedAt_
+      { title = Prelude.Nothing,
+        service = Prelude.Nothing,
+        partition = Prelude.Nothing,
+        confidence = Prelude.Nothing,
+        description = Prelude.Nothing,
+        accountId = pAccountId_,
+        arn = pArn_,
+        createdAt = pCreatedAt_,
+        id = pId_,
+        region = pRegion_,
+        resource = pResource_,
+        schemaVersion = pSchemaVersion_,
+        severity = pSeverity_,
+        type' = pType_,
+        updatedAt = pUpdatedAt_
       }
 
 -- | The title of the finding.
-fTitle :: Lens' Finding (Maybe Text)
-fTitle = lens _fTitle (\s a -> s {_fTitle = a})
+finding_title :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_title = Lens.lens (\Finding' {title} -> title) (\s@Finding' {} a -> s {title = a} :: Finding)
 
 -- | Undocumented member.
-fService :: Lens' Finding (Maybe ServiceInfo)
-fService = lens _fService (\s a -> s {_fService = a})
+finding_service :: Lens.Lens' Finding (Prelude.Maybe ServiceInfo)
+finding_service = Lens.lens (\Finding' {service} -> service) (\s@Finding' {} a -> s {service = a} :: Finding)
 
 -- | The partition associated with the finding.
-fPartition :: Lens' Finding (Maybe Text)
-fPartition = lens _fPartition (\s a -> s {_fPartition = a})
+finding_partition :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_partition = Lens.lens (\Finding' {partition} -> partition) (\s@Finding' {} a -> s {partition = a} :: Finding)
 
 -- | The confidence score for the finding.
-fConfidence :: Lens' Finding (Maybe Double)
-fConfidence = lens _fConfidence (\s a -> s {_fConfidence = a})
+finding_confidence :: Lens.Lens' Finding (Prelude.Maybe Prelude.Double)
+finding_confidence = Lens.lens (\Finding' {confidence} -> confidence) (\s@Finding' {} a -> s {confidence = a} :: Finding)
 
 -- | The description of the finding.
-fDescription :: Lens' Finding (Maybe Text)
-fDescription = lens _fDescription (\s a -> s {_fDescription = a})
+finding_description :: Lens.Lens' Finding (Prelude.Maybe Prelude.Text)
+finding_description = Lens.lens (\Finding' {description} -> description) (\s@Finding' {} a -> s {description = a} :: Finding)
 
 -- | The ID of the account in which the finding was generated.
-fAccountId :: Lens' Finding Text
-fAccountId = lens _fAccountId (\s a -> s {_fAccountId = a})
+finding_accountId :: Lens.Lens' Finding Prelude.Text
+finding_accountId = Lens.lens (\Finding' {accountId} -> accountId) (\s@Finding' {} a -> s {accountId = a} :: Finding)
 
 -- | The ARN of the finding.
-fARN :: Lens' Finding Text
-fARN = lens _fARN (\s a -> s {_fARN = a})
+finding_arn :: Lens.Lens' Finding Prelude.Text
+finding_arn = Lens.lens (\Finding' {arn} -> arn) (\s@Finding' {} a -> s {arn = a} :: Finding)
 
 -- | The time and date when the finding was created.
-fCreatedAt :: Lens' Finding Text
-fCreatedAt = lens _fCreatedAt (\s a -> s {_fCreatedAt = a})
+finding_createdAt :: Lens.Lens' Finding Prelude.Text
+finding_createdAt = Lens.lens (\Finding' {createdAt} -> createdAt) (\s@Finding' {} a -> s {createdAt = a} :: Finding)
 
 -- | The ID of the finding.
-fId :: Lens' Finding Text
-fId = lens _fId (\s a -> s {_fId = a})
+finding_id :: Lens.Lens' Finding Prelude.Text
+finding_id = Lens.lens (\Finding' {id} -> id) (\s@Finding' {} a -> s {id = a} :: Finding)
 
 -- | The Region where the finding was generated.
-fRegion :: Lens' Finding Text
-fRegion = lens _fRegion (\s a -> s {_fRegion = a})
+finding_region :: Lens.Lens' Finding Prelude.Text
+finding_region = Lens.lens (\Finding' {region} -> region) (\s@Finding' {} a -> s {region = a} :: Finding)
 
 -- | Undocumented member.
-fResource :: Lens' Finding Resource
-fResource = lens _fResource (\s a -> s {_fResource = a})
+finding_resource :: Lens.Lens' Finding Resource
+finding_resource = Lens.lens (\Finding' {resource} -> resource) (\s@Finding' {} a -> s {resource = a} :: Finding)
 
 -- | The version of the schema used for the finding.
-fSchemaVersion :: Lens' Finding Text
-fSchemaVersion = lens _fSchemaVersion (\s a -> s {_fSchemaVersion = a})
+finding_schemaVersion :: Lens.Lens' Finding Prelude.Text
+finding_schemaVersion = Lens.lens (\Finding' {schemaVersion} -> schemaVersion) (\s@Finding' {} a -> s {schemaVersion = a} :: Finding)
 
 -- | The severity of the finding.
-fSeverity :: Lens' Finding Double
-fSeverity = lens _fSeverity (\s a -> s {_fSeverity = a})
+finding_severity :: Lens.Lens' Finding Prelude.Double
+finding_severity = Lens.lens (\Finding' {severity} -> severity) (\s@Finding' {} a -> s {severity = a} :: Finding)
 
 -- | The type of finding.
-fType :: Lens' Finding Text
-fType = lens _fType (\s a -> s {_fType = a})
+finding_type :: Lens.Lens' Finding Prelude.Text
+finding_type = Lens.lens (\Finding' {type'} -> type') (\s@Finding' {} a -> s {type' = a} :: Finding)
 
 -- | The time and date when the finding was last updated.
-fUpdatedAt :: Lens' Finding Text
-fUpdatedAt = lens _fUpdatedAt (\s a -> s {_fUpdatedAt = a})
+finding_updatedAt :: Lens.Lens' Finding Prelude.Text
+finding_updatedAt = Lens.lens (\Finding' {updatedAt} -> updatedAt) (\s@Finding' {} a -> s {updatedAt = a} :: Finding)
 
-instance FromJSON Finding where
+instance Prelude.FromJSON Finding where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Finding"
       ( \x ->
           Finding'
-            <$> (x .:? "title")
-            <*> (x .:? "service")
-            <*> (x .:? "partition")
-            <*> (x .:? "confidence")
-            <*> (x .:? "description")
-            <*> (x .: "accountId")
-            <*> (x .: "arn")
-            <*> (x .: "createdAt")
-            <*> (x .: "id")
-            <*> (x .: "region")
-            <*> (x .: "resource")
-            <*> (x .: "schemaVersion")
-            <*> (x .: "severity")
-            <*> (x .: "type")
-            <*> (x .: "updatedAt")
+            Prelude.<$> (x Prelude..:? "title")
+            Prelude.<*> (x Prelude..:? "service")
+            Prelude.<*> (x Prelude..:? "partition")
+            Prelude.<*> (x Prelude..:? "confidence")
+            Prelude.<*> (x Prelude..:? "description")
+            Prelude.<*> (x Prelude..: "accountId")
+            Prelude.<*> (x Prelude..: "arn")
+            Prelude.<*> (x Prelude..: "createdAt")
+            Prelude.<*> (x Prelude..: "id")
+            Prelude.<*> (x Prelude..: "region")
+            Prelude.<*> (x Prelude..: "resource")
+            Prelude.<*> (x Prelude..: "schemaVersion")
+            Prelude.<*> (x Prelude..: "severity")
+            Prelude.<*> (x Prelude..: "type")
+            Prelude.<*> (x Prelude..: "updatedAt")
       )
 
-instance Hashable Finding
+instance Prelude.Hashable Finding
 
-instance NFData Finding
+instance Prelude.NFData Finding

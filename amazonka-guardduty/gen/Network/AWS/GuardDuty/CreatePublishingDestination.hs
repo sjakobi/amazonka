@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,211 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a publishing destination to export findings to. The resource to export findings to must exist before you use this operation.
+-- Creates a publishing destination to export findings to. The resource to
+-- export findings to must exist before you use this operation.
 module Network.AWS.GuardDuty.CreatePublishingDestination
   ( -- * Creating a Request
-    createPublishingDestination,
-    CreatePublishingDestination,
+    CreatePublishingDestination (..),
+    newCreatePublishingDestination,
 
     -- * Request Lenses
-    cpdClientToken,
-    cpdDetectorId,
-    cpdDestinationType,
-    cpdDestinationProperties,
+    createPublishingDestination_clientToken,
+    createPublishingDestination_detectorId,
+    createPublishingDestination_destinationType,
+    createPublishingDestination_destinationProperties,
 
     -- * Destructuring the Response
-    createPublishingDestinationResponse,
-    CreatePublishingDestinationResponse,
+    CreatePublishingDestinationResponse (..),
+    newCreatePublishingDestinationResponse,
 
     -- * Response Lenses
-    cpdrrsResponseStatus,
-    cpdrrsDestinationId,
+    createPublishingDestinationResponse_httpStatus,
+    createPublishingDestinationResponse_destinationId,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createPublishingDestination' smart constructor.
+-- | /See:/ 'newCreatePublishingDestination' smart constructor.
 data CreatePublishingDestination = CreatePublishingDestination'
-  { _cpdClientToken ::
-      !(Maybe Text),
-    _cpdDetectorId ::
-      !Text,
-    _cpdDestinationType ::
-      !DestinationType,
-    _cpdDestinationProperties ::
-      !DestinationProperties
+  { -- | The idempotency token for the request.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the GuardDuty detector associated with the publishing
+    -- destination.
+    detectorId :: Prelude.Text,
+    -- | The type of resource for the publishing destination. Currently only
+    -- Amazon S3 buckets are supported.
+    destinationType :: DestinationType,
+    -- | The properties of the publishing destination, including the ARNs for the
+    -- destination and the KMS key used for encryption.
+    destinationProperties :: DestinationProperties
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePublishingDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePublishingDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpdClientToken' - The idempotency token for the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpdDetectorId' - The ID of the GuardDuty detector associated with the publishing destination.
+-- 'clientToken', 'createPublishingDestination_clientToken' - The idempotency token for the request.
 --
--- * 'cpdDestinationType' - The type of resource for the publishing destination. Currently only Amazon S3 buckets are supported.
+-- 'detectorId', 'createPublishingDestination_detectorId' - The ID of the GuardDuty detector associated with the publishing
+-- destination.
 --
--- * 'cpdDestinationProperties' - The properties of the publishing destination, including the ARNs for the destination and the KMS key used for encryption.
-createPublishingDestination ::
-  -- | 'cpdDetectorId'
-  Text ->
-  -- | 'cpdDestinationType'
+-- 'destinationType', 'createPublishingDestination_destinationType' - The type of resource for the publishing destination. Currently only
+-- Amazon S3 buckets are supported.
+--
+-- 'destinationProperties', 'createPublishingDestination_destinationProperties' - The properties of the publishing destination, including the ARNs for the
+-- destination and the KMS key used for encryption.
+newCreatePublishingDestination ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'destinationType'
   DestinationType ->
-  -- | 'cpdDestinationProperties'
+  -- | 'destinationProperties'
   DestinationProperties ->
   CreatePublishingDestination
-createPublishingDestination
+newCreatePublishingDestination
   pDetectorId_
   pDestinationType_
   pDestinationProperties_ =
     CreatePublishingDestination'
-      { _cpdClientToken =
-          Nothing,
-        _cpdDetectorId = pDetectorId_,
-        _cpdDestinationType = pDestinationType_,
-        _cpdDestinationProperties =
+      { clientToken =
+          Prelude.Nothing,
+        detectorId = pDetectorId_,
+        destinationType = pDestinationType_,
+        destinationProperties =
           pDestinationProperties_
       }
 
 -- | The idempotency token for the request.
-cpdClientToken :: Lens' CreatePublishingDestination (Maybe Text)
-cpdClientToken = lens _cpdClientToken (\s a -> s {_cpdClientToken = a})
+createPublishingDestination_clientToken :: Lens.Lens' CreatePublishingDestination (Prelude.Maybe Prelude.Text)
+createPublishingDestination_clientToken = Lens.lens (\CreatePublishingDestination' {clientToken} -> clientToken) (\s@CreatePublishingDestination' {} a -> s {clientToken = a} :: CreatePublishingDestination)
 
--- | The ID of the GuardDuty detector associated with the publishing destination.
-cpdDetectorId :: Lens' CreatePublishingDestination Text
-cpdDetectorId = lens _cpdDetectorId (\s a -> s {_cpdDetectorId = a})
+-- | The ID of the GuardDuty detector associated with the publishing
+-- destination.
+createPublishingDestination_detectorId :: Lens.Lens' CreatePublishingDestination Prelude.Text
+createPublishingDestination_detectorId = Lens.lens (\CreatePublishingDestination' {detectorId} -> detectorId) (\s@CreatePublishingDestination' {} a -> s {detectorId = a} :: CreatePublishingDestination)
 
--- | The type of resource for the publishing destination. Currently only Amazon S3 buckets are supported.
-cpdDestinationType :: Lens' CreatePublishingDestination DestinationType
-cpdDestinationType = lens _cpdDestinationType (\s a -> s {_cpdDestinationType = a})
+-- | The type of resource for the publishing destination. Currently only
+-- Amazon S3 buckets are supported.
+createPublishingDestination_destinationType :: Lens.Lens' CreatePublishingDestination DestinationType
+createPublishingDestination_destinationType = Lens.lens (\CreatePublishingDestination' {destinationType} -> destinationType) (\s@CreatePublishingDestination' {} a -> s {destinationType = a} :: CreatePublishingDestination)
 
--- | The properties of the publishing destination, including the ARNs for the destination and the KMS key used for encryption.
-cpdDestinationProperties :: Lens' CreatePublishingDestination DestinationProperties
-cpdDestinationProperties = lens _cpdDestinationProperties (\s a -> s {_cpdDestinationProperties = a})
+-- | The properties of the publishing destination, including the ARNs for the
+-- destination and the KMS key used for encryption.
+createPublishingDestination_destinationProperties :: Lens.Lens' CreatePublishingDestination DestinationProperties
+createPublishingDestination_destinationProperties = Lens.lens (\CreatePublishingDestination' {destinationProperties} -> destinationProperties) (\s@CreatePublishingDestination' {} a -> s {destinationProperties = a} :: CreatePublishingDestination)
 
-instance AWSRequest CreatePublishingDestination where
+instance
+  Prelude.AWSRequest
+    CreatePublishingDestination
+  where
   type
     Rs CreatePublishingDestination =
       CreatePublishingDestinationResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePublishingDestinationResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "destinationId")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "destinationId")
       )
 
-instance Hashable CreatePublishingDestination
+instance Prelude.Hashable CreatePublishingDestination
 
-instance NFData CreatePublishingDestination
+instance Prelude.NFData CreatePublishingDestination
 
-instance ToHeaders CreatePublishingDestination where
+instance
+  Prelude.ToHeaders
+    CreatePublishingDestination
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePublishingDestination where
+instance Prelude.ToJSON CreatePublishingDestination where
   toJSON CreatePublishingDestination' {..} =
-    object
-      ( catMaybes
-          [ ("clientToken" .=) <$> _cpdClientToken,
-            Just ("destinationType" .= _cpdDestinationType),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("clientToken" Prelude..=) Prelude.<$> clientToken,
+            Prelude.Just
+              ("destinationType" Prelude..= destinationType),
+            Prelude.Just
               ( "destinationProperties"
-                  .= _cpdDestinationProperties
+                  Prelude..= destinationProperties
               )
           ]
       )
 
-instance ToPath CreatePublishingDestination where
+instance Prelude.ToPath CreatePublishingDestination where
   toPath CreatePublishingDestination' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _cpdDetectorId,
+        Prelude.toBS detectorId,
         "/publishingDestination"
       ]
 
-instance ToQuery CreatePublishingDestination where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePublishingDestination where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createPublishingDestinationResponse' smart constructor.
+-- | /See:/ 'newCreatePublishingDestinationResponse' smart constructor.
 data CreatePublishingDestinationResponse = CreatePublishingDestinationResponse'
-  { _cpdrrsResponseStatus ::
-      !Int,
-    _cpdrrsDestinationId ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the publishing destination that is created.
+    destinationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePublishingDestinationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePublishingDestinationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpdrrsDestinationId' - The ID of the publishing destination that is created.
-createPublishingDestinationResponse ::
-  -- | 'cpdrrsResponseStatus'
-  Int ->
-  -- | 'cpdrrsDestinationId'
-  Text ->
+-- 'httpStatus', 'createPublishingDestinationResponse_httpStatus' - The response's http status code.
+--
+-- 'destinationId', 'createPublishingDestinationResponse_destinationId' - The ID of the publishing destination that is created.
+newCreatePublishingDestinationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'destinationId'
+  Prelude.Text ->
   CreatePublishingDestinationResponse
-createPublishingDestinationResponse
-  pResponseStatus_
+newCreatePublishingDestinationResponse
+  pHttpStatus_
   pDestinationId_ =
     CreatePublishingDestinationResponse'
-      { _cpdrrsResponseStatus =
-          pResponseStatus_,
-        _cpdrrsDestinationId = pDestinationId_
+      { httpStatus =
+          pHttpStatus_,
+        destinationId = pDestinationId_
       }
 
--- | -- | The response status code.
-cpdrrsResponseStatus :: Lens' CreatePublishingDestinationResponse Int
-cpdrrsResponseStatus = lens _cpdrrsResponseStatus (\s a -> s {_cpdrrsResponseStatus = a})
+-- | The response's http status code.
+createPublishingDestinationResponse_httpStatus :: Lens.Lens' CreatePublishingDestinationResponse Prelude.Int
+createPublishingDestinationResponse_httpStatus = Lens.lens (\CreatePublishingDestinationResponse' {httpStatus} -> httpStatus) (\s@CreatePublishingDestinationResponse' {} a -> s {httpStatus = a} :: CreatePublishingDestinationResponse)
 
 -- | The ID of the publishing destination that is created.
-cpdrrsDestinationId :: Lens' CreatePublishingDestinationResponse Text
-cpdrrsDestinationId = lens _cpdrrsDestinationId (\s a -> s {_cpdrrsDestinationId = a})
+createPublishingDestinationResponse_destinationId :: Lens.Lens' CreatePublishingDestinationResponse Prelude.Text
+createPublishingDestinationResponse_destinationId = Lens.lens (\CreatePublishingDestinationResponse' {destinationId} -> destinationId) (\s@CreatePublishingDestinationResponse' {} a -> s {destinationId = a} :: CreatePublishingDestinationResponse)
 
-instance NFData CreatePublishingDestinationResponse
+instance
+  Prelude.NFData
+    CreatePublishingDestinationResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,152 +24,158 @@
 -- Updates the Amazon GuardDuty detector specified by the detectorId.
 module Network.AWS.GuardDuty.UpdateDetector
   ( -- * Creating a Request
-    updateDetector,
-    UpdateDetector,
+    UpdateDetector (..),
+    newUpdateDetector,
 
     -- * Request Lenses
-    udEnable,
-    udDataSources,
-    udFindingPublishingFrequency,
-    udDetectorId,
+    updateDetector_enable,
+    updateDetector_dataSources,
+    updateDetector_findingPublishingFrequency,
+    updateDetector_detectorId,
 
     -- * Destructuring the Response
-    updateDetectorResponse,
-    UpdateDetectorResponse,
+    UpdateDetectorResponse (..),
+    newUpdateDetectorResponse,
 
     -- * Response Lenses
-    udrrsResponseStatus,
+    updateDetectorResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDetector' smart constructor.
+-- | /See:/ 'newUpdateDetector' smart constructor.
 data UpdateDetector = UpdateDetector'
-  { _udEnable ::
-      !(Maybe Bool),
-    _udDataSources ::
-      !(Maybe DataSourceConfigurations),
-    _udFindingPublishingFrequency ::
-      !(Maybe FindingPublishingFrequency),
-    _udDetectorId :: !Text
+  { -- | Specifies whether the detector is enabled or not enabled.
+    enable :: Prelude.Maybe Prelude.Bool,
+    -- | Describes which data sources will be updated.
+    dataSources :: Prelude.Maybe DataSourceConfigurations,
+    -- | An enum value that specifies how frequently findings are exported, such
+    -- as to CloudWatch Events.
+    findingPublishingFrequency :: Prelude.Maybe FindingPublishingFrequency,
+    -- | The unique ID of the detector to update.
+    detectorId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDetector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDetector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udEnable' - Specifies whether the detector is enabled or not enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udDataSources' - Describes which data sources will be updated.
+-- 'enable', 'updateDetector_enable' - Specifies whether the detector is enabled or not enabled.
 --
--- * 'udFindingPublishingFrequency' - An enum value that specifies how frequently findings are exported, such as to CloudWatch Events.
+-- 'dataSources', 'updateDetector_dataSources' - Describes which data sources will be updated.
 --
--- * 'udDetectorId' - The unique ID of the detector to update.
-updateDetector ::
-  -- | 'udDetectorId'
-  Text ->
+-- 'findingPublishingFrequency', 'updateDetector_findingPublishingFrequency' - An enum value that specifies how frequently findings are exported, such
+-- as to CloudWatch Events.
+--
+-- 'detectorId', 'updateDetector_detectorId' - The unique ID of the detector to update.
+newUpdateDetector ::
+  -- | 'detectorId'
+  Prelude.Text ->
   UpdateDetector
-updateDetector pDetectorId_ =
+newUpdateDetector pDetectorId_ =
   UpdateDetector'
-    { _udEnable = Nothing,
-      _udDataSources = Nothing,
-      _udFindingPublishingFrequency = Nothing,
-      _udDetectorId = pDetectorId_
+    { enable = Prelude.Nothing,
+      dataSources = Prelude.Nothing,
+      findingPublishingFrequency = Prelude.Nothing,
+      detectorId = pDetectorId_
     }
 
 -- | Specifies whether the detector is enabled or not enabled.
-udEnable :: Lens' UpdateDetector (Maybe Bool)
-udEnable = lens _udEnable (\s a -> s {_udEnable = a})
+updateDetector_enable :: Lens.Lens' UpdateDetector (Prelude.Maybe Prelude.Bool)
+updateDetector_enable = Lens.lens (\UpdateDetector' {enable} -> enable) (\s@UpdateDetector' {} a -> s {enable = a} :: UpdateDetector)
 
 -- | Describes which data sources will be updated.
-udDataSources :: Lens' UpdateDetector (Maybe DataSourceConfigurations)
-udDataSources = lens _udDataSources (\s a -> s {_udDataSources = a})
+updateDetector_dataSources :: Lens.Lens' UpdateDetector (Prelude.Maybe DataSourceConfigurations)
+updateDetector_dataSources = Lens.lens (\UpdateDetector' {dataSources} -> dataSources) (\s@UpdateDetector' {} a -> s {dataSources = a} :: UpdateDetector)
 
--- | An enum value that specifies how frequently findings are exported, such as to CloudWatch Events.
-udFindingPublishingFrequency :: Lens' UpdateDetector (Maybe FindingPublishingFrequency)
-udFindingPublishingFrequency = lens _udFindingPublishingFrequency (\s a -> s {_udFindingPublishingFrequency = a})
+-- | An enum value that specifies how frequently findings are exported, such
+-- as to CloudWatch Events.
+updateDetector_findingPublishingFrequency :: Lens.Lens' UpdateDetector (Prelude.Maybe FindingPublishingFrequency)
+updateDetector_findingPublishingFrequency = Lens.lens (\UpdateDetector' {findingPublishingFrequency} -> findingPublishingFrequency) (\s@UpdateDetector' {} a -> s {findingPublishingFrequency = a} :: UpdateDetector)
 
 -- | The unique ID of the detector to update.
-udDetectorId :: Lens' UpdateDetector Text
-udDetectorId = lens _udDetectorId (\s a -> s {_udDetectorId = a})
+updateDetector_detectorId :: Lens.Lens' UpdateDetector Prelude.Text
+updateDetector_detectorId = Lens.lens (\UpdateDetector' {detectorId} -> detectorId) (\s@UpdateDetector' {} a -> s {detectorId = a} :: UpdateDetector)
 
-instance AWSRequest UpdateDetector where
+instance Prelude.AWSRequest UpdateDetector where
   type Rs UpdateDetector = UpdateDetectorResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateDetectorResponse' <$> (pure (fromEnum s))
+          UpdateDetectorResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateDetector
+instance Prelude.Hashable UpdateDetector
 
-instance NFData UpdateDetector
+instance Prelude.NFData UpdateDetector
 
-instance ToHeaders UpdateDetector where
+instance Prelude.ToHeaders UpdateDetector where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateDetector where
+instance Prelude.ToJSON UpdateDetector where
   toJSON UpdateDetector' {..} =
-    object
-      ( catMaybes
-          [ ("enable" .=) <$> _udEnable,
-            ("dataSources" .=) <$> _udDataSources,
-            ("findingPublishingFrequency" .=)
-              <$> _udFindingPublishingFrequency
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("enable" Prelude..=) Prelude.<$> enable,
+            ("dataSources" Prelude..=) Prelude.<$> dataSources,
+            ("findingPublishingFrequency" Prelude..=)
+              Prelude.<$> findingPublishingFrequency
           ]
       )
 
-instance ToPath UpdateDetector where
+instance Prelude.ToPath UpdateDetector where
   toPath UpdateDetector' {..} =
-    mconcat ["/detector/", toBS _udDetectorId]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId]
 
-instance ToQuery UpdateDetector where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDetector where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDetectorResponse' smart constructor.
-newtype UpdateDetectorResponse = UpdateDetectorResponse'
-  { _udrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateDetectorResponse' smart constructor.
+data UpdateDetectorResponse = UpdateDetectorResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDetectorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDetectorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udrrsResponseStatus' - -- | The response status code.
-updateDetectorResponse ::
-  -- | 'udrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateDetectorResponse_httpStatus' - The response's http status code.
+newUpdateDetectorResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateDetectorResponse
-updateDetectorResponse pResponseStatus_ =
-  UpdateDetectorResponse'
-    { _udrrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateDetectorResponse pHttpStatus_ =
+  UpdateDetectorResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-udrrsResponseStatus :: Lens' UpdateDetectorResponse Int
-udrrsResponseStatus = lens _udrrsResponseStatus (\s a -> s {_udrrsResponseStatus = a})
+-- | The response's http status code.
+updateDetectorResponse_httpStatus :: Lens.Lens' UpdateDetectorResponse Prelude.Int
+updateDetectorResponse_httpStatus = Lens.lens (\UpdateDetectorResponse' {httpStatus} -> httpStatus) (\s@UpdateDetectorResponse' {} a -> s {httpStatus = a} :: UpdateDetectorResponse)
 
-instance NFData UpdateDetectorResponse
+instance Prelude.NFData UpdateDetectorResponse

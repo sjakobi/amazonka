@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +21,58 @@ module Network.AWS.GuardDuty.Types.UsageDataSourceResult where
 
 import Network.AWS.GuardDuty.Types.DataSource
 import Network.AWS.GuardDuty.Types.Total
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information on the result of usage based on data source type.
 --
---
---
--- /See:/ 'usageDataSourceResult' smart constructor.
+-- /See:/ 'newUsageDataSourceResult' smart constructor.
 data UsageDataSourceResult = UsageDataSourceResult'
-  { _udsrDataSource ::
-      !(Maybe DataSource),
-    _udsrTotal ::
-      !(Maybe Total)
+  { -- | The data source type that generated usage.
+    dataSource :: Prelude.Maybe DataSource,
+    -- | Represents the total of usage for the specified data source.
+    total :: Prelude.Maybe Total
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UsageDataSourceResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UsageDataSourceResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udsrDataSource' - The data source type that generated usage.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udsrTotal' - Represents the total of usage for the specified data source.
-usageDataSourceResult ::
+-- 'dataSource', 'usageDataSourceResult_dataSource' - The data source type that generated usage.
+--
+-- 'total', 'usageDataSourceResult_total' - Represents the total of usage for the specified data source.
+newUsageDataSourceResult ::
   UsageDataSourceResult
-usageDataSourceResult =
+newUsageDataSourceResult =
   UsageDataSourceResult'
-    { _udsrDataSource = Nothing,
-      _udsrTotal = Nothing
+    { dataSource =
+        Prelude.Nothing,
+      total = Prelude.Nothing
     }
 
 -- | The data source type that generated usage.
-udsrDataSource :: Lens' UsageDataSourceResult (Maybe DataSource)
-udsrDataSource = lens _udsrDataSource (\s a -> s {_udsrDataSource = a})
+usageDataSourceResult_dataSource :: Lens.Lens' UsageDataSourceResult (Prelude.Maybe DataSource)
+usageDataSourceResult_dataSource = Lens.lens (\UsageDataSourceResult' {dataSource} -> dataSource) (\s@UsageDataSourceResult' {} a -> s {dataSource = a} :: UsageDataSourceResult)
 
 -- | Represents the total of usage for the specified data source.
-udsrTotal :: Lens' UsageDataSourceResult (Maybe Total)
-udsrTotal = lens _udsrTotal (\s a -> s {_udsrTotal = a})
+usageDataSourceResult_total :: Lens.Lens' UsageDataSourceResult (Prelude.Maybe Total)
+usageDataSourceResult_total = Lens.lens (\UsageDataSourceResult' {total} -> total) (\s@UsageDataSourceResult' {} a -> s {total = a} :: UsageDataSourceResult)
 
-instance FromJSON UsageDataSourceResult where
+instance Prelude.FromJSON UsageDataSourceResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UsageDataSourceResult"
       ( \x ->
           UsageDataSourceResult'
-            <$> (x .:? "dataSource") <*> (x .:? "total")
+            Prelude.<$> (x Prelude..:? "dataSource")
+            Prelude.<*> (x Prelude..:? "total")
       )
 
-instance Hashable UsageDataSourceResult
+instance Prelude.Hashable UsageDataSourceResult
 
-instance NFData UsageDataSourceResult
+instance Prelude.NFData UsageDataSourceResult

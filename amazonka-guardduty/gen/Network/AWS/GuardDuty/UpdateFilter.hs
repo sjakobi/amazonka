@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,180 +24,209 @@
 -- Updates the filter specified by the filter name.
 module Network.AWS.GuardDuty.UpdateFilter
   ( -- * Creating a Request
-    updateFilter,
-    UpdateFilter,
+    UpdateFilter (..),
+    newUpdateFilter,
 
     -- * Request Lenses
-    uRank,
-    uFindingCriteria,
-    uAction,
-    uDescription,
-    uDetectorId,
-    uFilterName,
+    updateFilter_rank,
+    updateFilter_findingCriteria,
+    updateFilter_action,
+    updateFilter_description,
+    updateFilter_detectorId,
+    updateFilter_filterName,
 
     -- * Destructuring the Response
-    updateFilterResponse,
-    UpdateFilterResponse,
+    UpdateFilterResponse (..),
+    newUpdateFilterResponse,
 
     -- * Response Lenses
-    ursResponseStatus,
-    ursName,
+    updateFilterResponse_httpStatus,
+    updateFilterResponse_name,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFilter' smart constructor.
+-- | /See:/ 'newUpdateFilter' smart constructor.
 data UpdateFilter = UpdateFilter'
-  { _uRank ::
-      !(Maybe Nat),
-    _uFindingCriteria :: !(Maybe FindingCriteria),
-    _uAction :: !(Maybe FilterAction),
-    _uDescription :: !(Maybe Text),
-    _uDetectorId :: !Text,
-    _uFilterName :: !Text
+  { -- | Specifies the position of the filter in the list of current filters.
+    -- Also specifies the order in which this filter is applied to the
+    -- findings.
+    rank :: Prelude.Maybe Prelude.Nat,
+    -- | Represents the criteria to be used in the filter for querying findings.
+    findingCriteria :: Prelude.Maybe FindingCriteria,
+    -- | Specifies the action that is to be applied to the findings that match
+    -- the filter.
+    action :: Prelude.Maybe FilterAction,
+    -- | The description of the filter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the detector that specifies the GuardDuty service where
+    -- you want to update a filter.
+    detectorId :: Prelude.Text,
+    -- | The name of the filter.
+    filterName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uRank' - Specifies the position of the filter in the list of current filters. Also specifies the order in which this filter is applied to the findings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uFindingCriteria' - Represents the criteria to be used in the filter for querying findings.
+-- 'rank', 'updateFilter_rank' - Specifies the position of the filter in the list of current filters.
+-- Also specifies the order in which this filter is applied to the
+-- findings.
 --
--- * 'uAction' - Specifies the action that is to be applied to the findings that match the filter.
+-- 'findingCriteria', 'updateFilter_findingCriteria' - Represents the criteria to be used in the filter for querying findings.
 --
--- * 'uDescription' - The description of the filter.
+-- 'action', 'updateFilter_action' - Specifies the action that is to be applied to the findings that match
+-- the filter.
 --
--- * 'uDetectorId' - The unique ID of the detector that specifies the GuardDuty service where you want to update a filter.
+-- 'description', 'updateFilter_description' - The description of the filter.
 --
--- * 'uFilterName' - The name of the filter.
-updateFilter ::
-  -- | 'uDetectorId'
-  Text ->
-  -- | 'uFilterName'
-  Text ->
+-- 'detectorId', 'updateFilter_detectorId' - The unique ID of the detector that specifies the GuardDuty service where
+-- you want to update a filter.
+--
+-- 'filterName', 'updateFilter_filterName' - The name of the filter.
+newUpdateFilter ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'filterName'
+  Prelude.Text ->
   UpdateFilter
-updateFilter pDetectorId_ pFilterName_ =
+newUpdateFilter pDetectorId_ pFilterName_ =
   UpdateFilter'
-    { _uRank = Nothing,
-      _uFindingCriteria = Nothing,
-      _uAction = Nothing,
-      _uDescription = Nothing,
-      _uDetectorId = pDetectorId_,
-      _uFilterName = pFilterName_
+    { rank = Prelude.Nothing,
+      findingCriteria = Prelude.Nothing,
+      action = Prelude.Nothing,
+      description = Prelude.Nothing,
+      detectorId = pDetectorId_,
+      filterName = pFilterName_
     }
 
--- | Specifies the position of the filter in the list of current filters. Also specifies the order in which this filter is applied to the findings.
-uRank :: Lens' UpdateFilter (Maybe Natural)
-uRank = lens _uRank (\s a -> s {_uRank = a}) . mapping _Nat
+-- | Specifies the position of the filter in the list of current filters.
+-- Also specifies the order in which this filter is applied to the
+-- findings.
+updateFilter_rank :: Lens.Lens' UpdateFilter (Prelude.Maybe Prelude.Natural)
+updateFilter_rank = Lens.lens (\UpdateFilter' {rank} -> rank) (\s@UpdateFilter' {} a -> s {rank = a} :: UpdateFilter) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Represents the criteria to be used in the filter for querying findings.
-uFindingCriteria :: Lens' UpdateFilter (Maybe FindingCriteria)
-uFindingCriteria = lens _uFindingCriteria (\s a -> s {_uFindingCriteria = a})
+updateFilter_findingCriteria :: Lens.Lens' UpdateFilter (Prelude.Maybe FindingCriteria)
+updateFilter_findingCriteria = Lens.lens (\UpdateFilter' {findingCriteria} -> findingCriteria) (\s@UpdateFilter' {} a -> s {findingCriteria = a} :: UpdateFilter)
 
--- | Specifies the action that is to be applied to the findings that match the filter.
-uAction :: Lens' UpdateFilter (Maybe FilterAction)
-uAction = lens _uAction (\s a -> s {_uAction = a})
+-- | Specifies the action that is to be applied to the findings that match
+-- the filter.
+updateFilter_action :: Lens.Lens' UpdateFilter (Prelude.Maybe FilterAction)
+updateFilter_action = Lens.lens (\UpdateFilter' {action} -> action) (\s@UpdateFilter' {} a -> s {action = a} :: UpdateFilter)
 
 -- | The description of the filter.
-uDescription :: Lens' UpdateFilter (Maybe Text)
-uDescription = lens _uDescription (\s a -> s {_uDescription = a})
+updateFilter_description :: Lens.Lens' UpdateFilter (Prelude.Maybe Prelude.Text)
+updateFilter_description = Lens.lens (\UpdateFilter' {description} -> description) (\s@UpdateFilter' {} a -> s {description = a} :: UpdateFilter)
 
--- | The unique ID of the detector that specifies the GuardDuty service where you want to update a filter.
-uDetectorId :: Lens' UpdateFilter Text
-uDetectorId = lens _uDetectorId (\s a -> s {_uDetectorId = a})
+-- | The unique ID of the detector that specifies the GuardDuty service where
+-- you want to update a filter.
+updateFilter_detectorId :: Lens.Lens' UpdateFilter Prelude.Text
+updateFilter_detectorId = Lens.lens (\UpdateFilter' {detectorId} -> detectorId) (\s@UpdateFilter' {} a -> s {detectorId = a} :: UpdateFilter)
 
 -- | The name of the filter.
-uFilterName :: Lens' UpdateFilter Text
-uFilterName = lens _uFilterName (\s a -> s {_uFilterName = a})
+updateFilter_filterName :: Lens.Lens' UpdateFilter Prelude.Text
+updateFilter_filterName = Lens.lens (\UpdateFilter' {filterName} -> filterName) (\s@UpdateFilter' {} a -> s {filterName = a} :: UpdateFilter)
 
-instance AWSRequest UpdateFilter where
+instance Prelude.AWSRequest UpdateFilter where
   type Rs UpdateFilter = UpdateFilterResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateFilterResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "name")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "name")
       )
 
-instance Hashable UpdateFilter
+instance Prelude.Hashable UpdateFilter
 
-instance NFData UpdateFilter
+instance Prelude.NFData UpdateFilter
 
-instance ToHeaders UpdateFilter where
+instance Prelude.ToHeaders UpdateFilter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateFilter where
+instance Prelude.ToJSON UpdateFilter where
   toJSON UpdateFilter' {..} =
-    object
-      ( catMaybes
-          [ ("rank" .=) <$> _uRank,
-            ("findingCriteria" .=) <$> _uFindingCriteria,
-            ("action" .=) <$> _uAction,
-            ("description" .=) <$> _uDescription
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("rank" Prelude..=) Prelude.<$> rank,
+            ("findingCriteria" Prelude..=)
+              Prelude.<$> findingCriteria,
+            ("action" Prelude..=) Prelude.<$> action,
+            ("description" Prelude..=) Prelude.<$> description
           ]
       )
 
-instance ToPath UpdateFilter where
+instance Prelude.ToPath UpdateFilter where
   toPath UpdateFilter' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _uDetectorId,
+        Prelude.toBS detectorId,
         "/filter/",
-        toBS _uFilterName
+        Prelude.toBS filterName
       ]
 
-instance ToQuery UpdateFilter where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFilter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateFilterResponse' smart constructor.
+-- | /See:/ 'newUpdateFilterResponse' smart constructor.
 data UpdateFilterResponse = UpdateFilterResponse'
-  { _ursResponseStatus ::
-      !Int,
-    _ursName :: !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The name of the filter.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFilterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFilterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ursResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ursName' - The name of the filter.
-updateFilterResponse ::
-  -- | 'ursResponseStatus'
-  Int ->
-  -- | 'ursName'
-  Text ->
+-- 'httpStatus', 'updateFilterResponse_httpStatus' - The response's http status code.
+--
+-- 'name', 'updateFilterResponse_name' - The name of the filter.
+newUpdateFilterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'name'
+  Prelude.Text ->
   UpdateFilterResponse
-updateFilterResponse pResponseStatus_ pName_ =
+newUpdateFilterResponse pHttpStatus_ pName_ =
   UpdateFilterResponse'
-    { _ursResponseStatus =
-        pResponseStatus_,
-      _ursName = pName_
+    { httpStatus = pHttpStatus_,
+      name = pName_
     }
 
--- | -- | The response status code.
-ursResponseStatus :: Lens' UpdateFilterResponse Int
-ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
+-- | The response's http status code.
+updateFilterResponse_httpStatus :: Lens.Lens' UpdateFilterResponse Prelude.Int
+updateFilterResponse_httpStatus = Lens.lens (\UpdateFilterResponse' {httpStatus} -> httpStatus) (\s@UpdateFilterResponse' {} a -> s {httpStatus = a} :: UpdateFilterResponse)
 
 -- | The name of the filter.
-ursName :: Lens' UpdateFilterResponse Text
-ursName = lens _ursName (\s a -> s {_ursName = a})
+updateFilterResponse_name :: Lens.Lens' UpdateFilterResponse Prelude.Text
+updateFilterResponse_name = Lens.lens (\UpdateFilterResponse' {name} -> name) (\s@UpdateFilterResponse' {} a -> s {name = a} :: UpdateFilterResponse)
 
-instance NFData UpdateFilterResponse
+instance Prelude.NFData UpdateFilterResponse

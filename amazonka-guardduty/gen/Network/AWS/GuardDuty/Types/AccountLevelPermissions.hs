@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,52 @@
 module Network.AWS.GuardDuty.Types.AccountLevelPermissions where
 
 import Network.AWS.GuardDuty.Types.BlockPublicAccess
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the account level permissions on the S3 bucket.
+-- | Contains information about the account level permissions on the S3
+-- bucket.
 --
---
---
--- /See:/ 'accountLevelPermissions' smart constructor.
-newtype AccountLevelPermissions = AccountLevelPermissions'
-  { _alpBlockPublicAccess ::
-      Maybe
-        BlockPublicAccess
+-- /See:/ 'newAccountLevelPermissions' smart constructor.
+data AccountLevelPermissions = AccountLevelPermissions'
+  { -- | Describes the S3 Block Public Access settings of the bucket\'s parent
+    -- account.
+    blockPublicAccess :: Prelude.Maybe BlockPublicAccess
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountLevelPermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountLevelPermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alpBlockPublicAccess' - Describes the S3 Block Public Access settings of the bucket's parent account.
-accountLevelPermissions ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'blockPublicAccess', 'accountLevelPermissions_blockPublicAccess' - Describes the S3 Block Public Access settings of the bucket\'s parent
+-- account.
+newAccountLevelPermissions ::
   AccountLevelPermissions
-accountLevelPermissions =
+newAccountLevelPermissions =
   AccountLevelPermissions'
-    { _alpBlockPublicAccess =
-        Nothing
+    { blockPublicAccess =
+        Prelude.Nothing
     }
 
--- | Describes the S3 Block Public Access settings of the bucket's parent account.
-alpBlockPublicAccess :: Lens' AccountLevelPermissions (Maybe BlockPublicAccess)
-alpBlockPublicAccess = lens _alpBlockPublicAccess (\s a -> s {_alpBlockPublicAccess = a})
+-- | Describes the S3 Block Public Access settings of the bucket\'s parent
+-- account.
+accountLevelPermissions_blockPublicAccess :: Lens.Lens' AccountLevelPermissions (Prelude.Maybe BlockPublicAccess)
+accountLevelPermissions_blockPublicAccess = Lens.lens (\AccountLevelPermissions' {blockPublicAccess} -> blockPublicAccess) (\s@AccountLevelPermissions' {} a -> s {blockPublicAccess = a} :: AccountLevelPermissions)
 
-instance FromJSON AccountLevelPermissions where
+instance Prelude.FromJSON AccountLevelPermissions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccountLevelPermissions"
       ( \x ->
           AccountLevelPermissions'
-            <$> (x .:? "blockPublicAccess")
+            Prelude.<$> (x Prelude..:? "blockPublicAccess")
       )
 
-instance Hashable AccountLevelPermissions
+instance Prelude.Hashable AccountLevelPermissions
 
-instance NFData AccountLevelPermissions
+instance Prelude.NFData AccountLevelPermissions

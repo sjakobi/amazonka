@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,173 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the account selected as the delegated administrator for GuardDuty.
+-- Returns information about the account selected as the delegated
+-- administrator for GuardDuty.
 module Network.AWS.GuardDuty.DescribeOrganizationConfiguration
   ( -- * Creating a Request
-    describeOrganizationConfiguration,
-    DescribeOrganizationConfiguration,
+    DescribeOrganizationConfiguration (..),
+    newDescribeOrganizationConfiguration,
 
     -- * Request Lenses
-    docDetectorId,
+    describeOrganizationConfiguration_detectorId,
 
     -- * Destructuring the Response
-    describeOrganizationConfigurationResponse,
-    DescribeOrganizationConfigurationResponse,
+    DescribeOrganizationConfigurationResponse (..),
+    newDescribeOrganizationConfigurationResponse,
 
     -- * Response Lenses
-    docrrsDataSources,
-    docrrsResponseStatus,
-    docrrsAutoEnable,
-    docrrsMemberAccountLimitReached,
+    describeOrganizationConfigurationResponse_dataSources,
+    describeOrganizationConfigurationResponse_httpStatus,
+    describeOrganizationConfigurationResponse_autoEnable,
+    describeOrganizationConfigurationResponse_memberAccountLimitReached,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.OrganizationDataSourceConfigurationsResult
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeOrganizationConfiguration' smart constructor.
-newtype DescribeOrganizationConfiguration = DescribeOrganizationConfiguration'
-  { _docDetectorId ::
-      Text
+-- | /See:/ 'newDescribeOrganizationConfiguration' smart constructor.
+data DescribeOrganizationConfiguration = DescribeOrganizationConfiguration'
+  { -- | The ID of the detector to retrieve information about the delegated
+    -- administrator from.
+    detectorId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOrganizationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOrganizationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'docDetectorId' - The ID of the detector to retrieve information about the delegated administrator from.
-describeOrganizationConfiguration ::
-  -- | 'docDetectorId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'detectorId', 'describeOrganizationConfiguration_detectorId' - The ID of the detector to retrieve information about the delegated
+-- administrator from.
+newDescribeOrganizationConfiguration ::
+  -- | 'detectorId'
+  Prelude.Text ->
   DescribeOrganizationConfiguration
-describeOrganizationConfiguration pDetectorId_ =
+newDescribeOrganizationConfiguration pDetectorId_ =
   DescribeOrganizationConfiguration'
-    { _docDetectorId =
+    { detectorId =
         pDetectorId_
     }
 
--- | The ID of the detector to retrieve information about the delegated administrator from.
-docDetectorId :: Lens' DescribeOrganizationConfiguration Text
-docDetectorId = lens _docDetectorId (\s a -> s {_docDetectorId = a})
+-- | The ID of the detector to retrieve information about the delegated
+-- administrator from.
+describeOrganizationConfiguration_detectorId :: Lens.Lens' DescribeOrganizationConfiguration Prelude.Text
+describeOrganizationConfiguration_detectorId = Lens.lens (\DescribeOrganizationConfiguration' {detectorId} -> detectorId) (\s@DescribeOrganizationConfiguration' {} a -> s {detectorId = a} :: DescribeOrganizationConfiguration)
 
-instance AWSRequest DescribeOrganizationConfiguration where
+instance
+  Prelude.AWSRequest
+    DescribeOrganizationConfiguration
+  where
   type
     Rs DescribeOrganizationConfiguration =
       DescribeOrganizationConfigurationResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeOrganizationConfigurationResponse'
-            <$> (x .?> "dataSources")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "autoEnable")
-            <*> (x .:> "memberAccountLimitReached")
+            Prelude.<$> (x Prelude..?> "dataSources")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Prelude..:> "autoEnable")
+              Prelude.<*> (x Prelude..:> "memberAccountLimitReached")
       )
 
-instance Hashable DescribeOrganizationConfiguration
+instance
+  Prelude.Hashable
+    DescribeOrganizationConfiguration
 
-instance NFData DescribeOrganizationConfiguration
+instance
+  Prelude.NFData
+    DescribeOrganizationConfiguration
 
-instance ToHeaders DescribeOrganizationConfiguration where
+instance
+  Prelude.ToHeaders
+    DescribeOrganizationConfiguration
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeOrganizationConfiguration where
+instance
+  Prelude.ToPath
+    DescribeOrganizationConfiguration
+  where
   toPath DescribeOrganizationConfiguration' {..} =
-    mconcat
-      ["/detector/", toBS _docDetectorId, "/admin"]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId, "/admin"]
 
-instance ToQuery DescribeOrganizationConfiguration where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeOrganizationConfiguration
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeOrganizationConfigurationResponse' smart constructor.
+-- | /See:/ 'newDescribeOrganizationConfigurationResponse' smart constructor.
 data DescribeOrganizationConfigurationResponse = DescribeOrganizationConfigurationResponse'
-  { _docrrsDataSources ::
-      !( Maybe
-           OrganizationDataSourceConfigurationsResult
-       ),
-    _docrrsResponseStatus ::
-      !Int,
-    _docrrsAutoEnable ::
-      !Bool,
-    _docrrsMemberAccountLimitReached ::
-      !Bool
+  { -- | Describes which data sources are enabled automatically for member
+    -- accounts.
+    dataSources :: Prelude.Maybe OrganizationDataSourceConfigurationsResult,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Indicates whether GuardDuty is automatically enabled for accounts added
+    -- to the organization.
+    autoEnable :: Prelude.Bool,
+    -- | Indicates whether the maximum number of allowed member accounts are
+    -- already associated with the delegated administrator account for your
+    -- organization.
+    memberAccountLimitReached :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOrganizationConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOrganizationConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'docrrsDataSources' - Describes which data sources are enabled automatically for member accounts.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'docrrsResponseStatus' - -- | The response status code.
+-- 'dataSources', 'describeOrganizationConfigurationResponse_dataSources' - Describes which data sources are enabled automatically for member
+-- accounts.
 --
--- * 'docrrsAutoEnable' - Indicates whether GuardDuty is automatically enabled for accounts added to the organization.
+-- 'httpStatus', 'describeOrganizationConfigurationResponse_httpStatus' - The response's http status code.
 --
--- * 'docrrsMemberAccountLimitReached' - Indicates whether the maximum number of allowed member accounts are already associated with the delegated administrator account for your organization.
-describeOrganizationConfigurationResponse ::
-  -- | 'docrrsResponseStatus'
-  Int ->
-  -- | 'docrrsAutoEnable'
-  Bool ->
-  -- | 'docrrsMemberAccountLimitReached'
-  Bool ->
+-- 'autoEnable', 'describeOrganizationConfigurationResponse_autoEnable' - Indicates whether GuardDuty is automatically enabled for accounts added
+-- to the organization.
+--
+-- 'memberAccountLimitReached', 'describeOrganizationConfigurationResponse_memberAccountLimitReached' - Indicates whether the maximum number of allowed member accounts are
+-- already associated with the delegated administrator account for your
+-- organization.
+newDescribeOrganizationConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'autoEnable'
+  Prelude.Bool ->
+  -- | 'memberAccountLimitReached'
+  Prelude.Bool ->
   DescribeOrganizationConfigurationResponse
-describeOrganizationConfigurationResponse
-  pResponseStatus_
+newDescribeOrganizationConfigurationResponse
+  pHttpStatus_
   pAutoEnable_
   pMemberAccountLimitReached_ =
     DescribeOrganizationConfigurationResponse'
-      { _docrrsDataSources =
-          Nothing,
-        _docrrsResponseStatus =
-          pResponseStatus_,
-        _docrrsAutoEnable = pAutoEnable_,
-        _docrrsMemberAccountLimitReached =
+      { dataSources =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        autoEnable = pAutoEnable_,
+        memberAccountLimitReached =
           pMemberAccountLimitReached_
       }
 
--- | Describes which data sources are enabled automatically for member accounts.
-docrrsDataSources :: Lens' DescribeOrganizationConfigurationResponse (Maybe OrganizationDataSourceConfigurationsResult)
-docrrsDataSources = lens _docrrsDataSources (\s a -> s {_docrrsDataSources = a})
+-- | Describes which data sources are enabled automatically for member
+-- accounts.
+describeOrganizationConfigurationResponse_dataSources :: Lens.Lens' DescribeOrganizationConfigurationResponse (Prelude.Maybe OrganizationDataSourceConfigurationsResult)
+describeOrganizationConfigurationResponse_dataSources = Lens.lens (\DescribeOrganizationConfigurationResponse' {dataSources} -> dataSources) (\s@DescribeOrganizationConfigurationResponse' {} a -> s {dataSources = a} :: DescribeOrganizationConfigurationResponse)
 
--- | -- | The response status code.
-docrrsResponseStatus :: Lens' DescribeOrganizationConfigurationResponse Int
-docrrsResponseStatus = lens _docrrsResponseStatus (\s a -> s {_docrrsResponseStatus = a})
+-- | The response's http status code.
+describeOrganizationConfigurationResponse_httpStatus :: Lens.Lens' DescribeOrganizationConfigurationResponse Prelude.Int
+describeOrganizationConfigurationResponse_httpStatus = Lens.lens (\DescribeOrganizationConfigurationResponse' {httpStatus} -> httpStatus) (\s@DescribeOrganizationConfigurationResponse' {} a -> s {httpStatus = a} :: DescribeOrganizationConfigurationResponse)
 
--- | Indicates whether GuardDuty is automatically enabled for accounts added to the organization.
-docrrsAutoEnable :: Lens' DescribeOrganizationConfigurationResponse Bool
-docrrsAutoEnable = lens _docrrsAutoEnable (\s a -> s {_docrrsAutoEnable = a})
+-- | Indicates whether GuardDuty is automatically enabled for accounts added
+-- to the organization.
+describeOrganizationConfigurationResponse_autoEnable :: Lens.Lens' DescribeOrganizationConfigurationResponse Prelude.Bool
+describeOrganizationConfigurationResponse_autoEnable = Lens.lens (\DescribeOrganizationConfigurationResponse' {autoEnable} -> autoEnable) (\s@DescribeOrganizationConfigurationResponse' {} a -> s {autoEnable = a} :: DescribeOrganizationConfigurationResponse)
 
--- | Indicates whether the maximum number of allowed member accounts are already associated with the delegated administrator account for your organization.
-docrrsMemberAccountLimitReached :: Lens' DescribeOrganizationConfigurationResponse Bool
-docrrsMemberAccountLimitReached = lens _docrrsMemberAccountLimitReached (\s a -> s {_docrrsMemberAccountLimitReached = a})
+-- | Indicates whether the maximum number of allowed member accounts are
+-- already associated with the delegated administrator account for your
+-- organization.
+describeOrganizationConfigurationResponse_memberAccountLimitReached :: Lens.Lens' DescribeOrganizationConfigurationResponse Prelude.Bool
+describeOrganizationConfigurationResponse_memberAccountLimitReached = Lens.lens (\DescribeOrganizationConfigurationResponse' {memberAccountLimitReached} -> memberAccountLimitReached) (\s@DescribeOrganizationConfigurationResponse' {} a -> s {memberAccountLimitReached = a} :: DescribeOrganizationConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DescribeOrganizationConfigurationResponse

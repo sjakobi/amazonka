@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.GuardDuty.Types.UsageStatisticType
   ( UsageStatisticType
       ( ..,
-        SumByAccount,
-        SumByDataSource,
-        SumByResource,
-        TopResources
+        UsageStatisticTypeSUMBYACCOUNT,
+        UsageStatisticTypeSUMBYDATASOURCE,
+        UsageStatisticTypeSUMBYRESOURCE,
+        UsageStatisticTypeTOPRESOURCES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UsageStatisticType
-  = UsageStatisticType'
-      ( CI
-          Text
-      )
+newtype UsageStatisticType = UsageStatisticType'
+  { fromUsageStatisticType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SumByAccount :: UsageStatisticType
-pattern SumByAccount = UsageStatisticType' "SUM_BY_ACCOUNT"
+pattern UsageStatisticTypeSUMBYACCOUNT :: UsageStatisticType
+pattern UsageStatisticTypeSUMBYACCOUNT = UsageStatisticType' "SUM_BY_ACCOUNT"
 
-pattern SumByDataSource :: UsageStatisticType
-pattern SumByDataSource = UsageStatisticType' "SUM_BY_DATA_SOURCE"
+pattern UsageStatisticTypeSUMBYDATASOURCE :: UsageStatisticType
+pattern UsageStatisticTypeSUMBYDATASOURCE = UsageStatisticType' "SUM_BY_DATA_SOURCE"
 
-pattern SumByResource :: UsageStatisticType
-pattern SumByResource = UsageStatisticType' "SUM_BY_RESOURCE"
+pattern UsageStatisticTypeSUMBYRESOURCE :: UsageStatisticType
+pattern UsageStatisticTypeSUMBYRESOURCE = UsageStatisticType' "SUM_BY_RESOURCE"
 
-pattern TopResources :: UsageStatisticType
-pattern TopResources = UsageStatisticType' "TOP_RESOURCES"
+pattern UsageStatisticTypeTOPRESOURCES :: UsageStatisticType
+pattern UsageStatisticTypeTOPRESOURCES = UsageStatisticType' "TOP_RESOURCES"
 
 {-# COMPLETE
-  SumByAccount,
-  SumByDataSource,
-  SumByResource,
-  TopResources,
+  UsageStatisticTypeSUMBYACCOUNT,
+  UsageStatisticTypeSUMBYDATASOURCE,
+  UsageStatisticTypeSUMBYRESOURCE,
+  UsageStatisticTypeTOPRESOURCES,
   UsageStatisticType'
   #-}
 
-instance FromText UsageStatisticType where
-  parser = (UsageStatisticType' . mk) <$> takeText
+instance Prelude.FromText UsageStatisticType where
+  parser = UsageStatisticType' Prelude.<$> Prelude.takeText
 
-instance ToText UsageStatisticType where
-  toText (UsageStatisticType' ci) = original ci
+instance Prelude.ToText UsageStatisticType where
+  toText (UsageStatisticType' x) = x
 
-instance Hashable UsageStatisticType
+instance Prelude.Hashable UsageStatisticType
 
-instance NFData UsageStatisticType
+instance Prelude.NFData UsageStatisticType
 
-instance ToByteString UsageStatisticType
+instance Prelude.ToByteString UsageStatisticType
 
-instance ToQuery UsageStatisticType
+instance Prelude.ToQuery UsageStatisticType
 
-instance ToHeader UsageStatisticType
+instance Prelude.ToHeader UsageStatisticType
 
-instance ToJSON UsageStatisticType where
-  toJSON = toJSONText
+instance Prelude.ToJSON UsageStatisticType where
+  toJSON = Prelude.toJSONText

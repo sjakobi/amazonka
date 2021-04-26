@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,64 @@
 module Network.AWS.GuardDuty.Types.PublicAccess where
 
 import Network.AWS.GuardDuty.Types.PermissionConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the public access policies that apply to the S3 bucket.
 --
---
---
--- /See:/ 'publicAccess' smart constructor.
+-- /See:/ 'newPublicAccess' smart constructor.
 data PublicAccess = PublicAccess'
-  { _paPermissionConfiguration ::
-      !(Maybe PermissionConfiguration),
-    _paEffectivePermission :: !(Maybe Text)
+  { -- | Contains information about how permissions are configured for the S3
+    -- bucket.
+    permissionConfiguration :: Prelude.Maybe PermissionConfiguration,
+    -- | Describes the effective permission on this bucket after factoring all
+    -- attached policies.
+    effectivePermission :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PublicAccess' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PublicAccess' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paPermissionConfiguration' - Contains information about how permissions are configured for the S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paEffectivePermission' - Describes the effective permission on this bucket after factoring all attached policies.
-publicAccess ::
+-- 'permissionConfiguration', 'publicAccess_permissionConfiguration' - Contains information about how permissions are configured for the S3
+-- bucket.
+--
+-- 'effectivePermission', 'publicAccess_effectivePermission' - Describes the effective permission on this bucket after factoring all
+-- attached policies.
+newPublicAccess ::
   PublicAccess
-publicAccess =
+newPublicAccess =
   PublicAccess'
-    { _paPermissionConfiguration = Nothing,
-      _paEffectivePermission = Nothing
+    { permissionConfiguration =
+        Prelude.Nothing,
+      effectivePermission = Prelude.Nothing
     }
 
--- | Contains information about how permissions are configured for the S3 bucket.
-paPermissionConfiguration :: Lens' PublicAccess (Maybe PermissionConfiguration)
-paPermissionConfiguration = lens _paPermissionConfiguration (\s a -> s {_paPermissionConfiguration = a})
+-- | Contains information about how permissions are configured for the S3
+-- bucket.
+publicAccess_permissionConfiguration :: Lens.Lens' PublicAccess (Prelude.Maybe PermissionConfiguration)
+publicAccess_permissionConfiguration = Lens.lens (\PublicAccess' {permissionConfiguration} -> permissionConfiguration) (\s@PublicAccess' {} a -> s {permissionConfiguration = a} :: PublicAccess)
 
--- | Describes the effective permission on this bucket after factoring all attached policies.
-paEffectivePermission :: Lens' PublicAccess (Maybe Text)
-paEffectivePermission = lens _paEffectivePermission (\s a -> s {_paEffectivePermission = a})
+-- | Describes the effective permission on this bucket after factoring all
+-- attached policies.
+publicAccess_effectivePermission :: Lens.Lens' PublicAccess (Prelude.Maybe Prelude.Text)
+publicAccess_effectivePermission = Lens.lens (\PublicAccess' {effectivePermission} -> effectivePermission) (\s@PublicAccess' {} a -> s {effectivePermission = a} :: PublicAccess)
 
-instance FromJSON PublicAccess where
+instance Prelude.FromJSON PublicAccess where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PublicAccess"
       ( \x ->
           PublicAccess'
-            <$> (x .:? "permissionConfiguration")
-            <*> (x .:? "effectivePermission")
+            Prelude.<$> (x Prelude..:? "permissionConfiguration")
+            Prelude.<*> (x Prelude..:? "effectivePermission")
       )
 
-instance Hashable PublicAccess
+instance Prelude.Hashable PublicAccess
 
-instance NFData PublicAccess
+instance Prelude.NFData PublicAccess

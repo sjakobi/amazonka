@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.BucketPolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information on the current bucket policies for the S3 bucket.
 --
---
---
--- /See:/ 'bucketPolicy' smart constructor.
+-- /See:/ 'newBucketPolicy' smart constructor.
 data BucketPolicy = BucketPolicy'
-  { _bpAllowsPublicReadAccess ::
-      !(Maybe Bool),
-    _bpAllowsPublicWriteAccess :: !(Maybe Bool)
+  { -- | A value that indicates whether public read access for the bucket is
+    -- enabled through a bucket policy.
+    allowsPublicReadAccess :: Prelude.Maybe Prelude.Bool,
+    -- | A value that indicates whether public write access for the bucket is
+    -- enabled through a bucket policy.
+    allowsPublicWriteAccess :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BucketPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BucketPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpAllowsPublicReadAccess' - A value that indicates whether public read access for the bucket is enabled through a bucket policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bpAllowsPublicWriteAccess' - A value that indicates whether public write access for the bucket is enabled through a bucket policy.
-bucketPolicy ::
+-- 'allowsPublicReadAccess', 'bucketPolicy_allowsPublicReadAccess' - A value that indicates whether public read access for the bucket is
+-- enabled through a bucket policy.
+--
+-- 'allowsPublicWriteAccess', 'bucketPolicy_allowsPublicWriteAccess' - A value that indicates whether public write access for the bucket is
+-- enabled through a bucket policy.
+newBucketPolicy ::
   BucketPolicy
-bucketPolicy =
+newBucketPolicy =
   BucketPolicy'
-    { _bpAllowsPublicReadAccess = Nothing,
-      _bpAllowsPublicWriteAccess = Nothing
+    { allowsPublicReadAccess =
+        Prelude.Nothing,
+      allowsPublicWriteAccess = Prelude.Nothing
     }
 
--- | A value that indicates whether public read access for the bucket is enabled through a bucket policy.
-bpAllowsPublicReadAccess :: Lens' BucketPolicy (Maybe Bool)
-bpAllowsPublicReadAccess = lens _bpAllowsPublicReadAccess (\s a -> s {_bpAllowsPublicReadAccess = a})
+-- | A value that indicates whether public read access for the bucket is
+-- enabled through a bucket policy.
+bucketPolicy_allowsPublicReadAccess :: Lens.Lens' BucketPolicy (Prelude.Maybe Prelude.Bool)
+bucketPolicy_allowsPublicReadAccess = Lens.lens (\BucketPolicy' {allowsPublicReadAccess} -> allowsPublicReadAccess) (\s@BucketPolicy' {} a -> s {allowsPublicReadAccess = a} :: BucketPolicy)
 
--- | A value that indicates whether public write access for the bucket is enabled through a bucket policy.
-bpAllowsPublicWriteAccess :: Lens' BucketPolicy (Maybe Bool)
-bpAllowsPublicWriteAccess = lens _bpAllowsPublicWriteAccess (\s a -> s {_bpAllowsPublicWriteAccess = a})
+-- | A value that indicates whether public write access for the bucket is
+-- enabled through a bucket policy.
+bucketPolicy_allowsPublicWriteAccess :: Lens.Lens' BucketPolicy (Prelude.Maybe Prelude.Bool)
+bucketPolicy_allowsPublicWriteAccess = Lens.lens (\BucketPolicy' {allowsPublicWriteAccess} -> allowsPublicWriteAccess) (\s@BucketPolicy' {} a -> s {allowsPublicWriteAccess = a} :: BucketPolicy)
 
-instance FromJSON BucketPolicy where
+instance Prelude.FromJSON BucketPolicy where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BucketPolicy"
       ( \x ->
           BucketPolicy'
-            <$> (x .:? "allowsPublicReadAccess")
-            <*> (x .:? "allowsPublicWriteAccess")
+            Prelude.<$> (x Prelude..:? "allowsPublicReadAccess")
+            Prelude.<*> (x Prelude..:? "allowsPublicWriteAccess")
       )
 
-instance Hashable BucketPolicy
+instance Prelude.Hashable BucketPolicy
 
-instance NFData BucketPolicy
+instance Prelude.NFData BucketPolicy

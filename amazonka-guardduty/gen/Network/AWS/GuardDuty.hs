@@ -11,15 +11,30 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon GuardDuty is a continuous security monitoring service that analyzes and processes the following data sources: VPC Flow Logs, AWS CloudTrail event logs, and DNS logs. It uses threat intelligence feeds (such as lists of malicious IPs and domains) and machine learning to identify unexpected, potentially unauthorized, and malicious activity within your AWS environment. This can include issues like escalations of privileges, uses of exposed credentials, or communication with malicious IPs, URLs, or domains. For example, GuardDuty can detect compromised EC2 instances that serve malware or mine bitcoin.
+-- Amazon GuardDuty is a continuous security monitoring service that
+-- analyzes and processes the following data sources: VPC Flow Logs, AWS
+-- CloudTrail event logs, and DNS logs. It uses threat intelligence feeds
+-- (such as lists of malicious IPs and domains) and machine learning to
+-- identify unexpected, potentially unauthorized, and malicious activity
+-- within your AWS environment. This can include issues like escalations of
+-- privileges, uses of exposed credentials, or communication with malicious
+-- IPs, URLs, or domains. For example, GuardDuty can detect compromised EC2
+-- instances that serve malware or mine bitcoin.
 --
+-- GuardDuty also monitors AWS account access behavior for signs of
+-- compromise. Some examples of this are unauthorized infrastructure
+-- deployments such as EC2 instances deployed in a Region that has never
+-- been used, or unusual API calls like a password policy change to reduce
+-- password strength.
 --
--- GuardDuty also monitors AWS account access behavior for signs of compromise. Some examples of this are unauthorized infrastructure deployments such as EC2 instances deployed in a Region that has never been used, or unusual API calls like a password policy change to reduce password strength.
---
--- GuardDuty informs you of the status of your AWS environment by producing security findings that you can view in the GuardDuty console or through Amazon CloudWatch events. For more information, see the /<https:\/\/docs.aws.amazon.com\/guardduty\/latest\/ug\/what-is-guardduty.html Amazon GuardDuty User Guide> / .
+-- GuardDuty informs you of the status of your AWS environment by producing
+-- security findings that you can view in the GuardDuty console or through
+-- Amazon CloudWatch events. For more information, see the
+-- /<https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html Amazon GuardDuty User Guide>/
+-- .
 module Network.AWS.GuardDuty
   ( -- * Service Configuration
-    guardDuty,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -37,178 +52,352 @@ module Network.AWS.GuardDuty
     -- $operations
 
     -- ** CreateMembers
-    module Network.AWS.GuardDuty.CreateMembers,
+    CreateMembers (CreateMembers'),
+    newCreateMembers,
+    CreateMembersResponse (CreateMembersResponse'),
+    newCreateMembersResponse,
 
     -- ** UpdateThreatIntelSet
-    module Network.AWS.GuardDuty.UpdateThreatIntelSet,
+    UpdateThreatIntelSet (UpdateThreatIntelSet'),
+    newUpdateThreatIntelSet,
+    UpdateThreatIntelSetResponse (UpdateThreatIntelSetResponse'),
+    newUpdateThreatIntelSetResponse,
 
     -- ** DeleteThreatIntelSet
-    module Network.AWS.GuardDuty.DeleteThreatIntelSet,
+    DeleteThreatIntelSet (DeleteThreatIntelSet'),
+    newDeleteThreatIntelSet,
+    DeleteThreatIntelSetResponse (DeleteThreatIntelSetResponse'),
+    newDeleteThreatIntelSetResponse,
 
     -- ** GetInvitationsCount
-    module Network.AWS.GuardDuty.GetInvitationsCount,
+    GetInvitationsCount (GetInvitationsCount'),
+    newGetInvitationsCount,
+    GetInvitationsCountResponse (GetInvitationsCountResponse'),
+    newGetInvitationsCountResponse,
 
     -- ** UnarchiveFindings
-    module Network.AWS.GuardDuty.UnarchiveFindings,
+    UnarchiveFindings (UnarchiveFindings'),
+    newUnarchiveFindings,
+    UnarchiveFindingsResponse (UnarchiveFindingsResponse'),
+    newUnarchiveFindingsResponse,
 
     -- ** EnableOrganizationAdminAccount
-    module Network.AWS.GuardDuty.EnableOrganizationAdminAccount,
+    EnableOrganizationAdminAccount (EnableOrganizationAdminAccount'),
+    newEnableOrganizationAdminAccount,
+    EnableOrganizationAdminAccountResponse (EnableOrganizationAdminAccountResponse'),
+    newEnableOrganizationAdminAccountResponse,
 
     -- ** DeletePublishingDestination
-    module Network.AWS.GuardDuty.DeletePublishingDestination,
+    DeletePublishingDestination (DeletePublishingDestination'),
+    newDeletePublishingDestination,
+    DeletePublishingDestinationResponse (DeletePublishingDestinationResponse'),
+    newDeletePublishingDestinationResponse,
 
     -- ** UpdatePublishingDestination
-    module Network.AWS.GuardDuty.UpdatePublishingDestination,
+    UpdatePublishingDestination (UpdatePublishingDestination'),
+    newUpdatePublishingDestination,
+    UpdatePublishingDestinationResponse (UpdatePublishingDestinationResponse'),
+    newUpdatePublishingDestinationResponse,
 
     -- ** ArchiveFindings
-    module Network.AWS.GuardDuty.ArchiveFindings,
+    ArchiveFindings (ArchiveFindings'),
+    newArchiveFindings,
+    ArchiveFindingsResponse (ArchiveFindingsResponse'),
+    newArchiveFindingsResponse,
 
     -- ** CreateFilter
-    module Network.AWS.GuardDuty.CreateFilter,
+    CreateFilter (CreateFilter'),
+    newCreateFilter,
+    CreateFilterResponse (CreateFilterResponse'),
+    newCreateFilterResponse,
 
     -- ** GetDetector
-    module Network.AWS.GuardDuty.GetDetector,
+    GetDetector (GetDetector'),
+    newGetDetector,
+    GetDetectorResponse (GetDetectorResponse'),
+    newGetDetectorResponse,
 
     -- ** ListFindings (Paginated)
-    module Network.AWS.GuardDuty.ListFindings,
+    ListFindings (ListFindings'),
+    newListFindings,
+    ListFindingsResponse (ListFindingsResponse'),
+    newListFindingsResponse,
 
     -- ** UpdateFilter
-    module Network.AWS.GuardDuty.UpdateFilter,
+    UpdateFilter (UpdateFilter'),
+    newUpdateFilter,
+    UpdateFilterResponse (UpdateFilterResponse'),
+    newUpdateFilterResponse,
 
     -- ** DeleteFilter
-    module Network.AWS.GuardDuty.DeleteFilter,
+    DeleteFilter (DeleteFilter'),
+    newDeleteFilter,
+    DeleteFilterResponse (DeleteFilterResponse'),
+    newDeleteFilterResponse,
 
     -- ** DisableOrganizationAdminAccount
-    module Network.AWS.GuardDuty.DisableOrganizationAdminAccount,
+    DisableOrganizationAdminAccount (DisableOrganizationAdminAccount'),
+    newDisableOrganizationAdminAccount,
+    DisableOrganizationAdminAccountResponse (DisableOrganizationAdminAccountResponse'),
+    newDisableOrganizationAdminAccountResponse,
 
     -- ** AcceptInvitation
-    module Network.AWS.GuardDuty.AcceptInvitation,
+    AcceptInvitation (AcceptInvitation'),
+    newAcceptInvitation,
+    AcceptInvitationResponse (AcceptInvitationResponse'),
+    newAcceptInvitationResponse,
 
     -- ** UpdateFindingsFeedback
-    module Network.AWS.GuardDuty.UpdateFindingsFeedback,
+    UpdateFindingsFeedback (UpdateFindingsFeedback'),
+    newUpdateFindingsFeedback,
+    UpdateFindingsFeedbackResponse (UpdateFindingsFeedbackResponse'),
+    newUpdateFindingsFeedbackResponse,
 
     -- ** DescribeOrganizationConfiguration
-    module Network.AWS.GuardDuty.DescribeOrganizationConfiguration,
+    DescribeOrganizationConfiguration (DescribeOrganizationConfiguration'),
+    newDescribeOrganizationConfiguration,
+    DescribeOrganizationConfigurationResponse (DescribeOrganizationConfigurationResponse'),
+    newDescribeOrganizationConfigurationResponse,
 
     -- ** GetMasterAccount
-    module Network.AWS.GuardDuty.GetMasterAccount,
+    GetMasterAccount (GetMasterAccount'),
+    newGetMasterAccount,
+    GetMasterAccountResponse (GetMasterAccountResponse'),
+    newGetMasterAccountResponse,
 
     -- ** UntagResource
-    module Network.AWS.GuardDuty.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** ListDetectors (Paginated)
-    module Network.AWS.GuardDuty.ListDetectors,
+    ListDetectors (ListDetectors'),
+    newListDetectors,
+    ListDetectorsResponse (ListDetectorsResponse'),
+    newListDetectorsResponse,
 
     -- ** DescribePublishingDestination
-    module Network.AWS.GuardDuty.DescribePublishingDestination,
+    DescribePublishingDestination (DescribePublishingDestination'),
+    newDescribePublishingDestination,
+    DescribePublishingDestinationResponse (DescribePublishingDestinationResponse'),
+    newDescribePublishingDestinationResponse,
 
     -- ** GetFindings
-    module Network.AWS.GuardDuty.GetFindings,
+    GetFindings (GetFindings'),
+    newGetFindings,
+    GetFindingsResponse (GetFindingsResponse'),
+    newGetFindingsResponse,
 
     -- ** TagResource
-    module Network.AWS.GuardDuty.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** GetFindingsStatistics
-    module Network.AWS.GuardDuty.GetFindingsStatistics,
+    GetFindingsStatistics (GetFindingsStatistics'),
+    newGetFindingsStatistics,
+    GetFindingsStatisticsResponse (GetFindingsStatisticsResponse'),
+    newGetFindingsStatisticsResponse,
 
     -- ** GetMembers
-    module Network.AWS.GuardDuty.GetMembers,
+    GetMembers (GetMembers'),
+    newGetMembers,
+    GetMembersResponse (GetMembersResponse'),
+    newGetMembersResponse,
 
     -- ** DeleteIPSet
-    module Network.AWS.GuardDuty.DeleteIPSet,
+    DeleteIPSet (DeleteIPSet'),
+    newDeleteIPSet,
+    DeleteIPSetResponse (DeleteIPSetResponse'),
+    newDeleteIPSetResponse,
 
     -- ** UpdateIPSet
-    module Network.AWS.GuardDuty.UpdateIPSet,
+    UpdateIPSet (UpdateIPSet'),
+    newUpdateIPSet,
+    UpdateIPSetResponse (UpdateIPSetResponse'),
+    newUpdateIPSetResponse,
 
     -- ** CreateThreatIntelSet
-    module Network.AWS.GuardDuty.CreateThreatIntelSet,
+    CreateThreatIntelSet (CreateThreatIntelSet'),
+    newCreateThreatIntelSet,
+    CreateThreatIntelSetResponse (CreateThreatIntelSetResponse'),
+    newCreateThreatIntelSetResponse,
 
     -- ** UpdateOrganizationConfiguration
-    module Network.AWS.GuardDuty.UpdateOrganizationConfiguration,
+    UpdateOrganizationConfiguration (UpdateOrganizationConfiguration'),
+    newUpdateOrganizationConfiguration,
+    UpdateOrganizationConfigurationResponse (UpdateOrganizationConfigurationResponse'),
+    newUpdateOrganizationConfigurationResponse,
 
     -- ** InviteMembers
-    module Network.AWS.GuardDuty.InviteMembers,
+    InviteMembers (InviteMembers'),
+    newInviteMembers,
+    InviteMembersResponse (InviteMembersResponse'),
+    newInviteMembersResponse,
 
     -- ** StopMonitoringMembers
-    module Network.AWS.GuardDuty.StopMonitoringMembers,
+    StopMonitoringMembers (StopMonitoringMembers'),
+    newStopMonitoringMembers,
+    StopMonitoringMembersResponse (StopMonitoringMembersResponse'),
+    newStopMonitoringMembersResponse,
 
     -- ** ListThreatIntelSets (Paginated)
-    module Network.AWS.GuardDuty.ListThreatIntelSets,
+    ListThreatIntelSets (ListThreatIntelSets'),
+    newListThreatIntelSets,
+    ListThreatIntelSetsResponse (ListThreatIntelSetsResponse'),
+    newListThreatIntelSetsResponse,
 
     -- ** GetMemberDetectors
-    module Network.AWS.GuardDuty.GetMemberDetectors,
+    GetMemberDetectors (GetMemberDetectors'),
+    newGetMemberDetectors,
+    GetMemberDetectorsResponse (GetMemberDetectorsResponse'),
+    newGetMemberDetectorsResponse,
 
     -- ** StartMonitoringMembers
-    module Network.AWS.GuardDuty.StartMonitoringMembers,
+    StartMonitoringMembers (StartMonitoringMembers'),
+    newStartMonitoringMembers,
+    StartMonitoringMembersResponse (StartMonitoringMembersResponse'),
+    newStartMonitoringMembersResponse,
 
     -- ** CreateIPSet
-    module Network.AWS.GuardDuty.CreateIPSet,
+    CreateIPSet (CreateIPSet'),
+    newCreateIPSet,
+    CreateIPSetResponse (CreateIPSetResponse'),
+    newCreateIPSetResponse,
 
     -- ** ListOrganizationAdminAccounts (Paginated)
-    module Network.AWS.GuardDuty.ListOrganizationAdminAccounts,
+    ListOrganizationAdminAccounts (ListOrganizationAdminAccounts'),
+    newListOrganizationAdminAccounts,
+    ListOrganizationAdminAccountsResponse (ListOrganizationAdminAccountsResponse'),
+    newListOrganizationAdminAccountsResponse,
 
     -- ** ListPublishingDestinations
-    module Network.AWS.GuardDuty.ListPublishingDestinations,
+    ListPublishingDestinations (ListPublishingDestinations'),
+    newListPublishingDestinations,
+    ListPublishingDestinationsResponse (ListPublishingDestinationsResponse'),
+    newListPublishingDestinationsResponse,
 
     -- ** CreateSampleFindings
-    module Network.AWS.GuardDuty.CreateSampleFindings,
+    CreateSampleFindings (CreateSampleFindings'),
+    newCreateSampleFindings,
+    CreateSampleFindingsResponse (CreateSampleFindingsResponse'),
+    newCreateSampleFindingsResponse,
 
     -- ** DisassociateMembers
-    module Network.AWS.GuardDuty.DisassociateMembers,
+    DisassociateMembers (DisassociateMembers'),
+    newDisassociateMembers,
+    DisassociateMembersResponse (DisassociateMembersResponse'),
+    newDisassociateMembersResponse,
 
     -- ** CreatePublishingDestination
-    module Network.AWS.GuardDuty.CreatePublishingDestination,
+    CreatePublishingDestination (CreatePublishingDestination'),
+    newCreatePublishingDestination,
+    CreatePublishingDestinationResponse (CreatePublishingDestinationResponse'),
+    newCreatePublishingDestinationResponse,
 
     -- ** ListFilters (Paginated)
-    module Network.AWS.GuardDuty.ListFilters,
+    ListFilters (ListFilters'),
+    newListFilters,
+    ListFiltersResponse (ListFiltersResponse'),
+    newListFiltersResponse,
 
     -- ** DisassociateFromMasterAccount
-    module Network.AWS.GuardDuty.DisassociateFromMasterAccount,
+    DisassociateFromMasterAccount (DisassociateFromMasterAccount'),
+    newDisassociateFromMasterAccount,
+    DisassociateFromMasterAccountResponse (DisassociateFromMasterAccountResponse'),
+    newDisassociateFromMasterAccountResponse,
 
     -- ** ListMembers (Paginated)
-    module Network.AWS.GuardDuty.ListMembers,
+    ListMembers (ListMembers'),
+    newListMembers,
+    ListMembersResponse (ListMembersResponse'),
+    newListMembersResponse,
 
     -- ** DeclineInvitations
-    module Network.AWS.GuardDuty.DeclineInvitations,
+    DeclineInvitations (DeclineInvitations'),
+    newDeclineInvitations,
+    DeclineInvitationsResponse (DeclineInvitationsResponse'),
+    newDeclineInvitationsResponse,
 
     -- ** CreateDetector
-    module Network.AWS.GuardDuty.CreateDetector,
+    CreateDetector (CreateDetector'),
+    newCreateDetector,
+    CreateDetectorResponse (CreateDetectorResponse'),
+    newCreateDetectorResponse,
 
     -- ** GetUsageStatistics
-    module Network.AWS.GuardDuty.GetUsageStatistics,
+    GetUsageStatistics (GetUsageStatistics'),
+    newGetUsageStatistics,
+    GetUsageStatisticsResponse (GetUsageStatisticsResponse'),
+    newGetUsageStatisticsResponse,
 
     -- ** GetFilter
-    module Network.AWS.GuardDuty.GetFilter,
+    GetFilter (GetFilter'),
+    newGetFilter,
+    GetFilterResponse (GetFilterResponse'),
+    newGetFilterResponse,
 
     -- ** DeleteInvitations
-    module Network.AWS.GuardDuty.DeleteInvitations,
+    DeleteInvitations (DeleteInvitations'),
+    newDeleteInvitations,
+    DeleteInvitationsResponse (DeleteInvitationsResponse'),
+    newDeleteInvitationsResponse,
 
     -- ** UpdateDetector
-    module Network.AWS.GuardDuty.UpdateDetector,
+    UpdateDetector (UpdateDetector'),
+    newUpdateDetector,
+    UpdateDetectorResponse (UpdateDetectorResponse'),
+    newUpdateDetectorResponse,
 
     -- ** DeleteDetector
-    module Network.AWS.GuardDuty.DeleteDetector,
+    DeleteDetector (DeleteDetector'),
+    newDeleteDetector,
+    DeleteDetectorResponse (DeleteDetectorResponse'),
+    newDeleteDetectorResponse,
 
     -- ** ListInvitations (Paginated)
-    module Network.AWS.GuardDuty.ListInvitations,
+    ListInvitations (ListInvitations'),
+    newListInvitations,
+    ListInvitationsResponse (ListInvitationsResponse'),
+    newListInvitationsResponse,
 
     -- ** GetThreatIntelSet
-    module Network.AWS.GuardDuty.GetThreatIntelSet,
+    GetThreatIntelSet (GetThreatIntelSet'),
+    newGetThreatIntelSet,
+    GetThreatIntelSetResponse (GetThreatIntelSetResponse'),
+    newGetThreatIntelSetResponse,
 
     -- ** UpdateMemberDetectors
-    module Network.AWS.GuardDuty.UpdateMemberDetectors,
+    UpdateMemberDetectors (UpdateMemberDetectors'),
+    newUpdateMemberDetectors,
+    UpdateMemberDetectorsResponse (UpdateMemberDetectorsResponse'),
+    newUpdateMemberDetectorsResponse,
 
     -- ** GetIPSet
-    module Network.AWS.GuardDuty.GetIPSet,
+    GetIPSet (GetIPSet'),
+    newGetIPSet,
+    GetIPSetResponse (GetIPSetResponse'),
+    newGetIPSetResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.GuardDuty.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DeleteMembers
-    module Network.AWS.GuardDuty.DeleteMembers,
+    DeleteMembers (DeleteMembers'),
+    newDeleteMembers,
+    DeleteMembersResponse (DeleteMembersResponse'),
+    newDeleteMembersResponse,
 
     -- ** ListIPSets (Paginated)
-    module Network.AWS.GuardDuty.ListIPSets,
+    ListIPSets (ListIPSets'),
+    newListIPSets,
+    ListIPSetsResponse (ListIPSetsResponse'),
+    newListIPSetsResponse,
 
     -- * Types
 
@@ -239,11 +428,11 @@ module Network.AWS.GuardDuty
     -- ** FindingStatisticType
     FindingStatisticType (..),
 
-    -- ** IPSetFormat
-    IPSetFormat (..),
+    -- ** IpSetFormat
+    IpSetFormat (..),
 
-    -- ** IPSetStatus
-    IPSetStatus (..),
+    -- ** IpSetStatus
+    IpSetStatus (..),
 
     -- ** OrderBy
     OrderBy (..),
@@ -260,490 +449,277 @@ module Network.AWS.GuardDuty
     -- ** UsageStatisticType
     UsageStatisticType (..),
 
-    -- ** AWSAPICallAction
-    AWSAPICallAction,
-    awsAPICallAction,
-    aacaAPI,
-    aacaServiceName,
-    aacaDomainDetails,
-    aacaRemoteIPDetails,
-    aacaCallerType,
-    aacaErrorCode,
-
     -- ** AccessControlList
-    AccessControlList,
-    accessControlList,
-    aclAllowsPublicReadAccess,
-    aclAllowsPublicWriteAccess,
+    AccessControlList (AccessControlList'),
+    newAccessControlList,
 
     -- ** AccessKeyDetails
-    AccessKeyDetails,
-    accessKeyDetails,
-    akdPrincipalId,
-    akdUserType,
-    akdAccessKeyId,
-    akdUserName,
+    AccessKeyDetails (AccessKeyDetails'),
+    newAccessKeyDetails,
 
     -- ** AccountDetail
-    AccountDetail,
-    accountDetail,
-    adAccountId,
-    adEmail,
+    AccountDetail (AccountDetail'),
+    newAccountDetail,
 
     -- ** AccountLevelPermissions
-    AccountLevelPermissions,
-    accountLevelPermissions,
-    alpBlockPublicAccess,
+    AccountLevelPermissions (AccountLevelPermissions'),
+    newAccountLevelPermissions,
 
     -- ** Action
-    Action,
-    action,
-    aActionType,
-    aDNSRequestAction,
-    aNetworkConnectionAction,
-    aAWSAPICallAction,
-    aPortProbeAction,
+    Action (Action'),
+    newAction,
 
     -- ** AdminAccount
-    AdminAccount,
-    adminAccount,
-    aaAdminAccountId,
-    aaAdminStatus,
+    AdminAccount (AdminAccount'),
+    newAdminAccount,
+
+    -- ** AwsApiCallAction
+    AwsApiCallAction (AwsApiCallAction'),
+    newAwsApiCallAction,
 
     -- ** BlockPublicAccess
-    BlockPublicAccess,
-    blockPublicAccess,
-    bpaIgnorePublicACLs,
-    bpaBlockPublicACLs,
-    bpaRestrictPublicBuckets,
-    bpaBlockPublicPolicy,
+    BlockPublicAccess (BlockPublicAccess'),
+    newBlockPublicAccess,
 
     -- ** BucketLevelPermissions
-    BucketLevelPermissions,
-    bucketLevelPermissions,
-    blpBlockPublicAccess,
-    blpBucketPolicy,
-    blpAccessControlList,
+    BucketLevelPermissions (BucketLevelPermissions'),
+    newBucketLevelPermissions,
 
     -- ** BucketPolicy
-    BucketPolicy,
-    bucketPolicy,
-    bpAllowsPublicReadAccess,
-    bpAllowsPublicWriteAccess,
+    BucketPolicy (BucketPolicy'),
+    newBucketPolicy,
 
     -- ** City
-    City,
-    city,
-    cCityName,
+    City (City'),
+    newCity,
 
     -- ** CloudTrailConfigurationResult
-    CloudTrailConfigurationResult,
-    cloudTrailConfigurationResult,
-    ctcrStatus,
+    CloudTrailConfigurationResult (CloudTrailConfigurationResult'),
+    newCloudTrailConfigurationResult,
 
     -- ** Condition
-    Condition,
-    condition,
-    cEQ,
-    cGreaterThan,
-    cGT,
-    cGreaterThanOrEqual,
-    cLte,
-    cNeq,
-    cNotEquals,
-    cLessThan,
-    cEquals,
-    cGte,
-    cLessThanOrEqual,
-    cLT,
+    Condition (Condition'),
+    newCondition,
 
     -- ** Country
-    Country,
-    country,
-    cCountryName,
-    cCountryCode,
+    Country (Country'),
+    newCountry,
 
     -- ** DNSLogsConfigurationResult
-    DNSLogsConfigurationResult,
-    dnsLogsConfigurationResult,
-    dlcrStatus,
-
-    -- ** DNSRequestAction
-    DNSRequestAction,
-    dnsRequestAction,
-    draDomain,
+    DNSLogsConfigurationResult (DNSLogsConfigurationResult'),
+    newDNSLogsConfigurationResult,
 
     -- ** DataSourceConfigurations
-    DataSourceConfigurations,
-    dataSourceConfigurations,
-    dscS3Logs,
+    DataSourceConfigurations (DataSourceConfigurations'),
+    newDataSourceConfigurations,
 
     -- ** DataSourceConfigurationsResult
-    DataSourceConfigurationsResult,
-    dataSourceConfigurationsResult,
-    dscrCloudTrail,
-    dscrDNSLogs,
-    dscrFlowLogs,
-    dscrS3Logs,
+    DataSourceConfigurationsResult (DataSourceConfigurationsResult'),
+    newDataSourceConfigurationsResult,
 
     -- ** DefaultServerSideEncryption
-    DefaultServerSideEncryption,
-    defaultServerSideEncryption,
-    dsseEncryptionType,
-    dsseKMSMasterKeyARN,
+    DefaultServerSideEncryption (DefaultServerSideEncryption'),
+    newDefaultServerSideEncryption,
 
     -- ** Destination
-    Destination,
-    destination,
-    desDestinationId,
-    desDestinationType,
-    desStatus,
+    Destination (Destination'),
+    newDestination,
 
     -- ** DestinationProperties
-    DestinationProperties,
-    destinationProperties,
-    dpDestinationARN,
-    dpKMSKeyARN,
+    DestinationProperties (DestinationProperties'),
+    newDestinationProperties,
+
+    -- ** DnsRequestAction
+    DnsRequestAction (DnsRequestAction'),
+    newDnsRequestAction,
 
     -- ** DomainDetails
-    DomainDetails,
-    domainDetails,
-    ddDomain,
+    DomainDetails (DomainDetails'),
+    newDomainDetails,
 
     -- ** Evidence
-    Evidence,
-    evidence,
-    eThreatIntelligenceDetails,
+    Evidence (Evidence'),
+    newEvidence,
 
     -- ** Finding
-    Finding,
-    finding,
-    fTitle,
-    fService,
-    fPartition,
-    fConfidence,
-    fDescription,
-    fAccountId,
-    fARN,
-    fCreatedAt,
-    fId,
-    fRegion,
-    fResource,
-    fSchemaVersion,
-    fSeverity,
-    fType,
-    fUpdatedAt,
+    Finding (Finding'),
+    newFinding,
 
     -- ** FindingCriteria
-    FindingCriteria,
-    findingCriteria,
-    fcCriterion,
+    FindingCriteria (FindingCriteria'),
+    newFindingCriteria,
 
     -- ** FindingStatistics
-    FindingStatistics,
-    findingStatistics,
-    fsCountBySeverity,
+    FindingStatistics (FindingStatistics'),
+    newFindingStatistics,
 
     -- ** FlowLogsConfigurationResult
-    FlowLogsConfigurationResult,
-    flowLogsConfigurationResult,
-    flcrStatus,
+    FlowLogsConfigurationResult (FlowLogsConfigurationResult'),
+    newFlowLogsConfigurationResult,
 
     -- ** GeoLocation
-    GeoLocation,
-    geoLocation,
-    glLat,
-    glLon,
+    GeoLocation (GeoLocation'),
+    newGeoLocation,
 
-    -- ** IAMInstanceProfile
-    IAMInstanceProfile,
-    iamInstanceProfile,
-    iapARN,
-    iapId,
+    -- ** IamInstanceProfile
+    IamInstanceProfile (IamInstanceProfile'),
+    newIamInstanceProfile,
 
     -- ** InstanceDetails
-    InstanceDetails,
-    instanceDetails,
-    idPlatform,
-    idInstanceId,
-    idInstanceType,
-    idOutpostARN,
-    idLaunchTime,
-    idProductCodes,
-    idImageId,
-    idIAMInstanceProfile,
-    idAvailabilityZone,
-    idTags,
-    idImageDescription,
-    idInstanceState,
-    idNetworkInterfaces,
+    InstanceDetails (InstanceDetails'),
+    newInstanceDetails,
 
     -- ** Invitation
-    Invitation,
-    invitation,
-    iAccountId,
-    iRelationshipStatus,
-    iInvitationId,
-    iInvitedAt,
+    Invitation (Invitation'),
+    newInvitation,
 
-    -- ** LocalIPDetails
-    LocalIPDetails,
-    localIPDetails,
-    lidIPAddressV4,
+    -- ** LocalIpDetails
+    LocalIpDetails (LocalIpDetails'),
+    newLocalIpDetails,
 
     -- ** LocalPortDetails
-    LocalPortDetails,
-    localPortDetails,
-    lpdPortName,
-    lpdPort,
+    LocalPortDetails (LocalPortDetails'),
+    newLocalPortDetails,
 
     -- ** Master
-    Master,
-    master,
-    mAccountId,
-    mRelationshipStatus,
-    mInvitationId,
-    mInvitedAt,
+    Master (Master'),
+    newMaster,
 
     -- ** Member
-    Member,
-    member,
-    memDetectorId,
-    memInvitedAt,
-    memAccountId,
-    memMasterId,
-    memEmail,
-    memRelationshipStatus,
-    memUpdatedAt,
+    Member (Member'),
+    newMember,
 
     -- ** MemberDataSourceConfiguration
-    MemberDataSourceConfiguration,
-    memberDataSourceConfiguration,
-    mdscAccountId,
-    mdscDataSources,
+    MemberDataSourceConfiguration (MemberDataSourceConfiguration'),
+    newMemberDataSourceConfiguration,
 
     -- ** NetworkConnectionAction
-    NetworkConnectionAction,
-    networkConnectionAction,
-    ncaRemotePortDetails,
-    ncaLocalPortDetails,
-    ncaConnectionDirection,
-    ncaBlocked,
-    ncaRemoteIPDetails,
-    ncaLocalIPDetails,
-    ncaProtocol,
+    NetworkConnectionAction (NetworkConnectionAction'),
+    newNetworkConnectionAction,
 
     -- ** NetworkInterface
-    NetworkInterface,
-    networkInterface,
-    niPrivateIPAddresses,
-    niIPv6Addresses,
-    niSecurityGroups,
-    niPublicDNSName,
-    niNetworkInterfaceId,
-    niSubnetId,
-    niPrivateDNSName,
-    niPublicIP,
-    niVPCId,
-    niPrivateIPAddress,
+    NetworkInterface (NetworkInterface'),
+    newNetworkInterface,
 
     -- ** Organization
-    Organization,
-    organization,
-    oASN,
-    oIsp,
-    oASNOrg,
-    oOrg,
+    Organization (Organization'),
+    newOrganization,
 
     -- ** OrganizationDataSourceConfigurations
-    OrganizationDataSourceConfigurations,
-    organizationDataSourceConfigurations,
-    odscS3Logs,
+    OrganizationDataSourceConfigurations (OrganizationDataSourceConfigurations'),
+    newOrganizationDataSourceConfigurations,
 
     -- ** OrganizationDataSourceConfigurationsResult
-    OrganizationDataSourceConfigurationsResult,
-    organizationDataSourceConfigurationsResult,
-    odscrS3Logs,
+    OrganizationDataSourceConfigurationsResult (OrganizationDataSourceConfigurationsResult'),
+    newOrganizationDataSourceConfigurationsResult,
 
     -- ** OrganizationS3LogsConfiguration
-    OrganizationS3LogsConfiguration,
-    organizationS3LogsConfiguration,
-    oslcAutoEnable,
+    OrganizationS3LogsConfiguration (OrganizationS3LogsConfiguration'),
+    newOrganizationS3LogsConfiguration,
 
     -- ** OrganizationS3LogsConfigurationResult
-    OrganizationS3LogsConfigurationResult,
-    organizationS3LogsConfigurationResult,
-    oslcrAutoEnable,
+    OrganizationS3LogsConfigurationResult (OrganizationS3LogsConfigurationResult'),
+    newOrganizationS3LogsConfigurationResult,
 
     -- ** Owner
-    Owner,
-    owner,
-    oId,
+    Owner (Owner'),
+    newOwner,
 
     -- ** PermissionConfiguration
-    PermissionConfiguration,
-    permissionConfiguration,
-    pcAccountLevelPermissions,
-    pcBucketLevelPermissions,
+    PermissionConfiguration (PermissionConfiguration'),
+    newPermissionConfiguration,
 
     -- ** PortProbeAction
-    PortProbeAction,
-    portProbeAction,
-    ppaPortProbeDetails,
-    ppaBlocked,
+    PortProbeAction (PortProbeAction'),
+    newPortProbeAction,
 
     -- ** PortProbeDetail
-    PortProbeDetail,
-    portProbeDetail,
-    ppdLocalPortDetails,
-    ppdRemoteIPDetails,
-    ppdLocalIPDetails,
+    PortProbeDetail (PortProbeDetail'),
+    newPortProbeDetail,
 
-    -- ** PrivateIPAddressDetails
-    PrivateIPAddressDetails,
-    privateIPAddressDetails,
-    piadPrivateDNSName,
-    piadPrivateIPAddress,
+    -- ** PrivateIpAddressDetails
+    PrivateIpAddressDetails (PrivateIpAddressDetails'),
+    newPrivateIpAddressDetails,
 
     -- ** ProductCode
-    ProductCode,
-    productCode,
-    pcCode,
-    pcProductType,
+    ProductCode (ProductCode'),
+    newProductCode,
 
     -- ** PublicAccess
-    PublicAccess,
-    publicAccess,
-    paPermissionConfiguration,
-    paEffectivePermission,
+    PublicAccess (PublicAccess'),
+    newPublicAccess,
 
-    -- ** RemoteIPDetails
-    RemoteIPDetails,
-    remoteIPDetails,
-    ridGeoLocation,
-    ridCity,
-    ridOrganization,
-    ridCountry,
-    ridIPAddressV4,
+    -- ** RemoteIpDetails
+    RemoteIpDetails (RemoteIpDetails'),
+    newRemoteIpDetails,
 
     -- ** RemotePortDetails
-    RemotePortDetails,
-    remotePortDetails,
-    rpdPortName,
-    rpdPort,
+    RemotePortDetails (RemotePortDetails'),
+    newRemotePortDetails,
 
     -- ** Resource
-    Resource,
-    resource,
-    rS3BucketDetails,
-    rInstanceDetails,
-    rResourceType,
-    rAccessKeyDetails,
+    Resource (Resource'),
+    newResource,
 
     -- ** S3BucketDetail
-    S3BucketDetail,
-    s3BucketDetail,
-    sbdARN,
-    sbdPublicAccess,
-    sbdCreatedAt,
-    sbdDefaultServerSideEncryption,
-    sbdName,
-    sbdTags,
-    sbdOwner,
-    sbdType,
+    S3BucketDetail (S3BucketDetail'),
+    newS3BucketDetail,
 
     -- ** S3LogsConfiguration
-    S3LogsConfiguration,
-    s3LogsConfiguration,
-    slcEnable,
+    S3LogsConfiguration (S3LogsConfiguration'),
+    newS3LogsConfiguration,
 
     -- ** S3LogsConfigurationResult
-    S3LogsConfigurationResult,
-    s3LogsConfigurationResult,
-    slcrStatus,
+    S3LogsConfigurationResult (S3LogsConfigurationResult'),
+    newS3LogsConfigurationResult,
 
     -- ** SecurityGroup
-    SecurityGroup,
-    securityGroup,
-    sgGroupName,
-    sgGroupId,
+    SecurityGroup (SecurityGroup'),
+    newSecurityGroup,
 
     -- ** ServiceInfo
-    ServiceInfo,
-    serviceInfo,
-    siResourceRole,
-    siArchived,
-    siEventFirstSeen,
-    siEventLastSeen,
-    siServiceName,
-    siDetectorId,
-    siAction,
-    siEvidence,
-    siCount,
-    siUserFeedback,
+    ServiceInfo (ServiceInfo'),
+    newServiceInfo,
 
     -- ** SortCriteria
-    SortCriteria,
-    sortCriteria,
-    scAttributeName,
-    scOrderBy,
+    SortCriteria (SortCriteria'),
+    newSortCriteria,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** ThreatIntelligenceDetail
-    ThreatIntelligenceDetail,
-    threatIntelligenceDetail,
-    tidThreatNames,
-    tidThreatListName,
+    ThreatIntelligenceDetail (ThreatIntelligenceDetail'),
+    newThreatIntelligenceDetail,
 
     -- ** Total
-    Total,
-    total,
-    tAmount,
-    tUnit,
+    Total (Total'),
+    newTotal,
 
     -- ** UnprocessedAccount
-    UnprocessedAccount,
-    unprocessedAccount,
-    uaAccountId,
-    uaResult,
+    UnprocessedAccount (UnprocessedAccount'),
+    newUnprocessedAccount,
 
     -- ** UsageAccountResult
-    UsageAccountResult,
-    usageAccountResult,
-    uarAccountId,
-    uarTotal,
+    UsageAccountResult (UsageAccountResult'),
+    newUsageAccountResult,
 
     -- ** UsageCriteria
-    UsageCriteria,
-    usageCriteria,
-    ucAccountIds,
-    ucResources,
-    ucDataSources,
+    UsageCriteria (UsageCriteria'),
+    newUsageCriteria,
 
     -- ** UsageDataSourceResult
-    UsageDataSourceResult,
-    usageDataSourceResult,
-    udsrDataSource,
-    udsrTotal,
+    UsageDataSourceResult (UsageDataSourceResult'),
+    newUsageDataSourceResult,
 
     -- ** UsageResourceResult
-    UsageResourceResult,
-    usageResourceResult,
-    urrTotal,
-    urrResource,
+    UsageResourceResult (UsageResourceResult'),
+    newUsageResourceResult,
 
     -- ** UsageStatistics
-    UsageStatistics,
-    usageStatistics,
-    usSumByDataSource,
-    usTopResources,
-    usSumByAccount,
-    usSumByResource,
+    UsageStatistics (UsageStatistics'),
+    newUsageStatistics,
   )
 where
 
@@ -782,6 +758,7 @@ import Network.AWS.GuardDuty.GetMembers
 import Network.AWS.GuardDuty.GetThreatIntelSet
 import Network.AWS.GuardDuty.GetUsageStatistics
 import Network.AWS.GuardDuty.InviteMembers
+import Network.AWS.GuardDuty.Lens
 import Network.AWS.GuardDuty.ListDetectors
 import Network.AWS.GuardDuty.ListFilters
 import Network.AWS.GuardDuty.ListFindings

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,39 +19,44 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.DomainDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the domain.
 --
---
---
--- /See:/ 'domainDetails' smart constructor.
-newtype DomainDetails = DomainDetails'
-  { _ddDomain ::
-      Maybe Text
+-- /See:/ 'newDomainDetails' smart constructor.
+data DomainDetails = DomainDetails'
+  { -- | The domain information for the AWS API call.
+    domain :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DomainDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DomainDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddDomain' - The domain information for the AWS API call.
-domainDetails ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domain', 'domainDetails_domain' - The domain information for the AWS API call.
+newDomainDetails ::
   DomainDetails
-domainDetails = DomainDetails' {_ddDomain = Nothing}
+newDomainDetails =
+  DomainDetails' {domain = Prelude.Nothing}
 
 -- | The domain information for the AWS API call.
-ddDomain :: Lens' DomainDetails (Maybe Text)
-ddDomain = lens _ddDomain (\s a -> s {_ddDomain = a})
+domainDetails_domain :: Lens.Lens' DomainDetails (Prelude.Maybe Prelude.Text)
+domainDetails_domain = Lens.lens (\DomainDetails' {domain} -> domain) (\s@DomainDetails' {} a -> s {domain = a} :: DomainDetails)
 
-instance FromJSON DomainDetails where
+instance Prelude.FromJSON DomainDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DomainDetails"
-      (\x -> DomainDetails' <$> (x .:? "domain"))
+      ( \x ->
+          DomainDetails' Prelude.<$> (x Prelude..:? "domain")
+      )
 
-instance Hashable DomainDetails
+instance Prelude.Hashable DomainDetails
 
-instance NFData DomainDetails
+instance Prelude.NFData DomainDetails

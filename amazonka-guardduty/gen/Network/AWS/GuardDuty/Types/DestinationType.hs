@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.GuardDuty.Types.DestinationType
   ( DestinationType
       ( ..,
-        S3
+        DestinationTypeS3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DestinationType = DestinationType' (CI Text)
+newtype DestinationType = DestinationType'
+  { fromDestinationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern S3 :: DestinationType
-pattern S3 = DestinationType' "S3"
+pattern DestinationTypeS3 :: DestinationType
+pattern DestinationTypeS3 = DestinationType' "S3"
 
 {-# COMPLETE
-  S3,
+  DestinationTypeS3,
   DestinationType'
   #-}
 
-instance FromText DestinationType where
-  parser = (DestinationType' . mk) <$> takeText
+instance Prelude.FromText DestinationType where
+  parser = DestinationType' Prelude.<$> Prelude.takeText
 
-instance ToText DestinationType where
-  toText (DestinationType' ci) = original ci
+instance Prelude.ToText DestinationType where
+  toText (DestinationType' x) = x
 
-instance Hashable DestinationType
+instance Prelude.Hashable DestinationType
 
-instance NFData DestinationType
+instance Prelude.NFData DestinationType
 
-instance ToByteString DestinationType
+instance Prelude.ToByteString DestinationType
 
-instance ToQuery DestinationType
+instance Prelude.ToQuery DestinationType
 
-instance ToHeader DestinationType
+instance Prelude.ToHeader DestinationType
 
-instance ToJSON DestinationType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DestinationType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DestinationType where
-  parseJSON = parseJSONText "DestinationType"
+instance Prelude.FromJSON DestinationType where
+  parseJSON = Prelude.parseJSONText "DestinationType"

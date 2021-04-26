@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +21,80 @@ module Network.AWS.GuardDuty.Types.Destination where
 
 import Network.AWS.GuardDuty.Types.DestinationType
 import Network.AWS.GuardDuty.Types.PublishingStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the publishing destination, including the ID, type, and status.
+-- | Contains information about the publishing destination, including the ID,
+-- type, and status.
 --
---
---
--- /See:/ 'destination' smart constructor.
+-- /See:/ 'newDestination' smart constructor.
 data Destination = Destination'
-  { _desDestinationId ::
-      !Text,
-    _desDestinationType :: !DestinationType,
-    _desStatus :: !PublishingStatus
+  { -- | The unique ID of the publishing destination.
+    destinationId :: Prelude.Text,
+    -- | The type of resource used for the publishing destination. Currently,
+    -- only Amazon S3 buckets are supported.
+    destinationType :: DestinationType,
+    -- | The status of the publishing destination.
+    status :: PublishingStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Destination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Destination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desDestinationId' - The unique ID of the publishing destination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desDestinationType' - The type of resource used for the publishing destination. Currently, only Amazon S3 buckets are supported.
+-- 'destinationId', 'destination_destinationId' - The unique ID of the publishing destination.
 --
--- * 'desStatus' - The status of the publishing destination.
-destination ::
-  -- | 'desDestinationId'
-  Text ->
-  -- | 'desDestinationType'
+-- 'destinationType', 'destination_destinationType' - The type of resource used for the publishing destination. Currently,
+-- only Amazon S3 buckets are supported.
+--
+-- 'status', 'destination_status' - The status of the publishing destination.
+newDestination ::
+  -- | 'destinationId'
+  Prelude.Text ->
+  -- | 'destinationType'
   DestinationType ->
-  -- | 'desStatus'
+  -- | 'status'
   PublishingStatus ->
   Destination
-destination
+newDestination
   pDestinationId_
   pDestinationType_
   pStatus_ =
     Destination'
-      { _desDestinationId = pDestinationId_,
-        _desDestinationType = pDestinationType_,
-        _desStatus = pStatus_
+      { destinationId = pDestinationId_,
+        destinationType = pDestinationType_,
+        status = pStatus_
       }
 
 -- | The unique ID of the publishing destination.
-desDestinationId :: Lens' Destination Text
-desDestinationId = lens _desDestinationId (\s a -> s {_desDestinationId = a})
+destination_destinationId :: Lens.Lens' Destination Prelude.Text
+destination_destinationId = Lens.lens (\Destination' {destinationId} -> destinationId) (\s@Destination' {} a -> s {destinationId = a} :: Destination)
 
--- | The type of resource used for the publishing destination. Currently, only Amazon S3 buckets are supported.
-desDestinationType :: Lens' Destination DestinationType
-desDestinationType = lens _desDestinationType (\s a -> s {_desDestinationType = a})
+-- | The type of resource used for the publishing destination. Currently,
+-- only Amazon S3 buckets are supported.
+destination_destinationType :: Lens.Lens' Destination DestinationType
+destination_destinationType = Lens.lens (\Destination' {destinationType} -> destinationType) (\s@Destination' {} a -> s {destinationType = a} :: Destination)
 
 -- | The status of the publishing destination.
-desStatus :: Lens' Destination PublishingStatus
-desStatus = lens _desStatus (\s a -> s {_desStatus = a})
+destination_status :: Lens.Lens' Destination PublishingStatus
+destination_status = Lens.lens (\Destination' {status} -> status) (\s@Destination' {} a -> s {status = a} :: Destination)
 
-instance FromJSON Destination where
+instance Prelude.FromJSON Destination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Destination"
       ( \x ->
           Destination'
-            <$> (x .: "destinationId")
-            <*> (x .: "destinationType")
-            <*> (x .: "status")
+            Prelude.<$> (x Prelude..: "destinationId")
+            Prelude.<*> (x Prelude..: "destinationType")
+            Prelude.<*> (x Prelude..: "status")
       )
 
-instance Hashable Destination
+instance Prelude.Hashable Destination
 
-instance NFData Destination
+instance Prelude.NFData Destination

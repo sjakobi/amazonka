@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,188 +24,201 @@
 -- Retrieves an Amazon GuardDuty detector specified by the detectorId.
 module Network.AWS.GuardDuty.GetDetector
   ( -- * Creating a Request
-    getDetector,
-    GetDetector,
+    GetDetector (..),
+    newGetDetector,
 
     -- * Request Lenses
-    gdDetectorId,
+    getDetector_detectorId,
 
     -- * Destructuring the Response
-    getDetectorResponse,
-    GetDetectorResponse,
+    GetDetectorResponse (..),
+    newGetDetectorResponse,
 
     -- * Response Lenses
-    gdrrsDataSources,
-    gdrrsFindingPublishingFrequency,
-    gdrrsUpdatedAt,
-    gdrrsCreatedAt,
-    gdrrsTags,
-    gdrrsResponseStatus,
-    gdrrsServiceRole,
-    gdrrsStatus,
+    getDetectorResponse_dataSources,
+    getDetectorResponse_findingPublishingFrequency,
+    getDetectorResponse_updatedAt,
+    getDetectorResponse_createdAt,
+    getDetectorResponse_tags,
+    getDetectorResponse_httpStatus,
+    getDetectorResponse_serviceRole,
+    getDetectorResponse_status,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.DataSourceConfigurationsResult
+import Network.AWS.GuardDuty.Types.DetectorStatus
+import Network.AWS.GuardDuty.Types.FindingPublishingFrequency
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getDetector' smart constructor.
-newtype GetDetector = GetDetector'
-  { _gdDetectorId ::
-      Text
+-- | /See:/ 'newGetDetector' smart constructor.
+data GetDetector = GetDetector'
+  { -- | The unique ID of the detector that you want to get.
+    detectorId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDetector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDetector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdDetectorId' - The unique ID of the detector that you want to get.
-getDetector ::
-  -- | 'gdDetectorId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'detectorId', 'getDetector_detectorId' - The unique ID of the detector that you want to get.
+newGetDetector ::
+  -- | 'detectorId'
+  Prelude.Text ->
   GetDetector
-getDetector pDetectorId_ =
-  GetDetector' {_gdDetectorId = pDetectorId_}
+newGetDetector pDetectorId_ =
+  GetDetector' {detectorId = pDetectorId_}
 
 -- | The unique ID of the detector that you want to get.
-gdDetectorId :: Lens' GetDetector Text
-gdDetectorId = lens _gdDetectorId (\s a -> s {_gdDetectorId = a})
+getDetector_detectorId :: Lens.Lens' GetDetector Prelude.Text
+getDetector_detectorId = Lens.lens (\GetDetector' {detectorId} -> detectorId) (\s@GetDetector' {} a -> s {detectorId = a} :: GetDetector)
 
-instance AWSRequest GetDetector where
+instance Prelude.AWSRequest GetDetector where
   type Rs GetDetector = GetDetectorResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetDetectorResponse'
-            <$> (x .?> "dataSources")
-            <*> (x .?> "findingPublishingFrequency")
-            <*> (x .?> "updatedAt")
-            <*> (x .?> "createdAt")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (pure (fromEnum s))
-            <*> (x .:> "serviceRole")
-            <*> (x .:> "status")
+            Prelude.<$> (x Prelude..?> "dataSources")
+            Prelude.<*> (x Prelude..?> "findingPublishingFrequency")
+            Prelude.<*> (x Prelude..?> "updatedAt")
+            Prelude.<*> (x Prelude..?> "createdAt")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "serviceRole")
+            Prelude.<*> (x Prelude..:> "status")
       )
 
-instance Hashable GetDetector
+instance Prelude.Hashable GetDetector
 
-instance NFData GetDetector
+instance Prelude.NFData GetDetector
 
-instance ToHeaders GetDetector where
+instance Prelude.ToHeaders GetDetector where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetDetector where
+instance Prelude.ToPath GetDetector where
   toPath GetDetector' {..} =
-    mconcat ["/detector/", toBS _gdDetectorId]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId]
 
-instance ToQuery GetDetector where
-  toQuery = const mempty
+instance Prelude.ToQuery GetDetector where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getDetectorResponse' smart constructor.
+-- | /See:/ 'newGetDetectorResponse' smart constructor.
 data GetDetectorResponse = GetDetectorResponse'
-  { _gdrrsDataSources ::
-      !( Maybe
-           DataSourceConfigurationsResult
-       ),
-    _gdrrsFindingPublishingFrequency ::
-      !( Maybe
-           FindingPublishingFrequency
-       ),
-    _gdrrsUpdatedAt ::
-      !(Maybe Text),
-    _gdrrsCreatedAt ::
-      !(Maybe Text),
-    _gdrrsTags ::
-      !(Maybe (Map Text Text)),
-    _gdrrsResponseStatus :: !Int,
-    _gdrrsServiceRole :: !Text,
-    _gdrrsStatus :: !DetectorStatus
+  { -- | Describes which data sources are enabled for the detector.
+    dataSources :: Prelude.Maybe DataSourceConfigurationsResult,
+    -- | The publishing frequency of the finding.
+    findingPublishingFrequency :: Prelude.Maybe FindingPublishingFrequency,
+    -- | The last-updated timestamp for the detector.
+    updatedAt :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp of when the detector was created.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The tags of the detector resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The GuardDuty service role.
+    serviceRole :: Prelude.Text,
+    -- | The detector status.
+    status :: DetectorStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetDetectorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetDetectorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdrrsDataSources' - Describes which data sources are enabled for the detector.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdrrsFindingPublishingFrequency' - The publishing frequency of the finding.
+-- 'dataSources', 'getDetectorResponse_dataSources' - Describes which data sources are enabled for the detector.
 --
--- * 'gdrrsUpdatedAt' - The last-updated timestamp for the detector.
+-- 'findingPublishingFrequency', 'getDetectorResponse_findingPublishingFrequency' - The publishing frequency of the finding.
 --
--- * 'gdrrsCreatedAt' - The timestamp of when the detector was created.
+-- 'updatedAt', 'getDetectorResponse_updatedAt' - The last-updated timestamp for the detector.
 --
--- * 'gdrrsTags' - The tags of the detector resource.
+-- 'createdAt', 'getDetectorResponse_createdAt' - The timestamp of when the detector was created.
 --
--- * 'gdrrsResponseStatus' - -- | The response status code.
+-- 'tags', 'getDetectorResponse_tags' - The tags of the detector resource.
 --
--- * 'gdrrsServiceRole' - The GuardDuty service role.
+-- 'httpStatus', 'getDetectorResponse_httpStatus' - The response's http status code.
 --
--- * 'gdrrsStatus' - The detector status.
-getDetectorResponse ::
-  -- | 'gdrrsResponseStatus'
-  Int ->
-  -- | 'gdrrsServiceRole'
-  Text ->
-  -- | 'gdrrsStatus'
+-- 'serviceRole', 'getDetectorResponse_serviceRole' - The GuardDuty service role.
+--
+-- 'status', 'getDetectorResponse_status' - The detector status.
+newGetDetectorResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'serviceRole'
+  Prelude.Text ->
+  -- | 'status'
   DetectorStatus ->
   GetDetectorResponse
-getDetectorResponse
-  pResponseStatus_
+newGetDetectorResponse
+  pHttpStatus_
   pServiceRole_
   pStatus_ =
     GetDetectorResponse'
-      { _gdrrsDataSources = Nothing,
-        _gdrrsFindingPublishingFrequency = Nothing,
-        _gdrrsUpdatedAt = Nothing,
-        _gdrrsCreatedAt = Nothing,
-        _gdrrsTags = Nothing,
-        _gdrrsResponseStatus = pResponseStatus_,
-        _gdrrsServiceRole = pServiceRole_,
-        _gdrrsStatus = pStatus_
+      { dataSources = Prelude.Nothing,
+        findingPublishingFrequency = Prelude.Nothing,
+        updatedAt = Prelude.Nothing,
+        createdAt = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        serviceRole = pServiceRole_,
+        status = pStatus_
       }
 
 -- | Describes which data sources are enabled for the detector.
-gdrrsDataSources :: Lens' GetDetectorResponse (Maybe DataSourceConfigurationsResult)
-gdrrsDataSources = lens _gdrrsDataSources (\s a -> s {_gdrrsDataSources = a})
+getDetectorResponse_dataSources :: Lens.Lens' GetDetectorResponse (Prelude.Maybe DataSourceConfigurationsResult)
+getDetectorResponse_dataSources = Lens.lens (\GetDetectorResponse' {dataSources} -> dataSources) (\s@GetDetectorResponse' {} a -> s {dataSources = a} :: GetDetectorResponse)
 
 -- | The publishing frequency of the finding.
-gdrrsFindingPublishingFrequency :: Lens' GetDetectorResponse (Maybe FindingPublishingFrequency)
-gdrrsFindingPublishingFrequency = lens _gdrrsFindingPublishingFrequency (\s a -> s {_gdrrsFindingPublishingFrequency = a})
+getDetectorResponse_findingPublishingFrequency :: Lens.Lens' GetDetectorResponse (Prelude.Maybe FindingPublishingFrequency)
+getDetectorResponse_findingPublishingFrequency = Lens.lens (\GetDetectorResponse' {findingPublishingFrequency} -> findingPublishingFrequency) (\s@GetDetectorResponse' {} a -> s {findingPublishingFrequency = a} :: GetDetectorResponse)
 
 -- | The last-updated timestamp for the detector.
-gdrrsUpdatedAt :: Lens' GetDetectorResponse (Maybe Text)
-gdrrsUpdatedAt = lens _gdrrsUpdatedAt (\s a -> s {_gdrrsUpdatedAt = a})
+getDetectorResponse_updatedAt :: Lens.Lens' GetDetectorResponse (Prelude.Maybe Prelude.Text)
+getDetectorResponse_updatedAt = Lens.lens (\GetDetectorResponse' {updatedAt} -> updatedAt) (\s@GetDetectorResponse' {} a -> s {updatedAt = a} :: GetDetectorResponse)
 
 -- | The timestamp of when the detector was created.
-gdrrsCreatedAt :: Lens' GetDetectorResponse (Maybe Text)
-gdrrsCreatedAt = lens _gdrrsCreatedAt (\s a -> s {_gdrrsCreatedAt = a})
+getDetectorResponse_createdAt :: Lens.Lens' GetDetectorResponse (Prelude.Maybe Prelude.Text)
+getDetectorResponse_createdAt = Lens.lens (\GetDetectorResponse' {createdAt} -> createdAt) (\s@GetDetectorResponse' {} a -> s {createdAt = a} :: GetDetectorResponse)
 
 -- | The tags of the detector resource.
-gdrrsTags :: Lens' GetDetectorResponse (HashMap Text Text)
-gdrrsTags = lens _gdrrsTags (\s a -> s {_gdrrsTags = a}) . _Default . _Map
+getDetectorResponse_tags :: Lens.Lens' GetDetectorResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getDetectorResponse_tags = Lens.lens (\GetDetectorResponse' {tags} -> tags) (\s@GetDetectorResponse' {} a -> s {tags = a} :: GetDetectorResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gdrrsResponseStatus :: Lens' GetDetectorResponse Int
-gdrrsResponseStatus = lens _gdrrsResponseStatus (\s a -> s {_gdrrsResponseStatus = a})
+-- | The response's http status code.
+getDetectorResponse_httpStatus :: Lens.Lens' GetDetectorResponse Prelude.Int
+getDetectorResponse_httpStatus = Lens.lens (\GetDetectorResponse' {httpStatus} -> httpStatus) (\s@GetDetectorResponse' {} a -> s {httpStatus = a} :: GetDetectorResponse)
 
 -- | The GuardDuty service role.
-gdrrsServiceRole :: Lens' GetDetectorResponse Text
-gdrrsServiceRole = lens _gdrrsServiceRole (\s a -> s {_gdrrsServiceRole = a})
+getDetectorResponse_serviceRole :: Lens.Lens' GetDetectorResponse Prelude.Text
+getDetectorResponse_serviceRole = Lens.lens (\GetDetectorResponse' {serviceRole} -> serviceRole) (\s@GetDetectorResponse' {} a -> s {serviceRole = a} :: GetDetectorResponse)
 
 -- | The detector status.
-gdrrsStatus :: Lens' GetDetectorResponse DetectorStatus
-gdrrsStatus = lens _gdrrsStatus (\s a -> s {_gdrrsStatus = a})
+getDetectorResponse_status :: Lens.Lens' GetDetectorResponse DetectorStatus
+getDetectorResponse_status = Lens.lens (\GetDetectorResponse' {status} -> status) (\s@GetDetectorResponse' {} a -> s {status = a} :: GetDetectorResponse)
 
-instance NFData GetDetectorResponse
+instance Prelude.NFData GetDetectorResponse

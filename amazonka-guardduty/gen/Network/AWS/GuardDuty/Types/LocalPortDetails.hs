@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.LocalPortDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the port for the local connection.
 --
---
---
--- /See:/ 'localPortDetails' smart constructor.
+-- /See:/ 'newLocalPortDetails' smart constructor.
 data LocalPortDetails = LocalPortDetails'
-  { _lpdPortName ::
-      !(Maybe Text),
-    _lpdPort :: !(Maybe Int)
+  { -- | The port name of the local connection.
+    portName :: Prelude.Maybe Prelude.Text,
+    -- | The port number of the local connection.
+    port :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LocalPortDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LocalPortDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpdPortName' - The port name of the local connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpdPort' - The port number of the local connection.
-localPortDetails ::
+-- 'portName', 'localPortDetails_portName' - The port name of the local connection.
+--
+-- 'port', 'localPortDetails_port' - The port number of the local connection.
+newLocalPortDetails ::
   LocalPortDetails
-localPortDetails =
+newLocalPortDetails =
   LocalPortDetails'
-    { _lpdPortName = Nothing,
-      _lpdPort = Nothing
+    { portName = Prelude.Nothing,
+      port = Prelude.Nothing
     }
 
 -- | The port name of the local connection.
-lpdPortName :: Lens' LocalPortDetails (Maybe Text)
-lpdPortName = lens _lpdPortName (\s a -> s {_lpdPortName = a})
+localPortDetails_portName :: Lens.Lens' LocalPortDetails (Prelude.Maybe Prelude.Text)
+localPortDetails_portName = Lens.lens (\LocalPortDetails' {portName} -> portName) (\s@LocalPortDetails' {} a -> s {portName = a} :: LocalPortDetails)
 
 -- | The port number of the local connection.
-lpdPort :: Lens' LocalPortDetails (Maybe Int)
-lpdPort = lens _lpdPort (\s a -> s {_lpdPort = a})
+localPortDetails_port :: Lens.Lens' LocalPortDetails (Prelude.Maybe Prelude.Int)
+localPortDetails_port = Lens.lens (\LocalPortDetails' {port} -> port) (\s@LocalPortDetails' {} a -> s {port = a} :: LocalPortDetails)
 
-instance FromJSON LocalPortDetails where
+instance Prelude.FromJSON LocalPortDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LocalPortDetails"
       ( \x ->
           LocalPortDetails'
-            <$> (x .:? "portName") <*> (x .:? "port")
+            Prelude.<$> (x Prelude..:? "portName")
+            Prelude.<*> (x Prelude..:? "port")
       )
 
-instance Hashable LocalPortDetails
+instance Prelude.Hashable LocalPortDetails
 
-instance NFData LocalPortDetails
+instance Prelude.NFData LocalPortDetails

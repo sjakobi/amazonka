@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables an AWS account within the organization as the GuardDuty delegated administrator.
+-- Enables an AWS account within the organization as the GuardDuty
+-- delegated administrator.
 module Network.AWS.GuardDuty.EnableOrganizationAdminAccount
   ( -- * Creating a Request
-    enableOrganizationAdminAccount,
-    EnableOrganizationAdminAccount,
+    EnableOrganizationAdminAccount (..),
+    newEnableOrganizationAdminAccount,
 
     -- * Request Lenses
-    eoaaAdminAccountId,
+    enableOrganizationAdminAccount_adminAccountId,
 
     -- * Destructuring the Response
-    enableOrganizationAdminAccountResponse,
-    EnableOrganizationAdminAccountResponse,
+    EnableOrganizationAdminAccountResponse (..),
+    newEnableOrganizationAdminAccountResponse,
 
     -- * Response Lenses
-    eoaarrsResponseStatus,
+    enableOrganizationAdminAccountResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'enableOrganizationAdminAccount' smart constructor.
-newtype EnableOrganizationAdminAccount = EnableOrganizationAdminAccount'
-  { _eoaaAdminAccountId ::
-      Text
+-- | /See:/ 'newEnableOrganizationAdminAccount' smart constructor.
+data EnableOrganizationAdminAccount = EnableOrganizationAdminAccount'
+  { -- | The AWS Account ID for the organization account to be enabled as a
+    -- GuardDuty delegated administrator.
+    adminAccountId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EnableOrganizationAdminAccount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EnableOrganizationAdminAccount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eoaaAdminAccountId' - The AWS Account ID for the organization account to be enabled as a GuardDuty delegated administrator.
-enableOrganizationAdminAccount ::
-  -- | 'eoaaAdminAccountId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'adminAccountId', 'enableOrganizationAdminAccount_adminAccountId' - The AWS Account ID for the organization account to be enabled as a
+-- GuardDuty delegated administrator.
+newEnableOrganizationAdminAccount ::
+  -- | 'adminAccountId'
+  Prelude.Text ->
   EnableOrganizationAdminAccount
-enableOrganizationAdminAccount pAdminAccountId_ =
+newEnableOrganizationAdminAccount pAdminAccountId_ =
   EnableOrganizationAdminAccount'
-    { _eoaaAdminAccountId =
+    { adminAccountId =
         pAdminAccountId_
     }
 
--- | The AWS Account ID for the organization account to be enabled as a GuardDuty delegated administrator.
-eoaaAdminAccountId :: Lens' EnableOrganizationAdminAccount Text
-eoaaAdminAccountId = lens _eoaaAdminAccountId (\s a -> s {_eoaaAdminAccountId = a})
+-- | The AWS Account ID for the organization account to be enabled as a
+-- GuardDuty delegated administrator.
+enableOrganizationAdminAccount_adminAccountId :: Lens.Lens' EnableOrganizationAdminAccount Prelude.Text
+enableOrganizationAdminAccount_adminAccountId = Lens.lens (\EnableOrganizationAdminAccount' {adminAccountId} -> adminAccountId) (\s@EnableOrganizationAdminAccount' {} a -> s {adminAccountId = a} :: EnableOrganizationAdminAccount)
 
-instance AWSRequest EnableOrganizationAdminAccount where
+instance
+  Prelude.AWSRequest
+    EnableOrganizationAdminAccount
+  where
   type
     Rs EnableOrganizationAdminAccount =
       EnableOrganizationAdminAccountResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           EnableOrganizationAdminAccountResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable EnableOrganizationAdminAccount
+instance
+  Prelude.Hashable
+    EnableOrganizationAdminAccount
 
-instance NFData EnableOrganizationAdminAccount
+instance
+  Prelude.NFData
+    EnableOrganizationAdminAccount
 
-instance ToHeaders EnableOrganizationAdminAccount where
+instance
+  Prelude.ToHeaders
+    EnableOrganizationAdminAccount
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON EnableOrganizationAdminAccount where
+instance
+  Prelude.ToJSON
+    EnableOrganizationAdminAccount
+  where
   toJSON EnableOrganizationAdminAccount' {..} =
-    object
-      ( catMaybes
-          [Just ("adminAccountId" .= _eoaaAdminAccountId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("adminAccountId" Prelude..= adminAccountId)
+          ]
       )
 
-instance ToPath EnableOrganizationAdminAccount where
-  toPath = const "/admin/enable"
-
-instance ToQuery EnableOrganizationAdminAccount where
-  toQuery = const mempty
-
--- | /See:/ 'enableOrganizationAdminAccountResponse' smart constructor.
-newtype EnableOrganizationAdminAccountResponse = EnableOrganizationAdminAccountResponse'
-  { _eoaarrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'EnableOrganizationAdminAccountResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'eoaarrsResponseStatus' - -- | The response status code.
-enableOrganizationAdminAccountResponse ::
-  -- | 'eoaarrsResponseStatus'
-  Int ->
-  EnableOrganizationAdminAccountResponse
-enableOrganizationAdminAccountResponse
-  pResponseStatus_ =
-    EnableOrganizationAdminAccountResponse'
-      { _eoaarrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-eoaarrsResponseStatus :: Lens' EnableOrganizationAdminAccountResponse Int
-eoaarrsResponseStatus = lens _eoaarrsResponseStatus (\s a -> s {_eoaarrsResponseStatus = a})
+instance
+  Prelude.ToPath
+    EnableOrganizationAdminAccount
+  where
+  toPath = Prelude.const "/admin/enable"
 
 instance
-  NFData
+  Prelude.ToQuery
+    EnableOrganizationAdminAccount
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newEnableOrganizationAdminAccountResponse' smart constructor.
+data EnableOrganizationAdminAccountResponse = EnableOrganizationAdminAccountResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'EnableOrganizationAdminAccountResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'enableOrganizationAdminAccountResponse_httpStatus' - The response's http status code.
+newEnableOrganizationAdminAccountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  EnableOrganizationAdminAccountResponse
+newEnableOrganizationAdminAccountResponse
+  pHttpStatus_ =
+    EnableOrganizationAdminAccountResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+enableOrganizationAdminAccountResponse_httpStatus :: Lens.Lens' EnableOrganizationAdminAccountResponse Prelude.Int
+enableOrganizationAdminAccountResponse_httpStatus = Lens.lens (\EnableOrganizationAdminAccountResponse' {httpStatus} -> httpStatus) (\s@EnableOrganizationAdminAccountResponse' {} a -> s {httpStatus = a} :: EnableOrganizationAdminAccountResponse)
+
+instance
+  Prelude.NFData
     EnableOrganizationAdminAccountResponse

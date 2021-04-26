@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,192 +24,219 @@
 -- Returns the details of the filter specified by the filter name.
 module Network.AWS.GuardDuty.GetFilter
   ( -- * Creating a Request
-    getFilter,
-    GetFilter,
+    GetFilter (..),
+    newGetFilter,
 
     -- * Request Lenses
-    gDetectorId,
-    gFilterName,
+    getFilter_detectorId,
+    getFilter_filterName,
 
     -- * Destructuring the Response
-    getFilterResponse,
-    GetFilterResponse,
+    GetFilterResponse (..),
+    newGetFilterResponse,
 
     -- * Response Lenses
-    grsRank,
-    grsTags,
-    grsDescription,
-    grsResponseStatus,
-    grsName,
-    grsAction,
-    grsFindingCriteria,
+    getFilterResponse_rank,
+    getFilterResponse_tags,
+    getFilterResponse_description,
+    getFilterResponse_httpStatus,
+    getFilterResponse_name,
+    getFilterResponse_action,
+    getFilterResponse_findingCriteria,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.FilterAction
+import Network.AWS.GuardDuty.Types.FindingCriteria
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getFilter' smart constructor.
+-- | /See:/ 'newGetFilter' smart constructor.
 data GetFilter = GetFilter'
-  { _gDetectorId :: !Text,
-    _gFilterName :: !Text
+  { -- | The unique ID of the detector that the filter is associated with.
+    detectorId :: Prelude.Text,
+    -- | The name of the filter you want to get.
+    filterName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gDetectorId' - The unique ID of the detector that the filter is associated with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gFilterName' - The name of the filter you want to get.
-getFilter ::
-  -- | 'gDetectorId'
-  Text ->
-  -- | 'gFilterName'
-  Text ->
+-- 'detectorId', 'getFilter_detectorId' - The unique ID of the detector that the filter is associated with.
+--
+-- 'filterName', 'getFilter_filterName' - The name of the filter you want to get.
+newGetFilter ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'filterName'
+  Prelude.Text ->
   GetFilter
-getFilter pDetectorId_ pFilterName_ =
+newGetFilter pDetectorId_ pFilterName_ =
   GetFilter'
-    { _gDetectorId = pDetectorId_,
-      _gFilterName = pFilterName_
+    { detectorId = pDetectorId_,
+      filterName = pFilterName_
     }
 
 -- | The unique ID of the detector that the filter is associated with.
-gDetectorId :: Lens' GetFilter Text
-gDetectorId = lens _gDetectorId (\s a -> s {_gDetectorId = a})
+getFilter_detectorId :: Lens.Lens' GetFilter Prelude.Text
+getFilter_detectorId = Lens.lens (\GetFilter' {detectorId} -> detectorId) (\s@GetFilter' {} a -> s {detectorId = a} :: GetFilter)
 
 -- | The name of the filter you want to get.
-gFilterName :: Lens' GetFilter Text
-gFilterName = lens _gFilterName (\s a -> s {_gFilterName = a})
+getFilter_filterName :: Lens.Lens' GetFilter Prelude.Text
+getFilter_filterName = Lens.lens (\GetFilter' {filterName} -> filterName) (\s@GetFilter' {} a -> s {filterName = a} :: GetFilter)
 
-instance AWSRequest GetFilter where
+instance Prelude.AWSRequest GetFilter where
   type Rs GetFilter = GetFilterResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetFilterResponse'
-            <$> (x .?> "rank")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "description")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "name")
-            <*> (x .:> "action")
-            <*> (x .:> "findingCriteria")
+            Prelude.<$> (x Prelude..?> "rank")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "name")
+            Prelude.<*> (x Prelude..:> "action")
+            Prelude.<*> (x Prelude..:> "findingCriteria")
       )
 
-instance Hashable GetFilter
+instance Prelude.Hashable GetFilter
 
-instance NFData GetFilter
+instance Prelude.NFData GetFilter
 
-instance ToHeaders GetFilter where
+instance Prelude.ToHeaders GetFilter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetFilter where
+instance Prelude.ToPath GetFilter where
   toPath GetFilter' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _gDetectorId,
+        Prelude.toBS detectorId,
         "/filter/",
-        toBS _gFilterName
+        Prelude.toBS filterName
       ]
 
-instance ToQuery GetFilter where
-  toQuery = const mempty
+instance Prelude.ToQuery GetFilter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getFilterResponse' smart constructor.
+-- | /See:/ 'newGetFilterResponse' smart constructor.
 data GetFilterResponse = GetFilterResponse'
-  { _grsRank ::
-      !(Maybe Nat),
-    _grsTags ::
-      !(Maybe (Map Text Text)),
-    _grsDescription :: !(Maybe Text),
-    _grsResponseStatus :: !Int,
-    _grsName :: !Text,
-    _grsAction :: !FilterAction,
-    _grsFindingCriteria ::
-      !FindingCriteria
+  { -- | Specifies the position of the filter in the list of current filters.
+    -- Also specifies the order in which this filter is applied to the
+    -- findings.
+    rank :: Prelude.Maybe Prelude.Nat,
+    -- | The tags of the filter resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description of the filter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The name of the filter.
+    name :: Prelude.Text,
+    -- | Specifies the action that is to be applied to the findings that match
+    -- the filter.
+    action :: FilterAction,
+    -- | Represents the criteria to be used in the filter for querying findings.
+    findingCriteria :: FindingCriteria
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetFilterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetFilterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grsRank' - Specifies the position of the filter in the list of current filters. Also specifies the order in which this filter is applied to the findings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grsTags' - The tags of the filter resource.
+-- 'rank', 'getFilterResponse_rank' - Specifies the position of the filter in the list of current filters.
+-- Also specifies the order in which this filter is applied to the
+-- findings.
 --
--- * 'grsDescription' - The description of the filter.
+-- 'tags', 'getFilterResponse_tags' - The tags of the filter resource.
 --
--- * 'grsResponseStatus' - -- | The response status code.
+-- 'description', 'getFilterResponse_description' - The description of the filter.
 --
--- * 'grsName' - The name of the filter.
+-- 'httpStatus', 'getFilterResponse_httpStatus' - The response's http status code.
 --
--- * 'grsAction' - Specifies the action that is to be applied to the findings that match the filter.
+-- 'name', 'getFilterResponse_name' - The name of the filter.
 --
--- * 'grsFindingCriteria' - Represents the criteria to be used in the filter for querying findings.
-getFilterResponse ::
-  -- | 'grsResponseStatus'
-  Int ->
-  -- | 'grsName'
-  Text ->
-  -- | 'grsAction'
+-- 'action', 'getFilterResponse_action' - Specifies the action that is to be applied to the findings that match
+-- the filter.
+--
+-- 'findingCriteria', 'getFilterResponse_findingCriteria' - Represents the criteria to be used in the filter for querying findings.
+newGetFilterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'action'
   FilterAction ->
-  -- | 'grsFindingCriteria'
+  -- | 'findingCriteria'
   FindingCriteria ->
   GetFilterResponse
-getFilterResponse
-  pResponseStatus_
+newGetFilterResponse
+  pHttpStatus_
   pName_
   pAction_
   pFindingCriteria_ =
     GetFilterResponse'
-      { _grsRank = Nothing,
-        _grsTags = Nothing,
-        _grsDescription = Nothing,
-        _grsResponseStatus = pResponseStatus_,
-        _grsName = pName_,
-        _grsAction = pAction_,
-        _grsFindingCriteria = pFindingCriteria_
+      { rank = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        name = pName_,
+        action = pAction_,
+        findingCriteria = pFindingCriteria_
       }
 
--- | Specifies the position of the filter in the list of current filters. Also specifies the order in which this filter is applied to the findings.
-grsRank :: Lens' GetFilterResponse (Maybe Natural)
-grsRank = lens _grsRank (\s a -> s {_grsRank = a}) . mapping _Nat
+-- | Specifies the position of the filter in the list of current filters.
+-- Also specifies the order in which this filter is applied to the
+-- findings.
+getFilterResponse_rank :: Lens.Lens' GetFilterResponse (Prelude.Maybe Prelude.Natural)
+getFilterResponse_rank = Lens.lens (\GetFilterResponse' {rank} -> rank) (\s@GetFilterResponse' {} a -> s {rank = a} :: GetFilterResponse) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The tags of the filter resource.
-grsTags :: Lens' GetFilterResponse (HashMap Text Text)
-grsTags = lens _grsTags (\s a -> s {_grsTags = a}) . _Default . _Map
+getFilterResponse_tags :: Lens.Lens' GetFilterResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getFilterResponse_tags = Lens.lens (\GetFilterResponse' {tags} -> tags) (\s@GetFilterResponse' {} a -> s {tags = a} :: GetFilterResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description of the filter.
-grsDescription :: Lens' GetFilterResponse (Maybe Text)
-grsDescription = lens _grsDescription (\s a -> s {_grsDescription = a})
+getFilterResponse_description :: Lens.Lens' GetFilterResponse (Prelude.Maybe Prelude.Text)
+getFilterResponse_description = Lens.lens (\GetFilterResponse' {description} -> description) (\s@GetFilterResponse' {} a -> s {description = a} :: GetFilterResponse)
 
--- | -- | The response status code.
-grsResponseStatus :: Lens' GetFilterResponse Int
-grsResponseStatus = lens _grsResponseStatus (\s a -> s {_grsResponseStatus = a})
+-- | The response's http status code.
+getFilterResponse_httpStatus :: Lens.Lens' GetFilterResponse Prelude.Int
+getFilterResponse_httpStatus = Lens.lens (\GetFilterResponse' {httpStatus} -> httpStatus) (\s@GetFilterResponse' {} a -> s {httpStatus = a} :: GetFilterResponse)
 
 -- | The name of the filter.
-grsName :: Lens' GetFilterResponse Text
-grsName = lens _grsName (\s a -> s {_grsName = a})
+getFilterResponse_name :: Lens.Lens' GetFilterResponse Prelude.Text
+getFilterResponse_name = Lens.lens (\GetFilterResponse' {name} -> name) (\s@GetFilterResponse' {} a -> s {name = a} :: GetFilterResponse)
 
--- | Specifies the action that is to be applied to the findings that match the filter.
-grsAction :: Lens' GetFilterResponse FilterAction
-grsAction = lens _grsAction (\s a -> s {_grsAction = a})
+-- | Specifies the action that is to be applied to the findings that match
+-- the filter.
+getFilterResponse_action :: Lens.Lens' GetFilterResponse FilterAction
+getFilterResponse_action = Lens.lens (\GetFilterResponse' {action} -> action) (\s@GetFilterResponse' {} a -> s {action = a} :: GetFilterResponse)
 
 -- | Represents the criteria to be used in the filter for querying findings.
-grsFindingCriteria :: Lens' GetFilterResponse FindingCriteria
-grsFindingCriteria = lens _grsFindingCriteria (\s a -> s {_grsFindingCriteria = a})
+getFilterResponse_findingCriteria :: Lens.Lens' GetFilterResponse FindingCriteria
+getFilterResponse_findingCriteria = Lens.lens (\GetFilterResponse' {findingCriteria} -> findingCriteria) (\s@GetFilterResponse' {} a -> s {findingCriteria = a} :: GetFilterResponse)
 
-instance NFData GetFilterResponse
+instance Prelude.NFData GetFilterResponse

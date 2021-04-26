@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,126 +21,143 @@ module Network.AWS.GuardDuty.Types.ServiceInfo where
 
 import Network.AWS.GuardDuty.Types.Action
 import Network.AWS.GuardDuty.Types.Evidence
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains additional information about the generated finding.
 --
---
---
--- /See:/ 'serviceInfo' smart constructor.
+-- /See:/ 'newServiceInfo' smart constructor.
 data ServiceInfo = ServiceInfo'
-  { _siResourceRole ::
-      !(Maybe Text),
-    _siArchived :: !(Maybe Bool),
-    _siEventFirstSeen :: !(Maybe Text),
-    _siEventLastSeen :: !(Maybe Text),
-    _siServiceName :: !(Maybe Text),
-    _siDetectorId :: !(Maybe Text),
-    _siAction :: !(Maybe Action),
-    _siEvidence :: !(Maybe Evidence),
-    _siCount :: !(Maybe Int),
-    _siUserFeedback :: !(Maybe Text)
+  { -- | The resource role information for this finding.
+    resourceRole :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether this finding is archived.
+    archived :: Prelude.Maybe Prelude.Bool,
+    -- | The first-seen timestamp of the activity that prompted GuardDuty to
+    -- generate this finding.
+    eventFirstSeen :: Prelude.Maybe Prelude.Text,
+    -- | The last-seen timestamp of the activity that prompted GuardDuty to
+    -- generate this finding.
+    eventLastSeen :: Prelude.Maybe Prelude.Text,
+    -- | The name of the AWS service (GuardDuty) that generated a finding.
+    serviceName :: Prelude.Maybe Prelude.Text,
+    -- | The detector ID for the GuardDuty service.
+    detectorId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the activity that is described in a finding.
+    action :: Prelude.Maybe Action,
+    -- | An evidence object associated with the service.
+    evidence :: Prelude.Maybe Evidence,
+    -- | The total count of the occurrences of this finding type.
+    count :: Prelude.Maybe Prelude.Int,
+    -- | Feedback that was submitted about the finding.
+    userFeedback :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServiceInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServiceInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siResourceRole' - The resource role information for this finding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siArchived' - Indicates whether this finding is archived.
+-- 'resourceRole', 'serviceInfo_resourceRole' - The resource role information for this finding.
 --
--- * 'siEventFirstSeen' - The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
+-- 'archived', 'serviceInfo_archived' - Indicates whether this finding is archived.
 --
--- * 'siEventLastSeen' - The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
+-- 'eventFirstSeen', 'serviceInfo_eventFirstSeen' - The first-seen timestamp of the activity that prompted GuardDuty to
+-- generate this finding.
 --
--- * 'siServiceName' - The name of the AWS service (GuardDuty) that generated a finding.
+-- 'eventLastSeen', 'serviceInfo_eventLastSeen' - The last-seen timestamp of the activity that prompted GuardDuty to
+-- generate this finding.
 --
--- * 'siDetectorId' - The detector ID for the GuardDuty service.
+-- 'serviceName', 'serviceInfo_serviceName' - The name of the AWS service (GuardDuty) that generated a finding.
 --
--- * 'siAction' - Information about the activity that is described in a finding.
+-- 'detectorId', 'serviceInfo_detectorId' - The detector ID for the GuardDuty service.
 --
--- * 'siEvidence' - An evidence object associated with the service.
+-- 'action', 'serviceInfo_action' - Information about the activity that is described in a finding.
 --
--- * 'siCount' - The total count of the occurrences of this finding type.
+-- 'evidence', 'serviceInfo_evidence' - An evidence object associated with the service.
 --
--- * 'siUserFeedback' - Feedback that was submitted about the finding.
-serviceInfo ::
+-- 'count', 'serviceInfo_count' - The total count of the occurrences of this finding type.
+--
+-- 'userFeedback', 'serviceInfo_userFeedback' - Feedback that was submitted about the finding.
+newServiceInfo ::
   ServiceInfo
-serviceInfo =
+newServiceInfo =
   ServiceInfo'
-    { _siResourceRole = Nothing,
-      _siArchived = Nothing,
-      _siEventFirstSeen = Nothing,
-      _siEventLastSeen = Nothing,
-      _siServiceName = Nothing,
-      _siDetectorId = Nothing,
-      _siAction = Nothing,
-      _siEvidence = Nothing,
-      _siCount = Nothing,
-      _siUserFeedback = Nothing
+    { resourceRole = Prelude.Nothing,
+      archived = Prelude.Nothing,
+      eventFirstSeen = Prelude.Nothing,
+      eventLastSeen = Prelude.Nothing,
+      serviceName = Prelude.Nothing,
+      detectorId = Prelude.Nothing,
+      action = Prelude.Nothing,
+      evidence = Prelude.Nothing,
+      count = Prelude.Nothing,
+      userFeedback = Prelude.Nothing
     }
 
 -- | The resource role information for this finding.
-siResourceRole :: Lens' ServiceInfo (Maybe Text)
-siResourceRole = lens _siResourceRole (\s a -> s {_siResourceRole = a})
+serviceInfo_resourceRole :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Text)
+serviceInfo_resourceRole = Lens.lens (\ServiceInfo' {resourceRole} -> resourceRole) (\s@ServiceInfo' {} a -> s {resourceRole = a} :: ServiceInfo)
 
 -- | Indicates whether this finding is archived.
-siArchived :: Lens' ServiceInfo (Maybe Bool)
-siArchived = lens _siArchived (\s a -> s {_siArchived = a})
+serviceInfo_archived :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Bool)
+serviceInfo_archived = Lens.lens (\ServiceInfo' {archived} -> archived) (\s@ServiceInfo' {} a -> s {archived = a} :: ServiceInfo)
 
--- | The first-seen timestamp of the activity that prompted GuardDuty to generate this finding.
-siEventFirstSeen :: Lens' ServiceInfo (Maybe Text)
-siEventFirstSeen = lens _siEventFirstSeen (\s a -> s {_siEventFirstSeen = a})
+-- | The first-seen timestamp of the activity that prompted GuardDuty to
+-- generate this finding.
+serviceInfo_eventFirstSeen :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Text)
+serviceInfo_eventFirstSeen = Lens.lens (\ServiceInfo' {eventFirstSeen} -> eventFirstSeen) (\s@ServiceInfo' {} a -> s {eventFirstSeen = a} :: ServiceInfo)
 
--- | The last-seen timestamp of the activity that prompted GuardDuty to generate this finding.
-siEventLastSeen :: Lens' ServiceInfo (Maybe Text)
-siEventLastSeen = lens _siEventLastSeen (\s a -> s {_siEventLastSeen = a})
+-- | The last-seen timestamp of the activity that prompted GuardDuty to
+-- generate this finding.
+serviceInfo_eventLastSeen :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Text)
+serviceInfo_eventLastSeen = Lens.lens (\ServiceInfo' {eventLastSeen} -> eventLastSeen) (\s@ServiceInfo' {} a -> s {eventLastSeen = a} :: ServiceInfo)
 
 -- | The name of the AWS service (GuardDuty) that generated a finding.
-siServiceName :: Lens' ServiceInfo (Maybe Text)
-siServiceName = lens _siServiceName (\s a -> s {_siServiceName = a})
+serviceInfo_serviceName :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Text)
+serviceInfo_serviceName = Lens.lens (\ServiceInfo' {serviceName} -> serviceName) (\s@ServiceInfo' {} a -> s {serviceName = a} :: ServiceInfo)
 
 -- | The detector ID for the GuardDuty service.
-siDetectorId :: Lens' ServiceInfo (Maybe Text)
-siDetectorId = lens _siDetectorId (\s a -> s {_siDetectorId = a})
+serviceInfo_detectorId :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Text)
+serviceInfo_detectorId = Lens.lens (\ServiceInfo' {detectorId} -> detectorId) (\s@ServiceInfo' {} a -> s {detectorId = a} :: ServiceInfo)
 
 -- | Information about the activity that is described in a finding.
-siAction :: Lens' ServiceInfo (Maybe Action)
-siAction = lens _siAction (\s a -> s {_siAction = a})
+serviceInfo_action :: Lens.Lens' ServiceInfo (Prelude.Maybe Action)
+serviceInfo_action = Lens.lens (\ServiceInfo' {action} -> action) (\s@ServiceInfo' {} a -> s {action = a} :: ServiceInfo)
 
 -- | An evidence object associated with the service.
-siEvidence :: Lens' ServiceInfo (Maybe Evidence)
-siEvidence = lens _siEvidence (\s a -> s {_siEvidence = a})
+serviceInfo_evidence :: Lens.Lens' ServiceInfo (Prelude.Maybe Evidence)
+serviceInfo_evidence = Lens.lens (\ServiceInfo' {evidence} -> evidence) (\s@ServiceInfo' {} a -> s {evidence = a} :: ServiceInfo)
 
 -- | The total count of the occurrences of this finding type.
-siCount :: Lens' ServiceInfo (Maybe Int)
-siCount = lens _siCount (\s a -> s {_siCount = a})
+serviceInfo_count :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Int)
+serviceInfo_count = Lens.lens (\ServiceInfo' {count} -> count) (\s@ServiceInfo' {} a -> s {count = a} :: ServiceInfo)
 
 -- | Feedback that was submitted about the finding.
-siUserFeedback :: Lens' ServiceInfo (Maybe Text)
-siUserFeedback = lens _siUserFeedback (\s a -> s {_siUserFeedback = a})
+serviceInfo_userFeedback :: Lens.Lens' ServiceInfo (Prelude.Maybe Prelude.Text)
+serviceInfo_userFeedback = Lens.lens (\ServiceInfo' {userFeedback} -> userFeedback) (\s@ServiceInfo' {} a -> s {userFeedback = a} :: ServiceInfo)
 
-instance FromJSON ServiceInfo where
+instance Prelude.FromJSON ServiceInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ServiceInfo"
       ( \x ->
           ServiceInfo'
-            <$> (x .:? "resourceRole")
-            <*> (x .:? "archived")
-            <*> (x .:? "eventFirstSeen")
-            <*> (x .:? "eventLastSeen")
-            <*> (x .:? "serviceName")
-            <*> (x .:? "detectorId")
-            <*> (x .:? "action")
-            <*> (x .:? "evidence")
-            <*> (x .:? "count")
-            <*> (x .:? "userFeedback")
+            Prelude.<$> (x Prelude..:? "resourceRole")
+            Prelude.<*> (x Prelude..:? "archived")
+            Prelude.<*> (x Prelude..:? "eventFirstSeen")
+            Prelude.<*> (x Prelude..:? "eventLastSeen")
+            Prelude.<*> (x Prelude..:? "serviceName")
+            Prelude.<*> (x Prelude..:? "detectorId")
+            Prelude.<*> (x Prelude..:? "action")
+            Prelude.<*> (x Prelude..:? "evidence")
+            Prelude.<*> (x Prelude..:? "count")
+            Prelude.<*> (x Prelude..:? "userFeedback")
       )
 
-instance Hashable ServiceInfo
+instance Prelude.Hashable ServiceInfo
 
-instance NFData ServiceInfo
+instance Prelude.NFData ServiceInfo

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,77 +22,75 @@ module Network.AWS.GuardDuty.Types.BucketLevelPermissions where
 import Network.AWS.GuardDuty.Types.AccessControlList
 import Network.AWS.GuardDuty.Types.BlockPublicAccess
 import Network.AWS.GuardDuty.Types.BucketPolicy
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the bucket level permissions for the S3 bucket.
+-- | Contains information about the bucket level permissions for the S3
+-- bucket.
 --
---
---
--- /See:/ 'bucketLevelPermissions' smart constructor.
+-- /See:/ 'newBucketLevelPermissions' smart constructor.
 data BucketLevelPermissions = BucketLevelPermissions'
-  { _blpBlockPublicAccess ::
-      !( Maybe
-           BlockPublicAccess
-       ),
-    _blpBucketPolicy ::
-      !(Maybe BucketPolicy),
-    _blpAccessControlList ::
-      !( Maybe
-           AccessControlList
-       )
+  { -- | Contains information on which account level S3 Block Public Access
+    -- settings are applied to the S3 bucket.
+    blockPublicAccess :: Prelude.Maybe BlockPublicAccess,
+    -- | Contains information on the bucket policies for the S3 bucket.
+    bucketPolicy :: Prelude.Maybe BucketPolicy,
+    -- | Contains information on how Access Control Policies are applied to the
+    -- bucket.
+    accessControlList :: Prelude.Maybe AccessControlList
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BucketLevelPermissions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BucketLevelPermissions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'blpBlockPublicAccess' - Contains information on which account level S3 Block Public Access settings are applied to the S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'blpBucketPolicy' - Contains information on the bucket policies for the S3 bucket.
+-- 'blockPublicAccess', 'bucketLevelPermissions_blockPublicAccess' - Contains information on which account level S3 Block Public Access
+-- settings are applied to the S3 bucket.
 --
--- * 'blpAccessControlList' - Contains information on how Access Control Policies are applied to the bucket.
-bucketLevelPermissions ::
+-- 'bucketPolicy', 'bucketLevelPermissions_bucketPolicy' - Contains information on the bucket policies for the S3 bucket.
+--
+-- 'accessControlList', 'bucketLevelPermissions_accessControlList' - Contains information on how Access Control Policies are applied to the
+-- bucket.
+newBucketLevelPermissions ::
   BucketLevelPermissions
-bucketLevelPermissions =
+newBucketLevelPermissions =
   BucketLevelPermissions'
-    { _blpBlockPublicAccess =
-        Nothing,
-      _blpBucketPolicy = Nothing,
-      _blpAccessControlList = Nothing
+    { blockPublicAccess =
+        Prelude.Nothing,
+      bucketPolicy = Prelude.Nothing,
+      accessControlList = Prelude.Nothing
     }
 
--- | Contains information on which account level S3 Block Public Access settings are applied to the S3 bucket.
-blpBlockPublicAccess :: Lens' BucketLevelPermissions (Maybe BlockPublicAccess)
-blpBlockPublicAccess = lens _blpBlockPublicAccess (\s a -> s {_blpBlockPublicAccess = a})
+-- | Contains information on which account level S3 Block Public Access
+-- settings are applied to the S3 bucket.
+bucketLevelPermissions_blockPublicAccess :: Lens.Lens' BucketLevelPermissions (Prelude.Maybe BlockPublicAccess)
+bucketLevelPermissions_blockPublicAccess = Lens.lens (\BucketLevelPermissions' {blockPublicAccess} -> blockPublicAccess) (\s@BucketLevelPermissions' {} a -> s {blockPublicAccess = a} :: BucketLevelPermissions)
 
 -- | Contains information on the bucket policies for the S3 bucket.
-blpBucketPolicy :: Lens' BucketLevelPermissions (Maybe BucketPolicy)
-blpBucketPolicy = lens _blpBucketPolicy (\s a -> s {_blpBucketPolicy = a})
+bucketLevelPermissions_bucketPolicy :: Lens.Lens' BucketLevelPermissions (Prelude.Maybe BucketPolicy)
+bucketLevelPermissions_bucketPolicy = Lens.lens (\BucketLevelPermissions' {bucketPolicy} -> bucketPolicy) (\s@BucketLevelPermissions' {} a -> s {bucketPolicy = a} :: BucketLevelPermissions)
 
--- | Contains information on how Access Control Policies are applied to the bucket.
-blpAccessControlList :: Lens' BucketLevelPermissions (Maybe AccessControlList)
-blpAccessControlList = lens _blpAccessControlList (\s a -> s {_blpAccessControlList = a})
+-- | Contains information on how Access Control Policies are applied to the
+-- bucket.
+bucketLevelPermissions_accessControlList :: Lens.Lens' BucketLevelPermissions (Prelude.Maybe AccessControlList)
+bucketLevelPermissions_accessControlList = Lens.lens (\BucketLevelPermissions' {accessControlList} -> accessControlList) (\s@BucketLevelPermissions' {} a -> s {accessControlList = a} :: BucketLevelPermissions)
 
-instance FromJSON BucketLevelPermissions where
+instance Prelude.FromJSON BucketLevelPermissions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BucketLevelPermissions"
       ( \x ->
           BucketLevelPermissions'
-            <$> (x .:? "blockPublicAccess")
-            <*> (x .:? "bucketPolicy")
-            <*> (x .:? "accessControlList")
+            Prelude.<$> (x Prelude..:? "blockPublicAccess")
+            Prelude.<*> (x Prelude..:? "bucketPolicy")
+            Prelude.<*> (x Prelude..:? "accessControlList")
       )
 
-instance Hashable BucketLevelPermissions
+instance Prelude.Hashable BucketLevelPermissions
 
-instance NFData BucketLevelPermissions
+instance Prelude.NFData BucketLevelPermissions

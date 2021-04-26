@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,51 +20,47 @@
 module Network.AWS.GuardDuty.Types.DNSLogsConfigurationResult where
 
 import Network.AWS.GuardDuty.Types.DataSourceStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information on the status of DNS logs as a data source.
 --
---
---
--- /See:/ 'dnsLogsConfigurationResult' smart constructor.
-newtype DNSLogsConfigurationResult = DNSLogsConfigurationResult'
-  { _dlcrStatus ::
-      DataSourceStatus
+-- /See:/ 'newDNSLogsConfigurationResult' smart constructor.
+data DNSLogsConfigurationResult = DNSLogsConfigurationResult'
+  { -- | Denotes whether DNS logs is enabled as a data source.
+    status :: DataSourceStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DNSLogsConfigurationResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DNSLogsConfigurationResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlcrStatus' - Denotes whether DNS logs is enabled as a data source.
-dnsLogsConfigurationResult ::
-  -- | 'dlcrStatus'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'status', 'dNSLogsConfigurationResult_status' - Denotes whether DNS logs is enabled as a data source.
+newDNSLogsConfigurationResult ::
+  -- | 'status'
   DataSourceStatus ->
   DNSLogsConfigurationResult
-dnsLogsConfigurationResult pStatus_ =
-  DNSLogsConfigurationResult' {_dlcrStatus = pStatus_}
+newDNSLogsConfigurationResult pStatus_ =
+  DNSLogsConfigurationResult' {status = pStatus_}
 
 -- | Denotes whether DNS logs is enabled as a data source.
-dlcrStatus :: Lens' DNSLogsConfigurationResult DataSourceStatus
-dlcrStatus = lens _dlcrStatus (\s a -> s {_dlcrStatus = a})
+dNSLogsConfigurationResult_status :: Lens.Lens' DNSLogsConfigurationResult DataSourceStatus
+dNSLogsConfigurationResult_status = Lens.lens (\DNSLogsConfigurationResult' {status} -> status) (\s@DNSLogsConfigurationResult' {} a -> s {status = a} :: DNSLogsConfigurationResult)
 
-instance FromJSON DNSLogsConfigurationResult where
+instance Prelude.FromJSON DNSLogsConfigurationResult where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DNSLogsConfigurationResult"
       ( \x ->
-          DNSLogsConfigurationResult' <$> (x .: "status")
+          DNSLogsConfigurationResult'
+            Prelude.<$> (x Prelude..: "status")
       )
 
-instance Hashable DNSLogsConfigurationResult
+instance Prelude.Hashable DNSLogsConfigurationResult
 
-instance NFData DNSLogsConfigurationResult
+instance Prelude.NFData DNSLogsConfigurationResult

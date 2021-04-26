@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates member accounts of the current AWS account by specifying a list of AWS account IDs. This step is a prerequisite for managing the associated member accounts either by invitation or through an organization.
+-- Creates member accounts of the current AWS account by specifying a list
+-- of AWS account IDs. This step is a prerequisite for managing the
+-- associated member accounts either by invitation or through an
+-- organization.
 --
+-- When using @Create Members@ as an organizations delegated administrator
+-- this action will enable GuardDuty in the added member accounts, with the
+-- exception of the organization delegated administrator account, which
+-- must enable GuardDuty prior to being added as a member.
 --
--- When using @Create Members@ as an organizations delegated administrator this action will enable GuardDuty in the added member accounts, with the exception of the organization delegated administrator account, which must enable GuardDuty prior to being added as a member.
---
--- If you are adding accounts by invitation use this action after GuardDuty has been enabled in potential member accounts and before using <https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html @Invite Members@ > .
+-- If you are adding accounts by invitation use this action after GuardDuty
+-- has been enabled in potential member accounts and before using
+-- <https://docs.aws.amazon.com/guardduty/latest/APIReference/API_InviteMembers.html Invite Members>
+-- .
 module Network.AWS.GuardDuty.CreateMembers
   ( -- * Creating a Request
-    createMembers,
-    CreateMembers,
+    CreateMembers (..),
+    newCreateMembers,
 
     -- * Request Lenses
-    cmDetectorId,
-    cmAccountDetails,
+    createMembers_detectorId,
+    createMembers_accountDetails,
 
     -- * Destructuring the Response
-    createMembersResponse,
-    CreateMembersResponse,
+    CreateMembersResponse (..),
+    newCreateMembersResponse,
 
     -- * Response Lenses
-    cmrrsResponseStatus,
-    cmrrsUnprocessedAccounts,
+    createMembersResponse_httpStatus,
+    createMembersResponse_unprocessedAccounts,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.UnprocessedAccount
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createMembers' smart constructor.
+-- | /See:/ 'newCreateMembers' smart constructor.
 data CreateMembers = CreateMembers'
-  { _cmDetectorId ::
-      !Text,
-    _cmAccountDetails :: !(List1 AccountDetail)
+  { -- | The unique ID of the detector of the GuardDuty account that you want to
+    -- associate member accounts with.
+    detectorId :: Prelude.Text,
+    -- | A list of account ID and email address pairs of the accounts that you
+    -- want to associate with the GuardDuty administrator account.
+    accountDetails :: Prelude.List1 AccountDetail
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMembers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMembers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmDetectorId' - The unique ID of the detector of the GuardDuty account that you want to associate member accounts with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmAccountDetails' - A list of account ID and email address pairs of the accounts that you want to associate with the GuardDuty administrator account.
-createMembers ::
-  -- | 'cmDetectorId'
-  Text ->
-  -- | 'cmAccountDetails'
-  NonEmpty AccountDetail ->
+-- 'detectorId', 'createMembers_detectorId' - The unique ID of the detector of the GuardDuty account that you want to
+-- associate member accounts with.
+--
+-- 'accountDetails', 'createMembers_accountDetails' - A list of account ID and email address pairs of the accounts that you
+-- want to associate with the GuardDuty administrator account.
+newCreateMembers ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'accountDetails'
+  Prelude.NonEmpty AccountDetail ->
   CreateMembers
-createMembers pDetectorId_ pAccountDetails_ =
+newCreateMembers pDetectorId_ pAccountDetails_ =
   CreateMembers'
-    { _cmDetectorId = pDetectorId_,
-      _cmAccountDetails = _List1 # pAccountDetails_
+    { detectorId = pDetectorId_,
+      accountDetails =
+        Prelude._List1 Lens.# pAccountDetails_
     }
 
--- | The unique ID of the detector of the GuardDuty account that you want to associate member accounts with.
-cmDetectorId :: Lens' CreateMembers Text
-cmDetectorId = lens _cmDetectorId (\s a -> s {_cmDetectorId = a})
+-- | The unique ID of the detector of the GuardDuty account that you want to
+-- associate member accounts with.
+createMembers_detectorId :: Lens.Lens' CreateMembers Prelude.Text
+createMembers_detectorId = Lens.lens (\CreateMembers' {detectorId} -> detectorId) (\s@CreateMembers' {} a -> s {detectorId = a} :: CreateMembers)
 
--- | A list of account ID and email address pairs of the accounts that you want to associate with the GuardDuty administrator account.
-cmAccountDetails :: Lens' CreateMembers (NonEmpty AccountDetail)
-cmAccountDetails = lens _cmAccountDetails (\s a -> s {_cmAccountDetails = a}) . _List1
+-- | A list of account ID and email address pairs of the accounts that you
+-- want to associate with the GuardDuty administrator account.
+createMembers_accountDetails :: Lens.Lens' CreateMembers (Prelude.NonEmpty AccountDetail)
+createMembers_accountDetails = Lens.lens (\CreateMembers' {accountDetails} -> accountDetails) (\s@CreateMembers' {} a -> s {accountDetails = a} :: CreateMembers) Prelude.. Prelude._List1
 
-instance AWSRequest CreateMembers where
+instance Prelude.AWSRequest CreateMembers where
   type Rs CreateMembers = CreateMembersResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateMembersResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "unprocessedAccounts" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "unprocessedAccounts"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable CreateMembers
+instance Prelude.Hashable CreateMembers
 
-instance NFData CreateMembers
+instance Prelude.NFData CreateMembers
 
-instance ToHeaders CreateMembers where
+instance Prelude.ToHeaders CreateMembers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateMembers where
+instance Prelude.ToJSON CreateMembers where
   toJSON CreateMembers' {..} =
-    object
-      ( catMaybes
-          [Just ("accountDetails" .= _cmAccountDetails)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("accountDetails" Prelude..= accountDetails)
+          ]
       )
 
-instance ToPath CreateMembers where
+instance Prelude.ToPath CreateMembers where
   toPath CreateMembers' {..} =
-    mconcat
-      ["/detector/", toBS _cmDetectorId, "/member"]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId, "/member"]
 
-instance ToQuery CreateMembers where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateMembers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createMembersResponse' smart constructor.
+-- | /See:/ 'newCreateMembersResponse' smart constructor.
 data CreateMembersResponse = CreateMembersResponse'
-  { _cmrrsResponseStatus ::
-      !Int,
-    _cmrrsUnprocessedAccounts ::
-      ![UnprocessedAccount]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of objects that include the @accountIds@ of the unprocessed
+    -- accounts and a result string that explains why each was unprocessed.
+    unprocessedAccounts :: [UnprocessedAccount]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMembersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMembersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmrrsUnprocessedAccounts' - A list of objects that include the @accountIds@ of the unprocessed accounts and a result string that explains why each was unprocessed.
-createMembersResponse ::
-  -- | 'cmrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'createMembersResponse_httpStatus' - The response's http status code.
+--
+-- 'unprocessedAccounts', 'createMembersResponse_unprocessedAccounts' - A list of objects that include the @accountIds@ of the unprocessed
+-- accounts and a result string that explains why each was unprocessed.
+newCreateMembersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateMembersResponse
-createMembersResponse pResponseStatus_ =
+newCreateMembersResponse pHttpStatus_ =
   CreateMembersResponse'
-    { _cmrrsResponseStatus =
-        pResponseStatus_,
-      _cmrrsUnprocessedAccounts = mempty
+    { httpStatus = pHttpStatus_,
+      unprocessedAccounts = Prelude.mempty
     }
 
--- | -- | The response status code.
-cmrrsResponseStatus :: Lens' CreateMembersResponse Int
-cmrrsResponseStatus = lens _cmrrsResponseStatus (\s a -> s {_cmrrsResponseStatus = a})
+-- | The response's http status code.
+createMembersResponse_httpStatus :: Lens.Lens' CreateMembersResponse Prelude.Int
+createMembersResponse_httpStatus = Lens.lens (\CreateMembersResponse' {httpStatus} -> httpStatus) (\s@CreateMembersResponse' {} a -> s {httpStatus = a} :: CreateMembersResponse)
 
--- | A list of objects that include the @accountIds@ of the unprocessed accounts and a result string that explains why each was unprocessed.
-cmrrsUnprocessedAccounts :: Lens' CreateMembersResponse [UnprocessedAccount]
-cmrrsUnprocessedAccounts = lens _cmrrsUnprocessedAccounts (\s a -> s {_cmrrsUnprocessedAccounts = a}) . _Coerce
+-- | A list of objects that include the @accountIds@ of the unprocessed
+-- accounts and a result string that explains why each was unprocessed.
+createMembersResponse_unprocessedAccounts :: Lens.Lens' CreateMembersResponse [UnprocessedAccount]
+createMembersResponse_unprocessedAccounts = Lens.lens (\CreateMembersResponse' {unprocessedAccounts} -> unprocessedAccounts) (\s@CreateMembersResponse' {} a -> s {unprocessedAccounts = a} :: CreateMembersResponse) Prelude.. Prelude._Coerce
 
-instance NFData CreateMembersResponse
+instance Prelude.NFData CreateMembersResponse

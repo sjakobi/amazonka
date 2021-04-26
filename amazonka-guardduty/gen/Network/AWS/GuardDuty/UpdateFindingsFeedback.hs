@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,165 +24,169 @@
 -- Marks the specified GuardDuty findings as useful or not useful.
 module Network.AWS.GuardDuty.UpdateFindingsFeedback
   ( -- * Creating a Request
-    updateFindingsFeedback,
-    UpdateFindingsFeedback,
+    UpdateFindingsFeedback (..),
+    newUpdateFindingsFeedback,
 
     -- * Request Lenses
-    uffComments,
-    uffDetectorId,
-    uffFindingIds,
-    uffFeedback,
+    updateFindingsFeedback_comments,
+    updateFindingsFeedback_detectorId,
+    updateFindingsFeedback_findingIds,
+    updateFindingsFeedback_feedback,
 
     -- * Destructuring the Response
-    updateFindingsFeedbackResponse,
-    UpdateFindingsFeedbackResponse,
+    UpdateFindingsFeedbackResponse (..),
+    newUpdateFindingsFeedbackResponse,
 
     -- * Response Lenses
-    uffrrsResponseStatus,
+    updateFindingsFeedbackResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateFindingsFeedback' smart constructor.
+-- | /See:/ 'newUpdateFindingsFeedback' smart constructor.
 data UpdateFindingsFeedback = UpdateFindingsFeedback'
-  { _uffComments ::
-      !(Maybe Text),
-    _uffDetectorId :: !Text,
-    _uffFindingIds :: ![Text],
-    _uffFeedback :: !Feedback
+  { -- | Additional feedback about the GuardDuty findings.
+    comments :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the detector associated with the findings to update feedback
+    -- for.
+    detectorId :: Prelude.Text,
+    -- | The IDs of the findings that you want to mark as useful or not useful.
+    findingIds :: [Prelude.Text],
+    -- | The feedback for the finding.
+    feedback :: Feedback
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFindingsFeedback' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFindingsFeedback' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uffComments' - Additional feedback about the GuardDuty findings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uffDetectorId' - The ID of the detector associated with the findings to update feedback for.
+-- 'comments', 'updateFindingsFeedback_comments' - Additional feedback about the GuardDuty findings.
 --
--- * 'uffFindingIds' - The IDs of the findings that you want to mark as useful or not useful.
+-- 'detectorId', 'updateFindingsFeedback_detectorId' - The ID of the detector associated with the findings to update feedback
+-- for.
 --
--- * 'uffFeedback' - The feedback for the finding.
-updateFindingsFeedback ::
-  -- | 'uffDetectorId'
-  Text ->
-  -- | 'uffFeedback'
+-- 'findingIds', 'updateFindingsFeedback_findingIds' - The IDs of the findings that you want to mark as useful or not useful.
+--
+-- 'feedback', 'updateFindingsFeedback_feedback' - The feedback for the finding.
+newUpdateFindingsFeedback ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'feedback'
   Feedback ->
   UpdateFindingsFeedback
-updateFindingsFeedback pDetectorId_ pFeedback_ =
+newUpdateFindingsFeedback pDetectorId_ pFeedback_ =
   UpdateFindingsFeedback'
-    { _uffComments = Nothing,
-      _uffDetectorId = pDetectorId_,
-      _uffFindingIds = mempty,
-      _uffFeedback = pFeedback_
+    { comments = Prelude.Nothing,
+      detectorId = pDetectorId_,
+      findingIds = Prelude.mempty,
+      feedback = pFeedback_
     }
 
 -- | Additional feedback about the GuardDuty findings.
-uffComments :: Lens' UpdateFindingsFeedback (Maybe Text)
-uffComments = lens _uffComments (\s a -> s {_uffComments = a})
+updateFindingsFeedback_comments :: Lens.Lens' UpdateFindingsFeedback (Prelude.Maybe Prelude.Text)
+updateFindingsFeedback_comments = Lens.lens (\UpdateFindingsFeedback' {comments} -> comments) (\s@UpdateFindingsFeedback' {} a -> s {comments = a} :: UpdateFindingsFeedback)
 
--- | The ID of the detector associated with the findings to update feedback for.
-uffDetectorId :: Lens' UpdateFindingsFeedback Text
-uffDetectorId = lens _uffDetectorId (\s a -> s {_uffDetectorId = a})
+-- | The ID of the detector associated with the findings to update feedback
+-- for.
+updateFindingsFeedback_detectorId :: Lens.Lens' UpdateFindingsFeedback Prelude.Text
+updateFindingsFeedback_detectorId = Lens.lens (\UpdateFindingsFeedback' {detectorId} -> detectorId) (\s@UpdateFindingsFeedback' {} a -> s {detectorId = a} :: UpdateFindingsFeedback)
 
 -- | The IDs of the findings that you want to mark as useful or not useful.
-uffFindingIds :: Lens' UpdateFindingsFeedback [Text]
-uffFindingIds = lens _uffFindingIds (\s a -> s {_uffFindingIds = a}) . _Coerce
+updateFindingsFeedback_findingIds :: Lens.Lens' UpdateFindingsFeedback [Prelude.Text]
+updateFindingsFeedback_findingIds = Lens.lens (\UpdateFindingsFeedback' {findingIds} -> findingIds) (\s@UpdateFindingsFeedback' {} a -> s {findingIds = a} :: UpdateFindingsFeedback) Prelude.. Prelude._Coerce
 
 -- | The feedback for the finding.
-uffFeedback :: Lens' UpdateFindingsFeedback Feedback
-uffFeedback = lens _uffFeedback (\s a -> s {_uffFeedback = a})
+updateFindingsFeedback_feedback :: Lens.Lens' UpdateFindingsFeedback Feedback
+updateFindingsFeedback_feedback = Lens.lens (\UpdateFindingsFeedback' {feedback} -> feedback) (\s@UpdateFindingsFeedback' {} a -> s {feedback = a} :: UpdateFindingsFeedback)
 
-instance AWSRequest UpdateFindingsFeedback where
+instance Prelude.AWSRequest UpdateFindingsFeedback where
   type
     Rs UpdateFindingsFeedback =
       UpdateFindingsFeedbackResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateFindingsFeedbackResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateFindingsFeedback
+instance Prelude.Hashable UpdateFindingsFeedback
 
-instance NFData UpdateFindingsFeedback
+instance Prelude.NFData UpdateFindingsFeedback
 
-instance ToHeaders UpdateFindingsFeedback where
+instance Prelude.ToHeaders UpdateFindingsFeedback where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateFindingsFeedback where
+instance Prelude.ToJSON UpdateFindingsFeedback where
   toJSON UpdateFindingsFeedback' {..} =
-    object
-      ( catMaybes
-          [ ("comments" .=) <$> _uffComments,
-            Just ("findingIds" .= _uffFindingIds),
-            Just ("feedback" .= _uffFeedback)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("comments" Prelude..=) Prelude.<$> comments,
+            Prelude.Just ("findingIds" Prelude..= findingIds),
+            Prelude.Just ("feedback" Prelude..= feedback)
           ]
       )
 
-instance ToPath UpdateFindingsFeedback where
+instance Prelude.ToPath UpdateFindingsFeedback where
   toPath UpdateFindingsFeedback' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _uffDetectorId,
+        Prelude.toBS detectorId,
         "/findings/feedback"
       ]
 
-instance ToQuery UpdateFindingsFeedback where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateFindingsFeedback where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateFindingsFeedbackResponse' smart constructor.
-newtype UpdateFindingsFeedbackResponse = UpdateFindingsFeedbackResponse'
-  { _uffrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateFindingsFeedbackResponse' smart constructor.
+data UpdateFindingsFeedbackResponse = UpdateFindingsFeedbackResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateFindingsFeedbackResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateFindingsFeedbackResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uffrrsResponseStatus' - -- | The response status code.
-updateFindingsFeedbackResponse ::
-  -- | 'uffrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateFindingsFeedbackResponse_httpStatus' - The response's http status code.
+newUpdateFindingsFeedbackResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateFindingsFeedbackResponse
-updateFindingsFeedbackResponse pResponseStatus_ =
+newUpdateFindingsFeedbackResponse pHttpStatus_ =
   UpdateFindingsFeedbackResponse'
-    { _uffrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-uffrrsResponseStatus :: Lens' UpdateFindingsFeedbackResponse Int
-uffrrsResponseStatus = lens _uffrrsResponseStatus (\s a -> s {_uffrrsResponseStatus = a})
+-- | The response's http status code.
+updateFindingsFeedbackResponse_httpStatus :: Lens.Lens' UpdateFindingsFeedbackResponse Prelude.Int
+updateFindingsFeedbackResponse_httpStatus = Lens.lens (\UpdateFindingsFeedbackResponse' {httpStatus} -> httpStatus) (\s@UpdateFindingsFeedbackResponse' {} a -> s {httpStatus = a} :: UpdateFindingsFeedbackResponse)
 
-instance NFData UpdateFindingsFeedbackResponse
+instance
+  Prelude.NFData
+    UpdateFindingsFeedbackResponse

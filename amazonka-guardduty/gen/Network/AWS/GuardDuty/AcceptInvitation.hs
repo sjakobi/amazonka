@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,150 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accepts the invitation to be monitored by a GuardDuty administrator account.
+-- Accepts the invitation to be monitored by a GuardDuty administrator
+-- account.
 module Network.AWS.GuardDuty.AcceptInvitation
   ( -- * Creating a Request
-    acceptInvitation,
-    AcceptInvitation,
+    AcceptInvitation (..),
+    newAcceptInvitation,
 
     -- * Request Lenses
-    aiDetectorId,
-    aiMasterId,
-    aiInvitationId,
+    acceptInvitation_detectorId,
+    acceptInvitation_masterId,
+    acceptInvitation_invitationId,
 
     -- * Destructuring the Response
-    acceptInvitationResponse,
-    AcceptInvitationResponse,
+    AcceptInvitationResponse (..),
+    newAcceptInvitationResponse,
 
     -- * Response Lenses
-    airrsResponseStatus,
+    acceptInvitationResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'acceptInvitation' smart constructor.
+-- | /See:/ 'newAcceptInvitation' smart constructor.
 data AcceptInvitation = AcceptInvitation'
-  { _aiDetectorId ::
-      !Text,
-    _aiMasterId :: !Text,
-    _aiInvitationId :: !Text
+  { -- | The unique ID of the detector of the GuardDuty member account.
+    detectorId :: Prelude.Text,
+    -- | The account ID of the GuardDuty administrator account whose invitation
+    -- you\'re accepting.
+    masterId :: Prelude.Text,
+    -- | The value that is used to validate the administrator account to the
+    -- member account.
+    invitationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptInvitation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptInvitation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aiDetectorId' - The unique ID of the detector of the GuardDuty member account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aiMasterId' - The account ID of the GuardDuty administrator account whose invitation you're accepting.
+-- 'detectorId', 'acceptInvitation_detectorId' - The unique ID of the detector of the GuardDuty member account.
 --
--- * 'aiInvitationId' - The value that is used to validate the administrator account to the member account.
-acceptInvitation ::
-  -- | 'aiDetectorId'
-  Text ->
-  -- | 'aiMasterId'
-  Text ->
-  -- | 'aiInvitationId'
-  Text ->
+-- 'masterId', 'acceptInvitation_masterId' - The account ID of the GuardDuty administrator account whose invitation
+-- you\'re accepting.
+--
+-- 'invitationId', 'acceptInvitation_invitationId' - The value that is used to validate the administrator account to the
+-- member account.
+newAcceptInvitation ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'masterId'
+  Prelude.Text ->
+  -- | 'invitationId'
+  Prelude.Text ->
   AcceptInvitation
-acceptInvitation
+newAcceptInvitation
   pDetectorId_
   pMasterId_
   pInvitationId_ =
     AcceptInvitation'
-      { _aiDetectorId = pDetectorId_,
-        _aiMasterId = pMasterId_,
-        _aiInvitationId = pInvitationId_
+      { detectorId = pDetectorId_,
+        masterId = pMasterId_,
+        invitationId = pInvitationId_
       }
 
 -- | The unique ID of the detector of the GuardDuty member account.
-aiDetectorId :: Lens' AcceptInvitation Text
-aiDetectorId = lens _aiDetectorId (\s a -> s {_aiDetectorId = a})
+acceptInvitation_detectorId :: Lens.Lens' AcceptInvitation Prelude.Text
+acceptInvitation_detectorId = Lens.lens (\AcceptInvitation' {detectorId} -> detectorId) (\s@AcceptInvitation' {} a -> s {detectorId = a} :: AcceptInvitation)
 
--- | The account ID of the GuardDuty administrator account whose invitation you're accepting.
-aiMasterId :: Lens' AcceptInvitation Text
-aiMasterId = lens _aiMasterId (\s a -> s {_aiMasterId = a})
+-- | The account ID of the GuardDuty administrator account whose invitation
+-- you\'re accepting.
+acceptInvitation_masterId :: Lens.Lens' AcceptInvitation Prelude.Text
+acceptInvitation_masterId = Lens.lens (\AcceptInvitation' {masterId} -> masterId) (\s@AcceptInvitation' {} a -> s {masterId = a} :: AcceptInvitation)
 
--- | The value that is used to validate the administrator account to the member account.
-aiInvitationId :: Lens' AcceptInvitation Text
-aiInvitationId = lens _aiInvitationId (\s a -> s {_aiInvitationId = a})
+-- | The value that is used to validate the administrator account to the
+-- member account.
+acceptInvitation_invitationId :: Lens.Lens' AcceptInvitation Prelude.Text
+acceptInvitation_invitationId = Lens.lens (\AcceptInvitation' {invitationId} -> invitationId) (\s@AcceptInvitation' {} a -> s {invitationId = a} :: AcceptInvitation)
 
-instance AWSRequest AcceptInvitation where
+instance Prelude.AWSRequest AcceptInvitation where
   type Rs AcceptInvitation = AcceptInvitationResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          AcceptInvitationResponse' <$> (pure (fromEnum s))
+          AcceptInvitationResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AcceptInvitation
+instance Prelude.Hashable AcceptInvitation
 
-instance NFData AcceptInvitation
+instance Prelude.NFData AcceptInvitation
 
-instance ToHeaders AcceptInvitation where
+instance Prelude.ToHeaders AcceptInvitation where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AcceptInvitation where
+instance Prelude.ToJSON AcceptInvitation where
   toJSON AcceptInvitation' {..} =
-    object
-      ( catMaybes
-          [ Just ("masterId" .= _aiMasterId),
-            Just ("invitationId" .= _aiInvitationId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("masterId" Prelude..= masterId),
+            Prelude.Just
+              ("invitationId" Prelude..= invitationId)
           ]
       )
 
-instance ToPath AcceptInvitation where
+instance Prelude.ToPath AcceptInvitation where
   toPath AcceptInvitation' {..} =
-    mconcat
-      ["/detector/", toBS _aiDetectorId, "/master"]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId, "/master"]
 
-instance ToQuery AcceptInvitation where
-  toQuery = const mempty
+instance Prelude.ToQuery AcceptInvitation where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'acceptInvitationResponse' smart constructor.
-newtype AcceptInvitationResponse = AcceptInvitationResponse'
-  { _airrsResponseStatus ::
-      Int
+-- | /See:/ 'newAcceptInvitationResponse' smart constructor.
+data AcceptInvitationResponse = AcceptInvitationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptInvitationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptInvitationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'airrsResponseStatus' - -- | The response status code.
-acceptInvitationResponse ::
-  -- | 'airrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'acceptInvitationResponse_httpStatus' - The response's http status code.
+newAcceptInvitationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AcceptInvitationResponse
-acceptInvitationResponse pResponseStatus_ =
+newAcceptInvitationResponse pHttpStatus_ =
   AcceptInvitationResponse'
-    { _airrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-airrsResponseStatus :: Lens' AcceptInvitationResponse Int
-airrsResponseStatus = lens _airrsResponseStatus (\s a -> s {_airrsResponseStatus = a})
+-- | The response's http status code.
+acceptInvitationResponse_httpStatus :: Lens.Lens' AcceptInvitationResponse Prelude.Int
+acceptInvitationResponse_httpStatus = Lens.lens (\AcceptInvitationResponse' {httpStatus} -> httpStatus) (\s@AcceptInvitationResponse' {} a -> s {httpStatus = a} :: AcceptInvitationResponse)
 
-instance NFData AcceptInvitationResponse
+instance Prelude.NFData AcceptInvitationResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.GuardDuty.Types.Feedback
   ( Feedback
       ( ..,
-        NotUseful,
-        Useful
+        FeedbackNOTUSEFUL,
+        FeedbackUSEFUL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Feedback = Feedback' (CI Text)
+newtype Feedback = Feedback'
+  { fromFeedback ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NotUseful :: Feedback
-pattern NotUseful = Feedback' "NOT_USEFUL"
+pattern FeedbackNOTUSEFUL :: Feedback
+pattern FeedbackNOTUSEFUL = Feedback' "NOT_USEFUL"
 
-pattern Useful :: Feedback
-pattern Useful = Feedback' "USEFUL"
+pattern FeedbackUSEFUL :: Feedback
+pattern FeedbackUSEFUL = Feedback' "USEFUL"
 
 {-# COMPLETE
-  NotUseful,
-  Useful,
+  FeedbackNOTUSEFUL,
+  FeedbackUSEFUL,
   Feedback'
   #-}
 
-instance FromText Feedback where
-  parser = (Feedback' . mk) <$> takeText
+instance Prelude.FromText Feedback where
+  parser = Feedback' Prelude.<$> Prelude.takeText
 
-instance ToText Feedback where
-  toText (Feedback' ci) = original ci
+instance Prelude.ToText Feedback where
+  toText (Feedback' x) = x
 
-instance Hashable Feedback
+instance Prelude.Hashable Feedback
 
-instance NFData Feedback
+instance Prelude.NFData Feedback
 
-instance ToByteString Feedback
+instance Prelude.ToByteString Feedback
 
-instance ToQuery Feedback
+instance Prelude.ToQuery Feedback
 
-instance ToHeader Feedback
+instance Prelude.ToHeader Feedback
 
-instance ToJSON Feedback where
-  toJSON = toJSONText
+instance Prelude.ToJSON Feedback where
+  toJSON = Prelude.toJSONText

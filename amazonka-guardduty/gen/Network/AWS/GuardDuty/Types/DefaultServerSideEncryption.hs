@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.DefaultServerSideEncryption where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information on the server side encryption method used in the S3 bucket. See <https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html S3 Server-Side Encryption> for more information.
+-- | Contains information on the server side encryption method used in the S3
+-- bucket. See
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html S3 Server-Side Encryption>
+-- for more information.
 --
---
---
--- /See:/ 'defaultServerSideEncryption' smart constructor.
+-- /See:/ 'newDefaultServerSideEncryption' smart constructor.
 data DefaultServerSideEncryption = DefaultServerSideEncryption'
-  { _dsseEncryptionType ::
-      !(Maybe Text),
-    _dsseKMSMasterKeyARN ::
-      !(Maybe Text)
+  { -- | The type of encryption used for objects within the S3 bucket.
+    encryptionType :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the KMS encryption key. Only available
+    -- if the bucket @EncryptionType@ is @aws:kms@.
+    kmsMasterKeyArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefaultServerSideEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefaultServerSideEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsseEncryptionType' - The type of encryption used for objects within the S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsseKMSMasterKeyARN' - The Amazon Resource Name (ARN) of the KMS encryption key. Only available if the bucket @EncryptionType@ is @aws:kms@ .
-defaultServerSideEncryption ::
+-- 'encryptionType', 'defaultServerSideEncryption_encryptionType' - The type of encryption used for objects within the S3 bucket.
+--
+-- 'kmsMasterKeyArn', 'defaultServerSideEncryption_kmsMasterKeyArn' - The Amazon Resource Name (ARN) of the KMS encryption key. Only available
+-- if the bucket @EncryptionType@ is @aws:kms@.
+newDefaultServerSideEncryption ::
   DefaultServerSideEncryption
-defaultServerSideEncryption =
+newDefaultServerSideEncryption =
   DefaultServerSideEncryption'
-    { _dsseEncryptionType =
-        Nothing,
-      _dsseKMSMasterKeyARN = Nothing
+    { encryptionType =
+        Prelude.Nothing,
+      kmsMasterKeyArn = Prelude.Nothing
     }
 
 -- | The type of encryption used for objects within the S3 bucket.
-dsseEncryptionType :: Lens' DefaultServerSideEncryption (Maybe Text)
-dsseEncryptionType = lens _dsseEncryptionType (\s a -> s {_dsseEncryptionType = a})
+defaultServerSideEncryption_encryptionType :: Lens.Lens' DefaultServerSideEncryption (Prelude.Maybe Prelude.Text)
+defaultServerSideEncryption_encryptionType = Lens.lens (\DefaultServerSideEncryption' {encryptionType} -> encryptionType) (\s@DefaultServerSideEncryption' {} a -> s {encryptionType = a} :: DefaultServerSideEncryption)
 
--- | The Amazon Resource Name (ARN) of the KMS encryption key. Only available if the bucket @EncryptionType@ is @aws:kms@ .
-dsseKMSMasterKeyARN :: Lens' DefaultServerSideEncryption (Maybe Text)
-dsseKMSMasterKeyARN = lens _dsseKMSMasterKeyARN (\s a -> s {_dsseKMSMasterKeyARN = a})
+-- | The Amazon Resource Name (ARN) of the KMS encryption key. Only available
+-- if the bucket @EncryptionType@ is @aws:kms@.
+defaultServerSideEncryption_kmsMasterKeyArn :: Lens.Lens' DefaultServerSideEncryption (Prelude.Maybe Prelude.Text)
+defaultServerSideEncryption_kmsMasterKeyArn = Lens.lens (\DefaultServerSideEncryption' {kmsMasterKeyArn} -> kmsMasterKeyArn) (\s@DefaultServerSideEncryption' {} a -> s {kmsMasterKeyArn = a} :: DefaultServerSideEncryption)
 
-instance FromJSON DefaultServerSideEncryption where
+instance Prelude.FromJSON DefaultServerSideEncryption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DefaultServerSideEncryption"
       ( \x ->
           DefaultServerSideEncryption'
-            <$> (x .:? "encryptionType")
-            <*> (x .:? "kmsMasterKeyArn")
+            Prelude.<$> (x Prelude..:? "encryptionType")
+            Prelude.<*> (x Prelude..:? "kmsMasterKeyArn")
       )
 
-instance Hashable DefaultServerSideEncryption
+instance Prelude.Hashable DefaultServerSideEncryption
 
-instance NFData DefaultServerSideEncryption
+instance Prelude.NFData DefaultServerSideEncryption

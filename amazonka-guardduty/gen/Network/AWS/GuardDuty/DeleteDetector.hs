@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,116 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an Amazon GuardDuty detector that is specified by the detector ID.
+-- Deletes an Amazon GuardDuty detector that is specified by the detector
+-- ID.
 module Network.AWS.GuardDuty.DeleteDetector
   ( -- * Creating a Request
-    deleteDetector,
-    DeleteDetector,
+    DeleteDetector (..),
+    newDeleteDetector,
 
     -- * Request Lenses
-    ddDetectorId,
+    deleteDetector_detectorId,
 
     -- * Destructuring the Response
-    deleteDetectorResponse,
-    DeleteDetectorResponse,
+    DeleteDetectorResponse (..),
+    newDeleteDetectorResponse,
 
     -- * Response Lenses
-    ddrrsResponseStatus,
+    deleteDetectorResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDetector' smart constructor.
-newtype DeleteDetector = DeleteDetector'
-  { _ddDetectorId ::
-      Text
+-- | /See:/ 'newDeleteDetector' smart constructor.
+data DeleteDetector = DeleteDetector'
+  { -- | The unique ID of the detector that you want to delete.
+    detectorId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDetector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDetector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddDetectorId' - The unique ID of the detector that you want to delete.
-deleteDetector ::
-  -- | 'ddDetectorId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'detectorId', 'deleteDetector_detectorId' - The unique ID of the detector that you want to delete.
+newDeleteDetector ::
+  -- | 'detectorId'
+  Prelude.Text ->
   DeleteDetector
-deleteDetector pDetectorId_ =
-  DeleteDetector' {_ddDetectorId = pDetectorId_}
+newDeleteDetector pDetectorId_ =
+  DeleteDetector' {detectorId = pDetectorId_}
 
 -- | The unique ID of the detector that you want to delete.
-ddDetectorId :: Lens' DeleteDetector Text
-ddDetectorId = lens _ddDetectorId (\s a -> s {_ddDetectorId = a})
+deleteDetector_detectorId :: Lens.Lens' DeleteDetector Prelude.Text
+deleteDetector_detectorId = Lens.lens (\DeleteDetector' {detectorId} -> detectorId) (\s@DeleteDetector' {} a -> s {detectorId = a} :: DeleteDetector)
 
-instance AWSRequest DeleteDetector where
+instance Prelude.AWSRequest DeleteDetector where
   type Rs DeleteDetector = DeleteDetectorResponse
-  request = delete guardDuty
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteDetectorResponse' <$> (pure (fromEnum s))
+          DeleteDetectorResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDetector
+instance Prelude.Hashable DeleteDetector
 
-instance NFData DeleteDetector
+instance Prelude.NFData DeleteDetector
 
-instance ToHeaders DeleteDetector where
+instance Prelude.ToHeaders DeleteDetector where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteDetector where
+instance Prelude.ToPath DeleteDetector where
   toPath DeleteDetector' {..} =
-    mconcat ["/detector/", toBS _ddDetectorId]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId]
 
-instance ToQuery DeleteDetector where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDetector where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDetectorResponse' smart constructor.
-newtype DeleteDetectorResponse = DeleteDetectorResponse'
-  { _ddrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteDetectorResponse' smart constructor.
+data DeleteDetectorResponse = DeleteDetectorResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDetectorResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDetectorResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrrsResponseStatus' - -- | The response status code.
-deleteDetectorResponse ::
-  -- | 'ddrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDetectorResponse_httpStatus' - The response's http status code.
+newDeleteDetectorResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDetectorResponse
-deleteDetectorResponse pResponseStatus_ =
-  DeleteDetectorResponse'
-    { _ddrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteDetectorResponse pHttpStatus_ =
+  DeleteDetectorResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ddrrsResponseStatus :: Lens' DeleteDetectorResponse Int
-ddrrsResponseStatus = lens _ddrrsResponseStatus (\s a -> s {_ddrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDetectorResponse_httpStatus :: Lens.Lens' DeleteDetectorResponse Prelude.Int
+deleteDetectorResponse_httpStatus = Lens.lens (\DeleteDetectorResponse' {httpStatus} -> httpStatus) (\s@DeleteDetectorResponse' {} a -> s {httpStatus = a} :: DeleteDetectorResponse)
 
-instance NFData DeleteDetectorResponse
+instance Prelude.NFData DeleteDetectorResponse

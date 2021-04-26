@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.AccountDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the account.
 --
---
---
--- /See:/ 'accountDetail' smart constructor.
+-- /See:/ 'newAccountDetail' smart constructor.
 data AccountDetail = AccountDetail'
-  { _adAccountId ::
-      !Text,
-    _adEmail :: !Text
+  { -- | The member account ID.
+    accountId :: Prelude.Text,
+    -- | The email address of the member account.
+    email :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccountDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccountDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adAccountId' - The member account ID.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adEmail' - The email address of the member account.
-accountDetail ::
-  -- | 'adAccountId'
-  Text ->
-  -- | 'adEmail'
-  Text ->
+-- 'accountId', 'accountDetail_accountId' - The member account ID.
+--
+-- 'email', 'accountDetail_email' - The email address of the member account.
+newAccountDetail ::
+  -- | 'accountId'
+  Prelude.Text ->
+  -- | 'email'
+  Prelude.Text ->
   AccountDetail
-accountDetail pAccountId_ pEmail_ =
+newAccountDetail pAccountId_ pEmail_ =
   AccountDetail'
-    { _adAccountId = pAccountId_,
-      _adEmail = pEmail_
+    { accountId = pAccountId_,
+      email = pEmail_
     }
 
 -- | The member account ID.
-adAccountId :: Lens' AccountDetail Text
-adAccountId = lens _adAccountId (\s a -> s {_adAccountId = a})
+accountDetail_accountId :: Lens.Lens' AccountDetail Prelude.Text
+accountDetail_accountId = Lens.lens (\AccountDetail' {accountId} -> accountId) (\s@AccountDetail' {} a -> s {accountId = a} :: AccountDetail)
 
 -- | The email address of the member account.
-adEmail :: Lens' AccountDetail Text
-adEmail = lens _adEmail (\s a -> s {_adEmail = a})
+accountDetail_email :: Lens.Lens' AccountDetail Prelude.Text
+accountDetail_email = Lens.lens (\AccountDetail' {email} -> email) (\s@AccountDetail' {} a -> s {email = a} :: AccountDetail)
 
-instance Hashable AccountDetail
+instance Prelude.Hashable AccountDetail
 
-instance NFData AccountDetail
+instance Prelude.NFData AccountDetail
 
-instance ToJSON AccountDetail where
+instance Prelude.ToJSON AccountDetail where
   toJSON AccountDetail' {..} =
-    object
-      ( catMaybes
-          [ Just ("accountId" .= _adAccountId),
-            Just ("email" .= _adEmail)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("accountId" Prelude..= accountId),
+            Prelude.Just ("email" Prelude..= email)
           ]
       )

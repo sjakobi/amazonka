@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.GuardDuty.Types.DetectorStatus
   ( DetectorStatus
       ( ..,
-        Disabled,
-        Enabled
+        DetectorStatusDISABLED,
+        DetectorStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DetectorStatus = DetectorStatus' (CI Text)
+newtype DetectorStatus = DetectorStatus'
+  { fromDetectorStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: DetectorStatus
-pattern Disabled = DetectorStatus' "DISABLED"
+pattern DetectorStatusDISABLED :: DetectorStatus
+pattern DetectorStatusDISABLED = DetectorStatus' "DISABLED"
 
-pattern Enabled :: DetectorStatus
-pattern Enabled = DetectorStatus' "ENABLED"
+pattern DetectorStatusENABLED :: DetectorStatus
+pattern DetectorStatusENABLED = DetectorStatus' "ENABLED"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  DetectorStatusDISABLED,
+  DetectorStatusENABLED,
   DetectorStatus'
   #-}
 
-instance FromText DetectorStatus where
-  parser = (DetectorStatus' . mk) <$> takeText
+instance Prelude.FromText DetectorStatus where
+  parser = DetectorStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DetectorStatus where
-  toText (DetectorStatus' ci) = original ci
+instance Prelude.ToText DetectorStatus where
+  toText (DetectorStatus' x) = x
 
-instance Hashable DetectorStatus
+instance Prelude.Hashable DetectorStatus
 
-instance NFData DetectorStatus
+instance Prelude.NFData DetectorStatus
 
-instance ToByteString DetectorStatus
+instance Prelude.ToByteString DetectorStatus
 
-instance ToQuery DetectorStatus
+instance Prelude.ToQuery DetectorStatus
 
-instance ToHeader DetectorStatus
+instance Prelude.ToHeader DetectorStatus
 
-instance FromJSON DetectorStatus where
-  parseJSON = parseJSONText "DetectorStatus"
+instance Prelude.FromJSON DetectorStatus where
+  parseJSON = Prelude.parseJSONText "DetectorStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,80 +19,78 @@
 module Network.AWS.GuardDuty.Types.ThreatIntelSetFormat
   ( ThreatIntelSetFormat
       ( ..,
-        TISFAlienVault,
-        TISFFireEye,
-        TISFOtxCSV,
-        TISFProofPoint,
-        TISFStix,
-        TISFTxt
+        ThreatIntelSetFormatALIENVAULT,
+        ThreatIntelSetFormatFIREEYE,
+        ThreatIntelSetFormatOTXCSV,
+        ThreatIntelSetFormatPROOFPOINT,
+        ThreatIntelSetFormatSTIX,
+        ThreatIntelSetFormatTXT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ThreatIntelSetFormat
-  = ThreatIntelSetFormat'
-      ( CI
-          Text
-      )
+newtype ThreatIntelSetFormat = ThreatIntelSetFormat'
+  { fromThreatIntelSetFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TISFAlienVault :: ThreatIntelSetFormat
-pattern TISFAlienVault = ThreatIntelSetFormat' "ALIEN_VAULT"
+pattern ThreatIntelSetFormatALIENVAULT :: ThreatIntelSetFormat
+pattern ThreatIntelSetFormatALIENVAULT = ThreatIntelSetFormat' "ALIEN_VAULT"
 
-pattern TISFFireEye :: ThreatIntelSetFormat
-pattern TISFFireEye = ThreatIntelSetFormat' "FIRE_EYE"
+pattern ThreatIntelSetFormatFIREEYE :: ThreatIntelSetFormat
+pattern ThreatIntelSetFormatFIREEYE = ThreatIntelSetFormat' "FIRE_EYE"
 
-pattern TISFOtxCSV :: ThreatIntelSetFormat
-pattern TISFOtxCSV = ThreatIntelSetFormat' "OTX_CSV"
+pattern ThreatIntelSetFormatOTXCSV :: ThreatIntelSetFormat
+pattern ThreatIntelSetFormatOTXCSV = ThreatIntelSetFormat' "OTX_CSV"
 
-pattern TISFProofPoint :: ThreatIntelSetFormat
-pattern TISFProofPoint = ThreatIntelSetFormat' "PROOF_POINT"
+pattern ThreatIntelSetFormatPROOFPOINT :: ThreatIntelSetFormat
+pattern ThreatIntelSetFormatPROOFPOINT = ThreatIntelSetFormat' "PROOF_POINT"
 
-pattern TISFStix :: ThreatIntelSetFormat
-pattern TISFStix = ThreatIntelSetFormat' "STIX"
+pattern ThreatIntelSetFormatSTIX :: ThreatIntelSetFormat
+pattern ThreatIntelSetFormatSTIX = ThreatIntelSetFormat' "STIX"
 
-pattern TISFTxt :: ThreatIntelSetFormat
-pattern TISFTxt = ThreatIntelSetFormat' "TXT"
+pattern ThreatIntelSetFormatTXT :: ThreatIntelSetFormat
+pattern ThreatIntelSetFormatTXT = ThreatIntelSetFormat' "TXT"
 
 {-# COMPLETE
-  TISFAlienVault,
-  TISFFireEye,
-  TISFOtxCSV,
-  TISFProofPoint,
-  TISFStix,
-  TISFTxt,
+  ThreatIntelSetFormatALIENVAULT,
+  ThreatIntelSetFormatFIREEYE,
+  ThreatIntelSetFormatOTXCSV,
+  ThreatIntelSetFormatPROOFPOINT,
+  ThreatIntelSetFormatSTIX,
+  ThreatIntelSetFormatTXT,
   ThreatIntelSetFormat'
   #-}
 
-instance FromText ThreatIntelSetFormat where
-  parser = (ThreatIntelSetFormat' . mk) <$> takeText
+instance Prelude.FromText ThreatIntelSetFormat where
+  parser = ThreatIntelSetFormat' Prelude.<$> Prelude.takeText
 
-instance ToText ThreatIntelSetFormat where
-  toText (ThreatIntelSetFormat' ci) = original ci
+instance Prelude.ToText ThreatIntelSetFormat where
+  toText (ThreatIntelSetFormat' x) = x
 
-instance Hashable ThreatIntelSetFormat
+instance Prelude.Hashable ThreatIntelSetFormat
 
-instance NFData ThreatIntelSetFormat
+instance Prelude.NFData ThreatIntelSetFormat
 
-instance ToByteString ThreatIntelSetFormat
+instance Prelude.ToByteString ThreatIntelSetFormat
 
-instance ToQuery ThreatIntelSetFormat
+instance Prelude.ToQuery ThreatIntelSetFormat
 
-instance ToHeader ThreatIntelSetFormat
+instance Prelude.ToHeader ThreatIntelSetFormat
 
-instance ToJSON ThreatIntelSetFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON ThreatIntelSetFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ThreatIntelSetFormat where
-  parseJSON = parseJSONText "ThreatIntelSetFormat"
+instance Prelude.FromJSON ThreatIntelSetFormat where
+  parseJSON = Prelude.parseJSONText "ThreatIntelSetFormat"

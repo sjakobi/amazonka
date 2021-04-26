@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,72 +22,86 @@ module Network.AWS.GuardDuty.Types.Resource where
 import Network.AWS.GuardDuty.Types.AccessKeyDetails
 import Network.AWS.GuardDuty.Types.InstanceDetails
 import Network.AWS.GuardDuty.Types.S3BucketDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the AWS resource associated with the activity that prompted GuardDuty to generate a finding.
+-- | Contains information about the AWS resource associated with the activity
+-- that prompted GuardDuty to generate a finding.
 --
---
---
--- /See:/ 'resource' smart constructor.
+-- /See:/ 'newResource' smart constructor.
 data Resource = Resource'
-  { _rS3BucketDetails ::
-      !(Maybe [S3BucketDetail]),
-    _rInstanceDetails :: !(Maybe InstanceDetails),
-    _rResourceType :: !(Maybe Text),
-    _rAccessKeyDetails :: !(Maybe AccessKeyDetails)
+  { -- | Contains information on the S3 bucket.
+    s3BucketDetails :: Prelude.Maybe [S3BucketDetail],
+    -- | The information about the EC2 instance associated with the activity that
+    -- prompted GuardDuty to generate a finding.
+    instanceDetails :: Prelude.Maybe InstanceDetails,
+    -- | The type of AWS resource.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | The IAM access key details (IAM user information) of a user that engaged
+    -- in the activity that prompted GuardDuty to generate a finding.
+    accessKeyDetails :: Prelude.Maybe AccessKeyDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Resource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Resource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rS3BucketDetails' - Contains information on the S3 bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rInstanceDetails' - The information about the EC2 instance associated with the activity that prompted GuardDuty to generate a finding.
+-- 's3BucketDetails', 'resource_s3BucketDetails' - Contains information on the S3 bucket.
 --
--- * 'rResourceType' - The type of AWS resource.
+-- 'instanceDetails', 'resource_instanceDetails' - The information about the EC2 instance associated with the activity that
+-- prompted GuardDuty to generate a finding.
 --
--- * 'rAccessKeyDetails' - The IAM access key details (IAM user information) of a user that engaged in the activity that prompted GuardDuty to generate a finding.
-resource ::
+-- 'resourceType', 'resource_resourceType' - The type of AWS resource.
+--
+-- 'accessKeyDetails', 'resource_accessKeyDetails' - The IAM access key details (IAM user information) of a user that engaged
+-- in the activity that prompted GuardDuty to generate a finding.
+newResource ::
   Resource
-resource =
+newResource =
   Resource'
-    { _rS3BucketDetails = Nothing,
-      _rInstanceDetails = Nothing,
-      _rResourceType = Nothing,
-      _rAccessKeyDetails = Nothing
+    { s3BucketDetails = Prelude.Nothing,
+      instanceDetails = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      accessKeyDetails = Prelude.Nothing
     }
 
 -- | Contains information on the S3 bucket.
-rS3BucketDetails :: Lens' Resource [S3BucketDetail]
-rS3BucketDetails = lens _rS3BucketDetails (\s a -> s {_rS3BucketDetails = a}) . _Default . _Coerce
+resource_s3BucketDetails :: Lens.Lens' Resource (Prelude.Maybe [S3BucketDetail])
+resource_s3BucketDetails = Lens.lens (\Resource' {s3BucketDetails} -> s3BucketDetails) (\s@Resource' {} a -> s {s3BucketDetails = a} :: Resource) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The information about the EC2 instance associated with the activity that prompted GuardDuty to generate a finding.
-rInstanceDetails :: Lens' Resource (Maybe InstanceDetails)
-rInstanceDetails = lens _rInstanceDetails (\s a -> s {_rInstanceDetails = a})
+-- | The information about the EC2 instance associated with the activity that
+-- prompted GuardDuty to generate a finding.
+resource_instanceDetails :: Lens.Lens' Resource (Prelude.Maybe InstanceDetails)
+resource_instanceDetails = Lens.lens (\Resource' {instanceDetails} -> instanceDetails) (\s@Resource' {} a -> s {instanceDetails = a} :: Resource)
 
 -- | The type of AWS resource.
-rResourceType :: Lens' Resource (Maybe Text)
-rResourceType = lens _rResourceType (\s a -> s {_rResourceType = a})
+resource_resourceType :: Lens.Lens' Resource (Prelude.Maybe Prelude.Text)
+resource_resourceType = Lens.lens (\Resource' {resourceType} -> resourceType) (\s@Resource' {} a -> s {resourceType = a} :: Resource)
 
--- | The IAM access key details (IAM user information) of a user that engaged in the activity that prompted GuardDuty to generate a finding.
-rAccessKeyDetails :: Lens' Resource (Maybe AccessKeyDetails)
-rAccessKeyDetails = lens _rAccessKeyDetails (\s a -> s {_rAccessKeyDetails = a})
+-- | The IAM access key details (IAM user information) of a user that engaged
+-- in the activity that prompted GuardDuty to generate a finding.
+resource_accessKeyDetails :: Lens.Lens' Resource (Prelude.Maybe AccessKeyDetails)
+resource_accessKeyDetails = Lens.lens (\Resource' {accessKeyDetails} -> accessKeyDetails) (\s@Resource' {} a -> s {accessKeyDetails = a} :: Resource)
 
-instance FromJSON Resource where
+instance Prelude.FromJSON Resource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Resource"
       ( \x ->
           Resource'
-            <$> (x .:? "s3BucketDetails" .!= mempty)
-            <*> (x .:? "instanceDetails")
-            <*> (x .:? "resourceType")
-            <*> (x .:? "accessKeyDetails")
+            Prelude.<$> ( x Prelude..:? "s3BucketDetails"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "instanceDetails")
+            Prelude.<*> (x Prelude..:? "resourceType")
+            Prelude.<*> (x Prelude..:? "accessKeyDetails")
       )
 
-instance Hashable Resource
+instance Prelude.Hashable Resource
 
-instance NFData Resource
+instance Prelude.NFData Resource

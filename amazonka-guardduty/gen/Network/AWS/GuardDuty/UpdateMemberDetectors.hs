@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,169 +24,171 @@
 -- Contains information on member accounts to be updated.
 module Network.AWS.GuardDuty.UpdateMemberDetectors
   ( -- * Creating a Request
-    updateMemberDetectors,
-    UpdateMemberDetectors,
+    UpdateMemberDetectors (..),
+    newUpdateMemberDetectors,
 
     -- * Request Lenses
-    umdDataSources,
-    umdDetectorId,
-    umdAccountIds,
+    updateMemberDetectors_dataSources,
+    updateMemberDetectors_detectorId,
+    updateMemberDetectors_accountIds,
 
     -- * Destructuring the Response
-    updateMemberDetectorsResponse,
-    UpdateMemberDetectorsResponse,
+    UpdateMemberDetectorsResponse (..),
+    newUpdateMemberDetectorsResponse,
 
     -- * Response Lenses
-    umdrrsResponseStatus,
-    umdrrsUnprocessedAccounts,
+    updateMemberDetectorsResponse_httpStatus,
+    updateMemberDetectorsResponse_unprocessedAccounts,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.UnprocessedAccount
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateMemberDetectors' smart constructor.
+-- | /See:/ 'newUpdateMemberDetectors' smart constructor.
 data UpdateMemberDetectors = UpdateMemberDetectors'
-  { _umdDataSources ::
-      !( Maybe
-           DataSourceConfigurations
-       ),
-    _umdDetectorId :: !Text,
-    _umdAccountIds ::
-      !(List1 Text)
+  { -- | Describes which data sources will be updated.
+    dataSources :: Prelude.Maybe DataSourceConfigurations,
+    -- | The detector ID of the administrator account.
+    detectorId :: Prelude.Text,
+    -- | A list of member account IDs to be updated.
+    accountIds :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMemberDetectors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMemberDetectors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umdDataSources' - Describes which data sources will be updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umdDetectorId' - The detector ID of the administrator account.
+-- 'dataSources', 'updateMemberDetectors_dataSources' - Describes which data sources will be updated.
 --
--- * 'umdAccountIds' - A list of member account IDs to be updated.
-updateMemberDetectors ::
-  -- | 'umdDetectorId'
-  Text ->
-  -- | 'umdAccountIds'
-  NonEmpty Text ->
+-- 'detectorId', 'updateMemberDetectors_detectorId' - The detector ID of the administrator account.
+--
+-- 'accountIds', 'updateMemberDetectors_accountIds' - A list of member account IDs to be updated.
+newUpdateMemberDetectors ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'accountIds'
+  Prelude.NonEmpty Prelude.Text ->
   UpdateMemberDetectors
-updateMemberDetectors pDetectorId_ pAccountIds_ =
+newUpdateMemberDetectors pDetectorId_ pAccountIds_ =
   UpdateMemberDetectors'
-    { _umdDataSources = Nothing,
-      _umdDetectorId = pDetectorId_,
-      _umdAccountIds = _List1 # pAccountIds_
+    { dataSources =
+        Prelude.Nothing,
+      detectorId = pDetectorId_,
+      accountIds = Prelude._List1 Lens.# pAccountIds_
     }
 
 -- | Describes which data sources will be updated.
-umdDataSources :: Lens' UpdateMemberDetectors (Maybe DataSourceConfigurations)
-umdDataSources = lens _umdDataSources (\s a -> s {_umdDataSources = a})
+updateMemberDetectors_dataSources :: Lens.Lens' UpdateMemberDetectors (Prelude.Maybe DataSourceConfigurations)
+updateMemberDetectors_dataSources = Lens.lens (\UpdateMemberDetectors' {dataSources} -> dataSources) (\s@UpdateMemberDetectors' {} a -> s {dataSources = a} :: UpdateMemberDetectors)
 
 -- | The detector ID of the administrator account.
-umdDetectorId :: Lens' UpdateMemberDetectors Text
-umdDetectorId = lens _umdDetectorId (\s a -> s {_umdDetectorId = a})
+updateMemberDetectors_detectorId :: Lens.Lens' UpdateMemberDetectors Prelude.Text
+updateMemberDetectors_detectorId = Lens.lens (\UpdateMemberDetectors' {detectorId} -> detectorId) (\s@UpdateMemberDetectors' {} a -> s {detectorId = a} :: UpdateMemberDetectors)
 
 -- | A list of member account IDs to be updated.
-umdAccountIds :: Lens' UpdateMemberDetectors (NonEmpty Text)
-umdAccountIds = lens _umdAccountIds (\s a -> s {_umdAccountIds = a}) . _List1
+updateMemberDetectors_accountIds :: Lens.Lens' UpdateMemberDetectors (Prelude.NonEmpty Prelude.Text)
+updateMemberDetectors_accountIds = Lens.lens (\UpdateMemberDetectors' {accountIds} -> accountIds) (\s@UpdateMemberDetectors' {} a -> s {accountIds = a} :: UpdateMemberDetectors) Prelude.. Prelude._List1
 
-instance AWSRequest UpdateMemberDetectors where
+instance Prelude.AWSRequest UpdateMemberDetectors where
   type
     Rs UpdateMemberDetectors =
       UpdateMemberDetectorsResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateMemberDetectorsResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "unprocessedAccounts" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "unprocessedAccounts"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable UpdateMemberDetectors
+instance Prelude.Hashable UpdateMemberDetectors
 
-instance NFData UpdateMemberDetectors
+instance Prelude.NFData UpdateMemberDetectors
 
-instance ToHeaders UpdateMemberDetectors where
+instance Prelude.ToHeaders UpdateMemberDetectors where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateMemberDetectors where
+instance Prelude.ToJSON UpdateMemberDetectors where
   toJSON UpdateMemberDetectors' {..} =
-    object
-      ( catMaybes
-          [ ("dataSources" .=) <$> _umdDataSources,
-            Just ("accountIds" .= _umdAccountIds)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("dataSources" Prelude..=) Prelude.<$> dataSources,
+            Prelude.Just ("accountIds" Prelude..= accountIds)
           ]
       )
 
-instance ToPath UpdateMemberDetectors where
+instance Prelude.ToPath UpdateMemberDetectors where
   toPath UpdateMemberDetectors' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _umdDetectorId,
+        Prelude.toBS detectorId,
         "/member/detector/update"
       ]
 
-instance ToQuery UpdateMemberDetectors where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateMemberDetectors where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateMemberDetectorsResponse' smart constructor.
+-- | /See:/ 'newUpdateMemberDetectorsResponse' smart constructor.
 data UpdateMemberDetectorsResponse = UpdateMemberDetectorsResponse'
-  { _umdrrsResponseStatus ::
-      !Int,
-    _umdrrsUnprocessedAccounts ::
-      ![UnprocessedAccount]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of member account IDs that were unable to be processed along with
+    -- an explanation for why they were not processed.
+    unprocessedAccounts :: [UnprocessedAccount]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMemberDetectorsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMemberDetectorsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umdrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umdrrsUnprocessedAccounts' - A list of member account IDs that were unable to be processed along with an explanation for why they were not processed.
-updateMemberDetectorsResponse ::
-  -- | 'umdrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'updateMemberDetectorsResponse_httpStatus' - The response's http status code.
+--
+-- 'unprocessedAccounts', 'updateMemberDetectorsResponse_unprocessedAccounts' - A list of member account IDs that were unable to be processed along with
+-- an explanation for why they were not processed.
+newUpdateMemberDetectorsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateMemberDetectorsResponse
-updateMemberDetectorsResponse pResponseStatus_ =
+newUpdateMemberDetectorsResponse pHttpStatus_ =
   UpdateMemberDetectorsResponse'
-    { _umdrrsResponseStatus =
-        pResponseStatus_,
-      _umdrrsUnprocessedAccounts = mempty
+    { httpStatus =
+        pHttpStatus_,
+      unprocessedAccounts = Prelude.mempty
     }
 
--- | -- | The response status code.
-umdrrsResponseStatus :: Lens' UpdateMemberDetectorsResponse Int
-umdrrsResponseStatus = lens _umdrrsResponseStatus (\s a -> s {_umdrrsResponseStatus = a})
+-- | The response's http status code.
+updateMemberDetectorsResponse_httpStatus :: Lens.Lens' UpdateMemberDetectorsResponse Prelude.Int
+updateMemberDetectorsResponse_httpStatus = Lens.lens (\UpdateMemberDetectorsResponse' {httpStatus} -> httpStatus) (\s@UpdateMemberDetectorsResponse' {} a -> s {httpStatus = a} :: UpdateMemberDetectorsResponse)
 
--- | A list of member account IDs that were unable to be processed along with an explanation for why they were not processed.
-umdrrsUnprocessedAccounts :: Lens' UpdateMemberDetectorsResponse [UnprocessedAccount]
-umdrrsUnprocessedAccounts = lens _umdrrsUnprocessedAccounts (\s a -> s {_umdrrsUnprocessedAccounts = a}) . _Coerce
+-- | A list of member account IDs that were unable to be processed along with
+-- an explanation for why they were not processed.
+updateMemberDetectorsResponse_unprocessedAccounts :: Lens.Lens' UpdateMemberDetectorsResponse [UnprocessedAccount]
+updateMemberDetectorsResponse_unprocessedAccounts = Lens.lens (\UpdateMemberDetectorsResponse' {unprocessedAccounts} -> unprocessedAccounts) (\s@UpdateMemberDetectorsResponse' {} a -> s {unprocessedAccounts = a} :: UpdateMemberDetectorsResponse) Prelude.. Prelude._Coerce
 
-instance NFData UpdateMemberDetectorsResponse
+instance Prelude.NFData UpdateMemberDetectorsResponse

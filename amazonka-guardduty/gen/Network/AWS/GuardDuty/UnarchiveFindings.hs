@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,140 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Unarchives GuardDuty findings specified by the @findingIds@ .
+-- Unarchives GuardDuty findings specified by the @findingIds@.
 module Network.AWS.GuardDuty.UnarchiveFindings
   ( -- * Creating a Request
-    unarchiveFindings,
-    UnarchiveFindings,
+    UnarchiveFindings (..),
+    newUnarchiveFindings,
 
     -- * Request Lenses
-    ufDetectorId,
-    ufFindingIds,
+    unarchiveFindings_detectorId,
+    unarchiveFindings_findingIds,
 
     -- * Destructuring the Response
-    unarchiveFindingsResponse,
-    UnarchiveFindingsResponse,
+    UnarchiveFindingsResponse (..),
+    newUnarchiveFindingsResponse,
 
     -- * Response Lenses
-    ufrrsResponseStatus,
+    unarchiveFindingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'unarchiveFindings' smart constructor.
+-- | /See:/ 'newUnarchiveFindings' smart constructor.
 data UnarchiveFindings = UnarchiveFindings'
-  { _ufDetectorId ::
-      !Text,
-    _ufFindingIds :: ![Text]
+  { -- | The ID of the detector associated with the findings to unarchive.
+    detectorId :: Prelude.Text,
+    -- | The IDs of the findings to unarchive.
+    findingIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnarchiveFindings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnarchiveFindings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufDetectorId' - The ID of the detector associated with the findings to unarchive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ufFindingIds' - The IDs of the findings to unarchive.
-unarchiveFindings ::
-  -- | 'ufDetectorId'
-  Text ->
+-- 'detectorId', 'unarchiveFindings_detectorId' - The ID of the detector associated with the findings to unarchive.
+--
+-- 'findingIds', 'unarchiveFindings_findingIds' - The IDs of the findings to unarchive.
+newUnarchiveFindings ::
+  -- | 'detectorId'
+  Prelude.Text ->
   UnarchiveFindings
-unarchiveFindings pDetectorId_ =
+newUnarchiveFindings pDetectorId_ =
   UnarchiveFindings'
-    { _ufDetectorId = pDetectorId_,
-      _ufFindingIds = mempty
+    { detectorId = pDetectorId_,
+      findingIds = Prelude.mempty
     }
 
 -- | The ID of the detector associated with the findings to unarchive.
-ufDetectorId :: Lens' UnarchiveFindings Text
-ufDetectorId = lens _ufDetectorId (\s a -> s {_ufDetectorId = a})
+unarchiveFindings_detectorId :: Lens.Lens' UnarchiveFindings Prelude.Text
+unarchiveFindings_detectorId = Lens.lens (\UnarchiveFindings' {detectorId} -> detectorId) (\s@UnarchiveFindings' {} a -> s {detectorId = a} :: UnarchiveFindings)
 
 -- | The IDs of the findings to unarchive.
-ufFindingIds :: Lens' UnarchiveFindings [Text]
-ufFindingIds = lens _ufFindingIds (\s a -> s {_ufFindingIds = a}) . _Coerce
+unarchiveFindings_findingIds :: Lens.Lens' UnarchiveFindings [Prelude.Text]
+unarchiveFindings_findingIds = Lens.lens (\UnarchiveFindings' {findingIds} -> findingIds) (\s@UnarchiveFindings' {} a -> s {findingIds = a} :: UnarchiveFindings) Prelude.. Prelude._Coerce
 
-instance AWSRequest UnarchiveFindings where
+instance Prelude.AWSRequest UnarchiveFindings where
   type Rs UnarchiveFindings = UnarchiveFindingsResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UnarchiveFindingsResponse' <$> (pure (fromEnum s))
+          UnarchiveFindingsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UnarchiveFindings
+instance Prelude.Hashable UnarchiveFindings
 
-instance NFData UnarchiveFindings
+instance Prelude.NFData UnarchiveFindings
 
-instance ToHeaders UnarchiveFindings where
+instance Prelude.ToHeaders UnarchiveFindings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UnarchiveFindings where
+instance Prelude.ToJSON UnarchiveFindings where
   toJSON UnarchiveFindings' {..} =
-    object
-      (catMaybes [Just ("findingIds" .= _ufFindingIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("findingIds" Prelude..= findingIds)]
+      )
 
-instance ToPath UnarchiveFindings where
+instance Prelude.ToPath UnarchiveFindings where
   toPath UnarchiveFindings' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _ufDetectorId,
+        Prelude.toBS detectorId,
         "/findings/unarchive"
       ]
 
-instance ToQuery UnarchiveFindings where
-  toQuery = const mempty
+instance Prelude.ToQuery UnarchiveFindings where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'unarchiveFindingsResponse' smart constructor.
-newtype UnarchiveFindingsResponse = UnarchiveFindingsResponse'
-  { _ufrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUnarchiveFindingsResponse' smart constructor.
+data UnarchiveFindingsResponse = UnarchiveFindingsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UnarchiveFindingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UnarchiveFindingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ufrrsResponseStatus' - -- | The response status code.
-unarchiveFindingsResponse ::
-  -- | 'ufrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'unarchiveFindingsResponse_httpStatus' - The response's http status code.
+newUnarchiveFindingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UnarchiveFindingsResponse
-unarchiveFindingsResponse pResponseStatus_ =
+newUnarchiveFindingsResponse pHttpStatus_ =
   UnarchiveFindingsResponse'
-    { _ufrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ufrrsResponseStatus :: Lens' UnarchiveFindingsResponse Int
-ufrrsResponseStatus = lens _ufrrsResponseStatus (\s a -> s {_ufrrsResponseStatus = a})
+-- | The response's http status code.
+unarchiveFindingsResponse_httpStatus :: Lens.Lens' UnarchiveFindingsResponse Prelude.Int
+unarchiveFindingsResponse_httpStatus = Lens.lens (\UnarchiveFindingsResponse' {httpStatus} -> httpStatus) (\s@UnarchiveFindingsResponse' {} a -> s {httpStatus = a} :: UnarchiveFindingsResponse)
 
-instance NFData UnarchiveFindingsResponse
+instance Prelude.NFData UnarchiveFindingsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,64 @@
 module Network.AWS.GuardDuty.Types.PortProbeAction where
 
 import Network.AWS.GuardDuty.Types.PortProbeDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the PORT_PROBE action described in the finding.
+-- | Contains information about the PORT_PROBE action described in the
+-- finding.
 --
---
---
--- /See:/ 'portProbeAction' smart constructor.
+-- /See:/ 'newPortProbeAction' smart constructor.
 data PortProbeAction = PortProbeAction'
-  { _ppaPortProbeDetails ::
-      !(Maybe [PortProbeDetail]),
-    _ppaBlocked :: !(Maybe Bool)
+  { -- | A list of objects related to port probe details.
+    portProbeDetails :: Prelude.Maybe [PortProbeDetail],
+    -- | Indicates whether EC2 blocked the port probe to the instance, such as
+    -- with an ACL.
+    blocked :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PortProbeAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PortProbeAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppaPortProbeDetails' - A list of objects related to port probe details.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppaBlocked' - Indicates whether EC2 blocked the port probe to the instance, such as with an ACL.
-portProbeAction ::
+-- 'portProbeDetails', 'portProbeAction_portProbeDetails' - A list of objects related to port probe details.
+--
+-- 'blocked', 'portProbeAction_blocked' - Indicates whether EC2 blocked the port probe to the instance, such as
+-- with an ACL.
+newPortProbeAction ::
   PortProbeAction
-portProbeAction =
+newPortProbeAction =
   PortProbeAction'
-    { _ppaPortProbeDetails = Nothing,
-      _ppaBlocked = Nothing
+    { portProbeDetails =
+        Prelude.Nothing,
+      blocked = Prelude.Nothing
     }
 
 -- | A list of objects related to port probe details.
-ppaPortProbeDetails :: Lens' PortProbeAction [PortProbeDetail]
-ppaPortProbeDetails = lens _ppaPortProbeDetails (\s a -> s {_ppaPortProbeDetails = a}) . _Default . _Coerce
+portProbeAction_portProbeDetails :: Lens.Lens' PortProbeAction (Prelude.Maybe [PortProbeDetail])
+portProbeAction_portProbeDetails = Lens.lens (\PortProbeAction' {portProbeDetails} -> portProbeDetails) (\s@PortProbeAction' {} a -> s {portProbeDetails = a} :: PortProbeAction) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Indicates whether EC2 blocked the port probe to the instance, such as with an ACL.
-ppaBlocked :: Lens' PortProbeAction (Maybe Bool)
-ppaBlocked = lens _ppaBlocked (\s a -> s {_ppaBlocked = a})
+-- | Indicates whether EC2 blocked the port probe to the instance, such as
+-- with an ACL.
+portProbeAction_blocked :: Lens.Lens' PortProbeAction (Prelude.Maybe Prelude.Bool)
+portProbeAction_blocked = Lens.lens (\PortProbeAction' {blocked} -> blocked) (\s@PortProbeAction' {} a -> s {blocked = a} :: PortProbeAction)
 
-instance FromJSON PortProbeAction where
+instance Prelude.FromJSON PortProbeAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PortProbeAction"
       ( \x ->
           PortProbeAction'
-            <$> (x .:? "portProbeDetails" .!= mempty)
-            <*> (x .:? "blocked")
+            Prelude.<$> ( x Prelude..:? "portProbeDetails"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "blocked")
       )
 
-instance Hashable PortProbeAction
+instance Prelude.Hashable PortProbeAction
 
-instance NFData PortProbeAction
+instance Prelude.NFData PortProbeAction

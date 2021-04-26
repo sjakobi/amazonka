@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.GuardDuty.Types.FilterAction
   ( FilterAction
       ( ..,
-        Archive,
-        Noop
+        FilterActionARCHIVE,
+        FilterActionNOOP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FilterAction = FilterAction' (CI Text)
+newtype FilterAction = FilterAction'
+  { fromFilterAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Archive :: FilterAction
-pattern Archive = FilterAction' "ARCHIVE"
+pattern FilterActionARCHIVE :: FilterAction
+pattern FilterActionARCHIVE = FilterAction' "ARCHIVE"
 
-pattern Noop :: FilterAction
-pattern Noop = FilterAction' "NOOP"
+pattern FilterActionNOOP :: FilterAction
+pattern FilterActionNOOP = FilterAction' "NOOP"
 
 {-# COMPLETE
-  Archive,
-  Noop,
+  FilterActionARCHIVE,
+  FilterActionNOOP,
   FilterAction'
   #-}
 
-instance FromText FilterAction where
-  parser = (FilterAction' . mk) <$> takeText
+instance Prelude.FromText FilterAction where
+  parser = FilterAction' Prelude.<$> Prelude.takeText
 
-instance ToText FilterAction where
-  toText (FilterAction' ci) = original ci
+instance Prelude.ToText FilterAction where
+  toText (FilterAction' x) = x
 
-instance Hashable FilterAction
+instance Prelude.Hashable FilterAction
 
-instance NFData FilterAction
+instance Prelude.NFData FilterAction
 
-instance ToByteString FilterAction
+instance Prelude.ToByteString FilterAction
 
-instance ToQuery FilterAction
+instance Prelude.ToQuery FilterAction
 
-instance ToHeader FilterAction
+instance Prelude.ToHeader FilterAction
 
-instance ToJSON FilterAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON FilterAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FilterAction where
-  parseJSON = parseJSONText "FilterAction"
+instance Prelude.FromJSON FilterAction where
+  parseJSON = Prelude.parseJSONText "FilterAction"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.GuardDuty.Types.FindingStatisticType
   ( FindingStatisticType
       ( ..,
-        CountBySeverity
+        FindingStatisticTypeCOUNTBYSEVERITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FindingStatisticType
-  = FindingStatisticType'
-      ( CI
-          Text
-      )
+newtype FindingStatisticType = FindingStatisticType'
+  { fromFindingStatisticType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CountBySeverity :: FindingStatisticType
-pattern CountBySeverity = FindingStatisticType' "COUNT_BY_SEVERITY"
+pattern FindingStatisticTypeCOUNTBYSEVERITY :: FindingStatisticType
+pattern FindingStatisticTypeCOUNTBYSEVERITY = FindingStatisticType' "COUNT_BY_SEVERITY"
 
 {-# COMPLETE
-  CountBySeverity,
+  FindingStatisticTypeCOUNTBYSEVERITY,
   FindingStatisticType'
   #-}
 
-instance FromText FindingStatisticType where
-  parser = (FindingStatisticType' . mk) <$> takeText
+instance Prelude.FromText FindingStatisticType where
+  parser = FindingStatisticType' Prelude.<$> Prelude.takeText
 
-instance ToText FindingStatisticType where
-  toText (FindingStatisticType' ci) = original ci
+instance Prelude.ToText FindingStatisticType where
+  toText (FindingStatisticType' x) = x
 
-instance Hashable FindingStatisticType
+instance Prelude.Hashable FindingStatisticType
 
-instance NFData FindingStatisticType
+instance Prelude.NFData FindingStatisticType
 
-instance ToByteString FindingStatisticType
+instance Prelude.ToByteString FindingStatisticType
 
-instance ToQuery FindingStatisticType
+instance Prelude.ToQuery FindingStatisticType
 
-instance ToHeader FindingStatisticType
+instance Prelude.ToHeader FindingStatisticType
 
-instance ToJSON FindingStatisticType where
-  toJSON = toJSONText
+instance Prelude.ToJSON FindingStatisticType where
+  toJSON = Prelude.toJSONText

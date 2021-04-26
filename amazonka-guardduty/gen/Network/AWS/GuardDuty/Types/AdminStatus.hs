@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.GuardDuty.Types.AdminStatus
   ( AdminStatus
       ( ..,
-        ASDisableInProgress,
-        ASEnabled
+        AdminStatusDISABLEINPROGRESS,
+        AdminStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AdminStatus = AdminStatus' (CI Text)
+newtype AdminStatus = AdminStatus'
+  { fromAdminStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASDisableInProgress :: AdminStatus
-pattern ASDisableInProgress = AdminStatus' "DISABLE_IN_PROGRESS"
+pattern AdminStatusDISABLEINPROGRESS :: AdminStatus
+pattern AdminStatusDISABLEINPROGRESS = AdminStatus' "DISABLE_IN_PROGRESS"
 
-pattern ASEnabled :: AdminStatus
-pattern ASEnabled = AdminStatus' "ENABLED"
+pattern AdminStatusENABLED :: AdminStatus
+pattern AdminStatusENABLED = AdminStatus' "ENABLED"
 
 {-# COMPLETE
-  ASDisableInProgress,
-  ASEnabled,
+  AdminStatusDISABLEINPROGRESS,
+  AdminStatusENABLED,
   AdminStatus'
   #-}
 
-instance FromText AdminStatus where
-  parser = (AdminStatus' . mk) <$> takeText
+instance Prelude.FromText AdminStatus where
+  parser = AdminStatus' Prelude.<$> Prelude.takeText
 
-instance ToText AdminStatus where
-  toText (AdminStatus' ci) = original ci
+instance Prelude.ToText AdminStatus where
+  toText (AdminStatus' x) = x
 
-instance Hashable AdminStatus
+instance Prelude.Hashable AdminStatus
 
-instance NFData AdminStatus
+instance Prelude.NFData AdminStatus
 
-instance ToByteString AdminStatus
+instance Prelude.ToByteString AdminStatus
 
-instance ToQuery AdminStatus
+instance Prelude.ToQuery AdminStatus
 
-instance ToHeader AdminStatus
+instance Prelude.ToHeader AdminStatus
 
-instance FromJSON AdminStatus where
-  parseJSON = parseJSONText "AdminStatus"
+instance Prelude.FromJSON AdminStatus where
+  parseJSON = Prelude.parseJSONText "AdminStatus"

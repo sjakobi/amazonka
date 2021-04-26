@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,123 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.NetworkConnectionAction where
 
-import Network.AWS.GuardDuty.Types.LocalIPDetails
+import Network.AWS.GuardDuty.Types.LocalIpDetails
 import Network.AWS.GuardDuty.Types.LocalPortDetails
-import Network.AWS.GuardDuty.Types.RemoteIPDetails
+import Network.AWS.GuardDuty.Types.RemoteIpDetails
 import Network.AWS.GuardDuty.Types.RemotePortDetails
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the NETWORK_CONNECTION action described in the finding.
+-- | Contains information about the NETWORK_CONNECTION action described in
+-- the finding.
 --
---
---
--- /See:/ 'networkConnectionAction' smart constructor.
+-- /See:/ 'newNetworkConnectionAction' smart constructor.
 data NetworkConnectionAction = NetworkConnectionAction'
-  { _ncaRemotePortDetails ::
-      !( Maybe
-           RemotePortDetails
-       ),
-    _ncaLocalPortDetails ::
-      !( Maybe
-           LocalPortDetails
-       ),
-    _ncaConnectionDirection ::
-      !(Maybe Text),
-    _ncaBlocked ::
-      !(Maybe Bool),
-    _ncaRemoteIPDetails ::
-      !( Maybe
-           RemoteIPDetails
-       ),
-    _ncaLocalIPDetails ::
-      !(Maybe LocalIPDetails),
-    _ncaProtocol ::
-      !(Maybe Text)
+  { -- | The remote port information of the connection.
+    remotePortDetails :: Prelude.Maybe RemotePortDetails,
+    -- | The local port information of the connection.
+    localPortDetails :: Prelude.Maybe LocalPortDetails,
+    -- | The network connection direction.
+    connectionDirection :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether EC2 blocked the network connection to your instance.
+    blocked :: Prelude.Maybe Prelude.Bool,
+    -- | The remote IP information of the connection.
+    remoteIpDetails :: Prelude.Maybe RemoteIpDetails,
+    -- | The local IP information of the connection.
+    localIpDetails :: Prelude.Maybe LocalIpDetails,
+    -- | The network connection protocol.
+    protocol :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NetworkConnectionAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NetworkConnectionAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncaRemotePortDetails' - The remote port information of the connection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ncaLocalPortDetails' - The local port information of the connection.
+-- 'remotePortDetails', 'networkConnectionAction_remotePortDetails' - The remote port information of the connection.
 --
--- * 'ncaConnectionDirection' - The network connection direction.
+-- 'localPortDetails', 'networkConnectionAction_localPortDetails' - The local port information of the connection.
 --
--- * 'ncaBlocked' - Indicates whether EC2 blocked the network connection to your instance.
+-- 'connectionDirection', 'networkConnectionAction_connectionDirection' - The network connection direction.
 --
--- * 'ncaRemoteIPDetails' - The remote IP information of the connection.
+-- 'blocked', 'networkConnectionAction_blocked' - Indicates whether EC2 blocked the network connection to your instance.
 --
--- * 'ncaLocalIPDetails' - The local IP information of the connection.
+-- 'remoteIpDetails', 'networkConnectionAction_remoteIpDetails' - The remote IP information of the connection.
 --
--- * 'ncaProtocol' - The network connection protocol.
-networkConnectionAction ::
+-- 'localIpDetails', 'networkConnectionAction_localIpDetails' - The local IP information of the connection.
+--
+-- 'protocol', 'networkConnectionAction_protocol' - The network connection protocol.
+newNetworkConnectionAction ::
   NetworkConnectionAction
-networkConnectionAction =
+newNetworkConnectionAction =
   NetworkConnectionAction'
-    { _ncaRemotePortDetails =
-        Nothing,
-      _ncaLocalPortDetails = Nothing,
-      _ncaConnectionDirection = Nothing,
-      _ncaBlocked = Nothing,
-      _ncaRemoteIPDetails = Nothing,
-      _ncaLocalIPDetails = Nothing,
-      _ncaProtocol = Nothing
+    { remotePortDetails =
+        Prelude.Nothing,
+      localPortDetails = Prelude.Nothing,
+      connectionDirection = Prelude.Nothing,
+      blocked = Prelude.Nothing,
+      remoteIpDetails = Prelude.Nothing,
+      localIpDetails = Prelude.Nothing,
+      protocol = Prelude.Nothing
     }
 
 -- | The remote port information of the connection.
-ncaRemotePortDetails :: Lens' NetworkConnectionAction (Maybe RemotePortDetails)
-ncaRemotePortDetails = lens _ncaRemotePortDetails (\s a -> s {_ncaRemotePortDetails = a})
+networkConnectionAction_remotePortDetails :: Lens.Lens' NetworkConnectionAction (Prelude.Maybe RemotePortDetails)
+networkConnectionAction_remotePortDetails = Lens.lens (\NetworkConnectionAction' {remotePortDetails} -> remotePortDetails) (\s@NetworkConnectionAction' {} a -> s {remotePortDetails = a} :: NetworkConnectionAction)
 
 -- | The local port information of the connection.
-ncaLocalPortDetails :: Lens' NetworkConnectionAction (Maybe LocalPortDetails)
-ncaLocalPortDetails = lens _ncaLocalPortDetails (\s a -> s {_ncaLocalPortDetails = a})
+networkConnectionAction_localPortDetails :: Lens.Lens' NetworkConnectionAction (Prelude.Maybe LocalPortDetails)
+networkConnectionAction_localPortDetails = Lens.lens (\NetworkConnectionAction' {localPortDetails} -> localPortDetails) (\s@NetworkConnectionAction' {} a -> s {localPortDetails = a} :: NetworkConnectionAction)
 
 -- | The network connection direction.
-ncaConnectionDirection :: Lens' NetworkConnectionAction (Maybe Text)
-ncaConnectionDirection = lens _ncaConnectionDirection (\s a -> s {_ncaConnectionDirection = a})
+networkConnectionAction_connectionDirection :: Lens.Lens' NetworkConnectionAction (Prelude.Maybe Prelude.Text)
+networkConnectionAction_connectionDirection = Lens.lens (\NetworkConnectionAction' {connectionDirection} -> connectionDirection) (\s@NetworkConnectionAction' {} a -> s {connectionDirection = a} :: NetworkConnectionAction)
 
 -- | Indicates whether EC2 blocked the network connection to your instance.
-ncaBlocked :: Lens' NetworkConnectionAction (Maybe Bool)
-ncaBlocked = lens _ncaBlocked (\s a -> s {_ncaBlocked = a})
+networkConnectionAction_blocked :: Lens.Lens' NetworkConnectionAction (Prelude.Maybe Prelude.Bool)
+networkConnectionAction_blocked = Lens.lens (\NetworkConnectionAction' {blocked} -> blocked) (\s@NetworkConnectionAction' {} a -> s {blocked = a} :: NetworkConnectionAction)
 
 -- | The remote IP information of the connection.
-ncaRemoteIPDetails :: Lens' NetworkConnectionAction (Maybe RemoteIPDetails)
-ncaRemoteIPDetails = lens _ncaRemoteIPDetails (\s a -> s {_ncaRemoteIPDetails = a})
+networkConnectionAction_remoteIpDetails :: Lens.Lens' NetworkConnectionAction (Prelude.Maybe RemoteIpDetails)
+networkConnectionAction_remoteIpDetails = Lens.lens (\NetworkConnectionAction' {remoteIpDetails} -> remoteIpDetails) (\s@NetworkConnectionAction' {} a -> s {remoteIpDetails = a} :: NetworkConnectionAction)
 
 -- | The local IP information of the connection.
-ncaLocalIPDetails :: Lens' NetworkConnectionAction (Maybe LocalIPDetails)
-ncaLocalIPDetails = lens _ncaLocalIPDetails (\s a -> s {_ncaLocalIPDetails = a})
+networkConnectionAction_localIpDetails :: Lens.Lens' NetworkConnectionAction (Prelude.Maybe LocalIpDetails)
+networkConnectionAction_localIpDetails = Lens.lens (\NetworkConnectionAction' {localIpDetails} -> localIpDetails) (\s@NetworkConnectionAction' {} a -> s {localIpDetails = a} :: NetworkConnectionAction)
 
 -- | The network connection protocol.
-ncaProtocol :: Lens' NetworkConnectionAction (Maybe Text)
-ncaProtocol = lens _ncaProtocol (\s a -> s {_ncaProtocol = a})
+networkConnectionAction_protocol :: Lens.Lens' NetworkConnectionAction (Prelude.Maybe Prelude.Text)
+networkConnectionAction_protocol = Lens.lens (\NetworkConnectionAction' {protocol} -> protocol) (\s@NetworkConnectionAction' {} a -> s {protocol = a} :: NetworkConnectionAction)
 
-instance FromJSON NetworkConnectionAction where
+instance Prelude.FromJSON NetworkConnectionAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "NetworkConnectionAction"
       ( \x ->
           NetworkConnectionAction'
-            <$> (x .:? "remotePortDetails")
-            <*> (x .:? "localPortDetails")
-            <*> (x .:? "connectionDirection")
-            <*> (x .:? "blocked")
-            <*> (x .:? "remoteIpDetails")
-            <*> (x .:? "localIpDetails")
-            <*> (x .:? "protocol")
+            Prelude.<$> (x Prelude..:? "remotePortDetails")
+            Prelude.<*> (x Prelude..:? "localPortDetails")
+            Prelude.<*> (x Prelude..:? "connectionDirection")
+            Prelude.<*> (x Prelude..:? "blocked")
+            Prelude.<*> (x Prelude..:? "remoteIpDetails")
+            Prelude.<*> (x Prelude..:? "localIpDetails")
+            Prelude.<*> (x Prelude..:? "protocol")
       )
 
-instance Hashable NetworkConnectionAction
+instance Prelude.Hashable NetworkConnectionAction
 
-instance NFData NetworkConnectionAction
+instance Prelude.NFData NetworkConnectionAction

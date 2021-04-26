@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,162 +24,178 @@
 -- Updates the delegated administrator account with the values provided.
 module Network.AWS.GuardDuty.UpdateOrganizationConfiguration
   ( -- * Creating a Request
-    updateOrganizationConfiguration,
-    UpdateOrganizationConfiguration,
+    UpdateOrganizationConfiguration (..),
+    newUpdateOrganizationConfiguration,
 
     -- * Request Lenses
-    uocDataSources,
-    uocDetectorId,
-    uocAutoEnable,
+    updateOrganizationConfiguration_dataSources,
+    updateOrganizationConfiguration_detectorId,
+    updateOrganizationConfiguration_autoEnable,
 
     -- * Destructuring the Response
-    updateOrganizationConfigurationResponse,
-    UpdateOrganizationConfigurationResponse,
+    UpdateOrganizationConfigurationResponse (..),
+    newUpdateOrganizationConfigurationResponse,
 
     -- * Response Lenses
-    uocrrsResponseStatus,
+    updateOrganizationConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateOrganizationConfiguration' smart constructor.
+-- | /See:/ 'newUpdateOrganizationConfiguration' smart constructor.
 data UpdateOrganizationConfiguration = UpdateOrganizationConfiguration'
-  { _uocDataSources ::
-      !( Maybe
-           OrganizationDataSourceConfigurations
-       ),
-    _uocDetectorId ::
-      !Text,
-    _uocAutoEnable ::
-      !Bool
+  { -- | Describes which data sources will be updated.
+    dataSources :: Prelude.Maybe OrganizationDataSourceConfigurations,
+    -- | The ID of the detector to update the delegated administrator for.
+    detectorId :: Prelude.Text,
+    -- | Indicates whether to automatically enable member accounts in the
+    -- organization.
+    autoEnable :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateOrganizationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateOrganizationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uocDataSources' - Describes which data sources will be updated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uocDetectorId' - The ID of the detector to update the delegated administrator for.
+-- 'dataSources', 'updateOrganizationConfiguration_dataSources' - Describes which data sources will be updated.
 --
--- * 'uocAutoEnable' - Indicates whether to automatically enable member accounts in the organization.
-updateOrganizationConfiguration ::
-  -- | 'uocDetectorId'
-  Text ->
-  -- | 'uocAutoEnable'
-  Bool ->
+-- 'detectorId', 'updateOrganizationConfiguration_detectorId' - The ID of the detector to update the delegated administrator for.
+--
+-- 'autoEnable', 'updateOrganizationConfiguration_autoEnable' - Indicates whether to automatically enable member accounts in the
+-- organization.
+newUpdateOrganizationConfiguration ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'autoEnable'
+  Prelude.Bool ->
   UpdateOrganizationConfiguration
-updateOrganizationConfiguration
+newUpdateOrganizationConfiguration
   pDetectorId_
   pAutoEnable_ =
     UpdateOrganizationConfiguration'
-      { _uocDataSources =
-          Nothing,
-        _uocDetectorId = pDetectorId_,
-        _uocAutoEnable = pAutoEnable_
+      { dataSources =
+          Prelude.Nothing,
+        detectorId = pDetectorId_,
+        autoEnable = pAutoEnable_
       }
 
 -- | Describes which data sources will be updated.
-uocDataSources :: Lens' UpdateOrganizationConfiguration (Maybe OrganizationDataSourceConfigurations)
-uocDataSources = lens _uocDataSources (\s a -> s {_uocDataSources = a})
+updateOrganizationConfiguration_dataSources :: Lens.Lens' UpdateOrganizationConfiguration (Prelude.Maybe OrganizationDataSourceConfigurations)
+updateOrganizationConfiguration_dataSources = Lens.lens (\UpdateOrganizationConfiguration' {dataSources} -> dataSources) (\s@UpdateOrganizationConfiguration' {} a -> s {dataSources = a} :: UpdateOrganizationConfiguration)
 
 -- | The ID of the detector to update the delegated administrator for.
-uocDetectorId :: Lens' UpdateOrganizationConfiguration Text
-uocDetectorId = lens _uocDetectorId (\s a -> s {_uocDetectorId = a})
+updateOrganizationConfiguration_detectorId :: Lens.Lens' UpdateOrganizationConfiguration Prelude.Text
+updateOrganizationConfiguration_detectorId = Lens.lens (\UpdateOrganizationConfiguration' {detectorId} -> detectorId) (\s@UpdateOrganizationConfiguration' {} a -> s {detectorId = a} :: UpdateOrganizationConfiguration)
 
--- | Indicates whether to automatically enable member accounts in the organization.
-uocAutoEnable :: Lens' UpdateOrganizationConfiguration Bool
-uocAutoEnable = lens _uocAutoEnable (\s a -> s {_uocAutoEnable = a})
+-- | Indicates whether to automatically enable member accounts in the
+-- organization.
+updateOrganizationConfiguration_autoEnable :: Lens.Lens' UpdateOrganizationConfiguration Prelude.Bool
+updateOrganizationConfiguration_autoEnable = Lens.lens (\UpdateOrganizationConfiguration' {autoEnable} -> autoEnable) (\s@UpdateOrganizationConfiguration' {} a -> s {autoEnable = a} :: UpdateOrganizationConfiguration)
 
-instance AWSRequest UpdateOrganizationConfiguration where
+instance
+  Prelude.AWSRequest
+    UpdateOrganizationConfiguration
+  where
   type
     Rs UpdateOrganizationConfiguration =
       UpdateOrganizationConfigurationResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateOrganizationConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable UpdateOrganizationConfiguration
-
-instance NFData UpdateOrganizationConfiguration
-
-instance ToHeaders UpdateOrganizationConfiguration where
-  toHeaders =
-    const
-      ( mconcat
-          [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON UpdateOrganizationConfiguration where
-  toJSON UpdateOrganizationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("dataSources" .=) <$> _uocDataSources,
-            Just ("autoEnable" .= _uocAutoEnable)
-          ]
-      )
-
-instance ToPath UpdateOrganizationConfiguration where
-  toPath UpdateOrganizationConfiguration' {..} =
-    mconcat
-      ["/detector/", toBS _uocDetectorId, "/admin"]
-
-instance ToQuery UpdateOrganizationConfiguration where
-  toQuery = const mempty
-
--- | /See:/ 'updateOrganizationConfigurationResponse' smart constructor.
-newtype UpdateOrganizationConfigurationResponse = UpdateOrganizationConfigurationResponse'
-  { _uocrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'UpdateOrganizationConfigurationResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'uocrrsResponseStatus' - -- | The response status code.
-updateOrganizationConfigurationResponse ::
-  -- | 'uocrrsResponseStatus'
-  Int ->
-  UpdateOrganizationConfigurationResponse
-updateOrganizationConfigurationResponse
-  pResponseStatus_ =
-    UpdateOrganizationConfigurationResponse'
-      { _uocrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-uocrrsResponseStatus :: Lens' UpdateOrganizationConfigurationResponse Int
-uocrrsResponseStatus = lens _uocrrsResponseStatus (\s a -> s {_uocrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    UpdateOrganizationConfiguration
+
+instance
+  Prelude.NFData
+    UpdateOrganizationConfiguration
+
+instance
+  Prelude.ToHeaders
+    UpdateOrganizationConfiguration
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    UpdateOrganizationConfiguration
+  where
+  toJSON UpdateOrganizationConfiguration' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("dataSources" Prelude..=) Prelude.<$> dataSources,
+            Prelude.Just ("autoEnable" Prelude..= autoEnable)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    UpdateOrganizationConfiguration
+  where
+  toPath UpdateOrganizationConfiguration' {..} =
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId, "/admin"]
+
+instance
+  Prelude.ToQuery
+    UpdateOrganizationConfiguration
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newUpdateOrganizationConfigurationResponse' smart constructor.
+data UpdateOrganizationConfigurationResponse = UpdateOrganizationConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'UpdateOrganizationConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateOrganizationConfigurationResponse_httpStatus' - The response's http status code.
+newUpdateOrganizationConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  UpdateOrganizationConfigurationResponse
+newUpdateOrganizationConfigurationResponse
+  pHttpStatus_ =
+    UpdateOrganizationConfigurationResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+updateOrganizationConfigurationResponse_httpStatus :: Lens.Lens' UpdateOrganizationConfigurationResponse Prelude.Int
+updateOrganizationConfigurationResponse_httpStatus = Lens.lens (\UpdateOrganizationConfigurationResponse' {httpStatus} -> httpStatus) (\s@UpdateOrganizationConfigurationResponse' {} a -> s {httpStatus = a} :: UpdateOrganizationConfigurationResponse)
+
+instance
+  Prelude.NFData
     UpdateOrganizationConfigurationResponse

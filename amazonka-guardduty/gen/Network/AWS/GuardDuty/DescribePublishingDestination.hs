@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,219 +21,243 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the publishing destination specified by the provided @destinationId@ .
+-- Returns information about the publishing destination specified by the
+-- provided @destinationId@.
 module Network.AWS.GuardDuty.DescribePublishingDestination
   ( -- * Creating a Request
-    describePublishingDestination,
-    DescribePublishingDestination,
+    DescribePublishingDestination (..),
+    newDescribePublishingDestination,
 
     -- * Request Lenses
-    dDetectorId,
-    dDestinationId,
+    describePublishingDestination_detectorId,
+    describePublishingDestination_destinationId,
 
     -- * Destructuring the Response
-    describePublishingDestinationResponse,
-    DescribePublishingDestinationResponse,
+    DescribePublishingDestinationResponse (..),
+    newDescribePublishingDestinationResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
-    drsDestinationId,
-    drsDestinationType,
-    drsStatus,
-    drsPublishingFailureStartTimestamp,
-    drsDestinationProperties,
+    describePublishingDestinationResponse_httpStatus,
+    describePublishingDestinationResponse_destinationId,
+    describePublishingDestinationResponse_destinationType,
+    describePublishingDestinationResponse_status,
+    describePublishingDestinationResponse_publishingFailureStartTimestamp,
+    describePublishingDestinationResponse_destinationProperties,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.DestinationProperties
+import Network.AWS.GuardDuty.Types.DestinationType
+import Network.AWS.GuardDuty.Types.PublishingStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describePublishingDestination' smart constructor.
+-- | /See:/ 'newDescribePublishingDestination' smart constructor.
 data DescribePublishingDestination = DescribePublishingDestination'
-  { _dDetectorId ::
-      !Text,
-    _dDestinationId ::
-      !Text
+  { -- | The unique ID of the detector associated with the publishing destination
+    -- to retrieve.
+    detectorId :: Prelude.Text,
+    -- | The ID of the publishing destination to retrieve.
+    destinationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePublishingDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePublishingDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dDetectorId' - The unique ID of the detector associated with the publishing destination to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dDestinationId' - The ID of the publishing destination to retrieve.
-describePublishingDestination ::
-  -- | 'dDetectorId'
-  Text ->
-  -- | 'dDestinationId'
-  Text ->
+-- 'detectorId', 'describePublishingDestination_detectorId' - The unique ID of the detector associated with the publishing destination
+-- to retrieve.
+--
+-- 'destinationId', 'describePublishingDestination_destinationId' - The ID of the publishing destination to retrieve.
+newDescribePublishingDestination ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'destinationId'
+  Prelude.Text ->
   DescribePublishingDestination
-describePublishingDestination
+newDescribePublishingDestination
   pDetectorId_
   pDestinationId_ =
     DescribePublishingDestination'
-      { _dDetectorId =
+      { detectorId =
           pDetectorId_,
-        _dDestinationId = pDestinationId_
+        destinationId = pDestinationId_
       }
 
--- | The unique ID of the detector associated with the publishing destination to retrieve.
-dDetectorId :: Lens' DescribePublishingDestination Text
-dDetectorId = lens _dDetectorId (\s a -> s {_dDetectorId = a})
+-- | The unique ID of the detector associated with the publishing destination
+-- to retrieve.
+describePublishingDestination_detectorId :: Lens.Lens' DescribePublishingDestination Prelude.Text
+describePublishingDestination_detectorId = Lens.lens (\DescribePublishingDestination' {detectorId} -> detectorId) (\s@DescribePublishingDestination' {} a -> s {detectorId = a} :: DescribePublishingDestination)
 
 -- | The ID of the publishing destination to retrieve.
-dDestinationId :: Lens' DescribePublishingDestination Text
-dDestinationId = lens _dDestinationId (\s a -> s {_dDestinationId = a})
+describePublishingDestination_destinationId :: Lens.Lens' DescribePublishingDestination Prelude.Text
+describePublishingDestination_destinationId = Lens.lens (\DescribePublishingDestination' {destinationId} -> destinationId) (\s@DescribePublishingDestination' {} a -> s {destinationId = a} :: DescribePublishingDestination)
 
-instance AWSRequest DescribePublishingDestination where
+instance
+  Prelude.AWSRequest
+    DescribePublishingDestination
+  where
   type
     Rs DescribePublishingDestination =
       DescribePublishingDestinationResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribePublishingDestinationResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "destinationId")
-            <*> (x .:> "destinationType")
-            <*> (x .:> "status")
-            <*> (x .:> "publishingFailureStartTimestamp")
-            <*> (x .:> "destinationProperties")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "destinationId")
+            Prelude.<*> (x Prelude..:> "destinationType")
+            Prelude.<*> (x Prelude..:> "status")
+            Prelude.<*> (x Prelude..:> "publishingFailureStartTimestamp")
+            Prelude.<*> (x Prelude..:> "destinationProperties")
       )
 
-instance Hashable DescribePublishingDestination
+instance
+  Prelude.Hashable
+    DescribePublishingDestination
 
-instance NFData DescribePublishingDestination
+instance Prelude.NFData DescribePublishingDestination
 
-instance ToHeaders DescribePublishingDestination where
+instance
+  Prelude.ToHeaders
+    DescribePublishingDestination
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribePublishingDestination where
+instance Prelude.ToPath DescribePublishingDestination where
   toPath DescribePublishingDestination' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _dDetectorId,
+        Prelude.toBS detectorId,
         "/publishingDestination/",
-        toBS _dDestinationId
+        Prelude.toBS destinationId
       ]
 
-instance ToQuery DescribePublishingDestination where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribePublishingDestination
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describePublishingDestinationResponse' smart constructor.
+-- | /See:/ 'newDescribePublishingDestinationResponse' smart constructor.
 data DescribePublishingDestinationResponse = DescribePublishingDestinationResponse'
-  { _drsResponseStatus ::
-      !Int,
-    _drsDestinationId ::
-      !Text,
-    _drsDestinationType ::
-      !DestinationType,
-    _drsStatus ::
-      !PublishingStatus,
-    _drsPublishingFailureStartTimestamp ::
-      !Integer,
-    _drsDestinationProperties ::
-      !DestinationProperties
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the publishing destination.
+    destinationId :: Prelude.Text,
+    -- | The type of publishing destination. Currently, only Amazon S3 buckets
+    -- are supported.
+    destinationType :: DestinationType,
+    -- | The status of the publishing destination.
+    status :: PublishingStatus,
+    -- | The time, in epoch millisecond format, at which GuardDuty was first
+    -- unable to publish findings to the destination.
+    publishingFailureStartTimestamp :: Prelude.Integer,
+    -- | A @DestinationProperties@ object that includes the @DestinationArn@ and
+    -- @KmsKeyArn@ of the publishing destination.
+    destinationProperties :: DestinationProperties
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribePublishingDestinationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribePublishingDestinationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsDestinationId' - The ID of the publishing destination.
+-- 'httpStatus', 'describePublishingDestinationResponse_httpStatus' - The response's http status code.
 --
--- * 'drsDestinationType' - The type of publishing destination. Currently, only Amazon S3 buckets are supported.
+-- 'destinationId', 'describePublishingDestinationResponse_destinationId' - The ID of the publishing destination.
 --
--- * 'drsStatus' - The status of the publishing destination.
+-- 'destinationType', 'describePublishingDestinationResponse_destinationType' - The type of publishing destination. Currently, only Amazon S3 buckets
+-- are supported.
 --
--- * 'drsPublishingFailureStartTimestamp' - The time, in epoch millisecond format, at which GuardDuty was first unable to publish findings to the destination.
+-- 'status', 'describePublishingDestinationResponse_status' - The status of the publishing destination.
 --
--- * 'drsDestinationProperties' - A @DestinationProperties@ object that includes the @DestinationArn@ and @KmsKeyArn@ of the publishing destination.
-describePublishingDestinationResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
-  -- | 'drsDestinationId'
-  Text ->
-  -- | 'drsDestinationType'
+-- 'publishingFailureStartTimestamp', 'describePublishingDestinationResponse_publishingFailureStartTimestamp' - The time, in epoch millisecond format, at which GuardDuty was first
+-- unable to publish findings to the destination.
+--
+-- 'destinationProperties', 'describePublishingDestinationResponse_destinationProperties' - A @DestinationProperties@ object that includes the @DestinationArn@ and
+-- @KmsKeyArn@ of the publishing destination.
+newDescribePublishingDestinationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'destinationId'
+  Prelude.Text ->
+  -- | 'destinationType'
   DestinationType ->
-  -- | 'drsStatus'
+  -- | 'status'
   PublishingStatus ->
-  -- | 'drsPublishingFailureStartTimestamp'
-  Integer ->
-  -- | 'drsDestinationProperties'
+  -- | 'publishingFailureStartTimestamp'
+  Prelude.Integer ->
+  -- | 'destinationProperties'
   DestinationProperties ->
   DescribePublishingDestinationResponse
-describePublishingDestinationResponse
-  pResponseStatus_
+newDescribePublishingDestinationResponse
+  pHttpStatus_
   pDestinationId_
   pDestinationType_
   pStatus_
   pPublishingFailureStartTimestamp_
   pDestinationProperties_ =
     DescribePublishingDestinationResponse'
-      { _drsResponseStatus =
-          pResponseStatus_,
-        _drsDestinationId = pDestinationId_,
-        _drsDestinationType =
-          pDestinationType_,
-        _drsStatus = pStatus_,
-        _drsPublishingFailureStartTimestamp =
+      { httpStatus =
+          pHttpStatus_,
+        destinationId = pDestinationId_,
+        destinationType = pDestinationType_,
+        status = pStatus_,
+        publishingFailureStartTimestamp =
           pPublishingFailureStartTimestamp_,
-        _drsDestinationProperties =
+        destinationProperties =
           pDestinationProperties_
       }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribePublishingDestinationResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describePublishingDestinationResponse_httpStatus :: Lens.Lens' DescribePublishingDestinationResponse Prelude.Int
+describePublishingDestinationResponse_httpStatus = Lens.lens (\DescribePublishingDestinationResponse' {httpStatus} -> httpStatus) (\s@DescribePublishingDestinationResponse' {} a -> s {httpStatus = a} :: DescribePublishingDestinationResponse)
 
 -- | The ID of the publishing destination.
-drsDestinationId :: Lens' DescribePublishingDestinationResponse Text
-drsDestinationId = lens _drsDestinationId (\s a -> s {_drsDestinationId = a})
+describePublishingDestinationResponse_destinationId :: Lens.Lens' DescribePublishingDestinationResponse Prelude.Text
+describePublishingDestinationResponse_destinationId = Lens.lens (\DescribePublishingDestinationResponse' {destinationId} -> destinationId) (\s@DescribePublishingDestinationResponse' {} a -> s {destinationId = a} :: DescribePublishingDestinationResponse)
 
--- | The type of publishing destination. Currently, only Amazon S3 buckets are supported.
-drsDestinationType :: Lens' DescribePublishingDestinationResponse DestinationType
-drsDestinationType = lens _drsDestinationType (\s a -> s {_drsDestinationType = a})
+-- | The type of publishing destination. Currently, only Amazon S3 buckets
+-- are supported.
+describePublishingDestinationResponse_destinationType :: Lens.Lens' DescribePublishingDestinationResponse DestinationType
+describePublishingDestinationResponse_destinationType = Lens.lens (\DescribePublishingDestinationResponse' {destinationType} -> destinationType) (\s@DescribePublishingDestinationResponse' {} a -> s {destinationType = a} :: DescribePublishingDestinationResponse)
 
 -- | The status of the publishing destination.
-drsStatus :: Lens' DescribePublishingDestinationResponse PublishingStatus
-drsStatus = lens _drsStatus (\s a -> s {_drsStatus = a})
+describePublishingDestinationResponse_status :: Lens.Lens' DescribePublishingDestinationResponse PublishingStatus
+describePublishingDestinationResponse_status = Lens.lens (\DescribePublishingDestinationResponse' {status} -> status) (\s@DescribePublishingDestinationResponse' {} a -> s {status = a} :: DescribePublishingDestinationResponse)
 
--- | The time, in epoch millisecond format, at which GuardDuty was first unable to publish findings to the destination.
-drsPublishingFailureStartTimestamp :: Lens' DescribePublishingDestinationResponse Integer
-drsPublishingFailureStartTimestamp = lens _drsPublishingFailureStartTimestamp (\s a -> s {_drsPublishingFailureStartTimestamp = a})
+-- | The time, in epoch millisecond format, at which GuardDuty was first
+-- unable to publish findings to the destination.
+describePublishingDestinationResponse_publishingFailureStartTimestamp :: Lens.Lens' DescribePublishingDestinationResponse Prelude.Integer
+describePublishingDestinationResponse_publishingFailureStartTimestamp = Lens.lens (\DescribePublishingDestinationResponse' {publishingFailureStartTimestamp} -> publishingFailureStartTimestamp) (\s@DescribePublishingDestinationResponse' {} a -> s {publishingFailureStartTimestamp = a} :: DescribePublishingDestinationResponse)
 
--- | A @DestinationProperties@ object that includes the @DestinationArn@ and @KmsKeyArn@ of the publishing destination.
-drsDestinationProperties :: Lens' DescribePublishingDestinationResponse DestinationProperties
-drsDestinationProperties = lens _drsDestinationProperties (\s a -> s {_drsDestinationProperties = a})
+-- | A @DestinationProperties@ object that includes the @DestinationArn@ and
+-- @KmsKeyArn@ of the publishing destination.
+describePublishingDestinationResponse_destinationProperties :: Lens.Lens' DescribePublishingDestinationResponse DestinationProperties
+describePublishingDestinationResponse_destinationProperties = Lens.lens (\DescribePublishingDestinationResponse' {destinationProperties} -> destinationProperties) (\s@DescribePublishingDestinationResponse' {} a -> s {destinationProperties = a} :: DescribePublishingDestinationResponse)
 
-instance NFData DescribePublishingDestinationResponse
+instance
+  Prelude.NFData
+    DescribePublishingDestinationResponse

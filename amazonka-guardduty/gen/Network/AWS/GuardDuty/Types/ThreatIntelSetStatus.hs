@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,82 +19,80 @@
 module Network.AWS.GuardDuty.Types.ThreatIntelSetStatus
   ( ThreatIntelSetStatus
       ( ..,
-        TISSActivating,
-        TISSActive,
-        TISSDeactivating,
-        TISSDeletePending,
-        TISSDeleted,
-        TISSError',
-        TISSInactive
+        ThreatIntelSetStatusACTIVATING,
+        ThreatIntelSetStatusACTIVE,
+        ThreatIntelSetStatusDEACTIVATING,
+        ThreatIntelSetStatusDELETED,
+        ThreatIntelSetStatusDELETEPENDING,
+        ThreatIntelSetStatusERROR,
+        ThreatIntelSetStatusINACTIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ThreatIntelSetStatus
-  = ThreatIntelSetStatus'
-      ( CI
-          Text
-      )
+newtype ThreatIntelSetStatus = ThreatIntelSetStatus'
+  { fromThreatIntelSetStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TISSActivating :: ThreatIntelSetStatus
-pattern TISSActivating = ThreatIntelSetStatus' "ACTIVATING"
+pattern ThreatIntelSetStatusACTIVATING :: ThreatIntelSetStatus
+pattern ThreatIntelSetStatusACTIVATING = ThreatIntelSetStatus' "ACTIVATING"
 
-pattern TISSActive :: ThreatIntelSetStatus
-pattern TISSActive = ThreatIntelSetStatus' "ACTIVE"
+pattern ThreatIntelSetStatusACTIVE :: ThreatIntelSetStatus
+pattern ThreatIntelSetStatusACTIVE = ThreatIntelSetStatus' "ACTIVE"
 
-pattern TISSDeactivating :: ThreatIntelSetStatus
-pattern TISSDeactivating = ThreatIntelSetStatus' "DEACTIVATING"
+pattern ThreatIntelSetStatusDEACTIVATING :: ThreatIntelSetStatus
+pattern ThreatIntelSetStatusDEACTIVATING = ThreatIntelSetStatus' "DEACTIVATING"
 
-pattern TISSDeletePending :: ThreatIntelSetStatus
-pattern TISSDeletePending = ThreatIntelSetStatus' "DELETE_PENDING"
+pattern ThreatIntelSetStatusDELETED :: ThreatIntelSetStatus
+pattern ThreatIntelSetStatusDELETED = ThreatIntelSetStatus' "DELETED"
 
-pattern TISSDeleted :: ThreatIntelSetStatus
-pattern TISSDeleted = ThreatIntelSetStatus' "DELETED"
+pattern ThreatIntelSetStatusDELETEPENDING :: ThreatIntelSetStatus
+pattern ThreatIntelSetStatusDELETEPENDING = ThreatIntelSetStatus' "DELETE_PENDING"
 
-pattern TISSError' :: ThreatIntelSetStatus
-pattern TISSError' = ThreatIntelSetStatus' "ERROR"
+pattern ThreatIntelSetStatusERROR :: ThreatIntelSetStatus
+pattern ThreatIntelSetStatusERROR = ThreatIntelSetStatus' "ERROR"
 
-pattern TISSInactive :: ThreatIntelSetStatus
-pattern TISSInactive = ThreatIntelSetStatus' "INACTIVE"
+pattern ThreatIntelSetStatusINACTIVE :: ThreatIntelSetStatus
+pattern ThreatIntelSetStatusINACTIVE = ThreatIntelSetStatus' "INACTIVE"
 
 {-# COMPLETE
-  TISSActivating,
-  TISSActive,
-  TISSDeactivating,
-  TISSDeletePending,
-  TISSDeleted,
-  TISSError',
-  TISSInactive,
+  ThreatIntelSetStatusACTIVATING,
+  ThreatIntelSetStatusACTIVE,
+  ThreatIntelSetStatusDEACTIVATING,
+  ThreatIntelSetStatusDELETED,
+  ThreatIntelSetStatusDELETEPENDING,
+  ThreatIntelSetStatusERROR,
+  ThreatIntelSetStatusINACTIVE,
   ThreatIntelSetStatus'
   #-}
 
-instance FromText ThreatIntelSetStatus where
-  parser = (ThreatIntelSetStatus' . mk) <$> takeText
+instance Prelude.FromText ThreatIntelSetStatus where
+  parser = ThreatIntelSetStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ThreatIntelSetStatus where
-  toText (ThreatIntelSetStatus' ci) = original ci
+instance Prelude.ToText ThreatIntelSetStatus where
+  toText (ThreatIntelSetStatus' x) = x
 
-instance Hashable ThreatIntelSetStatus
+instance Prelude.Hashable ThreatIntelSetStatus
 
-instance NFData ThreatIntelSetStatus
+instance Prelude.NFData ThreatIntelSetStatus
 
-instance ToByteString ThreatIntelSetStatus
+instance Prelude.ToByteString ThreatIntelSetStatus
 
-instance ToQuery ThreatIntelSetStatus
+instance Prelude.ToQuery ThreatIntelSetStatus
 
-instance ToHeader ThreatIntelSetStatus
+instance Prelude.ToHeader ThreatIntelSetStatus
 
-instance FromJSON ThreatIntelSetStatus where
-  parseJSON = parseJSONText "ThreatIntelSetStatus"
+instance Prelude.FromJSON ThreatIntelSetStatus where
+  parseJSON = Prelude.parseJSONText "ThreatIntelSetStatus"

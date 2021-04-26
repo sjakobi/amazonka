@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.GeoLocation where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the location of the remote IP address.
 --
---
---
--- /See:/ 'geoLocation' smart constructor.
+-- /See:/ 'newGeoLocation' smart constructor.
 data GeoLocation = GeoLocation'
-  { _glLat ::
-      !(Maybe Double),
-    _glLon :: !(Maybe Double)
+  { -- | The latitude information of the remote IP address.
+    lat :: Prelude.Maybe Prelude.Double,
+    -- | The longitude information of the remote IP address.
+    lon :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GeoLocation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GeoLocation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glLat' - The latitude information of the remote IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'glLon' - The longitude information of the remote IP address.
-geoLocation ::
+-- 'lat', 'geoLocation_lat' - The latitude information of the remote IP address.
+--
+-- 'lon', 'geoLocation_lon' - The longitude information of the remote IP address.
+newGeoLocation ::
   GeoLocation
-geoLocation =
-  GeoLocation' {_glLat = Nothing, _glLon = Nothing}
+newGeoLocation =
+  GeoLocation'
+    { lat = Prelude.Nothing,
+      lon = Prelude.Nothing
+    }
 
 -- | The latitude information of the remote IP address.
-glLat :: Lens' GeoLocation (Maybe Double)
-glLat = lens _glLat (\s a -> s {_glLat = a})
+geoLocation_lat :: Lens.Lens' GeoLocation (Prelude.Maybe Prelude.Double)
+geoLocation_lat = Lens.lens (\GeoLocation' {lat} -> lat) (\s@GeoLocation' {} a -> s {lat = a} :: GeoLocation)
 
 -- | The longitude information of the remote IP address.
-glLon :: Lens' GeoLocation (Maybe Double)
-glLon = lens _glLon (\s a -> s {_glLon = a})
+geoLocation_lon :: Lens.Lens' GeoLocation (Prelude.Maybe Prelude.Double)
+geoLocation_lon = Lens.lens (\GeoLocation' {lon} -> lon) (\s@GeoLocation' {} a -> s {lon = a} :: GeoLocation)
 
-instance FromJSON GeoLocation where
+instance Prelude.FromJSON GeoLocation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GeoLocation"
       ( \x ->
-          GeoLocation' <$> (x .:? "lat") <*> (x .:? "lon")
+          GeoLocation'
+            Prelude.<$> (x Prelude..:? "lat")
+            Prelude.<*> (x Prelude..:? "lon")
       )
 
-instance Hashable GeoLocation
+instance Prelude.Hashable GeoLocation
 
-instance NFData GeoLocation
+instance Prelude.NFData GeoLocation

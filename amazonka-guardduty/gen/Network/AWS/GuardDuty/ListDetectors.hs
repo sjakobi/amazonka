@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,192 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists detectorIds of all the existing Amazon GuardDuty detector resources.
---
---
+-- Lists detectorIds of all the existing Amazon GuardDuty detector
+-- resources.
 --
 -- This operation returns paginated results.
 module Network.AWS.GuardDuty.ListDetectors
   ( -- * Creating a Request
-    listDetectors,
-    ListDetectors,
+    ListDetectors (..),
+    newListDetectors,
 
     -- * Request Lenses
-    ldNextToken,
-    ldMaxResults,
+    listDetectors_nextToken,
+    listDetectors_maxResults,
 
     -- * Destructuring the Response
-    listDetectorsResponse,
-    ListDetectorsResponse,
+    ListDetectorsResponse (..),
+    newListDetectorsResponse,
 
     -- * Response Lenses
-    ldrrsNextToken,
-    ldrrsResponseStatus,
-    ldrrsDetectorIds,
+    listDetectorsResponse_nextToken,
+    listDetectorsResponse_httpStatus,
+    listDetectorsResponse_detectorIds,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDetectors' smart constructor.
+-- | /See:/ 'newListDetectors' smart constructor.
 data ListDetectors = ListDetectors'
-  { _ldNextToken ::
-      !(Maybe Text),
-    _ldMaxResults :: !(Maybe Nat)
+  { -- | You can use this parameter when paginating results. Set the value of
+    -- this parameter to null on your first call to the list action. For
+    -- subsequent calls to the action, fill nextToken in the request with the
+    -- value of NextToken from the previous response to continue listing data.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | You can use this parameter to indicate the maximum number of items that
+    -- you want in the response. The default value is 50. The maximum value is
+    -- 50.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDetectors' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDetectors' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldNextToken' - You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldMaxResults' - You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 50. The maximum value is 50.
-listDetectors ::
+-- 'nextToken', 'listDetectors_nextToken' - You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the list action. For
+-- subsequent calls to the action, fill nextToken in the request with the
+-- value of NextToken from the previous response to continue listing data.
+--
+-- 'maxResults', 'listDetectors_maxResults' - You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+newListDetectors ::
   ListDetectors
-listDetectors =
+newListDetectors =
   ListDetectors'
-    { _ldNextToken = Nothing,
-      _ldMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
-ldNextToken :: Lens' ListDetectors (Maybe Text)
-ldNextToken = lens _ldNextToken (\s a -> s {_ldNextToken = a})
+-- | You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the list action. For
+-- subsequent calls to the action, fill nextToken in the request with the
+-- value of NextToken from the previous response to continue listing data.
+listDetectors_nextToken :: Lens.Lens' ListDetectors (Prelude.Maybe Prelude.Text)
+listDetectors_nextToken = Lens.lens (\ListDetectors' {nextToken} -> nextToken) (\s@ListDetectors' {} a -> s {nextToken = a} :: ListDetectors)
 
--- | You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 50. The maximum value is 50.
-ldMaxResults :: Lens' ListDetectors (Maybe Natural)
-ldMaxResults = lens _ldMaxResults (\s a -> s {_ldMaxResults = a}) . mapping _Nat
+-- | You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+listDetectors_maxResults :: Lens.Lens' ListDetectors (Prelude.Maybe Prelude.Natural)
+listDetectors_maxResults = Lens.lens (\ListDetectors' {maxResults} -> maxResults) (\s@ListDetectors' {} a -> s {maxResults = a} :: ListDetectors) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListDetectors where
+instance Pager.AWSPager ListDetectors where
   page rq rs
-    | stop (rs ^. ldrrsNextToken) = Nothing
-    | stop (rs ^. ldrrsDetectorIds) = Nothing
-    | otherwise =
-      Just $ rq & ldNextToken .~ rs ^. ldrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDetectorsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listDetectorsResponse_detectorIds) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDetectors_nextToken
+          Lens..~ rs
+          Lens.^? listDetectorsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListDetectors where
+instance Prelude.AWSRequest ListDetectors where
   type Rs ListDetectors = ListDetectorsResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDetectorsResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "detectorIds" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "detectorIds"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListDetectors
+instance Prelude.Hashable ListDetectors
 
-instance NFData ListDetectors
+instance Prelude.NFData ListDetectors
 
-instance ToHeaders ListDetectors where
+instance Prelude.ToHeaders ListDetectors where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListDetectors where
-  toPath = const "/detector"
+instance Prelude.ToPath ListDetectors where
+  toPath = Prelude.const "/detector"
 
-instance ToQuery ListDetectors where
+instance Prelude.ToQuery ListDetectors where
   toQuery ListDetectors' {..} =
-    mconcat
-      [ "nextToken" =: _ldNextToken,
-        "maxResults" =: _ldMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listDetectorsResponse' smart constructor.
+-- | /See:/ 'newListDetectorsResponse' smart constructor.
 data ListDetectorsResponse = ListDetectorsResponse'
-  { _ldrrsNextToken ::
-      !(Maybe Text),
-    _ldrrsResponseStatus ::
-      !Int,
-    _ldrrsDetectorIds ::
-      ![Text]
+  { -- | The pagination parameter to be used on the next list operation to
+    -- retrieve more items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of detector IDs.
+    detectorIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDetectorsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDetectorsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrrsNextToken' - The pagination parameter to be used on the next list operation to retrieve more items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listDetectorsResponse_nextToken' - The pagination parameter to be used on the next list operation to
+-- retrieve more items.
 --
--- * 'ldrrsDetectorIds' - A list of detector IDs.
-listDetectorsResponse ::
-  -- | 'ldrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listDetectorsResponse_httpStatus' - The response's http status code.
+--
+-- 'detectorIds', 'listDetectorsResponse_detectorIds' - A list of detector IDs.
+newListDetectorsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDetectorsResponse
-listDetectorsResponse pResponseStatus_ =
+newListDetectorsResponse pHttpStatus_ =
   ListDetectorsResponse'
-    { _ldrrsNextToken = Nothing,
-      _ldrrsResponseStatus = pResponseStatus_,
-      _ldrrsDetectorIds = mempty
+    { nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      detectorIds = Prelude.mempty
     }
 
--- | The pagination parameter to be used on the next list operation to retrieve more items.
-ldrrsNextToken :: Lens' ListDetectorsResponse (Maybe Text)
-ldrrsNextToken = lens _ldrrsNextToken (\s a -> s {_ldrrsNextToken = a})
+-- | The pagination parameter to be used on the next list operation to
+-- retrieve more items.
+listDetectorsResponse_nextToken :: Lens.Lens' ListDetectorsResponse (Prelude.Maybe Prelude.Text)
+listDetectorsResponse_nextToken = Lens.lens (\ListDetectorsResponse' {nextToken} -> nextToken) (\s@ListDetectorsResponse' {} a -> s {nextToken = a} :: ListDetectorsResponse)
 
--- | -- | The response status code.
-ldrrsResponseStatus :: Lens' ListDetectorsResponse Int
-ldrrsResponseStatus = lens _ldrrsResponseStatus (\s a -> s {_ldrrsResponseStatus = a})
+-- | The response's http status code.
+listDetectorsResponse_httpStatus :: Lens.Lens' ListDetectorsResponse Prelude.Int
+listDetectorsResponse_httpStatus = Lens.lens (\ListDetectorsResponse' {httpStatus} -> httpStatus) (\s@ListDetectorsResponse' {} a -> s {httpStatus = a} :: ListDetectorsResponse)
 
 -- | A list of detector IDs.
-ldrrsDetectorIds :: Lens' ListDetectorsResponse [Text]
-ldrrsDetectorIds = lens _ldrrsDetectorIds (\s a -> s {_ldrrsDetectorIds = a}) . _Coerce
+listDetectorsResponse_detectorIds :: Lens.Lens' ListDetectorsResponse [Prelude.Text]
+listDetectorsResponse_detectorIds = Lens.lens (\ListDetectorsResponse' {detectorIds} -> detectorIds) (\s@ListDetectorsResponse' {} a -> s {detectorIds = a} :: ListDetectorsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListDetectorsResponse
+instance Prelude.NFData ListDetectorsResponse

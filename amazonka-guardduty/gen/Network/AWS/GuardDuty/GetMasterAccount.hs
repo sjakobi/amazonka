@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,127 +21,133 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides the details for the GuardDuty administrator account associated with the current GuardDuty member account.
+-- Provides the details for the GuardDuty administrator account associated
+-- with the current GuardDuty member account.
 module Network.AWS.GuardDuty.GetMasterAccount
   ( -- * Creating a Request
-    getMasterAccount,
-    GetMasterAccount,
+    GetMasterAccount (..),
+    newGetMasterAccount,
 
     -- * Request Lenses
-    gmaDetectorId,
+    getMasterAccount_detectorId,
 
     -- * Destructuring the Response
-    getMasterAccountResponse,
-    GetMasterAccountResponse,
+    GetMasterAccountResponse (..),
+    newGetMasterAccountResponse,
 
     -- * Response Lenses
-    gmarrsResponseStatus,
-    gmarrsMaster,
+    getMasterAccountResponse_httpStatus,
+    getMasterAccountResponse_master,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.Master
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMasterAccount' smart constructor.
-newtype GetMasterAccount = GetMasterAccount'
-  { _gmaDetectorId ::
-      Text
+-- | /See:/ 'newGetMasterAccount' smart constructor.
+data GetMasterAccount = GetMasterAccount'
+  { -- | The unique ID of the detector of the GuardDuty member account.
+    detectorId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMasterAccount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMasterAccount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmaDetectorId' - The unique ID of the detector of the GuardDuty member account.
-getMasterAccount ::
-  -- | 'gmaDetectorId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'detectorId', 'getMasterAccount_detectorId' - The unique ID of the detector of the GuardDuty member account.
+newGetMasterAccount ::
+  -- | 'detectorId'
+  Prelude.Text ->
   GetMasterAccount
-getMasterAccount pDetectorId_ =
-  GetMasterAccount' {_gmaDetectorId = pDetectorId_}
+newGetMasterAccount pDetectorId_ =
+  GetMasterAccount' {detectorId = pDetectorId_}
 
 -- | The unique ID of the detector of the GuardDuty member account.
-gmaDetectorId :: Lens' GetMasterAccount Text
-gmaDetectorId = lens _gmaDetectorId (\s a -> s {_gmaDetectorId = a})
+getMasterAccount_detectorId :: Lens.Lens' GetMasterAccount Prelude.Text
+getMasterAccount_detectorId = Lens.lens (\GetMasterAccount' {detectorId} -> detectorId) (\s@GetMasterAccount' {} a -> s {detectorId = a} :: GetMasterAccount)
 
-instance AWSRequest GetMasterAccount where
+instance Prelude.AWSRequest GetMasterAccount where
   type Rs GetMasterAccount = GetMasterAccountResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMasterAccountResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "master")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "master")
       )
 
-instance Hashable GetMasterAccount
+instance Prelude.Hashable GetMasterAccount
 
-instance NFData GetMasterAccount
+instance Prelude.NFData GetMasterAccount
 
-instance ToHeaders GetMasterAccount where
+instance Prelude.ToHeaders GetMasterAccount where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath GetMasterAccount where
+instance Prelude.ToPath GetMasterAccount where
   toPath GetMasterAccount' {..} =
-    mconcat
-      ["/detector/", toBS _gmaDetectorId, "/master"]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId, "/master"]
 
-instance ToQuery GetMasterAccount where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMasterAccount where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMasterAccountResponse' smart constructor.
+-- | /See:/ 'newGetMasterAccountResponse' smart constructor.
 data GetMasterAccountResponse = GetMasterAccountResponse'
-  { _gmarrsResponseStatus ::
-      !Int,
-    _gmarrsMaster ::
-      !Master
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The administrator account details.
+    master :: Master
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMasterAccountResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMasterAccountResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmarrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmarrsMaster' - The administrator account details.
-getMasterAccountResponse ::
-  -- | 'gmarrsResponseStatus'
-  Int ->
-  -- | 'gmarrsMaster'
+-- 'httpStatus', 'getMasterAccountResponse_httpStatus' - The response's http status code.
+--
+-- 'master', 'getMasterAccountResponse_master' - The administrator account details.
+newGetMasterAccountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'master'
   Master ->
   GetMasterAccountResponse
-getMasterAccountResponse pResponseStatus_ pMaster_ =
+newGetMasterAccountResponse pHttpStatus_ pMaster_ =
   GetMasterAccountResponse'
-    { _gmarrsResponseStatus =
-        pResponseStatus_,
-      _gmarrsMaster = pMaster_
+    { httpStatus =
+        pHttpStatus_,
+      master = pMaster_
     }
 
--- | -- | The response status code.
-gmarrsResponseStatus :: Lens' GetMasterAccountResponse Int
-gmarrsResponseStatus = lens _gmarrsResponseStatus (\s a -> s {_gmarrsResponseStatus = a})
+-- | The response's http status code.
+getMasterAccountResponse_httpStatus :: Lens.Lens' GetMasterAccountResponse Prelude.Int
+getMasterAccountResponse_httpStatus = Lens.lens (\GetMasterAccountResponse' {httpStatus} -> httpStatus) (\s@GetMasterAccountResponse' {} a -> s {httpStatus = a} :: GetMasterAccountResponse)
 
 -- | The administrator account details.
-gmarrsMaster :: Lens' GetMasterAccountResponse Master
-gmarrsMaster = lens _gmarrsMaster (\s a -> s {_gmarrsMaster = a})
+getMasterAccountResponse_master :: Lens.Lens' GetMasterAccountResponse Master
+getMasterAccountResponse_master = Lens.lens (\GetMasterAccountResponse' {master} -> master) (\s@GetMasterAccountResponse' {} a -> s {master = a} :: GetMasterAccountResponse)
 
-instance NFData GetMasterAccountResponse
+instance Prelude.NFData GetMasterAccountResponse

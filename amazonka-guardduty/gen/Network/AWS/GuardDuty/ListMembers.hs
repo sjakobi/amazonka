@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,174 +21,221 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists details about all member accounts for the current GuardDuty administrator account.
---
---
+-- Lists details about all member accounts for the current GuardDuty
+-- administrator account.
 --
 -- This operation returns paginated results.
 module Network.AWS.GuardDuty.ListMembers
   ( -- * Creating a Request
-    listMembers,
-    ListMembers,
+    ListMembers (..),
+    newListMembers,
 
     -- * Request Lenses
-    lmNextToken,
-    lmMaxResults,
-    lmOnlyAssociated,
-    lmDetectorId,
+    listMembers_nextToken,
+    listMembers_maxResults,
+    listMembers_onlyAssociated,
+    listMembers_detectorId,
 
     -- * Destructuring the Response
-    listMembersResponse,
-    ListMembersResponse,
+    ListMembersResponse (..),
+    newListMembersResponse,
 
     -- * Response Lenses
-    lmrrsNextToken,
-    lmrrsMembers,
-    lmrrsResponseStatus,
+    listMembersResponse_nextToken,
+    listMembersResponse_members,
+    listMembersResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.Member
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listMembers' smart constructor.
+-- | /See:/ 'newListMembers' smart constructor.
 data ListMembers = ListMembers'
-  { _lmNextToken ::
-      !(Maybe Text),
-    _lmMaxResults :: !(Maybe Nat),
-    _lmOnlyAssociated :: !(Maybe Text),
-    _lmDetectorId :: !Text
+  { -- | You can use this parameter when paginating results. Set the value of
+    -- this parameter to null on your first call to the list action. For
+    -- subsequent calls to the action, fill nextToken in the request with the
+    -- value of NextToken from the previous response to continue listing data.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | You can use this parameter to indicate the maximum number of items you
+    -- want in the response. The default value is 50. The maximum value is 50.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies whether to only return associated members or to return all
+    -- members (including members who haven\'t been invited yet or have been
+    -- disassociated).
+    onlyAssociated :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the detector the member is associated with.
+    detectorId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMembers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMembers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmNextToken' - You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmMaxResults' - You can use this parameter to indicate the maximum number of items you want in the response. The default value is 50. The maximum value is 50.
+-- 'nextToken', 'listMembers_nextToken' - You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the list action. For
+-- subsequent calls to the action, fill nextToken in the request with the
+-- value of NextToken from the previous response to continue listing data.
 --
--- * 'lmOnlyAssociated' - Specifies whether to only return associated members or to return all members (including members who haven't been invited yet or have been disassociated).
+-- 'maxResults', 'listMembers_maxResults' - You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 50. The maximum value is 50.
 --
--- * 'lmDetectorId' - The unique ID of the detector the member is associated with.
-listMembers ::
-  -- | 'lmDetectorId'
-  Text ->
+-- 'onlyAssociated', 'listMembers_onlyAssociated' - Specifies whether to only return associated members or to return all
+-- members (including members who haven\'t been invited yet or have been
+-- disassociated).
+--
+-- 'detectorId', 'listMembers_detectorId' - The unique ID of the detector the member is associated with.
+newListMembers ::
+  -- | 'detectorId'
+  Prelude.Text ->
   ListMembers
-listMembers pDetectorId_ =
+newListMembers pDetectorId_ =
   ListMembers'
-    { _lmNextToken = Nothing,
-      _lmMaxResults = Nothing,
-      _lmOnlyAssociated = Nothing,
-      _lmDetectorId = pDetectorId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      onlyAssociated = Prelude.Nothing,
+      detectorId = pDetectorId_
     }
 
--- | You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
-lmNextToken :: Lens' ListMembers (Maybe Text)
-lmNextToken = lens _lmNextToken (\s a -> s {_lmNextToken = a})
+-- | You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the list action. For
+-- subsequent calls to the action, fill nextToken in the request with the
+-- value of NextToken from the previous response to continue listing data.
+listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
+listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
 
--- | You can use this parameter to indicate the maximum number of items you want in the response. The default value is 50. The maximum value is 50.
-lmMaxResults :: Lens' ListMembers (Maybe Natural)
-lmMaxResults = lens _lmMaxResults (\s a -> s {_lmMaxResults = a}) . mapping _Nat
+-- | You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 50. The maximum value is 50.
+listMembers_maxResults :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Natural)
+listMembers_maxResults = Lens.lens (\ListMembers' {maxResults} -> maxResults) (\s@ListMembers' {} a -> s {maxResults = a} :: ListMembers) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies whether to only return associated members or to return all members (including members who haven't been invited yet or have been disassociated).
-lmOnlyAssociated :: Lens' ListMembers (Maybe Text)
-lmOnlyAssociated = lens _lmOnlyAssociated (\s a -> s {_lmOnlyAssociated = a})
+-- | Specifies whether to only return associated members or to return all
+-- members (including members who haven\'t been invited yet or have been
+-- disassociated).
+listMembers_onlyAssociated :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
+listMembers_onlyAssociated = Lens.lens (\ListMembers' {onlyAssociated} -> onlyAssociated) (\s@ListMembers' {} a -> s {onlyAssociated = a} :: ListMembers)
 
 -- | The unique ID of the detector the member is associated with.
-lmDetectorId :: Lens' ListMembers Text
-lmDetectorId = lens _lmDetectorId (\s a -> s {_lmDetectorId = a})
+listMembers_detectorId :: Lens.Lens' ListMembers Prelude.Text
+listMembers_detectorId = Lens.lens (\ListMembers' {detectorId} -> detectorId) (\s@ListMembers' {} a -> s {detectorId = a} :: ListMembers)
 
-instance AWSPager ListMembers where
+instance Pager.AWSPager ListMembers where
   page rq rs
-    | stop (rs ^. lmrrsNextToken) = Nothing
-    | stop (rs ^. lmrrsMembers) = Nothing
-    | otherwise =
-      Just $ rq & lmNextToken .~ rs ^. lmrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listMembersResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listMembersResponse_members Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listMembers_nextToken
+          Lens..~ rs
+          Lens.^? listMembersResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListMembers where
+instance Prelude.AWSRequest ListMembers where
   type Rs ListMembers = ListMembersResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListMembersResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "members" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (x Prelude..?> "members" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListMembers
+instance Prelude.Hashable ListMembers
 
-instance NFData ListMembers
+instance Prelude.NFData ListMembers
 
-instance ToHeaders ListMembers where
+instance Prelude.ToHeaders ListMembers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListMembers where
+instance Prelude.ToPath ListMembers where
   toPath ListMembers' {..} =
-    mconcat
-      ["/detector/", toBS _lmDetectorId, "/member"]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId, "/member"]
 
-instance ToQuery ListMembers where
+instance Prelude.ToQuery ListMembers where
   toQuery ListMembers' {..} =
-    mconcat
-      [ "nextToken" =: _lmNextToken,
-        "maxResults" =: _lmMaxResults,
-        "onlyAssociated" =: _lmOnlyAssociated
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "onlyAssociated" Prelude.=: onlyAssociated
       ]
 
--- | /See:/ 'listMembersResponse' smart constructor.
+-- | /See:/ 'newListMembersResponse' smart constructor.
 data ListMembersResponse = ListMembersResponse'
-  { _lmrrsNextToken ::
-      !(Maybe Text),
-    _lmrrsMembers ::
-      !(Maybe [Member]),
-    _lmrrsResponseStatus :: !Int
+  { -- | The pagination parameter to be used on the next list operation to
+    -- retrieve more items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of members.
+    members :: Prelude.Maybe [Member],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMembersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMembersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmrrsNextToken' - The pagination parameter to be used on the next list operation to retrieve more items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmrrsMembers' - A list of members.
+-- 'nextToken', 'listMembersResponse_nextToken' - The pagination parameter to be used on the next list operation to
+-- retrieve more items.
 --
--- * 'lmrrsResponseStatus' - -- | The response status code.
-listMembersResponse ::
-  -- | 'lmrrsResponseStatus'
-  Int ->
+-- 'members', 'listMembersResponse_members' - A list of members.
+--
+-- 'httpStatus', 'listMembersResponse_httpStatus' - The response's http status code.
+newListMembersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListMembersResponse
-listMembersResponse pResponseStatus_ =
+newListMembersResponse pHttpStatus_ =
   ListMembersResponse'
-    { _lmrrsNextToken = Nothing,
-      _lmrrsMembers = Nothing,
-      _lmrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      members = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The pagination parameter to be used on the next list operation to retrieve more items.
-lmrrsNextToken :: Lens' ListMembersResponse (Maybe Text)
-lmrrsNextToken = lens _lmrrsNextToken (\s a -> s {_lmrrsNextToken = a})
+-- | The pagination parameter to be used on the next list operation to
+-- retrieve more items.
+listMembersResponse_nextToken :: Lens.Lens' ListMembersResponse (Prelude.Maybe Prelude.Text)
+listMembersResponse_nextToken = Lens.lens (\ListMembersResponse' {nextToken} -> nextToken) (\s@ListMembersResponse' {} a -> s {nextToken = a} :: ListMembersResponse)
 
 -- | A list of members.
-lmrrsMembers :: Lens' ListMembersResponse [Member]
-lmrrsMembers = lens _lmrrsMembers (\s a -> s {_lmrrsMembers = a}) . _Default . _Coerce
+listMembersResponse_members :: Lens.Lens' ListMembersResponse (Prelude.Maybe [Member])
+listMembersResponse_members = Lens.lens (\ListMembersResponse' {members} -> members) (\s@ListMembersResponse' {} a -> s {members = a} :: ListMembersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lmrrsResponseStatus :: Lens' ListMembersResponse Int
-lmrrsResponseStatus = lens _lmrrsResponseStatus (\s a -> s {_lmrrsResponseStatus = a})
+-- | The response's http status code.
+listMembersResponse_httpStatus :: Lens.Lens' ListMembersResponse Prelude.Int
+listMembersResponse_httpStatus = Lens.lens (\ListMembersResponse' {httpStatus} -> httpStatus) (\s@ListMembersResponse' {} a -> s {httpStatus = a} :: ListMembersResponse)
 
-instance NFData ListMembersResponse
+instance Prelude.NFData ListMembersResponse

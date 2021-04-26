@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.AccessKeyDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the access keys.
 --
---
---
--- /See:/ 'accessKeyDetails' smart constructor.
+-- /See:/ 'newAccessKeyDetails' smart constructor.
 data AccessKeyDetails = AccessKeyDetails'
-  { _akdPrincipalId ::
-      !(Maybe Text),
-    _akdUserType :: !(Maybe Text),
-    _akdAccessKeyId :: !(Maybe Text),
-    _akdUserName :: !(Maybe Text)
+  { -- | The principal ID of the user.
+    principalId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the user.
+    userType :: Prelude.Maybe Prelude.Text,
+    -- | The access key ID of the user.
+    accessKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the user.
+    userName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessKeyDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessKeyDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akdPrincipalId' - The principal ID of the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akdUserType' - The type of the user.
+-- 'principalId', 'accessKeyDetails_principalId' - The principal ID of the user.
 --
--- * 'akdAccessKeyId' - The access key ID of the user.
+-- 'userType', 'accessKeyDetails_userType' - The type of the user.
 --
--- * 'akdUserName' - The name of the user.
-accessKeyDetails ::
+-- 'accessKeyId', 'accessKeyDetails_accessKeyId' - The access key ID of the user.
+--
+-- 'userName', 'accessKeyDetails_userName' - The name of the user.
+newAccessKeyDetails ::
   AccessKeyDetails
-accessKeyDetails =
+newAccessKeyDetails =
   AccessKeyDetails'
-    { _akdPrincipalId = Nothing,
-      _akdUserType = Nothing,
-      _akdAccessKeyId = Nothing,
-      _akdUserName = Nothing
+    { principalId = Prelude.Nothing,
+      userType = Prelude.Nothing,
+      accessKeyId = Prelude.Nothing,
+      userName = Prelude.Nothing
     }
 
 -- | The principal ID of the user.
-akdPrincipalId :: Lens' AccessKeyDetails (Maybe Text)
-akdPrincipalId = lens _akdPrincipalId (\s a -> s {_akdPrincipalId = a})
+accessKeyDetails_principalId :: Lens.Lens' AccessKeyDetails (Prelude.Maybe Prelude.Text)
+accessKeyDetails_principalId = Lens.lens (\AccessKeyDetails' {principalId} -> principalId) (\s@AccessKeyDetails' {} a -> s {principalId = a} :: AccessKeyDetails)
 
 -- | The type of the user.
-akdUserType :: Lens' AccessKeyDetails (Maybe Text)
-akdUserType = lens _akdUserType (\s a -> s {_akdUserType = a})
+accessKeyDetails_userType :: Lens.Lens' AccessKeyDetails (Prelude.Maybe Prelude.Text)
+accessKeyDetails_userType = Lens.lens (\AccessKeyDetails' {userType} -> userType) (\s@AccessKeyDetails' {} a -> s {userType = a} :: AccessKeyDetails)
 
 -- | The access key ID of the user.
-akdAccessKeyId :: Lens' AccessKeyDetails (Maybe Text)
-akdAccessKeyId = lens _akdAccessKeyId (\s a -> s {_akdAccessKeyId = a})
+accessKeyDetails_accessKeyId :: Lens.Lens' AccessKeyDetails (Prelude.Maybe Prelude.Text)
+accessKeyDetails_accessKeyId = Lens.lens (\AccessKeyDetails' {accessKeyId} -> accessKeyId) (\s@AccessKeyDetails' {} a -> s {accessKeyId = a} :: AccessKeyDetails)
 
 -- | The name of the user.
-akdUserName :: Lens' AccessKeyDetails (Maybe Text)
-akdUserName = lens _akdUserName (\s a -> s {_akdUserName = a})
+accessKeyDetails_userName :: Lens.Lens' AccessKeyDetails (Prelude.Maybe Prelude.Text)
+accessKeyDetails_userName = Lens.lens (\AccessKeyDetails' {userName} -> userName) (\s@AccessKeyDetails' {} a -> s {userName = a} :: AccessKeyDetails)
 
-instance FromJSON AccessKeyDetails where
+instance Prelude.FromJSON AccessKeyDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AccessKeyDetails"
       ( \x ->
           AccessKeyDetails'
-            <$> (x .:? "principalId")
-            <*> (x .:? "userType")
-            <*> (x .:? "accessKeyId")
-            <*> (x .:? "userName")
+            Prelude.<$> (x Prelude..:? "principalId")
+            Prelude.<*> (x Prelude..:? "userType")
+            Prelude.<*> (x Prelude..:? "accessKeyId")
+            Prelude.<*> (x Prelude..:? "userName")
       )
 
-instance Hashable AccessKeyDetails
+instance Prelude.Hashable AccessKeyDetails
 
-instance NFData AccessKeyDetails
+instance Prelude.NFData AccessKeyDetails

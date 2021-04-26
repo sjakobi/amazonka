@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,65 @@
 module Network.AWS.GuardDuty.Types.PublishingStatus
   ( PublishingStatus
       ( ..,
-        PendingVerification,
-        Publishing,
-        Stopped,
-        UnableToPublishFixDestinationProperty
+        PublishingStatusPENDINGVERIFICATION,
+        PublishingStatusPUBLISHING,
+        PublishingStatusSTOPPED,
+        PublishingStatusUNABLETOPUBLISHFIXDESTINATIONPROPERTY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PublishingStatus = PublishingStatus' (CI Text)
+newtype PublishingStatus = PublishingStatus'
+  { fromPublishingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PendingVerification :: PublishingStatus
-pattern PendingVerification = PublishingStatus' "PENDING_VERIFICATION"
+pattern PublishingStatusPENDINGVERIFICATION :: PublishingStatus
+pattern PublishingStatusPENDINGVERIFICATION = PublishingStatus' "PENDING_VERIFICATION"
 
-pattern Publishing :: PublishingStatus
-pattern Publishing = PublishingStatus' "PUBLISHING"
+pattern PublishingStatusPUBLISHING :: PublishingStatus
+pattern PublishingStatusPUBLISHING = PublishingStatus' "PUBLISHING"
 
-pattern Stopped :: PublishingStatus
-pattern Stopped = PublishingStatus' "STOPPED"
+pattern PublishingStatusSTOPPED :: PublishingStatus
+pattern PublishingStatusSTOPPED = PublishingStatus' "STOPPED"
 
-pattern UnableToPublishFixDestinationProperty :: PublishingStatus
-pattern UnableToPublishFixDestinationProperty = PublishingStatus' "UNABLE_TO_PUBLISH_FIX_DESTINATION_PROPERTY"
+pattern PublishingStatusUNABLETOPUBLISHFIXDESTINATIONPROPERTY :: PublishingStatus
+pattern PublishingStatusUNABLETOPUBLISHFIXDESTINATIONPROPERTY = PublishingStatus' "UNABLE_TO_PUBLISH_FIX_DESTINATION_PROPERTY"
 
 {-# COMPLETE
-  PendingVerification,
-  Publishing,
-  Stopped,
-  UnableToPublishFixDestinationProperty,
+  PublishingStatusPENDINGVERIFICATION,
+  PublishingStatusPUBLISHING,
+  PublishingStatusSTOPPED,
+  PublishingStatusUNABLETOPUBLISHFIXDESTINATIONPROPERTY,
   PublishingStatus'
   #-}
 
-instance FromText PublishingStatus where
-  parser = (PublishingStatus' . mk) <$> takeText
+instance Prelude.FromText PublishingStatus where
+  parser = PublishingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText PublishingStatus where
-  toText (PublishingStatus' ci) = original ci
+instance Prelude.ToText PublishingStatus where
+  toText (PublishingStatus' x) = x
 
-instance Hashable PublishingStatus
+instance Prelude.Hashable PublishingStatus
 
-instance NFData PublishingStatus
+instance Prelude.NFData PublishingStatus
 
-instance ToByteString PublishingStatus
+instance Prelude.ToByteString PublishingStatus
 
-instance ToQuery PublishingStatus
+instance Prelude.ToQuery PublishingStatus
 
-instance ToHeader PublishingStatus
+instance Prelude.ToHeader PublishingStatus
 
-instance FromJSON PublishingStatus where
-  parseJSON = parseJSONText "PublishingStatus"
+instance Prelude.FromJSON PublishingStatus where
+  parseJSON = Prelude.parseJSONText "PublishingStatus"

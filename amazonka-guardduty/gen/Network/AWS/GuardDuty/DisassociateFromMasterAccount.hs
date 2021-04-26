@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,134 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates the current GuardDuty member account from its administrator account.
+-- Disassociates the current GuardDuty member account from its
+-- administrator account.
 module Network.AWS.GuardDuty.DisassociateFromMasterAccount
   ( -- * Creating a Request
-    disassociateFromMasterAccount,
-    DisassociateFromMasterAccount,
+    DisassociateFromMasterAccount (..),
+    newDisassociateFromMasterAccount,
 
     -- * Request Lenses
-    dfmaDetectorId,
+    disassociateFromMasterAccount_detectorId,
 
     -- * Destructuring the Response
-    disassociateFromMasterAccountResponse,
-    DisassociateFromMasterAccountResponse,
+    DisassociateFromMasterAccountResponse (..),
+    newDisassociateFromMasterAccountResponse,
 
     -- * Response Lenses
-    dfmarrsResponseStatus,
+    disassociateFromMasterAccountResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateFromMasterAccount' smart constructor.
-newtype DisassociateFromMasterAccount = DisassociateFromMasterAccount'
-  { _dfmaDetectorId ::
-      Text
+-- | /See:/ 'newDisassociateFromMasterAccount' smart constructor.
+data DisassociateFromMasterAccount = DisassociateFromMasterAccount'
+  { -- | The unique ID of the detector of the GuardDuty member account.
+    detectorId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateFromMasterAccount' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateFromMasterAccount' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfmaDetectorId' - The unique ID of the detector of the GuardDuty member account.
-disassociateFromMasterAccount ::
-  -- | 'dfmaDetectorId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'detectorId', 'disassociateFromMasterAccount_detectorId' - The unique ID of the detector of the GuardDuty member account.
+newDisassociateFromMasterAccount ::
+  -- | 'detectorId'
+  Prelude.Text ->
   DisassociateFromMasterAccount
-disassociateFromMasterAccount pDetectorId_ =
+newDisassociateFromMasterAccount pDetectorId_ =
   DisassociateFromMasterAccount'
-    { _dfmaDetectorId =
+    { detectorId =
         pDetectorId_
     }
 
 -- | The unique ID of the detector of the GuardDuty member account.
-dfmaDetectorId :: Lens' DisassociateFromMasterAccount Text
-dfmaDetectorId = lens _dfmaDetectorId (\s a -> s {_dfmaDetectorId = a})
+disassociateFromMasterAccount_detectorId :: Lens.Lens' DisassociateFromMasterAccount Prelude.Text
+disassociateFromMasterAccount_detectorId = Lens.lens (\DisassociateFromMasterAccount' {detectorId} -> detectorId) (\s@DisassociateFromMasterAccount' {} a -> s {detectorId = a} :: DisassociateFromMasterAccount)
 
-instance AWSRequest DisassociateFromMasterAccount where
+instance
+  Prelude.AWSRequest
+    DisassociateFromMasterAccount
+  where
   type
     Rs DisassociateFromMasterAccount =
       DisassociateFromMasterAccountResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisassociateFromMasterAccountResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateFromMasterAccount
+instance
+  Prelude.Hashable
+    DisassociateFromMasterAccount
 
-instance NFData DisassociateFromMasterAccount
+instance Prelude.NFData DisassociateFromMasterAccount
 
-instance ToHeaders DisassociateFromMasterAccount where
+instance
+  Prelude.ToHeaders
+    DisassociateFromMasterAccount
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisassociateFromMasterAccount where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON DisassociateFromMasterAccount where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath DisassociateFromMasterAccount where
+instance Prelude.ToPath DisassociateFromMasterAccount where
   toPath DisassociateFromMasterAccount' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _dfmaDetectorId,
+        Prelude.toBS detectorId,
         "/master/disassociate"
       ]
 
-instance ToQuery DisassociateFromMasterAccount where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DisassociateFromMasterAccount
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateFromMasterAccountResponse' smart constructor.
-newtype DisassociateFromMasterAccountResponse = DisassociateFromMasterAccountResponse'
-  { _dfmarrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisassociateFromMasterAccountResponse' smart constructor.
+data DisassociateFromMasterAccountResponse = DisassociateFromMasterAccountResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateFromMasterAccountResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateFromMasterAccountResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dfmarrsResponseStatus' - -- | The response status code.
-disassociateFromMasterAccountResponse ::
-  -- | 'dfmarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disassociateFromMasterAccountResponse_httpStatus' - The response's http status code.
+newDisassociateFromMasterAccountResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateFromMasterAccountResponse
-disassociateFromMasterAccountResponse
-  pResponseStatus_ =
-    DisassociateFromMasterAccountResponse'
-      { _dfmarrsResponseStatus =
-          pResponseStatus_
-      }
+newDisassociateFromMasterAccountResponse pHttpStatus_ =
+  DisassociateFromMasterAccountResponse'
+    { httpStatus =
+        pHttpStatus_
+    }
 
--- | -- | The response status code.
-dfmarrsResponseStatus :: Lens' DisassociateFromMasterAccountResponse Int
-dfmarrsResponseStatus = lens _dfmarrsResponseStatus (\s a -> s {_dfmarrsResponseStatus = a})
+-- | The response's http status code.
+disassociateFromMasterAccountResponse_httpStatus :: Lens.Lens' DisassociateFromMasterAccountResponse Prelude.Int
+disassociateFromMasterAccountResponse_httpStatus = Lens.lens (\DisassociateFromMasterAccountResponse' {httpStatus} -> httpStatus) (\s@DisassociateFromMasterAccountResponse' {} a -> s {httpStatus = a} :: DisassociateFromMasterAccountResponse)
 
-instance NFData DisassociateFromMasterAccountResponse
+instance
+  Prelude.NFData
+    DisassociateFromMasterAccountResponse

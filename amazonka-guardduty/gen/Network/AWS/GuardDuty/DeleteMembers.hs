@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,144 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes GuardDuty member accounts (to the current GuardDuty administrator account) specified by the account IDs.
+-- Deletes GuardDuty member accounts (to the current GuardDuty
+-- administrator account) specified by the account IDs.
 module Network.AWS.GuardDuty.DeleteMembers
   ( -- * Creating a Request
-    deleteMembers,
-    DeleteMembers,
+    DeleteMembers (..),
+    newDeleteMembers,
 
     -- * Request Lenses
-    dmsDetectorId,
-    dmsAccountIds,
+    deleteMembers_detectorId,
+    deleteMembers_accountIds,
 
     -- * Destructuring the Response
-    deleteMembersResponse,
-    DeleteMembersResponse,
+    DeleteMembersResponse (..),
+    newDeleteMembersResponse,
 
     -- * Response Lenses
-    dmrrsResponseStatus,
-    dmrrsUnprocessedAccounts,
+    deleteMembersResponse_httpStatus,
+    deleteMembersResponse_unprocessedAccounts,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.UnprocessedAccount
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteMembers' smart constructor.
+-- | /See:/ 'newDeleteMembers' smart constructor.
 data DeleteMembers = DeleteMembers'
-  { _dmsDetectorId ::
-      !Text,
-    _dmsAccountIds :: !(List1 Text)
+  { -- | The unique ID of the detector of the GuardDuty account whose members you
+    -- want to delete.
+    detectorId :: Prelude.Text,
+    -- | A list of account IDs of the GuardDuty member accounts that you want to
+    -- delete.
+    accountIds :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMembers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMembers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmsDetectorId' - The unique ID of the detector of the GuardDuty account whose members you want to delete.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmsAccountIds' - A list of account IDs of the GuardDuty member accounts that you want to delete.
-deleteMembers ::
-  -- | 'dmsDetectorId'
-  Text ->
-  -- | 'dmsAccountIds'
-  NonEmpty Text ->
+-- 'detectorId', 'deleteMembers_detectorId' - The unique ID of the detector of the GuardDuty account whose members you
+-- want to delete.
+--
+-- 'accountIds', 'deleteMembers_accountIds' - A list of account IDs of the GuardDuty member accounts that you want to
+-- delete.
+newDeleteMembers ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'accountIds'
+  Prelude.NonEmpty Prelude.Text ->
   DeleteMembers
-deleteMembers pDetectorId_ pAccountIds_ =
+newDeleteMembers pDetectorId_ pAccountIds_ =
   DeleteMembers'
-    { _dmsDetectorId = pDetectorId_,
-      _dmsAccountIds = _List1 # pAccountIds_
+    { detectorId = pDetectorId_,
+      accountIds = Prelude._List1 Lens.# pAccountIds_
     }
 
--- | The unique ID of the detector of the GuardDuty account whose members you want to delete.
-dmsDetectorId :: Lens' DeleteMembers Text
-dmsDetectorId = lens _dmsDetectorId (\s a -> s {_dmsDetectorId = a})
+-- | The unique ID of the detector of the GuardDuty account whose members you
+-- want to delete.
+deleteMembers_detectorId :: Lens.Lens' DeleteMembers Prelude.Text
+deleteMembers_detectorId = Lens.lens (\DeleteMembers' {detectorId} -> detectorId) (\s@DeleteMembers' {} a -> s {detectorId = a} :: DeleteMembers)
 
--- | A list of account IDs of the GuardDuty member accounts that you want to delete.
-dmsAccountIds :: Lens' DeleteMembers (NonEmpty Text)
-dmsAccountIds = lens _dmsAccountIds (\s a -> s {_dmsAccountIds = a}) . _List1
+-- | A list of account IDs of the GuardDuty member accounts that you want to
+-- delete.
+deleteMembers_accountIds :: Lens.Lens' DeleteMembers (Prelude.NonEmpty Prelude.Text)
+deleteMembers_accountIds = Lens.lens (\DeleteMembers' {accountIds} -> accountIds) (\s@DeleteMembers' {} a -> s {accountIds = a} :: DeleteMembers) Prelude.. Prelude._List1
 
-instance AWSRequest DeleteMembers where
+instance Prelude.AWSRequest DeleteMembers where
   type Rs DeleteMembers = DeleteMembersResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteMembersResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "unprocessedAccounts" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "unprocessedAccounts"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable DeleteMembers
+instance Prelude.Hashable DeleteMembers
 
-instance NFData DeleteMembers
+instance Prelude.NFData DeleteMembers
 
-instance ToHeaders DeleteMembers where
+instance Prelude.ToHeaders DeleteMembers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteMembers where
+instance Prelude.ToJSON DeleteMembers where
   toJSON DeleteMembers' {..} =
-    object
-      (catMaybes [Just ("accountIds" .= _dmsAccountIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("accountIds" Prelude..= accountIds)]
+      )
 
-instance ToPath DeleteMembers where
+instance Prelude.ToPath DeleteMembers where
   toPath DeleteMembers' {..} =
-    mconcat
-      ["/detector/", toBS _dmsDetectorId, "/member/delete"]
+    Prelude.mconcat
+      [ "/detector/",
+        Prelude.toBS detectorId,
+        "/member/delete"
+      ]
 
-instance ToQuery DeleteMembers where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteMembers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteMembersResponse' smart constructor.
+-- | /See:/ 'newDeleteMembersResponse' smart constructor.
 data DeleteMembersResponse = DeleteMembersResponse'
-  { _dmrrsResponseStatus ::
-      !Int,
-    _dmrrsUnprocessedAccounts ::
-      ![UnprocessedAccount]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The accounts that could not be processed.
+    unprocessedAccounts :: [UnprocessedAccount]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteMembersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteMembersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dmrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dmrrsUnprocessedAccounts' - The accounts that could not be processed.
-deleteMembersResponse ::
-  -- | 'dmrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'deleteMembersResponse_httpStatus' - The response's http status code.
+--
+-- 'unprocessedAccounts', 'deleteMembersResponse_unprocessedAccounts' - The accounts that could not be processed.
+newDeleteMembersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteMembersResponse
-deleteMembersResponse pResponseStatus_ =
+newDeleteMembersResponse pHttpStatus_ =
   DeleteMembersResponse'
-    { _dmrrsResponseStatus =
-        pResponseStatus_,
-      _dmrrsUnprocessedAccounts = mempty
+    { httpStatus = pHttpStatus_,
+      unprocessedAccounts = Prelude.mempty
     }
 
--- | -- | The response status code.
-dmrrsResponseStatus :: Lens' DeleteMembersResponse Int
-dmrrsResponseStatus = lens _dmrrsResponseStatus (\s a -> s {_dmrrsResponseStatus = a})
+-- | The response's http status code.
+deleteMembersResponse_httpStatus :: Lens.Lens' DeleteMembersResponse Prelude.Int
+deleteMembersResponse_httpStatus = Lens.lens (\DeleteMembersResponse' {httpStatus} -> httpStatus) (\s@DeleteMembersResponse' {} a -> s {httpStatus = a} :: DeleteMembersResponse)
 
 -- | The accounts that could not be processed.
-dmrrsUnprocessedAccounts :: Lens' DeleteMembersResponse [UnprocessedAccount]
-dmrrsUnprocessedAccounts = lens _dmrrsUnprocessedAccounts (\s a -> s {_dmrrsUnprocessedAccounts = a}) . _Coerce
+deleteMembersResponse_unprocessedAccounts :: Lens.Lens' DeleteMembersResponse [UnprocessedAccount]
+deleteMembersResponse_unprocessedAccounts = Lens.lens (\DeleteMembersResponse' {unprocessedAccounts} -> unprocessedAccounts) (\s@DeleteMembersResponse' {} a -> s {unprocessedAccounts = a} :: DeleteMembersResponse) Prelude.. Prelude._Coerce
 
-instance NFData DeleteMembersResponse
+instance Prelude.NFData DeleteMembersResponse

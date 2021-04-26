@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all GuardDuty membership invitations that were sent to the current AWS account.
---
---
+-- Lists all GuardDuty membership invitations that were sent to the current
+-- AWS account.
 --
 -- This operation returns paginated results.
 module Network.AWS.GuardDuty.ListInvitations
   ( -- * Creating a Request
-    listInvitations,
-    ListInvitations,
+    ListInvitations (..),
+    newListInvitations,
 
     -- * Request Lenses
-    liNextToken,
-    liMaxResults,
+    listInvitations_nextToken,
+    listInvitations_maxResults,
 
     -- * Destructuring the Response
-    listInvitationsResponse,
-    ListInvitationsResponse,
+    ListInvitationsResponse (..),
+    newListInvitationsResponse,
 
     -- * Response Lenses
-    lirrsNextToken,
-    lirrsInvitations,
-    lirrsResponseStatus,
+    listInvitationsResponse_nextToken,
+    listInvitationsResponse_invitations,
+    listInvitationsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.Invitation
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listInvitations' smart constructor.
+-- | /See:/ 'newListInvitations' smart constructor.
 data ListInvitations = ListInvitations'
-  { _liNextToken ::
-      !(Maybe Text),
-    _liMaxResults :: !(Maybe Nat)
+  { -- | You can use this parameter when paginating results. Set the value of
+    -- this parameter to null on your first call to the list action. For
+    -- subsequent calls to the action, fill nextToken in the request with the
+    -- value of NextToken from the previous response to continue listing data.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | You can use this parameter to indicate the maximum number of items that
+    -- you want in the response. The default value is 50. The maximum value is
+    -- 50.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInvitations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInvitations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liNextToken' - You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liMaxResults' - You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 50. The maximum value is 50.
-listInvitations ::
+-- 'nextToken', 'listInvitations_nextToken' - You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the list action. For
+-- subsequent calls to the action, fill nextToken in the request with the
+-- value of NextToken from the previous response to continue listing data.
+--
+-- 'maxResults', 'listInvitations_maxResults' - You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+newListInvitations ::
   ListInvitations
-listInvitations =
+newListInvitations =
   ListInvitations'
-    { _liNextToken = Nothing,
-      _liMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
-liNextToken :: Lens' ListInvitations (Maybe Text)
-liNextToken = lens _liNextToken (\s a -> s {_liNextToken = a})
+-- | You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the list action. For
+-- subsequent calls to the action, fill nextToken in the request with the
+-- value of NextToken from the previous response to continue listing data.
+listInvitations_nextToken :: Lens.Lens' ListInvitations (Prelude.Maybe Prelude.Text)
+listInvitations_nextToken = Lens.lens (\ListInvitations' {nextToken} -> nextToken) (\s@ListInvitations' {} a -> s {nextToken = a} :: ListInvitations)
 
--- | You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 50. The maximum value is 50.
-liMaxResults :: Lens' ListInvitations (Maybe Natural)
-liMaxResults = lens _liMaxResults (\s a -> s {_liMaxResults = a}) . mapping _Nat
+-- | You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+listInvitations_maxResults :: Lens.Lens' ListInvitations (Prelude.Maybe Prelude.Natural)
+listInvitations_maxResults = Lens.lens (\ListInvitations' {maxResults} -> maxResults) (\s@ListInvitations' {} a -> s {maxResults = a} :: ListInvitations) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListInvitations where
+instance Pager.AWSPager ListInvitations where
   page rq rs
-    | stop (rs ^. lirrsNextToken) = Nothing
-    | stop (rs ^. lirrsInvitations) = Nothing
-    | otherwise =
-      Just $ rq & liNextToken .~ rs ^. lirrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listInvitationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listInvitationsResponse_invitations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listInvitations_nextToken
+          Lens..~ rs
+          Lens.^? listInvitationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListInvitations where
+instance Prelude.AWSRequest ListInvitations where
   type Rs ListInvitations = ListInvitationsResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListInvitationsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "invitations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "invitations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListInvitations
+instance Prelude.Hashable ListInvitations
 
-instance NFData ListInvitations
+instance Prelude.NFData ListInvitations
 
-instance ToHeaders ListInvitations where
+instance Prelude.ToHeaders ListInvitations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListInvitations where
-  toPath = const "/invitation"
+instance Prelude.ToPath ListInvitations where
+  toPath = Prelude.const "/invitation"
 
-instance ToQuery ListInvitations where
+instance Prelude.ToQuery ListInvitations where
   toQuery ListInvitations' {..} =
-    mconcat
-      [ "nextToken" =: _liNextToken,
-        "maxResults" =: _liMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listInvitationsResponse' smart constructor.
+-- | /See:/ 'newListInvitationsResponse' smart constructor.
 data ListInvitationsResponse = ListInvitationsResponse'
-  { _lirrsNextToken ::
-      !(Maybe Text),
-    _lirrsInvitations ::
-      !(Maybe [Invitation]),
-    _lirrsResponseStatus ::
-      !Int
+  { -- | The pagination parameter to be used on the next list operation to
+    -- retrieve more items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of invitation descriptions.
+    invitations :: Prelude.Maybe [Invitation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInvitationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInvitationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lirrsNextToken' - The pagination parameter to be used on the next list operation to retrieve more items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lirrsInvitations' - A list of invitation descriptions.
+-- 'nextToken', 'listInvitationsResponse_nextToken' - The pagination parameter to be used on the next list operation to
+-- retrieve more items.
 --
--- * 'lirrsResponseStatus' - -- | The response status code.
-listInvitationsResponse ::
-  -- | 'lirrsResponseStatus'
-  Int ->
+-- 'invitations', 'listInvitationsResponse_invitations' - A list of invitation descriptions.
+--
+-- 'httpStatus', 'listInvitationsResponse_httpStatus' - The response's http status code.
+newListInvitationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListInvitationsResponse
-listInvitationsResponse pResponseStatus_ =
+newListInvitationsResponse pHttpStatus_ =
   ListInvitationsResponse'
-    { _lirrsNextToken = Nothing,
-      _lirrsInvitations = Nothing,
-      _lirrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      invitations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The pagination parameter to be used on the next list operation to retrieve more items.
-lirrsNextToken :: Lens' ListInvitationsResponse (Maybe Text)
-lirrsNextToken = lens _lirrsNextToken (\s a -> s {_lirrsNextToken = a})
+-- | The pagination parameter to be used on the next list operation to
+-- retrieve more items.
+listInvitationsResponse_nextToken :: Lens.Lens' ListInvitationsResponse (Prelude.Maybe Prelude.Text)
+listInvitationsResponse_nextToken = Lens.lens (\ListInvitationsResponse' {nextToken} -> nextToken) (\s@ListInvitationsResponse' {} a -> s {nextToken = a} :: ListInvitationsResponse)
 
 -- | A list of invitation descriptions.
-lirrsInvitations :: Lens' ListInvitationsResponse [Invitation]
-lirrsInvitations = lens _lirrsInvitations (\s a -> s {_lirrsInvitations = a}) . _Default . _Coerce
+listInvitationsResponse_invitations :: Lens.Lens' ListInvitationsResponse (Prelude.Maybe [Invitation])
+listInvitationsResponse_invitations = Lens.lens (\ListInvitationsResponse' {invitations} -> invitations) (\s@ListInvitationsResponse' {} a -> s {invitations = a} :: ListInvitationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lirrsResponseStatus :: Lens' ListInvitationsResponse Int
-lirrsResponseStatus = lens _lirrsResponseStatus (\s a -> s {_lirrsResponseStatus = a})
+-- | The response's http status code.
+listInvitationsResponse_httpStatus :: Lens.Lens' ListInvitationsResponse Prelude.Int
+listInvitationsResponse_httpStatus = Lens.lens (\ListInvitationsResponse' {httpStatus} -> httpStatus) (\s@ListInvitationsResponse' {} a -> s {httpStatus = a} :: ListInvitationsResponse)
 
-instance NFData ListInvitationsResponse
+instance Prelude.NFData ListInvitationsResponse

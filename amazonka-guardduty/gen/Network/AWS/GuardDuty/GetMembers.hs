@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,146 +21,177 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves GuardDuty member accounts (of the current GuardDuty administrator account) specified by the account IDs.
+-- Retrieves GuardDuty member accounts (of the current GuardDuty
+-- administrator account) specified by the account IDs.
 module Network.AWS.GuardDuty.GetMembers
   ( -- * Creating a Request
-    getMembers,
-    GetMembers,
+    GetMembers (..),
+    newGetMembers,
 
     -- * Request Lenses
-    gmDetectorId,
-    gmAccountIds,
+    getMembers_detectorId,
+    getMembers_accountIds,
 
     -- * Destructuring the Response
-    getMembersResponse,
-    GetMembersResponse,
+    GetMembersResponse (..),
+    newGetMembersResponse,
 
     -- * Response Lenses
-    gmrrsResponseStatus,
-    gmrrsMembers,
-    gmrrsUnprocessedAccounts,
+    getMembersResponse_httpStatus,
+    getMembersResponse_members,
+    getMembersResponse_unprocessedAccounts,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.Member
+import Network.AWS.GuardDuty.Types.UnprocessedAccount
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getMembers' smart constructor.
+-- | /See:/ 'newGetMembers' smart constructor.
 data GetMembers = GetMembers'
-  { _gmDetectorId :: !Text,
-    _gmAccountIds :: !(List1 Text)
+  { -- | The unique ID of the detector of the GuardDuty account whose members you
+    -- want to retrieve.
+    detectorId :: Prelude.Text,
+    -- | A list of account IDs of the GuardDuty member accounts that you want to
+    -- describe.
+    accountIds :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMembers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMembers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmDetectorId' - The unique ID of the detector of the GuardDuty account whose members you want to retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmAccountIds' - A list of account IDs of the GuardDuty member accounts that you want to describe.
-getMembers ::
-  -- | 'gmDetectorId'
-  Text ->
-  -- | 'gmAccountIds'
-  NonEmpty Text ->
+-- 'detectorId', 'getMembers_detectorId' - The unique ID of the detector of the GuardDuty account whose members you
+-- want to retrieve.
+--
+-- 'accountIds', 'getMembers_accountIds' - A list of account IDs of the GuardDuty member accounts that you want to
+-- describe.
+newGetMembers ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'accountIds'
+  Prelude.NonEmpty Prelude.Text ->
   GetMembers
-getMembers pDetectorId_ pAccountIds_ =
+newGetMembers pDetectorId_ pAccountIds_ =
   GetMembers'
-    { _gmDetectorId = pDetectorId_,
-      _gmAccountIds = _List1 # pAccountIds_
+    { detectorId = pDetectorId_,
+      accountIds = Prelude._List1 Lens.# pAccountIds_
     }
 
--- | The unique ID of the detector of the GuardDuty account whose members you want to retrieve.
-gmDetectorId :: Lens' GetMembers Text
-gmDetectorId = lens _gmDetectorId (\s a -> s {_gmDetectorId = a})
+-- | The unique ID of the detector of the GuardDuty account whose members you
+-- want to retrieve.
+getMembers_detectorId :: Lens.Lens' GetMembers Prelude.Text
+getMembers_detectorId = Lens.lens (\GetMembers' {detectorId} -> detectorId) (\s@GetMembers' {} a -> s {detectorId = a} :: GetMembers)
 
--- | A list of account IDs of the GuardDuty member accounts that you want to describe.
-gmAccountIds :: Lens' GetMembers (NonEmpty Text)
-gmAccountIds = lens _gmAccountIds (\s a -> s {_gmAccountIds = a}) . _List1
+-- | A list of account IDs of the GuardDuty member accounts that you want to
+-- describe.
+getMembers_accountIds :: Lens.Lens' GetMembers (Prelude.NonEmpty Prelude.Text)
+getMembers_accountIds = Lens.lens (\GetMembers' {accountIds} -> accountIds) (\s@GetMembers' {} a -> s {accountIds = a} :: GetMembers) Prelude.. Prelude._List1
 
-instance AWSRequest GetMembers where
+instance Prelude.AWSRequest GetMembers where
   type Rs GetMembers = GetMembersResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetMembersResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "members" .!@ mempty)
-            <*> (x .?> "unprocessedAccounts" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..?> "members" Prelude..!@ Prelude.mempty)
+            Prelude.<*> ( x Prelude..?> "unprocessedAccounts"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable GetMembers
+instance Prelude.Hashable GetMembers
 
-instance NFData GetMembers
+instance Prelude.NFData GetMembers
 
-instance ToHeaders GetMembers where
+instance Prelude.ToHeaders GetMembers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetMembers where
+instance Prelude.ToJSON GetMembers where
   toJSON GetMembers' {..} =
-    object
-      (catMaybes [Just ("accountIds" .= _gmAccountIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("accountIds" Prelude..= accountIds)]
+      )
 
-instance ToPath GetMembers where
+instance Prelude.ToPath GetMembers where
   toPath GetMembers' {..} =
-    mconcat
-      ["/detector/", toBS _gmDetectorId, "/member/get"]
+    Prelude.mconcat
+      [ "/detector/",
+        Prelude.toBS detectorId,
+        "/member/get"
+      ]
 
-instance ToQuery GetMembers where
-  toQuery = const mempty
+instance Prelude.ToQuery GetMembers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getMembersResponse' smart constructor.
+-- | /See:/ 'newGetMembersResponse' smart constructor.
 data GetMembersResponse = GetMembersResponse'
-  { _gmrrsResponseStatus ::
-      !Int,
-    _gmrrsMembers :: ![Member],
-    _gmrrsUnprocessedAccounts ::
-      ![UnprocessedAccount]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of members.
+    members :: [Member],
+    -- | A list of objects that contain the unprocessed account and a result
+    -- string that explains why it was unprocessed.
+    unprocessedAccounts :: [UnprocessedAccount]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetMembersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetMembersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gmrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gmrrsMembers' - A list of members.
+-- 'httpStatus', 'getMembersResponse_httpStatus' - The response's http status code.
 --
--- * 'gmrrsUnprocessedAccounts' - A list of objects that contain the unprocessed account and a result string that explains why it was unprocessed.
-getMembersResponse ::
-  -- | 'gmrrsResponseStatus'
-  Int ->
+-- 'members', 'getMembersResponse_members' - A list of members.
+--
+-- 'unprocessedAccounts', 'getMembersResponse_unprocessedAccounts' - A list of objects that contain the unprocessed account and a result
+-- string that explains why it was unprocessed.
+newGetMembersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetMembersResponse
-getMembersResponse pResponseStatus_ =
+newGetMembersResponse pHttpStatus_ =
   GetMembersResponse'
-    { _gmrrsResponseStatus =
-        pResponseStatus_,
-      _gmrrsMembers = mempty,
-      _gmrrsUnprocessedAccounts = mempty
+    { httpStatus = pHttpStatus_,
+      members = Prelude.mempty,
+      unprocessedAccounts = Prelude.mempty
     }
 
--- | -- | The response status code.
-gmrrsResponseStatus :: Lens' GetMembersResponse Int
-gmrrsResponseStatus = lens _gmrrsResponseStatus (\s a -> s {_gmrrsResponseStatus = a})
+-- | The response's http status code.
+getMembersResponse_httpStatus :: Lens.Lens' GetMembersResponse Prelude.Int
+getMembersResponse_httpStatus = Lens.lens (\GetMembersResponse' {httpStatus} -> httpStatus) (\s@GetMembersResponse' {} a -> s {httpStatus = a} :: GetMembersResponse)
 
 -- | A list of members.
-gmrrsMembers :: Lens' GetMembersResponse [Member]
-gmrrsMembers = lens _gmrrsMembers (\s a -> s {_gmrrsMembers = a}) . _Coerce
+getMembersResponse_members :: Lens.Lens' GetMembersResponse [Member]
+getMembersResponse_members = Lens.lens (\GetMembersResponse' {members} -> members) (\s@GetMembersResponse' {} a -> s {members = a} :: GetMembersResponse) Prelude.. Prelude._Coerce
 
--- | A list of objects that contain the unprocessed account and a result string that explains why it was unprocessed.
-gmrrsUnprocessedAccounts :: Lens' GetMembersResponse [UnprocessedAccount]
-gmrrsUnprocessedAccounts = lens _gmrrsUnprocessedAccounts (\s a -> s {_gmrrsUnprocessedAccounts = a}) . _Coerce
+-- | A list of objects that contain the unprocessed account and a result
+-- string that explains why it was unprocessed.
+getMembersResponse_unprocessedAccounts :: Lens.Lens' GetMembersResponse [UnprocessedAccount]
+getMembersResponse_unprocessedAccounts = Lens.lens (\GetMembersResponse' {unprocessedAccounts} -> unprocessedAccounts) (\s@GetMembersResponse' {} a -> s {unprocessedAccounts = a} :: GetMembersResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetMembersResponse
+instance Prelude.NFData GetMembersResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes invitations sent to the current member account by AWS accounts specified by their account IDs.
+-- Deletes invitations sent to the current member account by AWS accounts
+-- specified by their account IDs.
 module Network.AWS.GuardDuty.DeleteInvitations
   ( -- * Creating a Request
-    deleteInvitations,
-    DeleteInvitations,
+    DeleteInvitations (..),
+    newDeleteInvitations,
 
     -- * Request Lenses
-    dAccountIds,
+    deleteInvitations_accountIds,
 
     -- * Destructuring the Response
-    deleteInvitationsResponse,
-    DeleteInvitationsResponse,
+    DeleteInvitationsResponse (..),
+    newDeleteInvitationsResponse,
 
     -- * Response Lenses
-    delrsResponseStatus,
-    delrsUnprocessedAccounts,
+    deleteInvitationsResponse_httpStatus,
+    deleteInvitationsResponse_unprocessedAccounts,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.GuardDuty.Types.UnprocessedAccount
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteInvitations' smart constructor.
-newtype DeleteInvitations = DeleteInvitations'
-  { _dAccountIds ::
-      List1 Text
+-- | /See:/ 'newDeleteInvitations' smart constructor.
+data DeleteInvitations = DeleteInvitations'
+  { -- | A list of account IDs of the AWS accounts that sent invitations to the
+    -- current member account that you want to delete invitations from.
+    accountIds :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInvitations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInvitations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dAccountIds' - A list of account IDs of the AWS accounts that sent invitations to the current member account that you want to delete invitations from.
-deleteInvitations ::
-  -- | 'dAccountIds'
-  NonEmpty Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'accountIds', 'deleteInvitations_accountIds' - A list of account IDs of the AWS accounts that sent invitations to the
+-- current member account that you want to delete invitations from.
+newDeleteInvitations ::
+  -- | 'accountIds'
+  Prelude.NonEmpty Prelude.Text ->
   DeleteInvitations
-deleteInvitations pAccountIds_ =
+newDeleteInvitations pAccountIds_ =
   DeleteInvitations'
-    { _dAccountIds =
-        _List1 # pAccountIds_
+    { accountIds =
+        Prelude._List1 Lens.# pAccountIds_
     }
 
--- | A list of account IDs of the AWS accounts that sent invitations to the current member account that you want to delete invitations from.
-dAccountIds :: Lens' DeleteInvitations (NonEmpty Text)
-dAccountIds = lens _dAccountIds (\s a -> s {_dAccountIds = a}) . _List1
+-- | A list of account IDs of the AWS accounts that sent invitations to the
+-- current member account that you want to delete invitations from.
+deleteInvitations_accountIds :: Lens.Lens' DeleteInvitations (Prelude.NonEmpty Prelude.Text)
+deleteInvitations_accountIds = Lens.lens (\DeleteInvitations' {accountIds} -> accountIds) (\s@DeleteInvitations' {} a -> s {accountIds = a} :: DeleteInvitations) Prelude.. Prelude._List1
 
-instance AWSRequest DeleteInvitations where
+instance Prelude.AWSRequest DeleteInvitations where
   type Rs DeleteInvitations = DeleteInvitationsResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DeleteInvitationsResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .?> "unprocessedAccounts" .!@ mempty)
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "unprocessedAccounts"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable DeleteInvitations
+instance Prelude.Hashable DeleteInvitations
 
-instance NFData DeleteInvitations
+instance Prelude.NFData DeleteInvitations
 
-instance ToHeaders DeleteInvitations where
+instance Prelude.ToHeaders DeleteInvitations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteInvitations where
+instance Prelude.ToJSON DeleteInvitations where
   toJSON DeleteInvitations' {..} =
-    object
-      (catMaybes [Just ("accountIds" .= _dAccountIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("accountIds" Prelude..= accountIds)]
+      )
 
-instance ToPath DeleteInvitations where
-  toPath = const "/invitation/delete"
+instance Prelude.ToPath DeleteInvitations where
+  toPath = Prelude.const "/invitation/delete"
 
-instance ToQuery DeleteInvitations where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteInvitations where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteInvitationsResponse' smart constructor.
+-- | /See:/ 'newDeleteInvitationsResponse' smart constructor.
 data DeleteInvitationsResponse = DeleteInvitationsResponse'
-  { _delrsResponseStatus ::
-      !Int,
-    _delrsUnprocessedAccounts ::
-      ![UnprocessedAccount]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of objects that contain the unprocessed account and a result
+    -- string that explains why it was unprocessed.
+    unprocessedAccounts :: [UnprocessedAccount]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInvitationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInvitationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'delrsUnprocessedAccounts' - A list of objects that contain the unprocessed account and a result string that explains why it was unprocessed.
-deleteInvitationsResponse ::
-  -- | 'delrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'deleteInvitationsResponse_httpStatus' - The response's http status code.
+--
+-- 'unprocessedAccounts', 'deleteInvitationsResponse_unprocessedAccounts' - A list of objects that contain the unprocessed account and a result
+-- string that explains why it was unprocessed.
+newDeleteInvitationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteInvitationsResponse
-deleteInvitationsResponse pResponseStatus_ =
+newDeleteInvitationsResponse pHttpStatus_ =
   DeleteInvitationsResponse'
-    { _delrsResponseStatus =
-        pResponseStatus_,
-      _delrsUnprocessedAccounts = mempty
+    { httpStatus =
+        pHttpStatus_,
+      unprocessedAccounts = Prelude.mempty
     }
 
--- | -- | The response status code.
-delrsResponseStatus :: Lens' DeleteInvitationsResponse Int
-delrsResponseStatus = lens _delrsResponseStatus (\s a -> s {_delrsResponseStatus = a})
+-- | The response's http status code.
+deleteInvitationsResponse_httpStatus :: Lens.Lens' DeleteInvitationsResponse Prelude.Int
+deleteInvitationsResponse_httpStatus = Lens.lens (\DeleteInvitationsResponse' {httpStatus} -> httpStatus) (\s@DeleteInvitationsResponse' {} a -> s {httpStatus = a} :: DeleteInvitationsResponse)
 
--- | A list of objects that contain the unprocessed account and a result string that explains why it was unprocessed.
-delrsUnprocessedAccounts :: Lens' DeleteInvitationsResponse [UnprocessedAccount]
-delrsUnprocessedAccounts = lens _delrsUnprocessedAccounts (\s a -> s {_delrsUnprocessedAccounts = a}) . _Coerce
+-- | A list of objects that contain the unprocessed account and a result
+-- string that explains why it was unprocessed.
+deleteInvitationsResponse_unprocessedAccounts :: Lens.Lens' DeleteInvitationsResponse [UnprocessedAccount]
+deleteInvitationsResponse_unprocessedAccounts = Lens.lens (\DeleteInvitationsResponse' {unprocessedAccounts} -> unprocessedAccounts) (\s@DeleteInvitationsResponse' {} a -> s {unprocessedAccounts = a} :: DeleteInvitationsResponse) Prelude.. Prelude._Coerce
 
-instance NFData DeleteInvitationsResponse
+instance Prelude.NFData DeleteInvitationsResponse

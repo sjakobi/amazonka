@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.DestinationProperties where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the Amazon Resource Name (ARN) of the resource to publish to, such as an S3 bucket, and the ARN of the KMS key to use to encrypt published findings.
+-- | Contains the Amazon Resource Name (ARN) of the resource to publish to,
+-- such as an S3 bucket, and the ARN of the KMS key to use to encrypt
+-- published findings.
 --
---
---
--- /See:/ 'destinationProperties' smart constructor.
+-- /See:/ 'newDestinationProperties' smart constructor.
 data DestinationProperties = DestinationProperties'
-  { _dpDestinationARN ::
-      !(Maybe Text),
-    _dpKMSKeyARN ::
-      !(Maybe Text)
+  { -- | The ARN of the resource to publish to.
+    destinationArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the KMS key to use for encryption.
+    kmsKeyArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DestinationProperties' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DestinationProperties' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpDestinationARN' - The ARN of the resource to publish to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpKMSKeyARN' - The ARN of the KMS key to use for encryption.
-destinationProperties ::
+-- 'destinationArn', 'destinationProperties_destinationArn' - The ARN of the resource to publish to.
+--
+-- 'kmsKeyArn', 'destinationProperties_kmsKeyArn' - The ARN of the KMS key to use for encryption.
+newDestinationProperties ::
   DestinationProperties
-destinationProperties =
+newDestinationProperties =
   DestinationProperties'
-    { _dpDestinationARN = Nothing,
-      _dpKMSKeyARN = Nothing
+    { destinationArn =
+        Prelude.Nothing,
+      kmsKeyArn = Prelude.Nothing
     }
 
 -- | The ARN of the resource to publish to.
-dpDestinationARN :: Lens' DestinationProperties (Maybe Text)
-dpDestinationARN = lens _dpDestinationARN (\s a -> s {_dpDestinationARN = a})
+destinationProperties_destinationArn :: Lens.Lens' DestinationProperties (Prelude.Maybe Prelude.Text)
+destinationProperties_destinationArn = Lens.lens (\DestinationProperties' {destinationArn} -> destinationArn) (\s@DestinationProperties' {} a -> s {destinationArn = a} :: DestinationProperties)
 
 -- | The ARN of the KMS key to use for encryption.
-dpKMSKeyARN :: Lens' DestinationProperties (Maybe Text)
-dpKMSKeyARN = lens _dpKMSKeyARN (\s a -> s {_dpKMSKeyARN = a})
+destinationProperties_kmsKeyArn :: Lens.Lens' DestinationProperties (Prelude.Maybe Prelude.Text)
+destinationProperties_kmsKeyArn = Lens.lens (\DestinationProperties' {kmsKeyArn} -> kmsKeyArn) (\s@DestinationProperties' {} a -> s {kmsKeyArn = a} :: DestinationProperties)
 
-instance FromJSON DestinationProperties where
+instance Prelude.FromJSON DestinationProperties where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DestinationProperties"
       ( \x ->
           DestinationProperties'
-            <$> (x .:? "destinationArn") <*> (x .:? "kmsKeyArn")
+            Prelude.<$> (x Prelude..:? "destinationArn")
+            Prelude.<*> (x Prelude..:? "kmsKeyArn")
       )
 
-instance Hashable DestinationProperties
+instance Prelude.Hashable DestinationProperties
 
-instance NFData DestinationProperties
+instance Prelude.NFData DestinationProperties
 
-instance ToJSON DestinationProperties where
+instance Prelude.ToJSON DestinationProperties where
   toJSON DestinationProperties' {..} =
-    object
-      ( catMaybes
-          [ ("destinationArn" .=) <$> _dpDestinationARN,
-            ("kmsKeyArn" .=) <$> _dpKMSKeyARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("destinationArn" Prelude..=)
+              Prelude.<$> destinationArn,
+            ("kmsKeyArn" Prelude..=) Prelude.<$> kmsKeyArn
           ]
       )

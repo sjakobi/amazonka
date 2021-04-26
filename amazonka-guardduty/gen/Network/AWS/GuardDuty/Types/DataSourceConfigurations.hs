@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,46 +20,43 @@
 module Network.AWS.GuardDuty.Types.DataSourceConfigurations where
 
 import Network.AWS.GuardDuty.Types.S3LogsConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about which data sources are enabled.
 --
---
---
--- /See:/ 'dataSourceConfigurations' smart constructor.
-newtype DataSourceConfigurations = DataSourceConfigurations'
-  { _dscS3Logs ::
-      Maybe
-        S3LogsConfiguration
+-- /See:/ 'newDataSourceConfigurations' smart constructor.
+data DataSourceConfigurations = DataSourceConfigurations'
+  { -- | Describes whether S3 data event logs are enabled as a data source.
+    s3Logs :: Prelude.Maybe S3LogsConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataSourceConfigurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataSourceConfigurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscS3Logs' - Describes whether S3 data event logs are enabled as a data source.
-dataSourceConfigurations ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Logs', 'dataSourceConfigurations_s3Logs' - Describes whether S3 data event logs are enabled as a data source.
+newDataSourceConfigurations ::
   DataSourceConfigurations
-dataSourceConfigurations =
-  DataSourceConfigurations' {_dscS3Logs = Nothing}
+newDataSourceConfigurations =
+  DataSourceConfigurations' {s3Logs = Prelude.Nothing}
 
 -- | Describes whether S3 data event logs are enabled as a data source.
-dscS3Logs :: Lens' DataSourceConfigurations (Maybe S3LogsConfiguration)
-dscS3Logs = lens _dscS3Logs (\s a -> s {_dscS3Logs = a})
+dataSourceConfigurations_s3Logs :: Lens.Lens' DataSourceConfigurations (Prelude.Maybe S3LogsConfiguration)
+dataSourceConfigurations_s3Logs = Lens.lens (\DataSourceConfigurations' {s3Logs} -> s3Logs) (\s@DataSourceConfigurations' {} a -> s {s3Logs = a} :: DataSourceConfigurations)
 
-instance Hashable DataSourceConfigurations
+instance Prelude.Hashable DataSourceConfigurations
 
-instance NFData DataSourceConfigurations
+instance Prelude.NFData DataSourceConfigurations
 
-instance ToJSON DataSourceConfigurations where
+instance Prelude.ToJSON DataSourceConfigurations where
   toJSON DataSourceConfigurations' {..} =
-    object (catMaybes [("s3Logs" .=) <$> _dscS3Logs])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("s3Logs" Prelude..=) Prelude.<$> s3Logs]
+      )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.GuardDuty.Types.ProductCode where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the product code for the EC2 instance.
 --
---
---
--- /See:/ 'productCode' smart constructor.
+-- /See:/ 'newProductCode' smart constructor.
 data ProductCode = ProductCode'
-  { _pcCode ::
-      !(Maybe Text),
-    _pcProductType :: !(Maybe Text)
+  { -- | The product code information.
+    code :: Prelude.Maybe Prelude.Text,
+    -- | The product code type.
+    productType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProductCode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProductCode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcCode' - The product code information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcProductType' - The product code type.
-productCode ::
+-- 'code', 'productCode_code' - The product code information.
+--
+-- 'productType', 'productCode_productType' - The product code type.
+newProductCode ::
   ProductCode
-productCode =
+newProductCode =
   ProductCode'
-    { _pcCode = Nothing,
-      _pcProductType = Nothing
+    { code = Prelude.Nothing,
+      productType = Prelude.Nothing
     }
 
 -- | The product code information.
-pcCode :: Lens' ProductCode (Maybe Text)
-pcCode = lens _pcCode (\s a -> s {_pcCode = a})
+productCode_code :: Lens.Lens' ProductCode (Prelude.Maybe Prelude.Text)
+productCode_code = Lens.lens (\ProductCode' {code} -> code) (\s@ProductCode' {} a -> s {code = a} :: ProductCode)
 
 -- | The product code type.
-pcProductType :: Lens' ProductCode (Maybe Text)
-pcProductType = lens _pcProductType (\s a -> s {_pcProductType = a})
+productCode_productType :: Lens.Lens' ProductCode (Prelude.Maybe Prelude.Text)
+productCode_productType = Lens.lens (\ProductCode' {productType} -> productType) (\s@ProductCode' {} a -> s {productType = a} :: ProductCode)
 
-instance FromJSON ProductCode where
+instance Prelude.FromJSON ProductCode where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProductCode"
       ( \x ->
           ProductCode'
-            <$> (x .:? "code") <*> (x .:? "productType")
+            Prelude.<$> (x Prelude..:? "code")
+            Prelude.<*> (x Prelude..:? "productType")
       )
 
-instance Hashable ProductCode
+instance Prelude.Hashable ProductCode
 
-instance NFData ProductCode
+instance Prelude.NFData ProductCode

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,166 +21,175 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates information about the publishing destination specified by the @destinationId@ .
+-- Updates information about the publishing destination specified by the
+-- @destinationId@.
 module Network.AWS.GuardDuty.UpdatePublishingDestination
   ( -- * Creating a Request
-    updatePublishingDestination,
-    UpdatePublishingDestination,
+    UpdatePublishingDestination (..),
+    newUpdatePublishingDestination,
 
     -- * Request Lenses
-    updDestinationProperties,
-    updDetectorId,
-    updDestinationId,
+    updatePublishingDestination_destinationProperties,
+    updatePublishingDestination_detectorId,
+    updatePublishingDestination_destinationId,
 
     -- * Destructuring the Response
-    updatePublishingDestinationResponse,
-    UpdatePublishingDestinationResponse,
+    UpdatePublishingDestinationResponse (..),
+    newUpdatePublishingDestinationResponse,
 
     -- * Response Lenses
-    updrrsResponseStatus,
+    updatePublishingDestinationResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updatePublishingDestination' smart constructor.
+-- | /See:/ 'newUpdatePublishingDestination' smart constructor.
 data UpdatePublishingDestination = UpdatePublishingDestination'
-  { _updDestinationProperties ::
-      !( Maybe
-           DestinationProperties
-       ),
-    _updDetectorId ::
-      !Text,
-    _updDestinationId ::
-      !Text
+  { -- | A @DestinationProperties@ object that includes the @DestinationArn@ and
+    -- @KmsKeyArn@ of the publishing destination.
+    destinationProperties :: Prelude.Maybe DestinationProperties,
+    -- | The ID of the detector associated with the publishing destinations to
+    -- update.
+    detectorId :: Prelude.Text,
+    -- | The ID of the publishing destination to update.
+    destinationId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePublishingDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePublishingDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'updDestinationProperties' - A @DestinationProperties@ object that includes the @DestinationArn@ and @KmsKeyArn@ of the publishing destination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'updDetectorId' - The ID of the detector associated with the publishing destinations to update.
+-- 'destinationProperties', 'updatePublishingDestination_destinationProperties' - A @DestinationProperties@ object that includes the @DestinationArn@ and
+-- @KmsKeyArn@ of the publishing destination.
 --
--- * 'updDestinationId' - The ID of the publishing destination to update.
-updatePublishingDestination ::
-  -- | 'updDetectorId'
-  Text ->
-  -- | 'updDestinationId'
-  Text ->
+-- 'detectorId', 'updatePublishingDestination_detectorId' - The ID of the detector associated with the publishing destinations to
+-- update.
+--
+-- 'destinationId', 'updatePublishingDestination_destinationId' - The ID of the publishing destination to update.
+newUpdatePublishingDestination ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'destinationId'
+  Prelude.Text ->
   UpdatePublishingDestination
-updatePublishingDestination
+newUpdatePublishingDestination
   pDetectorId_
   pDestinationId_ =
     UpdatePublishingDestination'
-      { _updDestinationProperties =
-          Nothing,
-        _updDetectorId = pDetectorId_,
-        _updDestinationId = pDestinationId_
+      { destinationProperties =
+          Prelude.Nothing,
+        detectorId = pDetectorId_,
+        destinationId = pDestinationId_
       }
 
--- | A @DestinationProperties@ object that includes the @DestinationArn@ and @KmsKeyArn@ of the publishing destination.
-updDestinationProperties :: Lens' UpdatePublishingDestination (Maybe DestinationProperties)
-updDestinationProperties = lens _updDestinationProperties (\s a -> s {_updDestinationProperties = a})
+-- | A @DestinationProperties@ object that includes the @DestinationArn@ and
+-- @KmsKeyArn@ of the publishing destination.
+updatePublishingDestination_destinationProperties :: Lens.Lens' UpdatePublishingDestination (Prelude.Maybe DestinationProperties)
+updatePublishingDestination_destinationProperties = Lens.lens (\UpdatePublishingDestination' {destinationProperties} -> destinationProperties) (\s@UpdatePublishingDestination' {} a -> s {destinationProperties = a} :: UpdatePublishingDestination)
 
--- | The ID of the detector associated with the publishing destinations to update.
-updDetectorId :: Lens' UpdatePublishingDestination Text
-updDetectorId = lens _updDetectorId (\s a -> s {_updDetectorId = a})
+-- | The ID of the detector associated with the publishing destinations to
+-- update.
+updatePublishingDestination_detectorId :: Lens.Lens' UpdatePublishingDestination Prelude.Text
+updatePublishingDestination_detectorId = Lens.lens (\UpdatePublishingDestination' {detectorId} -> detectorId) (\s@UpdatePublishingDestination' {} a -> s {detectorId = a} :: UpdatePublishingDestination)
 
 -- | The ID of the publishing destination to update.
-updDestinationId :: Lens' UpdatePublishingDestination Text
-updDestinationId = lens _updDestinationId (\s a -> s {_updDestinationId = a})
+updatePublishingDestination_destinationId :: Lens.Lens' UpdatePublishingDestination Prelude.Text
+updatePublishingDestination_destinationId = Lens.lens (\UpdatePublishingDestination' {destinationId} -> destinationId) (\s@UpdatePublishingDestination' {} a -> s {destinationId = a} :: UpdatePublishingDestination)
 
-instance AWSRequest UpdatePublishingDestination where
+instance
+  Prelude.AWSRequest
+    UpdatePublishingDestination
+  where
   type
     Rs UpdatePublishingDestination =
       UpdatePublishingDestinationResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdatePublishingDestinationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdatePublishingDestination
+instance Prelude.Hashable UpdatePublishingDestination
 
-instance NFData UpdatePublishingDestination
+instance Prelude.NFData UpdatePublishingDestination
 
-instance ToHeaders UpdatePublishingDestination where
+instance
+  Prelude.ToHeaders
+    UpdatePublishingDestination
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdatePublishingDestination where
+instance Prelude.ToJSON UpdatePublishingDestination where
   toJSON UpdatePublishingDestination' {..} =
-    object
-      ( catMaybes
-          [ ("destinationProperties" .=)
-              <$> _updDestinationProperties
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("destinationProperties" Prelude..=)
+              Prelude.<$> destinationProperties
           ]
       )
 
-instance ToPath UpdatePublishingDestination where
+instance Prelude.ToPath UpdatePublishingDestination where
   toPath UpdatePublishingDestination' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _updDetectorId,
+        Prelude.toBS detectorId,
         "/publishingDestination/",
-        toBS _updDestinationId
+        Prelude.toBS destinationId
       ]
 
-instance ToQuery UpdatePublishingDestination where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdatePublishingDestination where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updatePublishingDestinationResponse' smart constructor.
-newtype UpdatePublishingDestinationResponse = UpdatePublishingDestinationResponse'
-  { _updrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdatePublishingDestinationResponse' smart constructor.
+data UpdatePublishingDestinationResponse = UpdatePublishingDestinationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdatePublishingDestinationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdatePublishingDestinationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'updrrsResponseStatus' - -- | The response status code.
-updatePublishingDestinationResponse ::
-  -- | 'updrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updatePublishingDestinationResponse_httpStatus' - The response's http status code.
+newUpdatePublishingDestinationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdatePublishingDestinationResponse
-updatePublishingDestinationResponse pResponseStatus_ =
+newUpdatePublishingDestinationResponse pHttpStatus_ =
   UpdatePublishingDestinationResponse'
-    { _updrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-updrrsResponseStatus :: Lens' UpdatePublishingDestinationResponse Int
-updrrsResponseStatus = lens _updrrsResponseStatus (\s a -> s {_updrrsResponseStatus = a})
+-- | The response's http status code.
+updatePublishingDestinationResponse_httpStatus :: Lens.Lens' UpdatePublishingDestinationResponse Prelude.Int
+updatePublishingDestinationResponse_httpStatus = Lens.lens (\UpdatePublishingDestinationResponse' {httpStatus} -> httpStatus) (\s@UpdatePublishingDestinationResponse' {} a -> s {httpStatus = a} :: UpdatePublishingDestinationResponse)
 
-instance NFData UpdatePublishingDestinationResponse
+instance
+  Prelude.NFData
+    UpdatePublishingDestinationResponse

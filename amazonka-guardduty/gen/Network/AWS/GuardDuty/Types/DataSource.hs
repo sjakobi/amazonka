@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.GuardDuty.Types.DataSource
   ( DataSource
       ( ..,
-        CloudTrail,
-        DNSLogs,
-        FlowLogs,
-        S3Logs
+        DataSourceCLOUDTRAIL,
+        DataSourceDNSLOGS,
+        DataSourceFLOWLOGS,
+        DataSourceS3LOGS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataSource = DataSource' (CI Text)
+newtype DataSource = DataSource'
+  { fromDataSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CloudTrail :: DataSource
-pattern CloudTrail = DataSource' "CLOUD_TRAIL"
+pattern DataSourceCLOUDTRAIL :: DataSource
+pattern DataSourceCLOUDTRAIL = DataSource' "CLOUD_TRAIL"
 
-pattern DNSLogs :: DataSource
-pattern DNSLogs = DataSource' "DNS_LOGS"
+pattern DataSourceDNSLOGS :: DataSource
+pattern DataSourceDNSLOGS = DataSource' "DNS_LOGS"
 
-pattern FlowLogs :: DataSource
-pattern FlowLogs = DataSource' "FLOW_LOGS"
+pattern DataSourceFLOWLOGS :: DataSource
+pattern DataSourceFLOWLOGS = DataSource' "FLOW_LOGS"
 
-pattern S3Logs :: DataSource
-pattern S3Logs = DataSource' "S3_LOGS"
+pattern DataSourceS3LOGS :: DataSource
+pattern DataSourceS3LOGS = DataSource' "S3_LOGS"
 
 {-# COMPLETE
-  CloudTrail,
-  DNSLogs,
-  FlowLogs,
-  S3Logs,
+  DataSourceCLOUDTRAIL,
+  DataSourceDNSLOGS,
+  DataSourceFLOWLOGS,
+  DataSourceS3LOGS,
   DataSource'
   #-}
 
-instance FromText DataSource where
-  parser = (DataSource' . mk) <$> takeText
+instance Prelude.FromText DataSource where
+  parser = DataSource' Prelude.<$> Prelude.takeText
 
-instance ToText DataSource where
-  toText (DataSource' ci) = original ci
+instance Prelude.ToText DataSource where
+  toText (DataSource' x) = x
 
-instance Hashable DataSource
+instance Prelude.Hashable DataSource
 
-instance NFData DataSource
+instance Prelude.NFData DataSource
 
-instance ToByteString DataSource
+instance Prelude.ToByteString DataSource
 
-instance ToQuery DataSource
+instance Prelude.ToQuery DataSource
 
-instance ToHeader DataSource
+instance Prelude.ToHeader DataSource
 
-instance ToJSON DataSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DataSource where
-  parseJSON = parseJSONText "DataSource"
+instance Prelude.FromJSON DataSource where
+  parseJSON = Prelude.parseJSONText "DataSource"

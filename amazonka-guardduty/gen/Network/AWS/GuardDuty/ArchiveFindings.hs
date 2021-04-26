@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,133 +21,144 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Archives GuardDuty findings that are specified by the list of finding IDs.
+-- Archives GuardDuty findings that are specified by the list of finding
+-- IDs.
+--
+-- Only the administrator account can archive findings. Member accounts
+-- don\'t have permission to archive findings from their accounts.
 module Network.AWS.GuardDuty.ArchiveFindings
   ( -- * Creating a Request
-    archiveFindings,
-    ArchiveFindings,
+    ArchiveFindings (..),
+    newArchiveFindings,
 
     -- * Request Lenses
-    afDetectorId,
-    afFindingIds,
+    archiveFindings_detectorId,
+    archiveFindings_findingIds,
 
     -- * Destructuring the Response
-    archiveFindingsResponse,
-    ArchiveFindingsResponse,
+    ArchiveFindingsResponse (..),
+    newArchiveFindingsResponse,
 
     -- * Response Lenses
-    afrrsResponseStatus,
+    archiveFindingsResponse_httpStatus,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'archiveFindings' smart constructor.
+-- | /See:/ 'newArchiveFindings' smart constructor.
 data ArchiveFindings = ArchiveFindings'
-  { _afDetectorId ::
-      !Text,
-    _afFindingIds :: ![Text]
+  { -- | The ID of the detector that specifies the GuardDuty service whose
+    -- findings you want to archive.
+    detectorId :: Prelude.Text,
+    -- | The IDs of the findings that you want to archive.
+    findingIds :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArchiveFindings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArchiveFindings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'afDetectorId' - The ID of the detector that specifies the GuardDuty service whose findings you want to archive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'afFindingIds' - The IDs of the findings that you want to archive.
-archiveFindings ::
-  -- | 'afDetectorId'
-  Text ->
+-- 'detectorId', 'archiveFindings_detectorId' - The ID of the detector that specifies the GuardDuty service whose
+-- findings you want to archive.
+--
+-- 'findingIds', 'archiveFindings_findingIds' - The IDs of the findings that you want to archive.
+newArchiveFindings ::
+  -- | 'detectorId'
+  Prelude.Text ->
   ArchiveFindings
-archiveFindings pDetectorId_ =
+newArchiveFindings pDetectorId_ =
   ArchiveFindings'
-    { _afDetectorId = pDetectorId_,
-      _afFindingIds = mempty
+    { detectorId = pDetectorId_,
+      findingIds = Prelude.mempty
     }
 
--- | The ID of the detector that specifies the GuardDuty service whose findings you want to archive.
-afDetectorId :: Lens' ArchiveFindings Text
-afDetectorId = lens _afDetectorId (\s a -> s {_afDetectorId = a})
+-- | The ID of the detector that specifies the GuardDuty service whose
+-- findings you want to archive.
+archiveFindings_detectorId :: Lens.Lens' ArchiveFindings Prelude.Text
+archiveFindings_detectorId = Lens.lens (\ArchiveFindings' {detectorId} -> detectorId) (\s@ArchiveFindings' {} a -> s {detectorId = a} :: ArchiveFindings)
 
 -- | The IDs of the findings that you want to archive.
-afFindingIds :: Lens' ArchiveFindings [Text]
-afFindingIds = lens _afFindingIds (\s a -> s {_afFindingIds = a}) . _Coerce
+archiveFindings_findingIds :: Lens.Lens' ArchiveFindings [Prelude.Text]
+archiveFindings_findingIds = Lens.lens (\ArchiveFindings' {findingIds} -> findingIds) (\s@ArchiveFindings' {} a -> s {findingIds = a} :: ArchiveFindings) Prelude.. Prelude._Coerce
 
-instance AWSRequest ArchiveFindings where
+instance Prelude.AWSRequest ArchiveFindings where
   type Rs ArchiveFindings = ArchiveFindingsResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          ArchiveFindingsResponse' <$> (pure (fromEnum s))
+          ArchiveFindingsResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ArchiveFindings
+instance Prelude.Hashable ArchiveFindings
 
-instance NFData ArchiveFindings
+instance Prelude.NFData ArchiveFindings
 
-instance ToHeaders ArchiveFindings where
+instance Prelude.ToHeaders ArchiveFindings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ArchiveFindings where
+instance Prelude.ToJSON ArchiveFindings where
   toJSON ArchiveFindings' {..} =
-    object
-      (catMaybes [Just ("findingIds" .= _afFindingIds)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("findingIds" Prelude..= findingIds)]
+      )
 
-instance ToPath ArchiveFindings where
+instance Prelude.ToPath ArchiveFindings where
   toPath ArchiveFindings' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _afDetectorId,
+        Prelude.toBS detectorId,
         "/findings/archive"
       ]
 
-instance ToQuery ArchiveFindings where
-  toQuery = const mempty
+instance Prelude.ToQuery ArchiveFindings where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'archiveFindingsResponse' smart constructor.
-newtype ArchiveFindingsResponse = ArchiveFindingsResponse'
-  { _afrrsResponseStatus ::
-      Int
+-- | /See:/ 'newArchiveFindingsResponse' smart constructor.
+data ArchiveFindingsResponse = ArchiveFindingsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArchiveFindingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArchiveFindingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'afrrsResponseStatus' - -- | The response status code.
-archiveFindingsResponse ::
-  -- | 'afrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'archiveFindingsResponse_httpStatus' - The response's http status code.
+newArchiveFindingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ArchiveFindingsResponse
-archiveFindingsResponse pResponseStatus_ =
-  ArchiveFindingsResponse'
-    { _afrrsResponseStatus =
-        pResponseStatus_
-    }
+newArchiveFindingsResponse pHttpStatus_ =
+  ArchiveFindingsResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-afrrsResponseStatus :: Lens' ArchiveFindingsResponse Int
-afrrsResponseStatus = lens _afrrsResponseStatus (\s a -> s {_afrrsResponseStatus = a})
+-- | The response's http status code.
+archiveFindingsResponse_httpStatus :: Lens.Lens' ArchiveFindingsResponse Prelude.Int
+archiveFindingsResponse_httpStatus = Lens.lens (\ArchiveFindingsResponse' {httpStatus} -> httpStatus) (\s@ArchiveFindingsResponse' {} a -> s {httpStatus = a} :: ArchiveFindingsResponse)
 
-instance NFData ArchiveFindingsResponse
+instance Prelude.NFData ArchiveFindingsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,223 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the ThreatIntelSets of the GuardDuty service specified by the detector ID. If you use this operation from a member account, the ThreatIntelSets associated with the administrator account are returned.
---
---
+-- Lists the ThreatIntelSets of the GuardDuty service specified by the
+-- detector ID. If you use this operation from a member account, the
+-- ThreatIntelSets associated with the administrator account are returned.
 --
 -- This operation returns paginated results.
 module Network.AWS.GuardDuty.ListThreatIntelSets
   ( -- * Creating a Request
-    listThreatIntelSets,
-    ListThreatIntelSets,
+    ListThreatIntelSets (..),
+    newListThreatIntelSets,
 
     -- * Request Lenses
-    ltisNextToken,
-    ltisMaxResults,
-    ltisDetectorId,
+    listThreatIntelSets_nextToken,
+    listThreatIntelSets_maxResults,
+    listThreatIntelSets_detectorId,
 
     -- * Destructuring the Response
-    listThreatIntelSetsResponse,
-    ListThreatIntelSetsResponse,
+    ListThreatIntelSetsResponse (..),
+    newListThreatIntelSetsResponse,
 
     -- * Response Lenses
-    ltisrrsNextToken,
-    ltisrrsResponseStatus,
-    ltisrrsThreatIntelSetIds,
+    listThreatIntelSetsResponse_nextToken,
+    listThreatIntelSetsResponse_httpStatus,
+    listThreatIntelSetsResponse_threatIntelSetIds,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listThreatIntelSets' smart constructor.
+-- | /See:/ 'newListThreatIntelSets' smart constructor.
 data ListThreatIntelSets = ListThreatIntelSets'
-  { _ltisNextToken ::
-      !(Maybe Text),
-    _ltisMaxResults :: !(Maybe Nat),
-    _ltisDetectorId :: !Text
+  { -- | You can use this parameter to paginate results in the response. Set the
+    -- value of this parameter to null on your first call to the list action.
+    -- For subsequent calls to the action, fill nextToken in the request with
+    -- the value of NextToken from the previous response to continue listing
+    -- data.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | You can use this parameter to indicate the maximum number of items that
+    -- you want in the response. The default value is 50. The maximum value is
+    -- 50.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The unique ID of the detector that the threatIntelSet is associated
+    -- with.
+    detectorId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThreatIntelSets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThreatIntelSets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltisNextToken' - You can use this parameter to paginate results in the response. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltisMaxResults' - You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 50. The maximum value is 50.
+-- 'nextToken', 'listThreatIntelSets_nextToken' - You can use this parameter to paginate results in the response. Set the
+-- value of this parameter to null on your first call to the list action.
+-- For subsequent calls to the action, fill nextToken in the request with
+-- the value of NextToken from the previous response to continue listing
+-- data.
 --
--- * 'ltisDetectorId' - The unique ID of the detector that the threatIntelSet is associated with.
-listThreatIntelSets ::
-  -- | 'ltisDetectorId'
-  Text ->
+-- 'maxResults', 'listThreatIntelSets_maxResults' - You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+--
+-- 'detectorId', 'listThreatIntelSets_detectorId' - The unique ID of the detector that the threatIntelSet is associated
+-- with.
+newListThreatIntelSets ::
+  -- | 'detectorId'
+  Prelude.Text ->
   ListThreatIntelSets
-listThreatIntelSets pDetectorId_ =
+newListThreatIntelSets pDetectorId_ =
   ListThreatIntelSets'
-    { _ltisNextToken = Nothing,
-      _ltisMaxResults = Nothing,
-      _ltisDetectorId = pDetectorId_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      detectorId = pDetectorId_
     }
 
--- | You can use this parameter to paginate results in the response. Set the value of this parameter to null on your first call to the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken from the previous response to continue listing data.
-ltisNextToken :: Lens' ListThreatIntelSets (Maybe Text)
-ltisNextToken = lens _ltisNextToken (\s a -> s {_ltisNextToken = a})
+-- | You can use this parameter to paginate results in the response. Set the
+-- value of this parameter to null on your first call to the list action.
+-- For subsequent calls to the action, fill nextToken in the request with
+-- the value of NextToken from the previous response to continue listing
+-- data.
+listThreatIntelSets_nextToken :: Lens.Lens' ListThreatIntelSets (Prelude.Maybe Prelude.Text)
+listThreatIntelSets_nextToken = Lens.lens (\ListThreatIntelSets' {nextToken} -> nextToken) (\s@ListThreatIntelSets' {} a -> s {nextToken = a} :: ListThreatIntelSets)
 
--- | You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 50. The maximum value is 50.
-ltisMaxResults :: Lens' ListThreatIntelSets (Maybe Natural)
-ltisMaxResults = lens _ltisMaxResults (\s a -> s {_ltisMaxResults = a}) . mapping _Nat
+-- | You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+listThreatIntelSets_maxResults :: Lens.Lens' ListThreatIntelSets (Prelude.Maybe Prelude.Natural)
+listThreatIntelSets_maxResults = Lens.lens (\ListThreatIntelSets' {maxResults} -> maxResults) (\s@ListThreatIntelSets' {} a -> s {maxResults = a} :: ListThreatIntelSets) Prelude.. Lens.mapping Prelude._Nat
 
--- | The unique ID of the detector that the threatIntelSet is associated with.
-ltisDetectorId :: Lens' ListThreatIntelSets Text
-ltisDetectorId = lens _ltisDetectorId (\s a -> s {_ltisDetectorId = a})
+-- | The unique ID of the detector that the threatIntelSet is associated
+-- with.
+listThreatIntelSets_detectorId :: Lens.Lens' ListThreatIntelSets Prelude.Text
+listThreatIntelSets_detectorId = Lens.lens (\ListThreatIntelSets' {detectorId} -> detectorId) (\s@ListThreatIntelSets' {} a -> s {detectorId = a} :: ListThreatIntelSets)
 
-instance AWSPager ListThreatIntelSets where
+instance Pager.AWSPager ListThreatIntelSets where
   page rq rs
-    | stop (rs ^. ltisrrsNextToken) = Nothing
-    | stop (rs ^. ltisrrsThreatIntelSetIds) = Nothing
-    | otherwise =
-      Just $ rq & ltisNextToken .~ rs ^. ltisrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listThreatIntelSetsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^. listThreatIntelSetsResponse_threatIntelSetIds
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listThreatIntelSets_nextToken
+          Lens..~ rs
+          Lens.^? listThreatIntelSetsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListThreatIntelSets where
+instance Prelude.AWSRequest ListThreatIntelSets where
   type
     Rs ListThreatIntelSets =
       ListThreatIntelSetsResponse
-  request = get guardDuty
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListThreatIntelSetsResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "threatIntelSetIds" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "threatIntelSetIds"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListThreatIntelSets
+instance Prelude.Hashable ListThreatIntelSets
 
-instance NFData ListThreatIntelSets
+instance Prelude.NFData ListThreatIntelSets
 
-instance ToHeaders ListThreatIntelSets where
+instance Prelude.ToHeaders ListThreatIntelSets where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListThreatIntelSets where
+instance Prelude.ToPath ListThreatIntelSets where
   toPath ListThreatIntelSets' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/detector/",
-        toBS _ltisDetectorId,
+        Prelude.toBS detectorId,
         "/threatintelset"
       ]
 
-instance ToQuery ListThreatIntelSets where
+instance Prelude.ToQuery ListThreatIntelSets where
   toQuery ListThreatIntelSets' {..} =
-    mconcat
-      [ "nextToken" =: _ltisNextToken,
-        "maxResults" =: _ltisMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listThreatIntelSetsResponse' smart constructor.
+-- | /See:/ 'newListThreatIntelSetsResponse' smart constructor.
 data ListThreatIntelSetsResponse = ListThreatIntelSetsResponse'
-  { _ltisrrsNextToken ::
-      !(Maybe Text),
-    _ltisrrsResponseStatus ::
-      !Int,
-    _ltisrrsThreatIntelSetIds ::
-      ![Text]
+  { -- | The pagination parameter to be used on the next list operation to
+    -- retrieve more items.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The IDs of the ThreatIntelSet resources.
+    threatIntelSetIds :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListThreatIntelSetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListThreatIntelSetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltisrrsNextToken' - The pagination parameter to be used on the next list operation to retrieve more items.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltisrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listThreatIntelSetsResponse_nextToken' - The pagination parameter to be used on the next list operation to
+-- retrieve more items.
 --
--- * 'ltisrrsThreatIntelSetIds' - The IDs of the ThreatIntelSet resources.
-listThreatIntelSetsResponse ::
-  -- | 'ltisrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listThreatIntelSetsResponse_httpStatus' - The response's http status code.
+--
+-- 'threatIntelSetIds', 'listThreatIntelSetsResponse_threatIntelSetIds' - The IDs of the ThreatIntelSet resources.
+newListThreatIntelSetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListThreatIntelSetsResponse
-listThreatIntelSetsResponse pResponseStatus_ =
+newListThreatIntelSetsResponse pHttpStatus_ =
   ListThreatIntelSetsResponse'
-    { _ltisrrsNextToken =
-        Nothing,
-      _ltisrrsResponseStatus = pResponseStatus_,
-      _ltisrrsThreatIntelSetIds = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      threatIntelSetIds = Prelude.mempty
     }
 
--- | The pagination parameter to be used on the next list operation to retrieve more items.
-ltisrrsNextToken :: Lens' ListThreatIntelSetsResponse (Maybe Text)
-ltisrrsNextToken = lens _ltisrrsNextToken (\s a -> s {_ltisrrsNextToken = a})
+-- | The pagination parameter to be used on the next list operation to
+-- retrieve more items.
+listThreatIntelSetsResponse_nextToken :: Lens.Lens' ListThreatIntelSetsResponse (Prelude.Maybe Prelude.Text)
+listThreatIntelSetsResponse_nextToken = Lens.lens (\ListThreatIntelSetsResponse' {nextToken} -> nextToken) (\s@ListThreatIntelSetsResponse' {} a -> s {nextToken = a} :: ListThreatIntelSetsResponse)
 
--- | -- | The response status code.
-ltisrrsResponseStatus :: Lens' ListThreatIntelSetsResponse Int
-ltisrrsResponseStatus = lens _ltisrrsResponseStatus (\s a -> s {_ltisrrsResponseStatus = a})
+-- | The response's http status code.
+listThreatIntelSetsResponse_httpStatus :: Lens.Lens' ListThreatIntelSetsResponse Prelude.Int
+listThreatIntelSetsResponse_httpStatus = Lens.lens (\ListThreatIntelSetsResponse' {httpStatus} -> httpStatus) (\s@ListThreatIntelSetsResponse' {} a -> s {httpStatus = a} :: ListThreatIntelSetsResponse)
 
 -- | The IDs of the ThreatIntelSet resources.
-ltisrrsThreatIntelSetIds :: Lens' ListThreatIntelSetsResponse [Text]
-ltisrrsThreatIntelSetIds = lens _ltisrrsThreatIntelSetIds (\s a -> s {_ltisrrsThreatIntelSetIds = a}) . _Coerce
+listThreatIntelSetsResponse_threatIntelSetIds :: Lens.Lens' ListThreatIntelSetsResponse [Prelude.Text]
+listThreatIntelSetsResponse_threatIntelSetIds = Lens.lens (\ListThreatIntelSetsResponse' {threatIntelSetIds} -> threatIntelSetIds) (\s@ListThreatIntelSetsResponse' {} a -> s {threatIntelSetIds = a} :: ListThreatIntelSetsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListThreatIntelSetsResponse
+instance Prelude.NFData ListThreatIntelSetsResponse

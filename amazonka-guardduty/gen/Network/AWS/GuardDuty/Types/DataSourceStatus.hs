@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.GuardDuty.Types.DataSourceStatus
   ( DataSourceStatus
       ( ..,
-        DSSDisabled,
-        DSSEnabled
+        DataSourceStatusDISABLED,
+        DataSourceStatusENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataSourceStatus = DataSourceStatus' (CI Text)
+newtype DataSourceStatus = DataSourceStatus'
+  { fromDataSourceStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSSDisabled :: DataSourceStatus
-pattern DSSDisabled = DataSourceStatus' "DISABLED"
+pattern DataSourceStatusDISABLED :: DataSourceStatus
+pattern DataSourceStatusDISABLED = DataSourceStatus' "DISABLED"
 
-pattern DSSEnabled :: DataSourceStatus
-pattern DSSEnabled = DataSourceStatus' "ENABLED"
+pattern DataSourceStatusENABLED :: DataSourceStatus
+pattern DataSourceStatusENABLED = DataSourceStatus' "ENABLED"
 
 {-# COMPLETE
-  DSSDisabled,
-  DSSEnabled,
+  DataSourceStatusDISABLED,
+  DataSourceStatusENABLED,
   DataSourceStatus'
   #-}
 
-instance FromText DataSourceStatus where
-  parser = (DataSourceStatus' . mk) <$> takeText
+instance Prelude.FromText DataSourceStatus where
+  parser = DataSourceStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DataSourceStatus where
-  toText (DataSourceStatus' ci) = original ci
+instance Prelude.ToText DataSourceStatus where
+  toText (DataSourceStatus' x) = x
 
-instance Hashable DataSourceStatus
+instance Prelude.Hashable DataSourceStatus
 
-instance NFData DataSourceStatus
+instance Prelude.NFData DataSourceStatus
 
-instance ToByteString DataSourceStatus
+instance Prelude.ToByteString DataSourceStatus
 
-instance ToQuery DataSourceStatus
+instance Prelude.ToQuery DataSourceStatus
 
-instance ToHeader DataSourceStatus
+instance Prelude.ToHeader DataSourceStatus
 
-instance FromJSON DataSourceStatus where
-  parseJSON = parseJSONText "DataSourceStatus"
+instance Prelude.FromJSON DataSourceStatus where
+  parseJSON = Prelude.parseJSONText "DataSourceStatus"

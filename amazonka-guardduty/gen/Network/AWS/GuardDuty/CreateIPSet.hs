@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,201 +21,240 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new IPSet, which is called a trusted IP list in the console user interface. An IPSet is a list of IP addresses that are trusted for secure communication with AWS infrastructure and applications. GuardDuty doesn't generate findings for IP addresses that are included in IPSets. Only users from the administrator account can use this operation.
+-- Creates a new IPSet, which is called a trusted IP list in the console
+-- user interface. An IPSet is a list of IP addresses that are trusted for
+-- secure communication with AWS infrastructure and applications. GuardDuty
+-- doesn\'t generate findings for IP addresses that are included in IPSets.
+-- Only users from the administrator account can use this operation.
 module Network.AWS.GuardDuty.CreateIPSet
   ( -- * Creating a Request
-    createIPSet,
-    CreateIPSet,
+    CreateIPSet (..),
+    newCreateIPSet,
 
     -- * Request Lenses
-    cisTags,
-    cisClientToken,
-    cisDetectorId,
-    cisName,
-    cisFormat,
-    cisLocation,
-    cisActivate,
+    createIPSet_tags,
+    createIPSet_clientToken,
+    createIPSet_detectorId,
+    createIPSet_name,
+    createIPSet_format,
+    createIPSet_location,
+    createIPSet_activate,
 
     -- * Destructuring the Response
-    createIPSetResponse,
-    CreateIPSetResponse,
+    CreateIPSetResponse (..),
+    newCreateIPSetResponse,
 
     -- * Response Lenses
-    cisrrsResponseStatus,
-    cisrrsIPSetId,
+    createIPSetResponse_httpStatus,
+    createIPSetResponse_ipSetId,
   )
 where
 
 import Network.AWS.GuardDuty.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createIPSet' smart constructor.
+-- | /See:/ 'newCreateIPSet' smart constructor.
 data CreateIPSet = CreateIPSet'
-  { _cisTags ::
-      !(Maybe (Map Text Text)),
-    _cisClientToken :: !(Maybe Text),
-    _cisDetectorId :: !Text,
-    _cisName :: !Text,
-    _cisFormat :: !IPSetFormat,
-    _cisLocation :: !Text,
-    _cisActivate :: !Bool
+  { -- | The tags to be added to a new IP set resource.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The idempotency token for the create request.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The unique ID of the detector of the GuardDuty account that you want to
+    -- create an IPSet for.
+    detectorId :: Prelude.Text,
+    -- | The user-friendly name to identify the IPSet.
+    --
+    -- Allowed characters are alphanumerics, spaces, hyphens (-), and
+    -- underscores (_).
+    name :: Prelude.Text,
+    -- | The format of the file that contains the IPSet.
+    format :: IpSetFormat,
+    -- | The URI of the file that contains the IPSet. For example:
+    -- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+    location :: Prelude.Text,
+    -- | A Boolean value that indicates whether GuardDuty is to start using the
+    -- uploaded IPSet.
+    activate :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateIPSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateIPSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisTags' - The tags to be added to a new IP set resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisClientToken' - The idempotency token for the create request.
+-- 'tags', 'createIPSet_tags' - The tags to be added to a new IP set resource.
 --
--- * 'cisDetectorId' - The unique ID of the detector of the GuardDuty account that you want to create an IPSet for.
+-- 'clientToken', 'createIPSet_clientToken' - The idempotency token for the create request.
 --
--- * 'cisName' - The user-friendly name to identify the IPSet. Allowed characters are alphanumerics, spaces, hyphens (-), and underscores (_).
+-- 'detectorId', 'createIPSet_detectorId' - The unique ID of the detector of the GuardDuty account that you want to
+-- create an IPSet for.
 --
--- * 'cisFormat' - The format of the file that contains the IPSet.
+-- 'name', 'createIPSet_name' - The user-friendly name to identify the IPSet.
 --
--- * 'cisLocation' - The URI of the file that contains the IPSet. For example: https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key.
+-- Allowed characters are alphanumerics, spaces, hyphens (-), and
+-- underscores (_).
 --
--- * 'cisActivate' - A Boolean value that indicates whether GuardDuty is to start using the uploaded IPSet.
-createIPSet ::
-  -- | 'cisDetectorId'
-  Text ->
-  -- | 'cisName'
-  Text ->
-  -- | 'cisFormat'
-  IPSetFormat ->
-  -- | 'cisLocation'
-  Text ->
-  -- | 'cisActivate'
-  Bool ->
+-- 'format', 'createIPSet_format' - The format of the file that contains the IPSet.
+--
+-- 'location', 'createIPSet_location' - The URI of the file that contains the IPSet. For example:
+-- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+--
+-- 'activate', 'createIPSet_activate' - A Boolean value that indicates whether GuardDuty is to start using the
+-- uploaded IPSet.
+newCreateIPSet ::
+  -- | 'detectorId'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'format'
+  IpSetFormat ->
+  -- | 'location'
+  Prelude.Text ->
+  -- | 'activate'
+  Prelude.Bool ->
   CreateIPSet
-createIPSet
+newCreateIPSet
   pDetectorId_
   pName_
   pFormat_
   pLocation_
   pActivate_ =
     CreateIPSet'
-      { _cisTags = Nothing,
-        _cisClientToken = Nothing,
-        _cisDetectorId = pDetectorId_,
-        _cisName = pName_,
-        _cisFormat = pFormat_,
-        _cisLocation = pLocation_,
-        _cisActivate = pActivate_
+      { tags = Prelude.Nothing,
+        clientToken = Prelude.Nothing,
+        detectorId = pDetectorId_,
+        name = pName_,
+        format = pFormat_,
+        location = pLocation_,
+        activate = pActivate_
       }
 
 -- | The tags to be added to a new IP set resource.
-cisTags :: Lens' CreateIPSet (HashMap Text Text)
-cisTags = lens _cisTags (\s a -> s {_cisTags = a}) . _Default . _Map
+createIPSet_tags :: Lens.Lens' CreateIPSet (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createIPSet_tags = Lens.lens (\CreateIPSet' {tags} -> tags) (\s@CreateIPSet' {} a -> s {tags = a} :: CreateIPSet) Prelude.. Lens.mapping Prelude._Map
 
 -- | The idempotency token for the create request.
-cisClientToken :: Lens' CreateIPSet (Maybe Text)
-cisClientToken = lens _cisClientToken (\s a -> s {_cisClientToken = a})
+createIPSet_clientToken :: Lens.Lens' CreateIPSet (Prelude.Maybe Prelude.Text)
+createIPSet_clientToken = Lens.lens (\CreateIPSet' {clientToken} -> clientToken) (\s@CreateIPSet' {} a -> s {clientToken = a} :: CreateIPSet)
 
--- | The unique ID of the detector of the GuardDuty account that you want to create an IPSet for.
-cisDetectorId :: Lens' CreateIPSet Text
-cisDetectorId = lens _cisDetectorId (\s a -> s {_cisDetectorId = a})
+-- | The unique ID of the detector of the GuardDuty account that you want to
+-- create an IPSet for.
+createIPSet_detectorId :: Lens.Lens' CreateIPSet Prelude.Text
+createIPSet_detectorId = Lens.lens (\CreateIPSet' {detectorId} -> detectorId) (\s@CreateIPSet' {} a -> s {detectorId = a} :: CreateIPSet)
 
--- | The user-friendly name to identify the IPSet. Allowed characters are alphanumerics, spaces, hyphens (-), and underscores (_).
-cisName :: Lens' CreateIPSet Text
-cisName = lens _cisName (\s a -> s {_cisName = a})
+-- | The user-friendly name to identify the IPSet.
+--
+-- Allowed characters are alphanumerics, spaces, hyphens (-), and
+-- underscores (_).
+createIPSet_name :: Lens.Lens' CreateIPSet Prelude.Text
+createIPSet_name = Lens.lens (\CreateIPSet' {name} -> name) (\s@CreateIPSet' {} a -> s {name = a} :: CreateIPSet)
 
 -- | The format of the file that contains the IPSet.
-cisFormat :: Lens' CreateIPSet IPSetFormat
-cisFormat = lens _cisFormat (\s a -> s {_cisFormat = a})
+createIPSet_format :: Lens.Lens' CreateIPSet IpSetFormat
+createIPSet_format = Lens.lens (\CreateIPSet' {format} -> format) (\s@CreateIPSet' {} a -> s {format = a} :: CreateIPSet)
 
--- | The URI of the file that contains the IPSet. For example: https://s3.us-west-2.amazonaws.com/my-bucket/my-object-key.
-cisLocation :: Lens' CreateIPSet Text
-cisLocation = lens _cisLocation (\s a -> s {_cisLocation = a})
+-- | The URI of the file that contains the IPSet. For example:
+-- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+createIPSet_location :: Lens.Lens' CreateIPSet Prelude.Text
+createIPSet_location = Lens.lens (\CreateIPSet' {location} -> location) (\s@CreateIPSet' {} a -> s {location = a} :: CreateIPSet)
 
--- | A Boolean value that indicates whether GuardDuty is to start using the uploaded IPSet.
-cisActivate :: Lens' CreateIPSet Bool
-cisActivate = lens _cisActivate (\s a -> s {_cisActivate = a})
+-- | A Boolean value that indicates whether GuardDuty is to start using the
+-- uploaded IPSet.
+createIPSet_activate :: Lens.Lens' CreateIPSet Prelude.Bool
+createIPSet_activate = Lens.lens (\CreateIPSet' {activate} -> activate) (\s@CreateIPSet' {} a -> s {activate = a} :: CreateIPSet)
 
-instance AWSRequest CreateIPSet where
+instance Prelude.AWSRequest CreateIPSet where
   type Rs CreateIPSet = CreateIPSetResponse
-  request = postJSON guardDuty
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateIPSetResponse'
-            <$> (pure (fromEnum s)) <*> (x .:> "ipSetId")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "ipSetId")
       )
 
-instance Hashable CreateIPSet
+instance Prelude.Hashable CreateIPSet
 
-instance NFData CreateIPSet
+instance Prelude.NFData CreateIPSet
 
-instance ToHeaders CreateIPSet where
+instance Prelude.ToHeaders CreateIPSet where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateIPSet where
+instance Prelude.ToJSON CreateIPSet where
   toJSON CreateIPSet' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _cisTags,
-            ("clientToken" .=) <$> _cisClientToken,
-            Just ("name" .= _cisName),
-            Just ("format" .= _cisFormat),
-            Just ("location" .= _cisLocation),
-            Just ("activate" .= _cisActivate)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            ("clientToken" Prelude..=) Prelude.<$> clientToken,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("format" Prelude..= format),
+            Prelude.Just ("location" Prelude..= location),
+            Prelude.Just ("activate" Prelude..= activate)
           ]
       )
 
-instance ToPath CreateIPSet where
+instance Prelude.ToPath CreateIPSet where
   toPath CreateIPSet' {..} =
-    mconcat
-      ["/detector/", toBS _cisDetectorId, "/ipset"]
+    Prelude.mconcat
+      ["/detector/", Prelude.toBS detectorId, "/ipset"]
 
-instance ToQuery CreateIPSet where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateIPSet where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createIPSetResponse' smart constructor.
+-- | /See:/ 'newCreateIPSetResponse' smart constructor.
 data CreateIPSetResponse = CreateIPSetResponse'
-  { _cisrrsResponseStatus ::
-      !Int,
-    _cisrrsIPSetId :: !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the IPSet resource.
+    ipSetId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateIPSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateIPSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisrrsIPSetId' - The ID of the IPSet resource.
-createIPSetResponse ::
-  -- | 'cisrrsResponseStatus'
-  Int ->
-  -- | 'cisrrsIPSetId'
-  Text ->
+-- 'httpStatus', 'createIPSetResponse_httpStatus' - The response's http status code.
+--
+-- 'ipSetId', 'createIPSetResponse_ipSetId' - The ID of the IPSet resource.
+newCreateIPSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'ipSetId'
+  Prelude.Text ->
   CreateIPSetResponse
-createIPSetResponse pResponseStatus_ pIPSetId_ =
+newCreateIPSetResponse pHttpStatus_ pIpSetId_ =
   CreateIPSetResponse'
-    { _cisrrsResponseStatus =
-        pResponseStatus_,
-      _cisrrsIPSetId = pIPSetId_
+    { httpStatus = pHttpStatus_,
+      ipSetId = pIpSetId_
     }
 
--- | -- | The response status code.
-cisrrsResponseStatus :: Lens' CreateIPSetResponse Int
-cisrrsResponseStatus = lens _cisrrsResponseStatus (\s a -> s {_cisrrsResponseStatus = a})
+-- | The response's http status code.
+createIPSetResponse_httpStatus :: Lens.Lens' CreateIPSetResponse Prelude.Int
+createIPSetResponse_httpStatus = Lens.lens (\CreateIPSetResponse' {httpStatus} -> httpStatus) (\s@CreateIPSetResponse' {} a -> s {httpStatus = a} :: CreateIPSetResponse)
 
 -- | The ID of the IPSet resource.
-cisrrsIPSetId :: Lens' CreateIPSetResponse Text
-cisrrsIPSetId = lens _cisrrsIPSetId (\s a -> s {_cisrrsIPSetId = a})
+createIPSetResponse_ipSetId :: Lens.Lens' CreateIPSetResponse Prelude.Text
+createIPSetResponse_ipSetId = Lens.lens (\CreateIPSetResponse' {ipSetId} -> ipSetId) (\s@CreateIPSetResponse' {} a -> s {ipSetId = a} :: CreateIPSetResponse)
 
-instance NFData CreateIPSetResponse
+instance Prelude.NFData CreateIPSetResponse

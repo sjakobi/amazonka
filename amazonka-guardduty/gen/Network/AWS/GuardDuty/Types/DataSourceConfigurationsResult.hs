@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,95 +23,109 @@ import Network.AWS.GuardDuty.Types.CloudTrailConfigurationResult
 import Network.AWS.GuardDuty.Types.DNSLogsConfigurationResult
 import Network.AWS.GuardDuty.Types.FlowLogsConfigurationResult
 import Network.AWS.GuardDuty.Types.S3LogsConfigurationResult
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information on the status of data sources for the detector.
 --
---
---
--- /See:/ 'dataSourceConfigurationsResult' smart constructor.
+-- /See:/ 'newDataSourceConfigurationsResult' smart constructor.
 data DataSourceConfigurationsResult = DataSourceConfigurationsResult'
-  { _dscrCloudTrail ::
-      !CloudTrailConfigurationResult,
-    _dscrDNSLogs ::
-      !DNSLogsConfigurationResult,
-    _dscrFlowLogs ::
-      !FlowLogsConfigurationResult,
-    _dscrS3Logs ::
-      !S3LogsConfigurationResult
+  { -- | An object that contains information on the status of CloudTrail as a
+    -- data source.
+    cloudTrail :: CloudTrailConfigurationResult,
+    -- | An object that contains information on the status of DNS logs as a data
+    -- source.
+    dNSLogs :: DNSLogsConfigurationResult,
+    -- | An object that contains information on the status of VPC flow logs as a
+    -- data source.
+    flowLogs :: FlowLogsConfigurationResult,
+    -- | An object that contains information on the status of S3 Data event logs
+    -- as a data source.
+    s3Logs :: S3LogsConfigurationResult
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DataSourceConfigurationsResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DataSourceConfigurationsResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscrCloudTrail' - An object that contains information on the status of CloudTrail as a data source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dscrDNSLogs' - An object that contains information on the status of DNS logs as a data source.
+-- 'cloudTrail', 'dataSourceConfigurationsResult_cloudTrail' - An object that contains information on the status of CloudTrail as a
+-- data source.
 --
--- * 'dscrFlowLogs' - An object that contains information on the status of VPC flow logs as a data source.
+-- 'dNSLogs', 'dataSourceConfigurationsResult_dNSLogs' - An object that contains information on the status of DNS logs as a data
+-- source.
 --
--- * 'dscrS3Logs' - An object that contains information on the status of S3 Data event logs as a data source.
-dataSourceConfigurationsResult ::
-  -- | 'dscrCloudTrail'
+-- 'flowLogs', 'dataSourceConfigurationsResult_flowLogs' - An object that contains information on the status of VPC flow logs as a
+-- data source.
+--
+-- 's3Logs', 'dataSourceConfigurationsResult_s3Logs' - An object that contains information on the status of S3 Data event logs
+-- as a data source.
+newDataSourceConfigurationsResult ::
+  -- | 'cloudTrail'
   CloudTrailConfigurationResult ->
-  -- | 'dscrDNSLogs'
+  -- | 'dNSLogs'
   DNSLogsConfigurationResult ->
-  -- | 'dscrFlowLogs'
+  -- | 'flowLogs'
   FlowLogsConfigurationResult ->
-  -- | 'dscrS3Logs'
+  -- | 's3Logs'
   S3LogsConfigurationResult ->
   DataSourceConfigurationsResult
-dataSourceConfigurationsResult
+newDataSourceConfigurationsResult
   pCloudTrail_
   pDNSLogs_
   pFlowLogs_
   pS3Logs_ =
     DataSourceConfigurationsResult'
-      { _dscrCloudTrail =
+      { cloudTrail =
           pCloudTrail_,
-        _dscrDNSLogs = pDNSLogs_,
-        _dscrFlowLogs = pFlowLogs_,
-        _dscrS3Logs = pS3Logs_
+        dNSLogs = pDNSLogs_,
+        flowLogs = pFlowLogs_,
+        s3Logs = pS3Logs_
       }
 
--- | An object that contains information on the status of CloudTrail as a data source.
-dscrCloudTrail :: Lens' DataSourceConfigurationsResult CloudTrailConfigurationResult
-dscrCloudTrail = lens _dscrCloudTrail (\s a -> s {_dscrCloudTrail = a})
+-- | An object that contains information on the status of CloudTrail as a
+-- data source.
+dataSourceConfigurationsResult_cloudTrail :: Lens.Lens' DataSourceConfigurationsResult CloudTrailConfigurationResult
+dataSourceConfigurationsResult_cloudTrail = Lens.lens (\DataSourceConfigurationsResult' {cloudTrail} -> cloudTrail) (\s@DataSourceConfigurationsResult' {} a -> s {cloudTrail = a} :: DataSourceConfigurationsResult)
 
--- | An object that contains information on the status of DNS logs as a data source.
-dscrDNSLogs :: Lens' DataSourceConfigurationsResult DNSLogsConfigurationResult
-dscrDNSLogs = lens _dscrDNSLogs (\s a -> s {_dscrDNSLogs = a})
+-- | An object that contains information on the status of DNS logs as a data
+-- source.
+dataSourceConfigurationsResult_dNSLogs :: Lens.Lens' DataSourceConfigurationsResult DNSLogsConfigurationResult
+dataSourceConfigurationsResult_dNSLogs = Lens.lens (\DataSourceConfigurationsResult' {dNSLogs} -> dNSLogs) (\s@DataSourceConfigurationsResult' {} a -> s {dNSLogs = a} :: DataSourceConfigurationsResult)
 
--- | An object that contains information on the status of VPC flow logs as a data source.
-dscrFlowLogs :: Lens' DataSourceConfigurationsResult FlowLogsConfigurationResult
-dscrFlowLogs = lens _dscrFlowLogs (\s a -> s {_dscrFlowLogs = a})
+-- | An object that contains information on the status of VPC flow logs as a
+-- data source.
+dataSourceConfigurationsResult_flowLogs :: Lens.Lens' DataSourceConfigurationsResult FlowLogsConfigurationResult
+dataSourceConfigurationsResult_flowLogs = Lens.lens (\DataSourceConfigurationsResult' {flowLogs} -> flowLogs) (\s@DataSourceConfigurationsResult' {} a -> s {flowLogs = a} :: DataSourceConfigurationsResult)
 
--- | An object that contains information on the status of S3 Data event logs as a data source.
-dscrS3Logs :: Lens' DataSourceConfigurationsResult S3LogsConfigurationResult
-dscrS3Logs = lens _dscrS3Logs (\s a -> s {_dscrS3Logs = a})
+-- | An object that contains information on the status of S3 Data event logs
+-- as a data source.
+dataSourceConfigurationsResult_s3Logs :: Lens.Lens' DataSourceConfigurationsResult S3LogsConfigurationResult
+dataSourceConfigurationsResult_s3Logs = Lens.lens (\DataSourceConfigurationsResult' {s3Logs} -> s3Logs) (\s@DataSourceConfigurationsResult' {} a -> s {s3Logs = a} :: DataSourceConfigurationsResult)
 
-instance FromJSON DataSourceConfigurationsResult where
+instance
+  Prelude.FromJSON
+    DataSourceConfigurationsResult
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DataSourceConfigurationsResult"
       ( \x ->
           DataSourceConfigurationsResult'
-            <$> (x .: "cloudTrail")
-            <*> (x .: "dnsLogs")
-            <*> (x .: "flowLogs")
-            <*> (x .: "s3Logs")
+            Prelude.<$> (x Prelude..: "cloudTrail")
+            Prelude.<*> (x Prelude..: "dnsLogs")
+            Prelude.<*> (x Prelude..: "flowLogs")
+            Prelude.<*> (x Prelude..: "s3Logs")
       )
 
-instance Hashable DataSourceConfigurationsResult
+instance
+  Prelude.Hashable
+    DataSourceConfigurationsResult
 
-instance NFData DataSourceConfigurationsResult
+instance
+  Prelude.NFData
+    DataSourceConfigurationsResult
