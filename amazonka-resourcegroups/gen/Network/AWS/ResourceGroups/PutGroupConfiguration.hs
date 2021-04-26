@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attaches a service configuration to the specified group. This occurs asynchronously, and can take time to complete. You can use 'GetGroupConfiguration' to check the status of the update.
---
+-- Attaches a service configuration to the specified group. This occurs
+-- asynchronously, and can take time to complete. You can use
+-- GetGroupConfiguration to check the status of the update.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * @resource-groups:PutGroupConfiguration@
+-- -   @resource-groups:PutGroupConfiguration@
 module Network.AWS.ResourceGroups.PutGroupConfiguration
   ( -- * Creating a Request
-    putGroupConfiguration,
-    PutGroupConfiguration,
+    PutGroupConfiguration (..),
+    newPutGroupConfiguration,
 
     -- * Request Lenses
-    pgcConfiguration,
-    pgcGroup,
+    putGroupConfiguration_configuration,
+    putGroupConfiguration_group,
 
     -- * Destructuring the Response
-    putGroupConfigurationResponse,
-    PutGroupConfigurationResponse,
+    PutGroupConfigurationResponse (..),
+    newPutGroupConfigurationResponse,
 
     -- * Response Lenses
-    pgcrrsResponseStatus,
+    putGroupConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.Response
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putGroupConfiguration' smart constructor.
+-- | /See:/ 'newPutGroupConfiguration' smart constructor.
 data PutGroupConfiguration = PutGroupConfiguration'
-  { _pgcConfiguration ::
-      !( Maybe
-           [GroupConfigurationItem]
-       ),
-    _pgcGroup :: !(Maybe Text)
+  { -- | The new configuration to associate with the specified group. A
+    -- configuration associates the resource group with an AWS service and
+    -- specifies how the service can interact with the resources in the group.
+    -- A configuration is an array of GroupConfigurationItem elements.
+    --
+    -- For information about the syntax of a service configuration, see
+    -- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
+    --
+    -- A resource group can contain either a @Configuration@ or a
+    -- @ResourceQuery@, but not both.
+    configuration :: Prelude.Maybe [GroupConfigurationItem],
+    -- | The name or ARN of the resource group with the configuration that you
+    -- want to update.
+    group' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutGroupConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutGroupConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgcConfiguration' - The new configuration to associate with the specified group. A configuration associates the resource group with an AWS service and specifies how the service can interact with the resources in the group. A configuration is an array of 'GroupConfigurationItem' elements. For information about the syntax of a service configuration, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pgcGroup' - The name or ARN of the resource group with the configuration that you want to update.
-putGroupConfiguration ::
+-- 'configuration', 'putGroupConfiguration_configuration' - The new configuration to associate with the specified group. A
+-- configuration associates the resource group with an AWS service and
+-- specifies how the service can interact with the resources in the group.
+-- A configuration is an array of GroupConfigurationItem elements.
+--
+-- For information about the syntax of a service configuration, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
+--
+-- A resource group can contain either a @Configuration@ or a
+-- @ResourceQuery@, but not both.
+--
+-- 'group'', 'putGroupConfiguration_group' - The name or ARN of the resource group with the configuration that you
+-- want to update.
+newPutGroupConfiguration ::
   PutGroupConfiguration
-putGroupConfiguration =
+newPutGroupConfiguration =
   PutGroupConfiguration'
-    { _pgcConfiguration = Nothing,
-      _pgcGroup = Nothing
+    { configuration =
+        Prelude.Nothing,
+      group' = Prelude.Nothing
     }
 
--- | The new configuration to associate with the specified group. A configuration associates the resource group with an AWS service and specifies how the service can interact with the resources in the group. A configuration is an array of 'GroupConfigurationItem' elements. For information about the syntax of a service configuration, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups> .
-pgcConfiguration :: Lens' PutGroupConfiguration [GroupConfigurationItem]
-pgcConfiguration = lens _pgcConfiguration (\s a -> s {_pgcConfiguration = a}) . _Default . _Coerce
+-- | The new configuration to associate with the specified group. A
+-- configuration associates the resource group with an AWS service and
+-- specifies how the service can interact with the resources in the group.
+-- A configuration is an array of GroupConfigurationItem elements.
+--
+-- For information about the syntax of a service configuration, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
+--
+-- A resource group can contain either a @Configuration@ or a
+-- @ResourceQuery@, but not both.
+putGroupConfiguration_configuration :: Lens.Lens' PutGroupConfiguration (Prelude.Maybe [GroupConfigurationItem])
+putGroupConfiguration_configuration = Lens.lens (\PutGroupConfiguration' {configuration} -> configuration) (\s@PutGroupConfiguration' {} a -> s {configuration = a} :: PutGroupConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name or ARN of the resource group with the configuration that you want to update.
-pgcGroup :: Lens' PutGroupConfiguration (Maybe Text)
-pgcGroup = lens _pgcGroup (\s a -> s {_pgcGroup = a})
+-- | The name or ARN of the resource group with the configuration that you
+-- want to update.
+putGroupConfiguration_group :: Lens.Lens' PutGroupConfiguration (Prelude.Maybe Prelude.Text)
+putGroupConfiguration_group = Lens.lens (\PutGroupConfiguration' {group'} -> group') (\s@PutGroupConfiguration' {} a -> s {group' = a} :: PutGroupConfiguration)
 
-instance AWSRequest PutGroupConfiguration where
+instance Prelude.AWSRequest PutGroupConfiguration where
   type
     Rs PutGroupConfiguration =
       PutGroupConfigurationResponse
-  request = postJSON resourceGroups
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutGroupConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutGroupConfiguration
+instance Prelude.Hashable PutGroupConfiguration
 
-instance NFData PutGroupConfiguration
+instance Prelude.NFData PutGroupConfiguration
 
-instance ToHeaders PutGroupConfiguration where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutGroupConfiguration where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PutGroupConfiguration where
+instance Prelude.ToJSON PutGroupConfiguration where
   toJSON PutGroupConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("Configuration" .=) <$> _pgcConfiguration,
-            ("Group" .=) <$> _pgcGroup
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Configuration" Prelude..=)
+              Prelude.<$> configuration,
+            ("Group" Prelude..=) Prelude.<$> group'
           ]
       )
 
-instance ToPath PutGroupConfiguration where
-  toPath = const "/put-group-configuration"
+instance Prelude.ToPath PutGroupConfiguration where
+  toPath = Prelude.const "/put-group-configuration"
 
-instance ToQuery PutGroupConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutGroupConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putGroupConfigurationResponse' smart constructor.
-newtype PutGroupConfigurationResponse = PutGroupConfigurationResponse'
-  { _pgcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutGroupConfigurationResponse' smart constructor.
+data PutGroupConfigurationResponse = PutGroupConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutGroupConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutGroupConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgcrrsResponseStatus' - -- | The response status code.
-putGroupConfigurationResponse ::
-  -- | 'pgcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putGroupConfigurationResponse_httpStatus' - The response's http status code.
+newPutGroupConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutGroupConfigurationResponse
-putGroupConfigurationResponse pResponseStatus_ =
+newPutGroupConfigurationResponse pHttpStatus_ =
   PutGroupConfigurationResponse'
-    { _pgcrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-pgcrrsResponseStatus :: Lens' PutGroupConfigurationResponse Int
-pgcrrsResponseStatus = lens _pgcrrsResponseStatus (\s a -> s {_pgcrrsResponseStatus = a})
+-- | The response's http status code.
+putGroupConfigurationResponse_httpStatus :: Lens.Lens' PutGroupConfigurationResponse Prelude.Int
+putGroupConfigurationResponse_httpStatus = Lens.lens (\PutGroupConfigurationResponse' {httpStatus} -> httpStatus) (\s@PutGroupConfigurationResponse' {} a -> s {httpStatus = a} :: PutGroupConfigurationResponse)
 
-instance NFData PutGroupConfigurationResponse
+instance Prelude.NFData PutGroupConfigurationResponse

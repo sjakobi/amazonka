@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.ResourceGroups.Types.QueryType
   ( QueryType
       ( ..,
-        CloudformationStack10,
-        TagFilters10
+        QueryTypeCLOUDFORMATIONSTACK10,
+        QueryTypeTAGFILTERS10
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QueryType = QueryType' (CI Text)
+newtype QueryType = QueryType'
+  { fromQueryType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CloudformationStack10 :: QueryType
-pattern CloudformationStack10 = QueryType' "CLOUDFORMATION_STACK_1_0"
+pattern QueryTypeCLOUDFORMATIONSTACK10 :: QueryType
+pattern QueryTypeCLOUDFORMATIONSTACK10 = QueryType' "CLOUDFORMATION_STACK_1_0"
 
-pattern TagFilters10 :: QueryType
-pattern TagFilters10 = QueryType' "TAG_FILTERS_1_0"
+pattern QueryTypeTAGFILTERS10 :: QueryType
+pattern QueryTypeTAGFILTERS10 = QueryType' "TAG_FILTERS_1_0"
 
 {-# COMPLETE
-  CloudformationStack10,
-  TagFilters10,
+  QueryTypeCLOUDFORMATIONSTACK10,
+  QueryTypeTAGFILTERS10,
   QueryType'
   #-}
 
-instance FromText QueryType where
-  parser = (QueryType' . mk) <$> takeText
+instance Prelude.FromText QueryType where
+  parser = QueryType' Prelude.<$> Prelude.takeText
 
-instance ToText QueryType where
-  toText (QueryType' ci) = original ci
+instance Prelude.ToText QueryType where
+  toText (QueryType' x) = x
 
-instance Hashable QueryType
+instance Prelude.Hashable QueryType
 
-instance NFData QueryType
+instance Prelude.NFData QueryType
 
-instance ToByteString QueryType
+instance Prelude.ToByteString QueryType
 
-instance ToQuery QueryType
+instance Prelude.ToQuery QueryType
 
-instance ToHeader QueryType
+instance Prelude.ToHeader QueryType
 
-instance ToJSON QueryType where
-  toJSON = toJSONText
+instance Prelude.ToJSON QueryType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON QueryType where
-  parseJSON = parseJSONText "QueryType"
+instance Prelude.FromJSON QueryType where
+  parseJSON = Prelude.parseJSONText "QueryType"

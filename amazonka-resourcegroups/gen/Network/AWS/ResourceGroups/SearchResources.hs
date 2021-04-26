@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,191 +21,279 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of AWS resource identifiers that matches the specified query. The query uses the same format as a resource query in a CreateGroup or UpdateGroupQuery operation.
---
+-- Returns a list of AWS resource identifiers that matches the specified
+-- query. The query uses the same format as a resource query in a
+-- CreateGroup or UpdateGroupQuery operation.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * @resource-groups:SearchResources@
---
---
---
+-- -   @resource-groups:SearchResources@
 --
 -- This operation returns paginated results.
 module Network.AWS.ResourceGroups.SearchResources
   ( -- * Creating a Request
-    searchResources,
-    SearchResources,
+    SearchResources (..),
+    newSearchResources,
 
     -- * Request Lenses
-    srNextToken,
-    srMaxResults,
-    srResourceQuery,
+    searchResources_nextToken,
+    searchResources_maxResults,
+    searchResources_resourceQuery,
 
     -- * Destructuring the Response
-    searchResourcesResponse,
-    SearchResourcesResponse,
+    SearchResourcesResponse (..),
+    newSearchResourcesResponse,
 
     -- * Response Lenses
-    srrrsNextToken,
-    srrrsResourceIdentifiers,
-    srrrsQueryErrors,
-    srrrsResponseStatus,
+    searchResourcesResponse_nextToken,
+    searchResourcesResponse_resourceIdentifiers,
+    searchResourcesResponse_queryErrors,
+    searchResourcesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.Response
+import Network.AWS.ResourceGroups.Types.QueryError
+import Network.AWS.ResourceGroups.Types.ResourceIdentifier
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'searchResources' smart constructor.
+-- | /See:/ 'newSearchResources' smart constructor.
 data SearchResources = SearchResources'
-  { _srNextToken ::
-      !(Maybe Text),
-    _srMaxResults :: !(Maybe Nat),
-    _srResourceQuery :: !ResourceQuery
+  { -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- provided by a previous call\'s @NextToken@ response to indicate where
+    -- the output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of results that you want included on each page of the
+    -- response. If you do not include this parameter, it defaults to a value
+    -- that is specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (is not null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that the service might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The search query, using the same formats that are supported for resource
+    -- group definition. For more information, see CreateGroup.
+    resourceQuery :: ResourceQuery
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srNextToken' - The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value provided by a previous call's @NextToken@ response to indicate where the output should continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srMaxResults' - The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that the service might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'searchResources_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
 --
--- * 'srResourceQuery' - The search query, using the same formats that are supported for resource group definition. For more information, see 'CreateGroup' .
-searchResources ::
-  -- | 'srResourceQuery'
+-- 'maxResults', 'searchResources_maxResults' - The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that the service might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+--
+-- 'resourceQuery', 'searchResources_resourceQuery' - The search query, using the same formats that are supported for resource
+-- group definition. For more information, see CreateGroup.
+newSearchResources ::
+  -- | 'resourceQuery'
   ResourceQuery ->
   SearchResources
-searchResources pResourceQuery_ =
+newSearchResources pResourceQuery_ =
   SearchResources'
-    { _srNextToken = Nothing,
-      _srMaxResults = Nothing,
-      _srResourceQuery = pResourceQuery_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      resourceQuery = pResourceQuery_
     }
 
--- | The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value provided by a previous call's @NextToken@ response to indicate where the output should continue from.
-srNextToken :: Lens' SearchResources (Maybe Text)
-srNextToken = lens _srNextToken (\s a -> s {_srNextToken = a})
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
+searchResources_nextToken :: Lens.Lens' SearchResources (Prelude.Maybe Prelude.Text)
+searchResources_nextToken = Lens.lens (\SearchResources' {nextToken} -> nextToken) (\s@SearchResources' {} a -> s {nextToken = a} :: SearchResources)
 
--- | The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that the service might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-srMaxResults :: Lens' SearchResources (Maybe Natural)
-srMaxResults = lens _srMaxResults (\s a -> s {_srMaxResults = a}) . mapping _Nat
+-- | The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that the service might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+searchResources_maxResults :: Lens.Lens' SearchResources (Prelude.Maybe Prelude.Natural)
+searchResources_maxResults = Lens.lens (\SearchResources' {maxResults} -> maxResults) (\s@SearchResources' {} a -> s {maxResults = a} :: SearchResources) Prelude.. Lens.mapping Prelude._Nat
 
--- | The search query, using the same formats that are supported for resource group definition. For more information, see 'CreateGroup' .
-srResourceQuery :: Lens' SearchResources ResourceQuery
-srResourceQuery = lens _srResourceQuery (\s a -> s {_srResourceQuery = a})
+-- | The search query, using the same formats that are supported for resource
+-- group definition. For more information, see CreateGroup.
+searchResources_resourceQuery :: Lens.Lens' SearchResources ResourceQuery
+searchResources_resourceQuery = Lens.lens (\SearchResources' {resourceQuery} -> resourceQuery) (\s@SearchResources' {} a -> s {resourceQuery = a} :: SearchResources)
 
-instance AWSPager SearchResources where
+instance Pager.AWSPager SearchResources where
   page rq rs
-    | stop (rs ^. srrrsNextToken) = Nothing
-    | stop (rs ^. srrrsResourceIdentifiers) = Nothing
-    | otherwise =
-      Just $ rq & srNextToken .~ rs ^. srrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? searchResourcesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? searchResourcesResponse_resourceIdentifiers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& searchResources_nextToken
+          Lens..~ rs
+          Lens.^? searchResourcesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest SearchResources where
+instance Prelude.AWSRequest SearchResources where
   type Rs SearchResources = SearchResourcesResponse
-  request = postJSON resourceGroups
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SearchResourcesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "ResourceIdentifiers" .!@ mempty)
-            <*> (x .?> "QueryErrors" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "ResourceIdentifiers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "QueryErrors"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchResources
+instance Prelude.Hashable SearchResources
 
-instance NFData SearchResources
+instance Prelude.NFData SearchResources
 
-instance ToHeaders SearchResources where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SearchResources where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON SearchResources where
+instance Prelude.ToJSON SearchResources where
   toJSON SearchResources' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _srNextToken,
-            ("MaxResults" .=) <$> _srMaxResults,
-            Just ("ResourceQuery" .= _srResourceQuery)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just
+              ("ResourceQuery" Prelude..= resourceQuery)
           ]
       )
 
-instance ToPath SearchResources where
-  toPath = const "/resources/search"
+instance Prelude.ToPath SearchResources where
+  toPath = Prelude.const "/resources/search"
 
-instance ToQuery SearchResources where
-  toQuery = const mempty
+instance Prelude.ToQuery SearchResources where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'searchResourcesResponse' smart constructor.
+-- | /See:/ 'newSearchResourcesResponse' smart constructor.
 data SearchResourcesResponse = SearchResourcesResponse'
-  { _srrrsNextToken ::
-      !(Maybe Text),
-    _srrrsResourceIdentifiers ::
-      !( Maybe
-           [ResourceIdentifier]
-       ),
-    _srrrsQueryErrors ::
-      !(Maybe [QueryError]),
-    _srrrsResponseStatus ::
-      !Int
+  { -- | If present, indicates that more output is available than is included in
+    -- the current response. Use this value in the @NextToken@ request
+    -- parameter in a subsequent call to the operation to get the next part of
+    -- the output. You should repeat this until the @NextToken@ response
+    -- element comes back as @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARNs and resource types of resources that are members of the group
+    -- that you specified.
+    resourceIdentifiers :: Prelude.Maybe [ResourceIdentifier],
+    -- | A list of @QueryError@ objects. Each error is an object that contains
+    -- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
+    -- are @CLOUDFORMATION_STACK_INACTIVE@ and
+    -- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+    queryErrors :: Prelude.Maybe [QueryError],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srrrsNextToken' - If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srrrsResourceIdentifiers' - The ARNs and resource types of resources that are members of the group that you specified.
+-- 'nextToken', 'searchResourcesResponse_nextToken' - If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
 --
--- * 'srrrsQueryErrors' - A list of @QueryError@ objects. Each error is an object that contains @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@ are @CLOUDFORMATION_STACK_INACTIVE@ and @CLOUDFORMATION_STACK_NOT_EXISTING@ .
+-- 'resourceIdentifiers', 'searchResourcesResponse_resourceIdentifiers' - The ARNs and resource types of resources that are members of the group
+-- that you specified.
 --
--- * 'srrrsResponseStatus' - -- | The response status code.
-searchResourcesResponse ::
-  -- | 'srrrsResponseStatus'
-  Int ->
+-- 'queryErrors', 'searchResourcesResponse_queryErrors' - A list of @QueryError@ objects. Each error is an object that contains
+-- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
+-- are @CLOUDFORMATION_STACK_INACTIVE@ and
+-- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+--
+-- 'httpStatus', 'searchResourcesResponse_httpStatus' - The response's http status code.
+newSearchResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SearchResourcesResponse
-searchResourcesResponse pResponseStatus_ =
+newSearchResourcesResponse pHttpStatus_ =
   SearchResourcesResponse'
-    { _srrrsNextToken = Nothing,
-      _srrrsResourceIdentifiers = Nothing,
-      _srrrsQueryErrors = Nothing,
-      _srrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      resourceIdentifiers = Prelude.Nothing,
+      queryErrors = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
-srrrsNextToken :: Lens' SearchResourcesResponse (Maybe Text)
-srrrsNextToken = lens _srrrsNextToken (\s a -> s {_srrrsNextToken = a})
+-- | If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+searchResourcesResponse_nextToken :: Lens.Lens' SearchResourcesResponse (Prelude.Maybe Prelude.Text)
+searchResourcesResponse_nextToken = Lens.lens (\SearchResourcesResponse' {nextToken} -> nextToken) (\s@SearchResourcesResponse' {} a -> s {nextToken = a} :: SearchResourcesResponse)
 
--- | The ARNs and resource types of resources that are members of the group that you specified.
-srrrsResourceIdentifiers :: Lens' SearchResourcesResponse [ResourceIdentifier]
-srrrsResourceIdentifiers = lens _srrrsResourceIdentifiers (\s a -> s {_srrrsResourceIdentifiers = a}) . _Default . _Coerce
+-- | The ARNs and resource types of resources that are members of the group
+-- that you specified.
+searchResourcesResponse_resourceIdentifiers :: Lens.Lens' SearchResourcesResponse (Prelude.Maybe [ResourceIdentifier])
+searchResourcesResponse_resourceIdentifiers = Lens.lens (\SearchResourcesResponse' {resourceIdentifiers} -> resourceIdentifiers) (\s@SearchResourcesResponse' {} a -> s {resourceIdentifiers = a} :: SearchResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of @QueryError@ objects. Each error is an object that contains @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@ are @CLOUDFORMATION_STACK_INACTIVE@ and @CLOUDFORMATION_STACK_NOT_EXISTING@ .
-srrrsQueryErrors :: Lens' SearchResourcesResponse [QueryError]
-srrrsQueryErrors = lens _srrrsQueryErrors (\s a -> s {_srrrsQueryErrors = a}) . _Default . _Coerce
+-- | A list of @QueryError@ objects. Each error is an object that contains
+-- @ErrorCode@ and @Message@ structures. Possible values for @ErrorCode@
+-- are @CLOUDFORMATION_STACK_INACTIVE@ and
+-- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+searchResourcesResponse_queryErrors :: Lens.Lens' SearchResourcesResponse (Prelude.Maybe [QueryError])
+searchResourcesResponse_queryErrors = Lens.lens (\SearchResourcesResponse' {queryErrors} -> queryErrors) (\s@SearchResourcesResponse' {} a -> s {queryErrors = a} :: SearchResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-srrrsResponseStatus :: Lens' SearchResourcesResponse Int
-srrrsResponseStatus = lens _srrrsResponseStatus (\s a -> s {_srrrsResponseStatus = a})
+-- | The response's http status code.
+searchResourcesResponse_httpStatus :: Lens.Lens' SearchResourcesResponse Prelude.Int
+searchResourcesResponse_httpStatus = Lens.lens (\SearchResourcesResponse' {httpStatus} -> httpStatus) (\s@SearchResourcesResponse' {} a -> s {httpStatus = a} :: SearchResourcesResponse)
 
-instance NFData SearchResourcesResponse
+instance Prelude.NFData SearchResourcesResponse

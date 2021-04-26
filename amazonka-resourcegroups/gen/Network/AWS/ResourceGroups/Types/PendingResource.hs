@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,40 +19,51 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.PendingResource where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A structure that identifies a resource that is currently pending addition to the group as a member. Adding a resource to a resource group happens asynchronously as a background task and this one isn't completed yet.
+-- | A structure that identifies a resource that is currently pending
+-- addition to the group as a member. Adding a resource to a resource group
+-- happens asynchronously as a background task and this one isn\'t
+-- completed yet.
 --
---
---
--- /See:/ 'pendingResource' smart constructor.
-newtype PendingResource = PendingResource'
-  { _prResourceARN ::
-      Maybe Text
+-- /See:/ 'newPendingResource' smart constructor.
+data PendingResource = PendingResource'
+  { -- | The Amazon resource name (ARN) of the resource that\'s in a pending
+    -- state.
+    resourceArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PendingResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PendingResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prResourceARN' - The Amazon resource name (ARN) of the resource that's in a pending state.
-pendingResource ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resourceArn', 'pendingResource_resourceArn' - The Amazon resource name (ARN) of the resource that\'s in a pending
+-- state.
+newPendingResource ::
   PendingResource
-pendingResource =
-  PendingResource' {_prResourceARN = Nothing}
+newPendingResource =
+  PendingResource' {resourceArn = Prelude.Nothing}
 
--- | The Amazon resource name (ARN) of the resource that's in a pending state.
-prResourceARN :: Lens' PendingResource (Maybe Text)
-prResourceARN = lens _prResourceARN (\s a -> s {_prResourceARN = a})
+-- | The Amazon resource name (ARN) of the resource that\'s in a pending
+-- state.
+pendingResource_resourceArn :: Lens.Lens' PendingResource (Prelude.Maybe Prelude.Text)
+pendingResource_resourceArn = Lens.lens (\PendingResource' {resourceArn} -> resourceArn) (\s@PendingResource' {} a -> s {resourceArn = a} :: PendingResource)
 
-instance FromJSON PendingResource where
+instance Prelude.FromJSON PendingResource where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PendingResource"
-      (\x -> PendingResource' <$> (x .:? "ResourceArn"))
+      ( \x ->
+          PendingResource'
+            Prelude.<$> (x Prelude..:? "ResourceArn")
+      )
 
-instance Hashable PendingResource
+instance Prelude.Hashable PendingResource
 
-instance NFData PendingResource
+instance Prelude.NFData PendingResource

@@ -11,28 +11,46 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Resource Groups__
+-- AWS Resource Groups
 --
--- AWS Resource Groups lets you organize AWS resources such as Amazon EC2 instances, Amazon Relational Database Service databases, and Amazon S3 buckets into groups using criteria that you define as tags. A resource group is a collection of resources that match the resource types specified in a query, and share one or more tags or portions of tags. You can create a group of resources based on their roles in your cloud infrastructure, lifecycle stages, regions, application layers, or virtually any criteria. Resource Groups enable you to automate management tasks, such as those in AWS Systems Manager Automation documents, on tag-related resources in AWS Systems Manager. Groups of tagged resources also let you quickly view a custom console in AWS Systems Manager that shows AWS Config compliance and other monitoring data about member resources.
+-- AWS Resource Groups lets you organize AWS resources such as Amazon EC2
+-- instances, Amazon Relational Database Service databases, and Amazon S3
+-- buckets into groups using criteria that you define as tags. A resource
+-- group is a collection of resources that match the resource types
+-- specified in a query, and share one or more tags or portions of tags.
+-- You can create a group of resources based on their roles in your cloud
+-- infrastructure, lifecycle stages, regions, application layers, or
+-- virtually any criteria. Resource Groups enable you to automate
+-- management tasks, such as those in AWS Systems Manager Automation
+-- documents, on tag-related resources in AWS Systems Manager. Groups of
+-- tagged resources also let you quickly view a custom console in AWS
+-- Systems Manager that shows AWS Config compliance and other monitoring
+-- data about member resources.
 --
--- To create a resource group, build a resource query, and specify tags that identify the criteria that members of the group have in common. Tags are key-value pairs.
+-- To create a resource group, build a resource query, and specify tags
+-- that identify the criteria that members of the group have in common.
+-- Tags are key-value pairs.
 --
--- For more information about Resource Groups, see the <https://docs.aws.amazon.com/ARG/latest/userguide/welcome.html AWS Resource Groups User Guide> .
+-- For more information about Resource Groups, see the
+-- <https://docs.aws.amazon.com/ARG/latest/userguide/welcome.html AWS Resource Groups User Guide>.
 --
--- AWS Resource Groups uses a REST-compliant API that you can use to perform the following types of operations.
+-- AWS Resource Groups uses a REST-compliant API that you can use to
+-- perform the following types of operations.
 --
---     * Create, Read, Update, and Delete (CRUD) operations on resource groups and resource query entities
+-- -   Create, Read, Update, and Delete (CRUD) operations on resource
+--     groups and resource query entities
 --
---     * Applying, editing, and removing tags from resource groups
+-- -   Applying, editing, and removing tags from resource groups
 --
---     * Resolving resource group member ARNs so they can be returned as search results
+-- -   Resolving resource group member ARNs so they can be returned as
+--     search results
 --
---     * Getting data about resources that are members of a group
+-- -   Getting data about resources that are members of a group
 --
---     * Searching AWS resources based on a resource query
+-- -   Searching AWS resources based on a resource query
 module Network.AWS.ResourceGroups
   ( -- * Service Configuration
-    resourceGroups,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -65,52 +83,100 @@ module Network.AWS.ResourceGroups
     -- $operations
 
     -- ** GetGroupConfiguration
-    module Network.AWS.ResourceGroups.GetGroupConfiguration,
+    GetGroupConfiguration (GetGroupConfiguration'),
+    newGetGroupConfiguration,
+    GetGroupConfigurationResponse (GetGroupConfigurationResponse'),
+    newGetGroupConfigurationResponse,
 
     -- ** ListGroups (Paginated)
-    module Network.AWS.ResourceGroups.ListGroups,
+    ListGroups (ListGroups'),
+    newListGroups,
+    ListGroupsResponse (ListGroupsResponse'),
+    newListGroupsResponse,
 
     -- ** PutGroupConfiguration
-    module Network.AWS.ResourceGroups.PutGroupConfiguration,
+    PutGroupConfiguration (PutGroupConfiguration'),
+    newPutGroupConfiguration,
+    PutGroupConfigurationResponse (PutGroupConfigurationResponse'),
+    newPutGroupConfigurationResponse,
 
     -- ** CreateGroup
-    module Network.AWS.ResourceGroups.CreateGroup,
+    CreateGroup (CreateGroup'),
+    newCreateGroup,
+    CreateGroupResponse (CreateGroupResponse'),
+    newCreateGroupResponse,
 
     -- ** GetGroupQuery
-    module Network.AWS.ResourceGroups.GetGroupQuery,
+    GetGroupQuery (GetGroupQuery'),
+    newGetGroupQuery,
+    GetGroupQueryResponse (GetGroupQueryResponse'),
+    newGetGroupQueryResponse,
 
     -- ** GetTags
-    module Network.AWS.ResourceGroups.GetTags,
+    GetTags (GetTags'),
+    newGetTags,
+    GetTagsResponse (GetTagsResponse'),
+    newGetTagsResponse,
 
     -- ** SearchResources (Paginated)
-    module Network.AWS.ResourceGroups.SearchResources,
+    SearchResources (SearchResources'),
+    newSearchResources,
+    SearchResourcesResponse (SearchResourcesResponse'),
+    newSearchResourcesResponse,
 
     -- ** ListGroupResources (Paginated)
-    module Network.AWS.ResourceGroups.ListGroupResources,
+    ListGroupResources (ListGroupResources'),
+    newListGroupResources,
+    ListGroupResourcesResponse (ListGroupResourcesResponse'),
+    newListGroupResourcesResponse,
 
     -- ** UpdateGroupQuery
-    module Network.AWS.ResourceGroups.UpdateGroupQuery,
+    UpdateGroupQuery (UpdateGroupQuery'),
+    newUpdateGroupQuery,
+    UpdateGroupQueryResponse (UpdateGroupQueryResponse'),
+    newUpdateGroupQueryResponse,
 
     -- ** GetGroup
-    module Network.AWS.ResourceGroups.GetGroup,
+    GetGroup (GetGroup'),
+    newGetGroup,
+    GetGroupResponse (GetGroupResponse'),
+    newGetGroupResponse,
 
     -- ** Untag
-    module Network.AWS.ResourceGroups.Untag,
+    Untag (Untag'),
+    newUntag,
+    UntagResponse (UntagResponse'),
+    newUntagResponse,
 
     -- ** UpdateGroup
-    module Network.AWS.ResourceGroups.UpdateGroup,
+    UpdateGroup (UpdateGroup'),
+    newUpdateGroup,
+    UpdateGroupResponse (UpdateGroupResponse'),
+    newUpdateGroupResponse,
 
     -- ** GroupResources
-    module Network.AWS.ResourceGroups.GroupResources,
+    GroupResources (GroupResources'),
+    newGroupResources,
+    GroupResourcesResponse (GroupResourcesResponse'),
+    newGroupResourcesResponse,
 
     -- ** DeleteGroup
-    module Network.AWS.ResourceGroups.DeleteGroup,
+    DeleteGroup (DeleteGroup'),
+    newDeleteGroup,
+    DeleteGroupResponse (DeleteGroupResponse'),
+    newDeleteGroupResponse,
 
     -- ** UngroupResources
-    module Network.AWS.ResourceGroups.UngroupResources,
+    UngroupResources (UngroupResources'),
+    newUngroupResources,
+    UngroupResourcesResponse (UngroupResourcesResponse'),
+    newUngroupResourcesResponse,
 
     -- ** Tag
-    module Network.AWS.ResourceGroups.Tag,
+    Tag (Tag'),
+    newTag,
+    TagResponse (TagResponse'),
+    newTagResponse,
 
     -- * Types
 
@@ -133,96 +199,64 @@ module Network.AWS.ResourceGroups
     ResourceStatusValue (..),
 
     -- ** FailedResource
-    FailedResource,
-    failedResource,
-    frResourceARN,
-    frErrorMessage,
-    frErrorCode,
+    FailedResource (FailedResource'),
+    newFailedResource,
 
     -- ** Group
-    Group,
-    group',
-    gDescription,
-    gGroupARN,
-    gName,
+    Group (Group'),
+    newGroup,
 
     -- ** GroupConfiguration
-    GroupConfiguration,
-    groupConfiguration,
-    gcStatus,
-    gcConfiguration,
-    gcFailureReason,
-    gcProposedConfiguration,
+    GroupConfiguration (GroupConfiguration'),
+    newGroupConfiguration,
 
     -- ** GroupConfigurationItem
-    GroupConfigurationItem,
-    groupConfigurationItem,
-    gciParameters,
-    gciType,
+    GroupConfigurationItem (GroupConfigurationItem'),
+    newGroupConfigurationItem,
 
     -- ** GroupConfigurationParameter
-    GroupConfigurationParameter,
-    groupConfigurationParameter,
-    gcpValues,
-    gcpName,
+    GroupConfigurationParameter (GroupConfigurationParameter'),
+    newGroupConfigurationParameter,
 
     -- ** GroupFilter
-    GroupFilter,
-    groupFilter,
-    gfName,
-    gfValues,
+    GroupFilter (GroupFilter'),
+    newGroupFilter,
 
     -- ** GroupIdentifier
-    GroupIdentifier,
-    groupIdentifier,
-    giGroupName,
-    giGroupARN,
+    GroupIdentifier (GroupIdentifier'),
+    newGroupIdentifier,
 
     -- ** GroupQuery
-    GroupQuery,
-    groupQuery,
-    gqGroupName,
-    gqResourceQuery,
+    GroupQuery (GroupQuery'),
+    newGroupQuery,
 
     -- ** ListGroupResourcesItem
-    ListGroupResourcesItem,
-    listGroupResourcesItem,
-    lgriStatus,
-    lgriIdentifier,
+    ListGroupResourcesItem (ListGroupResourcesItem'),
+    newListGroupResourcesItem,
 
     -- ** PendingResource
-    PendingResource,
-    pendingResource,
-    prResourceARN,
+    PendingResource (PendingResource'),
+    newPendingResource,
 
     -- ** QueryError
-    QueryError,
-    queryError,
-    qeMessage,
-    qeErrorCode,
+    QueryError (QueryError'),
+    newQueryError,
 
     -- ** ResourceFilter
-    ResourceFilter,
-    resourceFilter,
-    rfName,
-    rfValues,
+    ResourceFilter (ResourceFilter'),
+    newResourceFilter,
 
     -- ** ResourceIdentifier
-    ResourceIdentifier,
-    resourceIdentifier,
-    riResourceARN,
-    riResourceType,
+    ResourceIdentifier (ResourceIdentifier'),
+    newResourceIdentifier,
 
     -- ** ResourceQuery
-    ResourceQuery,
-    resourceQuery,
-    rqType,
-    rqSearchQuery,
+    ResourceQuery (ResourceQuery'),
+    newResourceQuery,
 
     -- ** ResourceStatus
-    ResourceStatus,
-    resourceStatus,
-    rsName,
+    ResourceStatus (ResourceStatus'),
+    newResourceStatus,
   )
 where
 
@@ -233,6 +267,7 @@ import Network.AWS.ResourceGroups.GetGroupConfiguration
 import Network.AWS.ResourceGroups.GetGroupQuery
 import Network.AWS.ResourceGroups.GetTags
 import Network.AWS.ResourceGroups.GroupResources
+import Network.AWS.ResourceGroups.Lens
 import Network.AWS.ResourceGroups.ListGroupResources
 import Network.AWS.ResourceGroups.ListGroups
 import Network.AWS.ResourceGroups.PutGroupConfiguration

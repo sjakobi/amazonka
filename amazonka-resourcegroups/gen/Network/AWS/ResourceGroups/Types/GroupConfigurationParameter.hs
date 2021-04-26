@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.GroupConfigurationParameter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A parameter for a group configuration item. For details about group service configuration syntax, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups> .
+-- | A parameter for a group configuration item. For details about group
+-- service configuration syntax, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
 --
---
---
--- /See:/ 'groupConfigurationParameter' smart constructor.
+-- /See:/ 'newGroupConfigurationParameter' smart constructor.
 data GroupConfigurationParameter = GroupConfigurationParameter'
-  { _gcpValues ::
-      !(Maybe [Text]),
-    _gcpName ::
-      !Text
+  { -- | The value or values to be used for the specified parameter. For the list
+    -- of values you can use with each parameter, see
+    -- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters>.
+    values :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the group configuration parameter. For the list of
+    -- parameters that you can use with each configuration item type, see
+    -- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters>.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupConfigurationParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupConfigurationParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcpValues' - The value or values to be used for the specified parameter. For the list of values you can use with each parameter, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcpName' - The name of the group configuration parameter. For the list of parameters that you can use with each configuration item type, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters> .
-groupConfigurationParameter ::
-  -- | 'gcpName'
-  Text ->
+-- 'values', 'groupConfigurationParameter_values' - The value or values to be used for the specified parameter. For the list
+-- of values you can use with each parameter, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters>.
+--
+-- 'name', 'groupConfigurationParameter_name' - The name of the group configuration parameter. For the list of
+-- parameters that you can use with each configuration item type, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters>.
+newGroupConfigurationParameter ::
+  -- | 'name'
+  Prelude.Text ->
   GroupConfigurationParameter
-groupConfigurationParameter pName_ =
+newGroupConfigurationParameter pName_ =
   GroupConfigurationParameter'
-    { _gcpValues = Nothing,
-      _gcpName = pName_
+    { values =
+        Prelude.Nothing,
+      name = pName_
     }
 
--- | The value or values to be used for the specified parameter. For the list of values you can use with each parameter, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters> .
-gcpValues :: Lens' GroupConfigurationParameter [Text]
-gcpValues = lens _gcpValues (\s a -> s {_gcpValues = a}) . _Default . _Coerce
+-- | The value or values to be used for the specified parameter. For the list
+-- of values you can use with each parameter, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters>.
+groupConfigurationParameter_values :: Lens.Lens' GroupConfigurationParameter (Prelude.Maybe [Prelude.Text])
+groupConfigurationParameter_values = Lens.lens (\GroupConfigurationParameter' {values} -> values) (\s@GroupConfigurationParameter' {} a -> s {values = a} :: GroupConfigurationParameter) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the group configuration parameter. For the list of parameters that you can use with each configuration item type, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters> .
-gcpName :: Lens' GroupConfigurationParameter Text
-gcpName = lens _gcpName (\s a -> s {_gcpName = a})
+-- | The name of the group configuration parameter. For the list of
+-- parameters that you can use with each configuration item type, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html#about-slg-types Supported resource types and parameters>.
+groupConfigurationParameter_name :: Lens.Lens' GroupConfigurationParameter Prelude.Text
+groupConfigurationParameter_name = Lens.lens (\GroupConfigurationParameter' {name} -> name) (\s@GroupConfigurationParameter' {} a -> s {name = a} :: GroupConfigurationParameter)
 
-instance FromJSON GroupConfigurationParameter where
+instance Prelude.FromJSON GroupConfigurationParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GroupConfigurationParameter"
       ( \x ->
           GroupConfigurationParameter'
-            <$> (x .:? "Values" .!= mempty) <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "Values" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable GroupConfigurationParameter
+instance Prelude.Hashable GroupConfigurationParameter
 
-instance NFData GroupConfigurationParameter
+instance Prelude.NFData GroupConfigurationParameter
 
-instance ToJSON GroupConfigurationParameter where
+instance Prelude.ToJSON GroupConfigurationParameter where
   toJSON GroupConfigurationParameter' {..} =
-    object
-      ( catMaybes
-          [ ("Values" .=) <$> _gcpValues,
-            Just ("Name" .= _gcpName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Values" Prelude..=) Prelude.<$> values,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )

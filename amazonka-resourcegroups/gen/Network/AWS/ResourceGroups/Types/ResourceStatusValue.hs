@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.ResourceGroups.Types.ResourceStatusValue
   ( ResourceStatusValue
       ( ..,
-        Pending
+        ResourceStatusValuePENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ResourceStatusValue
-  = ResourceStatusValue'
-      ( CI
-          Text
-      )
+newtype ResourceStatusValue = ResourceStatusValue'
+  { fromResourceStatusValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Pending :: ResourceStatusValue
-pattern Pending = ResourceStatusValue' "PENDING"
+pattern ResourceStatusValuePENDING :: ResourceStatusValue
+pattern ResourceStatusValuePENDING = ResourceStatusValue' "PENDING"
 
 {-# COMPLETE
-  Pending,
+  ResourceStatusValuePENDING,
   ResourceStatusValue'
   #-}
 
-instance FromText ResourceStatusValue where
-  parser = (ResourceStatusValue' . mk) <$> takeText
+instance Prelude.FromText ResourceStatusValue where
+  parser = ResourceStatusValue' Prelude.<$> Prelude.takeText
 
-instance ToText ResourceStatusValue where
-  toText (ResourceStatusValue' ci) = original ci
+instance Prelude.ToText ResourceStatusValue where
+  toText (ResourceStatusValue' x) = x
 
-instance Hashable ResourceStatusValue
+instance Prelude.Hashable ResourceStatusValue
 
-instance NFData ResourceStatusValue
+instance Prelude.NFData ResourceStatusValue
 
-instance ToByteString ResourceStatusValue
+instance Prelude.ToByteString ResourceStatusValue
 
-instance ToQuery ResourceStatusValue
+instance Prelude.ToQuery ResourceStatusValue
 
-instance ToHeader ResourceStatusValue
+instance Prelude.ToHeader ResourceStatusValue
 
-instance FromJSON ResourceStatusValue where
-  parseJSON = parseJSONText "ResourceStatusValue"
+instance Prelude.FromJSON ResourceStatusValue where
+  parseJSON = Prelude.parseJSONText "ResourceStatusValue"

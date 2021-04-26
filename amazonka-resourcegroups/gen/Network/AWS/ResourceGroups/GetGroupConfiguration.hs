@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,141 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the service configuration associated with the specified resource group. For details about the service configuration syntax, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups> .
---
+-- Returns the service configuration associated with the specified resource
+-- group. For details about the service configuration syntax, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * @resource-groups:GetGroupConfiguration@
+-- -   @resource-groups:GetGroupConfiguration@
 module Network.AWS.ResourceGroups.GetGroupConfiguration
   ( -- * Creating a Request
-    getGroupConfiguration,
-    GetGroupConfiguration,
+    GetGroupConfiguration (..),
+    newGetGroupConfiguration,
 
     -- * Request Lenses
-    ggcGroup,
+    getGroupConfiguration_group,
 
     -- * Destructuring the Response
-    getGroupConfigurationResponse,
-    GetGroupConfigurationResponse,
+    GetGroupConfigurationResponse (..),
+    newGetGroupConfigurationResponse,
 
     -- * Response Lenses
-    ggcrrsGroupConfiguration,
-    ggcrrsResponseStatus,
+    getGroupConfigurationResponse_groupConfiguration,
+    getGroupConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.Response
+import Network.AWS.ResourceGroups.Types.GroupConfiguration
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGroupConfiguration' smart constructor.
-newtype GetGroupConfiguration = GetGroupConfiguration'
-  { _ggcGroup ::
-      Maybe Text
+-- | /See:/ 'newGetGroupConfiguration' smart constructor.
+data GetGroupConfiguration = GetGroupConfiguration'
+  { -- | The name or the ARN of the resource group.
+    group' :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggcGroup' - The name or the ARN of the resource group.
-getGroupConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'group'', 'getGroupConfiguration_group' - The name or the ARN of the resource group.
+newGetGroupConfiguration ::
   GetGroupConfiguration
-getGroupConfiguration =
-  GetGroupConfiguration' {_ggcGroup = Nothing}
+newGetGroupConfiguration =
+  GetGroupConfiguration' {group' = Prelude.Nothing}
 
 -- | The name or the ARN of the resource group.
-ggcGroup :: Lens' GetGroupConfiguration (Maybe Text)
-ggcGroup = lens _ggcGroup (\s a -> s {_ggcGroup = a})
+getGroupConfiguration_group :: Lens.Lens' GetGroupConfiguration (Prelude.Maybe Prelude.Text)
+getGroupConfiguration_group = Lens.lens (\GetGroupConfiguration' {group'} -> group') (\s@GetGroupConfiguration' {} a -> s {group' = a} :: GetGroupConfiguration)
 
-instance AWSRequest GetGroupConfiguration where
+instance Prelude.AWSRequest GetGroupConfiguration where
   type
     Rs GetGroupConfiguration =
       GetGroupConfigurationResponse
-  request = postJSON resourceGroups
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGroupConfigurationResponse'
-            <$> (x .?> "GroupConfiguration") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GroupConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGroupConfiguration
+instance Prelude.Hashable GetGroupConfiguration
 
-instance NFData GetGroupConfiguration
+instance Prelude.NFData GetGroupConfiguration
 
-instance ToHeaders GetGroupConfiguration where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetGroupConfiguration where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetGroupConfiguration where
+instance Prelude.ToJSON GetGroupConfiguration where
   toJSON GetGroupConfiguration' {..} =
-    object (catMaybes [("Group" .=) <$> _ggcGroup])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Group" Prelude..=) Prelude.<$> group']
+      )
 
-instance ToPath GetGroupConfiguration where
-  toPath = const "/get-group-configuration"
+instance Prelude.ToPath GetGroupConfiguration where
+  toPath = Prelude.const "/get-group-configuration"
 
-instance ToQuery GetGroupConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGroupConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGroupConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetGroupConfigurationResponse' smart constructor.
 data GetGroupConfigurationResponse = GetGroupConfigurationResponse'
-  { _ggcrrsGroupConfiguration ::
-      !( Maybe
-           GroupConfiguration
-       ),
-    _ggcrrsResponseStatus ::
-      !Int
+  { -- | The service configuration associated with the specified group. For
+    -- details about the service configuration syntax, see
+    -- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
+    groupConfiguration :: Prelude.Maybe GroupConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggcrrsGroupConfiguration' - The service configuration associated with the specified group. For details about the service configuration syntax, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggcrrsResponseStatus' - -- | The response status code.
-getGroupConfigurationResponse ::
-  -- | 'ggcrrsResponseStatus'
-  Int ->
+-- 'groupConfiguration', 'getGroupConfigurationResponse_groupConfiguration' - The service configuration associated with the specified group. For
+-- details about the service configuration syntax, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
+--
+-- 'httpStatus', 'getGroupConfigurationResponse_httpStatus' - The response's http status code.
+newGetGroupConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGroupConfigurationResponse
-getGroupConfigurationResponse pResponseStatus_ =
+newGetGroupConfigurationResponse pHttpStatus_ =
   GetGroupConfigurationResponse'
-    { _ggcrrsGroupConfiguration =
-        Nothing,
-      _ggcrrsResponseStatus = pResponseStatus_
+    { groupConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The service configuration associated with the specified group. For details about the service configuration syntax, see <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups> .
-ggcrrsGroupConfiguration :: Lens' GetGroupConfigurationResponse (Maybe GroupConfiguration)
-ggcrrsGroupConfiguration = lens _ggcrrsGroupConfiguration (\s a -> s {_ggcrrsGroupConfiguration = a})
+-- | The service configuration associated with the specified group. For
+-- details about the service configuration syntax, see
+-- <https://docs.aws.amazon.com/ARG/latest/APIReference/about-slg.html Service configurations for resource groups>.
+getGroupConfigurationResponse_groupConfiguration :: Lens.Lens' GetGroupConfigurationResponse (Prelude.Maybe GroupConfiguration)
+getGroupConfigurationResponse_groupConfiguration = Lens.lens (\GetGroupConfigurationResponse' {groupConfiguration} -> groupConfiguration) (\s@GetGroupConfigurationResponse' {} a -> s {groupConfiguration = a} :: GetGroupConfigurationResponse)
 
--- | -- | The response status code.
-ggcrrsResponseStatus :: Lens' GetGroupConfigurationResponse Int
-ggcrrsResponseStatus = lens _ggcrrsResponseStatus (\s a -> s {_ggcrrsResponseStatus = a})
+-- | The response's http status code.
+getGroupConfigurationResponse_httpStatus :: Lens.Lens' GetGroupConfigurationResponse Prelude.Int
+getGroupConfigurationResponse_httpStatus = Lens.lens (\GetGroupConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetGroupConfigurationResponse' {} a -> s {httpStatus = a} :: GetGroupConfigurationResponse)
 
-instance NFData GetGroupConfigurationResponse
+instance Prelude.NFData GetGroupConfigurationResponse

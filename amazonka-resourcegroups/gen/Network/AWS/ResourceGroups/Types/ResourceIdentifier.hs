@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.ResourceIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A structure that contains the ARN of a resource and its resource type.
 --
---
---
--- /See:/ 'resourceIdentifier' smart constructor.
+-- /See:/ 'newResourceIdentifier' smart constructor.
 data ResourceIdentifier = ResourceIdentifier'
-  { _riResourceARN ::
-      !(Maybe Text),
-    _riResourceType :: !(Maybe Text)
+  { -- | The ARN of a resource.
+    resourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The resource type of a resource, such as @AWS::EC2::Instance@.
+    resourceType :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riResourceARN' - The ARN of a resource.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riResourceType' - The resource type of a resource, such as @AWS::EC2::Instance@ .
-resourceIdentifier ::
+-- 'resourceArn', 'resourceIdentifier_resourceArn' - The ARN of a resource.
+--
+-- 'resourceType', 'resourceIdentifier_resourceType' - The resource type of a resource, such as @AWS::EC2::Instance@.
+newResourceIdentifier ::
   ResourceIdentifier
-resourceIdentifier =
+newResourceIdentifier =
   ResourceIdentifier'
-    { _riResourceARN = Nothing,
-      _riResourceType = Nothing
+    { resourceArn = Prelude.Nothing,
+      resourceType = Prelude.Nothing
     }
 
 -- | The ARN of a resource.
-riResourceARN :: Lens' ResourceIdentifier (Maybe Text)
-riResourceARN = lens _riResourceARN (\s a -> s {_riResourceARN = a})
+resourceIdentifier_resourceArn :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
+resourceIdentifier_resourceArn = Lens.lens (\ResourceIdentifier' {resourceArn} -> resourceArn) (\s@ResourceIdentifier' {} a -> s {resourceArn = a} :: ResourceIdentifier)
 
--- | The resource type of a resource, such as @AWS::EC2::Instance@ .
-riResourceType :: Lens' ResourceIdentifier (Maybe Text)
-riResourceType = lens _riResourceType (\s a -> s {_riResourceType = a})
+-- | The resource type of a resource, such as @AWS::EC2::Instance@.
+resourceIdentifier_resourceType :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
+resourceIdentifier_resourceType = Lens.lens (\ResourceIdentifier' {resourceType} -> resourceType) (\s@ResourceIdentifier' {} a -> s {resourceType = a} :: ResourceIdentifier)
 
-instance FromJSON ResourceIdentifier where
+instance Prelude.FromJSON ResourceIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceIdentifier"
       ( \x ->
           ResourceIdentifier'
-            <$> (x .:? "ResourceArn") <*> (x .:? "ResourceType")
+            Prelude.<$> (x Prelude..:? "ResourceArn")
+            Prelude.<*> (x Prelude..:? "ResourceType")
       )
 
-instance Hashable ResourceIdentifier
+instance Prelude.Hashable ResourceIdentifier
 
-instance NFData ResourceIdentifier
+instance Prelude.NFData ResourceIdentifier

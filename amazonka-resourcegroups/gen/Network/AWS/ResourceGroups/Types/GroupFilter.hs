@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.GroupFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ResourceGroups.Types.GroupFilterName
 
--- | A filter collection that you can use to restrict the results from a @List@ operation to only those you want to include.
+-- | A filter collection that you can use to restrict the results from a
+-- @List@ operation to only those you want to include.
 --
---
---
--- /See:/ 'groupFilter' smart constructor.
+-- /See:/ 'newGroupFilter' smart constructor.
 data GroupFilter = GroupFilter'
-  { _gfName ::
-      !GroupFilterName,
-    _gfValues :: !(List1 Text)
+  { -- | The name of the filter. Filter names are case-sensitive.
+    name :: GroupFilterName,
+    -- | One or more filter values. Allowed filter values vary by group filter
+    -- name, and are case-sensitive.
+    values :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gfName' - The name of the filter. Filter names are case-sensitive.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gfValues' - One or more filter values. Allowed filter values vary by group filter name, and are case-sensitive.
-groupFilter ::
-  -- | 'gfName'
+-- 'name', 'groupFilter_name' - The name of the filter. Filter names are case-sensitive.
+--
+-- 'values', 'groupFilter_values' - One or more filter values. Allowed filter values vary by group filter
+-- name, and are case-sensitive.
+newGroupFilter ::
+  -- | 'name'
   GroupFilterName ->
-  -- | 'gfValues'
-  NonEmpty Text ->
+  -- | 'values'
+  Prelude.NonEmpty Prelude.Text ->
   GroupFilter
-groupFilter pName_ pValues_ =
+newGroupFilter pName_ pValues_ =
   GroupFilter'
-    { _gfName = pName_,
-      _gfValues = _List1 # pValues_
+    { name = pName_,
+      values = Prelude._List1 Lens.# pValues_
     }
 
 -- | The name of the filter. Filter names are case-sensitive.
-gfName :: Lens' GroupFilter GroupFilterName
-gfName = lens _gfName (\s a -> s {_gfName = a})
+groupFilter_name :: Lens.Lens' GroupFilter GroupFilterName
+groupFilter_name = Lens.lens (\GroupFilter' {name} -> name) (\s@GroupFilter' {} a -> s {name = a} :: GroupFilter)
 
--- | One or more filter values. Allowed filter values vary by group filter name, and are case-sensitive.
-gfValues :: Lens' GroupFilter (NonEmpty Text)
-gfValues = lens _gfValues (\s a -> s {_gfValues = a}) . _List1
+-- | One or more filter values. Allowed filter values vary by group filter
+-- name, and are case-sensitive.
+groupFilter_values :: Lens.Lens' GroupFilter (Prelude.NonEmpty Prelude.Text)
+groupFilter_values = Lens.lens (\GroupFilter' {values} -> values) (\s@GroupFilter' {} a -> s {values = a} :: GroupFilter) Prelude.. Prelude._List1
 
-instance Hashable GroupFilter
+instance Prelude.Hashable GroupFilter
 
-instance NFData GroupFilter
+instance Prelude.NFData GroupFilter
 
-instance ToJSON GroupFilter where
+instance Prelude.ToJSON GroupFilter where
   toJSON GroupFilter' {..} =
-    object
-      ( catMaybes
-          [ Just ("Name" .= _gfName),
-            Just ("Values" .= _gfValues)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just ("Values" Prelude..= values)
           ]
       )

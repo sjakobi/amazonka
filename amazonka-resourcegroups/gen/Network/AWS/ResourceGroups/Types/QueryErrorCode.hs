@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ResourceGroups.Types.QueryErrorCode
   ( QueryErrorCode
       ( ..,
-        CloudformationStackInactive,
-        CloudformationStackNotExisting
+        QueryErrorCodeCLOUDFORMATIONSTACKINACTIVE,
+        QueryErrorCodeCLOUDFORMATIONSTACKNOTEXISTING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data QueryErrorCode = QueryErrorCode' (CI Text)
+newtype QueryErrorCode = QueryErrorCode'
+  { fromQueryErrorCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CloudformationStackInactive :: QueryErrorCode
-pattern CloudformationStackInactive = QueryErrorCode' "CLOUDFORMATION_STACK_INACTIVE"
+pattern QueryErrorCodeCLOUDFORMATIONSTACKINACTIVE :: QueryErrorCode
+pattern QueryErrorCodeCLOUDFORMATIONSTACKINACTIVE = QueryErrorCode' "CLOUDFORMATION_STACK_INACTIVE"
 
-pattern CloudformationStackNotExisting :: QueryErrorCode
-pattern CloudformationStackNotExisting = QueryErrorCode' "CLOUDFORMATION_STACK_NOT_EXISTING"
+pattern QueryErrorCodeCLOUDFORMATIONSTACKNOTEXISTING :: QueryErrorCode
+pattern QueryErrorCodeCLOUDFORMATIONSTACKNOTEXISTING = QueryErrorCode' "CLOUDFORMATION_STACK_NOT_EXISTING"
 
 {-# COMPLETE
-  CloudformationStackInactive,
-  CloudformationStackNotExisting,
+  QueryErrorCodeCLOUDFORMATIONSTACKINACTIVE,
+  QueryErrorCodeCLOUDFORMATIONSTACKNOTEXISTING,
   QueryErrorCode'
   #-}
 
-instance FromText QueryErrorCode where
-  parser = (QueryErrorCode' . mk) <$> takeText
+instance Prelude.FromText QueryErrorCode where
+  parser = QueryErrorCode' Prelude.<$> Prelude.takeText
 
-instance ToText QueryErrorCode where
-  toText (QueryErrorCode' ci) = original ci
+instance Prelude.ToText QueryErrorCode where
+  toText (QueryErrorCode' x) = x
 
-instance Hashable QueryErrorCode
+instance Prelude.Hashable QueryErrorCode
 
-instance NFData QueryErrorCode
+instance Prelude.NFData QueryErrorCode
 
-instance ToByteString QueryErrorCode
+instance Prelude.ToByteString QueryErrorCode
 
-instance ToQuery QueryErrorCode
+instance Prelude.ToQuery QueryErrorCode
 
-instance ToHeader QueryErrorCode
+instance Prelude.ToHeader QueryErrorCode
 
-instance FromJSON QueryErrorCode where
-  parseJSON = parseJSONText "QueryErrorCode"
+instance Prelude.FromJSON QueryErrorCode where
+  parseJSON = Prelude.parseJSONText "QueryErrorCode"

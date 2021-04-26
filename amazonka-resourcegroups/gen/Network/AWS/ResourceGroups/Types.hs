@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types
   ( -- * Service Configuration
-    resourceGroups,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -42,100 +45,68 @@ module Network.AWS.ResourceGroups.Types
 
     -- * FailedResource
     FailedResource (..),
-    failedResource,
-    frResourceARN,
-    frErrorMessage,
-    frErrorCode,
+    newFailedResource,
 
     -- * Group
     Group (..),
-    group',
-    gDescription,
-    gGroupARN,
-    gName,
+    newGroup,
 
     -- * GroupConfiguration
     GroupConfiguration (..),
-    groupConfiguration,
-    gcStatus,
-    gcConfiguration,
-    gcFailureReason,
-    gcProposedConfiguration,
+    newGroupConfiguration,
 
     -- * GroupConfigurationItem
     GroupConfigurationItem (..),
-    groupConfigurationItem,
-    gciParameters,
-    gciType,
+    newGroupConfigurationItem,
 
     -- * GroupConfigurationParameter
     GroupConfigurationParameter (..),
-    groupConfigurationParameter,
-    gcpValues,
-    gcpName,
+    newGroupConfigurationParameter,
 
     -- * GroupFilter
     GroupFilter (..),
-    groupFilter,
-    gfName,
-    gfValues,
+    newGroupFilter,
 
     -- * GroupIdentifier
     GroupIdentifier (..),
-    groupIdentifier,
-    giGroupName,
-    giGroupARN,
+    newGroupIdentifier,
 
     -- * GroupQuery
     GroupQuery (..),
-    groupQuery,
-    gqGroupName,
-    gqResourceQuery,
+    newGroupQuery,
 
     -- * ListGroupResourcesItem
     ListGroupResourcesItem (..),
-    listGroupResourcesItem,
-    lgriStatus,
-    lgriIdentifier,
+    newListGroupResourcesItem,
 
     -- * PendingResource
     PendingResource (..),
-    pendingResource,
-    prResourceARN,
+    newPendingResource,
 
     -- * QueryError
     QueryError (..),
-    queryError,
-    qeMessage,
-    qeErrorCode,
+    newQueryError,
 
     -- * ResourceFilter
     ResourceFilter (..),
-    resourceFilter,
-    rfName,
-    rfValues,
+    newResourceFilter,
 
     -- * ResourceIdentifier
     ResourceIdentifier (..),
-    resourceIdentifier,
-    riResourceARN,
-    riResourceType,
+    newResourceIdentifier,
 
     -- * ResourceQuery
     ResourceQuery (..),
-    resourceQuery,
-    rqType,
-    rqSearchQuery,
+    newResourceQuery,
 
     -- * ResourceStatus
     ResourceStatus (..),
-    resourceStatus,
-    rsName,
+    newResourceStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ResourceGroups.Types.FailedResource
 import Network.AWS.ResourceGroups.Types.Group
 import Network.AWS.ResourceGroups.Types.GroupConfiguration
@@ -157,111 +128,136 @@ import Network.AWS.ResourceGroups.Types.ResourceIdentifier
 import Network.AWS.ResourceGroups.Types.ResourceQuery
 import Network.AWS.ResourceGroups.Types.ResourceStatus
 import Network.AWS.ResourceGroups.Types.ResourceStatusValue
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-11-27@ of the Amazon Resource Groups SDK configuration.
-resourceGroups :: Service
-resourceGroups =
-  Service
-    { _svcAbbrev = "ResourceGroups",
-      _svcSigner = v4,
-      _svcPrefix = "resource-groups",
-      _svcVersion = "2017-11-27",
-      _svcEndpoint = defaultEndpoint resourceGroups,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "ResourceGroups",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "ResourceGroups",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "resource-groups",
+      Prelude._svcVersion = "2017-11-27",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "ResourceGroups",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | One or more of the specified resources don't exist.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | One or more of the specified resources don\'t exist.
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError
-    resourceGroups
+  Prelude._MatchServiceError
+    defaultService
     "NotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
--- | The request includes one or more parameters that violate validation rules.
-_BadRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request includes one or more parameters that violate validation
+-- rules.
+_BadRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BadRequestException =
-  _MatchServiceError
-    resourceGroups
+  Prelude._MatchServiceError
+    defaultService
     "BadRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
--- | The request was rejected because it doesn't have valid credentials for the target resource.
-_UnauthorizedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request was rejected because it doesn\'t have valid credentials for
+-- the target resource.
+_UnauthorizedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedException =
-  _MatchServiceError
-    resourceGroups
+  Prelude._MatchServiceError
+    defaultService
     "UnauthorizedException"
-    . hasStatus 401
+    Prelude.. Prelude.hasStatus 401
 
--- | An internal error occurred while processing the request. Try again later.
-_InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An internal error occurred while processing the request. Try again
+-- later.
+_InternalServerErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerErrorException =
-  _MatchServiceError
-    resourceGroups
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerErrorException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
--- | The caller isn't authorized to make the request. Check permissions.
-_ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The caller isn\'t authorized to make the request. Check permissions.
+_ForbiddenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ForbiddenException =
-  _MatchServiceError
-    resourceGroups
+  Prelude._MatchServiceError
+    defaultService
     "ForbiddenException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
--- | The request uses an HTTP method that isn't allowed for the specified resource.
-_MethodNotAllowedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request uses an HTTP method that isn\'t allowed for the specified
+-- resource.
+_MethodNotAllowedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _MethodNotAllowedException =
-  _MatchServiceError
-    resourceGroups
+  Prelude._MatchServiceError
+    defaultService
     "MethodNotAllowedException"
-    . hasStatus 405
+    Prelude.. Prelude.hasStatus 405
 
--- | You've exceeded throttling limits by making too many requests in a period of time.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You\'ve exceeded throttling limits by making too many requests in a
+-- period of time.
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    resourceGroups
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429

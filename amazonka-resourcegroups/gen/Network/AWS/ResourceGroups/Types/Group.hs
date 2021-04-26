@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.Group where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A resource group that contains AWS resources. You can assign resources to the group by associating either of the following elements with the group:
+-- | A resource group that contains AWS resources. You can assign resources
+-- to the group by associating either of the following elements with the
+-- group:
 --
+-- -   ResourceQuery - Use a resource query to specify a set of tag keys
+--     and values. All resources in the same AWS Region and AWS account
+--     that have those keys with the same values are included in the group.
+--     You can add a resource query when you create the group, or later by
+--     using the PutGroupConfiguration operation.
 --
---     * 'ResourceQuery' - Use a resource query to specify a set of tag keys and values. All resources in the same AWS Region and AWS account that have those keys with the same values are included in the group. You can add a resource query when you create the group, or later by using the 'PutGroupConfiguration' operation.
+-- -   GroupConfiguration - Use a service configuration to associate the
+--     group with an AWS service. The configuration specifies which
+--     resource types can be included in the group.
 --
---     * 'GroupConfiguration' - Use a service configuration to associate the group with an AWS service. The configuration specifies which resource types can be included in the group.
---
---
---
---
--- /See:/ 'group'' smart constructor.
+-- /See:/ 'newGroup' smart constructor.
 data Group = Group'
-  { _gDescription :: !(Maybe Text),
-    _gGroupARN :: !Text,
-    _gName :: !Text
+  { -- | The description of the resource group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the resource group.
+    groupArn :: Prelude.Text,
+    -- | The name of the resource group.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Group' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Group' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gDescription' - The description of the resource group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gGroupARN' - The ARN of the resource group.
+-- 'description', 'group_description' - The description of the resource group.
 --
--- * 'gName' - The name of the resource group.
-group' ::
-  -- | 'gGroupARN'
-  Text ->
-  -- | 'gName'
-  Text ->
+-- 'groupArn', 'group_groupArn' - The ARN of the resource group.
+--
+-- 'name', 'group_name' - The name of the resource group.
+newGroup ::
+  -- | 'groupArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   Group
-group' pGroupARN_ pName_ =
+newGroup pGroupArn_ pName_ =
   Group'
-    { _gDescription = Nothing,
-      _gGroupARN = pGroupARN_,
-      _gName = pName_
+    { description = Prelude.Nothing,
+      groupArn = pGroupArn_,
+      name = pName_
     }
 
 -- | The description of the resource group.
-gDescription :: Lens' Group (Maybe Text)
-gDescription = lens _gDescription (\s a -> s {_gDescription = a})
+group_description :: Lens.Lens' Group (Prelude.Maybe Prelude.Text)
+group_description = Lens.lens (\Group' {description} -> description) (\s@Group' {} a -> s {description = a} :: Group)
 
 -- | The ARN of the resource group.
-gGroupARN :: Lens' Group Text
-gGroupARN = lens _gGroupARN (\s a -> s {_gGroupARN = a})
+group_groupArn :: Lens.Lens' Group Prelude.Text
+group_groupArn = Lens.lens (\Group' {groupArn} -> groupArn) (\s@Group' {} a -> s {groupArn = a} :: Group)
 
 -- | The name of the resource group.
-gName :: Lens' Group Text
-gName = lens _gName (\s a -> s {_gName = a})
+group_name :: Lens.Lens' Group Prelude.Text
+group_name = Lens.lens (\Group' {name} -> name) (\s@Group' {} a -> s {name = a} :: Group)
 
-instance FromJSON Group where
+instance Prelude.FromJSON Group where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Group"
       ( \x ->
           Group'
-            <$> (x .:? "Description")
-            <*> (x .: "GroupArn")
-            <*> (x .: "Name")
+            Prelude.<$> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..: "GroupArn")
+            Prelude.<*> (x Prelude..: "Name")
       )
 
-instance Hashable Group
+instance Prelude.Hashable Group
 
-instance NFData Group
+instance Prelude.NFData Group

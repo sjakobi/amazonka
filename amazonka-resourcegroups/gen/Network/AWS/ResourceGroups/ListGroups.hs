@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,175 +23,306 @@
 --
 -- Returns a list of existing resource groups in your account.
 --
---
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * @resource-groups:ListGroups@
---
---
---
+-- -   @resource-groups:ListGroups@
 --
 -- This operation returns paginated results.
 module Network.AWS.ResourceGroups.ListGroups
   ( -- * Creating a Request
-    listGroups,
-    ListGroups,
+    ListGroups (..),
+    newListGroups,
 
     -- * Request Lenses
-    lgNextToken,
-    lgMaxResults,
-    lgFilters,
+    listGroups_nextToken,
+    listGroups_maxResults,
+    listGroups_filters,
 
     -- * Destructuring the Response
-    listGroupsResponse,
-    ListGroupsResponse,
+    ListGroupsResponse (..),
+    newListGroupsResponse,
 
     -- * Response Lenses
-    lgrrsGroups,
-    lgrrsNextToken,
-    lgrrsGroupIdentifiers,
-    lgrrsResponseStatus,
+    listGroupsResponse_groups,
+    listGroupsResponse_nextToken,
+    listGroupsResponse_groupIdentifiers,
+    listGroupsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.Response
+import Network.AWS.ResourceGroups.Types.Group
+import Network.AWS.ResourceGroups.Types.GroupIdentifier
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listGroups' smart constructor.
+-- | /See:/ 'newListGroups' smart constructor.
 data ListGroups = ListGroups'
-  { _lgNextToken ::
-      !(Maybe Text),
-    _lgMaxResults :: !(Maybe Nat),
-    _lgFilters :: !(Maybe [GroupFilter])
+  { -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- provided by a previous call\'s @NextToken@ response to indicate where
+    -- the output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of results that you want included on each page of the
+    -- response. If you do not include this parameter, it defaults to a value
+    -- that is specific to the operation. If additional items exist beyond the
+    -- maximum you specify, the @NextToken@ response element is present and has
+    -- a value (is not null). Include that value as the @NextToken@ request
+    -- parameter in the next call to the operation to get the next part of the
+    -- results. Note that the service might return fewer results than the
+    -- maximum even when there are more results available. You should check
+    -- @NextToken@ after every operation to ensure that you receive all of the
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filters, formatted as GroupFilter objects, that you want to apply to a
+    -- @ListGroups@ operation.
+    --
+    -- -   @resource-type@ - Filter the results to include only those of the
+    --     specified resource types. Specify up to five resource types in the
+    --     format @AWS::ServiceCode::ResourceType @. For example,
+    --     @AWS::EC2::Instance@, or @AWS::S3::Bucket@.
+    --
+    -- -   @configuration-type@ - Filter the results to include only those
+    --     groups that have the specified configuration types attached. The
+    --     current supported values are:
+    --
+    --     -   @AWS:EC2::CapacityReservationPool@
+    --
+    --     -   @AWS:EC2::HostManagement@
+    filters :: Prelude.Maybe [GroupFilter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgNextToken' - The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value provided by a previous call's @NextToken@ response to indicate where the output should continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgMaxResults' - The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that the service might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
+-- 'nextToken', 'listGroups_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
 --
--- * 'lgFilters' - Filters, formatted as 'GroupFilter' objects, that you want to apply to a @ListGroups@ operation.     * @resource-type@ - Filter the results to include only those of the specified resource types. Specify up to five resource types in the format @AWS::/ServiceCode/ ::/ResourceType/ @ . For example, @AWS::EC2::Instance@ , or @AWS::S3::Bucket@ .     * @configuration-type@ - Filter the results to include only those groups that have the specified configuration types attached. The current supported values are:     * @AWS:EC2::CapacityReservationPool@      * @AWS:EC2::HostManagement@
-listGroups ::
+-- 'maxResults', 'listGroups_maxResults' - The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that the service might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+--
+-- 'filters', 'listGroups_filters' - Filters, formatted as GroupFilter objects, that you want to apply to a
+-- @ListGroups@ operation.
+--
+-- -   @resource-type@ - Filter the results to include only those of the
+--     specified resource types. Specify up to five resource types in the
+--     format @AWS::ServiceCode::ResourceType @. For example,
+--     @AWS::EC2::Instance@, or @AWS::S3::Bucket@.
+--
+-- -   @configuration-type@ - Filter the results to include only those
+--     groups that have the specified configuration types attached. The
+--     current supported values are:
+--
+--     -   @AWS:EC2::CapacityReservationPool@
+--
+--     -   @AWS:EC2::HostManagement@
+newListGroups ::
   ListGroups
-listGroups =
+newListGroups =
   ListGroups'
-    { _lgNextToken = Nothing,
-      _lgMaxResults = Nothing,
-      _lgFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | The parameter for receiving additional results if you receive a @NextToken@ response in a previous request. A @NextToken@ response indicates that more output is available. Set this parameter to the value provided by a previous call's @NextToken@ response to indicate where the output should continue from.
-lgNextToken :: Lens' ListGroups (Maybe Text)
-lgNextToken = lens _lgNextToken (\s a -> s {_lgNextToken = a})
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- provided by a previous call\'s @NextToken@ response to indicate where
+-- the output should continue from.
+listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
+listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
 
--- | The total number of results that you want included on each page of the response. If you do not include this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the maximum you specify, the @NextToken@ response element is present and has a value (is not null). Include that value as the @NextToken@ request parameter in the next call to the operation to get the next part of the results. Note that the service might return fewer results than the maximum even when there are more results available. You should check @NextToken@ after every operation to ensure that you receive all of the results.
-lgMaxResults :: Lens' ListGroups (Maybe Natural)
-lgMaxResults = lens _lgMaxResults (\s a -> s {_lgMaxResults = a}) . mapping _Nat
+-- | The total number of results that you want included on each page of the
+-- response. If you do not include this parameter, it defaults to a value
+-- that is specific to the operation. If additional items exist beyond the
+-- maximum you specify, the @NextToken@ response element is present and has
+-- a value (is not null). Include that value as the @NextToken@ request
+-- parameter in the next call to the operation to get the next part of the
+-- results. Note that the service might return fewer results than the
+-- maximum even when there are more results available. You should check
+-- @NextToken@ after every operation to ensure that you receive all of the
+-- results.
+listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Natural)
+listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filters, formatted as 'GroupFilter' objects, that you want to apply to a @ListGroups@ operation.     * @resource-type@ - Filter the results to include only those of the specified resource types. Specify up to five resource types in the format @AWS::/ServiceCode/ ::/ResourceType/ @ . For example, @AWS::EC2::Instance@ , or @AWS::S3::Bucket@ .     * @configuration-type@ - Filter the results to include only those groups that have the specified configuration types attached. The current supported values are:     * @AWS:EC2::CapacityReservationPool@      * @AWS:EC2::HostManagement@
-lgFilters :: Lens' ListGroups [GroupFilter]
-lgFilters = lens _lgFilters (\s a -> s {_lgFilters = a}) . _Default . _Coerce
+-- | Filters, formatted as GroupFilter objects, that you want to apply to a
+-- @ListGroups@ operation.
+--
+-- -   @resource-type@ - Filter the results to include only those of the
+--     specified resource types. Specify up to five resource types in the
+--     format @AWS::ServiceCode::ResourceType @. For example,
+--     @AWS::EC2::Instance@, or @AWS::S3::Bucket@.
+--
+-- -   @configuration-type@ - Filter the results to include only those
+--     groups that have the specified configuration types attached. The
+--     current supported values are:
+--
+--     -   @AWS:EC2::CapacityReservationPool@
+--
+--     -   @AWS:EC2::HostManagement@
+listGroups_filters :: Lens.Lens' ListGroups (Prelude.Maybe [GroupFilter])
+listGroups_filters = Lens.lens (\ListGroups' {filters} -> filters) (\s@ListGroups' {} a -> s {filters = a} :: ListGroups) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager ListGroups where
+instance Pager.AWSPager ListGroups where
   page rq rs
-    | stop (rs ^. lgrrsNextToken) = Nothing
-    | stop (rs ^. lgrrsGroupIdentifiers) = Nothing
-    | stop (rs ^. lgrrsGroups) = Nothing
-    | otherwise =
-      Just $ rq & lgNextToken .~ rs ^. lgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listGroupsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listGroupsResponse_groupIdentifiers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listGroupsResponse_groups Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listGroups_nextToken
+          Lens..~ rs
+          Lens.^? listGroupsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListGroups where
+instance Prelude.AWSRequest ListGroups where
   type Rs ListGroups = ListGroupsResponse
-  request = postJSON resourceGroups
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListGroupsResponse'
-            <$> (x .?> "Groups" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (x .?> "GroupIdentifiers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Groups" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "GroupIdentifiers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListGroups
+instance Prelude.Hashable ListGroups
 
-instance NFData ListGroups
+instance Prelude.NFData ListGroups
 
-instance ToHeaders ListGroups where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListGroups where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON ListGroups where
+instance Prelude.ToJSON ListGroups where
   toJSON ListGroups' {..} =
-    object (catMaybes [("Filters" .=) <$> _lgFilters])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("Filters" Prelude..=) Prelude.<$> filters]
+      )
 
-instance ToPath ListGroups where
-  toPath = const "/groups-list"
+instance Prelude.ToPath ListGroups where
+  toPath = Prelude.const "/groups-list"
 
-instance ToQuery ListGroups where
+instance Prelude.ToQuery ListGroups where
   toQuery ListGroups' {..} =
-    mconcat
-      [ "nextToken" =: _lgNextToken,
-        "maxResults" =: _lgMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
--- | /See:/ 'listGroupsResponse' smart constructor.
+-- | /See:/ 'newListGroupsResponse' smart constructor.
 data ListGroupsResponse = ListGroupsResponse'
-  { _lgrrsGroups ::
-      !(Maybe [Group]),
-    _lgrrsNextToken :: !(Maybe Text),
-    _lgrrsGroupIdentifiers ::
-      !(Maybe [GroupIdentifier]),
-    _lgrrsResponseStatus :: !Int
+  { -- | /__Deprecated - don\'t use this field. Use the @GroupIdentifiers@
+    -- response field instead.__/
+    groups :: Prelude.Maybe [Group],
+    -- | If present, indicates that more output is available than is included in
+    -- the current response. Use this value in the @NextToken@ request
+    -- parameter in a subsequent call to the operation to get the next part of
+    -- the output. You should repeat this until the @NextToken@ response
+    -- element comes back as @null@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of GroupIdentifier objects. Each identifier is an object that
+    -- contains both the @Name@ and the @GroupArn@.
+    groupIdentifiers :: Prelude.Maybe [GroupIdentifier],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgrrsGroups' - /Important:/ /__Deprecated - don't use this field. Use the @GroupIdentifiers@ response field instead.__ /
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgrrsNextToken' - If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
+-- 'groups', 'listGroupsResponse_groups' - /__Deprecated - don\'t use this field. Use the @GroupIdentifiers@
+-- response field instead.__/
 --
--- * 'lgrrsGroupIdentifiers' - A list of 'GroupIdentifier' objects. Each identifier is an object that contains both the @Name@ and the @GroupArn@ .
+-- 'nextToken', 'listGroupsResponse_nextToken' - If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
 --
--- * 'lgrrsResponseStatus' - -- | The response status code.
-listGroupsResponse ::
-  -- | 'lgrrsResponseStatus'
-  Int ->
+-- 'groupIdentifiers', 'listGroupsResponse_groupIdentifiers' - A list of GroupIdentifier objects. Each identifier is an object that
+-- contains both the @Name@ and the @GroupArn@.
+--
+-- 'httpStatus', 'listGroupsResponse_httpStatus' - The response's http status code.
+newListGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListGroupsResponse
-listGroupsResponse pResponseStatus_ =
+newListGroupsResponse pHttpStatus_ =
   ListGroupsResponse'
-    { _lgrrsGroups = Nothing,
-      _lgrrsNextToken = Nothing,
-      _lgrrsGroupIdentifiers = Nothing,
-      _lgrrsResponseStatus = pResponseStatus_
+    { groups = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      groupIdentifiers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | /Important:/ /__Deprecated - don't use this field. Use the @GroupIdentifiers@ response field instead.__ /
-lgrrsGroups :: Lens' ListGroupsResponse [Group]
-lgrrsGroups = lens _lgrrsGroups (\s a -> s {_lgrrsGroups = a}) . _Default . _Coerce
+-- | /__Deprecated - don\'t use this field. Use the @GroupIdentifiers@
+-- response field instead.__/
+listGroupsResponse_groups :: Lens.Lens' ListGroupsResponse (Prelude.Maybe [Group])
+listGroupsResponse_groups = Lens.lens (\ListGroupsResponse' {groups} -> groups) (\s@ListGroupsResponse' {} a -> s {groups = a} :: ListGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | If present, indicates that more output is available than is included in the current response. Use this value in the @NextToken@ request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the @NextToken@ response element comes back as @null@ .
-lgrrsNextToken :: Lens' ListGroupsResponse (Maybe Text)
-lgrrsNextToken = lens _lgrrsNextToken (\s a -> s {_lgrrsNextToken = a})
+-- | If present, indicates that more output is available than is included in
+-- the current response. Use this value in the @NextToken@ request
+-- parameter in a subsequent call to the operation to get the next part of
+-- the output. You should repeat this until the @NextToken@ response
+-- element comes back as @null@.
+listGroupsResponse_nextToken :: Lens.Lens' ListGroupsResponse (Prelude.Maybe Prelude.Text)
+listGroupsResponse_nextToken = Lens.lens (\ListGroupsResponse' {nextToken} -> nextToken) (\s@ListGroupsResponse' {} a -> s {nextToken = a} :: ListGroupsResponse)
 
--- | A list of 'GroupIdentifier' objects. Each identifier is an object that contains both the @Name@ and the @GroupArn@ .
-lgrrsGroupIdentifiers :: Lens' ListGroupsResponse [GroupIdentifier]
-lgrrsGroupIdentifiers = lens _lgrrsGroupIdentifiers (\s a -> s {_lgrrsGroupIdentifiers = a}) . _Default . _Coerce
+-- | A list of GroupIdentifier objects. Each identifier is an object that
+-- contains both the @Name@ and the @GroupArn@.
+listGroupsResponse_groupIdentifiers :: Lens.Lens' ListGroupsResponse (Prelude.Maybe [GroupIdentifier])
+listGroupsResponse_groupIdentifiers = Lens.lens (\ListGroupsResponse' {groupIdentifiers} -> groupIdentifiers) (\s@ListGroupsResponse' {} a -> s {groupIdentifiers = a} :: ListGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lgrrsResponseStatus :: Lens' ListGroupsResponse Int
-lgrrsResponseStatus = lens _lgrrsResponseStatus (\s a -> s {_lgrrsResponseStatus = a})
+-- | The response's http status code.
+listGroupsResponse_httpStatus :: Lens.Lens' ListGroupsResponse Prelude.Int
+listGroupsResponse_httpStatus = Lens.lens (\ListGroupsResponse' {httpStatus} -> httpStatus) (\s@ListGroupsResponse' {} a -> s {httpStatus = a} :: ListGroupsResponse)
 
-instance NFData ListGroupsResponse
+instance Prelude.NFData ListGroupsResponse

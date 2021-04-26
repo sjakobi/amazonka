@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,123 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of tags that are associated with a resource group, specified by an ARN.
---
+-- Returns a list of tags that are associated with a resource group,
+-- specified by an ARN.
 --
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * @resource-groups:GetTags@
+-- -   @resource-groups:GetTags@
 module Network.AWS.ResourceGroups.GetTags
   ( -- * Creating a Request
-    getTags,
-    GetTags,
+    GetTags (..),
+    newGetTags,
 
     -- * Request Lenses
-    gtARN,
+    getTags_arn,
 
     -- * Destructuring the Response
-    getTagsResponse,
-    GetTagsResponse,
+    GetTagsResponse (..),
+    newGetTagsResponse,
 
     -- * Response Lenses
-    gtrrsARN,
-    gtrrsTags,
-    gtrrsResponseStatus,
+    getTagsResponse_arn,
+    getTagsResponse_tags,
+    getTagsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.Response
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getTags' smart constructor.
-newtype GetTags = GetTags' {_gtARN :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetTags' smart constructor.
+data GetTags = GetTags'
+  { -- | The ARN of the resource group whose tags you want to retrieve.
+    arn :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtARN' - The ARN of the resource group whose tags you want to retrieve.
-getTags ::
-  -- | 'gtARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'arn', 'getTags_arn' - The ARN of the resource group whose tags you want to retrieve.
+newGetTags ::
+  -- | 'arn'
+  Prelude.Text ->
   GetTags
-getTags pARN_ = GetTags' {_gtARN = pARN_}
+newGetTags pArn_ = GetTags' {arn = pArn_}
 
 -- | The ARN of the resource group whose tags you want to retrieve.
-gtARN :: Lens' GetTags Text
-gtARN = lens _gtARN (\s a -> s {_gtARN = a})
+getTags_arn :: Lens.Lens' GetTags Prelude.Text
+getTags_arn = Lens.lens (\GetTags' {arn} -> arn) (\s@GetTags' {} a -> s {arn = a} :: GetTags)
 
-instance AWSRequest GetTags where
+instance Prelude.AWSRequest GetTags where
   type Rs GetTags = GetTagsResponse
-  request = get resourceGroups
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetTagsResponse'
-            <$> (x .?> "Arn")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Arn")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetTags
+instance Prelude.Hashable GetTags
 
-instance NFData GetTags
+instance Prelude.NFData GetTags
 
-instance ToHeaders GetTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetTags where
+instance Prelude.ToPath GetTags where
   toPath GetTags' {..} =
-    mconcat ["/resources/", toBS _gtARN, "/tags"]
+    Prelude.mconcat
+      ["/resources/", Prelude.toBS arn, "/tags"]
 
-instance ToQuery GetTags where
-  toQuery = const mempty
+instance Prelude.ToQuery GetTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getTagsResponse' smart constructor.
+-- | /See:/ 'newGetTagsResponse' smart constructor.
 data GetTagsResponse = GetTagsResponse'
-  { _gtrrsARN ::
-      !(Maybe Text),
-    _gtrrsTags :: !(Maybe (Map Text Text)),
-    _gtrrsResponseStatus :: !Int
+  { -- | The ARN of the tagged resource group.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The tags associated with the specified resource group.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gtrrsARN' - The ARN of the tagged resource group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gtrrsTags' - The tags associated with the specified resource group.
+-- 'arn', 'getTagsResponse_arn' - The ARN of the tagged resource group.
 --
--- * 'gtrrsResponseStatus' - -- | The response status code.
-getTagsResponse ::
-  -- | 'gtrrsResponseStatus'
-  Int ->
+-- 'tags', 'getTagsResponse_tags' - The tags associated with the specified resource group.
+--
+-- 'httpStatus', 'getTagsResponse_httpStatus' - The response's http status code.
+newGetTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetTagsResponse
-getTagsResponse pResponseStatus_ =
+newGetTagsResponse pHttpStatus_ =
   GetTagsResponse'
-    { _gtrrsARN = Nothing,
-      _gtrrsTags = Nothing,
-      _gtrrsResponseStatus = pResponseStatus_
+    { arn = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the tagged resource group.
-gtrrsARN :: Lens' GetTagsResponse (Maybe Text)
-gtrrsARN = lens _gtrrsARN (\s a -> s {_gtrrsARN = a})
+getTagsResponse_arn :: Lens.Lens' GetTagsResponse (Prelude.Maybe Prelude.Text)
+getTagsResponse_arn = Lens.lens (\GetTagsResponse' {arn} -> arn) (\s@GetTagsResponse' {} a -> s {arn = a} :: GetTagsResponse)
 
 -- | The tags associated with the specified resource group.
-gtrrsTags :: Lens' GetTagsResponse (HashMap Text Text)
-gtrrsTags = lens _gtrrsTags (\s a -> s {_gtrrsTags = a}) . _Default . _Map
+getTagsResponse_tags :: Lens.Lens' GetTagsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+getTagsResponse_tags = Lens.lens (\GetTagsResponse' {tags} -> tags) (\s@GetTagsResponse' {} a -> s {tags = a} :: GetTagsResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gtrrsResponseStatus :: Lens' GetTagsResponse Int
-gtrrsResponseStatus = lens _gtrrsResponseStatus (\s a -> s {_gtrrsResponseStatus = a})
+-- | The response's http status code.
+getTagsResponse_httpStatus :: Lens.Lens' GetTagsResponse Prelude.Int
+getTagsResponse_httpStatus = Lens.lens (\GetTagsResponse' {httpStatus} -> httpStatus) (\s@GetTagsResponse' {} a -> s {httpStatus = a} :: GetTagsResponse)
 
-instance NFData GetTagsResponse
+instance Prelude.NFData GetTagsResponse

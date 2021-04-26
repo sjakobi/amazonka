@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.GroupQuery where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ResourceGroups.Types.ResourceQuery
 
--- | A mapping of a query attached to a resource group that determines the AWS resources that are members of the group.
+-- | A mapping of a query attached to a resource group that determines the
+-- AWS resources that are members of the group.
 --
---
---
--- /See:/ 'groupQuery' smart constructor.
+-- /See:/ 'newGroupQuery' smart constructor.
 data GroupQuery = GroupQuery'
-  { _gqGroupName :: !Text,
-    _gqResourceQuery :: !ResourceQuery
+  { -- | The name of the resource group that is associated with the specified
+    -- resource query.
+    groupName :: Prelude.Text,
+    -- | The resource query that determines which AWS resources are members of
+    -- the associated resource group.
+    resourceQuery :: ResourceQuery
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupQuery' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupQuery' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gqGroupName' - The name of the resource group that is associated with the specified resource query.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gqResourceQuery' - The resource query that determines which AWS resources are members of the associated resource group.
-groupQuery ::
-  -- | 'gqGroupName'
-  Text ->
-  -- | 'gqResourceQuery'
+-- 'groupName', 'groupQuery_groupName' - The name of the resource group that is associated with the specified
+-- resource query.
+--
+-- 'resourceQuery', 'groupQuery_resourceQuery' - The resource query that determines which AWS resources are members of
+-- the associated resource group.
+newGroupQuery ::
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'resourceQuery'
   ResourceQuery ->
   GroupQuery
-groupQuery pGroupName_ pResourceQuery_ =
+newGroupQuery pGroupName_ pResourceQuery_ =
   GroupQuery'
-    { _gqGroupName = pGroupName_,
-      _gqResourceQuery = pResourceQuery_
+    { groupName = pGroupName_,
+      resourceQuery = pResourceQuery_
     }
 
--- | The name of the resource group that is associated with the specified resource query.
-gqGroupName :: Lens' GroupQuery Text
-gqGroupName = lens _gqGroupName (\s a -> s {_gqGroupName = a})
+-- | The name of the resource group that is associated with the specified
+-- resource query.
+groupQuery_groupName :: Lens.Lens' GroupQuery Prelude.Text
+groupQuery_groupName = Lens.lens (\GroupQuery' {groupName} -> groupName) (\s@GroupQuery' {} a -> s {groupName = a} :: GroupQuery)
 
--- | The resource query that determines which AWS resources are members of the associated resource group.
-gqResourceQuery :: Lens' GroupQuery ResourceQuery
-gqResourceQuery = lens _gqResourceQuery (\s a -> s {_gqResourceQuery = a})
+-- | The resource query that determines which AWS resources are members of
+-- the associated resource group.
+groupQuery_resourceQuery :: Lens.Lens' GroupQuery ResourceQuery
+groupQuery_resourceQuery = Lens.lens (\GroupQuery' {resourceQuery} -> resourceQuery) (\s@GroupQuery' {} a -> s {resourceQuery = a} :: GroupQuery)
 
-instance FromJSON GroupQuery where
+instance Prelude.FromJSON GroupQuery where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GroupQuery"
       ( \x ->
           GroupQuery'
-            <$> (x .: "GroupName") <*> (x .: "ResourceQuery")
+            Prelude.<$> (x Prelude..: "GroupName")
+            Prelude.<*> (x Prelude..: "ResourceQuery")
       )
 
-instance Hashable GroupQuery
+instance Prelude.Hashable GroupQuery
 
-instance NFData GroupQuery
+instance Prelude.NFData GroupQuery

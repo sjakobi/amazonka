@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,171 +23,192 @@
 --
 -- Removes the specified resources from the specified group.
 --
---
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * @resource-groups:UngroupResources@
+-- -   @resource-groups:UngroupResources@
 module Network.AWS.ResourceGroups.UngroupResources
   ( -- * Creating a Request
-    ungroupResources,
-    UngroupResources,
+    UngroupResources (..),
+    newUngroupResources,
 
     -- * Request Lenses
-    urGroup,
-    urResourceARNs,
+    ungroupResources_group,
+    ungroupResources_resourceArns,
 
     -- * Destructuring the Response
-    ungroupResourcesResponse,
-    UngroupResourcesResponse,
+    UngroupResourcesResponse (..),
+    newUngroupResourcesResponse,
 
     -- * Response Lenses
-    urrrsSucceeded,
-    urrrsPending,
-    urrrsFailed,
-    urrrsResponseStatus,
+    ungroupResourcesResponse_succeeded,
+    ungroupResourcesResponse_pending,
+    ungroupResourcesResponse_failed,
+    ungroupResourcesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.Response
+import Network.AWS.ResourceGroups.Types.FailedResource
+import Network.AWS.ResourceGroups.Types.PendingResource
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'ungroupResources' smart constructor.
+-- | /See:/ 'newUngroupResources' smart constructor.
 data UngroupResources = UngroupResources'
-  { _urGroup ::
-      !Text,
-    _urResourceARNs :: !(List1 Text)
+  { -- | The name or the ARN of the resource group from which to remove the
+    -- resources.
+    group' :: Prelude.Text,
+    -- | The ARNs of the resources to be removed from the group.
+    resourceArns :: Prelude.List1 Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UngroupResources' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UngroupResources' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urGroup' - The name or the ARN of the resource group from which to remove the resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urResourceARNs' - The ARNs of the resources to be removed from the group.
-ungroupResources ::
-  -- | 'urGroup'
-  Text ->
-  -- | 'urResourceARNs'
-  NonEmpty Text ->
+-- 'group'', 'ungroupResources_group' - The name or the ARN of the resource group from which to remove the
+-- resources.
+--
+-- 'resourceArns', 'ungroupResources_resourceArns' - The ARNs of the resources to be removed from the group.
+newUngroupResources ::
+  -- | 'group''
+  Prelude.Text ->
+  -- | 'resourceArns'
+  Prelude.NonEmpty Prelude.Text ->
   UngroupResources
-ungroupResources pGroup_ pResourceARNs_ =
+newUngroupResources pGroup_ pResourceArns_ =
   UngroupResources'
-    { _urGroup = pGroup_,
-      _urResourceARNs = _List1 # pResourceARNs_
+    { group' = pGroup_,
+      resourceArns = Prelude._List1 Lens.# pResourceArns_
     }
 
--- | The name or the ARN of the resource group from which to remove the resources.
-urGroup :: Lens' UngroupResources Text
-urGroup = lens _urGroup (\s a -> s {_urGroup = a})
+-- | The name or the ARN of the resource group from which to remove the
+-- resources.
+ungroupResources_group :: Lens.Lens' UngroupResources Prelude.Text
+ungroupResources_group = Lens.lens (\UngroupResources' {group'} -> group') (\s@UngroupResources' {} a -> s {group' = a} :: UngroupResources)
 
 -- | The ARNs of the resources to be removed from the group.
-urResourceARNs :: Lens' UngroupResources (NonEmpty Text)
-urResourceARNs = lens _urResourceARNs (\s a -> s {_urResourceARNs = a}) . _List1
+ungroupResources_resourceArns :: Lens.Lens' UngroupResources (Prelude.NonEmpty Prelude.Text)
+ungroupResources_resourceArns = Lens.lens (\UngroupResources' {resourceArns} -> resourceArns) (\s@UngroupResources' {} a -> s {resourceArns = a} :: UngroupResources) Prelude.. Prelude._List1
 
-instance AWSRequest UngroupResources where
+instance Prelude.AWSRequest UngroupResources where
   type Rs UngroupResources = UngroupResourcesResponse
-  request = postJSON resourceGroups
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UngroupResourcesResponse'
-            <$> (x .?> "Succeeded")
-            <*> (x .?> "Pending" .!@ mempty)
-            <*> (x .?> "Failed" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Succeeded")
+            Prelude.<*> (x Prelude..?> "Pending" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Failed" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UngroupResources
+instance Prelude.Hashable UngroupResources
 
-instance NFData UngroupResources
+instance Prelude.NFData UngroupResources
 
-instance ToHeaders UngroupResources where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UngroupResources where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UngroupResources where
+instance Prelude.ToJSON UngroupResources where
   toJSON UngroupResources' {..} =
-    object
-      ( catMaybes
-          [ Just ("Group" .= _urGroup),
-            Just ("ResourceArns" .= _urResourceARNs)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Group" Prelude..= group'),
+            Prelude.Just
+              ("ResourceArns" Prelude..= resourceArns)
           ]
       )
 
-instance ToPath UngroupResources where
-  toPath = const "/ungroup-resources"
+instance Prelude.ToPath UngroupResources where
+  toPath = Prelude.const "/ungroup-resources"
 
-instance ToQuery UngroupResources where
-  toQuery = const mempty
+instance Prelude.ToQuery UngroupResources where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'ungroupResourcesResponse' smart constructor.
+-- | /See:/ 'newUngroupResourcesResponse' smart constructor.
 data UngroupResourcesResponse = UngroupResourcesResponse'
-  { _urrrsSucceeded ::
-      !(Maybe (List1 Text)),
-    _urrrsPending ::
-      !( Maybe
-           [PendingResource]
-       ),
-    _urrrsFailed ::
-      !( Maybe
-           [FailedResource]
-       ),
-    _urrrsResponseStatus ::
-      !Int
+  { -- | A list of resources that were successfully removed from the group by
+    -- this operation.
+    succeeded :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | A list of any resources that are still in the process of being removed
+    -- from the group by this operation. These pending removals continue
+    -- asynchronously. You can check the status of pending removals by using
+    -- the @ ListGroupResources @ operation. After the resource is successfully
+    -- removed, it no longer appears in the response.
+    pending :: Prelude.Maybe [PendingResource],
+    -- | A list of any resources that failed to be removed from the group by this
+    -- operation.
+    failed :: Prelude.Maybe [FailedResource],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UngroupResourcesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UngroupResourcesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrsSucceeded' - A list of resources that were successfully removed from the group by this operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrrsPending' - A list of any resources that are still in the process of being removed from the group by this operation. These pending removals continue asynchronously. You can check the status of pending removals by using the @'ListGroupResources' @ operation. After the resource is successfully removed, it no longer appears in the response.
+-- 'succeeded', 'ungroupResourcesResponse_succeeded' - A list of resources that were successfully removed from the group by
+-- this operation.
 --
--- * 'urrrsFailed' - A list of any resources that failed to be removed from the group by this operation.
+-- 'pending', 'ungroupResourcesResponse_pending' - A list of any resources that are still in the process of being removed
+-- from the group by this operation. These pending removals continue
+-- asynchronously. You can check the status of pending removals by using
+-- the @ ListGroupResources @ operation. After the resource is successfully
+-- removed, it no longer appears in the response.
 --
--- * 'urrrsResponseStatus' - -- | The response status code.
-ungroupResourcesResponse ::
-  -- | 'urrrsResponseStatus'
-  Int ->
+-- 'failed', 'ungroupResourcesResponse_failed' - A list of any resources that failed to be removed from the group by this
+-- operation.
+--
+-- 'httpStatus', 'ungroupResourcesResponse_httpStatus' - The response's http status code.
+newUngroupResourcesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UngroupResourcesResponse
-ungroupResourcesResponse pResponseStatus_ =
+newUngroupResourcesResponse pHttpStatus_ =
   UngroupResourcesResponse'
-    { _urrrsSucceeded =
-        Nothing,
-      _urrrsPending = Nothing,
-      _urrrsFailed = Nothing,
-      _urrrsResponseStatus = pResponseStatus_
+    { succeeded =
+        Prelude.Nothing,
+      pending = Prelude.Nothing,
+      failed = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A list of resources that were successfully removed from the group by this operation.
-urrrsSucceeded :: Lens' UngroupResourcesResponse (Maybe (NonEmpty Text))
-urrrsSucceeded = lens _urrrsSucceeded (\s a -> s {_urrrsSucceeded = a}) . mapping _List1
+-- | A list of resources that were successfully removed from the group by
+-- this operation.
+ungroupResourcesResponse_succeeded :: Lens.Lens' UngroupResourcesResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+ungroupResourcesResponse_succeeded = Lens.lens (\UngroupResourcesResponse' {succeeded} -> succeeded) (\s@UngroupResourcesResponse' {} a -> s {succeeded = a} :: UngroupResourcesResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | A list of any resources that are still in the process of being removed from the group by this operation. These pending removals continue asynchronously. You can check the status of pending removals by using the @'ListGroupResources' @ operation. After the resource is successfully removed, it no longer appears in the response.
-urrrsPending :: Lens' UngroupResourcesResponse [PendingResource]
-urrrsPending = lens _urrrsPending (\s a -> s {_urrrsPending = a}) . _Default . _Coerce
+-- | A list of any resources that are still in the process of being removed
+-- from the group by this operation. These pending removals continue
+-- asynchronously. You can check the status of pending removals by using
+-- the @ ListGroupResources @ operation. After the resource is successfully
+-- removed, it no longer appears in the response.
+ungroupResourcesResponse_pending :: Lens.Lens' UngroupResourcesResponse (Prelude.Maybe [PendingResource])
+ungroupResourcesResponse_pending = Lens.lens (\UngroupResourcesResponse' {pending} -> pending) (\s@UngroupResourcesResponse' {} a -> s {pending = a} :: UngroupResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of any resources that failed to be removed from the group by this operation.
-urrrsFailed :: Lens' UngroupResourcesResponse [FailedResource]
-urrrsFailed = lens _urrrsFailed (\s a -> s {_urrrsFailed = a}) . _Default . _Coerce
+-- | A list of any resources that failed to be removed from the group by this
+-- operation.
+ungroupResourcesResponse_failed :: Lens.Lens' UngroupResourcesResponse (Prelude.Maybe [FailedResource])
+ungroupResourcesResponse_failed = Lens.lens (\UngroupResourcesResponse' {failed} -> failed) (\s@UngroupResourcesResponse' {} a -> s {failed = a} :: UngroupResourcesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-urrrsResponseStatus :: Lens' UngroupResourcesResponse Int
-urrrsResponseStatus = lens _urrrsResponseStatus (\s a -> s {_urrrsResponseStatus = a})
+-- | The response's http status code.
+ungroupResourcesResponse_httpStatus :: Lens.Lens' UngroupResourcesResponse Prelude.Int
+ungroupResourcesResponse_httpStatus = Lens.lens (\UngroupResourcesResponse' {httpStatus} -> httpStatus) (\s@UngroupResourcesResponse' {} a -> s {httpStatus = a} :: UngroupResourcesResponse)
 
-instance NFData UngroupResourcesResponse
+instance Prelude.NFData UngroupResourcesResponse

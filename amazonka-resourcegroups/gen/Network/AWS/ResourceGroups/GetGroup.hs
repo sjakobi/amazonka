@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,131 +23,142 @@
 --
 -- Returns information about a specified resource group.
 --
---
 -- __Minimum permissions__
 --
 -- To run this command, you must have the following permissions:
 --
---     * @resource-groups:GetGroup@
+-- -   @resource-groups:GetGroup@
 module Network.AWS.ResourceGroups.GetGroup
   ( -- * Creating a Request
-    getGroup,
-    GetGroup,
+    GetGroup (..),
+    newGetGroup,
 
     -- * Request Lenses
-    ggGroupName,
-    ggGroup,
+    getGroup_groupName,
+    getGroup_group,
 
     -- * Destructuring the Response
-    getGroupResponse,
-    GetGroupResponse,
+    GetGroupResponse (..),
+    newGetGroupResponse,
 
     -- * Response Lenses
-    ggrrsGroup,
-    ggrrsResponseStatus,
+    getGroupResponse_group,
+    getGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
 import Network.AWS.ResourceGroups.Types
-import Network.AWS.Response
+import Network.AWS.ResourceGroups.Types.Group
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGroup' smart constructor.
+-- | /See:/ 'newGetGroup' smart constructor.
 data GetGroup = GetGroup'
-  { _ggGroupName ::
-      !(Maybe Text),
-    _ggGroup :: !(Maybe Text)
+  { -- | Deprecated - don\'t use this parameter. Use @Group@ instead.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The name or the ARN of the resource group to retrieve.
+    group' :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggGroupName' - Deprecated - don't use this parameter. Use @Group@ instead.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggGroup' - The name or the ARN of the resource group to retrieve.
-getGroup ::
+-- 'groupName', 'getGroup_groupName' - Deprecated - don\'t use this parameter. Use @Group@ instead.
+--
+-- 'group'', 'getGroup_group' - The name or the ARN of the resource group to retrieve.
+newGetGroup ::
   GetGroup
-getGroup =
+newGetGroup =
   GetGroup'
-    { _ggGroupName = Nothing,
-      _ggGroup = Nothing
+    { groupName = Prelude.Nothing,
+      group' = Prelude.Nothing
     }
 
--- | Deprecated - don't use this parameter. Use @Group@ instead.
-ggGroupName :: Lens' GetGroup (Maybe Text)
-ggGroupName = lens _ggGroupName (\s a -> s {_ggGroupName = a})
+-- | Deprecated - don\'t use this parameter. Use @Group@ instead.
+getGroup_groupName :: Lens.Lens' GetGroup (Prelude.Maybe Prelude.Text)
+getGroup_groupName = Lens.lens (\GetGroup' {groupName} -> groupName) (\s@GetGroup' {} a -> s {groupName = a} :: GetGroup)
 
 -- | The name or the ARN of the resource group to retrieve.
-ggGroup :: Lens' GetGroup (Maybe Text)
-ggGroup = lens _ggGroup (\s a -> s {_ggGroup = a})
+getGroup_group :: Lens.Lens' GetGroup (Prelude.Maybe Prelude.Text)
+getGroup_group = Lens.lens (\GetGroup' {group'} -> group') (\s@GetGroup' {} a -> s {group' = a} :: GetGroup)
 
-instance AWSRequest GetGroup where
+instance Prelude.AWSRequest GetGroup where
   type Rs GetGroup = GetGroupResponse
-  request = postJSON resourceGroups
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGroupResponse'
-            <$> (x .?> "Group") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Group")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGroup
+instance Prelude.Hashable GetGroup
 
-instance NFData GetGroup
+instance Prelude.NFData GetGroup
 
-instance ToHeaders GetGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON GetGroup where
+instance Prelude.ToJSON GetGroup where
   toJSON GetGroup' {..} =
-    object
-      ( catMaybes
-          [ ("GroupName" .=) <$> _ggGroupName,
-            ("Group" .=) <$> _ggGroup
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GroupName" Prelude..=) Prelude.<$> groupName,
+            ("Group" Prelude..=) Prelude.<$> group'
           ]
       )
 
-instance ToPath GetGroup where
-  toPath = const "/get-group"
+instance Prelude.ToPath GetGroup where
+  toPath = Prelude.const "/get-group"
 
-instance ToQuery GetGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGroupResponse' smart constructor.
+-- | /See:/ 'newGetGroupResponse' smart constructor.
 data GetGroupResponse = GetGroupResponse'
-  { _ggrrsGroup ::
-      !(Maybe Group),
-    _ggrrsResponseStatus :: !Int
+  { -- | A full description of the resource group.
+    group' :: Prelude.Maybe Group,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggrrsGroup' - A full description of the resource group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggrrsResponseStatus' - -- | The response status code.
-getGroupResponse ::
-  -- | 'ggrrsResponseStatus'
-  Int ->
+-- 'group'', 'getGroupResponse_group' - A full description of the resource group.
+--
+-- 'httpStatus', 'getGroupResponse_httpStatus' - The response's http status code.
+newGetGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGroupResponse
-getGroupResponse pResponseStatus_ =
+newGetGroupResponse pHttpStatus_ =
   GetGroupResponse'
-    { _ggrrsGroup = Nothing,
-      _ggrrsResponseStatus = pResponseStatus_
+    { group' = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A full description of the resource group.
-ggrrsGroup :: Lens' GetGroupResponse (Maybe Group)
-ggrrsGroup = lens _ggrrsGroup (\s a -> s {_ggrrsGroup = a})
+getGroupResponse_group :: Lens.Lens' GetGroupResponse (Prelude.Maybe Group)
+getGroupResponse_group = Lens.lens (\GetGroupResponse' {group'} -> group') (\s@GetGroupResponse' {} a -> s {group' = a} :: GetGroupResponse)
 
--- | -- | The response status code.
-ggrrsResponseStatus :: Lens' GetGroupResponse Int
-ggrrsResponseStatus = lens _ggrrsResponseStatus (\s a -> s {_ggrrsResponseStatus = a})
+-- | The response's http status code.
+getGroupResponse_httpStatus :: Lens.Lens' GetGroupResponse Prelude.Int
+getGroupResponse_httpStatus = Lens.lens (\GetGroupResponse' {httpStatus} -> httpStatus) (\s@GetGroupResponse' {} a -> s {httpStatus = a} :: GetGroupResponse)
 
-instance NFData GetGroupResponse
+instance Prelude.NFData GetGroupResponse

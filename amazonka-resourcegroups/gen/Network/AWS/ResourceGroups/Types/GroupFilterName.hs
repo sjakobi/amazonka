@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.ResourceGroups.Types.GroupFilterName
   ( GroupFilterName
       ( ..,
-        ConfigurationType,
-        ResourceType
+        GroupFilterNameConfigurationType,
+        GroupFilterNameResourceType
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GroupFilterName = GroupFilterName' (CI Text)
+newtype GroupFilterName = GroupFilterName'
+  { fromGroupFilterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConfigurationType :: GroupFilterName
-pattern ConfigurationType = GroupFilterName' "configuration-type"
+pattern GroupFilterNameConfigurationType :: GroupFilterName
+pattern GroupFilterNameConfigurationType = GroupFilterName' "configuration-type"
 
-pattern ResourceType :: GroupFilterName
-pattern ResourceType = GroupFilterName' "resource-type"
+pattern GroupFilterNameResourceType :: GroupFilterName
+pattern GroupFilterNameResourceType = GroupFilterName' "resource-type"
 
 {-# COMPLETE
-  ConfigurationType,
-  ResourceType,
+  GroupFilterNameConfigurationType,
+  GroupFilterNameResourceType,
   GroupFilterName'
   #-}
 
-instance FromText GroupFilterName where
-  parser = (GroupFilterName' . mk) <$> takeText
+instance Prelude.FromText GroupFilterName where
+  parser = GroupFilterName' Prelude.<$> Prelude.takeText
 
-instance ToText GroupFilterName where
-  toText (GroupFilterName' ci) = original ci
+instance Prelude.ToText GroupFilterName where
+  toText (GroupFilterName' x) = x
 
-instance Hashable GroupFilterName
+instance Prelude.Hashable GroupFilterName
 
-instance NFData GroupFilterName
+instance Prelude.NFData GroupFilterName
 
-instance ToByteString GroupFilterName
+instance Prelude.ToByteString GroupFilterName
 
-instance ToQuery GroupFilterName
+instance Prelude.ToQuery GroupFilterName
 
-instance ToHeader GroupFilterName
+instance Prelude.ToHeader GroupFilterName
 
-instance ToJSON GroupFilterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON GroupFilterName where
+  toJSON = Prelude.toJSONText

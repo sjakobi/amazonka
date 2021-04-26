@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.GroupIdentifier where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The unique identifiers for a resource group.
 --
---
---
--- /See:/ 'groupIdentifier' smart constructor.
+-- /See:/ 'newGroupIdentifier' smart constructor.
 data GroupIdentifier = GroupIdentifier'
-  { _giGroupName ::
-      !(Maybe Text),
-    _giGroupARN :: !(Maybe Text)
+  { -- | The name of the resource group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the resource group.
+    groupArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupIdentifier' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupIdentifier' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'giGroupName' - The name of the resource group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'giGroupARN' - The ARN of the resource group.
-groupIdentifier ::
+-- 'groupName', 'groupIdentifier_groupName' - The name of the resource group.
+--
+-- 'groupArn', 'groupIdentifier_groupArn' - The ARN of the resource group.
+newGroupIdentifier ::
   GroupIdentifier
-groupIdentifier =
+newGroupIdentifier =
   GroupIdentifier'
-    { _giGroupName = Nothing,
-      _giGroupARN = Nothing
+    { groupName = Prelude.Nothing,
+      groupArn = Prelude.Nothing
     }
 
 -- | The name of the resource group.
-giGroupName :: Lens' GroupIdentifier (Maybe Text)
-giGroupName = lens _giGroupName (\s a -> s {_giGroupName = a})
+groupIdentifier_groupName :: Lens.Lens' GroupIdentifier (Prelude.Maybe Prelude.Text)
+groupIdentifier_groupName = Lens.lens (\GroupIdentifier' {groupName} -> groupName) (\s@GroupIdentifier' {} a -> s {groupName = a} :: GroupIdentifier)
 
 -- | The ARN of the resource group.
-giGroupARN :: Lens' GroupIdentifier (Maybe Text)
-giGroupARN = lens _giGroupARN (\s a -> s {_giGroupARN = a})
+groupIdentifier_groupArn :: Lens.Lens' GroupIdentifier (Prelude.Maybe Prelude.Text)
+groupIdentifier_groupArn = Lens.lens (\GroupIdentifier' {groupArn} -> groupArn) (\s@GroupIdentifier' {} a -> s {groupArn = a} :: GroupIdentifier)
 
-instance FromJSON GroupIdentifier where
+instance Prelude.FromJSON GroupIdentifier where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GroupIdentifier"
       ( \x ->
           GroupIdentifier'
-            <$> (x .:? "GroupName") <*> (x .:? "GroupArn")
+            Prelude.<$> (x Prelude..:? "GroupName")
+            Prelude.<*> (x Prelude..:? "GroupArn")
       )
 
-instance Hashable GroupIdentifier
+instance Prelude.Hashable GroupIdentifier
 
-instance NFData GroupIdentifier
+instance Prelude.NFData GroupIdentifier

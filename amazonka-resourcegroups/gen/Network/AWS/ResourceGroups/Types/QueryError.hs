@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.ResourceGroups.Types.QueryError where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.ResourceGroups.Types.QueryErrorCode
 
--- | A two-part error structure that can occur in @ListGroupResources@ or @SearchResources@ operations on CloudFormation stack-based queries. The error occurs if the CloudFormation stack on which the query is based either does not exist, or has a status that renders the stack inactive. A @QueryError@ occurrence does not necessarily mean that AWS Resource Groups could not complete the operation, but the resulting group might have no member resources.
+-- | A two-part error structure that can occur in @ListGroupResources@ or
+-- @SearchResources@ operations on CloudFormation stack-based queries. The
+-- error occurs if the CloudFormation stack on which the query is based
+-- either does not exist, or has a status that renders the stack inactive.
+-- A @QueryError@ occurrence does not necessarily mean that AWS Resource
+-- Groups could not complete the operation, but the resulting group might
+-- have no member resources.
 --
---
---
--- /See:/ 'queryError' smart constructor.
+-- /See:/ 'newQueryError' smart constructor.
 data QueryError = QueryError'
-  { _qeMessage ::
-      !(Maybe Text),
-    _qeErrorCode :: !(Maybe QueryErrorCode)
+  { -- | A message that explains the @ErrorCode@ value. Messages might state that
+    -- the specified CloudFormation stack does not exist (or no longer exists).
+    -- For @CLOUDFORMATION_STACK_INACTIVE@, the message typically states that
+    -- the CloudFormation stack has a status that is not (or no longer) active,
+    -- such as @CREATE_FAILED@.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Possible values are @CLOUDFORMATION_STACK_INACTIVE@ and
+    -- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+    errorCode :: Prelude.Maybe QueryErrorCode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryError' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryError' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qeMessage' - A message that explains the @ErrorCode@ value. Messages might state that the specified CloudFormation stack does not exist (or no longer exists). For @CLOUDFORMATION_STACK_INACTIVE@ , the message typically states that the CloudFormation stack has a status that is not (or no longer) active, such as @CREATE_FAILED@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'qeErrorCode' - Possible values are @CLOUDFORMATION_STACK_INACTIVE@ and @CLOUDFORMATION_STACK_NOT_EXISTING@ .
-queryError ::
+-- 'message', 'queryError_message' - A message that explains the @ErrorCode@ value. Messages might state that
+-- the specified CloudFormation stack does not exist (or no longer exists).
+-- For @CLOUDFORMATION_STACK_INACTIVE@, the message typically states that
+-- the CloudFormation stack has a status that is not (or no longer) active,
+-- such as @CREATE_FAILED@.
+--
+-- 'errorCode', 'queryError_errorCode' - Possible values are @CLOUDFORMATION_STACK_INACTIVE@ and
+-- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+newQueryError ::
   QueryError
-queryError =
+newQueryError =
   QueryError'
-    { _qeMessage = Nothing,
-      _qeErrorCode = Nothing
+    { message = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
--- | A message that explains the @ErrorCode@ value. Messages might state that the specified CloudFormation stack does not exist (or no longer exists). For @CLOUDFORMATION_STACK_INACTIVE@ , the message typically states that the CloudFormation stack has a status that is not (or no longer) active, such as @CREATE_FAILED@ .
-qeMessage :: Lens' QueryError (Maybe Text)
-qeMessage = lens _qeMessage (\s a -> s {_qeMessage = a})
+-- | A message that explains the @ErrorCode@ value. Messages might state that
+-- the specified CloudFormation stack does not exist (or no longer exists).
+-- For @CLOUDFORMATION_STACK_INACTIVE@, the message typically states that
+-- the CloudFormation stack has a status that is not (or no longer) active,
+-- such as @CREATE_FAILED@.
+queryError_message :: Lens.Lens' QueryError (Prelude.Maybe Prelude.Text)
+queryError_message = Lens.lens (\QueryError' {message} -> message) (\s@QueryError' {} a -> s {message = a} :: QueryError)
 
--- | Possible values are @CLOUDFORMATION_STACK_INACTIVE@ and @CLOUDFORMATION_STACK_NOT_EXISTING@ .
-qeErrorCode :: Lens' QueryError (Maybe QueryErrorCode)
-qeErrorCode = lens _qeErrorCode (\s a -> s {_qeErrorCode = a})
+-- | Possible values are @CLOUDFORMATION_STACK_INACTIVE@ and
+-- @CLOUDFORMATION_STACK_NOT_EXISTING@.
+queryError_errorCode :: Lens.Lens' QueryError (Prelude.Maybe QueryErrorCode)
+queryError_errorCode = Lens.lens (\QueryError' {errorCode} -> errorCode) (\s@QueryError' {} a -> s {errorCode = a} :: QueryError)
 
-instance FromJSON QueryError where
+instance Prelude.FromJSON QueryError where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryError"
       ( \x ->
           QueryError'
-            <$> (x .:? "Message") <*> (x .:? "ErrorCode")
+            Prelude.<$> (x Prelude..:? "Message")
+            Prelude.<*> (x Prelude..:? "ErrorCode")
       )
 
-instance Hashable QueryError
+instance Prelude.Hashable QueryError
 
-instance NFData QueryError
+instance Prelude.NFData QueryError
