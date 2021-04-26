@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.VideoSelectorProgramId where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Video Selector Program Id
 --
--- /See:/ 'videoSelectorProgramId' smart constructor.
-newtype VideoSelectorProgramId = VideoSelectorProgramId'
-  { _vspiProgramId ::
-      Maybe Nat
+-- /See:/ 'newVideoSelectorProgramId' smart constructor.
+data VideoSelectorProgramId = VideoSelectorProgramId'
+  { -- | Selects a specific program from within a multi-program transport stream.
+    -- If the program doesn\'t exist, the first program within the transport
+    -- stream will be selected by default.
+    programId :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VideoSelectorProgramId' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VideoSelectorProgramId' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vspiProgramId' - Selects a specific program from within a multi-program transport stream. If the program doesn't exist, the first program within the transport stream will be selected by default.
-videoSelectorProgramId ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'programId', 'videoSelectorProgramId_programId' - Selects a specific program from within a multi-program transport stream.
+-- If the program doesn\'t exist, the first program within the transport
+-- stream will be selected by default.
+newVideoSelectorProgramId ::
   VideoSelectorProgramId
-videoSelectorProgramId =
-  VideoSelectorProgramId' {_vspiProgramId = Nothing}
+newVideoSelectorProgramId =
+  VideoSelectorProgramId'
+    { programId =
+        Prelude.Nothing
+    }
 
--- | Selects a specific program from within a multi-program transport stream. If the program doesn't exist, the first program within the transport stream will be selected by default.
-vspiProgramId :: Lens' VideoSelectorProgramId (Maybe Natural)
-vspiProgramId = lens _vspiProgramId (\s a -> s {_vspiProgramId = a}) . mapping _Nat
+-- | Selects a specific program from within a multi-program transport stream.
+-- If the program doesn\'t exist, the first program within the transport
+-- stream will be selected by default.
+videoSelectorProgramId_programId :: Lens.Lens' VideoSelectorProgramId (Prelude.Maybe Prelude.Natural)
+videoSelectorProgramId_programId = Lens.lens (\VideoSelectorProgramId' {programId} -> programId) (\s@VideoSelectorProgramId' {} a -> s {programId = a} :: VideoSelectorProgramId) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON VideoSelectorProgramId where
+instance Prelude.FromJSON VideoSelectorProgramId where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VideoSelectorProgramId"
       ( \x ->
-          VideoSelectorProgramId' <$> (x .:? "programId")
+          VideoSelectorProgramId'
+            Prelude.<$> (x Prelude..:? "programId")
       )
 
-instance Hashable VideoSelectorProgramId
+instance Prelude.Hashable VideoSelectorProgramId
 
-instance NFData VideoSelectorProgramId
+instance Prelude.NFData VideoSelectorProgramId
 
-instance ToJSON VideoSelectorProgramId where
+instance Prelude.ToJSON VideoSelectorProgramId where
   toJSON VideoSelectorProgramId' {..} =
-    object
-      (catMaybes [("programId" .=) <$> _vspiProgramId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("programId" Prelude..=) Prelude.<$> programId]
+      )

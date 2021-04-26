@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaLive.Types.InputCodec
   ( InputCodec
       ( ..,
-        ICAvc,
-        ICHevc,
-        ICMPEG2
+        InputCodecAVC,
+        InputCodecHEVC,
+        InputCodecMPEG2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | codec in increasing order of complexity
-data InputCodec = InputCodec' (CI Text)
+newtype InputCodec = InputCodec'
+  { fromInputCodec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ICAvc :: InputCodec
-pattern ICAvc = InputCodec' "AVC"
+pattern InputCodecAVC :: InputCodec
+pattern InputCodecAVC = InputCodec' "AVC"
 
-pattern ICHevc :: InputCodec
-pattern ICHevc = InputCodec' "HEVC"
+pattern InputCodecHEVC :: InputCodec
+pattern InputCodecHEVC = InputCodec' "HEVC"
 
-pattern ICMPEG2 :: InputCodec
-pattern ICMPEG2 = InputCodec' "MPEG2"
+pattern InputCodecMPEG2 :: InputCodec
+pattern InputCodecMPEG2 = InputCodec' "MPEG2"
 
 {-# COMPLETE
-  ICAvc,
-  ICHevc,
-  ICMPEG2,
+  InputCodecAVC,
+  InputCodecHEVC,
+  InputCodecMPEG2,
   InputCodec'
   #-}
 
-instance FromText InputCodec where
-  parser = (InputCodec' . mk) <$> takeText
+instance Prelude.FromText InputCodec where
+  parser = InputCodec' Prelude.<$> Prelude.takeText
 
-instance ToText InputCodec where
-  toText (InputCodec' ci) = original ci
+instance Prelude.ToText InputCodec where
+  toText (InputCodec' x) = x
 
-instance Hashable InputCodec
+instance Prelude.Hashable InputCodec
 
-instance NFData InputCodec
+instance Prelude.NFData InputCodec
 
-instance ToByteString InputCodec
+instance Prelude.ToByteString InputCodec
 
-instance ToQuery InputCodec
+instance Prelude.ToQuery InputCodec
 
-instance ToHeader InputCodec
+instance Prelude.ToHeader InputCodec
 
-instance ToJSON InputCodec where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputCodec where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputCodec where
-  parseJSON = parseJSONText "InputCodec"
+instance Prelude.FromJSON InputCodec where
+  parseJSON = Prelude.parseJSONText "InputCodec"

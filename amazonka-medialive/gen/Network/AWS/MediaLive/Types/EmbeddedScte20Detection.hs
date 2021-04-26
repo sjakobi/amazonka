@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.EmbeddedScte20Detection
   ( EmbeddedScte20Detection
       ( ..,
-        ESDAuto,
-        ESDOff
+        EmbeddedScte20DetectionAUTO,
+        EmbeddedScte20DetectionOFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Embedded Scte20 Detection
-data EmbeddedScte20Detection
-  = EmbeddedScte20Detection'
-      ( CI
-          Text
-      )
+newtype EmbeddedScte20Detection = EmbeddedScte20Detection'
+  { fromEmbeddedScte20Detection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESDAuto :: EmbeddedScte20Detection
-pattern ESDAuto = EmbeddedScte20Detection' "AUTO"
+pattern EmbeddedScte20DetectionAUTO :: EmbeddedScte20Detection
+pattern EmbeddedScte20DetectionAUTO = EmbeddedScte20Detection' "AUTO"
 
-pattern ESDOff :: EmbeddedScte20Detection
-pattern ESDOff = EmbeddedScte20Detection' "OFF"
+pattern EmbeddedScte20DetectionOFF :: EmbeddedScte20Detection
+pattern EmbeddedScte20DetectionOFF = EmbeddedScte20Detection' "OFF"
 
 {-# COMPLETE
-  ESDAuto,
-  ESDOff,
+  EmbeddedScte20DetectionAUTO,
+  EmbeddedScte20DetectionOFF,
   EmbeddedScte20Detection'
   #-}
 
-instance FromText EmbeddedScte20Detection where
-  parser = (EmbeddedScte20Detection' . mk) <$> takeText
+instance Prelude.FromText EmbeddedScte20Detection where
+  parser = EmbeddedScte20Detection' Prelude.<$> Prelude.takeText
 
-instance ToText EmbeddedScte20Detection where
-  toText (EmbeddedScte20Detection' ci) = original ci
+instance Prelude.ToText EmbeddedScte20Detection where
+  toText (EmbeddedScte20Detection' x) = x
 
-instance Hashable EmbeddedScte20Detection
+instance Prelude.Hashable EmbeddedScte20Detection
 
-instance NFData EmbeddedScte20Detection
+instance Prelude.NFData EmbeddedScte20Detection
 
-instance ToByteString EmbeddedScte20Detection
+instance Prelude.ToByteString EmbeddedScte20Detection
 
-instance ToQuery EmbeddedScte20Detection
+instance Prelude.ToQuery EmbeddedScte20Detection
 
-instance ToHeader EmbeddedScte20Detection
+instance Prelude.ToHeader EmbeddedScte20Detection
 
-instance ToJSON EmbeddedScte20Detection where
-  toJSON = toJSONText
+instance Prelude.ToJSON EmbeddedScte20Detection where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EmbeddedScte20Detection where
-  parseJSON = parseJSONText "EmbeddedScte20Detection"
+instance Prelude.FromJSON EmbeddedScte20Detection where
+  parseJSON = Prelude.parseJSONText "EmbeddedScte20Detection"

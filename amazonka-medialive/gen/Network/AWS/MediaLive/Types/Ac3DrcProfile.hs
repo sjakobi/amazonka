@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.Ac3DrcProfile
   ( Ac3DrcProfile
       ( ..,
-        FilmStandard,
-        None
+        Ac3DrcProfileFILMSTANDARD,
+        Ac3DrcProfileNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Ac3 Drc Profile
-data Ac3DrcProfile = Ac3DrcProfile' (CI Text)
+newtype Ac3DrcProfile = Ac3DrcProfile'
+  { fromAc3DrcProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FilmStandard :: Ac3DrcProfile
-pattern FilmStandard = Ac3DrcProfile' "FILM_STANDARD"
+pattern Ac3DrcProfileFILMSTANDARD :: Ac3DrcProfile
+pattern Ac3DrcProfileFILMSTANDARD = Ac3DrcProfile' "FILM_STANDARD"
 
-pattern None :: Ac3DrcProfile
-pattern None = Ac3DrcProfile' "NONE"
+pattern Ac3DrcProfileNONE :: Ac3DrcProfile
+pattern Ac3DrcProfileNONE = Ac3DrcProfile' "NONE"
 
 {-# COMPLETE
-  FilmStandard,
-  None,
+  Ac3DrcProfileFILMSTANDARD,
+  Ac3DrcProfileNONE,
   Ac3DrcProfile'
   #-}
 
-instance FromText Ac3DrcProfile where
-  parser = (Ac3DrcProfile' . mk) <$> takeText
+instance Prelude.FromText Ac3DrcProfile where
+  parser = Ac3DrcProfile' Prelude.<$> Prelude.takeText
 
-instance ToText Ac3DrcProfile where
-  toText (Ac3DrcProfile' ci) = original ci
+instance Prelude.ToText Ac3DrcProfile where
+  toText (Ac3DrcProfile' x) = x
 
-instance Hashable Ac3DrcProfile
+instance Prelude.Hashable Ac3DrcProfile
 
-instance NFData Ac3DrcProfile
+instance Prelude.NFData Ac3DrcProfile
 
-instance ToByteString Ac3DrcProfile
+instance Prelude.ToByteString Ac3DrcProfile
 
-instance ToQuery Ac3DrcProfile
+instance Prelude.ToQuery Ac3DrcProfile
 
-instance ToHeader Ac3DrcProfile
+instance Prelude.ToHeader Ac3DrcProfile
 
-instance ToJSON Ac3DrcProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON Ac3DrcProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Ac3DrcProfile where
-  parseJSON = parseJSONText "Ac3DrcProfile"
+instance Prelude.FromJSON Ac3DrcProfile where
+  parseJSON = Prelude.parseJSONText "Ac3DrcProfile"

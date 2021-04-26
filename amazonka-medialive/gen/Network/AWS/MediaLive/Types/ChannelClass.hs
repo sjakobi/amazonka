@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaLive.Types.ChannelClass
   ( ChannelClass
       ( ..,
-        SinglePipeline,
-        Standard
+        ChannelClassSINGLEPIPELINE,
+        ChannelClassSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A standard channel has two encoding pipelines and a single pipeline channel only has one.
-data ChannelClass = ChannelClass' (CI Text)
+-- | A standard channel has two encoding pipelines and a single pipeline
+-- channel only has one.
+newtype ChannelClass = ChannelClass'
+  { fromChannelClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SinglePipeline :: ChannelClass
-pattern SinglePipeline = ChannelClass' "SINGLE_PIPELINE"
+pattern ChannelClassSINGLEPIPELINE :: ChannelClass
+pattern ChannelClassSINGLEPIPELINE = ChannelClass' "SINGLE_PIPELINE"
 
-pattern Standard :: ChannelClass
-pattern Standard = ChannelClass' "STANDARD"
+pattern ChannelClassSTANDARD :: ChannelClass
+pattern ChannelClassSTANDARD = ChannelClass' "STANDARD"
 
 {-# COMPLETE
-  SinglePipeline,
-  Standard,
+  ChannelClassSINGLEPIPELINE,
+  ChannelClassSTANDARD,
   ChannelClass'
   #-}
 
-instance FromText ChannelClass where
-  parser = (ChannelClass' . mk) <$> takeText
+instance Prelude.FromText ChannelClass where
+  parser = ChannelClass' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelClass where
-  toText (ChannelClass' ci) = original ci
+instance Prelude.ToText ChannelClass where
+  toText (ChannelClass' x) = x
 
-instance Hashable ChannelClass
+instance Prelude.Hashable ChannelClass
 
-instance NFData ChannelClass
+instance Prelude.NFData ChannelClass
 
-instance ToByteString ChannelClass
+instance Prelude.ToByteString ChannelClass
 
-instance ToQuery ChannelClass
+instance Prelude.ToQuery ChannelClass
 
-instance ToHeader ChannelClass
+instance Prelude.ToHeader ChannelClass
 
-instance ToJSON ChannelClass where
-  toJSON = toJSONText
+instance Prelude.ToJSON ChannelClass where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ChannelClass where
-  parseJSON = parseJSONText "ChannelClass"
+instance Prelude.FromJSON ChannelClass where
+  parseJSON = Prelude.parseJSONText "ChannelClass"

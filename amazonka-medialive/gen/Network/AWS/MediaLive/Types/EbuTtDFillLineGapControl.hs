@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.EbuTtDFillLineGapControl
   ( EbuTtDFillLineGapControl
       ( ..,
-        ETDFLGCDisabled,
-        ETDFLGCEnabled
+        EbuTtDFillLineGapControlDISABLED,
+        EbuTtDFillLineGapControlENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Ebu Tt DFill Line Gap Control
-data EbuTtDFillLineGapControl
-  = EbuTtDFillLineGapControl'
-      ( CI
-          Text
-      )
+newtype EbuTtDFillLineGapControl = EbuTtDFillLineGapControl'
+  { fromEbuTtDFillLineGapControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ETDFLGCDisabled :: EbuTtDFillLineGapControl
-pattern ETDFLGCDisabled = EbuTtDFillLineGapControl' "DISABLED"
+pattern EbuTtDFillLineGapControlDISABLED :: EbuTtDFillLineGapControl
+pattern EbuTtDFillLineGapControlDISABLED = EbuTtDFillLineGapControl' "DISABLED"
 
-pattern ETDFLGCEnabled :: EbuTtDFillLineGapControl
-pattern ETDFLGCEnabled = EbuTtDFillLineGapControl' "ENABLED"
+pattern EbuTtDFillLineGapControlENABLED :: EbuTtDFillLineGapControl
+pattern EbuTtDFillLineGapControlENABLED = EbuTtDFillLineGapControl' "ENABLED"
 
 {-# COMPLETE
-  ETDFLGCDisabled,
-  ETDFLGCEnabled,
+  EbuTtDFillLineGapControlDISABLED,
+  EbuTtDFillLineGapControlENABLED,
   EbuTtDFillLineGapControl'
   #-}
 
-instance FromText EbuTtDFillLineGapControl where
-  parser = (EbuTtDFillLineGapControl' . mk) <$> takeText
+instance Prelude.FromText EbuTtDFillLineGapControl where
+  parser = EbuTtDFillLineGapControl' Prelude.<$> Prelude.takeText
 
-instance ToText EbuTtDFillLineGapControl where
-  toText (EbuTtDFillLineGapControl' ci) = original ci
+instance Prelude.ToText EbuTtDFillLineGapControl where
+  toText (EbuTtDFillLineGapControl' x) = x
 
-instance Hashable EbuTtDFillLineGapControl
+instance Prelude.Hashable EbuTtDFillLineGapControl
 
-instance NFData EbuTtDFillLineGapControl
+instance Prelude.NFData EbuTtDFillLineGapControl
 
-instance ToByteString EbuTtDFillLineGapControl
+instance Prelude.ToByteString EbuTtDFillLineGapControl
 
-instance ToQuery EbuTtDFillLineGapControl
+instance Prelude.ToQuery EbuTtDFillLineGapControl
 
-instance ToHeader EbuTtDFillLineGapControl
+instance Prelude.ToHeader EbuTtDFillLineGapControl
 
-instance ToJSON EbuTtDFillLineGapControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON EbuTtDFillLineGapControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EbuTtDFillLineGapControl where
-  parseJSON = parseJSONText "EbuTtDFillLineGapControl"
+instance Prelude.FromJSON EbuTtDFillLineGapControl where
+  parseJSON = Prelude.parseJSONText "EbuTtDFillLineGapControl"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.TimecodeConfigSource
   ( TimecodeConfigSource
       ( ..,
-        TCSEmbedded,
-        TCSSystemclock,
-        TCSZerobased
+        TimecodeConfigSourceEMBEDDED,
+        TimecodeConfigSourceSYSTEMCLOCK,
+        TimecodeConfigSourceZEROBASED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Timecode Config Source
-data TimecodeConfigSource
-  = TimecodeConfigSource'
-      ( CI
-          Text
-      )
+newtype TimecodeConfigSource = TimecodeConfigSource'
+  { fromTimecodeConfigSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TCSEmbedded :: TimecodeConfigSource
-pattern TCSEmbedded = TimecodeConfigSource' "EMBEDDED"
+pattern TimecodeConfigSourceEMBEDDED :: TimecodeConfigSource
+pattern TimecodeConfigSourceEMBEDDED = TimecodeConfigSource' "EMBEDDED"
 
-pattern TCSSystemclock :: TimecodeConfigSource
-pattern TCSSystemclock = TimecodeConfigSource' "SYSTEMCLOCK"
+pattern TimecodeConfigSourceSYSTEMCLOCK :: TimecodeConfigSource
+pattern TimecodeConfigSourceSYSTEMCLOCK = TimecodeConfigSource' "SYSTEMCLOCK"
 
-pattern TCSZerobased :: TimecodeConfigSource
-pattern TCSZerobased = TimecodeConfigSource' "ZEROBASED"
+pattern TimecodeConfigSourceZEROBASED :: TimecodeConfigSource
+pattern TimecodeConfigSourceZEROBASED = TimecodeConfigSource' "ZEROBASED"
 
 {-# COMPLETE
-  TCSEmbedded,
-  TCSSystemclock,
-  TCSZerobased,
+  TimecodeConfigSourceEMBEDDED,
+  TimecodeConfigSourceSYSTEMCLOCK,
+  TimecodeConfigSourceZEROBASED,
   TimecodeConfigSource'
   #-}
 
-instance FromText TimecodeConfigSource where
-  parser = (TimecodeConfigSource' . mk) <$> takeText
+instance Prelude.FromText TimecodeConfigSource where
+  parser = TimecodeConfigSource' Prelude.<$> Prelude.takeText
 
-instance ToText TimecodeConfigSource where
-  toText (TimecodeConfigSource' ci) = original ci
+instance Prelude.ToText TimecodeConfigSource where
+  toText (TimecodeConfigSource' x) = x
 
-instance Hashable TimecodeConfigSource
+instance Prelude.Hashable TimecodeConfigSource
 
-instance NFData TimecodeConfigSource
+instance Prelude.NFData TimecodeConfigSource
 
-instance ToByteString TimecodeConfigSource
+instance Prelude.ToByteString TimecodeConfigSource
 
-instance ToQuery TimecodeConfigSource
+instance Prelude.ToQuery TimecodeConfigSource
 
-instance ToHeader TimecodeConfigSource
+instance Prelude.ToHeader TimecodeConfigSource
 
-instance ToJSON TimecodeConfigSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON TimecodeConfigSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TimecodeConfigSource where
-  parseJSON = parseJSONText "TimecodeConfigSource"
+instance Prelude.FromJSON TimecodeConfigSource where
+  parseJSON = Prelude.parseJSONText "TimecodeConfigSource"

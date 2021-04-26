@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,54 @@
 module Network.AWS.MediaLive.Types.HlsMediaStoreStorageClass
   ( HlsMediaStoreStorageClass
       ( ..,
-        Temporal
+        HlsMediaStoreStorageClassTEMPORAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Media Store Storage Class
-data HlsMediaStoreStorageClass
-  = HlsMediaStoreStorageClass'
-      ( CI
-          Text
-      )
+newtype HlsMediaStoreStorageClass = HlsMediaStoreStorageClass'
+  { fromHlsMediaStoreStorageClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Temporal :: HlsMediaStoreStorageClass
-pattern Temporal = HlsMediaStoreStorageClass' "TEMPORAL"
+pattern HlsMediaStoreStorageClassTEMPORAL :: HlsMediaStoreStorageClass
+pattern HlsMediaStoreStorageClassTEMPORAL = HlsMediaStoreStorageClass' "TEMPORAL"
 
 {-# COMPLETE
-  Temporal,
+  HlsMediaStoreStorageClassTEMPORAL,
   HlsMediaStoreStorageClass'
   #-}
 
-instance FromText HlsMediaStoreStorageClass where
-  parser = (HlsMediaStoreStorageClass' . mk) <$> takeText
+instance Prelude.FromText HlsMediaStoreStorageClass where
+  parser = HlsMediaStoreStorageClass' Prelude.<$> Prelude.takeText
 
-instance ToText HlsMediaStoreStorageClass where
-  toText (HlsMediaStoreStorageClass' ci) = original ci
+instance Prelude.ToText HlsMediaStoreStorageClass where
+  toText (HlsMediaStoreStorageClass' x) = x
 
-instance Hashable HlsMediaStoreStorageClass
+instance Prelude.Hashable HlsMediaStoreStorageClass
 
-instance NFData HlsMediaStoreStorageClass
+instance Prelude.NFData HlsMediaStoreStorageClass
 
-instance ToByteString HlsMediaStoreStorageClass
+instance Prelude.ToByteString HlsMediaStoreStorageClass
 
-instance ToQuery HlsMediaStoreStorageClass
+instance Prelude.ToQuery HlsMediaStoreStorageClass
 
-instance ToHeader HlsMediaStoreStorageClass
+instance Prelude.ToHeader HlsMediaStoreStorageClass
 
-instance ToJSON HlsMediaStoreStorageClass where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsMediaStoreStorageClass where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsMediaStoreStorageClass where
-  parseJSON = parseJSONText "HlsMediaStoreStorageClass"
+instance Prelude.FromJSON HlsMediaStoreStorageClass where
+  parseJSON = Prelude.parseJSONText "HlsMediaStoreStorageClass"

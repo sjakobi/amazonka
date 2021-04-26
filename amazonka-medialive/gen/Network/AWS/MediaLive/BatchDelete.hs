@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,170 +24,185 @@
 -- Starts delete of resources.
 module Network.AWS.MediaLive.BatchDelete
   ( -- * Creating a Request
-    batchDelete',
-    BatchDelete',
+    BatchDelete' (..),
+    newBatchDelete',
 
     -- * Request Lenses
-    bdInputSecurityGroupIds,
-    bdMultiplexIds,
-    bdInputIds,
-    bdChannelIds,
+    batchDelete'_inputSecurityGroupIds,
+    batchDelete'_multiplexIds,
+    batchDelete'_inputIds,
+    batchDelete'_channelIds,
 
     -- * Destructuring the Response
-    batchDeleteResponse,
-    BatchDeleteResponse,
+    BatchDeleteResponse (..),
+    newBatchDeleteResponse,
 
     -- * Response Lenses
-    bdrrsSuccessful,
-    bdrrsFailed,
-    bdrrsResponseStatus,
+    batchDeleteResponse_successful,
+    batchDeleteResponse_failed,
+    batchDeleteResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.BatchFailedResultModel
+import Network.AWS.MediaLive.Types.BatchSuccessfulResultModel
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to delete resources
 --
--- /See:/ 'batchDelete'' smart constructor.
+-- /See:/ 'newBatchDelete'' smart constructor.
 data BatchDelete' = BatchDelete''
-  { _bdInputSecurityGroupIds ::
-      !(Maybe [Text]),
-    _bdMultiplexIds :: !(Maybe [Text]),
-    _bdInputIds :: !(Maybe [Text]),
-    _bdChannelIds :: !(Maybe [Text])
+  { -- | List of input security group IDs
+    inputSecurityGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | List of multiplex IDs
+    multiplexIds :: Prelude.Maybe [Prelude.Text],
+    -- | List of input IDs
+    inputIds :: Prelude.Maybe [Prelude.Text],
+    -- | List of channel IDs
+    channelIds :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDelete'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDelete'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdInputSecurityGroupIds' - List of input security group IDs
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdMultiplexIds' - List of multiplex IDs
+-- 'inputSecurityGroupIds', 'batchDelete'_inputSecurityGroupIds' - List of input security group IDs
 --
--- * 'bdInputIds' - List of input IDs
+-- 'multiplexIds', 'batchDelete'_multiplexIds' - List of multiplex IDs
 --
--- * 'bdChannelIds' - List of channel IDs
-batchDelete' ::
+-- 'inputIds', 'batchDelete'_inputIds' - List of input IDs
+--
+-- 'channelIds', 'batchDelete'_channelIds' - List of channel IDs
+newBatchDelete' ::
   BatchDelete'
-batchDelete' =
+newBatchDelete' =
   BatchDelete''
-    { _bdInputSecurityGroupIds = Nothing,
-      _bdMultiplexIds = Nothing,
-      _bdInputIds = Nothing,
-      _bdChannelIds = Nothing
+    { inputSecurityGroupIds =
+        Prelude.Nothing,
+      multiplexIds = Prelude.Nothing,
+      inputIds = Prelude.Nothing,
+      channelIds = Prelude.Nothing
     }
 
 -- | List of input security group IDs
-bdInputSecurityGroupIds :: Lens' BatchDelete' [Text]
-bdInputSecurityGroupIds = lens _bdInputSecurityGroupIds (\s a -> s {_bdInputSecurityGroupIds = a}) . _Default . _Coerce
+batchDelete'_inputSecurityGroupIds :: Lens.Lens' BatchDelete' (Prelude.Maybe [Prelude.Text])
+batchDelete'_inputSecurityGroupIds = Lens.lens (\BatchDelete'' {inputSecurityGroupIds} -> inputSecurityGroupIds) (\s@BatchDelete'' {} a -> s {inputSecurityGroupIds = a} :: BatchDelete') Prelude.. Lens.mapping Prelude._Coerce
 
 -- | List of multiplex IDs
-bdMultiplexIds :: Lens' BatchDelete' [Text]
-bdMultiplexIds = lens _bdMultiplexIds (\s a -> s {_bdMultiplexIds = a}) . _Default . _Coerce
+batchDelete'_multiplexIds :: Lens.Lens' BatchDelete' (Prelude.Maybe [Prelude.Text])
+batchDelete'_multiplexIds = Lens.lens (\BatchDelete'' {multiplexIds} -> multiplexIds) (\s@BatchDelete'' {} a -> s {multiplexIds = a} :: BatchDelete') Prelude.. Lens.mapping Prelude._Coerce
 
 -- | List of input IDs
-bdInputIds :: Lens' BatchDelete' [Text]
-bdInputIds = lens _bdInputIds (\s a -> s {_bdInputIds = a}) . _Default . _Coerce
+batchDelete'_inputIds :: Lens.Lens' BatchDelete' (Prelude.Maybe [Prelude.Text])
+batchDelete'_inputIds = Lens.lens (\BatchDelete'' {inputIds} -> inputIds) (\s@BatchDelete'' {} a -> s {inputIds = a} :: BatchDelete') Prelude.. Lens.mapping Prelude._Coerce
 
 -- | List of channel IDs
-bdChannelIds :: Lens' BatchDelete' [Text]
-bdChannelIds = lens _bdChannelIds (\s a -> s {_bdChannelIds = a}) . _Default . _Coerce
+batchDelete'_channelIds :: Lens.Lens' BatchDelete' (Prelude.Maybe [Prelude.Text])
+batchDelete'_channelIds = Lens.lens (\BatchDelete'' {channelIds} -> channelIds) (\s@BatchDelete'' {} a -> s {channelIds = a} :: BatchDelete') Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest BatchDelete' where
+instance Prelude.AWSRequest BatchDelete' where
   type Rs BatchDelete' = BatchDeleteResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchDeleteResponse'
-            <$> (x .?> "successful" .!@ mempty)
-            <*> (x .?> "failed" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "successful"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "failed" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchDelete'
+instance Prelude.Hashable BatchDelete'
 
-instance NFData BatchDelete'
+instance Prelude.NFData BatchDelete'
 
-instance ToHeaders BatchDelete' where
+instance Prelude.ToHeaders BatchDelete' where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchDelete' where
+instance Prelude.ToJSON BatchDelete' where
   toJSON BatchDelete'' {..} =
-    object
-      ( catMaybes
-          [ ("inputSecurityGroupIds" .=)
-              <$> _bdInputSecurityGroupIds,
-            ("multiplexIds" .=) <$> _bdMultiplexIds,
-            ("inputIds" .=) <$> _bdInputIds,
-            ("channelIds" .=) <$> _bdChannelIds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("inputSecurityGroupIds" Prelude..=)
+              Prelude.<$> inputSecurityGroupIds,
+            ("multiplexIds" Prelude..=) Prelude.<$> multiplexIds,
+            ("inputIds" Prelude..=) Prelude.<$> inputIds,
+            ("channelIds" Prelude..=) Prelude.<$> channelIds
           ]
       )
 
-instance ToPath BatchDelete' where
-  toPath = const "/prod/batch/delete"
+instance Prelude.ToPath BatchDelete' where
+  toPath = Prelude.const "/prod/batch/delete"
 
-instance ToQuery BatchDelete' where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchDelete' where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for BatchDeleteResponse
 --
--- /See:/ 'batchDeleteResponse' smart constructor.
+-- /See:/ 'newBatchDeleteResponse' smart constructor.
 data BatchDeleteResponse = BatchDeleteResponse'
-  { _bdrrsSuccessful ::
-      !( Maybe
-           [BatchSuccessfulResultModel]
-       ),
-    _bdrrsFailed ::
-      !( Maybe
-           [BatchFailedResultModel]
-       ),
-    _bdrrsResponseStatus :: !Int
+  { -- | List of successful operations
+    successful :: Prelude.Maybe [BatchSuccessfulResultModel],
+    -- | List of failed operations
+    failed :: Prelude.Maybe [BatchFailedResultModel],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchDeleteResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchDeleteResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bdrrsSuccessful' - List of successful operations
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bdrrsFailed' - List of failed operations
+-- 'successful', 'batchDeleteResponse_successful' - List of successful operations
 --
--- * 'bdrrsResponseStatus' - -- | The response status code.
-batchDeleteResponse ::
-  -- | 'bdrrsResponseStatus'
-  Int ->
+-- 'failed', 'batchDeleteResponse_failed' - List of failed operations
+--
+-- 'httpStatus', 'batchDeleteResponse_httpStatus' - The response's http status code.
+newBatchDeleteResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchDeleteResponse
-batchDeleteResponse pResponseStatus_ =
+newBatchDeleteResponse pHttpStatus_ =
   BatchDeleteResponse'
-    { _bdrrsSuccessful = Nothing,
-      _bdrrsFailed = Nothing,
-      _bdrrsResponseStatus = pResponseStatus_
+    { successful = Prelude.Nothing,
+      failed = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | List of successful operations
-bdrrsSuccessful :: Lens' BatchDeleteResponse [BatchSuccessfulResultModel]
-bdrrsSuccessful = lens _bdrrsSuccessful (\s a -> s {_bdrrsSuccessful = a}) . _Default . _Coerce
+batchDeleteResponse_successful :: Lens.Lens' BatchDeleteResponse (Prelude.Maybe [BatchSuccessfulResultModel])
+batchDeleteResponse_successful = Lens.lens (\BatchDeleteResponse' {successful} -> successful) (\s@BatchDeleteResponse' {} a -> s {successful = a} :: BatchDeleteResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | List of failed operations
-bdrrsFailed :: Lens' BatchDeleteResponse [BatchFailedResultModel]
-bdrrsFailed = lens _bdrrsFailed (\s a -> s {_bdrrsFailed = a}) . _Default . _Coerce
+batchDeleteResponse_failed :: Lens.Lens' BatchDeleteResponse (Prelude.Maybe [BatchFailedResultModel])
+batchDeleteResponse_failed = Lens.lens (\BatchDeleteResponse' {failed} -> failed) (\s@BatchDeleteResponse' {} a -> s {failed = a} :: BatchDeleteResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-bdrrsResponseStatus :: Lens' BatchDeleteResponse Int
-bdrrsResponseStatus = lens _bdrrsResponseStatus (\s a -> s {_bdrrsResponseStatus = a})
+-- | The response's http status code.
+batchDeleteResponse_httpStatus :: Lens.Lens' BatchDeleteResponse Prelude.Int
+batchDeleteResponse_httpStatus = Lens.lens (\BatchDeleteResponse' {httpStatus} -> httpStatus) (\s@BatchDeleteResponse' {} a -> s {httpStatus = a} :: BatchDeleteResponse)
 
-instance NFData BatchDeleteResponse
+instance Prelude.NFData BatchDeleteResponse

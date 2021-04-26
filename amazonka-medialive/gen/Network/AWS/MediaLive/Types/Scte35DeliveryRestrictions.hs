@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,118 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Scte35DeliveryRestrictions where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.Scte35ArchiveAllowedFlag
 import Network.AWS.MediaLive.Types.Scte35DeviceRestrictions
 import Network.AWS.MediaLive.Types.Scte35NoRegionalBlackoutFlag
 import Network.AWS.MediaLive.Types.Scte35WebDeliveryAllowedFlag
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Corresponds to SCTE-35 delivery_not_restricted_flag parameter. To declare delivery restrictions, include this element and its four "restriction" flags. To declare that there are no restrictions, omit this element.
+-- | Corresponds to SCTE-35 delivery_not_restricted_flag parameter. To
+-- declare delivery restrictions, include this element and its four
+-- \"restriction\" flags. To declare that there are no restrictions, omit
+-- this element.
 --
--- /See:/ 'scte35DeliveryRestrictions' smart constructor.
+-- /See:/ 'newScte35DeliveryRestrictions' smart constructor.
 data Scte35DeliveryRestrictions = Scte35DeliveryRestrictions'
-  { _sdrDeviceRestrictions ::
-      !Scte35DeviceRestrictions,
-    _sdrArchiveAllowedFlag ::
-      !Scte35ArchiveAllowedFlag,
-    _sdrWebDeliveryAllowedFlag ::
-      !Scte35WebDeliveryAllowedFlag,
-    _sdrNoRegionalBlackoutFlag ::
-      !Scte35NoRegionalBlackoutFlag
+  { -- | Corresponds to SCTE-35 device_restrictions parameter.
+    deviceRestrictions :: Scte35DeviceRestrictions,
+    -- | Corresponds to SCTE-35 archive_allowed_flag.
+    archiveAllowedFlag :: Scte35ArchiveAllowedFlag,
+    -- | Corresponds to SCTE-35 web_delivery_allowed_flag parameter.
+    webDeliveryAllowedFlag :: Scte35WebDeliveryAllowedFlag,
+    -- | Corresponds to SCTE-35 no_regional_blackout_flag parameter.
+    noRegionalBlackoutFlag :: Scte35NoRegionalBlackoutFlag
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Scte35DeliveryRestrictions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Scte35DeliveryRestrictions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdrDeviceRestrictions' - Corresponds to SCTE-35 device_restrictions parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdrArchiveAllowedFlag' - Corresponds to SCTE-35 archive_allowed_flag.
+-- 'deviceRestrictions', 'scte35DeliveryRestrictions_deviceRestrictions' - Corresponds to SCTE-35 device_restrictions parameter.
 --
--- * 'sdrWebDeliveryAllowedFlag' - Corresponds to SCTE-35 web_delivery_allowed_flag parameter.
+-- 'archiveAllowedFlag', 'scte35DeliveryRestrictions_archiveAllowedFlag' - Corresponds to SCTE-35 archive_allowed_flag.
 --
--- * 'sdrNoRegionalBlackoutFlag' - Corresponds to SCTE-35 no_regional_blackout_flag parameter.
-scte35DeliveryRestrictions ::
-  -- | 'sdrDeviceRestrictions'
+-- 'webDeliveryAllowedFlag', 'scte35DeliveryRestrictions_webDeliveryAllowedFlag' - Corresponds to SCTE-35 web_delivery_allowed_flag parameter.
+--
+-- 'noRegionalBlackoutFlag', 'scte35DeliveryRestrictions_noRegionalBlackoutFlag' - Corresponds to SCTE-35 no_regional_blackout_flag parameter.
+newScte35DeliveryRestrictions ::
+  -- | 'deviceRestrictions'
   Scte35DeviceRestrictions ->
-  -- | 'sdrArchiveAllowedFlag'
+  -- | 'archiveAllowedFlag'
   Scte35ArchiveAllowedFlag ->
-  -- | 'sdrWebDeliveryAllowedFlag'
+  -- | 'webDeliveryAllowedFlag'
   Scte35WebDeliveryAllowedFlag ->
-  -- | 'sdrNoRegionalBlackoutFlag'
+  -- | 'noRegionalBlackoutFlag'
   Scte35NoRegionalBlackoutFlag ->
   Scte35DeliveryRestrictions
-scte35DeliveryRestrictions
+newScte35DeliveryRestrictions
   pDeviceRestrictions_
   pArchiveAllowedFlag_
   pWebDeliveryAllowedFlag_
   pNoRegionalBlackoutFlag_ =
     Scte35DeliveryRestrictions'
-      { _sdrDeviceRestrictions =
+      { deviceRestrictions =
           pDeviceRestrictions_,
-        _sdrArchiveAllowedFlag = pArchiveAllowedFlag_,
-        _sdrWebDeliveryAllowedFlag =
+        archiveAllowedFlag = pArchiveAllowedFlag_,
+        webDeliveryAllowedFlag =
           pWebDeliveryAllowedFlag_,
-        _sdrNoRegionalBlackoutFlag =
+        noRegionalBlackoutFlag =
           pNoRegionalBlackoutFlag_
       }
 
 -- | Corresponds to SCTE-35 device_restrictions parameter.
-sdrDeviceRestrictions :: Lens' Scte35DeliveryRestrictions Scte35DeviceRestrictions
-sdrDeviceRestrictions = lens _sdrDeviceRestrictions (\s a -> s {_sdrDeviceRestrictions = a})
+scte35DeliveryRestrictions_deviceRestrictions :: Lens.Lens' Scte35DeliveryRestrictions Scte35DeviceRestrictions
+scte35DeliveryRestrictions_deviceRestrictions = Lens.lens (\Scte35DeliveryRestrictions' {deviceRestrictions} -> deviceRestrictions) (\s@Scte35DeliveryRestrictions' {} a -> s {deviceRestrictions = a} :: Scte35DeliveryRestrictions)
 
 -- | Corresponds to SCTE-35 archive_allowed_flag.
-sdrArchiveAllowedFlag :: Lens' Scte35DeliveryRestrictions Scte35ArchiveAllowedFlag
-sdrArchiveAllowedFlag = lens _sdrArchiveAllowedFlag (\s a -> s {_sdrArchiveAllowedFlag = a})
+scte35DeliveryRestrictions_archiveAllowedFlag :: Lens.Lens' Scte35DeliveryRestrictions Scte35ArchiveAllowedFlag
+scte35DeliveryRestrictions_archiveAllowedFlag = Lens.lens (\Scte35DeliveryRestrictions' {archiveAllowedFlag} -> archiveAllowedFlag) (\s@Scte35DeliveryRestrictions' {} a -> s {archiveAllowedFlag = a} :: Scte35DeliveryRestrictions)
 
 -- | Corresponds to SCTE-35 web_delivery_allowed_flag parameter.
-sdrWebDeliveryAllowedFlag :: Lens' Scte35DeliveryRestrictions Scte35WebDeliveryAllowedFlag
-sdrWebDeliveryAllowedFlag = lens _sdrWebDeliveryAllowedFlag (\s a -> s {_sdrWebDeliveryAllowedFlag = a})
+scte35DeliveryRestrictions_webDeliveryAllowedFlag :: Lens.Lens' Scte35DeliveryRestrictions Scte35WebDeliveryAllowedFlag
+scte35DeliveryRestrictions_webDeliveryAllowedFlag = Lens.lens (\Scte35DeliveryRestrictions' {webDeliveryAllowedFlag} -> webDeliveryAllowedFlag) (\s@Scte35DeliveryRestrictions' {} a -> s {webDeliveryAllowedFlag = a} :: Scte35DeliveryRestrictions)
 
 -- | Corresponds to SCTE-35 no_regional_blackout_flag parameter.
-sdrNoRegionalBlackoutFlag :: Lens' Scte35DeliveryRestrictions Scte35NoRegionalBlackoutFlag
-sdrNoRegionalBlackoutFlag = lens _sdrNoRegionalBlackoutFlag (\s a -> s {_sdrNoRegionalBlackoutFlag = a})
+scte35DeliveryRestrictions_noRegionalBlackoutFlag :: Lens.Lens' Scte35DeliveryRestrictions Scte35NoRegionalBlackoutFlag
+scte35DeliveryRestrictions_noRegionalBlackoutFlag = Lens.lens (\Scte35DeliveryRestrictions' {noRegionalBlackoutFlag} -> noRegionalBlackoutFlag) (\s@Scte35DeliveryRestrictions' {} a -> s {noRegionalBlackoutFlag = a} :: Scte35DeliveryRestrictions)
 
-instance FromJSON Scte35DeliveryRestrictions where
+instance Prelude.FromJSON Scte35DeliveryRestrictions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Scte35DeliveryRestrictions"
       ( \x ->
           Scte35DeliveryRestrictions'
-            <$> (x .: "deviceRestrictions")
-            <*> (x .: "archiveAllowedFlag")
-            <*> (x .: "webDeliveryAllowedFlag")
-            <*> (x .: "noRegionalBlackoutFlag")
+            Prelude.<$> (x Prelude..: "deviceRestrictions")
+            Prelude.<*> (x Prelude..: "archiveAllowedFlag")
+            Prelude.<*> (x Prelude..: "webDeliveryAllowedFlag")
+            Prelude.<*> (x Prelude..: "noRegionalBlackoutFlag")
       )
 
-instance Hashable Scte35DeliveryRestrictions
+instance Prelude.Hashable Scte35DeliveryRestrictions
 
-instance NFData Scte35DeliveryRestrictions
+instance Prelude.NFData Scte35DeliveryRestrictions
 
-instance ToJSON Scte35DeliveryRestrictions where
+instance Prelude.ToJSON Scte35DeliveryRestrictions where
   toJSON Scte35DeliveryRestrictions' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("deviceRestrictions" .= _sdrDeviceRestrictions),
-            Just
-              ("archiveAllowedFlag" .= _sdrArchiveAllowedFlag),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("deviceRestrictions" Prelude..= deviceRestrictions),
+            Prelude.Just
+              ("archiveAllowedFlag" Prelude..= archiveAllowedFlag),
+            Prelude.Just
               ( "webDeliveryAllowedFlag"
-                  .= _sdrWebDeliveryAllowedFlag
+                  Prelude..= webDeliveryAllowedFlag
               ),
-            Just
+            Prelude.Just
               ( "noRegionalBlackoutFlag"
-                  .= _sdrNoRegionalBlackoutFlag
+                  Prelude..= noRegionalBlackoutFlag
               )
           ]
       )

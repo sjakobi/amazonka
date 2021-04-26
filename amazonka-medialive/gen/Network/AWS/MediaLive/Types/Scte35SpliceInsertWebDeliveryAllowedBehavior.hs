@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Scte35SpliceInsertWebDeliveryAllowedBehavior
   ( Scte35SpliceInsertWebDeliveryAllowedBehavior
       ( ..,
-        SSIWDABFollow,
-        SSIWDABIgnore
+        Scte35SpliceInsertWebDeliveryAllowedBehaviorFOLLOW,
+        Scte35SpliceInsertWebDeliveryAllowedBehaviorIGNORE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Scte35 Splice Insert Web Delivery Allowed Behavior
-data Scte35SpliceInsertWebDeliveryAllowedBehavior
-  = Scte35SpliceInsertWebDeliveryAllowedBehavior'
-      ( CI
-          Text
-      )
+newtype Scte35SpliceInsertWebDeliveryAllowedBehavior = Scte35SpliceInsertWebDeliveryAllowedBehavior'
+  { fromScte35SpliceInsertWebDeliveryAllowedBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSIWDABFollow :: Scte35SpliceInsertWebDeliveryAllowedBehavior
-pattern SSIWDABFollow = Scte35SpliceInsertWebDeliveryAllowedBehavior' "FOLLOW"
+pattern Scte35SpliceInsertWebDeliveryAllowedBehaviorFOLLOW :: Scte35SpliceInsertWebDeliveryAllowedBehavior
+pattern Scte35SpliceInsertWebDeliveryAllowedBehaviorFOLLOW = Scte35SpliceInsertWebDeliveryAllowedBehavior' "FOLLOW"
 
-pattern SSIWDABIgnore :: Scte35SpliceInsertWebDeliveryAllowedBehavior
-pattern SSIWDABIgnore = Scte35SpliceInsertWebDeliveryAllowedBehavior' "IGNORE"
+pattern Scte35SpliceInsertWebDeliveryAllowedBehaviorIGNORE :: Scte35SpliceInsertWebDeliveryAllowedBehavior
+pattern Scte35SpliceInsertWebDeliveryAllowedBehaviorIGNORE = Scte35SpliceInsertWebDeliveryAllowedBehavior' "IGNORE"
 
 {-# COMPLETE
-  SSIWDABFollow,
-  SSIWDABIgnore,
+  Scte35SpliceInsertWebDeliveryAllowedBehaviorFOLLOW,
+  Scte35SpliceInsertWebDeliveryAllowedBehaviorIGNORE,
   Scte35SpliceInsertWebDeliveryAllowedBehavior'
   #-}
 
-instance FromText Scte35SpliceInsertWebDeliveryAllowedBehavior where
-  parser = (Scte35SpliceInsertWebDeliveryAllowedBehavior' . mk) <$> takeText
+instance Prelude.FromText Scte35SpliceInsertWebDeliveryAllowedBehavior where
+  parser = Scte35SpliceInsertWebDeliveryAllowedBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText Scte35SpliceInsertWebDeliveryAllowedBehavior where
-  toText (Scte35SpliceInsertWebDeliveryAllowedBehavior' ci) = original ci
+instance Prelude.ToText Scte35SpliceInsertWebDeliveryAllowedBehavior where
+  toText (Scte35SpliceInsertWebDeliveryAllowedBehavior' x) = x
 
-instance Hashable Scte35SpliceInsertWebDeliveryAllowedBehavior
+instance Prelude.Hashable Scte35SpliceInsertWebDeliveryAllowedBehavior
 
-instance NFData Scte35SpliceInsertWebDeliveryAllowedBehavior
+instance Prelude.NFData Scte35SpliceInsertWebDeliveryAllowedBehavior
 
-instance ToByteString Scte35SpliceInsertWebDeliveryAllowedBehavior
+instance Prelude.ToByteString Scte35SpliceInsertWebDeliveryAllowedBehavior
 
-instance ToQuery Scte35SpliceInsertWebDeliveryAllowedBehavior
+instance Prelude.ToQuery Scte35SpliceInsertWebDeliveryAllowedBehavior
 
-instance ToHeader Scte35SpliceInsertWebDeliveryAllowedBehavior
+instance Prelude.ToHeader Scte35SpliceInsertWebDeliveryAllowedBehavior
 
-instance ToJSON Scte35SpliceInsertWebDeliveryAllowedBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte35SpliceInsertWebDeliveryAllowedBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte35SpliceInsertWebDeliveryAllowedBehavior where
-  parseJSON = parseJSONText "Scte35SpliceInsertWebDeliveryAllowedBehavior"
+instance Prelude.FromJSON Scte35SpliceInsertWebDeliveryAllowedBehavior where
+  parseJSON = Prelude.parseJSONText "Scte35SpliceInsertWebDeliveryAllowedBehavior"

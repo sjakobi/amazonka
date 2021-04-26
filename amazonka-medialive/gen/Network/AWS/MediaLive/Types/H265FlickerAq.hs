@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H265FlickerAq
   ( H265FlickerAq
       ( ..,
-        HDisabled,
-        HEnabled
+        H265FlickerAqDISABLED,
+        H265FlickerAqENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H265 Flicker Aq
-data H265FlickerAq = H265FlickerAq' (CI Text)
+newtype H265FlickerAq = H265FlickerAq'
+  { fromH265FlickerAq ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HDisabled :: H265FlickerAq
-pattern HDisabled = H265FlickerAq' "DISABLED"
+pattern H265FlickerAqDISABLED :: H265FlickerAq
+pattern H265FlickerAqDISABLED = H265FlickerAq' "DISABLED"
 
-pattern HEnabled :: H265FlickerAq
-pattern HEnabled = H265FlickerAq' "ENABLED"
+pattern H265FlickerAqENABLED :: H265FlickerAq
+pattern H265FlickerAqENABLED = H265FlickerAq' "ENABLED"
 
 {-# COMPLETE
-  HDisabled,
-  HEnabled,
+  H265FlickerAqDISABLED,
+  H265FlickerAqENABLED,
   H265FlickerAq'
   #-}
 
-instance FromText H265FlickerAq where
-  parser = (H265FlickerAq' . mk) <$> takeText
+instance Prelude.FromText H265FlickerAq where
+  parser = H265FlickerAq' Prelude.<$> Prelude.takeText
 
-instance ToText H265FlickerAq where
-  toText (H265FlickerAq' ci) = original ci
+instance Prelude.ToText H265FlickerAq where
+  toText (H265FlickerAq' x) = x
 
-instance Hashable H265FlickerAq
+instance Prelude.Hashable H265FlickerAq
 
-instance NFData H265FlickerAq
+instance Prelude.NFData H265FlickerAq
 
-instance ToByteString H265FlickerAq
+instance Prelude.ToByteString H265FlickerAq
 
-instance ToQuery H265FlickerAq
+instance Prelude.ToQuery H265FlickerAq
 
-instance ToHeader H265FlickerAq
+instance Prelude.ToHeader H265FlickerAq
 
-instance ToJSON H265FlickerAq where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265FlickerAq where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265FlickerAq where
-  parseJSON = parseJSONText "H265FlickerAq"
+instance Prelude.FromJSON H265FlickerAq where
+  parseJSON = Prelude.parseJSONText "H265FlickerAq"

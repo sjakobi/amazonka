@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.AacSpec
   ( AacSpec
       ( ..,
-        MPEG2,
-        MPEG4
+        AacSpecMPEG2,
+        AacSpecMPEG4
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Aac Spec
-data AacSpec = AacSpec' (CI Text)
+newtype AacSpec = AacSpec'
+  { fromAacSpec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPEG2 :: AacSpec
-pattern MPEG2 = AacSpec' "MPEG2"
+pattern AacSpecMPEG2 :: AacSpec
+pattern AacSpecMPEG2 = AacSpec' "MPEG2"
 
-pattern MPEG4 :: AacSpec
-pattern MPEG4 = AacSpec' "MPEG4"
+pattern AacSpecMPEG4 :: AacSpec
+pattern AacSpecMPEG4 = AacSpec' "MPEG4"
 
 {-# COMPLETE
-  MPEG2,
-  MPEG4,
+  AacSpecMPEG2,
+  AacSpecMPEG4,
   AacSpec'
   #-}
 
-instance FromText AacSpec where
-  parser = (AacSpec' . mk) <$> takeText
+instance Prelude.FromText AacSpec where
+  parser = AacSpec' Prelude.<$> Prelude.takeText
 
-instance ToText AacSpec where
-  toText (AacSpec' ci) = original ci
+instance Prelude.ToText AacSpec where
+  toText (AacSpec' x) = x
 
-instance Hashable AacSpec
+instance Prelude.Hashable AacSpec
 
-instance NFData AacSpec
+instance Prelude.NFData AacSpec
 
-instance ToByteString AacSpec
+instance Prelude.ToByteString AacSpec
 
-instance ToQuery AacSpec
+instance Prelude.ToQuery AacSpec
 
-instance ToHeader AacSpec
+instance Prelude.ToHeader AacSpec
 
-instance ToJSON AacSpec where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacSpec where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacSpec where
-  parseJSON = parseJSONText "AacSpec"
+instance Prelude.FromJSON AacSpec where
+  parseJSON = Prelude.parseJSONText "AacSpec"

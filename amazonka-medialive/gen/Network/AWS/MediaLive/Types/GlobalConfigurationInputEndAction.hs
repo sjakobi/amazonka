@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.GlobalConfigurationInputEndAction
   ( GlobalConfigurationInputEndAction
       ( ..,
-        GCIEANone,
-        GCIEASwitchAndLoopInputs
+        GlobalConfigurationInputEndActionNONE,
+        GlobalConfigurationInputEndActionSWITCHANDLOOPINPUTS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Global Configuration Input End Action
-data GlobalConfigurationInputEndAction
-  = GlobalConfigurationInputEndAction'
-      ( CI
-          Text
-      )
+newtype GlobalConfigurationInputEndAction = GlobalConfigurationInputEndAction'
+  { fromGlobalConfigurationInputEndAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GCIEANone :: GlobalConfigurationInputEndAction
-pattern GCIEANone = GlobalConfigurationInputEndAction' "NONE"
+pattern GlobalConfigurationInputEndActionNONE :: GlobalConfigurationInputEndAction
+pattern GlobalConfigurationInputEndActionNONE = GlobalConfigurationInputEndAction' "NONE"
 
-pattern GCIEASwitchAndLoopInputs :: GlobalConfigurationInputEndAction
-pattern GCIEASwitchAndLoopInputs = GlobalConfigurationInputEndAction' "SWITCH_AND_LOOP_INPUTS"
+pattern GlobalConfigurationInputEndActionSWITCHANDLOOPINPUTS :: GlobalConfigurationInputEndAction
+pattern GlobalConfigurationInputEndActionSWITCHANDLOOPINPUTS = GlobalConfigurationInputEndAction' "SWITCH_AND_LOOP_INPUTS"
 
 {-# COMPLETE
-  GCIEANone,
-  GCIEASwitchAndLoopInputs,
+  GlobalConfigurationInputEndActionNONE,
+  GlobalConfigurationInputEndActionSWITCHANDLOOPINPUTS,
   GlobalConfigurationInputEndAction'
   #-}
 
-instance FromText GlobalConfigurationInputEndAction where
-  parser = (GlobalConfigurationInputEndAction' . mk) <$> takeText
+instance Prelude.FromText GlobalConfigurationInputEndAction where
+  parser = GlobalConfigurationInputEndAction' Prelude.<$> Prelude.takeText
 
-instance ToText GlobalConfigurationInputEndAction where
-  toText (GlobalConfigurationInputEndAction' ci) = original ci
+instance Prelude.ToText GlobalConfigurationInputEndAction where
+  toText (GlobalConfigurationInputEndAction' x) = x
 
-instance Hashable GlobalConfigurationInputEndAction
+instance Prelude.Hashable GlobalConfigurationInputEndAction
 
-instance NFData GlobalConfigurationInputEndAction
+instance Prelude.NFData GlobalConfigurationInputEndAction
 
-instance ToByteString GlobalConfigurationInputEndAction
+instance Prelude.ToByteString GlobalConfigurationInputEndAction
 
-instance ToQuery GlobalConfigurationInputEndAction
+instance Prelude.ToQuery GlobalConfigurationInputEndAction
 
-instance ToHeader GlobalConfigurationInputEndAction
+instance Prelude.ToHeader GlobalConfigurationInputEndAction
 
-instance ToJSON GlobalConfigurationInputEndAction where
-  toJSON = toJSONText
+instance Prelude.ToJSON GlobalConfigurationInputEndAction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GlobalConfigurationInputEndAction where
-  parseJSON = parseJSONText "GlobalConfigurationInputEndAction"
+instance Prelude.FromJSON GlobalConfigurationInputEndAction where
+  parseJSON = Prelude.parseJSONText "GlobalConfigurationInputEndAction"

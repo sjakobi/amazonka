@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,96 +24,110 @@
 -- Create tags for a resource
 module Network.AWS.MediaLive.CreateTags
   ( -- * Creating a Request
-    createTags,
-    CreateTags,
+    CreateTags (..),
+    newCreateTags,
 
     -- * Request Lenses
-    ctTags,
-    ctResourceARN,
+    createTags_tags,
+    createTags_resourceArn,
 
     -- * Destructuring the Response
-    createTagsResponse,
-    CreateTagsResponse,
+    CreateTagsResponse (..),
+    newCreateTagsResponse,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for CreateTagsRequest
 --
--- /See:/ 'createTags' smart constructor.
+-- /See:/ 'newCreateTags' smart constructor.
 data CreateTags = CreateTags'
-  { _ctTags ::
-      !(Maybe (Map Text Text)),
-    _ctResourceARN :: !Text
+  { tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    resourceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ctTags' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ctResourceARN' - Undocumented member.
-createTags ::
-  -- | 'ctResourceARN'
-  Text ->
+-- 'tags', 'createTags_tags' - Undocumented member.
+--
+-- 'resourceArn', 'createTags_resourceArn' - Undocumented member.
+newCreateTags ::
+  -- | 'resourceArn'
+  Prelude.Text ->
   CreateTags
-createTags pResourceARN_ =
+newCreateTags pResourceArn_ =
   CreateTags'
-    { _ctTags = Nothing,
-      _ctResourceARN = pResourceARN_
+    { tags = Prelude.Nothing,
+      resourceArn = pResourceArn_
     }
 
 -- | Undocumented member.
-ctTags :: Lens' CreateTags (HashMap Text Text)
-ctTags = lens _ctTags (\s a -> s {_ctTags = a}) . _Default . _Map
+createTags_tags :: Lens.Lens' CreateTags (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createTags_tags = Lens.lens (\CreateTags' {tags} -> tags) (\s@CreateTags' {} a -> s {tags = a} :: CreateTags) Prelude.. Lens.mapping Prelude._Map
 
 -- | Undocumented member.
-ctResourceARN :: Lens' CreateTags Text
-ctResourceARN = lens _ctResourceARN (\s a -> s {_ctResourceARN = a})
+createTags_resourceArn :: Lens.Lens' CreateTags Prelude.Text
+createTags_resourceArn = Lens.lens (\CreateTags' {resourceArn} -> resourceArn) (\s@CreateTags' {} a -> s {resourceArn = a} :: CreateTags)
 
-instance AWSRequest CreateTags where
+instance Prelude.AWSRequest CreateTags where
   type Rs CreateTags = CreateTagsResponse
-  request = postJSON mediaLive
-  response = receiveNull CreateTagsResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull CreateTagsResponse'
 
-instance Hashable CreateTags
+instance Prelude.Hashable CreateTags
 
-instance NFData CreateTags
+instance Prelude.NFData CreateTags
 
-instance ToHeaders CreateTags where
+instance Prelude.ToHeaders CreateTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateTags where
+instance Prelude.ToJSON CreateTags where
   toJSON CreateTags' {..} =
-    object (catMaybes [("tags" .=) <$> _ctTags])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("tags" Prelude..=) Prelude.<$> tags]
+      )
 
-instance ToPath CreateTags where
+instance Prelude.ToPath CreateTags where
   toPath CreateTags' {..} =
-    mconcat ["/prod/tags/", toBS _ctResourceARN]
+    Prelude.mconcat
+      ["/prod/tags/", Prelude.toBS resourceArn]
 
-instance ToQuery CreateTags where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createTagsResponse' smart constructor.
+-- | /See:/ 'newCreateTagsResponse' smart constructor.
 data CreateTagsResponse = CreateTagsResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateTagsResponse' with the minimum fields required to make a request.
-createTagsResponse ::
+-- |
+-- Create a value of 'CreateTagsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCreateTagsResponse ::
   CreateTagsResponse
-createTagsResponse = CreateTagsResponse'
+newCreateTagsResponse = CreateTagsResponse'
 
-instance NFData CreateTagsResponse
+instance Prelude.NFData CreateTagsResponse

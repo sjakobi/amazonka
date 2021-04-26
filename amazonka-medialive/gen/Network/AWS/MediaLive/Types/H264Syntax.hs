@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H264Syntax
   ( H264Syntax
       ( ..,
-        Default,
-        RP2027
+        H264SyntaxDEFAULT,
+        H264SyntaxRP2027
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Syntax
-data H264Syntax = H264Syntax' (CI Text)
+newtype H264Syntax = H264Syntax'
+  { fromH264Syntax ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Default :: H264Syntax
-pattern Default = H264Syntax' "DEFAULT"
+pattern H264SyntaxDEFAULT :: H264Syntax
+pattern H264SyntaxDEFAULT = H264Syntax' "DEFAULT"
 
-pattern RP2027 :: H264Syntax
-pattern RP2027 = H264Syntax' "RP2027"
+pattern H264SyntaxRP2027 :: H264Syntax
+pattern H264SyntaxRP2027 = H264Syntax' "RP2027"
 
 {-# COMPLETE
-  Default,
-  RP2027,
+  H264SyntaxDEFAULT,
+  H264SyntaxRP2027,
   H264Syntax'
   #-}
 
-instance FromText H264Syntax where
-  parser = (H264Syntax' . mk) <$> takeText
+instance Prelude.FromText H264Syntax where
+  parser = H264Syntax' Prelude.<$> Prelude.takeText
 
-instance ToText H264Syntax where
-  toText (H264Syntax' ci) = original ci
+instance Prelude.ToText H264Syntax where
+  toText (H264Syntax' x) = x
 
-instance Hashable H264Syntax
+instance Prelude.Hashable H264Syntax
 
-instance NFData H264Syntax
+instance Prelude.NFData H264Syntax
 
-instance ToByteString H264Syntax
+instance Prelude.ToByteString H264Syntax
 
-instance ToQuery H264Syntax
+instance Prelude.ToQuery H264Syntax
 
-instance ToHeader H264Syntax
+instance Prelude.ToHeader H264Syntax
 
-instance ToJSON H264Syntax where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264Syntax where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264Syntax where
-  parseJSON = parseJSONText "H264Syntax"
+instance Prelude.FromJSON H264Syntax where
+  parseJSON = Prelude.parseJSONText "H264Syntax"

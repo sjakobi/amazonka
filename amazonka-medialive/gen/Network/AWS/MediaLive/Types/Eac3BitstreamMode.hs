@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,74 @@
 module Network.AWS.MediaLive.Types.Eac3BitstreamMode
   ( Eac3BitstreamMode
       ( ..,
-        EBMCommentary,
-        EBMCompleteMain,
-        EBMEmergency,
-        EBMHearingImpaired,
-        EBMVisuallyImpaired
+        Eac3BitstreamModeCOMMENTARY,
+        Eac3BitstreamModeCOMPLETEMAIN,
+        Eac3BitstreamModeEMERGENCY,
+        Eac3BitstreamModeHEARINGIMPAIRED,
+        Eac3BitstreamModeVISUALLYIMPAIRED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Eac3 Bitstream Mode
-data Eac3BitstreamMode = Eac3BitstreamMode' (CI Text)
+newtype Eac3BitstreamMode = Eac3BitstreamMode'
+  { fromEac3BitstreamMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EBMCommentary :: Eac3BitstreamMode
-pattern EBMCommentary = Eac3BitstreamMode' "COMMENTARY"
+pattern Eac3BitstreamModeCOMMENTARY :: Eac3BitstreamMode
+pattern Eac3BitstreamModeCOMMENTARY = Eac3BitstreamMode' "COMMENTARY"
 
-pattern EBMCompleteMain :: Eac3BitstreamMode
-pattern EBMCompleteMain = Eac3BitstreamMode' "COMPLETE_MAIN"
+pattern Eac3BitstreamModeCOMPLETEMAIN :: Eac3BitstreamMode
+pattern Eac3BitstreamModeCOMPLETEMAIN = Eac3BitstreamMode' "COMPLETE_MAIN"
 
-pattern EBMEmergency :: Eac3BitstreamMode
-pattern EBMEmergency = Eac3BitstreamMode' "EMERGENCY"
+pattern Eac3BitstreamModeEMERGENCY :: Eac3BitstreamMode
+pattern Eac3BitstreamModeEMERGENCY = Eac3BitstreamMode' "EMERGENCY"
 
-pattern EBMHearingImpaired :: Eac3BitstreamMode
-pattern EBMHearingImpaired = Eac3BitstreamMode' "HEARING_IMPAIRED"
+pattern Eac3BitstreamModeHEARINGIMPAIRED :: Eac3BitstreamMode
+pattern Eac3BitstreamModeHEARINGIMPAIRED = Eac3BitstreamMode' "HEARING_IMPAIRED"
 
-pattern EBMVisuallyImpaired :: Eac3BitstreamMode
-pattern EBMVisuallyImpaired = Eac3BitstreamMode' "VISUALLY_IMPAIRED"
+pattern Eac3BitstreamModeVISUALLYIMPAIRED :: Eac3BitstreamMode
+pattern Eac3BitstreamModeVISUALLYIMPAIRED = Eac3BitstreamMode' "VISUALLY_IMPAIRED"
 
 {-# COMPLETE
-  EBMCommentary,
-  EBMCompleteMain,
-  EBMEmergency,
-  EBMHearingImpaired,
-  EBMVisuallyImpaired,
+  Eac3BitstreamModeCOMMENTARY,
+  Eac3BitstreamModeCOMPLETEMAIN,
+  Eac3BitstreamModeEMERGENCY,
+  Eac3BitstreamModeHEARINGIMPAIRED,
+  Eac3BitstreamModeVISUALLYIMPAIRED,
   Eac3BitstreamMode'
   #-}
 
-instance FromText Eac3BitstreamMode where
-  parser = (Eac3BitstreamMode' . mk) <$> takeText
+instance Prelude.FromText Eac3BitstreamMode where
+  parser = Eac3BitstreamMode' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3BitstreamMode where
-  toText (Eac3BitstreamMode' ci) = original ci
+instance Prelude.ToText Eac3BitstreamMode where
+  toText (Eac3BitstreamMode' x) = x
 
-instance Hashable Eac3BitstreamMode
+instance Prelude.Hashable Eac3BitstreamMode
 
-instance NFData Eac3BitstreamMode
+instance Prelude.NFData Eac3BitstreamMode
 
-instance ToByteString Eac3BitstreamMode
+instance Prelude.ToByteString Eac3BitstreamMode
 
-instance ToQuery Eac3BitstreamMode
+instance Prelude.ToQuery Eac3BitstreamMode
 
-instance ToHeader Eac3BitstreamMode
+instance Prelude.ToHeader Eac3BitstreamMode
 
-instance ToJSON Eac3BitstreamMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3BitstreamMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3BitstreamMode where
-  parseJSON = parseJSONText "Eac3BitstreamMode"
+instance Prelude.FromJSON Eac3BitstreamMode where
+  parseJSON = Prelude.parseJSONText "Eac3BitstreamMode"

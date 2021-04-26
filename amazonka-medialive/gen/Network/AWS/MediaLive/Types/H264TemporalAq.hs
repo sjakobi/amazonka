@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H264TemporalAq
   ( H264TemporalAq
       ( ..,
-        HTADisabled,
-        HTAEnabled
+        H264TemporalAqDISABLED,
+        H264TemporalAqENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Temporal Aq
-data H264TemporalAq = H264TemporalAq' (CI Text)
+newtype H264TemporalAq = H264TemporalAq'
+  { fromH264TemporalAq ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTADisabled :: H264TemporalAq
-pattern HTADisabled = H264TemporalAq' "DISABLED"
+pattern H264TemporalAqDISABLED :: H264TemporalAq
+pattern H264TemporalAqDISABLED = H264TemporalAq' "DISABLED"
 
-pattern HTAEnabled :: H264TemporalAq
-pattern HTAEnabled = H264TemporalAq' "ENABLED"
+pattern H264TemporalAqENABLED :: H264TemporalAq
+pattern H264TemporalAqENABLED = H264TemporalAq' "ENABLED"
 
 {-# COMPLETE
-  HTADisabled,
-  HTAEnabled,
+  H264TemporalAqDISABLED,
+  H264TemporalAqENABLED,
   H264TemporalAq'
   #-}
 
-instance FromText H264TemporalAq where
-  parser = (H264TemporalAq' . mk) <$> takeText
+instance Prelude.FromText H264TemporalAq where
+  parser = H264TemporalAq' Prelude.<$> Prelude.takeText
 
-instance ToText H264TemporalAq where
-  toText (H264TemporalAq' ci) = original ci
+instance Prelude.ToText H264TemporalAq where
+  toText (H264TemporalAq' x) = x
 
-instance Hashable H264TemporalAq
+instance Prelude.Hashable H264TemporalAq
 
-instance NFData H264TemporalAq
+instance Prelude.NFData H264TemporalAq
 
-instance ToByteString H264TemporalAq
+instance Prelude.ToByteString H264TemporalAq
 
-instance ToQuery H264TemporalAq
+instance Prelude.ToQuery H264TemporalAq
 
-instance ToHeader H264TemporalAq
+instance Prelude.ToHeader H264TemporalAq
 
-instance ToJSON H264TemporalAq where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264TemporalAq where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264TemporalAq where
-  parseJSON = parseJSONText "H264TemporalAq"
+instance Prelude.FromJSON H264TemporalAq where
+  parseJSON = Prelude.parseJSONText "H264TemporalAq"

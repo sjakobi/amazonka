@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H264SubGopLength
   ( H264SubGopLength
       ( ..,
-        HSGLDynamic,
-        HSGLFixed
+        H264SubGopLengthDYNAMIC,
+        H264SubGopLengthFIXED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Sub Gop Length
-data H264SubGopLength = H264SubGopLength' (CI Text)
+newtype H264SubGopLength = H264SubGopLength'
+  { fromH264SubGopLength ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HSGLDynamic :: H264SubGopLength
-pattern HSGLDynamic = H264SubGopLength' "DYNAMIC"
+pattern H264SubGopLengthDYNAMIC :: H264SubGopLength
+pattern H264SubGopLengthDYNAMIC = H264SubGopLength' "DYNAMIC"
 
-pattern HSGLFixed :: H264SubGopLength
-pattern HSGLFixed = H264SubGopLength' "FIXED"
+pattern H264SubGopLengthFIXED :: H264SubGopLength
+pattern H264SubGopLengthFIXED = H264SubGopLength' "FIXED"
 
 {-# COMPLETE
-  HSGLDynamic,
-  HSGLFixed,
+  H264SubGopLengthDYNAMIC,
+  H264SubGopLengthFIXED,
   H264SubGopLength'
   #-}
 
-instance FromText H264SubGopLength where
-  parser = (H264SubGopLength' . mk) <$> takeText
+instance Prelude.FromText H264SubGopLength where
+  parser = H264SubGopLength' Prelude.<$> Prelude.takeText
 
-instance ToText H264SubGopLength where
-  toText (H264SubGopLength' ci) = original ci
+instance Prelude.ToText H264SubGopLength where
+  toText (H264SubGopLength' x) = x
 
-instance Hashable H264SubGopLength
+instance Prelude.Hashable H264SubGopLength
 
-instance NFData H264SubGopLength
+instance Prelude.NFData H264SubGopLength
 
-instance ToByteString H264SubGopLength
+instance Prelude.ToByteString H264SubGopLength
 
-instance ToQuery H264SubGopLength
+instance Prelude.ToQuery H264SubGopLength
 
-instance ToHeader H264SubGopLength
+instance Prelude.ToHeader H264SubGopLength
 
-instance ToJSON H264SubGopLength where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264SubGopLength where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264SubGopLength where
-  parseJSON = parseJSONText "H264SubGopLength"
+instance Prelude.FromJSON H264SubGopLength where
+  parseJSON = Prelude.parseJSONText "H264SubGopLength"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.OutputSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.ArchiveOutputSettings
 import Network.AWS.MediaLive.Types.FrameCaptureOutputSettings
 import Network.AWS.MediaLive.Types.HlsOutputSettings
@@ -24,132 +28,132 @@ import Network.AWS.MediaLive.Types.MsSmoothOutputSettings
 import Network.AWS.MediaLive.Types.MultiplexOutputSettings
 import Network.AWS.MediaLive.Types.RtmpOutputSettings
 import Network.AWS.MediaLive.Types.UdpOutputSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Output Settings
 --
--- /See:/ 'outputSettings' smart constructor.
+-- /See:/ 'newOutputSettings' smart constructor.
 data OutputSettings = OutputSettings'
-  { _osRtmpOutputSettings ::
-      !(Maybe RtmpOutputSettings),
-    _osMsSmoothOutputSettings ::
-      !(Maybe MsSmoothOutputSettings),
-    _osUdpOutputSettings ::
-      !(Maybe UdpOutputSettings),
-    _osMediaPackageOutputSettings ::
-      !(Maybe MediaPackageOutputSettings),
-    _osFrameCaptureOutputSettings ::
-      !(Maybe FrameCaptureOutputSettings),
-    _osArchiveOutputSettings ::
-      !(Maybe ArchiveOutputSettings),
-    _osHlsOutputSettings ::
-      !(Maybe HlsOutputSettings),
-    _osMultiplexOutputSettings ::
-      !(Maybe MultiplexOutputSettings)
+  { rtmpOutputSettings :: Prelude.Maybe RtmpOutputSettings,
+    msSmoothOutputSettings :: Prelude.Maybe MsSmoothOutputSettings,
+    udpOutputSettings :: Prelude.Maybe UdpOutputSettings,
+    mediaPackageOutputSettings :: Prelude.Maybe MediaPackageOutputSettings,
+    frameCaptureOutputSettings :: Prelude.Maybe FrameCaptureOutputSettings,
+    archiveOutputSettings :: Prelude.Maybe ArchiveOutputSettings,
+    hlsOutputSettings :: Prelude.Maybe HlsOutputSettings,
+    multiplexOutputSettings :: Prelude.Maybe MultiplexOutputSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osRtmpOutputSettings' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osMsSmoothOutputSettings' - Undocumented member.
+-- 'rtmpOutputSettings', 'outputSettings_rtmpOutputSettings' - Undocumented member.
 --
--- * 'osUdpOutputSettings' - Undocumented member.
+-- 'msSmoothOutputSettings', 'outputSettings_msSmoothOutputSettings' - Undocumented member.
 --
--- * 'osMediaPackageOutputSettings' - Undocumented member.
+-- 'udpOutputSettings', 'outputSettings_udpOutputSettings' - Undocumented member.
 --
--- * 'osFrameCaptureOutputSettings' - Undocumented member.
+-- 'mediaPackageOutputSettings', 'outputSettings_mediaPackageOutputSettings' - Undocumented member.
 --
--- * 'osArchiveOutputSettings' - Undocumented member.
+-- 'frameCaptureOutputSettings', 'outputSettings_frameCaptureOutputSettings' - Undocumented member.
 --
--- * 'osHlsOutputSettings' - Undocumented member.
+-- 'archiveOutputSettings', 'outputSettings_archiveOutputSettings' - Undocumented member.
 --
--- * 'osMultiplexOutputSettings' - Undocumented member.
-outputSettings ::
+-- 'hlsOutputSettings', 'outputSettings_hlsOutputSettings' - Undocumented member.
+--
+-- 'multiplexOutputSettings', 'outputSettings_multiplexOutputSettings' - Undocumented member.
+newOutputSettings ::
   OutputSettings
-outputSettings =
+newOutputSettings =
   OutputSettings'
-    { _osRtmpOutputSettings = Nothing,
-      _osMsSmoothOutputSettings = Nothing,
-      _osUdpOutputSettings = Nothing,
-      _osMediaPackageOutputSettings = Nothing,
-      _osFrameCaptureOutputSettings = Nothing,
-      _osArchiveOutputSettings = Nothing,
-      _osHlsOutputSettings = Nothing,
-      _osMultiplexOutputSettings = Nothing
+    { rtmpOutputSettings =
+        Prelude.Nothing,
+      msSmoothOutputSettings = Prelude.Nothing,
+      udpOutputSettings = Prelude.Nothing,
+      mediaPackageOutputSettings = Prelude.Nothing,
+      frameCaptureOutputSettings = Prelude.Nothing,
+      archiveOutputSettings = Prelude.Nothing,
+      hlsOutputSettings = Prelude.Nothing,
+      multiplexOutputSettings = Prelude.Nothing
     }
 
 -- | Undocumented member.
-osRtmpOutputSettings :: Lens' OutputSettings (Maybe RtmpOutputSettings)
-osRtmpOutputSettings = lens _osRtmpOutputSettings (\s a -> s {_osRtmpOutputSettings = a})
+outputSettings_rtmpOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe RtmpOutputSettings)
+outputSettings_rtmpOutputSettings = Lens.lens (\OutputSettings' {rtmpOutputSettings} -> rtmpOutputSettings) (\s@OutputSettings' {} a -> s {rtmpOutputSettings = a} :: OutputSettings)
 
 -- | Undocumented member.
-osMsSmoothOutputSettings :: Lens' OutputSettings (Maybe MsSmoothOutputSettings)
-osMsSmoothOutputSettings = lens _osMsSmoothOutputSettings (\s a -> s {_osMsSmoothOutputSettings = a})
+outputSettings_msSmoothOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe MsSmoothOutputSettings)
+outputSettings_msSmoothOutputSettings = Lens.lens (\OutputSettings' {msSmoothOutputSettings} -> msSmoothOutputSettings) (\s@OutputSettings' {} a -> s {msSmoothOutputSettings = a} :: OutputSettings)
 
 -- | Undocumented member.
-osUdpOutputSettings :: Lens' OutputSettings (Maybe UdpOutputSettings)
-osUdpOutputSettings = lens _osUdpOutputSettings (\s a -> s {_osUdpOutputSettings = a})
+outputSettings_udpOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe UdpOutputSettings)
+outputSettings_udpOutputSettings = Lens.lens (\OutputSettings' {udpOutputSettings} -> udpOutputSettings) (\s@OutputSettings' {} a -> s {udpOutputSettings = a} :: OutputSettings)
 
 -- | Undocumented member.
-osMediaPackageOutputSettings :: Lens' OutputSettings (Maybe MediaPackageOutputSettings)
-osMediaPackageOutputSettings = lens _osMediaPackageOutputSettings (\s a -> s {_osMediaPackageOutputSettings = a})
+outputSettings_mediaPackageOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe MediaPackageOutputSettings)
+outputSettings_mediaPackageOutputSettings = Lens.lens (\OutputSettings' {mediaPackageOutputSettings} -> mediaPackageOutputSettings) (\s@OutputSettings' {} a -> s {mediaPackageOutputSettings = a} :: OutputSettings)
 
 -- | Undocumented member.
-osFrameCaptureOutputSettings :: Lens' OutputSettings (Maybe FrameCaptureOutputSettings)
-osFrameCaptureOutputSettings = lens _osFrameCaptureOutputSettings (\s a -> s {_osFrameCaptureOutputSettings = a})
+outputSettings_frameCaptureOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe FrameCaptureOutputSettings)
+outputSettings_frameCaptureOutputSettings = Lens.lens (\OutputSettings' {frameCaptureOutputSettings} -> frameCaptureOutputSettings) (\s@OutputSettings' {} a -> s {frameCaptureOutputSettings = a} :: OutputSettings)
 
 -- | Undocumented member.
-osArchiveOutputSettings :: Lens' OutputSettings (Maybe ArchiveOutputSettings)
-osArchiveOutputSettings = lens _osArchiveOutputSettings (\s a -> s {_osArchiveOutputSettings = a})
+outputSettings_archiveOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe ArchiveOutputSettings)
+outputSettings_archiveOutputSettings = Lens.lens (\OutputSettings' {archiveOutputSettings} -> archiveOutputSettings) (\s@OutputSettings' {} a -> s {archiveOutputSettings = a} :: OutputSettings)
 
 -- | Undocumented member.
-osHlsOutputSettings :: Lens' OutputSettings (Maybe HlsOutputSettings)
-osHlsOutputSettings = lens _osHlsOutputSettings (\s a -> s {_osHlsOutputSettings = a})
+outputSettings_hlsOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe HlsOutputSettings)
+outputSettings_hlsOutputSettings = Lens.lens (\OutputSettings' {hlsOutputSettings} -> hlsOutputSettings) (\s@OutputSettings' {} a -> s {hlsOutputSettings = a} :: OutputSettings)
 
 -- | Undocumented member.
-osMultiplexOutputSettings :: Lens' OutputSettings (Maybe MultiplexOutputSettings)
-osMultiplexOutputSettings = lens _osMultiplexOutputSettings (\s a -> s {_osMultiplexOutputSettings = a})
+outputSettings_multiplexOutputSettings :: Lens.Lens' OutputSettings (Prelude.Maybe MultiplexOutputSettings)
+outputSettings_multiplexOutputSettings = Lens.lens (\OutputSettings' {multiplexOutputSettings} -> multiplexOutputSettings) (\s@OutputSettings' {} a -> s {multiplexOutputSettings = a} :: OutputSettings)
 
-instance FromJSON OutputSettings where
+instance Prelude.FromJSON OutputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputSettings"
       ( \x ->
           OutputSettings'
-            <$> (x .:? "rtmpOutputSettings")
-            <*> (x .:? "msSmoothOutputSettings")
-            <*> (x .:? "udpOutputSettings")
-            <*> (x .:? "mediaPackageOutputSettings")
-            <*> (x .:? "frameCaptureOutputSettings")
-            <*> (x .:? "archiveOutputSettings")
-            <*> (x .:? "hlsOutputSettings")
-            <*> (x .:? "multiplexOutputSettings")
+            Prelude.<$> (x Prelude..:? "rtmpOutputSettings")
+            Prelude.<*> (x Prelude..:? "msSmoothOutputSettings")
+            Prelude.<*> (x Prelude..:? "udpOutputSettings")
+            Prelude.<*> (x Prelude..:? "mediaPackageOutputSettings")
+            Prelude.<*> (x Prelude..:? "frameCaptureOutputSettings")
+            Prelude.<*> (x Prelude..:? "archiveOutputSettings")
+            Prelude.<*> (x Prelude..:? "hlsOutputSettings")
+            Prelude.<*> (x Prelude..:? "multiplexOutputSettings")
       )
 
-instance Hashable OutputSettings
+instance Prelude.Hashable OutputSettings
 
-instance NFData OutputSettings
+instance Prelude.NFData OutputSettings
 
-instance ToJSON OutputSettings where
+instance Prelude.ToJSON OutputSettings where
   toJSON OutputSettings' {..} =
-    object
-      ( catMaybes
-          [ ("rtmpOutputSettings" .=) <$> _osRtmpOutputSettings,
-            ("msSmoothOutputSettings" .=)
-              <$> _osMsSmoothOutputSettings,
-            ("udpOutputSettings" .=) <$> _osUdpOutputSettings,
-            ("mediaPackageOutputSettings" .=)
-              <$> _osMediaPackageOutputSettings,
-            ("frameCaptureOutputSettings" .=)
-              <$> _osFrameCaptureOutputSettings,
-            ("archiveOutputSettings" .=)
-              <$> _osArchiveOutputSettings,
-            ("hlsOutputSettings" .=) <$> _osHlsOutputSettings,
-            ("multiplexOutputSettings" .=)
-              <$> _osMultiplexOutputSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("rtmpOutputSettings" Prelude..=)
+              Prelude.<$> rtmpOutputSettings,
+            ("msSmoothOutputSettings" Prelude..=)
+              Prelude.<$> msSmoothOutputSettings,
+            ("udpOutputSettings" Prelude..=)
+              Prelude.<$> udpOutputSettings,
+            ("mediaPackageOutputSettings" Prelude..=)
+              Prelude.<$> mediaPackageOutputSettings,
+            ("frameCaptureOutputSettings" Prelude..=)
+              Prelude.<$> frameCaptureOutputSettings,
+            ("archiveOutputSettings" Prelude..=)
+              Prelude.<$> archiveOutputSettings,
+            ("hlsOutputSettings" Prelude..=)
+              Prelude.<$> hlsOutputSettings,
+            ("multiplexOutputSettings" Prelude..=)
+              Prelude.<$> multiplexOutputSettings
           ]
       )

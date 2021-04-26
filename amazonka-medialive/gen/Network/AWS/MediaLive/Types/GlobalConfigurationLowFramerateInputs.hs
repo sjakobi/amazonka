@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.GlobalConfigurationLowFramerateInputs
   ( GlobalConfigurationLowFramerateInputs
       ( ..,
-        GCLFIDisabled,
-        GCLFIEnabled
+        GlobalConfigurationLowFramerateInputsDISABLED,
+        GlobalConfigurationLowFramerateInputsENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Global Configuration Low Framerate Inputs
-data GlobalConfigurationLowFramerateInputs
-  = GlobalConfigurationLowFramerateInputs'
-      ( CI
-          Text
-      )
+newtype GlobalConfigurationLowFramerateInputs = GlobalConfigurationLowFramerateInputs'
+  { fromGlobalConfigurationLowFramerateInputs ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern GCLFIDisabled :: GlobalConfigurationLowFramerateInputs
-pattern GCLFIDisabled = GlobalConfigurationLowFramerateInputs' "DISABLED"
+pattern GlobalConfigurationLowFramerateInputsDISABLED :: GlobalConfigurationLowFramerateInputs
+pattern GlobalConfigurationLowFramerateInputsDISABLED = GlobalConfigurationLowFramerateInputs' "DISABLED"
 
-pattern GCLFIEnabled :: GlobalConfigurationLowFramerateInputs
-pattern GCLFIEnabled = GlobalConfigurationLowFramerateInputs' "ENABLED"
+pattern GlobalConfigurationLowFramerateInputsENABLED :: GlobalConfigurationLowFramerateInputs
+pattern GlobalConfigurationLowFramerateInputsENABLED = GlobalConfigurationLowFramerateInputs' "ENABLED"
 
 {-# COMPLETE
-  GCLFIDisabled,
-  GCLFIEnabled,
+  GlobalConfigurationLowFramerateInputsDISABLED,
+  GlobalConfigurationLowFramerateInputsENABLED,
   GlobalConfigurationLowFramerateInputs'
   #-}
 
-instance FromText GlobalConfigurationLowFramerateInputs where
-  parser = (GlobalConfigurationLowFramerateInputs' . mk) <$> takeText
+instance Prelude.FromText GlobalConfigurationLowFramerateInputs where
+  parser = GlobalConfigurationLowFramerateInputs' Prelude.<$> Prelude.takeText
 
-instance ToText GlobalConfigurationLowFramerateInputs where
-  toText (GlobalConfigurationLowFramerateInputs' ci) = original ci
+instance Prelude.ToText GlobalConfigurationLowFramerateInputs where
+  toText (GlobalConfigurationLowFramerateInputs' x) = x
 
-instance Hashable GlobalConfigurationLowFramerateInputs
+instance Prelude.Hashable GlobalConfigurationLowFramerateInputs
 
-instance NFData GlobalConfigurationLowFramerateInputs
+instance Prelude.NFData GlobalConfigurationLowFramerateInputs
 
-instance ToByteString GlobalConfigurationLowFramerateInputs
+instance Prelude.ToByteString GlobalConfigurationLowFramerateInputs
 
-instance ToQuery GlobalConfigurationLowFramerateInputs
+instance Prelude.ToQuery GlobalConfigurationLowFramerateInputs
 
-instance ToHeader GlobalConfigurationLowFramerateInputs
+instance Prelude.ToHeader GlobalConfigurationLowFramerateInputs
 
-instance ToJSON GlobalConfigurationLowFramerateInputs where
-  toJSON = toJSONText
+instance Prelude.ToJSON GlobalConfigurationLowFramerateInputs where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GlobalConfigurationLowFramerateInputs where
-  parseJSON = parseJSONText "GlobalConfigurationLowFramerateInputs"
+instance Prelude.FromJSON GlobalConfigurationLowFramerateInputs where
+  parseJSON = Prelude.parseJSONText "GlobalConfigurationLowFramerateInputs"

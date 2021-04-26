@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.DvbSubDestinationAlignment
   ( DvbSubDestinationAlignment
       ( ..,
-        Centered,
-        Left',
-        Smart
+        DvbSubDestinationAlignmentCENTERED,
+        DvbSubDestinationAlignmentLEFT,
+        DvbSubDestinationAlignmentSMART
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Dvb Sub Destination Alignment
-data DvbSubDestinationAlignment
-  = DvbSubDestinationAlignment'
-      ( CI
-          Text
-      )
+newtype DvbSubDestinationAlignment = DvbSubDestinationAlignment'
+  { fromDvbSubDestinationAlignment ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Centered :: DvbSubDestinationAlignment
-pattern Centered = DvbSubDestinationAlignment' "CENTERED"
+pattern DvbSubDestinationAlignmentCENTERED :: DvbSubDestinationAlignment
+pattern DvbSubDestinationAlignmentCENTERED = DvbSubDestinationAlignment' "CENTERED"
 
-pattern Left' :: DvbSubDestinationAlignment
-pattern Left' = DvbSubDestinationAlignment' "LEFT"
+pattern DvbSubDestinationAlignmentLEFT :: DvbSubDestinationAlignment
+pattern DvbSubDestinationAlignmentLEFT = DvbSubDestinationAlignment' "LEFT"
 
-pattern Smart :: DvbSubDestinationAlignment
-pattern Smart = DvbSubDestinationAlignment' "SMART"
+pattern DvbSubDestinationAlignmentSMART :: DvbSubDestinationAlignment
+pattern DvbSubDestinationAlignmentSMART = DvbSubDestinationAlignment' "SMART"
 
 {-# COMPLETE
-  Centered,
-  Left',
-  Smart,
+  DvbSubDestinationAlignmentCENTERED,
+  DvbSubDestinationAlignmentLEFT,
+  DvbSubDestinationAlignmentSMART,
   DvbSubDestinationAlignment'
   #-}
 
-instance FromText DvbSubDestinationAlignment where
-  parser = (DvbSubDestinationAlignment' . mk) <$> takeText
+instance Prelude.FromText DvbSubDestinationAlignment where
+  parser = DvbSubDestinationAlignment' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubDestinationAlignment where
-  toText (DvbSubDestinationAlignment' ci) = original ci
+instance Prelude.ToText DvbSubDestinationAlignment where
+  toText (DvbSubDestinationAlignment' x) = x
 
-instance Hashable DvbSubDestinationAlignment
+instance Prelude.Hashable DvbSubDestinationAlignment
 
-instance NFData DvbSubDestinationAlignment
+instance Prelude.NFData DvbSubDestinationAlignment
 
-instance ToByteString DvbSubDestinationAlignment
+instance Prelude.ToByteString DvbSubDestinationAlignment
 
-instance ToQuery DvbSubDestinationAlignment
+instance Prelude.ToQuery DvbSubDestinationAlignment
 
-instance ToHeader DvbSubDestinationAlignment
+instance Prelude.ToHeader DvbSubDestinationAlignment
 
-instance ToJSON DvbSubDestinationAlignment where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubDestinationAlignment where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubDestinationAlignment where
-  parseJSON = parseJSONText "DvbSubDestinationAlignment"
+instance Prelude.FromJSON DvbSubDestinationAlignment where
+  parseJSON = Prelude.parseJSONText "DvbSubDestinationAlignment"

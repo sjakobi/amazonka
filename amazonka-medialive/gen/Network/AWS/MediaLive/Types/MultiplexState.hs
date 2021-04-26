@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,89 +19,91 @@
 module Network.AWS.MediaLive.Types.MultiplexState
   ( MultiplexState
       ( ..,
-        MSCreateFailed,
-        MSCreating,
-        MSDeleted,
-        MSDeleting,
-        MSIdle,
-        MSRecovering,
-        MSRunning,
-        MSStarting,
-        MSStopping
+        MultiplexStateCREATEFAILED,
+        MultiplexStateCREATING,
+        MultiplexStateDELETED,
+        MultiplexStateDELETING,
+        MultiplexStateIDLE,
+        MultiplexStateRECOVERING,
+        MultiplexStateRUNNING,
+        MultiplexStateSTARTING,
+        MultiplexStateSTOPPING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The current state of the multiplex.
-data MultiplexState = MultiplexState' (CI Text)
+newtype MultiplexState = MultiplexState'
+  { fromMultiplexState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSCreateFailed :: MultiplexState
-pattern MSCreateFailed = MultiplexState' "CREATE_FAILED"
+pattern MultiplexStateCREATEFAILED :: MultiplexState
+pattern MultiplexStateCREATEFAILED = MultiplexState' "CREATE_FAILED"
 
-pattern MSCreating :: MultiplexState
-pattern MSCreating = MultiplexState' "CREATING"
+pattern MultiplexStateCREATING :: MultiplexState
+pattern MultiplexStateCREATING = MultiplexState' "CREATING"
 
-pattern MSDeleted :: MultiplexState
-pattern MSDeleted = MultiplexState' "DELETED"
+pattern MultiplexStateDELETED :: MultiplexState
+pattern MultiplexStateDELETED = MultiplexState' "DELETED"
 
-pattern MSDeleting :: MultiplexState
-pattern MSDeleting = MultiplexState' "DELETING"
+pattern MultiplexStateDELETING :: MultiplexState
+pattern MultiplexStateDELETING = MultiplexState' "DELETING"
 
-pattern MSIdle :: MultiplexState
-pattern MSIdle = MultiplexState' "IDLE"
+pattern MultiplexStateIDLE :: MultiplexState
+pattern MultiplexStateIDLE = MultiplexState' "IDLE"
 
-pattern MSRecovering :: MultiplexState
-pattern MSRecovering = MultiplexState' "RECOVERING"
+pattern MultiplexStateRECOVERING :: MultiplexState
+pattern MultiplexStateRECOVERING = MultiplexState' "RECOVERING"
 
-pattern MSRunning :: MultiplexState
-pattern MSRunning = MultiplexState' "RUNNING"
+pattern MultiplexStateRUNNING :: MultiplexState
+pattern MultiplexStateRUNNING = MultiplexState' "RUNNING"
 
-pattern MSStarting :: MultiplexState
-pattern MSStarting = MultiplexState' "STARTING"
+pattern MultiplexStateSTARTING :: MultiplexState
+pattern MultiplexStateSTARTING = MultiplexState' "STARTING"
 
-pattern MSStopping :: MultiplexState
-pattern MSStopping = MultiplexState' "STOPPING"
+pattern MultiplexStateSTOPPING :: MultiplexState
+pattern MultiplexStateSTOPPING = MultiplexState' "STOPPING"
 
 {-# COMPLETE
-  MSCreateFailed,
-  MSCreating,
-  MSDeleted,
-  MSDeleting,
-  MSIdle,
-  MSRecovering,
-  MSRunning,
-  MSStarting,
-  MSStopping,
+  MultiplexStateCREATEFAILED,
+  MultiplexStateCREATING,
+  MultiplexStateDELETED,
+  MultiplexStateDELETING,
+  MultiplexStateIDLE,
+  MultiplexStateRECOVERING,
+  MultiplexStateRUNNING,
+  MultiplexStateSTARTING,
+  MultiplexStateSTOPPING,
   MultiplexState'
   #-}
 
-instance FromText MultiplexState where
-  parser = (MultiplexState' . mk) <$> takeText
+instance Prelude.FromText MultiplexState where
+  parser = MultiplexState' Prelude.<$> Prelude.takeText
 
-instance ToText MultiplexState where
-  toText (MultiplexState' ci) = original ci
+instance Prelude.ToText MultiplexState where
+  toText (MultiplexState' x) = x
 
-instance Hashable MultiplexState
+instance Prelude.Hashable MultiplexState
 
-instance NFData MultiplexState
+instance Prelude.NFData MultiplexState
 
-instance ToByteString MultiplexState
+instance Prelude.ToByteString MultiplexState
 
-instance ToQuery MultiplexState
+instance Prelude.ToQuery MultiplexState
 
-instance ToHeader MultiplexState
+instance Prelude.ToHeader MultiplexState
 
-instance FromJSON MultiplexState where
-  parseJSON = parseJSONText "MultiplexState"
+instance Prelude.FromJSON MultiplexState where
+  parseJSON = Prelude.parseJSONText "MultiplexState"

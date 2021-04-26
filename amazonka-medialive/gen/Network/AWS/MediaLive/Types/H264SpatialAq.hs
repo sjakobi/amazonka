@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H264SpatialAq
   ( H264SpatialAq
       ( ..,
-        HSADisabled,
-        HSAEnabled
+        H264SpatialAqDISABLED,
+        H264SpatialAqENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Spatial Aq
-data H264SpatialAq = H264SpatialAq' (CI Text)
+newtype H264SpatialAq = H264SpatialAq'
+  { fromH264SpatialAq ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HSADisabled :: H264SpatialAq
-pattern HSADisabled = H264SpatialAq' "DISABLED"
+pattern H264SpatialAqDISABLED :: H264SpatialAq
+pattern H264SpatialAqDISABLED = H264SpatialAq' "DISABLED"
 
-pattern HSAEnabled :: H264SpatialAq
-pattern HSAEnabled = H264SpatialAq' "ENABLED"
+pattern H264SpatialAqENABLED :: H264SpatialAq
+pattern H264SpatialAqENABLED = H264SpatialAq' "ENABLED"
 
 {-# COMPLETE
-  HSADisabled,
-  HSAEnabled,
+  H264SpatialAqDISABLED,
+  H264SpatialAqENABLED,
   H264SpatialAq'
   #-}
 
-instance FromText H264SpatialAq where
-  parser = (H264SpatialAq' . mk) <$> takeText
+instance Prelude.FromText H264SpatialAq where
+  parser = H264SpatialAq' Prelude.<$> Prelude.takeText
 
-instance ToText H264SpatialAq where
-  toText (H264SpatialAq' ci) = original ci
+instance Prelude.ToText H264SpatialAq where
+  toText (H264SpatialAq' x) = x
 
-instance Hashable H264SpatialAq
+instance Prelude.Hashable H264SpatialAq
 
-instance NFData H264SpatialAq
+instance Prelude.NFData H264SpatialAq
 
-instance ToByteString H264SpatialAq
+instance Prelude.ToByteString H264SpatialAq
 
-instance ToQuery H264SpatialAq
+instance Prelude.ToQuery H264SpatialAq
 
-instance ToHeader H264SpatialAq
+instance Prelude.ToHeader H264SpatialAq
 
-instance ToJSON H264SpatialAq where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264SpatialAq where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264SpatialAq where
-  parseJSON = parseJSONText "H264SpatialAq"
+instance Prelude.FromJSON H264SpatialAq where
+  parseJSON = Prelude.parseJSONText "H264SpatialAq"

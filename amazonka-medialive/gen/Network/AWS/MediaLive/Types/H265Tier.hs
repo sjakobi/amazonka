@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H265Tier
   ( H265Tier
       ( ..,
-        HTHigh,
-        HTMain
+        H265TierHIGH,
+        H265TierMAIN
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H265 Tier
-data H265Tier = H265Tier' (CI Text)
+newtype H265Tier = H265Tier'
+  { fromH265Tier ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTHigh :: H265Tier
-pattern HTHigh = H265Tier' "HIGH"
+pattern H265TierHIGH :: H265Tier
+pattern H265TierHIGH = H265Tier' "HIGH"
 
-pattern HTMain :: H265Tier
-pattern HTMain = H265Tier' "MAIN"
+pattern H265TierMAIN :: H265Tier
+pattern H265TierMAIN = H265Tier' "MAIN"
 
 {-# COMPLETE
-  HTHigh,
-  HTMain,
+  H265TierHIGH,
+  H265TierMAIN,
   H265Tier'
   #-}
 
-instance FromText H265Tier where
-  parser = (H265Tier' . mk) <$> takeText
+instance Prelude.FromText H265Tier where
+  parser = H265Tier' Prelude.<$> Prelude.takeText
 
-instance ToText H265Tier where
-  toText (H265Tier' ci) = original ci
+instance Prelude.ToText H265Tier where
+  toText (H265Tier' x) = x
 
-instance Hashable H265Tier
+instance Prelude.Hashable H265Tier
 
-instance NFData H265Tier
+instance Prelude.NFData H265Tier
 
-instance ToByteString H265Tier
+instance Prelude.ToByteString H265Tier
 
-instance ToQuery H265Tier
+instance Prelude.ToQuery H265Tier
 
-instance ToHeader H265Tier
+instance Prelude.ToHeader H265Tier
 
-instance ToJSON H265Tier where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265Tier where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265Tier where
-  parseJSON = parseJSONText "H265Tier"
+instance Prelude.FromJSON H265Tier where
+  parseJSON = Prelude.parseJSONText "H265Tier"

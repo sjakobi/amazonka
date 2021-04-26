@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.MediaLive.Types.InputState
   ( InputState
       ( ..,
-        ISAttached,
-        ISCreating,
-        ISDeleted,
-        ISDeleting,
-        ISDetached
+        InputStateATTACHED,
+        InputStateCREATING,
+        InputStateDELETED,
+        InputStateDELETING,
+        InputStateDETACHED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for InputState
-data InputState = InputState' (CI Text)
+newtype InputState = InputState'
+  { fromInputState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISAttached :: InputState
-pattern ISAttached = InputState' "ATTACHED"
+pattern InputStateATTACHED :: InputState
+pattern InputStateATTACHED = InputState' "ATTACHED"
 
-pattern ISCreating :: InputState
-pattern ISCreating = InputState' "CREATING"
+pattern InputStateCREATING :: InputState
+pattern InputStateCREATING = InputState' "CREATING"
 
-pattern ISDeleted :: InputState
-pattern ISDeleted = InputState' "DELETED"
+pattern InputStateDELETED :: InputState
+pattern InputStateDELETED = InputState' "DELETED"
 
-pattern ISDeleting :: InputState
-pattern ISDeleting = InputState' "DELETING"
+pattern InputStateDELETING :: InputState
+pattern InputStateDELETING = InputState' "DELETING"
 
-pattern ISDetached :: InputState
-pattern ISDetached = InputState' "DETACHED"
+pattern InputStateDETACHED :: InputState
+pattern InputStateDETACHED = InputState' "DETACHED"
 
 {-# COMPLETE
-  ISAttached,
-  ISCreating,
-  ISDeleted,
-  ISDeleting,
-  ISDetached,
+  InputStateATTACHED,
+  InputStateCREATING,
+  InputStateDELETED,
+  InputStateDELETING,
+  InputStateDETACHED,
   InputState'
   #-}
 
-instance FromText InputState where
-  parser = (InputState' . mk) <$> takeText
+instance Prelude.FromText InputState where
+  parser = InputState' Prelude.<$> Prelude.takeText
 
-instance ToText InputState where
-  toText (InputState' ci) = original ci
+instance Prelude.ToText InputState where
+  toText (InputState' x) = x
 
-instance Hashable InputState
+instance Prelude.Hashable InputState
 
-instance NFData InputState
+instance Prelude.NFData InputState
 
-instance ToByteString InputState
+instance Prelude.ToByteString InputState
 
-instance ToQuery InputState
+instance Prelude.ToQuery InputState
 
-instance ToHeader InputState
+instance Prelude.ToHeader InputState
 
-instance FromJSON InputState where
-  parseJSON = parseJSONText "InputState"
+instance Prelude.FromJSON InputState where
+  parseJSON = Prelude.parseJSONText "InputState"

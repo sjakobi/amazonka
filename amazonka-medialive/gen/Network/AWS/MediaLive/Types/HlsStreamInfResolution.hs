@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsStreamInfResolution
   ( HlsStreamInfResolution
       ( ..,
-        HSIRExclude,
-        HSIRInclude
+        HlsStreamInfResolutionEXCLUDE,
+        HlsStreamInfResolutionINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Stream Inf Resolution
-data HlsStreamInfResolution
-  = HlsStreamInfResolution'
-      ( CI
-          Text
-      )
+newtype HlsStreamInfResolution = HlsStreamInfResolution'
+  { fromHlsStreamInfResolution ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HSIRExclude :: HlsStreamInfResolution
-pattern HSIRExclude = HlsStreamInfResolution' "EXCLUDE"
+pattern HlsStreamInfResolutionEXCLUDE :: HlsStreamInfResolution
+pattern HlsStreamInfResolutionEXCLUDE = HlsStreamInfResolution' "EXCLUDE"
 
-pattern HSIRInclude :: HlsStreamInfResolution
-pattern HSIRInclude = HlsStreamInfResolution' "INCLUDE"
+pattern HlsStreamInfResolutionINCLUDE :: HlsStreamInfResolution
+pattern HlsStreamInfResolutionINCLUDE = HlsStreamInfResolution' "INCLUDE"
 
 {-# COMPLETE
-  HSIRExclude,
-  HSIRInclude,
+  HlsStreamInfResolutionEXCLUDE,
+  HlsStreamInfResolutionINCLUDE,
   HlsStreamInfResolution'
   #-}
 
-instance FromText HlsStreamInfResolution where
-  parser = (HlsStreamInfResolution' . mk) <$> takeText
+instance Prelude.FromText HlsStreamInfResolution where
+  parser = HlsStreamInfResolution' Prelude.<$> Prelude.takeText
 
-instance ToText HlsStreamInfResolution where
-  toText (HlsStreamInfResolution' ci) = original ci
+instance Prelude.ToText HlsStreamInfResolution where
+  toText (HlsStreamInfResolution' x) = x
 
-instance Hashable HlsStreamInfResolution
+instance Prelude.Hashable HlsStreamInfResolution
 
-instance NFData HlsStreamInfResolution
+instance Prelude.NFData HlsStreamInfResolution
 
-instance ToByteString HlsStreamInfResolution
+instance Prelude.ToByteString HlsStreamInfResolution
 
-instance ToQuery HlsStreamInfResolution
+instance Prelude.ToQuery HlsStreamInfResolution
 
-instance ToHeader HlsStreamInfResolution
+instance Prelude.ToHeader HlsStreamInfResolution
 
-instance ToJSON HlsStreamInfResolution where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsStreamInfResolution where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsStreamInfResolution where
-  parseJSON = parseJSONText "HlsStreamInfResolution"
+instance Prelude.FromJSON HlsStreamInfResolution where
+  parseJSON = Prelude.parseJSONText "HlsStreamInfResolution"

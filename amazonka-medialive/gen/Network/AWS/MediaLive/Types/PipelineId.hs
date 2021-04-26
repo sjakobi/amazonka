@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.PipelineId
   ( PipelineId
       ( ..,
-        Pipeline0,
-        Pipeline1
+        PipelineIdPIPELINE0,
+        PipelineIdPIPELINE1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Pipeline ID
-data PipelineId = PipelineId' (CI Text)
+newtype PipelineId = PipelineId'
+  { fromPipelineId ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Pipeline0 :: PipelineId
-pattern Pipeline0 = PipelineId' "PIPELINE_0"
+pattern PipelineIdPIPELINE0 :: PipelineId
+pattern PipelineIdPIPELINE0 = PipelineId' "PIPELINE_0"
 
-pattern Pipeline1 :: PipelineId
-pattern Pipeline1 = PipelineId' "PIPELINE_1"
+pattern PipelineIdPIPELINE1 :: PipelineId
+pattern PipelineIdPIPELINE1 = PipelineId' "PIPELINE_1"
 
 {-# COMPLETE
-  Pipeline0,
-  Pipeline1,
+  PipelineIdPIPELINE0,
+  PipelineIdPIPELINE1,
   PipelineId'
   #-}
 
-instance FromText PipelineId where
-  parser = (PipelineId' . mk) <$> takeText
+instance Prelude.FromText PipelineId where
+  parser = PipelineId' Prelude.<$> Prelude.takeText
 
-instance ToText PipelineId where
-  toText (PipelineId' ci) = original ci
+instance Prelude.ToText PipelineId where
+  toText (PipelineId' x) = x
 
-instance Hashable PipelineId
+instance Prelude.Hashable PipelineId
 
-instance NFData PipelineId
+instance Prelude.NFData PipelineId
 
-instance ToByteString PipelineId
+instance Prelude.ToByteString PipelineId
 
-instance ToQuery PipelineId
+instance Prelude.ToQuery PipelineId
 
-instance ToHeader PipelineId
+instance Prelude.ToHeader PipelineId
 
-instance ToJSON PipelineId where
-  toJSON = toJSONText
+instance Prelude.ToJSON PipelineId where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PipelineId where
-  parseJSON = parseJSONText "PipelineId"
+instance Prelude.FromJSON PipelineId where
+  parseJSON = Prelude.parseJSONText "PipelineId"

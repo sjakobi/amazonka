@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.SmoothGroupStreamManifestBehavior
   ( SmoothGroupStreamManifestBehavior
       ( ..,
-        DoNotSend,
-        Send
+        SmoothGroupStreamManifestBehaviorDONOTSEND,
+        SmoothGroupStreamManifestBehaviorSEND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Stream Manifest Behavior
-data SmoothGroupStreamManifestBehavior
-  = SmoothGroupStreamManifestBehavior'
-      ( CI
-          Text
-      )
+newtype SmoothGroupStreamManifestBehavior = SmoothGroupStreamManifestBehavior'
+  { fromSmoothGroupStreamManifestBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DoNotSend :: SmoothGroupStreamManifestBehavior
-pattern DoNotSend = SmoothGroupStreamManifestBehavior' "DO_NOT_SEND"
+pattern SmoothGroupStreamManifestBehaviorDONOTSEND :: SmoothGroupStreamManifestBehavior
+pattern SmoothGroupStreamManifestBehaviorDONOTSEND = SmoothGroupStreamManifestBehavior' "DO_NOT_SEND"
 
-pattern Send :: SmoothGroupStreamManifestBehavior
-pattern Send = SmoothGroupStreamManifestBehavior' "SEND"
+pattern SmoothGroupStreamManifestBehaviorSEND :: SmoothGroupStreamManifestBehavior
+pattern SmoothGroupStreamManifestBehaviorSEND = SmoothGroupStreamManifestBehavior' "SEND"
 
 {-# COMPLETE
-  DoNotSend,
-  Send,
+  SmoothGroupStreamManifestBehaviorDONOTSEND,
+  SmoothGroupStreamManifestBehaviorSEND,
   SmoothGroupStreamManifestBehavior'
   #-}
 
-instance FromText SmoothGroupStreamManifestBehavior where
-  parser = (SmoothGroupStreamManifestBehavior' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupStreamManifestBehavior where
+  parser = SmoothGroupStreamManifestBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupStreamManifestBehavior where
-  toText (SmoothGroupStreamManifestBehavior' ci) = original ci
+instance Prelude.ToText SmoothGroupStreamManifestBehavior where
+  toText (SmoothGroupStreamManifestBehavior' x) = x
 
-instance Hashable SmoothGroupStreamManifestBehavior
+instance Prelude.Hashable SmoothGroupStreamManifestBehavior
 
-instance NFData SmoothGroupStreamManifestBehavior
+instance Prelude.NFData SmoothGroupStreamManifestBehavior
 
-instance ToByteString SmoothGroupStreamManifestBehavior
+instance Prelude.ToByteString SmoothGroupStreamManifestBehavior
 
-instance ToQuery SmoothGroupStreamManifestBehavior
+instance Prelude.ToQuery SmoothGroupStreamManifestBehavior
 
-instance ToHeader SmoothGroupStreamManifestBehavior
+instance Prelude.ToHeader SmoothGroupStreamManifestBehavior
 
-instance ToJSON SmoothGroupStreamManifestBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupStreamManifestBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupStreamManifestBehavior where
-  parseJSON = parseJSONText "SmoothGroupStreamManifestBehavior"
+instance Prelude.FromJSON SmoothGroupStreamManifestBehavior where
+  parseJSON = Prelude.parseJSONText "SmoothGroupStreamManifestBehavior"

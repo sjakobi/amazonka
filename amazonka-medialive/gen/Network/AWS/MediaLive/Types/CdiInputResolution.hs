@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,71 @@
 module Network.AWS.MediaLive.Types.CdiInputResolution
   ( CdiInputResolution
       ( ..,
-        CIRFhd,
-        CIRHD,
-        CIRSD,
-        CIRUhd
+        CdiInputResolutionFHD,
+        CdiInputResolutionHD,
+        CdiInputResolutionSD,
+        CdiInputResolutionUHD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Maximum CDI input resolution; SD is 480i and 576i up to 30 frames-per-second (fps), HD is 720p up to 60 fps / 1080i up to 30 fps, FHD is 1080p up to 60 fps, UHD is 2160p up to 60 fps
-data CdiInputResolution
-  = CdiInputResolution'
-      ( CI
-          Text
-      )
+-- | Maximum CDI input resolution; SD is 480i and 576i up to 30
+-- frames-per-second (fps), HD is 720p up to 60 fps \/ 1080i up to 30 fps,
+-- FHD is 1080p up to 60 fps, UHD is 2160p up to 60 fps
+newtype CdiInputResolution = CdiInputResolution'
+  { fromCdiInputResolution ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CIRFhd :: CdiInputResolution
-pattern CIRFhd = CdiInputResolution' "FHD"
+pattern CdiInputResolutionFHD :: CdiInputResolution
+pattern CdiInputResolutionFHD = CdiInputResolution' "FHD"
 
-pattern CIRHD :: CdiInputResolution
-pattern CIRHD = CdiInputResolution' "HD"
+pattern CdiInputResolutionHD :: CdiInputResolution
+pattern CdiInputResolutionHD = CdiInputResolution' "HD"
 
-pattern CIRSD :: CdiInputResolution
-pattern CIRSD = CdiInputResolution' "SD"
+pattern CdiInputResolutionSD :: CdiInputResolution
+pattern CdiInputResolutionSD = CdiInputResolution' "SD"
 
-pattern CIRUhd :: CdiInputResolution
-pattern CIRUhd = CdiInputResolution' "UHD"
+pattern CdiInputResolutionUHD :: CdiInputResolution
+pattern CdiInputResolutionUHD = CdiInputResolution' "UHD"
 
 {-# COMPLETE
-  CIRFhd,
-  CIRHD,
-  CIRSD,
-  CIRUhd,
+  CdiInputResolutionFHD,
+  CdiInputResolutionHD,
+  CdiInputResolutionSD,
+  CdiInputResolutionUHD,
   CdiInputResolution'
   #-}
 
-instance FromText CdiInputResolution where
-  parser = (CdiInputResolution' . mk) <$> takeText
+instance Prelude.FromText CdiInputResolution where
+  parser = CdiInputResolution' Prelude.<$> Prelude.takeText
 
-instance ToText CdiInputResolution where
-  toText (CdiInputResolution' ci) = original ci
+instance Prelude.ToText CdiInputResolution where
+  toText (CdiInputResolution' x) = x
 
-instance Hashable CdiInputResolution
+instance Prelude.Hashable CdiInputResolution
 
-instance NFData CdiInputResolution
+instance Prelude.NFData CdiInputResolution
 
-instance ToByteString CdiInputResolution
+instance Prelude.ToByteString CdiInputResolution
 
-instance ToQuery CdiInputResolution
+instance Prelude.ToQuery CdiInputResolution
 
-instance ToHeader CdiInputResolution
+instance Prelude.ToHeader CdiInputResolution
 
-instance ToJSON CdiInputResolution where
-  toJSON = toJSONText
+instance Prelude.ToJSON CdiInputResolution where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CdiInputResolution where
-  parseJSON = parseJSONText "CdiInputResolution"
+instance Prelude.FromJSON CdiInputResolution where
+  parseJSON = Prelude.parseJSONText "CdiInputResolution"

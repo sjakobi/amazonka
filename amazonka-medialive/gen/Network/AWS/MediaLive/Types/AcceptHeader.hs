@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.MediaLive.Types.AcceptHeader
   ( AcceptHeader
       ( ..,
-        ImageJpeg
+        AcceptHeaderImageJpeg
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The HTTP Accept header. Indicates the requested type fothe thumbnail.
-data AcceptHeader = AcceptHeader' (CI Text)
+newtype AcceptHeader = AcceptHeader'
+  { fromAcceptHeader ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ImageJpeg :: AcceptHeader
-pattern ImageJpeg = AcceptHeader' "image/jpeg"
+pattern AcceptHeaderImageJpeg :: AcceptHeader
+pattern AcceptHeaderImageJpeg = AcceptHeader' "image/jpeg"
 
 {-# COMPLETE
-  ImageJpeg,
+  AcceptHeaderImageJpeg,
   AcceptHeader'
   #-}
 
-instance FromText AcceptHeader where
-  parser = (AcceptHeader' . mk) <$> takeText
+instance Prelude.FromText AcceptHeader where
+  parser = AcceptHeader' Prelude.<$> Prelude.takeText
 
-instance ToText AcceptHeader where
-  toText (AcceptHeader' ci) = original ci
+instance Prelude.ToText AcceptHeader where
+  toText (AcceptHeader' x) = x
 
-instance Hashable AcceptHeader
+instance Prelude.Hashable AcceptHeader
 
-instance NFData AcceptHeader
+instance Prelude.NFData AcceptHeader
 
-instance ToByteString AcceptHeader
+instance Prelude.ToByteString AcceptHeader
 
-instance ToQuery AcceptHeader
+instance Prelude.ToQuery AcceptHeader
 
-instance ToHeader AcceptHeader
+instance Prelude.ToHeader AcceptHeader
 
-instance ToJSON AcceptHeader where
-  toJSON = toJSONText
+instance Prelude.ToJSON AcceptHeader where
+  toJSON = Prelude.toJSONText

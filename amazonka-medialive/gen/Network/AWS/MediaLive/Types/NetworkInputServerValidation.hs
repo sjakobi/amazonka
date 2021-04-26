@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.NetworkInputServerValidation
   ( NetworkInputServerValidation
       ( ..,
-        CheckCryptographyAndValidateName,
-        CheckCryptographyOnly
+        NetworkInputServerValidationCHECKCRYPTOGRAPHYANDVALIDATENAME,
+        NetworkInputServerValidationCHECKCRYPTOGRAPHYONLY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Network Input Server Validation
-data NetworkInputServerValidation
-  = NetworkInputServerValidation'
-      ( CI
-          Text
-      )
+newtype NetworkInputServerValidation = NetworkInputServerValidation'
+  { fromNetworkInputServerValidation ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CheckCryptographyAndValidateName :: NetworkInputServerValidation
-pattern CheckCryptographyAndValidateName = NetworkInputServerValidation' "CHECK_CRYPTOGRAPHY_AND_VALIDATE_NAME"
+pattern NetworkInputServerValidationCHECKCRYPTOGRAPHYANDVALIDATENAME :: NetworkInputServerValidation
+pattern NetworkInputServerValidationCHECKCRYPTOGRAPHYANDVALIDATENAME = NetworkInputServerValidation' "CHECK_CRYPTOGRAPHY_AND_VALIDATE_NAME"
 
-pattern CheckCryptographyOnly :: NetworkInputServerValidation
-pattern CheckCryptographyOnly = NetworkInputServerValidation' "CHECK_CRYPTOGRAPHY_ONLY"
+pattern NetworkInputServerValidationCHECKCRYPTOGRAPHYONLY :: NetworkInputServerValidation
+pattern NetworkInputServerValidationCHECKCRYPTOGRAPHYONLY = NetworkInputServerValidation' "CHECK_CRYPTOGRAPHY_ONLY"
 
 {-# COMPLETE
-  CheckCryptographyAndValidateName,
-  CheckCryptographyOnly,
+  NetworkInputServerValidationCHECKCRYPTOGRAPHYANDVALIDATENAME,
+  NetworkInputServerValidationCHECKCRYPTOGRAPHYONLY,
   NetworkInputServerValidation'
   #-}
 
-instance FromText NetworkInputServerValidation where
-  parser = (NetworkInputServerValidation' . mk) <$> takeText
+instance Prelude.FromText NetworkInputServerValidation where
+  parser = NetworkInputServerValidation' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkInputServerValidation where
-  toText (NetworkInputServerValidation' ci) = original ci
+instance Prelude.ToText NetworkInputServerValidation where
+  toText (NetworkInputServerValidation' x) = x
 
-instance Hashable NetworkInputServerValidation
+instance Prelude.Hashable NetworkInputServerValidation
 
-instance NFData NetworkInputServerValidation
+instance Prelude.NFData NetworkInputServerValidation
 
-instance ToByteString NetworkInputServerValidation
+instance Prelude.ToByteString NetworkInputServerValidation
 
-instance ToQuery NetworkInputServerValidation
+instance Prelude.ToQuery NetworkInputServerValidation
 
-instance ToHeader NetworkInputServerValidation
+instance Prelude.ToHeader NetworkInputServerValidation
 
-instance ToJSON NetworkInputServerValidation where
-  toJSON = toJSONText
+instance Prelude.ToJSON NetworkInputServerValidation where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NetworkInputServerValidation where
-  parseJSON = parseJSONText "NetworkInputServerValidation"
+instance Prelude.FromJSON NetworkInputServerValidation where
+  parseJSON = Prelude.parseJSONText "NetworkInputServerValidation"

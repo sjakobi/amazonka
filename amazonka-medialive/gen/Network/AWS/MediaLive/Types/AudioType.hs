@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,69 @@
 module Network.AWS.MediaLive.Types.AudioType
   ( AudioType
       ( ..,
-        CleanEffects,
-        HearingImpaired,
-        Undefined,
-        VisualImpairedCommentary
+        AudioTypeCLEANEFFECTS,
+        AudioTypeHEARINGIMPAIRED,
+        AudioTypeUNDEFINED,
+        AudioTypeVISUALIMPAIREDCOMMENTARY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Type
-data AudioType = AudioType' (CI Text)
+newtype AudioType = AudioType'
+  { fromAudioType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CleanEffects :: AudioType
-pattern CleanEffects = AudioType' "CLEAN_EFFECTS"
+pattern AudioTypeCLEANEFFECTS :: AudioType
+pattern AudioTypeCLEANEFFECTS = AudioType' "CLEAN_EFFECTS"
 
-pattern HearingImpaired :: AudioType
-pattern HearingImpaired = AudioType' "HEARING_IMPAIRED"
+pattern AudioTypeHEARINGIMPAIRED :: AudioType
+pattern AudioTypeHEARINGIMPAIRED = AudioType' "HEARING_IMPAIRED"
 
-pattern Undefined :: AudioType
-pattern Undefined = AudioType' "UNDEFINED"
+pattern AudioTypeUNDEFINED :: AudioType
+pattern AudioTypeUNDEFINED = AudioType' "UNDEFINED"
 
-pattern VisualImpairedCommentary :: AudioType
-pattern VisualImpairedCommentary = AudioType' "VISUAL_IMPAIRED_COMMENTARY"
+pattern AudioTypeVISUALIMPAIREDCOMMENTARY :: AudioType
+pattern AudioTypeVISUALIMPAIREDCOMMENTARY = AudioType' "VISUAL_IMPAIRED_COMMENTARY"
 
 {-# COMPLETE
-  CleanEffects,
-  HearingImpaired,
-  Undefined,
-  VisualImpairedCommentary,
+  AudioTypeCLEANEFFECTS,
+  AudioTypeHEARINGIMPAIRED,
+  AudioTypeUNDEFINED,
+  AudioTypeVISUALIMPAIREDCOMMENTARY,
   AudioType'
   #-}
 
-instance FromText AudioType where
-  parser = (AudioType' . mk) <$> takeText
+instance Prelude.FromText AudioType where
+  parser = AudioType' Prelude.<$> Prelude.takeText
 
-instance ToText AudioType where
-  toText (AudioType' ci) = original ci
+instance Prelude.ToText AudioType where
+  toText (AudioType' x) = x
 
-instance Hashable AudioType
+instance Prelude.Hashable AudioType
 
-instance NFData AudioType
+instance Prelude.NFData AudioType
 
-instance ToByteString AudioType
+instance Prelude.ToByteString AudioType
 
-instance ToQuery AudioType
+instance Prelude.ToQuery AudioType
 
-instance ToHeader AudioType
+instance Prelude.ToHeader AudioType
 
-instance ToJSON AudioType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioType where
-  parseJSON = parseJSONText "AudioType"
+instance Prelude.FromJSON AudioType where
+  parseJSON = Prelude.parseJSONText "AudioType"

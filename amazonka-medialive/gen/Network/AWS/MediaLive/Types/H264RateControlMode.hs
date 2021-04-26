@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,69 @@
 module Network.AWS.MediaLive.Types.H264RateControlMode
   ( H264RateControlMode
       ( ..,
-        Cbr,
-        Multiplex,
-        Qvbr,
-        Vbr
+        H264RateControlModeCBR,
+        H264RateControlModeMULTIPLEX,
+        H264RateControlModeQVBR,
+        H264RateControlModeVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Rate Control Mode
-data H264RateControlMode
-  = H264RateControlMode'
-      ( CI
-          Text
-      )
+newtype H264RateControlMode = H264RateControlMode'
+  { fromH264RateControlMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Cbr :: H264RateControlMode
-pattern Cbr = H264RateControlMode' "CBR"
+pattern H264RateControlModeCBR :: H264RateControlMode
+pattern H264RateControlModeCBR = H264RateControlMode' "CBR"
 
-pattern Multiplex :: H264RateControlMode
-pattern Multiplex = H264RateControlMode' "MULTIPLEX"
+pattern H264RateControlModeMULTIPLEX :: H264RateControlMode
+pattern H264RateControlModeMULTIPLEX = H264RateControlMode' "MULTIPLEX"
 
-pattern Qvbr :: H264RateControlMode
-pattern Qvbr = H264RateControlMode' "QVBR"
+pattern H264RateControlModeQVBR :: H264RateControlMode
+pattern H264RateControlModeQVBR = H264RateControlMode' "QVBR"
 
-pattern Vbr :: H264RateControlMode
-pattern Vbr = H264RateControlMode' "VBR"
+pattern H264RateControlModeVBR :: H264RateControlMode
+pattern H264RateControlModeVBR = H264RateControlMode' "VBR"
 
 {-# COMPLETE
-  Cbr,
-  Multiplex,
-  Qvbr,
-  Vbr,
+  H264RateControlModeCBR,
+  H264RateControlModeMULTIPLEX,
+  H264RateControlModeQVBR,
+  H264RateControlModeVBR,
   H264RateControlMode'
   #-}
 
-instance FromText H264RateControlMode where
-  parser = (H264RateControlMode' . mk) <$> takeText
+instance Prelude.FromText H264RateControlMode where
+  parser = H264RateControlMode' Prelude.<$> Prelude.takeText
 
-instance ToText H264RateControlMode where
-  toText (H264RateControlMode' ci) = original ci
+instance Prelude.ToText H264RateControlMode where
+  toText (H264RateControlMode' x) = x
 
-instance Hashable H264RateControlMode
+instance Prelude.Hashable H264RateControlMode
 
-instance NFData H264RateControlMode
+instance Prelude.NFData H264RateControlMode
 
-instance ToByteString H264RateControlMode
+instance Prelude.ToByteString H264RateControlMode
 
-instance ToQuery H264RateControlMode
+instance Prelude.ToQuery H264RateControlMode
 
-instance ToHeader H264RateControlMode
+instance Prelude.ToHeader H264RateControlMode
 
-instance ToJSON H264RateControlMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264RateControlMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264RateControlMode where
-  parseJSON = parseJSONText "H264RateControlMode"
+instance Prelude.FromJSON H264RateControlMode where
+  parseJSON = Prelude.parseJSONText "H264RateControlMode"

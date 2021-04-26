@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Mpeg2TimecodeInsertionBehavior
   ( Mpeg2TimecodeInsertionBehavior
       ( ..,
-        Disabled,
-        GopTimecode
+        Mpeg2TimecodeInsertionBehaviorDISABLED,
+        Mpeg2TimecodeInsertionBehaviorGOPTIMECODE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mpeg2 Timecode Insertion Behavior
-data Mpeg2TimecodeInsertionBehavior
-  = Mpeg2TimecodeInsertionBehavior'
-      ( CI
-          Text
-      )
+newtype Mpeg2TimecodeInsertionBehavior = Mpeg2TimecodeInsertionBehavior'
+  { fromMpeg2TimecodeInsertionBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: Mpeg2TimecodeInsertionBehavior
-pattern Disabled = Mpeg2TimecodeInsertionBehavior' "DISABLED"
+pattern Mpeg2TimecodeInsertionBehaviorDISABLED :: Mpeg2TimecodeInsertionBehavior
+pattern Mpeg2TimecodeInsertionBehaviorDISABLED = Mpeg2TimecodeInsertionBehavior' "DISABLED"
 
-pattern GopTimecode :: Mpeg2TimecodeInsertionBehavior
-pattern GopTimecode = Mpeg2TimecodeInsertionBehavior' "GOP_TIMECODE"
+pattern Mpeg2TimecodeInsertionBehaviorGOPTIMECODE :: Mpeg2TimecodeInsertionBehavior
+pattern Mpeg2TimecodeInsertionBehaviorGOPTIMECODE = Mpeg2TimecodeInsertionBehavior' "GOP_TIMECODE"
 
 {-# COMPLETE
-  Disabled,
-  GopTimecode,
+  Mpeg2TimecodeInsertionBehaviorDISABLED,
+  Mpeg2TimecodeInsertionBehaviorGOPTIMECODE,
   Mpeg2TimecodeInsertionBehavior'
   #-}
 
-instance FromText Mpeg2TimecodeInsertionBehavior where
-  parser = (Mpeg2TimecodeInsertionBehavior' . mk) <$> takeText
+instance Prelude.FromText Mpeg2TimecodeInsertionBehavior where
+  parser = Mpeg2TimecodeInsertionBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2TimecodeInsertionBehavior where
-  toText (Mpeg2TimecodeInsertionBehavior' ci) = original ci
+instance Prelude.ToText Mpeg2TimecodeInsertionBehavior where
+  toText (Mpeg2TimecodeInsertionBehavior' x) = x
 
-instance Hashable Mpeg2TimecodeInsertionBehavior
+instance Prelude.Hashable Mpeg2TimecodeInsertionBehavior
 
-instance NFData Mpeg2TimecodeInsertionBehavior
+instance Prelude.NFData Mpeg2TimecodeInsertionBehavior
 
-instance ToByteString Mpeg2TimecodeInsertionBehavior
+instance Prelude.ToByteString Mpeg2TimecodeInsertionBehavior
 
-instance ToQuery Mpeg2TimecodeInsertionBehavior
+instance Prelude.ToQuery Mpeg2TimecodeInsertionBehavior
 
-instance ToHeader Mpeg2TimecodeInsertionBehavior
+instance Prelude.ToHeader Mpeg2TimecodeInsertionBehavior
 
-instance ToJSON Mpeg2TimecodeInsertionBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2TimecodeInsertionBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2TimecodeInsertionBehavior where
-  parseJSON = parseJSONText "Mpeg2TimecodeInsertionBehavior"
+instance Prelude.FromJSON Mpeg2TimecodeInsertionBehavior where
+  parseJSON = Prelude.parseJSONText "Mpeg2TimecodeInsertionBehavior"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsClientCache
   ( HlsClientCache
       ( ..,
-        HCCDisabled,
-        HCCEnabled
+        HlsClientCacheDISABLED,
+        HlsClientCacheENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Client Cache
-data HlsClientCache = HlsClientCache' (CI Text)
+newtype HlsClientCache = HlsClientCache'
+  { fromHlsClientCache ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HCCDisabled :: HlsClientCache
-pattern HCCDisabled = HlsClientCache' "DISABLED"
+pattern HlsClientCacheDISABLED :: HlsClientCache
+pattern HlsClientCacheDISABLED = HlsClientCache' "DISABLED"
 
-pattern HCCEnabled :: HlsClientCache
-pattern HCCEnabled = HlsClientCache' "ENABLED"
+pattern HlsClientCacheENABLED :: HlsClientCache
+pattern HlsClientCacheENABLED = HlsClientCache' "ENABLED"
 
 {-# COMPLETE
-  HCCDisabled,
-  HCCEnabled,
+  HlsClientCacheDISABLED,
+  HlsClientCacheENABLED,
   HlsClientCache'
   #-}
 
-instance FromText HlsClientCache where
-  parser = (HlsClientCache' . mk) <$> takeText
+instance Prelude.FromText HlsClientCache where
+  parser = HlsClientCache' Prelude.<$> Prelude.takeText
 
-instance ToText HlsClientCache where
-  toText (HlsClientCache' ci) = original ci
+instance Prelude.ToText HlsClientCache where
+  toText (HlsClientCache' x) = x
 
-instance Hashable HlsClientCache
+instance Prelude.Hashable HlsClientCache
 
-instance NFData HlsClientCache
+instance Prelude.NFData HlsClientCache
 
-instance ToByteString HlsClientCache
+instance Prelude.ToByteString HlsClientCache
 
-instance ToQuery HlsClientCache
+instance Prelude.ToQuery HlsClientCache
 
-instance ToHeader HlsClientCache
+instance Prelude.ToHeader HlsClientCache
 
-instance ToJSON HlsClientCache where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsClientCache where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsClientCache where
-  parseJSON = parseJSONText "HlsClientCache"
+instance Prelude.FromJSON HlsClientCache where
+  parseJSON = Prelude.parseJSONText "HlsClientCache"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Fmp4TimedMetadataBehavior
   ( Fmp4TimedMetadataBehavior
       ( ..,
-        FTMBNoPassthrough,
-        FTMBPassthrough
+        Fmp4TimedMetadataBehaviorNOPASSTHROUGH,
+        Fmp4TimedMetadataBehaviorPASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Fmp4 Timed Metadata Behavior
-data Fmp4TimedMetadataBehavior
-  = Fmp4TimedMetadataBehavior'
-      ( CI
-          Text
-      )
+newtype Fmp4TimedMetadataBehavior = Fmp4TimedMetadataBehavior'
+  { fromFmp4TimedMetadataBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FTMBNoPassthrough :: Fmp4TimedMetadataBehavior
-pattern FTMBNoPassthrough = Fmp4TimedMetadataBehavior' "NO_PASSTHROUGH"
+pattern Fmp4TimedMetadataBehaviorNOPASSTHROUGH :: Fmp4TimedMetadataBehavior
+pattern Fmp4TimedMetadataBehaviorNOPASSTHROUGH = Fmp4TimedMetadataBehavior' "NO_PASSTHROUGH"
 
-pattern FTMBPassthrough :: Fmp4TimedMetadataBehavior
-pattern FTMBPassthrough = Fmp4TimedMetadataBehavior' "PASSTHROUGH"
+pattern Fmp4TimedMetadataBehaviorPASSTHROUGH :: Fmp4TimedMetadataBehavior
+pattern Fmp4TimedMetadataBehaviorPASSTHROUGH = Fmp4TimedMetadataBehavior' "PASSTHROUGH"
 
 {-# COMPLETE
-  FTMBNoPassthrough,
-  FTMBPassthrough,
+  Fmp4TimedMetadataBehaviorNOPASSTHROUGH,
+  Fmp4TimedMetadataBehaviorPASSTHROUGH,
   Fmp4TimedMetadataBehavior'
   #-}
 
-instance FromText Fmp4TimedMetadataBehavior where
-  parser = (Fmp4TimedMetadataBehavior' . mk) <$> takeText
+instance Prelude.FromText Fmp4TimedMetadataBehavior where
+  parser = Fmp4TimedMetadataBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText Fmp4TimedMetadataBehavior where
-  toText (Fmp4TimedMetadataBehavior' ci) = original ci
+instance Prelude.ToText Fmp4TimedMetadataBehavior where
+  toText (Fmp4TimedMetadataBehavior' x) = x
 
-instance Hashable Fmp4TimedMetadataBehavior
+instance Prelude.Hashable Fmp4TimedMetadataBehavior
 
-instance NFData Fmp4TimedMetadataBehavior
+instance Prelude.NFData Fmp4TimedMetadataBehavior
 
-instance ToByteString Fmp4TimedMetadataBehavior
+instance Prelude.ToByteString Fmp4TimedMetadataBehavior
 
-instance ToQuery Fmp4TimedMetadataBehavior
+instance Prelude.ToQuery Fmp4TimedMetadataBehavior
 
-instance ToHeader Fmp4TimedMetadataBehavior
+instance Prelude.ToHeader Fmp4TimedMetadataBehavior
 
-instance ToJSON Fmp4TimedMetadataBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON Fmp4TimedMetadataBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Fmp4TimedMetadataBehavior where
-  parseJSON = parseJSONText "Fmp4TimedMetadataBehavior"
+instance Prelude.FromJSON Fmp4TimedMetadataBehavior where
+  parseJSON = Prelude.parseJSONText "Fmp4TimedMetadataBehavior"

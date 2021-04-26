@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.H265RateControlMode
   ( H265RateControlMode
       ( ..,
-        HRCMCbr,
-        HRCMMultiplex,
-        HRCMQvbr
+        H265RateControlModeCBR,
+        H265RateControlModeMULTIPLEX,
+        H265RateControlModeQVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H265 Rate Control Mode
-data H265RateControlMode
-  = H265RateControlMode'
-      ( CI
-          Text
-      )
+newtype H265RateControlMode = H265RateControlMode'
+  { fromH265RateControlMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HRCMCbr :: H265RateControlMode
-pattern HRCMCbr = H265RateControlMode' "CBR"
+pattern H265RateControlModeCBR :: H265RateControlMode
+pattern H265RateControlModeCBR = H265RateControlMode' "CBR"
 
-pattern HRCMMultiplex :: H265RateControlMode
-pattern HRCMMultiplex = H265RateControlMode' "MULTIPLEX"
+pattern H265RateControlModeMULTIPLEX :: H265RateControlMode
+pattern H265RateControlModeMULTIPLEX = H265RateControlMode' "MULTIPLEX"
 
-pattern HRCMQvbr :: H265RateControlMode
-pattern HRCMQvbr = H265RateControlMode' "QVBR"
+pattern H265RateControlModeQVBR :: H265RateControlMode
+pattern H265RateControlModeQVBR = H265RateControlMode' "QVBR"
 
 {-# COMPLETE
-  HRCMCbr,
-  HRCMMultiplex,
-  HRCMQvbr,
+  H265RateControlModeCBR,
+  H265RateControlModeMULTIPLEX,
+  H265RateControlModeQVBR,
   H265RateControlMode'
   #-}
 
-instance FromText H265RateControlMode where
-  parser = (H265RateControlMode' . mk) <$> takeText
+instance Prelude.FromText H265RateControlMode where
+  parser = H265RateControlMode' Prelude.<$> Prelude.takeText
 
-instance ToText H265RateControlMode where
-  toText (H265RateControlMode' ci) = original ci
+instance Prelude.ToText H265RateControlMode where
+  toText (H265RateControlMode' x) = x
 
-instance Hashable H265RateControlMode
+instance Prelude.Hashable H265RateControlMode
 
-instance NFData H265RateControlMode
+instance Prelude.NFData H265RateControlMode
 
-instance ToByteString H265RateControlMode
+instance Prelude.ToByteString H265RateControlMode
 
-instance ToQuery H265RateControlMode
+instance Prelude.ToQuery H265RateControlMode
 
-instance ToHeader H265RateControlMode
+instance Prelude.ToHeader H265RateControlMode
 
-instance ToJSON H265RateControlMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265RateControlMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265RateControlMode where
-  parseJSON = parseJSONText "H265RateControlMode"
+instance Prelude.FromJSON H265RateControlMode where
+  parseJSON = Prelude.parseJSONText "H265RateControlMode"

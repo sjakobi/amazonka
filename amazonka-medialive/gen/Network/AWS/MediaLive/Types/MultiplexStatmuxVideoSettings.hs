@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,100 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MultiplexStatmuxVideoSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Statmux rate control settings
 --
--- /See:/ 'multiplexStatmuxVideoSettings' smart constructor.
+-- /See:/ 'newMultiplexStatmuxVideoSettings' smart constructor.
 data MultiplexStatmuxVideoSettings = MultiplexStatmuxVideoSettings'
-  { _msvsMinimumBitrate ::
-      !( Maybe
-           Nat
-       ),
-    _msvsMaximumBitrate ::
-      !( Maybe
-           Nat
-       ),
-    _msvsPriority ::
-      !( Maybe
-           Int
-       )
+  { -- | Minimum statmux bitrate.
+    minimumBitrate :: Prelude.Maybe Prelude.Nat,
+    -- | Maximum statmux bitrate.
+    maximumBitrate :: Prelude.Maybe Prelude.Nat,
+    -- | The purpose of the priority is to use a combination of the\\nmultiplex
+    -- rate control algorithm and the QVBR capability of the\\nencoder to
+    -- prioritize the video quality of some channels in a\\nmultiplex over
+    -- others. Channels that have a higher priority will\\nget higher video
+    -- quality at the expense of the video quality of\\nother channels in the
+    -- multiplex with lower priority.
+    priority :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultiplexStatmuxVideoSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultiplexStatmuxVideoSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msvsMinimumBitrate' - Minimum statmux bitrate.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msvsMaximumBitrate' - Maximum statmux bitrate.
+-- 'minimumBitrate', 'multiplexStatmuxVideoSettings_minimumBitrate' - Minimum statmux bitrate.
 --
--- * 'msvsPriority' - The purpose of the priority is to use a combination of the\nmultiplex rate control algorithm and the QVBR capability of the\nencoder to prioritize the video quality of some channels in a\nmultiplex over others.  Channels that have a higher priority will\nget higher video quality at the expense of the video quality of\nother channels in the multiplex with lower priority.
-multiplexStatmuxVideoSettings ::
+-- 'maximumBitrate', 'multiplexStatmuxVideoSettings_maximumBitrate' - Maximum statmux bitrate.
+--
+-- 'priority', 'multiplexStatmuxVideoSettings_priority' - The purpose of the priority is to use a combination of the\\nmultiplex
+-- rate control algorithm and the QVBR capability of the\\nencoder to
+-- prioritize the video quality of some channels in a\\nmultiplex over
+-- others. Channels that have a higher priority will\\nget higher video
+-- quality at the expense of the video quality of\\nother channels in the
+-- multiplex with lower priority.
+newMultiplexStatmuxVideoSettings ::
   MultiplexStatmuxVideoSettings
-multiplexStatmuxVideoSettings =
+newMultiplexStatmuxVideoSettings =
   MultiplexStatmuxVideoSettings'
-    { _msvsMinimumBitrate =
-        Nothing,
-      _msvsMaximumBitrate = Nothing,
-      _msvsPriority = Nothing
+    { minimumBitrate =
+        Prelude.Nothing,
+      maximumBitrate = Prelude.Nothing,
+      priority = Prelude.Nothing
     }
 
 -- | Minimum statmux bitrate.
-msvsMinimumBitrate :: Lens' MultiplexStatmuxVideoSettings (Maybe Natural)
-msvsMinimumBitrate = lens _msvsMinimumBitrate (\s a -> s {_msvsMinimumBitrate = a}) . mapping _Nat
+multiplexStatmuxVideoSettings_minimumBitrate :: Lens.Lens' MultiplexStatmuxVideoSettings (Prelude.Maybe Prelude.Natural)
+multiplexStatmuxVideoSettings_minimumBitrate = Lens.lens (\MultiplexStatmuxVideoSettings' {minimumBitrate} -> minimumBitrate) (\s@MultiplexStatmuxVideoSettings' {} a -> s {minimumBitrate = a} :: MultiplexStatmuxVideoSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Maximum statmux bitrate.
-msvsMaximumBitrate :: Lens' MultiplexStatmuxVideoSettings (Maybe Natural)
-msvsMaximumBitrate = lens _msvsMaximumBitrate (\s a -> s {_msvsMaximumBitrate = a}) . mapping _Nat
+multiplexStatmuxVideoSettings_maximumBitrate :: Lens.Lens' MultiplexStatmuxVideoSettings (Prelude.Maybe Prelude.Natural)
+multiplexStatmuxVideoSettings_maximumBitrate = Lens.lens (\MultiplexStatmuxVideoSettings' {maximumBitrate} -> maximumBitrate) (\s@MultiplexStatmuxVideoSettings' {} a -> s {maximumBitrate = a} :: MultiplexStatmuxVideoSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The purpose of the priority is to use a combination of the\nmultiplex rate control algorithm and the QVBR capability of the\nencoder to prioritize the video quality of some channels in a\nmultiplex over others.  Channels that have a higher priority will\nget higher video quality at the expense of the video quality of\nother channels in the multiplex with lower priority.
-msvsPriority :: Lens' MultiplexStatmuxVideoSettings (Maybe Int)
-msvsPriority = lens _msvsPriority (\s a -> s {_msvsPriority = a})
+-- | The purpose of the priority is to use a combination of the\\nmultiplex
+-- rate control algorithm and the QVBR capability of the\\nencoder to
+-- prioritize the video quality of some channels in a\\nmultiplex over
+-- others. Channels that have a higher priority will\\nget higher video
+-- quality at the expense of the video quality of\\nother channels in the
+-- multiplex with lower priority.
+multiplexStatmuxVideoSettings_priority :: Lens.Lens' MultiplexStatmuxVideoSettings (Prelude.Maybe Prelude.Int)
+multiplexStatmuxVideoSettings_priority = Lens.lens (\MultiplexStatmuxVideoSettings' {priority} -> priority) (\s@MultiplexStatmuxVideoSettings' {} a -> s {priority = a} :: MultiplexStatmuxVideoSettings)
 
-instance FromJSON MultiplexStatmuxVideoSettings where
+instance
+  Prelude.FromJSON
+    MultiplexStatmuxVideoSettings
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MultiplexStatmuxVideoSettings"
       ( \x ->
           MultiplexStatmuxVideoSettings'
-            <$> (x .:? "minimumBitrate")
-            <*> (x .:? "maximumBitrate")
-            <*> (x .:? "priority")
+            Prelude.<$> (x Prelude..:? "minimumBitrate")
+            Prelude.<*> (x Prelude..:? "maximumBitrate")
+            Prelude.<*> (x Prelude..:? "priority")
       )
 
-instance Hashable MultiplexStatmuxVideoSettings
+instance
+  Prelude.Hashable
+    MultiplexStatmuxVideoSettings
 
-instance NFData MultiplexStatmuxVideoSettings
+instance Prelude.NFData MultiplexStatmuxVideoSettings
 
-instance ToJSON MultiplexStatmuxVideoSettings where
+instance Prelude.ToJSON MultiplexStatmuxVideoSettings where
   toJSON MultiplexStatmuxVideoSettings' {..} =
-    object
-      ( catMaybes
-          [ ("minimumBitrate" .=) <$> _msvsMinimumBitrate,
-            ("maximumBitrate" .=) <$> _msvsMaximumBitrate,
-            ("priority" .=) <$> _msvsPriority
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("minimumBitrate" Prelude..=)
+              Prelude.<$> minimumBitrate,
+            ("maximumBitrate" Prelude..=)
+              Prelude.<$> maximumBitrate,
+            ("priority" Prelude..=) Prelude.<$> priority
           ]
       )

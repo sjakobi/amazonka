@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,65 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Scte35DescriptorSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.Scte35SegmentationDescriptor
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | SCTE-35 Descriptor settings.
 --
--- /See:/ 'scte35DescriptorSettings' smart constructor.
-newtype Scte35DescriptorSettings = Scte35DescriptorSettings'
-  { _sdsSegmentationDescriptorScte35DescriptorSettings ::
-      Scte35SegmentationDescriptor
+-- /See:/ 'newScte35DescriptorSettings' smart constructor.
+data Scte35DescriptorSettings = Scte35DescriptorSettings'
+  { -- | SCTE-35 Segmentation Descriptor.
+    segmentationDescriptorScte35DescriptorSettings :: Scte35SegmentationDescriptor
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Scte35DescriptorSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Scte35DescriptorSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdsSegmentationDescriptorScte35DescriptorSettings' - SCTE-35 Segmentation Descriptor.
-scte35DescriptorSettings ::
-  -- | 'sdsSegmentationDescriptorScte35DescriptorSettings'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'segmentationDescriptorScte35DescriptorSettings', 'scte35DescriptorSettings_segmentationDescriptorScte35DescriptorSettings' - SCTE-35 Segmentation Descriptor.
+newScte35DescriptorSettings ::
+  -- | 'segmentationDescriptorScte35DescriptorSettings'
   Scte35SegmentationDescriptor ->
   Scte35DescriptorSettings
-scte35DescriptorSettings
+newScte35DescriptorSettings
   pSegmentationDescriptorScte35DescriptorSettings_ =
     Scte35DescriptorSettings'
-      { _sdsSegmentationDescriptorScte35DescriptorSettings =
+      { segmentationDescriptorScte35DescriptorSettings =
           pSegmentationDescriptorScte35DescriptorSettings_
       }
 
 -- | SCTE-35 Segmentation Descriptor.
-sdsSegmentationDescriptorScte35DescriptorSettings :: Lens' Scte35DescriptorSettings Scte35SegmentationDescriptor
-sdsSegmentationDescriptorScte35DescriptorSettings = lens _sdsSegmentationDescriptorScte35DescriptorSettings (\s a -> s {_sdsSegmentationDescriptorScte35DescriptorSettings = a})
+scte35DescriptorSettings_segmentationDescriptorScte35DescriptorSettings :: Lens.Lens' Scte35DescriptorSettings Scte35SegmentationDescriptor
+scte35DescriptorSettings_segmentationDescriptorScte35DescriptorSettings = Lens.lens (\Scte35DescriptorSettings' {segmentationDescriptorScte35DescriptorSettings} -> segmentationDescriptorScte35DescriptorSettings) (\s@Scte35DescriptorSettings' {} a -> s {segmentationDescriptorScte35DescriptorSettings = a} :: Scte35DescriptorSettings)
 
-instance FromJSON Scte35DescriptorSettings where
+instance Prelude.FromJSON Scte35DescriptorSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Scte35DescriptorSettings"
       ( \x ->
           Scte35DescriptorSettings'
-            <$> ( x
-                    .: "segmentationDescriptorScte35DescriptorSettings"
-                )
+            Prelude.<$> ( x
+                            Prelude..: "segmentationDescriptorScte35DescriptorSettings"
+                        )
       )
 
-instance Hashable Scte35DescriptorSettings
+instance Prelude.Hashable Scte35DescriptorSettings
 
-instance NFData Scte35DescriptorSettings
+instance Prelude.NFData Scte35DescriptorSettings
 
-instance ToJSON Scte35DescriptorSettings where
+instance Prelude.ToJSON Scte35DescriptorSettings where
   toJSON Scte35DescriptorSettings' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "segmentationDescriptorScte35DescriptorSettings"
-                  .= _sdsSegmentationDescriptorScte35DescriptorSettings
+                  Prelude..= segmentationDescriptorScte35DescriptorSettings
               )
           ]
       )

@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -13,242 +15,293 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Waiters where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.DescribeChannel
 import Network.AWS.MediaLive.DescribeInput
 import Network.AWS.MediaLive.DescribeMultiplex
+import Network.AWS.MediaLive.Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Waiter
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.MediaLive.DescribeMultiplex' every 5 seconds until a successful state is reached. An error is returned after 120 failed checks.
-multiplexRunning :: Wait DescribeMultiplex
-multiplexRunning =
-  Wait
-    { _waitName = "MultiplexRunning",
-      _waitAttempts = 120,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newMultiplexRunning :: Waiter.Wait DescribeMultiplex
+newMultiplexRunning =
+  Waiter.Wait
+    { Waiter._waitName = "MultiplexRunning",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "RUNNING"
-            AcceptSuccess
-            (dmrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "STARTING"
-            AcceptRetry
-            (dmrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeChannel' every 5 seconds until a successful state is reached. An error is returned after 120 failed checks.
-channelRunning :: Wait DescribeChannel
-channelRunning =
-  Wait
-    { _waitName = "ChannelRunning",
-      _waitAttempts = 120,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newChannelRunning :: Waiter.Wait DescribeChannel
+newChannelRunning =
+  Waiter.Wait
+    { Waiter._waitName = "ChannelRunning",
+      Waiter._waitAttempts = 120,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "RUNNING"
-            AcceptSuccess
-            (dcrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "STARTING"
-            AcceptRetry
-            (dcrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeChannel' every 5 seconds until a successful state is reached. An error is returned after 84 failed checks.
-channelDeleted :: Wait DescribeChannel
-channelDeleted =
-  Wait
-    { _waitName = "ChannelDeleted",
-      _waitAttempts = 84,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newChannelDeleted :: Waiter.Wait DescribeChannel
+newChannelDeleted =
+  Waiter.Wait
+    { Waiter._waitName = "ChannelDeleted",
+      Waiter._waitAttempts = 84,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "DELETED"
-            AcceptSuccess
-            (dcrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "DELETING"
-            AcceptRetry
-            (dcrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeInput' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-inputDeleted :: Wait DescribeInput
-inputDeleted =
-  Wait
-    { _waitName = "InputDeleted",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newInputDeleted :: Waiter.Wait DescribeInput
+newInputDeleted =
+  Waiter.Wait
+    { Waiter._waitName = "InputDeleted",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "DELETED"
-            AcceptSuccess
-            (drsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeInputResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "DELETING"
-            AcceptRetry
-            (drsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeInputResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeInput' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-inputAttached :: Wait DescribeInput
-inputAttached =
-  Wait
-    { _waitName = "InputAttached",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newInputAttached :: Waiter.Wait DescribeInput
+newInputAttached =
+  Waiter.Wait
+    { Waiter._waitName = "InputAttached",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "ATTACHED"
-            AcceptSuccess
-            (drsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeInputResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "DETACHED"
-            AcceptRetry
-            (drsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeInputResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeMultiplex' every 5 seconds until a successful state is reached. An error is returned after 28 failed checks.
-multiplexStopped :: Wait DescribeMultiplex
-multiplexStopped =
-  Wait
-    { _waitName = "MultiplexStopped",
-      _waitAttempts = 28,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newMultiplexStopped :: Waiter.Wait DescribeMultiplex
+newMultiplexStopped =
+  Waiter.Wait
+    { Waiter._waitName = "MultiplexStopped",
+      Waiter._waitAttempts = 28,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "IDLE"
-            AcceptSuccess
-            (dmrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "STOPPING"
-            AcceptRetry
-            (dmrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeChannel' every 3 seconds until a successful state is reached. An error is returned after 5 failed checks.
-channelCreated :: Wait DescribeChannel
-channelCreated =
-  Wait
-    { _waitName = "ChannelCreated",
-      _waitAttempts = 5,
-      _waitDelay = 3,
-      _waitAcceptors =
-        [ matchAll
+newChannelCreated :: Waiter.Wait DescribeChannel
+newChannelCreated =
+  Waiter.Wait
+    { Waiter._waitName = "ChannelCreated",
+      Waiter._waitAttempts = 5,
+      Waiter._waitDelay = 3,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "IDLE"
-            AcceptSuccess
-            (dcrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "CREATING"
-            AcceptRetry
-            (dcrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry,
-          matchAll
+            Waiter.AcceptRetry
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry,
+          Waiter.matchAll
             "CREATE_FAILED"
-            AcceptFailure
-            (dcrrsState . to toTextCI)
+            Waiter.AcceptFailure
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeMultiplex' every 3 seconds until a successful state is reached. An error is returned after 5 failed checks.
-multiplexCreated :: Wait DescribeMultiplex
-multiplexCreated =
-  Wait
-    { _waitName = "MultiplexCreated",
-      _waitAttempts = 5,
-      _waitDelay = 3,
-      _waitAcceptors =
-        [ matchAll
+newMultiplexCreated :: Waiter.Wait DescribeMultiplex
+newMultiplexCreated =
+  Waiter.Wait
+    { Waiter._waitName = "MultiplexCreated",
+      Waiter._waitAttempts = 5,
+      Waiter._waitDelay = 3,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "IDLE"
-            AcceptSuccess
-            (dmrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "CREATING"
-            AcceptRetry
-            (dmrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry,
-          matchAll
+            Waiter.AcceptRetry
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry,
+          Waiter.matchAll
             "CREATE_FAILED"
-            AcceptFailure
-            (dmrrsState . to toTextCI)
+            Waiter.AcceptFailure
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            )
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeInput' every 5 seconds until a successful state is reached. An error is returned after 84 failed checks.
-inputDetached :: Wait DescribeInput
-inputDetached =
-  Wait
-    { _waitName = "InputDetached",
-      _waitAttempts = 84,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newInputDetached :: Waiter.Wait DescribeInput
+newInputDetached =
+  Waiter.Wait
+    { Waiter._waitName = "InputDetached",
+      Waiter._waitAttempts = 84,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "DETACHED"
-            AcceptSuccess
-            (drsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeInputResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "CREATING"
-            AcceptRetry
-            (drsState . to toTextCI),
-          matchAll
+            Waiter.AcceptRetry
+            ( describeInputResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "ATTACHED"
-            AcceptRetry
-            (drsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeInputResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeMultiplex' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-multiplexDeleted :: Wait DescribeMultiplex
-multiplexDeleted =
-  Wait
-    { _waitName = "MultiplexDeleted",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newMultiplexDeleted :: Waiter.Wait DescribeMultiplex
+newMultiplexDeleted =
+  Waiter.Wait
+    { Waiter._waitName = "MultiplexDeleted",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "DELETED"
-            AcceptSuccess
-            (dmrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "DELETING"
-            AcceptRetry
-            (dmrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeMultiplexResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.MediaLive.DescribeChannel' every 5 seconds until a successful state is reached. An error is returned after 60 failed checks.
-channelStopped :: Wait DescribeChannel
-channelStopped =
-  Wait
-    { _waitName = "ChannelStopped",
-      _waitAttempts = 60,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchAll
+newChannelStopped :: Waiter.Wait DescribeChannel
+newChannelStopped =
+  Waiter.Wait
+    { Waiter._waitName = "ChannelStopped",
+      Waiter._waitAttempts = 60,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchAll
             "IDLE"
-            AcceptSuccess
-            (dcrrsState . to toTextCI),
-          matchAll
+            Waiter.AcceptSuccess
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchAll
             "STOPPING"
-            AcceptRetry
-            (dcrrsState . to toTextCI),
-          matchStatus 500 AcceptRetry
+            Waiter.AcceptRetry
+            ( describeChannelResponse_state Prelude.. Lens._Just
+                Prelude.. Lens.to Prelude.toTextCI
+            ),
+          Waiter.matchStatus 500 Waiter.AcceptRetry
         ]
     }

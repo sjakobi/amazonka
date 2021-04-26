@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsSegmentationStyle
   ( M2tsSegmentationStyle
       ( ..,
-        MaintainCadence,
-        ResetCadence
+        M2tsSegmentationStyleMAINTAINCADENCE,
+        M2tsSegmentationStyleRESETCADENCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Segmentation Style
-data M2tsSegmentationStyle
-  = M2tsSegmentationStyle'
-      ( CI
-          Text
-      )
+newtype M2tsSegmentationStyle = M2tsSegmentationStyle'
+  { fromM2tsSegmentationStyle ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MaintainCadence :: M2tsSegmentationStyle
-pattern MaintainCadence = M2tsSegmentationStyle' "MAINTAIN_CADENCE"
+pattern M2tsSegmentationStyleMAINTAINCADENCE :: M2tsSegmentationStyle
+pattern M2tsSegmentationStyleMAINTAINCADENCE = M2tsSegmentationStyle' "MAINTAIN_CADENCE"
 
-pattern ResetCadence :: M2tsSegmentationStyle
-pattern ResetCadence = M2tsSegmentationStyle' "RESET_CADENCE"
+pattern M2tsSegmentationStyleRESETCADENCE :: M2tsSegmentationStyle
+pattern M2tsSegmentationStyleRESETCADENCE = M2tsSegmentationStyle' "RESET_CADENCE"
 
 {-# COMPLETE
-  MaintainCadence,
-  ResetCadence,
+  M2tsSegmentationStyleMAINTAINCADENCE,
+  M2tsSegmentationStyleRESETCADENCE,
   M2tsSegmentationStyle'
   #-}
 
-instance FromText M2tsSegmentationStyle where
-  parser = (M2tsSegmentationStyle' . mk) <$> takeText
+instance Prelude.FromText M2tsSegmentationStyle where
+  parser = M2tsSegmentationStyle' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsSegmentationStyle where
-  toText (M2tsSegmentationStyle' ci) = original ci
+instance Prelude.ToText M2tsSegmentationStyle where
+  toText (M2tsSegmentationStyle' x) = x
 
-instance Hashable M2tsSegmentationStyle
+instance Prelude.Hashable M2tsSegmentationStyle
 
-instance NFData M2tsSegmentationStyle
+instance Prelude.NFData M2tsSegmentationStyle
 
-instance ToByteString M2tsSegmentationStyle
+instance Prelude.ToByteString M2tsSegmentationStyle
 
-instance ToQuery M2tsSegmentationStyle
+instance Prelude.ToQuery M2tsSegmentationStyle
 
-instance ToHeader M2tsSegmentationStyle
+instance Prelude.ToHeader M2tsSegmentationStyle
 
-instance ToJSON M2tsSegmentationStyle where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsSegmentationStyle where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsSegmentationStyle where
-  parseJSON = parseJSONText "M2tsSegmentationStyle"
+instance Prelude.FromJSON M2tsSegmentationStyle where
+  parseJSON = Prelude.parseJSONText "M2tsSegmentationStyle"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.BatchScheduleActionDeleteRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A list of schedule actions to delete.
 --
--- /See:/ 'batchScheduleActionDeleteRequest' smart constructor.
-newtype BatchScheduleActionDeleteRequest = BatchScheduleActionDeleteRequest'
-  { _bsadrActionNames ::
-      [Text]
+-- /See:/ 'newBatchScheduleActionDeleteRequest' smart constructor.
+data BatchScheduleActionDeleteRequest = BatchScheduleActionDeleteRequest'
+  { -- | A list of schedule actions to delete.
+    actionNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchScheduleActionDeleteRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchScheduleActionDeleteRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsadrActionNames' - A list of schedule actions to delete.
-batchScheduleActionDeleteRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'actionNames', 'batchScheduleActionDeleteRequest_actionNames' - A list of schedule actions to delete.
+newBatchScheduleActionDeleteRequest ::
   BatchScheduleActionDeleteRequest
-batchScheduleActionDeleteRequest =
+newBatchScheduleActionDeleteRequest =
   BatchScheduleActionDeleteRequest'
-    { _bsadrActionNames =
-        mempty
+    { actionNames =
+        Prelude.mempty
     }
 
 -- | A list of schedule actions to delete.
-bsadrActionNames :: Lens' BatchScheduleActionDeleteRequest [Text]
-bsadrActionNames = lens _bsadrActionNames (\s a -> s {_bsadrActionNames = a}) . _Coerce
+batchScheduleActionDeleteRequest_actionNames :: Lens.Lens' BatchScheduleActionDeleteRequest [Prelude.Text]
+batchScheduleActionDeleteRequest_actionNames = Lens.lens (\BatchScheduleActionDeleteRequest' {actionNames} -> actionNames) (\s@BatchScheduleActionDeleteRequest' {} a -> s {actionNames = a} :: BatchScheduleActionDeleteRequest) Prelude.. Prelude._Coerce
 
-instance Hashable BatchScheduleActionDeleteRequest
+instance
+  Prelude.Hashable
+    BatchScheduleActionDeleteRequest
 
-instance NFData BatchScheduleActionDeleteRequest
+instance
+  Prelude.NFData
+    BatchScheduleActionDeleteRequest
 
-instance ToJSON BatchScheduleActionDeleteRequest where
+instance
+  Prelude.ToJSON
+    BatchScheduleActionDeleteRequest
+  where
   toJSON BatchScheduleActionDeleteRequest' {..} =
-    object
-      ( catMaybes
-          [Just ("actionNames" .= _bsadrActionNames)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("actionNames" Prelude..= actionNames)
+          ]
       )

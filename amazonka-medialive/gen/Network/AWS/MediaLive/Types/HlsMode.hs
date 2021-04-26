@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsMode
   ( HlsMode
       ( ..,
-        Live,
-        Vod
+        HlsModeLIVE,
+        HlsModeVOD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Mode
-data HlsMode = HlsMode' (CI Text)
+newtype HlsMode = HlsMode'
+  { fromHlsMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Live :: HlsMode
-pattern Live = HlsMode' "LIVE"
+pattern HlsModeLIVE :: HlsMode
+pattern HlsModeLIVE = HlsMode' "LIVE"
 
-pattern Vod :: HlsMode
-pattern Vod = HlsMode' "VOD"
+pattern HlsModeVOD :: HlsMode
+pattern HlsModeVOD = HlsMode' "VOD"
 
 {-# COMPLETE
-  Live,
-  Vod,
+  HlsModeLIVE,
+  HlsModeVOD,
   HlsMode'
   #-}
 
-instance FromText HlsMode where
-  parser = (HlsMode' . mk) <$> takeText
+instance Prelude.FromText HlsMode where
+  parser = HlsMode' Prelude.<$> Prelude.takeText
 
-instance ToText HlsMode where
-  toText (HlsMode' ci) = original ci
+instance Prelude.ToText HlsMode where
+  toText (HlsMode' x) = x
 
-instance Hashable HlsMode
+instance Prelude.Hashable HlsMode
 
-instance NFData HlsMode
+instance Prelude.NFData HlsMode
 
-instance ToByteString HlsMode
+instance Prelude.ToByteString HlsMode
 
-instance ToQuery HlsMode
+instance Prelude.ToQuery HlsMode
 
-instance ToHeader HlsMode
+instance Prelude.ToHeader HlsMode
 
-instance ToJSON HlsMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsMode where
-  parseJSON = parseJSONText "HlsMode"
+instance Prelude.FromJSON HlsMode where
+  parseJSON = Prelude.parseJSONText "HlsMode"

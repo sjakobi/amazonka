@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,69 @@
 module Network.AWS.MediaLive.Types.WavCodingMode
   ( WavCodingMode
       ( ..,
-        WCMCodingMode10,
-        WCMCodingMode20,
-        WCMCodingMode40,
-        WCMCodingMode80
+        WavCodingModeCODINGMODE10,
+        WavCodingModeCODINGMODE20,
+        WavCodingModeCODINGMODE40,
+        WavCodingModeCODINGMODE80
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Wav Coding Mode
-data WavCodingMode = WavCodingMode' (CI Text)
+newtype WavCodingMode = WavCodingMode'
+  { fromWavCodingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern WCMCodingMode10 :: WavCodingMode
-pattern WCMCodingMode10 = WavCodingMode' "CODING_MODE_1_0"
+pattern WavCodingModeCODINGMODE10 :: WavCodingMode
+pattern WavCodingModeCODINGMODE10 = WavCodingMode' "CODING_MODE_1_0"
 
-pattern WCMCodingMode20 :: WavCodingMode
-pattern WCMCodingMode20 = WavCodingMode' "CODING_MODE_2_0"
+pattern WavCodingModeCODINGMODE20 :: WavCodingMode
+pattern WavCodingModeCODINGMODE20 = WavCodingMode' "CODING_MODE_2_0"
 
-pattern WCMCodingMode40 :: WavCodingMode
-pattern WCMCodingMode40 = WavCodingMode' "CODING_MODE_4_0"
+pattern WavCodingModeCODINGMODE40 :: WavCodingMode
+pattern WavCodingModeCODINGMODE40 = WavCodingMode' "CODING_MODE_4_0"
 
-pattern WCMCodingMode80 :: WavCodingMode
-pattern WCMCodingMode80 = WavCodingMode' "CODING_MODE_8_0"
+pattern WavCodingModeCODINGMODE80 :: WavCodingMode
+pattern WavCodingModeCODINGMODE80 = WavCodingMode' "CODING_MODE_8_0"
 
 {-# COMPLETE
-  WCMCodingMode10,
-  WCMCodingMode20,
-  WCMCodingMode40,
-  WCMCodingMode80,
+  WavCodingModeCODINGMODE10,
+  WavCodingModeCODINGMODE20,
+  WavCodingModeCODINGMODE40,
+  WavCodingModeCODINGMODE80,
   WavCodingMode'
   #-}
 
-instance FromText WavCodingMode where
-  parser = (WavCodingMode' . mk) <$> takeText
+instance Prelude.FromText WavCodingMode where
+  parser = WavCodingMode' Prelude.<$> Prelude.takeText
 
-instance ToText WavCodingMode where
-  toText (WavCodingMode' ci) = original ci
+instance Prelude.ToText WavCodingMode where
+  toText (WavCodingMode' x) = x
 
-instance Hashable WavCodingMode
+instance Prelude.Hashable WavCodingMode
 
-instance NFData WavCodingMode
+instance Prelude.NFData WavCodingMode
 
-instance ToByteString WavCodingMode
+instance Prelude.ToByteString WavCodingMode
 
-instance ToQuery WavCodingMode
+instance Prelude.ToQuery WavCodingMode
 
-instance ToHeader WavCodingMode
+instance Prelude.ToHeader WavCodingMode
 
-instance ToJSON WavCodingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON WavCodingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WavCodingMode where
-  parseJSON = parseJSONText "WavCodingMode"
+instance Prelude.FromJSON WavCodingMode where
+  parseJSON = Prelude.parseJSONText "WavCodingMode"

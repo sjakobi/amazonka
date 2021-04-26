@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsEsRateInPes
   ( M2tsEsRateInPes
       ( ..,
-        MERIPExclude,
-        MERIPInclude
+        M2tsEsRateInPesEXCLUDE,
+        M2tsEsRateInPesINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Es Rate In Pes
-data M2tsEsRateInPes = M2tsEsRateInPes' (CI Text)
+newtype M2tsEsRateInPes = M2tsEsRateInPes'
+  { fromM2tsEsRateInPes ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MERIPExclude :: M2tsEsRateInPes
-pattern MERIPExclude = M2tsEsRateInPes' "EXCLUDE"
+pattern M2tsEsRateInPesEXCLUDE :: M2tsEsRateInPes
+pattern M2tsEsRateInPesEXCLUDE = M2tsEsRateInPes' "EXCLUDE"
 
-pattern MERIPInclude :: M2tsEsRateInPes
-pattern MERIPInclude = M2tsEsRateInPes' "INCLUDE"
+pattern M2tsEsRateInPesINCLUDE :: M2tsEsRateInPes
+pattern M2tsEsRateInPesINCLUDE = M2tsEsRateInPes' "INCLUDE"
 
 {-# COMPLETE
-  MERIPExclude,
-  MERIPInclude,
+  M2tsEsRateInPesEXCLUDE,
+  M2tsEsRateInPesINCLUDE,
   M2tsEsRateInPes'
   #-}
 
-instance FromText M2tsEsRateInPes where
-  parser = (M2tsEsRateInPes' . mk) <$> takeText
+instance Prelude.FromText M2tsEsRateInPes where
+  parser = M2tsEsRateInPes' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsEsRateInPes where
-  toText (M2tsEsRateInPes' ci) = original ci
+instance Prelude.ToText M2tsEsRateInPes where
+  toText (M2tsEsRateInPes' x) = x
 
-instance Hashable M2tsEsRateInPes
+instance Prelude.Hashable M2tsEsRateInPes
 
-instance NFData M2tsEsRateInPes
+instance Prelude.NFData M2tsEsRateInPes
 
-instance ToByteString M2tsEsRateInPes
+instance Prelude.ToByteString M2tsEsRateInPes
 
-instance ToQuery M2tsEsRateInPes
+instance Prelude.ToQuery M2tsEsRateInPes
 
-instance ToHeader M2tsEsRateInPes
+instance Prelude.ToHeader M2tsEsRateInPes
 
-instance ToJSON M2tsEsRateInPes where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsEsRateInPes where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsEsRateInPes where
-  parseJSON = parseJSONText "M2tsEsRateInPes"
+instance Prelude.FromJSON M2tsEsRateInPes where
+  parseJSON = Prelude.parseJSONText "M2tsEsRateInPes"

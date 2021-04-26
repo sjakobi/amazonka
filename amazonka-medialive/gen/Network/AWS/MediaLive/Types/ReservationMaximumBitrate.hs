@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.MediaLive.Types.ReservationMaximumBitrate
   ( ReservationMaximumBitrate
       ( ..,
-        RMBMax10Mbps,
-        RMBMax20Mbps,
-        RMBMax50Mbps
+        ReservationMaximumBitrateMAX10MBPS,
+        ReservationMaximumBitrateMAX20MBPS,
+        ReservationMaximumBitrateMAX50MBPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Maximum bitrate in megabits per second
-data ReservationMaximumBitrate
-  = ReservationMaximumBitrate'
-      ( CI
-          Text
-      )
+newtype ReservationMaximumBitrate = ReservationMaximumBitrate'
+  { fromReservationMaximumBitrate ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RMBMax10Mbps :: ReservationMaximumBitrate
-pattern RMBMax10Mbps = ReservationMaximumBitrate' "MAX_10_MBPS"
+pattern ReservationMaximumBitrateMAX10MBPS :: ReservationMaximumBitrate
+pattern ReservationMaximumBitrateMAX10MBPS = ReservationMaximumBitrate' "MAX_10_MBPS"
 
-pattern RMBMax20Mbps :: ReservationMaximumBitrate
-pattern RMBMax20Mbps = ReservationMaximumBitrate' "MAX_20_MBPS"
+pattern ReservationMaximumBitrateMAX20MBPS :: ReservationMaximumBitrate
+pattern ReservationMaximumBitrateMAX20MBPS = ReservationMaximumBitrate' "MAX_20_MBPS"
 
-pattern RMBMax50Mbps :: ReservationMaximumBitrate
-pattern RMBMax50Mbps = ReservationMaximumBitrate' "MAX_50_MBPS"
+pattern ReservationMaximumBitrateMAX50MBPS :: ReservationMaximumBitrate
+pattern ReservationMaximumBitrateMAX50MBPS = ReservationMaximumBitrate' "MAX_50_MBPS"
 
 {-# COMPLETE
-  RMBMax10Mbps,
-  RMBMax20Mbps,
-  RMBMax50Mbps,
+  ReservationMaximumBitrateMAX10MBPS,
+  ReservationMaximumBitrateMAX20MBPS,
+  ReservationMaximumBitrateMAX50MBPS,
   ReservationMaximumBitrate'
   #-}
 
-instance FromText ReservationMaximumBitrate where
-  parser = (ReservationMaximumBitrate' . mk) <$> takeText
+instance Prelude.FromText ReservationMaximumBitrate where
+  parser = ReservationMaximumBitrate' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationMaximumBitrate where
-  toText (ReservationMaximumBitrate' ci) = original ci
+instance Prelude.ToText ReservationMaximumBitrate where
+  toText (ReservationMaximumBitrate' x) = x
 
-instance Hashable ReservationMaximumBitrate
+instance Prelude.Hashable ReservationMaximumBitrate
 
-instance NFData ReservationMaximumBitrate
+instance Prelude.NFData ReservationMaximumBitrate
 
-instance ToByteString ReservationMaximumBitrate
+instance Prelude.ToByteString ReservationMaximumBitrate
 
-instance ToQuery ReservationMaximumBitrate
+instance Prelude.ToQuery ReservationMaximumBitrate
 
-instance ToHeader ReservationMaximumBitrate
+instance Prelude.ToHeader ReservationMaximumBitrate
 
-instance FromJSON ReservationMaximumBitrate where
-  parseJSON = parseJSONText "ReservationMaximumBitrate"
+instance Prelude.FromJSON ReservationMaximumBitrate where
+  parseJSON = Prelude.parseJSONText "ReservationMaximumBitrate"

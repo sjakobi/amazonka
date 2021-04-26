@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.BatchFailedResultModel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details from a failed operation
 --
--- /See:/ 'batchFailedResultModel' smart constructor.
+-- /See:/ 'newBatchFailedResultModel' smart constructor.
 data BatchFailedResultModel = BatchFailedResultModel'
-  { _bfrmMessage ::
-      !(Maybe Text),
-    _bfrmARN :: !(Maybe Text),
-    _bfrmId :: !(Maybe Text),
-    _bfrmCode ::
-      !(Maybe Text)
+  { -- | Error message for the failed operation
+    message :: Prelude.Maybe Prelude.Text,
+    -- | ARN of the resource
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | ID of the resource
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Error code for the failed operation
+    code :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchFailedResultModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchFailedResultModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bfrmMessage' - Error message for the failed operation
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bfrmARN' - ARN of the resource
+-- 'message', 'batchFailedResultModel_message' - Error message for the failed operation
 --
--- * 'bfrmId' - ID of the resource
+-- 'arn', 'batchFailedResultModel_arn' - ARN of the resource
 --
--- * 'bfrmCode' - Error code for the failed operation
-batchFailedResultModel ::
+-- 'id', 'batchFailedResultModel_id' - ID of the resource
+--
+-- 'code', 'batchFailedResultModel_code' - Error code for the failed operation
+newBatchFailedResultModel ::
   BatchFailedResultModel
-batchFailedResultModel =
+newBatchFailedResultModel =
   BatchFailedResultModel'
-    { _bfrmMessage = Nothing,
-      _bfrmARN = Nothing,
-      _bfrmId = Nothing,
-      _bfrmCode = Nothing
+    { message = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      code = Prelude.Nothing
     }
 
 -- | Error message for the failed operation
-bfrmMessage :: Lens' BatchFailedResultModel (Maybe Text)
-bfrmMessage = lens _bfrmMessage (\s a -> s {_bfrmMessage = a})
+batchFailedResultModel_message :: Lens.Lens' BatchFailedResultModel (Prelude.Maybe Prelude.Text)
+batchFailedResultModel_message = Lens.lens (\BatchFailedResultModel' {message} -> message) (\s@BatchFailedResultModel' {} a -> s {message = a} :: BatchFailedResultModel)
 
 -- | ARN of the resource
-bfrmARN :: Lens' BatchFailedResultModel (Maybe Text)
-bfrmARN = lens _bfrmARN (\s a -> s {_bfrmARN = a})
+batchFailedResultModel_arn :: Lens.Lens' BatchFailedResultModel (Prelude.Maybe Prelude.Text)
+batchFailedResultModel_arn = Lens.lens (\BatchFailedResultModel' {arn} -> arn) (\s@BatchFailedResultModel' {} a -> s {arn = a} :: BatchFailedResultModel)
 
 -- | ID of the resource
-bfrmId :: Lens' BatchFailedResultModel (Maybe Text)
-bfrmId = lens _bfrmId (\s a -> s {_bfrmId = a})
+batchFailedResultModel_id :: Lens.Lens' BatchFailedResultModel (Prelude.Maybe Prelude.Text)
+batchFailedResultModel_id = Lens.lens (\BatchFailedResultModel' {id} -> id) (\s@BatchFailedResultModel' {} a -> s {id = a} :: BatchFailedResultModel)
 
 -- | Error code for the failed operation
-bfrmCode :: Lens' BatchFailedResultModel (Maybe Text)
-bfrmCode = lens _bfrmCode (\s a -> s {_bfrmCode = a})
+batchFailedResultModel_code :: Lens.Lens' BatchFailedResultModel (Prelude.Maybe Prelude.Text)
+batchFailedResultModel_code = Lens.lens (\BatchFailedResultModel' {code} -> code) (\s@BatchFailedResultModel' {} a -> s {code = a} :: BatchFailedResultModel)
 
-instance FromJSON BatchFailedResultModel where
+instance Prelude.FromJSON BatchFailedResultModel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchFailedResultModel"
       ( \x ->
           BatchFailedResultModel'
-            <$> (x .:? "message")
-            <*> (x .:? "arn")
-            <*> (x .:? "id")
-            <*> (x .:? "code")
+            Prelude.<$> (x Prelude..:? "message")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "code")
       )
 
-instance Hashable BatchFailedResultModel
+instance Prelude.Hashable BatchFailedResultModel
 
-instance NFData BatchFailedResultModel
+instance Prelude.NFData BatchFailedResultModel

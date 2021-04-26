@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.BurnInBackgroundColor
   ( BurnInBackgroundColor
       ( ..,
-        BIBCBlack,
-        BIBCNone,
-        BIBCWhite
+        BurnInBackgroundColorBLACK,
+        BurnInBackgroundColorNONE,
+        BurnInBackgroundColorWHITE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Burn In Background Color
-data BurnInBackgroundColor
-  = BurnInBackgroundColor'
-      ( CI
-          Text
-      )
+newtype BurnInBackgroundColor = BurnInBackgroundColor'
+  { fromBurnInBackgroundColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BIBCBlack :: BurnInBackgroundColor
-pattern BIBCBlack = BurnInBackgroundColor' "BLACK"
+pattern BurnInBackgroundColorBLACK :: BurnInBackgroundColor
+pattern BurnInBackgroundColorBLACK = BurnInBackgroundColor' "BLACK"
 
-pattern BIBCNone :: BurnInBackgroundColor
-pattern BIBCNone = BurnInBackgroundColor' "NONE"
+pattern BurnInBackgroundColorNONE :: BurnInBackgroundColor
+pattern BurnInBackgroundColorNONE = BurnInBackgroundColor' "NONE"
 
-pattern BIBCWhite :: BurnInBackgroundColor
-pattern BIBCWhite = BurnInBackgroundColor' "WHITE"
+pattern BurnInBackgroundColorWHITE :: BurnInBackgroundColor
+pattern BurnInBackgroundColorWHITE = BurnInBackgroundColor' "WHITE"
 
 {-# COMPLETE
-  BIBCBlack,
-  BIBCNone,
-  BIBCWhite,
+  BurnInBackgroundColorBLACK,
+  BurnInBackgroundColorNONE,
+  BurnInBackgroundColorWHITE,
   BurnInBackgroundColor'
   #-}
 
-instance FromText BurnInBackgroundColor where
-  parser = (BurnInBackgroundColor' . mk) <$> takeText
+instance Prelude.FromText BurnInBackgroundColor where
+  parser = BurnInBackgroundColor' Prelude.<$> Prelude.takeText
 
-instance ToText BurnInBackgroundColor where
-  toText (BurnInBackgroundColor' ci) = original ci
+instance Prelude.ToText BurnInBackgroundColor where
+  toText (BurnInBackgroundColor' x) = x
 
-instance Hashable BurnInBackgroundColor
+instance Prelude.Hashable BurnInBackgroundColor
 
-instance NFData BurnInBackgroundColor
+instance Prelude.NFData BurnInBackgroundColor
 
-instance ToByteString BurnInBackgroundColor
+instance Prelude.ToByteString BurnInBackgroundColor
 
-instance ToQuery BurnInBackgroundColor
+instance Prelude.ToQuery BurnInBackgroundColor
 
-instance ToHeader BurnInBackgroundColor
+instance Prelude.ToHeader BurnInBackgroundColor
 
-instance ToJSON BurnInBackgroundColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurnInBackgroundColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurnInBackgroundColor where
-  parseJSON = parseJSONText "BurnInBackgroundColor"
+instance Prelude.FromJSON BurnInBackgroundColor where
+  parseJSON = Prelude.parseJSONText "BurnInBackgroundColor"

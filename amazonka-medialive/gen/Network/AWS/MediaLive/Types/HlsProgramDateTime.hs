@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsProgramDateTime
   ( HlsProgramDateTime
       ( ..,
-        HPDTExclude,
-        HPDTInclude
+        HlsProgramDateTimeEXCLUDE,
+        HlsProgramDateTimeINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Program Date Time
-data HlsProgramDateTime
-  = HlsProgramDateTime'
-      ( CI
-          Text
-      )
+newtype HlsProgramDateTime = HlsProgramDateTime'
+  { fromHlsProgramDateTime ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HPDTExclude :: HlsProgramDateTime
-pattern HPDTExclude = HlsProgramDateTime' "EXCLUDE"
+pattern HlsProgramDateTimeEXCLUDE :: HlsProgramDateTime
+pattern HlsProgramDateTimeEXCLUDE = HlsProgramDateTime' "EXCLUDE"
 
-pattern HPDTInclude :: HlsProgramDateTime
-pattern HPDTInclude = HlsProgramDateTime' "INCLUDE"
+pattern HlsProgramDateTimeINCLUDE :: HlsProgramDateTime
+pattern HlsProgramDateTimeINCLUDE = HlsProgramDateTime' "INCLUDE"
 
 {-# COMPLETE
-  HPDTExclude,
-  HPDTInclude,
+  HlsProgramDateTimeEXCLUDE,
+  HlsProgramDateTimeINCLUDE,
   HlsProgramDateTime'
   #-}
 
-instance FromText HlsProgramDateTime where
-  parser = (HlsProgramDateTime' . mk) <$> takeText
+instance Prelude.FromText HlsProgramDateTime where
+  parser = HlsProgramDateTime' Prelude.<$> Prelude.takeText
 
-instance ToText HlsProgramDateTime where
-  toText (HlsProgramDateTime' ci) = original ci
+instance Prelude.ToText HlsProgramDateTime where
+  toText (HlsProgramDateTime' x) = x
 
-instance Hashable HlsProgramDateTime
+instance Prelude.Hashable HlsProgramDateTime
 
-instance NFData HlsProgramDateTime
+instance Prelude.NFData HlsProgramDateTime
 
-instance ToByteString HlsProgramDateTime
+instance Prelude.ToByteString HlsProgramDateTime
 
-instance ToQuery HlsProgramDateTime
+instance Prelude.ToQuery HlsProgramDateTime
 
-instance ToHeader HlsProgramDateTime
+instance Prelude.ToHeader HlsProgramDateTime
 
-instance ToJSON HlsProgramDateTime where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsProgramDateTime where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsProgramDateTime where
-  parseJSON = parseJSONText "HlsProgramDateTime"
+instance Prelude.FromJSON HlsProgramDateTime where
+  parseJSON = Prelude.parseJSONText "HlsProgramDateTime"

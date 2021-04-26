@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,74 @@
 module Network.AWS.MediaLive.Types.LogLevel
   ( LogLevel
       ( ..,
-        LLDebug,
-        LLDisabled,
-        LLError',
-        LLInfo,
-        LLWarning
+        LogLevelDEBUG,
+        LogLevelDISABLED,
+        LogLevelERROR,
+        LogLevelINFO,
+        LogLevelWARNING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The log level the user wants for their channel.
-data LogLevel = LogLevel' (CI Text)
+newtype LogLevel = LogLevel'
+  { fromLogLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LLDebug :: LogLevel
-pattern LLDebug = LogLevel' "DEBUG"
+pattern LogLevelDEBUG :: LogLevel
+pattern LogLevelDEBUG = LogLevel' "DEBUG"
 
-pattern LLDisabled :: LogLevel
-pattern LLDisabled = LogLevel' "DISABLED"
+pattern LogLevelDISABLED :: LogLevel
+pattern LogLevelDISABLED = LogLevel' "DISABLED"
 
-pattern LLError' :: LogLevel
-pattern LLError' = LogLevel' "ERROR"
+pattern LogLevelERROR :: LogLevel
+pattern LogLevelERROR = LogLevel' "ERROR"
 
-pattern LLInfo :: LogLevel
-pattern LLInfo = LogLevel' "INFO"
+pattern LogLevelINFO :: LogLevel
+pattern LogLevelINFO = LogLevel' "INFO"
 
-pattern LLWarning :: LogLevel
-pattern LLWarning = LogLevel' "WARNING"
+pattern LogLevelWARNING :: LogLevel
+pattern LogLevelWARNING = LogLevel' "WARNING"
 
 {-# COMPLETE
-  LLDebug,
-  LLDisabled,
-  LLError',
-  LLInfo,
-  LLWarning,
+  LogLevelDEBUG,
+  LogLevelDISABLED,
+  LogLevelERROR,
+  LogLevelINFO,
+  LogLevelWARNING,
   LogLevel'
   #-}
 
-instance FromText LogLevel where
-  parser = (LogLevel' . mk) <$> takeText
+instance Prelude.FromText LogLevel where
+  parser = LogLevel' Prelude.<$> Prelude.takeText
 
-instance ToText LogLevel where
-  toText (LogLevel' ci) = original ci
+instance Prelude.ToText LogLevel where
+  toText (LogLevel' x) = x
 
-instance Hashable LogLevel
+instance Prelude.Hashable LogLevel
 
-instance NFData LogLevel
+instance Prelude.NFData LogLevel
 
-instance ToByteString LogLevel
+instance Prelude.ToByteString LogLevel
 
-instance ToQuery LogLevel
+instance Prelude.ToQuery LogLevel
 
-instance ToHeader LogLevel
+instance Prelude.ToHeader LogLevel
 
-instance ToJSON LogLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON LogLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LogLevel where
-  parseJSON = parseJSONText "LogLevel"
+instance Prelude.FromJSON LogLevel where
+  parseJSON = Prelude.parseJSONText "LogLevel"

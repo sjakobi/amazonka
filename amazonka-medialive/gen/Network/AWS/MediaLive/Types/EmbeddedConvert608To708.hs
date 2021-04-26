@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.EmbeddedConvert608To708
   ( EmbeddedConvert608To708
       ( ..,
-        ECTDisabled,
-        ECTUpconvert
+        EmbeddedConvert608To708DISABLED,
+        EmbeddedConvert608To708UPCONVERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Embedded Convert608 To708
-data EmbeddedConvert608To708
-  = EmbeddedConvert608To708'
-      ( CI
-          Text
-      )
+newtype EmbeddedConvert608To708 = EmbeddedConvert608To708'
+  { fromEmbeddedConvert608To708 ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ECTDisabled :: EmbeddedConvert608To708
-pattern ECTDisabled = EmbeddedConvert608To708' "DISABLED"
+pattern EmbeddedConvert608To708DISABLED :: EmbeddedConvert608To708
+pattern EmbeddedConvert608To708DISABLED = EmbeddedConvert608To708' "DISABLED"
 
-pattern ECTUpconvert :: EmbeddedConvert608To708
-pattern ECTUpconvert = EmbeddedConvert608To708' "UPCONVERT"
+pattern EmbeddedConvert608To708UPCONVERT :: EmbeddedConvert608To708
+pattern EmbeddedConvert608To708UPCONVERT = EmbeddedConvert608To708' "UPCONVERT"
 
 {-# COMPLETE
-  ECTDisabled,
-  ECTUpconvert,
+  EmbeddedConvert608To708DISABLED,
+  EmbeddedConvert608To708UPCONVERT,
   EmbeddedConvert608To708'
   #-}
 
-instance FromText EmbeddedConvert608To708 where
-  parser = (EmbeddedConvert608To708' . mk) <$> takeText
+instance Prelude.FromText EmbeddedConvert608To708 where
+  parser = EmbeddedConvert608To708' Prelude.<$> Prelude.takeText
 
-instance ToText EmbeddedConvert608To708 where
-  toText (EmbeddedConvert608To708' ci) = original ci
+instance Prelude.ToText EmbeddedConvert608To708 where
+  toText (EmbeddedConvert608To708' x) = x
 
-instance Hashable EmbeddedConvert608To708
+instance Prelude.Hashable EmbeddedConvert608To708
 
-instance NFData EmbeddedConvert608To708
+instance Prelude.NFData EmbeddedConvert608To708
 
-instance ToByteString EmbeddedConvert608To708
+instance Prelude.ToByteString EmbeddedConvert608To708
 
-instance ToQuery EmbeddedConvert608To708
+instance Prelude.ToQuery EmbeddedConvert608To708
 
-instance ToHeader EmbeddedConvert608To708
+instance Prelude.ToHeader EmbeddedConvert608To708
 
-instance ToJSON EmbeddedConvert608To708 where
-  toJSON = toJSONText
+instance Prelude.ToJSON EmbeddedConvert608To708 where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EmbeddedConvert608To708 where
-  parseJSON = parseJSONText "EmbeddedConvert608To708"
+instance Prelude.FromJSON EmbeddedConvert608To708 where
+  parseJSON = Prelude.parseJSONText "EmbeddedConvert608To708"

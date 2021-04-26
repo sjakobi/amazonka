@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.VideoSelectorColorSpaceUsage
   ( VideoSelectorColorSpaceUsage
       ( ..,
-        Fallback,
-        Force
+        VideoSelectorColorSpaceUsageFALLBACK,
+        VideoSelectorColorSpaceUsageFORCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Video Selector Color Space Usage
-data VideoSelectorColorSpaceUsage
-  = VideoSelectorColorSpaceUsage'
-      ( CI
-          Text
-      )
+newtype VideoSelectorColorSpaceUsage = VideoSelectorColorSpaceUsage'
+  { fromVideoSelectorColorSpaceUsage ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Fallback :: VideoSelectorColorSpaceUsage
-pattern Fallback = VideoSelectorColorSpaceUsage' "FALLBACK"
+pattern VideoSelectorColorSpaceUsageFALLBACK :: VideoSelectorColorSpaceUsage
+pattern VideoSelectorColorSpaceUsageFALLBACK = VideoSelectorColorSpaceUsage' "FALLBACK"
 
-pattern Force :: VideoSelectorColorSpaceUsage
-pattern Force = VideoSelectorColorSpaceUsage' "FORCE"
+pattern VideoSelectorColorSpaceUsageFORCE :: VideoSelectorColorSpaceUsage
+pattern VideoSelectorColorSpaceUsageFORCE = VideoSelectorColorSpaceUsage' "FORCE"
 
 {-# COMPLETE
-  Fallback,
-  Force,
+  VideoSelectorColorSpaceUsageFALLBACK,
+  VideoSelectorColorSpaceUsageFORCE,
   VideoSelectorColorSpaceUsage'
   #-}
 
-instance FromText VideoSelectorColorSpaceUsage where
-  parser = (VideoSelectorColorSpaceUsage' . mk) <$> takeText
+instance Prelude.FromText VideoSelectorColorSpaceUsage where
+  parser = VideoSelectorColorSpaceUsage' Prelude.<$> Prelude.takeText
 
-instance ToText VideoSelectorColorSpaceUsage where
-  toText (VideoSelectorColorSpaceUsage' ci) = original ci
+instance Prelude.ToText VideoSelectorColorSpaceUsage where
+  toText (VideoSelectorColorSpaceUsage' x) = x
 
-instance Hashable VideoSelectorColorSpaceUsage
+instance Prelude.Hashable VideoSelectorColorSpaceUsage
 
-instance NFData VideoSelectorColorSpaceUsage
+instance Prelude.NFData VideoSelectorColorSpaceUsage
 
-instance ToByteString VideoSelectorColorSpaceUsage
+instance Prelude.ToByteString VideoSelectorColorSpaceUsage
 
-instance ToQuery VideoSelectorColorSpaceUsage
+instance Prelude.ToQuery VideoSelectorColorSpaceUsage
 
-instance ToHeader VideoSelectorColorSpaceUsage
+instance Prelude.ToHeader VideoSelectorColorSpaceUsage
 
-instance ToJSON VideoSelectorColorSpaceUsage where
-  toJSON = toJSONText
+instance Prelude.ToJSON VideoSelectorColorSpaceUsage where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VideoSelectorColorSpaceUsage where
-  parseJSON = parseJSONText "VideoSelectorColorSpaceUsage"
+instance Prelude.FromJSON VideoSelectorColorSpaceUsage where
+  parseJSON = Prelude.parseJSONText "VideoSelectorColorSpaceUsage"

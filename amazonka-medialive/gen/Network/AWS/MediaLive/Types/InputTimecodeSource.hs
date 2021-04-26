@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.InputTimecodeSource
   ( InputTimecodeSource
       ( ..,
-        Embedded,
-        Zerobased
+        InputTimecodeSourceEMBEDDED,
+        InputTimecodeSourceZEROBASED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Documentation update needed
-data InputTimecodeSource
-  = InputTimecodeSource'
-      ( CI
-          Text
-      )
+newtype InputTimecodeSource = InputTimecodeSource'
+  { fromInputTimecodeSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Embedded :: InputTimecodeSource
-pattern Embedded = InputTimecodeSource' "EMBEDDED"
+pattern InputTimecodeSourceEMBEDDED :: InputTimecodeSource
+pattern InputTimecodeSourceEMBEDDED = InputTimecodeSource' "EMBEDDED"
 
-pattern Zerobased :: InputTimecodeSource
-pattern Zerobased = InputTimecodeSource' "ZEROBASED"
+pattern InputTimecodeSourceZEROBASED :: InputTimecodeSource
+pattern InputTimecodeSourceZEROBASED = InputTimecodeSource' "ZEROBASED"
 
 {-# COMPLETE
-  Embedded,
-  Zerobased,
+  InputTimecodeSourceEMBEDDED,
+  InputTimecodeSourceZEROBASED,
   InputTimecodeSource'
   #-}
 
-instance FromText InputTimecodeSource where
-  parser = (InputTimecodeSource' . mk) <$> takeText
+instance Prelude.FromText InputTimecodeSource where
+  parser = InputTimecodeSource' Prelude.<$> Prelude.takeText
 
-instance ToText InputTimecodeSource where
-  toText (InputTimecodeSource' ci) = original ci
+instance Prelude.ToText InputTimecodeSource where
+  toText (InputTimecodeSource' x) = x
 
-instance Hashable InputTimecodeSource
+instance Prelude.Hashable InputTimecodeSource
 
-instance NFData InputTimecodeSource
+instance Prelude.NFData InputTimecodeSource
 
-instance ToByteString InputTimecodeSource
+instance Prelude.ToByteString InputTimecodeSource
 
-instance ToQuery InputTimecodeSource
+instance Prelude.ToQuery InputTimecodeSource
 
-instance ToHeader InputTimecodeSource
+instance Prelude.ToHeader InputTimecodeSource
 
-instance ToJSON InputTimecodeSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputTimecodeSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputTimecodeSource where
-  parseJSON = parseJSONText "InputTimecodeSource"
+instance Prelude.FromJSON InputTimecodeSource where
+  parseJSON = Prelude.parseJSONText "InputTimecodeSource"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AudioDescriptionLanguageCodeControl
   ( AudioDescriptionLanguageCodeControl
       ( ..,
-        ADLCCFollowInput,
-        ADLCCUseConfigured
+        AudioDescriptionLanguageCodeControlFOLLOWINPUT,
+        AudioDescriptionLanguageCodeControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Description Language Code Control
-data AudioDescriptionLanguageCodeControl
-  = AudioDescriptionLanguageCodeControl'
-      ( CI
-          Text
-      )
+newtype AudioDescriptionLanguageCodeControl = AudioDescriptionLanguageCodeControl'
+  { fromAudioDescriptionLanguageCodeControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ADLCCFollowInput :: AudioDescriptionLanguageCodeControl
-pattern ADLCCFollowInput = AudioDescriptionLanguageCodeControl' "FOLLOW_INPUT"
+pattern AudioDescriptionLanguageCodeControlFOLLOWINPUT :: AudioDescriptionLanguageCodeControl
+pattern AudioDescriptionLanguageCodeControlFOLLOWINPUT = AudioDescriptionLanguageCodeControl' "FOLLOW_INPUT"
 
-pattern ADLCCUseConfigured :: AudioDescriptionLanguageCodeControl
-pattern ADLCCUseConfigured = AudioDescriptionLanguageCodeControl' "USE_CONFIGURED"
+pattern AudioDescriptionLanguageCodeControlUSECONFIGURED :: AudioDescriptionLanguageCodeControl
+pattern AudioDescriptionLanguageCodeControlUSECONFIGURED = AudioDescriptionLanguageCodeControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  ADLCCFollowInput,
-  ADLCCUseConfigured,
+  AudioDescriptionLanguageCodeControlFOLLOWINPUT,
+  AudioDescriptionLanguageCodeControlUSECONFIGURED,
   AudioDescriptionLanguageCodeControl'
   #-}
 
-instance FromText AudioDescriptionLanguageCodeControl where
-  parser = (AudioDescriptionLanguageCodeControl' . mk) <$> takeText
+instance Prelude.FromText AudioDescriptionLanguageCodeControl where
+  parser = AudioDescriptionLanguageCodeControl' Prelude.<$> Prelude.takeText
 
-instance ToText AudioDescriptionLanguageCodeControl where
-  toText (AudioDescriptionLanguageCodeControl' ci) = original ci
+instance Prelude.ToText AudioDescriptionLanguageCodeControl where
+  toText (AudioDescriptionLanguageCodeControl' x) = x
 
-instance Hashable AudioDescriptionLanguageCodeControl
+instance Prelude.Hashable AudioDescriptionLanguageCodeControl
 
-instance NFData AudioDescriptionLanguageCodeControl
+instance Prelude.NFData AudioDescriptionLanguageCodeControl
 
-instance ToByteString AudioDescriptionLanguageCodeControl
+instance Prelude.ToByteString AudioDescriptionLanguageCodeControl
 
-instance ToQuery AudioDescriptionLanguageCodeControl
+instance Prelude.ToQuery AudioDescriptionLanguageCodeControl
 
-instance ToHeader AudioDescriptionLanguageCodeControl
+instance Prelude.ToHeader AudioDescriptionLanguageCodeControl
 
-instance ToJSON AudioDescriptionLanguageCodeControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioDescriptionLanguageCodeControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioDescriptionLanguageCodeControl where
-  parseJSON = parseJSONText "AudioDescriptionLanguageCodeControl"
+instance Prelude.FromJSON AudioDescriptionLanguageCodeControl where
+  parseJSON = Prelude.parseJSONText "AudioDescriptionLanguageCodeControl"

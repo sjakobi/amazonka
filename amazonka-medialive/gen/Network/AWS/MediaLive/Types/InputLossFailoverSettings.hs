@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,61 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.InputLossFailoverSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | MediaLive will perform a failover if content is not detected in this input for the specified period.
+-- | MediaLive will perform a failover if content is not detected in this
+-- input for the specified period.
 --
--- /See:/ 'inputLossFailoverSettings' smart constructor.
-newtype InputLossFailoverSettings = InputLossFailoverSettings'
-  { _ilfsInputLossThresholdMsec ::
-      Maybe Nat
+-- /See:/ 'newInputLossFailoverSettings' smart constructor.
+data InputLossFailoverSettings = InputLossFailoverSettings'
+  { -- | The amount of time (in milliseconds) that no input is detected. After
+    -- that time, an input failover will occur.
+    inputLossThresholdMsec :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputLossFailoverSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputLossFailoverSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ilfsInputLossThresholdMsec' - The amount of time (in milliseconds) that no input is detected. After that time, an input failover will occur.
-inputLossFailoverSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'inputLossThresholdMsec', 'inputLossFailoverSettings_inputLossThresholdMsec' - The amount of time (in milliseconds) that no input is detected. After
+-- that time, an input failover will occur.
+newInputLossFailoverSettings ::
   InputLossFailoverSettings
-inputLossFailoverSettings =
+newInputLossFailoverSettings =
   InputLossFailoverSettings'
-    { _ilfsInputLossThresholdMsec =
-        Nothing
+    { inputLossThresholdMsec =
+        Prelude.Nothing
     }
 
--- | The amount of time (in milliseconds) that no input is detected. After that time, an input failover will occur.
-ilfsInputLossThresholdMsec :: Lens' InputLossFailoverSettings (Maybe Natural)
-ilfsInputLossThresholdMsec = lens _ilfsInputLossThresholdMsec (\s a -> s {_ilfsInputLossThresholdMsec = a}) . mapping _Nat
+-- | The amount of time (in milliseconds) that no input is detected. After
+-- that time, an input failover will occur.
+inputLossFailoverSettings_inputLossThresholdMsec :: Lens.Lens' InputLossFailoverSettings (Prelude.Maybe Prelude.Natural)
+inputLossFailoverSettings_inputLossThresholdMsec = Lens.lens (\InputLossFailoverSettings' {inputLossThresholdMsec} -> inputLossThresholdMsec) (\s@InputLossFailoverSettings' {} a -> s {inputLossThresholdMsec = a} :: InputLossFailoverSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON InputLossFailoverSettings where
+instance Prelude.FromJSON InputLossFailoverSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputLossFailoverSettings"
       ( \x ->
           InputLossFailoverSettings'
-            <$> (x .:? "inputLossThresholdMsec")
+            Prelude.<$> (x Prelude..:? "inputLossThresholdMsec")
       )
 
-instance Hashable InputLossFailoverSettings
+instance Prelude.Hashable InputLossFailoverSettings
 
-instance NFData InputLossFailoverSettings
+instance Prelude.NFData InputLossFailoverSettings
 
-instance ToJSON InputLossFailoverSettings where
+instance Prelude.ToJSON InputLossFailoverSettings where
   toJSON InputLossFailoverSettings' {..} =
-    object
-      ( catMaybes
-          [ ("inputLossThresholdMsec" .=)
-              <$> _ilfsInputLossThresholdMsec
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("inputLossThresholdMsec" Prelude..=)
+              Prelude.<$> inputLossThresholdMsec
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,69 +19,71 @@
 module Network.AWS.MediaLive.Types.ReservationCodec
   ( ReservationCodec
       ( ..,
-        RCAudio,
-        RCAvc,
-        RCHevc,
-        RCLink,
-        RCMPEG2
+        ReservationCodecAUDIO,
+        ReservationCodecAVC,
+        ReservationCodecHEVC,
+        ReservationCodecLINK,
+        ReservationCodecMPEG2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Codec, 'MPEG2', 'AVC', 'HEVC', or 'AUDIO'
-data ReservationCodec = ReservationCodec' (CI Text)
+-- | Codec, \'MPEG2\', \'AVC\', \'HEVC\', or \'AUDIO\'
+newtype ReservationCodec = ReservationCodec'
+  { fromReservationCodec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RCAudio :: ReservationCodec
-pattern RCAudio = ReservationCodec' "AUDIO"
+pattern ReservationCodecAUDIO :: ReservationCodec
+pattern ReservationCodecAUDIO = ReservationCodec' "AUDIO"
 
-pattern RCAvc :: ReservationCodec
-pattern RCAvc = ReservationCodec' "AVC"
+pattern ReservationCodecAVC :: ReservationCodec
+pattern ReservationCodecAVC = ReservationCodec' "AVC"
 
-pattern RCHevc :: ReservationCodec
-pattern RCHevc = ReservationCodec' "HEVC"
+pattern ReservationCodecHEVC :: ReservationCodec
+pattern ReservationCodecHEVC = ReservationCodec' "HEVC"
 
-pattern RCLink :: ReservationCodec
-pattern RCLink = ReservationCodec' "LINK"
+pattern ReservationCodecLINK :: ReservationCodec
+pattern ReservationCodecLINK = ReservationCodec' "LINK"
 
-pattern RCMPEG2 :: ReservationCodec
-pattern RCMPEG2 = ReservationCodec' "MPEG2"
+pattern ReservationCodecMPEG2 :: ReservationCodec
+pattern ReservationCodecMPEG2 = ReservationCodec' "MPEG2"
 
 {-# COMPLETE
-  RCAudio,
-  RCAvc,
-  RCHevc,
-  RCLink,
-  RCMPEG2,
+  ReservationCodecAUDIO,
+  ReservationCodecAVC,
+  ReservationCodecHEVC,
+  ReservationCodecLINK,
+  ReservationCodecMPEG2,
   ReservationCodec'
   #-}
 
-instance FromText ReservationCodec where
-  parser = (ReservationCodec' . mk) <$> takeText
+instance Prelude.FromText ReservationCodec where
+  parser = ReservationCodec' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationCodec where
-  toText (ReservationCodec' ci) = original ci
+instance Prelude.ToText ReservationCodec where
+  toText (ReservationCodec' x) = x
 
-instance Hashable ReservationCodec
+instance Prelude.Hashable ReservationCodec
 
-instance NFData ReservationCodec
+instance Prelude.NFData ReservationCodec
 
-instance ToByteString ReservationCodec
+instance Prelude.ToByteString ReservationCodec
 
-instance ToQuery ReservationCodec
+instance Prelude.ToQuery ReservationCodec
 
-instance ToHeader ReservationCodec
+instance Prelude.ToHeader ReservationCodec
 
-instance FromJSON ReservationCodec where
-  parseJSON = parseJSONText "ReservationCodec"
+instance Prelude.FromJSON ReservationCodec where
+  parseJSON = Prelude.parseJSONText "ReservationCodec"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.MsSmoothH265PackagingType
   ( MsSmoothH265PackagingType
       ( ..,
-        MSHPTHEV1,
-        MSHPTHVC1
+        MsSmoothH265PackagingTypeHEV1,
+        MsSmoothH265PackagingTypeHVC1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Ms Smooth H265 Packaging Type
-data MsSmoothH265PackagingType
-  = MsSmoothH265PackagingType'
-      ( CI
-          Text
-      )
+newtype MsSmoothH265PackagingType = MsSmoothH265PackagingType'
+  { fromMsSmoothH265PackagingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSHPTHEV1 :: MsSmoothH265PackagingType
-pattern MSHPTHEV1 = MsSmoothH265PackagingType' "HEV1"
+pattern MsSmoothH265PackagingTypeHEV1 :: MsSmoothH265PackagingType
+pattern MsSmoothH265PackagingTypeHEV1 = MsSmoothH265PackagingType' "HEV1"
 
-pattern MSHPTHVC1 :: MsSmoothH265PackagingType
-pattern MSHPTHVC1 = MsSmoothH265PackagingType' "HVC1"
+pattern MsSmoothH265PackagingTypeHVC1 :: MsSmoothH265PackagingType
+pattern MsSmoothH265PackagingTypeHVC1 = MsSmoothH265PackagingType' "HVC1"
 
 {-# COMPLETE
-  MSHPTHEV1,
-  MSHPTHVC1,
+  MsSmoothH265PackagingTypeHEV1,
+  MsSmoothH265PackagingTypeHVC1,
   MsSmoothH265PackagingType'
   #-}
 
-instance FromText MsSmoothH265PackagingType where
-  parser = (MsSmoothH265PackagingType' . mk) <$> takeText
+instance Prelude.FromText MsSmoothH265PackagingType where
+  parser = MsSmoothH265PackagingType' Prelude.<$> Prelude.takeText
 
-instance ToText MsSmoothH265PackagingType where
-  toText (MsSmoothH265PackagingType' ci) = original ci
+instance Prelude.ToText MsSmoothH265PackagingType where
+  toText (MsSmoothH265PackagingType' x) = x
 
-instance Hashable MsSmoothH265PackagingType
+instance Prelude.Hashable MsSmoothH265PackagingType
 
-instance NFData MsSmoothH265PackagingType
+instance Prelude.NFData MsSmoothH265PackagingType
 
-instance ToByteString MsSmoothH265PackagingType
+instance Prelude.ToByteString MsSmoothH265PackagingType
 
-instance ToQuery MsSmoothH265PackagingType
+instance Prelude.ToQuery MsSmoothH265PackagingType
 
-instance ToHeader MsSmoothH265PackagingType
+instance Prelude.ToHeader MsSmoothH265PackagingType
 
-instance ToJSON MsSmoothH265PackagingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MsSmoothH265PackagingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON MsSmoothH265PackagingType where
-  parseJSON = parseJSONText "MsSmoothH265PackagingType"
+instance Prelude.FromJSON MsSmoothH265PackagingType where
+  parseJSON = Prelude.parseJSONText "MsSmoothH265PackagingType"

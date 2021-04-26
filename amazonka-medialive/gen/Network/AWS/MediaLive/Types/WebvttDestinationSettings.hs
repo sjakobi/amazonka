@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,37 +19,36 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.WebvttDestinationSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Webvtt Destination Settings
 --
--- /See:/ 'webvttDestinationSettings' smart constructor.
+-- /See:/ 'newWebvttDestinationSettings' smart constructor.
 data WebvttDestinationSettings = WebvttDestinationSettings'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WebvttDestinationSettings' with the minimum fields required to make a request.
-webvttDestinationSettings ::
+-- |
+-- Create a value of 'WebvttDestinationSettings' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newWebvttDestinationSettings ::
   WebvttDestinationSettings
-webvttDestinationSettings =
+newWebvttDestinationSettings =
   WebvttDestinationSettings'
 
-instance FromJSON WebvttDestinationSettings where
+instance Prelude.FromJSON WebvttDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "WebvttDestinationSettings"
-      (\x -> pure WebvttDestinationSettings')
+      (\x -> Prelude.pure WebvttDestinationSettings')
 
-instance Hashable WebvttDestinationSettings
+instance Prelude.Hashable WebvttDestinationSettings
 
-instance NFData WebvttDestinationSettings
+instance Prelude.NFData WebvttDestinationSettings
 
-instance ToJSON WebvttDestinationSettings where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON WebvttDestinationSettings where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)

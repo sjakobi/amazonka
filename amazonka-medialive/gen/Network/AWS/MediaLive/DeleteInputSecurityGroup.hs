@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,130 +24,128 @@
 -- Deletes an Input Security Group
 module Network.AWS.MediaLive.DeleteInputSecurityGroup
   ( -- * Creating a Request
-    deleteInputSecurityGroup,
-    DeleteInputSecurityGroup,
+    DeleteInputSecurityGroup (..),
+    newDeleteInputSecurityGroup,
 
     -- * Request Lenses
-    disgInputSecurityGroupId,
+    deleteInputSecurityGroup_inputSecurityGroupId,
 
     -- * Destructuring the Response
-    deleteInputSecurityGroupResponse,
-    DeleteInputSecurityGroupResponse,
+    DeleteInputSecurityGroupResponse (..),
+    newDeleteInputSecurityGroupResponse,
 
     -- * Response Lenses
-    disgrirsResponseStatus,
+    deleteInputSecurityGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for DeleteInputSecurityGroupRequest
 --
--- /See:/ 'deleteInputSecurityGroup' smart constructor.
-newtype DeleteInputSecurityGroup = DeleteInputSecurityGroup'
-  { _disgInputSecurityGroupId ::
-      Text
+-- /See:/ 'newDeleteInputSecurityGroup' smart constructor.
+data DeleteInputSecurityGroup = DeleteInputSecurityGroup'
+  { -- | The Input Security Group to delete
+    inputSecurityGroupId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInputSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInputSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disgInputSecurityGroupId' - The Input Security Group to delete
-deleteInputSecurityGroup ::
-  -- | 'disgInputSecurityGroupId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'inputSecurityGroupId', 'deleteInputSecurityGroup_inputSecurityGroupId' - The Input Security Group to delete
+newDeleteInputSecurityGroup ::
+  -- | 'inputSecurityGroupId'
+  Prelude.Text ->
   DeleteInputSecurityGroup
-deleteInputSecurityGroup pInputSecurityGroupId_ =
+newDeleteInputSecurityGroup pInputSecurityGroupId_ =
   DeleteInputSecurityGroup'
-    { _disgInputSecurityGroupId =
+    { inputSecurityGroupId =
         pInputSecurityGroupId_
     }
 
 -- | The Input Security Group to delete
-disgInputSecurityGroupId :: Lens' DeleteInputSecurityGroup Text
-disgInputSecurityGroupId = lens _disgInputSecurityGroupId (\s a -> s {_disgInputSecurityGroupId = a})
+deleteInputSecurityGroup_inputSecurityGroupId :: Lens.Lens' DeleteInputSecurityGroup Prelude.Text
+deleteInputSecurityGroup_inputSecurityGroupId = Lens.lens (\DeleteInputSecurityGroup' {inputSecurityGroupId} -> inputSecurityGroupId) (\s@DeleteInputSecurityGroup' {} a -> s {inputSecurityGroupId = a} :: DeleteInputSecurityGroup)
 
-instance AWSRequest DeleteInputSecurityGroup where
+instance Prelude.AWSRequest DeleteInputSecurityGroup where
   type
     Rs DeleteInputSecurityGroup =
       DeleteInputSecurityGroupResponse
-  request = delete mediaLive
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteInputSecurityGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteInputSecurityGroup
+instance Prelude.Hashable DeleteInputSecurityGroup
 
-instance NFData DeleteInputSecurityGroup
+instance Prelude.NFData DeleteInputSecurityGroup
 
-instance ToHeaders DeleteInputSecurityGroup where
+instance Prelude.ToHeaders DeleteInputSecurityGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteInputSecurityGroup where
+instance Prelude.ToPath DeleteInputSecurityGroup where
   toPath DeleteInputSecurityGroup' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/prod/inputSecurityGroups/",
-        toBS _disgInputSecurityGroupId
+        Prelude.toBS inputSecurityGroupId
       ]
 
-instance ToQuery DeleteInputSecurityGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteInputSecurityGroup where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for DeleteInputSecurityGroupResponse
 --
--- /See:/ 'deleteInputSecurityGroupResponse' smart constructor.
-newtype DeleteInputSecurityGroupResponse = DeleteInputSecurityGroupResponse'
-  { _disgrirsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteInputSecurityGroupResponse' smart constructor.
+data DeleteInputSecurityGroupResponse = DeleteInputSecurityGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInputSecurityGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInputSecurityGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disgrirsResponseStatus' - -- | The response status code.
-deleteInputSecurityGroupResponse ::
-  -- | 'disgrirsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteInputSecurityGroupResponse_httpStatus' - The response's http status code.
+newDeleteInputSecurityGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteInputSecurityGroupResponse
-deleteInputSecurityGroupResponse pResponseStatus_ =
+newDeleteInputSecurityGroupResponse pHttpStatus_ =
   DeleteInputSecurityGroupResponse'
-    { _disgrirsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-disgrirsResponseStatus :: Lens' DeleteInputSecurityGroupResponse Int
-disgrirsResponseStatus = lens _disgrirsResponseStatus (\s a -> s {_disgrirsResponseStatus = a})
+-- | The response's http status code.
+deleteInputSecurityGroupResponse_httpStatus :: Lens.Lens' DeleteInputSecurityGroupResponse Prelude.Int
+deleteInputSecurityGroupResponse_httpStatus = Lens.lens (\DeleteInputSecurityGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteInputSecurityGroupResponse' {} a -> s {httpStatus = a} :: DeleteInputSecurityGroupResponse)
 
-instance NFData DeleteInputSecurityGroupResponse
+instance
+  Prelude.NFData
+    DeleteInputSecurityGroupResponse

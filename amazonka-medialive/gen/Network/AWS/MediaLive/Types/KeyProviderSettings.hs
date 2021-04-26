@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.KeyProviderSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.StaticKeySettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Key Provider Settings
 --
--- /See:/ 'keyProviderSettings' smart constructor.
-newtype KeyProviderSettings = KeyProviderSettings'
-  { _kpsStaticKeySettings ::
-      Maybe StaticKeySettings
+-- /See:/ 'newKeyProviderSettings' smart constructor.
+data KeyProviderSettings = KeyProviderSettings'
+  { staticKeySettings :: Prelude.Maybe StaticKeySettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyProviderSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyProviderSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kpsStaticKeySettings' - Undocumented member.
-keyProviderSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'staticKeySettings', 'keyProviderSettings_staticKeySettings' - Undocumented member.
+newKeyProviderSettings ::
   KeyProviderSettings
-keyProviderSettings =
+newKeyProviderSettings =
   KeyProviderSettings'
-    { _kpsStaticKeySettings =
-        Nothing
+    { staticKeySettings =
+        Prelude.Nothing
     }
 
 -- | Undocumented member.
-kpsStaticKeySettings :: Lens' KeyProviderSettings (Maybe StaticKeySettings)
-kpsStaticKeySettings = lens _kpsStaticKeySettings (\s a -> s {_kpsStaticKeySettings = a})
+keyProviderSettings_staticKeySettings :: Lens.Lens' KeyProviderSettings (Prelude.Maybe StaticKeySettings)
+keyProviderSettings_staticKeySettings = Lens.lens (\KeyProviderSettings' {staticKeySettings} -> staticKeySettings) (\s@KeyProviderSettings' {} a -> s {staticKeySettings = a} :: KeyProviderSettings)
 
-instance FromJSON KeyProviderSettings where
+instance Prelude.FromJSON KeyProviderSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KeyProviderSettings"
       ( \x ->
-          KeyProviderSettings' <$> (x .:? "staticKeySettings")
+          KeyProviderSettings'
+            Prelude.<$> (x Prelude..:? "staticKeySettings")
       )
 
-instance Hashable KeyProviderSettings
+instance Prelude.Hashable KeyProviderSettings
 
-instance NFData KeyProviderSettings
+instance Prelude.NFData KeyProviderSettings
 
-instance ToJSON KeyProviderSettings where
+instance Prelude.ToJSON KeyProviderSettings where
   toJSON KeyProviderSettings' {..} =
-    object
-      ( catMaybes
-          [("staticKeySettings" .=) <$> _kpsStaticKeySettings]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("staticKeySettings" Prelude..=)
+              Prelude.<$> staticKeySettings
+          ]
       )

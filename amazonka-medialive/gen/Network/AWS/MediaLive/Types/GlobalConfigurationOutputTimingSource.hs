@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.GlobalConfigurationOutputTimingSource
   ( GlobalConfigurationOutputTimingSource
       ( ..,
-        InputClock,
-        SystemClock
+        GlobalConfigurationOutputTimingSourceINPUTCLOCK,
+        GlobalConfigurationOutputTimingSourceSYSTEMCLOCK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Global Configuration Output Timing Source
-data GlobalConfigurationOutputTimingSource
-  = GlobalConfigurationOutputTimingSource'
-      ( CI
-          Text
-      )
+newtype GlobalConfigurationOutputTimingSource = GlobalConfigurationOutputTimingSource'
+  { fromGlobalConfigurationOutputTimingSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InputClock :: GlobalConfigurationOutputTimingSource
-pattern InputClock = GlobalConfigurationOutputTimingSource' "INPUT_CLOCK"
+pattern GlobalConfigurationOutputTimingSourceINPUTCLOCK :: GlobalConfigurationOutputTimingSource
+pattern GlobalConfigurationOutputTimingSourceINPUTCLOCK = GlobalConfigurationOutputTimingSource' "INPUT_CLOCK"
 
-pattern SystemClock :: GlobalConfigurationOutputTimingSource
-pattern SystemClock = GlobalConfigurationOutputTimingSource' "SYSTEM_CLOCK"
+pattern GlobalConfigurationOutputTimingSourceSYSTEMCLOCK :: GlobalConfigurationOutputTimingSource
+pattern GlobalConfigurationOutputTimingSourceSYSTEMCLOCK = GlobalConfigurationOutputTimingSource' "SYSTEM_CLOCK"
 
 {-# COMPLETE
-  InputClock,
-  SystemClock,
+  GlobalConfigurationOutputTimingSourceINPUTCLOCK,
+  GlobalConfigurationOutputTimingSourceSYSTEMCLOCK,
   GlobalConfigurationOutputTimingSource'
   #-}
 
-instance FromText GlobalConfigurationOutputTimingSource where
-  parser = (GlobalConfigurationOutputTimingSource' . mk) <$> takeText
+instance Prelude.FromText GlobalConfigurationOutputTimingSource where
+  parser = GlobalConfigurationOutputTimingSource' Prelude.<$> Prelude.takeText
 
-instance ToText GlobalConfigurationOutputTimingSource where
-  toText (GlobalConfigurationOutputTimingSource' ci) = original ci
+instance Prelude.ToText GlobalConfigurationOutputTimingSource where
+  toText (GlobalConfigurationOutputTimingSource' x) = x
 
-instance Hashable GlobalConfigurationOutputTimingSource
+instance Prelude.Hashable GlobalConfigurationOutputTimingSource
 
-instance NFData GlobalConfigurationOutputTimingSource
+instance Prelude.NFData GlobalConfigurationOutputTimingSource
 
-instance ToByteString GlobalConfigurationOutputTimingSource
+instance Prelude.ToByteString GlobalConfigurationOutputTimingSource
 
-instance ToQuery GlobalConfigurationOutputTimingSource
+instance Prelude.ToQuery GlobalConfigurationOutputTimingSource
 
-instance ToHeader GlobalConfigurationOutputTimingSource
+instance Prelude.ToHeader GlobalConfigurationOutputTimingSource
 
-instance ToJSON GlobalConfigurationOutputTimingSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON GlobalConfigurationOutputTimingSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GlobalConfigurationOutputTimingSource where
-  parseJSON = parseJSONText "GlobalConfigurationOutputTimingSource"
+instance Prelude.FromJSON GlobalConfigurationOutputTimingSource where
+  parseJSON = Prelude.parseJSONText "GlobalConfigurationOutputTimingSource"

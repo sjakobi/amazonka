@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.ArchiveOutputSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.ArchiveContainerSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Archive Output Settings
 --
--- /See:/ 'archiveOutputSettings' smart constructor.
+-- /See:/ 'newArchiveOutputSettings' smart constructor.
 data ArchiveOutputSettings = ArchiveOutputSettings'
-  { _aosExtension ::
-      !(Maybe Text),
-    _aosNameModifier ::
-      !(Maybe Text),
-    _aosContainerSettings ::
-      !ArchiveContainerSettings
+  { -- | Output file extension. If excluded, this will be auto-selected from the
+    -- container type.
+    extension :: Prelude.Maybe Prelude.Text,
+    -- | String concatenated to the end of the destination filename. Required for
+    -- multiple outputs of the same type.
+    nameModifier :: Prelude.Maybe Prelude.Text,
+    -- | Settings specific to the container type of the file.
+    containerSettings :: ArchiveContainerSettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ArchiveOutputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ArchiveOutputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aosExtension' - Output file extension. If excluded, this will be auto-selected from the container type.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aosNameModifier' - String concatenated to the end of the destination filename.  Required for multiple outputs of the same type.
+-- 'extension', 'archiveOutputSettings_extension' - Output file extension. If excluded, this will be auto-selected from the
+-- container type.
 --
--- * 'aosContainerSettings' - Settings specific to the container type of the file.
-archiveOutputSettings ::
-  -- | 'aosContainerSettings'
+-- 'nameModifier', 'archiveOutputSettings_nameModifier' - String concatenated to the end of the destination filename. Required for
+-- multiple outputs of the same type.
+--
+-- 'containerSettings', 'archiveOutputSettings_containerSettings' - Settings specific to the container type of the file.
+newArchiveOutputSettings ::
+  -- | 'containerSettings'
   ArchiveContainerSettings ->
   ArchiveOutputSettings
-archiveOutputSettings pContainerSettings_ =
+newArchiveOutputSettings pContainerSettings_ =
   ArchiveOutputSettings'
-    { _aosExtension = Nothing,
-      _aosNameModifier = Nothing,
-      _aosContainerSettings = pContainerSettings_
+    { extension = Prelude.Nothing,
+      nameModifier = Prelude.Nothing,
+      containerSettings = pContainerSettings_
     }
 
--- | Output file extension. If excluded, this will be auto-selected from the container type.
-aosExtension :: Lens' ArchiveOutputSettings (Maybe Text)
-aosExtension = lens _aosExtension (\s a -> s {_aosExtension = a})
+-- | Output file extension. If excluded, this will be auto-selected from the
+-- container type.
+archiveOutputSettings_extension :: Lens.Lens' ArchiveOutputSettings (Prelude.Maybe Prelude.Text)
+archiveOutputSettings_extension = Lens.lens (\ArchiveOutputSettings' {extension} -> extension) (\s@ArchiveOutputSettings' {} a -> s {extension = a} :: ArchiveOutputSettings)
 
--- | String concatenated to the end of the destination filename.  Required for multiple outputs of the same type.
-aosNameModifier :: Lens' ArchiveOutputSettings (Maybe Text)
-aosNameModifier = lens _aosNameModifier (\s a -> s {_aosNameModifier = a})
+-- | String concatenated to the end of the destination filename. Required for
+-- multiple outputs of the same type.
+archiveOutputSettings_nameModifier :: Lens.Lens' ArchiveOutputSettings (Prelude.Maybe Prelude.Text)
+archiveOutputSettings_nameModifier = Lens.lens (\ArchiveOutputSettings' {nameModifier} -> nameModifier) (\s@ArchiveOutputSettings' {} a -> s {nameModifier = a} :: ArchiveOutputSettings)
 
 -- | Settings specific to the container type of the file.
-aosContainerSettings :: Lens' ArchiveOutputSettings ArchiveContainerSettings
-aosContainerSettings = lens _aosContainerSettings (\s a -> s {_aosContainerSettings = a})
+archiveOutputSettings_containerSettings :: Lens.Lens' ArchiveOutputSettings ArchiveContainerSettings
+archiveOutputSettings_containerSettings = Lens.lens (\ArchiveOutputSettings' {containerSettings} -> containerSettings) (\s@ArchiveOutputSettings' {} a -> s {containerSettings = a} :: ArchiveOutputSettings)
 
-instance FromJSON ArchiveOutputSettings where
+instance Prelude.FromJSON ArchiveOutputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ArchiveOutputSettings"
       ( \x ->
           ArchiveOutputSettings'
-            <$> (x .:? "extension")
-            <*> (x .:? "nameModifier")
-            <*> (x .: "containerSettings")
+            Prelude.<$> (x Prelude..:? "extension")
+            Prelude.<*> (x Prelude..:? "nameModifier")
+            Prelude.<*> (x Prelude..: "containerSettings")
       )
 
-instance Hashable ArchiveOutputSettings
+instance Prelude.Hashable ArchiveOutputSettings
 
-instance NFData ArchiveOutputSettings
+instance Prelude.NFData ArchiveOutputSettings
 
-instance ToJSON ArchiveOutputSettings where
+instance Prelude.ToJSON ArchiveOutputSettings where
   toJSON ArchiveOutputSettings' {..} =
-    object
-      ( catMaybes
-          [ ("extension" .=) <$> _aosExtension,
-            ("nameModifier" .=) <$> _aosNameModifier,
-            Just ("containerSettings" .= _aosContainerSettings)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("extension" Prelude..=) Prelude.<$> extension,
+            ("nameModifier" Prelude..=) Prelude.<$> nameModifier,
+            Prelude.Just
+              ("containerSettings" Prelude..= containerSettings)
           ]
       )

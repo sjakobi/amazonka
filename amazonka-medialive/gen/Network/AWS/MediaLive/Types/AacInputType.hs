@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.AacInputType
   ( AacInputType
       ( ..,
-        BroadcasterMixedAd,
-        Normal
+        AacInputTypeBROADCASTERMIXEDAD,
+        AacInputTypeNORMAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Aac Input Type
-data AacInputType = AacInputType' (CI Text)
+newtype AacInputType = AacInputType'
+  { fromAacInputType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BroadcasterMixedAd :: AacInputType
-pattern BroadcasterMixedAd = AacInputType' "BROADCASTER_MIXED_AD"
+pattern AacInputTypeBROADCASTERMIXEDAD :: AacInputType
+pattern AacInputTypeBROADCASTERMIXEDAD = AacInputType' "BROADCASTER_MIXED_AD"
 
-pattern Normal :: AacInputType
-pattern Normal = AacInputType' "NORMAL"
+pattern AacInputTypeNORMAL :: AacInputType
+pattern AacInputTypeNORMAL = AacInputType' "NORMAL"
 
 {-# COMPLETE
-  BroadcasterMixedAd,
-  Normal,
+  AacInputTypeBROADCASTERMIXEDAD,
+  AacInputTypeNORMAL,
   AacInputType'
   #-}
 
-instance FromText AacInputType where
-  parser = (AacInputType' . mk) <$> takeText
+instance Prelude.FromText AacInputType where
+  parser = AacInputType' Prelude.<$> Prelude.takeText
 
-instance ToText AacInputType where
-  toText (AacInputType' ci) = original ci
+instance Prelude.ToText AacInputType where
+  toText (AacInputType' x) = x
 
-instance Hashable AacInputType
+instance Prelude.Hashable AacInputType
 
-instance NFData AacInputType
+instance Prelude.NFData AacInputType
 
-instance ToByteString AacInputType
+instance Prelude.ToByteString AacInputType
 
-instance ToQuery AacInputType
+instance Prelude.ToQuery AacInputType
 
-instance ToHeader AacInputType
+instance Prelude.ToHeader AacInputType
 
-instance ToJSON AacInputType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacInputType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacInputType where
-  parseJSON = parseJSONText "AacInputType"
+instance Prelude.FromJSON AacInputType where
+  parseJSON = Prelude.parseJSONText "AacInputType"

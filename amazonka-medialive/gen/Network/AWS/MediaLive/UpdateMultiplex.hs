@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,154 +24,163 @@
 -- Updates a multiplex.
 module Network.AWS.MediaLive.UpdateMultiplex
   ( -- * Creating a Request
-    updateMultiplex',
-    UpdateMultiplex',
+    UpdateMultiplex' (..),
+    newUpdateMultiplex',
 
     -- * Request Lenses
-    uName,
-    uMultiplexSettings,
-    uMultiplexId,
+    updateMultiplex'_name,
+    updateMultiplex'_multiplexSettings,
+    updateMultiplex'_multiplexId,
 
     -- * Destructuring the Response
-    updateMultiplexResponse,
-    UpdateMultiplexResponse,
+    UpdateMultiplexResponse (..),
+    newUpdateMultiplexResponse,
 
     -- * Response Lenses
-    umrrsMultiplex,
-    umrrsResponseStatus,
+    updateMultiplexResponse_multiplex,
+    updateMultiplexResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.Multiplex
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to update a multiplex.
 --
--- /See:/ 'updateMultiplex'' smart constructor.
+-- /See:/ 'newUpdateMultiplex'' smart constructor.
 data UpdateMultiplex' = UpdateMultiplex''
-  { _uName ::
-      !(Maybe Text),
-    _uMultiplexSettings ::
-      !(Maybe MultiplexSettings),
-    _uMultiplexId :: !Text
+  { -- | Name of the multiplex.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The new settings for a multiplex.
+    multiplexSettings :: Prelude.Maybe MultiplexSettings,
+    -- | ID of the multiplex to update.
+    multiplexId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMultiplex'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMultiplex'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uName' - Name of the multiplex.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uMultiplexSettings' - The new settings for a multiplex.
+-- 'name', 'updateMultiplex'_name' - Name of the multiplex.
 --
--- * 'uMultiplexId' - ID of the multiplex to update.
-updateMultiplex' ::
-  -- | 'uMultiplexId'
-  Text ->
+-- 'multiplexSettings', 'updateMultiplex'_multiplexSettings' - The new settings for a multiplex.
+--
+-- 'multiplexId', 'updateMultiplex'_multiplexId' - ID of the multiplex to update.
+newUpdateMultiplex' ::
+  -- | 'multiplexId'
+  Prelude.Text ->
   UpdateMultiplex'
-updateMultiplex' pMultiplexId_ =
+newUpdateMultiplex' pMultiplexId_ =
   UpdateMultiplex''
-    { _uName = Nothing,
-      _uMultiplexSettings = Nothing,
-      _uMultiplexId = pMultiplexId_
+    { name = Prelude.Nothing,
+      multiplexSettings = Prelude.Nothing,
+      multiplexId = pMultiplexId_
     }
 
 -- | Name of the multiplex.
-uName :: Lens' UpdateMultiplex' (Maybe Text)
-uName = lens _uName (\s a -> s {_uName = a})
+updateMultiplex'_name :: Lens.Lens' UpdateMultiplex' (Prelude.Maybe Prelude.Text)
+updateMultiplex'_name = Lens.lens (\UpdateMultiplex'' {name} -> name) (\s@UpdateMultiplex'' {} a -> s {name = a} :: UpdateMultiplex')
 
 -- | The new settings for a multiplex.
-uMultiplexSettings :: Lens' UpdateMultiplex' (Maybe MultiplexSettings)
-uMultiplexSettings = lens _uMultiplexSettings (\s a -> s {_uMultiplexSettings = a})
+updateMultiplex'_multiplexSettings :: Lens.Lens' UpdateMultiplex' (Prelude.Maybe MultiplexSettings)
+updateMultiplex'_multiplexSettings = Lens.lens (\UpdateMultiplex'' {multiplexSettings} -> multiplexSettings) (\s@UpdateMultiplex'' {} a -> s {multiplexSettings = a} :: UpdateMultiplex')
 
 -- | ID of the multiplex to update.
-uMultiplexId :: Lens' UpdateMultiplex' Text
-uMultiplexId = lens _uMultiplexId (\s a -> s {_uMultiplexId = a})
+updateMultiplex'_multiplexId :: Lens.Lens' UpdateMultiplex' Prelude.Text
+updateMultiplex'_multiplexId = Lens.lens (\UpdateMultiplex'' {multiplexId} -> multiplexId) (\s@UpdateMultiplex'' {} a -> s {multiplexId = a} :: UpdateMultiplex')
 
-instance AWSRequest UpdateMultiplex' where
+instance Prelude.AWSRequest UpdateMultiplex' where
   type Rs UpdateMultiplex' = UpdateMultiplexResponse
-  request = putJSON mediaLive
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateMultiplexResponse'
-            <$> (x .?> "multiplex") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "multiplex")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateMultiplex'
+instance Prelude.Hashable UpdateMultiplex'
 
-instance NFData UpdateMultiplex'
+instance Prelude.NFData UpdateMultiplex'
 
-instance ToHeaders UpdateMultiplex' where
+instance Prelude.ToHeaders UpdateMultiplex' where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateMultiplex' where
+instance Prelude.ToJSON UpdateMultiplex' where
   toJSON UpdateMultiplex'' {..} =
-    object
-      ( catMaybes
-          [ ("name" .=) <$> _uName,
-            ("multiplexSettings" .=) <$> _uMultiplexSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            ("multiplexSettings" Prelude..=)
+              Prelude.<$> multiplexSettings
           ]
       )
 
-instance ToPath UpdateMultiplex' where
+instance Prelude.ToPath UpdateMultiplex' where
   toPath UpdateMultiplex'' {..} =
-    mconcat ["/prod/multiplexes/", toBS _uMultiplexId]
+    Prelude.mconcat
+      ["/prod/multiplexes/", Prelude.toBS multiplexId]
 
-instance ToQuery UpdateMultiplex' where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateMultiplex' where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for UpdateMultiplexResponse
 --
--- /See:/ 'updateMultiplexResponse' smart constructor.
+-- /See:/ 'newUpdateMultiplexResponse' smart constructor.
 data UpdateMultiplexResponse = UpdateMultiplexResponse'
-  { _umrrsMultiplex ::
-      !(Maybe Multiplex),
-    _umrrsResponseStatus ::
-      !Int
+  { -- | The updated multiplex.
+    multiplex :: Prelude.Maybe Multiplex,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMultiplexResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMultiplexResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umrrsMultiplex' - The updated multiplex.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umrrsResponseStatus' - -- | The response status code.
-updateMultiplexResponse ::
-  -- | 'umrrsResponseStatus'
-  Int ->
+-- 'multiplex', 'updateMultiplexResponse_multiplex' - The updated multiplex.
+--
+-- 'httpStatus', 'updateMultiplexResponse_httpStatus' - The response's http status code.
+newUpdateMultiplexResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateMultiplexResponse
-updateMultiplexResponse pResponseStatus_ =
+newUpdateMultiplexResponse pHttpStatus_ =
   UpdateMultiplexResponse'
-    { _umrrsMultiplex = Nothing,
-      _umrrsResponseStatus = pResponseStatus_
+    { multiplex =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The updated multiplex.
-umrrsMultiplex :: Lens' UpdateMultiplexResponse (Maybe Multiplex)
-umrrsMultiplex = lens _umrrsMultiplex (\s a -> s {_umrrsMultiplex = a})
+updateMultiplexResponse_multiplex :: Lens.Lens' UpdateMultiplexResponse (Prelude.Maybe Multiplex)
+updateMultiplexResponse_multiplex = Lens.lens (\UpdateMultiplexResponse' {multiplex} -> multiplex) (\s@UpdateMultiplexResponse' {} a -> s {multiplex = a} :: UpdateMultiplexResponse)
 
--- | -- | The response status code.
-umrrsResponseStatus :: Lens' UpdateMultiplexResponse Int
-umrrsResponseStatus = lens _umrrsResponseStatus (\s a -> s {_umrrsResponseStatus = a})
+-- | The response's http status code.
+updateMultiplexResponse_httpStatus :: Lens.Lens' UpdateMultiplexResponse Prelude.Int
+updateMultiplexResponse_httpStatus = Lens.lens (\UpdateMultiplexResponse' {httpStatus} -> httpStatus) (\s@UpdateMultiplexResponse' {} a -> s {httpStatus = a} :: UpdateMultiplexResponse)
 
-instance NFData UpdateMultiplexResponse
+instance Prelude.NFData UpdateMultiplexResponse

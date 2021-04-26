@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,157 +24,166 @@
 -- Create a partner input
 module Network.AWS.MediaLive.CreatePartnerInput
   ( -- * Creating a Request
-    createPartnerInput',
-    CreatePartnerInput',
+    CreatePartnerInput' (..),
+    newCreatePartnerInput',
 
     -- * Request Lenses
-    cpiRequestId,
-    cpiTags,
-    cpiInputId,
+    createPartnerInput'_requestId,
+    createPartnerInput'_tags,
+    createPartnerInput'_inputId,
 
     -- * Destructuring the Response
-    createPartnerInputResponse,
-    CreatePartnerInputResponse,
+    CreatePartnerInputResponse (..),
+    newCreatePartnerInputResponse,
 
     -- * Response Lenses
-    cpirrsInput,
-    cpirrsResponseStatus,
+    createPartnerInputResponse_input,
+    createPartnerInputResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.Input
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to create a partner input
 --
--- /See:/ 'createPartnerInput'' smart constructor.
+-- /See:/ 'newCreatePartnerInput'' smart constructor.
 data CreatePartnerInput' = CreatePartnerInput''
-  { _cpiRequestId ::
-      !(Maybe Text),
-    _cpiTags ::
-      !(Maybe (Map Text Text)),
-    _cpiInputId :: !Text
+  { -- | Unique identifier of the request to ensure the request is handled
+    -- exactly once in case of retries.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Unique ID of the input.
+    inputId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePartnerInput'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePartnerInput'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpiRequestId' - Unique identifier of the request to ensure the request is handled exactly once in case of retries.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpiTags' - A collection of key-value pairs.
+-- 'requestId', 'createPartnerInput'_requestId' - Unique identifier of the request to ensure the request is handled
+-- exactly once in case of retries.
 --
--- * 'cpiInputId' - Unique ID of the input.
-createPartnerInput' ::
-  -- | 'cpiInputId'
-  Text ->
+-- 'tags', 'createPartnerInput'_tags' - A collection of key-value pairs.
+--
+-- 'inputId', 'createPartnerInput'_inputId' - Unique ID of the input.
+newCreatePartnerInput' ::
+  -- | 'inputId'
+  Prelude.Text ->
   CreatePartnerInput'
-createPartnerInput' pInputId_ =
+newCreatePartnerInput' pInputId_ =
   CreatePartnerInput''
-    { _cpiRequestId = Nothing,
-      _cpiTags = Nothing,
-      _cpiInputId = pInputId_
+    { requestId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      inputId = pInputId_
     }
 
--- | Unique identifier of the request to ensure the request is handled exactly once in case of retries.
-cpiRequestId :: Lens' CreatePartnerInput' (Maybe Text)
-cpiRequestId = lens _cpiRequestId (\s a -> s {_cpiRequestId = a})
+-- | Unique identifier of the request to ensure the request is handled
+-- exactly once in case of retries.
+createPartnerInput'_requestId :: Lens.Lens' CreatePartnerInput' (Prelude.Maybe Prelude.Text)
+createPartnerInput'_requestId = Lens.lens (\CreatePartnerInput'' {requestId} -> requestId) (\s@CreatePartnerInput'' {} a -> s {requestId = a} :: CreatePartnerInput')
 
 -- | A collection of key-value pairs.
-cpiTags :: Lens' CreatePartnerInput' (HashMap Text Text)
-cpiTags = lens _cpiTags (\s a -> s {_cpiTags = a}) . _Default . _Map
+createPartnerInput'_tags :: Lens.Lens' CreatePartnerInput' (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createPartnerInput'_tags = Lens.lens (\CreatePartnerInput'' {tags} -> tags) (\s@CreatePartnerInput'' {} a -> s {tags = a} :: CreatePartnerInput') Prelude.. Lens.mapping Prelude._Map
 
 -- | Unique ID of the input.
-cpiInputId :: Lens' CreatePartnerInput' Text
-cpiInputId = lens _cpiInputId (\s a -> s {_cpiInputId = a})
+createPartnerInput'_inputId :: Lens.Lens' CreatePartnerInput' Prelude.Text
+createPartnerInput'_inputId = Lens.lens (\CreatePartnerInput'' {inputId} -> inputId) (\s@CreatePartnerInput'' {} a -> s {inputId = a} :: CreatePartnerInput')
 
-instance AWSRequest CreatePartnerInput' where
+instance Prelude.AWSRequest CreatePartnerInput' where
   type
     Rs CreatePartnerInput' =
       CreatePartnerInputResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreatePartnerInputResponse'
-            <$> (x .?> "input") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "input")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreatePartnerInput'
+instance Prelude.Hashable CreatePartnerInput'
 
-instance NFData CreatePartnerInput'
+instance Prelude.NFData CreatePartnerInput'
 
-instance ToHeaders CreatePartnerInput' where
+instance Prelude.ToHeaders CreatePartnerInput' where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreatePartnerInput' where
+instance Prelude.ToJSON CreatePartnerInput' where
   toJSON CreatePartnerInput'' {..} =
-    object
-      ( catMaybes
-          [ ("requestId" .=) <$> _cpiRequestId,
-            ("tags" .=) <$> _cpiTags
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("requestId" Prelude..=) Prelude.<$> requestId,
+            ("tags" Prelude..=) Prelude.<$> tags
           ]
       )
 
-instance ToPath CreatePartnerInput' where
+instance Prelude.ToPath CreatePartnerInput' where
   toPath CreatePartnerInput'' {..} =
-    mconcat
-      ["/prod/inputs/", toBS _cpiInputId, "/partners"]
+    Prelude.mconcat
+      ["/prod/inputs/", Prelude.toBS inputId, "/partners"]
 
-instance ToQuery CreatePartnerInput' where
-  toQuery = const mempty
+instance Prelude.ToQuery CreatePartnerInput' where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for CreatePartnerInputResponse
 --
--- /See:/ 'createPartnerInputResponse' smart constructor.
+-- /See:/ 'newCreatePartnerInputResponse' smart constructor.
 data CreatePartnerInputResponse = CreatePartnerInputResponse'
-  { _cpirrsInput ::
-      !(Maybe Input),
-    _cpirrsResponseStatus ::
-      !Int
+  { input :: Prelude.Maybe Input,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreatePartnerInputResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreatePartnerInputResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpirrsInput' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpirrsResponseStatus' - -- | The response status code.
-createPartnerInputResponse ::
-  -- | 'cpirrsResponseStatus'
-  Int ->
+-- 'input', 'createPartnerInputResponse_input' - Undocumented member.
+--
+-- 'httpStatus', 'createPartnerInputResponse_httpStatus' - The response's http status code.
+newCreatePartnerInputResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreatePartnerInputResponse
-createPartnerInputResponse pResponseStatus_ =
+newCreatePartnerInputResponse pHttpStatus_ =
   CreatePartnerInputResponse'
-    { _cpirrsInput = Nothing,
-      _cpirrsResponseStatus = pResponseStatus_
+    { input =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cpirrsInput :: Lens' CreatePartnerInputResponse (Maybe Input)
-cpirrsInput = lens _cpirrsInput (\s a -> s {_cpirrsInput = a})
+createPartnerInputResponse_input :: Lens.Lens' CreatePartnerInputResponse (Prelude.Maybe Input)
+createPartnerInputResponse_input = Lens.lens (\CreatePartnerInputResponse' {input} -> input) (\s@CreatePartnerInputResponse' {} a -> s {input = a} :: CreatePartnerInputResponse)
 
--- | -- | The response status code.
-cpirrsResponseStatus :: Lens' CreatePartnerInputResponse Int
-cpirrsResponseStatus = lens _cpirrsResponseStatus (\s a -> s {_cpirrsResponseStatus = a})
+-- | The response's http status code.
+createPartnerInputResponse_httpStatus :: Lens.Lens' CreatePartnerInputResponse Prelude.Int
+createPartnerInputResponse_httpStatus = Lens.lens (\CreatePartnerInputResponse' {httpStatus} -> httpStatus) (\s@CreatePartnerInputResponse' {} a -> s {httpStatus = a} :: CreatePartnerInputResponse)
 
-instance NFData CreatePartnerInputResponse
+instance Prelude.NFData CreatePartnerInputResponse

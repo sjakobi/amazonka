@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.VideoDescriptionRespondToAfd
   ( VideoDescriptionRespondToAfd
       ( ..,
-        VDRTANone,
-        VDRTAPassthrough,
-        VDRTARespond
+        VideoDescriptionRespondToAfdNONE,
+        VideoDescriptionRespondToAfdPASSTHROUGH,
+        VideoDescriptionRespondToAfdRESPOND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Video Description Respond To Afd
-data VideoDescriptionRespondToAfd
-  = VideoDescriptionRespondToAfd'
-      ( CI
-          Text
-      )
+newtype VideoDescriptionRespondToAfd = VideoDescriptionRespondToAfd'
+  { fromVideoDescriptionRespondToAfd ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VDRTANone :: VideoDescriptionRespondToAfd
-pattern VDRTANone = VideoDescriptionRespondToAfd' "NONE"
+pattern VideoDescriptionRespondToAfdNONE :: VideoDescriptionRespondToAfd
+pattern VideoDescriptionRespondToAfdNONE = VideoDescriptionRespondToAfd' "NONE"
 
-pattern VDRTAPassthrough :: VideoDescriptionRespondToAfd
-pattern VDRTAPassthrough = VideoDescriptionRespondToAfd' "PASSTHROUGH"
+pattern VideoDescriptionRespondToAfdPASSTHROUGH :: VideoDescriptionRespondToAfd
+pattern VideoDescriptionRespondToAfdPASSTHROUGH = VideoDescriptionRespondToAfd' "PASSTHROUGH"
 
-pattern VDRTARespond :: VideoDescriptionRespondToAfd
-pattern VDRTARespond = VideoDescriptionRespondToAfd' "RESPOND"
+pattern VideoDescriptionRespondToAfdRESPOND :: VideoDescriptionRespondToAfd
+pattern VideoDescriptionRespondToAfdRESPOND = VideoDescriptionRespondToAfd' "RESPOND"
 
 {-# COMPLETE
-  VDRTANone,
-  VDRTAPassthrough,
-  VDRTARespond,
+  VideoDescriptionRespondToAfdNONE,
+  VideoDescriptionRespondToAfdPASSTHROUGH,
+  VideoDescriptionRespondToAfdRESPOND,
   VideoDescriptionRespondToAfd'
   #-}
 
-instance FromText VideoDescriptionRespondToAfd where
-  parser = (VideoDescriptionRespondToAfd' . mk) <$> takeText
+instance Prelude.FromText VideoDescriptionRespondToAfd where
+  parser = VideoDescriptionRespondToAfd' Prelude.<$> Prelude.takeText
 
-instance ToText VideoDescriptionRespondToAfd where
-  toText (VideoDescriptionRespondToAfd' ci) = original ci
+instance Prelude.ToText VideoDescriptionRespondToAfd where
+  toText (VideoDescriptionRespondToAfd' x) = x
 
-instance Hashable VideoDescriptionRespondToAfd
+instance Prelude.Hashable VideoDescriptionRespondToAfd
 
-instance NFData VideoDescriptionRespondToAfd
+instance Prelude.NFData VideoDescriptionRespondToAfd
 
-instance ToByteString VideoDescriptionRespondToAfd
+instance Prelude.ToByteString VideoDescriptionRespondToAfd
 
-instance ToQuery VideoDescriptionRespondToAfd
+instance Prelude.ToQuery VideoDescriptionRespondToAfd
 
-instance ToHeader VideoDescriptionRespondToAfd
+instance Prelude.ToHeader VideoDescriptionRespondToAfd
 
-instance ToJSON VideoDescriptionRespondToAfd where
-  toJSON = toJSONText
+instance Prelude.ToJSON VideoDescriptionRespondToAfd where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VideoDescriptionRespondToAfd where
-  parseJSON = parseJSONText "VideoDescriptionRespondToAfd"
+instance Prelude.FromJSON VideoDescriptionRespondToAfd where
+  parseJSON = Prelude.parseJSONText "VideoDescriptionRespondToAfd"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.InputDestination where
 
-import Network.AWS.Lens
-import Network.AWS.MediaLive.Types.InputDestinationVPC
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import Network.AWS.MediaLive.Types.InputDestinationVpc
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The settings for a PUSH type input.
 --
--- /See:/ 'inputDestination' smart constructor.
+-- /See:/ 'newInputDestination' smart constructor.
 data InputDestination = InputDestination'
-  { _idIP ::
-      !(Maybe Text),
-    _idPort :: !(Maybe Text),
-    _idURL :: !(Maybe Text),
-    _idVPC ::
-      !(Maybe InputDestinationVPC)
+  { -- | The system-generated static IP address of endpoint. It remains fixed for
+    -- the lifetime of the input.
+    ip :: Prelude.Maybe Prelude.Text,
+    -- | The port number for the input.
+    port :: Prelude.Maybe Prelude.Text,
+    -- | This represents the endpoint that the customer stream will be pushed to.
+    url :: Prelude.Maybe Prelude.Text,
+    vpc :: Prelude.Maybe InputDestinationVpc
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idIP' - The system-generated static IP address of endpoint. It remains fixed for the lifetime of the input.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idPort' - The port number for the input.
+-- 'ip', 'inputDestination_ip' - The system-generated static IP address of endpoint. It remains fixed for
+-- the lifetime of the input.
 --
--- * 'idURL' - This represents the endpoint that the customer stream will be pushed to.
+-- 'port', 'inputDestination_port' - The port number for the input.
 --
--- * 'idVPC' - Undocumented member.
-inputDestination ::
+-- 'url', 'inputDestination_url' - This represents the endpoint that the customer stream will be pushed to.
+--
+-- 'vpc', 'inputDestination_vpc' - Undocumented member.
+newInputDestination ::
   InputDestination
-inputDestination =
+newInputDestination =
   InputDestination'
-    { _idIP = Nothing,
-      _idPort = Nothing,
-      _idURL = Nothing,
-      _idVPC = Nothing
+    { ip = Prelude.Nothing,
+      port = Prelude.Nothing,
+      url = Prelude.Nothing,
+      vpc = Prelude.Nothing
     }
 
--- | The system-generated static IP address of endpoint. It remains fixed for the lifetime of the input.
-idIP :: Lens' InputDestination (Maybe Text)
-idIP = lens _idIP (\s a -> s {_idIP = a})
+-- | The system-generated static IP address of endpoint. It remains fixed for
+-- the lifetime of the input.
+inputDestination_ip :: Lens.Lens' InputDestination (Prelude.Maybe Prelude.Text)
+inputDestination_ip = Lens.lens (\InputDestination' {ip} -> ip) (\s@InputDestination' {} a -> s {ip = a} :: InputDestination)
 
 -- | The port number for the input.
-idPort :: Lens' InputDestination (Maybe Text)
-idPort = lens _idPort (\s a -> s {_idPort = a})
+inputDestination_port :: Lens.Lens' InputDestination (Prelude.Maybe Prelude.Text)
+inputDestination_port = Lens.lens (\InputDestination' {port} -> port) (\s@InputDestination' {} a -> s {port = a} :: InputDestination)
 
 -- | This represents the endpoint that the customer stream will be pushed to.
-idURL :: Lens' InputDestination (Maybe Text)
-idURL = lens _idURL (\s a -> s {_idURL = a})
+inputDestination_url :: Lens.Lens' InputDestination (Prelude.Maybe Prelude.Text)
+inputDestination_url = Lens.lens (\InputDestination' {url} -> url) (\s@InputDestination' {} a -> s {url = a} :: InputDestination)
 
 -- | Undocumented member.
-idVPC :: Lens' InputDestination (Maybe InputDestinationVPC)
-idVPC = lens _idVPC (\s a -> s {_idVPC = a})
+inputDestination_vpc :: Lens.Lens' InputDestination (Prelude.Maybe InputDestinationVpc)
+inputDestination_vpc = Lens.lens (\InputDestination' {vpc} -> vpc) (\s@InputDestination' {} a -> s {vpc = a} :: InputDestination)
 
-instance FromJSON InputDestination where
+instance Prelude.FromJSON InputDestination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputDestination"
       ( \x ->
           InputDestination'
-            <$> (x .:? "ip")
-            <*> (x .:? "port")
-            <*> (x .:? "url")
-            <*> (x .:? "vpc")
+            Prelude.<$> (x Prelude..:? "ip")
+            Prelude.<*> (x Prelude..:? "port")
+            Prelude.<*> (x Prelude..:? "url")
+            Prelude.<*> (x Prelude..:? "vpc")
       )
 
-instance Hashable InputDestination
+instance Prelude.Hashable InputDestination
 
-instance NFData InputDestination
+instance Prelude.NFData InputDestination

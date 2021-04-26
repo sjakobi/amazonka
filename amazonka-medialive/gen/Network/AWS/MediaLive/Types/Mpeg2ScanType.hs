@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.Mpeg2ScanType
   ( Mpeg2ScanType
       ( ..,
-        Interlaced,
-        Progressive
+        Mpeg2ScanTypeINTERLACED,
+        Mpeg2ScanTypePROGRESSIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mpeg2 Scan Type
-data Mpeg2ScanType = Mpeg2ScanType' (CI Text)
+newtype Mpeg2ScanType = Mpeg2ScanType'
+  { fromMpeg2ScanType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Interlaced :: Mpeg2ScanType
-pattern Interlaced = Mpeg2ScanType' "INTERLACED"
+pattern Mpeg2ScanTypeINTERLACED :: Mpeg2ScanType
+pattern Mpeg2ScanTypeINTERLACED = Mpeg2ScanType' "INTERLACED"
 
-pattern Progressive :: Mpeg2ScanType
-pattern Progressive = Mpeg2ScanType' "PROGRESSIVE"
+pattern Mpeg2ScanTypePROGRESSIVE :: Mpeg2ScanType
+pattern Mpeg2ScanTypePROGRESSIVE = Mpeg2ScanType' "PROGRESSIVE"
 
 {-# COMPLETE
-  Interlaced,
-  Progressive,
+  Mpeg2ScanTypeINTERLACED,
+  Mpeg2ScanTypePROGRESSIVE,
   Mpeg2ScanType'
   #-}
 
-instance FromText Mpeg2ScanType where
-  parser = (Mpeg2ScanType' . mk) <$> takeText
+instance Prelude.FromText Mpeg2ScanType where
+  parser = Mpeg2ScanType' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2ScanType where
-  toText (Mpeg2ScanType' ci) = original ci
+instance Prelude.ToText Mpeg2ScanType where
+  toText (Mpeg2ScanType' x) = x
 
-instance Hashable Mpeg2ScanType
+instance Prelude.Hashable Mpeg2ScanType
 
-instance NFData Mpeg2ScanType
+instance Prelude.NFData Mpeg2ScanType
 
-instance ToByteString Mpeg2ScanType
+instance Prelude.ToByteString Mpeg2ScanType
 
-instance ToQuery Mpeg2ScanType
+instance Prelude.ToQuery Mpeg2ScanType
 
-instance ToHeader Mpeg2ScanType
+instance Prelude.ToHeader Mpeg2ScanType
 
-instance ToJSON Mpeg2ScanType where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2ScanType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2ScanType where
-  parseJSON = parseJSONText "Mpeg2ScanType"
+instance Prelude.FromJSON Mpeg2ScanType where
+  parseJSON = Prelude.parseJSONText "Mpeg2ScanType"

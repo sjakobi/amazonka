@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsTimedMetadataBehavior
   ( M2tsTimedMetadataBehavior
       ( ..,
-        MTMBNoPassthrough,
-        MTMBPassthrough
+        M2tsTimedMetadataBehaviorNOPASSTHROUGH,
+        M2tsTimedMetadataBehaviorPASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Timed Metadata Behavior
-data M2tsTimedMetadataBehavior
-  = M2tsTimedMetadataBehavior'
-      ( CI
-          Text
-      )
+newtype M2tsTimedMetadataBehavior = M2tsTimedMetadataBehavior'
+  { fromM2tsTimedMetadataBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MTMBNoPassthrough :: M2tsTimedMetadataBehavior
-pattern MTMBNoPassthrough = M2tsTimedMetadataBehavior' "NO_PASSTHROUGH"
+pattern M2tsTimedMetadataBehaviorNOPASSTHROUGH :: M2tsTimedMetadataBehavior
+pattern M2tsTimedMetadataBehaviorNOPASSTHROUGH = M2tsTimedMetadataBehavior' "NO_PASSTHROUGH"
 
-pattern MTMBPassthrough :: M2tsTimedMetadataBehavior
-pattern MTMBPassthrough = M2tsTimedMetadataBehavior' "PASSTHROUGH"
+pattern M2tsTimedMetadataBehaviorPASSTHROUGH :: M2tsTimedMetadataBehavior
+pattern M2tsTimedMetadataBehaviorPASSTHROUGH = M2tsTimedMetadataBehavior' "PASSTHROUGH"
 
 {-# COMPLETE
-  MTMBNoPassthrough,
-  MTMBPassthrough,
+  M2tsTimedMetadataBehaviorNOPASSTHROUGH,
+  M2tsTimedMetadataBehaviorPASSTHROUGH,
   M2tsTimedMetadataBehavior'
   #-}
 
-instance FromText M2tsTimedMetadataBehavior where
-  parser = (M2tsTimedMetadataBehavior' . mk) <$> takeText
+instance Prelude.FromText M2tsTimedMetadataBehavior where
+  parser = M2tsTimedMetadataBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsTimedMetadataBehavior where
-  toText (M2tsTimedMetadataBehavior' ci) = original ci
+instance Prelude.ToText M2tsTimedMetadataBehavior where
+  toText (M2tsTimedMetadataBehavior' x) = x
 
-instance Hashable M2tsTimedMetadataBehavior
+instance Prelude.Hashable M2tsTimedMetadataBehavior
 
-instance NFData M2tsTimedMetadataBehavior
+instance Prelude.NFData M2tsTimedMetadataBehavior
 
-instance ToByteString M2tsTimedMetadataBehavior
+instance Prelude.ToByteString M2tsTimedMetadataBehavior
 
-instance ToQuery M2tsTimedMetadataBehavior
+instance Prelude.ToQuery M2tsTimedMetadataBehavior
 
-instance ToHeader M2tsTimedMetadataBehavior
+instance Prelude.ToHeader M2tsTimedMetadataBehavior
 
-instance ToJSON M2tsTimedMetadataBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsTimedMetadataBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsTimedMetadataBehavior where
-  parseJSON = parseJSONText "M2tsTimedMetadataBehavior"
+instance Prelude.FromJSON M2tsTimedMetadataBehavior where
+  parseJSON = Prelude.parseJSONText "M2tsTimedMetadataBehavior"

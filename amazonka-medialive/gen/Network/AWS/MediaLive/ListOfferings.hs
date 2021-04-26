@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,256 +26,290 @@
 -- This operation returns paginated results.
 module Network.AWS.MediaLive.ListOfferings
   ( -- * Creating a Request
-    listOfferings,
-    ListOfferings,
+    ListOfferings (..),
+    newListOfferings,
 
     -- * Request Lenses
-    loMaximumFramerate,
-    loNextToken,
-    loVideoQuality,
-    loDuration,
-    loMaxResults,
-    loCodec,
-    loChannelConfiguration,
-    loMaximumBitrate,
-    loSpecialFeature,
-    loChannelClass,
-    loResourceType,
-    loResolution,
+    listOfferings_maximumFramerate,
+    listOfferings_nextToken,
+    listOfferings_videoQuality,
+    listOfferings_duration,
+    listOfferings_maxResults,
+    listOfferings_codec,
+    listOfferings_channelConfiguration,
+    listOfferings_maximumBitrate,
+    listOfferings_specialFeature,
+    listOfferings_channelClass,
+    listOfferings_resourceType,
+    listOfferings_resolution,
 
     -- * Destructuring the Response
-    listOfferingsResponse,
-    ListOfferingsResponse,
+    ListOfferingsResponse (..),
+    newListOfferingsResponse,
 
     -- * Response Lenses
-    lorrsNextToken,
-    lorrsOfferings,
-    lorrsResponseStatus,
+    listOfferingsResponse_nextToken,
+    listOfferingsResponse_offerings,
+    listOfferingsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.Offering
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for ListOfferingsRequest
 --
--- /See:/ 'listOfferings' smart constructor.
+-- /See:/ 'newListOfferings' smart constructor.
 data ListOfferings = ListOfferings'
-  { _loMaximumFramerate ::
-      !(Maybe Text),
-    _loNextToken :: !(Maybe Text),
-    _loVideoQuality :: !(Maybe Text),
-    _loDuration :: !(Maybe Text),
-    _loMaxResults :: !(Maybe Nat),
-    _loCodec :: !(Maybe Text),
-    _loChannelConfiguration :: !(Maybe Text),
-    _loMaximumBitrate :: !(Maybe Text),
-    _loSpecialFeature :: !(Maybe Text),
-    _loChannelClass :: !(Maybe Text),
-    _loResourceType :: !(Maybe Text),
-    _loResolution :: !(Maybe Text)
+  { -- | Filter by framerate, \'MAX_30_FPS\' or \'MAX_60_FPS\'
+    maximumFramerate :: Prelude.Maybe Prelude.Text,
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filter by video quality, \'STANDARD\', \'ENHANCED\', or \'PREMIUM\'
+    videoQuality :: Prelude.Maybe Prelude.Text,
+    -- | Filter by offering duration, e.g. \'12\'
+    duration :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filter by codec, \'AVC\', \'HEVC\', \'MPEG2\', \'AUDIO\', or \'LINK\'
+    codec :: Prelude.Maybe Prelude.Text,
+    -- | Filter to offerings that match the configuration of an existing channel,
+    -- e.g. \'2345678\' (a channel ID)
+    channelConfiguration :: Prelude.Maybe Prelude.Text,
+    -- | Filter by bitrate, \'MAX_10_MBPS\', \'MAX_20_MBPS\', or \'MAX_50_MBPS\'
+    maximumBitrate :: Prelude.Maybe Prelude.Text,
+    -- | Filter by special feature, \'ADVANCED_AUDIO\' or \'AUDIO_NORMALIZATION\'
+    specialFeature :: Prelude.Maybe Prelude.Text,
+    -- | Filter by channel class, \'STANDARD\' or \'SINGLE_PIPELINE\'
+    channelClass :: Prelude.Maybe Prelude.Text,
+    -- | Filter by resource type, \'INPUT\', \'OUTPUT\', \'MULTIPLEX\', or
+    -- \'CHANNEL\'
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | Filter by resolution, \'SD\', \'HD\', \'FHD\', or \'UHD\'
+    resolution :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOfferings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOfferings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loMaximumFramerate' - Filter by framerate, 'MAX_30_FPS' or 'MAX_60_FPS'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loNextToken' - Undocumented member.
+-- 'maximumFramerate', 'listOfferings_maximumFramerate' - Filter by framerate, \'MAX_30_FPS\' or \'MAX_60_FPS\'
 --
--- * 'loVideoQuality' - Filter by video quality, 'STANDARD', 'ENHANCED', or 'PREMIUM'
+-- 'nextToken', 'listOfferings_nextToken' - Undocumented member.
 --
--- * 'loDuration' - Filter by offering duration, e.g. '12'
+-- 'videoQuality', 'listOfferings_videoQuality' - Filter by video quality, \'STANDARD\', \'ENHANCED\', or \'PREMIUM\'
 --
--- * 'loMaxResults' - Undocumented member.
+-- 'duration', 'listOfferings_duration' - Filter by offering duration, e.g. \'12\'
 --
--- * 'loCodec' - Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
+-- 'maxResults', 'listOfferings_maxResults' - Undocumented member.
 --
--- * 'loChannelConfiguration' - Filter to offerings that match the configuration of an existing channel, e.g. '2345678' (a channel ID)
+-- 'codec', 'listOfferings_codec' - Filter by codec, \'AVC\', \'HEVC\', \'MPEG2\', \'AUDIO\', or \'LINK\'
 --
--- * 'loMaximumBitrate' - Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or 'MAX_50_MBPS'
+-- 'channelConfiguration', 'listOfferings_channelConfiguration' - Filter to offerings that match the configuration of an existing channel,
+-- e.g. \'2345678\' (a channel ID)
 --
--- * 'loSpecialFeature' - Filter by special feature, 'ADVANCED_AUDIO' or 'AUDIO_NORMALIZATION'
+-- 'maximumBitrate', 'listOfferings_maximumBitrate' - Filter by bitrate, \'MAX_10_MBPS\', \'MAX_20_MBPS\', or \'MAX_50_MBPS\'
 --
--- * 'loChannelClass' - Filter by channel class, 'STANDARD' or 'SINGLE_PIPELINE'
+-- 'specialFeature', 'listOfferings_specialFeature' - Filter by special feature, \'ADVANCED_AUDIO\' or \'AUDIO_NORMALIZATION\'
 --
--- * 'loResourceType' - Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
+-- 'channelClass', 'listOfferings_channelClass' - Filter by channel class, \'STANDARD\' or \'SINGLE_PIPELINE\'
 --
--- * 'loResolution' - Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
-listOfferings ::
+-- 'resourceType', 'listOfferings_resourceType' - Filter by resource type, \'INPUT\', \'OUTPUT\', \'MULTIPLEX\', or
+-- \'CHANNEL\'
+--
+-- 'resolution', 'listOfferings_resolution' - Filter by resolution, \'SD\', \'HD\', \'FHD\', or \'UHD\'
+newListOfferings ::
   ListOfferings
-listOfferings =
+newListOfferings =
   ListOfferings'
-    { _loMaximumFramerate = Nothing,
-      _loNextToken = Nothing,
-      _loVideoQuality = Nothing,
-      _loDuration = Nothing,
-      _loMaxResults = Nothing,
-      _loCodec = Nothing,
-      _loChannelConfiguration = Nothing,
-      _loMaximumBitrate = Nothing,
-      _loSpecialFeature = Nothing,
-      _loChannelClass = Nothing,
-      _loResourceType = Nothing,
-      _loResolution = Nothing
+    { maximumFramerate = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      videoQuality = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      codec = Prelude.Nothing,
+      channelConfiguration = Prelude.Nothing,
+      maximumBitrate = Prelude.Nothing,
+      specialFeature = Prelude.Nothing,
+      channelClass = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      resolution = Prelude.Nothing
     }
 
--- | Filter by framerate, 'MAX_30_FPS' or 'MAX_60_FPS'
-loMaximumFramerate :: Lens' ListOfferings (Maybe Text)
-loMaximumFramerate = lens _loMaximumFramerate (\s a -> s {_loMaximumFramerate = a})
+-- | Filter by framerate, \'MAX_30_FPS\' or \'MAX_60_FPS\'
+listOfferings_maximumFramerate :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_maximumFramerate = Lens.lens (\ListOfferings' {maximumFramerate} -> maximumFramerate) (\s@ListOfferings' {} a -> s {maximumFramerate = a} :: ListOfferings)
 
 -- | Undocumented member.
-loNextToken :: Lens' ListOfferings (Maybe Text)
-loNextToken = lens _loNextToken (\s a -> s {_loNextToken = a})
+listOfferings_nextToken :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_nextToken = Lens.lens (\ListOfferings' {nextToken} -> nextToken) (\s@ListOfferings' {} a -> s {nextToken = a} :: ListOfferings)
 
--- | Filter by video quality, 'STANDARD', 'ENHANCED', or 'PREMIUM'
-loVideoQuality :: Lens' ListOfferings (Maybe Text)
-loVideoQuality = lens _loVideoQuality (\s a -> s {_loVideoQuality = a})
+-- | Filter by video quality, \'STANDARD\', \'ENHANCED\', or \'PREMIUM\'
+listOfferings_videoQuality :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_videoQuality = Lens.lens (\ListOfferings' {videoQuality} -> videoQuality) (\s@ListOfferings' {} a -> s {videoQuality = a} :: ListOfferings)
 
--- | Filter by offering duration, e.g. '12'
-loDuration :: Lens' ListOfferings (Maybe Text)
-loDuration = lens _loDuration (\s a -> s {_loDuration = a})
+-- | Filter by offering duration, e.g. \'12\'
+listOfferings_duration :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_duration = Lens.lens (\ListOfferings' {duration} -> duration) (\s@ListOfferings' {} a -> s {duration = a} :: ListOfferings)
 
 -- | Undocumented member.
-loMaxResults :: Lens' ListOfferings (Maybe Natural)
-loMaxResults = lens _loMaxResults (\s a -> s {_loMaxResults = a}) . mapping _Nat
+listOfferings_maxResults :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Natural)
+listOfferings_maxResults = Lens.lens (\ListOfferings' {maxResults} -> maxResults) (\s@ListOfferings' {} a -> s {maxResults = a} :: ListOfferings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
-loCodec :: Lens' ListOfferings (Maybe Text)
-loCodec = lens _loCodec (\s a -> s {_loCodec = a})
+-- | Filter by codec, \'AVC\', \'HEVC\', \'MPEG2\', \'AUDIO\', or \'LINK\'
+listOfferings_codec :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_codec = Lens.lens (\ListOfferings' {codec} -> codec) (\s@ListOfferings' {} a -> s {codec = a} :: ListOfferings)
 
--- | Filter to offerings that match the configuration of an existing channel, e.g. '2345678' (a channel ID)
-loChannelConfiguration :: Lens' ListOfferings (Maybe Text)
-loChannelConfiguration = lens _loChannelConfiguration (\s a -> s {_loChannelConfiguration = a})
+-- | Filter to offerings that match the configuration of an existing channel,
+-- e.g. \'2345678\' (a channel ID)
+listOfferings_channelConfiguration :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_channelConfiguration = Lens.lens (\ListOfferings' {channelConfiguration} -> channelConfiguration) (\s@ListOfferings' {} a -> s {channelConfiguration = a} :: ListOfferings)
 
--- | Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or 'MAX_50_MBPS'
-loMaximumBitrate :: Lens' ListOfferings (Maybe Text)
-loMaximumBitrate = lens _loMaximumBitrate (\s a -> s {_loMaximumBitrate = a})
+-- | Filter by bitrate, \'MAX_10_MBPS\', \'MAX_20_MBPS\', or \'MAX_50_MBPS\'
+listOfferings_maximumBitrate :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_maximumBitrate = Lens.lens (\ListOfferings' {maximumBitrate} -> maximumBitrate) (\s@ListOfferings' {} a -> s {maximumBitrate = a} :: ListOfferings)
 
--- | Filter by special feature, 'ADVANCED_AUDIO' or 'AUDIO_NORMALIZATION'
-loSpecialFeature :: Lens' ListOfferings (Maybe Text)
-loSpecialFeature = lens _loSpecialFeature (\s a -> s {_loSpecialFeature = a})
+-- | Filter by special feature, \'ADVANCED_AUDIO\' or \'AUDIO_NORMALIZATION\'
+listOfferings_specialFeature :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_specialFeature = Lens.lens (\ListOfferings' {specialFeature} -> specialFeature) (\s@ListOfferings' {} a -> s {specialFeature = a} :: ListOfferings)
 
--- | Filter by channel class, 'STANDARD' or 'SINGLE_PIPELINE'
-loChannelClass :: Lens' ListOfferings (Maybe Text)
-loChannelClass = lens _loChannelClass (\s a -> s {_loChannelClass = a})
+-- | Filter by channel class, \'STANDARD\' or \'SINGLE_PIPELINE\'
+listOfferings_channelClass :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_channelClass = Lens.lens (\ListOfferings' {channelClass} -> channelClass) (\s@ListOfferings' {} a -> s {channelClass = a} :: ListOfferings)
 
--- | Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
-loResourceType :: Lens' ListOfferings (Maybe Text)
-loResourceType = lens _loResourceType (\s a -> s {_loResourceType = a})
+-- | Filter by resource type, \'INPUT\', \'OUTPUT\', \'MULTIPLEX\', or
+-- \'CHANNEL\'
+listOfferings_resourceType :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_resourceType = Lens.lens (\ListOfferings' {resourceType} -> resourceType) (\s@ListOfferings' {} a -> s {resourceType = a} :: ListOfferings)
 
--- | Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
-loResolution :: Lens' ListOfferings (Maybe Text)
-loResolution = lens _loResolution (\s a -> s {_loResolution = a})
+-- | Filter by resolution, \'SD\', \'HD\', \'FHD\', or \'UHD\'
+listOfferings_resolution :: Lens.Lens' ListOfferings (Prelude.Maybe Prelude.Text)
+listOfferings_resolution = Lens.lens (\ListOfferings' {resolution} -> resolution) (\s@ListOfferings' {} a -> s {resolution = a} :: ListOfferings)
 
-instance AWSPager ListOfferings where
+instance Pager.AWSPager ListOfferings where
   page rq rs
-    | stop (rs ^. lorrsNextToken) = Nothing
-    | stop (rs ^. lorrsOfferings) = Nothing
-    | otherwise =
-      Just $ rq & loNextToken .~ rs ^. lorrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listOfferingsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listOfferingsResponse_offerings Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listOfferings_nextToken
+          Lens..~ rs
+          Lens.^? listOfferingsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListOfferings where
+instance Prelude.AWSRequest ListOfferings where
   type Rs ListOfferings = ListOfferingsResponse
-  request = get mediaLive
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListOfferingsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "offerings" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "offerings"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListOfferings
+instance Prelude.Hashable ListOfferings
 
-instance NFData ListOfferings
+instance Prelude.NFData ListOfferings
 
-instance ToHeaders ListOfferings where
+instance Prelude.ToHeaders ListOfferings where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListOfferings where
-  toPath = const "/prod/offerings"
+instance Prelude.ToPath ListOfferings where
+  toPath = Prelude.const "/prod/offerings"
 
-instance ToQuery ListOfferings where
+instance Prelude.ToQuery ListOfferings where
   toQuery ListOfferings' {..} =
-    mconcat
-      [ "maximumFramerate" =: _loMaximumFramerate,
-        "nextToken" =: _loNextToken,
-        "videoQuality" =: _loVideoQuality,
-        "duration" =: _loDuration,
-        "maxResults" =: _loMaxResults,
-        "codec" =: _loCodec,
-        "channelConfiguration" =: _loChannelConfiguration,
-        "maximumBitrate" =: _loMaximumBitrate,
-        "specialFeature" =: _loSpecialFeature,
-        "channelClass" =: _loChannelClass,
-        "resourceType" =: _loResourceType,
-        "resolution" =: _loResolution
+    Prelude.mconcat
+      [ "maximumFramerate" Prelude.=: maximumFramerate,
+        "nextToken" Prelude.=: nextToken,
+        "videoQuality" Prelude.=: videoQuality,
+        "duration" Prelude.=: duration,
+        "maxResults" Prelude.=: maxResults,
+        "codec" Prelude.=: codec,
+        "channelConfiguration"
+          Prelude.=: channelConfiguration,
+        "maximumBitrate" Prelude.=: maximumBitrate,
+        "specialFeature" Prelude.=: specialFeature,
+        "channelClass" Prelude.=: channelClass,
+        "resourceType" Prelude.=: resourceType,
+        "resolution" Prelude.=: resolution
       ]
 
 -- | Placeholder documentation for ListOfferingsResponse
 --
--- /See:/ 'listOfferingsResponse' smart constructor.
+-- /See:/ 'newListOfferingsResponse' smart constructor.
 data ListOfferingsResponse = ListOfferingsResponse'
-  { _lorrsNextToken ::
-      !(Maybe Text),
-    _lorrsOfferings ::
-      !(Maybe [Offering]),
-    _lorrsResponseStatus ::
-      !Int
+  { -- | Token to retrieve the next page of results
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of offerings
+    offerings :: Prelude.Maybe [Offering],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListOfferingsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListOfferingsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lorrsNextToken' - Token to retrieve the next page of results
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lorrsOfferings' - List of offerings
+-- 'nextToken', 'listOfferingsResponse_nextToken' - Token to retrieve the next page of results
 --
--- * 'lorrsResponseStatus' - -- | The response status code.
-listOfferingsResponse ::
-  -- | 'lorrsResponseStatus'
-  Int ->
+-- 'offerings', 'listOfferingsResponse_offerings' - List of offerings
+--
+-- 'httpStatus', 'listOfferingsResponse_httpStatus' - The response's http status code.
+newListOfferingsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListOfferingsResponse
-listOfferingsResponse pResponseStatus_ =
+newListOfferingsResponse pHttpStatus_ =
   ListOfferingsResponse'
-    { _lorrsNextToken = Nothing,
-      _lorrsOfferings = Nothing,
-      _lorrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      offerings = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Token to retrieve the next page of results
-lorrsNextToken :: Lens' ListOfferingsResponse (Maybe Text)
-lorrsNextToken = lens _lorrsNextToken (\s a -> s {_lorrsNextToken = a})
+listOfferingsResponse_nextToken :: Lens.Lens' ListOfferingsResponse (Prelude.Maybe Prelude.Text)
+listOfferingsResponse_nextToken = Lens.lens (\ListOfferingsResponse' {nextToken} -> nextToken) (\s@ListOfferingsResponse' {} a -> s {nextToken = a} :: ListOfferingsResponse)
 
 -- | List of offerings
-lorrsOfferings :: Lens' ListOfferingsResponse [Offering]
-lorrsOfferings = lens _lorrsOfferings (\s a -> s {_lorrsOfferings = a}) . _Default . _Coerce
+listOfferingsResponse_offerings :: Lens.Lens' ListOfferingsResponse (Prelude.Maybe [Offering])
+listOfferingsResponse_offerings = Lens.lens (\ListOfferingsResponse' {offerings} -> offerings) (\s@ListOfferingsResponse' {} a -> s {offerings = a} :: ListOfferingsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lorrsResponseStatus :: Lens' ListOfferingsResponse Int
-lorrsResponseStatus = lens _lorrsResponseStatus (\s a -> s {_lorrsResponseStatus = a})
+-- | The response's http status code.
+listOfferingsResponse_httpStatus :: Lens.Lens' ListOfferingsResponse Prelude.Int
+listOfferingsResponse_httpStatus = Lens.lens (\ListOfferingsResponse' {httpStatus} -> httpStatus) (\s@ListOfferingsResponse' {} a -> s {httpStatus = a} :: ListOfferingsResponse)
 
-instance NFData ListOfferingsResponse
+instance Prelude.NFData ListOfferingsResponse

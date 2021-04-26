@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.TemporalFilterPostFilterSharpening
   ( TemporalFilterPostFilterSharpening
       ( ..,
-        TFPFSAuto,
-        TFPFSDisabled,
-        TFPFSEnabled
+        TemporalFilterPostFilterSharpeningAUTO,
+        TemporalFilterPostFilterSharpeningDISABLED,
+        TemporalFilterPostFilterSharpeningENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Temporal Filter Post Filter Sharpening
-data TemporalFilterPostFilterSharpening
-  = TemporalFilterPostFilterSharpening'
-      ( CI
-          Text
-      )
+newtype TemporalFilterPostFilterSharpening = TemporalFilterPostFilterSharpening'
+  { fromTemporalFilterPostFilterSharpening ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TFPFSAuto :: TemporalFilterPostFilterSharpening
-pattern TFPFSAuto = TemporalFilterPostFilterSharpening' "AUTO"
+pattern TemporalFilterPostFilterSharpeningAUTO :: TemporalFilterPostFilterSharpening
+pattern TemporalFilterPostFilterSharpeningAUTO = TemporalFilterPostFilterSharpening' "AUTO"
 
-pattern TFPFSDisabled :: TemporalFilterPostFilterSharpening
-pattern TFPFSDisabled = TemporalFilterPostFilterSharpening' "DISABLED"
+pattern TemporalFilterPostFilterSharpeningDISABLED :: TemporalFilterPostFilterSharpening
+pattern TemporalFilterPostFilterSharpeningDISABLED = TemporalFilterPostFilterSharpening' "DISABLED"
 
-pattern TFPFSEnabled :: TemporalFilterPostFilterSharpening
-pattern TFPFSEnabled = TemporalFilterPostFilterSharpening' "ENABLED"
+pattern TemporalFilterPostFilterSharpeningENABLED :: TemporalFilterPostFilterSharpening
+pattern TemporalFilterPostFilterSharpeningENABLED = TemporalFilterPostFilterSharpening' "ENABLED"
 
 {-# COMPLETE
-  TFPFSAuto,
-  TFPFSDisabled,
-  TFPFSEnabled,
+  TemporalFilterPostFilterSharpeningAUTO,
+  TemporalFilterPostFilterSharpeningDISABLED,
+  TemporalFilterPostFilterSharpeningENABLED,
   TemporalFilterPostFilterSharpening'
   #-}
 
-instance FromText TemporalFilterPostFilterSharpening where
-  parser = (TemporalFilterPostFilterSharpening' . mk) <$> takeText
+instance Prelude.FromText TemporalFilterPostFilterSharpening where
+  parser = TemporalFilterPostFilterSharpening' Prelude.<$> Prelude.takeText
 
-instance ToText TemporalFilterPostFilterSharpening where
-  toText (TemporalFilterPostFilterSharpening' ci) = original ci
+instance Prelude.ToText TemporalFilterPostFilterSharpening where
+  toText (TemporalFilterPostFilterSharpening' x) = x
 
-instance Hashable TemporalFilterPostFilterSharpening
+instance Prelude.Hashable TemporalFilterPostFilterSharpening
 
-instance NFData TemporalFilterPostFilterSharpening
+instance Prelude.NFData TemporalFilterPostFilterSharpening
 
-instance ToByteString TemporalFilterPostFilterSharpening
+instance Prelude.ToByteString TemporalFilterPostFilterSharpening
 
-instance ToQuery TemporalFilterPostFilterSharpening
+instance Prelude.ToQuery TemporalFilterPostFilterSharpening
 
-instance ToHeader TemporalFilterPostFilterSharpening
+instance Prelude.ToHeader TemporalFilterPostFilterSharpening
 
-instance ToJSON TemporalFilterPostFilterSharpening where
-  toJSON = toJSONText
+instance Prelude.ToJSON TemporalFilterPostFilterSharpening where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TemporalFilterPostFilterSharpening where
-  parseJSON = parseJSONText "TemporalFilterPostFilterSharpening"
+instance Prelude.FromJSON TemporalFilterPostFilterSharpening where
+  parseJSON = Prelude.parseJSONText "TemporalFilterPostFilterSharpening"

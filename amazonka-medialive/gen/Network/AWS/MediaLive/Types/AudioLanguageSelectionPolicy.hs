@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AudioLanguageSelectionPolicy
   ( AudioLanguageSelectionPolicy
       ( ..,
-        Loose,
-        Strict
+        AudioLanguageSelectionPolicyLOOSE,
+        AudioLanguageSelectionPolicySTRICT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Language Selection Policy
-data AudioLanguageSelectionPolicy
-  = AudioLanguageSelectionPolicy'
-      ( CI
-          Text
-      )
+newtype AudioLanguageSelectionPolicy = AudioLanguageSelectionPolicy'
+  { fromAudioLanguageSelectionPolicy ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Loose :: AudioLanguageSelectionPolicy
-pattern Loose = AudioLanguageSelectionPolicy' "LOOSE"
+pattern AudioLanguageSelectionPolicyLOOSE :: AudioLanguageSelectionPolicy
+pattern AudioLanguageSelectionPolicyLOOSE = AudioLanguageSelectionPolicy' "LOOSE"
 
-pattern Strict :: AudioLanguageSelectionPolicy
-pattern Strict = AudioLanguageSelectionPolicy' "STRICT"
+pattern AudioLanguageSelectionPolicySTRICT :: AudioLanguageSelectionPolicy
+pattern AudioLanguageSelectionPolicySTRICT = AudioLanguageSelectionPolicy' "STRICT"
 
 {-# COMPLETE
-  Loose,
-  Strict,
+  AudioLanguageSelectionPolicyLOOSE,
+  AudioLanguageSelectionPolicySTRICT,
   AudioLanguageSelectionPolicy'
   #-}
 
-instance FromText AudioLanguageSelectionPolicy where
-  parser = (AudioLanguageSelectionPolicy' . mk) <$> takeText
+instance Prelude.FromText AudioLanguageSelectionPolicy where
+  parser = AudioLanguageSelectionPolicy' Prelude.<$> Prelude.takeText
 
-instance ToText AudioLanguageSelectionPolicy where
-  toText (AudioLanguageSelectionPolicy' ci) = original ci
+instance Prelude.ToText AudioLanguageSelectionPolicy where
+  toText (AudioLanguageSelectionPolicy' x) = x
 
-instance Hashable AudioLanguageSelectionPolicy
+instance Prelude.Hashable AudioLanguageSelectionPolicy
 
-instance NFData AudioLanguageSelectionPolicy
+instance Prelude.NFData AudioLanguageSelectionPolicy
 
-instance ToByteString AudioLanguageSelectionPolicy
+instance Prelude.ToByteString AudioLanguageSelectionPolicy
 
-instance ToQuery AudioLanguageSelectionPolicy
+instance Prelude.ToQuery AudioLanguageSelectionPolicy
 
-instance ToHeader AudioLanguageSelectionPolicy
+instance Prelude.ToHeader AudioLanguageSelectionPolicy
 
-instance ToJSON AudioLanguageSelectionPolicy where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioLanguageSelectionPolicy where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioLanguageSelectionPolicy where
-  parseJSON = parseJSONText "AudioLanguageSelectionPolicy"
+instance Prelude.FromJSON AudioLanguageSelectionPolicy where
+  parseJSON = Prelude.parseJSONText "AudioLanguageSelectionPolicy"

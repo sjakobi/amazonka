@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsSegmentationMode
   ( HlsSegmentationMode
       ( ..,
-        HSMUseInputSegmentation,
-        HSMUseSegmentDuration
+        HlsSegmentationModeUSEINPUTSEGMENTATION,
+        HlsSegmentationModeUSESEGMENTDURATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Segmentation Mode
-data HlsSegmentationMode
-  = HlsSegmentationMode'
-      ( CI
-          Text
-      )
+newtype HlsSegmentationMode = HlsSegmentationMode'
+  { fromHlsSegmentationMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HSMUseInputSegmentation :: HlsSegmentationMode
-pattern HSMUseInputSegmentation = HlsSegmentationMode' "USE_INPUT_SEGMENTATION"
+pattern HlsSegmentationModeUSEINPUTSEGMENTATION :: HlsSegmentationMode
+pattern HlsSegmentationModeUSEINPUTSEGMENTATION = HlsSegmentationMode' "USE_INPUT_SEGMENTATION"
 
-pattern HSMUseSegmentDuration :: HlsSegmentationMode
-pattern HSMUseSegmentDuration = HlsSegmentationMode' "USE_SEGMENT_DURATION"
+pattern HlsSegmentationModeUSESEGMENTDURATION :: HlsSegmentationMode
+pattern HlsSegmentationModeUSESEGMENTDURATION = HlsSegmentationMode' "USE_SEGMENT_DURATION"
 
 {-# COMPLETE
-  HSMUseInputSegmentation,
-  HSMUseSegmentDuration,
+  HlsSegmentationModeUSEINPUTSEGMENTATION,
+  HlsSegmentationModeUSESEGMENTDURATION,
   HlsSegmentationMode'
   #-}
 
-instance FromText HlsSegmentationMode where
-  parser = (HlsSegmentationMode' . mk) <$> takeText
+instance Prelude.FromText HlsSegmentationMode where
+  parser = HlsSegmentationMode' Prelude.<$> Prelude.takeText
 
-instance ToText HlsSegmentationMode where
-  toText (HlsSegmentationMode' ci) = original ci
+instance Prelude.ToText HlsSegmentationMode where
+  toText (HlsSegmentationMode' x) = x
 
-instance Hashable HlsSegmentationMode
+instance Prelude.Hashable HlsSegmentationMode
 
-instance NFData HlsSegmentationMode
+instance Prelude.NFData HlsSegmentationMode
 
-instance ToByteString HlsSegmentationMode
+instance Prelude.ToByteString HlsSegmentationMode
 
-instance ToQuery HlsSegmentationMode
+instance Prelude.ToQuery HlsSegmentationMode
 
-instance ToHeader HlsSegmentationMode
+instance Prelude.ToHeader HlsSegmentationMode
 
-instance ToJSON HlsSegmentationMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsSegmentationMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsSegmentationMode where
-  parseJSON = parseJSONText "HlsSegmentationMode"
+instance Prelude.FromJSON HlsSegmentationMode where
+  parseJSON = Prelude.parseJSONText "HlsSegmentationMode"

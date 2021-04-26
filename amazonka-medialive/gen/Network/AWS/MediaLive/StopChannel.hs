@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,295 +24,339 @@
 -- Stops a running channel
 module Network.AWS.MediaLive.StopChannel
   ( -- * Creating a Request
-    stopChannel,
-    StopChannel,
+    StopChannel (..),
+    newStopChannel,
 
     -- * Request Lenses
-    sChannelId,
+    stopChannel_channelId,
 
     -- * Destructuring the Response
-    stopChannelResponse,
-    StopChannelResponse,
+    StopChannelResponse (..),
+    newStopChannelResponse,
 
     -- * Response Lenses
-    srsEncoderSettings,
-    srsRoleARN,
-    srsInputSpecification,
-    srsARN,
-    srsId,
-    srsPipelinesRunningCount,
-    srsChannelClass,
-    srsLogLevel,
-    srsDestinations,
-    srsState,
-    srsName,
-    srsInputAttachments,
-    srsTags,
-    srsPipelineDetails,
-    srsEgressEndpoints,
-    srsVPC,
-    srsCdiInputSpecification,
-    srsResponseStatus,
+    stopChannelResponse_encoderSettings,
+    stopChannelResponse_roleArn,
+    stopChannelResponse_inputSpecification,
+    stopChannelResponse_arn,
+    stopChannelResponse_id,
+    stopChannelResponse_pipelinesRunningCount,
+    stopChannelResponse_channelClass,
+    stopChannelResponse_logLevel,
+    stopChannelResponse_destinations,
+    stopChannelResponse_state,
+    stopChannelResponse_name,
+    stopChannelResponse_inputAttachments,
+    stopChannelResponse_tags,
+    stopChannelResponse_pipelineDetails,
+    stopChannelResponse_egressEndpoints,
+    stopChannelResponse_vpc,
+    stopChannelResponse_cdiInputSpecification,
+    stopChannelResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.CdiInputSpecification
+import Network.AWS.MediaLive.Types.ChannelClass
+import Network.AWS.MediaLive.Types.ChannelEgressEndpoint
+import Network.AWS.MediaLive.Types.ChannelState
+import Network.AWS.MediaLive.Types.EncoderSettings
+import Network.AWS.MediaLive.Types.InputAttachment
+import Network.AWS.MediaLive.Types.InputSpecification
+import Network.AWS.MediaLive.Types.LogLevel
+import Network.AWS.MediaLive.Types.OutputDestination
+import Network.AWS.MediaLive.Types.PipelineDetail
+import Network.AWS.MediaLive.Types.VpcOutputSettings
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for StopChannelRequest
 --
--- /See:/ 'stopChannel' smart constructor.
-newtype StopChannel = StopChannel'
-  { _sChannelId ::
-      Text
+-- /See:/ 'newStopChannel' smart constructor.
+data StopChannel = StopChannel'
+  { -- | A request to stop a running channel
+    channelId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sChannelId' - A request to stop a running channel
-stopChannel ::
-  -- | 'sChannelId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'channelId', 'stopChannel_channelId' - A request to stop a running channel
+newStopChannel ::
+  -- | 'channelId'
+  Prelude.Text ->
   StopChannel
-stopChannel pChannelId_ =
-  StopChannel' {_sChannelId = pChannelId_}
+newStopChannel pChannelId_ =
+  StopChannel' {channelId = pChannelId_}
 
 -- | A request to stop a running channel
-sChannelId :: Lens' StopChannel Text
-sChannelId = lens _sChannelId (\s a -> s {_sChannelId = a})
+stopChannel_channelId :: Lens.Lens' StopChannel Prelude.Text
+stopChannel_channelId = Lens.lens (\StopChannel' {channelId} -> channelId) (\s@StopChannel' {} a -> s {channelId = a} :: StopChannel)
 
-instance AWSRequest StopChannel where
+instance Prelude.AWSRequest StopChannel where
   type Rs StopChannel = StopChannelResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StopChannelResponse'
-            <$> (x .?> "encoderSettings")
-            <*> (x .?> "roleArn")
-            <*> (x .?> "inputSpecification")
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "pipelinesRunningCount")
-            <*> (x .?> "channelClass")
-            <*> (x .?> "logLevel")
-            <*> (x .?> "destinations" .!@ mempty)
-            <*> (x .?> "state")
-            <*> (x .?> "name")
-            <*> (x .?> "inputAttachments" .!@ mempty)
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "pipelineDetails" .!@ mempty)
-            <*> (x .?> "egressEndpoints" .!@ mempty)
-            <*> (x .?> "vpc")
-            <*> (x .?> "cdiInputSpecification")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "encoderSettings")
+            Prelude.<*> (x Prelude..?> "roleArn")
+            Prelude.<*> (x Prelude..?> "inputSpecification")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "pipelinesRunningCount")
+            Prelude.<*> (x Prelude..?> "channelClass")
+            Prelude.<*> (x Prelude..?> "logLevel")
+            Prelude.<*> ( x Prelude..?> "destinations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "state")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> ( x Prelude..?> "inputAttachments"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> ( x Prelude..?> "pipelineDetails"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..?> "egressEndpoints"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "vpc")
+            Prelude.<*> (x Prelude..?> "cdiInputSpecification")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StopChannel
+instance Prelude.Hashable StopChannel
 
-instance NFData StopChannel
+instance Prelude.NFData StopChannel
 
-instance ToHeaders StopChannel where
+instance Prelude.ToHeaders StopChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StopChannel where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON StopChannel where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath StopChannel where
+instance Prelude.ToPath StopChannel where
   toPath StopChannel' {..} =
-    mconcat
-      ["/prod/channels/", toBS _sChannelId, "/stop"]
+    Prelude.mconcat
+      ["/prod/channels/", Prelude.toBS channelId, "/stop"]
 
-instance ToQuery StopChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery StopChannel where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for StopChannelResponse
 --
--- /See:/ 'stopChannelResponse' smart constructor.
+-- /See:/ 'newStopChannelResponse' smart constructor.
 data StopChannelResponse = StopChannelResponse'
-  { _srsEncoderSettings ::
-      !(Maybe EncoderSettings),
-    _srsRoleARN :: !(Maybe Text),
-    _srsInputSpecification ::
-      !(Maybe InputSpecification),
-    _srsARN :: !(Maybe Text),
-    _srsId :: !(Maybe Text),
-    _srsPipelinesRunningCount ::
-      !(Maybe Int),
-    _srsChannelClass ::
-      !(Maybe ChannelClass),
-    _srsLogLevel ::
-      !(Maybe LogLevel),
-    _srsDestinations ::
-      !(Maybe [OutputDestination]),
-    _srsState ::
-      !(Maybe ChannelState),
-    _srsName :: !(Maybe Text),
-    _srsInputAttachments ::
-      !(Maybe [InputAttachment]),
-    _srsTags ::
-      !(Maybe (Map Text Text)),
-    _srsPipelineDetails ::
-      !(Maybe [PipelineDetail]),
-    _srsEgressEndpoints ::
-      !( Maybe
-           [ChannelEgressEndpoint]
-       ),
-    _srsVPC ::
-      !(Maybe VPCOutputSettings),
-    _srsCdiInputSpecification ::
-      !(Maybe CdiInputSpecification),
-    _srsResponseStatus :: !Int
+  { encoderSettings :: Prelude.Maybe EncoderSettings,
+    -- | The Amazon Resource Name (ARN) of the role assumed when running the
+    -- Channel.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Specification of network and file inputs for this channel
+    inputSpecification :: Prelude.Maybe InputSpecification,
+    -- | The unique arn of the channel.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique id of the channel.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The number of currently healthy pipelines.
+    pipelinesRunningCount :: Prelude.Maybe Prelude.Int,
+    -- | The class for this channel. STANDARD for a channel with two pipelines or
+    -- SINGLE_PIPELINE for a channel with one pipeline.
+    channelClass :: Prelude.Maybe ChannelClass,
+    -- | The log level being written to CloudWatch Logs.
+    logLevel :: Prelude.Maybe LogLevel,
+    -- | A list of destinations of the channel. For UDP outputs, there is one
+    -- destination per output. For other types (HLS, for example), there is one
+    -- destination per packager.
+    destinations :: Prelude.Maybe [OutputDestination],
+    state :: Prelude.Maybe ChannelState,
+    -- | The name of the channel. (user-mutable)
+    name :: Prelude.Maybe Prelude.Text,
+    -- | List of input attachments for channel.
+    inputAttachments :: Prelude.Maybe [InputAttachment],
+    -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Runtime details for the pipelines of a running channel.
+    pipelineDetails :: Prelude.Maybe [PipelineDetail],
+    -- | The endpoints where outgoing connections initiate from
+    egressEndpoints :: Prelude.Maybe [ChannelEgressEndpoint],
+    -- | Settings for VPC output
+    vpc :: Prelude.Maybe VpcOutputSettings,
+    -- | Specification of CDI inputs for this channel
+    cdiInputSpecification :: Prelude.Maybe CdiInputSpecification,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'srsEncoderSettings' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'srsRoleARN' - The Amazon Resource Name (ARN) of the role assumed when running the Channel.
+-- 'encoderSettings', 'stopChannelResponse_encoderSettings' - Undocumented member.
 --
--- * 'srsInputSpecification' - Specification of network and file inputs for this channel
+-- 'roleArn', 'stopChannelResponse_roleArn' - The Amazon Resource Name (ARN) of the role assumed when running the
+-- Channel.
 --
--- * 'srsARN' - The unique arn of the channel.
+-- 'inputSpecification', 'stopChannelResponse_inputSpecification' - Specification of network and file inputs for this channel
 --
--- * 'srsId' - The unique id of the channel.
+-- 'arn', 'stopChannelResponse_arn' - The unique arn of the channel.
 --
--- * 'srsPipelinesRunningCount' - The number of currently healthy pipelines.
+-- 'id', 'stopChannelResponse_id' - The unique id of the channel.
 --
--- * 'srsChannelClass' - The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
+-- 'pipelinesRunningCount', 'stopChannelResponse_pipelinesRunningCount' - The number of currently healthy pipelines.
 --
--- * 'srsLogLevel' - The log level being written to CloudWatch Logs.
+-- 'channelClass', 'stopChannelResponse_channelClass' - The class for this channel. STANDARD for a channel with two pipelines or
+-- SINGLE_PIPELINE for a channel with one pipeline.
 --
--- * 'srsDestinations' - A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
+-- 'logLevel', 'stopChannelResponse_logLevel' - The log level being written to CloudWatch Logs.
 --
--- * 'srsState' - Undocumented member.
+-- 'destinations', 'stopChannelResponse_destinations' - A list of destinations of the channel. For UDP outputs, there is one
+-- destination per output. For other types (HLS, for example), there is one
+-- destination per packager.
 --
--- * 'srsName' - The name of the channel. (user-mutable)
+-- 'state', 'stopChannelResponse_state' - Undocumented member.
 --
--- * 'srsInputAttachments' - List of input attachments for channel.
+-- 'name', 'stopChannelResponse_name' - The name of the channel. (user-mutable)
 --
--- * 'srsTags' - A collection of key-value pairs.
+-- 'inputAttachments', 'stopChannelResponse_inputAttachments' - List of input attachments for channel.
 --
--- * 'srsPipelineDetails' - Runtime details for the pipelines of a running channel.
+-- 'tags', 'stopChannelResponse_tags' - A collection of key-value pairs.
 --
--- * 'srsEgressEndpoints' - The endpoints where outgoing connections initiate from
+-- 'pipelineDetails', 'stopChannelResponse_pipelineDetails' - Runtime details for the pipelines of a running channel.
 --
--- * 'srsVPC' - Settings for VPC output
+-- 'egressEndpoints', 'stopChannelResponse_egressEndpoints' - The endpoints where outgoing connections initiate from
 --
--- * 'srsCdiInputSpecification' - Specification of CDI inputs for this channel
+-- 'vpc', 'stopChannelResponse_vpc' - Settings for VPC output
 --
--- * 'srsResponseStatus' - -- | The response status code.
-stopChannelResponse ::
-  -- | 'srsResponseStatus'
-  Int ->
+-- 'cdiInputSpecification', 'stopChannelResponse_cdiInputSpecification' - Specification of CDI inputs for this channel
+--
+-- 'httpStatus', 'stopChannelResponse_httpStatus' - The response's http status code.
+newStopChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StopChannelResponse
-stopChannelResponse pResponseStatus_ =
+newStopChannelResponse pHttpStatus_ =
   StopChannelResponse'
-    { _srsEncoderSettings = Nothing,
-      _srsRoleARN = Nothing,
-      _srsInputSpecification = Nothing,
-      _srsARN = Nothing,
-      _srsId = Nothing,
-      _srsPipelinesRunningCount = Nothing,
-      _srsChannelClass = Nothing,
-      _srsLogLevel = Nothing,
-      _srsDestinations = Nothing,
-      _srsState = Nothing,
-      _srsName = Nothing,
-      _srsInputAttachments = Nothing,
-      _srsTags = Nothing,
-      _srsPipelineDetails = Nothing,
-      _srsEgressEndpoints = Nothing,
-      _srsVPC = Nothing,
-      _srsCdiInputSpecification = Nothing,
-      _srsResponseStatus = pResponseStatus_
+    { encoderSettings =
+        Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      inputSpecification = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      pipelinesRunningCount = Prelude.Nothing,
+      channelClass = Prelude.Nothing,
+      logLevel = Prelude.Nothing,
+      destinations = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      inputAttachments = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      pipelineDetails = Prelude.Nothing,
+      egressEndpoints = Prelude.Nothing,
+      vpc = Prelude.Nothing,
+      cdiInputSpecification = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-srsEncoderSettings :: Lens' StopChannelResponse (Maybe EncoderSettings)
-srsEncoderSettings = lens _srsEncoderSettings (\s a -> s {_srsEncoderSettings = a})
+stopChannelResponse_encoderSettings :: Lens.Lens' StopChannelResponse (Prelude.Maybe EncoderSettings)
+stopChannelResponse_encoderSettings = Lens.lens (\StopChannelResponse' {encoderSettings} -> encoderSettings) (\s@StopChannelResponse' {} a -> s {encoderSettings = a} :: StopChannelResponse)
 
--- | The Amazon Resource Name (ARN) of the role assumed when running the Channel.
-srsRoleARN :: Lens' StopChannelResponse (Maybe Text)
-srsRoleARN = lens _srsRoleARN (\s a -> s {_srsRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the role assumed when running the
+-- Channel.
+stopChannelResponse_roleArn :: Lens.Lens' StopChannelResponse (Prelude.Maybe Prelude.Text)
+stopChannelResponse_roleArn = Lens.lens (\StopChannelResponse' {roleArn} -> roleArn) (\s@StopChannelResponse' {} a -> s {roleArn = a} :: StopChannelResponse)
 
 -- | Specification of network and file inputs for this channel
-srsInputSpecification :: Lens' StopChannelResponse (Maybe InputSpecification)
-srsInputSpecification = lens _srsInputSpecification (\s a -> s {_srsInputSpecification = a})
+stopChannelResponse_inputSpecification :: Lens.Lens' StopChannelResponse (Prelude.Maybe InputSpecification)
+stopChannelResponse_inputSpecification = Lens.lens (\StopChannelResponse' {inputSpecification} -> inputSpecification) (\s@StopChannelResponse' {} a -> s {inputSpecification = a} :: StopChannelResponse)
 
 -- | The unique arn of the channel.
-srsARN :: Lens' StopChannelResponse (Maybe Text)
-srsARN = lens _srsARN (\s a -> s {_srsARN = a})
+stopChannelResponse_arn :: Lens.Lens' StopChannelResponse (Prelude.Maybe Prelude.Text)
+stopChannelResponse_arn = Lens.lens (\StopChannelResponse' {arn} -> arn) (\s@StopChannelResponse' {} a -> s {arn = a} :: StopChannelResponse)
 
 -- | The unique id of the channel.
-srsId :: Lens' StopChannelResponse (Maybe Text)
-srsId = lens _srsId (\s a -> s {_srsId = a})
+stopChannelResponse_id :: Lens.Lens' StopChannelResponse (Prelude.Maybe Prelude.Text)
+stopChannelResponse_id = Lens.lens (\StopChannelResponse' {id} -> id) (\s@StopChannelResponse' {} a -> s {id = a} :: StopChannelResponse)
 
 -- | The number of currently healthy pipelines.
-srsPipelinesRunningCount :: Lens' StopChannelResponse (Maybe Int)
-srsPipelinesRunningCount = lens _srsPipelinesRunningCount (\s a -> s {_srsPipelinesRunningCount = a})
+stopChannelResponse_pipelinesRunningCount :: Lens.Lens' StopChannelResponse (Prelude.Maybe Prelude.Int)
+stopChannelResponse_pipelinesRunningCount = Lens.lens (\StopChannelResponse' {pipelinesRunningCount} -> pipelinesRunningCount) (\s@StopChannelResponse' {} a -> s {pipelinesRunningCount = a} :: StopChannelResponse)
 
--- | The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
-srsChannelClass :: Lens' StopChannelResponse (Maybe ChannelClass)
-srsChannelClass = lens _srsChannelClass (\s a -> s {_srsChannelClass = a})
+-- | The class for this channel. STANDARD for a channel with two pipelines or
+-- SINGLE_PIPELINE for a channel with one pipeline.
+stopChannelResponse_channelClass :: Lens.Lens' StopChannelResponse (Prelude.Maybe ChannelClass)
+stopChannelResponse_channelClass = Lens.lens (\StopChannelResponse' {channelClass} -> channelClass) (\s@StopChannelResponse' {} a -> s {channelClass = a} :: StopChannelResponse)
 
 -- | The log level being written to CloudWatch Logs.
-srsLogLevel :: Lens' StopChannelResponse (Maybe LogLevel)
-srsLogLevel = lens _srsLogLevel (\s a -> s {_srsLogLevel = a})
+stopChannelResponse_logLevel :: Lens.Lens' StopChannelResponse (Prelude.Maybe LogLevel)
+stopChannelResponse_logLevel = Lens.lens (\StopChannelResponse' {logLevel} -> logLevel) (\s@StopChannelResponse' {} a -> s {logLevel = a} :: StopChannelResponse)
 
--- | A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
-srsDestinations :: Lens' StopChannelResponse [OutputDestination]
-srsDestinations = lens _srsDestinations (\s a -> s {_srsDestinations = a}) . _Default . _Coerce
+-- | A list of destinations of the channel. For UDP outputs, there is one
+-- destination per output. For other types (HLS, for example), there is one
+-- destination per packager.
+stopChannelResponse_destinations :: Lens.Lens' StopChannelResponse (Prelude.Maybe [OutputDestination])
+stopChannelResponse_destinations = Lens.lens (\StopChannelResponse' {destinations} -> destinations) (\s@StopChannelResponse' {} a -> s {destinations = a} :: StopChannelResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-srsState :: Lens' StopChannelResponse (Maybe ChannelState)
-srsState = lens _srsState (\s a -> s {_srsState = a})
+stopChannelResponse_state :: Lens.Lens' StopChannelResponse (Prelude.Maybe ChannelState)
+stopChannelResponse_state = Lens.lens (\StopChannelResponse' {state} -> state) (\s@StopChannelResponse' {} a -> s {state = a} :: StopChannelResponse)
 
 -- | The name of the channel. (user-mutable)
-srsName :: Lens' StopChannelResponse (Maybe Text)
-srsName = lens _srsName (\s a -> s {_srsName = a})
+stopChannelResponse_name :: Lens.Lens' StopChannelResponse (Prelude.Maybe Prelude.Text)
+stopChannelResponse_name = Lens.lens (\StopChannelResponse' {name} -> name) (\s@StopChannelResponse' {} a -> s {name = a} :: StopChannelResponse)
 
 -- | List of input attachments for channel.
-srsInputAttachments :: Lens' StopChannelResponse [InputAttachment]
-srsInputAttachments = lens _srsInputAttachments (\s a -> s {_srsInputAttachments = a}) . _Default . _Coerce
+stopChannelResponse_inputAttachments :: Lens.Lens' StopChannelResponse (Prelude.Maybe [InputAttachment])
+stopChannelResponse_inputAttachments = Lens.lens (\StopChannelResponse' {inputAttachments} -> inputAttachments) (\s@StopChannelResponse' {} a -> s {inputAttachments = a} :: StopChannelResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A collection of key-value pairs.
-srsTags :: Lens' StopChannelResponse (HashMap Text Text)
-srsTags = lens _srsTags (\s a -> s {_srsTags = a}) . _Default . _Map
+stopChannelResponse_tags :: Lens.Lens' StopChannelResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+stopChannelResponse_tags = Lens.lens (\StopChannelResponse' {tags} -> tags) (\s@StopChannelResponse' {} a -> s {tags = a} :: StopChannelResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | Runtime details for the pipelines of a running channel.
-srsPipelineDetails :: Lens' StopChannelResponse [PipelineDetail]
-srsPipelineDetails = lens _srsPipelineDetails (\s a -> s {_srsPipelineDetails = a}) . _Default . _Coerce
+stopChannelResponse_pipelineDetails :: Lens.Lens' StopChannelResponse (Prelude.Maybe [PipelineDetail])
+stopChannelResponse_pipelineDetails = Lens.lens (\StopChannelResponse' {pipelineDetails} -> pipelineDetails) (\s@StopChannelResponse' {} a -> s {pipelineDetails = a} :: StopChannelResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The endpoints where outgoing connections initiate from
-srsEgressEndpoints :: Lens' StopChannelResponse [ChannelEgressEndpoint]
-srsEgressEndpoints = lens _srsEgressEndpoints (\s a -> s {_srsEgressEndpoints = a}) . _Default . _Coerce
+stopChannelResponse_egressEndpoints :: Lens.Lens' StopChannelResponse (Prelude.Maybe [ChannelEgressEndpoint])
+stopChannelResponse_egressEndpoints = Lens.lens (\StopChannelResponse' {egressEndpoints} -> egressEndpoints) (\s@StopChannelResponse' {} a -> s {egressEndpoints = a} :: StopChannelResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Settings for VPC output
-srsVPC :: Lens' StopChannelResponse (Maybe VPCOutputSettings)
-srsVPC = lens _srsVPC (\s a -> s {_srsVPC = a})
+stopChannelResponse_vpc :: Lens.Lens' StopChannelResponse (Prelude.Maybe VpcOutputSettings)
+stopChannelResponse_vpc = Lens.lens (\StopChannelResponse' {vpc} -> vpc) (\s@StopChannelResponse' {} a -> s {vpc = a} :: StopChannelResponse)
 
 -- | Specification of CDI inputs for this channel
-srsCdiInputSpecification :: Lens' StopChannelResponse (Maybe CdiInputSpecification)
-srsCdiInputSpecification = lens _srsCdiInputSpecification (\s a -> s {_srsCdiInputSpecification = a})
+stopChannelResponse_cdiInputSpecification :: Lens.Lens' StopChannelResponse (Prelude.Maybe CdiInputSpecification)
+stopChannelResponse_cdiInputSpecification = Lens.lens (\StopChannelResponse' {cdiInputSpecification} -> cdiInputSpecification) (\s@StopChannelResponse' {} a -> s {cdiInputSpecification = a} :: StopChannelResponse)
 
--- | -- | The response status code.
-srsResponseStatus :: Lens' StopChannelResponse Int
-srsResponseStatus = lens _srsResponseStatus (\s a -> s {_srsResponseStatus = a})
+-- | The response's http status code.
+stopChannelResponse_httpStatus :: Lens.Lens' StopChannelResponse Prelude.Int
+stopChannelResponse_httpStatus = Lens.lens (\StopChannelResponse' {httpStatus} -> httpStatus) (\s@StopChannelResponse' {} a -> s {httpStatus = a} :: StopChannelResponse)
 
-instance NFData StopChannelResponse
+instance Prelude.NFData StopChannelResponse

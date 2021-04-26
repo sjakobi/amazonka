@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaLive.Types.BurnInShadowColor
   ( BurnInShadowColor
       ( ..,
-        BISCBlack,
-        BISCNone,
-        BISCWhite
+        BurnInShadowColorBLACK,
+        BurnInShadowColorNONE,
+        BurnInShadowColorWHITE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Burn In Shadow Color
-data BurnInShadowColor = BurnInShadowColor' (CI Text)
+newtype BurnInShadowColor = BurnInShadowColor'
+  { fromBurnInShadowColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BISCBlack :: BurnInShadowColor
-pattern BISCBlack = BurnInShadowColor' "BLACK"
+pattern BurnInShadowColorBLACK :: BurnInShadowColor
+pattern BurnInShadowColorBLACK = BurnInShadowColor' "BLACK"
 
-pattern BISCNone :: BurnInShadowColor
-pattern BISCNone = BurnInShadowColor' "NONE"
+pattern BurnInShadowColorNONE :: BurnInShadowColor
+pattern BurnInShadowColorNONE = BurnInShadowColor' "NONE"
 
-pattern BISCWhite :: BurnInShadowColor
-pattern BISCWhite = BurnInShadowColor' "WHITE"
+pattern BurnInShadowColorWHITE :: BurnInShadowColor
+pattern BurnInShadowColorWHITE = BurnInShadowColor' "WHITE"
 
 {-# COMPLETE
-  BISCBlack,
-  BISCNone,
-  BISCWhite,
+  BurnInShadowColorBLACK,
+  BurnInShadowColorNONE,
+  BurnInShadowColorWHITE,
   BurnInShadowColor'
   #-}
 
-instance FromText BurnInShadowColor where
-  parser = (BurnInShadowColor' . mk) <$> takeText
+instance Prelude.FromText BurnInShadowColor where
+  parser = BurnInShadowColor' Prelude.<$> Prelude.takeText
 
-instance ToText BurnInShadowColor where
-  toText (BurnInShadowColor' ci) = original ci
+instance Prelude.ToText BurnInShadowColor where
+  toText (BurnInShadowColor' x) = x
 
-instance Hashable BurnInShadowColor
+instance Prelude.Hashable BurnInShadowColor
 
-instance NFData BurnInShadowColor
+instance Prelude.NFData BurnInShadowColor
 
-instance ToByteString BurnInShadowColor
+instance Prelude.ToByteString BurnInShadowColor
 
-instance ToQuery BurnInShadowColor
+instance Prelude.ToQuery BurnInShadowColor
 
-instance ToHeader BurnInShadowColor
+instance Prelude.ToHeader BurnInShadowColor
 
-instance ToJSON BurnInShadowColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurnInShadowColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurnInShadowColor where
-  parseJSON = parseJSONText "BurnInShadowColor"
+instance Prelude.FromJSON BurnInShadowColor where
+  parseJSON = Prelude.parseJSONText "BurnInShadowColor"

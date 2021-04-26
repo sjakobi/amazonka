@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,29 +19,35 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.PassThroughSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Pass Through Settings
 --
--- /See:/ 'passThroughSettings' smart constructor.
+-- /See:/ 'newPassThroughSettings' smart constructor.
 data PassThroughSettings = PassThroughSettings'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PassThroughSettings' with the minimum fields required to make a request.
-passThroughSettings ::
+-- |
+-- Create a value of 'PassThroughSettings' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPassThroughSettings ::
   PassThroughSettings
-passThroughSettings = PassThroughSettings'
+newPassThroughSettings = PassThroughSettings'
 
-instance FromJSON PassThroughSettings where
+instance Prelude.FromJSON PassThroughSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PassThroughSettings"
-      (\x -> pure PassThroughSettings')
+      (\x -> Prelude.pure PassThroughSettings')
 
-instance Hashable PassThroughSettings
+instance Prelude.Hashable PassThroughSettings
 
-instance NFData PassThroughSettings
+instance Prelude.NFData PassThroughSettings
 
-instance ToJSON PassThroughSettings where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON PassThroughSettings where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)

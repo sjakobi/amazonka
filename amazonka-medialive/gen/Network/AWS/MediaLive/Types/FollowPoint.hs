@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.FollowPoint
   ( FollowPoint
       ( ..,
-        End,
-        Start
+        FollowPointEND,
+        FollowPointSTART
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Follow reference point.
-data FollowPoint = FollowPoint' (CI Text)
+newtype FollowPoint = FollowPoint'
+  { fromFollowPoint ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern End :: FollowPoint
-pattern End = FollowPoint' "END"
+pattern FollowPointEND :: FollowPoint
+pattern FollowPointEND = FollowPoint' "END"
 
-pattern Start :: FollowPoint
-pattern Start = FollowPoint' "START"
+pattern FollowPointSTART :: FollowPoint
+pattern FollowPointSTART = FollowPoint' "START"
 
 {-# COMPLETE
-  End,
-  Start,
+  FollowPointEND,
+  FollowPointSTART,
   FollowPoint'
   #-}
 
-instance FromText FollowPoint where
-  parser = (FollowPoint' . mk) <$> takeText
+instance Prelude.FromText FollowPoint where
+  parser = FollowPoint' Prelude.<$> Prelude.takeText
 
-instance ToText FollowPoint where
-  toText (FollowPoint' ci) = original ci
+instance Prelude.ToText FollowPoint where
+  toText (FollowPoint' x) = x
 
-instance Hashable FollowPoint
+instance Prelude.Hashable FollowPoint
 
-instance NFData FollowPoint
+instance Prelude.NFData FollowPoint
 
-instance ToByteString FollowPoint
+instance Prelude.ToByteString FollowPoint
 
-instance ToQuery FollowPoint
+instance Prelude.ToQuery FollowPoint
 
-instance ToHeader FollowPoint
+instance Prelude.ToHeader FollowPoint
 
-instance ToJSON FollowPoint where
-  toJSON = toJSONText
+instance Prelude.ToJSON FollowPoint where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FollowPoint where
-  parseJSON = parseJSONText "FollowPoint"
+instance Prelude.FromJSON FollowPoint where
+  parseJSON = Prelude.parseJSONText "FollowPoint"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.AacRawFormat
   ( AacRawFormat
       ( ..,
-        ARFLatmLoas,
-        ARFNone
+        AacRawFormatLATMLOAS,
+        AacRawFormatNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Aac Raw Format
-data AacRawFormat = AacRawFormat' (CI Text)
+newtype AacRawFormat = AacRawFormat'
+  { fromAacRawFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ARFLatmLoas :: AacRawFormat
-pattern ARFLatmLoas = AacRawFormat' "LATM_LOAS"
+pattern AacRawFormatLATMLOAS :: AacRawFormat
+pattern AacRawFormatLATMLOAS = AacRawFormat' "LATM_LOAS"
 
-pattern ARFNone :: AacRawFormat
-pattern ARFNone = AacRawFormat' "NONE"
+pattern AacRawFormatNONE :: AacRawFormat
+pattern AacRawFormatNONE = AacRawFormat' "NONE"
 
 {-# COMPLETE
-  ARFLatmLoas,
-  ARFNone,
+  AacRawFormatLATMLOAS,
+  AacRawFormatNONE,
   AacRawFormat'
   #-}
 
-instance FromText AacRawFormat where
-  parser = (AacRawFormat' . mk) <$> takeText
+instance Prelude.FromText AacRawFormat where
+  parser = AacRawFormat' Prelude.<$> Prelude.takeText
 
-instance ToText AacRawFormat where
-  toText (AacRawFormat' ci) = original ci
+instance Prelude.ToText AacRawFormat where
+  toText (AacRawFormat' x) = x
 
-instance Hashable AacRawFormat
+instance Prelude.Hashable AacRawFormat
 
-instance NFData AacRawFormat
+instance Prelude.NFData AacRawFormat
 
-instance ToByteString AacRawFormat
+instance Prelude.ToByteString AacRawFormat
 
-instance ToQuery AacRawFormat
+instance Prelude.ToQuery AacRawFormat
 
-instance ToHeader AacRawFormat
+instance Prelude.ToHeader AacRawFormat
 
-instance ToJSON AacRawFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacRawFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacRawFormat where
-  parseJSON = parseJSONText "AacRawFormat"
+instance Prelude.FromJSON AacRawFormat where
+  parseJSON = Prelude.parseJSONText "AacRawFormat"

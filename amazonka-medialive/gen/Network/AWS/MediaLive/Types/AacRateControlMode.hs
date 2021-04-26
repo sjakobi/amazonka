@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AacRateControlMode
   ( AacRateControlMode
       ( ..,
-        ARCMCbr,
-        ARCMVbr
+        AacRateControlModeCBR,
+        AacRateControlModeVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Aac Rate Control Mode
-data AacRateControlMode
-  = AacRateControlMode'
-      ( CI
-          Text
-      )
+newtype AacRateControlMode = AacRateControlMode'
+  { fromAacRateControlMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ARCMCbr :: AacRateControlMode
-pattern ARCMCbr = AacRateControlMode' "CBR"
+pattern AacRateControlModeCBR :: AacRateControlMode
+pattern AacRateControlModeCBR = AacRateControlMode' "CBR"
 
-pattern ARCMVbr :: AacRateControlMode
-pattern ARCMVbr = AacRateControlMode' "VBR"
+pattern AacRateControlModeVBR :: AacRateControlMode
+pattern AacRateControlModeVBR = AacRateControlMode' "VBR"
 
 {-# COMPLETE
-  ARCMCbr,
-  ARCMVbr,
+  AacRateControlModeCBR,
+  AacRateControlModeVBR,
   AacRateControlMode'
   #-}
 
-instance FromText AacRateControlMode where
-  parser = (AacRateControlMode' . mk) <$> takeText
+instance Prelude.FromText AacRateControlMode where
+  parser = AacRateControlMode' Prelude.<$> Prelude.takeText
 
-instance ToText AacRateControlMode where
-  toText (AacRateControlMode' ci) = original ci
+instance Prelude.ToText AacRateControlMode where
+  toText (AacRateControlMode' x) = x
 
-instance Hashable AacRateControlMode
+instance Prelude.Hashable AacRateControlMode
 
-instance NFData AacRateControlMode
+instance Prelude.NFData AacRateControlMode
 
-instance ToByteString AacRateControlMode
+instance Prelude.ToByteString AacRateControlMode
 
-instance ToQuery AacRateControlMode
+instance Prelude.ToQuery AacRateControlMode
 
-instance ToHeader AacRateControlMode
+instance Prelude.ToHeader AacRateControlMode
 
-instance ToJSON AacRateControlMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacRateControlMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacRateControlMode where
-  parseJSON = parseJSONText "AacRateControlMode"
+instance Prelude.FromJSON AacRateControlMode where
+  parseJSON = Prelude.parseJSONText "AacRateControlMode"

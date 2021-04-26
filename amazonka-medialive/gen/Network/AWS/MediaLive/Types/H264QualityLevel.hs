@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H264QualityLevel
   ( H264QualityLevel
       ( ..,
-        EnhancedQuality,
-        StandardQuality
+        H264QualityLevelENHANCEDQUALITY,
+        H264QualityLevelSTANDARDQUALITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Quality Level
-data H264QualityLevel = H264QualityLevel' (CI Text)
+newtype H264QualityLevel = H264QualityLevel'
+  { fromH264QualityLevel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EnhancedQuality :: H264QualityLevel
-pattern EnhancedQuality = H264QualityLevel' "ENHANCED_QUALITY"
+pattern H264QualityLevelENHANCEDQUALITY :: H264QualityLevel
+pattern H264QualityLevelENHANCEDQUALITY = H264QualityLevel' "ENHANCED_QUALITY"
 
-pattern StandardQuality :: H264QualityLevel
-pattern StandardQuality = H264QualityLevel' "STANDARD_QUALITY"
+pattern H264QualityLevelSTANDARDQUALITY :: H264QualityLevel
+pattern H264QualityLevelSTANDARDQUALITY = H264QualityLevel' "STANDARD_QUALITY"
 
 {-# COMPLETE
-  EnhancedQuality,
-  StandardQuality,
+  H264QualityLevelENHANCEDQUALITY,
+  H264QualityLevelSTANDARDQUALITY,
   H264QualityLevel'
   #-}
 
-instance FromText H264QualityLevel where
-  parser = (H264QualityLevel' . mk) <$> takeText
+instance Prelude.FromText H264QualityLevel where
+  parser = H264QualityLevel' Prelude.<$> Prelude.takeText
 
-instance ToText H264QualityLevel where
-  toText (H264QualityLevel' ci) = original ci
+instance Prelude.ToText H264QualityLevel where
+  toText (H264QualityLevel' x) = x
 
-instance Hashable H264QualityLevel
+instance Prelude.Hashable H264QualityLevel
 
-instance NFData H264QualityLevel
+instance Prelude.NFData H264QualityLevel
 
-instance ToByteString H264QualityLevel
+instance Prelude.ToByteString H264QualityLevel
 
-instance ToQuery H264QualityLevel
+instance Prelude.ToQuery H264QualityLevel
 
-instance ToHeader H264QualityLevel
+instance Prelude.ToHeader H264QualityLevel
 
-instance ToJSON H264QualityLevel where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264QualityLevel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264QualityLevel where
-  parseJSON = parseJSONText "H264QualityLevel"
+instance Prelude.FromJSON H264QualityLevel where
+  parseJSON = Prelude.parseJSONText "H264QualityLevel"

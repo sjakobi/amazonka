@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M3u8PcrControl
   ( M3u8PcrControl
       ( ..,
-        MPCConfiguredPcrPeriod,
-        MPCPcrEveryPesPacket
+        M3u8PcrControlCONFIGUREDPCRPERIOD,
+        M3u8PcrControlPCREVERYPESPACKET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M3u8 Pcr Control
-data M3u8PcrControl = M3u8PcrControl' (CI Text)
+newtype M3u8PcrControl = M3u8PcrControl'
+  { fromM3u8PcrControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MPCConfiguredPcrPeriod :: M3u8PcrControl
-pattern MPCConfiguredPcrPeriod = M3u8PcrControl' "CONFIGURED_PCR_PERIOD"
+pattern M3u8PcrControlCONFIGUREDPCRPERIOD :: M3u8PcrControl
+pattern M3u8PcrControlCONFIGUREDPCRPERIOD = M3u8PcrControl' "CONFIGURED_PCR_PERIOD"
 
-pattern MPCPcrEveryPesPacket :: M3u8PcrControl
-pattern MPCPcrEveryPesPacket = M3u8PcrControl' "PCR_EVERY_PES_PACKET"
+pattern M3u8PcrControlPCREVERYPESPACKET :: M3u8PcrControl
+pattern M3u8PcrControlPCREVERYPESPACKET = M3u8PcrControl' "PCR_EVERY_PES_PACKET"
 
 {-# COMPLETE
-  MPCConfiguredPcrPeriod,
-  MPCPcrEveryPesPacket,
+  M3u8PcrControlCONFIGUREDPCRPERIOD,
+  M3u8PcrControlPCREVERYPESPACKET,
   M3u8PcrControl'
   #-}
 
-instance FromText M3u8PcrControl where
-  parser = (M3u8PcrControl' . mk) <$> takeText
+instance Prelude.FromText M3u8PcrControl where
+  parser = M3u8PcrControl' Prelude.<$> Prelude.takeText
 
-instance ToText M3u8PcrControl where
-  toText (M3u8PcrControl' ci) = original ci
+instance Prelude.ToText M3u8PcrControl where
+  toText (M3u8PcrControl' x) = x
 
-instance Hashable M3u8PcrControl
+instance Prelude.Hashable M3u8PcrControl
 
-instance NFData M3u8PcrControl
+instance Prelude.NFData M3u8PcrControl
 
-instance ToByteString M3u8PcrControl
+instance Prelude.ToByteString M3u8PcrControl
 
-instance ToQuery M3u8PcrControl
+instance Prelude.ToQuery M3u8PcrControl
 
-instance ToHeader M3u8PcrControl
+instance Prelude.ToHeader M3u8PcrControl
 
-instance ToJSON M3u8PcrControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON M3u8PcrControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M3u8PcrControl where
-  parseJSON = parseJSONText "M3u8PcrControl"
+instance Prelude.FromJSON M3u8PcrControl where
+  parseJSON = Prelude.parseJSONText "M3u8PcrControl"

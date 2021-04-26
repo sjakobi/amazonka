@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,119 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.UdpOutputSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.FecOutputSettings
 import Network.AWS.MediaLive.Types.OutputLocationRef
 import Network.AWS.MediaLive.Types.UdpContainerSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Udp Output Settings
 --
--- /See:/ 'udpOutputSettings' smart constructor.
+-- /See:/ 'newUdpOutputSettings' smart constructor.
 data UdpOutputSettings = UdpOutputSettings'
-  { _uosBufferMsec ::
-      !(Maybe Nat),
-    _uosFecOutputSettings ::
-      !(Maybe FecOutputSettings),
-    _uosDestination ::
-      !OutputLocationRef,
-    _uosContainerSettings ::
-      !UdpContainerSettings
+  { -- | UDP output buffering in milliseconds. Larger values increase latency
+    -- through the transcoder but simultaneously assist the transcoder in
+    -- maintaining a constant, low-jitter UDP\/RTP output while accommodating
+    -- clock recovery, input switching, input disruptions, picture reordering,
+    -- etc.
+    bufferMsec :: Prelude.Maybe Prelude.Nat,
+    -- | Settings for enabling and adjusting Forward Error Correction on UDP
+    -- outputs.
+    fecOutputSettings :: Prelude.Maybe FecOutputSettings,
+    -- | Destination address and port number for RTP or UDP packets. Can be
+    -- unicast or multicast RTP or UDP (eg. rtp:\/\/239.10.10.10:5001 or
+    -- udp:\/\/10.100.100.100:5002).
+    destination :: OutputLocationRef,
+    containerSettings :: UdpContainerSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UdpOutputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UdpOutputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uosBufferMsec' - UDP output buffering in milliseconds. Larger values increase latency through the transcoder but simultaneously assist the transcoder in maintaining a constant, low-jitter UDP/RTP output while accommodating clock recovery, input switching, input disruptions, picture reordering, etc.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uosFecOutputSettings' - Settings for enabling and adjusting Forward Error Correction on UDP outputs.
+-- 'bufferMsec', 'udpOutputSettings_bufferMsec' - UDP output buffering in milliseconds. Larger values increase latency
+-- through the transcoder but simultaneously assist the transcoder in
+-- maintaining a constant, low-jitter UDP\/RTP output while accommodating
+-- clock recovery, input switching, input disruptions, picture reordering,
+-- etc.
 --
--- * 'uosDestination' - Destination address and port number for RTP or UDP packets. Can be unicast or multicast RTP or UDP (eg. rtp://239.10.10.10:5001 or udp://10.100.100.100:5002).
+-- 'fecOutputSettings', 'udpOutputSettings_fecOutputSettings' - Settings for enabling and adjusting Forward Error Correction on UDP
+-- outputs.
 --
--- * 'uosContainerSettings' - Undocumented member.
-udpOutputSettings ::
-  -- | 'uosDestination'
+-- 'destination', 'udpOutputSettings_destination' - Destination address and port number for RTP or UDP packets. Can be
+-- unicast or multicast RTP or UDP (eg. rtp:\/\/239.10.10.10:5001 or
+-- udp:\/\/10.100.100.100:5002).
+--
+-- 'containerSettings', 'udpOutputSettings_containerSettings' - Undocumented member.
+newUdpOutputSettings ::
+  -- | 'destination'
   OutputLocationRef ->
-  -- | 'uosContainerSettings'
+  -- | 'containerSettings'
   UdpContainerSettings ->
   UdpOutputSettings
-udpOutputSettings pDestination_ pContainerSettings_ =
-  UdpOutputSettings'
-    { _uosBufferMsec = Nothing,
-      _uosFecOutputSettings = Nothing,
-      _uosDestination = pDestination_,
-      _uosContainerSettings = pContainerSettings_
-    }
+newUdpOutputSettings
+  pDestination_
+  pContainerSettings_ =
+    UdpOutputSettings'
+      { bufferMsec = Prelude.Nothing,
+        fecOutputSettings = Prelude.Nothing,
+        destination = pDestination_,
+        containerSettings = pContainerSettings_
+      }
 
--- | UDP output buffering in milliseconds. Larger values increase latency through the transcoder but simultaneously assist the transcoder in maintaining a constant, low-jitter UDP/RTP output while accommodating clock recovery, input switching, input disruptions, picture reordering, etc.
-uosBufferMsec :: Lens' UdpOutputSettings (Maybe Natural)
-uosBufferMsec = lens _uosBufferMsec (\s a -> s {_uosBufferMsec = a}) . mapping _Nat
+-- | UDP output buffering in milliseconds. Larger values increase latency
+-- through the transcoder but simultaneously assist the transcoder in
+-- maintaining a constant, low-jitter UDP\/RTP output while accommodating
+-- clock recovery, input switching, input disruptions, picture reordering,
+-- etc.
+udpOutputSettings_bufferMsec :: Lens.Lens' UdpOutputSettings (Prelude.Maybe Prelude.Natural)
+udpOutputSettings_bufferMsec = Lens.lens (\UdpOutputSettings' {bufferMsec} -> bufferMsec) (\s@UdpOutputSettings' {} a -> s {bufferMsec = a} :: UdpOutputSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Settings for enabling and adjusting Forward Error Correction on UDP outputs.
-uosFecOutputSettings :: Lens' UdpOutputSettings (Maybe FecOutputSettings)
-uosFecOutputSettings = lens _uosFecOutputSettings (\s a -> s {_uosFecOutputSettings = a})
+-- | Settings for enabling and adjusting Forward Error Correction on UDP
+-- outputs.
+udpOutputSettings_fecOutputSettings :: Lens.Lens' UdpOutputSettings (Prelude.Maybe FecOutputSettings)
+udpOutputSettings_fecOutputSettings = Lens.lens (\UdpOutputSettings' {fecOutputSettings} -> fecOutputSettings) (\s@UdpOutputSettings' {} a -> s {fecOutputSettings = a} :: UdpOutputSettings)
 
--- | Destination address and port number for RTP or UDP packets. Can be unicast or multicast RTP or UDP (eg. rtp://239.10.10.10:5001 or udp://10.100.100.100:5002).
-uosDestination :: Lens' UdpOutputSettings OutputLocationRef
-uosDestination = lens _uosDestination (\s a -> s {_uosDestination = a})
+-- | Destination address and port number for RTP or UDP packets. Can be
+-- unicast or multicast RTP or UDP (eg. rtp:\/\/239.10.10.10:5001 or
+-- udp:\/\/10.100.100.100:5002).
+udpOutputSettings_destination :: Lens.Lens' UdpOutputSettings OutputLocationRef
+udpOutputSettings_destination = Lens.lens (\UdpOutputSettings' {destination} -> destination) (\s@UdpOutputSettings' {} a -> s {destination = a} :: UdpOutputSettings)
 
 -- | Undocumented member.
-uosContainerSettings :: Lens' UdpOutputSettings UdpContainerSettings
-uosContainerSettings = lens _uosContainerSettings (\s a -> s {_uosContainerSettings = a})
+udpOutputSettings_containerSettings :: Lens.Lens' UdpOutputSettings UdpContainerSettings
+udpOutputSettings_containerSettings = Lens.lens (\UdpOutputSettings' {containerSettings} -> containerSettings) (\s@UdpOutputSettings' {} a -> s {containerSettings = a} :: UdpOutputSettings)
 
-instance FromJSON UdpOutputSettings where
+instance Prelude.FromJSON UdpOutputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UdpOutputSettings"
       ( \x ->
           UdpOutputSettings'
-            <$> (x .:? "bufferMsec")
-            <*> (x .:? "fecOutputSettings")
-            <*> (x .: "destination")
-            <*> (x .: "containerSettings")
+            Prelude.<$> (x Prelude..:? "bufferMsec")
+            Prelude.<*> (x Prelude..:? "fecOutputSettings")
+            Prelude.<*> (x Prelude..: "destination")
+            Prelude.<*> (x Prelude..: "containerSettings")
       )
 
-instance Hashable UdpOutputSettings
+instance Prelude.Hashable UdpOutputSettings
 
-instance NFData UdpOutputSettings
+instance Prelude.NFData UdpOutputSettings
 
-instance ToJSON UdpOutputSettings where
+instance Prelude.ToJSON UdpOutputSettings where
   toJSON UdpOutputSettings' {..} =
-    object
-      ( catMaybes
-          [ ("bufferMsec" .=) <$> _uosBufferMsec,
-            ("fecOutputSettings" .=) <$> _uosFecOutputSettings,
-            Just ("destination" .= _uosDestination),
-            Just ("containerSettings" .= _uosContainerSettings)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("bufferMsec" Prelude..=) Prelude.<$> bufferMsec,
+            ("fecOutputSettings" Prelude..=)
+              Prelude.<$> fecOutputSettings,
+            Prelude.Just ("destination" Prelude..= destination),
+            Prelude.Just
+              ("containerSettings" Prelude..= containerSettings)
           ]
       )

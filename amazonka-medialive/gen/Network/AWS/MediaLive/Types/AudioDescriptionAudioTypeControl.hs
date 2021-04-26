@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AudioDescriptionAudioTypeControl
   ( AudioDescriptionAudioTypeControl
       ( ..,
-        ADATCFollowInput,
-        ADATCUseConfigured
+        AudioDescriptionAudioTypeControlFOLLOWINPUT,
+        AudioDescriptionAudioTypeControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Description Audio Type Control
-data AudioDescriptionAudioTypeControl
-  = AudioDescriptionAudioTypeControl'
-      ( CI
-          Text
-      )
+newtype AudioDescriptionAudioTypeControl = AudioDescriptionAudioTypeControl'
+  { fromAudioDescriptionAudioTypeControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ADATCFollowInput :: AudioDescriptionAudioTypeControl
-pattern ADATCFollowInput = AudioDescriptionAudioTypeControl' "FOLLOW_INPUT"
+pattern AudioDescriptionAudioTypeControlFOLLOWINPUT :: AudioDescriptionAudioTypeControl
+pattern AudioDescriptionAudioTypeControlFOLLOWINPUT = AudioDescriptionAudioTypeControl' "FOLLOW_INPUT"
 
-pattern ADATCUseConfigured :: AudioDescriptionAudioTypeControl
-pattern ADATCUseConfigured = AudioDescriptionAudioTypeControl' "USE_CONFIGURED"
+pattern AudioDescriptionAudioTypeControlUSECONFIGURED :: AudioDescriptionAudioTypeControl
+pattern AudioDescriptionAudioTypeControlUSECONFIGURED = AudioDescriptionAudioTypeControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  ADATCFollowInput,
-  ADATCUseConfigured,
+  AudioDescriptionAudioTypeControlFOLLOWINPUT,
+  AudioDescriptionAudioTypeControlUSECONFIGURED,
   AudioDescriptionAudioTypeControl'
   #-}
 
-instance FromText AudioDescriptionAudioTypeControl where
-  parser = (AudioDescriptionAudioTypeControl' . mk) <$> takeText
+instance Prelude.FromText AudioDescriptionAudioTypeControl where
+  parser = AudioDescriptionAudioTypeControl' Prelude.<$> Prelude.takeText
 
-instance ToText AudioDescriptionAudioTypeControl where
-  toText (AudioDescriptionAudioTypeControl' ci) = original ci
+instance Prelude.ToText AudioDescriptionAudioTypeControl where
+  toText (AudioDescriptionAudioTypeControl' x) = x
 
-instance Hashable AudioDescriptionAudioTypeControl
+instance Prelude.Hashable AudioDescriptionAudioTypeControl
 
-instance NFData AudioDescriptionAudioTypeControl
+instance Prelude.NFData AudioDescriptionAudioTypeControl
 
-instance ToByteString AudioDescriptionAudioTypeControl
+instance Prelude.ToByteString AudioDescriptionAudioTypeControl
 
-instance ToQuery AudioDescriptionAudioTypeControl
+instance Prelude.ToQuery AudioDescriptionAudioTypeControl
 
-instance ToHeader AudioDescriptionAudioTypeControl
+instance Prelude.ToHeader AudioDescriptionAudioTypeControl
 
-instance ToJSON AudioDescriptionAudioTypeControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioDescriptionAudioTypeControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioDescriptionAudioTypeControl where
-  parseJSON = parseJSONText "AudioDescriptionAudioTypeControl"
+instance Prelude.FromJSON AudioDescriptionAudioTypeControl where
+  parseJSON = Prelude.parseJSONText "AudioDescriptionAudioTypeControl"

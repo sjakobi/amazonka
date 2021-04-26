@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.PauseStateScheduleActionSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.PipelinePauseStateSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for the action to set pause state of a channel.
 --
--- /See:/ 'pauseStateScheduleActionSettings' smart constructor.
-newtype PauseStateScheduleActionSettings = PauseStateScheduleActionSettings'
-  { _pssasPipelines ::
-      Maybe
-        [PipelinePauseStateSettings]
+-- /See:/ 'newPauseStateScheduleActionSettings' smart constructor.
+data PauseStateScheduleActionSettings = PauseStateScheduleActionSettings'
+  { pipelines :: Prelude.Maybe [PipelinePauseStateSettings]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PauseStateScheduleActionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PauseStateScheduleActionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pssasPipelines' - Undocumented member.
-pauseStateScheduleActionSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pipelines', 'pauseStateScheduleActionSettings_pipelines' - Undocumented member.
+newPauseStateScheduleActionSettings ::
   PauseStateScheduleActionSettings
-pauseStateScheduleActionSettings =
+newPauseStateScheduleActionSettings =
   PauseStateScheduleActionSettings'
-    { _pssasPipelines =
-        Nothing
+    { pipelines =
+        Prelude.Nothing
     }
 
 -- | Undocumented member.
-pssasPipelines :: Lens' PauseStateScheduleActionSettings [PipelinePauseStateSettings]
-pssasPipelines = lens _pssasPipelines (\s a -> s {_pssasPipelines = a}) . _Default . _Coerce
+pauseStateScheduleActionSettings_pipelines :: Lens.Lens' PauseStateScheduleActionSettings (Prelude.Maybe [PipelinePauseStateSettings])
+pauseStateScheduleActionSettings_pipelines = Lens.lens (\PauseStateScheduleActionSettings' {pipelines} -> pipelines) (\s@PauseStateScheduleActionSettings' {} a -> s {pipelines = a} :: PauseStateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON PauseStateScheduleActionSettings where
+instance
+  Prelude.FromJSON
+    PauseStateScheduleActionSettings
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PauseStateScheduleActionSettings"
       ( \x ->
           PauseStateScheduleActionSettings'
-            <$> (x .:? "pipelines" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "pipelines"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable PauseStateScheduleActionSettings
+instance
+  Prelude.Hashable
+    PauseStateScheduleActionSettings
 
-instance NFData PauseStateScheduleActionSettings
+instance
+  Prelude.NFData
+    PauseStateScheduleActionSettings
 
-instance ToJSON PauseStateScheduleActionSettings where
+instance
+  Prelude.ToJSON
+    PauseStateScheduleActionSettings
+  where
   toJSON PauseStateScheduleActionSettings' {..} =
-    object
-      (catMaybes [("pipelines" .=) <$> _pssasPipelines])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pipelines" Prelude..=) Prelude.<$> pipelines]
+      )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsPcrControl
   ( M2tsPcrControl
       ( ..,
-        ConfiguredPcrPeriod,
-        PcrEveryPesPacket
+        M2tsPcrControlCONFIGUREDPCRPERIOD,
+        M2tsPcrControlPCREVERYPESPACKET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Pcr Control
-data M2tsPcrControl = M2tsPcrControl' (CI Text)
+newtype M2tsPcrControl = M2tsPcrControl'
+  { fromM2tsPcrControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConfiguredPcrPeriod :: M2tsPcrControl
-pattern ConfiguredPcrPeriod = M2tsPcrControl' "CONFIGURED_PCR_PERIOD"
+pattern M2tsPcrControlCONFIGUREDPCRPERIOD :: M2tsPcrControl
+pattern M2tsPcrControlCONFIGUREDPCRPERIOD = M2tsPcrControl' "CONFIGURED_PCR_PERIOD"
 
-pattern PcrEveryPesPacket :: M2tsPcrControl
-pattern PcrEveryPesPacket = M2tsPcrControl' "PCR_EVERY_PES_PACKET"
+pattern M2tsPcrControlPCREVERYPESPACKET :: M2tsPcrControl
+pattern M2tsPcrControlPCREVERYPESPACKET = M2tsPcrControl' "PCR_EVERY_PES_PACKET"
 
 {-# COMPLETE
-  ConfiguredPcrPeriod,
-  PcrEveryPesPacket,
+  M2tsPcrControlCONFIGUREDPCRPERIOD,
+  M2tsPcrControlPCREVERYPESPACKET,
   M2tsPcrControl'
   #-}
 
-instance FromText M2tsPcrControl where
-  parser = (M2tsPcrControl' . mk) <$> takeText
+instance Prelude.FromText M2tsPcrControl where
+  parser = M2tsPcrControl' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsPcrControl where
-  toText (M2tsPcrControl' ci) = original ci
+instance Prelude.ToText M2tsPcrControl where
+  toText (M2tsPcrControl' x) = x
 
-instance Hashable M2tsPcrControl
+instance Prelude.Hashable M2tsPcrControl
 
-instance NFData M2tsPcrControl
+instance Prelude.NFData M2tsPcrControl
 
-instance ToByteString M2tsPcrControl
+instance Prelude.ToByteString M2tsPcrControl
 
-instance ToQuery M2tsPcrControl
+instance Prelude.ToQuery M2tsPcrControl
 
-instance ToHeader M2tsPcrControl
+instance Prelude.ToHeader M2tsPcrControl
 
-instance ToJSON M2tsPcrControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsPcrControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsPcrControl where
-  parseJSON = parseJSONText "M2tsPcrControl"
+instance Prelude.FromJSON M2tsPcrControl where
+  parseJSON = Prelude.parseJSONText "M2tsPcrControl"

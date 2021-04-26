@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.Mp2CodingMode
   ( Mp2CodingMode
       ( ..,
-        MCMCodingMode10,
-        MCMCodingMode20
+        Mp2CodingModeCODINGMODE10,
+        Mp2CodingModeCODINGMODE20
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mp2 Coding Mode
-data Mp2CodingMode = Mp2CodingMode' (CI Text)
+newtype Mp2CodingMode = Mp2CodingMode'
+  { fromMp2CodingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MCMCodingMode10 :: Mp2CodingMode
-pattern MCMCodingMode10 = Mp2CodingMode' "CODING_MODE_1_0"
+pattern Mp2CodingModeCODINGMODE10 :: Mp2CodingMode
+pattern Mp2CodingModeCODINGMODE10 = Mp2CodingMode' "CODING_MODE_1_0"
 
-pattern MCMCodingMode20 :: Mp2CodingMode
-pattern MCMCodingMode20 = Mp2CodingMode' "CODING_MODE_2_0"
+pattern Mp2CodingModeCODINGMODE20 :: Mp2CodingMode
+pattern Mp2CodingModeCODINGMODE20 = Mp2CodingMode' "CODING_MODE_2_0"
 
 {-# COMPLETE
-  MCMCodingMode10,
-  MCMCodingMode20,
+  Mp2CodingModeCODINGMODE10,
+  Mp2CodingModeCODINGMODE20,
   Mp2CodingMode'
   #-}
 
-instance FromText Mp2CodingMode where
-  parser = (Mp2CodingMode' . mk) <$> takeText
+instance Prelude.FromText Mp2CodingMode where
+  parser = Mp2CodingMode' Prelude.<$> Prelude.takeText
 
-instance ToText Mp2CodingMode where
-  toText (Mp2CodingMode' ci) = original ci
+instance Prelude.ToText Mp2CodingMode where
+  toText (Mp2CodingMode' x) = x
 
-instance Hashable Mp2CodingMode
+instance Prelude.Hashable Mp2CodingMode
 
-instance NFData Mp2CodingMode
+instance Prelude.NFData Mp2CodingMode
 
-instance ToByteString Mp2CodingMode
+instance Prelude.ToByteString Mp2CodingMode
 
-instance ToQuery Mp2CodingMode
+instance Prelude.ToQuery Mp2CodingMode
 
-instance ToHeader Mp2CodingMode
+instance Prelude.ToHeader Mp2CodingMode
 
-instance ToJSON Mp2CodingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mp2CodingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mp2CodingMode where
-  parseJSON = parseJSONText "Mp2CodingMode"
+instance Prelude.FromJSON Mp2CodingMode where
+  parseJSON = Prelude.parseJSONText "Mp2CodingMode"

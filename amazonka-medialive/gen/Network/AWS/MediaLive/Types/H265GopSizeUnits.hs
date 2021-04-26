@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H265GopSizeUnits
   ( H265GopSizeUnits
       ( ..,
-        HFrames,
-        HSeconds
+        H265GopSizeUnitsFRAMES,
+        H265GopSizeUnitsSECONDS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H265 Gop Size Units
-data H265GopSizeUnits = H265GopSizeUnits' (CI Text)
+newtype H265GopSizeUnits = H265GopSizeUnits'
+  { fromH265GopSizeUnits ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HFrames :: H265GopSizeUnits
-pattern HFrames = H265GopSizeUnits' "FRAMES"
+pattern H265GopSizeUnitsFRAMES :: H265GopSizeUnits
+pattern H265GopSizeUnitsFRAMES = H265GopSizeUnits' "FRAMES"
 
-pattern HSeconds :: H265GopSizeUnits
-pattern HSeconds = H265GopSizeUnits' "SECONDS"
+pattern H265GopSizeUnitsSECONDS :: H265GopSizeUnits
+pattern H265GopSizeUnitsSECONDS = H265GopSizeUnits' "SECONDS"
 
 {-# COMPLETE
-  HFrames,
-  HSeconds,
+  H265GopSizeUnitsFRAMES,
+  H265GopSizeUnitsSECONDS,
   H265GopSizeUnits'
   #-}
 
-instance FromText H265GopSizeUnits where
-  parser = (H265GopSizeUnits' . mk) <$> takeText
+instance Prelude.FromText H265GopSizeUnits where
+  parser = H265GopSizeUnits' Prelude.<$> Prelude.takeText
 
-instance ToText H265GopSizeUnits where
-  toText (H265GopSizeUnits' ci) = original ci
+instance Prelude.ToText H265GopSizeUnits where
+  toText (H265GopSizeUnits' x) = x
 
-instance Hashable H265GopSizeUnits
+instance Prelude.Hashable H265GopSizeUnits
 
-instance NFData H265GopSizeUnits
+instance Prelude.NFData H265GopSizeUnits
 
-instance ToByteString H265GopSizeUnits
+instance Prelude.ToByteString H265GopSizeUnits
 
-instance ToQuery H265GopSizeUnits
+instance Prelude.ToQuery H265GopSizeUnits
 
-instance ToHeader H265GopSizeUnits
+instance Prelude.ToHeader H265GopSizeUnits
 
-instance ToJSON H265GopSizeUnits where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265GopSizeUnits where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265GopSizeUnits where
-  parseJSON = parseJSONText "H265GopSizeUnits"
+instance Prelude.FromJSON H265GopSizeUnits where
+  parseJSON = Prelude.parseJSONText "H265GopSizeUnits"

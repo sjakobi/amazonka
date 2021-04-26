@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,92 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.HlsSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AudioOnlyHlsSettings
 import Network.AWS.MediaLive.Types.Fmp4HlsSettings
 import Network.AWS.MediaLive.Types.FrameCaptureHlsSettings
 import Network.AWS.MediaLive.Types.StandardHlsSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Settings
 --
--- /See:/ 'hlsSettings' smart constructor.
+-- /See:/ 'newHlsSettings' smart constructor.
 data HlsSettings = HlsSettings'
-  { _hsStandardHlsSettings ::
-      !(Maybe StandardHlsSettings),
-    _hsFrameCaptureHlsSettings ::
-      !(Maybe FrameCaptureHlsSettings),
-    _hsAudioOnlyHlsSettings ::
-      !(Maybe AudioOnlyHlsSettings),
-    _hsFmp4HlsSettings :: !(Maybe Fmp4HlsSettings)
+  { standardHlsSettings :: Prelude.Maybe StandardHlsSettings,
+    frameCaptureHlsSettings :: Prelude.Maybe FrameCaptureHlsSettings,
+    audioOnlyHlsSettings :: Prelude.Maybe AudioOnlyHlsSettings,
+    fmp4HlsSettings :: Prelude.Maybe Fmp4HlsSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HlsSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HlsSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hsStandardHlsSettings' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hsFrameCaptureHlsSettings' - Undocumented member.
+-- 'standardHlsSettings', 'hlsSettings_standardHlsSettings' - Undocumented member.
 --
--- * 'hsAudioOnlyHlsSettings' - Undocumented member.
+-- 'frameCaptureHlsSettings', 'hlsSettings_frameCaptureHlsSettings' - Undocumented member.
 --
--- * 'hsFmp4HlsSettings' - Undocumented member.
-hlsSettings ::
+-- 'audioOnlyHlsSettings', 'hlsSettings_audioOnlyHlsSettings' - Undocumented member.
+--
+-- 'fmp4HlsSettings', 'hlsSettings_fmp4HlsSettings' - Undocumented member.
+newHlsSettings ::
   HlsSettings
-hlsSettings =
+newHlsSettings =
   HlsSettings'
-    { _hsStandardHlsSettings = Nothing,
-      _hsFrameCaptureHlsSettings = Nothing,
-      _hsAudioOnlyHlsSettings = Nothing,
-      _hsFmp4HlsSettings = Nothing
+    { standardHlsSettings = Prelude.Nothing,
+      frameCaptureHlsSettings = Prelude.Nothing,
+      audioOnlyHlsSettings = Prelude.Nothing,
+      fmp4HlsSettings = Prelude.Nothing
     }
 
 -- | Undocumented member.
-hsStandardHlsSettings :: Lens' HlsSettings (Maybe StandardHlsSettings)
-hsStandardHlsSettings = lens _hsStandardHlsSettings (\s a -> s {_hsStandardHlsSettings = a})
+hlsSettings_standardHlsSettings :: Lens.Lens' HlsSettings (Prelude.Maybe StandardHlsSettings)
+hlsSettings_standardHlsSettings = Lens.lens (\HlsSettings' {standardHlsSettings} -> standardHlsSettings) (\s@HlsSettings' {} a -> s {standardHlsSettings = a} :: HlsSettings)
 
 -- | Undocumented member.
-hsFrameCaptureHlsSettings :: Lens' HlsSettings (Maybe FrameCaptureHlsSettings)
-hsFrameCaptureHlsSettings = lens _hsFrameCaptureHlsSettings (\s a -> s {_hsFrameCaptureHlsSettings = a})
+hlsSettings_frameCaptureHlsSettings :: Lens.Lens' HlsSettings (Prelude.Maybe FrameCaptureHlsSettings)
+hlsSettings_frameCaptureHlsSettings = Lens.lens (\HlsSettings' {frameCaptureHlsSettings} -> frameCaptureHlsSettings) (\s@HlsSettings' {} a -> s {frameCaptureHlsSettings = a} :: HlsSettings)
 
 -- | Undocumented member.
-hsAudioOnlyHlsSettings :: Lens' HlsSettings (Maybe AudioOnlyHlsSettings)
-hsAudioOnlyHlsSettings = lens _hsAudioOnlyHlsSettings (\s a -> s {_hsAudioOnlyHlsSettings = a})
+hlsSettings_audioOnlyHlsSettings :: Lens.Lens' HlsSettings (Prelude.Maybe AudioOnlyHlsSettings)
+hlsSettings_audioOnlyHlsSettings = Lens.lens (\HlsSettings' {audioOnlyHlsSettings} -> audioOnlyHlsSettings) (\s@HlsSettings' {} a -> s {audioOnlyHlsSettings = a} :: HlsSettings)
 
 -- | Undocumented member.
-hsFmp4HlsSettings :: Lens' HlsSettings (Maybe Fmp4HlsSettings)
-hsFmp4HlsSettings = lens _hsFmp4HlsSettings (\s a -> s {_hsFmp4HlsSettings = a})
+hlsSettings_fmp4HlsSettings :: Lens.Lens' HlsSettings (Prelude.Maybe Fmp4HlsSettings)
+hlsSettings_fmp4HlsSettings = Lens.lens (\HlsSettings' {fmp4HlsSettings} -> fmp4HlsSettings) (\s@HlsSettings' {} a -> s {fmp4HlsSettings = a} :: HlsSettings)
 
-instance FromJSON HlsSettings where
+instance Prelude.FromJSON HlsSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HlsSettings"
       ( \x ->
           HlsSettings'
-            <$> (x .:? "standardHlsSettings")
-            <*> (x .:? "frameCaptureHlsSettings")
-            <*> (x .:? "audioOnlyHlsSettings")
-            <*> (x .:? "fmp4HlsSettings")
+            Prelude.<$> (x Prelude..:? "standardHlsSettings")
+            Prelude.<*> (x Prelude..:? "frameCaptureHlsSettings")
+            Prelude.<*> (x Prelude..:? "audioOnlyHlsSettings")
+            Prelude.<*> (x Prelude..:? "fmp4HlsSettings")
       )
 
-instance Hashable HlsSettings
+instance Prelude.Hashable HlsSettings
 
-instance NFData HlsSettings
+instance Prelude.NFData HlsSettings
 
-instance ToJSON HlsSettings where
+instance Prelude.ToJSON HlsSettings where
   toJSON HlsSettings' {..} =
-    object
-      ( catMaybes
-          [ ("standardHlsSettings" .=)
-              <$> _hsStandardHlsSettings,
-            ("frameCaptureHlsSettings" .=)
-              <$> _hsFrameCaptureHlsSettings,
-            ("audioOnlyHlsSettings" .=)
-              <$> _hsAudioOnlyHlsSettings,
-            ("fmp4HlsSettings" .=) <$> _hsFmp4HlsSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("standardHlsSettings" Prelude..=)
+              Prelude.<$> standardHlsSettings,
+            ("frameCaptureHlsSettings" Prelude..=)
+              Prelude.<$> frameCaptureHlsSettings,
+            ("audioOnlyHlsSettings" Prelude..=)
+              Prelude.<$> audioOnlyHlsSettings,
+            ("fmp4HlsSettings" Prelude..=)
+              Prelude.<$> fmp4HlsSettings
           ]
       )

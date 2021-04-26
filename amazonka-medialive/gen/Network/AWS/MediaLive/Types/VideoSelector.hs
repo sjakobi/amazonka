@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.VideoSelector where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.VideoSelectorColorSpace
 import Network.AWS.MediaLive.Types.VideoSelectorColorSpaceUsage
 import Network.AWS.MediaLive.Types.VideoSelectorSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Specifies a particular video stream within an input source. An input may have only a single video selector.
+-- | Specifies a particular video stream within an input source. An input may
+-- have only a single video selector.
 --
--- /See:/ 'videoSelector' smart constructor.
+-- /See:/ 'newVideoSelector' smart constructor.
 data VideoSelector = VideoSelector'
-  { _vsColorSpaceUsage ::
-      !(Maybe VideoSelectorColorSpaceUsage),
-    _vsSelectorSettings ::
-      !(Maybe VideoSelectorSettings),
-    _vsColorSpace ::
-      !(Maybe VideoSelectorColorSpace)
+  { -- | Applies only if colorSpace is a value other than follow. This field
+    -- controls how the value in the colorSpace field will be used. fallback
+    -- means that when the input does include color space data, that data will
+    -- be used, but when the input has no color space data, the value in
+    -- colorSpace will be used. Choose fallback if your input is sometimes
+    -- missing color space data, but when it does have color space data, that
+    -- data is correct. force means to always use the value in colorSpace.
+    -- Choose force if your input usually has no color space data or might have
+    -- unreliable color space data.
+    colorSpaceUsage :: Prelude.Maybe VideoSelectorColorSpaceUsage,
+    -- | The video selector settings.
+    selectorSettings :: Prelude.Maybe VideoSelectorSettings,
+    -- | Specifies the color space of an input. This setting works in tandem with
+    -- colorSpaceUsage and a video description\'s colorSpaceSettingsChoice to
+    -- determine if any conversion will be performed.
+    colorSpace :: Prelude.Maybe VideoSelectorColorSpace
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VideoSelector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VideoSelector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vsColorSpaceUsage' - Applies only if colorSpace is a value other than follow. This field controls how the value in the colorSpace field will be used. fallback means that when the input does include color space data, that data will be used, but when the input has no color space data, the value in colorSpace will be used. Choose fallback if your input is sometimes missing color space data, but when it does have color space data, that data is correct. force means to always use the value in colorSpace. Choose force if your input usually has no color space data or might have unreliable color space data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vsSelectorSettings' - The video selector settings.
+-- 'colorSpaceUsage', 'videoSelector_colorSpaceUsage' - Applies only if colorSpace is a value other than follow. This field
+-- controls how the value in the colorSpace field will be used. fallback
+-- means that when the input does include color space data, that data will
+-- be used, but when the input has no color space data, the value in
+-- colorSpace will be used. Choose fallback if your input is sometimes
+-- missing color space data, but when it does have color space data, that
+-- data is correct. force means to always use the value in colorSpace.
+-- Choose force if your input usually has no color space data or might have
+-- unreliable color space data.
 --
--- * 'vsColorSpace' - Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video description's colorSpaceSettingsChoice to determine if any conversion will be performed.
-videoSelector ::
+-- 'selectorSettings', 'videoSelector_selectorSettings' - The video selector settings.
+--
+-- 'colorSpace', 'videoSelector_colorSpace' - Specifies the color space of an input. This setting works in tandem with
+-- colorSpaceUsage and a video description\'s colorSpaceSettingsChoice to
+-- determine if any conversion will be performed.
+newVideoSelector ::
   VideoSelector
-videoSelector =
+newVideoSelector =
   VideoSelector'
-    { _vsColorSpaceUsage = Nothing,
-      _vsSelectorSettings = Nothing,
-      _vsColorSpace = Nothing
+    { colorSpaceUsage = Prelude.Nothing,
+      selectorSettings = Prelude.Nothing,
+      colorSpace = Prelude.Nothing
     }
 
--- | Applies only if colorSpace is a value other than follow. This field controls how the value in the colorSpace field will be used. fallback means that when the input does include color space data, that data will be used, but when the input has no color space data, the value in colorSpace will be used. Choose fallback if your input is sometimes missing color space data, but when it does have color space data, that data is correct. force means to always use the value in colorSpace. Choose force if your input usually has no color space data or might have unreliable color space data.
-vsColorSpaceUsage :: Lens' VideoSelector (Maybe VideoSelectorColorSpaceUsage)
-vsColorSpaceUsage = lens _vsColorSpaceUsage (\s a -> s {_vsColorSpaceUsage = a})
+-- | Applies only if colorSpace is a value other than follow. This field
+-- controls how the value in the colorSpace field will be used. fallback
+-- means that when the input does include color space data, that data will
+-- be used, but when the input has no color space data, the value in
+-- colorSpace will be used. Choose fallback if your input is sometimes
+-- missing color space data, but when it does have color space data, that
+-- data is correct. force means to always use the value in colorSpace.
+-- Choose force if your input usually has no color space data or might have
+-- unreliable color space data.
+videoSelector_colorSpaceUsage :: Lens.Lens' VideoSelector (Prelude.Maybe VideoSelectorColorSpaceUsage)
+videoSelector_colorSpaceUsage = Lens.lens (\VideoSelector' {colorSpaceUsage} -> colorSpaceUsage) (\s@VideoSelector' {} a -> s {colorSpaceUsage = a} :: VideoSelector)
 
 -- | The video selector settings.
-vsSelectorSettings :: Lens' VideoSelector (Maybe VideoSelectorSettings)
-vsSelectorSettings = lens _vsSelectorSettings (\s a -> s {_vsSelectorSettings = a})
+videoSelector_selectorSettings :: Lens.Lens' VideoSelector (Prelude.Maybe VideoSelectorSettings)
+videoSelector_selectorSettings = Lens.lens (\VideoSelector' {selectorSettings} -> selectorSettings) (\s@VideoSelector' {} a -> s {selectorSettings = a} :: VideoSelector)
 
--- | Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video description's colorSpaceSettingsChoice to determine if any conversion will be performed.
-vsColorSpace :: Lens' VideoSelector (Maybe VideoSelectorColorSpace)
-vsColorSpace = lens _vsColorSpace (\s a -> s {_vsColorSpace = a})
+-- | Specifies the color space of an input. This setting works in tandem with
+-- colorSpaceUsage and a video description\'s colorSpaceSettingsChoice to
+-- determine if any conversion will be performed.
+videoSelector_colorSpace :: Lens.Lens' VideoSelector (Prelude.Maybe VideoSelectorColorSpace)
+videoSelector_colorSpace = Lens.lens (\VideoSelector' {colorSpace} -> colorSpace) (\s@VideoSelector' {} a -> s {colorSpace = a} :: VideoSelector)
 
-instance FromJSON VideoSelector where
+instance Prelude.FromJSON VideoSelector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VideoSelector"
       ( \x ->
           VideoSelector'
-            <$> (x .:? "colorSpaceUsage")
-            <*> (x .:? "selectorSettings")
-            <*> (x .:? "colorSpace")
+            Prelude.<$> (x Prelude..:? "colorSpaceUsage")
+            Prelude.<*> (x Prelude..:? "selectorSettings")
+            Prelude.<*> (x Prelude..:? "colorSpace")
       )
 
-instance Hashable VideoSelector
+instance Prelude.Hashable VideoSelector
 
-instance NFData VideoSelector
+instance Prelude.NFData VideoSelector
 
-instance ToJSON VideoSelector where
+instance Prelude.ToJSON VideoSelector where
   toJSON VideoSelector' {..} =
-    object
-      ( catMaybes
-          [ ("colorSpaceUsage" .=) <$> _vsColorSpaceUsage,
-            ("selectorSettings" .=) <$> _vsSelectorSettings,
-            ("colorSpace" .=) <$> _vsColorSpace
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("colorSpaceUsage" Prelude..=)
+              Prelude.<$> colorSpaceUsage,
+            ("selectorSettings" Prelude..=)
+              Prelude.<$> selectorSettings,
+            ("colorSpace" Prelude..=) Prelude.<$> colorSpace
           ]
       )

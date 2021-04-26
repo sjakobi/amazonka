@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.MediaLive.Types.InputDeviceScanType
   ( InputDeviceScanType
       ( ..,
-        IDSTInterlaced,
-        IDSTProgressive
+        InputDeviceScanTypeINTERLACED,
+        InputDeviceScanTypePROGRESSIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The scan type of the video source.
-data InputDeviceScanType
-  = InputDeviceScanType'
-      ( CI
-          Text
-      )
+newtype InputDeviceScanType = InputDeviceScanType'
+  { fromInputDeviceScanType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IDSTInterlaced :: InputDeviceScanType
-pattern IDSTInterlaced = InputDeviceScanType' "INTERLACED"
+pattern InputDeviceScanTypeINTERLACED :: InputDeviceScanType
+pattern InputDeviceScanTypeINTERLACED = InputDeviceScanType' "INTERLACED"
 
-pattern IDSTProgressive :: InputDeviceScanType
-pattern IDSTProgressive = InputDeviceScanType' "PROGRESSIVE"
+pattern InputDeviceScanTypePROGRESSIVE :: InputDeviceScanType
+pattern InputDeviceScanTypePROGRESSIVE = InputDeviceScanType' "PROGRESSIVE"
 
 {-# COMPLETE
-  IDSTInterlaced,
-  IDSTProgressive,
+  InputDeviceScanTypeINTERLACED,
+  InputDeviceScanTypePROGRESSIVE,
   InputDeviceScanType'
   #-}
 
-instance FromText InputDeviceScanType where
-  parser = (InputDeviceScanType' . mk) <$> takeText
+instance Prelude.FromText InputDeviceScanType where
+  parser = InputDeviceScanType' Prelude.<$> Prelude.takeText
 
-instance ToText InputDeviceScanType where
-  toText (InputDeviceScanType' ci) = original ci
+instance Prelude.ToText InputDeviceScanType where
+  toText (InputDeviceScanType' x) = x
 
-instance Hashable InputDeviceScanType
+instance Prelude.Hashable InputDeviceScanType
 
-instance NFData InputDeviceScanType
+instance Prelude.NFData InputDeviceScanType
 
-instance ToByteString InputDeviceScanType
+instance Prelude.ToByteString InputDeviceScanType
 
-instance ToQuery InputDeviceScanType
+instance Prelude.ToQuery InputDeviceScanType
 
-instance ToHeader InputDeviceScanType
+instance Prelude.ToHeader InputDeviceScanType
 
-instance FromJSON InputDeviceScanType where
-  parseJSON = parseJSONText "InputDeviceScanType"
+instance Prelude.FromJSON InputDeviceScanType where
+  parseJSON = Prelude.parseJSONText "InputDeviceScanType"

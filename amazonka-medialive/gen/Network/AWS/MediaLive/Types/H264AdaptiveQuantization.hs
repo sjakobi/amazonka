@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,79 @@
 module Network.AWS.MediaLive.Types.H264AdaptiveQuantization
   ( H264AdaptiveQuantization
       ( ..,
-        HAQHigh,
-        HAQHigher,
-        HAQLow,
-        HAQMax,
-        HAQMedium,
-        HAQOff
+        H264AdaptiveQuantizationHIGH,
+        H264AdaptiveQuantizationHIGHER,
+        H264AdaptiveQuantizationLOW,
+        H264AdaptiveQuantizationMAX,
+        H264AdaptiveQuantizationMEDIUM,
+        H264AdaptiveQuantizationOFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Adaptive Quantization
-data H264AdaptiveQuantization
-  = H264AdaptiveQuantization'
-      ( CI
-          Text
-      )
+newtype H264AdaptiveQuantization = H264AdaptiveQuantization'
+  { fromH264AdaptiveQuantization ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HAQHigh :: H264AdaptiveQuantization
-pattern HAQHigh = H264AdaptiveQuantization' "HIGH"
+pattern H264AdaptiveQuantizationHIGH :: H264AdaptiveQuantization
+pattern H264AdaptiveQuantizationHIGH = H264AdaptiveQuantization' "HIGH"
 
-pattern HAQHigher :: H264AdaptiveQuantization
-pattern HAQHigher = H264AdaptiveQuantization' "HIGHER"
+pattern H264AdaptiveQuantizationHIGHER :: H264AdaptiveQuantization
+pattern H264AdaptiveQuantizationHIGHER = H264AdaptiveQuantization' "HIGHER"
 
-pattern HAQLow :: H264AdaptiveQuantization
-pattern HAQLow = H264AdaptiveQuantization' "LOW"
+pattern H264AdaptiveQuantizationLOW :: H264AdaptiveQuantization
+pattern H264AdaptiveQuantizationLOW = H264AdaptiveQuantization' "LOW"
 
-pattern HAQMax :: H264AdaptiveQuantization
-pattern HAQMax = H264AdaptiveQuantization' "MAX"
+pattern H264AdaptiveQuantizationMAX :: H264AdaptiveQuantization
+pattern H264AdaptiveQuantizationMAX = H264AdaptiveQuantization' "MAX"
 
-pattern HAQMedium :: H264AdaptiveQuantization
-pattern HAQMedium = H264AdaptiveQuantization' "MEDIUM"
+pattern H264AdaptiveQuantizationMEDIUM :: H264AdaptiveQuantization
+pattern H264AdaptiveQuantizationMEDIUM = H264AdaptiveQuantization' "MEDIUM"
 
-pattern HAQOff :: H264AdaptiveQuantization
-pattern HAQOff = H264AdaptiveQuantization' "OFF"
+pattern H264AdaptiveQuantizationOFF :: H264AdaptiveQuantization
+pattern H264AdaptiveQuantizationOFF = H264AdaptiveQuantization' "OFF"
 
 {-# COMPLETE
-  HAQHigh,
-  HAQHigher,
-  HAQLow,
-  HAQMax,
-  HAQMedium,
-  HAQOff,
+  H264AdaptiveQuantizationHIGH,
+  H264AdaptiveQuantizationHIGHER,
+  H264AdaptiveQuantizationLOW,
+  H264AdaptiveQuantizationMAX,
+  H264AdaptiveQuantizationMEDIUM,
+  H264AdaptiveQuantizationOFF,
   H264AdaptiveQuantization'
   #-}
 
-instance FromText H264AdaptiveQuantization where
-  parser = (H264AdaptiveQuantization' . mk) <$> takeText
+instance Prelude.FromText H264AdaptiveQuantization where
+  parser = H264AdaptiveQuantization' Prelude.<$> Prelude.takeText
 
-instance ToText H264AdaptiveQuantization where
-  toText (H264AdaptiveQuantization' ci) = original ci
+instance Prelude.ToText H264AdaptiveQuantization where
+  toText (H264AdaptiveQuantization' x) = x
 
-instance Hashable H264AdaptiveQuantization
+instance Prelude.Hashable H264AdaptiveQuantization
 
-instance NFData H264AdaptiveQuantization
+instance Prelude.NFData H264AdaptiveQuantization
 
-instance ToByteString H264AdaptiveQuantization
+instance Prelude.ToByteString H264AdaptiveQuantization
 
-instance ToQuery H264AdaptiveQuantization
+instance Prelude.ToQuery H264AdaptiveQuantization
 
-instance ToHeader H264AdaptiveQuantization
+instance Prelude.ToHeader H264AdaptiveQuantization
 
-instance ToJSON H264AdaptiveQuantization where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264AdaptiveQuantization where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264AdaptiveQuantization where
-  parseJSON = parseJSONText "H264AdaptiveQuantization"
+instance Prelude.FromJSON H264AdaptiveQuantization where
+  parseJSON = Prelude.parseJSONText "H264AdaptiveQuantization"

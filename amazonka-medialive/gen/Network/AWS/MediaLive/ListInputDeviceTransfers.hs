@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,189 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List input devices that are currently being transferred. List input devices that you are transferring from your AWS account or input devices that another AWS account is transferring to you.
+-- List input devices that are currently being transferred. List input
+-- devices that you are transferring from your AWS account or input devices
+-- that another AWS account is transferring to you.
 --
 -- This operation returns paginated results.
 module Network.AWS.MediaLive.ListInputDeviceTransfers
   ( -- * Creating a Request
-    listInputDeviceTransfers,
-    ListInputDeviceTransfers,
+    ListInputDeviceTransfers (..),
+    newListInputDeviceTransfers,
 
     -- * Request Lenses
-    lidtNextToken,
-    lidtMaxResults,
-    lidtTransferType,
+    listInputDeviceTransfers_nextToken,
+    listInputDeviceTransfers_maxResults,
+    listInputDeviceTransfers_transferType,
 
     -- * Destructuring the Response
-    listInputDeviceTransfersResponse,
-    ListInputDeviceTransfersResponse,
+    ListInputDeviceTransfersResponse (..),
+    newListInputDeviceTransfersResponse,
 
     -- * Response Lenses
-    lidtrrsNextToken,
-    lidtrrsInputDeviceTransfers,
-    lidtrrsResponseStatus,
+    listInputDeviceTransfersResponse_nextToken,
+    listInputDeviceTransfersResponse_inputDeviceTransfers,
+    listInputDeviceTransfersResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.TransferringInputDeviceSummary
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for ListInputDeviceTransfersRequest
 --
--- /See:/ 'listInputDeviceTransfers' smart constructor.
+-- /See:/ 'newListInputDeviceTransfers' smart constructor.
 data ListInputDeviceTransfers = ListInputDeviceTransfers'
-  { _lidtNextToken ::
-      !(Maybe Text),
-    _lidtMaxResults ::
-      !(Maybe Nat),
-    _lidtTransferType ::
-      !Text
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    transferType :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInputDeviceTransfers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInputDeviceTransfers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lidtNextToken' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lidtMaxResults' - Undocumented member.
+-- 'nextToken', 'listInputDeviceTransfers_nextToken' - Undocumented member.
 --
--- * 'lidtTransferType' - Undocumented member.
-listInputDeviceTransfers ::
-  -- | 'lidtTransferType'
-  Text ->
+-- 'maxResults', 'listInputDeviceTransfers_maxResults' - Undocumented member.
+--
+-- 'transferType', 'listInputDeviceTransfers_transferType' - Undocumented member.
+newListInputDeviceTransfers ::
+  -- | 'transferType'
+  Prelude.Text ->
   ListInputDeviceTransfers
-listInputDeviceTransfers pTransferType_ =
+newListInputDeviceTransfers pTransferType_ =
   ListInputDeviceTransfers'
-    { _lidtNextToken = Nothing,
-      _lidtMaxResults = Nothing,
-      _lidtTransferType = pTransferType_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      transferType = pTransferType_
     }
 
 -- | Undocumented member.
-lidtNextToken :: Lens' ListInputDeviceTransfers (Maybe Text)
-lidtNextToken = lens _lidtNextToken (\s a -> s {_lidtNextToken = a})
+listInputDeviceTransfers_nextToken :: Lens.Lens' ListInputDeviceTransfers (Prelude.Maybe Prelude.Text)
+listInputDeviceTransfers_nextToken = Lens.lens (\ListInputDeviceTransfers' {nextToken} -> nextToken) (\s@ListInputDeviceTransfers' {} a -> s {nextToken = a} :: ListInputDeviceTransfers)
 
 -- | Undocumented member.
-lidtMaxResults :: Lens' ListInputDeviceTransfers (Maybe Natural)
-lidtMaxResults = lens _lidtMaxResults (\s a -> s {_lidtMaxResults = a}) . mapping _Nat
+listInputDeviceTransfers_maxResults :: Lens.Lens' ListInputDeviceTransfers (Prelude.Maybe Prelude.Natural)
+listInputDeviceTransfers_maxResults = Lens.lens (\ListInputDeviceTransfers' {maxResults} -> maxResults) (\s@ListInputDeviceTransfers' {} a -> s {maxResults = a} :: ListInputDeviceTransfers) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Undocumented member.
-lidtTransferType :: Lens' ListInputDeviceTransfers Text
-lidtTransferType = lens _lidtTransferType (\s a -> s {_lidtTransferType = a})
+listInputDeviceTransfers_transferType :: Lens.Lens' ListInputDeviceTransfers Prelude.Text
+listInputDeviceTransfers_transferType = Lens.lens (\ListInputDeviceTransfers' {transferType} -> transferType) (\s@ListInputDeviceTransfers' {} a -> s {transferType = a} :: ListInputDeviceTransfers)
 
-instance AWSPager ListInputDeviceTransfers where
+instance Pager.AWSPager ListInputDeviceTransfers where
   page rq rs
-    | stop (rs ^. lidtrrsNextToken) = Nothing
-    | stop (rs ^. lidtrrsInputDeviceTransfers) = Nothing
-    | otherwise =
-      Just $ rq & lidtNextToken .~ rs ^. lidtrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listInputDeviceTransfersResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listInputDeviceTransfersResponse_inputDeviceTransfers
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listInputDeviceTransfers_nextToken
+          Lens..~ rs
+          Lens.^? listInputDeviceTransfersResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListInputDeviceTransfers where
+instance Prelude.AWSRequest ListInputDeviceTransfers where
   type
     Rs ListInputDeviceTransfers =
       ListInputDeviceTransfersResponse
-  request = get mediaLive
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListInputDeviceTransfersResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "inputDeviceTransfers" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "inputDeviceTransfers"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListInputDeviceTransfers
+instance Prelude.Hashable ListInputDeviceTransfers
 
-instance NFData ListInputDeviceTransfers
+instance Prelude.NFData ListInputDeviceTransfers
 
-instance ToHeaders ListInputDeviceTransfers where
+instance Prelude.ToHeaders ListInputDeviceTransfers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListInputDeviceTransfers where
-  toPath = const "/prod/inputDeviceTransfers"
+instance Prelude.ToPath ListInputDeviceTransfers where
+  toPath = Prelude.const "/prod/inputDeviceTransfers"
 
-instance ToQuery ListInputDeviceTransfers where
+instance Prelude.ToQuery ListInputDeviceTransfers where
   toQuery ListInputDeviceTransfers' {..} =
-    mconcat
-      [ "nextToken" =: _lidtNextToken,
-        "maxResults" =: _lidtMaxResults,
-        "transferType" =: _lidtTransferType
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "transferType" Prelude.=: transferType
       ]
 
 -- | Placeholder documentation for ListInputDeviceTransfersResponse
 --
--- /See:/ 'listInputDeviceTransfersResponse' smart constructor.
+-- /See:/ 'newListInputDeviceTransfersResponse' smart constructor.
 data ListInputDeviceTransfersResponse = ListInputDeviceTransfersResponse'
-  { _lidtrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lidtrrsInputDeviceTransfers ::
-      !( Maybe
-           [TransferringInputDeviceSummary]
-       ),
-    _lidtrrsResponseStatus ::
-      !Int
+  { -- | A token to get additional list results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of devices that you are transferring or are being transferred
+    -- to you.
+    inputDeviceTransfers :: Prelude.Maybe [TransferringInputDeviceSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInputDeviceTransfersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInputDeviceTransfersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lidtrrsNextToken' - A token to get additional list results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lidtrrsInputDeviceTransfers' - The list of devices that you are transferring or are being transferred to you.
+-- 'nextToken', 'listInputDeviceTransfersResponse_nextToken' - A token to get additional list results.
 --
--- * 'lidtrrsResponseStatus' - -- | The response status code.
-listInputDeviceTransfersResponse ::
-  -- | 'lidtrrsResponseStatus'
-  Int ->
+-- 'inputDeviceTransfers', 'listInputDeviceTransfersResponse_inputDeviceTransfers' - The list of devices that you are transferring or are being transferred
+-- to you.
+--
+-- 'httpStatus', 'listInputDeviceTransfersResponse_httpStatus' - The response's http status code.
+newListInputDeviceTransfersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListInputDeviceTransfersResponse
-listInputDeviceTransfersResponse pResponseStatus_ =
+newListInputDeviceTransfersResponse pHttpStatus_ =
   ListInputDeviceTransfersResponse'
-    { _lidtrrsNextToken =
-        Nothing,
-      _lidtrrsInputDeviceTransfers = Nothing,
-      _lidtrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      inputDeviceTransfers = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A token to get additional list results.
-lidtrrsNextToken :: Lens' ListInputDeviceTransfersResponse (Maybe Text)
-lidtrrsNextToken = lens _lidtrrsNextToken (\s a -> s {_lidtrrsNextToken = a})
+listInputDeviceTransfersResponse_nextToken :: Lens.Lens' ListInputDeviceTransfersResponse (Prelude.Maybe Prelude.Text)
+listInputDeviceTransfersResponse_nextToken = Lens.lens (\ListInputDeviceTransfersResponse' {nextToken} -> nextToken) (\s@ListInputDeviceTransfersResponse' {} a -> s {nextToken = a} :: ListInputDeviceTransfersResponse)
 
--- | The list of devices that you are transferring or are being transferred to you.
-lidtrrsInputDeviceTransfers :: Lens' ListInputDeviceTransfersResponse [TransferringInputDeviceSummary]
-lidtrrsInputDeviceTransfers = lens _lidtrrsInputDeviceTransfers (\s a -> s {_lidtrrsInputDeviceTransfers = a}) . _Default . _Coerce
+-- | The list of devices that you are transferring or are being transferred
+-- to you.
+listInputDeviceTransfersResponse_inputDeviceTransfers :: Lens.Lens' ListInputDeviceTransfersResponse (Prelude.Maybe [TransferringInputDeviceSummary])
+listInputDeviceTransfersResponse_inputDeviceTransfers = Lens.lens (\ListInputDeviceTransfersResponse' {inputDeviceTransfers} -> inputDeviceTransfers) (\s@ListInputDeviceTransfersResponse' {} a -> s {inputDeviceTransfers = a} :: ListInputDeviceTransfersResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lidtrrsResponseStatus :: Lens' ListInputDeviceTransfersResponse Int
-lidtrrsResponseStatus = lens _lidtrrsResponseStatus (\s a -> s {_lidtrrsResponseStatus = a})
+-- | The response's http status code.
+listInputDeviceTransfersResponse_httpStatus :: Lens.Lens' ListInputDeviceTransfersResponse Prelude.Int
+listInputDeviceTransfersResponse_httpStatus = Lens.lens (\ListInputDeviceTransfersResponse' {httpStatus} -> httpStatus) (\s@ListInputDeviceTransfersResponse' {} a -> s {httpStatus = a} :: ListInputDeviceTransfersResponse)
 
-instance NFData ListInputDeviceTransfersResponse
+instance
+  Prelude.NFData
+    ListInputDeviceTransfersResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,158 +24,152 @@
 -- Creates a Input Security Group
 module Network.AWS.MediaLive.CreateInputSecurityGroup
   ( -- * Creating a Request
-    createInputSecurityGroup,
-    CreateInputSecurityGroup,
+    CreateInputSecurityGroup (..),
+    newCreateInputSecurityGroup,
 
     -- * Request Lenses
-    cisgTags,
-    cisgWhitelistRules,
+    createInputSecurityGroup_tags,
+    createInputSecurityGroup_whitelistRules,
 
     -- * Destructuring the Response
-    createInputSecurityGroupResponse,
-    CreateInputSecurityGroupResponse,
+    CreateInputSecurityGroupResponse (..),
+    newCreateInputSecurityGroupResponse,
 
     -- * Response Lenses
-    cisgrrsSecurityGroup,
-    cisgrrsResponseStatus,
+    createInputSecurityGroupResponse_securityGroup,
+    createInputSecurityGroupResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.InputSecurityGroup
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | The IPv4 CIDRs to whitelist for this Input Security Group
 --
--- /See:/ 'createInputSecurityGroup' smart constructor.
+-- /See:/ 'newCreateInputSecurityGroup' smart constructor.
 data CreateInputSecurityGroup = CreateInputSecurityGroup'
-  { _cisgTags ::
-      !( Maybe
-           (Map Text Text)
-       ),
-    _cisgWhitelistRules ::
-      !( Maybe
-           [InputWhitelistRuleCidr]
-       )
+  { -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | List of IPv4 CIDR addresses to whitelist
+    whitelistRules :: Prelude.Maybe [InputWhitelistRuleCidr]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInputSecurityGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInputSecurityGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisgTags' - A collection of key-value pairs.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisgWhitelistRules' - List of IPv4 CIDR addresses to whitelist
-createInputSecurityGroup ::
+-- 'tags', 'createInputSecurityGroup_tags' - A collection of key-value pairs.
+--
+-- 'whitelistRules', 'createInputSecurityGroup_whitelistRules' - List of IPv4 CIDR addresses to whitelist
+newCreateInputSecurityGroup ::
   CreateInputSecurityGroup
-createInputSecurityGroup =
+newCreateInputSecurityGroup =
   CreateInputSecurityGroup'
-    { _cisgTags = Nothing,
-      _cisgWhitelistRules = Nothing
+    { tags = Prelude.Nothing,
+      whitelistRules = Prelude.Nothing
     }
 
 -- | A collection of key-value pairs.
-cisgTags :: Lens' CreateInputSecurityGroup (HashMap Text Text)
-cisgTags = lens _cisgTags (\s a -> s {_cisgTags = a}) . _Default . _Map
+createInputSecurityGroup_tags :: Lens.Lens' CreateInputSecurityGroup (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createInputSecurityGroup_tags = Lens.lens (\CreateInputSecurityGroup' {tags} -> tags) (\s@CreateInputSecurityGroup' {} a -> s {tags = a} :: CreateInputSecurityGroup) Prelude.. Lens.mapping Prelude._Map
 
 -- | List of IPv4 CIDR addresses to whitelist
-cisgWhitelistRules :: Lens' CreateInputSecurityGroup [InputWhitelistRuleCidr]
-cisgWhitelistRules = lens _cisgWhitelistRules (\s a -> s {_cisgWhitelistRules = a}) . _Default . _Coerce
+createInputSecurityGroup_whitelistRules :: Lens.Lens' CreateInputSecurityGroup (Prelude.Maybe [InputWhitelistRuleCidr])
+createInputSecurityGroup_whitelistRules = Lens.lens (\CreateInputSecurityGroup' {whitelistRules} -> whitelistRules) (\s@CreateInputSecurityGroup' {} a -> s {whitelistRules = a} :: CreateInputSecurityGroup) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSRequest CreateInputSecurityGroup where
+instance Prelude.AWSRequest CreateInputSecurityGroup where
   type
     Rs CreateInputSecurityGroup =
       CreateInputSecurityGroupResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateInputSecurityGroupResponse'
-            <$> (x .?> "securityGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "securityGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateInputSecurityGroup
+instance Prelude.Hashable CreateInputSecurityGroup
 
-instance NFData CreateInputSecurityGroup
+instance Prelude.NFData CreateInputSecurityGroup
 
-instance ToHeaders CreateInputSecurityGroup where
+instance Prelude.ToHeaders CreateInputSecurityGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateInputSecurityGroup where
+instance Prelude.ToJSON CreateInputSecurityGroup where
   toJSON CreateInputSecurityGroup' {..} =
-    object
-      ( catMaybes
-          [ ("tags" .=) <$> _cisgTags,
-            ("whitelistRules" .=) <$> _cisgWhitelistRules
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            ("whitelistRules" Prelude..=)
+              Prelude.<$> whitelistRules
           ]
       )
 
-instance ToPath CreateInputSecurityGroup where
-  toPath = const "/prod/inputSecurityGroups"
+instance Prelude.ToPath CreateInputSecurityGroup where
+  toPath = Prelude.const "/prod/inputSecurityGroups"
 
-instance ToQuery CreateInputSecurityGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateInputSecurityGroup where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for CreateInputSecurityGroupResponse
 --
--- /See:/ 'createInputSecurityGroupResponse' smart constructor.
+-- /See:/ 'newCreateInputSecurityGroupResponse' smart constructor.
 data CreateInputSecurityGroupResponse = CreateInputSecurityGroupResponse'
-  { _cisgrrsSecurityGroup ::
-      !( Maybe
-           InputSecurityGroup
-       ),
-    _cisgrrsResponseStatus ::
-      !Int
+  { securityGroup :: Prelude.Maybe InputSecurityGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInputSecurityGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInputSecurityGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisgrrsSecurityGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cisgrrsResponseStatus' - -- | The response status code.
-createInputSecurityGroupResponse ::
-  -- | 'cisgrrsResponseStatus'
-  Int ->
+-- 'securityGroup', 'createInputSecurityGroupResponse_securityGroup' - Undocumented member.
+--
+-- 'httpStatus', 'createInputSecurityGroupResponse_httpStatus' - The response's http status code.
+newCreateInputSecurityGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateInputSecurityGroupResponse
-createInputSecurityGroupResponse pResponseStatus_ =
+newCreateInputSecurityGroupResponse pHttpStatus_ =
   CreateInputSecurityGroupResponse'
-    { _cisgrrsSecurityGroup =
-        Nothing,
-      _cisgrrsResponseStatus = pResponseStatus_
+    { securityGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-cisgrrsSecurityGroup :: Lens' CreateInputSecurityGroupResponse (Maybe InputSecurityGroup)
-cisgrrsSecurityGroup = lens _cisgrrsSecurityGroup (\s a -> s {_cisgrrsSecurityGroup = a})
+createInputSecurityGroupResponse_securityGroup :: Lens.Lens' CreateInputSecurityGroupResponse (Prelude.Maybe InputSecurityGroup)
+createInputSecurityGroupResponse_securityGroup = Lens.lens (\CreateInputSecurityGroupResponse' {securityGroup} -> securityGroup) (\s@CreateInputSecurityGroupResponse' {} a -> s {securityGroup = a} :: CreateInputSecurityGroupResponse)
 
--- | -- | The response status code.
-cisgrrsResponseStatus :: Lens' CreateInputSecurityGroupResponse Int
-cisgrrsResponseStatus = lens _cisgrrsResponseStatus (\s a -> s {_cisgrrsResponseStatus = a})
+-- | The response's http status code.
+createInputSecurityGroupResponse_httpStatus :: Lens.Lens' CreateInputSecurityGroupResponse Prelude.Int
+createInputSecurityGroupResponse_httpStatus = Lens.lens (\CreateInputSecurityGroupResponse' {httpStatus} -> httpStatus) (\s@CreateInputSecurityGroupResponse' {} a -> s {httpStatus = a} :: CreateInputSecurityGroupResponse)
 
-instance NFData CreateInputSecurityGroupResponse
+instance
+  Prelude.NFData
+    CreateInputSecurityGroupResponse

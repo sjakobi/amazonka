@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.Mpeg2DisplayRatio
   ( Mpeg2DisplayRatio
       ( ..,
-        DISPLAYRATIO16X9,
-        DISPLAYRATIO4X3
+        Mpeg2DisplayRatioDISPLAYRATIO16X9,
+        Mpeg2DisplayRatioDISPLAYRATIO4X3
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mpeg2 Display Ratio
-data Mpeg2DisplayRatio = Mpeg2DisplayRatio' (CI Text)
+newtype Mpeg2DisplayRatio = Mpeg2DisplayRatio'
+  { fromMpeg2DisplayRatio ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DISPLAYRATIO16X9 :: Mpeg2DisplayRatio
-pattern DISPLAYRATIO16X9 = Mpeg2DisplayRatio' "DISPLAYRATIO16X9"
+pattern Mpeg2DisplayRatioDISPLAYRATIO16X9 :: Mpeg2DisplayRatio
+pattern Mpeg2DisplayRatioDISPLAYRATIO16X9 = Mpeg2DisplayRatio' "DISPLAYRATIO16X9"
 
-pattern DISPLAYRATIO4X3 :: Mpeg2DisplayRatio
-pattern DISPLAYRATIO4X3 = Mpeg2DisplayRatio' "DISPLAYRATIO4X3"
+pattern Mpeg2DisplayRatioDISPLAYRATIO4X3 :: Mpeg2DisplayRatio
+pattern Mpeg2DisplayRatioDISPLAYRATIO4X3 = Mpeg2DisplayRatio' "DISPLAYRATIO4X3"
 
 {-# COMPLETE
-  DISPLAYRATIO16X9,
-  DISPLAYRATIO4X3,
+  Mpeg2DisplayRatioDISPLAYRATIO16X9,
+  Mpeg2DisplayRatioDISPLAYRATIO4X3,
   Mpeg2DisplayRatio'
   #-}
 
-instance FromText Mpeg2DisplayRatio where
-  parser = (Mpeg2DisplayRatio' . mk) <$> takeText
+instance Prelude.FromText Mpeg2DisplayRatio where
+  parser = Mpeg2DisplayRatio' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2DisplayRatio where
-  toText (Mpeg2DisplayRatio' ci) = original ci
+instance Prelude.ToText Mpeg2DisplayRatio where
+  toText (Mpeg2DisplayRatio' x) = x
 
-instance Hashable Mpeg2DisplayRatio
+instance Prelude.Hashable Mpeg2DisplayRatio
 
-instance NFData Mpeg2DisplayRatio
+instance Prelude.NFData Mpeg2DisplayRatio
 
-instance ToByteString Mpeg2DisplayRatio
+instance Prelude.ToByteString Mpeg2DisplayRatio
 
-instance ToQuery Mpeg2DisplayRatio
+instance Prelude.ToQuery Mpeg2DisplayRatio
 
-instance ToHeader Mpeg2DisplayRatio
+instance Prelude.ToHeader Mpeg2DisplayRatio
 
-instance ToJSON Mpeg2DisplayRatio where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2DisplayRatio where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2DisplayRatio where
-  parseJSON = parseJSONText "Mpeg2DisplayRatio"
+instance Prelude.FromJSON Mpeg2DisplayRatio where
+  parseJSON = Prelude.parseJSONText "Mpeg2DisplayRatio"

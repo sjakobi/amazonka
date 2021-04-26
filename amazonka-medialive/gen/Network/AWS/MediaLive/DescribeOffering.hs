@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,239 +24,255 @@
 -- Get details for an offering.
 module Network.AWS.MediaLive.DescribeOffering
   ( -- * Creating a Request
-    describeOffering,
-    DescribeOffering,
+    DescribeOffering (..),
+    newDescribeOffering,
 
     -- * Request Lenses
-    doOfferingId,
+    describeOffering_offeringId,
 
     -- * Destructuring the Response
-    describeOfferingResponse,
-    DescribeOfferingResponse,
+    DescribeOfferingResponse (..),
+    newDescribeOfferingResponse,
 
     -- * Response Lenses
-    dorrsDuration,
-    dorrsDurationUnits,
-    dorrsARN,
-    dorrsOfferingId,
-    dorrsCurrencyCode,
-    dorrsResourceSpecification,
-    dorrsOfferingDescription,
-    dorrsFixedPrice,
-    dorrsUsagePrice,
-    dorrsOfferingType,
-    dorrsRegion,
-    dorrsResponseStatus,
+    describeOfferingResponse_duration,
+    describeOfferingResponse_durationUnits,
+    describeOfferingResponse_arn,
+    describeOfferingResponse_offeringId,
+    describeOfferingResponse_currencyCode,
+    describeOfferingResponse_resourceSpecification,
+    describeOfferingResponse_offeringDescription,
+    describeOfferingResponse_fixedPrice,
+    describeOfferingResponse_usagePrice,
+    describeOfferingResponse_offeringType,
+    describeOfferingResponse_region,
+    describeOfferingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.OfferingDurationUnits
+import Network.AWS.MediaLive.Types.OfferingType
+import Network.AWS.MediaLive.Types.ReservationResourceSpecification
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for DescribeOfferingRequest
 --
--- /See:/ 'describeOffering' smart constructor.
-newtype DescribeOffering = DescribeOffering'
-  { _doOfferingId ::
-      Text
+-- /See:/ 'newDescribeOffering' smart constructor.
+data DescribeOffering = DescribeOffering'
+  { -- | Unique offering ID, e.g. \'87654321\'
+    offeringId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOffering' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOffering' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'doOfferingId' - Unique offering ID, e.g. '87654321'
-describeOffering ::
-  -- | 'doOfferingId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'offeringId', 'describeOffering_offeringId' - Unique offering ID, e.g. \'87654321\'
+newDescribeOffering ::
+  -- | 'offeringId'
+  Prelude.Text ->
   DescribeOffering
-describeOffering pOfferingId_ =
-  DescribeOffering' {_doOfferingId = pOfferingId_}
+newDescribeOffering pOfferingId_ =
+  DescribeOffering' {offeringId = pOfferingId_}
 
--- | Unique offering ID, e.g. '87654321'
-doOfferingId :: Lens' DescribeOffering Text
-doOfferingId = lens _doOfferingId (\s a -> s {_doOfferingId = a})
+-- | Unique offering ID, e.g. \'87654321\'
+describeOffering_offeringId :: Lens.Lens' DescribeOffering Prelude.Text
+describeOffering_offeringId = Lens.lens (\DescribeOffering' {offeringId} -> offeringId) (\s@DescribeOffering' {} a -> s {offeringId = a} :: DescribeOffering)
 
-instance AWSRequest DescribeOffering where
+instance Prelude.AWSRequest DescribeOffering where
   type Rs DescribeOffering = DescribeOfferingResponse
-  request = get mediaLive
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeOfferingResponse'
-            <$> (x .?> "duration")
-            <*> (x .?> "durationUnits")
-            <*> (x .?> "arn")
-            <*> (x .?> "offeringId")
-            <*> (x .?> "currencyCode")
-            <*> (x .?> "resourceSpecification")
-            <*> (x .?> "offeringDescription")
-            <*> (x .?> "fixedPrice")
-            <*> (x .?> "usagePrice")
-            <*> (x .?> "offeringType")
-            <*> (x .?> "region")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "duration")
+            Prelude.<*> (x Prelude..?> "durationUnits")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "offeringId")
+            Prelude.<*> (x Prelude..?> "currencyCode")
+            Prelude.<*> (x Prelude..?> "resourceSpecification")
+            Prelude.<*> (x Prelude..?> "offeringDescription")
+            Prelude.<*> (x Prelude..?> "fixedPrice")
+            Prelude.<*> (x Prelude..?> "usagePrice")
+            Prelude.<*> (x Prelude..?> "offeringType")
+            Prelude.<*> (x Prelude..?> "region")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeOffering
+instance Prelude.Hashable DescribeOffering
 
-instance NFData DescribeOffering
+instance Prelude.NFData DescribeOffering
 
-instance ToHeaders DescribeOffering where
+instance Prelude.ToHeaders DescribeOffering where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeOffering where
+instance Prelude.ToPath DescribeOffering where
   toPath DescribeOffering' {..} =
-    mconcat ["/prod/offerings/", toBS _doOfferingId]
+    Prelude.mconcat
+      ["/prod/offerings/", Prelude.toBS offeringId]
 
-instance ToQuery DescribeOffering where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeOffering where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for DescribeOfferingResponse
 --
--- /See:/ 'describeOfferingResponse' smart constructor.
+-- /See:/ 'newDescribeOfferingResponse' smart constructor.
 data DescribeOfferingResponse = DescribeOfferingResponse'
-  { _dorrsDuration ::
-      !(Maybe Int),
-    _dorrsDurationUnits ::
-      !( Maybe
-           OfferingDurationUnits
-       ),
-    _dorrsARN ::
-      !(Maybe Text),
-    _dorrsOfferingId ::
-      !(Maybe Text),
-    _dorrsCurrencyCode ::
-      !(Maybe Text),
-    _dorrsResourceSpecification ::
-      !( Maybe
-           ReservationResourceSpecification
-       ),
-    _dorrsOfferingDescription ::
-      !(Maybe Text),
-    _dorrsFixedPrice ::
-      !(Maybe Double),
-    _dorrsUsagePrice ::
-      !(Maybe Double),
-    _dorrsOfferingType ::
-      !(Maybe OfferingType),
-    _dorrsRegion ::
-      !(Maybe Text),
-    _dorrsResponseStatus ::
-      !Int
+  { -- | Lease duration, e.g. \'12\'
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | Units for duration, e.g. \'MONTHS\'
+    durationUnits :: Prelude.Maybe OfferingDurationUnits,
+    -- | Unique offering ARN, e.g.
+    -- \'arn:aws:medialive:us-west-2:123456789012:offering:87654321\'
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Unique offering ID, e.g. \'87654321\'
+    offeringId :: Prelude.Maybe Prelude.Text,
+    -- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+    -- \'USD\'
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | Resource configuration details
+    resourceSpecification :: Prelude.Maybe ReservationResourceSpecification,
+    -- | Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+    -- standard VQ in US West (Oregon)\'
+    offeringDescription :: Prelude.Maybe Prelude.Text,
+    -- | One-time charge for each reserved resource, e.g. \'0.0\' for a
+    -- NO_UPFRONT offering
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | Recurring usage charge for each reserved resource, e.g. \'157.0\'
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | Offering type, e.g. \'NO_UPFRONT\'
+    offeringType :: Prelude.Maybe OfferingType,
+    -- | AWS region, e.g. \'us-west-2\'
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeOfferingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeOfferingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dorrsDuration' - Lease duration, e.g. '12'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dorrsDurationUnits' - Units for duration, e.g. 'MONTHS'
+-- 'duration', 'describeOfferingResponse_duration' - Lease duration, e.g. \'12\'
 --
--- * 'dorrsARN' - Unique offering ARN, e.g. 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
+-- 'durationUnits', 'describeOfferingResponse_durationUnits' - Units for duration, e.g. \'MONTHS\'
 --
--- * 'dorrsOfferingId' - Unique offering ID, e.g. '87654321'
+-- 'arn', 'describeOfferingResponse_arn' - Unique offering ARN, e.g.
+-- \'arn:aws:medialive:us-west-2:123456789012:offering:87654321\'
 --
--- * 'dorrsCurrencyCode' - Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
+-- 'offeringId', 'describeOfferingResponse_offeringId' - Unique offering ID, e.g. \'87654321\'
 --
--- * 'dorrsResourceSpecification' - Resource configuration details
+-- 'currencyCode', 'describeOfferingResponse_currencyCode' - Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+-- \'USD\'
 --
--- * 'dorrsOfferingDescription' - Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ in US West (Oregon)'
+-- 'resourceSpecification', 'describeOfferingResponse_resourceSpecification' - Resource configuration details
 --
--- * 'dorrsFixedPrice' - One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
+-- 'offeringDescription', 'describeOfferingResponse_offeringDescription' - Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+-- standard VQ in US West (Oregon)\'
 --
--- * 'dorrsUsagePrice' - Recurring usage charge for each reserved resource, e.g. '157.0'
+-- 'fixedPrice', 'describeOfferingResponse_fixedPrice' - One-time charge for each reserved resource, e.g. \'0.0\' for a
+-- NO_UPFRONT offering
 --
--- * 'dorrsOfferingType' - Offering type, e.g. 'NO_UPFRONT'
+-- 'usagePrice', 'describeOfferingResponse_usagePrice' - Recurring usage charge for each reserved resource, e.g. \'157.0\'
 --
--- * 'dorrsRegion' - AWS region, e.g. 'us-west-2'
+-- 'offeringType', 'describeOfferingResponse_offeringType' - Offering type, e.g. \'NO_UPFRONT\'
 --
--- * 'dorrsResponseStatus' - -- | The response status code.
-describeOfferingResponse ::
-  -- | 'dorrsResponseStatus'
-  Int ->
+-- 'region', 'describeOfferingResponse_region' - AWS region, e.g. \'us-west-2\'
+--
+-- 'httpStatus', 'describeOfferingResponse_httpStatus' - The response's http status code.
+newDescribeOfferingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeOfferingResponse
-describeOfferingResponse pResponseStatus_ =
+newDescribeOfferingResponse pHttpStatus_ =
   DescribeOfferingResponse'
-    { _dorrsDuration = Nothing,
-      _dorrsDurationUnits = Nothing,
-      _dorrsARN = Nothing,
-      _dorrsOfferingId = Nothing,
-      _dorrsCurrencyCode = Nothing,
-      _dorrsResourceSpecification = Nothing,
-      _dorrsOfferingDescription = Nothing,
-      _dorrsFixedPrice = Nothing,
-      _dorrsUsagePrice = Nothing,
-      _dorrsOfferingType = Nothing,
-      _dorrsRegion = Nothing,
-      _dorrsResponseStatus = pResponseStatus_
+    { duration =
+        Prelude.Nothing,
+      durationUnits = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      offeringId = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      resourceSpecification = Prelude.Nothing,
+      offeringDescription = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      region = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Lease duration, e.g. '12'
-dorrsDuration :: Lens' DescribeOfferingResponse (Maybe Int)
-dorrsDuration = lens _dorrsDuration (\s a -> s {_dorrsDuration = a})
+-- | Lease duration, e.g. \'12\'
+describeOfferingResponse_duration :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Int)
+describeOfferingResponse_duration = Lens.lens (\DescribeOfferingResponse' {duration} -> duration) (\s@DescribeOfferingResponse' {} a -> s {duration = a} :: DescribeOfferingResponse)
 
--- | Units for duration, e.g. 'MONTHS'
-dorrsDurationUnits :: Lens' DescribeOfferingResponse (Maybe OfferingDurationUnits)
-dorrsDurationUnits = lens _dorrsDurationUnits (\s a -> s {_dorrsDurationUnits = a})
+-- | Units for duration, e.g. \'MONTHS\'
+describeOfferingResponse_durationUnits :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe OfferingDurationUnits)
+describeOfferingResponse_durationUnits = Lens.lens (\DescribeOfferingResponse' {durationUnits} -> durationUnits) (\s@DescribeOfferingResponse' {} a -> s {durationUnits = a} :: DescribeOfferingResponse)
 
--- | Unique offering ARN, e.g. 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
-dorrsARN :: Lens' DescribeOfferingResponse (Maybe Text)
-dorrsARN = lens _dorrsARN (\s a -> s {_dorrsARN = a})
+-- | Unique offering ARN, e.g.
+-- \'arn:aws:medialive:us-west-2:123456789012:offering:87654321\'
+describeOfferingResponse_arn :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Text)
+describeOfferingResponse_arn = Lens.lens (\DescribeOfferingResponse' {arn} -> arn) (\s@DescribeOfferingResponse' {} a -> s {arn = a} :: DescribeOfferingResponse)
 
--- | Unique offering ID, e.g. '87654321'
-dorrsOfferingId :: Lens' DescribeOfferingResponse (Maybe Text)
-dorrsOfferingId = lens _dorrsOfferingId (\s a -> s {_dorrsOfferingId = a})
+-- | Unique offering ID, e.g. \'87654321\'
+describeOfferingResponse_offeringId :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Text)
+describeOfferingResponse_offeringId = Lens.lens (\DescribeOfferingResponse' {offeringId} -> offeringId) (\s@DescribeOfferingResponse' {} a -> s {offeringId = a} :: DescribeOfferingResponse)
 
--- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
-dorrsCurrencyCode :: Lens' DescribeOfferingResponse (Maybe Text)
-dorrsCurrencyCode = lens _dorrsCurrencyCode (\s a -> s {_dorrsCurrencyCode = a})
+-- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+-- \'USD\'
+describeOfferingResponse_currencyCode :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Text)
+describeOfferingResponse_currencyCode = Lens.lens (\DescribeOfferingResponse' {currencyCode} -> currencyCode) (\s@DescribeOfferingResponse' {} a -> s {currencyCode = a} :: DescribeOfferingResponse)
 
 -- | Resource configuration details
-dorrsResourceSpecification :: Lens' DescribeOfferingResponse (Maybe ReservationResourceSpecification)
-dorrsResourceSpecification = lens _dorrsResourceSpecification (\s a -> s {_dorrsResourceSpecification = a})
+describeOfferingResponse_resourceSpecification :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe ReservationResourceSpecification)
+describeOfferingResponse_resourceSpecification = Lens.lens (\DescribeOfferingResponse' {resourceSpecification} -> resourceSpecification) (\s@DescribeOfferingResponse' {} a -> s {resourceSpecification = a} :: DescribeOfferingResponse)
 
--- | Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ in US West (Oregon)'
-dorrsOfferingDescription :: Lens' DescribeOfferingResponse (Maybe Text)
-dorrsOfferingDescription = lens _dorrsOfferingDescription (\s a -> s {_dorrsOfferingDescription = a})
+-- | Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+-- standard VQ in US West (Oregon)\'
+describeOfferingResponse_offeringDescription :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Text)
+describeOfferingResponse_offeringDescription = Lens.lens (\DescribeOfferingResponse' {offeringDescription} -> offeringDescription) (\s@DescribeOfferingResponse' {} a -> s {offeringDescription = a} :: DescribeOfferingResponse)
 
--- | One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
-dorrsFixedPrice :: Lens' DescribeOfferingResponse (Maybe Double)
-dorrsFixedPrice = lens _dorrsFixedPrice (\s a -> s {_dorrsFixedPrice = a})
+-- | One-time charge for each reserved resource, e.g. \'0.0\' for a
+-- NO_UPFRONT offering
+describeOfferingResponse_fixedPrice :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Double)
+describeOfferingResponse_fixedPrice = Lens.lens (\DescribeOfferingResponse' {fixedPrice} -> fixedPrice) (\s@DescribeOfferingResponse' {} a -> s {fixedPrice = a} :: DescribeOfferingResponse)
 
--- | Recurring usage charge for each reserved resource, e.g. '157.0'
-dorrsUsagePrice :: Lens' DescribeOfferingResponse (Maybe Double)
-dorrsUsagePrice = lens _dorrsUsagePrice (\s a -> s {_dorrsUsagePrice = a})
+-- | Recurring usage charge for each reserved resource, e.g. \'157.0\'
+describeOfferingResponse_usagePrice :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Double)
+describeOfferingResponse_usagePrice = Lens.lens (\DescribeOfferingResponse' {usagePrice} -> usagePrice) (\s@DescribeOfferingResponse' {} a -> s {usagePrice = a} :: DescribeOfferingResponse)
 
--- | Offering type, e.g. 'NO_UPFRONT'
-dorrsOfferingType :: Lens' DescribeOfferingResponse (Maybe OfferingType)
-dorrsOfferingType = lens _dorrsOfferingType (\s a -> s {_dorrsOfferingType = a})
+-- | Offering type, e.g. \'NO_UPFRONT\'
+describeOfferingResponse_offeringType :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe OfferingType)
+describeOfferingResponse_offeringType = Lens.lens (\DescribeOfferingResponse' {offeringType} -> offeringType) (\s@DescribeOfferingResponse' {} a -> s {offeringType = a} :: DescribeOfferingResponse)
 
--- | AWS region, e.g. 'us-west-2'
-dorrsRegion :: Lens' DescribeOfferingResponse (Maybe Text)
-dorrsRegion = lens _dorrsRegion (\s a -> s {_dorrsRegion = a})
+-- | AWS region, e.g. \'us-west-2\'
+describeOfferingResponse_region :: Lens.Lens' DescribeOfferingResponse (Prelude.Maybe Prelude.Text)
+describeOfferingResponse_region = Lens.lens (\DescribeOfferingResponse' {region} -> region) (\s@DescribeOfferingResponse' {} a -> s {region = a} :: DescribeOfferingResponse)
 
--- | -- | The response status code.
-dorrsResponseStatus :: Lens' DescribeOfferingResponse Int
-dorrsResponseStatus = lens _dorrsResponseStatus (\s a -> s {_dorrsResponseStatus = a})
+-- | The response's http status code.
+describeOfferingResponse_httpStatus :: Lens.Lens' DescribeOfferingResponse Prelude.Int
+describeOfferingResponse_httpStatus = Lens.lens (\DescribeOfferingResponse' {httpStatus} -> httpStatus) (\s@DescribeOfferingResponse' {} a -> s {httpStatus = a} :: DescribeOfferingResponse)
 
-instance NFData DescribeOfferingResponse
+instance Prelude.NFData DescribeOfferingResponse

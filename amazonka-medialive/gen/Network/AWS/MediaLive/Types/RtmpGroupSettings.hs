@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,121 +19,183 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.RtmpGroupSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AuthenticationScheme
 import Network.AWS.MediaLive.Types.InputLossActionForRtmpOut
 import Network.AWS.MediaLive.Types.RtmpAdMarkers
 import Network.AWS.MediaLive.Types.RtmpCacheFullBehavior
 import Network.AWS.MediaLive.Types.RtmpCaptionData
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Rtmp Group Settings
 --
--- /See:/ 'rtmpGroupSettings' smart constructor.
+-- /See:/ 'newRtmpGroupSettings' smart constructor.
 data RtmpGroupSettings = RtmpGroupSettings'
-  { _rgsAdMarkers ::
-      !(Maybe [RtmpAdMarkers]),
-    _rgsCaptionData ::
-      !(Maybe RtmpCaptionData),
-    _rgsCacheFullBehavior ::
-      !(Maybe RtmpCacheFullBehavior),
-    _rgsCacheLength :: !(Maybe Nat),
-    _rgsAuthenticationScheme ::
-      !(Maybe AuthenticationScheme),
-    _rgsInputLossAction ::
-      !(Maybe InputLossActionForRtmpOut),
-    _rgsRestartDelay :: !(Maybe Nat)
+  { -- | Choose the ad marker type for this output group. MediaLive will create a
+    -- message based on the content of each SCTE-35 message, format it for that
+    -- marker type, and insert it in the datastream.
+    adMarkers :: Prelude.Maybe [RtmpAdMarkers],
+    -- | Controls the types of data that passes to onCaptionInfo outputs. If set
+    -- to \'all\' then 608 and 708 carried DTVCC data will be passed. If set to
+    -- \'field1AndField2608\' then DTVCC data will be stripped out, but 608
+    -- data from both fields will be passed. If set to \'field1608\' then only
+    -- the data carried in 608 from field 1 video will be passed.
+    captionData :: Prelude.Maybe RtmpCaptionData,
+    -- | Controls behavior when content cache fills up. If remote origin server
+    -- stalls the RTMP connection and does not accept content fast enough the
+    -- \'Media Cache\' will fill up. When the cache reaches the duration
+    -- specified by cacheLength the cache will stop accepting new content. If
+    -- set to disconnectImmediately, the RTMP output will force a disconnect.
+    -- Clear the media cache, and reconnect after restartDelay seconds. If set
+    -- to waitForServer, the RTMP output will wait up to 5 minutes to allow the
+    -- origin server to begin accepting data again.
+    cacheFullBehavior :: Prelude.Maybe RtmpCacheFullBehavior,
+    -- | Cache length, in seconds, is used to calculate buffer size.
+    cacheLength :: Prelude.Maybe Prelude.Nat,
+    -- | Authentication scheme to use when connecting with CDN
+    authenticationScheme :: Prelude.Maybe AuthenticationScheme,
+    -- | Controls the behavior of this RTMP group if input becomes unavailable. -
+    -- emitOutput: Emit a slate until input returns. - pauseOutput: Stop
+    -- transmitting data until input returns. This does not close the
+    -- underlying RTMP connection.
+    inputLossAction :: Prelude.Maybe InputLossActionForRtmpOut,
+    -- | If a streaming output fails, number of seconds to wait until a restart
+    -- is initiated. A value of 0 means never restart.
+    restartDelay :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RtmpGroupSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RtmpGroupSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgsAdMarkers' - Choose the ad marker type for this output group. MediaLive will create a message based on the content of each SCTE-35 message, format it for that marker type, and insert it in the datastream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgsCaptionData' - Controls the types of data that passes to onCaptionInfo outputs.  If set to 'all' then 608 and 708 carried DTVCC data will be passed.  If set to 'field1AndField2608' then DTVCC data will be stripped out, but 608 data from both fields will be passed. If set to 'field1608' then only the data carried in 608 from field 1 video will be passed.
+-- 'adMarkers', 'rtmpGroupSettings_adMarkers' - Choose the ad marker type for this output group. MediaLive will create a
+-- message based on the content of each SCTE-35 message, format it for that
+-- marker type, and insert it in the datastream.
 --
--- * 'rgsCacheFullBehavior' - Controls behavior when content cache fills up. If remote origin server stalls the RTMP connection and does not accept content fast enough the 'Media Cache' will fill up. When the cache reaches the duration specified by cacheLength the cache will stop accepting new content. If set to disconnectImmediately, the RTMP output will force a disconnect. Clear the media cache, and reconnect after restartDelay seconds. If set to waitForServer, the RTMP output will wait up to 5 minutes to allow the origin server to begin accepting data again.
+-- 'captionData', 'rtmpGroupSettings_captionData' - Controls the types of data that passes to onCaptionInfo outputs. If set
+-- to \'all\' then 608 and 708 carried DTVCC data will be passed. If set to
+-- \'field1AndField2608\' then DTVCC data will be stripped out, but 608
+-- data from both fields will be passed. If set to \'field1608\' then only
+-- the data carried in 608 from field 1 video will be passed.
 --
--- * 'rgsCacheLength' - Cache length, in seconds, is used to calculate buffer size.
+-- 'cacheFullBehavior', 'rtmpGroupSettings_cacheFullBehavior' - Controls behavior when content cache fills up. If remote origin server
+-- stalls the RTMP connection and does not accept content fast enough the
+-- \'Media Cache\' will fill up. When the cache reaches the duration
+-- specified by cacheLength the cache will stop accepting new content. If
+-- set to disconnectImmediately, the RTMP output will force a disconnect.
+-- Clear the media cache, and reconnect after restartDelay seconds. If set
+-- to waitForServer, the RTMP output will wait up to 5 minutes to allow the
+-- origin server to begin accepting data again.
 --
--- * 'rgsAuthenticationScheme' - Authentication scheme to use when connecting with CDN
+-- 'cacheLength', 'rtmpGroupSettings_cacheLength' - Cache length, in seconds, is used to calculate buffer size.
 --
--- * 'rgsInputLossAction' - Controls the behavior of this RTMP group if input becomes unavailable. - emitOutput: Emit a slate until input returns. - pauseOutput: Stop transmitting data until input returns. This does not close the underlying RTMP connection.
+-- 'authenticationScheme', 'rtmpGroupSettings_authenticationScheme' - Authentication scheme to use when connecting with CDN
 --
--- * 'rgsRestartDelay' - If a streaming output fails, number of seconds to wait until a restart is initiated. A value of 0 means never restart.
-rtmpGroupSettings ::
+-- 'inputLossAction', 'rtmpGroupSettings_inputLossAction' - Controls the behavior of this RTMP group if input becomes unavailable. -
+-- emitOutput: Emit a slate until input returns. - pauseOutput: Stop
+-- transmitting data until input returns. This does not close the
+-- underlying RTMP connection.
+--
+-- 'restartDelay', 'rtmpGroupSettings_restartDelay' - If a streaming output fails, number of seconds to wait until a restart
+-- is initiated. A value of 0 means never restart.
+newRtmpGroupSettings ::
   RtmpGroupSettings
-rtmpGroupSettings =
+newRtmpGroupSettings =
   RtmpGroupSettings'
-    { _rgsAdMarkers = Nothing,
-      _rgsCaptionData = Nothing,
-      _rgsCacheFullBehavior = Nothing,
-      _rgsCacheLength = Nothing,
-      _rgsAuthenticationScheme = Nothing,
-      _rgsInputLossAction = Nothing,
-      _rgsRestartDelay = Nothing
+    { adMarkers = Prelude.Nothing,
+      captionData = Prelude.Nothing,
+      cacheFullBehavior = Prelude.Nothing,
+      cacheLength = Prelude.Nothing,
+      authenticationScheme = Prelude.Nothing,
+      inputLossAction = Prelude.Nothing,
+      restartDelay = Prelude.Nothing
     }
 
--- | Choose the ad marker type for this output group. MediaLive will create a message based on the content of each SCTE-35 message, format it for that marker type, and insert it in the datastream.
-rgsAdMarkers :: Lens' RtmpGroupSettings [RtmpAdMarkers]
-rgsAdMarkers = lens _rgsAdMarkers (\s a -> s {_rgsAdMarkers = a}) . _Default . _Coerce
+-- | Choose the ad marker type for this output group. MediaLive will create a
+-- message based on the content of each SCTE-35 message, format it for that
+-- marker type, and insert it in the datastream.
+rtmpGroupSettings_adMarkers :: Lens.Lens' RtmpGroupSettings (Prelude.Maybe [RtmpAdMarkers])
+rtmpGroupSettings_adMarkers = Lens.lens (\RtmpGroupSettings' {adMarkers} -> adMarkers) (\s@RtmpGroupSettings' {} a -> s {adMarkers = a} :: RtmpGroupSettings) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Controls the types of data that passes to onCaptionInfo outputs.  If set to 'all' then 608 and 708 carried DTVCC data will be passed.  If set to 'field1AndField2608' then DTVCC data will be stripped out, but 608 data from both fields will be passed. If set to 'field1608' then only the data carried in 608 from field 1 video will be passed.
-rgsCaptionData :: Lens' RtmpGroupSettings (Maybe RtmpCaptionData)
-rgsCaptionData = lens _rgsCaptionData (\s a -> s {_rgsCaptionData = a})
+-- | Controls the types of data that passes to onCaptionInfo outputs. If set
+-- to \'all\' then 608 and 708 carried DTVCC data will be passed. If set to
+-- \'field1AndField2608\' then DTVCC data will be stripped out, but 608
+-- data from both fields will be passed. If set to \'field1608\' then only
+-- the data carried in 608 from field 1 video will be passed.
+rtmpGroupSettings_captionData :: Lens.Lens' RtmpGroupSettings (Prelude.Maybe RtmpCaptionData)
+rtmpGroupSettings_captionData = Lens.lens (\RtmpGroupSettings' {captionData} -> captionData) (\s@RtmpGroupSettings' {} a -> s {captionData = a} :: RtmpGroupSettings)
 
--- | Controls behavior when content cache fills up. If remote origin server stalls the RTMP connection and does not accept content fast enough the 'Media Cache' will fill up. When the cache reaches the duration specified by cacheLength the cache will stop accepting new content. If set to disconnectImmediately, the RTMP output will force a disconnect. Clear the media cache, and reconnect after restartDelay seconds. If set to waitForServer, the RTMP output will wait up to 5 minutes to allow the origin server to begin accepting data again.
-rgsCacheFullBehavior :: Lens' RtmpGroupSettings (Maybe RtmpCacheFullBehavior)
-rgsCacheFullBehavior = lens _rgsCacheFullBehavior (\s a -> s {_rgsCacheFullBehavior = a})
+-- | Controls behavior when content cache fills up. If remote origin server
+-- stalls the RTMP connection and does not accept content fast enough the
+-- \'Media Cache\' will fill up. When the cache reaches the duration
+-- specified by cacheLength the cache will stop accepting new content. If
+-- set to disconnectImmediately, the RTMP output will force a disconnect.
+-- Clear the media cache, and reconnect after restartDelay seconds. If set
+-- to waitForServer, the RTMP output will wait up to 5 minutes to allow the
+-- origin server to begin accepting data again.
+rtmpGroupSettings_cacheFullBehavior :: Lens.Lens' RtmpGroupSettings (Prelude.Maybe RtmpCacheFullBehavior)
+rtmpGroupSettings_cacheFullBehavior = Lens.lens (\RtmpGroupSettings' {cacheFullBehavior} -> cacheFullBehavior) (\s@RtmpGroupSettings' {} a -> s {cacheFullBehavior = a} :: RtmpGroupSettings)
 
 -- | Cache length, in seconds, is used to calculate buffer size.
-rgsCacheLength :: Lens' RtmpGroupSettings (Maybe Natural)
-rgsCacheLength = lens _rgsCacheLength (\s a -> s {_rgsCacheLength = a}) . mapping _Nat
+rtmpGroupSettings_cacheLength :: Lens.Lens' RtmpGroupSettings (Prelude.Maybe Prelude.Natural)
+rtmpGroupSettings_cacheLength = Lens.lens (\RtmpGroupSettings' {cacheLength} -> cacheLength) (\s@RtmpGroupSettings' {} a -> s {cacheLength = a} :: RtmpGroupSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Authentication scheme to use when connecting with CDN
-rgsAuthenticationScheme :: Lens' RtmpGroupSettings (Maybe AuthenticationScheme)
-rgsAuthenticationScheme = lens _rgsAuthenticationScheme (\s a -> s {_rgsAuthenticationScheme = a})
+rtmpGroupSettings_authenticationScheme :: Lens.Lens' RtmpGroupSettings (Prelude.Maybe AuthenticationScheme)
+rtmpGroupSettings_authenticationScheme = Lens.lens (\RtmpGroupSettings' {authenticationScheme} -> authenticationScheme) (\s@RtmpGroupSettings' {} a -> s {authenticationScheme = a} :: RtmpGroupSettings)
 
--- | Controls the behavior of this RTMP group if input becomes unavailable. - emitOutput: Emit a slate until input returns. - pauseOutput: Stop transmitting data until input returns. This does not close the underlying RTMP connection.
-rgsInputLossAction :: Lens' RtmpGroupSettings (Maybe InputLossActionForRtmpOut)
-rgsInputLossAction = lens _rgsInputLossAction (\s a -> s {_rgsInputLossAction = a})
+-- | Controls the behavior of this RTMP group if input becomes unavailable. -
+-- emitOutput: Emit a slate until input returns. - pauseOutput: Stop
+-- transmitting data until input returns. This does not close the
+-- underlying RTMP connection.
+rtmpGroupSettings_inputLossAction :: Lens.Lens' RtmpGroupSettings (Prelude.Maybe InputLossActionForRtmpOut)
+rtmpGroupSettings_inputLossAction = Lens.lens (\RtmpGroupSettings' {inputLossAction} -> inputLossAction) (\s@RtmpGroupSettings' {} a -> s {inputLossAction = a} :: RtmpGroupSettings)
 
--- | If a streaming output fails, number of seconds to wait until a restart is initiated. A value of 0 means never restart.
-rgsRestartDelay :: Lens' RtmpGroupSettings (Maybe Natural)
-rgsRestartDelay = lens _rgsRestartDelay (\s a -> s {_rgsRestartDelay = a}) . mapping _Nat
+-- | If a streaming output fails, number of seconds to wait until a restart
+-- is initiated. A value of 0 means never restart.
+rtmpGroupSettings_restartDelay :: Lens.Lens' RtmpGroupSettings (Prelude.Maybe Prelude.Natural)
+rtmpGroupSettings_restartDelay = Lens.lens (\RtmpGroupSettings' {restartDelay} -> restartDelay) (\s@RtmpGroupSettings' {} a -> s {restartDelay = a} :: RtmpGroupSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON RtmpGroupSettings where
+instance Prelude.FromJSON RtmpGroupSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RtmpGroupSettings"
       ( \x ->
           RtmpGroupSettings'
-            <$> (x .:? "adMarkers" .!= mempty)
-            <*> (x .:? "captionData")
-            <*> (x .:? "cacheFullBehavior")
-            <*> (x .:? "cacheLength")
-            <*> (x .:? "authenticationScheme")
-            <*> (x .:? "inputLossAction")
-            <*> (x .:? "restartDelay")
+            Prelude.<$> ( x Prelude..:? "adMarkers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "captionData")
+            Prelude.<*> (x Prelude..:? "cacheFullBehavior")
+            Prelude.<*> (x Prelude..:? "cacheLength")
+            Prelude.<*> (x Prelude..:? "authenticationScheme")
+            Prelude.<*> (x Prelude..:? "inputLossAction")
+            Prelude.<*> (x Prelude..:? "restartDelay")
       )
 
-instance Hashable RtmpGroupSettings
+instance Prelude.Hashable RtmpGroupSettings
 
-instance NFData RtmpGroupSettings
+instance Prelude.NFData RtmpGroupSettings
 
-instance ToJSON RtmpGroupSettings where
+instance Prelude.ToJSON RtmpGroupSettings where
   toJSON RtmpGroupSettings' {..} =
-    object
-      ( catMaybes
-          [ ("adMarkers" .=) <$> _rgsAdMarkers,
-            ("captionData" .=) <$> _rgsCaptionData,
-            ("cacheFullBehavior" .=) <$> _rgsCacheFullBehavior,
-            ("cacheLength" .=) <$> _rgsCacheLength,
-            ("authenticationScheme" .=)
-              <$> _rgsAuthenticationScheme,
-            ("inputLossAction" .=) <$> _rgsInputLossAction,
-            ("restartDelay" .=) <$> _rgsRestartDelay
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("adMarkers" Prelude..=) Prelude.<$> adMarkers,
+            ("captionData" Prelude..=) Prelude.<$> captionData,
+            ("cacheFullBehavior" Prelude..=)
+              Prelude.<$> cacheFullBehavior,
+            ("cacheLength" Prelude..=) Prelude.<$> cacheLength,
+            ("authenticationScheme" Prelude..=)
+              Prelude.<$> authenticationScheme,
+            ("inputLossAction" Prelude..=)
+              Prelude.<$> inputLossAction,
+            ("restartDelay" Prelude..=)
+              Prelude.<$> restartDelay
           ]
       )

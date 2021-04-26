@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsAribCaptionsPidControl
   ( M2tsAribCaptionsPidControl
       ( ..,
-        MACPCAuto,
-        MACPCUseConfigured
+        M2tsAribCaptionsPidControlAUTO,
+        M2tsAribCaptionsPidControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Arib Captions Pid Control
-data M2tsAribCaptionsPidControl
-  = M2tsAribCaptionsPidControl'
-      ( CI
-          Text
-      )
+newtype M2tsAribCaptionsPidControl = M2tsAribCaptionsPidControl'
+  { fromM2tsAribCaptionsPidControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MACPCAuto :: M2tsAribCaptionsPidControl
-pattern MACPCAuto = M2tsAribCaptionsPidControl' "AUTO"
+pattern M2tsAribCaptionsPidControlAUTO :: M2tsAribCaptionsPidControl
+pattern M2tsAribCaptionsPidControlAUTO = M2tsAribCaptionsPidControl' "AUTO"
 
-pattern MACPCUseConfigured :: M2tsAribCaptionsPidControl
-pattern MACPCUseConfigured = M2tsAribCaptionsPidControl' "USE_CONFIGURED"
+pattern M2tsAribCaptionsPidControlUSECONFIGURED :: M2tsAribCaptionsPidControl
+pattern M2tsAribCaptionsPidControlUSECONFIGURED = M2tsAribCaptionsPidControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  MACPCAuto,
-  MACPCUseConfigured,
+  M2tsAribCaptionsPidControlAUTO,
+  M2tsAribCaptionsPidControlUSECONFIGURED,
   M2tsAribCaptionsPidControl'
   #-}
 
-instance FromText M2tsAribCaptionsPidControl where
-  parser = (M2tsAribCaptionsPidControl' . mk) <$> takeText
+instance Prelude.FromText M2tsAribCaptionsPidControl where
+  parser = M2tsAribCaptionsPidControl' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsAribCaptionsPidControl where
-  toText (M2tsAribCaptionsPidControl' ci) = original ci
+instance Prelude.ToText M2tsAribCaptionsPidControl where
+  toText (M2tsAribCaptionsPidControl' x) = x
 
-instance Hashable M2tsAribCaptionsPidControl
+instance Prelude.Hashable M2tsAribCaptionsPidControl
 
-instance NFData M2tsAribCaptionsPidControl
+instance Prelude.NFData M2tsAribCaptionsPidControl
 
-instance ToByteString M2tsAribCaptionsPidControl
+instance Prelude.ToByteString M2tsAribCaptionsPidControl
 
-instance ToQuery M2tsAribCaptionsPidControl
+instance Prelude.ToQuery M2tsAribCaptionsPidControl
 
-instance ToHeader M2tsAribCaptionsPidControl
+instance Prelude.ToHeader M2tsAribCaptionsPidControl
 
-instance ToJSON M2tsAribCaptionsPidControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsAribCaptionsPidControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsAribCaptionsPidControl where
-  parseJSON = parseJSONText "M2tsAribCaptionsPidControl"
+instance Prelude.FromJSON M2tsAribCaptionsPidControl where
+  parseJSON = Prelude.parseJSONText "M2tsAribCaptionsPidControl"

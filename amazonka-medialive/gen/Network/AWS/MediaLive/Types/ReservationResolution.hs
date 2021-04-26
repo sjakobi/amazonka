@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,68 @@
 module Network.AWS.MediaLive.Types.ReservationResolution
   ( ReservationResolution
       ( ..,
-        RRFhd,
-        RRHD,
-        RRSD,
-        RRUhd
+        ReservationResolutionFHD,
+        ReservationResolutionHD,
+        ReservationResolutionSD,
+        ReservationResolutionUHD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Resolution based on lines of vertical resolution; SD is less than 720 lines, HD is 720 to 1080 lines, FHD is 1080 lines, UHD is greater than 1080 lines
-data ReservationResolution
-  = ReservationResolution'
-      ( CI
-          Text
-      )
+-- | Resolution based on lines of vertical resolution; SD is less than 720
+-- lines, HD is 720 to 1080 lines, FHD is 1080 lines, UHD is greater than
+-- 1080 lines
+newtype ReservationResolution = ReservationResolution'
+  { fromReservationResolution ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RRFhd :: ReservationResolution
-pattern RRFhd = ReservationResolution' "FHD"
+pattern ReservationResolutionFHD :: ReservationResolution
+pattern ReservationResolutionFHD = ReservationResolution' "FHD"
 
-pattern RRHD :: ReservationResolution
-pattern RRHD = ReservationResolution' "HD"
+pattern ReservationResolutionHD :: ReservationResolution
+pattern ReservationResolutionHD = ReservationResolution' "HD"
 
-pattern RRSD :: ReservationResolution
-pattern RRSD = ReservationResolution' "SD"
+pattern ReservationResolutionSD :: ReservationResolution
+pattern ReservationResolutionSD = ReservationResolution' "SD"
 
-pattern RRUhd :: ReservationResolution
-pattern RRUhd = ReservationResolution' "UHD"
+pattern ReservationResolutionUHD :: ReservationResolution
+pattern ReservationResolutionUHD = ReservationResolution' "UHD"
 
 {-# COMPLETE
-  RRFhd,
-  RRHD,
-  RRSD,
-  RRUhd,
+  ReservationResolutionFHD,
+  ReservationResolutionHD,
+  ReservationResolutionSD,
+  ReservationResolutionUHD,
   ReservationResolution'
   #-}
 
-instance FromText ReservationResolution where
-  parser = (ReservationResolution' . mk) <$> takeText
+instance Prelude.FromText ReservationResolution where
+  parser = ReservationResolution' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationResolution where
-  toText (ReservationResolution' ci) = original ci
+instance Prelude.ToText ReservationResolution where
+  toText (ReservationResolution' x) = x
 
-instance Hashable ReservationResolution
+instance Prelude.Hashable ReservationResolution
 
-instance NFData ReservationResolution
+instance Prelude.NFData ReservationResolution
 
-instance ToByteString ReservationResolution
+instance Prelude.ToByteString ReservationResolution
 
-instance ToQuery ReservationResolution
+instance Prelude.ToQuery ReservationResolution
 
-instance ToHeader ReservationResolution
+instance Prelude.ToHeader ReservationResolution
 
-instance FromJSON ReservationResolution where
-  parseJSON = parseJSONText "ReservationResolution"
+instance Prelude.FromJSON ReservationResolution where
+  parseJSON = Prelude.parseJSONText "ReservationResolution"

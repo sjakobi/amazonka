@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,79 @@
 module Network.AWS.MediaLive.Types.BurnInOutlineColor
   ( BurnInOutlineColor
       ( ..,
-        BIOCBlack,
-        BIOCBlue,
-        BIOCGreen,
-        BIOCRed,
-        BIOCWhite,
-        BIOCYellow
+        BurnInOutlineColorBLACK,
+        BurnInOutlineColorBLUE,
+        BurnInOutlineColorGREEN,
+        BurnInOutlineColorRED,
+        BurnInOutlineColorWHITE,
+        BurnInOutlineColorYELLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Burn In Outline Color
-data BurnInOutlineColor
-  = BurnInOutlineColor'
-      ( CI
-          Text
-      )
+newtype BurnInOutlineColor = BurnInOutlineColor'
+  { fromBurnInOutlineColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BIOCBlack :: BurnInOutlineColor
-pattern BIOCBlack = BurnInOutlineColor' "BLACK"
+pattern BurnInOutlineColorBLACK :: BurnInOutlineColor
+pattern BurnInOutlineColorBLACK = BurnInOutlineColor' "BLACK"
 
-pattern BIOCBlue :: BurnInOutlineColor
-pattern BIOCBlue = BurnInOutlineColor' "BLUE"
+pattern BurnInOutlineColorBLUE :: BurnInOutlineColor
+pattern BurnInOutlineColorBLUE = BurnInOutlineColor' "BLUE"
 
-pattern BIOCGreen :: BurnInOutlineColor
-pattern BIOCGreen = BurnInOutlineColor' "GREEN"
+pattern BurnInOutlineColorGREEN :: BurnInOutlineColor
+pattern BurnInOutlineColorGREEN = BurnInOutlineColor' "GREEN"
 
-pattern BIOCRed :: BurnInOutlineColor
-pattern BIOCRed = BurnInOutlineColor' "RED"
+pattern BurnInOutlineColorRED :: BurnInOutlineColor
+pattern BurnInOutlineColorRED = BurnInOutlineColor' "RED"
 
-pattern BIOCWhite :: BurnInOutlineColor
-pattern BIOCWhite = BurnInOutlineColor' "WHITE"
+pattern BurnInOutlineColorWHITE :: BurnInOutlineColor
+pattern BurnInOutlineColorWHITE = BurnInOutlineColor' "WHITE"
 
-pattern BIOCYellow :: BurnInOutlineColor
-pattern BIOCYellow = BurnInOutlineColor' "YELLOW"
+pattern BurnInOutlineColorYELLOW :: BurnInOutlineColor
+pattern BurnInOutlineColorYELLOW = BurnInOutlineColor' "YELLOW"
 
 {-# COMPLETE
-  BIOCBlack,
-  BIOCBlue,
-  BIOCGreen,
-  BIOCRed,
-  BIOCWhite,
-  BIOCYellow,
+  BurnInOutlineColorBLACK,
+  BurnInOutlineColorBLUE,
+  BurnInOutlineColorGREEN,
+  BurnInOutlineColorRED,
+  BurnInOutlineColorWHITE,
+  BurnInOutlineColorYELLOW,
   BurnInOutlineColor'
   #-}
 
-instance FromText BurnInOutlineColor where
-  parser = (BurnInOutlineColor' . mk) <$> takeText
+instance Prelude.FromText BurnInOutlineColor where
+  parser = BurnInOutlineColor' Prelude.<$> Prelude.takeText
 
-instance ToText BurnInOutlineColor where
-  toText (BurnInOutlineColor' ci) = original ci
+instance Prelude.ToText BurnInOutlineColor where
+  toText (BurnInOutlineColor' x) = x
 
-instance Hashable BurnInOutlineColor
+instance Prelude.Hashable BurnInOutlineColor
 
-instance NFData BurnInOutlineColor
+instance Prelude.NFData BurnInOutlineColor
 
-instance ToByteString BurnInOutlineColor
+instance Prelude.ToByteString BurnInOutlineColor
 
-instance ToQuery BurnInOutlineColor
+instance Prelude.ToQuery BurnInOutlineColor
 
-instance ToHeader BurnInOutlineColor
+instance Prelude.ToHeader BurnInOutlineColor
 
-instance ToJSON BurnInOutlineColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurnInOutlineColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurnInOutlineColor where
-  parseJSON = parseJSONText "BurnInOutlineColor"
+instance Prelude.FromJSON BurnInOutlineColor where
+  parseJSON = Prelude.parseJSONText "BurnInOutlineColor"

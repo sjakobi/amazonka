@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,35 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AribDestinationSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Arib Destination Settings
 --
--- /See:/ 'aribDestinationSettings' smart constructor.
+-- /See:/ 'newAribDestinationSettings' smart constructor.
 data AribDestinationSettings = AribDestinationSettings'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AribDestinationSettings' with the minimum fields required to make a request.
-aribDestinationSettings ::
+-- |
+-- Create a value of 'AribDestinationSettings' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAribDestinationSettings ::
   AribDestinationSettings
-aribDestinationSettings = AribDestinationSettings'
+newAribDestinationSettings = AribDestinationSettings'
 
-instance FromJSON AribDestinationSettings where
+instance Prelude.FromJSON AribDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AribDestinationSettings"
-      (\x -> pure AribDestinationSettings')
+      (\x -> Prelude.pure AribDestinationSettings')
 
-instance Hashable AribDestinationSettings
+instance Prelude.Hashable AribDestinationSettings
 
-instance NFData AribDestinationSettings
+instance Prelude.NFData AribDestinationSettings
 
-instance ToJSON AribDestinationSettings where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON AribDestinationSettings where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)

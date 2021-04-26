@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsAudioStreamType
   ( M2tsAudioStreamType
       ( ..,
-        MASTAtsc,
-        MASTDvb
+        M2tsAudioStreamTypeATSC,
+        M2tsAudioStreamTypeDVB
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Audio Stream Type
-data M2tsAudioStreamType
-  = M2tsAudioStreamType'
-      ( CI
-          Text
-      )
+newtype M2tsAudioStreamType = M2tsAudioStreamType'
+  { fromM2tsAudioStreamType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MASTAtsc :: M2tsAudioStreamType
-pattern MASTAtsc = M2tsAudioStreamType' "ATSC"
+pattern M2tsAudioStreamTypeATSC :: M2tsAudioStreamType
+pattern M2tsAudioStreamTypeATSC = M2tsAudioStreamType' "ATSC"
 
-pattern MASTDvb :: M2tsAudioStreamType
-pattern MASTDvb = M2tsAudioStreamType' "DVB"
+pattern M2tsAudioStreamTypeDVB :: M2tsAudioStreamType
+pattern M2tsAudioStreamTypeDVB = M2tsAudioStreamType' "DVB"
 
 {-# COMPLETE
-  MASTAtsc,
-  MASTDvb,
+  M2tsAudioStreamTypeATSC,
+  M2tsAudioStreamTypeDVB,
   M2tsAudioStreamType'
   #-}
 
-instance FromText M2tsAudioStreamType where
-  parser = (M2tsAudioStreamType' . mk) <$> takeText
+instance Prelude.FromText M2tsAudioStreamType where
+  parser = M2tsAudioStreamType' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsAudioStreamType where
-  toText (M2tsAudioStreamType' ci) = original ci
+instance Prelude.ToText M2tsAudioStreamType where
+  toText (M2tsAudioStreamType' x) = x
 
-instance Hashable M2tsAudioStreamType
+instance Prelude.Hashable M2tsAudioStreamType
 
-instance NFData M2tsAudioStreamType
+instance Prelude.NFData M2tsAudioStreamType
 
-instance ToByteString M2tsAudioStreamType
+instance Prelude.ToByteString M2tsAudioStreamType
 
-instance ToQuery M2tsAudioStreamType
+instance Prelude.ToQuery M2tsAudioStreamType
 
-instance ToHeader M2tsAudioStreamType
+instance Prelude.ToHeader M2tsAudioStreamType
 
-instance ToJSON M2tsAudioStreamType where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsAudioStreamType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsAudioStreamType where
-  parseJSON = parseJSONText "M2tsAudioStreamType"
+instance Prelude.FromJSON M2tsAudioStreamType where
+  parseJSON = Prelude.parseJSONText "M2tsAudioStreamType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,49 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MultiplexOutputDestination where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.MultiplexMediaConnectOutputDestinationSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Multiplex output destination settings
 --
--- /See:/ 'multiplexOutputDestination' smart constructor.
-newtype MultiplexOutputDestination = MultiplexOutputDestination'
-  { _modMediaConnectSettings ::
-      Maybe
-        MultiplexMediaConnectOutputDestinationSettings
+-- /See:/ 'newMultiplexOutputDestination' smart constructor.
+data MultiplexOutputDestination = MultiplexOutputDestination'
+  { -- | Multiplex MediaConnect output destination settings.
+    mediaConnectSettings :: Prelude.Maybe MultiplexMediaConnectOutputDestinationSettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultiplexOutputDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultiplexOutputDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'modMediaConnectSettings' - Multiplex MediaConnect output destination settings.
-multiplexOutputDestination ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'mediaConnectSettings', 'multiplexOutputDestination_mediaConnectSettings' - Multiplex MediaConnect output destination settings.
+newMultiplexOutputDestination ::
   MultiplexOutputDestination
-multiplexOutputDestination =
+newMultiplexOutputDestination =
   MultiplexOutputDestination'
-    { _modMediaConnectSettings =
-        Nothing
+    { mediaConnectSettings =
+        Prelude.Nothing
     }
 
 -- | Multiplex MediaConnect output destination settings.
-modMediaConnectSettings :: Lens' MultiplexOutputDestination (Maybe MultiplexMediaConnectOutputDestinationSettings)
-modMediaConnectSettings = lens _modMediaConnectSettings (\s a -> s {_modMediaConnectSettings = a})
+multiplexOutputDestination_mediaConnectSettings :: Lens.Lens' MultiplexOutputDestination (Prelude.Maybe MultiplexMediaConnectOutputDestinationSettings)
+multiplexOutputDestination_mediaConnectSettings = Lens.lens (\MultiplexOutputDestination' {mediaConnectSettings} -> mediaConnectSettings) (\s@MultiplexOutputDestination' {} a -> s {mediaConnectSettings = a} :: MultiplexOutputDestination)
 
-instance FromJSON MultiplexOutputDestination where
+instance Prelude.FromJSON MultiplexOutputDestination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MultiplexOutputDestination"
       ( \x ->
           MultiplexOutputDestination'
-            <$> (x .:? "mediaConnectSettings")
+            Prelude.<$> (x Prelude..:? "mediaConnectSettings")
       )
 
-instance Hashable MultiplexOutputDestination
+instance Prelude.Hashable MultiplexOutputDestination
 
-instance NFData MultiplexOutputDestination
+instance Prelude.NFData MultiplexOutputDestination

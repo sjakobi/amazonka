@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.H264TimecodeInsertionBehavior
   ( H264TimecodeInsertionBehavior
       ( ..,
-        HTIBDisabled,
-        HTIBPicTimingSei
+        H264TimecodeInsertionBehaviorDISABLED,
+        H264TimecodeInsertionBehaviorPICTIMINGSEI
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Timecode Insertion Behavior
-data H264TimecodeInsertionBehavior
-  = H264TimecodeInsertionBehavior'
-      ( CI
-          Text
-      )
+newtype H264TimecodeInsertionBehavior = H264TimecodeInsertionBehavior'
+  { fromH264TimecodeInsertionBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HTIBDisabled :: H264TimecodeInsertionBehavior
-pattern HTIBDisabled = H264TimecodeInsertionBehavior' "DISABLED"
+pattern H264TimecodeInsertionBehaviorDISABLED :: H264TimecodeInsertionBehavior
+pattern H264TimecodeInsertionBehaviorDISABLED = H264TimecodeInsertionBehavior' "DISABLED"
 
-pattern HTIBPicTimingSei :: H264TimecodeInsertionBehavior
-pattern HTIBPicTimingSei = H264TimecodeInsertionBehavior' "PIC_TIMING_SEI"
+pattern H264TimecodeInsertionBehaviorPICTIMINGSEI :: H264TimecodeInsertionBehavior
+pattern H264TimecodeInsertionBehaviorPICTIMINGSEI = H264TimecodeInsertionBehavior' "PIC_TIMING_SEI"
 
 {-# COMPLETE
-  HTIBDisabled,
-  HTIBPicTimingSei,
+  H264TimecodeInsertionBehaviorDISABLED,
+  H264TimecodeInsertionBehaviorPICTIMINGSEI,
   H264TimecodeInsertionBehavior'
   #-}
 
-instance FromText H264TimecodeInsertionBehavior where
-  parser = (H264TimecodeInsertionBehavior' . mk) <$> takeText
+instance Prelude.FromText H264TimecodeInsertionBehavior where
+  parser = H264TimecodeInsertionBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText H264TimecodeInsertionBehavior where
-  toText (H264TimecodeInsertionBehavior' ci) = original ci
+instance Prelude.ToText H264TimecodeInsertionBehavior where
+  toText (H264TimecodeInsertionBehavior' x) = x
 
-instance Hashable H264TimecodeInsertionBehavior
+instance Prelude.Hashable H264TimecodeInsertionBehavior
 
-instance NFData H264TimecodeInsertionBehavior
+instance Prelude.NFData H264TimecodeInsertionBehavior
 
-instance ToByteString H264TimecodeInsertionBehavior
+instance Prelude.ToByteString H264TimecodeInsertionBehavior
 
-instance ToQuery H264TimecodeInsertionBehavior
+instance Prelude.ToQuery H264TimecodeInsertionBehavior
 
-instance ToHeader H264TimecodeInsertionBehavior
+instance Prelude.ToHeader H264TimecodeInsertionBehavior
 
-instance ToJSON H264TimecodeInsertionBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264TimecodeInsertionBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264TimecodeInsertionBehavior where
-  parseJSON = parseJSONText "H264TimecodeInsertionBehavior"
+instance Prelude.FromJSON H264TimecodeInsertionBehavior where
+  parseJSON = Prelude.parseJSONText "H264TimecodeInsertionBehavior"

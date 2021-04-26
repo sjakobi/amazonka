@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,114 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.HlsInputSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Input Settings
 --
--- /See:/ 'hlsInputSettings' smart constructor.
+-- /See:/ 'newHlsInputSettings' smart constructor.
 data HlsInputSettings = HlsInputSettings'
-  { _hisRetryInterval ::
-      !(Maybe Nat),
-    _hisBandwidth :: !(Maybe Nat),
-    _hisRetries :: !(Maybe Nat),
-    _hisBufferSegments :: !(Maybe Nat)
+  { -- | The number of seconds between retries when an attempt to read a manifest
+    -- or segment fails.
+    retryInterval :: Prelude.Maybe Prelude.Nat,
+    -- | When specified the HLS stream with the m3u8 BANDWIDTH that most closely
+    -- matches this value will be chosen, otherwise the highest bandwidth
+    -- stream in the m3u8 will be chosen. The bitrate is specified in bits per
+    -- second, as in an HLS manifest.
+    bandwidth :: Prelude.Maybe Prelude.Nat,
+    -- | The number of consecutive times that attempts to read a manifest or
+    -- segment must fail before the input is considered unavailable.
+    retries :: Prelude.Maybe Prelude.Nat,
+    -- | When specified, reading of the HLS input will begin this many buffer
+    -- segments from the end (most recently written segment). When not
+    -- specified, the HLS input will begin with the first segment specified in
+    -- the m3u8.
+    bufferSegments :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HlsInputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HlsInputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hisRetryInterval' - The number of seconds between retries when an attempt to read a manifest or segment fails.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hisBandwidth' - When specified the HLS stream with the m3u8 BANDWIDTH that most closely matches this value will be chosen, otherwise the highest bandwidth stream in the m3u8 will be chosen.  The bitrate is specified in bits per second, as in an HLS manifest.
+-- 'retryInterval', 'hlsInputSettings_retryInterval' - The number of seconds between retries when an attempt to read a manifest
+-- or segment fails.
 --
--- * 'hisRetries' - The number of consecutive times that attempts to read a manifest or segment must fail before the input is considered unavailable.
+-- 'bandwidth', 'hlsInputSettings_bandwidth' - When specified the HLS stream with the m3u8 BANDWIDTH that most closely
+-- matches this value will be chosen, otherwise the highest bandwidth
+-- stream in the m3u8 will be chosen. The bitrate is specified in bits per
+-- second, as in an HLS manifest.
 --
--- * 'hisBufferSegments' - When specified, reading of the HLS input will begin this many buffer segments from the end (most recently written segment).  When not specified, the HLS input will begin with the first segment specified in the m3u8.
-hlsInputSettings ::
+-- 'retries', 'hlsInputSettings_retries' - The number of consecutive times that attempts to read a manifest or
+-- segment must fail before the input is considered unavailable.
+--
+-- 'bufferSegments', 'hlsInputSettings_bufferSegments' - When specified, reading of the HLS input will begin this many buffer
+-- segments from the end (most recently written segment). When not
+-- specified, the HLS input will begin with the first segment specified in
+-- the m3u8.
+newHlsInputSettings ::
   HlsInputSettings
-hlsInputSettings =
+newHlsInputSettings =
   HlsInputSettings'
-    { _hisRetryInterval = Nothing,
-      _hisBandwidth = Nothing,
-      _hisRetries = Nothing,
-      _hisBufferSegments = Nothing
+    { retryInterval = Prelude.Nothing,
+      bandwidth = Prelude.Nothing,
+      retries = Prelude.Nothing,
+      bufferSegments = Prelude.Nothing
     }
 
--- | The number of seconds between retries when an attempt to read a manifest or segment fails.
-hisRetryInterval :: Lens' HlsInputSettings (Maybe Natural)
-hisRetryInterval = lens _hisRetryInterval (\s a -> s {_hisRetryInterval = a}) . mapping _Nat
+-- | The number of seconds between retries when an attempt to read a manifest
+-- or segment fails.
+hlsInputSettings_retryInterval :: Lens.Lens' HlsInputSettings (Prelude.Maybe Prelude.Natural)
+hlsInputSettings_retryInterval = Lens.lens (\HlsInputSettings' {retryInterval} -> retryInterval) (\s@HlsInputSettings' {} a -> s {retryInterval = a} :: HlsInputSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | When specified the HLS stream with the m3u8 BANDWIDTH that most closely matches this value will be chosen, otherwise the highest bandwidth stream in the m3u8 will be chosen.  The bitrate is specified in bits per second, as in an HLS manifest.
-hisBandwidth :: Lens' HlsInputSettings (Maybe Natural)
-hisBandwidth = lens _hisBandwidth (\s a -> s {_hisBandwidth = a}) . mapping _Nat
+-- | When specified the HLS stream with the m3u8 BANDWIDTH that most closely
+-- matches this value will be chosen, otherwise the highest bandwidth
+-- stream in the m3u8 will be chosen. The bitrate is specified in bits per
+-- second, as in an HLS manifest.
+hlsInputSettings_bandwidth :: Lens.Lens' HlsInputSettings (Prelude.Maybe Prelude.Natural)
+hlsInputSettings_bandwidth = Lens.lens (\HlsInputSettings' {bandwidth} -> bandwidth) (\s@HlsInputSettings' {} a -> s {bandwidth = a} :: HlsInputSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of consecutive times that attempts to read a manifest or segment must fail before the input is considered unavailable.
-hisRetries :: Lens' HlsInputSettings (Maybe Natural)
-hisRetries = lens _hisRetries (\s a -> s {_hisRetries = a}) . mapping _Nat
+-- | The number of consecutive times that attempts to read a manifest or
+-- segment must fail before the input is considered unavailable.
+hlsInputSettings_retries :: Lens.Lens' HlsInputSettings (Prelude.Maybe Prelude.Natural)
+hlsInputSettings_retries = Lens.lens (\HlsInputSettings' {retries} -> retries) (\s@HlsInputSettings' {} a -> s {retries = a} :: HlsInputSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | When specified, reading of the HLS input will begin this many buffer segments from the end (most recently written segment).  When not specified, the HLS input will begin with the first segment specified in the m3u8.
-hisBufferSegments :: Lens' HlsInputSettings (Maybe Natural)
-hisBufferSegments = lens _hisBufferSegments (\s a -> s {_hisBufferSegments = a}) . mapping _Nat
+-- | When specified, reading of the HLS input will begin this many buffer
+-- segments from the end (most recently written segment). When not
+-- specified, the HLS input will begin with the first segment specified in
+-- the m3u8.
+hlsInputSettings_bufferSegments :: Lens.Lens' HlsInputSettings (Prelude.Maybe Prelude.Natural)
+hlsInputSettings_bufferSegments = Lens.lens (\HlsInputSettings' {bufferSegments} -> bufferSegments) (\s@HlsInputSettings' {} a -> s {bufferSegments = a} :: HlsInputSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON HlsInputSettings where
+instance Prelude.FromJSON HlsInputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HlsInputSettings"
       ( \x ->
           HlsInputSettings'
-            <$> (x .:? "retryInterval")
-            <*> (x .:? "bandwidth")
-            <*> (x .:? "retries")
-            <*> (x .:? "bufferSegments")
+            Prelude.<$> (x Prelude..:? "retryInterval")
+            Prelude.<*> (x Prelude..:? "bandwidth")
+            Prelude.<*> (x Prelude..:? "retries")
+            Prelude.<*> (x Prelude..:? "bufferSegments")
       )
 
-instance Hashable HlsInputSettings
+instance Prelude.Hashable HlsInputSettings
 
-instance NFData HlsInputSettings
+instance Prelude.NFData HlsInputSettings
 
-instance ToJSON HlsInputSettings where
+instance Prelude.ToJSON HlsInputSettings where
   toJSON HlsInputSettings' {..} =
-    object
-      ( catMaybes
-          [ ("retryInterval" .=) <$> _hisRetryInterval,
-            ("bandwidth" .=) <$> _hisBandwidth,
-            ("retries" .=) <$> _hisRetries,
-            ("bufferSegments" .=) <$> _hisBufferSegments
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("retryInterval" Prelude..=)
+              Prelude.<$> retryInterval,
+            ("bandwidth" Prelude..=) Prelude.<$> bandwidth,
+            ("retries" Prelude..=) Prelude.<$> retries,
+            ("bufferSegments" Prelude..=)
+              Prelude.<$> bufferSegments
           ]
       )

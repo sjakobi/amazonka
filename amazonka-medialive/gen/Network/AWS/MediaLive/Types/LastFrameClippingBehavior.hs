@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,61 @@
 module Network.AWS.MediaLive.Types.LastFrameClippingBehavior
   ( LastFrameClippingBehavior
       ( ..,
-        ExcludeLastFrame,
-        IncludeLastFrame
+        LastFrameClippingBehaviorEXCLUDELASTFRAME,
+        LastFrameClippingBehaviorINCLUDELASTFRAME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | If you specify a StopTimecode in an input (in order to clip the file), you can specify if you want the clip to exclude (the default) or include the frame specified by the timecode.
-data LastFrameClippingBehavior
-  = LastFrameClippingBehavior'
-      ( CI
-          Text
-      )
+-- | If you specify a StopTimecode in an input (in order to clip the file),
+-- you can specify if you want the clip to exclude (the default) or include
+-- the frame specified by the timecode.
+newtype LastFrameClippingBehavior = LastFrameClippingBehavior'
+  { fromLastFrameClippingBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ExcludeLastFrame :: LastFrameClippingBehavior
-pattern ExcludeLastFrame = LastFrameClippingBehavior' "EXCLUDE_LAST_FRAME"
+pattern LastFrameClippingBehaviorEXCLUDELASTFRAME :: LastFrameClippingBehavior
+pattern LastFrameClippingBehaviorEXCLUDELASTFRAME = LastFrameClippingBehavior' "EXCLUDE_LAST_FRAME"
 
-pattern IncludeLastFrame :: LastFrameClippingBehavior
-pattern IncludeLastFrame = LastFrameClippingBehavior' "INCLUDE_LAST_FRAME"
+pattern LastFrameClippingBehaviorINCLUDELASTFRAME :: LastFrameClippingBehavior
+pattern LastFrameClippingBehaviorINCLUDELASTFRAME = LastFrameClippingBehavior' "INCLUDE_LAST_FRAME"
 
 {-# COMPLETE
-  ExcludeLastFrame,
-  IncludeLastFrame,
+  LastFrameClippingBehaviorEXCLUDELASTFRAME,
+  LastFrameClippingBehaviorINCLUDELASTFRAME,
   LastFrameClippingBehavior'
   #-}
 
-instance FromText LastFrameClippingBehavior where
-  parser = (LastFrameClippingBehavior' . mk) <$> takeText
+instance Prelude.FromText LastFrameClippingBehavior where
+  parser = LastFrameClippingBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText LastFrameClippingBehavior where
-  toText (LastFrameClippingBehavior' ci) = original ci
+instance Prelude.ToText LastFrameClippingBehavior where
+  toText (LastFrameClippingBehavior' x) = x
 
-instance Hashable LastFrameClippingBehavior
+instance Prelude.Hashable LastFrameClippingBehavior
 
-instance NFData LastFrameClippingBehavior
+instance Prelude.NFData LastFrameClippingBehavior
 
-instance ToByteString LastFrameClippingBehavior
+instance Prelude.ToByteString LastFrameClippingBehavior
 
-instance ToQuery LastFrameClippingBehavior
+instance Prelude.ToQuery LastFrameClippingBehavior
 
-instance ToHeader LastFrameClippingBehavior
+instance Prelude.ToHeader LastFrameClippingBehavior
 
-instance ToJSON LastFrameClippingBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON LastFrameClippingBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON LastFrameClippingBehavior where
-  parseJSON = parseJSONText "LastFrameClippingBehavior"
+instance Prelude.FromJSON LastFrameClippingBehavior where
+  parseJSON = Prelude.parseJSONText "LastFrameClippingBehavior"

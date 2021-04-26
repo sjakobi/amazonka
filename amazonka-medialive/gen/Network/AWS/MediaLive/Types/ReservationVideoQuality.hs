@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,61 @@
 module Network.AWS.MediaLive.Types.ReservationVideoQuality
   ( ReservationVideoQuality
       ( ..,
-        RVQEnhanced,
-        RVQPremium,
-        RVQStandard
+        ReservationVideoQualityENHANCED,
+        ReservationVideoQualityPREMIUM,
+        ReservationVideoQualitySTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Video quality, e.g. 'STANDARD' (Outputs only)
-data ReservationVideoQuality
-  = ReservationVideoQuality'
-      ( CI
-          Text
-      )
+-- | Video quality, e.g. \'STANDARD\' (Outputs only)
+newtype ReservationVideoQuality = ReservationVideoQuality'
+  { fromReservationVideoQuality ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RVQEnhanced :: ReservationVideoQuality
-pattern RVQEnhanced = ReservationVideoQuality' "ENHANCED"
+pattern ReservationVideoQualityENHANCED :: ReservationVideoQuality
+pattern ReservationVideoQualityENHANCED = ReservationVideoQuality' "ENHANCED"
 
-pattern RVQPremium :: ReservationVideoQuality
-pattern RVQPremium = ReservationVideoQuality' "PREMIUM"
+pattern ReservationVideoQualityPREMIUM :: ReservationVideoQuality
+pattern ReservationVideoQualityPREMIUM = ReservationVideoQuality' "PREMIUM"
 
-pattern RVQStandard :: ReservationVideoQuality
-pattern RVQStandard = ReservationVideoQuality' "STANDARD"
+pattern ReservationVideoQualitySTANDARD :: ReservationVideoQuality
+pattern ReservationVideoQualitySTANDARD = ReservationVideoQuality' "STANDARD"
 
 {-# COMPLETE
-  RVQEnhanced,
-  RVQPremium,
-  RVQStandard,
+  ReservationVideoQualityENHANCED,
+  ReservationVideoQualityPREMIUM,
+  ReservationVideoQualitySTANDARD,
   ReservationVideoQuality'
   #-}
 
-instance FromText ReservationVideoQuality where
-  parser = (ReservationVideoQuality' . mk) <$> takeText
+instance Prelude.FromText ReservationVideoQuality where
+  parser = ReservationVideoQuality' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationVideoQuality where
-  toText (ReservationVideoQuality' ci) = original ci
+instance Prelude.ToText ReservationVideoQuality where
+  toText (ReservationVideoQuality' x) = x
 
-instance Hashable ReservationVideoQuality
+instance Prelude.Hashable ReservationVideoQuality
 
-instance NFData ReservationVideoQuality
+instance Prelude.NFData ReservationVideoQuality
 
-instance ToByteString ReservationVideoQuality
+instance Prelude.ToByteString ReservationVideoQuality
 
-instance ToQuery ReservationVideoQuality
+instance Prelude.ToQuery ReservationVideoQuality
 
-instance ToHeader ReservationVideoQuality
+instance Prelude.ToHeader ReservationVideoQuality
 
-instance FromJSON ReservationVideoQuality where
-  parseJSON = parseJSONText "ReservationVideoQuality"
+instance Prelude.FromJSON ReservationVideoQuality where
+  parseJSON = Prelude.parseJSONText "ReservationVideoQuality"

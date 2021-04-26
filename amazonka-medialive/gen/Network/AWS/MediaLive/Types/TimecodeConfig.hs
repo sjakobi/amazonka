@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,97 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.TimecodeConfig where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.TimecodeConfigSource
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Timecode Config
 --
--- /See:/ 'timecodeConfig' smart constructor.
+-- /See:/ 'newTimecodeConfig' smart constructor.
 data TimecodeConfig = TimecodeConfig'
-  { _tcSyncThreshold ::
-      !(Maybe Nat),
-    _tcSource :: !TimecodeConfigSource
+  { -- | Threshold in frames beyond which output timecode is resynchronized to
+    -- the input timecode. Discrepancies below this threshold are permitted to
+    -- avoid unnecessary discontinuities in the output timecode. No timecode
+    -- sync when this is not specified.
+    syncThreshold :: Prelude.Maybe Prelude.Nat,
+    -- | Identifies the source for the timecode that will be associated with the
+    -- events outputs. -Embedded (embedded): Initialize the output timecode
+    -- with timecode from the the source. If no embedded timecode is detected
+    -- in the source, the system falls back to using \"Start at 0\"
+    -- (zerobased). -System Clock (systemclock): Use the UTC time. -Start at 0
+    -- (zerobased): The time of the first frame of the event will be
+    -- 00:00:00:00.
+    source :: TimecodeConfigSource
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TimecodeConfig' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TimecodeConfig' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcSyncThreshold' - Threshold in frames beyond which output timecode is resynchronized to the input timecode. Discrepancies below this threshold are permitted to avoid unnecessary discontinuities in the output timecode. No timecode sync when this is not specified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcSource' - Identifies the source for the timecode that will be associated with the events outputs. -Embedded (embedded): Initialize the output timecode with timecode from the the source.  If no embedded timecode is detected in the source, the system falls back to using "Start at 0" (zerobased). -System Clock (systemclock): Use the UTC time. -Start at 0 (zerobased): The time of the first frame of the event will be 00:00:00:00.
-timecodeConfig ::
-  -- | 'tcSource'
+-- 'syncThreshold', 'timecodeConfig_syncThreshold' - Threshold in frames beyond which output timecode is resynchronized to
+-- the input timecode. Discrepancies below this threshold are permitted to
+-- avoid unnecessary discontinuities in the output timecode. No timecode
+-- sync when this is not specified.
+--
+-- 'source', 'timecodeConfig_source' - Identifies the source for the timecode that will be associated with the
+-- events outputs. -Embedded (embedded): Initialize the output timecode
+-- with timecode from the the source. If no embedded timecode is detected
+-- in the source, the system falls back to using \"Start at 0\"
+-- (zerobased). -System Clock (systemclock): Use the UTC time. -Start at 0
+-- (zerobased): The time of the first frame of the event will be
+-- 00:00:00:00.
+newTimecodeConfig ::
+  -- | 'source'
   TimecodeConfigSource ->
   TimecodeConfig
-timecodeConfig pSource_ =
+newTimecodeConfig pSource_ =
   TimecodeConfig'
-    { _tcSyncThreshold = Nothing,
-      _tcSource = pSource_
+    { syncThreshold = Prelude.Nothing,
+      source = pSource_
     }
 
--- | Threshold in frames beyond which output timecode is resynchronized to the input timecode. Discrepancies below this threshold are permitted to avoid unnecessary discontinuities in the output timecode. No timecode sync when this is not specified.
-tcSyncThreshold :: Lens' TimecodeConfig (Maybe Natural)
-tcSyncThreshold = lens _tcSyncThreshold (\s a -> s {_tcSyncThreshold = a}) . mapping _Nat
+-- | Threshold in frames beyond which output timecode is resynchronized to
+-- the input timecode. Discrepancies below this threshold are permitted to
+-- avoid unnecessary discontinuities in the output timecode. No timecode
+-- sync when this is not specified.
+timecodeConfig_syncThreshold :: Lens.Lens' TimecodeConfig (Prelude.Maybe Prelude.Natural)
+timecodeConfig_syncThreshold = Lens.lens (\TimecodeConfig' {syncThreshold} -> syncThreshold) (\s@TimecodeConfig' {} a -> s {syncThreshold = a} :: TimecodeConfig) Prelude.. Lens.mapping Prelude._Nat
 
--- | Identifies the source for the timecode that will be associated with the events outputs. -Embedded (embedded): Initialize the output timecode with timecode from the the source.  If no embedded timecode is detected in the source, the system falls back to using "Start at 0" (zerobased). -System Clock (systemclock): Use the UTC time. -Start at 0 (zerobased): The time of the first frame of the event will be 00:00:00:00.
-tcSource :: Lens' TimecodeConfig TimecodeConfigSource
-tcSource = lens _tcSource (\s a -> s {_tcSource = a})
+-- | Identifies the source for the timecode that will be associated with the
+-- events outputs. -Embedded (embedded): Initialize the output timecode
+-- with timecode from the the source. If no embedded timecode is detected
+-- in the source, the system falls back to using \"Start at 0\"
+-- (zerobased). -System Clock (systemclock): Use the UTC time. -Start at 0
+-- (zerobased): The time of the first frame of the event will be
+-- 00:00:00:00.
+timecodeConfig_source :: Lens.Lens' TimecodeConfig TimecodeConfigSource
+timecodeConfig_source = Lens.lens (\TimecodeConfig' {source} -> source) (\s@TimecodeConfig' {} a -> s {source = a} :: TimecodeConfig)
 
-instance FromJSON TimecodeConfig where
+instance Prelude.FromJSON TimecodeConfig where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TimecodeConfig"
       ( \x ->
           TimecodeConfig'
-            <$> (x .:? "syncThreshold") <*> (x .: "source")
+            Prelude.<$> (x Prelude..:? "syncThreshold")
+            Prelude.<*> (x Prelude..: "source")
       )
 
-instance Hashable TimecodeConfig
+instance Prelude.Hashable TimecodeConfig
 
-instance NFData TimecodeConfig
+instance Prelude.NFData TimecodeConfig
 
-instance ToJSON TimecodeConfig where
+instance Prelude.ToJSON TimecodeConfig where
   toJSON TimecodeConfig' {..} =
-    object
-      ( catMaybes
-          [ ("syncThreshold" .=) <$> _tcSyncThreshold,
-            Just ("source" .= _tcSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("syncThreshold" Prelude..=)
+              Prelude.<$> syncThreshold,
+            Prelude.Just ("source" Prelude..= source)
           ]
       )

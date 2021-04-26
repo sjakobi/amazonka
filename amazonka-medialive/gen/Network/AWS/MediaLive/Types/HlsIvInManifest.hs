@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsIvInManifest
   ( HlsIvInManifest
       ( ..,
-        HIIMExclude,
-        HIIMInclude
+        HlsIvInManifestEXCLUDE,
+        HlsIvInManifestINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Iv In Manifest
-data HlsIvInManifest = HlsIvInManifest' (CI Text)
+newtype HlsIvInManifest = HlsIvInManifest'
+  { fromHlsIvInManifest ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HIIMExclude :: HlsIvInManifest
-pattern HIIMExclude = HlsIvInManifest' "EXCLUDE"
+pattern HlsIvInManifestEXCLUDE :: HlsIvInManifest
+pattern HlsIvInManifestEXCLUDE = HlsIvInManifest' "EXCLUDE"
 
-pattern HIIMInclude :: HlsIvInManifest
-pattern HIIMInclude = HlsIvInManifest' "INCLUDE"
+pattern HlsIvInManifestINCLUDE :: HlsIvInManifest
+pattern HlsIvInManifestINCLUDE = HlsIvInManifest' "INCLUDE"
 
 {-# COMPLETE
-  HIIMExclude,
-  HIIMInclude,
+  HlsIvInManifestEXCLUDE,
+  HlsIvInManifestINCLUDE,
   HlsIvInManifest'
   #-}
 
-instance FromText HlsIvInManifest where
-  parser = (HlsIvInManifest' . mk) <$> takeText
+instance Prelude.FromText HlsIvInManifest where
+  parser = HlsIvInManifest' Prelude.<$> Prelude.takeText
 
-instance ToText HlsIvInManifest where
-  toText (HlsIvInManifest' ci) = original ci
+instance Prelude.ToText HlsIvInManifest where
+  toText (HlsIvInManifest' x) = x
 
-instance Hashable HlsIvInManifest
+instance Prelude.Hashable HlsIvInManifest
 
-instance NFData HlsIvInManifest
+instance Prelude.NFData HlsIvInManifest
 
-instance ToByteString HlsIvInManifest
+instance Prelude.ToByteString HlsIvInManifest
 
-instance ToQuery HlsIvInManifest
+instance Prelude.ToQuery HlsIvInManifest
 
-instance ToHeader HlsIvInManifest
+instance Prelude.ToHeader HlsIvInManifest
 
-instance ToJSON HlsIvInManifest where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsIvInManifest where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsIvInManifest where
-  parseJSON = parseJSONText "HlsIvInManifest"
+instance Prelude.FromJSON HlsIvInManifest where
+  parseJSON = Prelude.parseJSONText "HlsIvInManifest"

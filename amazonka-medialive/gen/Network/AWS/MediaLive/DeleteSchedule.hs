@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,115 +24,119 @@
 -- Delete all schedule actions on a channel.
 module Network.AWS.MediaLive.DeleteSchedule
   ( -- * Creating a Request
-    deleteSchedule,
-    DeleteSchedule,
+    DeleteSchedule (..),
+    newDeleteSchedule,
 
     -- * Request Lenses
-    dsChannelId,
+    deleteSchedule_channelId,
 
     -- * Destructuring the Response
-    deleteScheduleResponse,
-    DeleteScheduleResponse,
+    DeleteScheduleResponse (..),
+    newDeleteScheduleResponse,
 
     -- * Response Lenses
-    dsrrsResponseStatus,
+    deleteScheduleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for DeleteScheduleRequest
 --
--- /See:/ 'deleteSchedule' smart constructor.
-newtype DeleteSchedule = DeleteSchedule'
-  { _dsChannelId ::
-      Text
+-- /See:/ 'newDeleteSchedule' smart constructor.
+data DeleteSchedule = DeleteSchedule'
+  { -- | Id of the channel whose schedule is being deleted.
+    channelId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsChannelId' - Id of the channel whose schedule is being deleted.
-deleteSchedule ::
-  -- | 'dsChannelId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'channelId', 'deleteSchedule_channelId' - Id of the channel whose schedule is being deleted.
+newDeleteSchedule ::
+  -- | 'channelId'
+  Prelude.Text ->
   DeleteSchedule
-deleteSchedule pChannelId_ =
-  DeleteSchedule' {_dsChannelId = pChannelId_}
+newDeleteSchedule pChannelId_ =
+  DeleteSchedule' {channelId = pChannelId_}
 
 -- | Id of the channel whose schedule is being deleted.
-dsChannelId :: Lens' DeleteSchedule Text
-dsChannelId = lens _dsChannelId (\s a -> s {_dsChannelId = a})
+deleteSchedule_channelId :: Lens.Lens' DeleteSchedule Prelude.Text
+deleteSchedule_channelId = Lens.lens (\DeleteSchedule' {channelId} -> channelId) (\s@DeleteSchedule' {} a -> s {channelId = a} :: DeleteSchedule)
 
-instance AWSRequest DeleteSchedule where
+instance Prelude.AWSRequest DeleteSchedule where
   type Rs DeleteSchedule = DeleteScheduleResponse
-  request = delete mediaLive
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteScheduleResponse' <$> (pure (fromEnum s))
+          DeleteScheduleResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSchedule
+instance Prelude.Hashable DeleteSchedule
 
-instance NFData DeleteSchedule
+instance Prelude.NFData DeleteSchedule
 
-instance ToHeaders DeleteSchedule where
+instance Prelude.ToHeaders DeleteSchedule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteSchedule where
+instance Prelude.ToPath DeleteSchedule where
   toPath DeleteSchedule' {..} =
-    mconcat
-      ["/prod/channels/", toBS _dsChannelId, "/schedule"]
+    Prelude.mconcat
+      [ "/prod/channels/",
+        Prelude.toBS channelId,
+        "/schedule"
+      ]
 
-instance ToQuery DeleteSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for DeleteScheduleResponse
 --
--- /See:/ 'deleteScheduleResponse' smart constructor.
-newtype DeleteScheduleResponse = DeleteScheduleResponse'
-  { _dsrrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteScheduleResponse' smart constructor.
+data DeleteScheduleResponse = DeleteScheduleResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteScheduleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteScheduleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsrrsResponseStatus' - -- | The response status code.
-deleteScheduleResponse ::
-  -- | 'dsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteScheduleResponse_httpStatus' - The response's http status code.
+newDeleteScheduleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteScheduleResponse
-deleteScheduleResponse pResponseStatus_ =
-  DeleteScheduleResponse'
-    { _dsrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteScheduleResponse pHttpStatus_ =
+  DeleteScheduleResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dsrrsResponseStatus :: Lens' DeleteScheduleResponse Int
-dsrrsResponseStatus = lens _dsrrsResponseStatus (\s a -> s {_dsrrsResponseStatus = a})
+-- | The response's http status code.
+deleteScheduleResponse_httpStatus :: Lens.Lens' DeleteScheduleResponse Prelude.Int
+deleteScheduleResponse_httpStatus = Lens.lens (\DeleteScheduleResponse' {httpStatus} -> httpStatus) (\s@DeleteScheduleResponse' {} a -> s {httpStatus = a} :: DeleteScheduleResponse)
 
-instance NFData DeleteScheduleResponse
+instance Prelude.NFData DeleteScheduleResponse

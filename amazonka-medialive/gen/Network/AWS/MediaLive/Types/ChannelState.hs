@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,99 +19,101 @@
 module Network.AWS.MediaLive.Types.ChannelState
   ( ChannelState
       ( ..,
-        CSCreateFailed,
-        CSCreating,
-        CSDeleted,
-        CSDeleting,
-        CSIdle,
-        CSRecovering,
-        CSRunning,
-        CSStarting,
-        CSStopping,
-        CSUpdateFailed,
-        CSUpdating
+        ChannelStateCREATEFAILED,
+        ChannelStateCREATING,
+        ChannelStateDELETED,
+        ChannelStateDELETING,
+        ChannelStateIDLE,
+        ChannelStateRECOVERING,
+        ChannelStateRUNNING,
+        ChannelStateSTARTING,
+        ChannelStateSTOPPING,
+        ChannelStateUPDATEFAILED,
+        ChannelStateUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for ChannelState
-data ChannelState = ChannelState' (CI Text)
+newtype ChannelState = ChannelState'
+  { fromChannelState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSCreateFailed :: ChannelState
-pattern CSCreateFailed = ChannelState' "CREATE_FAILED"
+pattern ChannelStateCREATEFAILED :: ChannelState
+pattern ChannelStateCREATEFAILED = ChannelState' "CREATE_FAILED"
 
-pattern CSCreating :: ChannelState
-pattern CSCreating = ChannelState' "CREATING"
+pattern ChannelStateCREATING :: ChannelState
+pattern ChannelStateCREATING = ChannelState' "CREATING"
 
-pattern CSDeleted :: ChannelState
-pattern CSDeleted = ChannelState' "DELETED"
+pattern ChannelStateDELETED :: ChannelState
+pattern ChannelStateDELETED = ChannelState' "DELETED"
 
-pattern CSDeleting :: ChannelState
-pattern CSDeleting = ChannelState' "DELETING"
+pattern ChannelStateDELETING :: ChannelState
+pattern ChannelStateDELETING = ChannelState' "DELETING"
 
-pattern CSIdle :: ChannelState
-pattern CSIdle = ChannelState' "IDLE"
+pattern ChannelStateIDLE :: ChannelState
+pattern ChannelStateIDLE = ChannelState' "IDLE"
 
-pattern CSRecovering :: ChannelState
-pattern CSRecovering = ChannelState' "RECOVERING"
+pattern ChannelStateRECOVERING :: ChannelState
+pattern ChannelStateRECOVERING = ChannelState' "RECOVERING"
 
-pattern CSRunning :: ChannelState
-pattern CSRunning = ChannelState' "RUNNING"
+pattern ChannelStateRUNNING :: ChannelState
+pattern ChannelStateRUNNING = ChannelState' "RUNNING"
 
-pattern CSStarting :: ChannelState
-pattern CSStarting = ChannelState' "STARTING"
+pattern ChannelStateSTARTING :: ChannelState
+pattern ChannelStateSTARTING = ChannelState' "STARTING"
 
-pattern CSStopping :: ChannelState
-pattern CSStopping = ChannelState' "STOPPING"
+pattern ChannelStateSTOPPING :: ChannelState
+pattern ChannelStateSTOPPING = ChannelState' "STOPPING"
 
-pattern CSUpdateFailed :: ChannelState
-pattern CSUpdateFailed = ChannelState' "UPDATE_FAILED"
+pattern ChannelStateUPDATEFAILED :: ChannelState
+pattern ChannelStateUPDATEFAILED = ChannelState' "UPDATE_FAILED"
 
-pattern CSUpdating :: ChannelState
-pattern CSUpdating = ChannelState' "UPDATING"
+pattern ChannelStateUPDATING :: ChannelState
+pattern ChannelStateUPDATING = ChannelState' "UPDATING"
 
 {-# COMPLETE
-  CSCreateFailed,
-  CSCreating,
-  CSDeleted,
-  CSDeleting,
-  CSIdle,
-  CSRecovering,
-  CSRunning,
-  CSStarting,
-  CSStopping,
-  CSUpdateFailed,
-  CSUpdating,
+  ChannelStateCREATEFAILED,
+  ChannelStateCREATING,
+  ChannelStateDELETED,
+  ChannelStateDELETING,
+  ChannelStateIDLE,
+  ChannelStateRECOVERING,
+  ChannelStateRUNNING,
+  ChannelStateSTARTING,
+  ChannelStateSTOPPING,
+  ChannelStateUPDATEFAILED,
+  ChannelStateUPDATING,
   ChannelState'
   #-}
 
-instance FromText ChannelState where
-  parser = (ChannelState' . mk) <$> takeText
+instance Prelude.FromText ChannelState where
+  parser = ChannelState' Prelude.<$> Prelude.takeText
 
-instance ToText ChannelState where
-  toText (ChannelState' ci) = original ci
+instance Prelude.ToText ChannelState where
+  toText (ChannelState' x) = x
 
-instance Hashable ChannelState
+instance Prelude.Hashable ChannelState
 
-instance NFData ChannelState
+instance Prelude.NFData ChannelState
 
-instance ToByteString ChannelState
+instance Prelude.ToByteString ChannelState
 
-instance ToQuery ChannelState
+instance Prelude.ToQuery ChannelState
 
-instance ToHeader ChannelState
+instance Prelude.ToHeader ChannelState
 
-instance FromJSON ChannelState where
-  parseJSON = parseJSONText "ChannelState"
+instance Prelude.FromJSON ChannelState where
+  parseJSON = Prelude.parseJSONText "ChannelState"

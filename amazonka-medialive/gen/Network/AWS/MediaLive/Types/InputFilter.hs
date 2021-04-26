@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaLive.Types.InputFilter
   ( InputFilter
       ( ..,
-        IFAuto,
-        IFDisabled,
-        IFForced
+        InputFilterAUTO,
+        InputFilterDISABLED,
+        InputFilterFORCED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Input Filter
-data InputFilter = InputFilter' (CI Text)
+newtype InputFilter = InputFilter'
+  { fromInputFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IFAuto :: InputFilter
-pattern IFAuto = InputFilter' "AUTO"
+pattern InputFilterAUTO :: InputFilter
+pattern InputFilterAUTO = InputFilter' "AUTO"
 
-pattern IFDisabled :: InputFilter
-pattern IFDisabled = InputFilter' "DISABLED"
+pattern InputFilterDISABLED :: InputFilter
+pattern InputFilterDISABLED = InputFilter' "DISABLED"
 
-pattern IFForced :: InputFilter
-pattern IFForced = InputFilter' "FORCED"
+pattern InputFilterFORCED :: InputFilter
+pattern InputFilterFORCED = InputFilter' "FORCED"
 
 {-# COMPLETE
-  IFAuto,
-  IFDisabled,
-  IFForced,
+  InputFilterAUTO,
+  InputFilterDISABLED,
+  InputFilterFORCED,
   InputFilter'
   #-}
 
-instance FromText InputFilter where
-  parser = (InputFilter' . mk) <$> takeText
+instance Prelude.FromText InputFilter where
+  parser = InputFilter' Prelude.<$> Prelude.takeText
 
-instance ToText InputFilter where
-  toText (InputFilter' ci) = original ci
+instance Prelude.ToText InputFilter where
+  toText (InputFilter' x) = x
 
-instance Hashable InputFilter
+instance Prelude.Hashable InputFilter
 
-instance NFData InputFilter
+instance Prelude.NFData InputFilter
 
-instance ToByteString InputFilter
+instance Prelude.ToByteString InputFilter
 
-instance ToQuery InputFilter
+instance Prelude.ToQuery InputFilter
 
-instance ToHeader InputFilter
+instance Prelude.ToHeader InputFilter
 
-instance ToJSON InputFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputFilter where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputFilter where
-  parseJSON = parseJSONText "InputFilter"
+instance Prelude.FromJSON InputFilter where
+  parseJSON = Prelude.parseJSONText "InputFilter"

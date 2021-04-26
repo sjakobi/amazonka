@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.CdiInputSpecification where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.CdiInputResolution
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for CdiInputSpecification
 --
--- /See:/ 'cdiInputSpecification' smart constructor.
-newtype CdiInputSpecification = CdiInputSpecification'
-  { _cisResolution ::
-      Maybe CdiInputResolution
+-- /See:/ 'newCdiInputSpecification' smart constructor.
+data CdiInputSpecification = CdiInputSpecification'
+  { -- | Maximum CDI input resolution
+    resolution :: Prelude.Maybe CdiInputResolution
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CdiInputSpecification' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CdiInputSpecification' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cisResolution' - Maximum CDI input resolution
-cdiInputSpecification ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'resolution', 'cdiInputSpecification_resolution' - Maximum CDI input resolution
+newCdiInputSpecification ::
   CdiInputSpecification
-cdiInputSpecification =
-  CdiInputSpecification' {_cisResolution = Nothing}
+newCdiInputSpecification =
+  CdiInputSpecification'
+    { resolution =
+        Prelude.Nothing
+    }
 
 -- | Maximum CDI input resolution
-cisResolution :: Lens' CdiInputSpecification (Maybe CdiInputResolution)
-cisResolution = lens _cisResolution (\s a -> s {_cisResolution = a})
+cdiInputSpecification_resolution :: Lens.Lens' CdiInputSpecification (Prelude.Maybe CdiInputResolution)
+cdiInputSpecification_resolution = Lens.lens (\CdiInputSpecification' {resolution} -> resolution) (\s@CdiInputSpecification' {} a -> s {resolution = a} :: CdiInputSpecification)
 
-instance FromJSON CdiInputSpecification where
+instance Prelude.FromJSON CdiInputSpecification where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CdiInputSpecification"
       ( \x ->
-          CdiInputSpecification' <$> (x .:? "resolution")
+          CdiInputSpecification'
+            Prelude.<$> (x Prelude..:? "resolution")
       )
 
-instance Hashable CdiInputSpecification
+instance Prelude.Hashable CdiInputSpecification
 
-instance NFData CdiInputSpecification
+instance Prelude.NFData CdiInputSpecification
 
-instance ToJSON CdiInputSpecification where
+instance Prelude.ToJSON CdiInputSpecification where
   toJSON CdiInputSpecification' {..} =
-    object
-      (catMaybes [("resolution" .=) <$> _cisResolution])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("resolution" Prelude..=) Prelude.<$> resolution]
+      )

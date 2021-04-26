@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,98 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.H265ColorSpaceSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.ColorSpacePassthroughSettings
 import Network.AWS.MediaLive.Types.Hdr10Settings
 import Network.AWS.MediaLive.Types.Rec601Settings
 import Network.AWS.MediaLive.Types.Rec709Settings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H265 Color Space Settings
 --
--- /See:/ 'h265ColorSpaceSettings' smart constructor.
+-- /See:/ 'newH265ColorSpaceSettings' smart constructor.
 data H265ColorSpaceSettings = H265ColorSpaceSettings'
-  { _hRec601Settings ::
-      !(Maybe Rec601Settings),
-    _hRec709Settings ::
-      !(Maybe Rec709Settings),
-    _hColorSpacePassthroughSettings ::
-      !( Maybe
-           ColorSpacePassthroughSettings
-       ),
-    _hHdr10Settings ::
-      !(Maybe Hdr10Settings)
+  { rec601Settings :: Prelude.Maybe Rec601Settings,
+    rec709Settings :: Prelude.Maybe Rec709Settings,
+    colorSpacePassthroughSettings :: Prelude.Maybe ColorSpacePassthroughSettings,
+    hdr10Settings :: Prelude.Maybe Hdr10Settings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'H265ColorSpaceSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'H265ColorSpaceSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hRec601Settings' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'hRec709Settings' - Undocumented member.
+-- 'rec601Settings', 'h265ColorSpaceSettings_rec601Settings' - Undocumented member.
 --
--- * 'hColorSpacePassthroughSettings' - Undocumented member.
+-- 'rec709Settings', 'h265ColorSpaceSettings_rec709Settings' - Undocumented member.
 --
--- * 'hHdr10Settings' - Undocumented member.
-h265ColorSpaceSettings ::
+-- 'colorSpacePassthroughSettings', 'h265ColorSpaceSettings_colorSpacePassthroughSettings' - Undocumented member.
+--
+-- 'hdr10Settings', 'h265ColorSpaceSettings_hdr10Settings' - Undocumented member.
+newH265ColorSpaceSettings ::
   H265ColorSpaceSettings
-h265ColorSpaceSettings =
+newH265ColorSpaceSettings =
   H265ColorSpaceSettings'
-    { _hRec601Settings = Nothing,
-      _hRec709Settings = Nothing,
-      _hColorSpacePassthroughSettings = Nothing,
-      _hHdr10Settings = Nothing
+    { rec601Settings =
+        Prelude.Nothing,
+      rec709Settings = Prelude.Nothing,
+      colorSpacePassthroughSettings = Prelude.Nothing,
+      hdr10Settings = Prelude.Nothing
     }
 
 -- | Undocumented member.
-hRec601Settings :: Lens' H265ColorSpaceSettings (Maybe Rec601Settings)
-hRec601Settings = lens _hRec601Settings (\s a -> s {_hRec601Settings = a})
+h265ColorSpaceSettings_rec601Settings :: Lens.Lens' H265ColorSpaceSettings (Prelude.Maybe Rec601Settings)
+h265ColorSpaceSettings_rec601Settings = Lens.lens (\H265ColorSpaceSettings' {rec601Settings} -> rec601Settings) (\s@H265ColorSpaceSettings' {} a -> s {rec601Settings = a} :: H265ColorSpaceSettings)
 
 -- | Undocumented member.
-hRec709Settings :: Lens' H265ColorSpaceSettings (Maybe Rec709Settings)
-hRec709Settings = lens _hRec709Settings (\s a -> s {_hRec709Settings = a})
+h265ColorSpaceSettings_rec709Settings :: Lens.Lens' H265ColorSpaceSettings (Prelude.Maybe Rec709Settings)
+h265ColorSpaceSettings_rec709Settings = Lens.lens (\H265ColorSpaceSettings' {rec709Settings} -> rec709Settings) (\s@H265ColorSpaceSettings' {} a -> s {rec709Settings = a} :: H265ColorSpaceSettings)
 
 -- | Undocumented member.
-hColorSpacePassthroughSettings :: Lens' H265ColorSpaceSettings (Maybe ColorSpacePassthroughSettings)
-hColorSpacePassthroughSettings = lens _hColorSpacePassthroughSettings (\s a -> s {_hColorSpacePassthroughSettings = a})
+h265ColorSpaceSettings_colorSpacePassthroughSettings :: Lens.Lens' H265ColorSpaceSettings (Prelude.Maybe ColorSpacePassthroughSettings)
+h265ColorSpaceSettings_colorSpacePassthroughSettings = Lens.lens (\H265ColorSpaceSettings' {colorSpacePassthroughSettings} -> colorSpacePassthroughSettings) (\s@H265ColorSpaceSettings' {} a -> s {colorSpacePassthroughSettings = a} :: H265ColorSpaceSettings)
 
 -- | Undocumented member.
-hHdr10Settings :: Lens' H265ColorSpaceSettings (Maybe Hdr10Settings)
-hHdr10Settings = lens _hHdr10Settings (\s a -> s {_hHdr10Settings = a})
+h265ColorSpaceSettings_hdr10Settings :: Lens.Lens' H265ColorSpaceSettings (Prelude.Maybe Hdr10Settings)
+h265ColorSpaceSettings_hdr10Settings = Lens.lens (\H265ColorSpaceSettings' {hdr10Settings} -> hdr10Settings) (\s@H265ColorSpaceSettings' {} a -> s {hdr10Settings = a} :: H265ColorSpaceSettings)
 
-instance FromJSON H265ColorSpaceSettings where
+instance Prelude.FromJSON H265ColorSpaceSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "H265ColorSpaceSettings"
       ( \x ->
           H265ColorSpaceSettings'
-            <$> (x .:? "rec601Settings")
-            <*> (x .:? "rec709Settings")
-            <*> (x .:? "colorSpacePassthroughSettings")
-            <*> (x .:? "hdr10Settings")
+            Prelude.<$> (x Prelude..:? "rec601Settings")
+            Prelude.<*> (x Prelude..:? "rec709Settings")
+            Prelude.<*> (x Prelude..:? "colorSpacePassthroughSettings")
+            Prelude.<*> (x Prelude..:? "hdr10Settings")
       )
 
-instance Hashable H265ColorSpaceSettings
+instance Prelude.Hashable H265ColorSpaceSettings
 
-instance NFData H265ColorSpaceSettings
+instance Prelude.NFData H265ColorSpaceSettings
 
-instance ToJSON H265ColorSpaceSettings where
+instance Prelude.ToJSON H265ColorSpaceSettings where
   toJSON H265ColorSpaceSettings' {..} =
-    object
-      ( catMaybes
-          [ ("rec601Settings" .=) <$> _hRec601Settings,
-            ("rec709Settings" .=) <$> _hRec709Settings,
-            ("colorSpacePassthroughSettings" .=)
-              <$> _hColorSpacePassthroughSettings,
-            ("hdr10Settings" .=) <$> _hHdr10Settings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("rec601Settings" Prelude..=)
+              Prelude.<$> rec601Settings,
+            ("rec709Settings" Prelude..=)
+              Prelude.<$> rec709Settings,
+            ("colorSpacePassthroughSettings" Prelude..=)
+              Prelude.<$> colorSpacePassthroughSettings,
+            ("hdr10Settings" Prelude..=)
+              Prelude.<$> hdr10Settings
           ]
       )

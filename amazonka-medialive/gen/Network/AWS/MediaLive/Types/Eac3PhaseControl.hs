@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.Eac3PhaseControl
   ( Eac3PhaseControl
       ( ..,
-        NoShift,
-        Shift90Degrees
+        Eac3PhaseControlNOSHIFT,
+        Eac3PhaseControlSHIFT90DEGREES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Eac3 Phase Control
-data Eac3PhaseControl = Eac3PhaseControl' (CI Text)
+newtype Eac3PhaseControl = Eac3PhaseControl'
+  { fromEac3PhaseControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NoShift :: Eac3PhaseControl
-pattern NoShift = Eac3PhaseControl' "NO_SHIFT"
+pattern Eac3PhaseControlNOSHIFT :: Eac3PhaseControl
+pattern Eac3PhaseControlNOSHIFT = Eac3PhaseControl' "NO_SHIFT"
 
-pattern Shift90Degrees :: Eac3PhaseControl
-pattern Shift90Degrees = Eac3PhaseControl' "SHIFT_90_DEGREES"
+pattern Eac3PhaseControlSHIFT90DEGREES :: Eac3PhaseControl
+pattern Eac3PhaseControlSHIFT90DEGREES = Eac3PhaseControl' "SHIFT_90_DEGREES"
 
 {-# COMPLETE
-  NoShift,
-  Shift90Degrees,
+  Eac3PhaseControlNOSHIFT,
+  Eac3PhaseControlSHIFT90DEGREES,
   Eac3PhaseControl'
   #-}
 
-instance FromText Eac3PhaseControl where
-  parser = (Eac3PhaseControl' . mk) <$> takeText
+instance Prelude.FromText Eac3PhaseControl where
+  parser = Eac3PhaseControl' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3PhaseControl where
-  toText (Eac3PhaseControl' ci) = original ci
+instance Prelude.ToText Eac3PhaseControl where
+  toText (Eac3PhaseControl' x) = x
 
-instance Hashable Eac3PhaseControl
+instance Prelude.Hashable Eac3PhaseControl
 
-instance NFData Eac3PhaseControl
+instance Prelude.NFData Eac3PhaseControl
 
-instance ToByteString Eac3PhaseControl
+instance Prelude.ToByteString Eac3PhaseControl
 
-instance ToQuery Eac3PhaseControl
+instance Prelude.ToQuery Eac3PhaseControl
 
-instance ToHeader Eac3PhaseControl
+instance Prelude.ToHeader Eac3PhaseControl
 
-instance ToJSON Eac3PhaseControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3PhaseControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3PhaseControl where
-  parseJSON = parseJSONText "Eac3PhaseControl"
+instance Prelude.FromJSON Eac3PhaseControl where
+  parseJSON = Prelude.parseJSONText "Eac3PhaseControl"

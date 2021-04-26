@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.FrameCaptureIntervalUnit
   ( FrameCaptureIntervalUnit
       ( ..,
-        Milliseconds,
-        Seconds
+        FrameCaptureIntervalUnitMILLISECONDS,
+        FrameCaptureIntervalUnitSECONDS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Frame Capture Interval Unit
-data FrameCaptureIntervalUnit
-  = FrameCaptureIntervalUnit'
-      ( CI
-          Text
-      )
+newtype FrameCaptureIntervalUnit = FrameCaptureIntervalUnit'
+  { fromFrameCaptureIntervalUnit ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Milliseconds :: FrameCaptureIntervalUnit
-pattern Milliseconds = FrameCaptureIntervalUnit' "MILLISECONDS"
+pattern FrameCaptureIntervalUnitMILLISECONDS :: FrameCaptureIntervalUnit
+pattern FrameCaptureIntervalUnitMILLISECONDS = FrameCaptureIntervalUnit' "MILLISECONDS"
 
-pattern Seconds :: FrameCaptureIntervalUnit
-pattern Seconds = FrameCaptureIntervalUnit' "SECONDS"
+pattern FrameCaptureIntervalUnitSECONDS :: FrameCaptureIntervalUnit
+pattern FrameCaptureIntervalUnitSECONDS = FrameCaptureIntervalUnit' "SECONDS"
 
 {-# COMPLETE
-  Milliseconds,
-  Seconds,
+  FrameCaptureIntervalUnitMILLISECONDS,
+  FrameCaptureIntervalUnitSECONDS,
   FrameCaptureIntervalUnit'
   #-}
 
-instance FromText FrameCaptureIntervalUnit where
-  parser = (FrameCaptureIntervalUnit' . mk) <$> takeText
+instance Prelude.FromText FrameCaptureIntervalUnit where
+  parser = FrameCaptureIntervalUnit' Prelude.<$> Prelude.takeText
 
-instance ToText FrameCaptureIntervalUnit where
-  toText (FrameCaptureIntervalUnit' ci) = original ci
+instance Prelude.ToText FrameCaptureIntervalUnit where
+  toText (FrameCaptureIntervalUnit' x) = x
 
-instance Hashable FrameCaptureIntervalUnit
+instance Prelude.Hashable FrameCaptureIntervalUnit
 
-instance NFData FrameCaptureIntervalUnit
+instance Prelude.NFData FrameCaptureIntervalUnit
 
-instance ToByteString FrameCaptureIntervalUnit
+instance Prelude.ToByteString FrameCaptureIntervalUnit
 
-instance ToQuery FrameCaptureIntervalUnit
+instance Prelude.ToQuery FrameCaptureIntervalUnit
 
-instance ToHeader FrameCaptureIntervalUnit
+instance Prelude.ToHeader FrameCaptureIntervalUnit
 
-instance ToJSON FrameCaptureIntervalUnit where
-  toJSON = toJSONText
+instance Prelude.ToJSON FrameCaptureIntervalUnit where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FrameCaptureIntervalUnit where
-  parseJSON = parseJSONText "FrameCaptureIntervalUnit"
+instance Prelude.FromJSON FrameCaptureIntervalUnit where
+  parseJSON = Prelude.parseJSONText "FrameCaptureIntervalUnit"

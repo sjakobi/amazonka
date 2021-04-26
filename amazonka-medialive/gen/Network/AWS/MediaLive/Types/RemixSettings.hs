@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.RemixSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AudioChannelMapping
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Remix Settings
 --
--- /See:/ 'remixSettings' smart constructor.
+-- /See:/ 'newRemixSettings' smart constructor.
 data RemixSettings = RemixSettings'
-  { _rsChannelsIn ::
-      !(Maybe Nat),
-    _rsChannelsOut :: !(Maybe Nat),
-    _rsChannelMappings ::
-      ![AudioChannelMapping]
+  { -- | Number of input channels to be used.
+    channelsIn :: Prelude.Maybe Prelude.Nat,
+    -- | Number of output channels to be produced. Valid values: 1, 2, 4, 6, 8
+    channelsOut :: Prelude.Maybe Prelude.Nat,
+    -- | Mapping of input channels to output channels, with appropriate gain
+    -- adjustments.
+    channelMappings :: [AudioChannelMapping]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemixSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemixSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsChannelsIn' - Number of input channels to be used.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rsChannelsOut' - Number of output channels to be produced. Valid values: 1, 2, 4, 6, 8
+-- 'channelsIn', 'remixSettings_channelsIn' - Number of input channels to be used.
 --
--- * 'rsChannelMappings' - Mapping of input channels to output channels, with appropriate gain adjustments.
-remixSettings ::
+-- 'channelsOut', 'remixSettings_channelsOut' - Number of output channels to be produced. Valid values: 1, 2, 4, 6, 8
+--
+-- 'channelMappings', 'remixSettings_channelMappings' - Mapping of input channels to output channels, with appropriate gain
+-- adjustments.
+newRemixSettings ::
   RemixSettings
-remixSettings =
+newRemixSettings =
   RemixSettings'
-    { _rsChannelsIn = Nothing,
-      _rsChannelsOut = Nothing,
-      _rsChannelMappings = mempty
+    { channelsIn = Prelude.Nothing,
+      channelsOut = Prelude.Nothing,
+      channelMappings = Prelude.mempty
     }
 
 -- | Number of input channels to be used.
-rsChannelsIn :: Lens' RemixSettings (Maybe Natural)
-rsChannelsIn = lens _rsChannelsIn (\s a -> s {_rsChannelsIn = a}) . mapping _Nat
+remixSettings_channelsIn :: Lens.Lens' RemixSettings (Prelude.Maybe Prelude.Natural)
+remixSettings_channelsIn = Lens.lens (\RemixSettings' {channelsIn} -> channelsIn) (\s@RemixSettings' {} a -> s {channelsIn = a} :: RemixSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Number of output channels to be produced. Valid values: 1, 2, 4, 6, 8
-rsChannelsOut :: Lens' RemixSettings (Maybe Natural)
-rsChannelsOut = lens _rsChannelsOut (\s a -> s {_rsChannelsOut = a}) . mapping _Nat
+remixSettings_channelsOut :: Lens.Lens' RemixSettings (Prelude.Maybe Prelude.Natural)
+remixSettings_channelsOut = Lens.lens (\RemixSettings' {channelsOut} -> channelsOut) (\s@RemixSettings' {} a -> s {channelsOut = a} :: RemixSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Mapping of input channels to output channels, with appropriate gain adjustments.
-rsChannelMappings :: Lens' RemixSettings [AudioChannelMapping]
-rsChannelMappings = lens _rsChannelMappings (\s a -> s {_rsChannelMappings = a}) . _Coerce
+-- | Mapping of input channels to output channels, with appropriate gain
+-- adjustments.
+remixSettings_channelMappings :: Lens.Lens' RemixSettings [AudioChannelMapping]
+remixSettings_channelMappings = Lens.lens (\RemixSettings' {channelMappings} -> channelMappings) (\s@RemixSettings' {} a -> s {channelMappings = a} :: RemixSettings) Prelude.. Prelude._Coerce
 
-instance FromJSON RemixSettings where
+instance Prelude.FromJSON RemixSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RemixSettings"
       ( \x ->
           RemixSettings'
-            <$> (x .:? "channelsIn")
-            <*> (x .:? "channelsOut")
-            <*> (x .:? "channelMappings" .!= mempty)
+            Prelude.<$> (x Prelude..:? "channelsIn")
+            Prelude.<*> (x Prelude..:? "channelsOut")
+            Prelude.<*> ( x Prelude..:? "channelMappings"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable RemixSettings
+instance Prelude.Hashable RemixSettings
 
-instance NFData RemixSettings
+instance Prelude.NFData RemixSettings
 
-instance ToJSON RemixSettings where
+instance Prelude.ToJSON RemixSettings where
   toJSON RemixSettings' {..} =
-    object
-      ( catMaybes
-          [ ("channelsIn" .=) <$> _rsChannelsIn,
-            ("channelsOut" .=) <$> _rsChannelsOut,
-            Just ("channelMappings" .= _rsChannelMappings)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("channelsIn" Prelude..=) Prelude.<$> channelsIn,
+            ("channelsOut" Prelude..=) Prelude.<$> channelsOut,
+            Prelude.Just
+              ("channelMappings" Prelude..= channelMappings)
           ]
       )

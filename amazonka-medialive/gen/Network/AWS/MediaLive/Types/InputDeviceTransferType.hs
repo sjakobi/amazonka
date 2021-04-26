@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,58 @@
 module Network.AWS.MediaLive.Types.InputDeviceTransferType
   ( InputDeviceTransferType
       ( ..,
-        Incoming,
-        Outgoing
+        InputDeviceTransferTypeINCOMING,
+        InputDeviceTransferTypeOUTGOING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The type of device transfer. INCOMING for an input device that is being transferred to you, OUTGOING for an input device that you are transferring to another AWS account.
-data InputDeviceTransferType
-  = InputDeviceTransferType'
-      ( CI
-          Text
-      )
+-- | The type of device transfer. INCOMING for an input device that is being
+-- transferred to you, OUTGOING for an input device that you are
+-- transferring to another AWS account.
+newtype InputDeviceTransferType = InputDeviceTransferType'
+  { fromInputDeviceTransferType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Incoming :: InputDeviceTransferType
-pattern Incoming = InputDeviceTransferType' "INCOMING"
+pattern InputDeviceTransferTypeINCOMING :: InputDeviceTransferType
+pattern InputDeviceTransferTypeINCOMING = InputDeviceTransferType' "INCOMING"
 
-pattern Outgoing :: InputDeviceTransferType
-pattern Outgoing = InputDeviceTransferType' "OUTGOING"
+pattern InputDeviceTransferTypeOUTGOING :: InputDeviceTransferType
+pattern InputDeviceTransferTypeOUTGOING = InputDeviceTransferType' "OUTGOING"
 
 {-# COMPLETE
-  Incoming,
-  Outgoing,
+  InputDeviceTransferTypeINCOMING,
+  InputDeviceTransferTypeOUTGOING,
   InputDeviceTransferType'
   #-}
 
-instance FromText InputDeviceTransferType where
-  parser = (InputDeviceTransferType' . mk) <$> takeText
+instance Prelude.FromText InputDeviceTransferType where
+  parser = InputDeviceTransferType' Prelude.<$> Prelude.takeText
 
-instance ToText InputDeviceTransferType where
-  toText (InputDeviceTransferType' ci) = original ci
+instance Prelude.ToText InputDeviceTransferType where
+  toText (InputDeviceTransferType' x) = x
 
-instance Hashable InputDeviceTransferType
+instance Prelude.Hashable InputDeviceTransferType
 
-instance NFData InputDeviceTransferType
+instance Prelude.NFData InputDeviceTransferType
 
-instance ToByteString InputDeviceTransferType
+instance Prelude.ToByteString InputDeviceTransferType
 
-instance ToQuery InputDeviceTransferType
+instance Prelude.ToQuery InputDeviceTransferType
 
-instance ToHeader InputDeviceTransferType
+instance Prelude.ToHeader InputDeviceTransferType
 
-instance FromJSON InputDeviceTransferType where
-  parseJSON = parseJSONText "InputDeviceTransferType"
+instance Prelude.FromJSON InputDeviceTransferType where
+  parseJSON = Prelude.parseJSONText "InputDeviceTransferType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,202 +19,170 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MultiplexProgramPacketIdentifiersMap where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Packet identifiers map for a given Multiplex program.
 --
--- /See:/ 'multiplexProgramPacketIdentifiersMap' smart constructor.
+-- /See:/ 'newMultiplexProgramPacketIdentifiersMap' smart constructor.
 data MultiplexProgramPacketIdentifiersMap = MultiplexProgramPacketIdentifiersMap'
-  { _mppimKlvDataPids ::
-      !( Maybe
-           [Int]
-       ),
-    _mppimEtvSignalPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimPmtPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimVideoPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimTimedMetadataPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimAudioPids ::
-      !( Maybe
-           [Int]
-       ),
-    _mppimEtvPlatformPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimPcrPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimDvbTeletextPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimPrivateMetadataPid ::
-      !( Maybe
-           Int
-       ),
-    _mppimScte27Pids ::
-      !( Maybe
-           [Int]
-       ),
-    _mppimDvbSubPids ::
-      !( Maybe
-           [Int]
-       ),
-    _mppimScte35Pid ::
-      !( Maybe
-           Int
-       )
+  { klvDataPids :: Prelude.Maybe [Prelude.Int],
+    etvSignalPid :: Prelude.Maybe Prelude.Int,
+    pmtPid :: Prelude.Maybe Prelude.Int,
+    videoPid :: Prelude.Maybe Prelude.Int,
+    timedMetadataPid :: Prelude.Maybe Prelude.Int,
+    audioPids :: Prelude.Maybe [Prelude.Int],
+    etvPlatformPid :: Prelude.Maybe Prelude.Int,
+    pcrPid :: Prelude.Maybe Prelude.Int,
+    dvbTeletextPid :: Prelude.Maybe Prelude.Int,
+    privateMetadataPid :: Prelude.Maybe Prelude.Int,
+    scte27Pids :: Prelude.Maybe [Prelude.Int],
+    dvbSubPids :: Prelude.Maybe [Prelude.Int],
+    scte35Pid :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultiplexProgramPacketIdentifiersMap' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultiplexProgramPacketIdentifiersMap' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mppimKlvDataPids' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mppimEtvSignalPid' - Undocumented member.
+-- 'klvDataPids', 'multiplexProgramPacketIdentifiersMap_klvDataPids' - Undocumented member.
 --
--- * 'mppimPmtPid' - Undocumented member.
+-- 'etvSignalPid', 'multiplexProgramPacketIdentifiersMap_etvSignalPid' - Undocumented member.
 --
--- * 'mppimVideoPid' - Undocumented member.
+-- 'pmtPid', 'multiplexProgramPacketIdentifiersMap_pmtPid' - Undocumented member.
 --
--- * 'mppimTimedMetadataPid' - Undocumented member.
+-- 'videoPid', 'multiplexProgramPacketIdentifiersMap_videoPid' - Undocumented member.
 --
--- * 'mppimAudioPids' - Undocumented member.
+-- 'timedMetadataPid', 'multiplexProgramPacketIdentifiersMap_timedMetadataPid' - Undocumented member.
 --
--- * 'mppimEtvPlatformPid' - Undocumented member.
+-- 'audioPids', 'multiplexProgramPacketIdentifiersMap_audioPids' - Undocumented member.
 --
--- * 'mppimPcrPid' - Undocumented member.
+-- 'etvPlatformPid', 'multiplexProgramPacketIdentifiersMap_etvPlatformPid' - Undocumented member.
 --
--- * 'mppimDvbTeletextPid' - Undocumented member.
+-- 'pcrPid', 'multiplexProgramPacketIdentifiersMap_pcrPid' - Undocumented member.
 --
--- * 'mppimPrivateMetadataPid' - Undocumented member.
+-- 'dvbTeletextPid', 'multiplexProgramPacketIdentifiersMap_dvbTeletextPid' - Undocumented member.
 --
--- * 'mppimScte27Pids' - Undocumented member.
+-- 'privateMetadataPid', 'multiplexProgramPacketIdentifiersMap_privateMetadataPid' - Undocumented member.
 --
--- * 'mppimDvbSubPids' - Undocumented member.
+-- 'scte27Pids', 'multiplexProgramPacketIdentifiersMap_scte27Pids' - Undocumented member.
 --
--- * 'mppimScte35Pid' - Undocumented member.
-multiplexProgramPacketIdentifiersMap ::
+-- 'dvbSubPids', 'multiplexProgramPacketIdentifiersMap_dvbSubPids' - Undocumented member.
+--
+-- 'scte35Pid', 'multiplexProgramPacketIdentifiersMap_scte35Pid' - Undocumented member.
+newMultiplexProgramPacketIdentifiersMap ::
   MultiplexProgramPacketIdentifiersMap
-multiplexProgramPacketIdentifiersMap =
+newMultiplexProgramPacketIdentifiersMap =
   MultiplexProgramPacketIdentifiersMap'
-    { _mppimKlvDataPids =
-        Nothing,
-      _mppimEtvSignalPid = Nothing,
-      _mppimPmtPid = Nothing,
-      _mppimVideoPid = Nothing,
-      _mppimTimedMetadataPid = Nothing,
-      _mppimAudioPids = Nothing,
-      _mppimEtvPlatformPid = Nothing,
-      _mppimPcrPid = Nothing,
-      _mppimDvbTeletextPid = Nothing,
-      _mppimPrivateMetadataPid = Nothing,
-      _mppimScte27Pids = Nothing,
-      _mppimDvbSubPids = Nothing,
-      _mppimScte35Pid = Nothing
+    { klvDataPids =
+        Prelude.Nothing,
+      etvSignalPid = Prelude.Nothing,
+      pmtPid = Prelude.Nothing,
+      videoPid = Prelude.Nothing,
+      timedMetadataPid = Prelude.Nothing,
+      audioPids = Prelude.Nothing,
+      etvPlatformPid = Prelude.Nothing,
+      pcrPid = Prelude.Nothing,
+      dvbTeletextPid = Prelude.Nothing,
+      privateMetadataPid = Prelude.Nothing,
+      scte27Pids = Prelude.Nothing,
+      dvbSubPids = Prelude.Nothing,
+      scte35Pid = Prelude.Nothing
     }
 
 -- | Undocumented member.
-mppimKlvDataPids :: Lens' MultiplexProgramPacketIdentifiersMap [Int]
-mppimKlvDataPids = lens _mppimKlvDataPids (\s a -> s {_mppimKlvDataPids = a}) . _Default . _Coerce
+multiplexProgramPacketIdentifiersMap_klvDataPids :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe [Prelude.Int])
+multiplexProgramPacketIdentifiersMap_klvDataPids = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {klvDataPids} -> klvDataPids) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {klvDataPids = a} :: MultiplexProgramPacketIdentifiersMap) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-mppimEtvSignalPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimEtvSignalPid = lens _mppimEtvSignalPid (\s a -> s {_mppimEtvSignalPid = a})
+multiplexProgramPacketIdentifiersMap_etvSignalPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_etvSignalPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {etvSignalPid} -> etvSignalPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {etvSignalPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimPmtPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimPmtPid = lens _mppimPmtPid (\s a -> s {_mppimPmtPid = a})
+multiplexProgramPacketIdentifiersMap_pmtPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_pmtPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {pmtPid} -> pmtPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {pmtPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimVideoPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimVideoPid = lens _mppimVideoPid (\s a -> s {_mppimVideoPid = a})
+multiplexProgramPacketIdentifiersMap_videoPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_videoPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {videoPid} -> videoPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {videoPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimTimedMetadataPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimTimedMetadataPid = lens _mppimTimedMetadataPid (\s a -> s {_mppimTimedMetadataPid = a})
+multiplexProgramPacketIdentifiersMap_timedMetadataPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_timedMetadataPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {timedMetadataPid} -> timedMetadataPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {timedMetadataPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimAudioPids :: Lens' MultiplexProgramPacketIdentifiersMap [Int]
-mppimAudioPids = lens _mppimAudioPids (\s a -> s {_mppimAudioPids = a}) . _Default . _Coerce
+multiplexProgramPacketIdentifiersMap_audioPids :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe [Prelude.Int])
+multiplexProgramPacketIdentifiersMap_audioPids = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {audioPids} -> audioPids) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {audioPids = a} :: MultiplexProgramPacketIdentifiersMap) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-mppimEtvPlatformPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimEtvPlatformPid = lens _mppimEtvPlatformPid (\s a -> s {_mppimEtvPlatformPid = a})
+multiplexProgramPacketIdentifiersMap_etvPlatformPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_etvPlatformPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {etvPlatformPid} -> etvPlatformPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {etvPlatformPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimPcrPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimPcrPid = lens _mppimPcrPid (\s a -> s {_mppimPcrPid = a})
+multiplexProgramPacketIdentifiersMap_pcrPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_pcrPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {pcrPid} -> pcrPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {pcrPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimDvbTeletextPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimDvbTeletextPid = lens _mppimDvbTeletextPid (\s a -> s {_mppimDvbTeletextPid = a})
+multiplexProgramPacketIdentifiersMap_dvbTeletextPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_dvbTeletextPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {dvbTeletextPid} -> dvbTeletextPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {dvbTeletextPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimPrivateMetadataPid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimPrivateMetadataPid = lens _mppimPrivateMetadataPid (\s a -> s {_mppimPrivateMetadataPid = a})
+multiplexProgramPacketIdentifiersMap_privateMetadataPid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_privateMetadataPid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {privateMetadataPid} -> privateMetadataPid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {privateMetadataPid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 -- | Undocumented member.
-mppimScte27Pids :: Lens' MultiplexProgramPacketIdentifiersMap [Int]
-mppimScte27Pids = lens _mppimScte27Pids (\s a -> s {_mppimScte27Pids = a}) . _Default . _Coerce
+multiplexProgramPacketIdentifiersMap_scte27Pids :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe [Prelude.Int])
+multiplexProgramPacketIdentifiersMap_scte27Pids = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {scte27Pids} -> scte27Pids) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {scte27Pids = a} :: MultiplexProgramPacketIdentifiersMap) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-mppimDvbSubPids :: Lens' MultiplexProgramPacketIdentifiersMap [Int]
-mppimDvbSubPids = lens _mppimDvbSubPids (\s a -> s {_mppimDvbSubPids = a}) . _Default . _Coerce
+multiplexProgramPacketIdentifiersMap_dvbSubPids :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe [Prelude.Int])
+multiplexProgramPacketIdentifiersMap_dvbSubPids = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {dvbSubPids} -> dvbSubPids) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {dvbSubPids = a} :: MultiplexProgramPacketIdentifiersMap) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-mppimScte35Pid :: Lens' MultiplexProgramPacketIdentifiersMap (Maybe Int)
-mppimScte35Pid = lens _mppimScte35Pid (\s a -> s {_mppimScte35Pid = a})
+multiplexProgramPacketIdentifiersMap_scte35Pid :: Lens.Lens' MultiplexProgramPacketIdentifiersMap (Prelude.Maybe Prelude.Int)
+multiplexProgramPacketIdentifiersMap_scte35Pid = Lens.lens (\MultiplexProgramPacketIdentifiersMap' {scte35Pid} -> scte35Pid) (\s@MultiplexProgramPacketIdentifiersMap' {} a -> s {scte35Pid = a} :: MultiplexProgramPacketIdentifiersMap)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     MultiplexProgramPacketIdentifiersMap
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MultiplexProgramPacketIdentifiersMap"
       ( \x ->
           MultiplexProgramPacketIdentifiersMap'
-            <$> (x .:? "klvDataPids" .!= mempty)
-            <*> (x .:? "etvSignalPid")
-            <*> (x .:? "pmtPid")
-            <*> (x .:? "videoPid")
-            <*> (x .:? "timedMetadataPid")
-            <*> (x .:? "audioPids" .!= mempty)
-            <*> (x .:? "etvPlatformPid")
-            <*> (x .:? "pcrPid")
-            <*> (x .:? "dvbTeletextPid")
-            <*> (x .:? "privateMetadataPid")
-            <*> (x .:? "scte27Pids" .!= mempty)
-            <*> (x .:? "dvbSubPids" .!= mempty)
-            <*> (x .:? "scte35Pid")
+            Prelude.<$> ( x Prelude..:? "klvDataPids"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "etvSignalPid")
+            Prelude.<*> (x Prelude..:? "pmtPid")
+            Prelude.<*> (x Prelude..:? "videoPid")
+            Prelude.<*> (x Prelude..:? "timedMetadataPid")
+            Prelude.<*> ( x Prelude..:? "audioPids"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "etvPlatformPid")
+            Prelude.<*> (x Prelude..:? "pcrPid")
+            Prelude.<*> (x Prelude..:? "dvbTeletextPid")
+            Prelude.<*> (x Prelude..:? "privateMetadataPid")
+            Prelude.<*> ( x Prelude..:? "scte27Pids"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "dvbSubPids"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "scte35Pid")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     MultiplexProgramPacketIdentifiersMap
 
-instance NFData MultiplexProgramPacketIdentifiersMap
+instance
+  Prelude.NFData
+    MultiplexProgramPacketIdentifiersMap

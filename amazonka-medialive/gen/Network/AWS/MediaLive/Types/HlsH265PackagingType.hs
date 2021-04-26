@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsH265PackagingType
   ( HlsH265PackagingType
       ( ..,
-        HHPTHEV1,
-        HHPTHVC1
+        HlsH265PackagingTypeHEV1,
+        HlsH265PackagingTypeHVC1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls H265 Packaging Type
-data HlsH265PackagingType
-  = HlsH265PackagingType'
-      ( CI
-          Text
-      )
+newtype HlsH265PackagingType = HlsH265PackagingType'
+  { fromHlsH265PackagingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HHPTHEV1 :: HlsH265PackagingType
-pattern HHPTHEV1 = HlsH265PackagingType' "HEV1"
+pattern HlsH265PackagingTypeHEV1 :: HlsH265PackagingType
+pattern HlsH265PackagingTypeHEV1 = HlsH265PackagingType' "HEV1"
 
-pattern HHPTHVC1 :: HlsH265PackagingType
-pattern HHPTHVC1 = HlsH265PackagingType' "HVC1"
+pattern HlsH265PackagingTypeHVC1 :: HlsH265PackagingType
+pattern HlsH265PackagingTypeHVC1 = HlsH265PackagingType' "HVC1"
 
 {-# COMPLETE
-  HHPTHEV1,
-  HHPTHVC1,
+  HlsH265PackagingTypeHEV1,
+  HlsH265PackagingTypeHVC1,
   HlsH265PackagingType'
   #-}
 
-instance FromText HlsH265PackagingType where
-  parser = (HlsH265PackagingType' . mk) <$> takeText
+instance Prelude.FromText HlsH265PackagingType where
+  parser = HlsH265PackagingType' Prelude.<$> Prelude.takeText
 
-instance ToText HlsH265PackagingType where
-  toText (HlsH265PackagingType' ci) = original ci
+instance Prelude.ToText HlsH265PackagingType where
+  toText (HlsH265PackagingType' x) = x
 
-instance Hashable HlsH265PackagingType
+instance Prelude.Hashable HlsH265PackagingType
 
-instance NFData HlsH265PackagingType
+instance Prelude.NFData HlsH265PackagingType
 
-instance ToByteString HlsH265PackagingType
+instance Prelude.ToByteString HlsH265PackagingType
 
-instance ToQuery HlsH265PackagingType
+instance Prelude.ToQuery HlsH265PackagingType
 
-instance ToHeader HlsH265PackagingType
+instance Prelude.ToHeader HlsH265PackagingType
 
-instance ToJSON HlsH265PackagingType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsH265PackagingType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsH265PackagingType where
-  parseJSON = parseJSONText "HlsH265PackagingType"
+instance Prelude.FromJSON HlsH265PackagingType where
+  parseJSON = Prelude.parseJSONText "HlsH265PackagingType"

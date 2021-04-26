@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Scte35AposWebDeliveryAllowedBehavior
   ( Scte35AposWebDeliveryAllowedBehavior
       ( ..,
-        SAWDABFollow,
-        SAWDABIgnore
+        Scte35AposWebDeliveryAllowedBehaviorFOLLOW,
+        Scte35AposWebDeliveryAllowedBehaviorIGNORE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Scte35 Apos Web Delivery Allowed Behavior
-data Scte35AposWebDeliveryAllowedBehavior
-  = Scte35AposWebDeliveryAllowedBehavior'
-      ( CI
-          Text
-      )
+newtype Scte35AposWebDeliveryAllowedBehavior = Scte35AposWebDeliveryAllowedBehavior'
+  { fromScte35AposWebDeliveryAllowedBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SAWDABFollow :: Scte35AposWebDeliveryAllowedBehavior
-pattern SAWDABFollow = Scte35AposWebDeliveryAllowedBehavior' "FOLLOW"
+pattern Scte35AposWebDeliveryAllowedBehaviorFOLLOW :: Scte35AposWebDeliveryAllowedBehavior
+pattern Scte35AposWebDeliveryAllowedBehaviorFOLLOW = Scte35AposWebDeliveryAllowedBehavior' "FOLLOW"
 
-pattern SAWDABIgnore :: Scte35AposWebDeliveryAllowedBehavior
-pattern SAWDABIgnore = Scte35AposWebDeliveryAllowedBehavior' "IGNORE"
+pattern Scte35AposWebDeliveryAllowedBehaviorIGNORE :: Scte35AposWebDeliveryAllowedBehavior
+pattern Scte35AposWebDeliveryAllowedBehaviorIGNORE = Scte35AposWebDeliveryAllowedBehavior' "IGNORE"
 
 {-# COMPLETE
-  SAWDABFollow,
-  SAWDABIgnore,
+  Scte35AposWebDeliveryAllowedBehaviorFOLLOW,
+  Scte35AposWebDeliveryAllowedBehaviorIGNORE,
   Scte35AposWebDeliveryAllowedBehavior'
   #-}
 
-instance FromText Scte35AposWebDeliveryAllowedBehavior where
-  parser = (Scte35AposWebDeliveryAllowedBehavior' . mk) <$> takeText
+instance Prelude.FromText Scte35AposWebDeliveryAllowedBehavior where
+  parser = Scte35AposWebDeliveryAllowedBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText Scte35AposWebDeliveryAllowedBehavior where
-  toText (Scte35AposWebDeliveryAllowedBehavior' ci) = original ci
+instance Prelude.ToText Scte35AposWebDeliveryAllowedBehavior where
+  toText (Scte35AposWebDeliveryAllowedBehavior' x) = x
 
-instance Hashable Scte35AposWebDeliveryAllowedBehavior
+instance Prelude.Hashable Scte35AposWebDeliveryAllowedBehavior
 
-instance NFData Scte35AposWebDeliveryAllowedBehavior
+instance Prelude.NFData Scte35AposWebDeliveryAllowedBehavior
 
-instance ToByteString Scte35AposWebDeliveryAllowedBehavior
+instance Prelude.ToByteString Scte35AposWebDeliveryAllowedBehavior
 
-instance ToQuery Scte35AposWebDeliveryAllowedBehavior
+instance Prelude.ToQuery Scte35AposWebDeliveryAllowedBehavior
 
-instance ToHeader Scte35AposWebDeliveryAllowedBehavior
+instance Prelude.ToHeader Scte35AposWebDeliveryAllowedBehavior
 
-instance ToJSON Scte35AposWebDeliveryAllowedBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte35AposWebDeliveryAllowedBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte35AposWebDeliveryAllowedBehavior where
-  parseJSON = parseJSONText "Scte35AposWebDeliveryAllowedBehavior"
+instance Prelude.FromJSON Scte35AposWebDeliveryAllowedBehavior where
+  parseJSON = Prelude.parseJSONText "Scte35AposWebDeliveryAllowedBehavior"

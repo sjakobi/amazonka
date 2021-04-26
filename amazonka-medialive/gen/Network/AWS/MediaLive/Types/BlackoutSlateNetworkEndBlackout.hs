@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.BlackoutSlateNetworkEndBlackout
   ( BlackoutSlateNetworkEndBlackout
       ( ..,
-        BSNEBDisabled,
-        BSNEBEnabled
+        BlackoutSlateNetworkEndBlackoutDISABLED,
+        BlackoutSlateNetworkEndBlackoutENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Blackout Slate Network End Blackout
-data BlackoutSlateNetworkEndBlackout
-  = BlackoutSlateNetworkEndBlackout'
-      ( CI
-          Text
-      )
+newtype BlackoutSlateNetworkEndBlackout = BlackoutSlateNetworkEndBlackout'
+  { fromBlackoutSlateNetworkEndBlackout ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSNEBDisabled :: BlackoutSlateNetworkEndBlackout
-pattern BSNEBDisabled = BlackoutSlateNetworkEndBlackout' "DISABLED"
+pattern BlackoutSlateNetworkEndBlackoutDISABLED :: BlackoutSlateNetworkEndBlackout
+pattern BlackoutSlateNetworkEndBlackoutDISABLED = BlackoutSlateNetworkEndBlackout' "DISABLED"
 
-pattern BSNEBEnabled :: BlackoutSlateNetworkEndBlackout
-pattern BSNEBEnabled = BlackoutSlateNetworkEndBlackout' "ENABLED"
+pattern BlackoutSlateNetworkEndBlackoutENABLED :: BlackoutSlateNetworkEndBlackout
+pattern BlackoutSlateNetworkEndBlackoutENABLED = BlackoutSlateNetworkEndBlackout' "ENABLED"
 
 {-# COMPLETE
-  BSNEBDisabled,
-  BSNEBEnabled,
+  BlackoutSlateNetworkEndBlackoutDISABLED,
+  BlackoutSlateNetworkEndBlackoutENABLED,
   BlackoutSlateNetworkEndBlackout'
   #-}
 
-instance FromText BlackoutSlateNetworkEndBlackout where
-  parser = (BlackoutSlateNetworkEndBlackout' . mk) <$> takeText
+instance Prelude.FromText BlackoutSlateNetworkEndBlackout where
+  parser = BlackoutSlateNetworkEndBlackout' Prelude.<$> Prelude.takeText
 
-instance ToText BlackoutSlateNetworkEndBlackout where
-  toText (BlackoutSlateNetworkEndBlackout' ci) = original ci
+instance Prelude.ToText BlackoutSlateNetworkEndBlackout where
+  toText (BlackoutSlateNetworkEndBlackout' x) = x
 
-instance Hashable BlackoutSlateNetworkEndBlackout
+instance Prelude.Hashable BlackoutSlateNetworkEndBlackout
 
-instance NFData BlackoutSlateNetworkEndBlackout
+instance Prelude.NFData BlackoutSlateNetworkEndBlackout
 
-instance ToByteString BlackoutSlateNetworkEndBlackout
+instance Prelude.ToByteString BlackoutSlateNetworkEndBlackout
 
-instance ToQuery BlackoutSlateNetworkEndBlackout
+instance Prelude.ToQuery BlackoutSlateNetworkEndBlackout
 
-instance ToHeader BlackoutSlateNetworkEndBlackout
+instance Prelude.ToHeader BlackoutSlateNetworkEndBlackout
 
-instance ToJSON BlackoutSlateNetworkEndBlackout where
-  toJSON = toJSONText
+instance Prelude.ToJSON BlackoutSlateNetworkEndBlackout where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BlackoutSlateNetworkEndBlackout where
-  parseJSON = parseJSONText "BlackoutSlateNetworkEndBlackout"
+instance Prelude.FromJSON BlackoutSlateNetworkEndBlackout where
+  parseJSON = Prelude.parseJSONText "BlackoutSlateNetworkEndBlackout"

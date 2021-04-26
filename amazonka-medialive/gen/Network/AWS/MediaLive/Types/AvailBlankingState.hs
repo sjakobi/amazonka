@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AvailBlankingState
   ( AvailBlankingState
       ( ..,
-        ABSDisabled,
-        ABSEnabled
+        AvailBlankingStateDISABLED,
+        AvailBlankingStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Avail Blanking State
-data AvailBlankingState
-  = AvailBlankingState'
-      ( CI
-          Text
-      )
+newtype AvailBlankingState = AvailBlankingState'
+  { fromAvailBlankingState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ABSDisabled :: AvailBlankingState
-pattern ABSDisabled = AvailBlankingState' "DISABLED"
+pattern AvailBlankingStateDISABLED :: AvailBlankingState
+pattern AvailBlankingStateDISABLED = AvailBlankingState' "DISABLED"
 
-pattern ABSEnabled :: AvailBlankingState
-pattern ABSEnabled = AvailBlankingState' "ENABLED"
+pattern AvailBlankingStateENABLED :: AvailBlankingState
+pattern AvailBlankingStateENABLED = AvailBlankingState' "ENABLED"
 
 {-# COMPLETE
-  ABSDisabled,
-  ABSEnabled,
+  AvailBlankingStateDISABLED,
+  AvailBlankingStateENABLED,
   AvailBlankingState'
   #-}
 
-instance FromText AvailBlankingState where
-  parser = (AvailBlankingState' . mk) <$> takeText
+instance Prelude.FromText AvailBlankingState where
+  parser = AvailBlankingState' Prelude.<$> Prelude.takeText
 
-instance ToText AvailBlankingState where
-  toText (AvailBlankingState' ci) = original ci
+instance Prelude.ToText AvailBlankingState where
+  toText (AvailBlankingState' x) = x
 
-instance Hashable AvailBlankingState
+instance Prelude.Hashable AvailBlankingState
 
-instance NFData AvailBlankingState
+instance Prelude.NFData AvailBlankingState
 
-instance ToByteString AvailBlankingState
+instance Prelude.ToByteString AvailBlankingState
 
-instance ToQuery AvailBlankingState
+instance Prelude.ToQuery AvailBlankingState
 
-instance ToHeader AvailBlankingState
+instance Prelude.ToHeader AvailBlankingState
 
-instance ToJSON AvailBlankingState where
-  toJSON = toJSONText
+instance Prelude.ToJSON AvailBlankingState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AvailBlankingState where
-  parseJSON = parseJSONText "AvailBlankingState"
+instance Prelude.FromJSON AvailBlankingState where
+  parseJSON = Prelude.parseJSONText "AvailBlankingState"

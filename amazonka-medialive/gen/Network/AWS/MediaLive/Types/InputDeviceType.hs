@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,52 @@
 module Network.AWS.MediaLive.Types.InputDeviceType
   ( InputDeviceType
       ( ..,
-        IDTHD
+        InputDeviceTypeHD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | The type of the input device. For an AWS Elemental Link device that outputs resolutions up to 1080, choose "HD".
-data InputDeviceType = InputDeviceType' (CI Text)
+-- | The type of the input device. For an AWS Elemental Link device that
+-- outputs resolutions up to 1080, choose \"HD\".
+newtype InputDeviceType = InputDeviceType'
+  { fromInputDeviceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IDTHD :: InputDeviceType
-pattern IDTHD = InputDeviceType' "HD"
+pattern InputDeviceTypeHD :: InputDeviceType
+pattern InputDeviceTypeHD = InputDeviceType' "HD"
 
 {-# COMPLETE
-  IDTHD,
+  InputDeviceTypeHD,
   InputDeviceType'
   #-}
 
-instance FromText InputDeviceType where
-  parser = (InputDeviceType' . mk) <$> takeText
+instance Prelude.FromText InputDeviceType where
+  parser = InputDeviceType' Prelude.<$> Prelude.takeText
 
-instance ToText InputDeviceType where
-  toText (InputDeviceType' ci) = original ci
+instance Prelude.ToText InputDeviceType where
+  toText (InputDeviceType' x) = x
 
-instance Hashable InputDeviceType
+instance Prelude.Hashable InputDeviceType
 
-instance NFData InputDeviceType
+instance Prelude.NFData InputDeviceType
 
-instance ToByteString InputDeviceType
+instance Prelude.ToByteString InputDeviceType
 
-instance ToQuery InputDeviceType
+instance Prelude.ToQuery InputDeviceType
 
-instance ToHeader InputDeviceType
+instance Prelude.ToHeader InputDeviceType
 
-instance FromJSON InputDeviceType where
-  parseJSON = parseJSONText "InputDeviceType"
+instance Prelude.FromJSON InputDeviceType where
+  parseJSON = Prelude.parseJSONText "InputDeviceType"

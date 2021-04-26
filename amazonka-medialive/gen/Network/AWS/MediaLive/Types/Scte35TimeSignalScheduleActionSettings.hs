@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Scte35TimeSignalScheduleActionSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.Scte35Descriptor
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for a SCTE-35 time_signal.
 --
--- /See:/ 'scte35TimeSignalScheduleActionSettings' smart constructor.
-newtype Scte35TimeSignalScheduleActionSettings = Scte35TimeSignalScheduleActionSettings'
-  { _stssasScte35Descriptors ::
-      [Scte35Descriptor]
+-- /See:/ 'newScte35TimeSignalScheduleActionSettings' smart constructor.
+data Scte35TimeSignalScheduleActionSettings = Scte35TimeSignalScheduleActionSettings'
+  { -- | The list of SCTE-35 descriptors accompanying the SCTE-35 time_signal.
+    scte35Descriptors :: [Scte35Descriptor]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Scte35TimeSignalScheduleActionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Scte35TimeSignalScheduleActionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'stssasScte35Descriptors' - The list of SCTE-35 descriptors accompanying the SCTE-35 time_signal.
-scte35TimeSignalScheduleActionSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'scte35Descriptors', 'scte35TimeSignalScheduleActionSettings_scte35Descriptors' - The list of SCTE-35 descriptors accompanying the SCTE-35 time_signal.
+newScte35TimeSignalScheduleActionSettings ::
   Scte35TimeSignalScheduleActionSettings
-scte35TimeSignalScheduleActionSettings =
+newScte35TimeSignalScheduleActionSettings =
   Scte35TimeSignalScheduleActionSettings'
-    { _stssasScte35Descriptors =
-        mempty
+    { scte35Descriptors =
+        Prelude.mempty
     }
 
 -- | The list of SCTE-35 descriptors accompanying the SCTE-35 time_signal.
-stssasScte35Descriptors :: Lens' Scte35TimeSignalScheduleActionSettings [Scte35Descriptor]
-stssasScte35Descriptors = lens _stssasScte35Descriptors (\s a -> s {_stssasScte35Descriptors = a}) . _Coerce
+scte35TimeSignalScheduleActionSettings_scte35Descriptors :: Lens.Lens' Scte35TimeSignalScheduleActionSettings [Scte35Descriptor]
+scte35TimeSignalScheduleActionSettings_scte35Descriptors = Lens.lens (\Scte35TimeSignalScheduleActionSettings' {scte35Descriptors} -> scte35Descriptors) (\s@Scte35TimeSignalScheduleActionSettings' {} a -> s {scte35Descriptors = a} :: Scte35TimeSignalScheduleActionSettings) Prelude.. Prelude._Coerce
 
 instance
-  FromJSON
+  Prelude.FromJSON
     Scte35TimeSignalScheduleActionSettings
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Scte35TimeSignalScheduleActionSettings"
       ( \x ->
           Scte35TimeSignalScheduleActionSettings'
-            <$> (x .:? "scte35Descriptors" .!= mempty)
+            Prelude.<$> ( x Prelude..:? "scte35Descriptors"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     Scte35TimeSignalScheduleActionSettings
 
 instance
-  NFData
+  Prelude.NFData
     Scte35TimeSignalScheduleActionSettings
 
 instance
-  ToJSON
+  Prelude.ToJSON
     Scte35TimeSignalScheduleActionSettings
   where
   toJSON Scte35TimeSignalScheduleActionSettings' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("scte35Descriptors" .= _stssasScte35Descriptors)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("scte35Descriptors" Prelude..= scte35Descriptors)
           ]
       )

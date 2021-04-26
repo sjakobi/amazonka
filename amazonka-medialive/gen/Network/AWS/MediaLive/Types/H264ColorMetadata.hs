@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H264ColorMetadata
   ( H264ColorMetadata
       ( ..,
-        HCMIgnore,
-        HCMInsert
+        H264ColorMetadataIGNORE,
+        H264ColorMetadataINSERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Color Metadata
-data H264ColorMetadata = H264ColorMetadata' (CI Text)
+newtype H264ColorMetadata = H264ColorMetadata'
+  { fromH264ColorMetadata ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HCMIgnore :: H264ColorMetadata
-pattern HCMIgnore = H264ColorMetadata' "IGNORE"
+pattern H264ColorMetadataIGNORE :: H264ColorMetadata
+pattern H264ColorMetadataIGNORE = H264ColorMetadata' "IGNORE"
 
-pattern HCMInsert :: H264ColorMetadata
-pattern HCMInsert = H264ColorMetadata' "INSERT"
+pattern H264ColorMetadataINSERT :: H264ColorMetadata
+pattern H264ColorMetadataINSERT = H264ColorMetadata' "INSERT"
 
 {-# COMPLETE
-  HCMIgnore,
-  HCMInsert,
+  H264ColorMetadataIGNORE,
+  H264ColorMetadataINSERT,
   H264ColorMetadata'
   #-}
 
-instance FromText H264ColorMetadata where
-  parser = (H264ColorMetadata' . mk) <$> takeText
+instance Prelude.FromText H264ColorMetadata where
+  parser = H264ColorMetadata' Prelude.<$> Prelude.takeText
 
-instance ToText H264ColorMetadata where
-  toText (H264ColorMetadata' ci) = original ci
+instance Prelude.ToText H264ColorMetadata where
+  toText (H264ColorMetadata' x) = x
 
-instance Hashable H264ColorMetadata
+instance Prelude.Hashable H264ColorMetadata
 
-instance NFData H264ColorMetadata
+instance Prelude.NFData H264ColorMetadata
 
-instance ToByteString H264ColorMetadata
+instance Prelude.ToByteString H264ColorMetadata
 
-instance ToQuery H264ColorMetadata
+instance Prelude.ToQuery H264ColorMetadata
 
-instance ToHeader H264ColorMetadata
+instance Prelude.ToHeader H264ColorMetadata
 
-instance ToJSON H264ColorMetadata where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264ColorMetadata where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264ColorMetadata where
-  parseJSON = parseJSONText "H264ColorMetadata"
+instance Prelude.FromJSON H264ColorMetadata where
+  parseJSON = Prelude.parseJSONText "H264ColorMetadata"

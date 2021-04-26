@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MultiplexMediaConnectOutputDestinationSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Multiplex MediaConnect output destination settings.
 --
--- /See:/ 'multiplexMediaConnectOutputDestinationSettings' smart constructor.
-newtype MultiplexMediaConnectOutputDestinationSettings = MultiplexMediaConnectOutputDestinationSettings'
-  { _mmcodsEntitlementARN ::
-      Maybe
-        Text
+-- /See:/ 'newMultiplexMediaConnectOutputDestinationSettings' smart constructor.
+data MultiplexMediaConnectOutputDestinationSettings = MultiplexMediaConnectOutputDestinationSettings'
+  { -- | The MediaConnect entitlement ARN available as a Flow source.
+    entitlementArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultiplexMediaConnectOutputDestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultiplexMediaConnectOutputDestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mmcodsEntitlementARN' - The MediaConnect entitlement ARN available as a Flow source.
-multiplexMediaConnectOutputDestinationSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'entitlementArn', 'multiplexMediaConnectOutputDestinationSettings_entitlementArn' - The MediaConnect entitlement ARN available as a Flow source.
+newMultiplexMediaConnectOutputDestinationSettings ::
   MultiplexMediaConnectOutputDestinationSettings
-multiplexMediaConnectOutputDestinationSettings =
+newMultiplexMediaConnectOutputDestinationSettings =
   MultiplexMediaConnectOutputDestinationSettings'
-    { _mmcodsEntitlementARN =
-        Nothing
+    { entitlementArn =
+        Prelude.Nothing
     }
 
 -- | The MediaConnect entitlement ARN available as a Flow source.
-mmcodsEntitlementARN :: Lens' MultiplexMediaConnectOutputDestinationSettings (Maybe Text)
-mmcodsEntitlementARN = lens _mmcodsEntitlementARN (\s a -> s {_mmcodsEntitlementARN = a})
+multiplexMediaConnectOutputDestinationSettings_entitlementArn :: Lens.Lens' MultiplexMediaConnectOutputDestinationSettings (Prelude.Maybe Prelude.Text)
+multiplexMediaConnectOutputDestinationSettings_entitlementArn = Lens.lens (\MultiplexMediaConnectOutputDestinationSettings' {entitlementArn} -> entitlementArn) (\s@MultiplexMediaConnectOutputDestinationSettings' {} a -> s {entitlementArn = a} :: MultiplexMediaConnectOutputDestinationSettings)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     MultiplexMediaConnectOutputDestinationSettings
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MultiplexMediaConnectOutputDestinationSettings"
       ( \x ->
           MultiplexMediaConnectOutputDestinationSettings'
-            <$> (x .:? "entitlementArn")
+            Prelude.<$> (x Prelude..:? "entitlementArn")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     MultiplexMediaConnectOutputDestinationSettings
 
 instance
-  NFData
+  Prelude.NFData
     MultiplexMediaConnectOutputDestinationSettings

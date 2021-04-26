@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,84 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.StaticImageDeactivateScheduleActionSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for the action to deactivate the image in a specific layer.
 --
--- /See:/ 'staticImageDeactivateScheduleActionSettings' smart constructor.
+-- /See:/ 'newStaticImageDeactivateScheduleActionSettings' smart constructor.
 data StaticImageDeactivateScheduleActionSettings = StaticImageDeactivateScheduleActionSettings'
-  { _sidsasLayer ::
-      !( Maybe
-           Nat
-       ),
-    _sidsasFadeOut ::
-      !( Maybe
-           Nat
-       )
+  { -- | The image overlay layer to deactivate, 0 to 7. Default is 0.
+    layer :: Prelude.Maybe Prelude.Nat,
+    -- | The time in milliseconds for the image to fade out. Default is 0 (no
+    -- fade-out).
+    fadeOut :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StaticImageDeactivateScheduleActionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StaticImageDeactivateScheduleActionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sidsasLayer' - The image overlay layer to deactivate, 0 to 7. Default is 0.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sidsasFadeOut' - The time in milliseconds for the image to fade out. Default is 0 (no fade-out).
-staticImageDeactivateScheduleActionSettings ::
+-- 'layer', 'staticImageDeactivateScheduleActionSettings_layer' - The image overlay layer to deactivate, 0 to 7. Default is 0.
+--
+-- 'fadeOut', 'staticImageDeactivateScheduleActionSettings_fadeOut' - The time in milliseconds for the image to fade out. Default is 0 (no
+-- fade-out).
+newStaticImageDeactivateScheduleActionSettings ::
   StaticImageDeactivateScheduleActionSettings
-staticImageDeactivateScheduleActionSettings =
+newStaticImageDeactivateScheduleActionSettings =
   StaticImageDeactivateScheduleActionSettings'
-    { _sidsasLayer =
-        Nothing,
-      _sidsasFadeOut = Nothing
+    { layer =
+        Prelude.Nothing,
+      fadeOut = Prelude.Nothing
     }
 
 -- | The image overlay layer to deactivate, 0 to 7. Default is 0.
-sidsasLayer :: Lens' StaticImageDeactivateScheduleActionSettings (Maybe Natural)
-sidsasLayer = lens _sidsasLayer (\s a -> s {_sidsasLayer = a}) . mapping _Nat
+staticImageDeactivateScheduleActionSettings_layer :: Lens.Lens' StaticImageDeactivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageDeactivateScheduleActionSettings_layer = Lens.lens (\StaticImageDeactivateScheduleActionSettings' {layer} -> layer) (\s@StaticImageDeactivateScheduleActionSettings' {} a -> s {layer = a} :: StaticImageDeactivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The time in milliseconds for the image to fade out. Default is 0 (no fade-out).
-sidsasFadeOut :: Lens' StaticImageDeactivateScheduleActionSettings (Maybe Natural)
-sidsasFadeOut = lens _sidsasFadeOut (\s a -> s {_sidsasFadeOut = a}) . mapping _Nat
+-- | The time in milliseconds for the image to fade out. Default is 0 (no
+-- fade-out).
+staticImageDeactivateScheduleActionSettings_fadeOut :: Lens.Lens' StaticImageDeactivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageDeactivateScheduleActionSettings_fadeOut = Lens.lens (\StaticImageDeactivateScheduleActionSettings' {fadeOut} -> fadeOut) (\s@StaticImageDeactivateScheduleActionSettings' {} a -> s {fadeOut = a} :: StaticImageDeactivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
 instance
-  FromJSON
+  Prelude.FromJSON
     StaticImageDeactivateScheduleActionSettings
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StaticImageDeactivateScheduleActionSettings"
       ( \x ->
           StaticImageDeactivateScheduleActionSettings'
-            <$> (x .:? "layer") <*> (x .:? "fadeOut")
+            Prelude.<$> (x Prelude..:? "layer")
+              Prelude.<*> (x Prelude..:? "fadeOut")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     StaticImageDeactivateScheduleActionSettings
 
 instance
-  NFData
+  Prelude.NFData
     StaticImageDeactivateScheduleActionSettings
 
 instance
-  ToJSON
+  Prelude.ToJSON
     StaticImageDeactivateScheduleActionSettings
   where
   toJSON
     StaticImageDeactivateScheduleActionSettings' {..} =
-      object
-        ( catMaybes
-            [ ("layer" .=) <$> _sidsasLayer,
-              ("fadeOut" .=) <$> _sidsasFadeOut
+      Prelude.object
+        ( Prelude.catMaybes
+            [ ("layer" Prelude..=) Prelude.<$> layer,
+              ("fadeOut" Prelude..=) Prelude.<$> fadeOut
             ]
         )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.H265AlternativeTransferFunction
   ( H265AlternativeTransferFunction
       ( ..,
-        HATFInsert,
-        HATFOmit
+        H265AlternativeTransferFunctionINSERT,
+        H265AlternativeTransferFunctionOMIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H265 Alternative Transfer Function
-data H265AlternativeTransferFunction
-  = H265AlternativeTransferFunction'
-      ( CI
-          Text
-      )
+newtype H265AlternativeTransferFunction = H265AlternativeTransferFunction'
+  { fromH265AlternativeTransferFunction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HATFInsert :: H265AlternativeTransferFunction
-pattern HATFInsert = H265AlternativeTransferFunction' "INSERT"
+pattern H265AlternativeTransferFunctionINSERT :: H265AlternativeTransferFunction
+pattern H265AlternativeTransferFunctionINSERT = H265AlternativeTransferFunction' "INSERT"
 
-pattern HATFOmit :: H265AlternativeTransferFunction
-pattern HATFOmit = H265AlternativeTransferFunction' "OMIT"
+pattern H265AlternativeTransferFunctionOMIT :: H265AlternativeTransferFunction
+pattern H265AlternativeTransferFunctionOMIT = H265AlternativeTransferFunction' "OMIT"
 
 {-# COMPLETE
-  HATFInsert,
-  HATFOmit,
+  H265AlternativeTransferFunctionINSERT,
+  H265AlternativeTransferFunctionOMIT,
   H265AlternativeTransferFunction'
   #-}
 
-instance FromText H265AlternativeTransferFunction where
-  parser = (H265AlternativeTransferFunction' . mk) <$> takeText
+instance Prelude.FromText H265AlternativeTransferFunction where
+  parser = H265AlternativeTransferFunction' Prelude.<$> Prelude.takeText
 
-instance ToText H265AlternativeTransferFunction where
-  toText (H265AlternativeTransferFunction' ci) = original ci
+instance Prelude.ToText H265AlternativeTransferFunction where
+  toText (H265AlternativeTransferFunction' x) = x
 
-instance Hashable H265AlternativeTransferFunction
+instance Prelude.Hashable H265AlternativeTransferFunction
 
-instance NFData H265AlternativeTransferFunction
+instance Prelude.NFData H265AlternativeTransferFunction
 
-instance ToByteString H265AlternativeTransferFunction
+instance Prelude.ToByteString H265AlternativeTransferFunction
 
-instance ToQuery H265AlternativeTransferFunction
+instance Prelude.ToQuery H265AlternativeTransferFunction
 
-instance ToHeader H265AlternativeTransferFunction
+instance Prelude.ToHeader H265AlternativeTransferFunction
 
-instance ToJSON H265AlternativeTransferFunction where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265AlternativeTransferFunction where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265AlternativeTransferFunction where
-  parseJSON = parseJSONText "H265AlternativeTransferFunction"
+instance Prelude.FromJSON H265AlternativeTransferFunction where
+  parseJSON = Prelude.parseJSONText "H265AlternativeTransferFunction"

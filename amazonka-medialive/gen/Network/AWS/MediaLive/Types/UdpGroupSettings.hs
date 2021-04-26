@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,104 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.UdpGroupSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.InputLossActionForUdpOut
 import Network.AWS.MediaLive.Types.UdpTimedMetadataId3Frame
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Udp Group Settings
 --
--- /See:/ 'udpGroupSettings' smart constructor.
+-- /See:/ 'newUdpGroupSettings' smart constructor.
 data UdpGroupSettings = UdpGroupSettings'
-  { _ugsTimedMetadataId3Period ::
-      !(Maybe Nat),
-    _ugsTimedMetadataId3Frame ::
-      !(Maybe UdpTimedMetadataId3Frame),
-    _ugsInputLossAction ::
-      !(Maybe InputLossActionForUdpOut)
+  { -- | Timed Metadata interval in seconds.
+    timedMetadataId3Period :: Prelude.Maybe Prelude.Nat,
+    -- | Indicates ID3 frame that has the timecode.
+    timedMetadataId3Frame :: Prelude.Maybe UdpTimedMetadataId3Frame,
+    -- | Specifies behavior of last resort when input video is lost, and no more
+    -- backup inputs are available. When dropTs is selected the entire
+    -- transport stream will stop being emitted. When dropProgram is selected
+    -- the program can be dropped from the transport stream (and replaced with
+    -- null packets to meet the TS bitrate requirement). Or, when emitProgram
+    -- is chosen the transport stream will continue to be produced normally
+    -- with repeat frames, black frames, or slate frames substituted for the
+    -- absent input video.
+    inputLossAction :: Prelude.Maybe InputLossActionForUdpOut
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UdpGroupSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UdpGroupSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugsTimedMetadataId3Period' - Timed Metadata interval in seconds.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugsTimedMetadataId3Frame' - Indicates ID3 frame that has the timecode.
+-- 'timedMetadataId3Period', 'udpGroupSettings_timedMetadataId3Period' - Timed Metadata interval in seconds.
 --
--- * 'ugsInputLossAction' - Specifies behavior of last resort when input video is lost, and no more backup inputs are available. When dropTs is selected the entire transport stream will stop being emitted.  When dropProgram is selected the program can be dropped from the transport stream (and replaced with null packets to meet the TS bitrate requirement).  Or, when emitProgram is chosen the transport stream will continue to be produced normally with repeat frames, black frames, or slate frames substituted for the absent input video.
-udpGroupSettings ::
+-- 'timedMetadataId3Frame', 'udpGroupSettings_timedMetadataId3Frame' - Indicates ID3 frame that has the timecode.
+--
+-- 'inputLossAction', 'udpGroupSettings_inputLossAction' - Specifies behavior of last resort when input video is lost, and no more
+-- backup inputs are available. When dropTs is selected the entire
+-- transport stream will stop being emitted. When dropProgram is selected
+-- the program can be dropped from the transport stream (and replaced with
+-- null packets to meet the TS bitrate requirement). Or, when emitProgram
+-- is chosen the transport stream will continue to be produced normally
+-- with repeat frames, black frames, or slate frames substituted for the
+-- absent input video.
+newUdpGroupSettings ::
   UdpGroupSettings
-udpGroupSettings =
+newUdpGroupSettings =
   UdpGroupSettings'
-    { _ugsTimedMetadataId3Period =
-        Nothing,
-      _ugsTimedMetadataId3Frame = Nothing,
-      _ugsInputLossAction = Nothing
+    { timedMetadataId3Period =
+        Prelude.Nothing,
+      timedMetadataId3Frame = Prelude.Nothing,
+      inputLossAction = Prelude.Nothing
     }
 
 -- | Timed Metadata interval in seconds.
-ugsTimedMetadataId3Period :: Lens' UdpGroupSettings (Maybe Natural)
-ugsTimedMetadataId3Period = lens _ugsTimedMetadataId3Period (\s a -> s {_ugsTimedMetadataId3Period = a}) . mapping _Nat
+udpGroupSettings_timedMetadataId3Period :: Lens.Lens' UdpGroupSettings (Prelude.Maybe Prelude.Natural)
+udpGroupSettings_timedMetadataId3Period = Lens.lens (\UdpGroupSettings' {timedMetadataId3Period} -> timedMetadataId3Period) (\s@UdpGroupSettings' {} a -> s {timedMetadataId3Period = a} :: UdpGroupSettings) Prelude.. Lens.mapping Prelude._Nat
 
 -- | Indicates ID3 frame that has the timecode.
-ugsTimedMetadataId3Frame :: Lens' UdpGroupSettings (Maybe UdpTimedMetadataId3Frame)
-ugsTimedMetadataId3Frame = lens _ugsTimedMetadataId3Frame (\s a -> s {_ugsTimedMetadataId3Frame = a})
+udpGroupSettings_timedMetadataId3Frame :: Lens.Lens' UdpGroupSettings (Prelude.Maybe UdpTimedMetadataId3Frame)
+udpGroupSettings_timedMetadataId3Frame = Lens.lens (\UdpGroupSettings' {timedMetadataId3Frame} -> timedMetadataId3Frame) (\s@UdpGroupSettings' {} a -> s {timedMetadataId3Frame = a} :: UdpGroupSettings)
 
--- | Specifies behavior of last resort when input video is lost, and no more backup inputs are available. When dropTs is selected the entire transport stream will stop being emitted.  When dropProgram is selected the program can be dropped from the transport stream (and replaced with null packets to meet the TS bitrate requirement).  Or, when emitProgram is chosen the transport stream will continue to be produced normally with repeat frames, black frames, or slate frames substituted for the absent input video.
-ugsInputLossAction :: Lens' UdpGroupSettings (Maybe InputLossActionForUdpOut)
-ugsInputLossAction = lens _ugsInputLossAction (\s a -> s {_ugsInputLossAction = a})
+-- | Specifies behavior of last resort when input video is lost, and no more
+-- backup inputs are available. When dropTs is selected the entire
+-- transport stream will stop being emitted. When dropProgram is selected
+-- the program can be dropped from the transport stream (and replaced with
+-- null packets to meet the TS bitrate requirement). Or, when emitProgram
+-- is chosen the transport stream will continue to be produced normally
+-- with repeat frames, black frames, or slate frames substituted for the
+-- absent input video.
+udpGroupSettings_inputLossAction :: Lens.Lens' UdpGroupSettings (Prelude.Maybe InputLossActionForUdpOut)
+udpGroupSettings_inputLossAction = Lens.lens (\UdpGroupSettings' {inputLossAction} -> inputLossAction) (\s@UdpGroupSettings' {} a -> s {inputLossAction = a} :: UdpGroupSettings)
 
-instance FromJSON UdpGroupSettings where
+instance Prelude.FromJSON UdpGroupSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UdpGroupSettings"
       ( \x ->
           UdpGroupSettings'
-            <$> (x .:? "timedMetadataId3Period")
-            <*> (x .:? "timedMetadataId3Frame")
-            <*> (x .:? "inputLossAction")
+            Prelude.<$> (x Prelude..:? "timedMetadataId3Period")
+            Prelude.<*> (x Prelude..:? "timedMetadataId3Frame")
+            Prelude.<*> (x Prelude..:? "inputLossAction")
       )
 
-instance Hashable UdpGroupSettings
+instance Prelude.Hashable UdpGroupSettings
 
-instance NFData UdpGroupSettings
+instance Prelude.NFData UdpGroupSettings
 
-instance ToJSON UdpGroupSettings where
+instance Prelude.ToJSON UdpGroupSettings where
   toJSON UdpGroupSettings' {..} =
-    object
-      ( catMaybes
-          [ ("timedMetadataId3Period" .=)
-              <$> _ugsTimedMetadataId3Period,
-            ("timedMetadataId3Frame" .=)
-              <$> _ugsTimedMetadataId3Frame,
-            ("inputLossAction" .=) <$> _ugsInputLossAction
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("timedMetadataId3Period" Prelude..=)
+              Prelude.<$> timedMetadataId3Period,
+            ("timedMetadataId3Frame" Prelude..=)
+              Prelude.<$> timedMetadataId3Frame,
+            ("inputLossAction" Prelude..=)
+              Prelude.<$> inputLossAction
           ]
       )

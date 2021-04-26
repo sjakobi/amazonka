@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,239 +26,269 @@
 -- This operation returns paginated results.
 module Network.AWS.MediaLive.ListReservations
   ( -- * Creating a Request
-    listReservations,
-    ListReservations,
+    ListReservations (..),
+    newListReservations,
 
     -- * Request Lenses
-    lrMaximumFramerate,
-    lrNextToken,
-    lrVideoQuality,
-    lrMaxResults,
-    lrCodec,
-    lrMaximumBitrate,
-    lrSpecialFeature,
-    lrChannelClass,
-    lrResourceType,
-    lrResolution,
+    listReservations_maximumFramerate,
+    listReservations_nextToken,
+    listReservations_videoQuality,
+    listReservations_maxResults,
+    listReservations_codec,
+    listReservations_maximumBitrate,
+    listReservations_specialFeature,
+    listReservations_channelClass,
+    listReservations_resourceType,
+    listReservations_resolution,
 
     -- * Destructuring the Response
-    listReservationsResponse,
-    ListReservationsResponse,
+    ListReservationsResponse (..),
+    newListReservationsResponse,
 
     -- * Response Lenses
-    lrrrsNextToken,
-    lrrrsReservations,
-    lrrrsResponseStatus,
+    listReservationsResponse_nextToken,
+    listReservationsResponse_reservations,
+    listReservationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.Reservation
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for ListReservationsRequest
 --
--- /See:/ 'listReservations' smart constructor.
+-- /See:/ 'newListReservations' smart constructor.
 data ListReservations = ListReservations'
-  { _lrMaximumFramerate ::
-      !(Maybe Text),
-    _lrNextToken :: !(Maybe Text),
-    _lrVideoQuality :: !(Maybe Text),
-    _lrMaxResults :: !(Maybe Nat),
-    _lrCodec :: !(Maybe Text),
-    _lrMaximumBitrate :: !(Maybe Text),
-    _lrSpecialFeature :: !(Maybe Text),
-    _lrChannelClass :: !(Maybe Text),
-    _lrResourceType :: !(Maybe Text),
-    _lrResolution :: !(Maybe Text)
+  { -- | Filter by framerate, \'MAX_30_FPS\' or \'MAX_60_FPS\'
+    maximumFramerate :: Prelude.Maybe Prelude.Text,
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filter by video quality, \'STANDARD\', \'ENHANCED\', or \'PREMIUM\'
+    videoQuality :: Prelude.Maybe Prelude.Text,
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Filter by codec, \'AVC\', \'HEVC\', \'MPEG2\', \'AUDIO\', or \'LINK\'
+    codec :: Prelude.Maybe Prelude.Text,
+    -- | Filter by bitrate, \'MAX_10_MBPS\', \'MAX_20_MBPS\', or \'MAX_50_MBPS\'
+    maximumBitrate :: Prelude.Maybe Prelude.Text,
+    -- | Filter by special feature, \'ADVANCED_AUDIO\' or \'AUDIO_NORMALIZATION\'
+    specialFeature :: Prelude.Maybe Prelude.Text,
+    -- | Filter by channel class, \'STANDARD\' or \'SINGLE_PIPELINE\'
+    channelClass :: Prelude.Maybe Prelude.Text,
+    -- | Filter by resource type, \'INPUT\', \'OUTPUT\', \'MULTIPLEX\', or
+    -- \'CHANNEL\'
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | Filter by resolution, \'SD\', \'HD\', \'FHD\', or \'UHD\'
+    resolution :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReservations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReservations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrMaximumFramerate' - Filter by framerate, 'MAX_30_FPS' or 'MAX_60_FPS'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrNextToken' - Undocumented member.
+-- 'maximumFramerate', 'listReservations_maximumFramerate' - Filter by framerate, \'MAX_30_FPS\' or \'MAX_60_FPS\'
 --
--- * 'lrVideoQuality' - Filter by video quality, 'STANDARD', 'ENHANCED', or 'PREMIUM'
+-- 'nextToken', 'listReservations_nextToken' - Undocumented member.
 --
--- * 'lrMaxResults' - Undocumented member.
+-- 'videoQuality', 'listReservations_videoQuality' - Filter by video quality, \'STANDARD\', \'ENHANCED\', or \'PREMIUM\'
 --
--- * 'lrCodec' - Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
+-- 'maxResults', 'listReservations_maxResults' - Undocumented member.
 --
--- * 'lrMaximumBitrate' - Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or 'MAX_50_MBPS'
+-- 'codec', 'listReservations_codec' - Filter by codec, \'AVC\', \'HEVC\', \'MPEG2\', \'AUDIO\', or \'LINK\'
 --
--- * 'lrSpecialFeature' - Filter by special feature, 'ADVANCED_AUDIO' or 'AUDIO_NORMALIZATION'
+-- 'maximumBitrate', 'listReservations_maximumBitrate' - Filter by bitrate, \'MAX_10_MBPS\', \'MAX_20_MBPS\', or \'MAX_50_MBPS\'
 --
--- * 'lrChannelClass' - Filter by channel class, 'STANDARD' or 'SINGLE_PIPELINE'
+-- 'specialFeature', 'listReservations_specialFeature' - Filter by special feature, \'ADVANCED_AUDIO\' or \'AUDIO_NORMALIZATION\'
 --
--- * 'lrResourceType' - Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
+-- 'channelClass', 'listReservations_channelClass' - Filter by channel class, \'STANDARD\' or \'SINGLE_PIPELINE\'
 --
--- * 'lrResolution' - Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
-listReservations ::
+-- 'resourceType', 'listReservations_resourceType' - Filter by resource type, \'INPUT\', \'OUTPUT\', \'MULTIPLEX\', or
+-- \'CHANNEL\'
+--
+-- 'resolution', 'listReservations_resolution' - Filter by resolution, \'SD\', \'HD\', \'FHD\', or \'UHD\'
+newListReservations ::
   ListReservations
-listReservations =
+newListReservations =
   ListReservations'
-    { _lrMaximumFramerate = Nothing,
-      _lrNextToken = Nothing,
-      _lrVideoQuality = Nothing,
-      _lrMaxResults = Nothing,
-      _lrCodec = Nothing,
-      _lrMaximumBitrate = Nothing,
-      _lrSpecialFeature = Nothing,
-      _lrChannelClass = Nothing,
-      _lrResourceType = Nothing,
-      _lrResolution = Nothing
+    { maximumFramerate =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      videoQuality = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      codec = Prelude.Nothing,
+      maximumBitrate = Prelude.Nothing,
+      specialFeature = Prelude.Nothing,
+      channelClass = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
+      resolution = Prelude.Nothing
     }
 
--- | Filter by framerate, 'MAX_30_FPS' or 'MAX_60_FPS'
-lrMaximumFramerate :: Lens' ListReservations (Maybe Text)
-lrMaximumFramerate = lens _lrMaximumFramerate (\s a -> s {_lrMaximumFramerate = a})
+-- | Filter by framerate, \'MAX_30_FPS\' or \'MAX_60_FPS\'
+listReservations_maximumFramerate :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_maximumFramerate = Lens.lens (\ListReservations' {maximumFramerate} -> maximumFramerate) (\s@ListReservations' {} a -> s {maximumFramerate = a} :: ListReservations)
 
 -- | Undocumented member.
-lrNextToken :: Lens' ListReservations (Maybe Text)
-lrNextToken = lens _lrNextToken (\s a -> s {_lrNextToken = a})
+listReservations_nextToken :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_nextToken = Lens.lens (\ListReservations' {nextToken} -> nextToken) (\s@ListReservations' {} a -> s {nextToken = a} :: ListReservations)
 
--- | Filter by video quality, 'STANDARD', 'ENHANCED', or 'PREMIUM'
-lrVideoQuality :: Lens' ListReservations (Maybe Text)
-lrVideoQuality = lens _lrVideoQuality (\s a -> s {_lrVideoQuality = a})
+-- | Filter by video quality, \'STANDARD\', \'ENHANCED\', or \'PREMIUM\'
+listReservations_videoQuality :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_videoQuality = Lens.lens (\ListReservations' {videoQuality} -> videoQuality) (\s@ListReservations' {} a -> s {videoQuality = a} :: ListReservations)
 
 -- | Undocumented member.
-lrMaxResults :: Lens' ListReservations (Maybe Natural)
-lrMaxResults = lens _lrMaxResults (\s a -> s {_lrMaxResults = a}) . mapping _Nat
+listReservations_maxResults :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Natural)
+listReservations_maxResults = Lens.lens (\ListReservations' {maxResults} -> maxResults) (\s@ListReservations' {} a -> s {maxResults = a} :: ListReservations) Prelude.. Lens.mapping Prelude._Nat
 
--- | Filter by codec, 'AVC', 'HEVC', 'MPEG2', 'AUDIO', or 'LINK'
-lrCodec :: Lens' ListReservations (Maybe Text)
-lrCodec = lens _lrCodec (\s a -> s {_lrCodec = a})
+-- | Filter by codec, \'AVC\', \'HEVC\', \'MPEG2\', \'AUDIO\', or \'LINK\'
+listReservations_codec :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_codec = Lens.lens (\ListReservations' {codec} -> codec) (\s@ListReservations' {} a -> s {codec = a} :: ListReservations)
 
--- | Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or 'MAX_50_MBPS'
-lrMaximumBitrate :: Lens' ListReservations (Maybe Text)
-lrMaximumBitrate = lens _lrMaximumBitrate (\s a -> s {_lrMaximumBitrate = a})
+-- | Filter by bitrate, \'MAX_10_MBPS\', \'MAX_20_MBPS\', or \'MAX_50_MBPS\'
+listReservations_maximumBitrate :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_maximumBitrate = Lens.lens (\ListReservations' {maximumBitrate} -> maximumBitrate) (\s@ListReservations' {} a -> s {maximumBitrate = a} :: ListReservations)
 
--- | Filter by special feature, 'ADVANCED_AUDIO' or 'AUDIO_NORMALIZATION'
-lrSpecialFeature :: Lens' ListReservations (Maybe Text)
-lrSpecialFeature = lens _lrSpecialFeature (\s a -> s {_lrSpecialFeature = a})
+-- | Filter by special feature, \'ADVANCED_AUDIO\' or \'AUDIO_NORMALIZATION\'
+listReservations_specialFeature :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_specialFeature = Lens.lens (\ListReservations' {specialFeature} -> specialFeature) (\s@ListReservations' {} a -> s {specialFeature = a} :: ListReservations)
 
--- | Filter by channel class, 'STANDARD' or 'SINGLE_PIPELINE'
-lrChannelClass :: Lens' ListReservations (Maybe Text)
-lrChannelClass = lens _lrChannelClass (\s a -> s {_lrChannelClass = a})
+-- | Filter by channel class, \'STANDARD\' or \'SINGLE_PIPELINE\'
+listReservations_channelClass :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_channelClass = Lens.lens (\ListReservations' {channelClass} -> channelClass) (\s@ListReservations' {} a -> s {channelClass = a} :: ListReservations)
 
--- | Filter by resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
-lrResourceType :: Lens' ListReservations (Maybe Text)
-lrResourceType = lens _lrResourceType (\s a -> s {_lrResourceType = a})
+-- | Filter by resource type, \'INPUT\', \'OUTPUT\', \'MULTIPLEX\', or
+-- \'CHANNEL\'
+listReservations_resourceType :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_resourceType = Lens.lens (\ListReservations' {resourceType} -> resourceType) (\s@ListReservations' {} a -> s {resourceType = a} :: ListReservations)
 
--- | Filter by resolution, 'SD', 'HD', 'FHD', or 'UHD'
-lrResolution :: Lens' ListReservations (Maybe Text)
-lrResolution = lens _lrResolution (\s a -> s {_lrResolution = a})
+-- | Filter by resolution, \'SD\', \'HD\', \'FHD\', or \'UHD\'
+listReservations_resolution :: Lens.Lens' ListReservations (Prelude.Maybe Prelude.Text)
+listReservations_resolution = Lens.lens (\ListReservations' {resolution} -> resolution) (\s@ListReservations' {} a -> s {resolution = a} :: ListReservations)
 
-instance AWSPager ListReservations where
+instance Pager.AWSPager ListReservations where
   page rq rs
-    | stop (rs ^. lrrrsNextToken) = Nothing
-    | stop (rs ^. lrrrsReservations) = Nothing
-    | otherwise =
-      Just $ rq & lrNextToken .~ rs ^. lrrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listReservationsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listReservationsResponse_reservations
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listReservations_nextToken
+          Lens..~ rs
+          Lens.^? listReservationsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListReservations where
+instance Prelude.AWSRequest ListReservations where
   type Rs ListReservations = ListReservationsResponse
-  request = get mediaLive
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListReservationsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "reservations" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "reservations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListReservations
+instance Prelude.Hashable ListReservations
 
-instance NFData ListReservations
+instance Prelude.NFData ListReservations
 
-instance ToHeaders ListReservations where
+instance Prelude.ToHeaders ListReservations where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListReservations where
-  toPath = const "/prod/reservations"
+instance Prelude.ToPath ListReservations where
+  toPath = Prelude.const "/prod/reservations"
 
-instance ToQuery ListReservations where
+instance Prelude.ToQuery ListReservations where
   toQuery ListReservations' {..} =
-    mconcat
-      [ "maximumFramerate" =: _lrMaximumFramerate,
-        "nextToken" =: _lrNextToken,
-        "videoQuality" =: _lrVideoQuality,
-        "maxResults" =: _lrMaxResults,
-        "codec" =: _lrCodec,
-        "maximumBitrate" =: _lrMaximumBitrate,
-        "specialFeature" =: _lrSpecialFeature,
-        "channelClass" =: _lrChannelClass,
-        "resourceType" =: _lrResourceType,
-        "resolution" =: _lrResolution
+    Prelude.mconcat
+      [ "maximumFramerate" Prelude.=: maximumFramerate,
+        "nextToken" Prelude.=: nextToken,
+        "videoQuality" Prelude.=: videoQuality,
+        "maxResults" Prelude.=: maxResults,
+        "codec" Prelude.=: codec,
+        "maximumBitrate" Prelude.=: maximumBitrate,
+        "specialFeature" Prelude.=: specialFeature,
+        "channelClass" Prelude.=: channelClass,
+        "resourceType" Prelude.=: resourceType,
+        "resolution" Prelude.=: resolution
       ]
 
 -- | Placeholder documentation for ListReservationsResponse
 --
--- /See:/ 'listReservationsResponse' smart constructor.
+-- /See:/ 'newListReservationsResponse' smart constructor.
 data ListReservationsResponse = ListReservationsResponse'
-  { _lrrrsNextToken ::
-      !(Maybe Text),
-    _lrrrsReservations ::
-      !( Maybe
-           [Reservation]
-       ),
-    _lrrrsResponseStatus ::
-      !Int
+  { -- | Token to retrieve the next page of results
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of reservations
+    reservations :: Prelude.Maybe [Reservation],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListReservationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListReservationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrrrsNextToken' - Token to retrieve the next page of results
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrrrsReservations' - List of reservations
+-- 'nextToken', 'listReservationsResponse_nextToken' - Token to retrieve the next page of results
 --
--- * 'lrrrsResponseStatus' - -- | The response status code.
-listReservationsResponse ::
-  -- | 'lrrrsResponseStatus'
-  Int ->
+-- 'reservations', 'listReservationsResponse_reservations' - List of reservations
+--
+-- 'httpStatus', 'listReservationsResponse_httpStatus' - The response's http status code.
+newListReservationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListReservationsResponse
-listReservationsResponse pResponseStatus_ =
+newListReservationsResponse pHttpStatus_ =
   ListReservationsResponse'
-    { _lrrrsNextToken =
-        Nothing,
-      _lrrrsReservations = Nothing,
-      _lrrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      reservations = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Token to retrieve the next page of results
-lrrrsNextToken :: Lens' ListReservationsResponse (Maybe Text)
-lrrrsNextToken = lens _lrrrsNextToken (\s a -> s {_lrrrsNextToken = a})
+listReservationsResponse_nextToken :: Lens.Lens' ListReservationsResponse (Prelude.Maybe Prelude.Text)
+listReservationsResponse_nextToken = Lens.lens (\ListReservationsResponse' {nextToken} -> nextToken) (\s@ListReservationsResponse' {} a -> s {nextToken = a} :: ListReservationsResponse)
 
 -- | List of reservations
-lrrrsReservations :: Lens' ListReservationsResponse [Reservation]
-lrrrsReservations = lens _lrrrsReservations (\s a -> s {_lrrrsReservations = a}) . _Default . _Coerce
+listReservationsResponse_reservations :: Lens.Lens' ListReservationsResponse (Prelude.Maybe [Reservation])
+listReservationsResponse_reservations = Lens.lens (\ListReservationsResponse' {reservations} -> reservations) (\s@ListReservationsResponse' {} a -> s {reservations = a} :: ListReservationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lrrrsResponseStatus :: Lens' ListReservationsResponse Int
-lrrrsResponseStatus = lens _lrrrsResponseStatus (\s a -> s {_lrrrsResponseStatus = a})
+-- | The response's http status code.
+listReservationsResponse_httpStatus :: Lens.Lens' ListReservationsResponse Prelude.Int
+listReservationsResponse_httpStatus = Lens.lens (\ListReservationsResponse' {httpStatus} -> httpStatus) (\s@ListReservationsResponse' {} a -> s {httpStatus = a} :: ListReservationsResponse)
 
-instance NFData ListReservationsResponse
+instance Prelude.NFData ListReservationsResponse

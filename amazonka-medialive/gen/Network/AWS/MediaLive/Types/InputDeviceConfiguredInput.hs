@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.InputDeviceConfiguredInput
   ( InputDeviceConfiguredInput
       ( ..,
-        Auto,
-        Hdmi,
-        Sdi
+        InputDeviceConfiguredInputAUTO,
+        InputDeviceConfiguredInputHDMI,
+        InputDeviceConfiguredInputSDI
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The source to activate (use) from the input device.
-data InputDeviceConfiguredInput
-  = InputDeviceConfiguredInput'
-      ( CI
-          Text
-      )
+newtype InputDeviceConfiguredInput = InputDeviceConfiguredInput'
+  { fromInputDeviceConfiguredInput ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Auto :: InputDeviceConfiguredInput
-pattern Auto = InputDeviceConfiguredInput' "AUTO"
+pattern InputDeviceConfiguredInputAUTO :: InputDeviceConfiguredInput
+pattern InputDeviceConfiguredInputAUTO = InputDeviceConfiguredInput' "AUTO"
 
-pattern Hdmi :: InputDeviceConfiguredInput
-pattern Hdmi = InputDeviceConfiguredInput' "HDMI"
+pattern InputDeviceConfiguredInputHDMI :: InputDeviceConfiguredInput
+pattern InputDeviceConfiguredInputHDMI = InputDeviceConfiguredInput' "HDMI"
 
-pattern Sdi :: InputDeviceConfiguredInput
-pattern Sdi = InputDeviceConfiguredInput' "SDI"
+pattern InputDeviceConfiguredInputSDI :: InputDeviceConfiguredInput
+pattern InputDeviceConfiguredInputSDI = InputDeviceConfiguredInput' "SDI"
 
 {-# COMPLETE
-  Auto,
-  Hdmi,
-  Sdi,
+  InputDeviceConfiguredInputAUTO,
+  InputDeviceConfiguredInputHDMI,
+  InputDeviceConfiguredInputSDI,
   InputDeviceConfiguredInput'
   #-}
 
-instance FromText InputDeviceConfiguredInput where
-  parser = (InputDeviceConfiguredInput' . mk) <$> takeText
+instance Prelude.FromText InputDeviceConfiguredInput where
+  parser = InputDeviceConfiguredInput' Prelude.<$> Prelude.takeText
 
-instance ToText InputDeviceConfiguredInput where
-  toText (InputDeviceConfiguredInput' ci) = original ci
+instance Prelude.ToText InputDeviceConfiguredInput where
+  toText (InputDeviceConfiguredInput' x) = x
 
-instance Hashable InputDeviceConfiguredInput
+instance Prelude.Hashable InputDeviceConfiguredInput
 
-instance NFData InputDeviceConfiguredInput
+instance Prelude.NFData InputDeviceConfiguredInput
 
-instance ToByteString InputDeviceConfiguredInput
+instance Prelude.ToByteString InputDeviceConfiguredInput
 
-instance ToQuery InputDeviceConfiguredInput
+instance Prelude.ToQuery InputDeviceConfiguredInput
 
-instance ToHeader InputDeviceConfiguredInput
+instance Prelude.ToHeader InputDeviceConfiguredInput
 
-instance ToJSON InputDeviceConfiguredInput where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputDeviceConfiguredInput where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputDeviceConfiguredInput where
-  parseJSON = parseJSONText "InputDeviceConfiguredInput"
+instance Prelude.FromJSON InputDeviceConfiguredInput where
+  parseJSON = Prelude.parseJSONText "InputDeviceConfiguredInput"

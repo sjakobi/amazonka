@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,189 +19,231 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.StaticImageActivateScheduleActionSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.InputLocation
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings for the action to activate a static image.
 --
--- /See:/ 'staticImageActivateScheduleActionSettings' smart constructor.
+-- /See:/ 'newStaticImageActivateScheduleActionSettings' smart constructor.
 data StaticImageActivateScheduleActionSettings = StaticImageActivateScheduleActionSettings'
-  { _siasasHeight ::
-      !( Maybe
-           Nat
-       ),
-    _siasasImageX ::
-      !( Maybe
-           Nat
-       ),
-    _siasasImageY ::
-      !( Maybe
-           Nat
-       ),
-    _siasasDuration ::
-      !( Maybe
-           Nat
-       ),
-    _siasasWidth ::
-      !( Maybe
-           Nat
-       ),
-    _siasasLayer ::
-      !( Maybe
-           Nat
-       ),
-    _siasasOpacity ::
-      !( Maybe
-           Nat
-       ),
-    _siasasFadeIn ::
-      !( Maybe
-           Nat
-       ),
-    _siasasFadeOut ::
-      !( Maybe
-           Nat
-       ),
-    _siasasImage ::
-      !InputLocation
+  { -- | The height of the image when inserted into the video, in pixels. The
+    -- overlay will be scaled up or down to the specified height. Leave blank
+    -- to use the native height of the overlay.
+    height :: Prelude.Maybe Prelude.Nat,
+    -- | Placement of the left edge of the overlay relative to the left edge of
+    -- the video frame, in pixels. 0 (the default) is the left edge of the
+    -- frame. If the placement causes the overlay to extend beyond the right
+    -- edge of the underlying video, then the overlay is cropped on the right.
+    imageX :: Prelude.Maybe Prelude.Nat,
+    -- | Placement of the top edge of the overlay relative to the top edge of the
+    -- video frame, in pixels. 0 (the default) is the top edge of the frame. If
+    -- the placement causes the overlay to extend beyond the bottom edge of the
+    -- underlying video, then the overlay is cropped on the bottom.
+    imageY :: Prelude.Maybe Prelude.Nat,
+    -- | The duration in milliseconds for the image to remain on the video. If
+    -- omitted or set to 0 the duration is unlimited and the image will remain
+    -- until it is explicitly deactivated.
+    duration :: Prelude.Maybe Prelude.Nat,
+    -- | The width of the image when inserted into the video, in pixels. The
+    -- overlay will be scaled up or down to the specified width. Leave blank to
+    -- use the native width of the overlay.
+    width :: Prelude.Maybe Prelude.Nat,
+    -- | The number of the layer, 0 to 7. There are 8 layers that can be overlaid
+    -- on the video, each layer with a different image. The layers are in Z
+    -- order, which means that overlays with higher values of layer are
+    -- inserted on top of overlays with lower values of layer. Default is 0.
+    layer :: Prelude.Maybe Prelude.Nat,
+    -- | Opacity of image where 0 is transparent and 100 is fully opaque. Default
+    -- is 100.
+    opacity :: Prelude.Maybe Prelude.Nat,
+    -- | The time in milliseconds for the image to fade in. The fade-in starts at
+    -- the start time of the overlay. Default is 0 (no fade-in).
+    fadeIn :: Prelude.Maybe Prelude.Nat,
+    -- | Applies only if a duration is specified. The time in milliseconds for
+    -- the image to fade out. The fade-out starts when the duration time is
+    -- hit, so it effectively extends the duration. Default is 0 (no fade-out).
+    fadeOut :: Prelude.Maybe Prelude.Nat,
+    -- | The location and filename of the image file to overlay on the video. The
+    -- file must be a 32-bit BMP, PNG, or TGA file, and must not be larger (in
+    -- pixels) than the input video.
+    image :: InputLocation
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StaticImageActivateScheduleActionSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StaticImageActivateScheduleActionSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'siasasHeight' - The height of the image when inserted into the video, in pixels. The overlay will be scaled up or down to the specified height. Leave blank to use the native height of the overlay.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'siasasImageX' - Placement of the left edge of the overlay relative to the left edge of the video frame, in pixels. 0 (the default) is the left edge of the frame. If the placement causes the overlay to extend beyond the right edge of the underlying video, then the overlay is cropped on the right.
+-- 'height', 'staticImageActivateScheduleActionSettings_height' - The height of the image when inserted into the video, in pixels. The
+-- overlay will be scaled up or down to the specified height. Leave blank
+-- to use the native height of the overlay.
 --
--- * 'siasasImageY' - Placement of the top edge of the overlay relative to the top edge of the video frame, in pixels. 0 (the default) is the top edge of the frame. If the placement causes the overlay to extend beyond the bottom edge of the underlying video, then the overlay is cropped on the bottom.
+-- 'imageX', 'staticImageActivateScheduleActionSettings_imageX' - Placement of the left edge of the overlay relative to the left edge of
+-- the video frame, in pixels. 0 (the default) is the left edge of the
+-- frame. If the placement causes the overlay to extend beyond the right
+-- edge of the underlying video, then the overlay is cropped on the right.
 --
--- * 'siasasDuration' - The duration in milliseconds for the image to remain on the video. If omitted or set to 0 the duration is unlimited and the image will remain until it is explicitly deactivated.
+-- 'imageY', 'staticImageActivateScheduleActionSettings_imageY' - Placement of the top edge of the overlay relative to the top edge of the
+-- video frame, in pixels. 0 (the default) is the top edge of the frame. If
+-- the placement causes the overlay to extend beyond the bottom edge of the
+-- underlying video, then the overlay is cropped on the bottom.
 --
--- * 'siasasWidth' - The width of the image when inserted into the video, in pixels. The overlay will be scaled up or down to the specified width. Leave blank to use the native width of the overlay.
+-- 'duration', 'staticImageActivateScheduleActionSettings_duration' - The duration in milliseconds for the image to remain on the video. If
+-- omitted or set to 0 the duration is unlimited and the image will remain
+-- until it is explicitly deactivated.
 --
--- * 'siasasLayer' - The number of the layer, 0 to 7. There are 8 layers that can be overlaid on the video, each layer with a different image. The layers are in Z order, which means that overlays with higher values of layer are inserted on top of overlays with lower values of layer. Default is 0.
+-- 'width', 'staticImageActivateScheduleActionSettings_width' - The width of the image when inserted into the video, in pixels. The
+-- overlay will be scaled up or down to the specified width. Leave blank to
+-- use the native width of the overlay.
 --
--- * 'siasasOpacity' - Opacity of image where 0 is transparent and 100 is fully opaque. Default is 100.
+-- 'layer', 'staticImageActivateScheduleActionSettings_layer' - The number of the layer, 0 to 7. There are 8 layers that can be overlaid
+-- on the video, each layer with a different image. The layers are in Z
+-- order, which means that overlays with higher values of layer are
+-- inserted on top of overlays with lower values of layer. Default is 0.
 --
--- * 'siasasFadeIn' - The time in milliseconds for the image to fade in. The fade-in starts at the start time of the overlay. Default is 0 (no fade-in).
+-- 'opacity', 'staticImageActivateScheduleActionSettings_opacity' - Opacity of image where 0 is transparent and 100 is fully opaque. Default
+-- is 100.
 --
--- * 'siasasFadeOut' - Applies only if a duration is specified. The time in milliseconds for the image to fade out. The fade-out starts when the duration time is hit, so it effectively extends the duration. Default is 0 (no fade-out).
+-- 'fadeIn', 'staticImageActivateScheduleActionSettings_fadeIn' - The time in milliseconds for the image to fade in. The fade-in starts at
+-- the start time of the overlay. Default is 0 (no fade-in).
 --
--- * 'siasasImage' - The location and filename of the image file to overlay on the video. The file must be a 32-bit BMP, PNG, or TGA file, and must not be larger (in pixels) than the input video.
-staticImageActivateScheduleActionSettings ::
-  -- | 'siasasImage'
+-- 'fadeOut', 'staticImageActivateScheduleActionSettings_fadeOut' - Applies only if a duration is specified. The time in milliseconds for
+-- the image to fade out. The fade-out starts when the duration time is
+-- hit, so it effectively extends the duration. Default is 0 (no fade-out).
+--
+-- 'image', 'staticImageActivateScheduleActionSettings_image' - The location and filename of the image file to overlay on the video. The
+-- file must be a 32-bit BMP, PNG, or TGA file, and must not be larger (in
+-- pixels) than the input video.
+newStaticImageActivateScheduleActionSettings ::
+  -- | 'image'
   InputLocation ->
   StaticImageActivateScheduleActionSettings
-staticImageActivateScheduleActionSettings pImage_ =
+newStaticImageActivateScheduleActionSettings pImage_ =
   StaticImageActivateScheduleActionSettings'
-    { _siasasHeight =
-        Nothing,
-      _siasasImageX = Nothing,
-      _siasasImageY = Nothing,
-      _siasasDuration = Nothing,
-      _siasasWidth = Nothing,
-      _siasasLayer = Nothing,
-      _siasasOpacity = Nothing,
-      _siasasFadeIn = Nothing,
-      _siasasFadeOut = Nothing,
-      _siasasImage = pImage_
+    { height =
+        Prelude.Nothing,
+      imageX = Prelude.Nothing,
+      imageY = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      width = Prelude.Nothing,
+      layer = Prelude.Nothing,
+      opacity = Prelude.Nothing,
+      fadeIn = Prelude.Nothing,
+      fadeOut = Prelude.Nothing,
+      image = pImage_
     }
 
--- | The height of the image when inserted into the video, in pixels. The overlay will be scaled up or down to the specified height. Leave blank to use the native height of the overlay.
-siasasHeight :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasHeight = lens _siasasHeight (\s a -> s {_siasasHeight = a}) . mapping _Nat
+-- | The height of the image when inserted into the video, in pixels. The
+-- overlay will be scaled up or down to the specified height. Leave blank
+-- to use the native height of the overlay.
+staticImageActivateScheduleActionSettings_height :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_height = Lens.lens (\StaticImageActivateScheduleActionSettings' {height} -> height) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {height = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Placement of the left edge of the overlay relative to the left edge of the video frame, in pixels. 0 (the default) is the left edge of the frame. If the placement causes the overlay to extend beyond the right edge of the underlying video, then the overlay is cropped on the right.
-siasasImageX :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasImageX = lens _siasasImageX (\s a -> s {_siasasImageX = a}) . mapping _Nat
+-- | Placement of the left edge of the overlay relative to the left edge of
+-- the video frame, in pixels. 0 (the default) is the left edge of the
+-- frame. If the placement causes the overlay to extend beyond the right
+-- edge of the underlying video, then the overlay is cropped on the right.
+staticImageActivateScheduleActionSettings_imageX :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_imageX = Lens.lens (\StaticImageActivateScheduleActionSettings' {imageX} -> imageX) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {imageX = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Placement of the top edge of the overlay relative to the top edge of the video frame, in pixels. 0 (the default) is the top edge of the frame. If the placement causes the overlay to extend beyond the bottom edge of the underlying video, then the overlay is cropped on the bottom.
-siasasImageY :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasImageY = lens _siasasImageY (\s a -> s {_siasasImageY = a}) . mapping _Nat
+-- | Placement of the top edge of the overlay relative to the top edge of the
+-- video frame, in pixels. 0 (the default) is the top edge of the frame. If
+-- the placement causes the overlay to extend beyond the bottom edge of the
+-- underlying video, then the overlay is cropped on the bottom.
+staticImageActivateScheduleActionSettings_imageY :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_imageY = Lens.lens (\StaticImageActivateScheduleActionSettings' {imageY} -> imageY) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {imageY = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The duration in milliseconds for the image to remain on the video. If omitted or set to 0 the duration is unlimited and the image will remain until it is explicitly deactivated.
-siasasDuration :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasDuration = lens _siasasDuration (\s a -> s {_siasasDuration = a}) . mapping _Nat
+-- | The duration in milliseconds for the image to remain on the video. If
+-- omitted or set to 0 the duration is unlimited and the image will remain
+-- until it is explicitly deactivated.
+staticImageActivateScheduleActionSettings_duration :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_duration = Lens.lens (\StaticImageActivateScheduleActionSettings' {duration} -> duration) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {duration = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The width of the image when inserted into the video, in pixels. The overlay will be scaled up or down to the specified width. Leave blank to use the native width of the overlay.
-siasasWidth :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasWidth = lens _siasasWidth (\s a -> s {_siasasWidth = a}) . mapping _Nat
+-- | The width of the image when inserted into the video, in pixels. The
+-- overlay will be scaled up or down to the specified width. Leave blank to
+-- use the native width of the overlay.
+staticImageActivateScheduleActionSettings_width :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_width = Lens.lens (\StaticImageActivateScheduleActionSettings' {width} -> width) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {width = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The number of the layer, 0 to 7. There are 8 layers that can be overlaid on the video, each layer with a different image. The layers are in Z order, which means that overlays with higher values of layer are inserted on top of overlays with lower values of layer. Default is 0.
-siasasLayer :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasLayer = lens _siasasLayer (\s a -> s {_siasasLayer = a}) . mapping _Nat
+-- | The number of the layer, 0 to 7. There are 8 layers that can be overlaid
+-- on the video, each layer with a different image. The layers are in Z
+-- order, which means that overlays with higher values of layer are
+-- inserted on top of overlays with lower values of layer. Default is 0.
+staticImageActivateScheduleActionSettings_layer :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_layer = Lens.lens (\StaticImageActivateScheduleActionSettings' {layer} -> layer) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {layer = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Opacity of image where 0 is transparent and 100 is fully opaque. Default is 100.
-siasasOpacity :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasOpacity = lens _siasasOpacity (\s a -> s {_siasasOpacity = a}) . mapping _Nat
+-- | Opacity of image where 0 is transparent and 100 is fully opaque. Default
+-- is 100.
+staticImageActivateScheduleActionSettings_opacity :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_opacity = Lens.lens (\StaticImageActivateScheduleActionSettings' {opacity} -> opacity) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {opacity = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The time in milliseconds for the image to fade in. The fade-in starts at the start time of the overlay. Default is 0 (no fade-in).
-siasasFadeIn :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasFadeIn = lens _siasasFadeIn (\s a -> s {_siasasFadeIn = a}) . mapping _Nat
+-- | The time in milliseconds for the image to fade in. The fade-in starts at
+-- the start time of the overlay. Default is 0 (no fade-in).
+staticImageActivateScheduleActionSettings_fadeIn :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_fadeIn = Lens.lens (\StaticImageActivateScheduleActionSettings' {fadeIn} -> fadeIn) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {fadeIn = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Applies only if a duration is specified. The time in milliseconds for the image to fade out. The fade-out starts when the duration time is hit, so it effectively extends the duration. Default is 0 (no fade-out).
-siasasFadeOut :: Lens' StaticImageActivateScheduleActionSettings (Maybe Natural)
-siasasFadeOut = lens _siasasFadeOut (\s a -> s {_siasasFadeOut = a}) . mapping _Nat
+-- | Applies only if a duration is specified. The time in milliseconds for
+-- the image to fade out. The fade-out starts when the duration time is
+-- hit, so it effectively extends the duration. Default is 0 (no fade-out).
+staticImageActivateScheduleActionSettings_fadeOut :: Lens.Lens' StaticImageActivateScheduleActionSettings (Prelude.Maybe Prelude.Natural)
+staticImageActivateScheduleActionSettings_fadeOut = Lens.lens (\StaticImageActivateScheduleActionSettings' {fadeOut} -> fadeOut) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {fadeOut = a} :: StaticImageActivateScheduleActionSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The location and filename of the image file to overlay on the video. The file must be a 32-bit BMP, PNG, or TGA file, and must not be larger (in pixels) than the input video.
-siasasImage :: Lens' StaticImageActivateScheduleActionSettings InputLocation
-siasasImage = lens _siasasImage (\s a -> s {_siasasImage = a})
+-- | The location and filename of the image file to overlay on the video. The
+-- file must be a 32-bit BMP, PNG, or TGA file, and must not be larger (in
+-- pixels) than the input video.
+staticImageActivateScheduleActionSettings_image :: Lens.Lens' StaticImageActivateScheduleActionSettings InputLocation
+staticImageActivateScheduleActionSettings_image = Lens.lens (\StaticImageActivateScheduleActionSettings' {image} -> image) (\s@StaticImageActivateScheduleActionSettings' {} a -> s {image = a} :: StaticImageActivateScheduleActionSettings)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     StaticImageActivateScheduleActionSettings
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StaticImageActivateScheduleActionSettings"
       ( \x ->
           StaticImageActivateScheduleActionSettings'
-            <$> (x .:? "height")
-            <*> (x .:? "imageX")
-            <*> (x .:? "imageY")
-            <*> (x .:? "duration")
-            <*> (x .:? "width")
-            <*> (x .:? "layer")
-            <*> (x .:? "opacity")
-            <*> (x .:? "fadeIn")
-            <*> (x .:? "fadeOut")
-            <*> (x .: "image")
+            Prelude.<$> (x Prelude..:? "height")
+              Prelude.<*> (x Prelude..:? "imageX")
+              Prelude.<*> (x Prelude..:? "imageY")
+              Prelude.<*> (x Prelude..:? "duration")
+              Prelude.<*> (x Prelude..:? "width")
+              Prelude.<*> (x Prelude..:? "layer")
+              Prelude.<*> (x Prelude..:? "opacity")
+              Prelude.<*> (x Prelude..:? "fadeIn")
+              Prelude.<*> (x Prelude..:? "fadeOut")
+              Prelude.<*> (x Prelude..: "image")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     StaticImageActivateScheduleActionSettings
 
 instance
-  NFData
+  Prelude.NFData
     StaticImageActivateScheduleActionSettings
 
 instance
-  ToJSON
+  Prelude.ToJSON
     StaticImageActivateScheduleActionSettings
   where
   toJSON StaticImageActivateScheduleActionSettings' {..} =
-    object
-      ( catMaybes
-          [ ("height" .=) <$> _siasasHeight,
-            ("imageX" .=) <$> _siasasImageX,
-            ("imageY" .=) <$> _siasasImageY,
-            ("duration" .=) <$> _siasasDuration,
-            ("width" .=) <$> _siasasWidth,
-            ("layer" .=) <$> _siasasLayer,
-            ("opacity" .=) <$> _siasasOpacity,
-            ("fadeIn" .=) <$> _siasasFadeIn,
-            ("fadeOut" .=) <$> _siasasFadeOut,
-            Just ("image" .= _siasasImage)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("height" Prelude..=) Prelude.<$> height,
+            ("imageX" Prelude..=) Prelude.<$> imageX,
+            ("imageY" Prelude..=) Prelude.<$> imageY,
+            ("duration" Prelude..=) Prelude.<$> duration,
+            ("width" Prelude..=) Prelude.<$> width,
+            ("layer" Prelude..=) Prelude.<$> layer,
+            ("opacity" Prelude..=) Prelude.<$> opacity,
+            ("fadeIn" Prelude..=) Prelude.<$> fadeIn,
+            ("fadeOut" Prelude..=) Prelude.<$> fadeOut,
+            Prelude.Just ("image" Prelude..= image)
           ]
       )

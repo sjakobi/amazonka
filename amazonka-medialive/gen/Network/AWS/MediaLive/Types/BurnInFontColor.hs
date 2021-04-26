@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,79 @@
 module Network.AWS.MediaLive.Types.BurnInFontColor
   ( BurnInFontColor
       ( ..,
-        BIFCBlack,
-        BIFCBlue,
-        BIFCGreen,
-        BIFCRed,
-        BIFCWhite,
-        BIFCYellow
+        BurnInFontColorBLACK,
+        BurnInFontColorBLUE,
+        BurnInFontColorGREEN,
+        BurnInFontColorRED,
+        BurnInFontColorWHITE,
+        BurnInFontColorYELLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Burn In Font Color
-data BurnInFontColor = BurnInFontColor' (CI Text)
+newtype BurnInFontColor = BurnInFontColor'
+  { fromBurnInFontColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BIFCBlack :: BurnInFontColor
-pattern BIFCBlack = BurnInFontColor' "BLACK"
+pattern BurnInFontColorBLACK :: BurnInFontColor
+pattern BurnInFontColorBLACK = BurnInFontColor' "BLACK"
 
-pattern BIFCBlue :: BurnInFontColor
-pattern BIFCBlue = BurnInFontColor' "BLUE"
+pattern BurnInFontColorBLUE :: BurnInFontColor
+pattern BurnInFontColorBLUE = BurnInFontColor' "BLUE"
 
-pattern BIFCGreen :: BurnInFontColor
-pattern BIFCGreen = BurnInFontColor' "GREEN"
+pattern BurnInFontColorGREEN :: BurnInFontColor
+pattern BurnInFontColorGREEN = BurnInFontColor' "GREEN"
 
-pattern BIFCRed :: BurnInFontColor
-pattern BIFCRed = BurnInFontColor' "RED"
+pattern BurnInFontColorRED :: BurnInFontColor
+pattern BurnInFontColorRED = BurnInFontColor' "RED"
 
-pattern BIFCWhite :: BurnInFontColor
-pattern BIFCWhite = BurnInFontColor' "WHITE"
+pattern BurnInFontColorWHITE :: BurnInFontColor
+pattern BurnInFontColorWHITE = BurnInFontColor' "WHITE"
 
-pattern BIFCYellow :: BurnInFontColor
-pattern BIFCYellow = BurnInFontColor' "YELLOW"
+pattern BurnInFontColorYELLOW :: BurnInFontColor
+pattern BurnInFontColorYELLOW = BurnInFontColor' "YELLOW"
 
 {-# COMPLETE
-  BIFCBlack,
-  BIFCBlue,
-  BIFCGreen,
-  BIFCRed,
-  BIFCWhite,
-  BIFCYellow,
+  BurnInFontColorBLACK,
+  BurnInFontColorBLUE,
+  BurnInFontColorGREEN,
+  BurnInFontColorRED,
+  BurnInFontColorWHITE,
+  BurnInFontColorYELLOW,
   BurnInFontColor'
   #-}
 
-instance FromText BurnInFontColor where
-  parser = (BurnInFontColor' . mk) <$> takeText
+instance Prelude.FromText BurnInFontColor where
+  parser = BurnInFontColor' Prelude.<$> Prelude.takeText
 
-instance ToText BurnInFontColor where
-  toText (BurnInFontColor' ci) = original ci
+instance Prelude.ToText BurnInFontColor where
+  toText (BurnInFontColor' x) = x
 
-instance Hashable BurnInFontColor
+instance Prelude.Hashable BurnInFontColor
 
-instance NFData BurnInFontColor
+instance Prelude.NFData BurnInFontColor
 
-instance ToByteString BurnInFontColor
+instance Prelude.ToByteString BurnInFontColor
 
-instance ToQuery BurnInFontColor
+instance Prelude.ToQuery BurnInFontColor
 
-instance ToHeader BurnInFontColor
+instance Prelude.ToHeader BurnInFontColor
 
-instance ToJSON BurnInFontColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurnInFontColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurnInFontColor where
-  parseJSON = parseJSONText "BurnInFontColor"
+instance Prelude.FromJSON BurnInFontColor where
+  parseJSON = Prelude.parseJSONText "BurnInFontColor"

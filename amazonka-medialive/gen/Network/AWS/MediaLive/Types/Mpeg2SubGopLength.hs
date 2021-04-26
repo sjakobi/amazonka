@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.Mpeg2SubGopLength
   ( Mpeg2SubGopLength
       ( ..,
-        Dynamic,
-        Fixed
+        Mpeg2SubGopLengthDYNAMIC,
+        Mpeg2SubGopLengthFIXED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mpeg2 Sub Gop Length
-data Mpeg2SubGopLength = Mpeg2SubGopLength' (CI Text)
+newtype Mpeg2SubGopLength = Mpeg2SubGopLength'
+  { fromMpeg2SubGopLength ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Dynamic :: Mpeg2SubGopLength
-pattern Dynamic = Mpeg2SubGopLength' "DYNAMIC"
+pattern Mpeg2SubGopLengthDYNAMIC :: Mpeg2SubGopLength
+pattern Mpeg2SubGopLengthDYNAMIC = Mpeg2SubGopLength' "DYNAMIC"
 
-pattern Fixed :: Mpeg2SubGopLength
-pattern Fixed = Mpeg2SubGopLength' "FIXED"
+pattern Mpeg2SubGopLengthFIXED :: Mpeg2SubGopLength
+pattern Mpeg2SubGopLengthFIXED = Mpeg2SubGopLength' "FIXED"
 
 {-# COMPLETE
-  Dynamic,
-  Fixed,
+  Mpeg2SubGopLengthDYNAMIC,
+  Mpeg2SubGopLengthFIXED,
   Mpeg2SubGopLength'
   #-}
 
-instance FromText Mpeg2SubGopLength where
-  parser = (Mpeg2SubGopLength' . mk) <$> takeText
+instance Prelude.FromText Mpeg2SubGopLength where
+  parser = Mpeg2SubGopLength' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2SubGopLength where
-  toText (Mpeg2SubGopLength' ci) = original ci
+instance Prelude.ToText Mpeg2SubGopLength where
+  toText (Mpeg2SubGopLength' x) = x
 
-instance Hashable Mpeg2SubGopLength
+instance Prelude.Hashable Mpeg2SubGopLength
 
-instance NFData Mpeg2SubGopLength
+instance Prelude.NFData Mpeg2SubGopLength
 
-instance ToByteString Mpeg2SubGopLength
+instance Prelude.ToByteString Mpeg2SubGopLength
 
-instance ToQuery Mpeg2SubGopLength
+instance Prelude.ToQuery Mpeg2SubGopLength
 
-instance ToHeader Mpeg2SubGopLength
+instance Prelude.ToHeader Mpeg2SubGopLength
 
-instance ToJSON Mpeg2SubGopLength where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2SubGopLength where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2SubGopLength where
-  parseJSON = parseJSONText "Mpeg2SubGopLength"
+instance Prelude.FromJSON Mpeg2SubGopLength where
+  parseJSON = Prelude.parseJSONText "Mpeg2SubGopLength"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioSilenceFailoverSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for AudioSilenceFailoverSettings
 --
--- /See:/ 'audioSilenceFailoverSettings' smart constructor.
+-- /See:/ 'newAudioSilenceFailoverSettings' smart constructor.
 data AudioSilenceFailoverSettings = AudioSilenceFailoverSettings'
-  { _asfsAudioSilenceThresholdMsec ::
-      !(Maybe Nat),
-    _asfsAudioSelectorName ::
-      !Text
+  { -- | The amount of time (in milliseconds) that the active input must be
+    -- silent before automatic input failover occurs. Silence is defined as
+    -- audio loss or audio quieter than -50 dBFS.
+    audioSilenceThresholdMsec :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the audio selector in the input that MediaLive should
+    -- monitor to detect silence. Select your most important rendition. If you
+    -- didn\'t create an audio selector in this input, leave blank.
+    audioSelectorName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioSilenceFailoverSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioSilenceFailoverSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asfsAudioSilenceThresholdMsec' - The amount of time (in milliseconds) that the active input must be silent before automatic input failover occurs. Silence is defined as audio loss or audio quieter than -50 dBFS.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asfsAudioSelectorName' - The name of the audio selector in the input that MediaLive should monitor to detect silence. Select your most important rendition. If you didn't create an audio selector in this input, leave blank.
-audioSilenceFailoverSettings ::
-  -- | 'asfsAudioSelectorName'
-  Text ->
+-- 'audioSilenceThresholdMsec', 'audioSilenceFailoverSettings_audioSilenceThresholdMsec' - The amount of time (in milliseconds) that the active input must be
+-- silent before automatic input failover occurs. Silence is defined as
+-- audio loss or audio quieter than -50 dBFS.
+--
+-- 'audioSelectorName', 'audioSilenceFailoverSettings_audioSelectorName' - The name of the audio selector in the input that MediaLive should
+-- monitor to detect silence. Select your most important rendition. If you
+-- didn\'t create an audio selector in this input, leave blank.
+newAudioSilenceFailoverSettings ::
+  -- | 'audioSelectorName'
+  Prelude.Text ->
   AudioSilenceFailoverSettings
-audioSilenceFailoverSettings pAudioSelectorName_ =
+newAudioSilenceFailoverSettings pAudioSelectorName_ =
   AudioSilenceFailoverSettings'
-    { _asfsAudioSilenceThresholdMsec =
-        Nothing,
-      _asfsAudioSelectorName = pAudioSelectorName_
+    { audioSilenceThresholdMsec =
+        Prelude.Nothing,
+      audioSelectorName = pAudioSelectorName_
     }
 
--- | The amount of time (in milliseconds) that the active input must be silent before automatic input failover occurs. Silence is defined as audio loss or audio quieter than -50 dBFS.
-asfsAudioSilenceThresholdMsec :: Lens' AudioSilenceFailoverSettings (Maybe Natural)
-asfsAudioSilenceThresholdMsec = lens _asfsAudioSilenceThresholdMsec (\s a -> s {_asfsAudioSilenceThresholdMsec = a}) . mapping _Nat
+-- | The amount of time (in milliseconds) that the active input must be
+-- silent before automatic input failover occurs. Silence is defined as
+-- audio loss or audio quieter than -50 dBFS.
+audioSilenceFailoverSettings_audioSilenceThresholdMsec :: Lens.Lens' AudioSilenceFailoverSettings (Prelude.Maybe Prelude.Natural)
+audioSilenceFailoverSettings_audioSilenceThresholdMsec = Lens.lens (\AudioSilenceFailoverSettings' {audioSilenceThresholdMsec} -> audioSilenceThresholdMsec) (\s@AudioSilenceFailoverSettings' {} a -> s {audioSilenceThresholdMsec = a} :: AudioSilenceFailoverSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The name of the audio selector in the input that MediaLive should monitor to detect silence. Select your most important rendition. If you didn't create an audio selector in this input, leave blank.
-asfsAudioSelectorName :: Lens' AudioSilenceFailoverSettings Text
-asfsAudioSelectorName = lens _asfsAudioSelectorName (\s a -> s {_asfsAudioSelectorName = a})
+-- | The name of the audio selector in the input that MediaLive should
+-- monitor to detect silence. Select your most important rendition. If you
+-- didn\'t create an audio selector in this input, leave blank.
+audioSilenceFailoverSettings_audioSelectorName :: Lens.Lens' AudioSilenceFailoverSettings Prelude.Text
+audioSilenceFailoverSettings_audioSelectorName = Lens.lens (\AudioSilenceFailoverSettings' {audioSelectorName} -> audioSelectorName) (\s@AudioSilenceFailoverSettings' {} a -> s {audioSelectorName = a} :: AudioSilenceFailoverSettings)
 
-instance FromJSON AudioSilenceFailoverSettings where
+instance
+  Prelude.FromJSON
+    AudioSilenceFailoverSettings
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioSilenceFailoverSettings"
       ( \x ->
           AudioSilenceFailoverSettings'
-            <$> (x .:? "audioSilenceThresholdMsec")
-            <*> (x .: "audioSelectorName")
+            Prelude.<$> (x Prelude..:? "audioSilenceThresholdMsec")
+            Prelude.<*> (x Prelude..: "audioSelectorName")
       )
 
-instance Hashable AudioSilenceFailoverSettings
+instance
+  Prelude.Hashable
+    AudioSilenceFailoverSettings
 
-instance NFData AudioSilenceFailoverSettings
+instance Prelude.NFData AudioSilenceFailoverSettings
 
-instance ToJSON AudioSilenceFailoverSettings where
+instance Prelude.ToJSON AudioSilenceFailoverSettings where
   toJSON AudioSilenceFailoverSettings' {..} =
-    object
-      ( catMaybes
-          [ ("audioSilenceThresholdMsec" .=)
-              <$> _asfsAudioSilenceThresholdMsec,
-            Just
-              ("audioSelectorName" .= _asfsAudioSelectorName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("audioSilenceThresholdMsec" Prelude..=)
+              Prelude.<$> audioSilenceThresholdMsec,
+            Prelude.Just
+              ("audioSelectorName" Prelude..= audioSelectorName)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsEbpPlacement
   ( M2tsEbpPlacement
       ( ..,
-        VideoAndAudioPids,
-        VideoPid
+        M2tsEbpPlacementVIDEOANDAUDIOPIDS,
+        M2tsEbpPlacementVIDEOPID
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Ebp Placement
-data M2tsEbpPlacement = M2tsEbpPlacement' (CI Text)
+newtype M2tsEbpPlacement = M2tsEbpPlacement'
+  { fromM2tsEbpPlacement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VideoAndAudioPids :: M2tsEbpPlacement
-pattern VideoAndAudioPids = M2tsEbpPlacement' "VIDEO_AND_AUDIO_PIDS"
+pattern M2tsEbpPlacementVIDEOANDAUDIOPIDS :: M2tsEbpPlacement
+pattern M2tsEbpPlacementVIDEOANDAUDIOPIDS = M2tsEbpPlacement' "VIDEO_AND_AUDIO_PIDS"
 
-pattern VideoPid :: M2tsEbpPlacement
-pattern VideoPid = M2tsEbpPlacement' "VIDEO_PID"
+pattern M2tsEbpPlacementVIDEOPID :: M2tsEbpPlacement
+pattern M2tsEbpPlacementVIDEOPID = M2tsEbpPlacement' "VIDEO_PID"
 
 {-# COMPLETE
-  VideoAndAudioPids,
-  VideoPid,
+  M2tsEbpPlacementVIDEOANDAUDIOPIDS,
+  M2tsEbpPlacementVIDEOPID,
   M2tsEbpPlacement'
   #-}
 
-instance FromText M2tsEbpPlacement where
-  parser = (M2tsEbpPlacement' . mk) <$> takeText
+instance Prelude.FromText M2tsEbpPlacement where
+  parser = M2tsEbpPlacement' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsEbpPlacement where
-  toText (M2tsEbpPlacement' ci) = original ci
+instance Prelude.ToText M2tsEbpPlacement where
+  toText (M2tsEbpPlacement' x) = x
 
-instance Hashable M2tsEbpPlacement
+instance Prelude.Hashable M2tsEbpPlacement
 
-instance NFData M2tsEbpPlacement
+instance Prelude.NFData M2tsEbpPlacement
 
-instance ToByteString M2tsEbpPlacement
+instance Prelude.ToByteString M2tsEbpPlacement
 
-instance ToQuery M2tsEbpPlacement
+instance Prelude.ToQuery M2tsEbpPlacement
 
-instance ToHeader M2tsEbpPlacement
+instance Prelude.ToHeader M2tsEbpPlacement
 
-instance ToJSON M2tsEbpPlacement where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsEbpPlacement where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsEbpPlacement where
-  parseJSON = parseJSONText "M2tsEbpPlacement"
+instance Prelude.FromJSON M2tsEbpPlacement where
+  parseJSON = Prelude.parseJSONText "M2tsEbpPlacement"

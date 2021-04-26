@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsId3SegmentTaggingState
   ( HlsId3SegmentTaggingState
       ( ..,
-        HISTSDisabled,
-        HISTSEnabled
+        HlsId3SegmentTaggingStateDISABLED,
+        HlsId3SegmentTaggingStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | State of HLS ID3 Segment Tagging
-data HlsId3SegmentTaggingState
-  = HlsId3SegmentTaggingState'
-      ( CI
-          Text
-      )
+newtype HlsId3SegmentTaggingState = HlsId3SegmentTaggingState'
+  { fromHlsId3SegmentTaggingState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HISTSDisabled :: HlsId3SegmentTaggingState
-pattern HISTSDisabled = HlsId3SegmentTaggingState' "DISABLED"
+pattern HlsId3SegmentTaggingStateDISABLED :: HlsId3SegmentTaggingState
+pattern HlsId3SegmentTaggingStateDISABLED = HlsId3SegmentTaggingState' "DISABLED"
 
-pattern HISTSEnabled :: HlsId3SegmentTaggingState
-pattern HISTSEnabled = HlsId3SegmentTaggingState' "ENABLED"
+pattern HlsId3SegmentTaggingStateENABLED :: HlsId3SegmentTaggingState
+pattern HlsId3SegmentTaggingStateENABLED = HlsId3SegmentTaggingState' "ENABLED"
 
 {-# COMPLETE
-  HISTSDisabled,
-  HISTSEnabled,
+  HlsId3SegmentTaggingStateDISABLED,
+  HlsId3SegmentTaggingStateENABLED,
   HlsId3SegmentTaggingState'
   #-}
 
-instance FromText HlsId3SegmentTaggingState where
-  parser = (HlsId3SegmentTaggingState' . mk) <$> takeText
+instance Prelude.FromText HlsId3SegmentTaggingState where
+  parser = HlsId3SegmentTaggingState' Prelude.<$> Prelude.takeText
 
-instance ToText HlsId3SegmentTaggingState where
-  toText (HlsId3SegmentTaggingState' ci) = original ci
+instance Prelude.ToText HlsId3SegmentTaggingState where
+  toText (HlsId3SegmentTaggingState' x) = x
 
-instance Hashable HlsId3SegmentTaggingState
+instance Prelude.Hashable HlsId3SegmentTaggingState
 
-instance NFData HlsId3SegmentTaggingState
+instance Prelude.NFData HlsId3SegmentTaggingState
 
-instance ToByteString HlsId3SegmentTaggingState
+instance Prelude.ToByteString HlsId3SegmentTaggingState
 
-instance ToQuery HlsId3SegmentTaggingState
+instance Prelude.ToQuery HlsId3SegmentTaggingState
 
-instance ToHeader HlsId3SegmentTaggingState
+instance Prelude.ToHeader HlsId3SegmentTaggingState
 
-instance ToJSON HlsId3SegmentTaggingState where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsId3SegmentTaggingState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsId3SegmentTaggingState where
-  parseJSON = parseJSONText "HlsId3SegmentTaggingState"
+instance Prelude.FromJSON HlsId3SegmentTaggingState where
+  parseJSON = Prelude.parseJSONText "HlsId3SegmentTaggingState"

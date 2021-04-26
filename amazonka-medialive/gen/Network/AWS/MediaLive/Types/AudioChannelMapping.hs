@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioChannelMapping where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.InputChannelLevel
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Channel Mapping
 --
--- /See:/ 'audioChannelMapping' smart constructor.
+-- /See:/ 'newAudioChannelMapping' smart constructor.
 data AudioChannelMapping = AudioChannelMapping'
-  { _acmOutputChannel ::
-      !Nat,
-    _acmInputChannelLevels ::
-      ![InputChannelLevel]
+  { -- | The index of the output channel being produced.
+    outputChannel :: Prelude.Nat,
+    -- | Indices and gain values for each input channel that should be remixed
+    -- into this output channel.
+    inputChannelLevels :: [InputChannelLevel]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioChannelMapping' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioChannelMapping' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acmOutputChannel' - The index of the output channel being produced.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acmInputChannelLevels' - Indices and gain values for each input channel that should be remixed into this output channel.
-audioChannelMapping ::
-  -- | 'acmOutputChannel'
-  Natural ->
+-- 'outputChannel', 'audioChannelMapping_outputChannel' - The index of the output channel being produced.
+--
+-- 'inputChannelLevels', 'audioChannelMapping_inputChannelLevels' - Indices and gain values for each input channel that should be remixed
+-- into this output channel.
+newAudioChannelMapping ::
+  -- | 'outputChannel'
+  Prelude.Natural ->
   AudioChannelMapping
-audioChannelMapping pOutputChannel_ =
+newAudioChannelMapping pOutputChannel_ =
   AudioChannelMapping'
-    { _acmOutputChannel =
-        _Nat # pOutputChannel_,
-      _acmInputChannelLevels = mempty
+    { outputChannel =
+        Prelude._Nat Lens.# pOutputChannel_,
+      inputChannelLevels = Prelude.mempty
     }
 
 -- | The index of the output channel being produced.
-acmOutputChannel :: Lens' AudioChannelMapping Natural
-acmOutputChannel = lens _acmOutputChannel (\s a -> s {_acmOutputChannel = a}) . _Nat
+audioChannelMapping_outputChannel :: Lens.Lens' AudioChannelMapping Prelude.Natural
+audioChannelMapping_outputChannel = Lens.lens (\AudioChannelMapping' {outputChannel} -> outputChannel) (\s@AudioChannelMapping' {} a -> s {outputChannel = a} :: AudioChannelMapping) Prelude.. Prelude._Nat
 
--- | Indices and gain values for each input channel that should be remixed into this output channel.
-acmInputChannelLevels :: Lens' AudioChannelMapping [InputChannelLevel]
-acmInputChannelLevels = lens _acmInputChannelLevels (\s a -> s {_acmInputChannelLevels = a}) . _Coerce
+-- | Indices and gain values for each input channel that should be remixed
+-- into this output channel.
+audioChannelMapping_inputChannelLevels :: Lens.Lens' AudioChannelMapping [InputChannelLevel]
+audioChannelMapping_inputChannelLevels = Lens.lens (\AudioChannelMapping' {inputChannelLevels} -> inputChannelLevels) (\s@AudioChannelMapping' {} a -> s {inputChannelLevels = a} :: AudioChannelMapping) Prelude.. Prelude._Coerce
 
-instance FromJSON AudioChannelMapping where
+instance Prelude.FromJSON AudioChannelMapping where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioChannelMapping"
       ( \x ->
           AudioChannelMapping'
-            <$> (x .: "outputChannel")
-            <*> (x .:? "inputChannelLevels" .!= mempty)
+            Prelude.<$> (x Prelude..: "outputChannel")
+            Prelude.<*> ( x Prelude..:? "inputChannelLevels"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AudioChannelMapping
+instance Prelude.Hashable AudioChannelMapping
 
-instance NFData AudioChannelMapping
+instance Prelude.NFData AudioChannelMapping
 
-instance ToJSON AudioChannelMapping where
+instance Prelude.ToJSON AudioChannelMapping where
   toJSON AudioChannelMapping' {..} =
-    object
-      ( catMaybes
-          [ Just ("outputChannel" .= _acmOutputChannel),
-            Just
-              ("inputChannelLevels" .= _acmInputChannelLevels)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("outputChannel" Prelude..= outputChannel),
+            Prelude.Just
+              ( "inputChannelLevels"
+                  Prelude..= inputChannelLevels
+              )
           ]
       )

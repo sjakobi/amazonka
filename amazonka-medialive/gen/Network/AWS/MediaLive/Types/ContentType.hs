@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,49 +19,51 @@
 module Network.AWS.MediaLive.Types.ContentType
   ( ContentType
       ( ..,
-        CTImageJpeg
+        ContentTypeImageJpeg
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies the media type of the thumbnail.
-data ContentType = ContentType' (CI Text)
+newtype ContentType = ContentType'
+  { fromContentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CTImageJpeg :: ContentType
-pattern CTImageJpeg = ContentType' "image/jpeg"
+pattern ContentTypeImageJpeg :: ContentType
+pattern ContentTypeImageJpeg = ContentType' "image/jpeg"
 
 {-# COMPLETE
-  CTImageJpeg,
+  ContentTypeImageJpeg,
   ContentType'
   #-}
 
-instance FromText ContentType where
-  parser = (ContentType' . mk) <$> takeText
+instance Prelude.FromText ContentType where
+  parser = ContentType' Prelude.<$> Prelude.takeText
 
-instance ToText ContentType where
-  toText (ContentType' ci) = original ci
+instance Prelude.ToText ContentType where
+  toText (ContentType' x) = x
 
-instance Hashable ContentType
+instance Prelude.Hashable ContentType
 
-instance NFData ContentType
+instance Prelude.NFData ContentType
 
-instance ToByteString ContentType
+instance Prelude.ToByteString ContentType
 
-instance ToQuery ContentType
+instance Prelude.ToQuery ContentType
 
-instance ToHeader ContentType
+instance Prelude.ToHeader ContentType
 
-instance FromJSON ContentType where
-  parseJSON = parseJSONText "ContentType"
+instance Prelude.FromJSON ContentType where
+  parseJSON = Prelude.parseJSONText "ContentType"

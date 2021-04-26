@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.RtmpOutputSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.OutputLocationRef
 import Network.AWS.MediaLive.Types.RtmpOutputCertificateMode
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Rtmp Output Settings
 --
--- /See:/ 'rtmpOutputSettings' smart constructor.
+-- /See:/ 'newRtmpOutputSettings' smart constructor.
 data RtmpOutputSettings = RtmpOutputSettings'
-  { _rosCertificateMode ::
-      !( Maybe
-           RtmpOutputCertificateMode
-       ),
-    _rosNumRetries :: !(Maybe Nat),
-    _rosConnectionRetryInterval ::
-      !(Maybe Nat),
-    _rosDestination ::
-      !OutputLocationRef
+  { -- | If set to verifyAuthenticity, verify the tls certificate chain to a
+    -- trusted Certificate Authority (CA). This will cause rtmps outputs with
+    -- self-signed certificates to fail.
+    certificateMode :: Prelude.Maybe RtmpOutputCertificateMode,
+    -- | Number of retry attempts.
+    numRetries :: Prelude.Maybe Prelude.Nat,
+    -- | Number of seconds to wait before retrying a connection to the Flash
+    -- Media server if the connection is lost.
+    connectionRetryInterval :: Prelude.Maybe Prelude.Nat,
+    -- | The RTMP endpoint excluding the stream name (eg.
+    -- rtmp:\/\/host\/appname). For connection to Akamai, a username and
+    -- password must be supplied. URI fields accept format identifiers.
+    destination :: OutputLocationRef
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RtmpOutputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RtmpOutputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rosCertificateMode' - If set to verifyAuthenticity, verify the tls certificate chain to a trusted Certificate Authority (CA).  This will cause rtmps outputs with self-signed certificates to fail.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rosNumRetries' - Number of retry attempts.
+-- 'certificateMode', 'rtmpOutputSettings_certificateMode' - If set to verifyAuthenticity, verify the tls certificate chain to a
+-- trusted Certificate Authority (CA). This will cause rtmps outputs with
+-- self-signed certificates to fail.
 --
--- * 'rosConnectionRetryInterval' - Number of seconds to wait before retrying a connection to the Flash Media server if the connection is lost.
+-- 'numRetries', 'rtmpOutputSettings_numRetries' - Number of retry attempts.
 --
--- * 'rosDestination' - The RTMP endpoint excluding the stream name (eg. rtmp://host/appname). For connection to Akamai, a username and password must be supplied. URI fields accept format identifiers.
-rtmpOutputSettings ::
-  -- | 'rosDestination'
+-- 'connectionRetryInterval', 'rtmpOutputSettings_connectionRetryInterval' - Number of seconds to wait before retrying a connection to the Flash
+-- Media server if the connection is lost.
+--
+-- 'destination', 'rtmpOutputSettings_destination' - The RTMP endpoint excluding the stream name (eg.
+-- rtmp:\/\/host\/appname). For connection to Akamai, a username and
+-- password must be supplied. URI fields accept format identifiers.
+newRtmpOutputSettings ::
+  -- | 'destination'
   OutputLocationRef ->
   RtmpOutputSettings
-rtmpOutputSettings pDestination_ =
+newRtmpOutputSettings pDestination_ =
   RtmpOutputSettings'
-    { _rosCertificateMode = Nothing,
-      _rosNumRetries = Nothing,
-      _rosConnectionRetryInterval = Nothing,
-      _rosDestination = pDestination_
+    { certificateMode =
+        Prelude.Nothing,
+      numRetries = Prelude.Nothing,
+      connectionRetryInterval = Prelude.Nothing,
+      destination = pDestination_
     }
 
--- | If set to verifyAuthenticity, verify the tls certificate chain to a trusted Certificate Authority (CA).  This will cause rtmps outputs with self-signed certificates to fail.
-rosCertificateMode :: Lens' RtmpOutputSettings (Maybe RtmpOutputCertificateMode)
-rosCertificateMode = lens _rosCertificateMode (\s a -> s {_rosCertificateMode = a})
+-- | If set to verifyAuthenticity, verify the tls certificate chain to a
+-- trusted Certificate Authority (CA). This will cause rtmps outputs with
+-- self-signed certificates to fail.
+rtmpOutputSettings_certificateMode :: Lens.Lens' RtmpOutputSettings (Prelude.Maybe RtmpOutputCertificateMode)
+rtmpOutputSettings_certificateMode = Lens.lens (\RtmpOutputSettings' {certificateMode} -> certificateMode) (\s@RtmpOutputSettings' {} a -> s {certificateMode = a} :: RtmpOutputSettings)
 
 -- | Number of retry attempts.
-rosNumRetries :: Lens' RtmpOutputSettings (Maybe Natural)
-rosNumRetries = lens _rosNumRetries (\s a -> s {_rosNumRetries = a}) . mapping _Nat
+rtmpOutputSettings_numRetries :: Lens.Lens' RtmpOutputSettings (Prelude.Maybe Prelude.Natural)
+rtmpOutputSettings_numRetries = Lens.lens (\RtmpOutputSettings' {numRetries} -> numRetries) (\s@RtmpOutputSettings' {} a -> s {numRetries = a} :: RtmpOutputSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Number of seconds to wait before retrying a connection to the Flash Media server if the connection is lost.
-rosConnectionRetryInterval :: Lens' RtmpOutputSettings (Maybe Natural)
-rosConnectionRetryInterval = lens _rosConnectionRetryInterval (\s a -> s {_rosConnectionRetryInterval = a}) . mapping _Nat
+-- | Number of seconds to wait before retrying a connection to the Flash
+-- Media server if the connection is lost.
+rtmpOutputSettings_connectionRetryInterval :: Lens.Lens' RtmpOutputSettings (Prelude.Maybe Prelude.Natural)
+rtmpOutputSettings_connectionRetryInterval = Lens.lens (\RtmpOutputSettings' {connectionRetryInterval} -> connectionRetryInterval) (\s@RtmpOutputSettings' {} a -> s {connectionRetryInterval = a} :: RtmpOutputSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The RTMP endpoint excluding the stream name (eg. rtmp://host/appname). For connection to Akamai, a username and password must be supplied. URI fields accept format identifiers.
-rosDestination :: Lens' RtmpOutputSettings OutputLocationRef
-rosDestination = lens _rosDestination (\s a -> s {_rosDestination = a})
+-- | The RTMP endpoint excluding the stream name (eg.
+-- rtmp:\/\/host\/appname). For connection to Akamai, a username and
+-- password must be supplied. URI fields accept format identifiers.
+rtmpOutputSettings_destination :: Lens.Lens' RtmpOutputSettings OutputLocationRef
+rtmpOutputSettings_destination = Lens.lens (\RtmpOutputSettings' {destination} -> destination) (\s@RtmpOutputSettings' {} a -> s {destination = a} :: RtmpOutputSettings)
 
-instance FromJSON RtmpOutputSettings where
+instance Prelude.FromJSON RtmpOutputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RtmpOutputSettings"
       ( \x ->
           RtmpOutputSettings'
-            <$> (x .:? "certificateMode")
-            <*> (x .:? "numRetries")
-            <*> (x .:? "connectionRetryInterval")
-            <*> (x .: "destination")
+            Prelude.<$> (x Prelude..:? "certificateMode")
+            Prelude.<*> (x Prelude..:? "numRetries")
+            Prelude.<*> (x Prelude..:? "connectionRetryInterval")
+            Prelude.<*> (x Prelude..: "destination")
       )
 
-instance Hashable RtmpOutputSettings
+instance Prelude.Hashable RtmpOutputSettings
 
-instance NFData RtmpOutputSettings
+instance Prelude.NFData RtmpOutputSettings
 
-instance ToJSON RtmpOutputSettings where
+instance Prelude.ToJSON RtmpOutputSettings where
   toJSON RtmpOutputSettings' {..} =
-    object
-      ( catMaybes
-          [ ("certificateMode" .=) <$> _rosCertificateMode,
-            ("numRetries" .=) <$> _rosNumRetries,
-            ("connectionRetryInterval" .=)
-              <$> _rosConnectionRetryInterval,
-            Just ("destination" .= _rosDestination)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("certificateMode" Prelude..=)
+              Prelude.<$> certificateMode,
+            ("numRetries" Prelude..=) Prelude.<$> numRetries,
+            ("connectionRetryInterval" Prelude..=)
+              Prelude.<$> connectionRetryInterval,
+            Prelude.Just ("destination" Prelude..= destination)
           ]
       )

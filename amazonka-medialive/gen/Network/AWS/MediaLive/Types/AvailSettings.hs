@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AvailSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.Scte35SpliceInsert
 import Network.AWS.MediaLive.Types.Scte35TimeSignalApos
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Avail Settings
 --
--- /See:/ 'availSettings' smart constructor.
+-- /See:/ 'newAvailSettings' smart constructor.
 data AvailSettings = AvailSettings'
-  { _asScte35TimeSignalApos ::
-      !(Maybe Scte35TimeSignalApos),
-    _asScte35SpliceInsert ::
-      !(Maybe Scte35SpliceInsert)
+  { scte35TimeSignalApos :: Prelude.Maybe Scte35TimeSignalApos,
+    scte35SpliceInsert :: Prelude.Maybe Scte35SpliceInsert
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AvailSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AvailSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asScte35TimeSignalApos' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asScte35SpliceInsert' - Undocumented member.
-availSettings ::
+-- 'scte35TimeSignalApos', 'availSettings_scte35TimeSignalApos' - Undocumented member.
+--
+-- 'scte35SpliceInsert', 'availSettings_scte35SpliceInsert' - Undocumented member.
+newAvailSettings ::
   AvailSettings
-availSettings =
+newAvailSettings =
   AvailSettings'
-    { _asScte35TimeSignalApos = Nothing,
-      _asScte35SpliceInsert = Nothing
+    { scte35TimeSignalApos =
+        Prelude.Nothing,
+      scte35SpliceInsert = Prelude.Nothing
     }
 
 -- | Undocumented member.
-asScte35TimeSignalApos :: Lens' AvailSettings (Maybe Scte35TimeSignalApos)
-asScte35TimeSignalApos = lens _asScte35TimeSignalApos (\s a -> s {_asScte35TimeSignalApos = a})
+availSettings_scte35TimeSignalApos :: Lens.Lens' AvailSettings (Prelude.Maybe Scte35TimeSignalApos)
+availSettings_scte35TimeSignalApos = Lens.lens (\AvailSettings' {scte35TimeSignalApos} -> scte35TimeSignalApos) (\s@AvailSettings' {} a -> s {scte35TimeSignalApos = a} :: AvailSettings)
 
 -- | Undocumented member.
-asScte35SpliceInsert :: Lens' AvailSettings (Maybe Scte35SpliceInsert)
-asScte35SpliceInsert = lens _asScte35SpliceInsert (\s a -> s {_asScte35SpliceInsert = a})
+availSettings_scte35SpliceInsert :: Lens.Lens' AvailSettings (Prelude.Maybe Scte35SpliceInsert)
+availSettings_scte35SpliceInsert = Lens.lens (\AvailSettings' {scte35SpliceInsert} -> scte35SpliceInsert) (\s@AvailSettings' {} a -> s {scte35SpliceInsert = a} :: AvailSettings)
 
-instance FromJSON AvailSettings where
+instance Prelude.FromJSON AvailSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AvailSettings"
       ( \x ->
           AvailSettings'
-            <$> (x .:? "scte35TimeSignalApos")
-            <*> (x .:? "scte35SpliceInsert")
+            Prelude.<$> (x Prelude..:? "scte35TimeSignalApos")
+            Prelude.<*> (x Prelude..:? "scte35SpliceInsert")
       )
 
-instance Hashable AvailSettings
+instance Prelude.Hashable AvailSettings
 
-instance NFData AvailSettings
+instance Prelude.NFData AvailSettings
 
-instance ToJSON AvailSettings where
+instance Prelude.ToJSON AvailSettings where
   toJSON AvailSettings' {..} =
-    object
-      ( catMaybes
-          [ ("scte35TimeSignalApos" .=)
-              <$> _asScte35TimeSignalApos,
-            ("scte35SpliceInsert" .=) <$> _asScte35SpliceInsert
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("scte35TimeSignalApos" Prelude..=)
+              Prelude.<$> scte35TimeSignalApos,
+            ("scte35SpliceInsert" Prelude..=)
+              Prelude.<$> scte35SpliceInsert
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,235 +21,247 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Start (run) the multiplex. Starting the multiplex does not start the channels. You must explicitly start each channel.
+-- Start (run) the multiplex. Starting the multiplex does not start the
+-- channels. You must explicitly start each channel.
 module Network.AWS.MediaLive.StartMultiplex
   ( -- * Creating a Request
-    startMultiplex,
-    StartMultiplex,
+    StartMultiplex (..),
+    newStartMultiplex,
 
     -- * Request Lenses
-    smMultiplexId,
+    startMultiplex_multiplexId,
 
     -- * Destructuring the Response
-    startMultiplexResponse,
-    StartMultiplexResponse,
+    StartMultiplexResponse (..),
+    newStartMultiplexResponse,
 
     -- * Response Lenses
-    starsAvailabilityZones,
-    starsARN,
-    starsId,
-    starsPipelinesRunningCount,
-    starsProgramCount,
-    starsDestinations,
-    starsState,
-    starsName,
-    starsTags,
-    starsMultiplexSettings,
-    starsResponseStatus,
+    startMultiplexResponse_availabilityZones,
+    startMultiplexResponse_arn,
+    startMultiplexResponse_id,
+    startMultiplexResponse_pipelinesRunningCount,
+    startMultiplexResponse_programCount,
+    startMultiplexResponse_destinations,
+    startMultiplexResponse_state,
+    startMultiplexResponse_name,
+    startMultiplexResponse_tags,
+    startMultiplexResponse_multiplexSettings,
+    startMultiplexResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.MultiplexOutputDestination
+import Network.AWS.MediaLive.Types.MultiplexSettings
+import Network.AWS.MediaLive.Types.MultiplexState
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for StartMultiplexRequest
 --
--- /See:/ 'startMultiplex' smart constructor.
-newtype StartMultiplex = StartMultiplex'
-  { _smMultiplexId ::
-      Text
+-- /See:/ 'newStartMultiplex' smart constructor.
+data StartMultiplex = StartMultiplex'
+  { -- | The ID of the multiplex.
+    multiplexId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMultiplex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMultiplex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smMultiplexId' - The ID of the multiplex.
-startMultiplex ::
-  -- | 'smMultiplexId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'multiplexId', 'startMultiplex_multiplexId' - The ID of the multiplex.
+newStartMultiplex ::
+  -- | 'multiplexId'
+  Prelude.Text ->
   StartMultiplex
-startMultiplex pMultiplexId_ =
-  StartMultiplex' {_smMultiplexId = pMultiplexId_}
+newStartMultiplex pMultiplexId_ =
+  StartMultiplex' {multiplexId = pMultiplexId_}
 
 -- | The ID of the multiplex.
-smMultiplexId :: Lens' StartMultiplex Text
-smMultiplexId = lens _smMultiplexId (\s a -> s {_smMultiplexId = a})
+startMultiplex_multiplexId :: Lens.Lens' StartMultiplex Prelude.Text
+startMultiplex_multiplexId = Lens.lens (\StartMultiplex' {multiplexId} -> multiplexId) (\s@StartMultiplex' {} a -> s {multiplexId = a} :: StartMultiplex)
 
-instance AWSRequest StartMultiplex where
+instance Prelude.AWSRequest StartMultiplex where
   type Rs StartMultiplex = StartMultiplexResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartMultiplexResponse'
-            <$> (x .?> "availabilityZones" .!@ mempty)
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "pipelinesRunningCount")
-            <*> (x .?> "programCount")
-            <*> (x .?> "destinations" .!@ mempty)
-            <*> (x .?> "state")
-            <*> (x .?> "name")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "multiplexSettings")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "availabilityZones"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "pipelinesRunningCount")
+            Prelude.<*> (x Prelude..?> "programCount")
+            Prelude.<*> ( x Prelude..?> "destinations"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "state")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "multiplexSettings")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartMultiplex
+instance Prelude.Hashable StartMultiplex
 
-instance NFData StartMultiplex
+instance Prelude.NFData StartMultiplex
 
-instance ToHeaders StartMultiplex where
+instance Prelude.ToHeaders StartMultiplex where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartMultiplex where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON StartMultiplex where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath StartMultiplex where
+instance Prelude.ToPath StartMultiplex where
   toPath StartMultiplex' {..} =
-    mconcat
-      ["/prod/multiplexes/", toBS _smMultiplexId, "/start"]
+    Prelude.mconcat
+      [ "/prod/multiplexes/",
+        Prelude.toBS multiplexId,
+        "/start"
+      ]
 
-instance ToQuery StartMultiplex where
-  toQuery = const mempty
+instance Prelude.ToQuery StartMultiplex where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for StartMultiplexResponse
 --
--- /See:/ 'startMultiplexResponse' smart constructor.
+-- /See:/ 'newStartMultiplexResponse' smart constructor.
 data StartMultiplexResponse = StartMultiplexResponse'
-  { _starsAvailabilityZones ::
-      !(Maybe [Text]),
-    _starsARN ::
-      !(Maybe Text),
-    _starsId :: !(Maybe Text),
-    _starsPipelinesRunningCount ::
-      !(Maybe Int),
-    _starsProgramCount ::
-      !(Maybe Int),
-    _starsDestinations ::
-      !( Maybe
-           [MultiplexOutputDestination]
-       ),
-    _starsState ::
-      !(Maybe MultiplexState),
-    _starsName ::
-      !(Maybe Text),
-    _starsTags ::
-      !(Maybe (Map Text Text)),
-    _starsMultiplexSettings ::
-      !( Maybe
-           MultiplexSettings
-       ),
-    _starsResponseStatus ::
-      !Int
+  { -- | A list of availability zones for the multiplex.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | The unique arn of the multiplex.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique id of the multiplex.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The number of currently healthy pipelines.
+    pipelinesRunningCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of programs in the multiplex.
+    programCount :: Prelude.Maybe Prelude.Int,
+    -- | A list of the multiplex output destinations.
+    destinations :: Prelude.Maybe [MultiplexOutputDestination],
+    -- | The current state of the multiplex.
+    state :: Prelude.Maybe MultiplexState,
+    -- | The name of the multiplex.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Configuration for a multiplex event.
+    multiplexSettings :: Prelude.Maybe MultiplexSettings,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartMultiplexResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartMultiplexResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'starsAvailabilityZones' - A list of availability zones for the multiplex.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'starsARN' - The unique arn of the multiplex.
+-- 'availabilityZones', 'startMultiplexResponse_availabilityZones' - A list of availability zones for the multiplex.
 --
--- * 'starsId' - The unique id of the multiplex.
+-- 'arn', 'startMultiplexResponse_arn' - The unique arn of the multiplex.
 --
--- * 'starsPipelinesRunningCount' - The number of currently healthy pipelines.
+-- 'id', 'startMultiplexResponse_id' - The unique id of the multiplex.
 --
--- * 'starsProgramCount' - The number of programs in the multiplex.
+-- 'pipelinesRunningCount', 'startMultiplexResponse_pipelinesRunningCount' - The number of currently healthy pipelines.
 --
--- * 'starsDestinations' - A list of the multiplex output destinations.
+-- 'programCount', 'startMultiplexResponse_programCount' - The number of programs in the multiplex.
 --
--- * 'starsState' - The current state of the multiplex.
+-- 'destinations', 'startMultiplexResponse_destinations' - A list of the multiplex output destinations.
 --
--- * 'starsName' - The name of the multiplex.
+-- 'state', 'startMultiplexResponse_state' - The current state of the multiplex.
 --
--- * 'starsTags' - A collection of key-value pairs.
+-- 'name', 'startMultiplexResponse_name' - The name of the multiplex.
 --
--- * 'starsMultiplexSettings' - Configuration for a multiplex event.
+-- 'tags', 'startMultiplexResponse_tags' - A collection of key-value pairs.
 --
--- * 'starsResponseStatus' - -- | The response status code.
-startMultiplexResponse ::
-  -- | 'starsResponseStatus'
-  Int ->
+-- 'multiplexSettings', 'startMultiplexResponse_multiplexSettings' - Configuration for a multiplex event.
+--
+-- 'httpStatus', 'startMultiplexResponse_httpStatus' - The response's http status code.
+newStartMultiplexResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartMultiplexResponse
-startMultiplexResponse pResponseStatus_ =
+newStartMultiplexResponse pHttpStatus_ =
   StartMultiplexResponse'
-    { _starsAvailabilityZones =
-        Nothing,
-      _starsARN = Nothing,
-      _starsId = Nothing,
-      _starsPipelinesRunningCount = Nothing,
-      _starsProgramCount = Nothing,
-      _starsDestinations = Nothing,
-      _starsState = Nothing,
-      _starsName = Nothing,
-      _starsTags = Nothing,
-      _starsMultiplexSettings = Nothing,
-      _starsResponseStatus = pResponseStatus_
+    { availabilityZones =
+        Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      pipelinesRunningCount = Prelude.Nothing,
+      programCount = Prelude.Nothing,
+      destinations = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      multiplexSettings = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of availability zones for the multiplex.
-starsAvailabilityZones :: Lens' StartMultiplexResponse [Text]
-starsAvailabilityZones = lens _starsAvailabilityZones (\s a -> s {_starsAvailabilityZones = a}) . _Default . _Coerce
+startMultiplexResponse_availabilityZones :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe [Prelude.Text])
+startMultiplexResponse_availabilityZones = Lens.lens (\StartMultiplexResponse' {availabilityZones} -> availabilityZones) (\s@StartMultiplexResponse' {} a -> s {availabilityZones = a} :: StartMultiplexResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unique arn of the multiplex.
-starsARN :: Lens' StartMultiplexResponse (Maybe Text)
-starsARN = lens _starsARN (\s a -> s {_starsARN = a})
+startMultiplexResponse_arn :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe Prelude.Text)
+startMultiplexResponse_arn = Lens.lens (\StartMultiplexResponse' {arn} -> arn) (\s@StartMultiplexResponse' {} a -> s {arn = a} :: StartMultiplexResponse)
 
 -- | The unique id of the multiplex.
-starsId :: Lens' StartMultiplexResponse (Maybe Text)
-starsId = lens _starsId (\s a -> s {_starsId = a})
+startMultiplexResponse_id :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe Prelude.Text)
+startMultiplexResponse_id = Lens.lens (\StartMultiplexResponse' {id} -> id) (\s@StartMultiplexResponse' {} a -> s {id = a} :: StartMultiplexResponse)
 
 -- | The number of currently healthy pipelines.
-starsPipelinesRunningCount :: Lens' StartMultiplexResponse (Maybe Int)
-starsPipelinesRunningCount = lens _starsPipelinesRunningCount (\s a -> s {_starsPipelinesRunningCount = a})
+startMultiplexResponse_pipelinesRunningCount :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe Prelude.Int)
+startMultiplexResponse_pipelinesRunningCount = Lens.lens (\StartMultiplexResponse' {pipelinesRunningCount} -> pipelinesRunningCount) (\s@StartMultiplexResponse' {} a -> s {pipelinesRunningCount = a} :: StartMultiplexResponse)
 
 -- | The number of programs in the multiplex.
-starsProgramCount :: Lens' StartMultiplexResponse (Maybe Int)
-starsProgramCount = lens _starsProgramCount (\s a -> s {_starsProgramCount = a})
+startMultiplexResponse_programCount :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe Prelude.Int)
+startMultiplexResponse_programCount = Lens.lens (\StartMultiplexResponse' {programCount} -> programCount) (\s@StartMultiplexResponse' {} a -> s {programCount = a} :: StartMultiplexResponse)
 
 -- | A list of the multiplex output destinations.
-starsDestinations :: Lens' StartMultiplexResponse [MultiplexOutputDestination]
-starsDestinations = lens _starsDestinations (\s a -> s {_starsDestinations = a}) . _Default . _Coerce
+startMultiplexResponse_destinations :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe [MultiplexOutputDestination])
+startMultiplexResponse_destinations = Lens.lens (\StartMultiplexResponse' {destinations} -> destinations) (\s@StartMultiplexResponse' {} a -> s {destinations = a} :: StartMultiplexResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The current state of the multiplex.
-starsState :: Lens' StartMultiplexResponse (Maybe MultiplexState)
-starsState = lens _starsState (\s a -> s {_starsState = a})
+startMultiplexResponse_state :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe MultiplexState)
+startMultiplexResponse_state = Lens.lens (\StartMultiplexResponse' {state} -> state) (\s@StartMultiplexResponse' {} a -> s {state = a} :: StartMultiplexResponse)
 
 -- | The name of the multiplex.
-starsName :: Lens' StartMultiplexResponse (Maybe Text)
-starsName = lens _starsName (\s a -> s {_starsName = a})
+startMultiplexResponse_name :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe Prelude.Text)
+startMultiplexResponse_name = Lens.lens (\StartMultiplexResponse' {name} -> name) (\s@StartMultiplexResponse' {} a -> s {name = a} :: StartMultiplexResponse)
 
 -- | A collection of key-value pairs.
-starsTags :: Lens' StartMultiplexResponse (HashMap Text Text)
-starsTags = lens _starsTags (\s a -> s {_starsTags = a}) . _Default . _Map
+startMultiplexResponse_tags :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+startMultiplexResponse_tags = Lens.lens (\StartMultiplexResponse' {tags} -> tags) (\s@StartMultiplexResponse' {} a -> s {tags = a} :: StartMultiplexResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | Configuration for a multiplex event.
-starsMultiplexSettings :: Lens' StartMultiplexResponse (Maybe MultiplexSettings)
-starsMultiplexSettings = lens _starsMultiplexSettings (\s a -> s {_starsMultiplexSettings = a})
+startMultiplexResponse_multiplexSettings :: Lens.Lens' StartMultiplexResponse (Prelude.Maybe MultiplexSettings)
+startMultiplexResponse_multiplexSettings = Lens.lens (\StartMultiplexResponse' {multiplexSettings} -> multiplexSettings) (\s@StartMultiplexResponse' {} a -> s {multiplexSettings = a} :: StartMultiplexResponse)
 
--- | -- | The response status code.
-starsResponseStatus :: Lens' StartMultiplexResponse Int
-starsResponseStatus = lens _starsResponseStatus (\s a -> s {_starsResponseStatus = a})
+-- | The response's http status code.
+startMultiplexResponse_httpStatus :: Lens.Lens' StartMultiplexResponse Prelude.Int
+startMultiplexResponse_httpStatus = Lens.lens (\StartMultiplexResponse' {httpStatus} -> httpStatus) (\s@StartMultiplexResponse' {} a -> s {httpStatus = a} :: StartMultiplexResponse)
 
-instance NFData StartMultiplexResponse
+instance Prelude.NFData StartMultiplexResponse

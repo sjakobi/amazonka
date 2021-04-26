@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsAbsentInputAudioBehavior
   ( M2tsAbsentInputAudioBehavior
       ( ..,
-        Drop,
-        EncodeSilence
+        M2tsAbsentInputAudioBehaviorDROP,
+        M2tsAbsentInputAudioBehaviorENCODESILENCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Absent Input Audio Behavior
-data M2tsAbsentInputAudioBehavior
-  = M2tsAbsentInputAudioBehavior'
-      ( CI
-          Text
-      )
+newtype M2tsAbsentInputAudioBehavior = M2tsAbsentInputAudioBehavior'
+  { fromM2tsAbsentInputAudioBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Drop :: M2tsAbsentInputAudioBehavior
-pattern Drop = M2tsAbsentInputAudioBehavior' "DROP"
+pattern M2tsAbsentInputAudioBehaviorDROP :: M2tsAbsentInputAudioBehavior
+pattern M2tsAbsentInputAudioBehaviorDROP = M2tsAbsentInputAudioBehavior' "DROP"
 
-pattern EncodeSilence :: M2tsAbsentInputAudioBehavior
-pattern EncodeSilence = M2tsAbsentInputAudioBehavior' "ENCODE_SILENCE"
+pattern M2tsAbsentInputAudioBehaviorENCODESILENCE :: M2tsAbsentInputAudioBehavior
+pattern M2tsAbsentInputAudioBehaviorENCODESILENCE = M2tsAbsentInputAudioBehavior' "ENCODE_SILENCE"
 
 {-# COMPLETE
-  Drop,
-  EncodeSilence,
+  M2tsAbsentInputAudioBehaviorDROP,
+  M2tsAbsentInputAudioBehaviorENCODESILENCE,
   M2tsAbsentInputAudioBehavior'
   #-}
 
-instance FromText M2tsAbsentInputAudioBehavior where
-  parser = (M2tsAbsentInputAudioBehavior' . mk) <$> takeText
+instance Prelude.FromText M2tsAbsentInputAudioBehavior where
+  parser = M2tsAbsentInputAudioBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsAbsentInputAudioBehavior where
-  toText (M2tsAbsentInputAudioBehavior' ci) = original ci
+instance Prelude.ToText M2tsAbsentInputAudioBehavior where
+  toText (M2tsAbsentInputAudioBehavior' x) = x
 
-instance Hashable M2tsAbsentInputAudioBehavior
+instance Prelude.Hashable M2tsAbsentInputAudioBehavior
 
-instance NFData M2tsAbsentInputAudioBehavior
+instance Prelude.NFData M2tsAbsentInputAudioBehavior
 
-instance ToByteString M2tsAbsentInputAudioBehavior
+instance Prelude.ToByteString M2tsAbsentInputAudioBehavior
 
-instance ToQuery M2tsAbsentInputAudioBehavior
+instance Prelude.ToQuery M2tsAbsentInputAudioBehavior
 
-instance ToHeader M2tsAbsentInputAudioBehavior
+instance Prelude.ToHeader M2tsAbsentInputAudioBehavior
 
-instance ToJSON M2tsAbsentInputAudioBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsAbsentInputAudioBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsAbsentInputAudioBehavior where
-  parseJSON = parseJSONText "M2tsAbsentInputAudioBehavior"
+instance Prelude.FromJSON M2tsAbsentInputAudioBehavior where
+  parseJSON = Prelude.parseJSONText "M2tsAbsentInputAudioBehavior"

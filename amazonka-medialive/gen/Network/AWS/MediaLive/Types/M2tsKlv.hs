@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsKlv
   ( M2tsKlv
       ( ..,
-        MKNone,
-        MKPassthrough
+        M2tsKlvNONE,
+        M2tsKlvPASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Klv
-data M2tsKlv = M2tsKlv' (CI Text)
+newtype M2tsKlv = M2tsKlv'
+  { fromM2tsKlv ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MKNone :: M2tsKlv
-pattern MKNone = M2tsKlv' "NONE"
+pattern M2tsKlvNONE :: M2tsKlv
+pattern M2tsKlvNONE = M2tsKlv' "NONE"
 
-pattern MKPassthrough :: M2tsKlv
-pattern MKPassthrough = M2tsKlv' "PASSTHROUGH"
+pattern M2tsKlvPASSTHROUGH :: M2tsKlv
+pattern M2tsKlvPASSTHROUGH = M2tsKlv' "PASSTHROUGH"
 
 {-# COMPLETE
-  MKNone,
-  MKPassthrough,
+  M2tsKlvNONE,
+  M2tsKlvPASSTHROUGH,
   M2tsKlv'
   #-}
 
-instance FromText M2tsKlv where
-  parser = (M2tsKlv' . mk) <$> takeText
+instance Prelude.FromText M2tsKlv where
+  parser = M2tsKlv' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsKlv where
-  toText (M2tsKlv' ci) = original ci
+instance Prelude.ToText M2tsKlv where
+  toText (M2tsKlv' x) = x
 
-instance Hashable M2tsKlv
+instance Prelude.Hashable M2tsKlv
 
-instance NFData M2tsKlv
+instance Prelude.NFData M2tsKlv
 
-instance ToByteString M2tsKlv
+instance Prelude.ToByteString M2tsKlv
 
-instance ToQuery M2tsKlv
+instance Prelude.ToQuery M2tsKlv
 
-instance ToHeader M2tsKlv
+instance Prelude.ToHeader M2tsKlv
 
-instance ToJSON M2tsKlv where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsKlv where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsKlv where
-  parseJSON = parseJSONText "M2tsKlv"
+instance Prelude.FromJSON M2tsKlv where
+  parseJSON = Prelude.parseJSONText "M2tsKlv"

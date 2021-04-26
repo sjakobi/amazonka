@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioSelectorSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AudioLanguageSelection
 import Network.AWS.MediaLive.Types.AudioPidSelection
 import Network.AWS.MediaLive.Types.AudioTrackSelection
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Selector Settings
 --
--- /See:/ 'audioSelectorSettings' smart constructor.
+-- /See:/ 'newAudioSelectorSettings' smart constructor.
 data AudioSelectorSettings = AudioSelectorSettings'
-  { _assAudioLanguageSelection ::
-      !( Maybe
-           AudioLanguageSelection
-       ),
-    _assAudioPidSelection ::
-      !(Maybe AudioPidSelection),
-    _assAudioTrackSelection ::
-      !( Maybe
-           AudioTrackSelection
-       )
+  { audioLanguageSelection :: Prelude.Maybe AudioLanguageSelection,
+    audioPidSelection :: Prelude.Maybe AudioPidSelection,
+    audioTrackSelection :: Prelude.Maybe AudioTrackSelection
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioSelectorSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioSelectorSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'assAudioLanguageSelection' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'assAudioPidSelection' - Undocumented member.
+-- 'audioLanguageSelection', 'audioSelectorSettings_audioLanguageSelection' - Undocumented member.
 --
--- * 'assAudioTrackSelection' - Undocumented member.
-audioSelectorSettings ::
+-- 'audioPidSelection', 'audioSelectorSettings_audioPidSelection' - Undocumented member.
+--
+-- 'audioTrackSelection', 'audioSelectorSettings_audioTrackSelection' - Undocumented member.
+newAudioSelectorSettings ::
   AudioSelectorSettings
-audioSelectorSettings =
+newAudioSelectorSettings =
   AudioSelectorSettings'
-    { _assAudioLanguageSelection =
-        Nothing,
-      _assAudioPidSelection = Nothing,
-      _assAudioTrackSelection = Nothing
+    { audioLanguageSelection =
+        Prelude.Nothing,
+      audioPidSelection = Prelude.Nothing,
+      audioTrackSelection = Prelude.Nothing
     }
 
 -- | Undocumented member.
-assAudioLanguageSelection :: Lens' AudioSelectorSettings (Maybe AudioLanguageSelection)
-assAudioLanguageSelection = lens _assAudioLanguageSelection (\s a -> s {_assAudioLanguageSelection = a})
+audioSelectorSettings_audioLanguageSelection :: Lens.Lens' AudioSelectorSettings (Prelude.Maybe AudioLanguageSelection)
+audioSelectorSettings_audioLanguageSelection = Lens.lens (\AudioSelectorSettings' {audioLanguageSelection} -> audioLanguageSelection) (\s@AudioSelectorSettings' {} a -> s {audioLanguageSelection = a} :: AudioSelectorSettings)
 
 -- | Undocumented member.
-assAudioPidSelection :: Lens' AudioSelectorSettings (Maybe AudioPidSelection)
-assAudioPidSelection = lens _assAudioPidSelection (\s a -> s {_assAudioPidSelection = a})
+audioSelectorSettings_audioPidSelection :: Lens.Lens' AudioSelectorSettings (Prelude.Maybe AudioPidSelection)
+audioSelectorSettings_audioPidSelection = Lens.lens (\AudioSelectorSettings' {audioPidSelection} -> audioPidSelection) (\s@AudioSelectorSettings' {} a -> s {audioPidSelection = a} :: AudioSelectorSettings)
 
 -- | Undocumented member.
-assAudioTrackSelection :: Lens' AudioSelectorSettings (Maybe AudioTrackSelection)
-assAudioTrackSelection = lens _assAudioTrackSelection (\s a -> s {_assAudioTrackSelection = a})
+audioSelectorSettings_audioTrackSelection :: Lens.Lens' AudioSelectorSettings (Prelude.Maybe AudioTrackSelection)
+audioSelectorSettings_audioTrackSelection = Lens.lens (\AudioSelectorSettings' {audioTrackSelection} -> audioTrackSelection) (\s@AudioSelectorSettings' {} a -> s {audioTrackSelection = a} :: AudioSelectorSettings)
 
-instance FromJSON AudioSelectorSettings where
+instance Prelude.FromJSON AudioSelectorSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioSelectorSettings"
       ( \x ->
           AudioSelectorSettings'
-            <$> (x .:? "audioLanguageSelection")
-            <*> (x .:? "audioPidSelection")
-            <*> (x .:? "audioTrackSelection")
+            Prelude.<$> (x Prelude..:? "audioLanguageSelection")
+            Prelude.<*> (x Prelude..:? "audioPidSelection")
+            Prelude.<*> (x Prelude..:? "audioTrackSelection")
       )
 
-instance Hashable AudioSelectorSettings
+instance Prelude.Hashable AudioSelectorSettings
 
-instance NFData AudioSelectorSettings
+instance Prelude.NFData AudioSelectorSettings
 
-instance ToJSON AudioSelectorSettings where
+instance Prelude.ToJSON AudioSelectorSettings where
   toJSON AudioSelectorSettings' {..} =
-    object
-      ( catMaybes
-          [ ("audioLanguageSelection" .=)
-              <$> _assAudioLanguageSelection,
-            ("audioPidSelection" .=) <$> _assAudioPidSelection,
-            ("audioTrackSelection" .=)
-              <$> _assAudioTrackSelection
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("audioLanguageSelection" Prelude..=)
+              Prelude.<$> audioLanguageSelection,
+            ("audioPidSelection" Prelude..=)
+              Prelude.<$> audioPidSelection,
+            ("audioTrackSelection" Prelude..=)
+              Prelude.<$> audioTrackSelection
           ]
       )

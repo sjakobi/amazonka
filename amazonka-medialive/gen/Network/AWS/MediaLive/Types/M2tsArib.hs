@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsArib
   ( M2tsArib
       ( ..,
-        MADisabled,
-        MAEnabled
+        M2tsAribDISABLED,
+        M2tsAribENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Arib
-data M2tsArib = M2tsArib' (CI Text)
+newtype M2tsArib = M2tsArib'
+  { fromM2tsArib ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MADisabled :: M2tsArib
-pattern MADisabled = M2tsArib' "DISABLED"
+pattern M2tsAribDISABLED :: M2tsArib
+pattern M2tsAribDISABLED = M2tsArib' "DISABLED"
 
-pattern MAEnabled :: M2tsArib
-pattern MAEnabled = M2tsArib' "ENABLED"
+pattern M2tsAribENABLED :: M2tsArib
+pattern M2tsAribENABLED = M2tsArib' "ENABLED"
 
 {-# COMPLETE
-  MADisabled,
-  MAEnabled,
+  M2tsAribDISABLED,
+  M2tsAribENABLED,
   M2tsArib'
   #-}
 
-instance FromText M2tsArib where
-  parser = (M2tsArib' . mk) <$> takeText
+instance Prelude.FromText M2tsArib where
+  parser = M2tsArib' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsArib where
-  toText (M2tsArib' ci) = original ci
+instance Prelude.ToText M2tsArib where
+  toText (M2tsArib' x) = x
 
-instance Hashable M2tsArib
+instance Prelude.Hashable M2tsArib
 
-instance NFData M2tsArib
+instance Prelude.NFData M2tsArib
 
-instance ToByteString M2tsArib
+instance Prelude.ToByteString M2tsArib
 
-instance ToQuery M2tsArib
+instance Prelude.ToQuery M2tsArib
 
-instance ToHeader M2tsArib
+instance Prelude.ToHeader M2tsArib
 
-instance ToJSON M2tsArib where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsArib where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsArib where
-  parseJSON = parseJSONText "M2tsArib"
+instance Prelude.FromJSON M2tsArib where
+  parseJSON = Prelude.parseJSONText "M2tsArib"

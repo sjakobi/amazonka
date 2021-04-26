@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Channel where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.CdiInputSpecification
 import Network.AWS.MediaLive.Types.ChannelClass
 import Network.AWS.MediaLive.Types.ChannelEgressEndpoint
@@ -26,189 +30,225 @@ import Network.AWS.MediaLive.Types.InputSpecification
 import Network.AWS.MediaLive.Types.LogLevel
 import Network.AWS.MediaLive.Types.OutputDestination
 import Network.AWS.MediaLive.Types.PipelineDetail
-import Network.AWS.MediaLive.Types.VPCOutputSettings
-import Network.AWS.Prelude
+import Network.AWS.MediaLive.Types.VpcOutputSettings
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for Channel
 --
--- /See:/ 'channel' smart constructor.
+-- /See:/ 'newChannel' smart constructor.
 data Channel = Channel'
-  { _cEncoderSettings ::
-      !(Maybe EncoderSettings),
-    _cRoleARN :: !(Maybe Text),
-    _cInputSpecification :: !(Maybe InputSpecification),
-    _cARN :: !(Maybe Text),
-    _cId :: !(Maybe Text),
-    _cPipelinesRunningCount :: !(Maybe Int),
-    _cChannelClass :: !(Maybe ChannelClass),
-    _cLogLevel :: !(Maybe LogLevel),
-    _cDestinations :: !(Maybe [OutputDestination]),
-    _cState :: !(Maybe ChannelState),
-    _cName :: !(Maybe Text),
-    _cInputAttachments :: !(Maybe [InputAttachment]),
-    _cTags :: !(Maybe (Map Text Text)),
-    _cPipelineDetails :: !(Maybe [PipelineDetail]),
-    _cEgressEndpoints ::
-      !(Maybe [ChannelEgressEndpoint]),
-    _cVPC :: !(Maybe VPCOutputSettings),
-    _cCdiInputSpecification ::
-      !(Maybe CdiInputSpecification)
+  { encoderSettings :: Prelude.Maybe EncoderSettings,
+    -- | The Amazon Resource Name (ARN) of the role assumed when running the
+    -- Channel.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Specification of network and file inputs for this channel
+    inputSpecification :: Prelude.Maybe InputSpecification,
+    -- | The unique arn of the channel.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique id of the channel.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The number of currently healthy pipelines.
+    pipelinesRunningCount :: Prelude.Maybe Prelude.Int,
+    -- | The class for this channel. STANDARD for a channel with two pipelines or
+    -- SINGLE_PIPELINE for a channel with one pipeline.
+    channelClass :: Prelude.Maybe ChannelClass,
+    -- | The log level being written to CloudWatch Logs.
+    logLevel :: Prelude.Maybe LogLevel,
+    -- | A list of destinations of the channel. For UDP outputs, there is one
+    -- destination per output. For other types (HLS, for example), there is one
+    -- destination per packager.
+    destinations :: Prelude.Maybe [OutputDestination],
+    state :: Prelude.Maybe ChannelState,
+    -- | The name of the channel. (user-mutable)
+    name :: Prelude.Maybe Prelude.Text,
+    -- | List of input attachments for channel.
+    inputAttachments :: Prelude.Maybe [InputAttachment],
+    -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Runtime details for the pipelines of a running channel.
+    pipelineDetails :: Prelude.Maybe [PipelineDetail],
+    -- | The endpoints where outgoing connections initiate from
+    egressEndpoints :: Prelude.Maybe [ChannelEgressEndpoint],
+    -- | Settings for VPC output
+    vpc :: Prelude.Maybe VpcOutputSettings,
+    -- | Specification of CDI inputs for this channel
+    cdiInputSpecification :: Prelude.Maybe CdiInputSpecification
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Channel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Channel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cEncoderSettings' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cRoleARN' - The Amazon Resource Name (ARN) of the role assumed when running the Channel.
+-- 'encoderSettings', 'channel_encoderSettings' - Undocumented member.
 --
--- * 'cInputSpecification' - Specification of network and file inputs for this channel
+-- 'roleArn', 'channel_roleArn' - The Amazon Resource Name (ARN) of the role assumed when running the
+-- Channel.
 --
--- * 'cARN' - The unique arn of the channel.
+-- 'inputSpecification', 'channel_inputSpecification' - Specification of network and file inputs for this channel
 --
--- * 'cId' - The unique id of the channel.
+-- 'arn', 'channel_arn' - The unique arn of the channel.
 --
--- * 'cPipelinesRunningCount' - The number of currently healthy pipelines.
+-- 'id', 'channel_id' - The unique id of the channel.
 --
--- * 'cChannelClass' - The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
+-- 'pipelinesRunningCount', 'channel_pipelinesRunningCount' - The number of currently healthy pipelines.
 --
--- * 'cLogLevel' - The log level being written to CloudWatch Logs.
+-- 'channelClass', 'channel_channelClass' - The class for this channel. STANDARD for a channel with two pipelines or
+-- SINGLE_PIPELINE for a channel with one pipeline.
 --
--- * 'cDestinations' - A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
+-- 'logLevel', 'channel_logLevel' - The log level being written to CloudWatch Logs.
 --
--- * 'cState' - Undocumented member.
+-- 'destinations', 'channel_destinations' - A list of destinations of the channel. For UDP outputs, there is one
+-- destination per output. For other types (HLS, for example), there is one
+-- destination per packager.
 --
--- * 'cName' - The name of the channel. (user-mutable)
+-- 'state', 'channel_state' - Undocumented member.
 --
--- * 'cInputAttachments' - List of input attachments for channel.
+-- 'name', 'channel_name' - The name of the channel. (user-mutable)
 --
--- * 'cTags' - A collection of key-value pairs.
+-- 'inputAttachments', 'channel_inputAttachments' - List of input attachments for channel.
 --
--- * 'cPipelineDetails' - Runtime details for the pipelines of a running channel.
+-- 'tags', 'channel_tags' - A collection of key-value pairs.
 --
--- * 'cEgressEndpoints' - The endpoints where outgoing connections initiate from
+-- 'pipelineDetails', 'channel_pipelineDetails' - Runtime details for the pipelines of a running channel.
 --
--- * 'cVPC' - Settings for VPC output
+-- 'egressEndpoints', 'channel_egressEndpoints' - The endpoints where outgoing connections initiate from
 --
--- * 'cCdiInputSpecification' - Specification of CDI inputs for this channel
-channel ::
+-- 'vpc', 'channel_vpc' - Settings for VPC output
+--
+-- 'cdiInputSpecification', 'channel_cdiInputSpecification' - Specification of CDI inputs for this channel
+newChannel ::
   Channel
-channel =
+newChannel =
   Channel'
-    { _cEncoderSettings = Nothing,
-      _cRoleARN = Nothing,
-      _cInputSpecification = Nothing,
-      _cARN = Nothing,
-      _cId = Nothing,
-      _cPipelinesRunningCount = Nothing,
-      _cChannelClass = Nothing,
-      _cLogLevel = Nothing,
-      _cDestinations = Nothing,
-      _cState = Nothing,
-      _cName = Nothing,
-      _cInputAttachments = Nothing,
-      _cTags = Nothing,
-      _cPipelineDetails = Nothing,
-      _cEgressEndpoints = Nothing,
-      _cVPC = Nothing,
-      _cCdiInputSpecification = Nothing
+    { encoderSettings = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      inputSpecification = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      pipelinesRunningCount = Prelude.Nothing,
+      channelClass = Prelude.Nothing,
+      logLevel = Prelude.Nothing,
+      destinations = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      inputAttachments = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      pipelineDetails = Prelude.Nothing,
+      egressEndpoints = Prelude.Nothing,
+      vpc = Prelude.Nothing,
+      cdiInputSpecification = Prelude.Nothing
     }
 
 -- | Undocumented member.
-cEncoderSettings :: Lens' Channel (Maybe EncoderSettings)
-cEncoderSettings = lens _cEncoderSettings (\s a -> s {_cEncoderSettings = a})
+channel_encoderSettings :: Lens.Lens' Channel (Prelude.Maybe EncoderSettings)
+channel_encoderSettings = Lens.lens (\Channel' {encoderSettings} -> encoderSettings) (\s@Channel' {} a -> s {encoderSettings = a} :: Channel)
 
--- | The Amazon Resource Name (ARN) of the role assumed when running the Channel.
-cRoleARN :: Lens' Channel (Maybe Text)
-cRoleARN = lens _cRoleARN (\s a -> s {_cRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the role assumed when running the
+-- Channel.
+channel_roleArn :: Lens.Lens' Channel (Prelude.Maybe Prelude.Text)
+channel_roleArn = Lens.lens (\Channel' {roleArn} -> roleArn) (\s@Channel' {} a -> s {roleArn = a} :: Channel)
 
 -- | Specification of network and file inputs for this channel
-cInputSpecification :: Lens' Channel (Maybe InputSpecification)
-cInputSpecification = lens _cInputSpecification (\s a -> s {_cInputSpecification = a})
+channel_inputSpecification :: Lens.Lens' Channel (Prelude.Maybe InputSpecification)
+channel_inputSpecification = Lens.lens (\Channel' {inputSpecification} -> inputSpecification) (\s@Channel' {} a -> s {inputSpecification = a} :: Channel)
 
 -- | The unique arn of the channel.
-cARN :: Lens' Channel (Maybe Text)
-cARN = lens _cARN (\s a -> s {_cARN = a})
+channel_arn :: Lens.Lens' Channel (Prelude.Maybe Prelude.Text)
+channel_arn = Lens.lens (\Channel' {arn} -> arn) (\s@Channel' {} a -> s {arn = a} :: Channel)
 
 -- | The unique id of the channel.
-cId :: Lens' Channel (Maybe Text)
-cId = lens _cId (\s a -> s {_cId = a})
+channel_id :: Lens.Lens' Channel (Prelude.Maybe Prelude.Text)
+channel_id = Lens.lens (\Channel' {id} -> id) (\s@Channel' {} a -> s {id = a} :: Channel)
 
 -- | The number of currently healthy pipelines.
-cPipelinesRunningCount :: Lens' Channel (Maybe Int)
-cPipelinesRunningCount = lens _cPipelinesRunningCount (\s a -> s {_cPipelinesRunningCount = a})
+channel_pipelinesRunningCount :: Lens.Lens' Channel (Prelude.Maybe Prelude.Int)
+channel_pipelinesRunningCount = Lens.lens (\Channel' {pipelinesRunningCount} -> pipelinesRunningCount) (\s@Channel' {} a -> s {pipelinesRunningCount = a} :: Channel)
 
--- | The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
-cChannelClass :: Lens' Channel (Maybe ChannelClass)
-cChannelClass = lens _cChannelClass (\s a -> s {_cChannelClass = a})
+-- | The class for this channel. STANDARD for a channel with two pipelines or
+-- SINGLE_PIPELINE for a channel with one pipeline.
+channel_channelClass :: Lens.Lens' Channel (Prelude.Maybe ChannelClass)
+channel_channelClass = Lens.lens (\Channel' {channelClass} -> channelClass) (\s@Channel' {} a -> s {channelClass = a} :: Channel)
 
 -- | The log level being written to CloudWatch Logs.
-cLogLevel :: Lens' Channel (Maybe LogLevel)
-cLogLevel = lens _cLogLevel (\s a -> s {_cLogLevel = a})
+channel_logLevel :: Lens.Lens' Channel (Prelude.Maybe LogLevel)
+channel_logLevel = Lens.lens (\Channel' {logLevel} -> logLevel) (\s@Channel' {} a -> s {logLevel = a} :: Channel)
 
--- | A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
-cDestinations :: Lens' Channel [OutputDestination]
-cDestinations = lens _cDestinations (\s a -> s {_cDestinations = a}) . _Default . _Coerce
+-- | A list of destinations of the channel. For UDP outputs, there is one
+-- destination per output. For other types (HLS, for example), there is one
+-- destination per packager.
+channel_destinations :: Lens.Lens' Channel (Prelude.Maybe [OutputDestination])
+channel_destinations = Lens.lens (\Channel' {destinations} -> destinations) (\s@Channel' {} a -> s {destinations = a} :: Channel) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-cState :: Lens' Channel (Maybe ChannelState)
-cState = lens _cState (\s a -> s {_cState = a})
+channel_state :: Lens.Lens' Channel (Prelude.Maybe ChannelState)
+channel_state = Lens.lens (\Channel' {state} -> state) (\s@Channel' {} a -> s {state = a} :: Channel)
 
 -- | The name of the channel. (user-mutable)
-cName :: Lens' Channel (Maybe Text)
-cName = lens _cName (\s a -> s {_cName = a})
+channel_name :: Lens.Lens' Channel (Prelude.Maybe Prelude.Text)
+channel_name = Lens.lens (\Channel' {name} -> name) (\s@Channel' {} a -> s {name = a} :: Channel)
 
 -- | List of input attachments for channel.
-cInputAttachments :: Lens' Channel [InputAttachment]
-cInputAttachments = lens _cInputAttachments (\s a -> s {_cInputAttachments = a}) . _Default . _Coerce
+channel_inputAttachments :: Lens.Lens' Channel (Prelude.Maybe [InputAttachment])
+channel_inputAttachments = Lens.lens (\Channel' {inputAttachments} -> inputAttachments) (\s@Channel' {} a -> s {inputAttachments = a} :: Channel) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A collection of key-value pairs.
-cTags :: Lens' Channel (HashMap Text Text)
-cTags = lens _cTags (\s a -> s {_cTags = a}) . _Default . _Map
+channel_tags :: Lens.Lens' Channel (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+channel_tags = Lens.lens (\Channel' {tags} -> tags) (\s@Channel' {} a -> s {tags = a} :: Channel) Prelude.. Lens.mapping Prelude._Map
 
 -- | Runtime details for the pipelines of a running channel.
-cPipelineDetails :: Lens' Channel [PipelineDetail]
-cPipelineDetails = lens _cPipelineDetails (\s a -> s {_cPipelineDetails = a}) . _Default . _Coerce
+channel_pipelineDetails :: Lens.Lens' Channel (Prelude.Maybe [PipelineDetail])
+channel_pipelineDetails = Lens.lens (\Channel' {pipelineDetails} -> pipelineDetails) (\s@Channel' {} a -> s {pipelineDetails = a} :: Channel) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The endpoints where outgoing connections initiate from
-cEgressEndpoints :: Lens' Channel [ChannelEgressEndpoint]
-cEgressEndpoints = lens _cEgressEndpoints (\s a -> s {_cEgressEndpoints = a}) . _Default . _Coerce
+channel_egressEndpoints :: Lens.Lens' Channel (Prelude.Maybe [ChannelEgressEndpoint])
+channel_egressEndpoints = Lens.lens (\Channel' {egressEndpoints} -> egressEndpoints) (\s@Channel' {} a -> s {egressEndpoints = a} :: Channel) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Settings for VPC output
-cVPC :: Lens' Channel (Maybe VPCOutputSettings)
-cVPC = lens _cVPC (\s a -> s {_cVPC = a})
+channel_vpc :: Lens.Lens' Channel (Prelude.Maybe VpcOutputSettings)
+channel_vpc = Lens.lens (\Channel' {vpc} -> vpc) (\s@Channel' {} a -> s {vpc = a} :: Channel)
 
 -- | Specification of CDI inputs for this channel
-cCdiInputSpecification :: Lens' Channel (Maybe CdiInputSpecification)
-cCdiInputSpecification = lens _cCdiInputSpecification (\s a -> s {_cCdiInputSpecification = a})
+channel_cdiInputSpecification :: Lens.Lens' Channel (Prelude.Maybe CdiInputSpecification)
+channel_cdiInputSpecification = Lens.lens (\Channel' {cdiInputSpecification} -> cdiInputSpecification) (\s@Channel' {} a -> s {cdiInputSpecification = a} :: Channel)
 
-instance FromJSON Channel where
+instance Prelude.FromJSON Channel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Channel"
       ( \x ->
           Channel'
-            <$> (x .:? "encoderSettings")
-            <*> (x .:? "roleArn")
-            <*> (x .:? "inputSpecification")
-            <*> (x .:? "arn")
-            <*> (x .:? "id")
-            <*> (x .:? "pipelinesRunningCount")
-            <*> (x .:? "channelClass")
-            <*> (x .:? "logLevel")
-            <*> (x .:? "destinations" .!= mempty)
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "inputAttachments" .!= mempty)
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "pipelineDetails" .!= mempty)
-            <*> (x .:? "egressEndpoints" .!= mempty)
-            <*> (x .:? "vpc")
-            <*> (x .:? "cdiInputSpecification")
+            Prelude.<$> (x Prelude..:? "encoderSettings")
+            Prelude.<*> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "inputSpecification")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "pipelinesRunningCount")
+            Prelude.<*> (x Prelude..:? "channelClass")
+            Prelude.<*> (x Prelude..:? "logLevel")
+            Prelude.<*> ( x Prelude..:? "destinations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "inputAttachments"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x Prelude..:? "pipelineDetails"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "egressEndpoints"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "vpc")
+            Prelude.<*> (x Prelude..:? "cdiInputSpecification")
       )
 
-instance Hashable Channel
+instance Prelude.Hashable Channel
 
-instance NFData Channel
+instance Prelude.NFData Channel

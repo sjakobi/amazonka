@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.VideoSelectorSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.VideoSelectorPid
 import Network.AWS.MediaLive.Types.VideoSelectorProgramId
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Video Selector Settings
 --
--- /See:/ 'videoSelectorSettings' smart constructor.
+-- /See:/ 'newVideoSelectorSettings' smart constructor.
 data VideoSelectorSettings = VideoSelectorSettings'
-  { _vssVideoSelectorPid ::
-      !(Maybe VideoSelectorPid),
-    _vssVideoSelectorProgramId ::
-      !( Maybe
-           VideoSelectorProgramId
-       )
+  { videoSelectorPid :: Prelude.Maybe VideoSelectorPid,
+    videoSelectorProgramId :: Prelude.Maybe VideoSelectorProgramId
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VideoSelectorSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VideoSelectorSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vssVideoSelectorPid' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vssVideoSelectorProgramId' - Undocumented member.
-videoSelectorSettings ::
+-- 'videoSelectorPid', 'videoSelectorSettings_videoSelectorPid' - Undocumented member.
+--
+-- 'videoSelectorProgramId', 'videoSelectorSettings_videoSelectorProgramId' - Undocumented member.
+newVideoSelectorSettings ::
   VideoSelectorSettings
-videoSelectorSettings =
+newVideoSelectorSettings =
   VideoSelectorSettings'
-    { _vssVideoSelectorPid =
-        Nothing,
-      _vssVideoSelectorProgramId = Nothing
+    { videoSelectorPid =
+        Prelude.Nothing,
+      videoSelectorProgramId = Prelude.Nothing
     }
 
 -- | Undocumented member.
-vssVideoSelectorPid :: Lens' VideoSelectorSettings (Maybe VideoSelectorPid)
-vssVideoSelectorPid = lens _vssVideoSelectorPid (\s a -> s {_vssVideoSelectorPid = a})
+videoSelectorSettings_videoSelectorPid :: Lens.Lens' VideoSelectorSettings (Prelude.Maybe VideoSelectorPid)
+videoSelectorSettings_videoSelectorPid = Lens.lens (\VideoSelectorSettings' {videoSelectorPid} -> videoSelectorPid) (\s@VideoSelectorSettings' {} a -> s {videoSelectorPid = a} :: VideoSelectorSettings)
 
 -- | Undocumented member.
-vssVideoSelectorProgramId :: Lens' VideoSelectorSettings (Maybe VideoSelectorProgramId)
-vssVideoSelectorProgramId = lens _vssVideoSelectorProgramId (\s a -> s {_vssVideoSelectorProgramId = a})
+videoSelectorSettings_videoSelectorProgramId :: Lens.Lens' VideoSelectorSettings (Prelude.Maybe VideoSelectorProgramId)
+videoSelectorSettings_videoSelectorProgramId = Lens.lens (\VideoSelectorSettings' {videoSelectorProgramId} -> videoSelectorProgramId) (\s@VideoSelectorSettings' {} a -> s {videoSelectorProgramId = a} :: VideoSelectorSettings)
 
-instance FromJSON VideoSelectorSettings where
+instance Prelude.FromJSON VideoSelectorSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "VideoSelectorSettings"
       ( \x ->
           VideoSelectorSettings'
-            <$> (x .:? "videoSelectorPid")
-            <*> (x .:? "videoSelectorProgramId")
+            Prelude.<$> (x Prelude..:? "videoSelectorPid")
+            Prelude.<*> (x Prelude..:? "videoSelectorProgramId")
       )
 
-instance Hashable VideoSelectorSettings
+instance Prelude.Hashable VideoSelectorSettings
 
-instance NFData VideoSelectorSettings
+instance Prelude.NFData VideoSelectorSettings
 
-instance ToJSON VideoSelectorSettings where
+instance Prelude.ToJSON VideoSelectorSettings where
   toJSON VideoSelectorSettings' {..} =
-    object
-      ( catMaybes
-          [ ("videoSelectorPid" .=) <$> _vssVideoSelectorPid,
-            ("videoSelectorProgramId" .=)
-              <$> _vssVideoSelectorProgramId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("videoSelectorPid" Prelude..=)
+              Prelude.<$> videoSelectorPid,
+            ("videoSelectorProgramId" Prelude..=)
+              Prelude.<$> videoSelectorProgramId
           ]
       )

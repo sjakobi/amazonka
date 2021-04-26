@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,64 @@
 module Network.AWS.MediaLive.Types.Scte35SegmentationCancelIndicator
   ( Scte35SegmentationCancelIndicator
       ( ..,
-        SegmentationEventCanceled,
-        SegmentationEventNotCanceled
+        Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTCANCELED,
+        Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTNOTCANCELED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Corresponds to SCTE-35 segmentation_event_cancel_indicator. SEGMENTATION_EVENT_NOT_CANCELED corresponds to 0 in the SCTE-35 specification and indicates that this is an insertion request. SEGMENTATION_EVENT_CANCELED corresponds to 1 in the SCTE-35 specification and indicates that this is a cancelation request, in which case complete this field and the existing event ID to cancel.
-data Scte35SegmentationCancelIndicator
-  = Scte35SegmentationCancelIndicator'
-      ( CI
-          Text
-      )
+-- | Corresponds to SCTE-35 segmentation_event_cancel_indicator.
+-- SEGMENTATION_EVENT_NOT_CANCELED corresponds to 0 in the SCTE-35
+-- specification and indicates that this is an insertion request.
+-- SEGMENTATION_EVENT_CANCELED corresponds to 1 in the SCTE-35
+-- specification and indicates that this is a cancelation request, in which
+-- case complete this field and the existing event ID to cancel.
+newtype Scte35SegmentationCancelIndicator = Scte35SegmentationCancelIndicator'
+  { fromScte35SegmentationCancelIndicator ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SegmentationEventCanceled :: Scte35SegmentationCancelIndicator
-pattern SegmentationEventCanceled = Scte35SegmentationCancelIndicator' "SEGMENTATION_EVENT_CANCELED"
+pattern Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTCANCELED :: Scte35SegmentationCancelIndicator
+pattern Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTCANCELED = Scte35SegmentationCancelIndicator' "SEGMENTATION_EVENT_CANCELED"
 
-pattern SegmentationEventNotCanceled :: Scte35SegmentationCancelIndicator
-pattern SegmentationEventNotCanceled = Scte35SegmentationCancelIndicator' "SEGMENTATION_EVENT_NOT_CANCELED"
+pattern Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTNOTCANCELED :: Scte35SegmentationCancelIndicator
+pattern Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTNOTCANCELED = Scte35SegmentationCancelIndicator' "SEGMENTATION_EVENT_NOT_CANCELED"
 
 {-# COMPLETE
-  SegmentationEventCanceled,
-  SegmentationEventNotCanceled,
+  Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTCANCELED,
+  Scte35SegmentationCancelIndicatorSEGMENTATIONEVENTNOTCANCELED,
   Scte35SegmentationCancelIndicator'
   #-}
 
-instance FromText Scte35SegmentationCancelIndicator where
-  parser = (Scte35SegmentationCancelIndicator' . mk) <$> takeText
+instance Prelude.FromText Scte35SegmentationCancelIndicator where
+  parser = Scte35SegmentationCancelIndicator' Prelude.<$> Prelude.takeText
 
-instance ToText Scte35SegmentationCancelIndicator where
-  toText (Scte35SegmentationCancelIndicator' ci) = original ci
+instance Prelude.ToText Scte35SegmentationCancelIndicator where
+  toText (Scte35SegmentationCancelIndicator' x) = x
 
-instance Hashable Scte35SegmentationCancelIndicator
+instance Prelude.Hashable Scte35SegmentationCancelIndicator
 
-instance NFData Scte35SegmentationCancelIndicator
+instance Prelude.NFData Scte35SegmentationCancelIndicator
 
-instance ToByteString Scte35SegmentationCancelIndicator
+instance Prelude.ToByteString Scte35SegmentationCancelIndicator
 
-instance ToQuery Scte35SegmentationCancelIndicator
+instance Prelude.ToQuery Scte35SegmentationCancelIndicator
 
-instance ToHeader Scte35SegmentationCancelIndicator
+instance Prelude.ToHeader Scte35SegmentationCancelIndicator
 
-instance ToJSON Scte35SegmentationCancelIndicator where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte35SegmentationCancelIndicator where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte35SegmentationCancelIndicator where
-  parseJSON = parseJSONText "Scte35SegmentationCancelIndicator"
+instance Prelude.FromJSON Scte35SegmentationCancelIndicator where
+  parseJSON = Prelude.parseJSONText "Scte35SegmentationCancelIndicator"

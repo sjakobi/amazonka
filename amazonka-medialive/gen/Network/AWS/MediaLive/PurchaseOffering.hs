@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,187 +24,208 @@
 -- Purchase an offering and create a reservation.
 module Network.AWS.MediaLive.PurchaseOffering
   ( -- * Creating a Request
-    purchaseOffering',
-    PurchaseOffering',
+    PurchaseOffering' (..),
+    newPurchaseOffering',
 
     -- * Request Lenses
-    poName,
-    poRequestId,
-    poTags,
-    poStart,
-    poOfferingId,
-    poCount,
+    purchaseOffering'_name,
+    purchaseOffering'_requestId,
+    purchaseOffering'_tags,
+    purchaseOffering'_start,
+    purchaseOffering'_offeringId,
+    purchaseOffering'_count,
 
     -- * Destructuring the Response
-    purchaseOfferingResponse,
-    PurchaseOfferingResponse,
+    PurchaseOfferingResponse (..),
+    newPurchaseOfferingResponse,
 
     -- * Response Lenses
-    porrsReservation,
-    porrsResponseStatus,
+    purchaseOfferingResponse_reservation,
+    purchaseOfferingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.Reservation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for PurchaseOfferingRequest
 --
--- /See:/ 'purchaseOffering'' smart constructor.
+-- /See:/ 'newPurchaseOffering'' smart constructor.
 data PurchaseOffering' = PurchaseOffering''
-  { _poName ::
-      !(Maybe Text),
-    _poRequestId :: !(Maybe Text),
-    _poTags :: !(Maybe (Map Text Text)),
-    _poStart :: !(Maybe Text),
-    _poOfferingId :: !Text,
-    _poCount :: !Nat
+  { -- | Name for the new reservation
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Unique request ID to be specified. This is needed to prevent retries
+    -- from creating multiple resources.
+    requestId :: Prelude.Maybe Prelude.Text,
+    -- | A collection of key-value pairs
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Requested reservation start time (UTC) in ISO-8601 format. The specified
+    -- time must be between the first day of the current month and one year
+    -- from now. If no value is given, the default is now.
+    start :: Prelude.Maybe Prelude.Text,
+    -- | Offering to purchase, e.g. \'87654321\'
+    offeringId :: Prelude.Text,
+    -- | Number of resources
+    count :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PurchaseOffering'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PurchaseOffering'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'poName' - Name for the new reservation
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'poRequestId' - Unique request ID to be specified. This is needed to prevent retries from creating multiple resources.
+-- 'name', 'purchaseOffering'_name' - Name for the new reservation
 --
--- * 'poTags' - A collection of key-value pairs
+-- 'requestId', 'purchaseOffering'_requestId' - Unique request ID to be specified. This is needed to prevent retries
+-- from creating multiple resources.
 --
--- * 'poStart' - Requested reservation start time (UTC) in ISO-8601 format. The specified time must be between the first day of the current month and one year from now. If no value is given, the default is now.
+-- 'tags', 'purchaseOffering'_tags' - A collection of key-value pairs
 --
--- * 'poOfferingId' - Offering to purchase, e.g. '87654321'
+-- 'start', 'purchaseOffering'_start' - Requested reservation start time (UTC) in ISO-8601 format. The specified
+-- time must be between the first day of the current month and one year
+-- from now. If no value is given, the default is now.
 --
--- * 'poCount' - Number of resources
-purchaseOffering' ::
-  -- | 'poOfferingId'
-  Text ->
-  -- | 'poCount'
-  Natural ->
+-- 'offeringId', 'purchaseOffering'_offeringId' - Offering to purchase, e.g. \'87654321\'
+--
+-- 'count', 'purchaseOffering'_count' - Number of resources
+newPurchaseOffering' ::
+  -- | 'offeringId'
+  Prelude.Text ->
+  -- | 'count'
+  Prelude.Natural ->
   PurchaseOffering'
-purchaseOffering' pOfferingId_ pCount_ =
+newPurchaseOffering' pOfferingId_ pCount_ =
   PurchaseOffering''
-    { _poName = Nothing,
-      _poRequestId = Nothing,
-      _poTags = Nothing,
-      _poStart = Nothing,
-      _poOfferingId = pOfferingId_,
-      _poCount = _Nat # pCount_
+    { name = Prelude.Nothing,
+      requestId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      start = Prelude.Nothing,
+      offeringId = pOfferingId_,
+      count = Prelude._Nat Lens.# pCount_
     }
 
 -- | Name for the new reservation
-poName :: Lens' PurchaseOffering' (Maybe Text)
-poName = lens _poName (\s a -> s {_poName = a})
+purchaseOffering'_name :: Lens.Lens' PurchaseOffering' (Prelude.Maybe Prelude.Text)
+purchaseOffering'_name = Lens.lens (\PurchaseOffering'' {name} -> name) (\s@PurchaseOffering'' {} a -> s {name = a} :: PurchaseOffering')
 
--- | Unique request ID to be specified. This is needed to prevent retries from creating multiple resources.
-poRequestId :: Lens' PurchaseOffering' (Maybe Text)
-poRequestId = lens _poRequestId (\s a -> s {_poRequestId = a})
+-- | Unique request ID to be specified. This is needed to prevent retries
+-- from creating multiple resources.
+purchaseOffering'_requestId :: Lens.Lens' PurchaseOffering' (Prelude.Maybe Prelude.Text)
+purchaseOffering'_requestId = Lens.lens (\PurchaseOffering'' {requestId} -> requestId) (\s@PurchaseOffering'' {} a -> s {requestId = a} :: PurchaseOffering')
 
 -- | A collection of key-value pairs
-poTags :: Lens' PurchaseOffering' (HashMap Text Text)
-poTags = lens _poTags (\s a -> s {_poTags = a}) . _Default . _Map
+purchaseOffering'_tags :: Lens.Lens' PurchaseOffering' (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+purchaseOffering'_tags = Lens.lens (\PurchaseOffering'' {tags} -> tags) (\s@PurchaseOffering'' {} a -> s {tags = a} :: PurchaseOffering') Prelude.. Lens.mapping Prelude._Map
 
--- | Requested reservation start time (UTC) in ISO-8601 format. The specified time must be between the first day of the current month and one year from now. If no value is given, the default is now.
-poStart :: Lens' PurchaseOffering' (Maybe Text)
-poStart = lens _poStart (\s a -> s {_poStart = a})
+-- | Requested reservation start time (UTC) in ISO-8601 format. The specified
+-- time must be between the first day of the current month and one year
+-- from now. If no value is given, the default is now.
+purchaseOffering'_start :: Lens.Lens' PurchaseOffering' (Prelude.Maybe Prelude.Text)
+purchaseOffering'_start = Lens.lens (\PurchaseOffering'' {start} -> start) (\s@PurchaseOffering'' {} a -> s {start = a} :: PurchaseOffering')
 
--- | Offering to purchase, e.g. '87654321'
-poOfferingId :: Lens' PurchaseOffering' Text
-poOfferingId = lens _poOfferingId (\s a -> s {_poOfferingId = a})
+-- | Offering to purchase, e.g. \'87654321\'
+purchaseOffering'_offeringId :: Lens.Lens' PurchaseOffering' Prelude.Text
+purchaseOffering'_offeringId = Lens.lens (\PurchaseOffering'' {offeringId} -> offeringId) (\s@PurchaseOffering'' {} a -> s {offeringId = a} :: PurchaseOffering')
 
 -- | Number of resources
-poCount :: Lens' PurchaseOffering' Natural
-poCount = lens _poCount (\s a -> s {_poCount = a}) . _Nat
+purchaseOffering'_count :: Lens.Lens' PurchaseOffering' Prelude.Natural
+purchaseOffering'_count = Lens.lens (\PurchaseOffering'' {count} -> count) (\s@PurchaseOffering'' {} a -> s {count = a} :: PurchaseOffering') Prelude.. Prelude._Nat
 
-instance AWSRequest PurchaseOffering' where
+instance Prelude.AWSRequest PurchaseOffering' where
   type Rs PurchaseOffering' = PurchaseOfferingResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PurchaseOfferingResponse'
-            <$> (x .?> "reservation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "reservation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PurchaseOffering'
+instance Prelude.Hashable PurchaseOffering'
 
-instance NFData PurchaseOffering'
+instance Prelude.NFData PurchaseOffering'
 
-instance ToHeaders PurchaseOffering' where
+instance Prelude.ToHeaders PurchaseOffering' where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PurchaseOffering' where
+instance Prelude.ToJSON PurchaseOffering' where
   toJSON PurchaseOffering'' {..} =
-    object
-      ( catMaybes
-          [ ("name" .=) <$> _poName,
-            ("requestId" .=) <$> _poRequestId,
-            ("tags" .=) <$> _poTags,
-            ("start" .=) <$> _poStart,
-            Just ("count" .= _poCount)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            ("requestId" Prelude..=) Prelude.<$> requestId,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("start" Prelude..=) Prelude.<$> start,
+            Prelude.Just ("count" Prelude..= count)
           ]
       )
 
-instance ToPath PurchaseOffering' where
+instance Prelude.ToPath PurchaseOffering' where
   toPath PurchaseOffering'' {..} =
-    mconcat
-      ["/prod/offerings/", toBS _poOfferingId, "/purchase"]
+    Prelude.mconcat
+      [ "/prod/offerings/",
+        Prelude.toBS offeringId,
+        "/purchase"
+      ]
 
-instance ToQuery PurchaseOffering' where
-  toQuery = const mempty
+instance Prelude.ToQuery PurchaseOffering' where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for PurchaseOfferingResponse
 --
--- /See:/ 'purchaseOfferingResponse' smart constructor.
+-- /See:/ 'newPurchaseOfferingResponse' smart constructor.
 data PurchaseOfferingResponse = PurchaseOfferingResponse'
-  { _porrsReservation ::
-      !(Maybe Reservation),
-    _porrsResponseStatus ::
-      !Int
+  { reservation :: Prelude.Maybe Reservation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PurchaseOfferingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PurchaseOfferingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'porrsReservation' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'porrsResponseStatus' - -- | The response status code.
-purchaseOfferingResponse ::
-  -- | 'porrsResponseStatus'
-  Int ->
+-- 'reservation', 'purchaseOfferingResponse_reservation' - Undocumented member.
+--
+-- 'httpStatus', 'purchaseOfferingResponse_httpStatus' - The response's http status code.
+newPurchaseOfferingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PurchaseOfferingResponse
-purchaseOfferingResponse pResponseStatus_ =
+newPurchaseOfferingResponse pHttpStatus_ =
   PurchaseOfferingResponse'
-    { _porrsReservation =
-        Nothing,
-      _porrsResponseStatus = pResponseStatus_
+    { reservation =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-porrsReservation :: Lens' PurchaseOfferingResponse (Maybe Reservation)
-porrsReservation = lens _porrsReservation (\s a -> s {_porrsReservation = a})
+purchaseOfferingResponse_reservation :: Lens.Lens' PurchaseOfferingResponse (Prelude.Maybe Reservation)
+purchaseOfferingResponse_reservation = Lens.lens (\PurchaseOfferingResponse' {reservation} -> reservation) (\s@PurchaseOfferingResponse' {} a -> s {reservation = a} :: PurchaseOfferingResponse)
 
--- | -- | The response status code.
-porrsResponseStatus :: Lens' PurchaseOfferingResponse Int
-porrsResponseStatus = lens _porrsResponseStatus (\s a -> s {_porrsResponseStatus = a})
+-- | The response's http status code.
+purchaseOfferingResponse_httpStatus :: Lens.Lens' PurchaseOfferingResponse Prelude.Int
+purchaseOfferingResponse_httpStatus = Lens.lens (\PurchaseOfferingResponse' {httpStatus} -> httpStatus) (\s@PurchaseOfferingResponse' {} a -> s {httpStatus = a} :: PurchaseOfferingResponse)
 
-instance NFData PurchaseOfferingResponse
+instance Prelude.NFData PurchaseOfferingResponse

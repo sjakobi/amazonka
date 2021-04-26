@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.EbuTtDDestinationStyleControl
   ( EbuTtDDestinationStyleControl
       ( ..,
-        Exclude,
-        Include
+        EbuTtDDestinationStyleControlEXCLUDE,
+        EbuTtDDestinationStyleControlINCLUDE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Ebu Tt DDestination Style Control
-data EbuTtDDestinationStyleControl
-  = EbuTtDDestinationStyleControl'
-      ( CI
-          Text
-      )
+newtype EbuTtDDestinationStyleControl = EbuTtDDestinationStyleControl'
+  { fromEbuTtDDestinationStyleControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Exclude :: EbuTtDDestinationStyleControl
-pattern Exclude = EbuTtDDestinationStyleControl' "EXCLUDE"
+pattern EbuTtDDestinationStyleControlEXCLUDE :: EbuTtDDestinationStyleControl
+pattern EbuTtDDestinationStyleControlEXCLUDE = EbuTtDDestinationStyleControl' "EXCLUDE"
 
-pattern Include :: EbuTtDDestinationStyleControl
-pattern Include = EbuTtDDestinationStyleControl' "INCLUDE"
+pattern EbuTtDDestinationStyleControlINCLUDE :: EbuTtDDestinationStyleControl
+pattern EbuTtDDestinationStyleControlINCLUDE = EbuTtDDestinationStyleControl' "INCLUDE"
 
 {-# COMPLETE
-  Exclude,
-  Include,
+  EbuTtDDestinationStyleControlEXCLUDE,
+  EbuTtDDestinationStyleControlINCLUDE,
   EbuTtDDestinationStyleControl'
   #-}
 
-instance FromText EbuTtDDestinationStyleControl where
-  parser = (EbuTtDDestinationStyleControl' . mk) <$> takeText
+instance Prelude.FromText EbuTtDDestinationStyleControl where
+  parser = EbuTtDDestinationStyleControl' Prelude.<$> Prelude.takeText
 
-instance ToText EbuTtDDestinationStyleControl where
-  toText (EbuTtDDestinationStyleControl' ci) = original ci
+instance Prelude.ToText EbuTtDDestinationStyleControl where
+  toText (EbuTtDDestinationStyleControl' x) = x
 
-instance Hashable EbuTtDDestinationStyleControl
+instance Prelude.Hashable EbuTtDDestinationStyleControl
 
-instance NFData EbuTtDDestinationStyleControl
+instance Prelude.NFData EbuTtDDestinationStyleControl
 
-instance ToByteString EbuTtDDestinationStyleControl
+instance Prelude.ToByteString EbuTtDDestinationStyleControl
 
-instance ToQuery EbuTtDDestinationStyleControl
+instance Prelude.ToQuery EbuTtDDestinationStyleControl
 
-instance ToHeader EbuTtDDestinationStyleControl
+instance Prelude.ToHeader EbuTtDDestinationStyleControl
 
-instance ToJSON EbuTtDDestinationStyleControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON EbuTtDDestinationStyleControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EbuTtDDestinationStyleControl where
-  parseJSON = parseJSONText "EbuTtDDestinationStyleControl"
+instance Prelude.FromJSON EbuTtDDestinationStyleControl where
+  parseJSON = Prelude.parseJSONText "EbuTtDDestinationStyleControl"

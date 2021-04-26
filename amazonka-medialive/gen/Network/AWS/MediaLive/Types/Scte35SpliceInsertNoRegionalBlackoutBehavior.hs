@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Scte35SpliceInsertNoRegionalBlackoutBehavior
   ( Scte35SpliceInsertNoRegionalBlackoutBehavior
       ( ..,
-        SSINRBBFollow,
-        SSINRBBIgnore
+        Scte35SpliceInsertNoRegionalBlackoutBehaviorFOLLOW,
+        Scte35SpliceInsertNoRegionalBlackoutBehaviorIGNORE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Scte35 Splice Insert No Regional Blackout Behavior
-data Scte35SpliceInsertNoRegionalBlackoutBehavior
-  = Scte35SpliceInsertNoRegionalBlackoutBehavior'
-      ( CI
-          Text
-      )
+newtype Scte35SpliceInsertNoRegionalBlackoutBehavior = Scte35SpliceInsertNoRegionalBlackoutBehavior'
+  { fromScte35SpliceInsertNoRegionalBlackoutBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SSINRBBFollow :: Scte35SpliceInsertNoRegionalBlackoutBehavior
-pattern SSINRBBFollow = Scte35SpliceInsertNoRegionalBlackoutBehavior' "FOLLOW"
+pattern Scte35SpliceInsertNoRegionalBlackoutBehaviorFOLLOW :: Scte35SpliceInsertNoRegionalBlackoutBehavior
+pattern Scte35SpliceInsertNoRegionalBlackoutBehaviorFOLLOW = Scte35SpliceInsertNoRegionalBlackoutBehavior' "FOLLOW"
 
-pattern SSINRBBIgnore :: Scte35SpliceInsertNoRegionalBlackoutBehavior
-pattern SSINRBBIgnore = Scte35SpliceInsertNoRegionalBlackoutBehavior' "IGNORE"
+pattern Scte35SpliceInsertNoRegionalBlackoutBehaviorIGNORE :: Scte35SpliceInsertNoRegionalBlackoutBehavior
+pattern Scte35SpliceInsertNoRegionalBlackoutBehaviorIGNORE = Scte35SpliceInsertNoRegionalBlackoutBehavior' "IGNORE"
 
 {-# COMPLETE
-  SSINRBBFollow,
-  SSINRBBIgnore,
+  Scte35SpliceInsertNoRegionalBlackoutBehaviorFOLLOW,
+  Scte35SpliceInsertNoRegionalBlackoutBehaviorIGNORE,
   Scte35SpliceInsertNoRegionalBlackoutBehavior'
   #-}
 
-instance FromText Scte35SpliceInsertNoRegionalBlackoutBehavior where
-  parser = (Scte35SpliceInsertNoRegionalBlackoutBehavior' . mk) <$> takeText
+instance Prelude.FromText Scte35SpliceInsertNoRegionalBlackoutBehavior where
+  parser = Scte35SpliceInsertNoRegionalBlackoutBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText Scte35SpliceInsertNoRegionalBlackoutBehavior where
-  toText (Scte35SpliceInsertNoRegionalBlackoutBehavior' ci) = original ci
+instance Prelude.ToText Scte35SpliceInsertNoRegionalBlackoutBehavior where
+  toText (Scte35SpliceInsertNoRegionalBlackoutBehavior' x) = x
 
-instance Hashable Scte35SpliceInsertNoRegionalBlackoutBehavior
+instance Prelude.Hashable Scte35SpliceInsertNoRegionalBlackoutBehavior
 
-instance NFData Scte35SpliceInsertNoRegionalBlackoutBehavior
+instance Prelude.NFData Scte35SpliceInsertNoRegionalBlackoutBehavior
 
-instance ToByteString Scte35SpliceInsertNoRegionalBlackoutBehavior
+instance Prelude.ToByteString Scte35SpliceInsertNoRegionalBlackoutBehavior
 
-instance ToQuery Scte35SpliceInsertNoRegionalBlackoutBehavior
+instance Prelude.ToQuery Scte35SpliceInsertNoRegionalBlackoutBehavior
 
-instance ToHeader Scte35SpliceInsertNoRegionalBlackoutBehavior
+instance Prelude.ToHeader Scte35SpliceInsertNoRegionalBlackoutBehavior
 
-instance ToJSON Scte35SpliceInsertNoRegionalBlackoutBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte35SpliceInsertNoRegionalBlackoutBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte35SpliceInsertNoRegionalBlackoutBehavior where
-  parseJSON = parseJSONText "Scte35SpliceInsertNoRegionalBlackoutBehavior"
+instance Prelude.FromJSON Scte35SpliceInsertNoRegionalBlackoutBehavior where
+  parseJSON = Prelude.parseJSONText "Scte35SpliceInsertNoRegionalBlackoutBehavior"

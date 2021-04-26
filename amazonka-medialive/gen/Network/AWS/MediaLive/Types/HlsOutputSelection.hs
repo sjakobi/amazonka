@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.HlsOutputSelection
   ( HlsOutputSelection
       ( ..,
-        ManifestsAndSegments,
-        SegmentsOnly,
-        VariantManifestsAndSegments
+        HlsOutputSelectionMANIFESTSANDSEGMENTS,
+        HlsOutputSelectionSEGMENTSONLY,
+        HlsOutputSelectionVARIANTMANIFESTSANDSEGMENTS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Output Selection
-data HlsOutputSelection
-  = HlsOutputSelection'
-      ( CI
-          Text
-      )
+newtype HlsOutputSelection = HlsOutputSelection'
+  { fromHlsOutputSelection ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ManifestsAndSegments :: HlsOutputSelection
-pattern ManifestsAndSegments = HlsOutputSelection' "MANIFESTS_AND_SEGMENTS"
+pattern HlsOutputSelectionMANIFESTSANDSEGMENTS :: HlsOutputSelection
+pattern HlsOutputSelectionMANIFESTSANDSEGMENTS = HlsOutputSelection' "MANIFESTS_AND_SEGMENTS"
 
-pattern SegmentsOnly :: HlsOutputSelection
-pattern SegmentsOnly = HlsOutputSelection' "SEGMENTS_ONLY"
+pattern HlsOutputSelectionSEGMENTSONLY :: HlsOutputSelection
+pattern HlsOutputSelectionSEGMENTSONLY = HlsOutputSelection' "SEGMENTS_ONLY"
 
-pattern VariantManifestsAndSegments :: HlsOutputSelection
-pattern VariantManifestsAndSegments = HlsOutputSelection' "VARIANT_MANIFESTS_AND_SEGMENTS"
+pattern HlsOutputSelectionVARIANTMANIFESTSANDSEGMENTS :: HlsOutputSelection
+pattern HlsOutputSelectionVARIANTMANIFESTSANDSEGMENTS = HlsOutputSelection' "VARIANT_MANIFESTS_AND_SEGMENTS"
 
 {-# COMPLETE
-  ManifestsAndSegments,
-  SegmentsOnly,
-  VariantManifestsAndSegments,
+  HlsOutputSelectionMANIFESTSANDSEGMENTS,
+  HlsOutputSelectionSEGMENTSONLY,
+  HlsOutputSelectionVARIANTMANIFESTSANDSEGMENTS,
   HlsOutputSelection'
   #-}
 
-instance FromText HlsOutputSelection where
-  parser = (HlsOutputSelection' . mk) <$> takeText
+instance Prelude.FromText HlsOutputSelection where
+  parser = HlsOutputSelection' Prelude.<$> Prelude.takeText
 
-instance ToText HlsOutputSelection where
-  toText (HlsOutputSelection' ci) = original ci
+instance Prelude.ToText HlsOutputSelection where
+  toText (HlsOutputSelection' x) = x
 
-instance Hashable HlsOutputSelection
+instance Prelude.Hashable HlsOutputSelection
 
-instance NFData HlsOutputSelection
+instance Prelude.NFData HlsOutputSelection
 
-instance ToByteString HlsOutputSelection
+instance Prelude.ToByteString HlsOutputSelection
 
-instance ToQuery HlsOutputSelection
+instance Prelude.ToQuery HlsOutputSelection
 
-instance ToHeader HlsOutputSelection
+instance Prelude.ToHeader HlsOutputSelection
 
-instance ToJSON HlsOutputSelection where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsOutputSelection where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsOutputSelection where
-  parseJSON = parseJSONText "HlsOutputSelection"
+instance Prelude.FromJSON HlsOutputSelection where
+  parseJSON = Prelude.parseJSONText "HlsOutputSelection"

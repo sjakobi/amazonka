@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,37 +19,36 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.EmbeddedDestinationSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Embedded Destination Settings
 --
--- /See:/ 'embeddedDestinationSettings' smart constructor.
+-- /See:/ 'newEmbeddedDestinationSettings' smart constructor.
 data EmbeddedDestinationSettings = EmbeddedDestinationSettings'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmbeddedDestinationSettings' with the minimum fields required to make a request.
-embeddedDestinationSettings ::
+-- |
+-- Create a value of 'EmbeddedDestinationSettings' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newEmbeddedDestinationSettings ::
   EmbeddedDestinationSettings
-embeddedDestinationSettings =
+newEmbeddedDestinationSettings =
   EmbeddedDestinationSettings'
 
-instance FromJSON EmbeddedDestinationSettings where
+instance Prelude.FromJSON EmbeddedDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EmbeddedDestinationSettings"
-      (\x -> pure EmbeddedDestinationSettings')
+      (\x -> Prelude.pure EmbeddedDestinationSettings')
 
-instance Hashable EmbeddedDestinationSettings
+instance Prelude.Hashable EmbeddedDestinationSettings
 
-instance NFData EmbeddedDestinationSettings
+instance Prelude.NFData EmbeddedDestinationSettings
 
-instance ToJSON EmbeddedDestinationSettings where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON EmbeddedDestinationSettings where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)

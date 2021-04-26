@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.H264LookAheadRateControl
   ( H264LookAheadRateControl
       ( ..,
-        HLARCHigh,
-        HLARCLow,
-        HLARCMedium
+        H264LookAheadRateControlHIGH,
+        H264LookAheadRateControlLOW,
+        H264LookAheadRateControlMEDIUM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Look Ahead Rate Control
-data H264LookAheadRateControl
-  = H264LookAheadRateControl'
-      ( CI
-          Text
-      )
+newtype H264LookAheadRateControl = H264LookAheadRateControl'
+  { fromH264LookAheadRateControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HLARCHigh :: H264LookAheadRateControl
-pattern HLARCHigh = H264LookAheadRateControl' "HIGH"
+pattern H264LookAheadRateControlHIGH :: H264LookAheadRateControl
+pattern H264LookAheadRateControlHIGH = H264LookAheadRateControl' "HIGH"
 
-pattern HLARCLow :: H264LookAheadRateControl
-pattern HLARCLow = H264LookAheadRateControl' "LOW"
+pattern H264LookAheadRateControlLOW :: H264LookAheadRateControl
+pattern H264LookAheadRateControlLOW = H264LookAheadRateControl' "LOW"
 
-pattern HLARCMedium :: H264LookAheadRateControl
-pattern HLARCMedium = H264LookAheadRateControl' "MEDIUM"
+pattern H264LookAheadRateControlMEDIUM :: H264LookAheadRateControl
+pattern H264LookAheadRateControlMEDIUM = H264LookAheadRateControl' "MEDIUM"
 
 {-# COMPLETE
-  HLARCHigh,
-  HLARCLow,
-  HLARCMedium,
+  H264LookAheadRateControlHIGH,
+  H264LookAheadRateControlLOW,
+  H264LookAheadRateControlMEDIUM,
   H264LookAheadRateControl'
   #-}
 
-instance FromText H264LookAheadRateControl where
-  parser = (H264LookAheadRateControl' . mk) <$> takeText
+instance Prelude.FromText H264LookAheadRateControl where
+  parser = H264LookAheadRateControl' Prelude.<$> Prelude.takeText
 
-instance ToText H264LookAheadRateControl where
-  toText (H264LookAheadRateControl' ci) = original ci
+instance Prelude.ToText H264LookAheadRateControl where
+  toText (H264LookAheadRateControl' x) = x
 
-instance Hashable H264LookAheadRateControl
+instance Prelude.Hashable H264LookAheadRateControl
 
-instance NFData H264LookAheadRateControl
+instance Prelude.NFData H264LookAheadRateControl
 
-instance ToByteString H264LookAheadRateControl
+instance Prelude.ToByteString H264LookAheadRateControl
 
-instance ToQuery H264LookAheadRateControl
+instance Prelude.ToQuery H264LookAheadRateControl
 
-instance ToHeader H264LookAheadRateControl
+instance Prelude.ToHeader H264LookAheadRateControl
 
-instance ToJSON H264LookAheadRateControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264LookAheadRateControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264LookAheadRateControl where
-  parseJSON = parseJSONText "H264LookAheadRateControl"
+instance Prelude.FromJSON H264LookAheadRateControl where
+  parseJSON = Prelude.parseJSONText "H264LookAheadRateControl"

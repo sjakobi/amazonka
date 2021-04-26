@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,128 +19,144 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Multiplex where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.MultiplexOutputDestination
 import Network.AWS.MediaLive.Types.MultiplexSettings
 import Network.AWS.MediaLive.Types.MultiplexState
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The multiplex object.
 --
--- /See:/ 'multiplex' smart constructor.
+-- /See:/ 'newMultiplex' smart constructor.
 data Multiplex = Multiplex'
-  { _mAvailabilityZones ::
-      !(Maybe [Text]),
-    _mARN :: !(Maybe Text),
-    _mId :: !(Maybe Text),
-    _mPipelinesRunningCount :: !(Maybe Int),
-    _mProgramCount :: !(Maybe Int),
-    _mDestinations ::
-      !(Maybe [MultiplexOutputDestination]),
-    _mState :: !(Maybe MultiplexState),
-    _mName :: !(Maybe Text),
-    _mTags :: !(Maybe (Map Text Text)),
-    _mMultiplexSettings :: !(Maybe MultiplexSettings)
+  { -- | A list of availability zones for the multiplex.
+    availabilityZones :: Prelude.Maybe [Prelude.Text],
+    -- | The unique arn of the multiplex.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique id of the multiplex.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The number of currently healthy pipelines.
+    pipelinesRunningCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of programs in the multiplex.
+    programCount :: Prelude.Maybe Prelude.Int,
+    -- | A list of the multiplex output destinations.
+    destinations :: Prelude.Maybe [MultiplexOutputDestination],
+    -- | The current state of the multiplex.
+    state :: Prelude.Maybe MultiplexState,
+    -- | The name of the multiplex.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Configuration for a multiplex event.
+    multiplexSettings :: Prelude.Maybe MultiplexSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Multiplex' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Multiplex' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mAvailabilityZones' - A list of availability zones for the multiplex.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mARN' - The unique arn of the multiplex.
+-- 'availabilityZones', 'multiplex_availabilityZones' - A list of availability zones for the multiplex.
 --
--- * 'mId' - The unique id of the multiplex.
+-- 'arn', 'multiplex_arn' - The unique arn of the multiplex.
 --
--- * 'mPipelinesRunningCount' - The number of currently healthy pipelines.
+-- 'id', 'multiplex_id' - The unique id of the multiplex.
 --
--- * 'mProgramCount' - The number of programs in the multiplex.
+-- 'pipelinesRunningCount', 'multiplex_pipelinesRunningCount' - The number of currently healthy pipelines.
 --
--- * 'mDestinations' - A list of the multiplex output destinations.
+-- 'programCount', 'multiplex_programCount' - The number of programs in the multiplex.
 --
--- * 'mState' - The current state of the multiplex.
+-- 'destinations', 'multiplex_destinations' - A list of the multiplex output destinations.
 --
--- * 'mName' - The name of the multiplex.
+-- 'state', 'multiplex_state' - The current state of the multiplex.
 --
--- * 'mTags' - A collection of key-value pairs.
+-- 'name', 'multiplex_name' - The name of the multiplex.
 --
--- * 'mMultiplexSettings' - Configuration for a multiplex event.
-multiplex ::
+-- 'tags', 'multiplex_tags' - A collection of key-value pairs.
+--
+-- 'multiplexSettings', 'multiplex_multiplexSettings' - Configuration for a multiplex event.
+newMultiplex ::
   Multiplex
-multiplex =
+newMultiplex =
   Multiplex'
-    { _mAvailabilityZones = Nothing,
-      _mARN = Nothing,
-      _mId = Nothing,
-      _mPipelinesRunningCount = Nothing,
-      _mProgramCount = Nothing,
-      _mDestinations = Nothing,
-      _mState = Nothing,
-      _mName = Nothing,
-      _mTags = Nothing,
-      _mMultiplexSettings = Nothing
+    { availabilityZones = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      pipelinesRunningCount = Prelude.Nothing,
+      programCount = Prelude.Nothing,
+      destinations = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      multiplexSettings = Prelude.Nothing
     }
 
 -- | A list of availability zones for the multiplex.
-mAvailabilityZones :: Lens' Multiplex [Text]
-mAvailabilityZones = lens _mAvailabilityZones (\s a -> s {_mAvailabilityZones = a}) . _Default . _Coerce
+multiplex_availabilityZones :: Lens.Lens' Multiplex (Prelude.Maybe [Prelude.Text])
+multiplex_availabilityZones = Lens.lens (\Multiplex' {availabilityZones} -> availabilityZones) (\s@Multiplex' {} a -> s {availabilityZones = a} :: Multiplex) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The unique arn of the multiplex.
-mARN :: Lens' Multiplex (Maybe Text)
-mARN = lens _mARN (\s a -> s {_mARN = a})
+multiplex_arn :: Lens.Lens' Multiplex (Prelude.Maybe Prelude.Text)
+multiplex_arn = Lens.lens (\Multiplex' {arn} -> arn) (\s@Multiplex' {} a -> s {arn = a} :: Multiplex)
 
 -- | The unique id of the multiplex.
-mId :: Lens' Multiplex (Maybe Text)
-mId = lens _mId (\s a -> s {_mId = a})
+multiplex_id :: Lens.Lens' Multiplex (Prelude.Maybe Prelude.Text)
+multiplex_id = Lens.lens (\Multiplex' {id} -> id) (\s@Multiplex' {} a -> s {id = a} :: Multiplex)
 
 -- | The number of currently healthy pipelines.
-mPipelinesRunningCount :: Lens' Multiplex (Maybe Int)
-mPipelinesRunningCount = lens _mPipelinesRunningCount (\s a -> s {_mPipelinesRunningCount = a})
+multiplex_pipelinesRunningCount :: Lens.Lens' Multiplex (Prelude.Maybe Prelude.Int)
+multiplex_pipelinesRunningCount = Lens.lens (\Multiplex' {pipelinesRunningCount} -> pipelinesRunningCount) (\s@Multiplex' {} a -> s {pipelinesRunningCount = a} :: Multiplex)
 
 -- | The number of programs in the multiplex.
-mProgramCount :: Lens' Multiplex (Maybe Int)
-mProgramCount = lens _mProgramCount (\s a -> s {_mProgramCount = a})
+multiplex_programCount :: Lens.Lens' Multiplex (Prelude.Maybe Prelude.Int)
+multiplex_programCount = Lens.lens (\Multiplex' {programCount} -> programCount) (\s@Multiplex' {} a -> s {programCount = a} :: Multiplex)
 
 -- | A list of the multiplex output destinations.
-mDestinations :: Lens' Multiplex [MultiplexOutputDestination]
-mDestinations = lens _mDestinations (\s a -> s {_mDestinations = a}) . _Default . _Coerce
+multiplex_destinations :: Lens.Lens' Multiplex (Prelude.Maybe [MultiplexOutputDestination])
+multiplex_destinations = Lens.lens (\Multiplex' {destinations} -> destinations) (\s@Multiplex' {} a -> s {destinations = a} :: Multiplex) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The current state of the multiplex.
-mState :: Lens' Multiplex (Maybe MultiplexState)
-mState = lens _mState (\s a -> s {_mState = a})
+multiplex_state :: Lens.Lens' Multiplex (Prelude.Maybe MultiplexState)
+multiplex_state = Lens.lens (\Multiplex' {state} -> state) (\s@Multiplex' {} a -> s {state = a} :: Multiplex)
 
 -- | The name of the multiplex.
-mName :: Lens' Multiplex (Maybe Text)
-mName = lens _mName (\s a -> s {_mName = a})
+multiplex_name :: Lens.Lens' Multiplex (Prelude.Maybe Prelude.Text)
+multiplex_name = Lens.lens (\Multiplex' {name} -> name) (\s@Multiplex' {} a -> s {name = a} :: Multiplex)
 
 -- | A collection of key-value pairs.
-mTags :: Lens' Multiplex (HashMap Text Text)
-mTags = lens _mTags (\s a -> s {_mTags = a}) . _Default . _Map
+multiplex_tags :: Lens.Lens' Multiplex (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+multiplex_tags = Lens.lens (\Multiplex' {tags} -> tags) (\s@Multiplex' {} a -> s {tags = a} :: Multiplex) Prelude.. Lens.mapping Prelude._Map
 
 -- | Configuration for a multiplex event.
-mMultiplexSettings :: Lens' Multiplex (Maybe MultiplexSettings)
-mMultiplexSettings = lens _mMultiplexSettings (\s a -> s {_mMultiplexSettings = a})
+multiplex_multiplexSettings :: Lens.Lens' Multiplex (Prelude.Maybe MultiplexSettings)
+multiplex_multiplexSettings = Lens.lens (\Multiplex' {multiplexSettings} -> multiplexSettings) (\s@Multiplex' {} a -> s {multiplexSettings = a} :: Multiplex)
 
-instance FromJSON Multiplex where
+instance Prelude.FromJSON Multiplex where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Multiplex"
       ( \x ->
           Multiplex'
-            <$> (x .:? "availabilityZones" .!= mempty)
-            <*> (x .:? "arn")
-            <*> (x .:? "id")
-            <*> (x .:? "pipelinesRunningCount")
-            <*> (x .:? "programCount")
-            <*> (x .:? "destinations" .!= mempty)
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "multiplexSettings")
+            Prelude.<$> ( x Prelude..:? "availabilityZones"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "pipelinesRunningCount")
+            Prelude.<*> (x Prelude..:? "programCount")
+            Prelude.<*> ( x Prelude..:? "destinations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "multiplexSettings")
       )
 
-instance Hashable Multiplex
+instance Prelude.Hashable Multiplex
 
-instance NFData Multiplex
+instance Prelude.NFData Multiplex

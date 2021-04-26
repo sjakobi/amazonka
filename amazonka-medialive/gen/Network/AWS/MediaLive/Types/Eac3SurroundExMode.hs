@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.Eac3SurroundExMode
   ( Eac3SurroundExMode
       ( ..,
-        ESEMDisabled,
-        ESEMEnabled,
-        ESEMNotIndicated
+        Eac3SurroundExModeDISABLED,
+        Eac3SurroundExModeENABLED,
+        Eac3SurroundExModeNOTINDICATED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Eac3 Surround Ex Mode
-data Eac3SurroundExMode
-  = Eac3SurroundExMode'
-      ( CI
-          Text
-      )
+newtype Eac3SurroundExMode = Eac3SurroundExMode'
+  { fromEac3SurroundExMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESEMDisabled :: Eac3SurroundExMode
-pattern ESEMDisabled = Eac3SurroundExMode' "DISABLED"
+pattern Eac3SurroundExModeDISABLED :: Eac3SurroundExMode
+pattern Eac3SurroundExModeDISABLED = Eac3SurroundExMode' "DISABLED"
 
-pattern ESEMEnabled :: Eac3SurroundExMode
-pattern ESEMEnabled = Eac3SurroundExMode' "ENABLED"
+pattern Eac3SurroundExModeENABLED :: Eac3SurroundExMode
+pattern Eac3SurroundExModeENABLED = Eac3SurroundExMode' "ENABLED"
 
-pattern ESEMNotIndicated :: Eac3SurroundExMode
-pattern ESEMNotIndicated = Eac3SurroundExMode' "NOT_INDICATED"
+pattern Eac3SurroundExModeNOTINDICATED :: Eac3SurroundExMode
+pattern Eac3SurroundExModeNOTINDICATED = Eac3SurroundExMode' "NOT_INDICATED"
 
 {-# COMPLETE
-  ESEMDisabled,
-  ESEMEnabled,
-  ESEMNotIndicated,
+  Eac3SurroundExModeDISABLED,
+  Eac3SurroundExModeENABLED,
+  Eac3SurroundExModeNOTINDICATED,
   Eac3SurroundExMode'
   #-}
 
-instance FromText Eac3SurroundExMode where
-  parser = (Eac3SurroundExMode' . mk) <$> takeText
+instance Prelude.FromText Eac3SurroundExMode where
+  parser = Eac3SurroundExMode' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3SurroundExMode where
-  toText (Eac3SurroundExMode' ci) = original ci
+instance Prelude.ToText Eac3SurroundExMode where
+  toText (Eac3SurroundExMode' x) = x
 
-instance Hashable Eac3SurroundExMode
+instance Prelude.Hashable Eac3SurroundExMode
 
-instance NFData Eac3SurroundExMode
+instance Prelude.NFData Eac3SurroundExMode
 
-instance ToByteString Eac3SurroundExMode
+instance Prelude.ToByteString Eac3SurroundExMode
 
-instance ToQuery Eac3SurroundExMode
+instance Prelude.ToQuery Eac3SurroundExMode
 
-instance ToHeader Eac3SurroundExMode
+instance Prelude.ToHeader Eac3SurroundExMode
 
-instance ToJSON Eac3SurroundExMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3SurroundExMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3SurroundExMode where
-  parseJSON = parseJSONText "Eac3SurroundExMode"
+instance Prelude.FromJSON Eac3SurroundExMode where
+  parseJSON = Prelude.parseJSONText "Eac3SurroundExMode"

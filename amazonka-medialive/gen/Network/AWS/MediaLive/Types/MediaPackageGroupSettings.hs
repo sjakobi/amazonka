@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MediaPackageGroupSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.OutputLocationRef
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Media Package Group Settings
 --
--- /See:/ 'mediaPackageGroupSettings' smart constructor.
-newtype MediaPackageGroupSettings = MediaPackageGroupSettings'
-  { _mpgsDestination ::
-      OutputLocationRef
+-- /See:/ 'newMediaPackageGroupSettings' smart constructor.
+data MediaPackageGroupSettings = MediaPackageGroupSettings'
+  { -- | MediaPackage channel destination.
+    destination :: OutputLocationRef
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MediaPackageGroupSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MediaPackageGroupSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mpgsDestination' - MediaPackage channel destination.
-mediaPackageGroupSettings ::
-  -- | 'mpgsDestination'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'destination', 'mediaPackageGroupSettings_destination' - MediaPackage channel destination.
+newMediaPackageGroupSettings ::
+  -- | 'destination'
   OutputLocationRef ->
   MediaPackageGroupSettings
-mediaPackageGroupSettings pDestination_ =
+newMediaPackageGroupSettings pDestination_ =
   MediaPackageGroupSettings'
-    { _mpgsDestination =
+    { destination =
         pDestination_
     }
 
 -- | MediaPackage channel destination.
-mpgsDestination :: Lens' MediaPackageGroupSettings OutputLocationRef
-mpgsDestination = lens _mpgsDestination (\s a -> s {_mpgsDestination = a})
+mediaPackageGroupSettings_destination :: Lens.Lens' MediaPackageGroupSettings OutputLocationRef
+mediaPackageGroupSettings_destination = Lens.lens (\MediaPackageGroupSettings' {destination} -> destination) (\s@MediaPackageGroupSettings' {} a -> s {destination = a} :: MediaPackageGroupSettings)
 
-instance FromJSON MediaPackageGroupSettings where
+instance Prelude.FromJSON MediaPackageGroupSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MediaPackageGroupSettings"
       ( \x ->
-          MediaPackageGroupSettings' <$> (x .: "destination")
+          MediaPackageGroupSettings'
+            Prelude.<$> (x Prelude..: "destination")
       )
 
-instance Hashable MediaPackageGroupSettings
+instance Prelude.Hashable MediaPackageGroupSettings
 
-instance NFData MediaPackageGroupSettings
+instance Prelude.NFData MediaPackageGroupSettings
 
-instance ToJSON MediaPackageGroupSettings where
+instance Prelude.ToJSON MediaPackageGroupSettings where
   toJSON MediaPackageGroupSettings' {..} =
-    object
-      ( catMaybes
-          [Just ("destination" .= _mpgsDestination)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("destination" Prelude..= destination)
+          ]
       )

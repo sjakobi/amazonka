@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioSelector where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AudioSelectorSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Selector
 --
--- /See:/ 'audioSelector' smart constructor.
+-- /See:/ 'newAudioSelector' smart constructor.
 data AudioSelector = AudioSelector'
-  { _asSelectorSettings ::
-      !(Maybe AudioSelectorSettings),
-    _asName :: !Text
+  { -- | The audio selector settings.
+    selectorSettings :: Prelude.Maybe AudioSelectorSettings,
+    -- | The name of this AudioSelector. AudioDescriptions will use this name to
+    -- uniquely identify this Selector. Selector names should be unique per
+    -- input.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioSelector' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioSelector' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asSelectorSettings' - The audio selector settings.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asName' - The name of this AudioSelector. AudioDescriptions will use this name to uniquely identify this Selector.  Selector names should be unique per input.
-audioSelector ::
-  -- | 'asName'
-  Text ->
+-- 'selectorSettings', 'audioSelector_selectorSettings' - The audio selector settings.
+--
+-- 'name', 'audioSelector_name' - The name of this AudioSelector. AudioDescriptions will use this name to
+-- uniquely identify this Selector. Selector names should be unique per
+-- input.
+newAudioSelector ::
+  -- | 'name'
+  Prelude.Text ->
   AudioSelector
-audioSelector pName_ =
+newAudioSelector pName_ =
   AudioSelector'
-    { _asSelectorSettings = Nothing,
-      _asName = pName_
+    { selectorSettings = Prelude.Nothing,
+      name = pName_
     }
 
 -- | The audio selector settings.
-asSelectorSettings :: Lens' AudioSelector (Maybe AudioSelectorSettings)
-asSelectorSettings = lens _asSelectorSettings (\s a -> s {_asSelectorSettings = a})
+audioSelector_selectorSettings :: Lens.Lens' AudioSelector (Prelude.Maybe AudioSelectorSettings)
+audioSelector_selectorSettings = Lens.lens (\AudioSelector' {selectorSettings} -> selectorSettings) (\s@AudioSelector' {} a -> s {selectorSettings = a} :: AudioSelector)
 
--- | The name of this AudioSelector. AudioDescriptions will use this name to uniquely identify this Selector.  Selector names should be unique per input.
-asName :: Lens' AudioSelector Text
-asName = lens _asName (\s a -> s {_asName = a})
+-- | The name of this AudioSelector. AudioDescriptions will use this name to
+-- uniquely identify this Selector. Selector names should be unique per
+-- input.
+audioSelector_name :: Lens.Lens' AudioSelector Prelude.Text
+audioSelector_name = Lens.lens (\AudioSelector' {name} -> name) (\s@AudioSelector' {} a -> s {name = a} :: AudioSelector)
 
-instance FromJSON AudioSelector where
+instance Prelude.FromJSON AudioSelector where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioSelector"
       ( \x ->
           AudioSelector'
-            <$> (x .:? "selectorSettings") <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "selectorSettings")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable AudioSelector
+instance Prelude.Hashable AudioSelector
 
-instance NFData AudioSelector
+instance Prelude.NFData AudioSelector
 
-instance ToJSON AudioSelector where
+instance Prelude.ToJSON AudioSelector where
   toJSON AudioSelector' {..} =
-    object
-      ( catMaybes
-          [ ("selectorSettings" .=) <$> _asSelectorSettings,
-            Just ("name" .= _asName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("selectorSettings" Prelude..=)
+              Prelude.<$> selectorSettings,
+            Prelude.Just ("name" Prelude..= name)
           ]
       )

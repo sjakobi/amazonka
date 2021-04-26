@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,100 +19,107 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.EmbeddedSourceSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.EmbeddedConvert608To708
 import Network.AWS.MediaLive.Types.EmbeddedScte20Detection
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Embedded Source Settings
 --
--- /See:/ 'embeddedSourceSettings' smart constructor.
+-- /See:/ 'newEmbeddedSourceSettings' smart constructor.
 data EmbeddedSourceSettings = EmbeddedSourceSettings'
-  { _essScte20Detection ::
-      !( Maybe
-           EmbeddedScte20Detection
-       ),
-    _essConvert608To708 ::
-      !( Maybe
-           EmbeddedConvert608To708
-       ),
-    _essSource608TrackNumber ::
-      !(Maybe Nat),
-    _essSource608ChannelNumber ::
-      !(Maybe Nat)
+  { -- | Set to \"auto\" to handle streams with intermittent and\/or non-aligned
+    -- SCTE-20 and Embedded captions.
+    scte20Detection :: Prelude.Maybe EmbeddedScte20Detection,
+    -- | If upconvert, 608 data is both passed through via the \"608
+    -- compatibility bytes\" fields of the 708 wrapper as well as translated
+    -- into 708. 708 data present in the source content will be discarded.
+    convert608To708 :: Prelude.Maybe EmbeddedConvert608To708,
+    -- | This field is unused and deprecated.
+    source608TrackNumber :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the 608\/708 channel number within the video track from which
+    -- to extract captions. Unused for passthrough.
+    source608ChannelNumber :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EmbeddedSourceSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EmbeddedSourceSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'essScte20Detection' - Set to "auto" to handle streams with intermittent and/or non-aligned SCTE-20 and Embedded captions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'essConvert608To708' - If upconvert, 608 data is both passed through via the "608 compatibility bytes" fields of the 708 wrapper as well as translated into 708. 708 data present in the source content will be discarded.
+-- 'scte20Detection', 'embeddedSourceSettings_scte20Detection' - Set to \"auto\" to handle streams with intermittent and\/or non-aligned
+-- SCTE-20 and Embedded captions.
 --
--- * 'essSource608TrackNumber' - This field is unused and deprecated.
+-- 'convert608To708', 'embeddedSourceSettings_convert608To708' - If upconvert, 608 data is both passed through via the \"608
+-- compatibility bytes\" fields of the 708 wrapper as well as translated
+-- into 708. 708 data present in the source content will be discarded.
 --
--- * 'essSource608ChannelNumber' - Specifies the 608/708 channel number within the video track from which to extract captions. Unused for passthrough.
-embeddedSourceSettings ::
+-- 'source608TrackNumber', 'embeddedSourceSettings_source608TrackNumber' - This field is unused and deprecated.
+--
+-- 'source608ChannelNumber', 'embeddedSourceSettings_source608ChannelNumber' - Specifies the 608\/708 channel number within the video track from which
+-- to extract captions. Unused for passthrough.
+newEmbeddedSourceSettings ::
   EmbeddedSourceSettings
-embeddedSourceSettings =
+newEmbeddedSourceSettings =
   EmbeddedSourceSettings'
-    { _essScte20Detection =
-        Nothing,
-      _essConvert608To708 = Nothing,
-      _essSource608TrackNumber = Nothing,
-      _essSource608ChannelNumber = Nothing
+    { scte20Detection =
+        Prelude.Nothing,
+      convert608To708 = Prelude.Nothing,
+      source608TrackNumber = Prelude.Nothing,
+      source608ChannelNumber = Prelude.Nothing
     }
 
--- | Set to "auto" to handle streams with intermittent and/or non-aligned SCTE-20 and Embedded captions.
-essScte20Detection :: Lens' EmbeddedSourceSettings (Maybe EmbeddedScte20Detection)
-essScte20Detection = lens _essScte20Detection (\s a -> s {_essScte20Detection = a})
+-- | Set to \"auto\" to handle streams with intermittent and\/or non-aligned
+-- SCTE-20 and Embedded captions.
+embeddedSourceSettings_scte20Detection :: Lens.Lens' EmbeddedSourceSettings (Prelude.Maybe EmbeddedScte20Detection)
+embeddedSourceSettings_scte20Detection = Lens.lens (\EmbeddedSourceSettings' {scte20Detection} -> scte20Detection) (\s@EmbeddedSourceSettings' {} a -> s {scte20Detection = a} :: EmbeddedSourceSettings)
 
--- | If upconvert, 608 data is both passed through via the "608 compatibility bytes" fields of the 708 wrapper as well as translated into 708. 708 data present in the source content will be discarded.
-essConvert608To708 :: Lens' EmbeddedSourceSettings (Maybe EmbeddedConvert608To708)
-essConvert608To708 = lens _essConvert608To708 (\s a -> s {_essConvert608To708 = a})
+-- | If upconvert, 608 data is both passed through via the \"608
+-- compatibility bytes\" fields of the 708 wrapper as well as translated
+-- into 708. 708 data present in the source content will be discarded.
+embeddedSourceSettings_convert608To708 :: Lens.Lens' EmbeddedSourceSettings (Prelude.Maybe EmbeddedConvert608To708)
+embeddedSourceSettings_convert608To708 = Lens.lens (\EmbeddedSourceSettings' {convert608To708} -> convert608To708) (\s@EmbeddedSourceSettings' {} a -> s {convert608To708 = a} :: EmbeddedSourceSettings)
 
 -- | This field is unused and deprecated.
-essSource608TrackNumber :: Lens' EmbeddedSourceSettings (Maybe Natural)
-essSource608TrackNumber = lens _essSource608TrackNumber (\s a -> s {_essSource608TrackNumber = a}) . mapping _Nat
+embeddedSourceSettings_source608TrackNumber :: Lens.Lens' EmbeddedSourceSettings (Prelude.Maybe Prelude.Natural)
+embeddedSourceSettings_source608TrackNumber = Lens.lens (\EmbeddedSourceSettings' {source608TrackNumber} -> source608TrackNumber) (\s@EmbeddedSourceSettings' {} a -> s {source608TrackNumber = a} :: EmbeddedSourceSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the 608/708 channel number within the video track from which to extract captions. Unused for passthrough.
-essSource608ChannelNumber :: Lens' EmbeddedSourceSettings (Maybe Natural)
-essSource608ChannelNumber = lens _essSource608ChannelNumber (\s a -> s {_essSource608ChannelNumber = a}) . mapping _Nat
+-- | Specifies the 608\/708 channel number within the video track from which
+-- to extract captions. Unused for passthrough.
+embeddedSourceSettings_source608ChannelNumber :: Lens.Lens' EmbeddedSourceSettings (Prelude.Maybe Prelude.Natural)
+embeddedSourceSettings_source608ChannelNumber = Lens.lens (\EmbeddedSourceSettings' {source608ChannelNumber} -> source608ChannelNumber) (\s@EmbeddedSourceSettings' {} a -> s {source608ChannelNumber = a} :: EmbeddedSourceSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON EmbeddedSourceSettings where
+instance Prelude.FromJSON EmbeddedSourceSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EmbeddedSourceSettings"
       ( \x ->
           EmbeddedSourceSettings'
-            <$> (x .:? "scte20Detection")
-            <*> (x .:? "convert608To708")
-            <*> (x .:? "source608TrackNumber")
-            <*> (x .:? "source608ChannelNumber")
+            Prelude.<$> (x Prelude..:? "scte20Detection")
+            Prelude.<*> (x Prelude..:? "convert608To708")
+            Prelude.<*> (x Prelude..:? "source608TrackNumber")
+            Prelude.<*> (x Prelude..:? "source608ChannelNumber")
       )
 
-instance Hashable EmbeddedSourceSettings
+instance Prelude.Hashable EmbeddedSourceSettings
 
-instance NFData EmbeddedSourceSettings
+instance Prelude.NFData EmbeddedSourceSettings
 
-instance ToJSON EmbeddedSourceSettings where
+instance Prelude.ToJSON EmbeddedSourceSettings where
   toJSON EmbeddedSourceSettings' {..} =
-    object
-      ( catMaybes
-          [ ("scte20Detection" .=) <$> _essScte20Detection,
-            ("convert608To708" .=) <$> _essConvert608To708,
-            ("source608TrackNumber" .=)
-              <$> _essSource608TrackNumber,
-            ("source608ChannelNumber" .=)
-              <$> _essSource608ChannelNumber
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("scte20Detection" Prelude..=)
+              Prelude.<$> scte20Detection,
+            ("convert608To708" Prelude..=)
+              Prelude.<$> convert608To708,
+            ("source608TrackNumber" Prelude..=)
+              Prelude.<$> source608TrackNumber,
+            ("source608ChannelNumber" Prelude..=)
+              Prelude.<$> source608ChannelNumber
           ]
       )

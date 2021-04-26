@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.FeatureActivationsInputPrepareScheduleActions
   ( FeatureActivationsInputPrepareScheduleActions
       ( ..,
-        FAIPSADisabled,
-        FAIPSAEnabled
+        FeatureActivationsInputPrepareScheduleActionsDISABLED,
+        FeatureActivationsInputPrepareScheduleActionsENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Feature Activations Input Prepare Schedule Actions
-data FeatureActivationsInputPrepareScheduleActions
-  = FeatureActivationsInputPrepareScheduleActions'
-      ( CI
-          Text
-      )
+newtype FeatureActivationsInputPrepareScheduleActions = FeatureActivationsInputPrepareScheduleActions'
+  { fromFeatureActivationsInputPrepareScheduleActions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FAIPSADisabled :: FeatureActivationsInputPrepareScheduleActions
-pattern FAIPSADisabled = FeatureActivationsInputPrepareScheduleActions' "DISABLED"
+pattern FeatureActivationsInputPrepareScheduleActionsDISABLED :: FeatureActivationsInputPrepareScheduleActions
+pattern FeatureActivationsInputPrepareScheduleActionsDISABLED = FeatureActivationsInputPrepareScheduleActions' "DISABLED"
 
-pattern FAIPSAEnabled :: FeatureActivationsInputPrepareScheduleActions
-pattern FAIPSAEnabled = FeatureActivationsInputPrepareScheduleActions' "ENABLED"
+pattern FeatureActivationsInputPrepareScheduleActionsENABLED :: FeatureActivationsInputPrepareScheduleActions
+pattern FeatureActivationsInputPrepareScheduleActionsENABLED = FeatureActivationsInputPrepareScheduleActions' "ENABLED"
 
 {-# COMPLETE
-  FAIPSADisabled,
-  FAIPSAEnabled,
+  FeatureActivationsInputPrepareScheduleActionsDISABLED,
+  FeatureActivationsInputPrepareScheduleActionsENABLED,
   FeatureActivationsInputPrepareScheduleActions'
   #-}
 
-instance FromText FeatureActivationsInputPrepareScheduleActions where
-  parser = (FeatureActivationsInputPrepareScheduleActions' . mk) <$> takeText
+instance Prelude.FromText FeatureActivationsInputPrepareScheduleActions where
+  parser = FeatureActivationsInputPrepareScheduleActions' Prelude.<$> Prelude.takeText
 
-instance ToText FeatureActivationsInputPrepareScheduleActions where
-  toText (FeatureActivationsInputPrepareScheduleActions' ci) = original ci
+instance Prelude.ToText FeatureActivationsInputPrepareScheduleActions where
+  toText (FeatureActivationsInputPrepareScheduleActions' x) = x
 
-instance Hashable FeatureActivationsInputPrepareScheduleActions
+instance Prelude.Hashable FeatureActivationsInputPrepareScheduleActions
 
-instance NFData FeatureActivationsInputPrepareScheduleActions
+instance Prelude.NFData FeatureActivationsInputPrepareScheduleActions
 
-instance ToByteString FeatureActivationsInputPrepareScheduleActions
+instance Prelude.ToByteString FeatureActivationsInputPrepareScheduleActions
 
-instance ToQuery FeatureActivationsInputPrepareScheduleActions
+instance Prelude.ToQuery FeatureActivationsInputPrepareScheduleActions
 
-instance ToHeader FeatureActivationsInputPrepareScheduleActions
+instance Prelude.ToHeader FeatureActivationsInputPrepareScheduleActions
 
-instance ToJSON FeatureActivationsInputPrepareScheduleActions where
-  toJSON = toJSONText
+instance Prelude.ToJSON FeatureActivationsInputPrepareScheduleActions where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FeatureActivationsInputPrepareScheduleActions where
-  parseJSON = parseJSONText "FeatureActivationsInputPrepareScheduleActions"
+instance Prelude.FromJSON FeatureActivationsInputPrepareScheduleActions where
+  parseJSON = Prelude.parseJSONText "FeatureActivationsInputPrepareScheduleActions"

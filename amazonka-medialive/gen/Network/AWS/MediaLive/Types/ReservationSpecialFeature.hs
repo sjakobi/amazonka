@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.MediaLive.Types.ReservationSpecialFeature
   ( ReservationSpecialFeature
       ( ..,
-        AdvancedAudio,
-        AudioNormalization
+        ReservationSpecialFeatureADVANCEDAUDIO,
+        ReservationSpecialFeatureAUDIONORMALIZATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Special features, 'ADVANCED_AUDIO' or 'AUDIO_NORMALIZATION'
-data ReservationSpecialFeature
-  = ReservationSpecialFeature'
-      ( CI
-          Text
-      )
+-- | Special features, \'ADVANCED_AUDIO\' or \'AUDIO_NORMALIZATION\'
+newtype ReservationSpecialFeature = ReservationSpecialFeature'
+  { fromReservationSpecialFeature ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AdvancedAudio :: ReservationSpecialFeature
-pattern AdvancedAudio = ReservationSpecialFeature' "ADVANCED_AUDIO"
+pattern ReservationSpecialFeatureADVANCEDAUDIO :: ReservationSpecialFeature
+pattern ReservationSpecialFeatureADVANCEDAUDIO = ReservationSpecialFeature' "ADVANCED_AUDIO"
 
-pattern AudioNormalization :: ReservationSpecialFeature
-pattern AudioNormalization = ReservationSpecialFeature' "AUDIO_NORMALIZATION"
+pattern ReservationSpecialFeatureAUDIONORMALIZATION :: ReservationSpecialFeature
+pattern ReservationSpecialFeatureAUDIONORMALIZATION = ReservationSpecialFeature' "AUDIO_NORMALIZATION"
 
 {-# COMPLETE
-  AdvancedAudio,
-  AudioNormalization,
+  ReservationSpecialFeatureADVANCEDAUDIO,
+  ReservationSpecialFeatureAUDIONORMALIZATION,
   ReservationSpecialFeature'
   #-}
 
-instance FromText ReservationSpecialFeature where
-  parser = (ReservationSpecialFeature' . mk) <$> takeText
+instance Prelude.FromText ReservationSpecialFeature where
+  parser = ReservationSpecialFeature' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationSpecialFeature where
-  toText (ReservationSpecialFeature' ci) = original ci
+instance Prelude.ToText ReservationSpecialFeature where
+  toText (ReservationSpecialFeature' x) = x
 
-instance Hashable ReservationSpecialFeature
+instance Prelude.Hashable ReservationSpecialFeature
 
-instance NFData ReservationSpecialFeature
+instance Prelude.NFData ReservationSpecialFeature
 
-instance ToByteString ReservationSpecialFeature
+instance Prelude.ToByteString ReservationSpecialFeature
 
-instance ToQuery ReservationSpecialFeature
+instance Prelude.ToQuery ReservationSpecialFeature
 
-instance ToHeader ReservationSpecialFeature
+instance Prelude.ToHeader ReservationSpecialFeature
 
-instance FromJSON ReservationSpecialFeature where
-  parseJSON = parseJSONText "ReservationSpecialFeature"
+instance Prelude.FromJSON ReservationSpecialFeature where
+  parseJSON = Prelude.parseJSONText "ReservationSpecialFeature"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaLive.Types.IFrameOnlyPlaylistType
   ( IFrameOnlyPlaylistType
       ( ..,
-        IFOPTDisabled,
-        IFOPTStandard
+        IFrameOnlyPlaylistTypeDISABLED,
+        IFrameOnlyPlaylistTypeSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | When set to "standard", an I-Frame only playlist will be written out for each video output in the output group. This I-Frame only playlist will contain byte range offsets pointing to the I-frame(s) in each segment.
-data IFrameOnlyPlaylistType
-  = IFrameOnlyPlaylistType'
-      ( CI
-          Text
-      )
+-- | When set to \"standard\", an I-Frame only playlist will be written out
+-- for each video output in the output group. This I-Frame only playlist
+-- will contain byte range offsets pointing to the I-frame(s) in each
+-- segment.
+newtype IFrameOnlyPlaylistType = IFrameOnlyPlaylistType'
+  { fromIFrameOnlyPlaylistType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IFOPTDisabled :: IFrameOnlyPlaylistType
-pattern IFOPTDisabled = IFrameOnlyPlaylistType' "DISABLED"
+pattern IFrameOnlyPlaylistTypeDISABLED :: IFrameOnlyPlaylistType
+pattern IFrameOnlyPlaylistTypeDISABLED = IFrameOnlyPlaylistType' "DISABLED"
 
-pattern IFOPTStandard :: IFrameOnlyPlaylistType
-pattern IFOPTStandard = IFrameOnlyPlaylistType' "STANDARD"
+pattern IFrameOnlyPlaylistTypeSTANDARD :: IFrameOnlyPlaylistType
+pattern IFrameOnlyPlaylistTypeSTANDARD = IFrameOnlyPlaylistType' "STANDARD"
 
 {-# COMPLETE
-  IFOPTDisabled,
-  IFOPTStandard,
+  IFrameOnlyPlaylistTypeDISABLED,
+  IFrameOnlyPlaylistTypeSTANDARD,
   IFrameOnlyPlaylistType'
   #-}
 
-instance FromText IFrameOnlyPlaylistType where
-  parser = (IFrameOnlyPlaylistType' . mk) <$> takeText
+instance Prelude.FromText IFrameOnlyPlaylistType where
+  parser = IFrameOnlyPlaylistType' Prelude.<$> Prelude.takeText
 
-instance ToText IFrameOnlyPlaylistType where
-  toText (IFrameOnlyPlaylistType' ci) = original ci
+instance Prelude.ToText IFrameOnlyPlaylistType where
+  toText (IFrameOnlyPlaylistType' x) = x
 
-instance Hashable IFrameOnlyPlaylistType
+instance Prelude.Hashable IFrameOnlyPlaylistType
 
-instance NFData IFrameOnlyPlaylistType
+instance Prelude.NFData IFrameOnlyPlaylistType
 
-instance ToByteString IFrameOnlyPlaylistType
+instance Prelude.ToByteString IFrameOnlyPlaylistType
 
-instance ToQuery IFrameOnlyPlaylistType
+instance Prelude.ToQuery IFrameOnlyPlaylistType
 
-instance ToHeader IFrameOnlyPlaylistType
+instance Prelude.ToHeader IFrameOnlyPlaylistType
 
-instance ToJSON IFrameOnlyPlaylistType where
-  toJSON = toJSONText
+instance Prelude.ToJSON IFrameOnlyPlaylistType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON IFrameOnlyPlaylistType where
-  parseJSON = parseJSONText "IFrameOnlyPlaylistType"
+instance Prelude.FromJSON IFrameOnlyPlaylistType where
+  parseJSON = Prelude.parseJSONText "IFrameOnlyPlaylistType"

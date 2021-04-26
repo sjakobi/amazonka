@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,66 @@
 module Network.AWS.MediaLive.Types.InputResolution
   ( InputResolution
       ( ..,
-        HD,
-        SD,
-        Uhd
+        InputResolutionHD,
+        InputResolutionSD,
+        InputResolutionUHD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Input resolution based on lines of vertical resolution in the input; SD is less than 720 lines, HD is 720 to 1080 lines, UHD is greater than 1080 lines
-data InputResolution = InputResolution' (CI Text)
+-- | Input resolution based on lines of vertical resolution in the input; SD
+-- is less than 720 lines, HD is 720 to 1080 lines, UHD is greater than
+-- 1080 lines
+newtype InputResolution = InputResolution'
+  { fromInputResolution ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HD :: InputResolution
-pattern HD = InputResolution' "HD"
+pattern InputResolutionHD :: InputResolution
+pattern InputResolutionHD = InputResolution' "HD"
 
-pattern SD :: InputResolution
-pattern SD = InputResolution' "SD"
+pattern InputResolutionSD :: InputResolution
+pattern InputResolutionSD = InputResolution' "SD"
 
-pattern Uhd :: InputResolution
-pattern Uhd = InputResolution' "UHD"
+pattern InputResolutionUHD :: InputResolution
+pattern InputResolutionUHD = InputResolution' "UHD"
 
 {-# COMPLETE
-  HD,
-  SD,
-  Uhd,
+  InputResolutionHD,
+  InputResolutionSD,
+  InputResolutionUHD,
   InputResolution'
   #-}
 
-instance FromText InputResolution where
-  parser = (InputResolution' . mk) <$> takeText
+instance Prelude.FromText InputResolution where
+  parser = InputResolution' Prelude.<$> Prelude.takeText
 
-instance ToText InputResolution where
-  toText (InputResolution' ci) = original ci
+instance Prelude.ToText InputResolution where
+  toText (InputResolution' x) = x
 
-instance Hashable InputResolution
+instance Prelude.Hashable InputResolution
 
-instance NFData InputResolution
+instance Prelude.NFData InputResolution
 
-instance ToByteString InputResolution
+instance Prelude.ToByteString InputResolution
 
-instance ToQuery InputResolution
+instance Prelude.ToQuery InputResolution
 
-instance ToHeader InputResolution
+instance Prelude.ToHeader InputResolution
 
-instance ToJSON InputResolution where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputResolution where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputResolution where
-  parseJSON = parseJSONText "InputResolution"
+instance Prelude.FromJSON InputResolution where
+  parseJSON = Prelude.parseJSONText "InputResolution"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.RtmpOutputCertificateMode
   ( RtmpOutputCertificateMode
       ( ..,
-        SelfSigned,
-        VerifyAuthenticity
+        RtmpOutputCertificateModeSELFSIGNED,
+        RtmpOutputCertificateModeVERIFYAUTHENTICITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Rtmp Output Certificate Mode
-data RtmpOutputCertificateMode
-  = RtmpOutputCertificateMode'
-      ( CI
-          Text
-      )
+newtype RtmpOutputCertificateMode = RtmpOutputCertificateMode'
+  { fromRtmpOutputCertificateMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SelfSigned :: RtmpOutputCertificateMode
-pattern SelfSigned = RtmpOutputCertificateMode' "SELF_SIGNED"
+pattern RtmpOutputCertificateModeSELFSIGNED :: RtmpOutputCertificateMode
+pattern RtmpOutputCertificateModeSELFSIGNED = RtmpOutputCertificateMode' "SELF_SIGNED"
 
-pattern VerifyAuthenticity :: RtmpOutputCertificateMode
-pattern VerifyAuthenticity = RtmpOutputCertificateMode' "VERIFY_AUTHENTICITY"
+pattern RtmpOutputCertificateModeVERIFYAUTHENTICITY :: RtmpOutputCertificateMode
+pattern RtmpOutputCertificateModeVERIFYAUTHENTICITY = RtmpOutputCertificateMode' "VERIFY_AUTHENTICITY"
 
 {-# COMPLETE
-  SelfSigned,
-  VerifyAuthenticity,
+  RtmpOutputCertificateModeSELFSIGNED,
+  RtmpOutputCertificateModeVERIFYAUTHENTICITY,
   RtmpOutputCertificateMode'
   #-}
 
-instance FromText RtmpOutputCertificateMode where
-  parser = (RtmpOutputCertificateMode' . mk) <$> takeText
+instance Prelude.FromText RtmpOutputCertificateMode where
+  parser = RtmpOutputCertificateMode' Prelude.<$> Prelude.takeText
 
-instance ToText RtmpOutputCertificateMode where
-  toText (RtmpOutputCertificateMode' ci) = original ci
+instance Prelude.ToText RtmpOutputCertificateMode where
+  toText (RtmpOutputCertificateMode' x) = x
 
-instance Hashable RtmpOutputCertificateMode
+instance Prelude.Hashable RtmpOutputCertificateMode
 
-instance NFData RtmpOutputCertificateMode
+instance Prelude.NFData RtmpOutputCertificateMode
 
-instance ToByteString RtmpOutputCertificateMode
+instance Prelude.ToByteString RtmpOutputCertificateMode
 
-instance ToQuery RtmpOutputCertificateMode
+instance Prelude.ToQuery RtmpOutputCertificateMode
 
-instance ToHeader RtmpOutputCertificateMode
+instance Prelude.ToHeader RtmpOutputCertificateMode
 
-instance ToJSON RtmpOutputCertificateMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON RtmpOutputCertificateMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RtmpOutputCertificateMode where
-  parseJSON = parseJSONText "RtmpOutputCertificateMode"
+instance Prelude.FromJSON RtmpOutputCertificateMode where
+  parseJSON = Prelude.parseJSONText "RtmpOutputCertificateMode"

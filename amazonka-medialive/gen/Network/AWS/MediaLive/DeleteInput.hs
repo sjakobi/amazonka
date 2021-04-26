@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,114 +24,116 @@
 -- Deletes the input end point
 module Network.AWS.MediaLive.DeleteInput
   ( -- * Creating a Request
-    deleteInput,
-    DeleteInput,
+    DeleteInput (..),
+    newDeleteInput,
 
     -- * Request Lenses
-    diInputId,
+    deleteInput_inputId,
 
     -- * Destructuring the Response
-    deleteInputResponse,
-    DeleteInputResponse,
+    DeleteInputResponse (..),
+    newDeleteInputResponse,
 
     -- * Response Lenses
-    dirrsResponseStatus,
+    deleteInputResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for DeleteInputRequest
 --
--- /See:/ 'deleteInput' smart constructor.
-newtype DeleteInput = DeleteInput'
-  { _diInputId ::
-      Text
+-- /See:/ 'newDeleteInput' smart constructor.
+data DeleteInput = DeleteInput'
+  { -- | Unique ID of the input
+    inputId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diInputId' - Unique ID of the input
-deleteInput ::
-  -- | 'diInputId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'inputId', 'deleteInput_inputId' - Unique ID of the input
+newDeleteInput ::
+  -- | 'inputId'
+  Prelude.Text ->
   DeleteInput
-deleteInput pInputId_ =
-  DeleteInput' {_diInputId = pInputId_}
+newDeleteInput pInputId_ =
+  DeleteInput' {inputId = pInputId_}
 
 -- | Unique ID of the input
-diInputId :: Lens' DeleteInput Text
-diInputId = lens _diInputId (\s a -> s {_diInputId = a})
+deleteInput_inputId :: Lens.Lens' DeleteInput Prelude.Text
+deleteInput_inputId = Lens.lens (\DeleteInput' {inputId} -> inputId) (\s@DeleteInput' {} a -> s {inputId = a} :: DeleteInput)
 
-instance AWSRequest DeleteInput where
+instance Prelude.AWSRequest DeleteInput where
   type Rs DeleteInput = DeleteInputResponse
-  request = delete mediaLive
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteInputResponse' <$> (pure (fromEnum s))
+          DeleteInputResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteInput
+instance Prelude.Hashable DeleteInput
 
-instance NFData DeleteInput
+instance Prelude.NFData DeleteInput
 
-instance ToHeaders DeleteInput where
+instance Prelude.ToHeaders DeleteInput where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteInput where
+instance Prelude.ToPath DeleteInput where
   toPath DeleteInput' {..} =
-    mconcat ["/prod/inputs/", toBS _diInputId]
+    Prelude.mconcat
+      ["/prod/inputs/", Prelude.toBS inputId]
 
-instance ToQuery DeleteInput where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteInput where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for DeleteInputResponse
 --
--- /See:/ 'deleteInputResponse' smart constructor.
-newtype DeleteInputResponse = DeleteInputResponse'
-  { _dirrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteInputResponse' smart constructor.
+data DeleteInputResponse = DeleteInputResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteInputResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteInputResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dirrsResponseStatus' - -- | The response status code.
-deleteInputResponse ::
-  -- | 'dirrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteInputResponse_httpStatus' - The response's http status code.
+newDeleteInputResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteInputResponse
-deleteInputResponse pResponseStatus_ =
-  DeleteInputResponse'
-    { _dirrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteInputResponse pHttpStatus_ =
+  DeleteInputResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dirrsResponseStatus :: Lens' DeleteInputResponse Int
-dirrsResponseStatus = lens _dirrsResponseStatus (\s a -> s {_dirrsResponseStatus = a})
+-- | The response's http status code.
+deleteInputResponse_httpStatus :: Lens.Lens' DeleteInputResponse Prelude.Int
+deleteInputResponse_httpStatus = Lens.lens (\DeleteInputResponse' {httpStatus} -> httpStatus) (\s@DeleteInputResponse' {} a -> s {httpStatus = a} :: DeleteInputResponse)
 
-instance NFData DeleteInputResponse
+instance Prelude.NFData DeleteInputResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AudioOnlyHlsSegmentType
   ( AudioOnlyHlsSegmentType
       ( ..,
-        Aac,
-        FMP4
+        AudioOnlyHlsSegmentTypeAAC,
+        AudioOnlyHlsSegmentTypeFMP4
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Only Hls Segment Type
-data AudioOnlyHlsSegmentType
-  = AudioOnlyHlsSegmentType'
-      ( CI
-          Text
-      )
+newtype AudioOnlyHlsSegmentType = AudioOnlyHlsSegmentType'
+  { fromAudioOnlyHlsSegmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Aac :: AudioOnlyHlsSegmentType
-pattern Aac = AudioOnlyHlsSegmentType' "AAC"
+pattern AudioOnlyHlsSegmentTypeAAC :: AudioOnlyHlsSegmentType
+pattern AudioOnlyHlsSegmentTypeAAC = AudioOnlyHlsSegmentType' "AAC"
 
-pattern FMP4 :: AudioOnlyHlsSegmentType
-pattern FMP4 = AudioOnlyHlsSegmentType' "FMP4"
+pattern AudioOnlyHlsSegmentTypeFMP4 :: AudioOnlyHlsSegmentType
+pattern AudioOnlyHlsSegmentTypeFMP4 = AudioOnlyHlsSegmentType' "FMP4"
 
 {-# COMPLETE
-  Aac,
-  FMP4,
+  AudioOnlyHlsSegmentTypeAAC,
+  AudioOnlyHlsSegmentTypeFMP4,
   AudioOnlyHlsSegmentType'
   #-}
 
-instance FromText AudioOnlyHlsSegmentType where
-  parser = (AudioOnlyHlsSegmentType' . mk) <$> takeText
+instance Prelude.FromText AudioOnlyHlsSegmentType where
+  parser = AudioOnlyHlsSegmentType' Prelude.<$> Prelude.takeText
 
-instance ToText AudioOnlyHlsSegmentType where
-  toText (AudioOnlyHlsSegmentType' ci) = original ci
+instance Prelude.ToText AudioOnlyHlsSegmentType where
+  toText (AudioOnlyHlsSegmentType' x) = x
 
-instance Hashable AudioOnlyHlsSegmentType
+instance Prelude.Hashable AudioOnlyHlsSegmentType
 
-instance NFData AudioOnlyHlsSegmentType
+instance Prelude.NFData AudioOnlyHlsSegmentType
 
-instance ToByteString AudioOnlyHlsSegmentType
+instance Prelude.ToByteString AudioOnlyHlsSegmentType
 
-instance ToQuery AudioOnlyHlsSegmentType
+instance Prelude.ToQuery AudioOnlyHlsSegmentType
 
-instance ToHeader AudioOnlyHlsSegmentType
+instance Prelude.ToHeader AudioOnlyHlsSegmentType
 
-instance ToJSON AudioOnlyHlsSegmentType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioOnlyHlsSegmentType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioOnlyHlsSegmentType where
-  parseJSON = parseJSONText "AudioOnlyHlsSegmentType"
+instance Prelude.FromJSON AudioOnlyHlsSegmentType where
+  parseJSON = Prelude.parseJSONText "AudioOnlyHlsSegmentType"

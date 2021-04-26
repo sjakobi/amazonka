@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.MediaLive.Types.ReservationState
   ( ReservationState
       ( ..,
-        Active,
-        Canceled,
-        Deleted,
-        Expired
+        ReservationStateACTIVE,
+        ReservationStateCANCELED,
+        ReservationStateDELETED,
+        ReservationStateEXPIRED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Current reservation state
-data ReservationState = ReservationState' (CI Text)
+newtype ReservationState = ReservationState'
+  { fromReservationState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: ReservationState
-pattern Active = ReservationState' "ACTIVE"
+pattern ReservationStateACTIVE :: ReservationState
+pattern ReservationStateACTIVE = ReservationState' "ACTIVE"
 
-pattern Canceled :: ReservationState
-pattern Canceled = ReservationState' "CANCELED"
+pattern ReservationStateCANCELED :: ReservationState
+pattern ReservationStateCANCELED = ReservationState' "CANCELED"
 
-pattern Deleted :: ReservationState
-pattern Deleted = ReservationState' "DELETED"
+pattern ReservationStateDELETED :: ReservationState
+pattern ReservationStateDELETED = ReservationState' "DELETED"
 
-pattern Expired :: ReservationState
-pattern Expired = ReservationState' "EXPIRED"
+pattern ReservationStateEXPIRED :: ReservationState
+pattern ReservationStateEXPIRED = ReservationState' "EXPIRED"
 
 {-# COMPLETE
-  Active,
-  Canceled,
-  Deleted,
-  Expired,
+  ReservationStateACTIVE,
+  ReservationStateCANCELED,
+  ReservationStateDELETED,
+  ReservationStateEXPIRED,
   ReservationState'
   #-}
 
-instance FromText ReservationState where
-  parser = (ReservationState' . mk) <$> takeText
+instance Prelude.FromText ReservationState where
+  parser = ReservationState' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationState where
-  toText (ReservationState' ci) = original ci
+instance Prelude.ToText ReservationState where
+  toText (ReservationState' x) = x
 
-instance Hashable ReservationState
+instance Prelude.Hashable ReservationState
 
-instance NFData ReservationState
+instance Prelude.NFData ReservationState
 
-instance ToByteString ReservationState
+instance Prelude.ToByteString ReservationState
 
-instance ToQuery ReservationState
+instance Prelude.ToQuery ReservationState
 
-instance ToHeader ReservationState
+instance Prelude.ToHeader ReservationState
 
-instance FromJSON ReservationState where
-  parseJSON = parseJSONText "ReservationState"
+instance Prelude.FromJSON ReservationState where
+  parseJSON = Prelude.parseJSONText "ReservationState"

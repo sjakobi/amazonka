@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.SmoothGroupTimestampOffsetMode
   ( SmoothGroupTimestampOffsetMode
       ( ..,
-        UseConfiguredOffset,
-        UseEventStartDate
+        SmoothGroupTimestampOffsetModeUSECONFIGUREDOFFSET,
+        SmoothGroupTimestampOffsetModeUSEEVENTSTARTDATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Timestamp Offset Mode
-data SmoothGroupTimestampOffsetMode
-  = SmoothGroupTimestampOffsetMode'
-      ( CI
-          Text
-      )
+newtype SmoothGroupTimestampOffsetMode = SmoothGroupTimestampOffsetMode'
+  { fromSmoothGroupTimestampOffsetMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UseConfiguredOffset :: SmoothGroupTimestampOffsetMode
-pattern UseConfiguredOffset = SmoothGroupTimestampOffsetMode' "USE_CONFIGURED_OFFSET"
+pattern SmoothGroupTimestampOffsetModeUSECONFIGUREDOFFSET :: SmoothGroupTimestampOffsetMode
+pattern SmoothGroupTimestampOffsetModeUSECONFIGUREDOFFSET = SmoothGroupTimestampOffsetMode' "USE_CONFIGURED_OFFSET"
 
-pattern UseEventStartDate :: SmoothGroupTimestampOffsetMode
-pattern UseEventStartDate = SmoothGroupTimestampOffsetMode' "USE_EVENT_START_DATE"
+pattern SmoothGroupTimestampOffsetModeUSEEVENTSTARTDATE :: SmoothGroupTimestampOffsetMode
+pattern SmoothGroupTimestampOffsetModeUSEEVENTSTARTDATE = SmoothGroupTimestampOffsetMode' "USE_EVENT_START_DATE"
 
 {-# COMPLETE
-  UseConfiguredOffset,
-  UseEventStartDate,
+  SmoothGroupTimestampOffsetModeUSECONFIGUREDOFFSET,
+  SmoothGroupTimestampOffsetModeUSEEVENTSTARTDATE,
   SmoothGroupTimestampOffsetMode'
   #-}
 
-instance FromText SmoothGroupTimestampOffsetMode where
-  parser = (SmoothGroupTimestampOffsetMode' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupTimestampOffsetMode where
+  parser = SmoothGroupTimestampOffsetMode' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupTimestampOffsetMode where
-  toText (SmoothGroupTimestampOffsetMode' ci) = original ci
+instance Prelude.ToText SmoothGroupTimestampOffsetMode where
+  toText (SmoothGroupTimestampOffsetMode' x) = x
 
-instance Hashable SmoothGroupTimestampOffsetMode
+instance Prelude.Hashable SmoothGroupTimestampOffsetMode
 
-instance NFData SmoothGroupTimestampOffsetMode
+instance Prelude.NFData SmoothGroupTimestampOffsetMode
 
-instance ToByteString SmoothGroupTimestampOffsetMode
+instance Prelude.ToByteString SmoothGroupTimestampOffsetMode
 
-instance ToQuery SmoothGroupTimestampOffsetMode
+instance Prelude.ToQuery SmoothGroupTimestampOffsetMode
 
-instance ToHeader SmoothGroupTimestampOffsetMode
+instance Prelude.ToHeader SmoothGroupTimestampOffsetMode
 
-instance ToJSON SmoothGroupTimestampOffsetMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupTimestampOffsetMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupTimestampOffsetMode where
-  parseJSON = parseJSONText "SmoothGroupTimestampOffsetMode"
+instance Prelude.FromJSON SmoothGroupTimestampOffsetMode where
+  parseJSON = Prelude.parseJSONText "SmoothGroupTimestampOffsetMode"

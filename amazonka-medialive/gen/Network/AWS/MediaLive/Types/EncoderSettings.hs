@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.EncoderSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AudioDescription
 import Network.AWS.MediaLive.Types.AvailBlanking
 import Network.AWS.MediaLive.Types.AvailConfiguration
@@ -27,163 +31,186 @@ import Network.AWS.MediaLive.Types.NielsenConfiguration
 import Network.AWS.MediaLive.Types.OutputGroup
 import Network.AWS.MediaLive.Types.TimecodeConfig
 import Network.AWS.MediaLive.Types.VideoDescription
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Encoder Settings
 --
--- /See:/ 'encoderSettings' smart constructor.
+-- /See:/ 'newEncoderSettings' smart constructor.
 data EncoderSettings = EncoderSettings'
-  { _esGlobalConfiguration ::
-      !(Maybe GlobalConfiguration),
-    _esFeatureActivations ::
-      !(Maybe FeatureActivations),
-    _esAvailConfiguration ::
-      !(Maybe AvailConfiguration),
-    _esAvailBlanking ::
-      !(Maybe AvailBlanking),
-    _esNielsenConfiguration ::
-      !(Maybe NielsenConfiguration),
-    _esBlackoutSlate ::
-      !(Maybe BlackoutSlate),
-    _esCaptionDescriptions ::
-      !(Maybe [CaptionDescription]),
-    _esVideoDescriptions ::
-      ![VideoDescription],
-    _esAudioDescriptions ::
-      ![AudioDescription],
-    _esOutputGroups :: ![OutputGroup],
-    _esTimecodeConfig :: !TimecodeConfig
+  { -- | Configuration settings that apply to the event as a whole.
+    globalConfiguration :: Prelude.Maybe GlobalConfiguration,
+    -- | Feature Activations
+    featureActivations :: Prelude.Maybe FeatureActivations,
+    -- | Event-wide configuration settings for ad avail insertion.
+    availConfiguration :: Prelude.Maybe AvailConfiguration,
+    -- | Settings for ad avail blanking.
+    availBlanking :: Prelude.Maybe AvailBlanking,
+    -- | Nielsen configuration settings.
+    nielsenConfiguration :: Prelude.Maybe NielsenConfiguration,
+    -- | Settings for blackout slate.
+    blackoutSlate :: Prelude.Maybe BlackoutSlate,
+    -- | Settings for caption decriptions
+    captionDescriptions :: Prelude.Maybe [CaptionDescription],
+    videoDescriptions :: [VideoDescription],
+    audioDescriptions :: [AudioDescription],
+    outputGroups :: [OutputGroup],
+    -- | Contains settings used to acquire and adjust timecode information from
+    -- inputs.
+    timecodeConfig :: TimecodeConfig
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EncoderSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EncoderSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esGlobalConfiguration' - Configuration settings that apply to the event as a whole.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esFeatureActivations' - Feature Activations
+-- 'globalConfiguration', 'encoderSettings_globalConfiguration' - Configuration settings that apply to the event as a whole.
 --
--- * 'esAvailConfiguration' - Event-wide configuration settings for ad avail insertion.
+-- 'featureActivations', 'encoderSettings_featureActivations' - Feature Activations
 --
--- * 'esAvailBlanking' - Settings for ad avail blanking.
+-- 'availConfiguration', 'encoderSettings_availConfiguration' - Event-wide configuration settings for ad avail insertion.
 --
--- * 'esNielsenConfiguration' - Nielsen configuration settings.
+-- 'availBlanking', 'encoderSettings_availBlanking' - Settings for ad avail blanking.
 --
--- * 'esBlackoutSlate' - Settings for blackout slate.
+-- 'nielsenConfiguration', 'encoderSettings_nielsenConfiguration' - Nielsen configuration settings.
 --
--- * 'esCaptionDescriptions' - Settings for caption decriptions
+-- 'blackoutSlate', 'encoderSettings_blackoutSlate' - Settings for blackout slate.
 --
--- * 'esVideoDescriptions' - Undocumented member.
+-- 'captionDescriptions', 'encoderSettings_captionDescriptions' - Settings for caption decriptions
 --
--- * 'esAudioDescriptions' - Undocumented member.
+-- 'videoDescriptions', 'encoderSettings_videoDescriptions' - Undocumented member.
 --
--- * 'esOutputGroups' - Undocumented member.
+-- 'audioDescriptions', 'encoderSettings_audioDescriptions' - Undocumented member.
 --
--- * 'esTimecodeConfig' - Contains settings used to acquire and adjust timecode information from inputs.
-encoderSettings ::
-  -- | 'esTimecodeConfig'
+-- 'outputGroups', 'encoderSettings_outputGroups' - Undocumented member.
+--
+-- 'timecodeConfig', 'encoderSettings_timecodeConfig' - Contains settings used to acquire and adjust timecode information from
+-- inputs.
+newEncoderSettings ::
+  -- | 'timecodeConfig'
   TimecodeConfig ->
   EncoderSettings
-encoderSettings pTimecodeConfig_ =
+newEncoderSettings pTimecodeConfig_ =
   EncoderSettings'
-    { _esGlobalConfiguration = Nothing,
-      _esFeatureActivations = Nothing,
-      _esAvailConfiguration = Nothing,
-      _esAvailBlanking = Nothing,
-      _esNielsenConfiguration = Nothing,
-      _esBlackoutSlate = Nothing,
-      _esCaptionDescriptions = Nothing,
-      _esVideoDescriptions = mempty,
-      _esAudioDescriptions = mempty,
-      _esOutputGroups = mempty,
-      _esTimecodeConfig = pTimecodeConfig_
+    { globalConfiguration =
+        Prelude.Nothing,
+      featureActivations = Prelude.Nothing,
+      availConfiguration = Prelude.Nothing,
+      availBlanking = Prelude.Nothing,
+      nielsenConfiguration = Prelude.Nothing,
+      blackoutSlate = Prelude.Nothing,
+      captionDescriptions = Prelude.Nothing,
+      videoDescriptions = Prelude.mempty,
+      audioDescriptions = Prelude.mempty,
+      outputGroups = Prelude.mempty,
+      timecodeConfig = pTimecodeConfig_
     }
 
 -- | Configuration settings that apply to the event as a whole.
-esGlobalConfiguration :: Lens' EncoderSettings (Maybe GlobalConfiguration)
-esGlobalConfiguration = lens _esGlobalConfiguration (\s a -> s {_esGlobalConfiguration = a})
+encoderSettings_globalConfiguration :: Lens.Lens' EncoderSettings (Prelude.Maybe GlobalConfiguration)
+encoderSettings_globalConfiguration = Lens.lens (\EncoderSettings' {globalConfiguration} -> globalConfiguration) (\s@EncoderSettings' {} a -> s {globalConfiguration = a} :: EncoderSettings)
 
 -- | Feature Activations
-esFeatureActivations :: Lens' EncoderSettings (Maybe FeatureActivations)
-esFeatureActivations = lens _esFeatureActivations (\s a -> s {_esFeatureActivations = a})
+encoderSettings_featureActivations :: Lens.Lens' EncoderSettings (Prelude.Maybe FeatureActivations)
+encoderSettings_featureActivations = Lens.lens (\EncoderSettings' {featureActivations} -> featureActivations) (\s@EncoderSettings' {} a -> s {featureActivations = a} :: EncoderSettings)
 
 -- | Event-wide configuration settings for ad avail insertion.
-esAvailConfiguration :: Lens' EncoderSettings (Maybe AvailConfiguration)
-esAvailConfiguration = lens _esAvailConfiguration (\s a -> s {_esAvailConfiguration = a})
+encoderSettings_availConfiguration :: Lens.Lens' EncoderSettings (Prelude.Maybe AvailConfiguration)
+encoderSettings_availConfiguration = Lens.lens (\EncoderSettings' {availConfiguration} -> availConfiguration) (\s@EncoderSettings' {} a -> s {availConfiguration = a} :: EncoderSettings)
 
 -- | Settings for ad avail blanking.
-esAvailBlanking :: Lens' EncoderSettings (Maybe AvailBlanking)
-esAvailBlanking = lens _esAvailBlanking (\s a -> s {_esAvailBlanking = a})
+encoderSettings_availBlanking :: Lens.Lens' EncoderSettings (Prelude.Maybe AvailBlanking)
+encoderSettings_availBlanking = Lens.lens (\EncoderSettings' {availBlanking} -> availBlanking) (\s@EncoderSettings' {} a -> s {availBlanking = a} :: EncoderSettings)
 
 -- | Nielsen configuration settings.
-esNielsenConfiguration :: Lens' EncoderSettings (Maybe NielsenConfiguration)
-esNielsenConfiguration = lens _esNielsenConfiguration (\s a -> s {_esNielsenConfiguration = a})
+encoderSettings_nielsenConfiguration :: Lens.Lens' EncoderSettings (Prelude.Maybe NielsenConfiguration)
+encoderSettings_nielsenConfiguration = Lens.lens (\EncoderSettings' {nielsenConfiguration} -> nielsenConfiguration) (\s@EncoderSettings' {} a -> s {nielsenConfiguration = a} :: EncoderSettings)
 
 -- | Settings for blackout slate.
-esBlackoutSlate :: Lens' EncoderSettings (Maybe BlackoutSlate)
-esBlackoutSlate = lens _esBlackoutSlate (\s a -> s {_esBlackoutSlate = a})
+encoderSettings_blackoutSlate :: Lens.Lens' EncoderSettings (Prelude.Maybe BlackoutSlate)
+encoderSettings_blackoutSlate = Lens.lens (\EncoderSettings' {blackoutSlate} -> blackoutSlate) (\s@EncoderSettings' {} a -> s {blackoutSlate = a} :: EncoderSettings)
 
 -- | Settings for caption decriptions
-esCaptionDescriptions :: Lens' EncoderSettings [CaptionDescription]
-esCaptionDescriptions = lens _esCaptionDescriptions (\s a -> s {_esCaptionDescriptions = a}) . _Default . _Coerce
+encoderSettings_captionDescriptions :: Lens.Lens' EncoderSettings (Prelude.Maybe [CaptionDescription])
+encoderSettings_captionDescriptions = Lens.lens (\EncoderSettings' {captionDescriptions} -> captionDescriptions) (\s@EncoderSettings' {} a -> s {captionDescriptions = a} :: EncoderSettings) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-esVideoDescriptions :: Lens' EncoderSettings [VideoDescription]
-esVideoDescriptions = lens _esVideoDescriptions (\s a -> s {_esVideoDescriptions = a}) . _Coerce
+encoderSettings_videoDescriptions :: Lens.Lens' EncoderSettings [VideoDescription]
+encoderSettings_videoDescriptions = Lens.lens (\EncoderSettings' {videoDescriptions} -> videoDescriptions) (\s@EncoderSettings' {} a -> s {videoDescriptions = a} :: EncoderSettings) Prelude.. Prelude._Coerce
 
 -- | Undocumented member.
-esAudioDescriptions :: Lens' EncoderSettings [AudioDescription]
-esAudioDescriptions = lens _esAudioDescriptions (\s a -> s {_esAudioDescriptions = a}) . _Coerce
+encoderSettings_audioDescriptions :: Lens.Lens' EncoderSettings [AudioDescription]
+encoderSettings_audioDescriptions = Lens.lens (\EncoderSettings' {audioDescriptions} -> audioDescriptions) (\s@EncoderSettings' {} a -> s {audioDescriptions = a} :: EncoderSettings) Prelude.. Prelude._Coerce
 
 -- | Undocumented member.
-esOutputGroups :: Lens' EncoderSettings [OutputGroup]
-esOutputGroups = lens _esOutputGroups (\s a -> s {_esOutputGroups = a}) . _Coerce
+encoderSettings_outputGroups :: Lens.Lens' EncoderSettings [OutputGroup]
+encoderSettings_outputGroups = Lens.lens (\EncoderSettings' {outputGroups} -> outputGroups) (\s@EncoderSettings' {} a -> s {outputGroups = a} :: EncoderSettings) Prelude.. Prelude._Coerce
 
--- | Contains settings used to acquire and adjust timecode information from inputs.
-esTimecodeConfig :: Lens' EncoderSettings TimecodeConfig
-esTimecodeConfig = lens _esTimecodeConfig (\s a -> s {_esTimecodeConfig = a})
+-- | Contains settings used to acquire and adjust timecode information from
+-- inputs.
+encoderSettings_timecodeConfig :: Lens.Lens' EncoderSettings TimecodeConfig
+encoderSettings_timecodeConfig = Lens.lens (\EncoderSettings' {timecodeConfig} -> timecodeConfig) (\s@EncoderSettings' {} a -> s {timecodeConfig = a} :: EncoderSettings)
 
-instance FromJSON EncoderSettings where
+instance Prelude.FromJSON EncoderSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EncoderSettings"
       ( \x ->
           EncoderSettings'
-            <$> (x .:? "globalConfiguration")
-            <*> (x .:? "featureActivations")
-            <*> (x .:? "availConfiguration")
-            <*> (x .:? "availBlanking")
-            <*> (x .:? "nielsenConfiguration")
-            <*> (x .:? "blackoutSlate")
-            <*> (x .:? "captionDescriptions" .!= mempty)
-            <*> (x .:? "videoDescriptions" .!= mempty)
-            <*> (x .:? "audioDescriptions" .!= mempty)
-            <*> (x .:? "outputGroups" .!= mempty)
-            <*> (x .: "timecodeConfig")
+            Prelude.<$> (x Prelude..:? "globalConfiguration")
+            Prelude.<*> (x Prelude..:? "featureActivations")
+            Prelude.<*> (x Prelude..:? "availConfiguration")
+            Prelude.<*> (x Prelude..:? "availBlanking")
+            Prelude.<*> (x Prelude..:? "nielsenConfiguration")
+            Prelude.<*> (x Prelude..:? "blackoutSlate")
+            Prelude.<*> ( x Prelude..:? "captionDescriptions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "videoDescriptions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "audioDescriptions"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "outputGroups"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "timecodeConfig")
       )
 
-instance Hashable EncoderSettings
+instance Prelude.Hashable EncoderSettings
 
-instance NFData EncoderSettings
+instance Prelude.NFData EncoderSettings
 
-instance ToJSON EncoderSettings where
+instance Prelude.ToJSON EncoderSettings where
   toJSON EncoderSettings' {..} =
-    object
-      ( catMaybes
-          [ ("globalConfiguration" .=)
-              <$> _esGlobalConfiguration,
-            ("featureActivations" .=) <$> _esFeatureActivations,
-            ("availConfiguration" .=) <$> _esAvailConfiguration,
-            ("availBlanking" .=) <$> _esAvailBlanking,
-            ("nielsenConfiguration" .=)
-              <$> _esNielsenConfiguration,
-            ("blackoutSlate" .=) <$> _esBlackoutSlate,
-            ("captionDescriptions" .=)
-              <$> _esCaptionDescriptions,
-            Just ("videoDescriptions" .= _esVideoDescriptions),
-            Just ("audioDescriptions" .= _esAudioDescriptions),
-            Just ("outputGroups" .= _esOutputGroups),
-            Just ("timecodeConfig" .= _esTimecodeConfig)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("globalConfiguration" Prelude..=)
+              Prelude.<$> globalConfiguration,
+            ("featureActivations" Prelude..=)
+              Prelude.<$> featureActivations,
+            ("availConfiguration" Prelude..=)
+              Prelude.<$> availConfiguration,
+            ("availBlanking" Prelude..=)
+              Prelude.<$> availBlanking,
+            ("nielsenConfiguration" Prelude..=)
+              Prelude.<$> nielsenConfiguration,
+            ("blackoutSlate" Prelude..=)
+              Prelude.<$> blackoutSlate,
+            ("captionDescriptions" Prelude..=)
+              Prelude.<$> captionDescriptions,
+            Prelude.Just
+              ("videoDescriptions" Prelude..= videoDescriptions),
+            Prelude.Just
+              ("audioDescriptions" Prelude..= audioDescriptions),
+            Prelude.Just
+              ("outputGroups" Prelude..= outputGroups),
+            Prelude.Just
+              ("timecodeConfig" Prelude..= timecodeConfig)
           ]
       )

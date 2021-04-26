@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,69 @@
 module Network.AWS.MediaLive.Types.AudioOnlyHlsTrackType
   ( AudioOnlyHlsTrackType
       ( ..,
-        AlternateAudioAutoSelect,
-        AlternateAudioAutoSelectDefault,
-        AlternateAudioNotAutoSelect,
-        AudioOnlyVariantStream
+        AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECT,
+        AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECTDEFAULT,
+        AudioOnlyHlsTrackTypeALTERNATEAUDIONOTAUTOSELECT,
+        AudioOnlyHlsTrackTypeAUDIOONLYVARIANTSTREAM
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Only Hls Track Type
-data AudioOnlyHlsTrackType
-  = AudioOnlyHlsTrackType'
-      ( CI
-          Text
-      )
+newtype AudioOnlyHlsTrackType = AudioOnlyHlsTrackType'
+  { fromAudioOnlyHlsTrackType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AlternateAudioAutoSelect :: AudioOnlyHlsTrackType
-pattern AlternateAudioAutoSelect = AudioOnlyHlsTrackType' "ALTERNATE_AUDIO_AUTO_SELECT"
+pattern AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECT :: AudioOnlyHlsTrackType
+pattern AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECT = AudioOnlyHlsTrackType' "ALTERNATE_AUDIO_AUTO_SELECT"
 
-pattern AlternateAudioAutoSelectDefault :: AudioOnlyHlsTrackType
-pattern AlternateAudioAutoSelectDefault = AudioOnlyHlsTrackType' "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT"
+pattern AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECTDEFAULT :: AudioOnlyHlsTrackType
+pattern AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECTDEFAULT = AudioOnlyHlsTrackType' "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT"
 
-pattern AlternateAudioNotAutoSelect :: AudioOnlyHlsTrackType
-pattern AlternateAudioNotAutoSelect = AudioOnlyHlsTrackType' "ALTERNATE_AUDIO_NOT_AUTO_SELECT"
+pattern AudioOnlyHlsTrackTypeALTERNATEAUDIONOTAUTOSELECT :: AudioOnlyHlsTrackType
+pattern AudioOnlyHlsTrackTypeALTERNATEAUDIONOTAUTOSELECT = AudioOnlyHlsTrackType' "ALTERNATE_AUDIO_NOT_AUTO_SELECT"
 
-pattern AudioOnlyVariantStream :: AudioOnlyHlsTrackType
-pattern AudioOnlyVariantStream = AudioOnlyHlsTrackType' "AUDIO_ONLY_VARIANT_STREAM"
+pattern AudioOnlyHlsTrackTypeAUDIOONLYVARIANTSTREAM :: AudioOnlyHlsTrackType
+pattern AudioOnlyHlsTrackTypeAUDIOONLYVARIANTSTREAM = AudioOnlyHlsTrackType' "AUDIO_ONLY_VARIANT_STREAM"
 
 {-# COMPLETE
-  AlternateAudioAutoSelect,
-  AlternateAudioAutoSelectDefault,
-  AlternateAudioNotAutoSelect,
-  AudioOnlyVariantStream,
+  AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECT,
+  AudioOnlyHlsTrackTypeALTERNATEAUDIOAUTOSELECTDEFAULT,
+  AudioOnlyHlsTrackTypeALTERNATEAUDIONOTAUTOSELECT,
+  AudioOnlyHlsTrackTypeAUDIOONLYVARIANTSTREAM,
   AudioOnlyHlsTrackType'
   #-}
 
-instance FromText AudioOnlyHlsTrackType where
-  parser = (AudioOnlyHlsTrackType' . mk) <$> takeText
+instance Prelude.FromText AudioOnlyHlsTrackType where
+  parser = AudioOnlyHlsTrackType' Prelude.<$> Prelude.takeText
 
-instance ToText AudioOnlyHlsTrackType where
-  toText (AudioOnlyHlsTrackType' ci) = original ci
+instance Prelude.ToText AudioOnlyHlsTrackType where
+  toText (AudioOnlyHlsTrackType' x) = x
 
-instance Hashable AudioOnlyHlsTrackType
+instance Prelude.Hashable AudioOnlyHlsTrackType
 
-instance NFData AudioOnlyHlsTrackType
+instance Prelude.NFData AudioOnlyHlsTrackType
 
-instance ToByteString AudioOnlyHlsTrackType
+instance Prelude.ToByteString AudioOnlyHlsTrackType
 
-instance ToQuery AudioOnlyHlsTrackType
+instance Prelude.ToQuery AudioOnlyHlsTrackType
 
-instance ToHeader AudioOnlyHlsTrackType
+instance Prelude.ToHeader AudioOnlyHlsTrackType
 
-instance ToJSON AudioOnlyHlsTrackType where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioOnlyHlsTrackType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioOnlyHlsTrackType where
-  parseJSON = parseJSONText "AudioOnlyHlsTrackType"
+instance Prelude.FromJSON AudioOnlyHlsTrackType where
+  parseJSON = Prelude.parseJSONText "AudioOnlyHlsTrackType"

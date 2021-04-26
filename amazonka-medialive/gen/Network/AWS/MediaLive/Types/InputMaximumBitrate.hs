@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,65 @@
 module Network.AWS.MediaLive.Types.InputMaximumBitrate
   ( InputMaximumBitrate
       ( ..,
-        Max10Mbps,
-        Max20Mbps,
-        Max50Mbps
+        InputMaximumBitrateMAX10MBPS,
+        InputMaximumBitrateMAX20MBPS,
+        InputMaximumBitrateMAX50MBPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Maximum input bitrate in megabits per second. Bitrates up to 50 Mbps are supported currently.
-data InputMaximumBitrate
-  = InputMaximumBitrate'
-      ( CI
-          Text
-      )
+-- | Maximum input bitrate in megabits per second. Bitrates up to 50 Mbps are
+-- supported currently.
+newtype InputMaximumBitrate = InputMaximumBitrate'
+  { fromInputMaximumBitrate ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Max10Mbps :: InputMaximumBitrate
-pattern Max10Mbps = InputMaximumBitrate' "MAX_10_MBPS"
+pattern InputMaximumBitrateMAX10MBPS :: InputMaximumBitrate
+pattern InputMaximumBitrateMAX10MBPS = InputMaximumBitrate' "MAX_10_MBPS"
 
-pattern Max20Mbps :: InputMaximumBitrate
-pattern Max20Mbps = InputMaximumBitrate' "MAX_20_MBPS"
+pattern InputMaximumBitrateMAX20MBPS :: InputMaximumBitrate
+pattern InputMaximumBitrateMAX20MBPS = InputMaximumBitrate' "MAX_20_MBPS"
 
-pattern Max50Mbps :: InputMaximumBitrate
-pattern Max50Mbps = InputMaximumBitrate' "MAX_50_MBPS"
+pattern InputMaximumBitrateMAX50MBPS :: InputMaximumBitrate
+pattern InputMaximumBitrateMAX50MBPS = InputMaximumBitrate' "MAX_50_MBPS"
 
 {-# COMPLETE
-  Max10Mbps,
-  Max20Mbps,
-  Max50Mbps,
+  InputMaximumBitrateMAX10MBPS,
+  InputMaximumBitrateMAX20MBPS,
+  InputMaximumBitrateMAX50MBPS,
   InputMaximumBitrate'
   #-}
 
-instance FromText InputMaximumBitrate where
-  parser = (InputMaximumBitrate' . mk) <$> takeText
+instance Prelude.FromText InputMaximumBitrate where
+  parser = InputMaximumBitrate' Prelude.<$> Prelude.takeText
 
-instance ToText InputMaximumBitrate where
-  toText (InputMaximumBitrate' ci) = original ci
+instance Prelude.ToText InputMaximumBitrate where
+  toText (InputMaximumBitrate' x) = x
 
-instance Hashable InputMaximumBitrate
+instance Prelude.Hashable InputMaximumBitrate
 
-instance NFData InputMaximumBitrate
+instance Prelude.NFData InputMaximumBitrate
 
-instance ToByteString InputMaximumBitrate
+instance Prelude.ToByteString InputMaximumBitrate
 
-instance ToQuery InputMaximumBitrate
+instance Prelude.ToQuery InputMaximumBitrate
 
-instance ToHeader InputMaximumBitrate
+instance Prelude.ToHeader InputMaximumBitrate
 
-instance ToJSON InputMaximumBitrate where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputMaximumBitrate where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputMaximumBitrate where
-  parseJSON = parseJSONText "InputMaximumBitrate"
+instance Prelude.FromJSON InputMaximumBitrate where
+  parseJSON = Prelude.parseJSONText "InputMaximumBitrate"

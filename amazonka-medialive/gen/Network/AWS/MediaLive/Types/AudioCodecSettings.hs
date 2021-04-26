@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,113 +19,111 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioCodecSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AacSettings
 import Network.AWS.MediaLive.Types.Ac3Settings
 import Network.AWS.MediaLive.Types.Eac3Settings
 import Network.AWS.MediaLive.Types.Mp2Settings
 import Network.AWS.MediaLive.Types.PassThroughSettings
 import Network.AWS.MediaLive.Types.WavSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Codec Settings
 --
--- /See:/ 'audioCodecSettings' smart constructor.
+-- /See:/ 'newAudioCodecSettings' smart constructor.
 data AudioCodecSettings = AudioCodecSettings'
-  { _acsAc3Settings ::
-      !(Maybe Ac3Settings),
-    _acsMp2Settings ::
-      !(Maybe Mp2Settings),
-    _acsPassThroughSettings ::
-      !(Maybe PassThroughSettings),
-    _acsEac3Settings ::
-      !(Maybe Eac3Settings),
-    _acsAacSettings ::
-      !(Maybe AacSettings),
-    _acsWavSettings ::
-      !(Maybe WavSettings)
+  { ac3Settings :: Prelude.Maybe Ac3Settings,
+    mp2Settings :: Prelude.Maybe Mp2Settings,
+    passThroughSettings :: Prelude.Maybe PassThroughSettings,
+    eac3Settings :: Prelude.Maybe Eac3Settings,
+    aacSettings :: Prelude.Maybe AacSettings,
+    wavSettings :: Prelude.Maybe WavSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioCodecSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioCodecSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acsAc3Settings' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acsMp2Settings' - Undocumented member.
+-- 'ac3Settings', 'audioCodecSettings_ac3Settings' - Undocumented member.
 --
--- * 'acsPassThroughSettings' - Undocumented member.
+-- 'mp2Settings', 'audioCodecSettings_mp2Settings' - Undocumented member.
 --
--- * 'acsEac3Settings' - Undocumented member.
+-- 'passThroughSettings', 'audioCodecSettings_passThroughSettings' - Undocumented member.
 --
--- * 'acsAacSettings' - Undocumented member.
+-- 'eac3Settings', 'audioCodecSettings_eac3Settings' - Undocumented member.
 --
--- * 'acsWavSettings' - Undocumented member.
-audioCodecSettings ::
+-- 'aacSettings', 'audioCodecSettings_aacSettings' - Undocumented member.
+--
+-- 'wavSettings', 'audioCodecSettings_wavSettings' - Undocumented member.
+newAudioCodecSettings ::
   AudioCodecSettings
-audioCodecSettings =
+newAudioCodecSettings =
   AudioCodecSettings'
-    { _acsAc3Settings = Nothing,
-      _acsMp2Settings = Nothing,
-      _acsPassThroughSettings = Nothing,
-      _acsEac3Settings = Nothing,
-      _acsAacSettings = Nothing,
-      _acsWavSettings = Nothing
+    { ac3Settings = Prelude.Nothing,
+      mp2Settings = Prelude.Nothing,
+      passThroughSettings = Prelude.Nothing,
+      eac3Settings = Prelude.Nothing,
+      aacSettings = Prelude.Nothing,
+      wavSettings = Prelude.Nothing
     }
 
 -- | Undocumented member.
-acsAc3Settings :: Lens' AudioCodecSettings (Maybe Ac3Settings)
-acsAc3Settings = lens _acsAc3Settings (\s a -> s {_acsAc3Settings = a})
+audioCodecSettings_ac3Settings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Ac3Settings)
+audioCodecSettings_ac3Settings = Lens.lens (\AudioCodecSettings' {ac3Settings} -> ac3Settings) (\s@AudioCodecSettings' {} a -> s {ac3Settings = a} :: AudioCodecSettings)
 
 -- | Undocumented member.
-acsMp2Settings :: Lens' AudioCodecSettings (Maybe Mp2Settings)
-acsMp2Settings = lens _acsMp2Settings (\s a -> s {_acsMp2Settings = a})
+audioCodecSettings_mp2Settings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Mp2Settings)
+audioCodecSettings_mp2Settings = Lens.lens (\AudioCodecSettings' {mp2Settings} -> mp2Settings) (\s@AudioCodecSettings' {} a -> s {mp2Settings = a} :: AudioCodecSettings)
 
 -- | Undocumented member.
-acsPassThroughSettings :: Lens' AudioCodecSettings (Maybe PassThroughSettings)
-acsPassThroughSettings = lens _acsPassThroughSettings (\s a -> s {_acsPassThroughSettings = a})
+audioCodecSettings_passThroughSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe PassThroughSettings)
+audioCodecSettings_passThroughSettings = Lens.lens (\AudioCodecSettings' {passThroughSettings} -> passThroughSettings) (\s@AudioCodecSettings' {} a -> s {passThroughSettings = a} :: AudioCodecSettings)
 
 -- | Undocumented member.
-acsEac3Settings :: Lens' AudioCodecSettings (Maybe Eac3Settings)
-acsEac3Settings = lens _acsEac3Settings (\s a -> s {_acsEac3Settings = a})
+audioCodecSettings_eac3Settings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe Eac3Settings)
+audioCodecSettings_eac3Settings = Lens.lens (\AudioCodecSettings' {eac3Settings} -> eac3Settings) (\s@AudioCodecSettings' {} a -> s {eac3Settings = a} :: AudioCodecSettings)
 
 -- | Undocumented member.
-acsAacSettings :: Lens' AudioCodecSettings (Maybe AacSettings)
-acsAacSettings = lens _acsAacSettings (\s a -> s {_acsAacSettings = a})
+audioCodecSettings_aacSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe AacSettings)
+audioCodecSettings_aacSettings = Lens.lens (\AudioCodecSettings' {aacSettings} -> aacSettings) (\s@AudioCodecSettings' {} a -> s {aacSettings = a} :: AudioCodecSettings)
 
 -- | Undocumented member.
-acsWavSettings :: Lens' AudioCodecSettings (Maybe WavSettings)
-acsWavSettings = lens _acsWavSettings (\s a -> s {_acsWavSettings = a})
+audioCodecSettings_wavSettings :: Lens.Lens' AudioCodecSettings (Prelude.Maybe WavSettings)
+audioCodecSettings_wavSettings = Lens.lens (\AudioCodecSettings' {wavSettings} -> wavSettings) (\s@AudioCodecSettings' {} a -> s {wavSettings = a} :: AudioCodecSettings)
 
-instance FromJSON AudioCodecSettings where
+instance Prelude.FromJSON AudioCodecSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioCodecSettings"
       ( \x ->
           AudioCodecSettings'
-            <$> (x .:? "ac3Settings")
-            <*> (x .:? "mp2Settings")
-            <*> (x .:? "passThroughSettings")
-            <*> (x .:? "eac3Settings")
-            <*> (x .:? "aacSettings")
-            <*> (x .:? "wavSettings")
+            Prelude.<$> (x Prelude..:? "ac3Settings")
+            Prelude.<*> (x Prelude..:? "mp2Settings")
+            Prelude.<*> (x Prelude..:? "passThroughSettings")
+            Prelude.<*> (x Prelude..:? "eac3Settings")
+            Prelude.<*> (x Prelude..:? "aacSettings")
+            Prelude.<*> (x Prelude..:? "wavSettings")
       )
 
-instance Hashable AudioCodecSettings
+instance Prelude.Hashable AudioCodecSettings
 
-instance NFData AudioCodecSettings
+instance Prelude.NFData AudioCodecSettings
 
-instance ToJSON AudioCodecSettings where
+instance Prelude.ToJSON AudioCodecSettings where
   toJSON AudioCodecSettings' {..} =
-    object
-      ( catMaybes
-          [ ("ac3Settings" .=) <$> _acsAc3Settings,
-            ("mp2Settings" .=) <$> _acsMp2Settings,
-            ("passThroughSettings" .=)
-              <$> _acsPassThroughSettings,
-            ("eac3Settings" .=) <$> _acsEac3Settings,
-            ("aacSettings" .=) <$> _acsAacSettings,
-            ("wavSettings" .=) <$> _acsWavSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ac3Settings" Prelude..=) Prelude.<$> ac3Settings,
+            ("mp2Settings" Prelude..=) Prelude.<$> mp2Settings,
+            ("passThroughSettings" Prelude..=)
+              Prelude.<$> passThroughSettings,
+            ("eac3Settings" Prelude..=) Prelude.<$> eac3Settings,
+            ("aacSettings" Prelude..=) Prelude.<$> aacSettings,
+            ("wavSettings" Prelude..=) Prelude.<$> wavSettings
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,41 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioTrack where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Track
 --
--- /See:/ 'audioTrack' smart constructor.
-newtype AudioTrack = AudioTrack' {_atTrack :: Nat}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newAudioTrack' smart constructor.
+data AudioTrack = AudioTrack'
+  { -- | 1-based integer value that maps to a specific audio track
+    track :: Prelude.Nat
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioTrack' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioTrack' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atTrack' - 1-based integer value that maps to a specific audio track
-audioTrack ::
-  -- | 'atTrack'
-  Natural ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'track', 'audioTrack_track' - 1-based integer value that maps to a specific audio track
+newAudioTrack ::
+  -- | 'track'
+  Prelude.Natural ->
   AudioTrack
-audioTrack pTrack_ =
-  AudioTrack' {_atTrack = _Nat # pTrack_}
+newAudioTrack pTrack_ =
+  AudioTrack' {track = Prelude._Nat Lens.# pTrack_}
 
 -- | 1-based integer value that maps to a specific audio track
-atTrack :: Lens' AudioTrack Natural
-atTrack = lens _atTrack (\s a -> s {_atTrack = a}) . _Nat
+audioTrack_track :: Lens.Lens' AudioTrack Prelude.Natural
+audioTrack_track = Lens.lens (\AudioTrack' {track} -> track) (\s@AudioTrack' {} a -> s {track = a} :: AudioTrack) Prelude.. Prelude._Nat
 
-instance FromJSON AudioTrack where
+instance Prelude.FromJSON AudioTrack where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioTrack"
-      (\x -> AudioTrack' <$> (x .: "track"))
+      ( \x ->
+          AudioTrack' Prelude.<$> (x Prelude..: "track")
+      )
 
-instance Hashable AudioTrack
+instance Prelude.Hashable AudioTrack
 
-instance NFData AudioTrack
+instance Prelude.NFData AudioTrack
 
-instance ToJSON AudioTrack where
+instance Prelude.ToJSON AudioTrack where
   toJSON AudioTrack' {..} =
-    object (catMaybes [Just ("track" .= _atTrack)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("track" Prelude..= track)]
+      )

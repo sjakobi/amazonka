@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,57 @@
 module Network.AWS.MediaLive.Types.InputClass
   ( InputClass
       ( ..,
-        ICSinglePipeline,
-        ICStandard
+        InputClassSINGLEPIPELINE,
+        InputClassSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | A standard input has two sources and a single pipeline input only has one.
-data InputClass = InputClass' (CI Text)
+-- | A standard input has two sources and a single pipeline input only has
+-- one.
+newtype InputClass = InputClass'
+  { fromInputClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ICSinglePipeline :: InputClass
-pattern ICSinglePipeline = InputClass' "SINGLE_PIPELINE"
+pattern InputClassSINGLEPIPELINE :: InputClass
+pattern InputClassSINGLEPIPELINE = InputClass' "SINGLE_PIPELINE"
 
-pattern ICStandard :: InputClass
-pattern ICStandard = InputClass' "STANDARD"
+pattern InputClassSTANDARD :: InputClass
+pattern InputClassSTANDARD = InputClass' "STANDARD"
 
 {-# COMPLETE
-  ICSinglePipeline,
-  ICStandard,
+  InputClassSINGLEPIPELINE,
+  InputClassSTANDARD,
   InputClass'
   #-}
 
-instance FromText InputClass where
-  parser = (InputClass' . mk) <$> takeText
+instance Prelude.FromText InputClass where
+  parser = InputClass' Prelude.<$> Prelude.takeText
 
-instance ToText InputClass where
-  toText (InputClass' ci) = original ci
+instance Prelude.ToText InputClass where
+  toText (InputClass' x) = x
 
-instance Hashable InputClass
+instance Prelude.Hashable InputClass
 
-instance NFData InputClass
+instance Prelude.NFData InputClass
 
-instance ToByteString InputClass
+instance Prelude.ToByteString InputClass
 
-instance ToQuery InputClass
+instance Prelude.ToQuery InputClass
 
-instance ToHeader InputClass
+instance Prelude.ToHeader InputClass
 
-instance FromJSON InputClass where
-  parseJSON = parseJSONText "InputClass"
+instance Prelude.FromJSON InputClass where
+  parseJSON = Prelude.parseJSONText "InputClass"

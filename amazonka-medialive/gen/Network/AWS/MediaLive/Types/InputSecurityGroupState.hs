@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.MediaLive.Types.InputSecurityGroupState
   ( InputSecurityGroupState
       ( ..,
-        ISGSDeleted,
-        ISGSIdle,
-        ISGSInUse,
-        ISGSUpdating
+        InputSecurityGroupStateDELETED,
+        InputSecurityGroupStateIDLE,
+        InputSecurityGroupStateINUSE,
+        InputSecurityGroupStateUPDATING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for InputSecurityGroupState
-data InputSecurityGroupState
-  = InputSecurityGroupState'
-      ( CI
-          Text
-      )
+newtype InputSecurityGroupState = InputSecurityGroupState'
+  { fromInputSecurityGroupState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISGSDeleted :: InputSecurityGroupState
-pattern ISGSDeleted = InputSecurityGroupState' "DELETED"
+pattern InputSecurityGroupStateDELETED :: InputSecurityGroupState
+pattern InputSecurityGroupStateDELETED = InputSecurityGroupState' "DELETED"
 
-pattern ISGSIdle :: InputSecurityGroupState
-pattern ISGSIdle = InputSecurityGroupState' "IDLE"
+pattern InputSecurityGroupStateIDLE :: InputSecurityGroupState
+pattern InputSecurityGroupStateIDLE = InputSecurityGroupState' "IDLE"
 
-pattern ISGSInUse :: InputSecurityGroupState
-pattern ISGSInUse = InputSecurityGroupState' "IN_USE"
+pattern InputSecurityGroupStateINUSE :: InputSecurityGroupState
+pattern InputSecurityGroupStateINUSE = InputSecurityGroupState' "IN_USE"
 
-pattern ISGSUpdating :: InputSecurityGroupState
-pattern ISGSUpdating = InputSecurityGroupState' "UPDATING"
+pattern InputSecurityGroupStateUPDATING :: InputSecurityGroupState
+pattern InputSecurityGroupStateUPDATING = InputSecurityGroupState' "UPDATING"
 
 {-# COMPLETE
-  ISGSDeleted,
-  ISGSIdle,
-  ISGSInUse,
-  ISGSUpdating,
+  InputSecurityGroupStateDELETED,
+  InputSecurityGroupStateIDLE,
+  InputSecurityGroupStateINUSE,
+  InputSecurityGroupStateUPDATING,
   InputSecurityGroupState'
   #-}
 
-instance FromText InputSecurityGroupState where
-  parser = (InputSecurityGroupState' . mk) <$> takeText
+instance Prelude.FromText InputSecurityGroupState where
+  parser = InputSecurityGroupState' Prelude.<$> Prelude.takeText
 
-instance ToText InputSecurityGroupState where
-  toText (InputSecurityGroupState' ci) = original ci
+instance Prelude.ToText InputSecurityGroupState where
+  toText (InputSecurityGroupState' x) = x
 
-instance Hashable InputSecurityGroupState
+instance Prelude.Hashable InputSecurityGroupState
 
-instance NFData InputSecurityGroupState
+instance Prelude.NFData InputSecurityGroupState
 
-instance ToByteString InputSecurityGroupState
+instance Prelude.ToByteString InputSecurityGroupState
 
-instance ToQuery InputSecurityGroupState
+instance Prelude.ToQuery InputSecurityGroupState
 
-instance ToHeader InputSecurityGroupState
+instance Prelude.ToHeader InputSecurityGroupState
 
-instance FromJSON InputSecurityGroupState where
-  parseJSON = parseJSONText "InputSecurityGroupState"
+instance Prelude.FromJSON InputSecurityGroupState where
+  parseJSON = Prelude.parseJSONText "InputSecurityGroupState"

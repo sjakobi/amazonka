@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.H264ForceFieldPictures
   ( H264ForceFieldPictures
       ( ..,
-        HFFPDisabled,
-        HFFPEnabled
+        H264ForceFieldPicturesDISABLED,
+        H264ForceFieldPicturesENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Force Field Pictures
-data H264ForceFieldPictures
-  = H264ForceFieldPictures'
-      ( CI
-          Text
-      )
+newtype H264ForceFieldPictures = H264ForceFieldPictures'
+  { fromH264ForceFieldPictures ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HFFPDisabled :: H264ForceFieldPictures
-pattern HFFPDisabled = H264ForceFieldPictures' "DISABLED"
+pattern H264ForceFieldPicturesDISABLED :: H264ForceFieldPictures
+pattern H264ForceFieldPicturesDISABLED = H264ForceFieldPictures' "DISABLED"
 
-pattern HFFPEnabled :: H264ForceFieldPictures
-pattern HFFPEnabled = H264ForceFieldPictures' "ENABLED"
+pattern H264ForceFieldPicturesENABLED :: H264ForceFieldPictures
+pattern H264ForceFieldPicturesENABLED = H264ForceFieldPictures' "ENABLED"
 
 {-# COMPLETE
-  HFFPDisabled,
-  HFFPEnabled,
+  H264ForceFieldPicturesDISABLED,
+  H264ForceFieldPicturesENABLED,
   H264ForceFieldPictures'
   #-}
 
-instance FromText H264ForceFieldPictures where
-  parser = (H264ForceFieldPictures' . mk) <$> takeText
+instance Prelude.FromText H264ForceFieldPictures where
+  parser = H264ForceFieldPictures' Prelude.<$> Prelude.takeText
 
-instance ToText H264ForceFieldPictures where
-  toText (H264ForceFieldPictures' ci) = original ci
+instance Prelude.ToText H264ForceFieldPictures where
+  toText (H264ForceFieldPictures' x) = x
 
-instance Hashable H264ForceFieldPictures
+instance Prelude.Hashable H264ForceFieldPictures
 
-instance NFData H264ForceFieldPictures
+instance Prelude.NFData H264ForceFieldPictures
 
-instance ToByteString H264ForceFieldPictures
+instance Prelude.ToByteString H264ForceFieldPictures
 
-instance ToQuery H264ForceFieldPictures
+instance Prelude.ToQuery H264ForceFieldPictures
 
-instance ToHeader H264ForceFieldPictures
+instance Prelude.ToHeader H264ForceFieldPictures
 
-instance ToJSON H264ForceFieldPictures where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264ForceFieldPictures where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264ForceFieldPictures where
-  parseJSON = parseJSONText "H264ForceFieldPictures"
+instance Prelude.FromJSON H264ForceFieldPictures where
+  parseJSON = Prelude.parseJSONText "H264ForceFieldPictures"

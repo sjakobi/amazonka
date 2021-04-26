@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,43 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.DvbTdtSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | DVB Time and Date Table (SDT)
 --
--- /See:/ 'dvbTdtSettings' smart constructor.
-newtype DvbTdtSettings = DvbTdtSettings'
-  { _dtsRepInterval ::
-      Maybe Nat
+-- /See:/ 'newDvbTdtSettings' smart constructor.
+data DvbTdtSettings = DvbTdtSettings'
+  { -- | The number of milliseconds between instances of this table in the output
+    -- transport stream.
+    repInterval :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DvbTdtSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DvbTdtSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtsRepInterval' - The number of milliseconds between instances of this table in the output transport stream.
-dvbTdtSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'repInterval', 'dvbTdtSettings_repInterval' - The number of milliseconds between instances of this table in the output
+-- transport stream.
+newDvbTdtSettings ::
   DvbTdtSettings
-dvbTdtSettings =
-  DvbTdtSettings' {_dtsRepInterval = Nothing}
+newDvbTdtSettings =
+  DvbTdtSettings' {repInterval = Prelude.Nothing}
 
--- | The number of milliseconds between instances of this table in the output transport stream.
-dtsRepInterval :: Lens' DvbTdtSettings (Maybe Natural)
-dtsRepInterval = lens _dtsRepInterval (\s a -> s {_dtsRepInterval = a}) . mapping _Nat
+-- | The number of milliseconds between instances of this table in the output
+-- transport stream.
+dvbTdtSettings_repInterval :: Lens.Lens' DvbTdtSettings (Prelude.Maybe Prelude.Natural)
+dvbTdtSettings_repInterval = Lens.lens (\DvbTdtSettings' {repInterval} -> repInterval) (\s@DvbTdtSettings' {} a -> s {repInterval = a} :: DvbTdtSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON DvbTdtSettings where
+instance Prelude.FromJSON DvbTdtSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DvbTdtSettings"
-      (\x -> DvbTdtSettings' <$> (x .:? "repInterval"))
+      ( \x ->
+          DvbTdtSettings'
+            Prelude.<$> (x Prelude..:? "repInterval")
+      )
 
-instance Hashable DvbTdtSettings
+instance Prelude.Hashable DvbTdtSettings
 
-instance NFData DvbTdtSettings
+instance Prelude.NFData DvbTdtSettings
 
-instance ToJSON DvbTdtSettings where
+instance Prelude.ToJSON DvbTdtSettings where
   toJSON DvbTdtSettings' {..} =
-    object
-      (catMaybes [("repInterval" .=) <$> _dtsRepInterval])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("repInterval" Prelude..=) Prelude.<$> repInterval]
+      )

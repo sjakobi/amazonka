@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,98 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Fmp4HlsSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.Fmp4NielsenId3Behavior
 import Network.AWS.MediaLive.Types.Fmp4TimedMetadataBehavior
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Fmp4 Hls Settings
 --
--- /See:/ 'fmp4HlsSettings' smart constructor.
+-- /See:/ 'newFmp4HlsSettings' smart constructor.
 data Fmp4HlsSettings = Fmp4HlsSettings'
-  { _fhsAudioRenditionSets ::
-      !(Maybe Text),
-    _fhsNielsenId3Behavior ::
-      !(Maybe Fmp4NielsenId3Behavior),
-    _fhsTimedMetadataBehavior ::
-      !(Maybe Fmp4TimedMetadataBehavior)
+  { -- | List all the audio groups that are used with the video output stream.
+    -- Input all the audio GROUP-IDs that are associated to the video, separate
+    -- by \',\'.
+    audioRenditionSets :: Prelude.Maybe Prelude.Text,
+    -- | If set to passthrough, Nielsen inaudible tones for media tracking will
+    -- be detected in the input audio and an equivalent ID3 tag will be
+    -- inserted in the output.
+    nielsenId3Behavior :: Prelude.Maybe Fmp4NielsenId3Behavior,
+    -- | When set to passthrough, timed metadata is passed through from input to
+    -- output.
+    timedMetadataBehavior :: Prelude.Maybe Fmp4TimedMetadataBehavior
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Fmp4HlsSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Fmp4HlsSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fhsAudioRenditionSets' - List all the audio groups that are used with the video output stream. Input all the audio GROUP-IDs that are associated to the video, separate by ','.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'fhsNielsenId3Behavior' - If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag will be inserted in the output.
+-- 'audioRenditionSets', 'fmp4HlsSettings_audioRenditionSets' - List all the audio groups that are used with the video output stream.
+-- Input all the audio GROUP-IDs that are associated to the video, separate
+-- by \',\'.
 --
--- * 'fhsTimedMetadataBehavior' - When set to passthrough, timed metadata is passed through from input to output.
-fmp4HlsSettings ::
+-- 'nielsenId3Behavior', 'fmp4HlsSettings_nielsenId3Behavior' - If set to passthrough, Nielsen inaudible tones for media tracking will
+-- be detected in the input audio and an equivalent ID3 tag will be
+-- inserted in the output.
+--
+-- 'timedMetadataBehavior', 'fmp4HlsSettings_timedMetadataBehavior' - When set to passthrough, timed metadata is passed through from input to
+-- output.
+newFmp4HlsSettings ::
   Fmp4HlsSettings
-fmp4HlsSettings =
+newFmp4HlsSettings =
   Fmp4HlsSettings'
-    { _fhsAudioRenditionSets = Nothing,
-      _fhsNielsenId3Behavior = Nothing,
-      _fhsTimedMetadataBehavior = Nothing
+    { audioRenditionSets =
+        Prelude.Nothing,
+      nielsenId3Behavior = Prelude.Nothing,
+      timedMetadataBehavior = Prelude.Nothing
     }
 
--- | List all the audio groups that are used with the video output stream. Input all the audio GROUP-IDs that are associated to the video, separate by ','.
-fhsAudioRenditionSets :: Lens' Fmp4HlsSettings (Maybe Text)
-fhsAudioRenditionSets = lens _fhsAudioRenditionSets (\s a -> s {_fhsAudioRenditionSets = a})
+-- | List all the audio groups that are used with the video output stream.
+-- Input all the audio GROUP-IDs that are associated to the video, separate
+-- by \',\'.
+fmp4HlsSettings_audioRenditionSets :: Lens.Lens' Fmp4HlsSettings (Prelude.Maybe Prelude.Text)
+fmp4HlsSettings_audioRenditionSets = Lens.lens (\Fmp4HlsSettings' {audioRenditionSets} -> audioRenditionSets) (\s@Fmp4HlsSettings' {} a -> s {audioRenditionSets = a} :: Fmp4HlsSettings)
 
--- | If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an equivalent ID3 tag will be inserted in the output.
-fhsNielsenId3Behavior :: Lens' Fmp4HlsSettings (Maybe Fmp4NielsenId3Behavior)
-fhsNielsenId3Behavior = lens _fhsNielsenId3Behavior (\s a -> s {_fhsNielsenId3Behavior = a})
+-- | If set to passthrough, Nielsen inaudible tones for media tracking will
+-- be detected in the input audio and an equivalent ID3 tag will be
+-- inserted in the output.
+fmp4HlsSettings_nielsenId3Behavior :: Lens.Lens' Fmp4HlsSettings (Prelude.Maybe Fmp4NielsenId3Behavior)
+fmp4HlsSettings_nielsenId3Behavior = Lens.lens (\Fmp4HlsSettings' {nielsenId3Behavior} -> nielsenId3Behavior) (\s@Fmp4HlsSettings' {} a -> s {nielsenId3Behavior = a} :: Fmp4HlsSettings)
 
--- | When set to passthrough, timed metadata is passed through from input to output.
-fhsTimedMetadataBehavior :: Lens' Fmp4HlsSettings (Maybe Fmp4TimedMetadataBehavior)
-fhsTimedMetadataBehavior = lens _fhsTimedMetadataBehavior (\s a -> s {_fhsTimedMetadataBehavior = a})
+-- | When set to passthrough, timed metadata is passed through from input to
+-- output.
+fmp4HlsSettings_timedMetadataBehavior :: Lens.Lens' Fmp4HlsSettings (Prelude.Maybe Fmp4TimedMetadataBehavior)
+fmp4HlsSettings_timedMetadataBehavior = Lens.lens (\Fmp4HlsSettings' {timedMetadataBehavior} -> timedMetadataBehavior) (\s@Fmp4HlsSettings' {} a -> s {timedMetadataBehavior = a} :: Fmp4HlsSettings)
 
-instance FromJSON Fmp4HlsSettings where
+instance Prelude.FromJSON Fmp4HlsSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Fmp4HlsSettings"
       ( \x ->
           Fmp4HlsSettings'
-            <$> (x .:? "audioRenditionSets")
-            <*> (x .:? "nielsenId3Behavior")
-            <*> (x .:? "timedMetadataBehavior")
+            Prelude.<$> (x Prelude..:? "audioRenditionSets")
+            Prelude.<*> (x Prelude..:? "nielsenId3Behavior")
+            Prelude.<*> (x Prelude..:? "timedMetadataBehavior")
       )
 
-instance Hashable Fmp4HlsSettings
+instance Prelude.Hashable Fmp4HlsSettings
 
-instance NFData Fmp4HlsSettings
+instance Prelude.NFData Fmp4HlsSettings
 
-instance ToJSON Fmp4HlsSettings where
+instance Prelude.ToJSON Fmp4HlsSettings where
   toJSON Fmp4HlsSettings' {..} =
-    object
-      ( catMaybes
-          [ ("audioRenditionSets" .=)
-              <$> _fhsAudioRenditionSets,
-            ("nielsenId3Behavior" .=) <$> _fhsNielsenId3Behavior,
-            ("timedMetadataBehavior" .=)
-              <$> _fhsTimedMetadataBehavior
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("audioRenditionSets" Prelude..=)
+              Prelude.<$> audioRenditionSets,
+            ("nielsenId3Behavior" Prelude..=)
+              Prelude.<$> nielsenId3Behavior,
+            ("timedMetadataBehavior" Prelude..=)
+              Prelude.<$> timedMetadataBehavior
           ]
       )

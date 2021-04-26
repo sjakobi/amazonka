@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Eac3MetadataControl
   ( Eac3MetadataControl
       ( ..,
-        EMCFollowInput,
-        EMCUseConfigured
+        Eac3MetadataControlFOLLOWINPUT,
+        Eac3MetadataControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Eac3 Metadata Control
-data Eac3MetadataControl
-  = Eac3MetadataControl'
-      ( CI
-          Text
-      )
+newtype Eac3MetadataControl = Eac3MetadataControl'
+  { fromEac3MetadataControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EMCFollowInput :: Eac3MetadataControl
-pattern EMCFollowInput = Eac3MetadataControl' "FOLLOW_INPUT"
+pattern Eac3MetadataControlFOLLOWINPUT :: Eac3MetadataControl
+pattern Eac3MetadataControlFOLLOWINPUT = Eac3MetadataControl' "FOLLOW_INPUT"
 
-pattern EMCUseConfigured :: Eac3MetadataControl
-pattern EMCUseConfigured = Eac3MetadataControl' "USE_CONFIGURED"
+pattern Eac3MetadataControlUSECONFIGURED :: Eac3MetadataControl
+pattern Eac3MetadataControlUSECONFIGURED = Eac3MetadataControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  EMCFollowInput,
-  EMCUseConfigured,
+  Eac3MetadataControlFOLLOWINPUT,
+  Eac3MetadataControlUSECONFIGURED,
   Eac3MetadataControl'
   #-}
 
-instance FromText Eac3MetadataControl where
-  parser = (Eac3MetadataControl' . mk) <$> takeText
+instance Prelude.FromText Eac3MetadataControl where
+  parser = Eac3MetadataControl' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3MetadataControl where
-  toText (Eac3MetadataControl' ci) = original ci
+instance Prelude.ToText Eac3MetadataControl where
+  toText (Eac3MetadataControl' x) = x
 
-instance Hashable Eac3MetadataControl
+instance Prelude.Hashable Eac3MetadataControl
 
-instance NFData Eac3MetadataControl
+instance Prelude.NFData Eac3MetadataControl
 
-instance ToByteString Eac3MetadataControl
+instance Prelude.ToByteString Eac3MetadataControl
 
-instance ToQuery Eac3MetadataControl
+instance Prelude.ToQuery Eac3MetadataControl
 
-instance ToHeader Eac3MetadataControl
+instance Prelude.ToHeader Eac3MetadataControl
 
-instance ToJSON Eac3MetadataControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3MetadataControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3MetadataControl where
-  parseJSON = parseJSONText "Eac3MetadataControl"
+instance Prelude.FromJSON Eac3MetadataControl where
+  parseJSON = Prelude.parseJSONText "Eac3MetadataControl"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.SmoothGroupEventStopBehavior
   ( SmoothGroupEventStopBehavior
       ( ..,
-        SGESBNone,
-        SGESBSendEos
+        SmoothGroupEventStopBehaviorNONE,
+        SmoothGroupEventStopBehaviorSENDEOS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Event Stop Behavior
-data SmoothGroupEventStopBehavior
-  = SmoothGroupEventStopBehavior'
-      ( CI
-          Text
-      )
+newtype SmoothGroupEventStopBehavior = SmoothGroupEventStopBehavior'
+  { fromSmoothGroupEventStopBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SGESBNone :: SmoothGroupEventStopBehavior
-pattern SGESBNone = SmoothGroupEventStopBehavior' "NONE"
+pattern SmoothGroupEventStopBehaviorNONE :: SmoothGroupEventStopBehavior
+pattern SmoothGroupEventStopBehaviorNONE = SmoothGroupEventStopBehavior' "NONE"
 
-pattern SGESBSendEos :: SmoothGroupEventStopBehavior
-pattern SGESBSendEos = SmoothGroupEventStopBehavior' "SEND_EOS"
+pattern SmoothGroupEventStopBehaviorSENDEOS :: SmoothGroupEventStopBehavior
+pattern SmoothGroupEventStopBehaviorSENDEOS = SmoothGroupEventStopBehavior' "SEND_EOS"
 
 {-# COMPLETE
-  SGESBNone,
-  SGESBSendEos,
+  SmoothGroupEventStopBehaviorNONE,
+  SmoothGroupEventStopBehaviorSENDEOS,
   SmoothGroupEventStopBehavior'
   #-}
 
-instance FromText SmoothGroupEventStopBehavior where
-  parser = (SmoothGroupEventStopBehavior' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupEventStopBehavior where
+  parser = SmoothGroupEventStopBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupEventStopBehavior where
-  toText (SmoothGroupEventStopBehavior' ci) = original ci
+instance Prelude.ToText SmoothGroupEventStopBehavior where
+  toText (SmoothGroupEventStopBehavior' x) = x
 
-instance Hashable SmoothGroupEventStopBehavior
+instance Prelude.Hashable SmoothGroupEventStopBehavior
 
-instance NFData SmoothGroupEventStopBehavior
+instance Prelude.NFData SmoothGroupEventStopBehavior
 
-instance ToByteString SmoothGroupEventStopBehavior
+instance Prelude.ToByteString SmoothGroupEventStopBehavior
 
-instance ToQuery SmoothGroupEventStopBehavior
+instance Prelude.ToQuery SmoothGroupEventStopBehavior
 
-instance ToHeader SmoothGroupEventStopBehavior
+instance Prelude.ToHeader SmoothGroupEventStopBehavior
 
-instance ToJSON SmoothGroupEventStopBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupEventStopBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupEventStopBehavior where
-  parseJSON = parseJSONText "SmoothGroupEventStopBehavior"
+instance Prelude.FromJSON SmoothGroupEventStopBehavior where
+  parseJSON = Prelude.parseJSONText "SmoothGroupEventStopBehavior"

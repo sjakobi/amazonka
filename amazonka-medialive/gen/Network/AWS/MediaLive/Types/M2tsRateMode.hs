@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsRateMode
   ( M2tsRateMode
       ( ..,
-        MRMCbr,
-        MRMVbr
+        M2tsRateModeCBR,
+        M2tsRateModeVBR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Rate Mode
-data M2tsRateMode = M2tsRateMode' (CI Text)
+newtype M2tsRateMode = M2tsRateMode'
+  { fromM2tsRateMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MRMCbr :: M2tsRateMode
-pattern MRMCbr = M2tsRateMode' "CBR"
+pattern M2tsRateModeCBR :: M2tsRateMode
+pattern M2tsRateModeCBR = M2tsRateMode' "CBR"
 
-pattern MRMVbr :: M2tsRateMode
-pattern MRMVbr = M2tsRateMode' "VBR"
+pattern M2tsRateModeVBR :: M2tsRateMode
+pattern M2tsRateModeVBR = M2tsRateMode' "VBR"
 
 {-# COMPLETE
-  MRMCbr,
-  MRMVbr,
+  M2tsRateModeCBR,
+  M2tsRateModeVBR,
   M2tsRateMode'
   #-}
 
-instance FromText M2tsRateMode where
-  parser = (M2tsRateMode' . mk) <$> takeText
+instance Prelude.FromText M2tsRateMode where
+  parser = M2tsRateMode' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsRateMode where
-  toText (M2tsRateMode' ci) = original ci
+instance Prelude.ToText M2tsRateMode where
+  toText (M2tsRateMode' x) = x
 
-instance Hashable M2tsRateMode
+instance Prelude.Hashable M2tsRateMode
 
-instance NFData M2tsRateMode
+instance Prelude.NFData M2tsRateMode
 
-instance ToByteString M2tsRateMode
+instance Prelude.ToByteString M2tsRateMode
 
-instance ToQuery M2tsRateMode
+instance Prelude.ToQuery M2tsRateMode
 
-instance ToHeader M2tsRateMode
+instance Prelude.ToHeader M2tsRateMode
 
-instance ToJSON M2tsRateMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsRateMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsRateMode where
-  parseJSON = parseJSONText "M2tsRateMode"
+instance Prelude.FromJSON M2tsRateMode where
+  parseJSON = Prelude.parseJSONText "M2tsRateMode"

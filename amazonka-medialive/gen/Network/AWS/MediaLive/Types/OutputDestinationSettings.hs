@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,92 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.OutputDestinationSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for OutputDestinationSettings
 --
--- /See:/ 'outputDestinationSettings' smart constructor.
+-- /See:/ 'newOutputDestinationSettings' smart constructor.
 data OutputDestinationSettings = OutputDestinationSettings'
-  { _odsPasswordParam ::
-      !(Maybe Text),
-    _odsUsername ::
-      !(Maybe Text),
-    _odsStreamName ::
-      !(Maybe Text),
-    _odsURL ::
-      !(Maybe Text)
+  { -- | key used to extract the password from EC2 Parameter store
+    passwordParam :: Prelude.Maybe Prelude.Text,
+    -- | username for destination
+    username :: Prelude.Maybe Prelude.Text,
+    -- | Stream name for RTMP destinations (URLs of type rtmp:\/\/)
+    streamName :: Prelude.Maybe Prelude.Text,
+    -- | A URL specifying a destination
+    url :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputDestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputDestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'odsPasswordParam' - key used to extract the password from EC2 Parameter store
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'odsUsername' - username for destination
+-- 'passwordParam', 'outputDestinationSettings_passwordParam' - key used to extract the password from EC2 Parameter store
 --
--- * 'odsStreamName' - Stream name for RTMP destinations (URLs of type rtmp://)
+-- 'username', 'outputDestinationSettings_username' - username for destination
 --
--- * 'odsURL' - A URL specifying a destination
-outputDestinationSettings ::
+-- 'streamName', 'outputDestinationSettings_streamName' - Stream name for RTMP destinations (URLs of type rtmp:\/\/)
+--
+-- 'url', 'outputDestinationSettings_url' - A URL specifying a destination
+newOutputDestinationSettings ::
   OutputDestinationSettings
-outputDestinationSettings =
+newOutputDestinationSettings =
   OutputDestinationSettings'
-    { _odsPasswordParam =
-        Nothing,
-      _odsUsername = Nothing,
-      _odsStreamName = Nothing,
-      _odsURL = Nothing
+    { passwordParam =
+        Prelude.Nothing,
+      username = Prelude.Nothing,
+      streamName = Prelude.Nothing,
+      url = Prelude.Nothing
     }
 
 -- | key used to extract the password from EC2 Parameter store
-odsPasswordParam :: Lens' OutputDestinationSettings (Maybe Text)
-odsPasswordParam = lens _odsPasswordParam (\s a -> s {_odsPasswordParam = a})
+outputDestinationSettings_passwordParam :: Lens.Lens' OutputDestinationSettings (Prelude.Maybe Prelude.Text)
+outputDestinationSettings_passwordParam = Lens.lens (\OutputDestinationSettings' {passwordParam} -> passwordParam) (\s@OutputDestinationSettings' {} a -> s {passwordParam = a} :: OutputDestinationSettings)
 
 -- | username for destination
-odsUsername :: Lens' OutputDestinationSettings (Maybe Text)
-odsUsername = lens _odsUsername (\s a -> s {_odsUsername = a})
+outputDestinationSettings_username :: Lens.Lens' OutputDestinationSettings (Prelude.Maybe Prelude.Text)
+outputDestinationSettings_username = Lens.lens (\OutputDestinationSettings' {username} -> username) (\s@OutputDestinationSettings' {} a -> s {username = a} :: OutputDestinationSettings)
 
--- | Stream name for RTMP destinations (URLs of type rtmp://)
-odsStreamName :: Lens' OutputDestinationSettings (Maybe Text)
-odsStreamName = lens _odsStreamName (\s a -> s {_odsStreamName = a})
+-- | Stream name for RTMP destinations (URLs of type rtmp:\/\/)
+outputDestinationSettings_streamName :: Lens.Lens' OutputDestinationSettings (Prelude.Maybe Prelude.Text)
+outputDestinationSettings_streamName = Lens.lens (\OutputDestinationSettings' {streamName} -> streamName) (\s@OutputDestinationSettings' {} a -> s {streamName = a} :: OutputDestinationSettings)
 
 -- | A URL specifying a destination
-odsURL :: Lens' OutputDestinationSettings (Maybe Text)
-odsURL = lens _odsURL (\s a -> s {_odsURL = a})
+outputDestinationSettings_url :: Lens.Lens' OutputDestinationSettings (Prelude.Maybe Prelude.Text)
+outputDestinationSettings_url = Lens.lens (\OutputDestinationSettings' {url} -> url) (\s@OutputDestinationSettings' {} a -> s {url = a} :: OutputDestinationSettings)
 
-instance FromJSON OutputDestinationSettings where
+instance Prelude.FromJSON OutputDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputDestinationSettings"
       ( \x ->
           OutputDestinationSettings'
-            <$> (x .:? "passwordParam")
-            <*> (x .:? "username")
-            <*> (x .:? "streamName")
-            <*> (x .:? "url")
+            Prelude.<$> (x Prelude..:? "passwordParam")
+            Prelude.<*> (x Prelude..:? "username")
+            Prelude.<*> (x Prelude..:? "streamName")
+            Prelude.<*> (x Prelude..:? "url")
       )
 
-instance Hashable OutputDestinationSettings
+instance Prelude.Hashable OutputDestinationSettings
 
-instance NFData OutputDestinationSettings
+instance Prelude.NFData OutputDestinationSettings
 
-instance ToJSON OutputDestinationSettings where
+instance Prelude.ToJSON OutputDestinationSettings where
   toJSON OutputDestinationSettings' {..} =
-    object
-      ( catMaybes
-          [ ("passwordParam" .=) <$> _odsPasswordParam,
-            ("username" .=) <$> _odsUsername,
-            ("streamName" .=) <$> _odsStreamName,
-            ("url" .=) <$> _odsURL
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("passwordParam" Prelude..=)
+              Prelude.<$> passwordParam,
+            ("username" Prelude..=) Prelude.<$> username,
+            ("streamName" Prelude..=) Prelude.<$> streamName,
+            ("url" Prelude..=) Prelude.<$> url
           ]
       )

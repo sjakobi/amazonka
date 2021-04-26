@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AuthenticationScheme
   ( AuthenticationScheme
       ( ..,
-        Akamai,
-        Common
+        AuthenticationSchemeAKAMAI,
+        AuthenticationSchemeCOMMON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Authentication Scheme
-data AuthenticationScheme
-  = AuthenticationScheme'
-      ( CI
-          Text
-      )
+newtype AuthenticationScheme = AuthenticationScheme'
+  { fromAuthenticationScheme ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Akamai :: AuthenticationScheme
-pattern Akamai = AuthenticationScheme' "AKAMAI"
+pattern AuthenticationSchemeAKAMAI :: AuthenticationScheme
+pattern AuthenticationSchemeAKAMAI = AuthenticationScheme' "AKAMAI"
 
-pattern Common :: AuthenticationScheme
-pattern Common = AuthenticationScheme' "COMMON"
+pattern AuthenticationSchemeCOMMON :: AuthenticationScheme
+pattern AuthenticationSchemeCOMMON = AuthenticationScheme' "COMMON"
 
 {-# COMPLETE
-  Akamai,
-  Common,
+  AuthenticationSchemeAKAMAI,
+  AuthenticationSchemeCOMMON,
   AuthenticationScheme'
   #-}
 
-instance FromText AuthenticationScheme where
-  parser = (AuthenticationScheme' . mk) <$> takeText
+instance Prelude.FromText AuthenticationScheme where
+  parser = AuthenticationScheme' Prelude.<$> Prelude.takeText
 
-instance ToText AuthenticationScheme where
-  toText (AuthenticationScheme' ci) = original ci
+instance Prelude.ToText AuthenticationScheme where
+  toText (AuthenticationScheme' x) = x
 
-instance Hashable AuthenticationScheme
+instance Prelude.Hashable AuthenticationScheme
 
-instance NFData AuthenticationScheme
+instance Prelude.NFData AuthenticationScheme
 
-instance ToByteString AuthenticationScheme
+instance Prelude.ToByteString AuthenticationScheme
 
-instance ToQuery AuthenticationScheme
+instance Prelude.ToQuery AuthenticationScheme
 
-instance ToHeader AuthenticationScheme
+instance Prelude.ToHeader AuthenticationScheme
 
-instance ToJSON AuthenticationScheme where
-  toJSON = toJSONText
+instance Prelude.ToJSON AuthenticationScheme where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AuthenticationScheme where
-  parseJSON = parseJSONText "AuthenticationScheme"
+instance Prelude.FromJSON AuthenticationScheme where
+  parseJSON = Prelude.parseJSONText "AuthenticationScheme"

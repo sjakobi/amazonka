@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,103 +19,125 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.CaptionDescription where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.CaptionDestinationSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Caption Description
 --
--- /See:/ 'captionDescription' smart constructor.
+-- /See:/ 'newCaptionDescription' smart constructor.
 data CaptionDescription = CaptionDescription'
-  { _cdLanguageCode ::
-      !(Maybe Text),
-    _cdLanguageDescription ::
-      !(Maybe Text),
-    _cdDestinationSettings ::
-      !( Maybe
-           CaptionDestinationSettings
-       ),
-    _cdCaptionSelectorName :: !Text,
-    _cdName :: !Text
+  { -- | ISO 639-2 three-digit code: http:\/\/www.loc.gov\/standards\/iso639-2\/
+    languageCode :: Prelude.Maybe Prelude.Text,
+    -- | Human readable information to indicate captions available for players
+    -- (eg. English, or Spanish).
+    languageDescription :: Prelude.Maybe Prelude.Text,
+    -- | Additional settings for captions destination that depend on the
+    -- destination type.
+    destinationSettings :: Prelude.Maybe CaptionDestinationSettings,
+    -- | Specifies which input caption selector to use as a caption source when
+    -- generating output captions. This field should match a captionSelector
+    -- name.
+    captionSelectorName :: Prelude.Text,
+    -- | Name of the caption description. Used to associate a caption description
+    -- with an output. Names must be unique within an event.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CaptionDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CaptionDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdLanguageCode' - ISO 639-2 three-digit code: http://www.loc.gov/standards/iso639-2/
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdLanguageDescription' - Human readable information to indicate captions available for players (eg. English, or Spanish).
+-- 'languageCode', 'captionDescription_languageCode' - ISO 639-2 three-digit code: http:\/\/www.loc.gov\/standards\/iso639-2\/
 --
--- * 'cdDestinationSettings' - Additional settings for captions destination that depend on the destination type.
+-- 'languageDescription', 'captionDescription_languageDescription' - Human readable information to indicate captions available for players
+-- (eg. English, or Spanish).
 --
--- * 'cdCaptionSelectorName' - Specifies which input caption selector to use as a caption source when generating output captions. This field should match a captionSelector name.
+-- 'destinationSettings', 'captionDescription_destinationSettings' - Additional settings for captions destination that depend on the
+-- destination type.
 --
--- * 'cdName' - Name of the caption description.  Used to associate a caption description with an output.  Names must be unique within an event.
-captionDescription ::
-  -- | 'cdCaptionSelectorName'
-  Text ->
-  -- | 'cdName'
-  Text ->
+-- 'captionSelectorName', 'captionDescription_captionSelectorName' - Specifies which input caption selector to use as a caption source when
+-- generating output captions. This field should match a captionSelector
+-- name.
+--
+-- 'name', 'captionDescription_name' - Name of the caption description. Used to associate a caption description
+-- with an output. Names must be unique within an event.
+newCaptionDescription ::
+  -- | 'captionSelectorName'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   CaptionDescription
-captionDescription pCaptionSelectorName_ pName_ =
+newCaptionDescription pCaptionSelectorName_ pName_ =
   CaptionDescription'
-    { _cdLanguageCode = Nothing,
-      _cdLanguageDescription = Nothing,
-      _cdDestinationSettings = Nothing,
-      _cdCaptionSelectorName = pCaptionSelectorName_,
-      _cdName = pName_
+    { languageCode = Prelude.Nothing,
+      languageDescription = Prelude.Nothing,
+      destinationSettings = Prelude.Nothing,
+      captionSelectorName = pCaptionSelectorName_,
+      name = pName_
     }
 
--- | ISO 639-2 three-digit code: http://www.loc.gov/standards/iso639-2/
-cdLanguageCode :: Lens' CaptionDescription (Maybe Text)
-cdLanguageCode = lens _cdLanguageCode (\s a -> s {_cdLanguageCode = a})
+-- | ISO 639-2 three-digit code: http:\/\/www.loc.gov\/standards\/iso639-2\/
+captionDescription_languageCode :: Lens.Lens' CaptionDescription (Prelude.Maybe Prelude.Text)
+captionDescription_languageCode = Lens.lens (\CaptionDescription' {languageCode} -> languageCode) (\s@CaptionDescription' {} a -> s {languageCode = a} :: CaptionDescription)
 
--- | Human readable information to indicate captions available for players (eg. English, or Spanish).
-cdLanguageDescription :: Lens' CaptionDescription (Maybe Text)
-cdLanguageDescription = lens _cdLanguageDescription (\s a -> s {_cdLanguageDescription = a})
+-- | Human readable information to indicate captions available for players
+-- (eg. English, or Spanish).
+captionDescription_languageDescription :: Lens.Lens' CaptionDescription (Prelude.Maybe Prelude.Text)
+captionDescription_languageDescription = Lens.lens (\CaptionDescription' {languageDescription} -> languageDescription) (\s@CaptionDescription' {} a -> s {languageDescription = a} :: CaptionDescription)
 
--- | Additional settings for captions destination that depend on the destination type.
-cdDestinationSettings :: Lens' CaptionDescription (Maybe CaptionDestinationSettings)
-cdDestinationSettings = lens _cdDestinationSettings (\s a -> s {_cdDestinationSettings = a})
+-- | Additional settings for captions destination that depend on the
+-- destination type.
+captionDescription_destinationSettings :: Lens.Lens' CaptionDescription (Prelude.Maybe CaptionDestinationSettings)
+captionDescription_destinationSettings = Lens.lens (\CaptionDescription' {destinationSettings} -> destinationSettings) (\s@CaptionDescription' {} a -> s {destinationSettings = a} :: CaptionDescription)
 
--- | Specifies which input caption selector to use as a caption source when generating output captions. This field should match a captionSelector name.
-cdCaptionSelectorName :: Lens' CaptionDescription Text
-cdCaptionSelectorName = lens _cdCaptionSelectorName (\s a -> s {_cdCaptionSelectorName = a})
+-- | Specifies which input caption selector to use as a caption source when
+-- generating output captions. This field should match a captionSelector
+-- name.
+captionDescription_captionSelectorName :: Lens.Lens' CaptionDescription Prelude.Text
+captionDescription_captionSelectorName = Lens.lens (\CaptionDescription' {captionSelectorName} -> captionSelectorName) (\s@CaptionDescription' {} a -> s {captionSelectorName = a} :: CaptionDescription)
 
--- | Name of the caption description.  Used to associate a caption description with an output.  Names must be unique within an event.
-cdName :: Lens' CaptionDescription Text
-cdName = lens _cdName (\s a -> s {_cdName = a})
+-- | Name of the caption description. Used to associate a caption description
+-- with an output. Names must be unique within an event.
+captionDescription_name :: Lens.Lens' CaptionDescription Prelude.Text
+captionDescription_name = Lens.lens (\CaptionDescription' {name} -> name) (\s@CaptionDescription' {} a -> s {name = a} :: CaptionDescription)
 
-instance FromJSON CaptionDescription where
+instance Prelude.FromJSON CaptionDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CaptionDescription"
       ( \x ->
           CaptionDescription'
-            <$> (x .:? "languageCode")
-            <*> (x .:? "languageDescription")
-            <*> (x .:? "destinationSettings")
-            <*> (x .: "captionSelectorName")
-            <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "languageCode")
+            Prelude.<*> (x Prelude..:? "languageDescription")
+            Prelude.<*> (x Prelude..:? "destinationSettings")
+            Prelude.<*> (x Prelude..: "captionSelectorName")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable CaptionDescription
+instance Prelude.Hashable CaptionDescription
 
-instance NFData CaptionDescription
+instance Prelude.NFData CaptionDescription
 
-instance ToJSON CaptionDescription where
+instance Prelude.ToJSON CaptionDescription where
   toJSON CaptionDescription' {..} =
-    object
-      ( catMaybes
-          [ ("languageCode" .=) <$> _cdLanguageCode,
-            ("languageDescription" .=)
-              <$> _cdLanguageDescription,
-            ("destinationSettings" .=)
-              <$> _cdDestinationSettings,
-            Just
-              ("captionSelectorName" .= _cdCaptionSelectorName),
-            Just ("name" .= _cdName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("languageCode" Prelude..=)
+              Prelude.<$> languageCode,
+            ("languageDescription" Prelude..=)
+              Prelude.<$> languageDescription,
+            ("destinationSettings" Prelude..=)
+              Prelude.<$> destinationSettings,
+            Prelude.Just
+              ( "captionSelectorName"
+                  Prelude..= captionSelectorName
+              ),
+            Prelude.Just ("name" Prelude..= name)
           ]
       )

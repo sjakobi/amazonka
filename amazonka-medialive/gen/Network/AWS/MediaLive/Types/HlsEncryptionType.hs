@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsEncryptionType
   ( HlsEncryptionType
       ( ..,
-        AES128,
-        SampleAES
+        HlsEncryptionTypeAES128,
+        HlsEncryptionTypeSAMPLEAES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Encryption Type
-data HlsEncryptionType = HlsEncryptionType' (CI Text)
+newtype HlsEncryptionType = HlsEncryptionType'
+  { fromHlsEncryptionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AES128 :: HlsEncryptionType
-pattern AES128 = HlsEncryptionType' "AES128"
+pattern HlsEncryptionTypeAES128 :: HlsEncryptionType
+pattern HlsEncryptionTypeAES128 = HlsEncryptionType' "AES128"
 
-pattern SampleAES :: HlsEncryptionType
-pattern SampleAES = HlsEncryptionType' "SAMPLE_AES"
+pattern HlsEncryptionTypeSAMPLEAES :: HlsEncryptionType
+pattern HlsEncryptionTypeSAMPLEAES = HlsEncryptionType' "SAMPLE_AES"
 
 {-# COMPLETE
-  AES128,
-  SampleAES,
+  HlsEncryptionTypeAES128,
+  HlsEncryptionTypeSAMPLEAES,
   HlsEncryptionType'
   #-}
 
-instance FromText HlsEncryptionType where
-  parser = (HlsEncryptionType' . mk) <$> takeText
+instance Prelude.FromText HlsEncryptionType where
+  parser = HlsEncryptionType' Prelude.<$> Prelude.takeText
 
-instance ToText HlsEncryptionType where
-  toText (HlsEncryptionType' ci) = original ci
+instance Prelude.ToText HlsEncryptionType where
+  toText (HlsEncryptionType' x) = x
 
-instance Hashable HlsEncryptionType
+instance Prelude.Hashable HlsEncryptionType
 
-instance NFData HlsEncryptionType
+instance Prelude.NFData HlsEncryptionType
 
-instance ToByteString HlsEncryptionType
+instance Prelude.ToByteString HlsEncryptionType
 
-instance ToQuery HlsEncryptionType
+instance Prelude.ToQuery HlsEncryptionType
 
-instance ToHeader HlsEncryptionType
+instance Prelude.ToHeader HlsEncryptionType
 
-instance ToJSON HlsEncryptionType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsEncryptionType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsEncryptionType where
-  parseJSON = parseJSONText "HlsEncryptionType"
+instance Prelude.FromJSON HlsEncryptionType where
+  parseJSON = Prelude.parseJSONText "HlsEncryptionType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.SmoothGroupAudioOnlyTimecodeControl
   ( SmoothGroupAudioOnlyTimecodeControl
       ( ..,
-        Passthrough,
-        UseConfiguredClock
+        SmoothGroupAudioOnlyTimecodeControlPASSTHROUGH,
+        SmoothGroupAudioOnlyTimecodeControlUSECONFIGUREDCLOCK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Audio Only Timecode Control
-data SmoothGroupAudioOnlyTimecodeControl
-  = SmoothGroupAudioOnlyTimecodeControl'
-      ( CI
-          Text
-      )
+newtype SmoothGroupAudioOnlyTimecodeControl = SmoothGroupAudioOnlyTimecodeControl'
+  { fromSmoothGroupAudioOnlyTimecodeControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Passthrough :: SmoothGroupAudioOnlyTimecodeControl
-pattern Passthrough = SmoothGroupAudioOnlyTimecodeControl' "PASSTHROUGH"
+pattern SmoothGroupAudioOnlyTimecodeControlPASSTHROUGH :: SmoothGroupAudioOnlyTimecodeControl
+pattern SmoothGroupAudioOnlyTimecodeControlPASSTHROUGH = SmoothGroupAudioOnlyTimecodeControl' "PASSTHROUGH"
 
-pattern UseConfiguredClock :: SmoothGroupAudioOnlyTimecodeControl
-pattern UseConfiguredClock = SmoothGroupAudioOnlyTimecodeControl' "USE_CONFIGURED_CLOCK"
+pattern SmoothGroupAudioOnlyTimecodeControlUSECONFIGUREDCLOCK :: SmoothGroupAudioOnlyTimecodeControl
+pattern SmoothGroupAudioOnlyTimecodeControlUSECONFIGUREDCLOCK = SmoothGroupAudioOnlyTimecodeControl' "USE_CONFIGURED_CLOCK"
 
 {-# COMPLETE
-  Passthrough,
-  UseConfiguredClock,
+  SmoothGroupAudioOnlyTimecodeControlPASSTHROUGH,
+  SmoothGroupAudioOnlyTimecodeControlUSECONFIGUREDCLOCK,
   SmoothGroupAudioOnlyTimecodeControl'
   #-}
 
-instance FromText SmoothGroupAudioOnlyTimecodeControl where
-  parser = (SmoothGroupAudioOnlyTimecodeControl' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupAudioOnlyTimecodeControl where
+  parser = SmoothGroupAudioOnlyTimecodeControl' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupAudioOnlyTimecodeControl where
-  toText (SmoothGroupAudioOnlyTimecodeControl' ci) = original ci
+instance Prelude.ToText SmoothGroupAudioOnlyTimecodeControl where
+  toText (SmoothGroupAudioOnlyTimecodeControl' x) = x
 
-instance Hashable SmoothGroupAudioOnlyTimecodeControl
+instance Prelude.Hashable SmoothGroupAudioOnlyTimecodeControl
 
-instance NFData SmoothGroupAudioOnlyTimecodeControl
+instance Prelude.NFData SmoothGroupAudioOnlyTimecodeControl
 
-instance ToByteString SmoothGroupAudioOnlyTimecodeControl
+instance Prelude.ToByteString SmoothGroupAudioOnlyTimecodeControl
 
-instance ToQuery SmoothGroupAudioOnlyTimecodeControl
+instance Prelude.ToQuery SmoothGroupAudioOnlyTimecodeControl
 
-instance ToHeader SmoothGroupAudioOnlyTimecodeControl
+instance Prelude.ToHeader SmoothGroupAudioOnlyTimecodeControl
 
-instance ToJSON SmoothGroupAudioOnlyTimecodeControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupAudioOnlyTimecodeControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupAudioOnlyTimecodeControl where
-  parseJSON = parseJSONText "SmoothGroupAudioOnlyTimecodeControl"
+instance Prelude.FromJSON SmoothGroupAudioOnlyTimecodeControl where
+  parseJSON = Prelude.parseJSONText "SmoothGroupAudioOnlyTimecodeControl"

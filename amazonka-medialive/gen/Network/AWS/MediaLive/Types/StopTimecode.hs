@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.StopTimecode where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.LastFrameClippingBehavior
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Settings to identify the end of the clip.
 --
--- /See:/ 'stopTimecode' smart constructor.
+-- /See:/ 'newStopTimecode' smart constructor.
 data StopTimecode = StopTimecode'
-  { _sTimecode ::
-      !(Maybe Text),
-    _sLastFrameClippingBehavior ::
-      !(Maybe LastFrameClippingBehavior)
+  { -- | The timecode for the frame where you want to stop the clip. Optional; if
+    -- not specified, the clip continues to the end of the file. Enter the
+    -- timecode as HH:MM:SS:FF or HH:MM:SS;FF.
+    timecode :: Prelude.Maybe Prelude.Text,
+    -- | If you specify a StopTimecode in an input (in order to clip the file),
+    -- you can specify if you want the clip to exclude (the default) or include
+    -- the frame specified by the timecode.
+    lastFrameClippingBehavior :: Prelude.Maybe LastFrameClippingBehavior
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopTimecode' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopTimecode' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sTimecode' - The timecode for the frame where you want to stop the clip. Optional; if not specified, the clip continues to the end of the file. Enter the timecode as HH:MM:SS:FF or HH:MM:SS;FF.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sLastFrameClippingBehavior' - If you specify a StopTimecode in an input (in order to clip the file), you can specify if you want the clip to exclude (the default) or include the frame specified by the timecode.
-stopTimecode ::
+-- 'timecode', 'stopTimecode_timecode' - The timecode for the frame where you want to stop the clip. Optional; if
+-- not specified, the clip continues to the end of the file. Enter the
+-- timecode as HH:MM:SS:FF or HH:MM:SS;FF.
+--
+-- 'lastFrameClippingBehavior', 'stopTimecode_lastFrameClippingBehavior' - If you specify a StopTimecode in an input (in order to clip the file),
+-- you can specify if you want the clip to exclude (the default) or include
+-- the frame specified by the timecode.
+newStopTimecode ::
   StopTimecode
-stopTimecode =
+newStopTimecode =
   StopTimecode'
-    { _sTimecode = Nothing,
-      _sLastFrameClippingBehavior = Nothing
+    { timecode = Prelude.Nothing,
+      lastFrameClippingBehavior = Prelude.Nothing
     }
 
--- | The timecode for the frame where you want to stop the clip. Optional; if not specified, the clip continues to the end of the file. Enter the timecode as HH:MM:SS:FF or HH:MM:SS;FF.
-sTimecode :: Lens' StopTimecode (Maybe Text)
-sTimecode = lens _sTimecode (\s a -> s {_sTimecode = a})
+-- | The timecode for the frame where you want to stop the clip. Optional; if
+-- not specified, the clip continues to the end of the file. Enter the
+-- timecode as HH:MM:SS:FF or HH:MM:SS;FF.
+stopTimecode_timecode :: Lens.Lens' StopTimecode (Prelude.Maybe Prelude.Text)
+stopTimecode_timecode = Lens.lens (\StopTimecode' {timecode} -> timecode) (\s@StopTimecode' {} a -> s {timecode = a} :: StopTimecode)
 
--- | If you specify a StopTimecode in an input (in order to clip the file), you can specify if you want the clip to exclude (the default) or include the frame specified by the timecode.
-sLastFrameClippingBehavior :: Lens' StopTimecode (Maybe LastFrameClippingBehavior)
-sLastFrameClippingBehavior = lens _sLastFrameClippingBehavior (\s a -> s {_sLastFrameClippingBehavior = a})
+-- | If you specify a StopTimecode in an input (in order to clip the file),
+-- you can specify if you want the clip to exclude (the default) or include
+-- the frame specified by the timecode.
+stopTimecode_lastFrameClippingBehavior :: Lens.Lens' StopTimecode (Prelude.Maybe LastFrameClippingBehavior)
+stopTimecode_lastFrameClippingBehavior = Lens.lens (\StopTimecode' {lastFrameClippingBehavior} -> lastFrameClippingBehavior) (\s@StopTimecode' {} a -> s {lastFrameClippingBehavior = a} :: StopTimecode)
 
-instance FromJSON StopTimecode where
+instance Prelude.FromJSON StopTimecode where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StopTimecode"
       ( \x ->
           StopTimecode'
-            <$> (x .:? "timecode")
-            <*> (x .:? "lastFrameClippingBehavior")
+            Prelude.<$> (x Prelude..:? "timecode")
+            Prelude.<*> (x Prelude..:? "lastFrameClippingBehavior")
       )
 
-instance Hashable StopTimecode
+instance Prelude.Hashable StopTimecode
 
-instance NFData StopTimecode
+instance Prelude.NFData StopTimecode
 
-instance ToJSON StopTimecode where
+instance Prelude.ToJSON StopTimecode where
   toJSON StopTimecode' {..} =
-    object
-      ( catMaybes
-          [ ("timecode" .=) <$> _sTimecode,
-            ("lastFrameClippingBehavior" .=)
-              <$> _sLastFrameClippingBehavior
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("timecode" Prelude..=) Prelude.<$> timecode,
+            ("lastFrameClippingBehavior" Prelude..=)
+              Prelude.<$> lastFrameClippingBehavior
           ]
       )

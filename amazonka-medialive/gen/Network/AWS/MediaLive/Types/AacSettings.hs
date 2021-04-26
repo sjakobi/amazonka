@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AacSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AacCodingMode
 import Network.AWS.MediaLive.Types.AacInputType
 import Network.AWS.MediaLive.Types.AacProfile
@@ -23,130 +27,182 @@ import Network.AWS.MediaLive.Types.AacRateControlMode
 import Network.AWS.MediaLive.Types.AacRawFormat
 import Network.AWS.MediaLive.Types.AacSpec
 import Network.AWS.MediaLive.Types.AacVbrQuality
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Aac Settings
 --
--- /See:/ 'aacSettings' smart constructor.
+-- /See:/ 'newAacSettings' smart constructor.
 data AacSettings = AacSettings'
-  { _aRateControlMode ::
-      !(Maybe AacRateControlMode),
-    _aCodingMode :: !(Maybe AacCodingMode),
-    _aSpec :: !(Maybe AacSpec),
-    _aRawFormat :: !(Maybe AacRawFormat),
-    _aSampleRate :: !(Maybe Double),
-    _aInputType :: !(Maybe AacInputType),
-    _aProfile :: !(Maybe AacProfile),
-    _aVbrQuality :: !(Maybe AacVbrQuality),
-    _aBitrate :: !(Maybe Double)
+  { -- | Rate Control Mode.
+    rateControlMode :: Prelude.Maybe AacRateControlMode,
+    -- | Mono, Stereo, or 5.1 channel layout. Valid values depend on rate control
+    -- mode and profile. The adReceiverMix setting receives a stereo
+    -- description plus control track and emits a mono AAC encode of the
+    -- description track, with control data emitted in the PES header as per
+    -- ETSI TS 101 154 Annex E.
+    codingMode :: Prelude.Maybe AacCodingMode,
+    -- | Use MPEG-2 AAC audio instead of MPEG-4 AAC audio for raw or MPEG-2
+    -- Transport Stream containers.
+    spec :: Prelude.Maybe AacSpec,
+    -- | Sets LATM \/ LOAS AAC output for raw containers.
+    rawFormat :: Prelude.Maybe AacRawFormat,
+    -- | Sample rate in Hz. Valid values depend on rate control mode and profile.
+    sampleRate :: Prelude.Maybe Prelude.Double,
+    -- | Set to \"broadcasterMixedAd\" when input contains pre-mixed main audio +
+    -- AD (narration) as a stereo pair. The Audio Type field (audioType) will
+    -- be set to 3, which signals to downstream systems that this stream
+    -- contains \"broadcaster mixed AD\". Note that the input received by the
+    -- encoder must contain pre-mixed audio; the encoder does not perform the
+    -- mixing. The values in audioTypeControl and audioType (in
+    -- AudioDescription) are ignored when set to broadcasterMixedAd. Leave set
+    -- to \"normal\" when input does not contain pre-mixed audio + AD.
+    inputType :: Prelude.Maybe AacInputType,
+    -- | AAC Profile.
+    profile :: Prelude.Maybe AacProfile,
+    -- | VBR Quality Level - Only used if rateControlMode is VBR.
+    vbrQuality :: Prelude.Maybe AacVbrQuality,
+    -- | Average bitrate in bits\/second. Valid values depend on rate control
+    -- mode and profile.
+    bitrate :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AacSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AacSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aRateControlMode' - Rate Control Mode.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aCodingMode' - Mono, Stereo, or 5.1 channel layout. Valid values depend on rate control mode and profile. The adReceiverMix setting receives a stereo description plus control track and emits a mono AAC encode of the description track, with control data emitted in the PES header as per ETSI TS 101 154 Annex E.
+-- 'rateControlMode', 'aacSettings_rateControlMode' - Rate Control Mode.
 --
--- * 'aSpec' - Use MPEG-2 AAC audio instead of MPEG-4 AAC audio for raw or MPEG-2 Transport Stream containers.
+-- 'codingMode', 'aacSettings_codingMode' - Mono, Stereo, or 5.1 channel layout. Valid values depend on rate control
+-- mode and profile. The adReceiverMix setting receives a stereo
+-- description plus control track and emits a mono AAC encode of the
+-- description track, with control data emitted in the PES header as per
+-- ETSI TS 101 154 Annex E.
 --
--- * 'aRawFormat' - Sets LATM / LOAS AAC output for raw containers.
+-- 'spec', 'aacSettings_spec' - Use MPEG-2 AAC audio instead of MPEG-4 AAC audio for raw or MPEG-2
+-- Transport Stream containers.
 --
--- * 'aSampleRate' - Sample rate in Hz. Valid values depend on rate control mode and profile.
+-- 'rawFormat', 'aacSettings_rawFormat' - Sets LATM \/ LOAS AAC output for raw containers.
 --
--- * 'aInputType' - Set to "broadcasterMixedAd" when input contains pre-mixed main audio + AD (narration) as a stereo pair.  The Audio Type field (audioType) will be set to 3, which signals to downstream systems that this stream contains "broadcaster mixed AD". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the mixing. The values in audioTypeControl and audioType (in AudioDescription) are ignored when set to broadcasterMixedAd. Leave set to "normal" when input does not contain pre-mixed audio + AD.
+-- 'sampleRate', 'aacSettings_sampleRate' - Sample rate in Hz. Valid values depend on rate control mode and profile.
 --
--- * 'aProfile' - AAC Profile.
+-- 'inputType', 'aacSettings_inputType' - Set to \"broadcasterMixedAd\" when input contains pre-mixed main audio +
+-- AD (narration) as a stereo pair. The Audio Type field (audioType) will
+-- be set to 3, which signals to downstream systems that this stream
+-- contains \"broadcaster mixed AD\". Note that the input received by the
+-- encoder must contain pre-mixed audio; the encoder does not perform the
+-- mixing. The values in audioTypeControl and audioType (in
+-- AudioDescription) are ignored when set to broadcasterMixedAd. Leave set
+-- to \"normal\" when input does not contain pre-mixed audio + AD.
 --
--- * 'aVbrQuality' - VBR Quality Level - Only used if rateControlMode is VBR.
+-- 'profile', 'aacSettings_profile' - AAC Profile.
 --
--- * 'aBitrate' - Average bitrate in bits/second. Valid values depend on rate control mode and profile.
-aacSettings ::
+-- 'vbrQuality', 'aacSettings_vbrQuality' - VBR Quality Level - Only used if rateControlMode is VBR.
+--
+-- 'bitrate', 'aacSettings_bitrate' - Average bitrate in bits\/second. Valid values depend on rate control
+-- mode and profile.
+newAacSettings ::
   AacSettings
-aacSettings =
+newAacSettings =
   AacSettings'
-    { _aRateControlMode = Nothing,
-      _aCodingMode = Nothing,
-      _aSpec = Nothing,
-      _aRawFormat = Nothing,
-      _aSampleRate = Nothing,
-      _aInputType = Nothing,
-      _aProfile = Nothing,
-      _aVbrQuality = Nothing,
-      _aBitrate = Nothing
+    { rateControlMode = Prelude.Nothing,
+      codingMode = Prelude.Nothing,
+      spec = Prelude.Nothing,
+      rawFormat = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      inputType = Prelude.Nothing,
+      profile = Prelude.Nothing,
+      vbrQuality = Prelude.Nothing,
+      bitrate = Prelude.Nothing
     }
 
 -- | Rate Control Mode.
-aRateControlMode :: Lens' AacSettings (Maybe AacRateControlMode)
-aRateControlMode = lens _aRateControlMode (\s a -> s {_aRateControlMode = a})
+aacSettings_rateControlMode :: Lens.Lens' AacSettings (Prelude.Maybe AacRateControlMode)
+aacSettings_rateControlMode = Lens.lens (\AacSettings' {rateControlMode} -> rateControlMode) (\s@AacSettings' {} a -> s {rateControlMode = a} :: AacSettings)
 
--- | Mono, Stereo, or 5.1 channel layout. Valid values depend on rate control mode and profile. The adReceiverMix setting receives a stereo description plus control track and emits a mono AAC encode of the description track, with control data emitted in the PES header as per ETSI TS 101 154 Annex E.
-aCodingMode :: Lens' AacSettings (Maybe AacCodingMode)
-aCodingMode = lens _aCodingMode (\s a -> s {_aCodingMode = a})
+-- | Mono, Stereo, or 5.1 channel layout. Valid values depend on rate control
+-- mode and profile. The adReceiverMix setting receives a stereo
+-- description plus control track and emits a mono AAC encode of the
+-- description track, with control data emitted in the PES header as per
+-- ETSI TS 101 154 Annex E.
+aacSettings_codingMode :: Lens.Lens' AacSettings (Prelude.Maybe AacCodingMode)
+aacSettings_codingMode = Lens.lens (\AacSettings' {codingMode} -> codingMode) (\s@AacSettings' {} a -> s {codingMode = a} :: AacSettings)
 
--- | Use MPEG-2 AAC audio instead of MPEG-4 AAC audio for raw or MPEG-2 Transport Stream containers.
-aSpec :: Lens' AacSettings (Maybe AacSpec)
-aSpec = lens _aSpec (\s a -> s {_aSpec = a})
+-- | Use MPEG-2 AAC audio instead of MPEG-4 AAC audio for raw or MPEG-2
+-- Transport Stream containers.
+aacSettings_spec :: Lens.Lens' AacSettings (Prelude.Maybe AacSpec)
+aacSettings_spec = Lens.lens (\AacSettings' {spec} -> spec) (\s@AacSettings' {} a -> s {spec = a} :: AacSettings)
 
--- | Sets LATM / LOAS AAC output for raw containers.
-aRawFormat :: Lens' AacSettings (Maybe AacRawFormat)
-aRawFormat = lens _aRawFormat (\s a -> s {_aRawFormat = a})
+-- | Sets LATM \/ LOAS AAC output for raw containers.
+aacSettings_rawFormat :: Lens.Lens' AacSettings (Prelude.Maybe AacRawFormat)
+aacSettings_rawFormat = Lens.lens (\AacSettings' {rawFormat} -> rawFormat) (\s@AacSettings' {} a -> s {rawFormat = a} :: AacSettings)
 
 -- | Sample rate in Hz. Valid values depend on rate control mode and profile.
-aSampleRate :: Lens' AacSettings (Maybe Double)
-aSampleRate = lens _aSampleRate (\s a -> s {_aSampleRate = a})
+aacSettings_sampleRate :: Lens.Lens' AacSettings (Prelude.Maybe Prelude.Double)
+aacSettings_sampleRate = Lens.lens (\AacSettings' {sampleRate} -> sampleRate) (\s@AacSettings' {} a -> s {sampleRate = a} :: AacSettings)
 
--- | Set to "broadcasterMixedAd" when input contains pre-mixed main audio + AD (narration) as a stereo pair.  The Audio Type field (audioType) will be set to 3, which signals to downstream systems that this stream contains "broadcaster mixed AD". Note that the input received by the encoder must contain pre-mixed audio; the encoder does not perform the mixing. The values in audioTypeControl and audioType (in AudioDescription) are ignored when set to broadcasterMixedAd. Leave set to "normal" when input does not contain pre-mixed audio + AD.
-aInputType :: Lens' AacSettings (Maybe AacInputType)
-aInputType = lens _aInputType (\s a -> s {_aInputType = a})
+-- | Set to \"broadcasterMixedAd\" when input contains pre-mixed main audio +
+-- AD (narration) as a stereo pair. The Audio Type field (audioType) will
+-- be set to 3, which signals to downstream systems that this stream
+-- contains \"broadcaster mixed AD\". Note that the input received by the
+-- encoder must contain pre-mixed audio; the encoder does not perform the
+-- mixing. The values in audioTypeControl and audioType (in
+-- AudioDescription) are ignored when set to broadcasterMixedAd. Leave set
+-- to \"normal\" when input does not contain pre-mixed audio + AD.
+aacSettings_inputType :: Lens.Lens' AacSettings (Prelude.Maybe AacInputType)
+aacSettings_inputType = Lens.lens (\AacSettings' {inputType} -> inputType) (\s@AacSettings' {} a -> s {inputType = a} :: AacSettings)
 
 -- | AAC Profile.
-aProfile :: Lens' AacSettings (Maybe AacProfile)
-aProfile = lens _aProfile (\s a -> s {_aProfile = a})
+aacSettings_profile :: Lens.Lens' AacSettings (Prelude.Maybe AacProfile)
+aacSettings_profile = Lens.lens (\AacSettings' {profile} -> profile) (\s@AacSettings' {} a -> s {profile = a} :: AacSettings)
 
 -- | VBR Quality Level - Only used if rateControlMode is VBR.
-aVbrQuality :: Lens' AacSettings (Maybe AacVbrQuality)
-aVbrQuality = lens _aVbrQuality (\s a -> s {_aVbrQuality = a})
+aacSettings_vbrQuality :: Lens.Lens' AacSettings (Prelude.Maybe AacVbrQuality)
+aacSettings_vbrQuality = Lens.lens (\AacSettings' {vbrQuality} -> vbrQuality) (\s@AacSettings' {} a -> s {vbrQuality = a} :: AacSettings)
 
--- | Average bitrate in bits/second. Valid values depend on rate control mode and profile.
-aBitrate :: Lens' AacSettings (Maybe Double)
-aBitrate = lens _aBitrate (\s a -> s {_aBitrate = a})
+-- | Average bitrate in bits\/second. Valid values depend on rate control
+-- mode and profile.
+aacSettings_bitrate :: Lens.Lens' AacSettings (Prelude.Maybe Prelude.Double)
+aacSettings_bitrate = Lens.lens (\AacSettings' {bitrate} -> bitrate) (\s@AacSettings' {} a -> s {bitrate = a} :: AacSettings)
 
-instance FromJSON AacSettings where
+instance Prelude.FromJSON AacSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AacSettings"
       ( \x ->
           AacSettings'
-            <$> (x .:? "rateControlMode")
-            <*> (x .:? "codingMode")
-            <*> (x .:? "spec")
-            <*> (x .:? "rawFormat")
-            <*> (x .:? "sampleRate")
-            <*> (x .:? "inputType")
-            <*> (x .:? "profile")
-            <*> (x .:? "vbrQuality")
-            <*> (x .:? "bitrate")
+            Prelude.<$> (x Prelude..:? "rateControlMode")
+            Prelude.<*> (x Prelude..:? "codingMode")
+            Prelude.<*> (x Prelude..:? "spec")
+            Prelude.<*> (x Prelude..:? "rawFormat")
+            Prelude.<*> (x Prelude..:? "sampleRate")
+            Prelude.<*> (x Prelude..:? "inputType")
+            Prelude.<*> (x Prelude..:? "profile")
+            Prelude.<*> (x Prelude..:? "vbrQuality")
+            Prelude.<*> (x Prelude..:? "bitrate")
       )
 
-instance Hashable AacSettings
+instance Prelude.Hashable AacSettings
 
-instance NFData AacSettings
+instance Prelude.NFData AacSettings
 
-instance ToJSON AacSettings where
+instance Prelude.ToJSON AacSettings where
   toJSON AacSettings' {..} =
-    object
-      ( catMaybes
-          [ ("rateControlMode" .=) <$> _aRateControlMode,
-            ("codingMode" .=) <$> _aCodingMode,
-            ("spec" .=) <$> _aSpec,
-            ("rawFormat" .=) <$> _aRawFormat,
-            ("sampleRate" .=) <$> _aSampleRate,
-            ("inputType" .=) <$> _aInputType,
-            ("profile" .=) <$> _aProfile,
-            ("vbrQuality" .=) <$> _aVbrQuality,
-            ("bitrate" .=) <$> _aBitrate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("rateControlMode" Prelude..=)
+              Prelude.<$> rateControlMode,
+            ("codingMode" Prelude..=) Prelude.<$> codingMode,
+            ("spec" Prelude..=) Prelude.<$> spec,
+            ("rawFormat" Prelude..=) Prelude.<$> rawFormat,
+            ("sampleRate" Prelude..=) Prelude.<$> sampleRate,
+            ("inputType" Prelude..=) Prelude.<$> inputType,
+            ("profile" Prelude..=) Prelude.<$> profile,
+            ("vbrQuality" Prelude..=) Prelude.<$> vbrQuality,
+            ("bitrate" Prelude..=) Prelude.<$> bitrate
           ]
       )

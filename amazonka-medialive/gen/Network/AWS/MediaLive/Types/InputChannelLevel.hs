@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.InputChannelLevel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Input Channel Level
 --
--- /See:/ 'inputChannelLevel' smart constructor.
+-- /See:/ 'newInputChannelLevel' smart constructor.
 data InputChannelLevel = InputChannelLevel'
-  { _iclInputChannel ::
-      !Nat,
-    _iclGain :: !Int
+  { -- | The index of the input channel used as a source.
+    inputChannel :: Prelude.Nat,
+    -- | Remixing value. Units are in dB and acceptable values are within the
+    -- range from -60 (mute) and 6 dB.
+    gain :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputChannelLevel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputChannelLevel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iclInputChannel' - The index of the input channel used as a source.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iclGain' - Remixing value. Units are in dB and acceptable values are within the range from -60 (mute) and 6 dB.
-inputChannelLevel ::
-  -- | 'iclInputChannel'
-  Natural ->
-  -- | 'iclGain'
-  Int ->
+-- 'inputChannel', 'inputChannelLevel_inputChannel' - The index of the input channel used as a source.
+--
+-- 'gain', 'inputChannelLevel_gain' - Remixing value. Units are in dB and acceptable values are within the
+-- range from -60 (mute) and 6 dB.
+newInputChannelLevel ::
+  -- | 'inputChannel'
+  Prelude.Natural ->
+  -- | 'gain'
+  Prelude.Int ->
   InputChannelLevel
-inputChannelLevel pInputChannel_ pGain_ =
+newInputChannelLevel pInputChannel_ pGain_ =
   InputChannelLevel'
-    { _iclInputChannel =
-        _Nat # pInputChannel_,
-      _iclGain = pGain_
+    { inputChannel =
+        Prelude._Nat Lens.# pInputChannel_,
+      gain = pGain_
     }
 
 -- | The index of the input channel used as a source.
-iclInputChannel :: Lens' InputChannelLevel Natural
-iclInputChannel = lens _iclInputChannel (\s a -> s {_iclInputChannel = a}) . _Nat
+inputChannelLevel_inputChannel :: Lens.Lens' InputChannelLevel Prelude.Natural
+inputChannelLevel_inputChannel = Lens.lens (\InputChannelLevel' {inputChannel} -> inputChannel) (\s@InputChannelLevel' {} a -> s {inputChannel = a} :: InputChannelLevel) Prelude.. Prelude._Nat
 
--- | Remixing value. Units are in dB and acceptable values are within the range from -60 (mute) and 6 dB.
-iclGain :: Lens' InputChannelLevel Int
-iclGain = lens _iclGain (\s a -> s {_iclGain = a})
+-- | Remixing value. Units are in dB and acceptable values are within the
+-- range from -60 (mute) and 6 dB.
+inputChannelLevel_gain :: Lens.Lens' InputChannelLevel Prelude.Int
+inputChannelLevel_gain = Lens.lens (\InputChannelLevel' {gain} -> gain) (\s@InputChannelLevel' {} a -> s {gain = a} :: InputChannelLevel)
 
-instance FromJSON InputChannelLevel where
+instance Prelude.FromJSON InputChannelLevel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputChannelLevel"
       ( \x ->
           InputChannelLevel'
-            <$> (x .: "inputChannel") <*> (x .: "gain")
+            Prelude.<$> (x Prelude..: "inputChannel")
+            Prelude.<*> (x Prelude..: "gain")
       )
 
-instance Hashable InputChannelLevel
+instance Prelude.Hashable InputChannelLevel
 
-instance NFData InputChannelLevel
+instance Prelude.NFData InputChannelLevel
 
-instance ToJSON InputChannelLevel where
+instance Prelude.ToJSON InputChannelLevel where
   toJSON InputChannelLevel' {..} =
-    object
-      ( catMaybes
-          [ Just ("inputChannel" .= _iclInputChannel),
-            Just ("gain" .= _iclGain)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("inputChannel" Prelude..= inputChannel),
+            Prelude.Just ("gain" Prelude..= gain)
           ]
       )

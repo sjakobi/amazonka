@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.InputClippingSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.InputTimecodeSource
 import Network.AWS.MediaLive.Types.StartTimecode
 import Network.AWS.MediaLive.Types.StopTimecode
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Settings to let you create a clip of the file input, in order to set up the input to ingest only a portion of the file.
+-- | Settings to let you create a clip of the file input, in order to set up
+-- the input to ingest only a portion of the file.
 --
--- /See:/ 'inputClippingSettings' smart constructor.
+-- /See:/ 'newInputClippingSettings' smart constructor.
 data InputClippingSettings = InputClippingSettings'
-  { _icsStartTimecode ::
-      !(Maybe StartTimecode),
-    _icsStopTimecode ::
-      !(Maybe StopTimecode),
-    _icsInputTimecodeSource ::
-      !InputTimecodeSource
+  { -- | Settings to identify the start of the clip.
+    startTimecode :: Prelude.Maybe StartTimecode,
+    -- | Settings to identify the end of the clip.
+    stopTimecode :: Prelude.Maybe StopTimecode,
+    -- | The source of the timecodes in the source being clipped.
+    inputTimecodeSource :: InputTimecodeSource
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputClippingSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputClippingSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icsStartTimecode' - Settings to identify the start of the clip.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icsStopTimecode' - Settings to identify the end of the clip.
+-- 'startTimecode', 'inputClippingSettings_startTimecode' - Settings to identify the start of the clip.
 --
--- * 'icsInputTimecodeSource' - The source of the timecodes in the source being clipped.
-inputClippingSettings ::
-  -- | 'icsInputTimecodeSource'
+-- 'stopTimecode', 'inputClippingSettings_stopTimecode' - Settings to identify the end of the clip.
+--
+-- 'inputTimecodeSource', 'inputClippingSettings_inputTimecodeSource' - The source of the timecodes in the source being clipped.
+newInputClippingSettings ::
+  -- | 'inputTimecodeSource'
   InputTimecodeSource ->
   InputClippingSettings
-inputClippingSettings pInputTimecodeSource_ =
+newInputClippingSettings pInputTimecodeSource_ =
   InputClippingSettings'
-    { _icsStartTimecode = Nothing,
-      _icsStopTimecode = Nothing,
-      _icsInputTimecodeSource = pInputTimecodeSource_
+    { startTimecode =
+        Prelude.Nothing,
+      stopTimecode = Prelude.Nothing,
+      inputTimecodeSource = pInputTimecodeSource_
     }
 
 -- | Settings to identify the start of the clip.
-icsStartTimecode :: Lens' InputClippingSettings (Maybe StartTimecode)
-icsStartTimecode = lens _icsStartTimecode (\s a -> s {_icsStartTimecode = a})
+inputClippingSettings_startTimecode :: Lens.Lens' InputClippingSettings (Prelude.Maybe StartTimecode)
+inputClippingSettings_startTimecode = Lens.lens (\InputClippingSettings' {startTimecode} -> startTimecode) (\s@InputClippingSettings' {} a -> s {startTimecode = a} :: InputClippingSettings)
 
 -- | Settings to identify the end of the clip.
-icsStopTimecode :: Lens' InputClippingSettings (Maybe StopTimecode)
-icsStopTimecode = lens _icsStopTimecode (\s a -> s {_icsStopTimecode = a})
+inputClippingSettings_stopTimecode :: Lens.Lens' InputClippingSettings (Prelude.Maybe StopTimecode)
+inputClippingSettings_stopTimecode = Lens.lens (\InputClippingSettings' {stopTimecode} -> stopTimecode) (\s@InputClippingSettings' {} a -> s {stopTimecode = a} :: InputClippingSettings)
 
 -- | The source of the timecodes in the source being clipped.
-icsInputTimecodeSource :: Lens' InputClippingSettings InputTimecodeSource
-icsInputTimecodeSource = lens _icsInputTimecodeSource (\s a -> s {_icsInputTimecodeSource = a})
+inputClippingSettings_inputTimecodeSource :: Lens.Lens' InputClippingSettings InputTimecodeSource
+inputClippingSettings_inputTimecodeSource = Lens.lens (\InputClippingSettings' {inputTimecodeSource} -> inputTimecodeSource) (\s@InputClippingSettings' {} a -> s {inputTimecodeSource = a} :: InputClippingSettings)
 
-instance FromJSON InputClippingSettings where
+instance Prelude.FromJSON InputClippingSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "InputClippingSettings"
       ( \x ->
           InputClippingSettings'
-            <$> (x .:? "startTimecode")
-            <*> (x .:? "stopTimecode")
-            <*> (x .: "inputTimecodeSource")
+            Prelude.<$> (x Prelude..:? "startTimecode")
+            Prelude.<*> (x Prelude..:? "stopTimecode")
+            Prelude.<*> (x Prelude..: "inputTimecodeSource")
       )
 
-instance Hashable InputClippingSettings
+instance Prelude.Hashable InputClippingSettings
 
-instance NFData InputClippingSettings
+instance Prelude.NFData InputClippingSettings
 
-instance ToJSON InputClippingSettings where
+instance Prelude.ToJSON InputClippingSettings where
   toJSON InputClippingSettings' {..} =
-    object
-      ( catMaybes
-          [ ("startTimecode" .=) <$> _icsStartTimecode,
-            ("stopTimecode" .=) <$> _icsStopTimecode,
-            Just
-              ("inputTimecodeSource" .= _icsInputTimecodeSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("startTimecode" Prelude..=)
+              Prelude.<$> startTimecode,
+            ("stopTimecode" Prelude..=) Prelude.<$> stopTimecode,
+            Prelude.Just
+              ( "inputTimecodeSource"
+                  Prelude..= inputTimecodeSource
+              )
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,62 @@
 module Network.AWS.MediaLive.Types.Scte35WebDeliveryAllowedFlag
   ( Scte35WebDeliveryAllowedFlag
       ( ..,
-        WebDeliveryAllowed,
-        WebDeliveryNotAllowed
+        Scte35WebDeliveryAllowedFlagWEBDELIVERYALLOWED,
+        Scte35WebDeliveryAllowedFlagWEBDELIVERYNOTALLOWED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Corresponds to the web_delivery_allowed_flag parameter. A value of WEB_DELIVERY_NOT_ALLOWED corresponds to 0 (false) in the SCTE-35 specification. If you include one of the "restriction" flags then you must include all four of them.
-data Scte35WebDeliveryAllowedFlag
-  = Scte35WebDeliveryAllowedFlag'
-      ( CI
-          Text
-      )
+-- | Corresponds to the web_delivery_allowed_flag parameter. A value of
+-- WEB_DELIVERY_NOT_ALLOWED corresponds to 0 (false) in the SCTE-35
+-- specification. If you include one of the \"restriction\" flags then you
+-- must include all four of them.
+newtype Scte35WebDeliveryAllowedFlag = Scte35WebDeliveryAllowedFlag'
+  { fromScte35WebDeliveryAllowedFlag ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern WebDeliveryAllowed :: Scte35WebDeliveryAllowedFlag
-pattern WebDeliveryAllowed = Scte35WebDeliveryAllowedFlag' "WEB_DELIVERY_ALLOWED"
+pattern Scte35WebDeliveryAllowedFlagWEBDELIVERYALLOWED :: Scte35WebDeliveryAllowedFlag
+pattern Scte35WebDeliveryAllowedFlagWEBDELIVERYALLOWED = Scte35WebDeliveryAllowedFlag' "WEB_DELIVERY_ALLOWED"
 
-pattern WebDeliveryNotAllowed :: Scte35WebDeliveryAllowedFlag
-pattern WebDeliveryNotAllowed = Scte35WebDeliveryAllowedFlag' "WEB_DELIVERY_NOT_ALLOWED"
+pattern Scte35WebDeliveryAllowedFlagWEBDELIVERYNOTALLOWED :: Scte35WebDeliveryAllowedFlag
+pattern Scte35WebDeliveryAllowedFlagWEBDELIVERYNOTALLOWED = Scte35WebDeliveryAllowedFlag' "WEB_DELIVERY_NOT_ALLOWED"
 
 {-# COMPLETE
-  WebDeliveryAllowed,
-  WebDeliveryNotAllowed,
+  Scte35WebDeliveryAllowedFlagWEBDELIVERYALLOWED,
+  Scte35WebDeliveryAllowedFlagWEBDELIVERYNOTALLOWED,
   Scte35WebDeliveryAllowedFlag'
   #-}
 
-instance FromText Scte35WebDeliveryAllowedFlag where
-  parser = (Scte35WebDeliveryAllowedFlag' . mk) <$> takeText
+instance Prelude.FromText Scte35WebDeliveryAllowedFlag where
+  parser = Scte35WebDeliveryAllowedFlag' Prelude.<$> Prelude.takeText
 
-instance ToText Scte35WebDeliveryAllowedFlag where
-  toText (Scte35WebDeliveryAllowedFlag' ci) = original ci
+instance Prelude.ToText Scte35WebDeliveryAllowedFlag where
+  toText (Scte35WebDeliveryAllowedFlag' x) = x
 
-instance Hashable Scte35WebDeliveryAllowedFlag
+instance Prelude.Hashable Scte35WebDeliveryAllowedFlag
 
-instance NFData Scte35WebDeliveryAllowedFlag
+instance Prelude.NFData Scte35WebDeliveryAllowedFlag
 
-instance ToByteString Scte35WebDeliveryAllowedFlag
+instance Prelude.ToByteString Scte35WebDeliveryAllowedFlag
 
-instance ToQuery Scte35WebDeliveryAllowedFlag
+instance Prelude.ToQuery Scte35WebDeliveryAllowedFlag
 
-instance ToHeader Scte35WebDeliveryAllowedFlag
+instance Prelude.ToHeader Scte35WebDeliveryAllowedFlag
 
-instance ToJSON Scte35WebDeliveryAllowedFlag where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte35WebDeliveryAllowedFlag where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte35WebDeliveryAllowedFlag where
-  parseJSON = parseJSONText "Scte35WebDeliveryAllowedFlag"
+instance Prelude.FromJSON Scte35WebDeliveryAllowedFlag where
+  parseJSON = Prelude.parseJSONText "Scte35WebDeliveryAllowedFlag"

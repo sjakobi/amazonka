@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,94 @@
 module Network.AWS.MediaLive.Types.InputType
   ( InputType
       ( ..,
-        AWSCdi,
-        InputDevice,
-        MP4File,
-        Mediaconnect,
-        RtmpPull,
-        RtmpPush,
-        RtpPush,
-        URLPull,
-        UdpPush
+        InputTypeAWSCDI,
+        InputTypeINPUTDEVICE,
+        InputTypeMEDIACONNECT,
+        InputTypeMP4FILE,
+        InputTypeRTMPPULL,
+        InputTypeRTMPPUSH,
+        InputTypeRTPPUSH,
+        InputTypeUDPPUSH,
+        InputTypeURLPULL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for InputType
-data InputType = InputType' (CI Text)
+newtype InputType = InputType'
+  { fromInputType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSCdi :: InputType
-pattern AWSCdi = InputType' "AWS_CDI"
+pattern InputTypeAWSCDI :: InputType
+pattern InputTypeAWSCDI = InputType' "AWS_CDI"
 
-pattern InputDevice :: InputType
-pattern InputDevice = InputType' "INPUT_DEVICE"
+pattern InputTypeINPUTDEVICE :: InputType
+pattern InputTypeINPUTDEVICE = InputType' "INPUT_DEVICE"
 
-pattern MP4File :: InputType
-pattern MP4File = InputType' "MP4_FILE"
+pattern InputTypeMEDIACONNECT :: InputType
+pattern InputTypeMEDIACONNECT = InputType' "MEDIACONNECT"
 
-pattern Mediaconnect :: InputType
-pattern Mediaconnect = InputType' "MEDIACONNECT"
+pattern InputTypeMP4FILE :: InputType
+pattern InputTypeMP4FILE = InputType' "MP4_FILE"
 
-pattern RtmpPull :: InputType
-pattern RtmpPull = InputType' "RTMP_PULL"
+pattern InputTypeRTMPPULL :: InputType
+pattern InputTypeRTMPPULL = InputType' "RTMP_PULL"
 
-pattern RtmpPush :: InputType
-pattern RtmpPush = InputType' "RTMP_PUSH"
+pattern InputTypeRTMPPUSH :: InputType
+pattern InputTypeRTMPPUSH = InputType' "RTMP_PUSH"
 
-pattern RtpPush :: InputType
-pattern RtpPush = InputType' "RTP_PUSH"
+pattern InputTypeRTPPUSH :: InputType
+pattern InputTypeRTPPUSH = InputType' "RTP_PUSH"
 
-pattern URLPull :: InputType
-pattern URLPull = InputType' "URL_PULL"
+pattern InputTypeUDPPUSH :: InputType
+pattern InputTypeUDPPUSH = InputType' "UDP_PUSH"
 
-pattern UdpPush :: InputType
-pattern UdpPush = InputType' "UDP_PUSH"
+pattern InputTypeURLPULL :: InputType
+pattern InputTypeURLPULL = InputType' "URL_PULL"
 
 {-# COMPLETE
-  AWSCdi,
-  InputDevice,
-  MP4File,
-  Mediaconnect,
-  RtmpPull,
-  RtmpPush,
-  RtpPush,
-  URLPull,
-  UdpPush,
+  InputTypeAWSCDI,
+  InputTypeINPUTDEVICE,
+  InputTypeMEDIACONNECT,
+  InputTypeMP4FILE,
+  InputTypeRTMPPULL,
+  InputTypeRTMPPUSH,
+  InputTypeRTPPUSH,
+  InputTypeUDPPUSH,
+  InputTypeURLPULL,
   InputType'
   #-}
 
-instance FromText InputType where
-  parser = (InputType' . mk) <$> takeText
+instance Prelude.FromText InputType where
+  parser = InputType' Prelude.<$> Prelude.takeText
 
-instance ToText InputType where
-  toText (InputType' ci) = original ci
+instance Prelude.ToText InputType where
+  toText (InputType' x) = x
 
-instance Hashable InputType
+instance Prelude.Hashable InputType
 
-instance NFData InputType
+instance Prelude.NFData InputType
 
-instance ToByteString InputType
+instance Prelude.ToByteString InputType
 
-instance ToQuery InputType
+instance Prelude.ToQuery InputType
 
-instance ToHeader InputType
+instance Prelude.ToHeader InputType
 
-instance ToJSON InputType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputType where
-  parseJSON = parseJSONText "InputType"
+instance Prelude.FromJSON InputType where
+  parseJSON = Prelude.parseJSONText "InputType"

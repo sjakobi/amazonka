@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Mp2Settings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.Mp2CodingMode
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mp2 Settings
 --
--- /See:/ 'mp2Settings' smart constructor.
+-- /See:/ 'newMp2Settings' smart constructor.
 data Mp2Settings = Mp2Settings'
-  { _msCodingMode ::
-      !(Maybe Mp2CodingMode),
-    _msSampleRate :: !(Maybe Double),
-    _msBitrate :: !(Maybe Double)
+  { -- | The MPEG2 Audio coding mode. Valid values are codingMode10 (for mono) or
+    -- codingMode20 (for stereo).
+    codingMode :: Prelude.Maybe Mp2CodingMode,
+    -- | Sample rate in Hz.
+    sampleRate :: Prelude.Maybe Prelude.Double,
+    -- | Average bitrate in bits\/second.
+    bitrate :: Prelude.Maybe Prelude.Double
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Mp2Settings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Mp2Settings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msCodingMode' - The MPEG2 Audio coding mode.  Valid values are codingMode10 (for mono) or codingMode20 (for stereo).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msSampleRate' - Sample rate in Hz.
+-- 'codingMode', 'mp2Settings_codingMode' - The MPEG2 Audio coding mode. Valid values are codingMode10 (for mono) or
+-- codingMode20 (for stereo).
 --
--- * 'msBitrate' - Average bitrate in bits/second.
-mp2Settings ::
+-- 'sampleRate', 'mp2Settings_sampleRate' - Sample rate in Hz.
+--
+-- 'bitrate', 'mp2Settings_bitrate' - Average bitrate in bits\/second.
+newMp2Settings ::
   Mp2Settings
-mp2Settings =
+newMp2Settings =
   Mp2Settings'
-    { _msCodingMode = Nothing,
-      _msSampleRate = Nothing,
-      _msBitrate = Nothing
+    { codingMode = Prelude.Nothing,
+      sampleRate = Prelude.Nothing,
+      bitrate = Prelude.Nothing
     }
 
--- | The MPEG2 Audio coding mode.  Valid values are codingMode10 (for mono) or codingMode20 (for stereo).
-msCodingMode :: Lens' Mp2Settings (Maybe Mp2CodingMode)
-msCodingMode = lens _msCodingMode (\s a -> s {_msCodingMode = a})
+-- | The MPEG2 Audio coding mode. Valid values are codingMode10 (for mono) or
+-- codingMode20 (for stereo).
+mp2Settings_codingMode :: Lens.Lens' Mp2Settings (Prelude.Maybe Mp2CodingMode)
+mp2Settings_codingMode = Lens.lens (\Mp2Settings' {codingMode} -> codingMode) (\s@Mp2Settings' {} a -> s {codingMode = a} :: Mp2Settings)
 
 -- | Sample rate in Hz.
-msSampleRate :: Lens' Mp2Settings (Maybe Double)
-msSampleRate = lens _msSampleRate (\s a -> s {_msSampleRate = a})
+mp2Settings_sampleRate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Double)
+mp2Settings_sampleRate = Lens.lens (\Mp2Settings' {sampleRate} -> sampleRate) (\s@Mp2Settings' {} a -> s {sampleRate = a} :: Mp2Settings)
 
--- | Average bitrate in bits/second.
-msBitrate :: Lens' Mp2Settings (Maybe Double)
-msBitrate = lens _msBitrate (\s a -> s {_msBitrate = a})
+-- | Average bitrate in bits\/second.
+mp2Settings_bitrate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Double)
+mp2Settings_bitrate = Lens.lens (\Mp2Settings' {bitrate} -> bitrate) (\s@Mp2Settings' {} a -> s {bitrate = a} :: Mp2Settings)
 
-instance FromJSON Mp2Settings where
+instance Prelude.FromJSON Mp2Settings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Mp2Settings"
       ( \x ->
           Mp2Settings'
-            <$> (x .:? "codingMode")
-            <*> (x .:? "sampleRate")
-            <*> (x .:? "bitrate")
+            Prelude.<$> (x Prelude..:? "codingMode")
+            Prelude.<*> (x Prelude..:? "sampleRate")
+            Prelude.<*> (x Prelude..:? "bitrate")
       )
 
-instance Hashable Mp2Settings
+instance Prelude.Hashable Mp2Settings
 
-instance NFData Mp2Settings
+instance Prelude.NFData Mp2Settings
 
-instance ToJSON Mp2Settings where
+instance Prelude.ToJSON Mp2Settings where
   toJSON Mp2Settings' {..} =
-    object
-      ( catMaybes
-          [ ("codingMode" .=) <$> _msCodingMode,
-            ("sampleRate" .=) <$> _msSampleRate,
-            ("bitrate" .=) <$> _msBitrate
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("codingMode" Prelude..=) Prelude.<$> codingMode,
+            ("sampleRate" Prelude..=) Prelude.<$> sampleRate,
+            ("bitrate" Prelude..=) Prelude.<$> bitrate
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.HlsCaptionLanguageSetting
   ( HlsCaptionLanguageSetting
       ( ..,
-        HCLSInsert,
-        HCLSNone,
-        HCLSOmit
+        HlsCaptionLanguageSettingINSERT,
+        HlsCaptionLanguageSettingNONE,
+        HlsCaptionLanguageSettingOMIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Caption Language Setting
-data HlsCaptionLanguageSetting
-  = HlsCaptionLanguageSetting'
-      ( CI
-          Text
-      )
+newtype HlsCaptionLanguageSetting = HlsCaptionLanguageSetting'
+  { fromHlsCaptionLanguageSetting ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HCLSInsert :: HlsCaptionLanguageSetting
-pattern HCLSInsert = HlsCaptionLanguageSetting' "INSERT"
+pattern HlsCaptionLanguageSettingINSERT :: HlsCaptionLanguageSetting
+pattern HlsCaptionLanguageSettingINSERT = HlsCaptionLanguageSetting' "INSERT"
 
-pattern HCLSNone :: HlsCaptionLanguageSetting
-pattern HCLSNone = HlsCaptionLanguageSetting' "NONE"
+pattern HlsCaptionLanguageSettingNONE :: HlsCaptionLanguageSetting
+pattern HlsCaptionLanguageSettingNONE = HlsCaptionLanguageSetting' "NONE"
 
-pattern HCLSOmit :: HlsCaptionLanguageSetting
-pattern HCLSOmit = HlsCaptionLanguageSetting' "OMIT"
+pattern HlsCaptionLanguageSettingOMIT :: HlsCaptionLanguageSetting
+pattern HlsCaptionLanguageSettingOMIT = HlsCaptionLanguageSetting' "OMIT"
 
 {-# COMPLETE
-  HCLSInsert,
-  HCLSNone,
-  HCLSOmit,
+  HlsCaptionLanguageSettingINSERT,
+  HlsCaptionLanguageSettingNONE,
+  HlsCaptionLanguageSettingOMIT,
   HlsCaptionLanguageSetting'
   #-}
 
-instance FromText HlsCaptionLanguageSetting where
-  parser = (HlsCaptionLanguageSetting' . mk) <$> takeText
+instance Prelude.FromText HlsCaptionLanguageSetting where
+  parser = HlsCaptionLanguageSetting' Prelude.<$> Prelude.takeText
 
-instance ToText HlsCaptionLanguageSetting where
-  toText (HlsCaptionLanguageSetting' ci) = original ci
+instance Prelude.ToText HlsCaptionLanguageSetting where
+  toText (HlsCaptionLanguageSetting' x) = x
 
-instance Hashable HlsCaptionLanguageSetting
+instance Prelude.Hashable HlsCaptionLanguageSetting
 
-instance NFData HlsCaptionLanguageSetting
+instance Prelude.NFData HlsCaptionLanguageSetting
 
-instance ToByteString HlsCaptionLanguageSetting
+instance Prelude.ToByteString HlsCaptionLanguageSetting
 
-instance ToQuery HlsCaptionLanguageSetting
+instance Prelude.ToQuery HlsCaptionLanguageSetting
 
-instance ToHeader HlsCaptionLanguageSetting
+instance Prelude.ToHeader HlsCaptionLanguageSetting
 
-instance ToJSON HlsCaptionLanguageSetting where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsCaptionLanguageSetting where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsCaptionLanguageSetting where
-  parseJSON = parseJSONText "HlsCaptionLanguageSetting"
+instance Prelude.FromJSON HlsCaptionLanguageSetting where
+  parseJSON = Prelude.parseJSONText "HlsCaptionLanguageSetting"

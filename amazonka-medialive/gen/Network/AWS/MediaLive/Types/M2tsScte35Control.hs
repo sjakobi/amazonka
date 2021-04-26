@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsScte35Control
   ( M2tsScte35Control
       ( ..,
-        MSCNone,
-        MSCPassthrough
+        M2tsScte35ControlNONE,
+        M2tsScte35ControlPASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Scte35 Control
-data M2tsScte35Control = M2tsScte35Control' (CI Text)
+newtype M2tsScte35Control = M2tsScte35Control'
+  { fromM2tsScte35Control ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSCNone :: M2tsScte35Control
-pattern MSCNone = M2tsScte35Control' "NONE"
+pattern M2tsScte35ControlNONE :: M2tsScte35Control
+pattern M2tsScte35ControlNONE = M2tsScte35Control' "NONE"
 
-pattern MSCPassthrough :: M2tsScte35Control
-pattern MSCPassthrough = M2tsScte35Control' "PASSTHROUGH"
+pattern M2tsScte35ControlPASSTHROUGH :: M2tsScte35Control
+pattern M2tsScte35ControlPASSTHROUGH = M2tsScte35Control' "PASSTHROUGH"
 
 {-# COMPLETE
-  MSCNone,
-  MSCPassthrough,
+  M2tsScte35ControlNONE,
+  M2tsScte35ControlPASSTHROUGH,
   M2tsScte35Control'
   #-}
 
-instance FromText M2tsScte35Control where
-  parser = (M2tsScte35Control' . mk) <$> takeText
+instance Prelude.FromText M2tsScte35Control where
+  parser = M2tsScte35Control' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsScte35Control where
-  toText (M2tsScte35Control' ci) = original ci
+instance Prelude.ToText M2tsScte35Control where
+  toText (M2tsScte35Control' x) = x
 
-instance Hashable M2tsScte35Control
+instance Prelude.Hashable M2tsScte35Control
 
-instance NFData M2tsScte35Control
+instance Prelude.NFData M2tsScte35Control
 
-instance ToByteString M2tsScte35Control
+instance Prelude.ToByteString M2tsScte35Control
 
-instance ToQuery M2tsScte35Control
+instance Prelude.ToQuery M2tsScte35Control
 
-instance ToHeader M2tsScte35Control
+instance Prelude.ToHeader M2tsScte35Control
 
-instance ToJSON M2tsScte35Control where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsScte35Control where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsScte35Control where
-  parseJSON = parseJSONText "M2tsScte35Control"
+instance Prelude.FromJSON M2tsScte35Control where
+  parseJSON = Prelude.parseJSONText "M2tsScte35Control"

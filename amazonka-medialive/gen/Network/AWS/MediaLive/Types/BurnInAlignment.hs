@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaLive.Types.BurnInAlignment
   ( BurnInAlignment
       ( ..,
-        BIACentered,
-        BIALeft',
-        BIASmart
+        BurnInAlignmentCENTERED,
+        BurnInAlignmentLEFT,
+        BurnInAlignmentSMART
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Burn In Alignment
-data BurnInAlignment = BurnInAlignment' (CI Text)
+newtype BurnInAlignment = BurnInAlignment'
+  { fromBurnInAlignment ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BIACentered :: BurnInAlignment
-pattern BIACentered = BurnInAlignment' "CENTERED"
+pattern BurnInAlignmentCENTERED :: BurnInAlignment
+pattern BurnInAlignmentCENTERED = BurnInAlignment' "CENTERED"
 
-pattern BIALeft' :: BurnInAlignment
-pattern BIALeft' = BurnInAlignment' "LEFT"
+pattern BurnInAlignmentLEFT :: BurnInAlignment
+pattern BurnInAlignmentLEFT = BurnInAlignment' "LEFT"
 
-pattern BIASmart :: BurnInAlignment
-pattern BIASmart = BurnInAlignment' "SMART"
+pattern BurnInAlignmentSMART :: BurnInAlignment
+pattern BurnInAlignmentSMART = BurnInAlignment' "SMART"
 
 {-# COMPLETE
-  BIACentered,
-  BIALeft',
-  BIASmart,
+  BurnInAlignmentCENTERED,
+  BurnInAlignmentLEFT,
+  BurnInAlignmentSMART,
   BurnInAlignment'
   #-}
 
-instance FromText BurnInAlignment where
-  parser = (BurnInAlignment' . mk) <$> takeText
+instance Prelude.FromText BurnInAlignment where
+  parser = BurnInAlignment' Prelude.<$> Prelude.takeText
 
-instance ToText BurnInAlignment where
-  toText (BurnInAlignment' ci) = original ci
+instance Prelude.ToText BurnInAlignment where
+  toText (BurnInAlignment' x) = x
 
-instance Hashable BurnInAlignment
+instance Prelude.Hashable BurnInAlignment
 
-instance NFData BurnInAlignment
+instance Prelude.NFData BurnInAlignment
 
-instance ToByteString BurnInAlignment
+instance Prelude.ToByteString BurnInAlignment
 
-instance ToQuery BurnInAlignment
+instance Prelude.ToQuery BurnInAlignment
 
-instance ToHeader BurnInAlignment
+instance Prelude.ToHeader BurnInAlignment
 
-instance ToJSON BurnInAlignment where
-  toJSON = toJSONText
+instance Prelude.ToJSON BurnInAlignment where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BurnInAlignment where
-  parseJSON = parseJSONText "BurnInAlignment"
+instance Prelude.FromJSON BurnInAlignment where
+  parseJSON = Prelude.parseJSONText "BurnInAlignment"

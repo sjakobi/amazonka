@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.SmoothGroupSparseTrackType
   ( SmoothGroupSparseTrackType
       ( ..,
-        SGSTTNone,
-        SGSTTScte35,
-        SGSTTScte35WithoutSegmentation
+        SmoothGroupSparseTrackTypeNONE,
+        SmoothGroupSparseTrackTypeSCTE35,
+        SmoothGroupSparseTrackTypeSCTE35WITHOUTSEGMENTATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Sparse Track Type
-data SmoothGroupSparseTrackType
-  = SmoothGroupSparseTrackType'
-      ( CI
-          Text
-      )
+newtype SmoothGroupSparseTrackType = SmoothGroupSparseTrackType'
+  { fromSmoothGroupSparseTrackType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SGSTTNone :: SmoothGroupSparseTrackType
-pattern SGSTTNone = SmoothGroupSparseTrackType' "NONE"
+pattern SmoothGroupSparseTrackTypeNONE :: SmoothGroupSparseTrackType
+pattern SmoothGroupSparseTrackTypeNONE = SmoothGroupSparseTrackType' "NONE"
 
-pattern SGSTTScte35 :: SmoothGroupSparseTrackType
-pattern SGSTTScte35 = SmoothGroupSparseTrackType' "SCTE_35"
+pattern SmoothGroupSparseTrackTypeSCTE35 :: SmoothGroupSparseTrackType
+pattern SmoothGroupSparseTrackTypeSCTE35 = SmoothGroupSparseTrackType' "SCTE_35"
 
-pattern SGSTTScte35WithoutSegmentation :: SmoothGroupSparseTrackType
-pattern SGSTTScte35WithoutSegmentation = SmoothGroupSparseTrackType' "SCTE_35_WITHOUT_SEGMENTATION"
+pattern SmoothGroupSparseTrackTypeSCTE35WITHOUTSEGMENTATION :: SmoothGroupSparseTrackType
+pattern SmoothGroupSparseTrackTypeSCTE35WITHOUTSEGMENTATION = SmoothGroupSparseTrackType' "SCTE_35_WITHOUT_SEGMENTATION"
 
 {-# COMPLETE
-  SGSTTNone,
-  SGSTTScte35,
-  SGSTTScte35WithoutSegmentation,
+  SmoothGroupSparseTrackTypeNONE,
+  SmoothGroupSparseTrackTypeSCTE35,
+  SmoothGroupSparseTrackTypeSCTE35WITHOUTSEGMENTATION,
   SmoothGroupSparseTrackType'
   #-}
 
-instance FromText SmoothGroupSparseTrackType where
-  parser = (SmoothGroupSparseTrackType' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupSparseTrackType where
+  parser = SmoothGroupSparseTrackType' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupSparseTrackType where
-  toText (SmoothGroupSparseTrackType' ci) = original ci
+instance Prelude.ToText SmoothGroupSparseTrackType where
+  toText (SmoothGroupSparseTrackType' x) = x
 
-instance Hashable SmoothGroupSparseTrackType
+instance Prelude.Hashable SmoothGroupSparseTrackType
 
-instance NFData SmoothGroupSparseTrackType
+instance Prelude.NFData SmoothGroupSparseTrackType
 
-instance ToByteString SmoothGroupSparseTrackType
+instance Prelude.ToByteString SmoothGroupSparseTrackType
 
-instance ToQuery SmoothGroupSparseTrackType
+instance Prelude.ToQuery SmoothGroupSparseTrackType
 
-instance ToHeader SmoothGroupSparseTrackType
+instance Prelude.ToHeader SmoothGroupSparseTrackType
 
-instance ToJSON SmoothGroupSparseTrackType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupSparseTrackType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupSparseTrackType where
-  parseJSON = parseJSONText "SmoothGroupSparseTrackType"
+instance Prelude.FromJSON SmoothGroupSparseTrackType where
+  parseJSON = Prelude.parseJSONText "SmoothGroupSparseTrackType"

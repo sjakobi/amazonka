@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.MediaLive.Types.DeviceUpdateStatus
   ( DeviceUpdateStatus
       ( ..,
-        NotUpToDate,
-        UpToDate
+        DeviceUpdateStatusNOTUPTODATE,
+        DeviceUpdateStatusUPTODATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The status of software on the input device.
-data DeviceUpdateStatus
-  = DeviceUpdateStatus'
-      ( CI
-          Text
-      )
+newtype DeviceUpdateStatus = DeviceUpdateStatus'
+  { fromDeviceUpdateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NotUpToDate :: DeviceUpdateStatus
-pattern NotUpToDate = DeviceUpdateStatus' "NOT_UP_TO_DATE"
+pattern DeviceUpdateStatusNOTUPTODATE :: DeviceUpdateStatus
+pattern DeviceUpdateStatusNOTUPTODATE = DeviceUpdateStatus' "NOT_UP_TO_DATE"
 
-pattern UpToDate :: DeviceUpdateStatus
-pattern UpToDate = DeviceUpdateStatus' "UP_TO_DATE"
+pattern DeviceUpdateStatusUPTODATE :: DeviceUpdateStatus
+pattern DeviceUpdateStatusUPTODATE = DeviceUpdateStatus' "UP_TO_DATE"
 
 {-# COMPLETE
-  NotUpToDate,
-  UpToDate,
+  DeviceUpdateStatusNOTUPTODATE,
+  DeviceUpdateStatusUPTODATE,
   DeviceUpdateStatus'
   #-}
 
-instance FromText DeviceUpdateStatus where
-  parser = (DeviceUpdateStatus' . mk) <$> takeText
+instance Prelude.FromText DeviceUpdateStatus where
+  parser = DeviceUpdateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceUpdateStatus where
-  toText (DeviceUpdateStatus' ci) = original ci
+instance Prelude.ToText DeviceUpdateStatus where
+  toText (DeviceUpdateStatus' x) = x
 
-instance Hashable DeviceUpdateStatus
+instance Prelude.Hashable DeviceUpdateStatus
 
-instance NFData DeviceUpdateStatus
+instance Prelude.NFData DeviceUpdateStatus
 
-instance ToByteString DeviceUpdateStatus
+instance Prelude.ToByteString DeviceUpdateStatus
 
-instance ToQuery DeviceUpdateStatus
+instance Prelude.ToQuery DeviceUpdateStatus
 
-instance ToHeader DeviceUpdateStatus
+instance Prelude.ToHeader DeviceUpdateStatus
 
-instance FromJSON DeviceUpdateStatus where
-  parseJSON = parseJSONText "DeviceUpdateStatus"
+instance Prelude.FromJSON DeviceUpdateStatus where
+  parseJSON = Prelude.parseJSONText "DeviceUpdateStatus"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.SmoothGroupCertificateMode
   ( SmoothGroupCertificateMode
       ( ..,
-        SGCMSelfSigned,
-        SGCMVerifyAuthenticity
+        SmoothGroupCertificateModeSELFSIGNED,
+        SmoothGroupCertificateModeVERIFYAUTHENTICITY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Certificate Mode
-data SmoothGroupCertificateMode
-  = SmoothGroupCertificateMode'
-      ( CI
-          Text
-      )
+newtype SmoothGroupCertificateMode = SmoothGroupCertificateMode'
+  { fromSmoothGroupCertificateMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SGCMSelfSigned :: SmoothGroupCertificateMode
-pattern SGCMSelfSigned = SmoothGroupCertificateMode' "SELF_SIGNED"
+pattern SmoothGroupCertificateModeSELFSIGNED :: SmoothGroupCertificateMode
+pattern SmoothGroupCertificateModeSELFSIGNED = SmoothGroupCertificateMode' "SELF_SIGNED"
 
-pattern SGCMVerifyAuthenticity :: SmoothGroupCertificateMode
-pattern SGCMVerifyAuthenticity = SmoothGroupCertificateMode' "VERIFY_AUTHENTICITY"
+pattern SmoothGroupCertificateModeVERIFYAUTHENTICITY :: SmoothGroupCertificateMode
+pattern SmoothGroupCertificateModeVERIFYAUTHENTICITY = SmoothGroupCertificateMode' "VERIFY_AUTHENTICITY"
 
 {-# COMPLETE
-  SGCMSelfSigned,
-  SGCMVerifyAuthenticity,
+  SmoothGroupCertificateModeSELFSIGNED,
+  SmoothGroupCertificateModeVERIFYAUTHENTICITY,
   SmoothGroupCertificateMode'
   #-}
 
-instance FromText SmoothGroupCertificateMode where
-  parser = (SmoothGroupCertificateMode' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupCertificateMode where
+  parser = SmoothGroupCertificateMode' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupCertificateMode where
-  toText (SmoothGroupCertificateMode' ci) = original ci
+instance Prelude.ToText SmoothGroupCertificateMode where
+  toText (SmoothGroupCertificateMode' x) = x
 
-instance Hashable SmoothGroupCertificateMode
+instance Prelude.Hashable SmoothGroupCertificateMode
 
-instance NFData SmoothGroupCertificateMode
+instance Prelude.NFData SmoothGroupCertificateMode
 
-instance ToByteString SmoothGroupCertificateMode
+instance Prelude.ToByteString SmoothGroupCertificateMode
 
-instance ToQuery SmoothGroupCertificateMode
+instance Prelude.ToQuery SmoothGroupCertificateMode
 
-instance ToHeader SmoothGroupCertificateMode
+instance Prelude.ToHeader SmoothGroupCertificateMode
 
-instance ToJSON SmoothGroupCertificateMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupCertificateMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupCertificateMode where
-  parseJSON = parseJSONText "SmoothGroupCertificateMode"
+instance Prelude.FromJSON SmoothGroupCertificateMode where
+  parseJSON = Prelude.parseJSONText "SmoothGroupCertificateMode"

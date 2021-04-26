@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioLanguageSelection where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AudioLanguageSelectionPolicy
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Language Selection
 --
--- /See:/ 'audioLanguageSelection' smart constructor.
+-- /See:/ 'newAudioLanguageSelection' smart constructor.
 data AudioLanguageSelection = AudioLanguageSelection'
-  { _alsLanguageSelectionPolicy ::
-      !( Maybe
-           AudioLanguageSelectionPolicy
-       ),
-    _alsLanguageCode :: !Text
+  { -- | When set to \"strict\", the transport stream demux strictly identifies
+    -- audio streams by their language descriptor. If a PMT update occurs such
+    -- that an audio stream matching the initially selected language is no
+    -- longer present then mute will be encoded until the language returns. If
+    -- \"loose\", then on a PMT update the demux will choose another audio
+    -- stream in the program with the same stream type if it can\'t find one
+    -- with the same language.
+    languageSelectionPolicy :: Prelude.Maybe AudioLanguageSelectionPolicy,
+    -- | Selects a specific three-letter language code from within an audio
+    -- source.
+    languageCode :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioLanguageSelection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioLanguageSelection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'alsLanguageSelectionPolicy' - When set to "strict", the transport stream demux strictly identifies audio streams by their language descriptor. If a PMT update occurs such that an audio stream matching the initially selected language is no longer present then mute will be encoded until the language returns. If "loose", then on a PMT update the demux will choose another audio stream in the program with the same stream type if it can't find one with the same language.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'alsLanguageCode' - Selects a specific three-letter language code from within an audio source.
-audioLanguageSelection ::
-  -- | 'alsLanguageCode'
-  Text ->
+-- 'languageSelectionPolicy', 'audioLanguageSelection_languageSelectionPolicy' - When set to \"strict\", the transport stream demux strictly identifies
+-- audio streams by their language descriptor. If a PMT update occurs such
+-- that an audio stream matching the initially selected language is no
+-- longer present then mute will be encoded until the language returns. If
+-- \"loose\", then on a PMT update the demux will choose another audio
+-- stream in the program with the same stream type if it can\'t find one
+-- with the same language.
+--
+-- 'languageCode', 'audioLanguageSelection_languageCode' - Selects a specific three-letter language code from within an audio
+-- source.
+newAudioLanguageSelection ::
+  -- | 'languageCode'
+  Prelude.Text ->
   AudioLanguageSelection
-audioLanguageSelection pLanguageCode_ =
+newAudioLanguageSelection pLanguageCode_ =
   AudioLanguageSelection'
-    { _alsLanguageSelectionPolicy =
-        Nothing,
-      _alsLanguageCode = pLanguageCode_
+    { languageSelectionPolicy =
+        Prelude.Nothing,
+      languageCode = pLanguageCode_
     }
 
--- | When set to "strict", the transport stream demux strictly identifies audio streams by their language descriptor. If a PMT update occurs such that an audio stream matching the initially selected language is no longer present then mute will be encoded until the language returns. If "loose", then on a PMT update the demux will choose another audio stream in the program with the same stream type if it can't find one with the same language.
-alsLanguageSelectionPolicy :: Lens' AudioLanguageSelection (Maybe AudioLanguageSelectionPolicy)
-alsLanguageSelectionPolicy = lens _alsLanguageSelectionPolicy (\s a -> s {_alsLanguageSelectionPolicy = a})
+-- | When set to \"strict\", the transport stream demux strictly identifies
+-- audio streams by their language descriptor. If a PMT update occurs such
+-- that an audio stream matching the initially selected language is no
+-- longer present then mute will be encoded until the language returns. If
+-- \"loose\", then on a PMT update the demux will choose another audio
+-- stream in the program with the same stream type if it can\'t find one
+-- with the same language.
+audioLanguageSelection_languageSelectionPolicy :: Lens.Lens' AudioLanguageSelection (Prelude.Maybe AudioLanguageSelectionPolicy)
+audioLanguageSelection_languageSelectionPolicy = Lens.lens (\AudioLanguageSelection' {languageSelectionPolicy} -> languageSelectionPolicy) (\s@AudioLanguageSelection' {} a -> s {languageSelectionPolicy = a} :: AudioLanguageSelection)
 
--- | Selects a specific three-letter language code from within an audio source.
-alsLanguageCode :: Lens' AudioLanguageSelection Text
-alsLanguageCode = lens _alsLanguageCode (\s a -> s {_alsLanguageCode = a})
+-- | Selects a specific three-letter language code from within an audio
+-- source.
+audioLanguageSelection_languageCode :: Lens.Lens' AudioLanguageSelection Prelude.Text
+audioLanguageSelection_languageCode = Lens.lens (\AudioLanguageSelection' {languageCode} -> languageCode) (\s@AudioLanguageSelection' {} a -> s {languageCode = a} :: AudioLanguageSelection)
 
-instance FromJSON AudioLanguageSelection where
+instance Prelude.FromJSON AudioLanguageSelection where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioLanguageSelection"
       ( \x ->
           AudioLanguageSelection'
-            <$> (x .:? "languageSelectionPolicy")
-            <*> (x .: "languageCode")
+            Prelude.<$> (x Prelude..:? "languageSelectionPolicy")
+            Prelude.<*> (x Prelude..: "languageCode")
       )
 
-instance Hashable AudioLanguageSelection
+instance Prelude.Hashable AudioLanguageSelection
 
-instance NFData AudioLanguageSelection
+instance Prelude.NFData AudioLanguageSelection
 
-instance ToJSON AudioLanguageSelection where
+instance Prelude.ToJSON AudioLanguageSelection where
   toJSON AudioLanguageSelection' {..} =
-    object
-      ( catMaybes
-          [ ("languageSelectionPolicy" .=)
-              <$> _alsLanguageSelectionPolicy,
-            Just ("languageCode" .= _alsLanguageCode)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("languageSelectionPolicy" Prelude..=)
+              Prelude.<$> languageSelectionPolicy,
+            Prelude.Just
+              ("languageCode" Prelude..= languageCode)
           ]
       )

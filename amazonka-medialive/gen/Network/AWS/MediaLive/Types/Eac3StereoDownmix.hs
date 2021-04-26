@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,69 @@
 module Network.AWS.MediaLive.Types.Eac3StereoDownmix
   ( Eac3StereoDownmix
       ( ..,
-        DPL2,
-        LoRo,
-        LtRt,
-        NotIndicated
+        Eac3StereoDownmixDPL2,
+        Eac3StereoDownmixLORO,
+        Eac3StereoDownmixLTRT,
+        Eac3StereoDownmixNOTINDICATED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Eac3 Stereo Downmix
-data Eac3StereoDownmix = Eac3StereoDownmix' (CI Text)
+newtype Eac3StereoDownmix = Eac3StereoDownmix'
+  { fromEac3StereoDownmix ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DPL2 :: Eac3StereoDownmix
-pattern DPL2 = Eac3StereoDownmix' "DPL2"
+pattern Eac3StereoDownmixDPL2 :: Eac3StereoDownmix
+pattern Eac3StereoDownmixDPL2 = Eac3StereoDownmix' "DPL2"
 
-pattern LoRo :: Eac3StereoDownmix
-pattern LoRo = Eac3StereoDownmix' "LO_RO"
+pattern Eac3StereoDownmixLORO :: Eac3StereoDownmix
+pattern Eac3StereoDownmixLORO = Eac3StereoDownmix' "LO_RO"
 
-pattern LtRt :: Eac3StereoDownmix
-pattern LtRt = Eac3StereoDownmix' "LT_RT"
+pattern Eac3StereoDownmixLTRT :: Eac3StereoDownmix
+pattern Eac3StereoDownmixLTRT = Eac3StereoDownmix' "LT_RT"
 
-pattern NotIndicated :: Eac3StereoDownmix
-pattern NotIndicated = Eac3StereoDownmix' "NOT_INDICATED"
+pattern Eac3StereoDownmixNOTINDICATED :: Eac3StereoDownmix
+pattern Eac3StereoDownmixNOTINDICATED = Eac3StereoDownmix' "NOT_INDICATED"
 
 {-# COMPLETE
-  DPL2,
-  LoRo,
-  LtRt,
-  NotIndicated,
+  Eac3StereoDownmixDPL2,
+  Eac3StereoDownmixLORO,
+  Eac3StereoDownmixLTRT,
+  Eac3StereoDownmixNOTINDICATED,
   Eac3StereoDownmix'
   #-}
 
-instance FromText Eac3StereoDownmix where
-  parser = (Eac3StereoDownmix' . mk) <$> takeText
+instance Prelude.FromText Eac3StereoDownmix where
+  parser = Eac3StereoDownmix' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3StereoDownmix where
-  toText (Eac3StereoDownmix' ci) = original ci
+instance Prelude.ToText Eac3StereoDownmix where
+  toText (Eac3StereoDownmix' x) = x
 
-instance Hashable Eac3StereoDownmix
+instance Prelude.Hashable Eac3StereoDownmix
 
-instance NFData Eac3StereoDownmix
+instance Prelude.NFData Eac3StereoDownmix
 
-instance ToByteString Eac3StereoDownmix
+instance Prelude.ToByteString Eac3StereoDownmix
 
-instance ToQuery Eac3StereoDownmix
+instance Prelude.ToQuery Eac3StereoDownmix
 
-instance ToHeader Eac3StereoDownmix
+instance Prelude.ToHeader Eac3StereoDownmix
 
-instance ToJSON Eac3StereoDownmix where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3StereoDownmix where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3StereoDownmix where
-  parseJSON = parseJSONText "Eac3StereoDownmix"
+instance Prelude.FromJSON Eac3StereoDownmix where
+  parseJSON = Prelude.parseJSONText "Eac3StereoDownmix"

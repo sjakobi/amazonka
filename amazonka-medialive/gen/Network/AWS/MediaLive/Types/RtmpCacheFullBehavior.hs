@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.RtmpCacheFullBehavior
   ( RtmpCacheFullBehavior
       ( ..,
-        DisconnectImmediately,
-        WaitForServer
+        RtmpCacheFullBehaviorDISCONNECTIMMEDIATELY,
+        RtmpCacheFullBehaviorWAITFORSERVER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Rtmp Cache Full Behavior
-data RtmpCacheFullBehavior
-  = RtmpCacheFullBehavior'
-      ( CI
-          Text
-      )
+newtype RtmpCacheFullBehavior = RtmpCacheFullBehavior'
+  { fromRtmpCacheFullBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DisconnectImmediately :: RtmpCacheFullBehavior
-pattern DisconnectImmediately = RtmpCacheFullBehavior' "DISCONNECT_IMMEDIATELY"
+pattern RtmpCacheFullBehaviorDISCONNECTIMMEDIATELY :: RtmpCacheFullBehavior
+pattern RtmpCacheFullBehaviorDISCONNECTIMMEDIATELY = RtmpCacheFullBehavior' "DISCONNECT_IMMEDIATELY"
 
-pattern WaitForServer :: RtmpCacheFullBehavior
-pattern WaitForServer = RtmpCacheFullBehavior' "WAIT_FOR_SERVER"
+pattern RtmpCacheFullBehaviorWAITFORSERVER :: RtmpCacheFullBehavior
+pattern RtmpCacheFullBehaviorWAITFORSERVER = RtmpCacheFullBehavior' "WAIT_FOR_SERVER"
 
 {-# COMPLETE
-  DisconnectImmediately,
-  WaitForServer,
+  RtmpCacheFullBehaviorDISCONNECTIMMEDIATELY,
+  RtmpCacheFullBehaviorWAITFORSERVER,
   RtmpCacheFullBehavior'
   #-}
 
-instance FromText RtmpCacheFullBehavior where
-  parser = (RtmpCacheFullBehavior' . mk) <$> takeText
+instance Prelude.FromText RtmpCacheFullBehavior where
+  parser = RtmpCacheFullBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText RtmpCacheFullBehavior where
-  toText (RtmpCacheFullBehavior' ci) = original ci
+instance Prelude.ToText RtmpCacheFullBehavior where
+  toText (RtmpCacheFullBehavior' x) = x
 
-instance Hashable RtmpCacheFullBehavior
+instance Prelude.Hashable RtmpCacheFullBehavior
 
-instance NFData RtmpCacheFullBehavior
+instance Prelude.NFData RtmpCacheFullBehavior
 
-instance ToByteString RtmpCacheFullBehavior
+instance Prelude.ToByteString RtmpCacheFullBehavior
 
-instance ToQuery RtmpCacheFullBehavior
+instance Prelude.ToQuery RtmpCacheFullBehavior
 
-instance ToHeader RtmpCacheFullBehavior
+instance Prelude.ToHeader RtmpCacheFullBehavior
 
-instance ToJSON RtmpCacheFullBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON RtmpCacheFullBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RtmpCacheFullBehavior where
-  parseJSON = parseJSONText "RtmpCacheFullBehavior"
+instance Prelude.FromJSON RtmpCacheFullBehavior where
+  parseJSON = Prelude.parseJSONText "RtmpCacheFullBehavior"

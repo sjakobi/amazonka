@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsAudioInterval
   ( M2tsAudioInterval
       ( ..,
-        VideoAndFixedIntervals,
-        VideoInterval
+        M2tsAudioIntervalVIDEOANDFIXEDINTERVALS,
+        M2tsAudioIntervalVIDEOINTERVAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Audio Interval
-data M2tsAudioInterval = M2tsAudioInterval' (CI Text)
+newtype M2tsAudioInterval = M2tsAudioInterval'
+  { fromM2tsAudioInterval ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VideoAndFixedIntervals :: M2tsAudioInterval
-pattern VideoAndFixedIntervals = M2tsAudioInterval' "VIDEO_AND_FIXED_INTERVALS"
+pattern M2tsAudioIntervalVIDEOANDFIXEDINTERVALS :: M2tsAudioInterval
+pattern M2tsAudioIntervalVIDEOANDFIXEDINTERVALS = M2tsAudioInterval' "VIDEO_AND_FIXED_INTERVALS"
 
-pattern VideoInterval :: M2tsAudioInterval
-pattern VideoInterval = M2tsAudioInterval' "VIDEO_INTERVAL"
+pattern M2tsAudioIntervalVIDEOINTERVAL :: M2tsAudioInterval
+pattern M2tsAudioIntervalVIDEOINTERVAL = M2tsAudioInterval' "VIDEO_INTERVAL"
 
 {-# COMPLETE
-  VideoAndFixedIntervals,
-  VideoInterval,
+  M2tsAudioIntervalVIDEOANDFIXEDINTERVALS,
+  M2tsAudioIntervalVIDEOINTERVAL,
   M2tsAudioInterval'
   #-}
 
-instance FromText M2tsAudioInterval where
-  parser = (M2tsAudioInterval' . mk) <$> takeText
+instance Prelude.FromText M2tsAudioInterval where
+  parser = M2tsAudioInterval' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsAudioInterval where
-  toText (M2tsAudioInterval' ci) = original ci
+instance Prelude.ToText M2tsAudioInterval where
+  toText (M2tsAudioInterval' x) = x
 
-instance Hashable M2tsAudioInterval
+instance Prelude.Hashable M2tsAudioInterval
 
-instance NFData M2tsAudioInterval
+instance Prelude.NFData M2tsAudioInterval
 
-instance ToByteString M2tsAudioInterval
+instance Prelude.ToByteString M2tsAudioInterval
 
-instance ToQuery M2tsAudioInterval
+instance Prelude.ToQuery M2tsAudioInterval
 
-instance ToHeader M2tsAudioInterval
+instance Prelude.ToHeader M2tsAudioInterval
 
-instance ToJSON M2tsAudioInterval where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsAudioInterval where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsAudioInterval where
-  parseJSON = parseJSONText "M2tsAudioInterval"
+instance Prelude.FromJSON M2tsAudioInterval where
+  parseJSON = Prelude.parseJSONText "M2tsAudioInterval"

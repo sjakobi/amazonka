@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaLive.Types.RtmpCaptionData
   ( RtmpCaptionData
       ( ..,
-        All,
-        FIELD1608,
-        FIELD1AndFIELD2608
+        RtmpCaptionDataALL,
+        RtmpCaptionDataFIELD1608,
+        RtmpCaptionDataFIELD1ANDFIELD2608
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Rtmp Caption Data
-data RtmpCaptionData = RtmpCaptionData' (CI Text)
+newtype RtmpCaptionData = RtmpCaptionData'
+  { fromRtmpCaptionData ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: RtmpCaptionData
-pattern All = RtmpCaptionData' "ALL"
+pattern RtmpCaptionDataALL :: RtmpCaptionData
+pattern RtmpCaptionDataALL = RtmpCaptionData' "ALL"
 
-pattern FIELD1608 :: RtmpCaptionData
-pattern FIELD1608 = RtmpCaptionData' "FIELD1_608"
+pattern RtmpCaptionDataFIELD1608 :: RtmpCaptionData
+pattern RtmpCaptionDataFIELD1608 = RtmpCaptionData' "FIELD1_608"
 
-pattern FIELD1AndFIELD2608 :: RtmpCaptionData
-pattern FIELD1AndFIELD2608 = RtmpCaptionData' "FIELD1_AND_FIELD2_608"
+pattern RtmpCaptionDataFIELD1ANDFIELD2608 :: RtmpCaptionData
+pattern RtmpCaptionDataFIELD1ANDFIELD2608 = RtmpCaptionData' "FIELD1_AND_FIELD2_608"
 
 {-# COMPLETE
-  All,
-  FIELD1608,
-  FIELD1AndFIELD2608,
+  RtmpCaptionDataALL,
+  RtmpCaptionDataFIELD1608,
+  RtmpCaptionDataFIELD1ANDFIELD2608,
   RtmpCaptionData'
   #-}
 
-instance FromText RtmpCaptionData where
-  parser = (RtmpCaptionData' . mk) <$> takeText
+instance Prelude.FromText RtmpCaptionData where
+  parser = RtmpCaptionData' Prelude.<$> Prelude.takeText
 
-instance ToText RtmpCaptionData where
-  toText (RtmpCaptionData' ci) = original ci
+instance Prelude.ToText RtmpCaptionData where
+  toText (RtmpCaptionData' x) = x
 
-instance Hashable RtmpCaptionData
+instance Prelude.Hashable RtmpCaptionData
 
-instance NFData RtmpCaptionData
+instance Prelude.NFData RtmpCaptionData
 
-instance ToByteString RtmpCaptionData
+instance Prelude.ToByteString RtmpCaptionData
 
-instance ToQuery RtmpCaptionData
+instance Prelude.ToQuery RtmpCaptionData
 
-instance ToHeader RtmpCaptionData
+instance Prelude.ToHeader RtmpCaptionData
 
-instance ToJSON RtmpCaptionData where
-  toJSON = toJSONText
+instance Prelude.ToJSON RtmpCaptionData where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RtmpCaptionData where
-  parseJSON = parseJSONText "RtmpCaptionData"
+instance Prelude.FromJSON RtmpCaptionData where
+  parseJSON = Prelude.parseJSONText "RtmpCaptionData"

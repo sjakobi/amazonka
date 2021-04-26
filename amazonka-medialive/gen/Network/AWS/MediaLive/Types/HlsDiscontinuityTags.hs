@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsDiscontinuityTags
   ( HlsDiscontinuityTags
       ( ..,
-        HDTInsert,
-        HDTNeverInsert
+        HlsDiscontinuityTagsINSERT,
+        HlsDiscontinuityTagsNEVERINSERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Discontinuity Tags
-data HlsDiscontinuityTags
-  = HlsDiscontinuityTags'
-      ( CI
-          Text
-      )
+newtype HlsDiscontinuityTags = HlsDiscontinuityTags'
+  { fromHlsDiscontinuityTags ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HDTInsert :: HlsDiscontinuityTags
-pattern HDTInsert = HlsDiscontinuityTags' "INSERT"
+pattern HlsDiscontinuityTagsINSERT :: HlsDiscontinuityTags
+pattern HlsDiscontinuityTagsINSERT = HlsDiscontinuityTags' "INSERT"
 
-pattern HDTNeverInsert :: HlsDiscontinuityTags
-pattern HDTNeverInsert = HlsDiscontinuityTags' "NEVER_INSERT"
+pattern HlsDiscontinuityTagsNEVERINSERT :: HlsDiscontinuityTags
+pattern HlsDiscontinuityTagsNEVERINSERT = HlsDiscontinuityTags' "NEVER_INSERT"
 
 {-# COMPLETE
-  HDTInsert,
-  HDTNeverInsert,
+  HlsDiscontinuityTagsINSERT,
+  HlsDiscontinuityTagsNEVERINSERT,
   HlsDiscontinuityTags'
   #-}
 
-instance FromText HlsDiscontinuityTags where
-  parser = (HlsDiscontinuityTags' . mk) <$> takeText
+instance Prelude.FromText HlsDiscontinuityTags where
+  parser = HlsDiscontinuityTags' Prelude.<$> Prelude.takeText
 
-instance ToText HlsDiscontinuityTags where
-  toText (HlsDiscontinuityTags' ci) = original ci
+instance Prelude.ToText HlsDiscontinuityTags where
+  toText (HlsDiscontinuityTags' x) = x
 
-instance Hashable HlsDiscontinuityTags
+instance Prelude.Hashable HlsDiscontinuityTags
 
-instance NFData HlsDiscontinuityTags
+instance Prelude.NFData HlsDiscontinuityTags
 
-instance ToByteString HlsDiscontinuityTags
+instance Prelude.ToByteString HlsDiscontinuityTags
 
-instance ToQuery HlsDiscontinuityTags
+instance Prelude.ToQuery HlsDiscontinuityTags
 
-instance ToHeader HlsDiscontinuityTags
+instance Prelude.ToHeader HlsDiscontinuityTags
 
-instance ToJSON HlsDiscontinuityTags where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsDiscontinuityTags where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsDiscontinuityTags where
-  parseJSON = parseJSONText "HlsDiscontinuityTags"
+instance Prelude.FromJSON HlsDiscontinuityTags where
+  parseJSON = Prelude.parseJSONText "HlsDiscontinuityTags"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,196 +24,198 @@
 -- Create a new program in the multiplex.
 module Network.AWS.MediaLive.CreateMultiplexProgram
   ( -- * Creating a Request
-    createMultiplexProgram',
-    CreateMultiplexProgram',
+    CreateMultiplexProgram' (..),
+    newCreateMultiplexProgram',
 
     -- * Request Lenses
-    cmpMultiplexId,
-    cmpRequestId,
-    cmpMultiplexProgramSettings,
-    cmpProgramName,
+    createMultiplexProgram'_multiplexId,
+    createMultiplexProgram'_requestId,
+    createMultiplexProgram'_multiplexProgramSettings,
+    createMultiplexProgram'_programName,
 
     -- * Destructuring the Response
-    createMultiplexProgramResponse,
-    CreateMultiplexProgramResponse,
+    CreateMultiplexProgramResponse (..),
+    newCreateMultiplexProgramResponse,
 
     -- * Response Lenses
-    cmprrsMultiplexProgram,
-    cmprrsResponseStatus,
+    createMultiplexProgramResponse_multiplexProgram,
+    createMultiplexProgramResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.MultiplexProgram
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to create a program in a multiplex.
 --
--- /See:/ 'createMultiplexProgram'' smart constructor.
+-- /See:/ 'newCreateMultiplexProgram'' smart constructor.
 data CreateMultiplexProgram' = CreateMultiplexProgram''
-  { _cmpMultiplexId ::
-      !Text,
-    _cmpRequestId :: !Text,
-    _cmpMultiplexProgramSettings ::
-      !MultiplexProgramSettings,
-    _cmpProgramName ::
-      !Text
+  { -- | ID of the multiplex where the program is to be created.
+    multiplexId :: Prelude.Text,
+    -- | Unique request ID. This prevents retries from creating multiple
+    -- resources.
+    requestId :: Prelude.Text,
+    -- | The settings for this multiplex program.
+    multiplexProgramSettings :: MultiplexProgramSettings,
+    -- | Name of multiplex program.
+    programName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMultiplexProgram'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMultiplexProgram'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmpMultiplexId' - ID of the multiplex where the program is to be created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmpRequestId' - Unique request ID. This prevents retries from creating multiple resources.
+-- 'multiplexId', 'createMultiplexProgram'_multiplexId' - ID of the multiplex where the program is to be created.
 --
--- * 'cmpMultiplexProgramSettings' - The settings for this multiplex program.
+-- 'requestId', 'createMultiplexProgram'_requestId' - Unique request ID. This prevents retries from creating multiple
+-- resources.
 --
--- * 'cmpProgramName' - Name of multiplex program.
-createMultiplexProgram' ::
-  -- | 'cmpMultiplexId'
-  Text ->
-  -- | 'cmpRequestId'
-  Text ->
-  -- | 'cmpMultiplexProgramSettings'
+-- 'multiplexProgramSettings', 'createMultiplexProgram'_multiplexProgramSettings' - The settings for this multiplex program.
+--
+-- 'programName', 'createMultiplexProgram'_programName' - Name of multiplex program.
+newCreateMultiplexProgram' ::
+  -- | 'multiplexId'
+  Prelude.Text ->
+  -- | 'requestId'
+  Prelude.Text ->
+  -- | 'multiplexProgramSettings'
   MultiplexProgramSettings ->
-  -- | 'cmpProgramName'
-  Text ->
+  -- | 'programName'
+  Prelude.Text ->
   CreateMultiplexProgram'
-createMultiplexProgram'
+newCreateMultiplexProgram'
   pMultiplexId_
   pRequestId_
   pMultiplexProgramSettings_
   pProgramName_ =
     CreateMultiplexProgram''
-      { _cmpMultiplexId =
+      { multiplexId =
           pMultiplexId_,
-        _cmpRequestId = pRequestId_,
-        _cmpMultiplexProgramSettings =
+        requestId = pRequestId_,
+        multiplexProgramSettings =
           pMultiplexProgramSettings_,
-        _cmpProgramName = pProgramName_
+        programName = pProgramName_
       }
 
 -- | ID of the multiplex where the program is to be created.
-cmpMultiplexId :: Lens' CreateMultiplexProgram' Text
-cmpMultiplexId = lens _cmpMultiplexId (\s a -> s {_cmpMultiplexId = a})
+createMultiplexProgram'_multiplexId :: Lens.Lens' CreateMultiplexProgram' Prelude.Text
+createMultiplexProgram'_multiplexId = Lens.lens (\CreateMultiplexProgram'' {multiplexId} -> multiplexId) (\s@CreateMultiplexProgram'' {} a -> s {multiplexId = a} :: CreateMultiplexProgram')
 
--- | Unique request ID. This prevents retries from creating multiple resources.
-cmpRequestId :: Lens' CreateMultiplexProgram' Text
-cmpRequestId = lens _cmpRequestId (\s a -> s {_cmpRequestId = a})
+-- | Unique request ID. This prevents retries from creating multiple
+-- resources.
+createMultiplexProgram'_requestId :: Lens.Lens' CreateMultiplexProgram' Prelude.Text
+createMultiplexProgram'_requestId = Lens.lens (\CreateMultiplexProgram'' {requestId} -> requestId) (\s@CreateMultiplexProgram'' {} a -> s {requestId = a} :: CreateMultiplexProgram')
 
 -- | The settings for this multiplex program.
-cmpMultiplexProgramSettings :: Lens' CreateMultiplexProgram' MultiplexProgramSettings
-cmpMultiplexProgramSettings = lens _cmpMultiplexProgramSettings (\s a -> s {_cmpMultiplexProgramSettings = a})
+createMultiplexProgram'_multiplexProgramSettings :: Lens.Lens' CreateMultiplexProgram' MultiplexProgramSettings
+createMultiplexProgram'_multiplexProgramSettings = Lens.lens (\CreateMultiplexProgram'' {multiplexProgramSettings} -> multiplexProgramSettings) (\s@CreateMultiplexProgram'' {} a -> s {multiplexProgramSettings = a} :: CreateMultiplexProgram')
 
 -- | Name of multiplex program.
-cmpProgramName :: Lens' CreateMultiplexProgram' Text
-cmpProgramName = lens _cmpProgramName (\s a -> s {_cmpProgramName = a})
+createMultiplexProgram'_programName :: Lens.Lens' CreateMultiplexProgram' Prelude.Text
+createMultiplexProgram'_programName = Lens.lens (\CreateMultiplexProgram'' {programName} -> programName) (\s@CreateMultiplexProgram'' {} a -> s {programName = a} :: CreateMultiplexProgram')
 
-instance AWSRequest CreateMultiplexProgram' where
+instance Prelude.AWSRequest CreateMultiplexProgram' where
   type
     Rs CreateMultiplexProgram' =
       CreateMultiplexProgramResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateMultiplexProgramResponse'
-            <$> (x .?> "multiplexProgram") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "multiplexProgram")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateMultiplexProgram'
+instance Prelude.Hashable CreateMultiplexProgram'
 
-instance NFData CreateMultiplexProgram'
+instance Prelude.NFData CreateMultiplexProgram'
 
-instance ToHeaders CreateMultiplexProgram' where
+instance Prelude.ToHeaders CreateMultiplexProgram' where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateMultiplexProgram' where
+instance Prelude.ToJSON CreateMultiplexProgram' where
   toJSON CreateMultiplexProgram'' {..} =
-    object
-      ( catMaybes
-          [ Just ("requestId" .= _cmpRequestId),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("requestId" Prelude..= requestId),
+            Prelude.Just
               ( "multiplexProgramSettings"
-                  .= _cmpMultiplexProgramSettings
+                  Prelude..= multiplexProgramSettings
               ),
-            Just ("programName" .= _cmpProgramName)
+            Prelude.Just ("programName" Prelude..= programName)
           ]
       )
 
-instance ToPath CreateMultiplexProgram' where
+instance Prelude.ToPath CreateMultiplexProgram' where
   toPath CreateMultiplexProgram'' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/prod/multiplexes/",
-        toBS _cmpMultiplexId,
+        Prelude.toBS multiplexId,
         "/programs"
       ]
 
-instance ToQuery CreateMultiplexProgram' where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateMultiplexProgram' where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for CreateMultiplexProgramResponse
 --
--- /See:/ 'createMultiplexProgramResponse' smart constructor.
+-- /See:/ 'newCreateMultiplexProgramResponse' smart constructor.
 data CreateMultiplexProgramResponse = CreateMultiplexProgramResponse'
-  { _cmprrsMultiplexProgram ::
-      !( Maybe
-           MultiplexProgram
-       ),
-    _cmprrsResponseStatus ::
-      !Int
+  { -- | The newly created multiplex program.
+    multiplexProgram :: Prelude.Maybe MultiplexProgram,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateMultiplexProgramResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateMultiplexProgramResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmprrsMultiplexProgram' - The newly created multiplex program.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmprrsResponseStatus' - -- | The response status code.
-createMultiplexProgramResponse ::
-  -- | 'cmprrsResponseStatus'
-  Int ->
+-- 'multiplexProgram', 'createMultiplexProgramResponse_multiplexProgram' - The newly created multiplex program.
+--
+-- 'httpStatus', 'createMultiplexProgramResponse_httpStatus' - The response's http status code.
+newCreateMultiplexProgramResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateMultiplexProgramResponse
-createMultiplexProgramResponse pResponseStatus_ =
+newCreateMultiplexProgramResponse pHttpStatus_ =
   CreateMultiplexProgramResponse'
-    { _cmprrsMultiplexProgram =
-        Nothing,
-      _cmprrsResponseStatus = pResponseStatus_
+    { multiplexProgram =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The newly created multiplex program.
-cmprrsMultiplexProgram :: Lens' CreateMultiplexProgramResponse (Maybe MultiplexProgram)
-cmprrsMultiplexProgram = lens _cmprrsMultiplexProgram (\s a -> s {_cmprrsMultiplexProgram = a})
+createMultiplexProgramResponse_multiplexProgram :: Lens.Lens' CreateMultiplexProgramResponse (Prelude.Maybe MultiplexProgram)
+createMultiplexProgramResponse_multiplexProgram = Lens.lens (\CreateMultiplexProgramResponse' {multiplexProgram} -> multiplexProgram) (\s@CreateMultiplexProgramResponse' {} a -> s {multiplexProgram = a} :: CreateMultiplexProgramResponse)
 
--- | -- | The response status code.
-cmprrsResponseStatus :: Lens' CreateMultiplexProgramResponse Int
-cmprrsResponseStatus = lens _cmprrsResponseStatus (\s a -> s {_cmprrsResponseStatus = a})
+-- | The response's http status code.
+createMultiplexProgramResponse_httpStatus :: Lens.Lens' CreateMultiplexProgramResponse Prelude.Int
+createMultiplexProgramResponse_httpStatus = Lens.lens (\CreateMultiplexProgramResponse' {httpStatus} -> httpStatus) (\s@CreateMultiplexProgramResponse' {} a -> s {httpStatus = a} :: CreateMultiplexProgramResponse)
 
-instance NFData CreateMultiplexProgramResponse
+instance
+  Prelude.NFData
+    CreateMultiplexProgramResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.InputLossActionForHlsOut
   ( InputLossActionForHlsOut
       ( ..,
-        ILAFHOEmitOutput,
-        ILAFHOPauseOutput
+        InputLossActionForHlsOutEMITOUTPUT,
+        InputLossActionForHlsOutPAUSEOUTPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Input Loss Action For Hls Out
-data InputLossActionForHlsOut
-  = InputLossActionForHlsOut'
-      ( CI
-          Text
-      )
+newtype InputLossActionForHlsOut = InputLossActionForHlsOut'
+  { fromInputLossActionForHlsOut ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ILAFHOEmitOutput :: InputLossActionForHlsOut
-pattern ILAFHOEmitOutput = InputLossActionForHlsOut' "EMIT_OUTPUT"
+pattern InputLossActionForHlsOutEMITOUTPUT :: InputLossActionForHlsOut
+pattern InputLossActionForHlsOutEMITOUTPUT = InputLossActionForHlsOut' "EMIT_OUTPUT"
 
-pattern ILAFHOPauseOutput :: InputLossActionForHlsOut
-pattern ILAFHOPauseOutput = InputLossActionForHlsOut' "PAUSE_OUTPUT"
+pattern InputLossActionForHlsOutPAUSEOUTPUT :: InputLossActionForHlsOut
+pattern InputLossActionForHlsOutPAUSEOUTPUT = InputLossActionForHlsOut' "PAUSE_OUTPUT"
 
 {-# COMPLETE
-  ILAFHOEmitOutput,
-  ILAFHOPauseOutput,
+  InputLossActionForHlsOutEMITOUTPUT,
+  InputLossActionForHlsOutPAUSEOUTPUT,
   InputLossActionForHlsOut'
   #-}
 
-instance FromText InputLossActionForHlsOut where
-  parser = (InputLossActionForHlsOut' . mk) <$> takeText
+instance Prelude.FromText InputLossActionForHlsOut where
+  parser = InputLossActionForHlsOut' Prelude.<$> Prelude.takeText
 
-instance ToText InputLossActionForHlsOut where
-  toText (InputLossActionForHlsOut' ci) = original ci
+instance Prelude.ToText InputLossActionForHlsOut where
+  toText (InputLossActionForHlsOut' x) = x
 
-instance Hashable InputLossActionForHlsOut
+instance Prelude.Hashable InputLossActionForHlsOut
 
-instance NFData InputLossActionForHlsOut
+instance Prelude.NFData InputLossActionForHlsOut
 
-instance ToByteString InputLossActionForHlsOut
+instance Prelude.ToByteString InputLossActionForHlsOut
 
-instance ToQuery InputLossActionForHlsOut
+instance Prelude.ToQuery InputLossActionForHlsOut
 
-instance ToHeader InputLossActionForHlsOut
+instance Prelude.ToHeader InputLossActionForHlsOut
 
-instance ToJSON InputLossActionForHlsOut where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputLossActionForHlsOut where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputLossActionForHlsOut where
-  parseJSON = parseJSONText "InputLossActionForHlsOut"
+instance Prelude.FromJSON InputLossActionForHlsOut where
+  parseJSON = Prelude.parseJSONText "InputLossActionForHlsOut"

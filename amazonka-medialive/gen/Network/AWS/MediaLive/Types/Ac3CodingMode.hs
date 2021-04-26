@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,69 @@
 module Network.AWS.MediaLive.Types.Ac3CodingMode
   ( Ac3CodingMode
       ( ..,
-        CodingMode10,
-        CodingMode11,
-        CodingMode20,
-        CodingMode32Lfe
+        Ac3CodingModeCODINGMODE10,
+        Ac3CodingModeCODINGMODE11,
+        Ac3CodingModeCODINGMODE20,
+        Ac3CodingModeCODINGMODE32LFE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Ac3 Coding Mode
-data Ac3CodingMode = Ac3CodingMode' (CI Text)
+newtype Ac3CodingMode = Ac3CodingMode'
+  { fromAc3CodingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CodingMode10 :: Ac3CodingMode
-pattern CodingMode10 = Ac3CodingMode' "CODING_MODE_1_0"
+pattern Ac3CodingModeCODINGMODE10 :: Ac3CodingMode
+pattern Ac3CodingModeCODINGMODE10 = Ac3CodingMode' "CODING_MODE_1_0"
 
-pattern CodingMode11 :: Ac3CodingMode
-pattern CodingMode11 = Ac3CodingMode' "CODING_MODE_1_1"
+pattern Ac3CodingModeCODINGMODE11 :: Ac3CodingMode
+pattern Ac3CodingModeCODINGMODE11 = Ac3CodingMode' "CODING_MODE_1_1"
 
-pattern CodingMode20 :: Ac3CodingMode
-pattern CodingMode20 = Ac3CodingMode' "CODING_MODE_2_0"
+pattern Ac3CodingModeCODINGMODE20 :: Ac3CodingMode
+pattern Ac3CodingModeCODINGMODE20 = Ac3CodingMode' "CODING_MODE_2_0"
 
-pattern CodingMode32Lfe :: Ac3CodingMode
-pattern CodingMode32Lfe = Ac3CodingMode' "CODING_MODE_3_2_LFE"
+pattern Ac3CodingModeCODINGMODE32LFE :: Ac3CodingMode
+pattern Ac3CodingModeCODINGMODE32LFE = Ac3CodingMode' "CODING_MODE_3_2_LFE"
 
 {-# COMPLETE
-  CodingMode10,
-  CodingMode11,
-  CodingMode20,
-  CodingMode32Lfe,
+  Ac3CodingModeCODINGMODE10,
+  Ac3CodingModeCODINGMODE11,
+  Ac3CodingModeCODINGMODE20,
+  Ac3CodingModeCODINGMODE32LFE,
   Ac3CodingMode'
   #-}
 
-instance FromText Ac3CodingMode where
-  parser = (Ac3CodingMode' . mk) <$> takeText
+instance Prelude.FromText Ac3CodingMode where
+  parser = Ac3CodingMode' Prelude.<$> Prelude.takeText
 
-instance ToText Ac3CodingMode where
-  toText (Ac3CodingMode' ci) = original ci
+instance Prelude.ToText Ac3CodingMode where
+  toText (Ac3CodingMode' x) = x
 
-instance Hashable Ac3CodingMode
+instance Prelude.Hashable Ac3CodingMode
 
-instance NFData Ac3CodingMode
+instance Prelude.NFData Ac3CodingMode
 
-instance ToByteString Ac3CodingMode
+instance Prelude.ToByteString Ac3CodingMode
 
-instance ToQuery Ac3CodingMode
+instance Prelude.ToQuery Ac3CodingMode
 
-instance ToHeader Ac3CodingMode
+instance Prelude.ToHeader Ac3CodingMode
 
-instance ToJSON Ac3CodingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON Ac3CodingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Ac3CodingMode where
-  parseJSON = parseJSONText "Ac3CodingMode"
+instance Prelude.FromJSON Ac3CodingMode where
+  parseJSON = Prelude.parseJSONText "Ac3CodingMode"

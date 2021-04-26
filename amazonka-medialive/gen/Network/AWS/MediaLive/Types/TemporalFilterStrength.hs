@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,136 +19,134 @@
 module Network.AWS.MediaLive.Types.TemporalFilterStrength
   ( TemporalFilterStrength
       ( ..,
-        TFSAuto,
-        TFSStrength1,
-        TFSStrength10,
-        TFSStrength11,
-        TFSStrength12,
-        TFSStrength13,
-        TFSStrength14,
-        TFSStrength15,
-        TFSStrength16,
-        TFSStrength2,
-        TFSStrength3,
-        TFSStrength4,
-        TFSStrength5,
-        TFSStrength6,
-        TFSStrength7,
-        TFSStrength8,
-        TFSStrength9
+        TemporalFilterStrengthAUTO,
+        TemporalFilterStrengthSTRENGTH1,
+        TemporalFilterStrengthSTRENGTH10,
+        TemporalFilterStrengthSTRENGTH11,
+        TemporalFilterStrengthSTRENGTH12,
+        TemporalFilterStrengthSTRENGTH13,
+        TemporalFilterStrengthSTRENGTH14,
+        TemporalFilterStrengthSTRENGTH15,
+        TemporalFilterStrengthSTRENGTH16,
+        TemporalFilterStrengthSTRENGTH2,
+        TemporalFilterStrengthSTRENGTH3,
+        TemporalFilterStrengthSTRENGTH4,
+        TemporalFilterStrengthSTRENGTH5,
+        TemporalFilterStrengthSTRENGTH6,
+        TemporalFilterStrengthSTRENGTH7,
+        TemporalFilterStrengthSTRENGTH8,
+        TemporalFilterStrengthSTRENGTH9
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Temporal Filter Strength
-data TemporalFilterStrength
-  = TemporalFilterStrength'
-      ( CI
-          Text
-      )
+newtype TemporalFilterStrength = TemporalFilterStrength'
+  { fromTemporalFilterStrength ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TFSAuto :: TemporalFilterStrength
-pattern TFSAuto = TemporalFilterStrength' "AUTO"
+pattern TemporalFilterStrengthAUTO :: TemporalFilterStrength
+pattern TemporalFilterStrengthAUTO = TemporalFilterStrength' "AUTO"
 
-pattern TFSStrength1 :: TemporalFilterStrength
-pattern TFSStrength1 = TemporalFilterStrength' "STRENGTH_1"
+pattern TemporalFilterStrengthSTRENGTH1 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH1 = TemporalFilterStrength' "STRENGTH_1"
 
-pattern TFSStrength10 :: TemporalFilterStrength
-pattern TFSStrength10 = TemporalFilterStrength' "STRENGTH_10"
+pattern TemporalFilterStrengthSTRENGTH10 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH10 = TemporalFilterStrength' "STRENGTH_10"
 
-pattern TFSStrength11 :: TemporalFilterStrength
-pattern TFSStrength11 = TemporalFilterStrength' "STRENGTH_11"
+pattern TemporalFilterStrengthSTRENGTH11 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH11 = TemporalFilterStrength' "STRENGTH_11"
 
-pattern TFSStrength12 :: TemporalFilterStrength
-pattern TFSStrength12 = TemporalFilterStrength' "STRENGTH_12"
+pattern TemporalFilterStrengthSTRENGTH12 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH12 = TemporalFilterStrength' "STRENGTH_12"
 
-pattern TFSStrength13 :: TemporalFilterStrength
-pattern TFSStrength13 = TemporalFilterStrength' "STRENGTH_13"
+pattern TemporalFilterStrengthSTRENGTH13 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH13 = TemporalFilterStrength' "STRENGTH_13"
 
-pattern TFSStrength14 :: TemporalFilterStrength
-pattern TFSStrength14 = TemporalFilterStrength' "STRENGTH_14"
+pattern TemporalFilterStrengthSTRENGTH14 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH14 = TemporalFilterStrength' "STRENGTH_14"
 
-pattern TFSStrength15 :: TemporalFilterStrength
-pattern TFSStrength15 = TemporalFilterStrength' "STRENGTH_15"
+pattern TemporalFilterStrengthSTRENGTH15 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH15 = TemporalFilterStrength' "STRENGTH_15"
 
-pattern TFSStrength16 :: TemporalFilterStrength
-pattern TFSStrength16 = TemporalFilterStrength' "STRENGTH_16"
+pattern TemporalFilterStrengthSTRENGTH16 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH16 = TemporalFilterStrength' "STRENGTH_16"
 
-pattern TFSStrength2 :: TemporalFilterStrength
-pattern TFSStrength2 = TemporalFilterStrength' "STRENGTH_2"
+pattern TemporalFilterStrengthSTRENGTH2 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH2 = TemporalFilterStrength' "STRENGTH_2"
 
-pattern TFSStrength3 :: TemporalFilterStrength
-pattern TFSStrength3 = TemporalFilterStrength' "STRENGTH_3"
+pattern TemporalFilterStrengthSTRENGTH3 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH3 = TemporalFilterStrength' "STRENGTH_3"
 
-pattern TFSStrength4 :: TemporalFilterStrength
-pattern TFSStrength4 = TemporalFilterStrength' "STRENGTH_4"
+pattern TemporalFilterStrengthSTRENGTH4 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH4 = TemporalFilterStrength' "STRENGTH_4"
 
-pattern TFSStrength5 :: TemporalFilterStrength
-pattern TFSStrength5 = TemporalFilterStrength' "STRENGTH_5"
+pattern TemporalFilterStrengthSTRENGTH5 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH5 = TemporalFilterStrength' "STRENGTH_5"
 
-pattern TFSStrength6 :: TemporalFilterStrength
-pattern TFSStrength6 = TemporalFilterStrength' "STRENGTH_6"
+pattern TemporalFilterStrengthSTRENGTH6 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH6 = TemporalFilterStrength' "STRENGTH_6"
 
-pattern TFSStrength7 :: TemporalFilterStrength
-pattern TFSStrength7 = TemporalFilterStrength' "STRENGTH_7"
+pattern TemporalFilterStrengthSTRENGTH7 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH7 = TemporalFilterStrength' "STRENGTH_7"
 
-pattern TFSStrength8 :: TemporalFilterStrength
-pattern TFSStrength8 = TemporalFilterStrength' "STRENGTH_8"
+pattern TemporalFilterStrengthSTRENGTH8 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH8 = TemporalFilterStrength' "STRENGTH_8"
 
-pattern TFSStrength9 :: TemporalFilterStrength
-pattern TFSStrength9 = TemporalFilterStrength' "STRENGTH_9"
+pattern TemporalFilterStrengthSTRENGTH9 :: TemporalFilterStrength
+pattern TemporalFilterStrengthSTRENGTH9 = TemporalFilterStrength' "STRENGTH_9"
 
 {-# COMPLETE
-  TFSAuto,
-  TFSStrength1,
-  TFSStrength10,
-  TFSStrength11,
-  TFSStrength12,
-  TFSStrength13,
-  TFSStrength14,
-  TFSStrength15,
-  TFSStrength16,
-  TFSStrength2,
-  TFSStrength3,
-  TFSStrength4,
-  TFSStrength5,
-  TFSStrength6,
-  TFSStrength7,
-  TFSStrength8,
-  TFSStrength9,
+  TemporalFilterStrengthAUTO,
+  TemporalFilterStrengthSTRENGTH1,
+  TemporalFilterStrengthSTRENGTH10,
+  TemporalFilterStrengthSTRENGTH11,
+  TemporalFilterStrengthSTRENGTH12,
+  TemporalFilterStrengthSTRENGTH13,
+  TemporalFilterStrengthSTRENGTH14,
+  TemporalFilterStrengthSTRENGTH15,
+  TemporalFilterStrengthSTRENGTH16,
+  TemporalFilterStrengthSTRENGTH2,
+  TemporalFilterStrengthSTRENGTH3,
+  TemporalFilterStrengthSTRENGTH4,
+  TemporalFilterStrengthSTRENGTH5,
+  TemporalFilterStrengthSTRENGTH6,
+  TemporalFilterStrengthSTRENGTH7,
+  TemporalFilterStrengthSTRENGTH8,
+  TemporalFilterStrengthSTRENGTH9,
   TemporalFilterStrength'
   #-}
 
-instance FromText TemporalFilterStrength where
-  parser = (TemporalFilterStrength' . mk) <$> takeText
+instance Prelude.FromText TemporalFilterStrength where
+  parser = TemporalFilterStrength' Prelude.<$> Prelude.takeText
 
-instance ToText TemporalFilterStrength where
-  toText (TemporalFilterStrength' ci) = original ci
+instance Prelude.ToText TemporalFilterStrength where
+  toText (TemporalFilterStrength' x) = x
 
-instance Hashable TemporalFilterStrength
+instance Prelude.Hashable TemporalFilterStrength
 
-instance NFData TemporalFilterStrength
+instance Prelude.NFData TemporalFilterStrength
 
-instance ToByteString TemporalFilterStrength
+instance Prelude.ToByteString TemporalFilterStrength
 
-instance ToQuery TemporalFilterStrength
+instance Prelude.ToQuery TemporalFilterStrength
 
-instance ToHeader TemporalFilterStrength
+instance Prelude.ToHeader TemporalFilterStrength
 
-instance ToJSON TemporalFilterStrength where
-  toJSON = toJSONText
+instance Prelude.ToJSON TemporalFilterStrength where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TemporalFilterStrength where
-  parseJSON = parseJSONText "TemporalFilterStrength"
+instance Prelude.FromJSON TemporalFilterStrength where
+  parseJSON = Prelude.parseJSONText "TemporalFilterStrength"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H264ParControl
   ( H264ParControl
       ( ..,
-        InitializeFromSource,
-        Specified
+        H264ParControlINITIALIZEFROMSOURCE,
+        H264ParControlSPECIFIED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Par Control
-data H264ParControl = H264ParControl' (CI Text)
+newtype H264ParControl = H264ParControl'
+  { fromH264ParControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern InitializeFromSource :: H264ParControl
-pattern InitializeFromSource = H264ParControl' "INITIALIZE_FROM_SOURCE"
+pattern H264ParControlINITIALIZEFROMSOURCE :: H264ParControl
+pattern H264ParControlINITIALIZEFROMSOURCE = H264ParControl' "INITIALIZE_FROM_SOURCE"
 
-pattern Specified :: H264ParControl
-pattern Specified = H264ParControl' "SPECIFIED"
+pattern H264ParControlSPECIFIED :: H264ParControl
+pattern H264ParControlSPECIFIED = H264ParControl' "SPECIFIED"
 
 {-# COMPLETE
-  InitializeFromSource,
-  Specified,
+  H264ParControlINITIALIZEFROMSOURCE,
+  H264ParControlSPECIFIED,
   H264ParControl'
   #-}
 
-instance FromText H264ParControl where
-  parser = (H264ParControl' . mk) <$> takeText
+instance Prelude.FromText H264ParControl where
+  parser = H264ParControl' Prelude.<$> Prelude.takeText
 
-instance ToText H264ParControl where
-  toText (H264ParControl' ci) = original ci
+instance Prelude.ToText H264ParControl where
+  toText (H264ParControl' x) = x
 
-instance Hashable H264ParControl
+instance Prelude.Hashable H264ParControl
 
-instance NFData H264ParControl
+instance Prelude.NFData H264ParControl
 
-instance ToByteString H264ParControl
+instance Prelude.ToByteString H264ParControl
 
-instance ToQuery H264ParControl
+instance Prelude.ToQuery H264ParControl
 
-instance ToHeader H264ParControl
+instance Prelude.ToHeader H264ParControl
 
-instance ToJSON H264ParControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264ParControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264ParControl where
-  parseJSON = parseJSONText "H264ParControl"
+instance Prelude.FromJSON H264ParControl where
+  parseJSON = Prelude.parseJSONText "H264ParControl"

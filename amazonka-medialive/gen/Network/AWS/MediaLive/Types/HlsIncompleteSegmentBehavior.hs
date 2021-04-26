@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsIncompleteSegmentBehavior
   ( HlsIncompleteSegmentBehavior
       ( ..,
-        HISBAuto,
-        HISBSuppress
+        HlsIncompleteSegmentBehaviorAUTO,
+        HlsIncompleteSegmentBehaviorSUPPRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Incomplete Segment Behavior
-data HlsIncompleteSegmentBehavior
-  = HlsIncompleteSegmentBehavior'
-      ( CI
-          Text
-      )
+newtype HlsIncompleteSegmentBehavior = HlsIncompleteSegmentBehavior'
+  { fromHlsIncompleteSegmentBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HISBAuto :: HlsIncompleteSegmentBehavior
-pattern HISBAuto = HlsIncompleteSegmentBehavior' "AUTO"
+pattern HlsIncompleteSegmentBehaviorAUTO :: HlsIncompleteSegmentBehavior
+pattern HlsIncompleteSegmentBehaviorAUTO = HlsIncompleteSegmentBehavior' "AUTO"
 
-pattern HISBSuppress :: HlsIncompleteSegmentBehavior
-pattern HISBSuppress = HlsIncompleteSegmentBehavior' "SUPPRESS"
+pattern HlsIncompleteSegmentBehaviorSUPPRESS :: HlsIncompleteSegmentBehavior
+pattern HlsIncompleteSegmentBehaviorSUPPRESS = HlsIncompleteSegmentBehavior' "SUPPRESS"
 
 {-# COMPLETE
-  HISBAuto,
-  HISBSuppress,
+  HlsIncompleteSegmentBehaviorAUTO,
+  HlsIncompleteSegmentBehaviorSUPPRESS,
   HlsIncompleteSegmentBehavior'
   #-}
 
-instance FromText HlsIncompleteSegmentBehavior where
-  parser = (HlsIncompleteSegmentBehavior' . mk) <$> takeText
+instance Prelude.FromText HlsIncompleteSegmentBehavior where
+  parser = HlsIncompleteSegmentBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText HlsIncompleteSegmentBehavior where
-  toText (HlsIncompleteSegmentBehavior' ci) = original ci
+instance Prelude.ToText HlsIncompleteSegmentBehavior where
+  toText (HlsIncompleteSegmentBehavior' x) = x
 
-instance Hashable HlsIncompleteSegmentBehavior
+instance Prelude.Hashable HlsIncompleteSegmentBehavior
 
-instance NFData HlsIncompleteSegmentBehavior
+instance Prelude.NFData HlsIncompleteSegmentBehavior
 
-instance ToByteString HlsIncompleteSegmentBehavior
+instance Prelude.ToByteString HlsIncompleteSegmentBehavior
 
-instance ToQuery HlsIncompleteSegmentBehavior
+instance Prelude.ToQuery HlsIncompleteSegmentBehavior
 
-instance ToHeader HlsIncompleteSegmentBehavior
+instance Prelude.ToHeader HlsIncompleteSegmentBehavior
 
-instance ToJSON HlsIncompleteSegmentBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsIncompleteSegmentBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsIncompleteSegmentBehavior where
-  parseJSON = parseJSONText "HlsIncompleteSegmentBehavior"
+instance Prelude.FromJSON HlsIncompleteSegmentBehavior where
+  parseJSON = Prelude.parseJSONText "HlsIncompleteSegmentBehavior"

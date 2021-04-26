@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MultiplexProgramSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for MultiplexProgramSummary
 --
--- /See:/ 'multiplexProgramSummary' smart constructor.
+-- /See:/ 'newMultiplexProgramSummary' smart constructor.
 data MultiplexProgramSummary = MultiplexProgramSummary'
-  { _mpsChannelId ::
-      !(Maybe Text),
-    _mpsProgramName ::
-      !(Maybe Text)
+  { -- | The MediaLive Channel associated with the program.
+    channelId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the multiplex program.
+    programName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultiplexProgramSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultiplexProgramSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mpsChannelId' - The MediaLive Channel associated with the program.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mpsProgramName' - The name of the multiplex program.
-multiplexProgramSummary ::
+-- 'channelId', 'multiplexProgramSummary_channelId' - The MediaLive Channel associated with the program.
+--
+-- 'programName', 'multiplexProgramSummary_programName' - The name of the multiplex program.
+newMultiplexProgramSummary ::
   MultiplexProgramSummary
-multiplexProgramSummary =
+newMultiplexProgramSummary =
   MultiplexProgramSummary'
-    { _mpsChannelId = Nothing,
-      _mpsProgramName = Nothing
+    { channelId =
+        Prelude.Nothing,
+      programName = Prelude.Nothing
     }
 
 -- | The MediaLive Channel associated with the program.
-mpsChannelId :: Lens' MultiplexProgramSummary (Maybe Text)
-mpsChannelId = lens _mpsChannelId (\s a -> s {_mpsChannelId = a})
+multiplexProgramSummary_channelId :: Lens.Lens' MultiplexProgramSummary (Prelude.Maybe Prelude.Text)
+multiplexProgramSummary_channelId = Lens.lens (\MultiplexProgramSummary' {channelId} -> channelId) (\s@MultiplexProgramSummary' {} a -> s {channelId = a} :: MultiplexProgramSummary)
 
 -- | The name of the multiplex program.
-mpsProgramName :: Lens' MultiplexProgramSummary (Maybe Text)
-mpsProgramName = lens _mpsProgramName (\s a -> s {_mpsProgramName = a})
+multiplexProgramSummary_programName :: Lens.Lens' MultiplexProgramSummary (Prelude.Maybe Prelude.Text)
+multiplexProgramSummary_programName = Lens.lens (\MultiplexProgramSummary' {programName} -> programName) (\s@MultiplexProgramSummary' {} a -> s {programName = a} :: MultiplexProgramSummary)
 
-instance FromJSON MultiplexProgramSummary where
+instance Prelude.FromJSON MultiplexProgramSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MultiplexProgramSummary"
       ( \x ->
           MultiplexProgramSummary'
-            <$> (x .:? "channelId") <*> (x .:? "programName")
+            Prelude.<$> (x Prelude..:? "channelId")
+            Prelude.<*> (x Prelude..:? "programName")
       )
 
-instance Hashable MultiplexProgramSummary
+instance Prelude.Hashable MultiplexProgramSummary
 
-instance NFData MultiplexProgramSummary
+instance Prelude.NFData MultiplexProgramSummary

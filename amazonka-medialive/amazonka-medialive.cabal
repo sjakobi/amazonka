@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.MediaLive" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.MediaLive.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.MediaLive" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-medialive
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -78,6 +76,7 @@ library
     Network.AWS.MediaLive.DescribeOffering
     Network.AWS.MediaLive.DescribeReservation
     Network.AWS.MediaLive.DescribeSchedule
+    Network.AWS.MediaLive.Lens
     Network.AWS.MediaLive.ListChannels
     Network.AWS.MediaLive.ListInputDevices
     Network.AWS.MediaLive.ListInputDeviceTransfers
@@ -96,17 +95,6 @@ library
     Network.AWS.MediaLive.StopMultiplex
     Network.AWS.MediaLive.TransferInputDevice
     Network.AWS.MediaLive.Types
-    Network.AWS.MediaLive.UpdateChannel
-    Network.AWS.MediaLive.UpdateChannelClass
-    Network.AWS.MediaLive.UpdateInput
-    Network.AWS.MediaLive.UpdateInputDevice
-    Network.AWS.MediaLive.UpdateInputSecurityGroup
-    Network.AWS.MediaLive.UpdateMultiplex
-    Network.AWS.MediaLive.UpdateMultiplexProgram
-    Network.AWS.MediaLive.UpdateReservation
-    Network.AWS.MediaLive.Waiters
-
-  other-modules:
     Network.AWS.MediaLive.Types.AacCodingMode
     Network.AWS.MediaLive.Types.AacInputType
     Network.AWS.MediaLive.Types.AacProfile
@@ -288,7 +276,7 @@ library
     Network.AWS.MediaLive.Types.H265TimecodeInsertionBehavior
     Network.AWS.MediaLive.Types.Hdr10Settings
     Network.AWS.MediaLive.Types.HlsAdMarkers
-    Network.AWS.MediaLive.Types.HlsAkamaiHTTPTransferMode
+    Network.AWS.MediaLive.Types.HlsAkamaiHttpTransferMode
     Network.AWS.MediaLive.Types.HlsAkamaiSettings
     Network.AWS.MediaLive.Types.HlsBasicPutSettings
     Network.AWS.MediaLive.Types.HlsCaptionLanguageSetting
@@ -321,7 +309,7 @@ library
     Network.AWS.MediaLive.Types.HlsTimedMetadataId3Frame
     Network.AWS.MediaLive.Types.HlsTimedMetadataScheduleActionSettings
     Network.AWS.MediaLive.Types.HlsTsFileMode
-    Network.AWS.MediaLive.Types.HlsWebdavHTTPTransferMode
+    Network.AWS.MediaLive.Types.HlsWebdavHttpTransferMode
     Network.AWS.MediaLive.Types.HlsWebdavSettings
     Network.AWS.MediaLive.Types.IFrameOnlyPlaylistType
     Network.AWS.MediaLive.Types.ImmediateModeScheduleActionStartSettings
@@ -335,13 +323,13 @@ library
     Network.AWS.MediaLive.Types.InputDenoiseFilter
     Network.AWS.MediaLive.Types.InputDestination
     Network.AWS.MediaLive.Types.InputDestinationRequest
-    Network.AWS.MediaLive.Types.InputDestinationVPC
+    Network.AWS.MediaLive.Types.InputDestinationVpc
     Network.AWS.MediaLive.Types.InputDeviceActiveInput
     Network.AWS.MediaLive.Types.InputDeviceConfigurableSettings
     Network.AWS.MediaLive.Types.InputDeviceConfiguredInput
     Network.AWS.MediaLive.Types.InputDeviceConnectionState
     Network.AWS.MediaLive.Types.InputDeviceHdSettings
-    Network.AWS.MediaLive.Types.InputDeviceIPScheme
+    Network.AWS.MediaLive.Types.InputDeviceIpScheme
     Network.AWS.MediaLive.Types.InputDeviceNetworkSettings
     Network.AWS.MediaLive.Types.InputDeviceRequest
     Network.AWS.MediaLive.Types.InputDeviceScanType
@@ -376,7 +364,7 @@ library
     Network.AWS.MediaLive.Types.InputSwitchScheduleActionSettings
     Network.AWS.MediaLive.Types.InputTimecodeSource
     Network.AWS.MediaLive.Types.InputType
-    Network.AWS.MediaLive.Types.InputVPCRequest
+    Network.AWS.MediaLive.Types.InputVpcRequest
     Network.AWS.MediaLive.Types.InputWhitelistRule
     Network.AWS.MediaLive.Types.InputWhitelistRuleCidr
     Network.AWS.MediaLive.Types.KeyProviderSettings
@@ -389,7 +377,7 @@ library
     Network.AWS.MediaLive.Types.M2tsAudioInterval
     Network.AWS.MediaLive.Types.M2tsAudioStreamType
     Network.AWS.MediaLive.Types.M2tsBufferModel
-    Network.AWS.MediaLive.Types.M2tsCCDescriptor
+    Network.AWS.MediaLive.Types.M2tsCcDescriptor
     Network.AWS.MediaLive.Types.M2tsEbifControl
     Network.AWS.MediaLive.Types.M2tsEbpPlacement
     Network.AWS.MediaLive.Types.M2tsEsRateInPes
@@ -553,15 +541,24 @@ library
     Network.AWS.MediaLive.Types.VideoSelectorPid
     Network.AWS.MediaLive.Types.VideoSelectorProgramId
     Network.AWS.MediaLive.Types.VideoSelectorSettings
-    Network.AWS.MediaLive.Types.VPCOutputSettings
+    Network.AWS.MediaLive.Types.VpcOutputSettings
     Network.AWS.MediaLive.Types.WavCodingMode
     Network.AWS.MediaLive.Types.WavSettings
     Network.AWS.MediaLive.Types.WebvttDestinationSettings
+    Network.AWS.MediaLive.UpdateChannel
+    Network.AWS.MediaLive.UpdateChannelClass
+    Network.AWS.MediaLive.UpdateInput
+    Network.AWS.MediaLive.UpdateInputDevice
+    Network.AWS.MediaLive.UpdateInputSecurityGroup
+    Network.AWS.MediaLive.UpdateMultiplex
+    Network.AWS.MediaLive.UpdateMultiplexProgram
+    Network.AWS.MediaLive.UpdateReservation
+    Network.AWS.MediaLive.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-medialive-test
   type:             exitcode-stdio-1.0

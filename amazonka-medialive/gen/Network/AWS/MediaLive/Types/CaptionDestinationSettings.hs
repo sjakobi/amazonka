@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.CaptionDestinationSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AribDestinationSettings
 import Network.AWS.MediaLive.Types.BurnInDestinationSettings
 import Network.AWS.MediaLive.Types.DvbSubDestinationSettings
@@ -29,232 +33,194 @@ import Network.AWS.MediaLive.Types.SmpteTtDestinationSettings
 import Network.AWS.MediaLive.Types.TeletextDestinationSettings
 import Network.AWS.MediaLive.Types.TtmlDestinationSettings
 import Network.AWS.MediaLive.Types.WebvttDestinationSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Caption Destination Settings
 --
--- /See:/ 'captionDestinationSettings' smart constructor.
+-- /See:/ 'newCaptionDestinationSettings' smart constructor.
 data CaptionDestinationSettings = CaptionDestinationSettings'
-  { _cdsWebvttDestinationSettings ::
-      !( Maybe
-           WebvttDestinationSettings
-       ),
-    _cdsEmbeddedDestinationSettings ::
-      !( Maybe
-           EmbeddedDestinationSettings
-       ),
-    _cdsAribDestinationSettings ::
-      !( Maybe
-           AribDestinationSettings
-       ),
-    _cdsScte20PlusEmbeddedDestinationSettings ::
-      !( Maybe
-           Scte20PlusEmbeddedDestinationSettings
-       ),
-    _cdsEmbeddedPlusScte20DestinationSettings ::
-      !( Maybe
-           EmbeddedPlusScte20DestinationSettings
-       ),
-    _cdsDvbSubDestinationSettings ::
-      !( Maybe
-           DvbSubDestinationSettings
-       ),
-    _cdsScte27DestinationSettings ::
-      !( Maybe
-           Scte27DestinationSettings
-       ),
-    _cdsRtmpCaptionInfoDestinationSettings ::
-      !( Maybe
-           RtmpCaptionInfoDestinationSettings
-       ),
-    _cdsEbuTtDDestinationSettings ::
-      !( Maybe
-           EbuTtDDestinationSettings
-       ),
-    _cdsTeletextDestinationSettings ::
-      !( Maybe
-           TeletextDestinationSettings
-       ),
-    _cdsSmpteTtDestinationSettings ::
-      !( Maybe
-           SmpteTtDestinationSettings
-       ),
-    _cdsTtmlDestinationSettings ::
-      !( Maybe
-           TtmlDestinationSettings
-       ),
-    _cdsBurnInDestinationSettings ::
-      !( Maybe
-           BurnInDestinationSettings
-       )
+  { webvttDestinationSettings :: Prelude.Maybe WebvttDestinationSettings,
+    embeddedDestinationSettings :: Prelude.Maybe EmbeddedDestinationSettings,
+    aribDestinationSettings :: Prelude.Maybe AribDestinationSettings,
+    scte20PlusEmbeddedDestinationSettings :: Prelude.Maybe Scte20PlusEmbeddedDestinationSettings,
+    embeddedPlusScte20DestinationSettings :: Prelude.Maybe EmbeddedPlusScte20DestinationSettings,
+    dvbSubDestinationSettings :: Prelude.Maybe DvbSubDestinationSettings,
+    scte27DestinationSettings :: Prelude.Maybe Scte27DestinationSettings,
+    rtmpCaptionInfoDestinationSettings :: Prelude.Maybe RtmpCaptionInfoDestinationSettings,
+    ebuTtDDestinationSettings :: Prelude.Maybe EbuTtDDestinationSettings,
+    teletextDestinationSettings :: Prelude.Maybe TeletextDestinationSettings,
+    smpteTtDestinationSettings :: Prelude.Maybe SmpteTtDestinationSettings,
+    ttmlDestinationSettings :: Prelude.Maybe TtmlDestinationSettings,
+    burnInDestinationSettings :: Prelude.Maybe BurnInDestinationSettings
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CaptionDestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CaptionDestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdsWebvttDestinationSettings' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdsEmbeddedDestinationSettings' - Undocumented member.
+-- 'webvttDestinationSettings', 'captionDestinationSettings_webvttDestinationSettings' - Undocumented member.
 --
--- * 'cdsAribDestinationSettings' - Undocumented member.
+-- 'embeddedDestinationSettings', 'captionDestinationSettings_embeddedDestinationSettings' - Undocumented member.
 --
--- * 'cdsScte20PlusEmbeddedDestinationSettings' - Undocumented member.
+-- 'aribDestinationSettings', 'captionDestinationSettings_aribDestinationSettings' - Undocumented member.
 --
--- * 'cdsEmbeddedPlusScte20DestinationSettings' - Undocumented member.
+-- 'scte20PlusEmbeddedDestinationSettings', 'captionDestinationSettings_scte20PlusEmbeddedDestinationSettings' - Undocumented member.
 --
--- * 'cdsDvbSubDestinationSettings' - Undocumented member.
+-- 'embeddedPlusScte20DestinationSettings', 'captionDestinationSettings_embeddedPlusScte20DestinationSettings' - Undocumented member.
 --
--- * 'cdsScte27DestinationSettings' - Undocumented member.
+-- 'dvbSubDestinationSettings', 'captionDestinationSettings_dvbSubDestinationSettings' - Undocumented member.
 --
--- * 'cdsRtmpCaptionInfoDestinationSettings' - Undocumented member.
+-- 'scte27DestinationSettings', 'captionDestinationSettings_scte27DestinationSettings' - Undocumented member.
 --
--- * 'cdsEbuTtDDestinationSettings' - Undocumented member.
+-- 'rtmpCaptionInfoDestinationSettings', 'captionDestinationSettings_rtmpCaptionInfoDestinationSettings' - Undocumented member.
 --
--- * 'cdsTeletextDestinationSettings' - Undocumented member.
+-- 'ebuTtDDestinationSettings', 'captionDestinationSettings_ebuTtDDestinationSettings' - Undocumented member.
 --
--- * 'cdsSmpteTtDestinationSettings' - Undocumented member.
+-- 'teletextDestinationSettings', 'captionDestinationSettings_teletextDestinationSettings' - Undocumented member.
 --
--- * 'cdsTtmlDestinationSettings' - Undocumented member.
+-- 'smpteTtDestinationSettings', 'captionDestinationSettings_smpteTtDestinationSettings' - Undocumented member.
 --
--- * 'cdsBurnInDestinationSettings' - Undocumented member.
-captionDestinationSettings ::
+-- 'ttmlDestinationSettings', 'captionDestinationSettings_ttmlDestinationSettings' - Undocumented member.
+--
+-- 'burnInDestinationSettings', 'captionDestinationSettings_burnInDestinationSettings' - Undocumented member.
+newCaptionDestinationSettings ::
   CaptionDestinationSettings
-captionDestinationSettings =
+newCaptionDestinationSettings =
   CaptionDestinationSettings'
-    { _cdsWebvttDestinationSettings =
-        Nothing,
-      _cdsEmbeddedDestinationSettings = Nothing,
-      _cdsAribDestinationSettings = Nothing,
-      _cdsScte20PlusEmbeddedDestinationSettings =
-        Nothing,
-      _cdsEmbeddedPlusScte20DestinationSettings =
-        Nothing,
-      _cdsDvbSubDestinationSettings = Nothing,
-      _cdsScte27DestinationSettings = Nothing,
-      _cdsRtmpCaptionInfoDestinationSettings =
-        Nothing,
-      _cdsEbuTtDDestinationSettings = Nothing,
-      _cdsTeletextDestinationSettings = Nothing,
-      _cdsSmpteTtDestinationSettings = Nothing,
-      _cdsTtmlDestinationSettings = Nothing,
-      _cdsBurnInDestinationSettings = Nothing
+    { webvttDestinationSettings =
+        Prelude.Nothing,
+      embeddedDestinationSettings = Prelude.Nothing,
+      aribDestinationSettings = Prelude.Nothing,
+      scte20PlusEmbeddedDestinationSettings =
+        Prelude.Nothing,
+      embeddedPlusScte20DestinationSettings =
+        Prelude.Nothing,
+      dvbSubDestinationSettings = Prelude.Nothing,
+      scte27DestinationSettings = Prelude.Nothing,
+      rtmpCaptionInfoDestinationSettings =
+        Prelude.Nothing,
+      ebuTtDDestinationSettings = Prelude.Nothing,
+      teletextDestinationSettings = Prelude.Nothing,
+      smpteTtDestinationSettings = Prelude.Nothing,
+      ttmlDestinationSettings = Prelude.Nothing,
+      burnInDestinationSettings = Prelude.Nothing
     }
 
 -- | Undocumented member.
-cdsWebvttDestinationSettings :: Lens' CaptionDestinationSettings (Maybe WebvttDestinationSettings)
-cdsWebvttDestinationSettings = lens _cdsWebvttDestinationSettings (\s a -> s {_cdsWebvttDestinationSettings = a})
+captionDestinationSettings_webvttDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe WebvttDestinationSettings)
+captionDestinationSettings_webvttDestinationSettings = Lens.lens (\CaptionDestinationSettings' {webvttDestinationSettings} -> webvttDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {webvttDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsEmbeddedDestinationSettings :: Lens' CaptionDestinationSettings (Maybe EmbeddedDestinationSettings)
-cdsEmbeddedDestinationSettings = lens _cdsEmbeddedDestinationSettings (\s a -> s {_cdsEmbeddedDestinationSettings = a})
+captionDestinationSettings_embeddedDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe EmbeddedDestinationSettings)
+captionDestinationSettings_embeddedDestinationSettings = Lens.lens (\CaptionDestinationSettings' {embeddedDestinationSettings} -> embeddedDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {embeddedDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsAribDestinationSettings :: Lens' CaptionDestinationSettings (Maybe AribDestinationSettings)
-cdsAribDestinationSettings = lens _cdsAribDestinationSettings (\s a -> s {_cdsAribDestinationSettings = a})
+captionDestinationSettings_aribDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe AribDestinationSettings)
+captionDestinationSettings_aribDestinationSettings = Lens.lens (\CaptionDestinationSettings' {aribDestinationSettings} -> aribDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {aribDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsScte20PlusEmbeddedDestinationSettings :: Lens' CaptionDestinationSettings (Maybe Scte20PlusEmbeddedDestinationSettings)
-cdsScte20PlusEmbeddedDestinationSettings = lens _cdsScte20PlusEmbeddedDestinationSettings (\s a -> s {_cdsScte20PlusEmbeddedDestinationSettings = a})
+captionDestinationSettings_scte20PlusEmbeddedDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe Scte20PlusEmbeddedDestinationSettings)
+captionDestinationSettings_scte20PlusEmbeddedDestinationSettings = Lens.lens (\CaptionDestinationSettings' {scte20PlusEmbeddedDestinationSettings} -> scte20PlusEmbeddedDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {scte20PlusEmbeddedDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsEmbeddedPlusScte20DestinationSettings :: Lens' CaptionDestinationSettings (Maybe EmbeddedPlusScte20DestinationSettings)
-cdsEmbeddedPlusScte20DestinationSettings = lens _cdsEmbeddedPlusScte20DestinationSettings (\s a -> s {_cdsEmbeddedPlusScte20DestinationSettings = a})
+captionDestinationSettings_embeddedPlusScte20DestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe EmbeddedPlusScte20DestinationSettings)
+captionDestinationSettings_embeddedPlusScte20DestinationSettings = Lens.lens (\CaptionDestinationSettings' {embeddedPlusScte20DestinationSettings} -> embeddedPlusScte20DestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {embeddedPlusScte20DestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsDvbSubDestinationSettings :: Lens' CaptionDestinationSettings (Maybe DvbSubDestinationSettings)
-cdsDvbSubDestinationSettings = lens _cdsDvbSubDestinationSettings (\s a -> s {_cdsDvbSubDestinationSettings = a})
+captionDestinationSettings_dvbSubDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe DvbSubDestinationSettings)
+captionDestinationSettings_dvbSubDestinationSettings = Lens.lens (\CaptionDestinationSettings' {dvbSubDestinationSettings} -> dvbSubDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {dvbSubDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsScte27DestinationSettings :: Lens' CaptionDestinationSettings (Maybe Scte27DestinationSettings)
-cdsScte27DestinationSettings = lens _cdsScte27DestinationSettings (\s a -> s {_cdsScte27DestinationSettings = a})
+captionDestinationSettings_scte27DestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe Scte27DestinationSettings)
+captionDestinationSettings_scte27DestinationSettings = Lens.lens (\CaptionDestinationSettings' {scte27DestinationSettings} -> scte27DestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {scte27DestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsRtmpCaptionInfoDestinationSettings :: Lens' CaptionDestinationSettings (Maybe RtmpCaptionInfoDestinationSettings)
-cdsRtmpCaptionInfoDestinationSettings = lens _cdsRtmpCaptionInfoDestinationSettings (\s a -> s {_cdsRtmpCaptionInfoDestinationSettings = a})
+captionDestinationSettings_rtmpCaptionInfoDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe RtmpCaptionInfoDestinationSettings)
+captionDestinationSettings_rtmpCaptionInfoDestinationSettings = Lens.lens (\CaptionDestinationSettings' {rtmpCaptionInfoDestinationSettings} -> rtmpCaptionInfoDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {rtmpCaptionInfoDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsEbuTtDDestinationSettings :: Lens' CaptionDestinationSettings (Maybe EbuTtDDestinationSettings)
-cdsEbuTtDDestinationSettings = lens _cdsEbuTtDDestinationSettings (\s a -> s {_cdsEbuTtDDestinationSettings = a})
+captionDestinationSettings_ebuTtDDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe EbuTtDDestinationSettings)
+captionDestinationSettings_ebuTtDDestinationSettings = Lens.lens (\CaptionDestinationSettings' {ebuTtDDestinationSettings} -> ebuTtDDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {ebuTtDDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsTeletextDestinationSettings :: Lens' CaptionDestinationSettings (Maybe TeletextDestinationSettings)
-cdsTeletextDestinationSettings = lens _cdsTeletextDestinationSettings (\s a -> s {_cdsTeletextDestinationSettings = a})
+captionDestinationSettings_teletextDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe TeletextDestinationSettings)
+captionDestinationSettings_teletextDestinationSettings = Lens.lens (\CaptionDestinationSettings' {teletextDestinationSettings} -> teletextDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {teletextDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsSmpteTtDestinationSettings :: Lens' CaptionDestinationSettings (Maybe SmpteTtDestinationSettings)
-cdsSmpteTtDestinationSettings = lens _cdsSmpteTtDestinationSettings (\s a -> s {_cdsSmpteTtDestinationSettings = a})
+captionDestinationSettings_smpteTtDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe SmpteTtDestinationSettings)
+captionDestinationSettings_smpteTtDestinationSettings = Lens.lens (\CaptionDestinationSettings' {smpteTtDestinationSettings} -> smpteTtDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {smpteTtDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsTtmlDestinationSettings :: Lens' CaptionDestinationSettings (Maybe TtmlDestinationSettings)
-cdsTtmlDestinationSettings = lens _cdsTtmlDestinationSettings (\s a -> s {_cdsTtmlDestinationSettings = a})
+captionDestinationSettings_ttmlDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe TtmlDestinationSettings)
+captionDestinationSettings_ttmlDestinationSettings = Lens.lens (\CaptionDestinationSettings' {ttmlDestinationSettings} -> ttmlDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {ttmlDestinationSettings = a} :: CaptionDestinationSettings)
 
 -- | Undocumented member.
-cdsBurnInDestinationSettings :: Lens' CaptionDestinationSettings (Maybe BurnInDestinationSettings)
-cdsBurnInDestinationSettings = lens _cdsBurnInDestinationSettings (\s a -> s {_cdsBurnInDestinationSettings = a})
+captionDestinationSettings_burnInDestinationSettings :: Lens.Lens' CaptionDestinationSettings (Prelude.Maybe BurnInDestinationSettings)
+captionDestinationSettings_burnInDestinationSettings = Lens.lens (\CaptionDestinationSettings' {burnInDestinationSettings} -> burnInDestinationSettings) (\s@CaptionDestinationSettings' {} a -> s {burnInDestinationSettings = a} :: CaptionDestinationSettings)
 
-instance FromJSON CaptionDestinationSettings where
+instance Prelude.FromJSON CaptionDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CaptionDestinationSettings"
       ( \x ->
           CaptionDestinationSettings'
-            <$> (x .:? "webvttDestinationSettings")
-            <*> (x .:? "embeddedDestinationSettings")
-            <*> (x .:? "aribDestinationSettings")
-            <*> (x .:? "scte20PlusEmbeddedDestinationSettings")
-            <*> (x .:? "embeddedPlusScte20DestinationSettings")
-            <*> (x .:? "dvbSubDestinationSettings")
-            <*> (x .:? "scte27DestinationSettings")
-            <*> (x .:? "rtmpCaptionInfoDestinationSettings")
-            <*> (x .:? "ebuTtDDestinationSettings")
-            <*> (x .:? "teletextDestinationSettings")
-            <*> (x .:? "smpteTtDestinationSettings")
-            <*> (x .:? "ttmlDestinationSettings")
-            <*> (x .:? "burnInDestinationSettings")
+            Prelude.<$> (x Prelude..:? "webvttDestinationSettings")
+            Prelude.<*> (x Prelude..:? "embeddedDestinationSettings")
+            Prelude.<*> (x Prelude..:? "aribDestinationSettings")
+            Prelude.<*> ( x
+                            Prelude..:? "scte20PlusEmbeddedDestinationSettings"
+                        )
+            Prelude.<*> ( x
+                            Prelude..:? "embeddedPlusScte20DestinationSettings"
+                        )
+            Prelude.<*> (x Prelude..:? "dvbSubDestinationSettings")
+            Prelude.<*> (x Prelude..:? "scte27DestinationSettings")
+            Prelude.<*> (x Prelude..:? "rtmpCaptionInfoDestinationSettings")
+            Prelude.<*> (x Prelude..:? "ebuTtDDestinationSettings")
+            Prelude.<*> (x Prelude..:? "teletextDestinationSettings")
+            Prelude.<*> (x Prelude..:? "smpteTtDestinationSettings")
+            Prelude.<*> (x Prelude..:? "ttmlDestinationSettings")
+            Prelude.<*> (x Prelude..:? "burnInDestinationSettings")
       )
 
-instance Hashable CaptionDestinationSettings
+instance Prelude.Hashable CaptionDestinationSettings
 
-instance NFData CaptionDestinationSettings
+instance Prelude.NFData CaptionDestinationSettings
 
-instance ToJSON CaptionDestinationSettings where
+instance Prelude.ToJSON CaptionDestinationSettings where
   toJSON CaptionDestinationSettings' {..} =
-    object
-      ( catMaybes
-          [ ("webvttDestinationSettings" .=)
-              <$> _cdsWebvttDestinationSettings,
-            ("embeddedDestinationSettings" .=)
-              <$> _cdsEmbeddedDestinationSettings,
-            ("aribDestinationSettings" .=)
-              <$> _cdsAribDestinationSettings,
-            ("scte20PlusEmbeddedDestinationSettings" .=)
-              <$> _cdsScte20PlusEmbeddedDestinationSettings,
-            ("embeddedPlusScte20DestinationSettings" .=)
-              <$> _cdsEmbeddedPlusScte20DestinationSettings,
-            ("dvbSubDestinationSettings" .=)
-              <$> _cdsDvbSubDestinationSettings,
-            ("scte27DestinationSettings" .=)
-              <$> _cdsScte27DestinationSettings,
-            ("rtmpCaptionInfoDestinationSettings" .=)
-              <$> _cdsRtmpCaptionInfoDestinationSettings,
-            ("ebuTtDDestinationSettings" .=)
-              <$> _cdsEbuTtDDestinationSettings,
-            ("teletextDestinationSettings" .=)
-              <$> _cdsTeletextDestinationSettings,
-            ("smpteTtDestinationSettings" .=)
-              <$> _cdsSmpteTtDestinationSettings,
-            ("ttmlDestinationSettings" .=)
-              <$> _cdsTtmlDestinationSettings,
-            ("burnInDestinationSettings" .=)
-              <$> _cdsBurnInDestinationSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("webvttDestinationSettings" Prelude..=)
+              Prelude.<$> webvttDestinationSettings,
+            ("embeddedDestinationSettings" Prelude..=)
+              Prelude.<$> embeddedDestinationSettings,
+            ("aribDestinationSettings" Prelude..=)
+              Prelude.<$> aribDestinationSettings,
+            ("scte20PlusEmbeddedDestinationSettings" Prelude..=)
+              Prelude.<$> scte20PlusEmbeddedDestinationSettings,
+            ("embeddedPlusScte20DestinationSettings" Prelude..=)
+              Prelude.<$> embeddedPlusScte20DestinationSettings,
+            ("dvbSubDestinationSettings" Prelude..=)
+              Prelude.<$> dvbSubDestinationSettings,
+            ("scte27DestinationSettings" Prelude..=)
+              Prelude.<$> scte27DestinationSettings,
+            ("rtmpCaptionInfoDestinationSettings" Prelude..=)
+              Prelude.<$> rtmpCaptionInfoDestinationSettings,
+            ("ebuTtDDestinationSettings" Prelude..=)
+              Prelude.<$> ebuTtDDestinationSettings,
+            ("teletextDestinationSettings" Prelude..=)
+              Prelude.<$> teletextDestinationSettings,
+            ("smpteTtDestinationSettings" Prelude..=)
+              Prelude.<$> smpteTtDestinationSettings,
+            ("ttmlDestinationSettings" Prelude..=)
+              Prelude.<$> ttmlDestinationSettings,
+            ("burnInDestinationSettings" Prelude..=)
+              Prelude.<$> burnInDestinationSettings
           ]
       )

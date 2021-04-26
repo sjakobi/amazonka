@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsTsFileMode
   ( HlsTsFileMode
       ( ..,
-        SegmentedFiles,
-        SingleFile
+        HlsTsFileModeSEGMENTEDFILES,
+        HlsTsFileModeSINGLEFILE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Ts File Mode
-data HlsTsFileMode = HlsTsFileMode' (CI Text)
+newtype HlsTsFileMode = HlsTsFileMode'
+  { fromHlsTsFileMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SegmentedFiles :: HlsTsFileMode
-pattern SegmentedFiles = HlsTsFileMode' "SEGMENTED_FILES"
+pattern HlsTsFileModeSEGMENTEDFILES :: HlsTsFileMode
+pattern HlsTsFileModeSEGMENTEDFILES = HlsTsFileMode' "SEGMENTED_FILES"
 
-pattern SingleFile :: HlsTsFileMode
-pattern SingleFile = HlsTsFileMode' "SINGLE_FILE"
+pattern HlsTsFileModeSINGLEFILE :: HlsTsFileMode
+pattern HlsTsFileModeSINGLEFILE = HlsTsFileMode' "SINGLE_FILE"
 
 {-# COMPLETE
-  SegmentedFiles,
-  SingleFile,
+  HlsTsFileModeSEGMENTEDFILES,
+  HlsTsFileModeSINGLEFILE,
   HlsTsFileMode'
   #-}
 
-instance FromText HlsTsFileMode where
-  parser = (HlsTsFileMode' . mk) <$> takeText
+instance Prelude.FromText HlsTsFileMode where
+  parser = HlsTsFileMode' Prelude.<$> Prelude.takeText
 
-instance ToText HlsTsFileMode where
-  toText (HlsTsFileMode' ci) = original ci
+instance Prelude.ToText HlsTsFileMode where
+  toText (HlsTsFileMode' x) = x
 
-instance Hashable HlsTsFileMode
+instance Prelude.Hashable HlsTsFileMode
 
-instance NFData HlsTsFileMode
+instance Prelude.NFData HlsTsFileMode
 
-instance ToByteString HlsTsFileMode
+instance Prelude.ToByteString HlsTsFileMode
 
-instance ToQuery HlsTsFileMode
+instance Prelude.ToQuery HlsTsFileMode
 
-instance ToHeader HlsTsFileMode
+instance Prelude.ToHeader HlsTsFileMode
 
-instance ToJSON HlsTsFileMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsTsFileMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsTsFileMode where
-  parseJSON = parseJSONText "HlsTsFileMode"
+instance Prelude.FromJSON HlsTsFileMode where
+  parseJSON = Prelude.parseJSONText "HlsTsFileMode"

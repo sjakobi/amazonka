@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.SmoothGroupEventIdMode
   ( SmoothGroupEventIdMode
       ( ..,
-        SGEIMNoEventId,
-        SGEIMUseConfigured,
-        SGEIMUseTimestamp
+        SmoothGroupEventIdModeNOEVENTID,
+        SmoothGroupEventIdModeUSECONFIGURED,
+        SmoothGroupEventIdModeUSETIMESTAMP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Event Id Mode
-data SmoothGroupEventIdMode
-  = SmoothGroupEventIdMode'
-      ( CI
-          Text
-      )
+newtype SmoothGroupEventIdMode = SmoothGroupEventIdMode'
+  { fromSmoothGroupEventIdMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SGEIMNoEventId :: SmoothGroupEventIdMode
-pattern SGEIMNoEventId = SmoothGroupEventIdMode' "NO_EVENT_ID"
+pattern SmoothGroupEventIdModeNOEVENTID :: SmoothGroupEventIdMode
+pattern SmoothGroupEventIdModeNOEVENTID = SmoothGroupEventIdMode' "NO_EVENT_ID"
 
-pattern SGEIMUseConfigured :: SmoothGroupEventIdMode
-pattern SGEIMUseConfigured = SmoothGroupEventIdMode' "USE_CONFIGURED"
+pattern SmoothGroupEventIdModeUSECONFIGURED :: SmoothGroupEventIdMode
+pattern SmoothGroupEventIdModeUSECONFIGURED = SmoothGroupEventIdMode' "USE_CONFIGURED"
 
-pattern SGEIMUseTimestamp :: SmoothGroupEventIdMode
-pattern SGEIMUseTimestamp = SmoothGroupEventIdMode' "USE_TIMESTAMP"
+pattern SmoothGroupEventIdModeUSETIMESTAMP :: SmoothGroupEventIdMode
+pattern SmoothGroupEventIdModeUSETIMESTAMP = SmoothGroupEventIdMode' "USE_TIMESTAMP"
 
 {-# COMPLETE
-  SGEIMNoEventId,
-  SGEIMUseConfigured,
-  SGEIMUseTimestamp,
+  SmoothGroupEventIdModeNOEVENTID,
+  SmoothGroupEventIdModeUSECONFIGURED,
+  SmoothGroupEventIdModeUSETIMESTAMP,
   SmoothGroupEventIdMode'
   #-}
 
-instance FromText SmoothGroupEventIdMode where
-  parser = (SmoothGroupEventIdMode' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupEventIdMode where
+  parser = SmoothGroupEventIdMode' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupEventIdMode where
-  toText (SmoothGroupEventIdMode' ci) = original ci
+instance Prelude.ToText SmoothGroupEventIdMode where
+  toText (SmoothGroupEventIdMode' x) = x
 
-instance Hashable SmoothGroupEventIdMode
+instance Prelude.Hashable SmoothGroupEventIdMode
 
-instance NFData SmoothGroupEventIdMode
+instance Prelude.NFData SmoothGroupEventIdMode
 
-instance ToByteString SmoothGroupEventIdMode
+instance Prelude.ToByteString SmoothGroupEventIdMode
 
-instance ToQuery SmoothGroupEventIdMode
+instance Prelude.ToQuery SmoothGroupEventIdMode
 
-instance ToHeader SmoothGroupEventIdMode
+instance Prelude.ToHeader SmoothGroupEventIdMode
 
-instance ToJSON SmoothGroupEventIdMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupEventIdMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupEventIdMode where
-  parseJSON = parseJSONText "SmoothGroupEventIdMode"
+instance Prelude.FromJSON SmoothGroupEventIdMode where
+  parseJSON = Prelude.parseJSONText "SmoothGroupEventIdMode"

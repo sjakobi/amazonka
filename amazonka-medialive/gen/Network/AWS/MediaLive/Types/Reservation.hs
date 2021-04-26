@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,202 +19,239 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Reservation where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.OfferingDurationUnits
 import Network.AWS.MediaLive.Types.OfferingType
 import Network.AWS.MediaLive.Types.ReservationResourceSpecification
 import Network.AWS.MediaLive.Types.ReservationState
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Reserved resources available to use
 --
--- /See:/ 'reservation' smart constructor.
+-- /See:/ 'newReservation' smart constructor.
 data Reservation = Reservation'
-  { _rEnd ::
-      !(Maybe Text),
-    _rDuration :: !(Maybe Int),
-    _rDurationUnits ::
-      !(Maybe OfferingDurationUnits),
-    _rARN :: !(Maybe Text),
-    _rOfferingId :: !(Maybe Text),
-    _rCurrencyCode :: !(Maybe Text),
-    _rResourceSpecification ::
-      !(Maybe ReservationResourceSpecification),
-    _rState :: !(Maybe ReservationState),
-    _rName :: !(Maybe Text),
-    _rTags :: !(Maybe (Map Text Text)),
-    _rOfferingDescription :: !(Maybe Text),
-    _rCount :: !(Maybe Int),
-    _rFixedPrice :: !(Maybe Double),
-    _rUsagePrice :: !(Maybe Double),
-    _rOfferingType :: !(Maybe OfferingType),
-    _rRegion :: !(Maybe Text),
-    _rStart :: !(Maybe Text),
-    _rReservationId :: !(Maybe Text)
+  { -- | Reservation UTC end date and time in ISO-8601 format, e.g.
+    -- \'2019-03-01T00:00:00\'
+    end :: Prelude.Maybe Prelude.Text,
+    -- | Lease duration, e.g. \'12\'
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | Units for duration, e.g. \'MONTHS\'
+    durationUnits :: Prelude.Maybe OfferingDurationUnits,
+    -- | Unique reservation ARN, e.g.
+    -- \'arn:aws:medialive:us-west-2:123456789012:reservation:1234567\'
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Unique offering ID, e.g. \'87654321\'
+    offeringId :: Prelude.Maybe Prelude.Text,
+    -- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+    -- \'USD\'
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | Resource configuration details
+    resourceSpecification :: Prelude.Maybe ReservationResourceSpecification,
+    -- | Current state of reservation, e.g. \'ACTIVE\'
+    state :: Prelude.Maybe ReservationState,
+    -- | User specified reservation name
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A collection of key-value pairs
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+    -- standard VQ in US West (Oregon)\'
+    offeringDescription :: Prelude.Maybe Prelude.Text,
+    -- | Number of reserved resources
+    count :: Prelude.Maybe Prelude.Int,
+    -- | One-time charge for each reserved resource, e.g. \'0.0\' for a
+    -- NO_UPFRONT offering
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | Recurring usage charge for each reserved resource, e.g. \'157.0\'
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | Offering type, e.g. \'NO_UPFRONT\'
+    offeringType :: Prelude.Maybe OfferingType,
+    -- | AWS region, e.g. \'us-west-2\'
+    region :: Prelude.Maybe Prelude.Text,
+    -- | Reservation UTC start date and time in ISO-8601 format, e.g.
+    -- \'2018-03-01T00:00:00\'
+    start :: Prelude.Maybe Prelude.Text,
+    -- | Unique reservation ID, e.g. \'1234567\'
+    reservationId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Reservation' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Reservation' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rEnd' - Reservation UTC end date and time in ISO-8601 format, e.g. '2019-03-01T00:00:00'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rDuration' - Lease duration, e.g. '12'
+-- 'end', 'reservation_end' - Reservation UTC end date and time in ISO-8601 format, e.g.
+-- \'2019-03-01T00:00:00\'
 --
--- * 'rDurationUnits' - Units for duration, e.g. 'MONTHS'
+-- 'duration', 'reservation_duration' - Lease duration, e.g. \'12\'
 --
--- * 'rARN' - Unique reservation ARN, e.g. 'arn:aws:medialive:us-west-2:123456789012:reservation:1234567'
+-- 'durationUnits', 'reservation_durationUnits' - Units for duration, e.g. \'MONTHS\'
 --
--- * 'rOfferingId' - Unique offering ID, e.g. '87654321'
+-- 'arn', 'reservation_arn' - Unique reservation ARN, e.g.
+-- \'arn:aws:medialive:us-west-2:123456789012:reservation:1234567\'
 --
--- * 'rCurrencyCode' - Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
+-- 'offeringId', 'reservation_offeringId' - Unique offering ID, e.g. \'87654321\'
 --
--- * 'rResourceSpecification' - Resource configuration details
+-- 'currencyCode', 'reservation_currencyCode' - Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+-- \'USD\'
 --
--- * 'rState' - Current state of reservation, e.g. 'ACTIVE'
+-- 'resourceSpecification', 'reservation_resourceSpecification' - Resource configuration details
 --
--- * 'rName' - User specified reservation name
+-- 'state', 'reservation_state' - Current state of reservation, e.g. \'ACTIVE\'
 --
--- * 'rTags' - A collection of key-value pairs
+-- 'name', 'reservation_name' - User specified reservation name
 --
--- * 'rOfferingDescription' - Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ in US West (Oregon)'
+-- 'tags', 'reservation_tags' - A collection of key-value pairs
 --
--- * 'rCount' - Number of reserved resources
+-- 'offeringDescription', 'reservation_offeringDescription' - Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+-- standard VQ in US West (Oregon)\'
 --
--- * 'rFixedPrice' - One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
+-- 'count', 'reservation_count' - Number of reserved resources
 --
--- * 'rUsagePrice' - Recurring usage charge for each reserved resource, e.g. '157.0'
+-- 'fixedPrice', 'reservation_fixedPrice' - One-time charge for each reserved resource, e.g. \'0.0\' for a
+-- NO_UPFRONT offering
 --
--- * 'rOfferingType' - Offering type, e.g. 'NO_UPFRONT'
+-- 'usagePrice', 'reservation_usagePrice' - Recurring usage charge for each reserved resource, e.g. \'157.0\'
 --
--- * 'rRegion' - AWS region, e.g. 'us-west-2'
+-- 'offeringType', 'reservation_offeringType' - Offering type, e.g. \'NO_UPFRONT\'
 --
--- * 'rStart' - Reservation UTC start date and time in ISO-8601 format, e.g. '2018-03-01T00:00:00'
+-- 'region', 'reservation_region' - AWS region, e.g. \'us-west-2\'
 --
--- * 'rReservationId' - Unique reservation ID, e.g. '1234567'
-reservation ::
+-- 'start', 'reservation_start' - Reservation UTC start date and time in ISO-8601 format, e.g.
+-- \'2018-03-01T00:00:00\'
+--
+-- 'reservationId', 'reservation_reservationId' - Unique reservation ID, e.g. \'1234567\'
+newReservation ::
   Reservation
-reservation =
+newReservation =
   Reservation'
-    { _rEnd = Nothing,
-      _rDuration = Nothing,
-      _rDurationUnits = Nothing,
-      _rARN = Nothing,
-      _rOfferingId = Nothing,
-      _rCurrencyCode = Nothing,
-      _rResourceSpecification = Nothing,
-      _rState = Nothing,
-      _rName = Nothing,
-      _rTags = Nothing,
-      _rOfferingDescription = Nothing,
-      _rCount = Nothing,
-      _rFixedPrice = Nothing,
-      _rUsagePrice = Nothing,
-      _rOfferingType = Nothing,
-      _rRegion = Nothing,
-      _rStart = Nothing,
-      _rReservationId = Nothing
+    { end = Prelude.Nothing,
+      duration = Prelude.Nothing,
+      durationUnits = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      offeringId = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      resourceSpecification = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      offeringDescription = Prelude.Nothing,
+      count = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      region = Prelude.Nothing,
+      start = Prelude.Nothing,
+      reservationId = Prelude.Nothing
     }
 
--- | Reservation UTC end date and time in ISO-8601 format, e.g. '2019-03-01T00:00:00'
-rEnd :: Lens' Reservation (Maybe Text)
-rEnd = lens _rEnd (\s a -> s {_rEnd = a})
+-- | Reservation UTC end date and time in ISO-8601 format, e.g.
+-- \'2019-03-01T00:00:00\'
+reservation_end :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_end = Lens.lens (\Reservation' {end} -> end) (\s@Reservation' {} a -> s {end = a} :: Reservation)
 
--- | Lease duration, e.g. '12'
-rDuration :: Lens' Reservation (Maybe Int)
-rDuration = lens _rDuration (\s a -> s {_rDuration = a})
+-- | Lease duration, e.g. \'12\'
+reservation_duration :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Int)
+reservation_duration = Lens.lens (\Reservation' {duration} -> duration) (\s@Reservation' {} a -> s {duration = a} :: Reservation)
 
--- | Units for duration, e.g. 'MONTHS'
-rDurationUnits :: Lens' Reservation (Maybe OfferingDurationUnits)
-rDurationUnits = lens _rDurationUnits (\s a -> s {_rDurationUnits = a})
+-- | Units for duration, e.g. \'MONTHS\'
+reservation_durationUnits :: Lens.Lens' Reservation (Prelude.Maybe OfferingDurationUnits)
+reservation_durationUnits = Lens.lens (\Reservation' {durationUnits} -> durationUnits) (\s@Reservation' {} a -> s {durationUnits = a} :: Reservation)
 
--- | Unique reservation ARN, e.g. 'arn:aws:medialive:us-west-2:123456789012:reservation:1234567'
-rARN :: Lens' Reservation (Maybe Text)
-rARN = lens _rARN (\s a -> s {_rARN = a})
+-- | Unique reservation ARN, e.g.
+-- \'arn:aws:medialive:us-west-2:123456789012:reservation:1234567\'
+reservation_arn :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_arn = Lens.lens (\Reservation' {arn} -> arn) (\s@Reservation' {} a -> s {arn = a} :: Reservation)
 
--- | Unique offering ID, e.g. '87654321'
-rOfferingId :: Lens' Reservation (Maybe Text)
-rOfferingId = lens _rOfferingId (\s a -> s {_rOfferingId = a})
+-- | Unique offering ID, e.g. \'87654321\'
+reservation_offeringId :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_offeringId = Lens.lens (\Reservation' {offeringId} -> offeringId) (\s@Reservation' {} a -> s {offeringId = a} :: Reservation)
 
--- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
-rCurrencyCode :: Lens' Reservation (Maybe Text)
-rCurrencyCode = lens _rCurrencyCode (\s a -> s {_rCurrencyCode = a})
+-- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+-- \'USD\'
+reservation_currencyCode :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_currencyCode = Lens.lens (\Reservation' {currencyCode} -> currencyCode) (\s@Reservation' {} a -> s {currencyCode = a} :: Reservation)
 
 -- | Resource configuration details
-rResourceSpecification :: Lens' Reservation (Maybe ReservationResourceSpecification)
-rResourceSpecification = lens _rResourceSpecification (\s a -> s {_rResourceSpecification = a})
+reservation_resourceSpecification :: Lens.Lens' Reservation (Prelude.Maybe ReservationResourceSpecification)
+reservation_resourceSpecification = Lens.lens (\Reservation' {resourceSpecification} -> resourceSpecification) (\s@Reservation' {} a -> s {resourceSpecification = a} :: Reservation)
 
--- | Current state of reservation, e.g. 'ACTIVE'
-rState :: Lens' Reservation (Maybe ReservationState)
-rState = lens _rState (\s a -> s {_rState = a})
+-- | Current state of reservation, e.g. \'ACTIVE\'
+reservation_state :: Lens.Lens' Reservation (Prelude.Maybe ReservationState)
+reservation_state = Lens.lens (\Reservation' {state} -> state) (\s@Reservation' {} a -> s {state = a} :: Reservation)
 
 -- | User specified reservation name
-rName :: Lens' Reservation (Maybe Text)
-rName = lens _rName (\s a -> s {_rName = a})
+reservation_name :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_name = Lens.lens (\Reservation' {name} -> name) (\s@Reservation' {} a -> s {name = a} :: Reservation)
 
 -- | A collection of key-value pairs
-rTags :: Lens' Reservation (HashMap Text Text)
-rTags = lens _rTags (\s a -> s {_rTags = a}) . _Default . _Map
+reservation_tags :: Lens.Lens' Reservation (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+reservation_tags = Lens.lens (\Reservation' {tags} -> tags) (\s@Reservation' {} a -> s {tags = a} :: Reservation) Prelude.. Lens.mapping Prelude._Map
 
--- | Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ in US West (Oregon)'
-rOfferingDescription :: Lens' Reservation (Maybe Text)
-rOfferingDescription = lens _rOfferingDescription (\s a -> s {_rOfferingDescription = a})
+-- | Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+-- standard VQ in US West (Oregon)\'
+reservation_offeringDescription :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_offeringDescription = Lens.lens (\Reservation' {offeringDescription} -> offeringDescription) (\s@Reservation' {} a -> s {offeringDescription = a} :: Reservation)
 
 -- | Number of reserved resources
-rCount :: Lens' Reservation (Maybe Int)
-rCount = lens _rCount (\s a -> s {_rCount = a})
+reservation_count :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Int)
+reservation_count = Lens.lens (\Reservation' {count} -> count) (\s@Reservation' {} a -> s {count = a} :: Reservation)
 
--- | One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
-rFixedPrice :: Lens' Reservation (Maybe Double)
-rFixedPrice = lens _rFixedPrice (\s a -> s {_rFixedPrice = a})
+-- | One-time charge for each reserved resource, e.g. \'0.0\' for a
+-- NO_UPFRONT offering
+reservation_fixedPrice :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Double)
+reservation_fixedPrice = Lens.lens (\Reservation' {fixedPrice} -> fixedPrice) (\s@Reservation' {} a -> s {fixedPrice = a} :: Reservation)
 
--- | Recurring usage charge for each reserved resource, e.g. '157.0'
-rUsagePrice :: Lens' Reservation (Maybe Double)
-rUsagePrice = lens _rUsagePrice (\s a -> s {_rUsagePrice = a})
+-- | Recurring usage charge for each reserved resource, e.g. \'157.0\'
+reservation_usagePrice :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Double)
+reservation_usagePrice = Lens.lens (\Reservation' {usagePrice} -> usagePrice) (\s@Reservation' {} a -> s {usagePrice = a} :: Reservation)
 
--- | Offering type, e.g. 'NO_UPFRONT'
-rOfferingType :: Lens' Reservation (Maybe OfferingType)
-rOfferingType = lens _rOfferingType (\s a -> s {_rOfferingType = a})
+-- | Offering type, e.g. \'NO_UPFRONT\'
+reservation_offeringType :: Lens.Lens' Reservation (Prelude.Maybe OfferingType)
+reservation_offeringType = Lens.lens (\Reservation' {offeringType} -> offeringType) (\s@Reservation' {} a -> s {offeringType = a} :: Reservation)
 
--- | AWS region, e.g. 'us-west-2'
-rRegion :: Lens' Reservation (Maybe Text)
-rRegion = lens _rRegion (\s a -> s {_rRegion = a})
+-- | AWS region, e.g. \'us-west-2\'
+reservation_region :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_region = Lens.lens (\Reservation' {region} -> region) (\s@Reservation' {} a -> s {region = a} :: Reservation)
 
--- | Reservation UTC start date and time in ISO-8601 format, e.g. '2018-03-01T00:00:00'
-rStart :: Lens' Reservation (Maybe Text)
-rStart = lens _rStart (\s a -> s {_rStart = a})
+-- | Reservation UTC start date and time in ISO-8601 format, e.g.
+-- \'2018-03-01T00:00:00\'
+reservation_start :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_start = Lens.lens (\Reservation' {start} -> start) (\s@Reservation' {} a -> s {start = a} :: Reservation)
 
--- | Unique reservation ID, e.g. '1234567'
-rReservationId :: Lens' Reservation (Maybe Text)
-rReservationId = lens _rReservationId (\s a -> s {_rReservationId = a})
+-- | Unique reservation ID, e.g. \'1234567\'
+reservation_reservationId :: Lens.Lens' Reservation (Prelude.Maybe Prelude.Text)
+reservation_reservationId = Lens.lens (\Reservation' {reservationId} -> reservationId) (\s@Reservation' {} a -> s {reservationId = a} :: Reservation)
 
-instance FromJSON Reservation where
+instance Prelude.FromJSON Reservation where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Reservation"
       ( \x ->
           Reservation'
-            <$> (x .:? "end")
-            <*> (x .:? "duration")
-            <*> (x .:? "durationUnits")
-            <*> (x .:? "arn")
-            <*> (x .:? "offeringId")
-            <*> (x .:? "currencyCode")
-            <*> (x .:? "resourceSpecification")
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "offeringDescription")
-            <*> (x .:? "count")
-            <*> (x .:? "fixedPrice")
-            <*> (x .:? "usagePrice")
-            <*> (x .:? "offeringType")
-            <*> (x .:? "region")
-            <*> (x .:? "start")
-            <*> (x .:? "reservationId")
+            Prelude.<$> (x Prelude..:? "end")
+            Prelude.<*> (x Prelude..:? "duration")
+            Prelude.<*> (x Prelude..:? "durationUnits")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "offeringId")
+            Prelude.<*> (x Prelude..:? "currencyCode")
+            Prelude.<*> (x Prelude..:? "resourceSpecification")
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "offeringDescription")
+            Prelude.<*> (x Prelude..:? "count")
+            Prelude.<*> (x Prelude..:? "fixedPrice")
+            Prelude.<*> (x Prelude..:? "usagePrice")
+            Prelude.<*> (x Prelude..:? "offeringType")
+            Prelude.<*> (x Prelude..:? "region")
+            Prelude.<*> (x Prelude..:? "start")
+            Prelude.<*> (x Prelude..:? "reservationId")
       )
 
-instance Hashable Reservation
+instance Prelude.Hashable Reservation
 
-instance NFData Reservation
+instance Prelude.NFData Reservation

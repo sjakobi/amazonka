@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.VideoDescriptionScalingBehavior
   ( VideoDescriptionScalingBehavior
       ( ..,
-        VDSBDefault,
-        VDSBStretchToOutput
+        VideoDescriptionScalingBehaviorDEFAULT,
+        VideoDescriptionScalingBehaviorSTRETCHTOOUTPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Video Description Scaling Behavior
-data VideoDescriptionScalingBehavior
-  = VideoDescriptionScalingBehavior'
-      ( CI
-          Text
-      )
+newtype VideoDescriptionScalingBehavior = VideoDescriptionScalingBehavior'
+  { fromVideoDescriptionScalingBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern VDSBDefault :: VideoDescriptionScalingBehavior
-pattern VDSBDefault = VideoDescriptionScalingBehavior' "DEFAULT"
+pattern VideoDescriptionScalingBehaviorDEFAULT :: VideoDescriptionScalingBehavior
+pattern VideoDescriptionScalingBehaviorDEFAULT = VideoDescriptionScalingBehavior' "DEFAULT"
 
-pattern VDSBStretchToOutput :: VideoDescriptionScalingBehavior
-pattern VDSBStretchToOutput = VideoDescriptionScalingBehavior' "STRETCH_TO_OUTPUT"
+pattern VideoDescriptionScalingBehaviorSTRETCHTOOUTPUT :: VideoDescriptionScalingBehavior
+pattern VideoDescriptionScalingBehaviorSTRETCHTOOUTPUT = VideoDescriptionScalingBehavior' "STRETCH_TO_OUTPUT"
 
 {-# COMPLETE
-  VDSBDefault,
-  VDSBStretchToOutput,
+  VideoDescriptionScalingBehaviorDEFAULT,
+  VideoDescriptionScalingBehaviorSTRETCHTOOUTPUT,
   VideoDescriptionScalingBehavior'
   #-}
 
-instance FromText VideoDescriptionScalingBehavior where
-  parser = (VideoDescriptionScalingBehavior' . mk) <$> takeText
+instance Prelude.FromText VideoDescriptionScalingBehavior where
+  parser = VideoDescriptionScalingBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText VideoDescriptionScalingBehavior where
-  toText (VideoDescriptionScalingBehavior' ci) = original ci
+instance Prelude.ToText VideoDescriptionScalingBehavior where
+  toText (VideoDescriptionScalingBehavior' x) = x
 
-instance Hashable VideoDescriptionScalingBehavior
+instance Prelude.Hashable VideoDescriptionScalingBehavior
 
-instance NFData VideoDescriptionScalingBehavior
+instance Prelude.NFData VideoDescriptionScalingBehavior
 
-instance ToByteString VideoDescriptionScalingBehavior
+instance Prelude.ToByteString VideoDescriptionScalingBehavior
 
-instance ToQuery VideoDescriptionScalingBehavior
+instance Prelude.ToQuery VideoDescriptionScalingBehavior
 
-instance ToHeader VideoDescriptionScalingBehavior
+instance Prelude.ToHeader VideoDescriptionScalingBehavior
 
-instance ToJSON VideoDescriptionScalingBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON VideoDescriptionScalingBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VideoDescriptionScalingBehavior where
-  parseJSON = parseJSONText "VideoDescriptionScalingBehavior"
+instance Prelude.FromJSON VideoDescriptionScalingBehavior where
+  parseJSON = Prelude.parseJSONText "VideoDescriptionScalingBehavior"

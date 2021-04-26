@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Scte20Convert608To708
   ( Scte20Convert608To708
       ( ..,
-        SCTDisabled,
-        SCTUpconvert
+        Scte20Convert608To708DISABLED,
+        Scte20Convert608To708UPCONVERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Scte20 Convert608 To708
-data Scte20Convert608To708
-  = Scte20Convert608To708'
-      ( CI
-          Text
-      )
+newtype Scte20Convert608To708 = Scte20Convert608To708'
+  { fromScte20Convert608To708 ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SCTDisabled :: Scte20Convert608To708
-pattern SCTDisabled = Scte20Convert608To708' "DISABLED"
+pattern Scte20Convert608To708DISABLED :: Scte20Convert608To708
+pattern Scte20Convert608To708DISABLED = Scte20Convert608To708' "DISABLED"
 
-pattern SCTUpconvert :: Scte20Convert608To708
-pattern SCTUpconvert = Scte20Convert608To708' "UPCONVERT"
+pattern Scte20Convert608To708UPCONVERT :: Scte20Convert608To708
+pattern Scte20Convert608To708UPCONVERT = Scte20Convert608To708' "UPCONVERT"
 
 {-# COMPLETE
-  SCTDisabled,
-  SCTUpconvert,
+  Scte20Convert608To708DISABLED,
+  Scte20Convert608To708UPCONVERT,
   Scte20Convert608To708'
   #-}
 
-instance FromText Scte20Convert608To708 where
-  parser = (Scte20Convert608To708' . mk) <$> takeText
+instance Prelude.FromText Scte20Convert608To708 where
+  parser = Scte20Convert608To708' Prelude.<$> Prelude.takeText
 
-instance ToText Scte20Convert608To708 where
-  toText (Scte20Convert608To708' ci) = original ci
+instance Prelude.ToText Scte20Convert608To708 where
+  toText (Scte20Convert608To708' x) = x
 
-instance Hashable Scte20Convert608To708
+instance Prelude.Hashable Scte20Convert608To708
 
-instance NFData Scte20Convert608To708
+instance Prelude.NFData Scte20Convert608To708
 
-instance ToByteString Scte20Convert608To708
+instance Prelude.ToByteString Scte20Convert608To708
 
-instance ToQuery Scte20Convert608To708
+instance Prelude.ToQuery Scte20Convert608To708
 
-instance ToHeader Scte20Convert608To708
+instance Prelude.ToHeader Scte20Convert608To708
 
-instance ToJSON Scte20Convert608To708 where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte20Convert608To708 where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte20Convert608To708 where
-  parseJSON = parseJSONText "Scte20Convert608To708"
+instance Prelude.FromJSON Scte20Convert608To708 where
+  parseJSON = Prelude.parseJSONText "Scte20Convert608To708"

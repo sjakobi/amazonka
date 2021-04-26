@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MultiplexOutputSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.OutputLocationRef
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Multiplex Output Settings
 --
--- /See:/ 'multiplexOutputSettings' smart constructor.
-newtype MultiplexOutputSettings = MultiplexOutputSettings'
-  { _mosDestination ::
-      OutputLocationRef
+-- /See:/ 'newMultiplexOutputSettings' smart constructor.
+data MultiplexOutputSettings = MultiplexOutputSettings'
+  { -- | Destination is a Multiplex.
+    destination :: OutputLocationRef
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultiplexOutputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultiplexOutputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mosDestination' - Destination is a Multiplex.
-multiplexOutputSettings ::
-  -- | 'mosDestination'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'destination', 'multiplexOutputSettings_destination' - Destination is a Multiplex.
+newMultiplexOutputSettings ::
+  -- | 'destination'
   OutputLocationRef ->
   MultiplexOutputSettings
-multiplexOutputSettings pDestination_ =
+newMultiplexOutputSettings pDestination_ =
   MultiplexOutputSettings'
-    { _mosDestination =
+    { destination =
         pDestination_
     }
 
 -- | Destination is a Multiplex.
-mosDestination :: Lens' MultiplexOutputSettings OutputLocationRef
-mosDestination = lens _mosDestination (\s a -> s {_mosDestination = a})
+multiplexOutputSettings_destination :: Lens.Lens' MultiplexOutputSettings OutputLocationRef
+multiplexOutputSettings_destination = Lens.lens (\MultiplexOutputSettings' {destination} -> destination) (\s@MultiplexOutputSettings' {} a -> s {destination = a} :: MultiplexOutputSettings)
 
-instance FromJSON MultiplexOutputSettings where
+instance Prelude.FromJSON MultiplexOutputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MultiplexOutputSettings"
       ( \x ->
-          MultiplexOutputSettings' <$> (x .: "destination")
+          MultiplexOutputSettings'
+            Prelude.<$> (x Prelude..: "destination")
       )
 
-instance Hashable MultiplexOutputSettings
+instance Prelude.Hashable MultiplexOutputSettings
 
-instance NFData MultiplexOutputSettings
+instance Prelude.NFData MultiplexOutputSettings
 
-instance ToJSON MultiplexOutputSettings where
+instance Prelude.ToJSON MultiplexOutputSettings where
   toJSON MultiplexOutputSettings' {..} =
-    object
-      (catMaybes [Just ("destination" .= _mosDestination)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("destination" Prelude..= destination)
+          ]
+      )

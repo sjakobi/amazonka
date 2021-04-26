@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.MediaLive.Types.ReservationMaximumFramerate
   ( ReservationMaximumFramerate
       ( ..,
-        Max30Fps,
-        Max60Fps
+        ReservationMaximumFramerateMAX30FPS,
+        ReservationMaximumFramerateMAX60FPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Maximum framerate in frames per second (Outputs only)
-data ReservationMaximumFramerate
-  = ReservationMaximumFramerate'
-      ( CI
-          Text
-      )
+newtype ReservationMaximumFramerate = ReservationMaximumFramerate'
+  { fromReservationMaximumFramerate ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Max30Fps :: ReservationMaximumFramerate
-pattern Max30Fps = ReservationMaximumFramerate' "MAX_30_FPS"
+pattern ReservationMaximumFramerateMAX30FPS :: ReservationMaximumFramerate
+pattern ReservationMaximumFramerateMAX30FPS = ReservationMaximumFramerate' "MAX_30_FPS"
 
-pattern Max60Fps :: ReservationMaximumFramerate
-pattern Max60Fps = ReservationMaximumFramerate' "MAX_60_FPS"
+pattern ReservationMaximumFramerateMAX60FPS :: ReservationMaximumFramerate
+pattern ReservationMaximumFramerateMAX60FPS = ReservationMaximumFramerate' "MAX_60_FPS"
 
 {-# COMPLETE
-  Max30Fps,
-  Max60Fps,
+  ReservationMaximumFramerateMAX30FPS,
+  ReservationMaximumFramerateMAX60FPS,
   ReservationMaximumFramerate'
   #-}
 
-instance FromText ReservationMaximumFramerate where
-  parser = (ReservationMaximumFramerate' . mk) <$> takeText
+instance Prelude.FromText ReservationMaximumFramerate where
+  parser = ReservationMaximumFramerate' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationMaximumFramerate where
-  toText (ReservationMaximumFramerate' ci) = original ci
+instance Prelude.ToText ReservationMaximumFramerate where
+  toText (ReservationMaximumFramerate' x) = x
 
-instance Hashable ReservationMaximumFramerate
+instance Prelude.Hashable ReservationMaximumFramerate
 
-instance NFData ReservationMaximumFramerate
+instance Prelude.NFData ReservationMaximumFramerate
 
-instance ToByteString ReservationMaximumFramerate
+instance Prelude.ToByteString ReservationMaximumFramerate
 
-instance ToQuery ReservationMaximumFramerate
+instance Prelude.ToQuery ReservationMaximumFramerate
 
-instance ToHeader ReservationMaximumFramerate
+instance Prelude.ToHeader ReservationMaximumFramerate
 
-instance FromJSON ReservationMaximumFramerate where
-  parseJSON = parseJSONText "ReservationMaximumFramerate"
+instance Prelude.FromJSON ReservationMaximumFramerate where
+  parseJSON = Prelude.parseJSONText "ReservationMaximumFramerate"

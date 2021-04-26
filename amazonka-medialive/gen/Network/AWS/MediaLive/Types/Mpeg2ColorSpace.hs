@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.Mpeg2ColorSpace
   ( Mpeg2ColorSpace
       ( ..,
-        MCSAuto,
-        MCSPassthrough
+        Mpeg2ColorSpaceAUTO,
+        Mpeg2ColorSpacePASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mpeg2 Color Space
-data Mpeg2ColorSpace = Mpeg2ColorSpace' (CI Text)
+newtype Mpeg2ColorSpace = Mpeg2ColorSpace'
+  { fromMpeg2ColorSpace ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MCSAuto :: Mpeg2ColorSpace
-pattern MCSAuto = Mpeg2ColorSpace' "AUTO"
+pattern Mpeg2ColorSpaceAUTO :: Mpeg2ColorSpace
+pattern Mpeg2ColorSpaceAUTO = Mpeg2ColorSpace' "AUTO"
 
-pattern MCSPassthrough :: Mpeg2ColorSpace
-pattern MCSPassthrough = Mpeg2ColorSpace' "PASSTHROUGH"
+pattern Mpeg2ColorSpacePASSTHROUGH :: Mpeg2ColorSpace
+pattern Mpeg2ColorSpacePASSTHROUGH = Mpeg2ColorSpace' "PASSTHROUGH"
 
 {-# COMPLETE
-  MCSAuto,
-  MCSPassthrough,
+  Mpeg2ColorSpaceAUTO,
+  Mpeg2ColorSpacePASSTHROUGH,
   Mpeg2ColorSpace'
   #-}
 
-instance FromText Mpeg2ColorSpace where
-  parser = (Mpeg2ColorSpace' . mk) <$> takeText
+instance Prelude.FromText Mpeg2ColorSpace where
+  parser = Mpeg2ColorSpace' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2ColorSpace where
-  toText (Mpeg2ColorSpace' ci) = original ci
+instance Prelude.ToText Mpeg2ColorSpace where
+  toText (Mpeg2ColorSpace' x) = x
 
-instance Hashable Mpeg2ColorSpace
+instance Prelude.Hashable Mpeg2ColorSpace
 
-instance NFData Mpeg2ColorSpace
+instance Prelude.NFData Mpeg2ColorSpace
 
-instance ToByteString Mpeg2ColorSpace
+instance Prelude.ToByteString Mpeg2ColorSpace
 
-instance ToQuery Mpeg2ColorSpace
+instance Prelude.ToQuery Mpeg2ColorSpace
 
-instance ToHeader Mpeg2ColorSpace
+instance Prelude.ToHeader Mpeg2ColorSpace
 
-instance ToJSON Mpeg2ColorSpace where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2ColorSpace where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2ColorSpace where
-  parseJSON = parseJSONText "Mpeg2ColorSpace"
+instance Prelude.FromJSON Mpeg2ColorSpace where
+  parseJSON = Prelude.parseJSONText "Mpeg2ColorSpace"

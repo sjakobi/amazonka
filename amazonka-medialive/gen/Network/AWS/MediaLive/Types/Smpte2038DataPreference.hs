@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Smpte2038DataPreference
   ( Smpte2038DataPreference
       ( ..,
-        SDPIgnore,
-        SDPPrefer
+        Smpte2038DataPreferenceIGNORE,
+        Smpte2038DataPreferencePREFER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smpte2038 Data Preference
-data Smpte2038DataPreference
-  = Smpte2038DataPreference'
-      ( CI
-          Text
-      )
+newtype Smpte2038DataPreference = Smpte2038DataPreference'
+  { fromSmpte2038DataPreference ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SDPIgnore :: Smpte2038DataPreference
-pattern SDPIgnore = Smpte2038DataPreference' "IGNORE"
+pattern Smpte2038DataPreferenceIGNORE :: Smpte2038DataPreference
+pattern Smpte2038DataPreferenceIGNORE = Smpte2038DataPreference' "IGNORE"
 
-pattern SDPPrefer :: Smpte2038DataPreference
-pattern SDPPrefer = Smpte2038DataPreference' "PREFER"
+pattern Smpte2038DataPreferencePREFER :: Smpte2038DataPreference
+pattern Smpte2038DataPreferencePREFER = Smpte2038DataPreference' "PREFER"
 
 {-# COMPLETE
-  SDPIgnore,
-  SDPPrefer,
+  Smpte2038DataPreferenceIGNORE,
+  Smpte2038DataPreferencePREFER,
   Smpte2038DataPreference'
   #-}
 
-instance FromText Smpte2038DataPreference where
-  parser = (Smpte2038DataPreference' . mk) <$> takeText
+instance Prelude.FromText Smpte2038DataPreference where
+  parser = Smpte2038DataPreference' Prelude.<$> Prelude.takeText
 
-instance ToText Smpte2038DataPreference where
-  toText (Smpte2038DataPreference' ci) = original ci
+instance Prelude.ToText Smpte2038DataPreference where
+  toText (Smpte2038DataPreference' x) = x
 
-instance Hashable Smpte2038DataPreference
+instance Prelude.Hashable Smpte2038DataPreference
 
-instance NFData Smpte2038DataPreference
+instance Prelude.NFData Smpte2038DataPreference
 
-instance ToByteString Smpte2038DataPreference
+instance Prelude.ToByteString Smpte2038DataPreference
 
-instance ToQuery Smpte2038DataPreference
+instance Prelude.ToQuery Smpte2038DataPreference
 
-instance ToHeader Smpte2038DataPreference
+instance Prelude.ToHeader Smpte2038DataPreference
 
-instance ToJSON Smpte2038DataPreference where
-  toJSON = toJSONText
+instance Prelude.ToJSON Smpte2038DataPreference where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Smpte2038DataPreference where
-  parseJSON = parseJSONText "Smpte2038DataPreference"
+instance Prelude.FromJSON Smpte2038DataPreference where
+  parseJSON = Prelude.parseJSONText "Smpte2038DataPreference"

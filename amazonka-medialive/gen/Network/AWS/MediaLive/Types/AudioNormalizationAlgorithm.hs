@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.AudioNormalizationAlgorithm
   ( AudioNormalizationAlgorithm
       ( ..,
-        Itu17701,
-        Itu17702
+        AudioNormalizationAlgorithmITU17701,
+        AudioNormalizationAlgorithmITU17702
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Normalization Algorithm
-data AudioNormalizationAlgorithm
-  = AudioNormalizationAlgorithm'
-      ( CI
-          Text
-      )
+newtype AudioNormalizationAlgorithm = AudioNormalizationAlgorithm'
+  { fromAudioNormalizationAlgorithm ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Itu17701 :: AudioNormalizationAlgorithm
-pattern Itu17701 = AudioNormalizationAlgorithm' "ITU_1770_1"
+pattern AudioNormalizationAlgorithmITU17701 :: AudioNormalizationAlgorithm
+pattern AudioNormalizationAlgorithmITU17701 = AudioNormalizationAlgorithm' "ITU_1770_1"
 
-pattern Itu17702 :: AudioNormalizationAlgorithm
-pattern Itu17702 = AudioNormalizationAlgorithm' "ITU_1770_2"
+pattern AudioNormalizationAlgorithmITU17702 :: AudioNormalizationAlgorithm
+pattern AudioNormalizationAlgorithmITU17702 = AudioNormalizationAlgorithm' "ITU_1770_2"
 
 {-# COMPLETE
-  Itu17701,
-  Itu17702,
+  AudioNormalizationAlgorithmITU17701,
+  AudioNormalizationAlgorithmITU17702,
   AudioNormalizationAlgorithm'
   #-}
 
-instance FromText AudioNormalizationAlgorithm where
-  parser = (AudioNormalizationAlgorithm' . mk) <$> takeText
+instance Prelude.FromText AudioNormalizationAlgorithm where
+  parser = AudioNormalizationAlgorithm' Prelude.<$> Prelude.takeText
 
-instance ToText AudioNormalizationAlgorithm where
-  toText (AudioNormalizationAlgorithm' ci) = original ci
+instance Prelude.ToText AudioNormalizationAlgorithm where
+  toText (AudioNormalizationAlgorithm' x) = x
 
-instance Hashable AudioNormalizationAlgorithm
+instance Prelude.Hashable AudioNormalizationAlgorithm
 
-instance NFData AudioNormalizationAlgorithm
+instance Prelude.NFData AudioNormalizationAlgorithm
 
-instance ToByteString AudioNormalizationAlgorithm
+instance Prelude.ToByteString AudioNormalizationAlgorithm
 
-instance ToQuery AudioNormalizationAlgorithm
+instance Prelude.ToQuery AudioNormalizationAlgorithm
 
-instance ToHeader AudioNormalizationAlgorithm
+instance Prelude.ToHeader AudioNormalizationAlgorithm
 
-instance ToJSON AudioNormalizationAlgorithm where
-  toJSON = toJSONText
+instance Prelude.ToJSON AudioNormalizationAlgorithm where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AudioNormalizationAlgorithm where
-  parseJSON = parseJSONText "AudioNormalizationAlgorithm"
+instance Prelude.FromJSON AudioNormalizationAlgorithm where
+  parseJSON = Prelude.parseJSONText "AudioNormalizationAlgorithm"

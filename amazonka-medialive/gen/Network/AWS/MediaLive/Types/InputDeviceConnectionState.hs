@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,56 @@
 module Network.AWS.MediaLive.Types.InputDeviceConnectionState
   ( InputDeviceConnectionState
       ( ..,
-        Connected,
-        Disconnected
+        InputDeviceConnectionStateCONNECTED,
+        InputDeviceConnectionStateDISCONNECTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The state of the connection between the input device and AWS.
-data InputDeviceConnectionState
-  = InputDeviceConnectionState'
-      ( CI
-          Text
-      )
+newtype InputDeviceConnectionState = InputDeviceConnectionState'
+  { fromInputDeviceConnectionState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Connected :: InputDeviceConnectionState
-pattern Connected = InputDeviceConnectionState' "CONNECTED"
+pattern InputDeviceConnectionStateCONNECTED :: InputDeviceConnectionState
+pattern InputDeviceConnectionStateCONNECTED = InputDeviceConnectionState' "CONNECTED"
 
-pattern Disconnected :: InputDeviceConnectionState
-pattern Disconnected = InputDeviceConnectionState' "DISCONNECTED"
+pattern InputDeviceConnectionStateDISCONNECTED :: InputDeviceConnectionState
+pattern InputDeviceConnectionStateDISCONNECTED = InputDeviceConnectionState' "DISCONNECTED"
 
 {-# COMPLETE
-  Connected,
-  Disconnected,
+  InputDeviceConnectionStateCONNECTED,
+  InputDeviceConnectionStateDISCONNECTED,
   InputDeviceConnectionState'
   #-}
 
-instance FromText InputDeviceConnectionState where
-  parser = (InputDeviceConnectionState' . mk) <$> takeText
+instance Prelude.FromText InputDeviceConnectionState where
+  parser = InputDeviceConnectionState' Prelude.<$> Prelude.takeText
 
-instance ToText InputDeviceConnectionState where
-  toText (InputDeviceConnectionState' ci) = original ci
+instance Prelude.ToText InputDeviceConnectionState where
+  toText (InputDeviceConnectionState' x) = x
 
-instance Hashable InputDeviceConnectionState
+instance Prelude.Hashable InputDeviceConnectionState
 
-instance NFData InputDeviceConnectionState
+instance Prelude.NFData InputDeviceConnectionState
 
-instance ToByteString InputDeviceConnectionState
+instance Prelude.ToByteString InputDeviceConnectionState
 
-instance ToQuery InputDeviceConnectionState
+instance Prelude.ToQuery InputDeviceConnectionState
 
-instance ToHeader InputDeviceConnectionState
+instance Prelude.ToHeader InputDeviceConnectionState
 
-instance FromJSON InputDeviceConnectionState where
-  parseJSON = parseJSONText "InputDeviceConnectionState"
+instance Prelude.FromJSON InputDeviceConnectionState where
+  parseJSON = Prelude.parseJSONText "InputDeviceConnectionState"

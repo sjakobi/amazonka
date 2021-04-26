@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Scte27SourceSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Scte27 Source Settings
 --
--- /See:/ 'scte27SourceSettings' smart constructor.
-newtype Scte27SourceSettings = Scte27SourceSettings'
-  { _sssPid ::
-      Maybe Nat
+-- /See:/ 'newScte27SourceSettings' smart constructor.
+data Scte27SourceSettings = Scte27SourceSettings'
+  { -- | The pid field is used in conjunction with the caption selector
+    -- languageCode field as follows: - Specify PID and Language: Extracts
+    -- captions from that PID; the language is \"informational\". - Specify PID
+    -- and omit Language: Extracts the specified PID. - Omit PID and specify
+    -- Language: Extracts the specified language, whichever PID that happens to
+    -- be. - Omit PID and omit Language: Valid only if source is DVB-Sub that
+    -- is being passed through; all languages will be passed through.
+    pid :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Scte27SourceSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Scte27SourceSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sssPid' - The pid field is used in conjunction with the caption selector languageCode field as follows:   - Specify PID and Language: Extracts captions from that PID; the language is "informational".   - Specify PID and omit Language: Extracts the specified PID.   - Omit PID and specify Language: Extracts the specified language, whichever PID that happens to be.   - Omit PID and omit Language: Valid only if source is DVB-Sub that is being passed through; all languages will be passed through.
-scte27SourceSettings ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pid', 'scte27SourceSettings_pid' - The pid field is used in conjunction with the caption selector
+-- languageCode field as follows: - Specify PID and Language: Extracts
+-- captions from that PID; the language is \"informational\". - Specify PID
+-- and omit Language: Extracts the specified PID. - Omit PID and specify
+-- Language: Extracts the specified language, whichever PID that happens to
+-- be. - Omit PID and omit Language: Valid only if source is DVB-Sub that
+-- is being passed through; all languages will be passed through.
+newScte27SourceSettings ::
   Scte27SourceSettings
-scte27SourceSettings =
-  Scte27SourceSettings' {_sssPid = Nothing}
+newScte27SourceSettings =
+  Scte27SourceSettings' {pid = Prelude.Nothing}
 
--- | The pid field is used in conjunction with the caption selector languageCode field as follows:   - Specify PID and Language: Extracts captions from that PID; the language is "informational".   - Specify PID and omit Language: Extracts the specified PID.   - Omit PID and specify Language: Extracts the specified language, whichever PID that happens to be.   - Omit PID and omit Language: Valid only if source is DVB-Sub that is being passed through; all languages will be passed through.
-sssPid :: Lens' Scte27SourceSettings (Maybe Natural)
-sssPid = lens _sssPid (\s a -> s {_sssPid = a}) . mapping _Nat
+-- | The pid field is used in conjunction with the caption selector
+-- languageCode field as follows: - Specify PID and Language: Extracts
+-- captions from that PID; the language is \"informational\". - Specify PID
+-- and omit Language: Extracts the specified PID. - Omit PID and specify
+-- Language: Extracts the specified language, whichever PID that happens to
+-- be. - Omit PID and omit Language: Valid only if source is DVB-Sub that
+-- is being passed through; all languages will be passed through.
+scte27SourceSettings_pid :: Lens.Lens' Scte27SourceSettings (Prelude.Maybe Prelude.Natural)
+scte27SourceSettings_pid = Lens.lens (\Scte27SourceSettings' {pid} -> pid) (\s@Scte27SourceSettings' {} a -> s {pid = a} :: Scte27SourceSettings) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON Scte27SourceSettings where
+instance Prelude.FromJSON Scte27SourceSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Scte27SourceSettings"
-      (\x -> Scte27SourceSettings' <$> (x .:? "pid"))
+      ( \x ->
+          Scte27SourceSettings'
+            Prelude.<$> (x Prelude..:? "pid")
+      )
 
-instance Hashable Scte27SourceSettings
+instance Prelude.Hashable Scte27SourceSettings
 
-instance NFData Scte27SourceSettings
+instance Prelude.NFData Scte27SourceSettings
 
-instance ToJSON Scte27SourceSettings where
+instance Prelude.ToJSON Scte27SourceSettings where
   toJSON Scte27SourceSettings' {..} =
-    object (catMaybes [("pid" .=) <$> _sssPid])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("pid" Prelude..=) Prelude.<$> pid]
+      )

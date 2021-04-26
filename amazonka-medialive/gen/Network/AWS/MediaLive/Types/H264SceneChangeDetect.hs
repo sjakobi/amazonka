@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.H264SceneChangeDetect
   ( H264SceneChangeDetect
       ( ..,
-        HSCDDisabled,
-        HSCDEnabled
+        H264SceneChangeDetectDISABLED,
+        H264SceneChangeDetectENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H264 Scene Change Detect
-data H264SceneChangeDetect
-  = H264SceneChangeDetect'
-      ( CI
-          Text
-      )
+newtype H264SceneChangeDetect = H264SceneChangeDetect'
+  { fromH264SceneChangeDetect ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HSCDDisabled :: H264SceneChangeDetect
-pattern HSCDDisabled = H264SceneChangeDetect' "DISABLED"
+pattern H264SceneChangeDetectDISABLED :: H264SceneChangeDetect
+pattern H264SceneChangeDetectDISABLED = H264SceneChangeDetect' "DISABLED"
 
-pattern HSCDEnabled :: H264SceneChangeDetect
-pattern HSCDEnabled = H264SceneChangeDetect' "ENABLED"
+pattern H264SceneChangeDetectENABLED :: H264SceneChangeDetect
+pattern H264SceneChangeDetectENABLED = H264SceneChangeDetect' "ENABLED"
 
 {-# COMPLETE
-  HSCDDisabled,
-  HSCDEnabled,
+  H264SceneChangeDetectDISABLED,
+  H264SceneChangeDetectENABLED,
   H264SceneChangeDetect'
   #-}
 
-instance FromText H264SceneChangeDetect where
-  parser = (H264SceneChangeDetect' . mk) <$> takeText
+instance Prelude.FromText H264SceneChangeDetect where
+  parser = H264SceneChangeDetect' Prelude.<$> Prelude.takeText
 
-instance ToText H264SceneChangeDetect where
-  toText (H264SceneChangeDetect' ci) = original ci
+instance Prelude.ToText H264SceneChangeDetect where
+  toText (H264SceneChangeDetect' x) = x
 
-instance Hashable H264SceneChangeDetect
+instance Prelude.Hashable H264SceneChangeDetect
 
-instance NFData H264SceneChangeDetect
+instance Prelude.NFData H264SceneChangeDetect
 
-instance ToByteString H264SceneChangeDetect
+instance Prelude.ToByteString H264SceneChangeDetect
 
-instance ToQuery H264SceneChangeDetect
+instance Prelude.ToQuery H264SceneChangeDetect
 
-instance ToHeader H264SceneChangeDetect
+instance Prelude.ToHeader H264SceneChangeDetect
 
-instance ToJSON H264SceneChangeDetect where
-  toJSON = toJSONText
+instance Prelude.ToJSON H264SceneChangeDetect where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H264SceneChangeDetect where
-  parseJSON = parseJSONText "H264SceneChangeDetect"
+instance Prelude.FromJSON H264SceneChangeDetect where
+  parseJSON = Prelude.parseJSONText "H264SceneChangeDetect"

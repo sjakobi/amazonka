@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsRedundantManifest
   ( HlsRedundantManifest
       ( ..,
-        HRMDisabled,
-        HRMEnabled
+        HlsRedundantManifestDISABLED,
+        HlsRedundantManifestENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Redundant Manifest
-data HlsRedundantManifest
-  = HlsRedundantManifest'
-      ( CI
-          Text
-      )
+newtype HlsRedundantManifest = HlsRedundantManifest'
+  { fromHlsRedundantManifest ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HRMDisabled :: HlsRedundantManifest
-pattern HRMDisabled = HlsRedundantManifest' "DISABLED"
+pattern HlsRedundantManifestDISABLED :: HlsRedundantManifest
+pattern HlsRedundantManifestDISABLED = HlsRedundantManifest' "DISABLED"
 
-pattern HRMEnabled :: HlsRedundantManifest
-pattern HRMEnabled = HlsRedundantManifest' "ENABLED"
+pattern HlsRedundantManifestENABLED :: HlsRedundantManifest
+pattern HlsRedundantManifestENABLED = HlsRedundantManifest' "ENABLED"
 
 {-# COMPLETE
-  HRMDisabled,
-  HRMEnabled,
+  HlsRedundantManifestDISABLED,
+  HlsRedundantManifestENABLED,
   HlsRedundantManifest'
   #-}
 
-instance FromText HlsRedundantManifest where
-  parser = (HlsRedundantManifest' . mk) <$> takeText
+instance Prelude.FromText HlsRedundantManifest where
+  parser = HlsRedundantManifest' Prelude.<$> Prelude.takeText
 
-instance ToText HlsRedundantManifest where
-  toText (HlsRedundantManifest' ci) = original ci
+instance Prelude.ToText HlsRedundantManifest where
+  toText (HlsRedundantManifest' x) = x
 
-instance Hashable HlsRedundantManifest
+instance Prelude.Hashable HlsRedundantManifest
 
-instance NFData HlsRedundantManifest
+instance Prelude.NFData HlsRedundantManifest
 
-instance ToByteString HlsRedundantManifest
+instance Prelude.ToByteString HlsRedundantManifest
 
-instance ToQuery HlsRedundantManifest
+instance Prelude.ToQuery HlsRedundantManifest
 
-instance ToHeader HlsRedundantManifest
+instance Prelude.ToHeader HlsRedundantManifest
 
-instance ToJSON HlsRedundantManifest where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsRedundantManifest where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsRedundantManifest where
-  parseJSON = parseJSONText "HlsRedundantManifest"
+instance Prelude.FromJSON HlsRedundantManifest where
+  parseJSON = Prelude.parseJSONText "HlsRedundantManifest"

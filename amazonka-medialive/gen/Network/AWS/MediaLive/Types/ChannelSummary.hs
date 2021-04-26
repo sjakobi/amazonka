@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.ChannelSummary where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.CdiInputSpecification
 import Network.AWS.MediaLive.Types.ChannelClass
 import Network.AWS.MediaLive.Types.ChannelEgressEndpoint
@@ -24,174 +28,204 @@ import Network.AWS.MediaLive.Types.InputAttachment
 import Network.AWS.MediaLive.Types.InputSpecification
 import Network.AWS.MediaLive.Types.LogLevel
 import Network.AWS.MediaLive.Types.OutputDestination
-import Network.AWS.MediaLive.Types.VPCOutputSettings
-import Network.AWS.Prelude
+import Network.AWS.MediaLive.Types.VpcOutputSettings
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Placeholder documentation for ChannelSummary
 --
--- /See:/ 'channelSummary' smart constructor.
+-- /See:/ 'newChannelSummary' smart constructor.
 data ChannelSummary = ChannelSummary'
-  { _chaRoleARN ::
-      !(Maybe Text),
-    _chaInputSpecification ::
-      !(Maybe InputSpecification),
-    _chaARN :: !(Maybe Text),
-    _chaId :: !(Maybe Text),
-    _chaPipelinesRunningCount :: !(Maybe Int),
-    _chaChannelClass :: !(Maybe ChannelClass),
-    _chaLogLevel :: !(Maybe LogLevel),
-    _chaDestinations ::
-      !(Maybe [OutputDestination]),
-    _chaState :: !(Maybe ChannelState),
-    _chaName :: !(Maybe Text),
-    _chaInputAttachments ::
-      !(Maybe [InputAttachment]),
-    _chaTags :: !(Maybe (Map Text Text)),
-    _chaEgressEndpoints ::
-      !(Maybe [ChannelEgressEndpoint]),
-    _chaVPC :: !(Maybe VPCOutputSettings),
-    _chaCdiInputSpecification ::
-      !(Maybe CdiInputSpecification)
+  { -- | The Amazon Resource Name (ARN) of the role assumed when running the
+    -- Channel.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Specification of network and file inputs for this channel
+    inputSpecification :: Prelude.Maybe InputSpecification,
+    -- | The unique arn of the channel.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The unique id of the channel.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The number of currently healthy pipelines.
+    pipelinesRunningCount :: Prelude.Maybe Prelude.Int,
+    -- | The class for this channel. STANDARD for a channel with two pipelines or
+    -- SINGLE_PIPELINE for a channel with one pipeline.
+    channelClass :: Prelude.Maybe ChannelClass,
+    -- | The log level being written to CloudWatch Logs.
+    logLevel :: Prelude.Maybe LogLevel,
+    -- | A list of destinations of the channel. For UDP outputs, there is one
+    -- destination per output. For other types (HLS, for example), there is one
+    -- destination per packager.
+    destinations :: Prelude.Maybe [OutputDestination],
+    state :: Prelude.Maybe ChannelState,
+    -- | The name of the channel. (user-mutable)
+    name :: Prelude.Maybe Prelude.Text,
+    -- | List of input attachments for channel.
+    inputAttachments :: Prelude.Maybe [InputAttachment],
+    -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The endpoints where outgoing connections initiate from
+    egressEndpoints :: Prelude.Maybe [ChannelEgressEndpoint],
+    -- | Settings for VPC output
+    vpc :: Prelude.Maybe VpcOutputSettings,
+    -- | Specification of CDI inputs for this channel
+    cdiInputSpecification :: Prelude.Maybe CdiInputSpecification
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chaRoleARN' - The Amazon Resource Name (ARN) of the role assumed when running the Channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chaInputSpecification' - Specification of network and file inputs for this channel
+-- 'roleArn', 'channelSummary_roleArn' - The Amazon Resource Name (ARN) of the role assumed when running the
+-- Channel.
 --
--- * 'chaARN' - The unique arn of the channel.
+-- 'inputSpecification', 'channelSummary_inputSpecification' - Specification of network and file inputs for this channel
 --
--- * 'chaId' - The unique id of the channel.
+-- 'arn', 'channelSummary_arn' - The unique arn of the channel.
 --
--- * 'chaPipelinesRunningCount' - The number of currently healthy pipelines.
+-- 'id', 'channelSummary_id' - The unique id of the channel.
 --
--- * 'chaChannelClass' - The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
+-- 'pipelinesRunningCount', 'channelSummary_pipelinesRunningCount' - The number of currently healthy pipelines.
 --
--- * 'chaLogLevel' - The log level being written to CloudWatch Logs.
+-- 'channelClass', 'channelSummary_channelClass' - The class for this channel. STANDARD for a channel with two pipelines or
+-- SINGLE_PIPELINE for a channel with one pipeline.
 --
--- * 'chaDestinations' - A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
+-- 'logLevel', 'channelSummary_logLevel' - The log level being written to CloudWatch Logs.
 --
--- * 'chaState' - Undocumented member.
+-- 'destinations', 'channelSummary_destinations' - A list of destinations of the channel. For UDP outputs, there is one
+-- destination per output. For other types (HLS, for example), there is one
+-- destination per packager.
 --
--- * 'chaName' - The name of the channel. (user-mutable)
+-- 'state', 'channelSummary_state' - Undocumented member.
 --
--- * 'chaInputAttachments' - List of input attachments for channel.
+-- 'name', 'channelSummary_name' - The name of the channel. (user-mutable)
 --
--- * 'chaTags' - A collection of key-value pairs.
+-- 'inputAttachments', 'channelSummary_inputAttachments' - List of input attachments for channel.
 --
--- * 'chaEgressEndpoints' - The endpoints where outgoing connections initiate from
+-- 'tags', 'channelSummary_tags' - A collection of key-value pairs.
 --
--- * 'chaVPC' - Settings for VPC output
+-- 'egressEndpoints', 'channelSummary_egressEndpoints' - The endpoints where outgoing connections initiate from
 --
--- * 'chaCdiInputSpecification' - Specification of CDI inputs for this channel
-channelSummary ::
+-- 'vpc', 'channelSummary_vpc' - Settings for VPC output
+--
+-- 'cdiInputSpecification', 'channelSummary_cdiInputSpecification' - Specification of CDI inputs for this channel
+newChannelSummary ::
   ChannelSummary
-channelSummary =
+newChannelSummary =
   ChannelSummary'
-    { _chaRoleARN = Nothing,
-      _chaInputSpecification = Nothing,
-      _chaARN = Nothing,
-      _chaId = Nothing,
-      _chaPipelinesRunningCount = Nothing,
-      _chaChannelClass = Nothing,
-      _chaLogLevel = Nothing,
-      _chaDestinations = Nothing,
-      _chaState = Nothing,
-      _chaName = Nothing,
-      _chaInputAttachments = Nothing,
-      _chaTags = Nothing,
-      _chaEgressEndpoints = Nothing,
-      _chaVPC = Nothing,
-      _chaCdiInputSpecification = Nothing
+    { roleArn = Prelude.Nothing,
+      inputSpecification = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      pipelinesRunningCount = Prelude.Nothing,
+      channelClass = Prelude.Nothing,
+      logLevel = Prelude.Nothing,
+      destinations = Prelude.Nothing,
+      state = Prelude.Nothing,
+      name = Prelude.Nothing,
+      inputAttachments = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      egressEndpoints = Prelude.Nothing,
+      vpc = Prelude.Nothing,
+      cdiInputSpecification = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the role assumed when running the Channel.
-chaRoleARN :: Lens' ChannelSummary (Maybe Text)
-chaRoleARN = lens _chaRoleARN (\s a -> s {_chaRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the role assumed when running the
+-- Channel.
+channelSummary_roleArn :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.Text)
+channelSummary_roleArn = Lens.lens (\ChannelSummary' {roleArn} -> roleArn) (\s@ChannelSummary' {} a -> s {roleArn = a} :: ChannelSummary)
 
 -- | Specification of network and file inputs for this channel
-chaInputSpecification :: Lens' ChannelSummary (Maybe InputSpecification)
-chaInputSpecification = lens _chaInputSpecification (\s a -> s {_chaInputSpecification = a})
+channelSummary_inputSpecification :: Lens.Lens' ChannelSummary (Prelude.Maybe InputSpecification)
+channelSummary_inputSpecification = Lens.lens (\ChannelSummary' {inputSpecification} -> inputSpecification) (\s@ChannelSummary' {} a -> s {inputSpecification = a} :: ChannelSummary)
 
 -- | The unique arn of the channel.
-chaARN :: Lens' ChannelSummary (Maybe Text)
-chaARN = lens _chaARN (\s a -> s {_chaARN = a})
+channelSummary_arn :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.Text)
+channelSummary_arn = Lens.lens (\ChannelSummary' {arn} -> arn) (\s@ChannelSummary' {} a -> s {arn = a} :: ChannelSummary)
 
 -- | The unique id of the channel.
-chaId :: Lens' ChannelSummary (Maybe Text)
-chaId = lens _chaId (\s a -> s {_chaId = a})
+channelSummary_id :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.Text)
+channelSummary_id = Lens.lens (\ChannelSummary' {id} -> id) (\s@ChannelSummary' {} a -> s {id = a} :: ChannelSummary)
 
 -- | The number of currently healthy pipelines.
-chaPipelinesRunningCount :: Lens' ChannelSummary (Maybe Int)
-chaPipelinesRunningCount = lens _chaPipelinesRunningCount (\s a -> s {_chaPipelinesRunningCount = a})
+channelSummary_pipelinesRunningCount :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.Int)
+channelSummary_pipelinesRunningCount = Lens.lens (\ChannelSummary' {pipelinesRunningCount} -> pipelinesRunningCount) (\s@ChannelSummary' {} a -> s {pipelinesRunningCount = a} :: ChannelSummary)
 
--- | The class for this channel. STANDARD for a channel with two pipelines or SINGLE_PIPELINE for a channel with one pipeline.
-chaChannelClass :: Lens' ChannelSummary (Maybe ChannelClass)
-chaChannelClass = lens _chaChannelClass (\s a -> s {_chaChannelClass = a})
+-- | The class for this channel. STANDARD for a channel with two pipelines or
+-- SINGLE_PIPELINE for a channel with one pipeline.
+channelSummary_channelClass :: Lens.Lens' ChannelSummary (Prelude.Maybe ChannelClass)
+channelSummary_channelClass = Lens.lens (\ChannelSummary' {channelClass} -> channelClass) (\s@ChannelSummary' {} a -> s {channelClass = a} :: ChannelSummary)
 
 -- | The log level being written to CloudWatch Logs.
-chaLogLevel :: Lens' ChannelSummary (Maybe LogLevel)
-chaLogLevel = lens _chaLogLevel (\s a -> s {_chaLogLevel = a})
+channelSummary_logLevel :: Lens.Lens' ChannelSummary (Prelude.Maybe LogLevel)
+channelSummary_logLevel = Lens.lens (\ChannelSummary' {logLevel} -> logLevel) (\s@ChannelSummary' {} a -> s {logLevel = a} :: ChannelSummary)
 
--- | A list of destinations of the channel. For UDP outputs, there is one destination per output. For other types (HLS, for example), there is one destination per packager.
-chaDestinations :: Lens' ChannelSummary [OutputDestination]
-chaDestinations = lens _chaDestinations (\s a -> s {_chaDestinations = a}) . _Default . _Coerce
+-- | A list of destinations of the channel. For UDP outputs, there is one
+-- destination per output. For other types (HLS, for example), there is one
+-- destination per packager.
+channelSummary_destinations :: Lens.Lens' ChannelSummary (Prelude.Maybe [OutputDestination])
+channelSummary_destinations = Lens.lens (\ChannelSummary' {destinations} -> destinations) (\s@ChannelSummary' {} a -> s {destinations = a} :: ChannelSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-chaState :: Lens' ChannelSummary (Maybe ChannelState)
-chaState = lens _chaState (\s a -> s {_chaState = a})
+channelSummary_state :: Lens.Lens' ChannelSummary (Prelude.Maybe ChannelState)
+channelSummary_state = Lens.lens (\ChannelSummary' {state} -> state) (\s@ChannelSummary' {} a -> s {state = a} :: ChannelSummary)
 
 -- | The name of the channel. (user-mutable)
-chaName :: Lens' ChannelSummary (Maybe Text)
-chaName = lens _chaName (\s a -> s {_chaName = a})
+channelSummary_name :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.Text)
+channelSummary_name = Lens.lens (\ChannelSummary' {name} -> name) (\s@ChannelSummary' {} a -> s {name = a} :: ChannelSummary)
 
 -- | List of input attachments for channel.
-chaInputAttachments :: Lens' ChannelSummary [InputAttachment]
-chaInputAttachments = lens _chaInputAttachments (\s a -> s {_chaInputAttachments = a}) . _Default . _Coerce
+channelSummary_inputAttachments :: Lens.Lens' ChannelSummary (Prelude.Maybe [InputAttachment])
+channelSummary_inputAttachments = Lens.lens (\ChannelSummary' {inputAttachments} -> inputAttachments) (\s@ChannelSummary' {} a -> s {inputAttachments = a} :: ChannelSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A collection of key-value pairs.
-chaTags :: Lens' ChannelSummary (HashMap Text Text)
-chaTags = lens _chaTags (\s a -> s {_chaTags = a}) . _Default . _Map
+channelSummary_tags :: Lens.Lens' ChannelSummary (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+channelSummary_tags = Lens.lens (\ChannelSummary' {tags} -> tags) (\s@ChannelSummary' {} a -> s {tags = a} :: ChannelSummary) Prelude.. Lens.mapping Prelude._Map
 
 -- | The endpoints where outgoing connections initiate from
-chaEgressEndpoints :: Lens' ChannelSummary [ChannelEgressEndpoint]
-chaEgressEndpoints = lens _chaEgressEndpoints (\s a -> s {_chaEgressEndpoints = a}) . _Default . _Coerce
+channelSummary_egressEndpoints :: Lens.Lens' ChannelSummary (Prelude.Maybe [ChannelEgressEndpoint])
+channelSummary_egressEndpoints = Lens.lens (\ChannelSummary' {egressEndpoints} -> egressEndpoints) (\s@ChannelSummary' {} a -> s {egressEndpoints = a} :: ChannelSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Settings for VPC output
-chaVPC :: Lens' ChannelSummary (Maybe VPCOutputSettings)
-chaVPC = lens _chaVPC (\s a -> s {_chaVPC = a})
+channelSummary_vpc :: Lens.Lens' ChannelSummary (Prelude.Maybe VpcOutputSettings)
+channelSummary_vpc = Lens.lens (\ChannelSummary' {vpc} -> vpc) (\s@ChannelSummary' {} a -> s {vpc = a} :: ChannelSummary)
 
 -- | Specification of CDI inputs for this channel
-chaCdiInputSpecification :: Lens' ChannelSummary (Maybe CdiInputSpecification)
-chaCdiInputSpecification = lens _chaCdiInputSpecification (\s a -> s {_chaCdiInputSpecification = a})
+channelSummary_cdiInputSpecification :: Lens.Lens' ChannelSummary (Prelude.Maybe CdiInputSpecification)
+channelSummary_cdiInputSpecification = Lens.lens (\ChannelSummary' {cdiInputSpecification} -> cdiInputSpecification) (\s@ChannelSummary' {} a -> s {cdiInputSpecification = a} :: ChannelSummary)
 
-instance FromJSON ChannelSummary where
+instance Prelude.FromJSON ChannelSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelSummary"
       ( \x ->
           ChannelSummary'
-            <$> (x .:? "roleArn")
-            <*> (x .:? "inputSpecification")
-            <*> (x .:? "arn")
-            <*> (x .:? "id")
-            <*> (x .:? "pipelinesRunningCount")
-            <*> (x .:? "channelClass")
-            <*> (x .:? "logLevel")
-            <*> (x .:? "destinations" .!= mempty)
-            <*> (x .:? "state")
-            <*> (x .:? "name")
-            <*> (x .:? "inputAttachments" .!= mempty)
-            <*> (x .:? "tags" .!= mempty)
-            <*> (x .:? "egressEndpoints" .!= mempty)
-            <*> (x .:? "vpc")
-            <*> (x .:? "cdiInputSpecification")
+            Prelude.<$> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "inputSpecification")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "pipelinesRunningCount")
+            Prelude.<*> (x Prelude..:? "channelClass")
+            Prelude.<*> (x Prelude..:? "logLevel")
+            Prelude.<*> ( x Prelude..:? "destinations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> ( x Prelude..:? "inputAttachments"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "tags" Prelude..!= Prelude.mempty)
+            Prelude.<*> ( x Prelude..:? "egressEndpoints"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "vpc")
+            Prelude.<*> (x Prelude..:? "cdiInputSpecification")
       )
 
-instance Hashable ChannelSummary
+instance Prelude.Hashable ChannelSummary
 
-instance NFData ChannelSummary
+instance Prelude.NFData ChannelSummary

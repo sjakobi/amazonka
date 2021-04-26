@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,158 +26,179 @@
 -- This operation returns paginated results.
 module Network.AWS.MediaLive.ListMultiplexes
   ( -- * Creating a Request
-    listMultiplexes,
-    ListMultiplexes,
+    ListMultiplexes (..),
+    newListMultiplexes,
 
     -- * Request Lenses
-    lmNextToken,
-    lmMaxResults,
+    listMultiplexes_nextToken,
+    listMultiplexes_maxResults,
 
     -- * Destructuring the Response
-    listMultiplexesResponse,
-    ListMultiplexesResponse,
+    ListMultiplexesResponse (..),
+    newListMultiplexesResponse,
 
     -- * Response Lenses
-    lmrrsNextToken,
-    lmrrsMultiplexes,
-    lmrrsResponseStatus,
+    listMultiplexesResponse_nextToken,
+    listMultiplexesResponse_multiplexes,
+    listMultiplexesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.MultiplexSummary
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for ListMultiplexesRequest
 --
--- /See:/ 'listMultiplexes' smart constructor.
+-- /See:/ 'newListMultiplexes' smart constructor.
 data ListMultiplexes = ListMultiplexes'
-  { _lmNextToken ::
-      !(Maybe Text),
-    _lmMaxResults :: !(Maybe Nat)
+  { -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMultiplexes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMultiplexes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmNextToken' - The token to retrieve the next page of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmMaxResults' - The maximum number of items to return.
-listMultiplexes ::
+-- 'nextToken', 'listMultiplexes_nextToken' - The token to retrieve the next page of results.
+--
+-- 'maxResults', 'listMultiplexes_maxResults' - The maximum number of items to return.
+newListMultiplexes ::
   ListMultiplexes
-listMultiplexes =
+newListMultiplexes =
   ListMultiplexes'
-    { _lmNextToken = Nothing,
-      _lmMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
 -- | The token to retrieve the next page of results.
-lmNextToken :: Lens' ListMultiplexes (Maybe Text)
-lmNextToken = lens _lmNextToken (\s a -> s {_lmNextToken = a})
+listMultiplexes_nextToken :: Lens.Lens' ListMultiplexes (Prelude.Maybe Prelude.Text)
+listMultiplexes_nextToken = Lens.lens (\ListMultiplexes' {nextToken} -> nextToken) (\s@ListMultiplexes' {} a -> s {nextToken = a} :: ListMultiplexes)
 
 -- | The maximum number of items to return.
-lmMaxResults :: Lens' ListMultiplexes (Maybe Natural)
-lmMaxResults = lens _lmMaxResults (\s a -> s {_lmMaxResults = a}) . mapping _Nat
+listMultiplexes_maxResults :: Lens.Lens' ListMultiplexes (Prelude.Maybe Prelude.Natural)
+listMultiplexes_maxResults = Lens.lens (\ListMultiplexes' {maxResults} -> maxResults) (\s@ListMultiplexes' {} a -> s {maxResults = a} :: ListMultiplexes) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListMultiplexes where
+instance Pager.AWSPager ListMultiplexes where
   page rq rs
-    | stop (rs ^. lmrrsNextToken) = Nothing
-    | stop (rs ^. lmrrsMultiplexes) = Nothing
-    | otherwise =
-      Just $ rq & lmNextToken .~ rs ^. lmrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listMultiplexesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listMultiplexesResponse_multiplexes
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listMultiplexes_nextToken
+          Lens..~ rs
+          Lens.^? listMultiplexesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListMultiplexes where
+instance Prelude.AWSRequest ListMultiplexes where
   type Rs ListMultiplexes = ListMultiplexesResponse
-  request = get mediaLive
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListMultiplexesResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "multiplexes" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "multiplexes"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListMultiplexes
+instance Prelude.Hashable ListMultiplexes
 
-instance NFData ListMultiplexes
+instance Prelude.NFData ListMultiplexes
 
-instance ToHeaders ListMultiplexes where
+instance Prelude.ToHeaders ListMultiplexes where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListMultiplexes where
-  toPath = const "/prod/multiplexes"
+instance Prelude.ToPath ListMultiplexes where
+  toPath = Prelude.const "/prod/multiplexes"
 
-instance ToQuery ListMultiplexes where
+instance Prelude.ToQuery ListMultiplexes where
   toQuery ListMultiplexes' {..} =
-    mconcat
-      [ "nextToken" =: _lmNextToken,
-        "maxResults" =: _lmMaxResults
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults
       ]
 
 -- | Placeholder documentation for ListMultiplexesResponse
 --
--- /See:/ 'listMultiplexesResponse' smart constructor.
+-- /See:/ 'newListMultiplexesResponse' smart constructor.
 data ListMultiplexesResponse = ListMultiplexesResponse'
-  { _lmrrsNextToken ::
-      !(Maybe Text),
-    _lmrrsMultiplexes ::
-      !( Maybe
-           [MultiplexSummary]
-       ),
-    _lmrrsResponseStatus ::
-      !Int
+  { -- | Token for the next ListMultiplexes request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of multiplexes.
+    multiplexes :: Prelude.Maybe [MultiplexSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListMultiplexesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListMultiplexesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lmrrsNextToken' - Token for the next ListMultiplexes request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lmrrsMultiplexes' - List of multiplexes.
+-- 'nextToken', 'listMultiplexesResponse_nextToken' - Token for the next ListMultiplexes request.
 --
--- * 'lmrrsResponseStatus' - -- | The response status code.
-listMultiplexesResponse ::
-  -- | 'lmrrsResponseStatus'
-  Int ->
+-- 'multiplexes', 'listMultiplexesResponse_multiplexes' - List of multiplexes.
+--
+-- 'httpStatus', 'listMultiplexesResponse_httpStatus' - The response's http status code.
+newListMultiplexesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListMultiplexesResponse
-listMultiplexesResponse pResponseStatus_ =
+newListMultiplexesResponse pHttpStatus_ =
   ListMultiplexesResponse'
-    { _lmrrsNextToken = Nothing,
-      _lmrrsMultiplexes = Nothing,
-      _lmrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      multiplexes = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Token for the next ListMultiplexes request.
-lmrrsNextToken :: Lens' ListMultiplexesResponse (Maybe Text)
-lmrrsNextToken = lens _lmrrsNextToken (\s a -> s {_lmrrsNextToken = a})
+listMultiplexesResponse_nextToken :: Lens.Lens' ListMultiplexesResponse (Prelude.Maybe Prelude.Text)
+listMultiplexesResponse_nextToken = Lens.lens (\ListMultiplexesResponse' {nextToken} -> nextToken) (\s@ListMultiplexesResponse' {} a -> s {nextToken = a} :: ListMultiplexesResponse)
 
 -- | List of multiplexes.
-lmrrsMultiplexes :: Lens' ListMultiplexesResponse [MultiplexSummary]
-lmrrsMultiplexes = lens _lmrrsMultiplexes (\s a -> s {_lmrrsMultiplexes = a}) . _Default . _Coerce
+listMultiplexesResponse_multiplexes :: Lens.Lens' ListMultiplexesResponse (Prelude.Maybe [MultiplexSummary])
+listMultiplexesResponse_multiplexes = Lens.lens (\ListMultiplexesResponse' {multiplexes} -> multiplexes) (\s@ListMultiplexesResponse' {} a -> s {multiplexes = a} :: ListMultiplexesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lmrrsResponseStatus :: Lens' ListMultiplexesResponse Int
-lmrrsResponseStatus = lens _lmrrsResponseStatus (\s a -> s {_lmrrsResponseStatus = a})
+-- | The response's http status code.
+listMultiplexesResponse_httpStatus :: Lens.Lens' ListMultiplexesResponse Prelude.Int
+listMultiplexesResponse_httpStatus = Lens.lens (\ListMultiplexesResponse' {httpStatus} -> httpStatus) (\s@ListMultiplexesResponse' {} a -> s {httpStatus = a} :: ListMultiplexesResponse)
 
-instance NFData ListMultiplexesResponse
+instance Prelude.NFData ListMultiplexesResponse

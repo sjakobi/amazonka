@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.OutputGroup where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.Output
 import Network.AWS.MediaLive.Types.OutputGroupSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Output groups for this Live Event. Output groups contain information about where streams should be distributed.
+-- | Output groups for this Live Event. Output groups contain information
+-- about where streams should be distributed.
 --
--- /See:/ 'outputGroup' smart constructor.
+-- /See:/ 'newOutputGroup' smart constructor.
 data OutputGroup = OutputGroup'
-  { _ogName ::
-      !(Maybe Text),
-    _ogOutputs :: ![Output],
-    _ogOutputGroupSettings :: !OutputGroupSettings
+  { -- | Custom output group name optionally defined by the user. Only letters,
+    -- numbers, and the underscore character allowed; only 32 characters
+    -- allowed.
+    name :: Prelude.Maybe Prelude.Text,
+    outputs :: [Output],
+    -- | Settings associated with the output group.
+    outputGroupSettings :: OutputGroupSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ogName' - Custom output group name optionally defined by the user.  Only letters, numbers, and the underscore character allowed; only 32 characters allowed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ogOutputs' - Undocumented member.
+-- 'name', 'outputGroup_name' - Custom output group name optionally defined by the user. Only letters,
+-- numbers, and the underscore character allowed; only 32 characters
+-- allowed.
 --
--- * 'ogOutputGroupSettings' - Settings associated with the output group.
-outputGroup ::
-  -- | 'ogOutputGroupSettings'
+-- 'outputs', 'outputGroup_outputs' - Undocumented member.
+--
+-- 'outputGroupSettings', 'outputGroup_outputGroupSettings' - Settings associated with the output group.
+newOutputGroup ::
+  -- | 'outputGroupSettings'
   OutputGroupSettings ->
   OutputGroup
-outputGroup pOutputGroupSettings_ =
+newOutputGroup pOutputGroupSettings_ =
   OutputGroup'
-    { _ogName = Nothing,
-      _ogOutputs = mempty,
-      _ogOutputGroupSettings = pOutputGroupSettings_
+    { name = Prelude.Nothing,
+      outputs = Prelude.mempty,
+      outputGroupSettings = pOutputGroupSettings_
     }
 
--- | Custom output group name optionally defined by the user.  Only letters, numbers, and the underscore character allowed; only 32 characters allowed.
-ogName :: Lens' OutputGroup (Maybe Text)
-ogName = lens _ogName (\s a -> s {_ogName = a})
+-- | Custom output group name optionally defined by the user. Only letters,
+-- numbers, and the underscore character allowed; only 32 characters
+-- allowed.
+outputGroup_name :: Lens.Lens' OutputGroup (Prelude.Maybe Prelude.Text)
+outputGroup_name = Lens.lens (\OutputGroup' {name} -> name) (\s@OutputGroup' {} a -> s {name = a} :: OutputGroup)
 
 -- | Undocumented member.
-ogOutputs :: Lens' OutputGroup [Output]
-ogOutputs = lens _ogOutputs (\s a -> s {_ogOutputs = a}) . _Coerce
+outputGroup_outputs :: Lens.Lens' OutputGroup [Output]
+outputGroup_outputs = Lens.lens (\OutputGroup' {outputs} -> outputs) (\s@OutputGroup' {} a -> s {outputs = a} :: OutputGroup) Prelude.. Prelude._Coerce
 
 -- | Settings associated with the output group.
-ogOutputGroupSettings :: Lens' OutputGroup OutputGroupSettings
-ogOutputGroupSettings = lens _ogOutputGroupSettings (\s a -> s {_ogOutputGroupSettings = a})
+outputGroup_outputGroupSettings :: Lens.Lens' OutputGroup OutputGroupSettings
+outputGroup_outputGroupSettings = Lens.lens (\OutputGroup' {outputGroupSettings} -> outputGroupSettings) (\s@OutputGroup' {} a -> s {outputGroupSettings = a} :: OutputGroup)
 
-instance FromJSON OutputGroup where
+instance Prelude.FromJSON OutputGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "OutputGroup"
       ( \x ->
           OutputGroup'
-            <$> (x .:? "name")
-            <*> (x .:? "outputs" .!= mempty)
-            <*> (x .: "outputGroupSettings")
+            Prelude.<$> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "outputs" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..: "outputGroupSettings")
       )
 
-instance Hashable OutputGroup
+instance Prelude.Hashable OutputGroup
 
-instance NFData OutputGroup
+instance Prelude.NFData OutputGroup
 
-instance ToJSON OutputGroup where
+instance Prelude.ToJSON OutputGroup where
   toJSON OutputGroup' {..} =
-    object
-      ( catMaybes
-          [ ("name" .=) <$> _ogName,
-            Just ("outputs" .= _ogOutputs),
-            Just
-              ("outputGroupSettings" .= _ogOutputGroupSettings)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("name" Prelude..=) Prelude.<$> name,
+            Prelude.Just ("outputs" Prelude..= outputs),
+            Prelude.Just
+              ( "outputGroupSettings"
+                  Prelude..= outputGroupSettings
+              )
           ]
       )

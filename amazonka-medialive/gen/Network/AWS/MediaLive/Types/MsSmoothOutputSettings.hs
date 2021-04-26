@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MsSmoothOutputSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.MsSmoothH265PackagingType
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Ms Smooth Output Settings
 --
--- /See:/ 'msSmoothOutputSettings' smart constructor.
+-- /See:/ 'newMsSmoothOutputSettings' smart constructor.
 data MsSmoothOutputSettings = MsSmoothOutputSettings'
-  { _msosH265PackagingType ::
-      !( Maybe
-           MsSmoothH265PackagingType
-       ),
-    _msosNameModifier ::
-      !(Maybe Text)
+  { -- | Only applicable when this output is referencing an H.265 video
+    -- description. Specifies whether MP4 segments should be packaged as HEV1
+    -- or HVC1.
+    h265PackagingType :: Prelude.Maybe MsSmoothH265PackagingType,
+    -- | String concatenated to the end of the destination filename. Required for
+    -- multiple outputs of the same type.
+    nameModifier :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MsSmoothOutputSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MsSmoothOutputSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msosH265PackagingType' - Only applicable when this output is referencing an H.265 video description. Specifies whether MP4 segments should be packaged as HEV1 or HVC1.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'msosNameModifier' - String concatenated to the end of the destination filename.  Required for multiple outputs of the same type.
-msSmoothOutputSettings ::
+-- 'h265PackagingType', 'msSmoothOutputSettings_h265PackagingType' - Only applicable when this output is referencing an H.265 video
+-- description. Specifies whether MP4 segments should be packaged as HEV1
+-- or HVC1.
+--
+-- 'nameModifier', 'msSmoothOutputSettings_nameModifier' - String concatenated to the end of the destination filename. Required for
+-- multiple outputs of the same type.
+newMsSmoothOutputSettings ::
   MsSmoothOutputSettings
-msSmoothOutputSettings =
+newMsSmoothOutputSettings =
   MsSmoothOutputSettings'
-    { _msosH265PackagingType =
-        Nothing,
-      _msosNameModifier = Nothing
+    { h265PackagingType =
+        Prelude.Nothing,
+      nameModifier = Prelude.Nothing
     }
 
--- | Only applicable when this output is referencing an H.265 video description. Specifies whether MP4 segments should be packaged as HEV1 or HVC1.
-msosH265PackagingType :: Lens' MsSmoothOutputSettings (Maybe MsSmoothH265PackagingType)
-msosH265PackagingType = lens _msosH265PackagingType (\s a -> s {_msosH265PackagingType = a})
+-- | Only applicable when this output is referencing an H.265 video
+-- description. Specifies whether MP4 segments should be packaged as HEV1
+-- or HVC1.
+msSmoothOutputSettings_h265PackagingType :: Lens.Lens' MsSmoothOutputSettings (Prelude.Maybe MsSmoothH265PackagingType)
+msSmoothOutputSettings_h265PackagingType = Lens.lens (\MsSmoothOutputSettings' {h265PackagingType} -> h265PackagingType) (\s@MsSmoothOutputSettings' {} a -> s {h265PackagingType = a} :: MsSmoothOutputSettings)
 
--- | String concatenated to the end of the destination filename.  Required for multiple outputs of the same type.
-msosNameModifier :: Lens' MsSmoothOutputSettings (Maybe Text)
-msosNameModifier = lens _msosNameModifier (\s a -> s {_msosNameModifier = a})
+-- | String concatenated to the end of the destination filename. Required for
+-- multiple outputs of the same type.
+msSmoothOutputSettings_nameModifier :: Lens.Lens' MsSmoothOutputSettings (Prelude.Maybe Prelude.Text)
+msSmoothOutputSettings_nameModifier = Lens.lens (\MsSmoothOutputSettings' {nameModifier} -> nameModifier) (\s@MsSmoothOutputSettings' {} a -> s {nameModifier = a} :: MsSmoothOutputSettings)
 
-instance FromJSON MsSmoothOutputSettings where
+instance Prelude.FromJSON MsSmoothOutputSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MsSmoothOutputSettings"
       ( \x ->
           MsSmoothOutputSettings'
-            <$> (x .:? "h265PackagingType")
-            <*> (x .:? "nameModifier")
+            Prelude.<$> (x Prelude..:? "h265PackagingType")
+            Prelude.<*> (x Prelude..:? "nameModifier")
       )
 
-instance Hashable MsSmoothOutputSettings
+instance Prelude.Hashable MsSmoothOutputSettings
 
-instance NFData MsSmoothOutputSettings
+instance Prelude.NFData MsSmoothOutputSettings
 
-instance ToJSON MsSmoothOutputSettings where
+instance Prelude.ToJSON MsSmoothOutputSettings where
   toJSON MsSmoothOutputSettings' {..} =
-    object
-      ( catMaybes
-          [ ("h265PackagingType" .=) <$> _msosH265PackagingType,
-            ("nameModifier" .=) <$> _msosNameModifier
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("h265PackagingType" Prelude..=)
+              Prelude.<$> h265PackagingType,
+            ("nameModifier" Prelude..=)
+              Prelude.<$> nameModifier
           ]
       )

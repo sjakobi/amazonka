@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.DvbSubDestinationShadowColor
   ( DvbSubDestinationShadowColor
       ( ..,
-        DSDSCBlack,
-        DSDSCNone,
-        DSDSCWhite
+        DvbSubDestinationShadowColorBLACK,
+        DvbSubDestinationShadowColorNONE,
+        DvbSubDestinationShadowColorWHITE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Dvb Sub Destination Shadow Color
-data DvbSubDestinationShadowColor
-  = DvbSubDestinationShadowColor'
-      ( CI
-          Text
-      )
+newtype DvbSubDestinationShadowColor = DvbSubDestinationShadowColor'
+  { fromDvbSubDestinationShadowColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSDSCBlack :: DvbSubDestinationShadowColor
-pattern DSDSCBlack = DvbSubDestinationShadowColor' "BLACK"
+pattern DvbSubDestinationShadowColorBLACK :: DvbSubDestinationShadowColor
+pattern DvbSubDestinationShadowColorBLACK = DvbSubDestinationShadowColor' "BLACK"
 
-pattern DSDSCNone :: DvbSubDestinationShadowColor
-pattern DSDSCNone = DvbSubDestinationShadowColor' "NONE"
+pattern DvbSubDestinationShadowColorNONE :: DvbSubDestinationShadowColor
+pattern DvbSubDestinationShadowColorNONE = DvbSubDestinationShadowColor' "NONE"
 
-pattern DSDSCWhite :: DvbSubDestinationShadowColor
-pattern DSDSCWhite = DvbSubDestinationShadowColor' "WHITE"
+pattern DvbSubDestinationShadowColorWHITE :: DvbSubDestinationShadowColor
+pattern DvbSubDestinationShadowColorWHITE = DvbSubDestinationShadowColor' "WHITE"
 
 {-# COMPLETE
-  DSDSCBlack,
-  DSDSCNone,
-  DSDSCWhite,
+  DvbSubDestinationShadowColorBLACK,
+  DvbSubDestinationShadowColorNONE,
+  DvbSubDestinationShadowColorWHITE,
   DvbSubDestinationShadowColor'
   #-}
 
-instance FromText DvbSubDestinationShadowColor where
-  parser = (DvbSubDestinationShadowColor' . mk) <$> takeText
+instance Prelude.FromText DvbSubDestinationShadowColor where
+  parser = DvbSubDestinationShadowColor' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubDestinationShadowColor where
-  toText (DvbSubDestinationShadowColor' ci) = original ci
+instance Prelude.ToText DvbSubDestinationShadowColor where
+  toText (DvbSubDestinationShadowColor' x) = x
 
-instance Hashable DvbSubDestinationShadowColor
+instance Prelude.Hashable DvbSubDestinationShadowColor
 
-instance NFData DvbSubDestinationShadowColor
+instance Prelude.NFData DvbSubDestinationShadowColor
 
-instance ToByteString DvbSubDestinationShadowColor
+instance Prelude.ToByteString DvbSubDestinationShadowColor
 
-instance ToQuery DvbSubDestinationShadowColor
+instance Prelude.ToQuery DvbSubDestinationShadowColor
 
-instance ToHeader DvbSubDestinationShadowColor
+instance Prelude.ToHeader DvbSubDestinationShadowColor
 
-instance ToJSON DvbSubDestinationShadowColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubDestinationShadowColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubDestinationShadowColor where
-  parseJSON = parseJSONText "DvbSubDestinationShadowColor"
+instance Prelude.FromJSON DvbSubDestinationShadowColor where
+  parseJSON = Prelude.parseJSONText "DvbSubDestinationShadowColor"

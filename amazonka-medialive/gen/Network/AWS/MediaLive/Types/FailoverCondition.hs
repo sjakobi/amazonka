@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.FailoverCondition where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.FailoverConditionSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Failover Condition settings. There can be multiple failover conditions inside AutomaticInputFailoverSettings.
+-- | Failover Condition settings. There can be multiple failover conditions
+-- inside AutomaticInputFailoverSettings.
 --
--- /See:/ 'failoverCondition' smart constructor.
-newtype FailoverCondition = FailoverCondition'
-  { _fcFailoverConditionSettings ::
-      Maybe FailoverConditionSettings
+-- /See:/ 'newFailoverCondition' smart constructor.
+data FailoverCondition = FailoverCondition'
+  { -- | Failover condition type-specific settings.
+    failoverConditionSettings :: Prelude.Maybe FailoverConditionSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FailoverCondition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FailoverCondition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fcFailoverConditionSettings' - Failover condition type-specific settings.
-failoverCondition ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'failoverConditionSettings', 'failoverCondition_failoverConditionSettings' - Failover condition type-specific settings.
+newFailoverCondition ::
   FailoverCondition
-failoverCondition =
+newFailoverCondition =
   FailoverCondition'
-    { _fcFailoverConditionSettings =
-        Nothing
+    { failoverConditionSettings =
+        Prelude.Nothing
     }
 
 -- | Failover condition type-specific settings.
-fcFailoverConditionSettings :: Lens' FailoverCondition (Maybe FailoverConditionSettings)
-fcFailoverConditionSettings = lens _fcFailoverConditionSettings (\s a -> s {_fcFailoverConditionSettings = a})
+failoverCondition_failoverConditionSettings :: Lens.Lens' FailoverCondition (Prelude.Maybe FailoverConditionSettings)
+failoverCondition_failoverConditionSettings = Lens.lens (\FailoverCondition' {failoverConditionSettings} -> failoverConditionSettings) (\s@FailoverCondition' {} a -> s {failoverConditionSettings = a} :: FailoverCondition)
 
-instance FromJSON FailoverCondition where
+instance Prelude.FromJSON FailoverCondition where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FailoverCondition"
       ( \x ->
           FailoverCondition'
-            <$> (x .:? "failoverConditionSettings")
+            Prelude.<$> (x Prelude..:? "failoverConditionSettings")
       )
 
-instance Hashable FailoverCondition
+instance Prelude.Hashable FailoverCondition
 
-instance NFData FailoverCondition
+instance Prelude.NFData FailoverCondition
 
-instance ToJSON FailoverCondition where
+instance Prelude.ToJSON FailoverCondition where
   toJSON FailoverCondition' {..} =
-    object
-      ( catMaybes
-          [ ("failoverConditionSettings" .=)
-              <$> _fcFailoverConditionSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("failoverConditionSettings" Prelude..=)
+              Prelude.<$> failoverConditionSettings
           ]
       )

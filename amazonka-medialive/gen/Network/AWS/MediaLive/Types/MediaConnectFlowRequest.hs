@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,43 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MediaConnectFlowRequest where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The settings for a MediaConnect Flow.
 --
--- /See:/ 'mediaConnectFlowRequest' smart constructor.
-newtype MediaConnectFlowRequest = MediaConnectFlowRequest'
-  { _mcfrFlowARN ::
-      Maybe Text
+-- /See:/ 'newMediaConnectFlowRequest' smart constructor.
+data MediaConnectFlowRequest = MediaConnectFlowRequest'
+  { -- | The ARN of the MediaConnect Flow that you want to use as a source.
+    flowArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MediaConnectFlowRequest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MediaConnectFlowRequest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcfrFlowARN' - The ARN of the MediaConnect Flow that you want to use as a source.
-mediaConnectFlowRequest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'flowArn', 'mediaConnectFlowRequest_flowArn' - The ARN of the MediaConnect Flow that you want to use as a source.
+newMediaConnectFlowRequest ::
   MediaConnectFlowRequest
-mediaConnectFlowRequest =
-  MediaConnectFlowRequest' {_mcfrFlowARN = Nothing}
+newMediaConnectFlowRequest =
+  MediaConnectFlowRequest' {flowArn = Prelude.Nothing}
 
 -- | The ARN of the MediaConnect Flow that you want to use as a source.
-mcfrFlowARN :: Lens' MediaConnectFlowRequest (Maybe Text)
-mcfrFlowARN = lens _mcfrFlowARN (\s a -> s {_mcfrFlowARN = a})
+mediaConnectFlowRequest_flowArn :: Lens.Lens' MediaConnectFlowRequest (Prelude.Maybe Prelude.Text)
+mediaConnectFlowRequest_flowArn = Lens.lens (\MediaConnectFlowRequest' {flowArn} -> flowArn) (\s@MediaConnectFlowRequest' {} a -> s {flowArn = a} :: MediaConnectFlowRequest)
 
-instance Hashable MediaConnectFlowRequest
+instance Prelude.Hashable MediaConnectFlowRequest
 
-instance NFData MediaConnectFlowRequest
+instance Prelude.NFData MediaConnectFlowRequest
 
-instance ToJSON MediaConnectFlowRequest where
+instance Prelude.ToJSON MediaConnectFlowRequest where
   toJSON MediaConnectFlowRequest' {..} =
-    object
-      (catMaybes [("flowArn" .=) <$> _mcfrFlowARN])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("flowArn" Prelude..=) Prelude.<$> flowArn]
+      )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.DvbSubDestinationSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.DvbSubDestinationAlignment
 import Network.AWS.MediaLive.Types.DvbSubDestinationBackgroundColor
 import Network.AWS.MediaLive.Types.DvbSubDestinationFontColor
@@ -23,249 +27,397 @@ import Network.AWS.MediaLive.Types.DvbSubDestinationOutlineColor
 import Network.AWS.MediaLive.Types.DvbSubDestinationShadowColor
 import Network.AWS.MediaLive.Types.DvbSubDestinationTeletextGridControl
 import Network.AWS.MediaLive.Types.InputLocation
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Dvb Sub Destination Settings
 --
--- /See:/ 'dvbSubDestinationSettings' smart constructor.
+-- /See:/ 'newDvbSubDestinationSettings' smart constructor.
 data DvbSubDestinationSettings = DvbSubDestinationSettings'
-  { _dsdsAlignment ::
-      !( Maybe
-           DvbSubDestinationAlignment
-       ),
-    _dsdsShadowOpacity ::
-      !(Maybe Nat),
-    _dsdsShadowColor ::
-      !( Maybe
-           DvbSubDestinationShadowColor
-       ),
-    _dsdsOutlineColor ::
-      !( Maybe
-           DvbSubDestinationOutlineColor
-       ),
-    _dsdsTeletextGridControl ::
-      !( Maybe
-           DvbSubDestinationTeletextGridControl
-       ),
-    _dsdsBackgroundOpacity ::
-      !(Maybe Nat),
-    _dsdsXPosition ::
-      !(Maybe Nat),
-    _dsdsFontColor ::
-      !( Maybe
-           DvbSubDestinationFontColor
-       ),
-    _dsdsFontSize ::
-      !(Maybe Text),
-    _dsdsBackgroundColor ::
-      !( Maybe
-           DvbSubDestinationBackgroundColor
-       ),
-    _dsdsShadowXOffset ::
-      !(Maybe Int),
-    _dsdsFont ::
-      !( Maybe
-           InputLocation
-       ),
-    _dsdsYPosition ::
-      !(Maybe Nat),
-    _dsdsFontResolution ::
-      !(Maybe Nat),
-    _dsdsOutlineSize ::
-      !(Maybe Nat),
-    _dsdsFontOpacity ::
-      !(Maybe Nat),
-    _dsdsShadowYOffset ::
-      !(Maybe Int)
+  { -- | If no explicit xPosition or yPosition is provided, setting alignment to
+    -- centered will place the captions at the bottom center of the output.
+    -- Similarly, setting a left alignment will align captions to the bottom
+    -- left of the output. If x and y positions are given in conjunction with
+    -- the alignment parameter, the font will be justified (either left or
+    -- centered) relative to those coordinates. Selecting \"smart\"
+    -- justification will left-justify live subtitles and center-justify
+    -- pre-recorded subtitles. This option is not valid for source captions
+    -- that are STL or 608\/embedded. These source settings are already
+    -- pre-defined by the caption stream. All burn-in and DVB-Sub font settings
+    -- must match.
+    alignment :: Prelude.Maybe DvbSubDestinationAlignment,
+    -- | Specifies the opacity of the shadow. 255 is opaque; 0 is transparent.
+    -- Leaving this parameter blank is equivalent to setting it to 0
+    -- (transparent). All burn-in and DVB-Sub font settings must match.
+    shadowOpacity :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the color of the shadow cast by the captions. All burn-in and
+    -- DVB-Sub font settings must match.
+    shadowColor :: Prelude.Maybe DvbSubDestinationShadowColor,
+    -- | Specifies font outline color. This option is not valid for source
+    -- captions that are either 608\/embedded or teletext. These source
+    -- settings are already pre-defined by the caption stream. All burn-in and
+    -- DVB-Sub font settings must match.
+    outlineColor :: Prelude.Maybe DvbSubDestinationOutlineColor,
+    -- | Controls whether a fixed grid size will be used to generate the output
+    -- subtitles bitmap. Only applicable for Teletext inputs and
+    -- DVB-Sub\/Burn-in outputs.
+    teletextGridControl :: Prelude.Maybe DvbSubDestinationTeletextGridControl,
+    -- | Specifies the opacity of the background rectangle. 255 is opaque; 0 is
+    -- transparent. Leaving this parameter blank is equivalent to setting it to
+    -- 0 (transparent). All burn-in and DVB-Sub font settings must match.
+    backgroundOpacity :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the horizontal position of the caption relative to the left
+    -- side of the output in pixels. A value of 10 would result in the captions
+    -- starting 10 pixels from the left of the output. If no explicit xPosition
+    -- is provided, the horizontal caption position will be determined by the
+    -- alignment parameter. This option is not valid for source captions that
+    -- are STL, 608\/embedded or teletext. These source settings are already
+    -- pre-defined by the caption stream. All burn-in and DVB-Sub font settings
+    -- must match.
+    xPosition :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the color of the burned-in captions. This option is not valid
+    -- for source captions that are STL, 608\/embedded or teletext. These
+    -- source settings are already pre-defined by the caption stream. All
+    -- burn-in and DVB-Sub font settings must match.
+    fontColor :: Prelude.Maybe DvbSubDestinationFontColor,
+    -- | When set to auto fontSize will scale depending on the size of the
+    -- output. Giving a positive integer will specify the exact font size in
+    -- points. All burn-in and DVB-Sub font settings must match.
+    fontSize :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the color of the rectangle behind the captions. All burn-in
+    -- and DVB-Sub font settings must match.
+    backgroundColor :: Prelude.Maybe DvbSubDestinationBackgroundColor,
+    -- | Specifies the horizontal offset of the shadow relative to the captions
+    -- in pixels. A value of -2 would result in a shadow offset 2 pixels to the
+    -- left. All burn-in and DVB-Sub font settings must match.
+    shadowXOffset :: Prelude.Maybe Prelude.Int,
+    -- | External font file used for caption burn-in. File extension must be
+    -- \'ttf\' or \'tte\'. Although the user can select output fonts for many
+    -- different types of input captions, embedded, STL and teletext sources
+    -- use a strict grid system. Using external fonts with these caption
+    -- sources could cause unexpected display of proportional fonts. All
+    -- burn-in and DVB-Sub font settings must match.
+    font :: Prelude.Maybe InputLocation,
+    -- | Specifies the vertical position of the caption relative to the top of
+    -- the output in pixels. A value of 10 would result in the captions
+    -- starting 10 pixels from the top of the output. If no explicit yPosition
+    -- is provided, the caption will be positioned towards the bottom of the
+    -- output. This option is not valid for source captions that are STL,
+    -- 608\/embedded or teletext. These source settings are already pre-defined
+    -- by the caption stream. All burn-in and DVB-Sub font settings must match.
+    yPosition :: Prelude.Maybe Prelude.Nat,
+    -- | Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in
+    -- and DVB-Sub font settings must match.
+    fontResolution :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies font outline size in pixels. This option is not valid for
+    -- source captions that are either 608\/embedded or teletext. These source
+    -- settings are already pre-defined by the caption stream. All burn-in and
+    -- DVB-Sub font settings must match.
+    outlineSize :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the opacity of the burned-in captions. 255 is opaque; 0 is
+    -- transparent. All burn-in and DVB-Sub font settings must match.
+    fontOpacity :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the vertical offset of the shadow relative to the captions in
+    -- pixels. A value of -2 would result in a shadow offset 2 pixels above the
+    -- text. All burn-in and DVB-Sub font settings must match.
+    shadowYOffset :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DvbSubDestinationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DvbSubDestinationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdsAlignment' - If no explicit xPosition or yPosition is provided, setting alignment to centered will place the captions at the bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified (either left or centered) relative to those coordinates. Selecting "smart" justification will left-justify live subtitles and center-justify pre-recorded subtitles.  This option is not valid for source captions that are STL or 608/embedded.  These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsdsShadowOpacity' - Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent to setting it to 0 (transparent).  All burn-in and DVB-Sub font settings must match.
+-- 'alignment', 'dvbSubDestinationSettings_alignment' - If no explicit xPosition or yPosition is provided, setting alignment to
+-- centered will place the captions at the bottom center of the output.
+-- Similarly, setting a left alignment will align captions to the bottom
+-- left of the output. If x and y positions are given in conjunction with
+-- the alignment parameter, the font will be justified (either left or
+-- centered) relative to those coordinates. Selecting \"smart\"
+-- justification will left-justify live subtitles and center-justify
+-- pre-recorded subtitles. This option is not valid for source captions
+-- that are STL or 608\/embedded. These source settings are already
+-- pre-defined by the caption stream. All burn-in and DVB-Sub font settings
+-- must match.
 --
--- * 'dsdsShadowColor' - Specifies the color of the shadow cast by the captions.  All burn-in and DVB-Sub font settings must match.
+-- 'shadowOpacity', 'dvbSubDestinationSettings_shadowOpacity' - Specifies the opacity of the shadow. 255 is opaque; 0 is transparent.
+-- Leaving this parameter blank is equivalent to setting it to 0
+-- (transparent). All burn-in and DVB-Sub font settings must match.
 --
--- * 'dsdsOutlineColor' - Specifies font outline color. This option is not valid for source captions that are either 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
+-- 'shadowColor', 'dvbSubDestinationSettings_shadowColor' - Specifies the color of the shadow cast by the captions. All burn-in and
+-- DVB-Sub font settings must match.
 --
--- * 'dsdsTeletextGridControl' - Controls whether a fixed grid size will be used to generate the output subtitles bitmap. Only applicable for Teletext inputs and DVB-Sub/Burn-in outputs.
+-- 'outlineColor', 'dvbSubDestinationSettings_outlineColor' - Specifies font outline color. This option is not valid for source
+-- captions that are either 608\/embedded or teletext. These source
+-- settings are already pre-defined by the caption stream. All burn-in and
+-- DVB-Sub font settings must match.
 --
--- * 'dsdsBackgroundOpacity' - Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent to setting it to 0 (transparent).  All burn-in and DVB-Sub font settings must match.
+-- 'teletextGridControl', 'dvbSubDestinationSettings_teletextGridControl' - Controls whether a fixed grid size will be used to generate the output
+-- subtitles bitmap. Only applicable for Teletext inputs and
+-- DVB-Sub\/Burn-in outputs.
 --
--- * 'dsdsXPosition' - Specifies the horizontal position of the caption relative to the left side of the output in pixels. A value of 10 would result in the captions starting 10 pixels from the left of the output. If no explicit xPosition is provided, the horizontal caption position will be determined by the alignment parameter.  This option is not valid for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
+-- 'backgroundOpacity', 'dvbSubDestinationSettings_backgroundOpacity' - Specifies the opacity of the background rectangle. 255 is opaque; 0 is
+-- transparent. Leaving this parameter blank is equivalent to setting it to
+-- 0 (transparent). All burn-in and DVB-Sub font settings must match.
 --
--- * 'dsdsFontColor' - Specifies the color of the burned-in captions.  This option is not valid for source captions that are STL, 608/embedded or teletext.  These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
+-- 'xPosition', 'dvbSubDestinationSettings_xPosition' - Specifies the horizontal position of the caption relative to the left
+-- side of the output in pixels. A value of 10 would result in the captions
+-- starting 10 pixels from the left of the output. If no explicit xPosition
+-- is provided, the horizontal caption position will be determined by the
+-- alignment parameter. This option is not valid for source captions that
+-- are STL, 608\/embedded or teletext. These source settings are already
+-- pre-defined by the caption stream. All burn-in and DVB-Sub font settings
+-- must match.
 --
--- * 'dsdsFontSize' - When set to auto fontSize will scale depending on the size of the output.  Giving a positive integer will specify the exact font size in points.  All burn-in and DVB-Sub font settings must match.
+-- 'fontColor', 'dvbSubDestinationSettings_fontColor' - Specifies the color of the burned-in captions. This option is not valid
+-- for source captions that are STL, 608\/embedded or teletext. These
+-- source settings are already pre-defined by the caption stream. All
+-- burn-in and DVB-Sub font settings must match.
 --
--- * 'dsdsBackgroundColor' - Specifies the color of the rectangle behind the captions.  All burn-in and DVB-Sub font settings must match.
+-- 'fontSize', 'dvbSubDestinationSettings_fontSize' - When set to auto fontSize will scale depending on the size of the
+-- output. Giving a positive integer will specify the exact font size in
+-- points. All burn-in and DVB-Sub font settings must match.
 --
--- * 'dsdsShadowXOffset' - Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would result in a shadow offset 2 pixels to the left.  All burn-in and DVB-Sub font settings must match.
+-- 'backgroundColor', 'dvbSubDestinationSettings_backgroundColor' - Specifies the color of the rectangle behind the captions. All burn-in
+-- and DVB-Sub font settings must match.
 --
--- * 'dsdsFont' - External font file used for caption burn-in. File extension must be 'ttf' or 'tte'.  Although the user can select output fonts for many different types of input captions, embedded, STL and teletext sources use a strict grid system. Using external fonts with these caption sources could cause unexpected display of proportional fonts.  All burn-in and DVB-Sub font settings must match.
+-- 'shadowXOffset', 'dvbSubDestinationSettings_shadowXOffset' - Specifies the horizontal offset of the shadow relative to the captions
+-- in pixels. A value of -2 would result in a shadow offset 2 pixels to the
+-- left. All burn-in and DVB-Sub font settings must match.
 --
--- * 'dsdsYPosition' - Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would result in the captions starting 10 pixels from the top of the output. If no explicit yPosition is provided, the caption will be positioned towards the bottom of the output.  This option is not valid for source captions that are STL, 608/embedded or teletext.  These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
+-- 'font', 'dvbSubDestinationSettings_font' - External font file used for caption burn-in. File extension must be
+-- \'ttf\' or \'tte\'. Although the user can select output fonts for many
+-- different types of input captions, embedded, STL and teletext sources
+-- use a strict grid system. Using external fonts with these caption
+-- sources could cause unexpected display of proportional fonts. All
+-- burn-in and DVB-Sub font settings must match.
 --
--- * 'dsdsFontResolution' - Font resolution in DPI (dots per inch); default is 96 dpi.  All burn-in and DVB-Sub font settings must match.
+-- 'yPosition', 'dvbSubDestinationSettings_yPosition' - Specifies the vertical position of the caption relative to the top of
+-- the output in pixels. A value of 10 would result in the captions
+-- starting 10 pixels from the top of the output. If no explicit yPosition
+-- is provided, the caption will be positioned towards the bottom of the
+-- output. This option is not valid for source captions that are STL,
+-- 608\/embedded or teletext. These source settings are already pre-defined
+-- by the caption stream. All burn-in and DVB-Sub font settings must match.
 --
--- * 'dsdsOutlineSize' - Specifies font outline size in pixels. This option is not valid for source captions that are either 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
+-- 'fontResolution', 'dvbSubDestinationSettings_fontResolution' - Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in
+-- and DVB-Sub font settings must match.
 --
--- * 'dsdsFontOpacity' - Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent.  All burn-in and DVB-Sub font settings must match.
+-- 'outlineSize', 'dvbSubDestinationSettings_outlineSize' - Specifies font outline size in pixels. This option is not valid for
+-- source captions that are either 608\/embedded or teletext. These source
+-- settings are already pre-defined by the caption stream. All burn-in and
+-- DVB-Sub font settings must match.
 --
--- * 'dsdsShadowYOffset' - Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a shadow offset 2 pixels above the text.  All burn-in and DVB-Sub font settings must match.
-dvbSubDestinationSettings ::
+-- 'fontOpacity', 'dvbSubDestinationSettings_fontOpacity' - Specifies the opacity of the burned-in captions. 255 is opaque; 0 is
+-- transparent. All burn-in and DVB-Sub font settings must match.
+--
+-- 'shadowYOffset', 'dvbSubDestinationSettings_shadowYOffset' - Specifies the vertical offset of the shadow relative to the captions in
+-- pixels. A value of -2 would result in a shadow offset 2 pixels above the
+-- text. All burn-in and DVB-Sub font settings must match.
+newDvbSubDestinationSettings ::
   DvbSubDestinationSettings
-dvbSubDestinationSettings =
+newDvbSubDestinationSettings =
   DvbSubDestinationSettings'
-    { _dsdsAlignment =
-        Nothing,
-      _dsdsShadowOpacity = Nothing,
-      _dsdsShadowColor = Nothing,
-      _dsdsOutlineColor = Nothing,
-      _dsdsTeletextGridControl = Nothing,
-      _dsdsBackgroundOpacity = Nothing,
-      _dsdsXPosition = Nothing,
-      _dsdsFontColor = Nothing,
-      _dsdsFontSize = Nothing,
-      _dsdsBackgroundColor = Nothing,
-      _dsdsShadowXOffset = Nothing,
-      _dsdsFont = Nothing,
-      _dsdsYPosition = Nothing,
-      _dsdsFontResolution = Nothing,
-      _dsdsOutlineSize = Nothing,
-      _dsdsFontOpacity = Nothing,
-      _dsdsShadowYOffset = Nothing
+    { alignment =
+        Prelude.Nothing,
+      shadowOpacity = Prelude.Nothing,
+      shadowColor = Prelude.Nothing,
+      outlineColor = Prelude.Nothing,
+      teletextGridControl = Prelude.Nothing,
+      backgroundOpacity = Prelude.Nothing,
+      xPosition = Prelude.Nothing,
+      fontColor = Prelude.Nothing,
+      fontSize = Prelude.Nothing,
+      backgroundColor = Prelude.Nothing,
+      shadowXOffset = Prelude.Nothing,
+      font = Prelude.Nothing,
+      yPosition = Prelude.Nothing,
+      fontResolution = Prelude.Nothing,
+      outlineSize = Prelude.Nothing,
+      fontOpacity = Prelude.Nothing,
+      shadowYOffset = Prelude.Nothing
     }
 
--- | If no explicit xPosition or yPosition is provided, setting alignment to centered will place the captions at the bottom center of the output. Similarly, setting a left alignment will align captions to the bottom left of the output. If x and y positions are given in conjunction with the alignment parameter, the font will be justified (either left or centered) relative to those coordinates. Selecting "smart" justification will left-justify live subtitles and center-justify pre-recorded subtitles.  This option is not valid for source captions that are STL or 608/embedded.  These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
-dsdsAlignment :: Lens' DvbSubDestinationSettings (Maybe DvbSubDestinationAlignment)
-dsdsAlignment = lens _dsdsAlignment (\s a -> s {_dsdsAlignment = a})
+-- | If no explicit xPosition or yPosition is provided, setting alignment to
+-- centered will place the captions at the bottom center of the output.
+-- Similarly, setting a left alignment will align captions to the bottom
+-- left of the output. If x and y positions are given in conjunction with
+-- the alignment parameter, the font will be justified (either left or
+-- centered) relative to those coordinates. Selecting \"smart\"
+-- justification will left-justify live subtitles and center-justify
+-- pre-recorded subtitles. This option is not valid for source captions
+-- that are STL or 608\/embedded. These source settings are already
+-- pre-defined by the caption stream. All burn-in and DVB-Sub font settings
+-- must match.
+dvbSubDestinationSettings_alignment :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe DvbSubDestinationAlignment)
+dvbSubDestinationSettings_alignment = Lens.lens (\DvbSubDestinationSettings' {alignment} -> alignment) (\s@DvbSubDestinationSettings' {} a -> s {alignment = a} :: DvbSubDestinationSettings)
 
--- | Specifies the opacity of the shadow. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent to setting it to 0 (transparent).  All burn-in and DVB-Sub font settings must match.
-dsdsShadowOpacity :: Lens' DvbSubDestinationSettings (Maybe Natural)
-dsdsShadowOpacity = lens _dsdsShadowOpacity (\s a -> s {_dsdsShadowOpacity = a}) . mapping _Nat
+-- | Specifies the opacity of the shadow. 255 is opaque; 0 is transparent.
+-- Leaving this parameter blank is equivalent to setting it to 0
+-- (transparent). All burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_shadowOpacity :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Natural)
+dvbSubDestinationSettings_shadowOpacity = Lens.lens (\DvbSubDestinationSettings' {shadowOpacity} -> shadowOpacity) (\s@DvbSubDestinationSettings' {} a -> s {shadowOpacity = a} :: DvbSubDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the color of the shadow cast by the captions.  All burn-in and DVB-Sub font settings must match.
-dsdsShadowColor :: Lens' DvbSubDestinationSettings (Maybe DvbSubDestinationShadowColor)
-dsdsShadowColor = lens _dsdsShadowColor (\s a -> s {_dsdsShadowColor = a})
+-- | Specifies the color of the shadow cast by the captions. All burn-in and
+-- DVB-Sub font settings must match.
+dvbSubDestinationSettings_shadowColor :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe DvbSubDestinationShadowColor)
+dvbSubDestinationSettings_shadowColor = Lens.lens (\DvbSubDestinationSettings' {shadowColor} -> shadowColor) (\s@DvbSubDestinationSettings' {} a -> s {shadowColor = a} :: DvbSubDestinationSettings)
 
--- | Specifies font outline color. This option is not valid for source captions that are either 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
-dsdsOutlineColor :: Lens' DvbSubDestinationSettings (Maybe DvbSubDestinationOutlineColor)
-dsdsOutlineColor = lens _dsdsOutlineColor (\s a -> s {_dsdsOutlineColor = a})
+-- | Specifies font outline color. This option is not valid for source
+-- captions that are either 608\/embedded or teletext. These source
+-- settings are already pre-defined by the caption stream. All burn-in and
+-- DVB-Sub font settings must match.
+dvbSubDestinationSettings_outlineColor :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe DvbSubDestinationOutlineColor)
+dvbSubDestinationSettings_outlineColor = Lens.lens (\DvbSubDestinationSettings' {outlineColor} -> outlineColor) (\s@DvbSubDestinationSettings' {} a -> s {outlineColor = a} :: DvbSubDestinationSettings)
 
--- | Controls whether a fixed grid size will be used to generate the output subtitles bitmap. Only applicable for Teletext inputs and DVB-Sub/Burn-in outputs.
-dsdsTeletextGridControl :: Lens' DvbSubDestinationSettings (Maybe DvbSubDestinationTeletextGridControl)
-dsdsTeletextGridControl = lens _dsdsTeletextGridControl (\s a -> s {_dsdsTeletextGridControl = a})
+-- | Controls whether a fixed grid size will be used to generate the output
+-- subtitles bitmap. Only applicable for Teletext inputs and
+-- DVB-Sub\/Burn-in outputs.
+dvbSubDestinationSettings_teletextGridControl :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe DvbSubDestinationTeletextGridControl)
+dvbSubDestinationSettings_teletextGridControl = Lens.lens (\DvbSubDestinationSettings' {teletextGridControl} -> teletextGridControl) (\s@DvbSubDestinationSettings' {} a -> s {teletextGridControl = a} :: DvbSubDestinationSettings)
 
--- | Specifies the opacity of the background rectangle. 255 is opaque; 0 is transparent. Leaving this parameter blank is equivalent to setting it to 0 (transparent).  All burn-in and DVB-Sub font settings must match.
-dsdsBackgroundOpacity :: Lens' DvbSubDestinationSettings (Maybe Natural)
-dsdsBackgroundOpacity = lens _dsdsBackgroundOpacity (\s a -> s {_dsdsBackgroundOpacity = a}) . mapping _Nat
+-- | Specifies the opacity of the background rectangle. 255 is opaque; 0 is
+-- transparent. Leaving this parameter blank is equivalent to setting it to
+-- 0 (transparent). All burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_backgroundOpacity :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Natural)
+dvbSubDestinationSettings_backgroundOpacity = Lens.lens (\DvbSubDestinationSettings' {backgroundOpacity} -> backgroundOpacity) (\s@DvbSubDestinationSettings' {} a -> s {backgroundOpacity = a} :: DvbSubDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the horizontal position of the caption relative to the left side of the output in pixels. A value of 10 would result in the captions starting 10 pixels from the left of the output. If no explicit xPosition is provided, the horizontal caption position will be determined by the alignment parameter.  This option is not valid for source captions that are STL, 608/embedded or teletext. These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
-dsdsXPosition :: Lens' DvbSubDestinationSettings (Maybe Natural)
-dsdsXPosition = lens _dsdsXPosition (\s a -> s {_dsdsXPosition = a}) . mapping _Nat
+-- | Specifies the horizontal position of the caption relative to the left
+-- side of the output in pixels. A value of 10 would result in the captions
+-- starting 10 pixels from the left of the output. If no explicit xPosition
+-- is provided, the horizontal caption position will be determined by the
+-- alignment parameter. This option is not valid for source captions that
+-- are STL, 608\/embedded or teletext. These source settings are already
+-- pre-defined by the caption stream. All burn-in and DVB-Sub font settings
+-- must match.
+dvbSubDestinationSettings_xPosition :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Natural)
+dvbSubDestinationSettings_xPosition = Lens.lens (\DvbSubDestinationSettings' {xPosition} -> xPosition) (\s@DvbSubDestinationSettings' {} a -> s {xPosition = a} :: DvbSubDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the color of the burned-in captions.  This option is not valid for source captions that are STL, 608/embedded or teletext.  These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
-dsdsFontColor :: Lens' DvbSubDestinationSettings (Maybe DvbSubDestinationFontColor)
-dsdsFontColor = lens _dsdsFontColor (\s a -> s {_dsdsFontColor = a})
+-- | Specifies the color of the burned-in captions. This option is not valid
+-- for source captions that are STL, 608\/embedded or teletext. These
+-- source settings are already pre-defined by the caption stream. All
+-- burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_fontColor :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe DvbSubDestinationFontColor)
+dvbSubDestinationSettings_fontColor = Lens.lens (\DvbSubDestinationSettings' {fontColor} -> fontColor) (\s@DvbSubDestinationSettings' {} a -> s {fontColor = a} :: DvbSubDestinationSettings)
 
--- | When set to auto fontSize will scale depending on the size of the output.  Giving a positive integer will specify the exact font size in points.  All burn-in and DVB-Sub font settings must match.
-dsdsFontSize :: Lens' DvbSubDestinationSettings (Maybe Text)
-dsdsFontSize = lens _dsdsFontSize (\s a -> s {_dsdsFontSize = a})
+-- | When set to auto fontSize will scale depending on the size of the
+-- output. Giving a positive integer will specify the exact font size in
+-- points. All burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_fontSize :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Text)
+dvbSubDestinationSettings_fontSize = Lens.lens (\DvbSubDestinationSettings' {fontSize} -> fontSize) (\s@DvbSubDestinationSettings' {} a -> s {fontSize = a} :: DvbSubDestinationSettings)
 
--- | Specifies the color of the rectangle behind the captions.  All burn-in and DVB-Sub font settings must match.
-dsdsBackgroundColor :: Lens' DvbSubDestinationSettings (Maybe DvbSubDestinationBackgroundColor)
-dsdsBackgroundColor = lens _dsdsBackgroundColor (\s a -> s {_dsdsBackgroundColor = a})
+-- | Specifies the color of the rectangle behind the captions. All burn-in
+-- and DVB-Sub font settings must match.
+dvbSubDestinationSettings_backgroundColor :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe DvbSubDestinationBackgroundColor)
+dvbSubDestinationSettings_backgroundColor = Lens.lens (\DvbSubDestinationSettings' {backgroundColor} -> backgroundColor) (\s@DvbSubDestinationSettings' {} a -> s {backgroundColor = a} :: DvbSubDestinationSettings)
 
--- | Specifies the horizontal offset of the shadow relative to the captions in pixels. A value of -2 would result in a shadow offset 2 pixels to the left.  All burn-in and DVB-Sub font settings must match.
-dsdsShadowXOffset :: Lens' DvbSubDestinationSettings (Maybe Int)
-dsdsShadowXOffset = lens _dsdsShadowXOffset (\s a -> s {_dsdsShadowXOffset = a})
+-- | Specifies the horizontal offset of the shadow relative to the captions
+-- in pixels. A value of -2 would result in a shadow offset 2 pixels to the
+-- left. All burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_shadowXOffset :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Int)
+dvbSubDestinationSettings_shadowXOffset = Lens.lens (\DvbSubDestinationSettings' {shadowXOffset} -> shadowXOffset) (\s@DvbSubDestinationSettings' {} a -> s {shadowXOffset = a} :: DvbSubDestinationSettings)
 
--- | External font file used for caption burn-in. File extension must be 'ttf' or 'tte'.  Although the user can select output fonts for many different types of input captions, embedded, STL and teletext sources use a strict grid system. Using external fonts with these caption sources could cause unexpected display of proportional fonts.  All burn-in and DVB-Sub font settings must match.
-dsdsFont :: Lens' DvbSubDestinationSettings (Maybe InputLocation)
-dsdsFont = lens _dsdsFont (\s a -> s {_dsdsFont = a})
+-- | External font file used for caption burn-in. File extension must be
+-- \'ttf\' or \'tte\'. Although the user can select output fonts for many
+-- different types of input captions, embedded, STL and teletext sources
+-- use a strict grid system. Using external fonts with these caption
+-- sources could cause unexpected display of proportional fonts. All
+-- burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_font :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe InputLocation)
+dvbSubDestinationSettings_font = Lens.lens (\DvbSubDestinationSettings' {font} -> font) (\s@DvbSubDestinationSettings' {} a -> s {font = a} :: DvbSubDestinationSettings)
 
--- | Specifies the vertical position of the caption relative to the top of the output in pixels. A value of 10 would result in the captions starting 10 pixels from the top of the output. If no explicit yPosition is provided, the caption will be positioned towards the bottom of the output.  This option is not valid for source captions that are STL, 608/embedded or teletext.  These source settings are already pre-defined by the caption stream.  All burn-in and DVB-Sub font settings must match.
-dsdsYPosition :: Lens' DvbSubDestinationSettings (Maybe Natural)
-dsdsYPosition = lens _dsdsYPosition (\s a -> s {_dsdsYPosition = a}) . mapping _Nat
+-- | Specifies the vertical position of the caption relative to the top of
+-- the output in pixels. A value of 10 would result in the captions
+-- starting 10 pixels from the top of the output. If no explicit yPosition
+-- is provided, the caption will be positioned towards the bottom of the
+-- output. This option is not valid for source captions that are STL,
+-- 608\/embedded or teletext. These source settings are already pre-defined
+-- by the caption stream. All burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_yPosition :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Natural)
+dvbSubDestinationSettings_yPosition = Lens.lens (\DvbSubDestinationSettings' {yPosition} -> yPosition) (\s@DvbSubDestinationSettings' {} a -> s {yPosition = a} :: DvbSubDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Font resolution in DPI (dots per inch); default is 96 dpi.  All burn-in and DVB-Sub font settings must match.
-dsdsFontResolution :: Lens' DvbSubDestinationSettings (Maybe Natural)
-dsdsFontResolution = lens _dsdsFontResolution (\s a -> s {_dsdsFontResolution = a}) . mapping _Nat
+-- | Font resolution in DPI (dots per inch); default is 96 dpi. All burn-in
+-- and DVB-Sub font settings must match.
+dvbSubDestinationSettings_fontResolution :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Natural)
+dvbSubDestinationSettings_fontResolution = Lens.lens (\DvbSubDestinationSettings' {fontResolution} -> fontResolution) (\s@DvbSubDestinationSettings' {} a -> s {fontResolution = a} :: DvbSubDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies font outline size in pixels. This option is not valid for source captions that are either 608/embedded or teletext. These source settings are already pre-defined by the caption stream. All burn-in and DVB-Sub font settings must match.
-dsdsOutlineSize :: Lens' DvbSubDestinationSettings (Maybe Natural)
-dsdsOutlineSize = lens _dsdsOutlineSize (\s a -> s {_dsdsOutlineSize = a}) . mapping _Nat
+-- | Specifies font outline size in pixels. This option is not valid for
+-- source captions that are either 608\/embedded or teletext. These source
+-- settings are already pre-defined by the caption stream. All burn-in and
+-- DVB-Sub font settings must match.
+dvbSubDestinationSettings_outlineSize :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Natural)
+dvbSubDestinationSettings_outlineSize = Lens.lens (\DvbSubDestinationSettings' {outlineSize} -> outlineSize) (\s@DvbSubDestinationSettings' {} a -> s {outlineSize = a} :: DvbSubDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the opacity of the burned-in captions. 255 is opaque; 0 is transparent.  All burn-in and DVB-Sub font settings must match.
-dsdsFontOpacity :: Lens' DvbSubDestinationSettings (Maybe Natural)
-dsdsFontOpacity = lens _dsdsFontOpacity (\s a -> s {_dsdsFontOpacity = a}) . mapping _Nat
+-- | Specifies the opacity of the burned-in captions. 255 is opaque; 0 is
+-- transparent. All burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_fontOpacity :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Natural)
+dvbSubDestinationSettings_fontOpacity = Lens.lens (\DvbSubDestinationSettings' {fontOpacity} -> fontOpacity) (\s@DvbSubDestinationSettings' {} a -> s {fontOpacity = a} :: DvbSubDestinationSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the vertical offset of the shadow relative to the captions in pixels. A value of -2 would result in a shadow offset 2 pixels above the text.  All burn-in and DVB-Sub font settings must match.
-dsdsShadowYOffset :: Lens' DvbSubDestinationSettings (Maybe Int)
-dsdsShadowYOffset = lens _dsdsShadowYOffset (\s a -> s {_dsdsShadowYOffset = a})
+-- | Specifies the vertical offset of the shadow relative to the captions in
+-- pixels. A value of -2 would result in a shadow offset 2 pixels above the
+-- text. All burn-in and DVB-Sub font settings must match.
+dvbSubDestinationSettings_shadowYOffset :: Lens.Lens' DvbSubDestinationSettings (Prelude.Maybe Prelude.Int)
+dvbSubDestinationSettings_shadowYOffset = Lens.lens (\DvbSubDestinationSettings' {shadowYOffset} -> shadowYOffset) (\s@DvbSubDestinationSettings' {} a -> s {shadowYOffset = a} :: DvbSubDestinationSettings)
 
-instance FromJSON DvbSubDestinationSettings where
+instance Prelude.FromJSON DvbSubDestinationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DvbSubDestinationSettings"
       ( \x ->
           DvbSubDestinationSettings'
-            <$> (x .:? "alignment")
-            <*> (x .:? "shadowOpacity")
-            <*> (x .:? "shadowColor")
-            <*> (x .:? "outlineColor")
-            <*> (x .:? "teletextGridControl")
-            <*> (x .:? "backgroundOpacity")
-            <*> (x .:? "xPosition")
-            <*> (x .:? "fontColor")
-            <*> (x .:? "fontSize")
-            <*> (x .:? "backgroundColor")
-            <*> (x .:? "shadowXOffset")
-            <*> (x .:? "font")
-            <*> (x .:? "yPosition")
-            <*> (x .:? "fontResolution")
-            <*> (x .:? "outlineSize")
-            <*> (x .:? "fontOpacity")
-            <*> (x .:? "shadowYOffset")
+            Prelude.<$> (x Prelude..:? "alignment")
+            Prelude.<*> (x Prelude..:? "shadowOpacity")
+            Prelude.<*> (x Prelude..:? "shadowColor")
+            Prelude.<*> (x Prelude..:? "outlineColor")
+            Prelude.<*> (x Prelude..:? "teletextGridControl")
+            Prelude.<*> (x Prelude..:? "backgroundOpacity")
+            Prelude.<*> (x Prelude..:? "xPosition")
+            Prelude.<*> (x Prelude..:? "fontColor")
+            Prelude.<*> (x Prelude..:? "fontSize")
+            Prelude.<*> (x Prelude..:? "backgroundColor")
+            Prelude.<*> (x Prelude..:? "shadowXOffset")
+            Prelude.<*> (x Prelude..:? "font")
+            Prelude.<*> (x Prelude..:? "yPosition")
+            Prelude.<*> (x Prelude..:? "fontResolution")
+            Prelude.<*> (x Prelude..:? "outlineSize")
+            Prelude.<*> (x Prelude..:? "fontOpacity")
+            Prelude.<*> (x Prelude..:? "shadowYOffset")
       )
 
-instance Hashable DvbSubDestinationSettings
+instance Prelude.Hashable DvbSubDestinationSettings
 
-instance NFData DvbSubDestinationSettings
+instance Prelude.NFData DvbSubDestinationSettings
 
-instance ToJSON DvbSubDestinationSettings where
+instance Prelude.ToJSON DvbSubDestinationSettings where
   toJSON DvbSubDestinationSettings' {..} =
-    object
-      ( catMaybes
-          [ ("alignment" .=) <$> _dsdsAlignment,
-            ("shadowOpacity" .=) <$> _dsdsShadowOpacity,
-            ("shadowColor" .=) <$> _dsdsShadowColor,
-            ("outlineColor" .=) <$> _dsdsOutlineColor,
-            ("teletextGridControl" .=)
-              <$> _dsdsTeletextGridControl,
-            ("backgroundOpacity" .=) <$> _dsdsBackgroundOpacity,
-            ("xPosition" .=) <$> _dsdsXPosition,
-            ("fontColor" .=) <$> _dsdsFontColor,
-            ("fontSize" .=) <$> _dsdsFontSize,
-            ("backgroundColor" .=) <$> _dsdsBackgroundColor,
-            ("shadowXOffset" .=) <$> _dsdsShadowXOffset,
-            ("font" .=) <$> _dsdsFont,
-            ("yPosition" .=) <$> _dsdsYPosition,
-            ("fontResolution" .=) <$> _dsdsFontResolution,
-            ("outlineSize" .=) <$> _dsdsOutlineSize,
-            ("fontOpacity" .=) <$> _dsdsFontOpacity,
-            ("shadowYOffset" .=) <$> _dsdsShadowYOffset
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("alignment" Prelude..=) Prelude.<$> alignment,
+            ("shadowOpacity" Prelude..=)
+              Prelude.<$> shadowOpacity,
+            ("shadowColor" Prelude..=) Prelude.<$> shadowColor,
+            ("outlineColor" Prelude..=) Prelude.<$> outlineColor,
+            ("teletextGridControl" Prelude..=)
+              Prelude.<$> teletextGridControl,
+            ("backgroundOpacity" Prelude..=)
+              Prelude.<$> backgroundOpacity,
+            ("xPosition" Prelude..=) Prelude.<$> xPosition,
+            ("fontColor" Prelude..=) Prelude.<$> fontColor,
+            ("fontSize" Prelude..=) Prelude.<$> fontSize,
+            ("backgroundColor" Prelude..=)
+              Prelude.<$> backgroundColor,
+            ("shadowXOffset" Prelude..=)
+              Prelude.<$> shadowXOffset,
+            ("font" Prelude..=) Prelude.<$> font,
+            ("yPosition" Prelude..=) Prelude.<$> yPosition,
+            ("fontResolution" Prelude..=)
+              Prelude.<$> fontResolution,
+            ("outlineSize" Prelude..=) Prelude.<$> outlineSize,
+            ("fontOpacity" Prelude..=) Prelude.<$> fontOpacity,
+            ("shadowYOffset" Prelude..=)
+              Prelude.<$> shadowYOffset
           ]
       )

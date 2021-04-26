@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,145 +24,151 @@
 -- Update reservation.
 module Network.AWS.MediaLive.UpdateReservation
   ( -- * Creating a Request
-    updateReservation',
-    UpdateReservation',
+    UpdateReservation' (..),
+    newUpdateReservation',
 
     -- * Request Lenses
-    urrName,
-    urrReservationId,
+    updateReservation'_name,
+    updateReservation'_reservationId,
 
     -- * Destructuring the Response
-    updateReservationResponse,
-    UpdateReservationResponse,
+    UpdateReservationResponse (..),
+    newUpdateReservationResponse,
 
     -- * Response Lenses
-    urrrsReservation,
-    urrrsResponseStatus,
+    updateReservationResponse_reservation,
+    updateReservationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.Reservation
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Request to update a reservation
 --
--- /See:/ 'updateReservation'' smart constructor.
+-- /See:/ 'newUpdateReservation'' smart constructor.
 data UpdateReservation' = UpdateReservation''
-  { _urrName ::
-      !(Maybe Text),
-    _urrReservationId :: !Text
+  { -- | Name of the reservation
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Unique reservation ID, e.g. \'1234567\'
+    reservationId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateReservation'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateReservation'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrName' - Name of the reservation
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrReservationId' - Unique reservation ID, e.g. '1234567'
-updateReservation' ::
-  -- | 'urrReservationId'
-  Text ->
+-- 'name', 'updateReservation'_name' - Name of the reservation
+--
+-- 'reservationId', 'updateReservation'_reservationId' - Unique reservation ID, e.g. \'1234567\'
+newUpdateReservation' ::
+  -- | 'reservationId'
+  Prelude.Text ->
   UpdateReservation'
-updateReservation' pReservationId_ =
+newUpdateReservation' pReservationId_ =
   UpdateReservation''
-    { _urrName = Nothing,
-      _urrReservationId = pReservationId_
+    { name = Prelude.Nothing,
+      reservationId = pReservationId_
     }
 
 -- | Name of the reservation
-urrName :: Lens' UpdateReservation' (Maybe Text)
-urrName = lens _urrName (\s a -> s {_urrName = a})
+updateReservation'_name :: Lens.Lens' UpdateReservation' (Prelude.Maybe Prelude.Text)
+updateReservation'_name = Lens.lens (\UpdateReservation'' {name} -> name) (\s@UpdateReservation'' {} a -> s {name = a} :: UpdateReservation')
 
--- | Unique reservation ID, e.g. '1234567'
-urrReservationId :: Lens' UpdateReservation' Text
-urrReservationId = lens _urrReservationId (\s a -> s {_urrReservationId = a})
+-- | Unique reservation ID, e.g. \'1234567\'
+updateReservation'_reservationId :: Lens.Lens' UpdateReservation' Prelude.Text
+updateReservation'_reservationId = Lens.lens (\UpdateReservation'' {reservationId} -> reservationId) (\s@UpdateReservation'' {} a -> s {reservationId = a} :: UpdateReservation')
 
-instance AWSRequest UpdateReservation' where
+instance Prelude.AWSRequest UpdateReservation' where
   type
     Rs UpdateReservation' =
       UpdateReservationResponse
-  request = putJSON mediaLive
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateReservationResponse'
-            <$> (x .?> "reservation") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "reservation")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateReservation'
+instance Prelude.Hashable UpdateReservation'
 
-instance NFData UpdateReservation'
+instance Prelude.NFData UpdateReservation'
 
-instance ToHeaders UpdateReservation' where
+instance Prelude.ToHeaders UpdateReservation' where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateReservation' where
+instance Prelude.ToJSON UpdateReservation' where
   toJSON UpdateReservation'' {..} =
-    object (catMaybes [("name" .=) <$> _urrName])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("name" Prelude..=) Prelude.<$> name]
+      )
 
-instance ToPath UpdateReservation' where
+instance Prelude.ToPath UpdateReservation' where
   toPath UpdateReservation'' {..} =
-    mconcat
-      ["/prod/reservations/", toBS _urrReservationId]
+    Prelude.mconcat
+      ["/prod/reservations/", Prelude.toBS reservationId]
 
-instance ToQuery UpdateReservation' where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateReservation' where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for UpdateReservationResponse
 --
--- /See:/ 'updateReservationResponse' smart constructor.
+-- /See:/ 'newUpdateReservationResponse' smart constructor.
 data UpdateReservationResponse = UpdateReservationResponse'
-  { _urrrsReservation ::
-      !( Maybe
-           Reservation
-       ),
-    _urrrsResponseStatus ::
-      !Int
+  { reservation :: Prelude.Maybe Reservation,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateReservationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateReservationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrsReservation' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrrsResponseStatus' - -- | The response status code.
-updateReservationResponse ::
-  -- | 'urrrsResponseStatus'
-  Int ->
+-- 'reservation', 'updateReservationResponse_reservation' - Undocumented member.
+--
+-- 'httpStatus', 'updateReservationResponse_httpStatus' - The response's http status code.
+newUpdateReservationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateReservationResponse
-updateReservationResponse pResponseStatus_ =
+newUpdateReservationResponse pHttpStatus_ =
   UpdateReservationResponse'
-    { _urrrsReservation =
-        Nothing,
-      _urrrsResponseStatus = pResponseStatus_
+    { reservation =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-urrrsReservation :: Lens' UpdateReservationResponse (Maybe Reservation)
-urrrsReservation = lens _urrrsReservation (\s a -> s {_urrrsReservation = a})
+updateReservationResponse_reservation :: Lens.Lens' UpdateReservationResponse (Prelude.Maybe Reservation)
+updateReservationResponse_reservation = Lens.lens (\UpdateReservationResponse' {reservation} -> reservation) (\s@UpdateReservationResponse' {} a -> s {reservation = a} :: UpdateReservationResponse)
 
--- | -- | The response status code.
-urrrsResponseStatus :: Lens' UpdateReservationResponse Int
-urrrsResponseStatus = lens _urrrsResponseStatus (\s a -> s {_urrrsResponseStatus = a})
+-- | The response's http status code.
+updateReservationResponse_httpStatus :: Lens.Lens' UpdateReservationResponse Prelude.Int
+updateReservationResponse_httpStatus = Lens.lens (\UpdateReservationResponse' {httpStatus} -> httpStatus) (\s@UpdateReservationResponse' {} a -> s {httpStatus = a} :: UpdateReservationResponse)
 
-instance NFData UpdateReservationResponse
+instance Prelude.NFData UpdateReservationResponse

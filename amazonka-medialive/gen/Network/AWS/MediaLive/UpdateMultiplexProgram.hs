@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,177 +24,175 @@
 -- Update a program in a multiplex.
 module Network.AWS.MediaLive.UpdateMultiplexProgram
   ( -- * Creating a Request
-    updateMultiplexProgram',
-    UpdateMultiplexProgram',
+    UpdateMultiplexProgram' (..),
+    newUpdateMultiplexProgram',
 
     -- * Request Lenses
-    updMultiplexProgramSettings,
-    updMultiplexId,
-    updProgramName,
+    updateMultiplexProgram'_multiplexProgramSettings,
+    updateMultiplexProgram'_multiplexId,
+    updateMultiplexProgram'_programName,
 
     -- * Destructuring the Response
-    updateMultiplexProgramResponse,
-    UpdateMultiplexProgramResponse,
+    UpdateMultiplexProgramResponse (..),
+    newUpdateMultiplexProgramResponse,
 
     -- * Response Lenses
-    umprrsMultiplexProgram,
-    umprrsResponseStatus,
+    updateMultiplexProgramResponse_multiplexProgram,
+    updateMultiplexProgramResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.MultiplexProgram
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | A request to update a program in a multiplex.
 --
--- /See:/ 'updateMultiplexProgram'' smart constructor.
+-- /See:/ 'newUpdateMultiplexProgram'' smart constructor.
 data UpdateMultiplexProgram' = UpdateMultiplexProgram''
-  { _updMultiplexProgramSettings ::
-      !( Maybe
-           MultiplexProgramSettings
-       ),
-    _updMultiplexId ::
-      !Text,
-    _updProgramName ::
-      !Text
+  { -- | The new settings for a multiplex program.
+    multiplexProgramSettings :: Prelude.Maybe MultiplexProgramSettings,
+    -- | The ID of the multiplex of the program to update.
+    multiplexId :: Prelude.Text,
+    -- | The name of the program to update.
+    programName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMultiplexProgram'' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMultiplexProgram'' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'updMultiplexProgramSettings' - The new settings for a multiplex program.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'updMultiplexId' - The ID of the multiplex of the program to update.
+-- 'multiplexProgramSettings', 'updateMultiplexProgram'_multiplexProgramSettings' - The new settings for a multiplex program.
 --
--- * 'updProgramName' - The name of the program to update.
-updateMultiplexProgram' ::
-  -- | 'updMultiplexId'
-  Text ->
-  -- | 'updProgramName'
-  Text ->
+-- 'multiplexId', 'updateMultiplexProgram'_multiplexId' - The ID of the multiplex of the program to update.
+--
+-- 'programName', 'updateMultiplexProgram'_programName' - The name of the program to update.
+newUpdateMultiplexProgram' ::
+  -- | 'multiplexId'
+  Prelude.Text ->
+  -- | 'programName'
+  Prelude.Text ->
   UpdateMultiplexProgram'
-updateMultiplexProgram' pMultiplexId_ pProgramName_ =
-  UpdateMultiplexProgram''
-    { _updMultiplexProgramSettings =
-        Nothing,
-      _updMultiplexId = pMultiplexId_,
-      _updProgramName = pProgramName_
-    }
+newUpdateMultiplexProgram'
+  pMultiplexId_
+  pProgramName_ =
+    UpdateMultiplexProgram''
+      { multiplexProgramSettings =
+          Prelude.Nothing,
+        multiplexId = pMultiplexId_,
+        programName = pProgramName_
+      }
 
 -- | The new settings for a multiplex program.
-updMultiplexProgramSettings :: Lens' UpdateMultiplexProgram' (Maybe MultiplexProgramSettings)
-updMultiplexProgramSettings = lens _updMultiplexProgramSettings (\s a -> s {_updMultiplexProgramSettings = a})
+updateMultiplexProgram'_multiplexProgramSettings :: Lens.Lens' UpdateMultiplexProgram' (Prelude.Maybe MultiplexProgramSettings)
+updateMultiplexProgram'_multiplexProgramSettings = Lens.lens (\UpdateMultiplexProgram'' {multiplexProgramSettings} -> multiplexProgramSettings) (\s@UpdateMultiplexProgram'' {} a -> s {multiplexProgramSettings = a} :: UpdateMultiplexProgram')
 
 -- | The ID of the multiplex of the program to update.
-updMultiplexId :: Lens' UpdateMultiplexProgram' Text
-updMultiplexId = lens _updMultiplexId (\s a -> s {_updMultiplexId = a})
+updateMultiplexProgram'_multiplexId :: Lens.Lens' UpdateMultiplexProgram' Prelude.Text
+updateMultiplexProgram'_multiplexId = Lens.lens (\UpdateMultiplexProgram'' {multiplexId} -> multiplexId) (\s@UpdateMultiplexProgram'' {} a -> s {multiplexId = a} :: UpdateMultiplexProgram')
 
 -- | The name of the program to update.
-updProgramName :: Lens' UpdateMultiplexProgram' Text
-updProgramName = lens _updProgramName (\s a -> s {_updProgramName = a})
+updateMultiplexProgram'_programName :: Lens.Lens' UpdateMultiplexProgram' Prelude.Text
+updateMultiplexProgram'_programName = Lens.lens (\UpdateMultiplexProgram'' {programName} -> programName) (\s@UpdateMultiplexProgram'' {} a -> s {programName = a} :: UpdateMultiplexProgram')
 
-instance AWSRequest UpdateMultiplexProgram' where
+instance Prelude.AWSRequest UpdateMultiplexProgram' where
   type
     Rs UpdateMultiplexProgram' =
       UpdateMultiplexProgramResponse
-  request = putJSON mediaLive
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           UpdateMultiplexProgramResponse'
-            <$> (x .?> "multiplexProgram") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "multiplexProgram")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateMultiplexProgram'
+instance Prelude.Hashable UpdateMultiplexProgram'
 
-instance NFData UpdateMultiplexProgram'
+instance Prelude.NFData UpdateMultiplexProgram'
 
-instance ToHeaders UpdateMultiplexProgram' where
+instance Prelude.ToHeaders UpdateMultiplexProgram' where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateMultiplexProgram' where
+instance Prelude.ToJSON UpdateMultiplexProgram' where
   toJSON UpdateMultiplexProgram'' {..} =
-    object
-      ( catMaybes
-          [ ("multiplexProgramSettings" .=)
-              <$> _updMultiplexProgramSettings
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("multiplexProgramSettings" Prelude..=)
+              Prelude.<$> multiplexProgramSettings
           ]
       )
 
-instance ToPath UpdateMultiplexProgram' where
+instance Prelude.ToPath UpdateMultiplexProgram' where
   toPath UpdateMultiplexProgram'' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/prod/multiplexes/",
-        toBS _updMultiplexId,
+        Prelude.toBS multiplexId,
         "/programs/",
-        toBS _updProgramName
+        Prelude.toBS programName
       ]
 
-instance ToQuery UpdateMultiplexProgram' where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateMultiplexProgram' where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for UpdateMultiplexProgramResponse
 --
--- /See:/ 'updateMultiplexProgramResponse' smart constructor.
+-- /See:/ 'newUpdateMultiplexProgramResponse' smart constructor.
 data UpdateMultiplexProgramResponse = UpdateMultiplexProgramResponse'
-  { _umprrsMultiplexProgram ::
-      !( Maybe
-           MultiplexProgram
-       ),
-    _umprrsResponseStatus ::
-      !Int
+  { -- | The updated multiplex program.
+    multiplexProgram :: Prelude.Maybe MultiplexProgram,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateMultiplexProgramResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateMultiplexProgramResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umprrsMultiplexProgram' - The updated multiplex program.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umprrsResponseStatus' - -- | The response status code.
-updateMultiplexProgramResponse ::
-  -- | 'umprrsResponseStatus'
-  Int ->
+-- 'multiplexProgram', 'updateMultiplexProgramResponse_multiplexProgram' - The updated multiplex program.
+--
+-- 'httpStatus', 'updateMultiplexProgramResponse_httpStatus' - The response's http status code.
+newUpdateMultiplexProgramResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateMultiplexProgramResponse
-updateMultiplexProgramResponse pResponseStatus_ =
+newUpdateMultiplexProgramResponse pHttpStatus_ =
   UpdateMultiplexProgramResponse'
-    { _umprrsMultiplexProgram =
-        Nothing,
-      _umprrsResponseStatus = pResponseStatus_
+    { multiplexProgram =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The updated multiplex program.
-umprrsMultiplexProgram :: Lens' UpdateMultiplexProgramResponse (Maybe MultiplexProgram)
-umprrsMultiplexProgram = lens _umprrsMultiplexProgram (\s a -> s {_umprrsMultiplexProgram = a})
+updateMultiplexProgramResponse_multiplexProgram :: Lens.Lens' UpdateMultiplexProgramResponse (Prelude.Maybe MultiplexProgram)
+updateMultiplexProgramResponse_multiplexProgram = Lens.lens (\UpdateMultiplexProgramResponse' {multiplexProgram} -> multiplexProgram) (\s@UpdateMultiplexProgramResponse' {} a -> s {multiplexProgram = a} :: UpdateMultiplexProgramResponse)
 
--- | -- | The response status code.
-umprrsResponseStatus :: Lens' UpdateMultiplexProgramResponse Int
-umprrsResponseStatus = lens _umprrsResponseStatus (\s a -> s {_umprrsResponseStatus = a})
+-- | The response's http status code.
+updateMultiplexProgramResponse_httpStatus :: Lens.Lens' UpdateMultiplexProgramResponse Prelude.Int
+updateMultiplexProgramResponse_httpStatus = Lens.lens (\UpdateMultiplexProgramResponse' {httpStatus} -> httpStatus) (\s@UpdateMultiplexProgramResponse' {} a -> s {httpStatus = a} :: UpdateMultiplexProgramResponse)
 
-instance NFData UpdateMultiplexProgramResponse
+instance
+  Prelude.NFData
+    UpdateMultiplexProgramResponse

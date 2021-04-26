@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.MediaLive.Types.VideoSelectorColorSpace
   ( VideoSelectorColorSpace
       ( ..,
-        Follow,
-        Rec601,
-        Rec709
+        VideoSelectorColorSpaceFOLLOW,
+        VideoSelectorColorSpaceREC601,
+        VideoSelectorColorSpaceREC709
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Video Selector Color Space
-data VideoSelectorColorSpace
-  = VideoSelectorColorSpace'
-      ( CI
-          Text
-      )
+newtype VideoSelectorColorSpace = VideoSelectorColorSpace'
+  { fromVideoSelectorColorSpace ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Follow :: VideoSelectorColorSpace
-pattern Follow = VideoSelectorColorSpace' "FOLLOW"
+pattern VideoSelectorColorSpaceFOLLOW :: VideoSelectorColorSpace
+pattern VideoSelectorColorSpaceFOLLOW = VideoSelectorColorSpace' "FOLLOW"
 
-pattern Rec601 :: VideoSelectorColorSpace
-pattern Rec601 = VideoSelectorColorSpace' "REC_601"
+pattern VideoSelectorColorSpaceREC601 :: VideoSelectorColorSpace
+pattern VideoSelectorColorSpaceREC601 = VideoSelectorColorSpace' "REC_601"
 
-pattern Rec709 :: VideoSelectorColorSpace
-pattern Rec709 = VideoSelectorColorSpace' "REC_709"
+pattern VideoSelectorColorSpaceREC709 :: VideoSelectorColorSpace
+pattern VideoSelectorColorSpaceREC709 = VideoSelectorColorSpace' "REC_709"
 
 {-# COMPLETE
-  Follow,
-  Rec601,
-  Rec709,
+  VideoSelectorColorSpaceFOLLOW,
+  VideoSelectorColorSpaceREC601,
+  VideoSelectorColorSpaceREC709,
   VideoSelectorColorSpace'
   #-}
 
-instance FromText VideoSelectorColorSpace where
-  parser = (VideoSelectorColorSpace' . mk) <$> takeText
+instance Prelude.FromText VideoSelectorColorSpace where
+  parser = VideoSelectorColorSpace' Prelude.<$> Prelude.takeText
 
-instance ToText VideoSelectorColorSpace where
-  toText (VideoSelectorColorSpace' ci) = original ci
+instance Prelude.ToText VideoSelectorColorSpace where
+  toText (VideoSelectorColorSpace' x) = x
 
-instance Hashable VideoSelectorColorSpace
+instance Prelude.Hashable VideoSelectorColorSpace
 
-instance NFData VideoSelectorColorSpace
+instance Prelude.NFData VideoSelectorColorSpace
 
-instance ToByteString VideoSelectorColorSpace
+instance Prelude.ToByteString VideoSelectorColorSpace
 
-instance ToQuery VideoSelectorColorSpace
+instance Prelude.ToQuery VideoSelectorColorSpace
 
-instance ToHeader VideoSelectorColorSpace
+instance Prelude.ToHeader VideoSelectorColorSpace
 
-instance ToJSON VideoSelectorColorSpace where
-  toJSON = toJSONText
+instance Prelude.ToJSON VideoSelectorColorSpace where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON VideoSelectorColorSpace where
-  parseJSON = parseJSONText "VideoSelectorColorSpace"
+instance Prelude.FromJSON VideoSelectorColorSpace where
+  parseJSON = Prelude.parseJSONText "VideoSelectorColorSpace"

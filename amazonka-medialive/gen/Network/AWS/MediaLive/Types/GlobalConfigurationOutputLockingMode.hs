@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.GlobalConfigurationOutputLockingMode
   ( GlobalConfigurationOutputLockingMode
       ( ..,
-        EpochLocking,
-        PipelineLocking
+        GlobalConfigurationOutputLockingModeEPOCHLOCKING,
+        GlobalConfigurationOutputLockingModePIPELINELOCKING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Global Configuration Output Locking Mode
-data GlobalConfigurationOutputLockingMode
-  = GlobalConfigurationOutputLockingMode'
-      ( CI
-          Text
-      )
+newtype GlobalConfigurationOutputLockingMode = GlobalConfigurationOutputLockingMode'
+  { fromGlobalConfigurationOutputLockingMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EpochLocking :: GlobalConfigurationOutputLockingMode
-pattern EpochLocking = GlobalConfigurationOutputLockingMode' "EPOCH_LOCKING"
+pattern GlobalConfigurationOutputLockingModeEPOCHLOCKING :: GlobalConfigurationOutputLockingMode
+pattern GlobalConfigurationOutputLockingModeEPOCHLOCKING = GlobalConfigurationOutputLockingMode' "EPOCH_LOCKING"
 
-pattern PipelineLocking :: GlobalConfigurationOutputLockingMode
-pattern PipelineLocking = GlobalConfigurationOutputLockingMode' "PIPELINE_LOCKING"
+pattern GlobalConfigurationOutputLockingModePIPELINELOCKING :: GlobalConfigurationOutputLockingMode
+pattern GlobalConfigurationOutputLockingModePIPELINELOCKING = GlobalConfigurationOutputLockingMode' "PIPELINE_LOCKING"
 
 {-# COMPLETE
-  EpochLocking,
-  PipelineLocking,
+  GlobalConfigurationOutputLockingModeEPOCHLOCKING,
+  GlobalConfigurationOutputLockingModePIPELINELOCKING,
   GlobalConfigurationOutputLockingMode'
   #-}
 
-instance FromText GlobalConfigurationOutputLockingMode where
-  parser = (GlobalConfigurationOutputLockingMode' . mk) <$> takeText
+instance Prelude.FromText GlobalConfigurationOutputLockingMode where
+  parser = GlobalConfigurationOutputLockingMode' Prelude.<$> Prelude.takeText
 
-instance ToText GlobalConfigurationOutputLockingMode where
-  toText (GlobalConfigurationOutputLockingMode' ci) = original ci
+instance Prelude.ToText GlobalConfigurationOutputLockingMode where
+  toText (GlobalConfigurationOutputLockingMode' x) = x
 
-instance Hashable GlobalConfigurationOutputLockingMode
+instance Prelude.Hashable GlobalConfigurationOutputLockingMode
 
-instance NFData GlobalConfigurationOutputLockingMode
+instance Prelude.NFData GlobalConfigurationOutputLockingMode
 
-instance ToByteString GlobalConfigurationOutputLockingMode
+instance Prelude.ToByteString GlobalConfigurationOutputLockingMode
 
-instance ToQuery GlobalConfigurationOutputLockingMode
+instance Prelude.ToQuery GlobalConfigurationOutputLockingMode
 
-instance ToHeader GlobalConfigurationOutputLockingMode
+instance Prelude.ToHeader GlobalConfigurationOutputLockingMode
 
-instance ToJSON GlobalConfigurationOutputLockingMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON GlobalConfigurationOutputLockingMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GlobalConfigurationOutputLockingMode where
-  parseJSON = parseJSONText "GlobalConfigurationOutputLockingMode"
+instance Prelude.FromJSON GlobalConfigurationOutputLockingMode where
+  parseJSON = Prelude.parseJSONText "GlobalConfigurationOutputLockingMode"

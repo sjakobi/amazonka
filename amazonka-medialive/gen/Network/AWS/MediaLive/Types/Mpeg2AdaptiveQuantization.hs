@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,74 @@
 module Network.AWS.MediaLive.Types.Mpeg2AdaptiveQuantization
   ( Mpeg2AdaptiveQuantization
       ( ..,
-        MAQAuto,
-        MAQHigh,
-        MAQLow,
-        MAQMedium,
-        MAQOff
+        Mpeg2AdaptiveQuantizationAUTO,
+        Mpeg2AdaptiveQuantizationHIGH,
+        Mpeg2AdaptiveQuantizationLOW,
+        Mpeg2AdaptiveQuantizationMEDIUM,
+        Mpeg2AdaptiveQuantizationOFF
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mpeg2 Adaptive Quantization
-data Mpeg2AdaptiveQuantization
-  = Mpeg2AdaptiveQuantization'
-      ( CI
-          Text
-      )
+newtype Mpeg2AdaptiveQuantization = Mpeg2AdaptiveQuantization'
+  { fromMpeg2AdaptiveQuantization ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MAQAuto :: Mpeg2AdaptiveQuantization
-pattern MAQAuto = Mpeg2AdaptiveQuantization' "AUTO"
+pattern Mpeg2AdaptiveQuantizationAUTO :: Mpeg2AdaptiveQuantization
+pattern Mpeg2AdaptiveQuantizationAUTO = Mpeg2AdaptiveQuantization' "AUTO"
 
-pattern MAQHigh :: Mpeg2AdaptiveQuantization
-pattern MAQHigh = Mpeg2AdaptiveQuantization' "HIGH"
+pattern Mpeg2AdaptiveQuantizationHIGH :: Mpeg2AdaptiveQuantization
+pattern Mpeg2AdaptiveQuantizationHIGH = Mpeg2AdaptiveQuantization' "HIGH"
 
-pattern MAQLow :: Mpeg2AdaptiveQuantization
-pattern MAQLow = Mpeg2AdaptiveQuantization' "LOW"
+pattern Mpeg2AdaptiveQuantizationLOW :: Mpeg2AdaptiveQuantization
+pattern Mpeg2AdaptiveQuantizationLOW = Mpeg2AdaptiveQuantization' "LOW"
 
-pattern MAQMedium :: Mpeg2AdaptiveQuantization
-pattern MAQMedium = Mpeg2AdaptiveQuantization' "MEDIUM"
+pattern Mpeg2AdaptiveQuantizationMEDIUM :: Mpeg2AdaptiveQuantization
+pattern Mpeg2AdaptiveQuantizationMEDIUM = Mpeg2AdaptiveQuantization' "MEDIUM"
 
-pattern MAQOff :: Mpeg2AdaptiveQuantization
-pattern MAQOff = Mpeg2AdaptiveQuantization' "OFF"
+pattern Mpeg2AdaptiveQuantizationOFF :: Mpeg2AdaptiveQuantization
+pattern Mpeg2AdaptiveQuantizationOFF = Mpeg2AdaptiveQuantization' "OFF"
 
 {-# COMPLETE
-  MAQAuto,
-  MAQHigh,
-  MAQLow,
-  MAQMedium,
-  MAQOff,
+  Mpeg2AdaptiveQuantizationAUTO,
+  Mpeg2AdaptiveQuantizationHIGH,
+  Mpeg2AdaptiveQuantizationLOW,
+  Mpeg2AdaptiveQuantizationMEDIUM,
+  Mpeg2AdaptiveQuantizationOFF,
   Mpeg2AdaptiveQuantization'
   #-}
 
-instance FromText Mpeg2AdaptiveQuantization where
-  parser = (Mpeg2AdaptiveQuantization' . mk) <$> takeText
+instance Prelude.FromText Mpeg2AdaptiveQuantization where
+  parser = Mpeg2AdaptiveQuantization' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2AdaptiveQuantization where
-  toText (Mpeg2AdaptiveQuantization' ci) = original ci
+instance Prelude.ToText Mpeg2AdaptiveQuantization where
+  toText (Mpeg2AdaptiveQuantization' x) = x
 
-instance Hashable Mpeg2AdaptiveQuantization
+instance Prelude.Hashable Mpeg2AdaptiveQuantization
 
-instance NFData Mpeg2AdaptiveQuantization
+instance Prelude.NFData Mpeg2AdaptiveQuantization
 
-instance ToByteString Mpeg2AdaptiveQuantization
+instance Prelude.ToByteString Mpeg2AdaptiveQuantization
 
-instance ToQuery Mpeg2AdaptiveQuantization
+instance Prelude.ToQuery Mpeg2AdaptiveQuantization
 
-instance ToHeader Mpeg2AdaptiveQuantization
+instance Prelude.ToHeader Mpeg2AdaptiveQuantization
 
-instance ToJSON Mpeg2AdaptiveQuantization where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2AdaptiveQuantization where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2AdaptiveQuantization where
-  parseJSON = parseJSONText "Mpeg2AdaptiveQuantization"
+instance Prelude.FromJSON Mpeg2AdaptiveQuantization where
+  parseJSON = Prelude.parseJSONText "Mpeg2AdaptiveQuantization"

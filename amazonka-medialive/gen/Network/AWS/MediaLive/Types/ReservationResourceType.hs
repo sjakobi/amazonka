@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,66 @@
 module Network.AWS.MediaLive.Types.ReservationResourceType
   ( ReservationResourceType
       ( ..,
-        RRTChannel,
-        RRTInput,
-        RRTMultiplex,
-        RRTOutput
+        ReservationResourceTypeCHANNEL,
+        ReservationResourceTypeINPUT,
+        ReservationResourceTypeMULTIPLEX,
+        ReservationResourceTypeOUTPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Resource type, 'INPUT', 'OUTPUT', 'MULTIPLEX', or 'CHANNEL'
-data ReservationResourceType
-  = ReservationResourceType'
-      ( CI
-          Text
-      )
+-- | Resource type, \'INPUT\', \'OUTPUT\', \'MULTIPLEX\', or \'CHANNEL\'
+newtype ReservationResourceType = ReservationResourceType'
+  { fromReservationResourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RRTChannel :: ReservationResourceType
-pattern RRTChannel = ReservationResourceType' "CHANNEL"
+pattern ReservationResourceTypeCHANNEL :: ReservationResourceType
+pattern ReservationResourceTypeCHANNEL = ReservationResourceType' "CHANNEL"
 
-pattern RRTInput :: ReservationResourceType
-pattern RRTInput = ReservationResourceType' "INPUT"
+pattern ReservationResourceTypeINPUT :: ReservationResourceType
+pattern ReservationResourceTypeINPUT = ReservationResourceType' "INPUT"
 
-pattern RRTMultiplex :: ReservationResourceType
-pattern RRTMultiplex = ReservationResourceType' "MULTIPLEX"
+pattern ReservationResourceTypeMULTIPLEX :: ReservationResourceType
+pattern ReservationResourceTypeMULTIPLEX = ReservationResourceType' "MULTIPLEX"
 
-pattern RRTOutput :: ReservationResourceType
-pattern RRTOutput = ReservationResourceType' "OUTPUT"
+pattern ReservationResourceTypeOUTPUT :: ReservationResourceType
+pattern ReservationResourceTypeOUTPUT = ReservationResourceType' "OUTPUT"
 
 {-# COMPLETE
-  RRTChannel,
-  RRTInput,
-  RRTMultiplex,
-  RRTOutput,
+  ReservationResourceTypeCHANNEL,
+  ReservationResourceTypeINPUT,
+  ReservationResourceTypeMULTIPLEX,
+  ReservationResourceTypeOUTPUT,
   ReservationResourceType'
   #-}
 
-instance FromText ReservationResourceType where
-  parser = (ReservationResourceType' . mk) <$> takeText
+instance Prelude.FromText ReservationResourceType where
+  parser = ReservationResourceType' Prelude.<$> Prelude.takeText
 
-instance ToText ReservationResourceType where
-  toText (ReservationResourceType' ci) = original ci
+instance Prelude.ToText ReservationResourceType where
+  toText (ReservationResourceType' x) = x
 
-instance Hashable ReservationResourceType
+instance Prelude.Hashable ReservationResourceType
 
-instance NFData ReservationResourceType
+instance Prelude.NFData ReservationResourceType
 
-instance ToByteString ReservationResourceType
+instance Prelude.ToByteString ReservationResourceType
 
-instance ToQuery ReservationResourceType
+instance Prelude.ToQuery ReservationResourceType
 
-instance ToHeader ReservationResourceType
+instance Prelude.ToHeader ReservationResourceType
 
-instance FromJSON ReservationResourceType where
-  parseJSON = parseJSONText "ReservationResourceType"
+instance Prelude.FromJSON ReservationResourceType where
+  parseJSON = Prelude.parseJSONText "ReservationResourceType"

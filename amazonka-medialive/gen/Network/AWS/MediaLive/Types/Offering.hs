@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,136 +19,162 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.Offering where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.OfferingDurationUnits
 import Network.AWS.MediaLive.Types.OfferingType
 import Network.AWS.MediaLive.Types.ReservationResourceSpecification
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Reserved resources available for purchase
 --
--- /See:/ 'offering' smart constructor.
+-- /See:/ 'newOffering' smart constructor.
 data Offering = Offering'
-  { _oDuration :: !(Maybe Int),
-    _oDurationUnits :: !(Maybe OfferingDurationUnits),
-    _oARN :: !(Maybe Text),
-    _oOfferingId :: !(Maybe Text),
-    _oCurrencyCode :: !(Maybe Text),
-    _oResourceSpecification ::
-      !(Maybe ReservationResourceSpecification),
-    _oOfferingDescription :: !(Maybe Text),
-    _oFixedPrice :: !(Maybe Double),
-    _oUsagePrice :: !(Maybe Double),
-    _oOfferingType :: !(Maybe OfferingType),
-    _oRegion :: !(Maybe Text)
+  { -- | Lease duration, e.g. \'12\'
+    duration :: Prelude.Maybe Prelude.Int,
+    -- | Units for duration, e.g. \'MONTHS\'
+    durationUnits :: Prelude.Maybe OfferingDurationUnits,
+    -- | Unique offering ARN, e.g.
+    -- \'arn:aws:medialive:us-west-2:123456789012:offering:87654321\'
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Unique offering ID, e.g. \'87654321\'
+    offeringId :: Prelude.Maybe Prelude.Text,
+    -- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+    -- \'USD\'
+    currencyCode :: Prelude.Maybe Prelude.Text,
+    -- | Resource configuration details
+    resourceSpecification :: Prelude.Maybe ReservationResourceSpecification,
+    -- | Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+    -- standard VQ in US West (Oregon)\'
+    offeringDescription :: Prelude.Maybe Prelude.Text,
+    -- | One-time charge for each reserved resource, e.g. \'0.0\' for a
+    -- NO_UPFRONT offering
+    fixedPrice :: Prelude.Maybe Prelude.Double,
+    -- | Recurring usage charge for each reserved resource, e.g. \'157.0\'
+    usagePrice :: Prelude.Maybe Prelude.Double,
+    -- | Offering type, e.g. \'NO_UPFRONT\'
+    offeringType :: Prelude.Maybe OfferingType,
+    -- | AWS region, e.g. \'us-west-2\'
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Offering' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Offering' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oDuration' - Lease duration, e.g. '12'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'oDurationUnits' - Units for duration, e.g. 'MONTHS'
+-- 'duration', 'offering_duration' - Lease duration, e.g. \'12\'
 --
--- * 'oARN' - Unique offering ARN, e.g. 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
+-- 'durationUnits', 'offering_durationUnits' - Units for duration, e.g. \'MONTHS\'
 --
--- * 'oOfferingId' - Unique offering ID, e.g. '87654321'
+-- 'arn', 'offering_arn' - Unique offering ARN, e.g.
+-- \'arn:aws:medialive:us-west-2:123456789012:offering:87654321\'
 --
--- * 'oCurrencyCode' - Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
+-- 'offeringId', 'offering_offeringId' - Unique offering ID, e.g. \'87654321\'
 --
--- * 'oResourceSpecification' - Resource configuration details
+-- 'currencyCode', 'offering_currencyCode' - Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+-- \'USD\'
 --
--- * 'oOfferingDescription' - Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ in US West (Oregon)'
+-- 'resourceSpecification', 'offering_resourceSpecification' - Resource configuration details
 --
--- * 'oFixedPrice' - One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
+-- 'offeringDescription', 'offering_offeringDescription' - Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+-- standard VQ in US West (Oregon)\'
 --
--- * 'oUsagePrice' - Recurring usage charge for each reserved resource, e.g. '157.0'
+-- 'fixedPrice', 'offering_fixedPrice' - One-time charge for each reserved resource, e.g. \'0.0\' for a
+-- NO_UPFRONT offering
 --
--- * 'oOfferingType' - Offering type, e.g. 'NO_UPFRONT'
+-- 'usagePrice', 'offering_usagePrice' - Recurring usage charge for each reserved resource, e.g. \'157.0\'
 --
--- * 'oRegion' - AWS region, e.g. 'us-west-2'
-offering ::
+-- 'offeringType', 'offering_offeringType' - Offering type, e.g. \'NO_UPFRONT\'
+--
+-- 'region', 'offering_region' - AWS region, e.g. \'us-west-2\'
+newOffering ::
   Offering
-offering =
+newOffering =
   Offering'
-    { _oDuration = Nothing,
-      _oDurationUnits = Nothing,
-      _oARN = Nothing,
-      _oOfferingId = Nothing,
-      _oCurrencyCode = Nothing,
-      _oResourceSpecification = Nothing,
-      _oOfferingDescription = Nothing,
-      _oFixedPrice = Nothing,
-      _oUsagePrice = Nothing,
-      _oOfferingType = Nothing,
-      _oRegion = Nothing
+    { duration = Prelude.Nothing,
+      durationUnits = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      offeringId = Prelude.Nothing,
+      currencyCode = Prelude.Nothing,
+      resourceSpecification = Prelude.Nothing,
+      offeringDescription = Prelude.Nothing,
+      fixedPrice = Prelude.Nothing,
+      usagePrice = Prelude.Nothing,
+      offeringType = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
--- | Lease duration, e.g. '12'
-oDuration :: Lens' Offering (Maybe Int)
-oDuration = lens _oDuration (\s a -> s {_oDuration = a})
+-- | Lease duration, e.g. \'12\'
+offering_duration :: Lens.Lens' Offering (Prelude.Maybe Prelude.Int)
+offering_duration = Lens.lens (\Offering' {duration} -> duration) (\s@Offering' {} a -> s {duration = a} :: Offering)
 
--- | Units for duration, e.g. 'MONTHS'
-oDurationUnits :: Lens' Offering (Maybe OfferingDurationUnits)
-oDurationUnits = lens _oDurationUnits (\s a -> s {_oDurationUnits = a})
+-- | Units for duration, e.g. \'MONTHS\'
+offering_durationUnits :: Lens.Lens' Offering (Prelude.Maybe OfferingDurationUnits)
+offering_durationUnits = Lens.lens (\Offering' {durationUnits} -> durationUnits) (\s@Offering' {} a -> s {durationUnits = a} :: Offering)
 
--- | Unique offering ARN, e.g. 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
-oARN :: Lens' Offering (Maybe Text)
-oARN = lens _oARN (\s a -> s {_oARN = a})
+-- | Unique offering ARN, e.g.
+-- \'arn:aws:medialive:us-west-2:123456789012:offering:87654321\'
+offering_arn :: Lens.Lens' Offering (Prelude.Maybe Prelude.Text)
+offering_arn = Lens.lens (\Offering' {arn} -> arn) (\s@Offering' {} a -> s {arn = a} :: Offering)
 
--- | Unique offering ID, e.g. '87654321'
-oOfferingId :: Lens' Offering (Maybe Text)
-oOfferingId = lens _oOfferingId (\s a -> s {_oOfferingId = a})
+-- | Unique offering ID, e.g. \'87654321\'
+offering_offeringId :: Lens.Lens' Offering (Prelude.Maybe Prelude.Text)
+offering_offeringId = Lens.lens (\Offering' {offeringId} -> offeringId) (\s@Offering' {} a -> s {offeringId = a} :: Offering)
 
--- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g. 'USD'
-oCurrencyCode :: Lens' Offering (Maybe Text)
-oCurrencyCode = lens _oCurrencyCode (\s a -> s {_oCurrencyCode = a})
+-- | Currency code for usagePrice and fixedPrice in ISO-4217 format, e.g.
+-- \'USD\'
+offering_currencyCode :: Lens.Lens' Offering (Prelude.Maybe Prelude.Text)
+offering_currencyCode = Lens.lens (\Offering' {currencyCode} -> currencyCode) (\s@Offering' {} a -> s {currencyCode = a} :: Offering)
 
 -- | Resource configuration details
-oResourceSpecification :: Lens' Offering (Maybe ReservationResourceSpecification)
-oResourceSpecification = lens _oResourceSpecification (\s a -> s {_oResourceSpecification = a})
+offering_resourceSpecification :: Lens.Lens' Offering (Prelude.Maybe ReservationResourceSpecification)
+offering_resourceSpecification = Lens.lens (\Offering' {resourceSpecification} -> resourceSpecification) (\s@Offering' {} a -> s {resourceSpecification = a} :: Offering)
 
--- | Offering description, e.g. 'HD AVC output at 10-20 Mbps, 30 fps, and standard VQ in US West (Oregon)'
-oOfferingDescription :: Lens' Offering (Maybe Text)
-oOfferingDescription = lens _oOfferingDescription (\s a -> s {_oOfferingDescription = a})
+-- | Offering description, e.g. \'HD AVC output at 10-20 Mbps, 30 fps, and
+-- standard VQ in US West (Oregon)\'
+offering_offeringDescription :: Lens.Lens' Offering (Prelude.Maybe Prelude.Text)
+offering_offeringDescription = Lens.lens (\Offering' {offeringDescription} -> offeringDescription) (\s@Offering' {} a -> s {offeringDescription = a} :: Offering)
 
--- | One-time charge for each reserved resource, e.g. '0.0' for a NO_UPFRONT offering
-oFixedPrice :: Lens' Offering (Maybe Double)
-oFixedPrice = lens _oFixedPrice (\s a -> s {_oFixedPrice = a})
+-- | One-time charge for each reserved resource, e.g. \'0.0\' for a
+-- NO_UPFRONT offering
+offering_fixedPrice :: Lens.Lens' Offering (Prelude.Maybe Prelude.Double)
+offering_fixedPrice = Lens.lens (\Offering' {fixedPrice} -> fixedPrice) (\s@Offering' {} a -> s {fixedPrice = a} :: Offering)
 
--- | Recurring usage charge for each reserved resource, e.g. '157.0'
-oUsagePrice :: Lens' Offering (Maybe Double)
-oUsagePrice = lens _oUsagePrice (\s a -> s {_oUsagePrice = a})
+-- | Recurring usage charge for each reserved resource, e.g. \'157.0\'
+offering_usagePrice :: Lens.Lens' Offering (Prelude.Maybe Prelude.Double)
+offering_usagePrice = Lens.lens (\Offering' {usagePrice} -> usagePrice) (\s@Offering' {} a -> s {usagePrice = a} :: Offering)
 
--- | Offering type, e.g. 'NO_UPFRONT'
-oOfferingType :: Lens' Offering (Maybe OfferingType)
-oOfferingType = lens _oOfferingType (\s a -> s {_oOfferingType = a})
+-- | Offering type, e.g. \'NO_UPFRONT\'
+offering_offeringType :: Lens.Lens' Offering (Prelude.Maybe OfferingType)
+offering_offeringType = Lens.lens (\Offering' {offeringType} -> offeringType) (\s@Offering' {} a -> s {offeringType = a} :: Offering)
 
--- | AWS region, e.g. 'us-west-2'
-oRegion :: Lens' Offering (Maybe Text)
-oRegion = lens _oRegion (\s a -> s {_oRegion = a})
+-- | AWS region, e.g. \'us-west-2\'
+offering_region :: Lens.Lens' Offering (Prelude.Maybe Prelude.Text)
+offering_region = Lens.lens (\Offering' {region} -> region) (\s@Offering' {} a -> s {region = a} :: Offering)
 
-instance FromJSON Offering where
+instance Prelude.FromJSON Offering where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Offering"
       ( \x ->
           Offering'
-            <$> (x .:? "duration")
-            <*> (x .:? "durationUnits")
-            <*> (x .:? "arn")
-            <*> (x .:? "offeringId")
-            <*> (x .:? "currencyCode")
-            <*> (x .:? "resourceSpecification")
-            <*> (x .:? "offeringDescription")
-            <*> (x .:? "fixedPrice")
-            <*> (x .:? "usagePrice")
-            <*> (x .:? "offeringType")
-            <*> (x .:? "region")
+            Prelude.<$> (x Prelude..:? "duration")
+            Prelude.<*> (x Prelude..:? "durationUnits")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "offeringId")
+            Prelude.<*> (x Prelude..:? "currencyCode")
+            Prelude.<*> (x Prelude..:? "resourceSpecification")
+            Prelude.<*> (x Prelude..:? "offeringDescription")
+            Prelude.<*> (x Prelude..:? "fixedPrice")
+            Prelude.<*> (x Prelude..:? "usagePrice")
+            Prelude.<*> (x Prelude..:? "offeringType")
+            Prelude.<*> (x Prelude..:? "region")
       )
 
-instance Hashable Offering
+instance Prelude.Hashable Offering
 
-instance NFData Offering
+instance Prelude.NFData Offering

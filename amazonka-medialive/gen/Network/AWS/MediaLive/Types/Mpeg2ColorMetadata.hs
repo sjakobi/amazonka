@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Mpeg2ColorMetadata
   ( Mpeg2ColorMetadata
       ( ..,
-        Ignore,
-        Insert
+        Mpeg2ColorMetadataIGNORE,
+        Mpeg2ColorMetadataINSERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Mpeg2 Color Metadata
-data Mpeg2ColorMetadata
-  = Mpeg2ColorMetadata'
-      ( CI
-          Text
-      )
+newtype Mpeg2ColorMetadata = Mpeg2ColorMetadata'
+  { fromMpeg2ColorMetadata ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ignore :: Mpeg2ColorMetadata
-pattern Ignore = Mpeg2ColorMetadata' "IGNORE"
+pattern Mpeg2ColorMetadataIGNORE :: Mpeg2ColorMetadata
+pattern Mpeg2ColorMetadataIGNORE = Mpeg2ColorMetadata' "IGNORE"
 
-pattern Insert :: Mpeg2ColorMetadata
-pattern Insert = Mpeg2ColorMetadata' "INSERT"
+pattern Mpeg2ColorMetadataINSERT :: Mpeg2ColorMetadata
+pattern Mpeg2ColorMetadataINSERT = Mpeg2ColorMetadata' "INSERT"
 
 {-# COMPLETE
-  Ignore,
-  Insert,
+  Mpeg2ColorMetadataIGNORE,
+  Mpeg2ColorMetadataINSERT,
   Mpeg2ColorMetadata'
   #-}
 
-instance FromText Mpeg2ColorMetadata where
-  parser = (Mpeg2ColorMetadata' . mk) <$> takeText
+instance Prelude.FromText Mpeg2ColorMetadata where
+  parser = Mpeg2ColorMetadata' Prelude.<$> Prelude.takeText
 
-instance ToText Mpeg2ColorMetadata where
-  toText (Mpeg2ColorMetadata' ci) = original ci
+instance Prelude.ToText Mpeg2ColorMetadata where
+  toText (Mpeg2ColorMetadata' x) = x
 
-instance Hashable Mpeg2ColorMetadata
+instance Prelude.Hashable Mpeg2ColorMetadata
 
-instance NFData Mpeg2ColorMetadata
+instance Prelude.NFData Mpeg2ColorMetadata
 
-instance ToByteString Mpeg2ColorMetadata
+instance Prelude.ToByteString Mpeg2ColorMetadata
 
-instance ToQuery Mpeg2ColorMetadata
+instance Prelude.ToQuery Mpeg2ColorMetadata
 
-instance ToHeader Mpeg2ColorMetadata
+instance Prelude.ToHeader Mpeg2ColorMetadata
 
-instance ToJSON Mpeg2ColorMetadata where
-  toJSON = toJSONText
+instance Prelude.ToJSON Mpeg2ColorMetadata where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Mpeg2ColorMetadata where
-  parseJSON = parseJSONText "Mpeg2ColorMetadata"
+instance Prelude.FromJSON Mpeg2ColorMetadata where
+  parseJSON = Prelude.parseJSONText "Mpeg2ColorMetadata"

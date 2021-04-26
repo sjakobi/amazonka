@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,54 @@
 module Network.AWS.MediaLive.Types.RtmpAdMarkers
   ( RtmpAdMarkers
       ( ..,
-        OnCuePointSCTE35
+        RtmpAdMarkersONCUEPOINTSCTE35
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Rtmp Ad Markers
-data RtmpAdMarkers = RtmpAdMarkers' (CI Text)
+newtype RtmpAdMarkers = RtmpAdMarkers'
+  { fromRtmpAdMarkers ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OnCuePointSCTE35 :: RtmpAdMarkers
-pattern OnCuePointSCTE35 = RtmpAdMarkers' "ON_CUE_POINT_SCTE35"
+pattern RtmpAdMarkersONCUEPOINTSCTE35 :: RtmpAdMarkers
+pattern RtmpAdMarkersONCUEPOINTSCTE35 = RtmpAdMarkers' "ON_CUE_POINT_SCTE35"
 
 {-# COMPLETE
-  OnCuePointSCTE35,
+  RtmpAdMarkersONCUEPOINTSCTE35,
   RtmpAdMarkers'
   #-}
 
-instance FromText RtmpAdMarkers where
-  parser = (RtmpAdMarkers' . mk) <$> takeText
+instance Prelude.FromText RtmpAdMarkers where
+  parser = RtmpAdMarkers' Prelude.<$> Prelude.takeText
 
-instance ToText RtmpAdMarkers where
-  toText (RtmpAdMarkers' ci) = original ci
+instance Prelude.ToText RtmpAdMarkers where
+  toText (RtmpAdMarkers' x) = x
 
-instance Hashable RtmpAdMarkers
+instance Prelude.Hashable RtmpAdMarkers
 
-instance NFData RtmpAdMarkers
+instance Prelude.NFData RtmpAdMarkers
 
-instance ToByteString RtmpAdMarkers
+instance Prelude.ToByteString RtmpAdMarkers
 
-instance ToQuery RtmpAdMarkers
+instance Prelude.ToQuery RtmpAdMarkers
 
-instance ToHeader RtmpAdMarkers
+instance Prelude.ToHeader RtmpAdMarkers
 
-instance ToJSON RtmpAdMarkers where
-  toJSON = toJSONText
+instance Prelude.ToJSON RtmpAdMarkers where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RtmpAdMarkers where
-  parseJSON = parseJSONText "RtmpAdMarkers"
+instance Prelude.FromJSON RtmpAdMarkers where
+  parseJSON = Prelude.parseJSONText "RtmpAdMarkers"

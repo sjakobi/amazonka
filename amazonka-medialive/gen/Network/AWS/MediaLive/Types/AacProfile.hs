@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaLive.Types.AacProfile
   ( AacProfile
       ( ..,
-        HEV1,
-        HEV2,
-        LC
+        AacProfileHEV1,
+        AacProfileHEV2,
+        AacProfileLC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Aac Profile
-data AacProfile = AacProfile' (CI Text)
+newtype AacProfile = AacProfile'
+  { fromAacProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HEV1 :: AacProfile
-pattern HEV1 = AacProfile' "HEV1"
+pattern AacProfileHEV1 :: AacProfile
+pattern AacProfileHEV1 = AacProfile' "HEV1"
 
-pattern HEV2 :: AacProfile
-pattern HEV2 = AacProfile' "HEV2"
+pattern AacProfileHEV2 :: AacProfile
+pattern AacProfileHEV2 = AacProfile' "HEV2"
 
-pattern LC :: AacProfile
-pattern LC = AacProfile' "LC"
+pattern AacProfileLC :: AacProfile
+pattern AacProfileLC = AacProfile' "LC"
 
 {-# COMPLETE
-  HEV1,
-  HEV2,
-  LC,
+  AacProfileHEV1,
+  AacProfileHEV2,
+  AacProfileLC,
   AacProfile'
   #-}
 
-instance FromText AacProfile where
-  parser = (AacProfile' . mk) <$> takeText
+instance Prelude.FromText AacProfile where
+  parser = AacProfile' Prelude.<$> Prelude.takeText
 
-instance ToText AacProfile where
-  toText (AacProfile' ci) = original ci
+instance Prelude.ToText AacProfile where
+  toText (AacProfile' x) = x
 
-instance Hashable AacProfile
+instance Prelude.Hashable AacProfile
 
-instance NFData AacProfile
+instance Prelude.NFData AacProfile
 
-instance ToByteString AacProfile
+instance Prelude.ToByteString AacProfile
 
-instance ToQuery AacProfile
+instance Prelude.ToQuery AacProfile
 
-instance ToHeader AacProfile
+instance Prelude.ToHeader AacProfile
 
-instance ToJSON AacProfile where
-  toJSON = toJSONText
+instance Prelude.ToJSON AacProfile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AacProfile where
-  parseJSON = parseJSONText "AacProfile"
+instance Prelude.FromJSON AacProfile where
+  parseJSON = Prelude.parseJSONText "AacProfile"

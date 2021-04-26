@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.InputDenoiseFilter
   ( InputDenoiseFilter
       ( ..,
-        IDFDisabled,
-        IDFEnabled
+        InputDenoiseFilterDISABLED,
+        InputDenoiseFilterENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Input Denoise Filter
-data InputDenoiseFilter
-  = InputDenoiseFilter'
-      ( CI
-          Text
-      )
+newtype InputDenoiseFilter = InputDenoiseFilter'
+  { fromInputDenoiseFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IDFDisabled :: InputDenoiseFilter
-pattern IDFDisabled = InputDenoiseFilter' "DISABLED"
+pattern InputDenoiseFilterDISABLED :: InputDenoiseFilter
+pattern InputDenoiseFilterDISABLED = InputDenoiseFilter' "DISABLED"
 
-pattern IDFEnabled :: InputDenoiseFilter
-pattern IDFEnabled = InputDenoiseFilter' "ENABLED"
+pattern InputDenoiseFilterENABLED :: InputDenoiseFilter
+pattern InputDenoiseFilterENABLED = InputDenoiseFilter' "ENABLED"
 
 {-# COMPLETE
-  IDFDisabled,
-  IDFEnabled,
+  InputDenoiseFilterDISABLED,
+  InputDenoiseFilterENABLED,
   InputDenoiseFilter'
   #-}
 
-instance FromText InputDenoiseFilter where
-  parser = (InputDenoiseFilter' . mk) <$> takeText
+instance Prelude.FromText InputDenoiseFilter where
+  parser = InputDenoiseFilter' Prelude.<$> Prelude.takeText
 
-instance ToText InputDenoiseFilter where
-  toText (InputDenoiseFilter' ci) = original ci
+instance Prelude.ToText InputDenoiseFilter where
+  toText (InputDenoiseFilter' x) = x
 
-instance Hashable InputDenoiseFilter
+instance Prelude.Hashable InputDenoiseFilter
 
-instance NFData InputDenoiseFilter
+instance Prelude.NFData InputDenoiseFilter
 
-instance ToByteString InputDenoiseFilter
+instance Prelude.ToByteString InputDenoiseFilter
 
-instance ToQuery InputDenoiseFilter
+instance Prelude.ToQuery InputDenoiseFilter
 
-instance ToHeader InputDenoiseFilter
+instance Prelude.ToHeader InputDenoiseFilter
 
-instance ToJSON InputDenoiseFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputDenoiseFilter where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputDenoiseFilter where
-  parseJSON = parseJSONText "InputDenoiseFilter"
+instance Prelude.FromJSON InputDenoiseFilter where
+  parseJSON = Prelude.parseJSONText "InputDenoiseFilter"

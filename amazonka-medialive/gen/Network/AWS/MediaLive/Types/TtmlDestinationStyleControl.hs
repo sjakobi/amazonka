@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.TtmlDestinationStyleControl
   ( TtmlDestinationStyleControl
       ( ..,
-        TDSCPassthrough,
-        TDSCUseConfigured
+        TtmlDestinationStyleControlPASSTHROUGH,
+        TtmlDestinationStyleControlUSECONFIGURED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Ttml Destination Style Control
-data TtmlDestinationStyleControl
-  = TtmlDestinationStyleControl'
-      ( CI
-          Text
-      )
+newtype TtmlDestinationStyleControl = TtmlDestinationStyleControl'
+  { fromTtmlDestinationStyleControl ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TDSCPassthrough :: TtmlDestinationStyleControl
-pattern TDSCPassthrough = TtmlDestinationStyleControl' "PASSTHROUGH"
+pattern TtmlDestinationStyleControlPASSTHROUGH :: TtmlDestinationStyleControl
+pattern TtmlDestinationStyleControlPASSTHROUGH = TtmlDestinationStyleControl' "PASSTHROUGH"
 
-pattern TDSCUseConfigured :: TtmlDestinationStyleControl
-pattern TDSCUseConfigured = TtmlDestinationStyleControl' "USE_CONFIGURED"
+pattern TtmlDestinationStyleControlUSECONFIGURED :: TtmlDestinationStyleControl
+pattern TtmlDestinationStyleControlUSECONFIGURED = TtmlDestinationStyleControl' "USE_CONFIGURED"
 
 {-# COMPLETE
-  TDSCPassthrough,
-  TDSCUseConfigured,
+  TtmlDestinationStyleControlPASSTHROUGH,
+  TtmlDestinationStyleControlUSECONFIGURED,
   TtmlDestinationStyleControl'
   #-}
 
-instance FromText TtmlDestinationStyleControl where
-  parser = (TtmlDestinationStyleControl' . mk) <$> takeText
+instance Prelude.FromText TtmlDestinationStyleControl where
+  parser = TtmlDestinationStyleControl' Prelude.<$> Prelude.takeText
 
-instance ToText TtmlDestinationStyleControl where
-  toText (TtmlDestinationStyleControl' ci) = original ci
+instance Prelude.ToText TtmlDestinationStyleControl where
+  toText (TtmlDestinationStyleControl' x) = x
 
-instance Hashable TtmlDestinationStyleControl
+instance Prelude.Hashable TtmlDestinationStyleControl
 
-instance NFData TtmlDestinationStyleControl
+instance Prelude.NFData TtmlDestinationStyleControl
 
-instance ToByteString TtmlDestinationStyleControl
+instance Prelude.ToByteString TtmlDestinationStyleControl
 
-instance ToQuery TtmlDestinationStyleControl
+instance Prelude.ToQuery TtmlDestinationStyleControl
 
-instance ToHeader TtmlDestinationStyleControl
+instance Prelude.ToHeader TtmlDestinationStyleControl
 
-instance ToJSON TtmlDestinationStyleControl where
-  toJSON = toJSONText
+instance Prelude.ToJSON TtmlDestinationStyleControl where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TtmlDestinationStyleControl where
-  parseJSON = parseJSONText "TtmlDestinationStyleControl"
+instance Prelude.FromJSON TtmlDestinationStyleControl where
+  parseJSON = Prelude.parseJSONText "TtmlDestinationStyleControl"

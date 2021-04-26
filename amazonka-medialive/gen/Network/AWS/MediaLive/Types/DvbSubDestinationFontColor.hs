@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,79 @@
 module Network.AWS.MediaLive.Types.DvbSubDestinationFontColor
   ( DvbSubDestinationFontColor
       ( ..,
-        DSDFCBlack,
-        DSDFCBlue,
-        DSDFCGreen,
-        DSDFCRed,
-        DSDFCWhite,
-        DSDFCYellow
+        DvbSubDestinationFontColorBLACK,
+        DvbSubDestinationFontColorBLUE,
+        DvbSubDestinationFontColorGREEN,
+        DvbSubDestinationFontColorRED,
+        DvbSubDestinationFontColorWHITE,
+        DvbSubDestinationFontColorYELLOW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Dvb Sub Destination Font Color
-data DvbSubDestinationFontColor
-  = DvbSubDestinationFontColor'
-      ( CI
-          Text
-      )
+newtype DvbSubDestinationFontColor = DvbSubDestinationFontColor'
+  { fromDvbSubDestinationFontColor ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSDFCBlack :: DvbSubDestinationFontColor
-pattern DSDFCBlack = DvbSubDestinationFontColor' "BLACK"
+pattern DvbSubDestinationFontColorBLACK :: DvbSubDestinationFontColor
+pattern DvbSubDestinationFontColorBLACK = DvbSubDestinationFontColor' "BLACK"
 
-pattern DSDFCBlue :: DvbSubDestinationFontColor
-pattern DSDFCBlue = DvbSubDestinationFontColor' "BLUE"
+pattern DvbSubDestinationFontColorBLUE :: DvbSubDestinationFontColor
+pattern DvbSubDestinationFontColorBLUE = DvbSubDestinationFontColor' "BLUE"
 
-pattern DSDFCGreen :: DvbSubDestinationFontColor
-pattern DSDFCGreen = DvbSubDestinationFontColor' "GREEN"
+pattern DvbSubDestinationFontColorGREEN :: DvbSubDestinationFontColor
+pattern DvbSubDestinationFontColorGREEN = DvbSubDestinationFontColor' "GREEN"
 
-pattern DSDFCRed :: DvbSubDestinationFontColor
-pattern DSDFCRed = DvbSubDestinationFontColor' "RED"
+pattern DvbSubDestinationFontColorRED :: DvbSubDestinationFontColor
+pattern DvbSubDestinationFontColorRED = DvbSubDestinationFontColor' "RED"
 
-pattern DSDFCWhite :: DvbSubDestinationFontColor
-pattern DSDFCWhite = DvbSubDestinationFontColor' "WHITE"
+pattern DvbSubDestinationFontColorWHITE :: DvbSubDestinationFontColor
+pattern DvbSubDestinationFontColorWHITE = DvbSubDestinationFontColor' "WHITE"
 
-pattern DSDFCYellow :: DvbSubDestinationFontColor
-pattern DSDFCYellow = DvbSubDestinationFontColor' "YELLOW"
+pattern DvbSubDestinationFontColorYELLOW :: DvbSubDestinationFontColor
+pattern DvbSubDestinationFontColorYELLOW = DvbSubDestinationFontColor' "YELLOW"
 
 {-# COMPLETE
-  DSDFCBlack,
-  DSDFCBlue,
-  DSDFCGreen,
-  DSDFCRed,
-  DSDFCWhite,
-  DSDFCYellow,
+  DvbSubDestinationFontColorBLACK,
+  DvbSubDestinationFontColorBLUE,
+  DvbSubDestinationFontColorGREEN,
+  DvbSubDestinationFontColorRED,
+  DvbSubDestinationFontColorWHITE,
+  DvbSubDestinationFontColorYELLOW,
   DvbSubDestinationFontColor'
   #-}
 
-instance FromText DvbSubDestinationFontColor where
-  parser = (DvbSubDestinationFontColor' . mk) <$> takeText
+instance Prelude.FromText DvbSubDestinationFontColor where
+  parser = DvbSubDestinationFontColor' Prelude.<$> Prelude.takeText
 
-instance ToText DvbSubDestinationFontColor where
-  toText (DvbSubDestinationFontColor' ci) = original ci
+instance Prelude.ToText DvbSubDestinationFontColor where
+  toText (DvbSubDestinationFontColor' x) = x
 
-instance Hashable DvbSubDestinationFontColor
+instance Prelude.Hashable DvbSubDestinationFontColor
 
-instance NFData DvbSubDestinationFontColor
+instance Prelude.NFData DvbSubDestinationFontColor
 
-instance ToByteString DvbSubDestinationFontColor
+instance Prelude.ToByteString DvbSubDestinationFontColor
 
-instance ToQuery DvbSubDestinationFontColor
+instance Prelude.ToQuery DvbSubDestinationFontColor
 
-instance ToHeader DvbSubDestinationFontColor
+instance Prelude.ToHeader DvbSubDestinationFontColor
 
-instance ToJSON DvbSubDestinationFontColor where
-  toJSON = toJSONText
+instance Prelude.ToJSON DvbSubDestinationFontColor where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DvbSubDestinationFontColor where
-  parseJSON = parseJSONText "DvbSubDestinationFontColor"
+instance Prelude.FromJSON DvbSubDestinationFontColor where
+  parseJSON = Prelude.parseJSONText "DvbSubDestinationFontColor"

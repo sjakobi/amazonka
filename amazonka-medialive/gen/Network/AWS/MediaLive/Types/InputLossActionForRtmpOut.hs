@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.InputLossActionForRtmpOut
   ( InputLossActionForRtmpOut
       ( ..,
-        ILAFROEmitOutput,
-        ILAFROPauseOutput
+        InputLossActionForRtmpOutEMITOUTPUT,
+        InputLossActionForRtmpOutPAUSEOUTPUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Input Loss Action For Rtmp Out
-data InputLossActionForRtmpOut
-  = InputLossActionForRtmpOut'
-      ( CI
-          Text
-      )
+newtype InputLossActionForRtmpOut = InputLossActionForRtmpOut'
+  { fromInputLossActionForRtmpOut ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ILAFROEmitOutput :: InputLossActionForRtmpOut
-pattern ILAFROEmitOutput = InputLossActionForRtmpOut' "EMIT_OUTPUT"
+pattern InputLossActionForRtmpOutEMITOUTPUT :: InputLossActionForRtmpOut
+pattern InputLossActionForRtmpOutEMITOUTPUT = InputLossActionForRtmpOut' "EMIT_OUTPUT"
 
-pattern ILAFROPauseOutput :: InputLossActionForRtmpOut
-pattern ILAFROPauseOutput = InputLossActionForRtmpOut' "PAUSE_OUTPUT"
+pattern InputLossActionForRtmpOutPAUSEOUTPUT :: InputLossActionForRtmpOut
+pattern InputLossActionForRtmpOutPAUSEOUTPUT = InputLossActionForRtmpOut' "PAUSE_OUTPUT"
 
 {-# COMPLETE
-  ILAFROEmitOutput,
-  ILAFROPauseOutput,
+  InputLossActionForRtmpOutEMITOUTPUT,
+  InputLossActionForRtmpOutPAUSEOUTPUT,
   InputLossActionForRtmpOut'
   #-}
 
-instance FromText InputLossActionForRtmpOut where
-  parser = (InputLossActionForRtmpOut' . mk) <$> takeText
+instance Prelude.FromText InputLossActionForRtmpOut where
+  parser = InputLossActionForRtmpOut' Prelude.<$> Prelude.takeText
 
-instance ToText InputLossActionForRtmpOut where
-  toText (InputLossActionForRtmpOut' ci) = original ci
+instance Prelude.ToText InputLossActionForRtmpOut where
+  toText (InputLossActionForRtmpOut' x) = x
 
-instance Hashable InputLossActionForRtmpOut
+instance Prelude.Hashable InputLossActionForRtmpOut
 
-instance NFData InputLossActionForRtmpOut
+instance Prelude.NFData InputLossActionForRtmpOut
 
-instance ToByteString InputLossActionForRtmpOut
+instance Prelude.ToByteString InputLossActionForRtmpOut
 
-instance ToQuery InputLossActionForRtmpOut
+instance Prelude.ToQuery InputLossActionForRtmpOut
 
-instance ToHeader InputLossActionForRtmpOut
+instance Prelude.ToHeader InputLossActionForRtmpOut
 
-instance ToJSON InputLossActionForRtmpOut where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputLossActionForRtmpOut where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputLossActionForRtmpOut where
-  parseJSON = parseJSONText "InputLossActionForRtmpOut"
+instance Prelude.FromJSON InputLossActionForRtmpOut where
+  parseJSON = Prelude.parseJSONText "InputLossActionForRtmpOut"

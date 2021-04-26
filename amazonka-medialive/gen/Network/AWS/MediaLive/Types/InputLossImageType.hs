@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.InputLossImageType
   ( InputLossImageType
       ( ..,
-        Color,
-        Slate
+        InputLossImageTypeCOLOR,
+        InputLossImageTypeSLATE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Input Loss Image Type
-data InputLossImageType
-  = InputLossImageType'
-      ( CI
-          Text
-      )
+newtype InputLossImageType = InputLossImageType'
+  { fromInputLossImageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Color :: InputLossImageType
-pattern Color = InputLossImageType' "COLOR"
+pattern InputLossImageTypeCOLOR :: InputLossImageType
+pattern InputLossImageTypeCOLOR = InputLossImageType' "COLOR"
 
-pattern Slate :: InputLossImageType
-pattern Slate = InputLossImageType' "SLATE"
+pattern InputLossImageTypeSLATE :: InputLossImageType
+pattern InputLossImageTypeSLATE = InputLossImageType' "SLATE"
 
 {-# COMPLETE
-  Color,
-  Slate,
+  InputLossImageTypeCOLOR,
+  InputLossImageTypeSLATE,
   InputLossImageType'
   #-}
 
-instance FromText InputLossImageType where
-  parser = (InputLossImageType' . mk) <$> takeText
+instance Prelude.FromText InputLossImageType where
+  parser = InputLossImageType' Prelude.<$> Prelude.takeText
 
-instance ToText InputLossImageType where
-  toText (InputLossImageType' ci) = original ci
+instance Prelude.ToText InputLossImageType where
+  toText (InputLossImageType' x) = x
 
-instance Hashable InputLossImageType
+instance Prelude.Hashable InputLossImageType
 
-instance NFData InputLossImageType
+instance Prelude.NFData InputLossImageType
 
-instance ToByteString InputLossImageType
+instance Prelude.ToByteString InputLossImageType
 
-instance ToQuery InputLossImageType
+instance Prelude.ToQuery InputLossImageType
 
-instance ToHeader InputLossImageType
+instance Prelude.ToHeader InputLossImageType
 
-instance ToJSON InputLossImageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON InputLossImageType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON InputLossImageType where
-  parseJSON = parseJSONText "InputLossImageType"
+instance Prelude.FromJSON InputLossImageType where
+  parseJSON = Prelude.parseJSONText "InputLossImageType"

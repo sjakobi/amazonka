@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.FecOutputIncludeFec
   ( FecOutputIncludeFec
       ( ..,
-        Column,
-        ColumnAndRow
+        FecOutputIncludeFecCOLUMN,
+        FecOutputIncludeFecCOLUMNANDROW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Fec Output Include Fec
-data FecOutputIncludeFec
-  = FecOutputIncludeFec'
-      ( CI
-          Text
-      )
+newtype FecOutputIncludeFec = FecOutputIncludeFec'
+  { fromFecOutputIncludeFec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Column :: FecOutputIncludeFec
-pattern Column = FecOutputIncludeFec' "COLUMN"
+pattern FecOutputIncludeFecCOLUMN :: FecOutputIncludeFec
+pattern FecOutputIncludeFecCOLUMN = FecOutputIncludeFec' "COLUMN"
 
-pattern ColumnAndRow :: FecOutputIncludeFec
-pattern ColumnAndRow = FecOutputIncludeFec' "COLUMN_AND_ROW"
+pattern FecOutputIncludeFecCOLUMNANDROW :: FecOutputIncludeFec
+pattern FecOutputIncludeFecCOLUMNANDROW = FecOutputIncludeFec' "COLUMN_AND_ROW"
 
 {-# COMPLETE
-  Column,
-  ColumnAndRow,
+  FecOutputIncludeFecCOLUMN,
+  FecOutputIncludeFecCOLUMNANDROW,
   FecOutputIncludeFec'
   #-}
 
-instance FromText FecOutputIncludeFec where
-  parser = (FecOutputIncludeFec' . mk) <$> takeText
+instance Prelude.FromText FecOutputIncludeFec where
+  parser = FecOutputIncludeFec' Prelude.<$> Prelude.takeText
 
-instance ToText FecOutputIncludeFec where
-  toText (FecOutputIncludeFec' ci) = original ci
+instance Prelude.ToText FecOutputIncludeFec where
+  toText (FecOutputIncludeFec' x) = x
 
-instance Hashable FecOutputIncludeFec
+instance Prelude.Hashable FecOutputIncludeFec
 
-instance NFData FecOutputIncludeFec
+instance Prelude.NFData FecOutputIncludeFec
 
-instance ToByteString FecOutputIncludeFec
+instance Prelude.ToByteString FecOutputIncludeFec
 
-instance ToQuery FecOutputIncludeFec
+instance Prelude.ToQuery FecOutputIncludeFec
 
-instance ToHeader FecOutputIncludeFec
+instance Prelude.ToHeader FecOutputIncludeFec
 
-instance ToJSON FecOutputIncludeFec where
-  toJSON = toJSONText
+instance Prelude.ToJSON FecOutputIncludeFec where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON FecOutputIncludeFec where
-  parseJSON = parseJSONText "FecOutputIncludeFec"
+instance Prelude.FromJSON FecOutputIncludeFec where
+  parseJSON = Prelude.parseJSONText "FecOutputIncludeFec"

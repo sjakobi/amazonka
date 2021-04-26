@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.HlsIvSource
   ( HlsIvSource
       ( ..,
-        Explicit,
-        FollowsSegmentNumber
+        HlsIvSourceEXPLICIT,
+        HlsIvSourceFOLLOWSSEGMENTNUMBER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Hls Iv Source
-data HlsIvSource = HlsIvSource' (CI Text)
+newtype HlsIvSource = HlsIvSource'
+  { fromHlsIvSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Explicit :: HlsIvSource
-pattern Explicit = HlsIvSource' "EXPLICIT"
+pattern HlsIvSourceEXPLICIT :: HlsIvSource
+pattern HlsIvSourceEXPLICIT = HlsIvSource' "EXPLICIT"
 
-pattern FollowsSegmentNumber :: HlsIvSource
-pattern FollowsSegmentNumber = HlsIvSource' "FOLLOWS_SEGMENT_NUMBER"
+pattern HlsIvSourceFOLLOWSSEGMENTNUMBER :: HlsIvSource
+pattern HlsIvSourceFOLLOWSSEGMENTNUMBER = HlsIvSource' "FOLLOWS_SEGMENT_NUMBER"
 
 {-# COMPLETE
-  Explicit,
-  FollowsSegmentNumber,
+  HlsIvSourceEXPLICIT,
+  HlsIvSourceFOLLOWSSEGMENTNUMBER,
   HlsIvSource'
   #-}
 
-instance FromText HlsIvSource where
-  parser = (HlsIvSource' . mk) <$> takeText
+instance Prelude.FromText HlsIvSource where
+  parser = HlsIvSource' Prelude.<$> Prelude.takeText
 
-instance ToText HlsIvSource where
-  toText (HlsIvSource' ci) = original ci
+instance Prelude.ToText HlsIvSource where
+  toText (HlsIvSource' x) = x
 
-instance Hashable HlsIvSource
+instance Prelude.Hashable HlsIvSource
 
-instance NFData HlsIvSource
+instance Prelude.NFData HlsIvSource
 
-instance ToByteString HlsIvSource
+instance Prelude.ToByteString HlsIvSource
 
-instance ToQuery HlsIvSource
+instance Prelude.ToQuery HlsIvSource
 
-instance ToHeader HlsIvSource
+instance Prelude.ToHeader HlsIvSource
 
-instance ToJSON HlsIvSource where
-  toJSON = toJSONText
+instance Prelude.ToJSON HlsIvSource where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HlsIvSource where
-  parseJSON = parseJSONText "HlsIvSource"
+instance Prelude.FromJSON HlsIvSource where
+  parseJSON = Prelude.parseJSONText "HlsIvSource"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,70 @@
 module Network.AWS.MediaLive.Types.PreferredChannelPipeline
   ( PreferredChannelPipeline
       ( ..,
-        PCPCurrentlyActive,
-        PCPPipeline0,
-        PCPPipeline1
+        PreferredChannelPipelineCURRENTLYACTIVE,
+        PreferredChannelPipelinePIPELINE0,
+        PreferredChannelPipelinePIPELINE1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Indicates which pipeline is preferred by the multiplex for program ingest.
---
--- If set to \"PIPELINE_0\" or \"PIPELINE_1\" and an unhealthy ingest causes the multiplex to switch to the non-preferred pipeline,
--- it will switch back once that ingest is healthy again. If set to \"CURRENTLY_ACTIVE\",
--- it will not switch back to the other pipeline based on it recovering to a healthy state,
--- it will only switch if the active pipeline becomes unhealthy.
-data PreferredChannelPipeline
-  = PreferredChannelPipeline'
-      ( CI
-          Text
-      )
+-- | Indicates which pipeline is preferred by the multiplex for program
+-- ingest. If set to \\\"PIPELINE_0\\\" or \\\"PIPELINE_1\\\" and an
+-- unhealthy ingest causes the multiplex to switch to the non-preferred
+-- pipeline, it will switch back once that ingest is healthy again. If set
+-- to \\\"CURRENTLY_ACTIVE\\\", it will not switch back to the other
+-- pipeline based on it recovering to a healthy state, it will only switch
+-- if the active pipeline becomes unhealthy.
+newtype PreferredChannelPipeline = PreferredChannelPipeline'
+  { fromPreferredChannelPipeline ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PCPCurrentlyActive :: PreferredChannelPipeline
-pattern PCPCurrentlyActive = PreferredChannelPipeline' "CURRENTLY_ACTIVE"
+pattern PreferredChannelPipelineCURRENTLYACTIVE :: PreferredChannelPipeline
+pattern PreferredChannelPipelineCURRENTLYACTIVE = PreferredChannelPipeline' "CURRENTLY_ACTIVE"
 
-pattern PCPPipeline0 :: PreferredChannelPipeline
-pattern PCPPipeline0 = PreferredChannelPipeline' "PIPELINE_0"
+pattern PreferredChannelPipelinePIPELINE0 :: PreferredChannelPipeline
+pattern PreferredChannelPipelinePIPELINE0 = PreferredChannelPipeline' "PIPELINE_0"
 
-pattern PCPPipeline1 :: PreferredChannelPipeline
-pattern PCPPipeline1 = PreferredChannelPipeline' "PIPELINE_1"
+pattern PreferredChannelPipelinePIPELINE1 :: PreferredChannelPipeline
+pattern PreferredChannelPipelinePIPELINE1 = PreferredChannelPipeline' "PIPELINE_1"
 
 {-# COMPLETE
-  PCPCurrentlyActive,
-  PCPPipeline0,
-  PCPPipeline1,
+  PreferredChannelPipelineCURRENTLYACTIVE,
+  PreferredChannelPipelinePIPELINE0,
+  PreferredChannelPipelinePIPELINE1,
   PreferredChannelPipeline'
   #-}
 
-instance FromText PreferredChannelPipeline where
-  parser = (PreferredChannelPipeline' . mk) <$> takeText
+instance Prelude.FromText PreferredChannelPipeline where
+  parser = PreferredChannelPipeline' Prelude.<$> Prelude.takeText
 
-instance ToText PreferredChannelPipeline where
-  toText (PreferredChannelPipeline' ci) = original ci
+instance Prelude.ToText PreferredChannelPipeline where
+  toText (PreferredChannelPipeline' x) = x
 
-instance Hashable PreferredChannelPipeline
+instance Prelude.Hashable PreferredChannelPipeline
 
-instance NFData PreferredChannelPipeline
+instance Prelude.NFData PreferredChannelPipeline
 
-instance ToByteString PreferredChannelPipeline
+instance Prelude.ToByteString PreferredChannelPipeline
 
-instance ToQuery PreferredChannelPipeline
+instance Prelude.ToQuery PreferredChannelPipeline
 
-instance ToHeader PreferredChannelPipeline
+instance Prelude.ToHeader PreferredChannelPipeline
 
-instance ToJSON PreferredChannelPipeline where
-  toJSON = toJSONText
+instance Prelude.ToJSON PreferredChannelPipeline where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PreferredChannelPipeline where
-  parseJSON = parseJSONText "PreferredChannelPipeline"
+instance Prelude.FromJSON PreferredChannelPipeline where
+  parseJSON = Prelude.parseJSONText "PreferredChannelPipeline"

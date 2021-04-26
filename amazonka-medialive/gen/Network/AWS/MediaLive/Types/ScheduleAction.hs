@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,91 +19,110 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.ScheduleAction where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.ScheduleActionSettings
 import Network.AWS.MediaLive.Types.ScheduleActionStartSettings
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information on a single schedule action.
 --
--- /See:/ 'scheduleAction' smart constructor.
+-- /See:/ 'newScheduleAction' smart constructor.
 data ScheduleAction = ScheduleAction'
-  { _saActionName ::
-      !Text,
-    _saScheduleActionStartSettings ::
-      !ScheduleActionStartSettings,
-    _saScheduleActionSettings ::
-      !ScheduleActionSettings
+  { -- | The name of the action, must be unique within the schedule. This name
+    -- provides the main reference to an action once it is added to the
+    -- schedule. A name is unique if it is no longer in the schedule. The
+    -- schedule is automatically cleaned up to remove actions with a start time
+    -- of more than 1 hour ago (approximately) so at that point a name can be
+    -- reused.
+    actionName :: Prelude.Text,
+    -- | The time for the action to start in the channel.
+    scheduleActionStartSettings :: ScheduleActionStartSettings,
+    -- | Settings for this schedule action.
+    scheduleActionSettings :: ScheduleActionSettings
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ScheduleAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ScheduleAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saActionName' - The name of the action, must be unique within the schedule. This name provides the main reference to an action once it is added to the schedule. A name is unique if it is no longer in the schedule. The schedule is automatically cleaned up to remove actions with a start time of more than 1 hour ago (approximately) so at that point a name can be reused.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saScheduleActionStartSettings' - The time for the action to start in the channel.
+-- 'actionName', 'scheduleAction_actionName' - The name of the action, must be unique within the schedule. This name
+-- provides the main reference to an action once it is added to the
+-- schedule. A name is unique if it is no longer in the schedule. The
+-- schedule is automatically cleaned up to remove actions with a start time
+-- of more than 1 hour ago (approximately) so at that point a name can be
+-- reused.
 --
--- * 'saScheduleActionSettings' - Settings for this schedule action.
-scheduleAction ::
-  -- | 'saActionName'
-  Text ->
-  -- | 'saScheduleActionStartSettings'
+-- 'scheduleActionStartSettings', 'scheduleAction_scheduleActionStartSettings' - The time for the action to start in the channel.
+--
+-- 'scheduleActionSettings', 'scheduleAction_scheduleActionSettings' - Settings for this schedule action.
+newScheduleAction ::
+  -- | 'actionName'
+  Prelude.Text ->
+  -- | 'scheduleActionStartSettings'
   ScheduleActionStartSettings ->
-  -- | 'saScheduleActionSettings'
+  -- | 'scheduleActionSettings'
   ScheduleActionSettings ->
   ScheduleAction
-scheduleAction
+newScheduleAction
   pActionName_
   pScheduleActionStartSettings_
   pScheduleActionSettings_ =
     ScheduleAction'
-      { _saActionName = pActionName_,
-        _saScheduleActionStartSettings =
+      { actionName = pActionName_,
+        scheduleActionStartSettings =
           pScheduleActionStartSettings_,
-        _saScheduleActionSettings = pScheduleActionSettings_
+        scheduleActionSettings = pScheduleActionSettings_
       }
 
--- | The name of the action, must be unique within the schedule. This name provides the main reference to an action once it is added to the schedule. A name is unique if it is no longer in the schedule. The schedule is automatically cleaned up to remove actions with a start time of more than 1 hour ago (approximately) so at that point a name can be reused.
-saActionName :: Lens' ScheduleAction Text
-saActionName = lens _saActionName (\s a -> s {_saActionName = a})
+-- | The name of the action, must be unique within the schedule. This name
+-- provides the main reference to an action once it is added to the
+-- schedule. A name is unique if it is no longer in the schedule. The
+-- schedule is automatically cleaned up to remove actions with a start time
+-- of more than 1 hour ago (approximately) so at that point a name can be
+-- reused.
+scheduleAction_actionName :: Lens.Lens' ScheduleAction Prelude.Text
+scheduleAction_actionName = Lens.lens (\ScheduleAction' {actionName} -> actionName) (\s@ScheduleAction' {} a -> s {actionName = a} :: ScheduleAction)
 
 -- | The time for the action to start in the channel.
-saScheduleActionStartSettings :: Lens' ScheduleAction ScheduleActionStartSettings
-saScheduleActionStartSettings = lens _saScheduleActionStartSettings (\s a -> s {_saScheduleActionStartSettings = a})
+scheduleAction_scheduleActionStartSettings :: Lens.Lens' ScheduleAction ScheduleActionStartSettings
+scheduleAction_scheduleActionStartSettings = Lens.lens (\ScheduleAction' {scheduleActionStartSettings} -> scheduleActionStartSettings) (\s@ScheduleAction' {} a -> s {scheduleActionStartSettings = a} :: ScheduleAction)
 
 -- | Settings for this schedule action.
-saScheduleActionSettings :: Lens' ScheduleAction ScheduleActionSettings
-saScheduleActionSettings = lens _saScheduleActionSettings (\s a -> s {_saScheduleActionSettings = a})
+scheduleAction_scheduleActionSettings :: Lens.Lens' ScheduleAction ScheduleActionSettings
+scheduleAction_scheduleActionSettings = Lens.lens (\ScheduleAction' {scheduleActionSettings} -> scheduleActionSettings) (\s@ScheduleAction' {} a -> s {scheduleActionSettings = a} :: ScheduleAction)
 
-instance FromJSON ScheduleAction where
+instance Prelude.FromJSON ScheduleAction where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ScheduleAction"
       ( \x ->
           ScheduleAction'
-            <$> (x .: "actionName")
-            <*> (x .: "scheduleActionStartSettings")
-            <*> (x .: "scheduleActionSettings")
+            Prelude.<$> (x Prelude..: "actionName")
+            Prelude.<*> (x Prelude..: "scheduleActionStartSettings")
+            Prelude.<*> (x Prelude..: "scheduleActionSettings")
       )
 
-instance Hashable ScheduleAction
+instance Prelude.Hashable ScheduleAction
 
-instance NFData ScheduleAction
+instance Prelude.NFData ScheduleAction
 
-instance ToJSON ScheduleAction where
+instance Prelude.ToJSON ScheduleAction where
   toJSON ScheduleAction' {..} =
-    object
-      ( catMaybes
-          [ Just ("actionName" .= _saActionName),
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("actionName" Prelude..= actionName),
+            Prelude.Just
               ( "scheduleActionStartSettings"
-                  .= _saScheduleActionStartSettings
+                  Prelude..= scheduleActionStartSettings
               ),
-            Just
+            Prelude.Just
               ( "scheduleActionSettings"
-                  .= _saScheduleActionSettings
+                  Prelude..= scheduleActionSettings
               )
           ]
       )

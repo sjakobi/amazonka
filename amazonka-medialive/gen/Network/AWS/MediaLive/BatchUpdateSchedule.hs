@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,178 +24,179 @@
 -- Update a channel schedule
 module Network.AWS.MediaLive.BatchUpdateSchedule
   ( -- * Creating a Request
-    batchUpdateSchedule,
-    BatchUpdateSchedule,
+    BatchUpdateSchedule (..),
+    newBatchUpdateSchedule,
 
     -- * Request Lenses
-    busDeletes,
-    busCreates,
-    busChannelId,
+    batchUpdateSchedule_deletes,
+    batchUpdateSchedule_creates,
+    batchUpdateSchedule_channelId,
 
     -- * Destructuring the Response
-    batchUpdateScheduleResponse,
-    BatchUpdateScheduleResponse,
+    BatchUpdateScheduleResponse (..),
+    newBatchUpdateScheduleResponse,
 
     -- * Response Lenses
-    busrrsDeletes,
-    busrrsCreates,
-    busrrsResponseStatus,
+    batchUpdateScheduleResponse_deletes,
+    batchUpdateScheduleResponse_creates,
+    batchUpdateScheduleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.BatchScheduleActionCreateResult
+import Network.AWS.MediaLive.Types.BatchScheduleActionDeleteResult
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | List of actions to create and list of actions to delete.
 --
--- /See:/ 'batchUpdateSchedule' smart constructor.
+-- /See:/ 'newBatchUpdateSchedule' smart constructor.
 data BatchUpdateSchedule = BatchUpdateSchedule'
-  { _busDeletes ::
-      !( Maybe
-           BatchScheduleActionDeleteRequest
-       ),
-    _busCreates ::
-      !( Maybe
-           BatchScheduleActionCreateRequest
-       ),
-    _busChannelId :: !Text
+  { -- | Schedule actions to delete from the schedule.
+    deletes :: Prelude.Maybe BatchScheduleActionDeleteRequest,
+    -- | Schedule actions to create in the schedule.
+    creates :: Prelude.Maybe BatchScheduleActionCreateRequest,
+    -- | Id of the channel whose schedule is being updated.
+    channelId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchUpdateSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchUpdateSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'busDeletes' - Schedule actions to delete from the schedule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'busCreates' - Schedule actions to create in the schedule.
+-- 'deletes', 'batchUpdateSchedule_deletes' - Schedule actions to delete from the schedule.
 --
--- * 'busChannelId' - Id of the channel whose schedule is being updated.
-batchUpdateSchedule ::
-  -- | 'busChannelId'
-  Text ->
+-- 'creates', 'batchUpdateSchedule_creates' - Schedule actions to create in the schedule.
+--
+-- 'channelId', 'batchUpdateSchedule_channelId' - Id of the channel whose schedule is being updated.
+newBatchUpdateSchedule ::
+  -- | 'channelId'
+  Prelude.Text ->
   BatchUpdateSchedule
-batchUpdateSchedule pChannelId_ =
+newBatchUpdateSchedule pChannelId_ =
   BatchUpdateSchedule'
-    { _busDeletes = Nothing,
-      _busCreates = Nothing,
-      _busChannelId = pChannelId_
+    { deletes = Prelude.Nothing,
+      creates = Prelude.Nothing,
+      channelId = pChannelId_
     }
 
 -- | Schedule actions to delete from the schedule.
-busDeletes :: Lens' BatchUpdateSchedule (Maybe BatchScheduleActionDeleteRequest)
-busDeletes = lens _busDeletes (\s a -> s {_busDeletes = a})
+batchUpdateSchedule_deletes :: Lens.Lens' BatchUpdateSchedule (Prelude.Maybe BatchScheduleActionDeleteRequest)
+batchUpdateSchedule_deletes = Lens.lens (\BatchUpdateSchedule' {deletes} -> deletes) (\s@BatchUpdateSchedule' {} a -> s {deletes = a} :: BatchUpdateSchedule)
 
 -- | Schedule actions to create in the schedule.
-busCreates :: Lens' BatchUpdateSchedule (Maybe BatchScheduleActionCreateRequest)
-busCreates = lens _busCreates (\s a -> s {_busCreates = a})
+batchUpdateSchedule_creates :: Lens.Lens' BatchUpdateSchedule (Prelude.Maybe BatchScheduleActionCreateRequest)
+batchUpdateSchedule_creates = Lens.lens (\BatchUpdateSchedule' {creates} -> creates) (\s@BatchUpdateSchedule' {} a -> s {creates = a} :: BatchUpdateSchedule)
 
 -- | Id of the channel whose schedule is being updated.
-busChannelId :: Lens' BatchUpdateSchedule Text
-busChannelId = lens _busChannelId (\s a -> s {_busChannelId = a})
+batchUpdateSchedule_channelId :: Lens.Lens' BatchUpdateSchedule Prelude.Text
+batchUpdateSchedule_channelId = Lens.lens (\BatchUpdateSchedule' {channelId} -> channelId) (\s@BatchUpdateSchedule' {} a -> s {channelId = a} :: BatchUpdateSchedule)
 
-instance AWSRequest BatchUpdateSchedule where
+instance Prelude.AWSRequest BatchUpdateSchedule where
   type
     Rs BatchUpdateSchedule =
       BatchUpdateScheduleResponse
-  request = putJSON mediaLive
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           BatchUpdateScheduleResponse'
-            <$> (x .?> "deletes")
-            <*> (x .?> "creates")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "deletes")
+            Prelude.<*> (x Prelude..?> "creates")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable BatchUpdateSchedule
+instance Prelude.Hashable BatchUpdateSchedule
 
-instance NFData BatchUpdateSchedule
+instance Prelude.NFData BatchUpdateSchedule
 
-instance ToHeaders BatchUpdateSchedule where
+instance Prelude.ToHeaders BatchUpdateSchedule where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON BatchUpdateSchedule where
+instance Prelude.ToJSON BatchUpdateSchedule where
   toJSON BatchUpdateSchedule' {..} =
-    object
-      ( catMaybes
-          [ ("deletes" .=) <$> _busDeletes,
-            ("creates" .=) <$> _busCreates
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("deletes" Prelude..=) Prelude.<$> deletes,
+            ("creates" Prelude..=) Prelude.<$> creates
           ]
       )
 
-instance ToPath BatchUpdateSchedule where
+instance Prelude.ToPath BatchUpdateSchedule where
   toPath BatchUpdateSchedule' {..} =
-    mconcat
-      ["/prod/channels/", toBS _busChannelId, "/schedule"]
+    Prelude.mconcat
+      [ "/prod/channels/",
+        Prelude.toBS channelId,
+        "/schedule"
+      ]
 
-instance ToQuery BatchUpdateSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery BatchUpdateSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for BatchUpdateScheduleResponse
 --
--- /See:/ 'batchUpdateScheduleResponse' smart constructor.
+-- /See:/ 'newBatchUpdateScheduleResponse' smart constructor.
 data BatchUpdateScheduleResponse = BatchUpdateScheduleResponse'
-  { _busrrsDeletes ::
-      !( Maybe
-           BatchScheduleActionDeleteResult
-       ),
-    _busrrsCreates ::
-      !( Maybe
-           BatchScheduleActionCreateResult
-       ),
-    _busrrsResponseStatus ::
-      !Int
+  { -- | Schedule actions deleted from the schedule.
+    deletes :: Prelude.Maybe BatchScheduleActionDeleteResult,
+    -- | Schedule actions created in the schedule.
+    creates :: Prelude.Maybe BatchScheduleActionCreateResult,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchUpdateScheduleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchUpdateScheduleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'busrrsDeletes' - Schedule actions deleted from the schedule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'busrrsCreates' - Schedule actions created in the schedule.
+-- 'deletes', 'batchUpdateScheduleResponse_deletes' - Schedule actions deleted from the schedule.
 --
--- * 'busrrsResponseStatus' - -- | The response status code.
-batchUpdateScheduleResponse ::
-  -- | 'busrrsResponseStatus'
-  Int ->
+-- 'creates', 'batchUpdateScheduleResponse_creates' - Schedule actions created in the schedule.
+--
+-- 'httpStatus', 'batchUpdateScheduleResponse_httpStatus' - The response's http status code.
+newBatchUpdateScheduleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   BatchUpdateScheduleResponse
-batchUpdateScheduleResponse pResponseStatus_ =
+newBatchUpdateScheduleResponse pHttpStatus_ =
   BatchUpdateScheduleResponse'
-    { _busrrsDeletes =
-        Nothing,
-      _busrrsCreates = Nothing,
-      _busrrsResponseStatus = pResponseStatus_
+    { deletes =
+        Prelude.Nothing,
+      creates = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Schedule actions deleted from the schedule.
-busrrsDeletes :: Lens' BatchUpdateScheduleResponse (Maybe BatchScheduleActionDeleteResult)
-busrrsDeletes = lens _busrrsDeletes (\s a -> s {_busrrsDeletes = a})
+batchUpdateScheduleResponse_deletes :: Lens.Lens' BatchUpdateScheduleResponse (Prelude.Maybe BatchScheduleActionDeleteResult)
+batchUpdateScheduleResponse_deletes = Lens.lens (\BatchUpdateScheduleResponse' {deletes} -> deletes) (\s@BatchUpdateScheduleResponse' {} a -> s {deletes = a} :: BatchUpdateScheduleResponse)
 
 -- | Schedule actions created in the schedule.
-busrrsCreates :: Lens' BatchUpdateScheduleResponse (Maybe BatchScheduleActionCreateResult)
-busrrsCreates = lens _busrrsCreates (\s a -> s {_busrrsCreates = a})
+batchUpdateScheduleResponse_creates :: Lens.Lens' BatchUpdateScheduleResponse (Prelude.Maybe BatchScheduleActionCreateResult)
+batchUpdateScheduleResponse_creates = Lens.lens (\BatchUpdateScheduleResponse' {creates} -> creates) (\s@BatchUpdateScheduleResponse' {} a -> s {creates = a} :: BatchUpdateScheduleResponse)
 
--- | -- | The response status code.
-busrrsResponseStatus :: Lens' BatchUpdateScheduleResponse Int
-busrrsResponseStatus = lens _busrrsResponseStatus (\s a -> s {_busrrsResponseStatus = a})
+-- | The response's http status code.
+batchUpdateScheduleResponse_httpStatus :: Lens.Lens' BatchUpdateScheduleResponse Prelude.Int
+batchUpdateScheduleResponse_httpStatus = Lens.lens (\BatchUpdateScheduleResponse' {httpStatus} -> httpStatus) (\s@BatchUpdateScheduleResponse' {} a -> s {httpStatus = a} :: BatchUpdateScheduleResponse)
 
-instance NFData BatchUpdateScheduleResponse
+instance Prelude.NFData BatchUpdateScheduleResponse

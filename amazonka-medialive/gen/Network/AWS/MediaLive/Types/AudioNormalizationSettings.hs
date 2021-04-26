@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.AudioNormalizationSettings where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types.AudioNormalizationAlgorithm
 import Network.AWS.MediaLive.Types.AudioNormalizationAlgorithmControl
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Audio Normalization Settings
 --
--- /See:/ 'audioNormalizationSettings' smart constructor.
+-- /See:/ 'newAudioNormalizationSettings' smart constructor.
 data AudioNormalizationSettings = AudioNormalizationSettings'
-  { _ansAlgorithm ::
-      !( Maybe
-           AudioNormalizationAlgorithm
-       ),
-    _ansTargetLkfs ::
-      !(Maybe Double),
-    _ansAlgorithmControl ::
-      !( Maybe
-           AudioNormalizationAlgorithmControl
-       )
+  { -- | Audio normalization algorithm to use. itu17701 conforms to the CALM Act
+    -- specification, itu17702 conforms to the EBU R-128 specification.
+    algorithm :: Prelude.Maybe AudioNormalizationAlgorithm,
+    -- | Target LKFS(loudness) to adjust volume to. If no value is entered, a
+    -- default value will be used according to the chosen algorithm. The CALM
+    -- Act (1770-1) recommends a target of -24 LKFS. The EBU R-128
+    -- specification (1770-2) recommends a target of -23 LKFS.
+    targetLkfs :: Prelude.Maybe Prelude.Double,
+    -- | When set to correctAudio the output audio is corrected using the chosen
+    -- algorithm. If set to measureOnly, the audio will be measured but not
+    -- adjusted.
+    algorithmControl :: Prelude.Maybe AudioNormalizationAlgorithmControl
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AudioNormalizationSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AudioNormalizationSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ansAlgorithm' - Audio normalization algorithm to use. itu17701 conforms to the CALM Act specification, itu17702 conforms to the EBU R-128 specification.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ansTargetLkfs' - Target LKFS(loudness) to adjust volume to. If no value is entered, a default value will be used according to the chosen algorithm.  The CALM Act (1770-1) recommends a target of -24 LKFS. The EBU R-128 specification (1770-2) recommends a target of -23 LKFS.
+-- 'algorithm', 'audioNormalizationSettings_algorithm' - Audio normalization algorithm to use. itu17701 conforms to the CALM Act
+-- specification, itu17702 conforms to the EBU R-128 specification.
 --
--- * 'ansAlgorithmControl' - When set to correctAudio the output audio is corrected using the chosen algorithm. If set to measureOnly, the audio will be measured but not adjusted.
-audioNormalizationSettings ::
+-- 'targetLkfs', 'audioNormalizationSettings_targetLkfs' - Target LKFS(loudness) to adjust volume to. If no value is entered, a
+-- default value will be used according to the chosen algorithm. The CALM
+-- Act (1770-1) recommends a target of -24 LKFS. The EBU R-128
+-- specification (1770-2) recommends a target of -23 LKFS.
+--
+-- 'algorithmControl', 'audioNormalizationSettings_algorithmControl' - When set to correctAudio the output audio is corrected using the chosen
+-- algorithm. If set to measureOnly, the audio will be measured but not
+-- adjusted.
+newAudioNormalizationSettings ::
   AudioNormalizationSettings
-audioNormalizationSettings =
+newAudioNormalizationSettings =
   AudioNormalizationSettings'
-    { _ansAlgorithm =
-        Nothing,
-      _ansTargetLkfs = Nothing,
-      _ansAlgorithmControl = Nothing
+    { algorithm =
+        Prelude.Nothing,
+      targetLkfs = Prelude.Nothing,
+      algorithmControl = Prelude.Nothing
     }
 
--- | Audio normalization algorithm to use. itu17701 conforms to the CALM Act specification, itu17702 conforms to the EBU R-128 specification.
-ansAlgorithm :: Lens' AudioNormalizationSettings (Maybe AudioNormalizationAlgorithm)
-ansAlgorithm = lens _ansAlgorithm (\s a -> s {_ansAlgorithm = a})
+-- | Audio normalization algorithm to use. itu17701 conforms to the CALM Act
+-- specification, itu17702 conforms to the EBU R-128 specification.
+audioNormalizationSettings_algorithm :: Lens.Lens' AudioNormalizationSettings (Prelude.Maybe AudioNormalizationAlgorithm)
+audioNormalizationSettings_algorithm = Lens.lens (\AudioNormalizationSettings' {algorithm} -> algorithm) (\s@AudioNormalizationSettings' {} a -> s {algorithm = a} :: AudioNormalizationSettings)
 
--- | Target LKFS(loudness) to adjust volume to. If no value is entered, a default value will be used according to the chosen algorithm.  The CALM Act (1770-1) recommends a target of -24 LKFS. The EBU R-128 specification (1770-2) recommends a target of -23 LKFS.
-ansTargetLkfs :: Lens' AudioNormalizationSettings (Maybe Double)
-ansTargetLkfs = lens _ansTargetLkfs (\s a -> s {_ansTargetLkfs = a})
+-- | Target LKFS(loudness) to adjust volume to. If no value is entered, a
+-- default value will be used according to the chosen algorithm. The CALM
+-- Act (1770-1) recommends a target of -24 LKFS. The EBU R-128
+-- specification (1770-2) recommends a target of -23 LKFS.
+audioNormalizationSettings_targetLkfs :: Lens.Lens' AudioNormalizationSettings (Prelude.Maybe Prelude.Double)
+audioNormalizationSettings_targetLkfs = Lens.lens (\AudioNormalizationSettings' {targetLkfs} -> targetLkfs) (\s@AudioNormalizationSettings' {} a -> s {targetLkfs = a} :: AudioNormalizationSettings)
 
--- | When set to correctAudio the output audio is corrected using the chosen algorithm. If set to measureOnly, the audio will be measured but not adjusted.
-ansAlgorithmControl :: Lens' AudioNormalizationSettings (Maybe AudioNormalizationAlgorithmControl)
-ansAlgorithmControl = lens _ansAlgorithmControl (\s a -> s {_ansAlgorithmControl = a})
+-- | When set to correctAudio the output audio is corrected using the chosen
+-- algorithm. If set to measureOnly, the audio will be measured but not
+-- adjusted.
+audioNormalizationSettings_algorithmControl :: Lens.Lens' AudioNormalizationSettings (Prelude.Maybe AudioNormalizationAlgorithmControl)
+audioNormalizationSettings_algorithmControl = Lens.lens (\AudioNormalizationSettings' {algorithmControl} -> algorithmControl) (\s@AudioNormalizationSettings' {} a -> s {algorithmControl = a} :: AudioNormalizationSettings)
 
-instance FromJSON AudioNormalizationSettings where
+instance Prelude.FromJSON AudioNormalizationSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AudioNormalizationSettings"
       ( \x ->
           AudioNormalizationSettings'
-            <$> (x .:? "algorithm")
-            <*> (x .:? "targetLkfs")
-            <*> (x .:? "algorithmControl")
+            Prelude.<$> (x Prelude..:? "algorithm")
+            Prelude.<*> (x Prelude..:? "targetLkfs")
+            Prelude.<*> (x Prelude..:? "algorithmControl")
       )
 
-instance Hashable AudioNormalizationSettings
+instance Prelude.Hashable AudioNormalizationSettings
 
-instance NFData AudioNormalizationSettings
+instance Prelude.NFData AudioNormalizationSettings
 
-instance ToJSON AudioNormalizationSettings where
+instance Prelude.ToJSON AudioNormalizationSettings where
   toJSON AudioNormalizationSettings' {..} =
-    object
-      ( catMaybes
-          [ ("algorithm" .=) <$> _ansAlgorithm,
-            ("targetLkfs" .=) <$> _ansTargetLkfs,
-            ("algorithmControl" .=) <$> _ansAlgorithmControl
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("algorithm" Prelude..=) Prelude.<$> algorithm,
+            ("targetLkfs" Prelude..=) Prelude.<$> targetLkfs,
+            ("algorithmControl" Prelude..=)
+              Prelude.<$> algorithmControl
           ]
       )

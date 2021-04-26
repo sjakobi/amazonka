@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.MediaLive.Types.H265ScanType
   ( H265ScanType
       ( ..,
-        HInterlaced,
-        HProgressive
+        H265ScanTypeINTERLACED,
+        H265ScanTypePROGRESSIVE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | H265 Scan Type
-data H265ScanType = H265ScanType' (CI Text)
+newtype H265ScanType = H265ScanType'
+  { fromH265ScanType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern HInterlaced :: H265ScanType
-pattern HInterlaced = H265ScanType' "INTERLACED"
+pattern H265ScanTypeINTERLACED :: H265ScanType
+pattern H265ScanTypeINTERLACED = H265ScanType' "INTERLACED"
 
-pattern HProgressive :: H265ScanType
-pattern HProgressive = H265ScanType' "PROGRESSIVE"
+pattern H265ScanTypePROGRESSIVE :: H265ScanType
+pattern H265ScanTypePROGRESSIVE = H265ScanType' "PROGRESSIVE"
 
 {-# COMPLETE
-  HInterlaced,
-  HProgressive,
+  H265ScanTypeINTERLACED,
+  H265ScanTypePROGRESSIVE,
   H265ScanType'
   #-}
 
-instance FromText H265ScanType where
-  parser = (H265ScanType' . mk) <$> takeText
+instance Prelude.FromText H265ScanType where
+  parser = H265ScanType' Prelude.<$> Prelude.takeText
 
-instance ToText H265ScanType where
-  toText (H265ScanType' ci) = original ci
+instance Prelude.ToText H265ScanType where
+  toText (H265ScanType' x) = x
 
-instance Hashable H265ScanType
+instance Prelude.Hashable H265ScanType
 
-instance NFData H265ScanType
+instance Prelude.NFData H265ScanType
 
-instance ToByteString H265ScanType
+instance Prelude.ToByteString H265ScanType
 
-instance ToQuery H265ScanType
+instance Prelude.ToQuery H265ScanType
 
-instance ToHeader H265ScanType
+instance Prelude.ToHeader H265ScanType
 
-instance ToJSON H265ScanType where
-  toJSON = toJSONText
+instance Prelude.ToJSON H265ScanType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON H265ScanType where
-  parseJSON = parseJSONText "H265ScanType"
+instance Prelude.FromJSON H265ScanType where
+  parseJSON = Prelude.parseJSONText "H265ScanType"

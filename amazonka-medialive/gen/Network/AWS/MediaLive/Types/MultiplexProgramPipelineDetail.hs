@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.MultiplexProgramPipelineDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The current source for one of the pipelines in the multiplex.
 --
--- /See:/ 'multiplexProgramPipelineDetail' smart constructor.
+-- /See:/ 'newMultiplexProgramPipelineDetail' smart constructor.
 data MultiplexProgramPipelineDetail = MultiplexProgramPipelineDetail'
-  { _mppdPipelineId ::
-      !( Maybe
-           Text
-       ),
-    _mppdActiveChannelPipeline ::
-      !( Maybe
-           Text
-       )
+  { -- | Identifies a specific pipeline in the multiplex.
+    pipelineId :: Prelude.Maybe Prelude.Text,
+    -- | Identifies the channel pipeline that is currently active for the
+    -- pipeline (identified by PipelineId) in the multiplex.
+    activeChannelPipeline :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultiplexProgramPipelineDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultiplexProgramPipelineDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mppdPipelineId' - Identifies a specific pipeline in the multiplex.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mppdActiveChannelPipeline' - Identifies the channel pipeline that is currently active for the pipeline (identified by PipelineId) in the multiplex.
-multiplexProgramPipelineDetail ::
+-- 'pipelineId', 'multiplexProgramPipelineDetail_pipelineId' - Identifies a specific pipeline in the multiplex.
+--
+-- 'activeChannelPipeline', 'multiplexProgramPipelineDetail_activeChannelPipeline' - Identifies the channel pipeline that is currently active for the
+-- pipeline (identified by PipelineId) in the multiplex.
+newMultiplexProgramPipelineDetail ::
   MultiplexProgramPipelineDetail
-multiplexProgramPipelineDetail =
+newMultiplexProgramPipelineDetail =
   MultiplexProgramPipelineDetail'
-    { _mppdPipelineId =
-        Nothing,
-      _mppdActiveChannelPipeline = Nothing
+    { pipelineId =
+        Prelude.Nothing,
+      activeChannelPipeline = Prelude.Nothing
     }
 
 -- | Identifies a specific pipeline in the multiplex.
-mppdPipelineId :: Lens' MultiplexProgramPipelineDetail (Maybe Text)
-mppdPipelineId = lens _mppdPipelineId (\s a -> s {_mppdPipelineId = a})
+multiplexProgramPipelineDetail_pipelineId :: Lens.Lens' MultiplexProgramPipelineDetail (Prelude.Maybe Prelude.Text)
+multiplexProgramPipelineDetail_pipelineId = Lens.lens (\MultiplexProgramPipelineDetail' {pipelineId} -> pipelineId) (\s@MultiplexProgramPipelineDetail' {} a -> s {pipelineId = a} :: MultiplexProgramPipelineDetail)
 
--- | Identifies the channel pipeline that is currently active for the pipeline (identified by PipelineId) in the multiplex.
-mppdActiveChannelPipeline :: Lens' MultiplexProgramPipelineDetail (Maybe Text)
-mppdActiveChannelPipeline = lens _mppdActiveChannelPipeline (\s a -> s {_mppdActiveChannelPipeline = a})
+-- | Identifies the channel pipeline that is currently active for the
+-- pipeline (identified by PipelineId) in the multiplex.
+multiplexProgramPipelineDetail_activeChannelPipeline :: Lens.Lens' MultiplexProgramPipelineDetail (Prelude.Maybe Prelude.Text)
+multiplexProgramPipelineDetail_activeChannelPipeline = Lens.lens (\MultiplexProgramPipelineDetail' {activeChannelPipeline} -> activeChannelPipeline) (\s@MultiplexProgramPipelineDetail' {} a -> s {activeChannelPipeline = a} :: MultiplexProgramPipelineDetail)
 
-instance FromJSON MultiplexProgramPipelineDetail where
+instance
+  Prelude.FromJSON
+    MultiplexProgramPipelineDetail
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MultiplexProgramPipelineDetail"
       ( \x ->
           MultiplexProgramPipelineDetail'
-            <$> (x .:? "pipelineId")
-            <*> (x .:? "activeChannelPipeline")
+            Prelude.<$> (x Prelude..:? "pipelineId")
+            Prelude.<*> (x Prelude..:? "activeChannelPipeline")
       )
 
-instance Hashable MultiplexProgramPipelineDetail
+instance
+  Prelude.Hashable
+    MultiplexProgramPipelineDetail
 
-instance NFData MultiplexProgramPipelineDetail
+instance
+  Prelude.NFData
+    MultiplexProgramPipelineDetail

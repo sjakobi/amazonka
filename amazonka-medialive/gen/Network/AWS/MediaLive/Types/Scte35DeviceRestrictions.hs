@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,71 @@
 module Network.AWS.MediaLive.Types.Scte35DeviceRestrictions
   ( Scte35DeviceRestrictions
       ( ..,
-        SDRNone,
-        SDRRestrictGROUP0,
-        SDRRestrictGROUP1,
-        SDRRestrictGROUP2
+        Scte35DeviceRestrictionsNONE,
+        Scte35DeviceRestrictionsRESTRICTGROUP0,
+        Scte35DeviceRestrictionsRESTRICTGROUP1,
+        Scte35DeviceRestrictionsRESTRICTGROUP2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Corresponds to the device_restrictions parameter in a segmentation_descriptor. If you include one of the "restriction" flags then you must include all four of them.
-data Scte35DeviceRestrictions
-  = Scte35DeviceRestrictions'
-      ( CI
-          Text
-      )
+-- | Corresponds to the device_restrictions parameter in a
+-- segmentation_descriptor. If you include one of the \"restriction\" flags
+-- then you must include all four of them.
+newtype Scte35DeviceRestrictions = Scte35DeviceRestrictions'
+  { fromScte35DeviceRestrictions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SDRNone :: Scte35DeviceRestrictions
-pattern SDRNone = Scte35DeviceRestrictions' "NONE"
+pattern Scte35DeviceRestrictionsNONE :: Scte35DeviceRestrictions
+pattern Scte35DeviceRestrictionsNONE = Scte35DeviceRestrictions' "NONE"
 
-pattern SDRRestrictGROUP0 :: Scte35DeviceRestrictions
-pattern SDRRestrictGROUP0 = Scte35DeviceRestrictions' "RESTRICT_GROUP0"
+pattern Scte35DeviceRestrictionsRESTRICTGROUP0 :: Scte35DeviceRestrictions
+pattern Scte35DeviceRestrictionsRESTRICTGROUP0 = Scte35DeviceRestrictions' "RESTRICT_GROUP0"
 
-pattern SDRRestrictGROUP1 :: Scte35DeviceRestrictions
-pattern SDRRestrictGROUP1 = Scte35DeviceRestrictions' "RESTRICT_GROUP1"
+pattern Scte35DeviceRestrictionsRESTRICTGROUP1 :: Scte35DeviceRestrictions
+pattern Scte35DeviceRestrictionsRESTRICTGROUP1 = Scte35DeviceRestrictions' "RESTRICT_GROUP1"
 
-pattern SDRRestrictGROUP2 :: Scte35DeviceRestrictions
-pattern SDRRestrictGROUP2 = Scte35DeviceRestrictions' "RESTRICT_GROUP2"
+pattern Scte35DeviceRestrictionsRESTRICTGROUP2 :: Scte35DeviceRestrictions
+pattern Scte35DeviceRestrictionsRESTRICTGROUP2 = Scte35DeviceRestrictions' "RESTRICT_GROUP2"
 
 {-# COMPLETE
-  SDRNone,
-  SDRRestrictGROUP0,
-  SDRRestrictGROUP1,
-  SDRRestrictGROUP2,
+  Scte35DeviceRestrictionsNONE,
+  Scte35DeviceRestrictionsRESTRICTGROUP0,
+  Scte35DeviceRestrictionsRESTRICTGROUP1,
+  Scte35DeviceRestrictionsRESTRICTGROUP2,
   Scte35DeviceRestrictions'
   #-}
 
-instance FromText Scte35DeviceRestrictions where
-  parser = (Scte35DeviceRestrictions' . mk) <$> takeText
+instance Prelude.FromText Scte35DeviceRestrictions where
+  parser = Scte35DeviceRestrictions' Prelude.<$> Prelude.takeText
 
-instance ToText Scte35DeviceRestrictions where
-  toText (Scte35DeviceRestrictions' ci) = original ci
+instance Prelude.ToText Scte35DeviceRestrictions where
+  toText (Scte35DeviceRestrictions' x) = x
 
-instance Hashable Scte35DeviceRestrictions
+instance Prelude.Hashable Scte35DeviceRestrictions
 
-instance NFData Scte35DeviceRestrictions
+instance Prelude.NFData Scte35DeviceRestrictions
 
-instance ToByteString Scte35DeviceRestrictions
+instance Prelude.ToByteString Scte35DeviceRestrictions
 
-instance ToQuery Scte35DeviceRestrictions
+instance Prelude.ToQuery Scte35DeviceRestrictions
 
-instance ToHeader Scte35DeviceRestrictions
+instance Prelude.ToHeader Scte35DeviceRestrictions
 
-instance ToJSON Scte35DeviceRestrictions where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte35DeviceRestrictions where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte35DeviceRestrictions where
-  parseJSON = parseJSONText "Scte35DeviceRestrictions"
+instance Prelude.FromJSON Scte35DeviceRestrictions where
+  parseJSON = Prelude.parseJSONText "Scte35DeviceRestrictions"

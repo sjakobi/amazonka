@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M3u8TimedMetadataBehavior
   ( M3u8TimedMetadataBehavior
       ( ..,
-        M3uNoPassthrough,
-        M3uPassthrough
+        M3u8TimedMetadataBehaviorNOPASSTHROUGH,
+        M3u8TimedMetadataBehaviorPASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M3u8 Timed Metadata Behavior
-data M3u8TimedMetadataBehavior
-  = M3u8TimedMetadataBehavior'
-      ( CI
-          Text
-      )
+newtype M3u8TimedMetadataBehavior = M3u8TimedMetadataBehavior'
+  { fromM3u8TimedMetadataBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern M3uNoPassthrough :: M3u8TimedMetadataBehavior
-pattern M3uNoPassthrough = M3u8TimedMetadataBehavior' "NO_PASSTHROUGH"
+pattern M3u8TimedMetadataBehaviorNOPASSTHROUGH :: M3u8TimedMetadataBehavior
+pattern M3u8TimedMetadataBehaviorNOPASSTHROUGH = M3u8TimedMetadataBehavior' "NO_PASSTHROUGH"
 
-pattern M3uPassthrough :: M3u8TimedMetadataBehavior
-pattern M3uPassthrough = M3u8TimedMetadataBehavior' "PASSTHROUGH"
+pattern M3u8TimedMetadataBehaviorPASSTHROUGH :: M3u8TimedMetadataBehavior
+pattern M3u8TimedMetadataBehaviorPASSTHROUGH = M3u8TimedMetadataBehavior' "PASSTHROUGH"
 
 {-# COMPLETE
-  M3uNoPassthrough,
-  M3uPassthrough,
+  M3u8TimedMetadataBehaviorNOPASSTHROUGH,
+  M3u8TimedMetadataBehaviorPASSTHROUGH,
   M3u8TimedMetadataBehavior'
   #-}
 
-instance FromText M3u8TimedMetadataBehavior where
-  parser = (M3u8TimedMetadataBehavior' . mk) <$> takeText
+instance Prelude.FromText M3u8TimedMetadataBehavior where
+  parser = M3u8TimedMetadataBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText M3u8TimedMetadataBehavior where
-  toText (M3u8TimedMetadataBehavior' ci) = original ci
+instance Prelude.ToText M3u8TimedMetadataBehavior where
+  toText (M3u8TimedMetadataBehavior' x) = x
 
-instance Hashable M3u8TimedMetadataBehavior
+instance Prelude.Hashable M3u8TimedMetadataBehavior
 
-instance NFData M3u8TimedMetadataBehavior
+instance Prelude.NFData M3u8TimedMetadataBehavior
 
-instance ToByteString M3u8TimedMetadataBehavior
+instance Prelude.ToByteString M3u8TimedMetadataBehavior
 
-instance ToQuery M3u8TimedMetadataBehavior
+instance Prelude.ToQuery M3u8TimedMetadataBehavior
 
-instance ToHeader M3u8TimedMetadataBehavior
+instance Prelude.ToHeader M3u8TimedMetadataBehavior
 
-instance ToJSON M3u8TimedMetadataBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON M3u8TimedMetadataBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M3u8TimedMetadataBehavior where
-  parseJSON = parseJSONText "M3u8TimedMetadataBehavior"
+instance Prelude.FromJSON M3u8TimedMetadataBehavior where
+  parseJSON = Prelude.parseJSONText "M3u8TimedMetadataBehavior"

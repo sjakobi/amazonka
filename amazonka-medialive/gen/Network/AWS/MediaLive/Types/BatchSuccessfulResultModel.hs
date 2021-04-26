@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.BatchSuccessfulResultModel where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Details from a successful operation
 --
--- /See:/ 'batchSuccessfulResultModel' smart constructor.
+-- /See:/ 'newBatchSuccessfulResultModel' smart constructor.
 data BatchSuccessfulResultModel = BatchSuccessfulResultModel'
-  { _bsrmARN ::
-      !(Maybe Text),
-    _bsrmId ::
-      !(Maybe Text),
-    _bsrmState ::
-      !(Maybe Text)
+  { -- | ARN of the resource
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | ID of the resource
+    id :: Prelude.Maybe Prelude.Text,
+    -- | Current state of the resource
+    state :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchSuccessfulResultModel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchSuccessfulResultModel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bsrmARN' - ARN of the resource
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bsrmId' - ID of the resource
+-- 'arn', 'batchSuccessfulResultModel_arn' - ARN of the resource
 --
--- * 'bsrmState' - Current state of the resource
-batchSuccessfulResultModel ::
+-- 'id', 'batchSuccessfulResultModel_id' - ID of the resource
+--
+-- 'state', 'batchSuccessfulResultModel_state' - Current state of the resource
+newBatchSuccessfulResultModel ::
   BatchSuccessfulResultModel
-batchSuccessfulResultModel =
+newBatchSuccessfulResultModel =
   BatchSuccessfulResultModel'
-    { _bsrmARN = Nothing,
-      _bsrmId = Nothing,
-      _bsrmState = Nothing
+    { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
 -- | ARN of the resource
-bsrmARN :: Lens' BatchSuccessfulResultModel (Maybe Text)
-bsrmARN = lens _bsrmARN (\s a -> s {_bsrmARN = a})
+batchSuccessfulResultModel_arn :: Lens.Lens' BatchSuccessfulResultModel (Prelude.Maybe Prelude.Text)
+batchSuccessfulResultModel_arn = Lens.lens (\BatchSuccessfulResultModel' {arn} -> arn) (\s@BatchSuccessfulResultModel' {} a -> s {arn = a} :: BatchSuccessfulResultModel)
 
 -- | ID of the resource
-bsrmId :: Lens' BatchSuccessfulResultModel (Maybe Text)
-bsrmId = lens _bsrmId (\s a -> s {_bsrmId = a})
+batchSuccessfulResultModel_id :: Lens.Lens' BatchSuccessfulResultModel (Prelude.Maybe Prelude.Text)
+batchSuccessfulResultModel_id = Lens.lens (\BatchSuccessfulResultModel' {id} -> id) (\s@BatchSuccessfulResultModel' {} a -> s {id = a} :: BatchSuccessfulResultModel)
 
 -- | Current state of the resource
-bsrmState :: Lens' BatchSuccessfulResultModel (Maybe Text)
-bsrmState = lens _bsrmState (\s a -> s {_bsrmState = a})
+batchSuccessfulResultModel_state :: Lens.Lens' BatchSuccessfulResultModel (Prelude.Maybe Prelude.Text)
+batchSuccessfulResultModel_state = Lens.lens (\BatchSuccessfulResultModel' {state} -> state) (\s@BatchSuccessfulResultModel' {} a -> s {state = a} :: BatchSuccessfulResultModel)
 
-instance FromJSON BatchSuccessfulResultModel where
+instance Prelude.FromJSON BatchSuccessfulResultModel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchSuccessfulResultModel"
       ( \x ->
           BatchSuccessfulResultModel'
-            <$> (x .:? "arn") <*> (x .:? "id") <*> (x .:? "state")
+            Prelude.<$> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "id")
+            Prelude.<*> (x Prelude..:? "state")
       )
 
-instance Hashable BatchSuccessfulResultModel
+instance Prelude.Hashable BatchSuccessfulResultModel
 
-instance NFData BatchSuccessfulResultModel
+instance Prelude.NFData BatchSuccessfulResultModel

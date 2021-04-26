@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,201 +24,207 @@
 -- Get the latest thumbnail data for the input device.
 module Network.AWS.MediaLive.DescribeInputDeviceThumbnail
   ( -- * Creating a Request
-    describeInputDeviceThumbnail,
-    DescribeInputDeviceThumbnail,
+    DescribeInputDeviceThumbnail (..),
+    newDescribeInputDeviceThumbnail,
 
     -- * Request Lenses
-    didtInputDeviceId,
-    didtAccept,
+    describeInputDeviceThumbnail_inputDeviceId,
+    describeInputDeviceThumbnail_accept,
 
     -- * Destructuring the Response
-    describeInputDeviceThumbnailResponse,
-    DescribeInputDeviceThumbnailResponse,
+    DescribeInputDeviceThumbnailResponse (..),
+    newDescribeInputDeviceThumbnailResponse,
 
     -- * Response Lenses
-    didtrrsETag,
-    didtrrsContentType,
-    didtrrsContentLength,
-    didtrrsLastModified,
-    didtrrsResponseStatus,
-    didtrrsBody,
+    describeInputDeviceThumbnailResponse_eTag,
+    describeInputDeviceThumbnailResponse_contentType,
+    describeInputDeviceThumbnailResponse_contentLength,
+    describeInputDeviceThumbnailResponse_lastModified,
+    describeInputDeviceThumbnailResponse_httpStatus,
+    describeInputDeviceThumbnailResponse_body,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaLive.Types.ContentType
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for DescribeInputDeviceThumbnailRequest
 --
--- /See:/ 'describeInputDeviceThumbnail' smart constructor.
+-- /See:/ 'newDescribeInputDeviceThumbnail' smart constructor.
 data DescribeInputDeviceThumbnail = DescribeInputDeviceThumbnail'
-  { _didtInputDeviceId ::
-      !Text,
-    _didtAccept ::
-      !AcceptHeader
+  { -- | The unique ID of this input device. For example, hd-123456789abcdef.
+    inputDeviceId :: Prelude.Text,
+    -- | The HTTP Accept header. Indicates the requested type for the thumbnail.
+    accept :: AcceptHeader
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeInputDeviceThumbnail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInputDeviceThumbnail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'didtInputDeviceId' - The unique ID of this input device. For example, hd-123456789abcdef.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'didtAccept' - The HTTP Accept header. Indicates the requested type for the thumbnail.
-describeInputDeviceThumbnail ::
-  -- | 'didtInputDeviceId'
-  Text ->
-  -- | 'didtAccept'
+-- 'inputDeviceId', 'describeInputDeviceThumbnail_inputDeviceId' - The unique ID of this input device. For example, hd-123456789abcdef.
+--
+-- 'accept', 'describeInputDeviceThumbnail_accept' - The HTTP Accept header. Indicates the requested type for the thumbnail.
+newDescribeInputDeviceThumbnail ::
+  -- | 'inputDeviceId'
+  Prelude.Text ->
+  -- | 'accept'
   AcceptHeader ->
   DescribeInputDeviceThumbnail
-describeInputDeviceThumbnail pInputDeviceId_ pAccept_ =
-  DescribeInputDeviceThumbnail'
-    { _didtInputDeviceId =
-        pInputDeviceId_,
-      _didtAccept = pAccept_
-    }
+newDescribeInputDeviceThumbnail
+  pInputDeviceId_
+  pAccept_ =
+    DescribeInputDeviceThumbnail'
+      { inputDeviceId =
+          pInputDeviceId_,
+        accept = pAccept_
+      }
 
 -- | The unique ID of this input device. For example, hd-123456789abcdef.
-didtInputDeviceId :: Lens' DescribeInputDeviceThumbnail Text
-didtInputDeviceId = lens _didtInputDeviceId (\s a -> s {_didtInputDeviceId = a})
+describeInputDeviceThumbnail_inputDeviceId :: Lens.Lens' DescribeInputDeviceThumbnail Prelude.Text
+describeInputDeviceThumbnail_inputDeviceId = Lens.lens (\DescribeInputDeviceThumbnail' {inputDeviceId} -> inputDeviceId) (\s@DescribeInputDeviceThumbnail' {} a -> s {inputDeviceId = a} :: DescribeInputDeviceThumbnail)
 
 -- | The HTTP Accept header. Indicates the requested type for the thumbnail.
-didtAccept :: Lens' DescribeInputDeviceThumbnail AcceptHeader
-didtAccept = lens _didtAccept (\s a -> s {_didtAccept = a})
+describeInputDeviceThumbnail_accept :: Lens.Lens' DescribeInputDeviceThumbnail AcceptHeader
+describeInputDeviceThumbnail_accept = Lens.lens (\DescribeInputDeviceThumbnail' {accept} -> accept) (\s@DescribeInputDeviceThumbnail' {} a -> s {accept = a} :: DescribeInputDeviceThumbnail)
 
-instance AWSRequest DescribeInputDeviceThumbnail where
+instance
+  Prelude.AWSRequest
+    DescribeInputDeviceThumbnail
+  where
   type
     Rs DescribeInputDeviceThumbnail =
       DescribeInputDeviceThumbnailResponse
-  request = get mediaLive
+  request = Request.get defaultService
   response =
-    receiveBody
+    Response.receiveBody
       ( \s h x ->
           DescribeInputDeviceThumbnailResponse'
-            <$> (h .#? "ETag")
-            <*> (h .#? "Content-Type")
-            <*> (h .#? "Content-Length")
-            <*> (h .#? "Last-Modified")
-            <*> (pure (fromEnum s))
-            <*> (pure x)
+            Prelude.<$> (h Prelude..#? "ETag")
+            Prelude.<*> (h Prelude..#? "Content-Type")
+            Prelude.<*> (h Prelude..#? "Content-Length")
+            Prelude.<*> (h Prelude..#? "Last-Modified")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (Prelude.pure x)
       )
 
-instance Hashable DescribeInputDeviceThumbnail
+instance
+  Prelude.Hashable
+    DescribeInputDeviceThumbnail
 
-instance NFData DescribeInputDeviceThumbnail
+instance Prelude.NFData DescribeInputDeviceThumbnail
 
-instance ToHeaders DescribeInputDeviceThumbnail where
+instance
+  Prelude.ToHeaders
+    DescribeInputDeviceThumbnail
+  where
   toHeaders DescribeInputDeviceThumbnail' {..} =
-    mconcat
-      [ "accept" =# _didtAccept,
+    Prelude.mconcat
+      [ "accept" Prelude.=# accept,
         "Content-Type"
-          =# ("application/x-amz-json-1.1" :: ByteString)
+          Prelude.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance ToPath DescribeInputDeviceThumbnail where
+instance Prelude.ToPath DescribeInputDeviceThumbnail where
   toPath DescribeInputDeviceThumbnail' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/prod/inputDevices/",
-        toBS _didtInputDeviceId,
+        Prelude.toBS inputDeviceId,
         "/thumbnailData"
       ]
 
-instance ToQuery DescribeInputDeviceThumbnail where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeInputDeviceThumbnail where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for DescribeInputDeviceThumbnailResponse
 --
--- /See:/ 'describeInputDeviceThumbnailResponse' smart constructor.
+-- /See:/ 'newDescribeInputDeviceThumbnailResponse' smart constructor.
 data DescribeInputDeviceThumbnailResponse = DescribeInputDeviceThumbnailResponse'
-  { _didtrrsETag ::
-      !( Maybe
-           Text
-       ),
-    _didtrrsContentType ::
-      !( Maybe
-           ContentType
-       ),
-    _didtrrsContentLength ::
-      !( Maybe
-           Integer
-       ),
-    _didtrrsLastModified ::
-      !( Maybe
-           POSIX
-       ),
-    _didtrrsResponseStatus ::
-      !Int,
-    _didtrrsBody ::
-      !RsBody
+  { -- | The unique, cacheable version of this thumbnail.
+    eTag :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the media type of the thumbnail.
+    contentType :: Prelude.Maybe ContentType,
+    -- | The length of the content.
+    contentLength :: Prelude.Maybe Prelude.Integer,
+    -- | The date and time the thumbnail was last updated at the device.
+    lastModified :: Prelude.Maybe Prelude.POSIX,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The binary data for the thumbnail that the Link device has most recently
+    -- sent to MediaLive.
+    body :: Prelude.RsBody
   }
-  deriving (Show, Generic)
+  deriving (Prelude.Show, Prelude.Generic)
 
--- | Creates a value of 'DescribeInputDeviceThumbnailResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeInputDeviceThumbnailResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'didtrrsETag' - The unique, cacheable version of this thumbnail.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'didtrrsContentType' - Specifies the media type of the thumbnail.
+-- 'eTag', 'describeInputDeviceThumbnailResponse_eTag' - The unique, cacheable version of this thumbnail.
 --
--- * 'didtrrsContentLength' - The length of the content.
+-- 'contentType', 'describeInputDeviceThumbnailResponse_contentType' - Specifies the media type of the thumbnail.
 --
--- * 'didtrrsLastModified' - The date and time the thumbnail was last updated at the device.
+-- 'contentLength', 'describeInputDeviceThumbnailResponse_contentLength' - The length of the content.
 --
--- * 'didtrrsResponseStatus' - -- | The response status code.
+-- 'lastModified', 'describeInputDeviceThumbnailResponse_lastModified' - The date and time the thumbnail was last updated at the device.
 --
--- * 'didtrrsBody' - The binary data for the thumbnail that the Link device has most recently sent to MediaLive.
-describeInputDeviceThumbnailResponse ::
-  -- | 'didtrrsResponseStatus'
-  Int ->
-  -- | 'didtrrsBody'
-  RsBody ->
+-- 'httpStatus', 'describeInputDeviceThumbnailResponse_httpStatus' - The response's http status code.
+--
+-- 'body', 'describeInputDeviceThumbnailResponse_body' - The binary data for the thumbnail that the Link device has most recently
+-- sent to MediaLive.
+newDescribeInputDeviceThumbnailResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'body'
+  Prelude.RsBody ->
   DescribeInputDeviceThumbnailResponse
-describeInputDeviceThumbnailResponse
-  pResponseStatus_
+newDescribeInputDeviceThumbnailResponse
+  pHttpStatus_
   pBody_ =
     DescribeInputDeviceThumbnailResponse'
-      { _didtrrsETag =
-          Nothing,
-        _didtrrsContentType = Nothing,
-        _didtrrsContentLength = Nothing,
-        _didtrrsLastModified = Nothing,
-        _didtrrsResponseStatus =
-          pResponseStatus_,
-        _didtrrsBody = pBody_
+      { eTag =
+          Prelude.Nothing,
+        contentType = Prelude.Nothing,
+        contentLength = Prelude.Nothing,
+        lastModified = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        body = pBody_
       }
 
 -- | The unique, cacheable version of this thumbnail.
-didtrrsETag :: Lens' DescribeInputDeviceThumbnailResponse (Maybe Text)
-didtrrsETag = lens _didtrrsETag (\s a -> s {_didtrrsETag = a})
+describeInputDeviceThumbnailResponse_eTag :: Lens.Lens' DescribeInputDeviceThumbnailResponse (Prelude.Maybe Prelude.Text)
+describeInputDeviceThumbnailResponse_eTag = Lens.lens (\DescribeInputDeviceThumbnailResponse' {eTag} -> eTag) (\s@DescribeInputDeviceThumbnailResponse' {} a -> s {eTag = a} :: DescribeInputDeviceThumbnailResponse)
 
 -- | Specifies the media type of the thumbnail.
-didtrrsContentType :: Lens' DescribeInputDeviceThumbnailResponse (Maybe ContentType)
-didtrrsContentType = lens _didtrrsContentType (\s a -> s {_didtrrsContentType = a})
+describeInputDeviceThumbnailResponse_contentType :: Lens.Lens' DescribeInputDeviceThumbnailResponse (Prelude.Maybe ContentType)
+describeInputDeviceThumbnailResponse_contentType = Lens.lens (\DescribeInputDeviceThumbnailResponse' {contentType} -> contentType) (\s@DescribeInputDeviceThumbnailResponse' {} a -> s {contentType = a} :: DescribeInputDeviceThumbnailResponse)
 
 -- | The length of the content.
-didtrrsContentLength :: Lens' DescribeInputDeviceThumbnailResponse (Maybe Integer)
-didtrrsContentLength = lens _didtrrsContentLength (\s a -> s {_didtrrsContentLength = a})
+describeInputDeviceThumbnailResponse_contentLength :: Lens.Lens' DescribeInputDeviceThumbnailResponse (Prelude.Maybe Prelude.Integer)
+describeInputDeviceThumbnailResponse_contentLength = Lens.lens (\DescribeInputDeviceThumbnailResponse' {contentLength} -> contentLength) (\s@DescribeInputDeviceThumbnailResponse' {} a -> s {contentLength = a} :: DescribeInputDeviceThumbnailResponse)
 
 -- | The date and time the thumbnail was last updated at the device.
-didtrrsLastModified :: Lens' DescribeInputDeviceThumbnailResponse (Maybe UTCTime)
-didtrrsLastModified = lens _didtrrsLastModified (\s a -> s {_didtrrsLastModified = a}) . mapping _Time
+describeInputDeviceThumbnailResponse_lastModified :: Lens.Lens' DescribeInputDeviceThumbnailResponse (Prelude.Maybe Prelude.UTCTime)
+describeInputDeviceThumbnailResponse_lastModified = Lens.lens (\DescribeInputDeviceThumbnailResponse' {lastModified} -> lastModified) (\s@DescribeInputDeviceThumbnailResponse' {} a -> s {lastModified = a} :: DescribeInputDeviceThumbnailResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | -- | The response status code.
-didtrrsResponseStatus :: Lens' DescribeInputDeviceThumbnailResponse Int
-didtrrsResponseStatus = lens _didtrrsResponseStatus (\s a -> s {_didtrrsResponseStatus = a})
+-- | The response's http status code.
+describeInputDeviceThumbnailResponse_httpStatus :: Lens.Lens' DescribeInputDeviceThumbnailResponse Prelude.Int
+describeInputDeviceThumbnailResponse_httpStatus = Lens.lens (\DescribeInputDeviceThumbnailResponse' {httpStatus} -> httpStatus) (\s@DescribeInputDeviceThumbnailResponse' {} a -> s {httpStatus = a} :: DescribeInputDeviceThumbnailResponse)
 
--- | The binary data for the thumbnail that the Link device has most recently sent to MediaLive.
-didtrrsBody :: Lens' DescribeInputDeviceThumbnailResponse RsBody
-didtrrsBody = lens _didtrrsBody (\s a -> s {_didtrrsBody = a})
+-- | The binary data for the thumbnail that the Link device has most recently
+-- sent to MediaLive.
+describeInputDeviceThumbnailResponse_body :: Lens.Lens' DescribeInputDeviceThumbnailResponse Prelude.RsBody
+describeInputDeviceThumbnailResponse_body = Lens.lens (\DescribeInputDeviceThumbnailResponse' {body} -> body) (\s@DescribeInputDeviceThumbnailResponse' {} a -> s {body = a} :: DescribeInputDeviceThumbnailResponse)

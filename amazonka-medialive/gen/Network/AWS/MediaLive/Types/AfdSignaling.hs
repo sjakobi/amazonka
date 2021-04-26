@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.MediaLive.Types.AfdSignaling
   ( AfdSignaling
       ( ..,
-        ASAuto,
-        ASFixed,
-        ASNone
+        AfdSignalingAUTO,
+        AfdSignalingFIXED,
+        AfdSignalingNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Afd Signaling
-data AfdSignaling = AfdSignaling' (CI Text)
+newtype AfdSignaling = AfdSignaling'
+  { fromAfdSignaling ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASAuto :: AfdSignaling
-pattern ASAuto = AfdSignaling' "AUTO"
+pattern AfdSignalingAUTO :: AfdSignaling
+pattern AfdSignalingAUTO = AfdSignaling' "AUTO"
 
-pattern ASFixed :: AfdSignaling
-pattern ASFixed = AfdSignaling' "FIXED"
+pattern AfdSignalingFIXED :: AfdSignaling
+pattern AfdSignalingFIXED = AfdSignaling' "FIXED"
 
-pattern ASNone :: AfdSignaling
-pattern ASNone = AfdSignaling' "NONE"
+pattern AfdSignalingNONE :: AfdSignaling
+pattern AfdSignalingNONE = AfdSignaling' "NONE"
 
 {-# COMPLETE
-  ASAuto,
-  ASFixed,
-  ASNone,
+  AfdSignalingAUTO,
+  AfdSignalingFIXED,
+  AfdSignalingNONE,
   AfdSignaling'
   #-}
 
-instance FromText AfdSignaling where
-  parser = (AfdSignaling' . mk) <$> takeText
+instance Prelude.FromText AfdSignaling where
+  parser = AfdSignaling' Prelude.<$> Prelude.takeText
 
-instance ToText AfdSignaling where
-  toText (AfdSignaling' ci) = original ci
+instance Prelude.ToText AfdSignaling where
+  toText (AfdSignaling' x) = x
 
-instance Hashable AfdSignaling
+instance Prelude.Hashable AfdSignaling
 
-instance NFData AfdSignaling
+instance Prelude.NFData AfdSignaling
 
-instance ToByteString AfdSignaling
+instance Prelude.ToByteString AfdSignaling
 
-instance ToQuery AfdSignaling
+instance Prelude.ToQuery AfdSignaling
 
-instance ToHeader AfdSignaling
+instance Prelude.ToHeader AfdSignaling
 
-instance ToJSON AfdSignaling where
-  toJSON = toJSONText
+instance Prelude.ToJSON AfdSignaling where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AfdSignaling where
-  parseJSON = parseJSONText "AfdSignaling"
+instance Prelude.FromJSON AfdSignaling where
+  parseJSON = Prelude.parseJSONText "AfdSignaling"

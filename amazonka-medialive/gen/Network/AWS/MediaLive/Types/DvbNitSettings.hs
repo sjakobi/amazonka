@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,75 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaLive.Types.DvbNitSettings where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | DVB Network Information Table (NIT)
 --
--- /See:/ 'dvbNitSettings' smart constructor.
+-- /See:/ 'newDvbNitSettings' smart constructor.
 data DvbNitSettings = DvbNitSettings'
-  { _dnsRepInterval ::
-      !(Maybe Nat),
-    _dnsNetworkName :: !Text,
-    _dnsNetworkId :: !Nat
+  { -- | The number of milliseconds between instances of this table in the output
+    -- transport stream.
+    repInterval :: Prelude.Maybe Prelude.Nat,
+    -- | The network name text placed in the networkNameDescriptor inside the
+    -- Network Information Table. Maximum length is 256 characters.
+    networkName :: Prelude.Text,
+    -- | The numeric value placed in the Network Information Table (NIT).
+    networkId :: Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DvbNitSettings' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DvbNitSettings' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnsRepInterval' - The number of milliseconds between instances of this table in the output transport stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnsNetworkName' - The network name text placed in the networkNameDescriptor inside the Network Information Table. Maximum length is 256 characters.
+-- 'repInterval', 'dvbNitSettings_repInterval' - The number of milliseconds between instances of this table in the output
+-- transport stream.
 --
--- * 'dnsNetworkId' - The numeric value placed in the Network Information Table (NIT).
-dvbNitSettings ::
-  -- | 'dnsNetworkName'
-  Text ->
-  -- | 'dnsNetworkId'
-  Natural ->
+-- 'networkName', 'dvbNitSettings_networkName' - The network name text placed in the networkNameDescriptor inside the
+-- Network Information Table. Maximum length is 256 characters.
+--
+-- 'networkId', 'dvbNitSettings_networkId' - The numeric value placed in the Network Information Table (NIT).
+newDvbNitSettings ::
+  -- | 'networkName'
+  Prelude.Text ->
+  -- | 'networkId'
+  Prelude.Natural ->
   DvbNitSettings
-dvbNitSettings pNetworkName_ pNetworkId_ =
+newDvbNitSettings pNetworkName_ pNetworkId_ =
   DvbNitSettings'
-    { _dnsRepInterval = Nothing,
-      _dnsNetworkName = pNetworkName_,
-      _dnsNetworkId = _Nat # pNetworkId_
+    { repInterval = Prelude.Nothing,
+      networkName = pNetworkName_,
+      networkId = Prelude._Nat Lens.# pNetworkId_
     }
 
--- | The number of milliseconds between instances of this table in the output transport stream.
-dnsRepInterval :: Lens' DvbNitSettings (Maybe Natural)
-dnsRepInterval = lens _dnsRepInterval (\s a -> s {_dnsRepInterval = a}) . mapping _Nat
+-- | The number of milliseconds between instances of this table in the output
+-- transport stream.
+dvbNitSettings_repInterval :: Lens.Lens' DvbNitSettings (Prelude.Maybe Prelude.Natural)
+dvbNitSettings_repInterval = Lens.lens (\DvbNitSettings' {repInterval} -> repInterval) (\s@DvbNitSettings' {} a -> s {repInterval = a} :: DvbNitSettings) Prelude.. Lens.mapping Prelude._Nat
 
--- | The network name text placed in the networkNameDescriptor inside the Network Information Table. Maximum length is 256 characters.
-dnsNetworkName :: Lens' DvbNitSettings Text
-dnsNetworkName = lens _dnsNetworkName (\s a -> s {_dnsNetworkName = a})
+-- | The network name text placed in the networkNameDescriptor inside the
+-- Network Information Table. Maximum length is 256 characters.
+dvbNitSettings_networkName :: Lens.Lens' DvbNitSettings Prelude.Text
+dvbNitSettings_networkName = Lens.lens (\DvbNitSettings' {networkName} -> networkName) (\s@DvbNitSettings' {} a -> s {networkName = a} :: DvbNitSettings)
 
 -- | The numeric value placed in the Network Information Table (NIT).
-dnsNetworkId :: Lens' DvbNitSettings Natural
-dnsNetworkId = lens _dnsNetworkId (\s a -> s {_dnsNetworkId = a}) . _Nat
+dvbNitSettings_networkId :: Lens.Lens' DvbNitSettings Prelude.Natural
+dvbNitSettings_networkId = Lens.lens (\DvbNitSettings' {networkId} -> networkId) (\s@DvbNitSettings' {} a -> s {networkId = a} :: DvbNitSettings) Prelude.. Prelude._Nat
 
-instance FromJSON DvbNitSettings where
+instance Prelude.FromJSON DvbNitSettings where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DvbNitSettings"
       ( \x ->
           DvbNitSettings'
-            <$> (x .:? "repInterval")
-            <*> (x .: "networkName")
-            <*> (x .: "networkId")
+            Prelude.<$> (x Prelude..:? "repInterval")
+            Prelude.<*> (x Prelude..: "networkName")
+            Prelude.<*> (x Prelude..: "networkId")
       )
 
-instance Hashable DvbNitSettings
+instance Prelude.Hashable DvbNitSettings
 
-instance NFData DvbNitSettings
+instance Prelude.NFData DvbNitSettings
 
-instance ToJSON DvbNitSettings where
+instance Prelude.ToJSON DvbNitSettings where
   toJSON DvbNitSettings' {..} =
-    object
-      ( catMaybes
-          [ ("repInterval" .=) <$> _dnsRepInterval,
-            Just ("networkName" .= _dnsNetworkName),
-            Just ("networkId" .= _dnsNetworkId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("repInterval" Prelude..=) Prelude.<$> repInterval,
+            Prelude.Just ("networkName" Prelude..= networkName),
+            Prelude.Just ("networkId" Prelude..= networkId)
           ]
       )

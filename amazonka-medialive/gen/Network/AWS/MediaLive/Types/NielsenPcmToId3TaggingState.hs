@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.NielsenPcmToId3TaggingState
   ( NielsenPcmToId3TaggingState
       ( ..,
-        NPTITSDisabled,
-        NPTITSEnabled
+        NielsenPcmToId3TaggingStateDISABLED,
+        NielsenPcmToId3TaggingStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | State of Nielsen PCM to ID3 tagging
-data NielsenPcmToId3TaggingState
-  = NielsenPcmToId3TaggingState'
-      ( CI
-          Text
-      )
+newtype NielsenPcmToId3TaggingState = NielsenPcmToId3TaggingState'
+  { fromNielsenPcmToId3TaggingState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NPTITSDisabled :: NielsenPcmToId3TaggingState
-pattern NPTITSDisabled = NielsenPcmToId3TaggingState' "DISABLED"
+pattern NielsenPcmToId3TaggingStateDISABLED :: NielsenPcmToId3TaggingState
+pattern NielsenPcmToId3TaggingStateDISABLED = NielsenPcmToId3TaggingState' "DISABLED"
 
-pattern NPTITSEnabled :: NielsenPcmToId3TaggingState
-pattern NPTITSEnabled = NielsenPcmToId3TaggingState' "ENABLED"
+pattern NielsenPcmToId3TaggingStateENABLED :: NielsenPcmToId3TaggingState
+pattern NielsenPcmToId3TaggingStateENABLED = NielsenPcmToId3TaggingState' "ENABLED"
 
 {-# COMPLETE
-  NPTITSDisabled,
-  NPTITSEnabled,
+  NielsenPcmToId3TaggingStateDISABLED,
+  NielsenPcmToId3TaggingStateENABLED,
   NielsenPcmToId3TaggingState'
   #-}
 
-instance FromText NielsenPcmToId3TaggingState where
-  parser = (NielsenPcmToId3TaggingState' . mk) <$> takeText
+instance Prelude.FromText NielsenPcmToId3TaggingState where
+  parser = NielsenPcmToId3TaggingState' Prelude.<$> Prelude.takeText
 
-instance ToText NielsenPcmToId3TaggingState where
-  toText (NielsenPcmToId3TaggingState' ci) = original ci
+instance Prelude.ToText NielsenPcmToId3TaggingState where
+  toText (NielsenPcmToId3TaggingState' x) = x
 
-instance Hashable NielsenPcmToId3TaggingState
+instance Prelude.Hashable NielsenPcmToId3TaggingState
 
-instance NFData NielsenPcmToId3TaggingState
+instance Prelude.NFData NielsenPcmToId3TaggingState
 
-instance ToByteString NielsenPcmToId3TaggingState
+instance Prelude.ToByteString NielsenPcmToId3TaggingState
 
-instance ToQuery NielsenPcmToId3TaggingState
+instance Prelude.ToQuery NielsenPcmToId3TaggingState
 
-instance ToHeader NielsenPcmToId3TaggingState
+instance Prelude.ToHeader NielsenPcmToId3TaggingState
 
-instance ToJSON NielsenPcmToId3TaggingState where
-  toJSON = toJSONText
+instance Prelude.ToJSON NielsenPcmToId3TaggingState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NielsenPcmToId3TaggingState where
-  parseJSON = parseJSONText "NielsenPcmToId3TaggingState"
+instance Prelude.FromJSON NielsenPcmToId3TaggingState where
+  parseJSON = Prelude.parseJSONText "NielsenPcmToId3TaggingState"

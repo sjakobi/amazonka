@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,79 @@
 module Network.AWS.MediaLive.Types.Eac3DrcRf
   ( Eac3DrcRf
       ( ..,
-        EDRFilmLight,
-        EDRFilmStandard,
-        EDRMusicLight,
-        EDRMusicStandard,
-        EDRNone,
-        EDRSpeech
+        Eac3DrcRfFILMLIGHT,
+        Eac3DrcRfFILMSTANDARD,
+        Eac3DrcRfMUSICLIGHT,
+        Eac3DrcRfMUSICSTANDARD,
+        Eac3DrcRfNONE,
+        Eac3DrcRfSPEECH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Eac3 Drc Rf
-data Eac3DrcRf = Eac3DrcRf' (CI Text)
+newtype Eac3DrcRf = Eac3DrcRf'
+  { fromEac3DrcRf ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EDRFilmLight :: Eac3DrcRf
-pattern EDRFilmLight = Eac3DrcRf' "FILM_LIGHT"
+pattern Eac3DrcRfFILMLIGHT :: Eac3DrcRf
+pattern Eac3DrcRfFILMLIGHT = Eac3DrcRf' "FILM_LIGHT"
 
-pattern EDRFilmStandard :: Eac3DrcRf
-pattern EDRFilmStandard = Eac3DrcRf' "FILM_STANDARD"
+pattern Eac3DrcRfFILMSTANDARD :: Eac3DrcRf
+pattern Eac3DrcRfFILMSTANDARD = Eac3DrcRf' "FILM_STANDARD"
 
-pattern EDRMusicLight :: Eac3DrcRf
-pattern EDRMusicLight = Eac3DrcRf' "MUSIC_LIGHT"
+pattern Eac3DrcRfMUSICLIGHT :: Eac3DrcRf
+pattern Eac3DrcRfMUSICLIGHT = Eac3DrcRf' "MUSIC_LIGHT"
 
-pattern EDRMusicStandard :: Eac3DrcRf
-pattern EDRMusicStandard = Eac3DrcRf' "MUSIC_STANDARD"
+pattern Eac3DrcRfMUSICSTANDARD :: Eac3DrcRf
+pattern Eac3DrcRfMUSICSTANDARD = Eac3DrcRf' "MUSIC_STANDARD"
 
-pattern EDRNone :: Eac3DrcRf
-pattern EDRNone = Eac3DrcRf' "NONE"
+pattern Eac3DrcRfNONE :: Eac3DrcRf
+pattern Eac3DrcRfNONE = Eac3DrcRf' "NONE"
 
-pattern EDRSpeech :: Eac3DrcRf
-pattern EDRSpeech = Eac3DrcRf' "SPEECH"
+pattern Eac3DrcRfSPEECH :: Eac3DrcRf
+pattern Eac3DrcRfSPEECH = Eac3DrcRf' "SPEECH"
 
 {-# COMPLETE
-  EDRFilmLight,
-  EDRFilmStandard,
-  EDRMusicLight,
-  EDRMusicStandard,
-  EDRNone,
-  EDRSpeech,
+  Eac3DrcRfFILMLIGHT,
+  Eac3DrcRfFILMSTANDARD,
+  Eac3DrcRfMUSICLIGHT,
+  Eac3DrcRfMUSICSTANDARD,
+  Eac3DrcRfNONE,
+  Eac3DrcRfSPEECH,
   Eac3DrcRf'
   #-}
 
-instance FromText Eac3DrcRf where
-  parser = (Eac3DrcRf' . mk) <$> takeText
+instance Prelude.FromText Eac3DrcRf where
+  parser = Eac3DrcRf' Prelude.<$> Prelude.takeText
 
-instance ToText Eac3DrcRf where
-  toText (Eac3DrcRf' ci) = original ci
+instance Prelude.ToText Eac3DrcRf where
+  toText (Eac3DrcRf' x) = x
 
-instance Hashable Eac3DrcRf
+instance Prelude.Hashable Eac3DrcRf
 
-instance NFData Eac3DrcRf
+instance Prelude.NFData Eac3DrcRf
 
-instance ToByteString Eac3DrcRf
+instance Prelude.ToByteString Eac3DrcRf
 
-instance ToQuery Eac3DrcRf
+instance Prelude.ToQuery Eac3DrcRf
 
-instance ToHeader Eac3DrcRf
+instance Prelude.ToHeader Eac3DrcRf
 
-instance ToJSON Eac3DrcRf where
-  toJSON = toJSONText
+instance Prelude.ToJSON Eac3DrcRf where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Eac3DrcRf where
-  parseJSON = parseJSONText "Eac3DrcRf"
+instance Prelude.FromJSON Eac3DrcRf where
+  parseJSON = Prelude.parseJSONText "Eac3DrcRf"

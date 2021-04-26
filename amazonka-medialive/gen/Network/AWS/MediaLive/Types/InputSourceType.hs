@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,60 @@
 module Network.AWS.MediaLive.Types.InputSourceType
   ( InputSourceType
       ( ..,
-        ISTDynamic,
-        ISTStatic
+        InputSourceTypeDYNAMIC,
+        InputSourceTypeSTATIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | There are two types of input sources, static and dynamic. If an input source is dynamic you can
---
--- change the source url of the input dynamically using an input switch action. However, the only input type
--- to support a dynamic url at this time is MP4_FILE. By default all input sources are static.
-data InputSourceType = InputSourceType' (CI Text)
+-- | There are two types of input sources, static and dynamic. If an input
+-- source is dynamic you can change the source url of the input dynamically
+-- using an input switch action. However, the only input type to support a
+-- dynamic url at this time is MP4_FILE. By default all input sources are
+-- static.
+newtype InputSourceType = InputSourceType'
+  { fromInputSourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ISTDynamic :: InputSourceType
-pattern ISTDynamic = InputSourceType' "DYNAMIC"
+pattern InputSourceTypeDYNAMIC :: InputSourceType
+pattern InputSourceTypeDYNAMIC = InputSourceType' "DYNAMIC"
 
-pattern ISTStatic :: InputSourceType
-pattern ISTStatic = InputSourceType' "STATIC"
+pattern InputSourceTypeSTATIC :: InputSourceType
+pattern InputSourceTypeSTATIC = InputSourceType' "STATIC"
 
 {-# COMPLETE
-  ISTDynamic,
-  ISTStatic,
+  InputSourceTypeDYNAMIC,
+  InputSourceTypeSTATIC,
   InputSourceType'
   #-}
 
-instance FromText InputSourceType where
-  parser = (InputSourceType' . mk) <$> takeText
+instance Prelude.FromText InputSourceType where
+  parser = InputSourceType' Prelude.<$> Prelude.takeText
 
-instance ToText InputSourceType where
-  toText (InputSourceType' ci) = original ci
+instance Prelude.ToText InputSourceType where
+  toText (InputSourceType' x) = x
 
-instance Hashable InputSourceType
+instance Prelude.Hashable InputSourceType
 
-instance NFData InputSourceType
+instance Prelude.NFData InputSourceType
 
-instance ToByteString InputSourceType
+instance Prelude.ToByteString InputSourceType
 
-instance ToQuery InputSourceType
+instance Prelude.ToQuery InputSourceType
 
-instance ToHeader InputSourceType
+instance Prelude.ToHeader InputSourceType
 
-instance FromJSON InputSourceType where
-  parseJSON = parseJSONText "InputSourceType"
+instance Prelude.FromJSON InputSourceType where
+  parseJSON = Prelude.parseJSONText "InputSourceType"

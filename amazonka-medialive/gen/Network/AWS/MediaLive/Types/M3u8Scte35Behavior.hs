@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M3u8Scte35Behavior
   ( M3u8Scte35Behavior
       ( ..,
-        MSBNoPassthrough,
-        MSBPassthrough
+        M3u8Scte35BehaviorNOPASSTHROUGH,
+        M3u8Scte35BehaviorPASSTHROUGH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M3u8 Scte35 Behavior
-data M3u8Scte35Behavior
-  = M3u8Scte35Behavior'
-      ( CI
-          Text
-      )
+newtype M3u8Scte35Behavior = M3u8Scte35Behavior'
+  { fromM3u8Scte35Behavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSBNoPassthrough :: M3u8Scte35Behavior
-pattern MSBNoPassthrough = M3u8Scte35Behavior' "NO_PASSTHROUGH"
+pattern M3u8Scte35BehaviorNOPASSTHROUGH :: M3u8Scte35Behavior
+pattern M3u8Scte35BehaviorNOPASSTHROUGH = M3u8Scte35Behavior' "NO_PASSTHROUGH"
 
-pattern MSBPassthrough :: M3u8Scte35Behavior
-pattern MSBPassthrough = M3u8Scte35Behavior' "PASSTHROUGH"
+pattern M3u8Scte35BehaviorPASSTHROUGH :: M3u8Scte35Behavior
+pattern M3u8Scte35BehaviorPASSTHROUGH = M3u8Scte35Behavior' "PASSTHROUGH"
 
 {-# COMPLETE
-  MSBNoPassthrough,
-  MSBPassthrough,
+  M3u8Scte35BehaviorNOPASSTHROUGH,
+  M3u8Scte35BehaviorPASSTHROUGH,
   M3u8Scte35Behavior'
   #-}
 
-instance FromText M3u8Scte35Behavior where
-  parser = (M3u8Scte35Behavior' . mk) <$> takeText
+instance Prelude.FromText M3u8Scte35Behavior where
+  parser = M3u8Scte35Behavior' Prelude.<$> Prelude.takeText
 
-instance ToText M3u8Scte35Behavior where
-  toText (M3u8Scte35Behavior' ci) = original ci
+instance Prelude.ToText M3u8Scte35Behavior where
+  toText (M3u8Scte35Behavior' x) = x
 
-instance Hashable M3u8Scte35Behavior
+instance Prelude.Hashable M3u8Scte35Behavior
 
-instance NFData M3u8Scte35Behavior
+instance Prelude.NFData M3u8Scte35Behavior
 
-instance ToByteString M3u8Scte35Behavior
+instance Prelude.ToByteString M3u8Scte35Behavior
 
-instance ToQuery M3u8Scte35Behavior
+instance Prelude.ToQuery M3u8Scte35Behavior
 
-instance ToHeader M3u8Scte35Behavior
+instance Prelude.ToHeader M3u8Scte35Behavior
 
-instance ToJSON M3u8Scte35Behavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON M3u8Scte35Behavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M3u8Scte35Behavior where
-  parseJSON = parseJSONText "M3u8Scte35Behavior"
+instance Prelude.FromJSON M3u8Scte35Behavior where
+  parseJSON = Prelude.parseJSONText "M3u8Scte35Behavior"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.M2tsAudioBufferModel
   ( M2tsAudioBufferModel
       ( ..,
-        Atsc,
-        Dvb
+        M2tsAudioBufferModelATSC,
+        M2tsAudioBufferModelDVB
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | M2ts Audio Buffer Model
-data M2tsAudioBufferModel
-  = M2tsAudioBufferModel'
-      ( CI
-          Text
-      )
+newtype M2tsAudioBufferModel = M2tsAudioBufferModel'
+  { fromM2tsAudioBufferModel ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Atsc :: M2tsAudioBufferModel
-pattern Atsc = M2tsAudioBufferModel' "ATSC"
+pattern M2tsAudioBufferModelATSC :: M2tsAudioBufferModel
+pattern M2tsAudioBufferModelATSC = M2tsAudioBufferModel' "ATSC"
 
-pattern Dvb :: M2tsAudioBufferModel
-pattern Dvb = M2tsAudioBufferModel' "DVB"
+pattern M2tsAudioBufferModelDVB :: M2tsAudioBufferModel
+pattern M2tsAudioBufferModelDVB = M2tsAudioBufferModel' "DVB"
 
 {-# COMPLETE
-  Atsc,
-  Dvb,
+  M2tsAudioBufferModelATSC,
+  M2tsAudioBufferModelDVB,
   M2tsAudioBufferModel'
   #-}
 
-instance FromText M2tsAudioBufferModel where
-  parser = (M2tsAudioBufferModel' . mk) <$> takeText
+instance Prelude.FromText M2tsAudioBufferModel where
+  parser = M2tsAudioBufferModel' Prelude.<$> Prelude.takeText
 
-instance ToText M2tsAudioBufferModel where
-  toText (M2tsAudioBufferModel' ci) = original ci
+instance Prelude.ToText M2tsAudioBufferModel where
+  toText (M2tsAudioBufferModel' x) = x
 
-instance Hashable M2tsAudioBufferModel
+instance Prelude.Hashable M2tsAudioBufferModel
 
-instance NFData M2tsAudioBufferModel
+instance Prelude.NFData M2tsAudioBufferModel
 
-instance ToByteString M2tsAudioBufferModel
+instance Prelude.ToByteString M2tsAudioBufferModel
 
-instance ToQuery M2tsAudioBufferModel
+instance Prelude.ToQuery M2tsAudioBufferModel
 
-instance ToHeader M2tsAudioBufferModel
+instance Prelude.ToHeader M2tsAudioBufferModel
 
-instance ToJSON M2tsAudioBufferModel where
-  toJSON = toJSONText
+instance Prelude.ToJSON M2tsAudioBufferModel where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON M2tsAudioBufferModel where
-  parseJSON = parseJSONText "M2tsAudioBufferModel"
+instance Prelude.FromJSON M2tsAudioBufferModel where
+  parseJSON = Prelude.parseJSONText "M2tsAudioBufferModel"

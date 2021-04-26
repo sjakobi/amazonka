@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.Scte35AposNoRegionalBlackoutBehavior
   ( Scte35AposNoRegionalBlackoutBehavior
       ( ..,
-        SANRBBFollow,
-        SANRBBIgnore
+        Scte35AposNoRegionalBlackoutBehaviorFOLLOW,
+        Scte35AposNoRegionalBlackoutBehaviorIGNORE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Scte35 Apos No Regional Blackout Behavior
-data Scte35AposNoRegionalBlackoutBehavior
-  = Scte35AposNoRegionalBlackoutBehavior'
-      ( CI
-          Text
-      )
+newtype Scte35AposNoRegionalBlackoutBehavior = Scte35AposNoRegionalBlackoutBehavior'
+  { fromScte35AposNoRegionalBlackoutBehavior ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SANRBBFollow :: Scte35AposNoRegionalBlackoutBehavior
-pattern SANRBBFollow = Scte35AposNoRegionalBlackoutBehavior' "FOLLOW"
+pattern Scte35AposNoRegionalBlackoutBehaviorFOLLOW :: Scte35AposNoRegionalBlackoutBehavior
+pattern Scte35AposNoRegionalBlackoutBehaviorFOLLOW = Scte35AposNoRegionalBlackoutBehavior' "FOLLOW"
 
-pattern SANRBBIgnore :: Scte35AposNoRegionalBlackoutBehavior
-pattern SANRBBIgnore = Scte35AposNoRegionalBlackoutBehavior' "IGNORE"
+pattern Scte35AposNoRegionalBlackoutBehaviorIGNORE :: Scte35AposNoRegionalBlackoutBehavior
+pattern Scte35AposNoRegionalBlackoutBehaviorIGNORE = Scte35AposNoRegionalBlackoutBehavior' "IGNORE"
 
 {-# COMPLETE
-  SANRBBFollow,
-  SANRBBIgnore,
+  Scte35AposNoRegionalBlackoutBehaviorFOLLOW,
+  Scte35AposNoRegionalBlackoutBehaviorIGNORE,
   Scte35AposNoRegionalBlackoutBehavior'
   #-}
 
-instance FromText Scte35AposNoRegionalBlackoutBehavior where
-  parser = (Scte35AposNoRegionalBlackoutBehavior' . mk) <$> takeText
+instance Prelude.FromText Scte35AposNoRegionalBlackoutBehavior where
+  parser = Scte35AposNoRegionalBlackoutBehavior' Prelude.<$> Prelude.takeText
 
-instance ToText Scte35AposNoRegionalBlackoutBehavior where
-  toText (Scte35AposNoRegionalBlackoutBehavior' ci) = original ci
+instance Prelude.ToText Scte35AposNoRegionalBlackoutBehavior where
+  toText (Scte35AposNoRegionalBlackoutBehavior' x) = x
 
-instance Hashable Scte35AposNoRegionalBlackoutBehavior
+instance Prelude.Hashable Scte35AposNoRegionalBlackoutBehavior
 
-instance NFData Scte35AposNoRegionalBlackoutBehavior
+instance Prelude.NFData Scte35AposNoRegionalBlackoutBehavior
 
-instance ToByteString Scte35AposNoRegionalBlackoutBehavior
+instance Prelude.ToByteString Scte35AposNoRegionalBlackoutBehavior
 
-instance ToQuery Scte35AposNoRegionalBlackoutBehavior
+instance Prelude.ToQuery Scte35AposNoRegionalBlackoutBehavior
 
-instance ToHeader Scte35AposNoRegionalBlackoutBehavior
+instance Prelude.ToHeader Scte35AposNoRegionalBlackoutBehavior
 
-instance ToJSON Scte35AposNoRegionalBlackoutBehavior where
-  toJSON = toJSONText
+instance Prelude.ToJSON Scte35AposNoRegionalBlackoutBehavior where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Scte35AposNoRegionalBlackoutBehavior where
-  parseJSON = parseJSONText "Scte35AposNoRegionalBlackoutBehavior"
+instance Prelude.FromJSON Scte35AposNoRegionalBlackoutBehavior where
+  parseJSON = Prelude.parseJSONText "Scte35AposNoRegionalBlackoutBehavior"

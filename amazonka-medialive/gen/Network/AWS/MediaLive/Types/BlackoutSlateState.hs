@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.BlackoutSlateState
   ( BlackoutSlateState
       ( ..,
-        BSSDisabled,
-        BSSEnabled
+        BlackoutSlateStateDISABLED,
+        BlackoutSlateStateENABLED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Blackout Slate State
-data BlackoutSlateState
-  = BlackoutSlateState'
-      ( CI
-          Text
-      )
+newtype BlackoutSlateState = BlackoutSlateState'
+  { fromBlackoutSlateState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BSSDisabled :: BlackoutSlateState
-pattern BSSDisabled = BlackoutSlateState' "DISABLED"
+pattern BlackoutSlateStateDISABLED :: BlackoutSlateState
+pattern BlackoutSlateStateDISABLED = BlackoutSlateState' "DISABLED"
 
-pattern BSSEnabled :: BlackoutSlateState
-pattern BSSEnabled = BlackoutSlateState' "ENABLED"
+pattern BlackoutSlateStateENABLED :: BlackoutSlateState
+pattern BlackoutSlateStateENABLED = BlackoutSlateState' "ENABLED"
 
 {-# COMPLETE
-  BSSDisabled,
-  BSSEnabled,
+  BlackoutSlateStateDISABLED,
+  BlackoutSlateStateENABLED,
   BlackoutSlateState'
   #-}
 
-instance FromText BlackoutSlateState where
-  parser = (BlackoutSlateState' . mk) <$> takeText
+instance Prelude.FromText BlackoutSlateState where
+  parser = BlackoutSlateState' Prelude.<$> Prelude.takeText
 
-instance ToText BlackoutSlateState where
-  toText (BlackoutSlateState' ci) = original ci
+instance Prelude.ToText BlackoutSlateState where
+  toText (BlackoutSlateState' x) = x
 
-instance Hashable BlackoutSlateState
+instance Prelude.Hashable BlackoutSlateState
 
-instance NFData BlackoutSlateState
+instance Prelude.NFData BlackoutSlateState
 
-instance ToByteString BlackoutSlateState
+instance Prelude.ToByteString BlackoutSlateState
 
-instance ToQuery BlackoutSlateState
+instance Prelude.ToQuery BlackoutSlateState
 
-instance ToHeader BlackoutSlateState
+instance Prelude.ToHeader BlackoutSlateState
 
-instance ToJSON BlackoutSlateState where
-  toJSON = toJSONText
+instance Prelude.ToJSON BlackoutSlateState where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BlackoutSlateState where
-  parseJSON = parseJSONText "BlackoutSlateState"
+instance Prelude.FromJSON BlackoutSlateState where
+  parseJSON = Prelude.parseJSONText "BlackoutSlateState"

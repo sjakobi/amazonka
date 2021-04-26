@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.MediaLive.Types.OfferingDurationUnits
   ( OfferingDurationUnits
       ( ..,
-        Months
+        OfferingDurationUnitsMONTHS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | Units for duration, e.g. 'MONTHS'
-data OfferingDurationUnits
-  = OfferingDurationUnits'
-      ( CI
-          Text
-      )
+-- | Units for duration, e.g. \'MONTHS\'
+newtype OfferingDurationUnits = OfferingDurationUnits'
+  { fromOfferingDurationUnits ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Months :: OfferingDurationUnits
-pattern Months = OfferingDurationUnits' "MONTHS"
+pattern OfferingDurationUnitsMONTHS :: OfferingDurationUnits
+pattern OfferingDurationUnitsMONTHS = OfferingDurationUnits' "MONTHS"
 
 {-# COMPLETE
-  Months,
+  OfferingDurationUnitsMONTHS,
   OfferingDurationUnits'
   #-}
 
-instance FromText OfferingDurationUnits where
-  parser = (OfferingDurationUnits' . mk) <$> takeText
+instance Prelude.FromText OfferingDurationUnits where
+  parser = OfferingDurationUnits' Prelude.<$> Prelude.takeText
 
-instance ToText OfferingDurationUnits where
-  toText (OfferingDurationUnits' ci) = original ci
+instance Prelude.ToText OfferingDurationUnits where
+  toText (OfferingDurationUnits' x) = x
 
-instance Hashable OfferingDurationUnits
+instance Prelude.Hashable OfferingDurationUnits
 
-instance NFData OfferingDurationUnits
+instance Prelude.NFData OfferingDurationUnits
 
-instance ToByteString OfferingDurationUnits
+instance Prelude.ToByteString OfferingDurationUnits
 
-instance ToQuery OfferingDurationUnits
+instance Prelude.ToQuery OfferingDurationUnits
 
-instance ToHeader OfferingDurationUnits
+instance Prelude.ToHeader OfferingDurationUnits
 
-instance FromJSON OfferingDurationUnits where
-  parseJSON = parseJSONText "OfferingDurationUnits"
+instance Prelude.FromJSON OfferingDurationUnits where
+  parseJSON = Prelude.parseJSONText "OfferingDurationUnits"

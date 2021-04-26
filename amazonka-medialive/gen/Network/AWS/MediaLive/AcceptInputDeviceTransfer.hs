@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,140 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Accept an incoming input device transfer. The ownership of the device will transfer to your AWS account.
+-- Accept an incoming input device transfer. The ownership of the device
+-- will transfer to your AWS account.
 module Network.AWS.MediaLive.AcceptInputDeviceTransfer
   ( -- * Creating a Request
-    acceptInputDeviceTransfer,
-    AcceptInputDeviceTransfer,
+    AcceptInputDeviceTransfer (..),
+    newAcceptInputDeviceTransfer,
 
     -- * Request Lenses
-    aidtInputDeviceId,
+    acceptInputDeviceTransfer_inputDeviceId,
 
     -- * Destructuring the Response
-    acceptInputDeviceTransferResponse,
-    AcceptInputDeviceTransferResponse,
+    AcceptInputDeviceTransferResponse (..),
+    newAcceptInputDeviceTransferResponse,
 
     -- * Response Lenses
-    aidtrrsResponseStatus,
+    acceptInputDeviceTransferResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaLive.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Placeholder documentation for AcceptInputDeviceTransferRequest
 --
--- /See:/ 'acceptInputDeviceTransfer' smart constructor.
-newtype AcceptInputDeviceTransfer = AcceptInputDeviceTransfer'
-  { _aidtInputDeviceId ::
-      Text
+-- /See:/ 'newAcceptInputDeviceTransfer' smart constructor.
+data AcceptInputDeviceTransfer = AcceptInputDeviceTransfer'
+  { -- | The unique ID of the input device to accept. For example,
+    -- hd-123456789abcdef.
+    inputDeviceId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptInputDeviceTransfer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptInputDeviceTransfer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aidtInputDeviceId' - The unique ID of the input device to accept. For example, hd-123456789abcdef.
-acceptInputDeviceTransfer ::
-  -- | 'aidtInputDeviceId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'inputDeviceId', 'acceptInputDeviceTransfer_inputDeviceId' - The unique ID of the input device to accept. For example,
+-- hd-123456789abcdef.
+newAcceptInputDeviceTransfer ::
+  -- | 'inputDeviceId'
+  Prelude.Text ->
   AcceptInputDeviceTransfer
-acceptInputDeviceTransfer pInputDeviceId_ =
+newAcceptInputDeviceTransfer pInputDeviceId_ =
   AcceptInputDeviceTransfer'
-    { _aidtInputDeviceId =
+    { inputDeviceId =
         pInputDeviceId_
     }
 
--- | The unique ID of the input device to accept. For example, hd-123456789abcdef.
-aidtInputDeviceId :: Lens' AcceptInputDeviceTransfer Text
-aidtInputDeviceId = lens _aidtInputDeviceId (\s a -> s {_aidtInputDeviceId = a})
+-- | The unique ID of the input device to accept. For example,
+-- hd-123456789abcdef.
+acceptInputDeviceTransfer_inputDeviceId :: Lens.Lens' AcceptInputDeviceTransfer Prelude.Text
+acceptInputDeviceTransfer_inputDeviceId = Lens.lens (\AcceptInputDeviceTransfer' {inputDeviceId} -> inputDeviceId) (\s@AcceptInputDeviceTransfer' {} a -> s {inputDeviceId = a} :: AcceptInputDeviceTransfer)
 
-instance AWSRequest AcceptInputDeviceTransfer where
+instance Prelude.AWSRequest AcceptInputDeviceTransfer where
   type
     Rs AcceptInputDeviceTransfer =
       AcceptInputDeviceTransferResponse
-  request = postJSON mediaLive
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AcceptInputDeviceTransferResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AcceptInputDeviceTransfer
+instance Prelude.Hashable AcceptInputDeviceTransfer
 
-instance NFData AcceptInputDeviceTransfer
+instance Prelude.NFData AcceptInputDeviceTransfer
 
-instance ToHeaders AcceptInputDeviceTransfer where
+instance Prelude.ToHeaders AcceptInputDeviceTransfer where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AcceptInputDeviceTransfer where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON AcceptInputDeviceTransfer where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath AcceptInputDeviceTransfer where
+instance Prelude.ToPath AcceptInputDeviceTransfer where
   toPath AcceptInputDeviceTransfer' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/prod/inputDevices/",
-        toBS _aidtInputDeviceId,
+        Prelude.toBS inputDeviceId,
         "/accept"
       ]
 
-instance ToQuery AcceptInputDeviceTransfer where
-  toQuery = const mempty
+instance Prelude.ToQuery AcceptInputDeviceTransfer where
+  toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for AcceptInputDeviceTransferResponse
 --
--- /See:/ 'acceptInputDeviceTransferResponse' smart constructor.
-newtype AcceptInputDeviceTransferResponse = AcceptInputDeviceTransferResponse'
-  { _aidtrrsResponseStatus ::
-      Int
+-- /See:/ 'newAcceptInputDeviceTransferResponse' smart constructor.
+data AcceptInputDeviceTransferResponse = AcceptInputDeviceTransferResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AcceptInputDeviceTransferResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AcceptInputDeviceTransferResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aidtrrsResponseStatus' - -- | The response status code.
-acceptInputDeviceTransferResponse ::
-  -- | 'aidtrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'acceptInputDeviceTransferResponse_httpStatus' - The response's http status code.
+newAcceptInputDeviceTransferResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AcceptInputDeviceTransferResponse
-acceptInputDeviceTransferResponse pResponseStatus_ =
+newAcceptInputDeviceTransferResponse pHttpStatus_ =
   AcceptInputDeviceTransferResponse'
-    { _aidtrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-aidtrrsResponseStatus :: Lens' AcceptInputDeviceTransferResponse Int
-aidtrrsResponseStatus = lens _aidtrrsResponseStatus (\s a -> s {_aidtrrsResponseStatus = a})
+-- | The response's http status code.
+acceptInputDeviceTransferResponse_httpStatus :: Lens.Lens' AcceptInputDeviceTransferResponse Prelude.Int
+acceptInputDeviceTransferResponse_httpStatus = Lens.lens (\AcceptInputDeviceTransferResponse' {httpStatus} -> httpStatus) (\s@AcceptInputDeviceTransferResponse' {} a -> s {httpStatus = a} :: AcceptInputDeviceTransferResponse)
 
-instance NFData AcceptInputDeviceTransferResponse
+instance
+  Prelude.NFData
+    AcceptInputDeviceTransferResponse

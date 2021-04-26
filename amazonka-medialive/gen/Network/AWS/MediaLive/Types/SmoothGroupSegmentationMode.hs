@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.MediaLive.Types.SmoothGroupSegmentationMode
   ( SmoothGroupSegmentationMode
       ( ..,
-        UseInputSegmentation,
-        UseSegmentDuration
+        SmoothGroupSegmentationModeUSEINPUTSEGMENTATION,
+        SmoothGroupSegmentationModeUSESEGMENTDURATION
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Smooth Group Segmentation Mode
-data SmoothGroupSegmentationMode
-  = SmoothGroupSegmentationMode'
-      ( CI
-          Text
-      )
+newtype SmoothGroupSegmentationMode = SmoothGroupSegmentationMode'
+  { fromSmoothGroupSegmentationMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UseInputSegmentation :: SmoothGroupSegmentationMode
-pattern UseInputSegmentation = SmoothGroupSegmentationMode' "USE_INPUT_SEGMENTATION"
+pattern SmoothGroupSegmentationModeUSEINPUTSEGMENTATION :: SmoothGroupSegmentationMode
+pattern SmoothGroupSegmentationModeUSEINPUTSEGMENTATION = SmoothGroupSegmentationMode' "USE_INPUT_SEGMENTATION"
 
-pattern UseSegmentDuration :: SmoothGroupSegmentationMode
-pattern UseSegmentDuration = SmoothGroupSegmentationMode' "USE_SEGMENT_DURATION"
+pattern SmoothGroupSegmentationModeUSESEGMENTDURATION :: SmoothGroupSegmentationMode
+pattern SmoothGroupSegmentationModeUSESEGMENTDURATION = SmoothGroupSegmentationMode' "USE_SEGMENT_DURATION"
 
 {-# COMPLETE
-  UseInputSegmentation,
-  UseSegmentDuration,
+  SmoothGroupSegmentationModeUSEINPUTSEGMENTATION,
+  SmoothGroupSegmentationModeUSESEGMENTDURATION,
   SmoothGroupSegmentationMode'
   #-}
 
-instance FromText SmoothGroupSegmentationMode where
-  parser = (SmoothGroupSegmentationMode' . mk) <$> takeText
+instance Prelude.FromText SmoothGroupSegmentationMode where
+  parser = SmoothGroupSegmentationMode' Prelude.<$> Prelude.takeText
 
-instance ToText SmoothGroupSegmentationMode where
-  toText (SmoothGroupSegmentationMode' ci) = original ci
+instance Prelude.ToText SmoothGroupSegmentationMode where
+  toText (SmoothGroupSegmentationMode' x) = x
 
-instance Hashable SmoothGroupSegmentationMode
+instance Prelude.Hashable SmoothGroupSegmentationMode
 
-instance NFData SmoothGroupSegmentationMode
+instance Prelude.NFData SmoothGroupSegmentationMode
 
-instance ToByteString SmoothGroupSegmentationMode
+instance Prelude.ToByteString SmoothGroupSegmentationMode
 
-instance ToQuery SmoothGroupSegmentationMode
+instance Prelude.ToQuery SmoothGroupSegmentationMode
 
-instance ToHeader SmoothGroupSegmentationMode
+instance Prelude.ToHeader SmoothGroupSegmentationMode
 
-instance ToJSON SmoothGroupSegmentationMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON SmoothGroupSegmentationMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SmoothGroupSegmentationMode where
-  parseJSON = parseJSONText "SmoothGroupSegmentationMode"
+instance Prelude.FromJSON SmoothGroupSegmentationMode where
+  parseJSON = Prelude.parseJSONText "SmoothGroupSegmentationMode"
