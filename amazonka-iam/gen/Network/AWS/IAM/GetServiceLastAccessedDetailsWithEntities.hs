@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,305 +21,421 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- After you generate a group or policy report using the @GenerateServiceLastAccessedDetails@ operation, you can use the @JobId@ parameter in @GetServiceLastAccessedDetailsWithEntities@ . This operation retrieves the status of your report job and a list of entities that could have used group or policy permissions to access the specified service.
+-- After you generate a group or policy report using the
+-- @GenerateServiceLastAccessedDetails@ operation, you can use the @JobId@
+-- parameter in @GetServiceLastAccessedDetailsWithEntities@. This operation
+-- retrieves the status of your report job and a list of entities that
+-- could have used group or policy permissions to access the specified
+-- service.
 --
+-- -   __Group__ – For a group report, this operation returns a list of
+--     users in the group that could have used the group’s policies in an
+--     attempt to access the service.
 --
---     * __Group__ – For a group report, this operation returns a list of users in the group that could have used the group’s policies in an attempt to access the service.
+-- -   __Policy__ – For a policy report, this operation returns a list of
+--     entities (users or roles) that could have used the policy in an
+--     attempt to access the service.
 --
---     * __Policy__ – For a policy report, this operation returns a list of entities (users or roles) that could have used the policy in an attempt to access the service.
+-- You can also use this operation for user or role reports to retrieve
+-- details about those entities.
 --
+-- If the operation fails, the @GetServiceLastAccessedDetailsWithEntities@
+-- operation returns the reason that it failed.
 --
---
--- You can also use this operation for user or role reports to retrieve details about those entities.
---
--- If the operation fails, the @GetServiceLastAccessedDetailsWithEntities@ operation returns the reason that it failed.
---
--- By default, the list of associated entities is sorted by date, with the most recent access listed first.
+-- By default, the list of associated entities is sorted by date, with the
+-- most recent access listed first.
 module Network.AWS.IAM.GetServiceLastAccessedDetailsWithEntities
   ( -- * Creating a Request
-    getServiceLastAccessedDetailsWithEntities,
-    GetServiceLastAccessedDetailsWithEntities,
+    GetServiceLastAccessedDetailsWithEntities (..),
+    newGetServiceLastAccessedDetailsWithEntities,
 
     -- * Request Lenses
-    gsladweMaxItems,
-    gsladweMarker,
-    gsladweJobId,
-    gsladweServiceNamespace,
+    getServiceLastAccessedDetailsWithEntities_maxItems,
+    getServiceLastAccessedDetailsWithEntities_marker,
+    getServiceLastAccessedDetailsWithEntities_jobId,
+    getServiceLastAccessedDetailsWithEntities_serviceNamespace,
 
     -- * Destructuring the Response
-    getServiceLastAccessedDetailsWithEntitiesResponse,
-    GetServiceLastAccessedDetailsWithEntitiesResponse,
+    GetServiceLastAccessedDetailsWithEntitiesResponse (..),
+    newGetServiceLastAccessedDetailsWithEntitiesResponse,
 
     -- * Response Lenses
-    gsladwerrsIsTruncated,
-    gsladwerrsError,
-    gsladwerrsMarker,
-    gsladwerrsResponseStatus,
-    gsladwerrsJobStatus,
-    gsladwerrsJobCreationDate,
-    gsladwerrsJobCompletionDate,
-    gsladwerrsEntityDetailsList,
+    getServiceLastAccessedDetailsWithEntitiesResponse_isTruncated,
+    getServiceLastAccessedDetailsWithEntitiesResponse_error,
+    getServiceLastAccessedDetailsWithEntitiesResponse_marker,
+    getServiceLastAccessedDetailsWithEntitiesResponse_httpStatus,
+    getServiceLastAccessedDetailsWithEntitiesResponse_jobStatus,
+    getServiceLastAccessedDetailsWithEntitiesResponse_jobCreationDate,
+    getServiceLastAccessedDetailsWithEntitiesResponse_jobCompletionDate,
+    getServiceLastAccessedDetailsWithEntitiesResponse_entityDetailsList,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.EntityDetails
+import Network.AWS.IAM.Types.ErrorDetails
+import Network.AWS.IAM.Types.JobStatusType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getServiceLastAccessedDetailsWithEntities' smart constructor.
+-- | /See:/ 'newGetServiceLastAccessedDetailsWithEntities' smart constructor.
 data GetServiceLastAccessedDetailsWithEntities = GetServiceLastAccessedDetailsWithEntities'
-  { _gsladweMaxItems ::
-      !( Maybe
-           Nat
-       ),
-    _gsladweMarker ::
-      !( Maybe
-           Text
-       ),
-    _gsladweJobId ::
-      !Text,
-    _gsladweServiceNamespace ::
-      !Text
+  { -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the request generated by the
+    -- @GenerateServiceLastAccessedDetails@ operation.
+    jobId :: Prelude.Text,
+    -- | The service namespace for an AWS service. Provide the service namespace
+    -- to learn when the IAM entity last attempted to access the specified
+    -- service.
+    --
+    -- To learn the service namespace for a service, see
+    -- <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services>
+    -- in the /IAM User Guide/. Choose the name of the service to view details
+    -- for that service. In the first paragraph, find the service prefix. For
+    -- example, @(service prefix: a4b)@. For more information about service
+    -- namespaces, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces>
+    -- in the /AWS General Reference/.
+    serviceNamespace :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetServiceLastAccessedDetailsWithEntities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetServiceLastAccessedDetailsWithEntities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsladweMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsladweMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- 'maxItems', 'getServiceLastAccessedDetailsWithEntities_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
 --
--- * 'gsladweJobId' - The ID of the request generated by the @GenerateServiceLastAccessedDetails@ operation.
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
 --
--- * 'gsladweServiceNamespace' - The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last attempted to access the specified service. To learn the service namespace for a service, see <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services> in the /IAM User Guide/ . Choose the name of the service to view details for that service. In the first paragraph, find the service prefix. For example, @(service prefix: a4b)@ . For more information about service namespaces, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces> in the /AWS General Reference/ .
-getServiceLastAccessedDetailsWithEntities ::
-  -- | 'gsladweJobId'
-  Text ->
-  -- | 'gsladweServiceNamespace'
-  Text ->
+-- 'marker', 'getServiceLastAccessedDetailsWithEntities_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'jobId', 'getServiceLastAccessedDetailsWithEntities_jobId' - The ID of the request generated by the
+-- @GenerateServiceLastAccessedDetails@ operation.
+--
+-- 'serviceNamespace', 'getServiceLastAccessedDetailsWithEntities_serviceNamespace' - The service namespace for an AWS service. Provide the service namespace
+-- to learn when the IAM entity last attempted to access the specified
+-- service.
+--
+-- To learn the service namespace for a service, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services>
+-- in the /IAM User Guide/. Choose the name of the service to view details
+-- for that service. In the first paragraph, find the service prefix. For
+-- example, @(service prefix: a4b)@. For more information about service
+-- namespaces, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces>
+-- in the /AWS General Reference/.
+newGetServiceLastAccessedDetailsWithEntities ::
+  -- | 'jobId'
+  Prelude.Text ->
+  -- | 'serviceNamespace'
+  Prelude.Text ->
   GetServiceLastAccessedDetailsWithEntities
-getServiceLastAccessedDetailsWithEntities
+newGetServiceLastAccessedDetailsWithEntities
   pJobId_
   pServiceNamespace_ =
     GetServiceLastAccessedDetailsWithEntities'
-      { _gsladweMaxItems =
-          Nothing,
-        _gsladweMarker = Nothing,
-        _gsladweJobId = pJobId_,
-        _gsladweServiceNamespace =
+      { maxItems =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        jobId = pJobId_,
+        serviceNamespace =
           pServiceNamespace_
       }
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-gsladweMaxItems :: Lens' GetServiceLastAccessedDetailsWithEntities (Maybe Natural)
-gsladweMaxItems = lens _gsladweMaxItems (\s a -> s {_gsladweMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+getServiceLastAccessedDetailsWithEntities_maxItems :: Lens.Lens' GetServiceLastAccessedDetailsWithEntities (Prelude.Maybe Prelude.Natural)
+getServiceLastAccessedDetailsWithEntities_maxItems = Lens.lens (\GetServiceLastAccessedDetailsWithEntities' {maxItems} -> maxItems) (\s@GetServiceLastAccessedDetailsWithEntities' {} a -> s {maxItems = a} :: GetServiceLastAccessedDetailsWithEntities) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-gsladweMarker :: Lens' GetServiceLastAccessedDetailsWithEntities (Maybe Text)
-gsladweMarker = lens _gsladweMarker (\s a -> s {_gsladweMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+getServiceLastAccessedDetailsWithEntities_marker :: Lens.Lens' GetServiceLastAccessedDetailsWithEntities (Prelude.Maybe Prelude.Text)
+getServiceLastAccessedDetailsWithEntities_marker = Lens.lens (\GetServiceLastAccessedDetailsWithEntities' {marker} -> marker) (\s@GetServiceLastAccessedDetailsWithEntities' {} a -> s {marker = a} :: GetServiceLastAccessedDetailsWithEntities)
 
--- | The ID of the request generated by the @GenerateServiceLastAccessedDetails@ operation.
-gsladweJobId :: Lens' GetServiceLastAccessedDetailsWithEntities Text
-gsladweJobId = lens _gsladweJobId (\s a -> s {_gsladweJobId = a})
+-- | The ID of the request generated by the
+-- @GenerateServiceLastAccessedDetails@ operation.
+getServiceLastAccessedDetailsWithEntities_jobId :: Lens.Lens' GetServiceLastAccessedDetailsWithEntities Prelude.Text
+getServiceLastAccessedDetailsWithEntities_jobId = Lens.lens (\GetServiceLastAccessedDetailsWithEntities' {jobId} -> jobId) (\s@GetServiceLastAccessedDetailsWithEntities' {} a -> s {jobId = a} :: GetServiceLastAccessedDetailsWithEntities)
 
--- | The service namespace for an AWS service. Provide the service namespace to learn when the IAM entity last attempted to access the specified service. To learn the service namespace for a service, see <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services> in the /IAM User Guide/ . Choose the name of the service to view details for that service. In the first paragraph, find the service prefix. For example, @(service prefix: a4b)@ . For more information about service namespaces, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces> in the /AWS General Reference/ .
-gsladweServiceNamespace :: Lens' GetServiceLastAccessedDetailsWithEntities Text
-gsladweServiceNamespace = lens _gsladweServiceNamespace (\s a -> s {_gsladweServiceNamespace = a})
+-- | The service namespace for an AWS service. Provide the service namespace
+-- to learn when the IAM entity last attempted to access the specified
+-- service.
+--
+-- To learn the service namespace for a service, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services>
+-- in the /IAM User Guide/. Choose the name of the service to view details
+-- for that service. In the first paragraph, find the service prefix. For
+-- example, @(service prefix: a4b)@. For more information about service
+-- namespaces, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces>
+-- in the /AWS General Reference/.
+getServiceLastAccessedDetailsWithEntities_serviceNamespace :: Lens.Lens' GetServiceLastAccessedDetailsWithEntities Prelude.Text
+getServiceLastAccessedDetailsWithEntities_serviceNamespace = Lens.lens (\GetServiceLastAccessedDetailsWithEntities' {serviceNamespace} -> serviceNamespace) (\s@GetServiceLastAccessedDetailsWithEntities' {} a -> s {serviceNamespace = a} :: GetServiceLastAccessedDetailsWithEntities)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetServiceLastAccessedDetailsWithEntities
   where
   type
     Rs GetServiceLastAccessedDetailsWithEntities =
       GetServiceLastAccessedDetailsWithEntitiesResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetServiceLastAccessedDetailsWithEntitiesResult"
       ( \s h x ->
           GetServiceLastAccessedDetailsWithEntitiesResponse'
-            <$> (x .@? "IsTruncated") <*> (x .@? "Error")
-              <*> (x .@? "Marker")
-              <*> (pure (fromEnum s))
-              <*> (x .@ "JobStatus")
-              <*> (x .@ "JobCreationDate")
-              <*> (x .@ "JobCompletionDate")
-              <*> ( x .@? "EntityDetailsList" .!@ mempty
-                      >>= parseXMLList "member"
-                  )
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+              Prelude.<*> (x Prelude..@? "Error")
+              Prelude.<*> (x Prelude..@? "Marker")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Prelude..@ "JobStatus")
+              Prelude.<*> (x Prelude..@ "JobCreationDate")
+              Prelude.<*> (x Prelude..@ "JobCompletionDate")
+              Prelude.<*> ( x Prelude..@? "EntityDetailsList"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.parseXMLList "member"
+                          )
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetServiceLastAccessedDetailsWithEntities
 
 instance
-  NFData
+  Prelude.NFData
     GetServiceLastAccessedDetailsWithEntities
 
 instance
-  ToHeaders
-    GetServiceLastAccessedDetailsWithEntities
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     GetServiceLastAccessedDetailsWithEntities
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    GetServiceLastAccessedDetailsWithEntities
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     GetServiceLastAccessedDetailsWithEntities
   where
   toQuery
     GetServiceLastAccessedDetailsWithEntities' {..} =
-      mconcat
+      Prelude.mconcat
         [ "Action"
-            =: ( "GetServiceLastAccessedDetailsWithEntities" ::
-                   ByteString
-               ),
-          "Version" =: ("2010-05-08" :: ByteString),
-          "MaxItems" =: _gsladweMaxItems,
-          "Marker" =: _gsladweMarker,
-          "JobId" =: _gsladweJobId,
-          "ServiceNamespace" =: _gsladweServiceNamespace
+            Prelude.=: ( "GetServiceLastAccessedDetailsWithEntities" ::
+                           Prelude.ByteString
+                       ),
+          "Version"
+            Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+          "MaxItems" Prelude.=: maxItems,
+          "Marker" Prelude.=: marker,
+          "JobId" Prelude.=: jobId,
+          "ServiceNamespace" Prelude.=: serviceNamespace
         ]
 
--- | /See:/ 'getServiceLastAccessedDetailsWithEntitiesResponse' smart constructor.
+-- | /See:/ 'newGetServiceLastAccessedDetailsWithEntitiesResponse' smart constructor.
 data GetServiceLastAccessedDetailsWithEntitiesResponse = GetServiceLastAccessedDetailsWithEntitiesResponse'
-  { _gsladwerrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _gsladwerrsError ::
-      !( Maybe
-           ErrorDetails
-       ),
-    _gsladwerrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _gsladwerrsResponseStatus ::
-      !Int,
-    _gsladwerrsJobStatus ::
-      !JobStatusType,
-    _gsladwerrsJobCreationDate ::
-      !ISO8601,
-    _gsladwerrsJobCompletionDate ::
-      !ISO8601,
-    _gsladwerrsEntityDetailsList ::
-      ![EntityDetails]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | An object that contains details about the reason the operation failed.
+    error :: Prelude.Maybe ErrorDetails,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The status of the job.
+    jobStatus :: JobStatusType,
+    -- | The date and time,
+    -- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+    -- report job was created.
+    jobCreationDate :: Prelude.ISO8601,
+    -- | The date and time,
+    -- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+    -- generated report job was completed or failed.
+    --
+    -- This field is null if the job is still in progress, as indicated by a
+    -- job status value of @IN_PROGRESS@.
+    jobCompletionDate :: Prelude.ISO8601,
+    -- | An @EntityDetailsList@ object that contains details about when an IAM
+    -- entity (user or role) used group or policy permissions in an attempt to
+    -- access the specified AWS service.
+    entityDetailsList :: [EntityDetails]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetServiceLastAccessedDetailsWithEntitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetServiceLastAccessedDetailsWithEntitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsladwerrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsladwerrsError' - An object that contains details about the reason the operation failed.
+-- 'isTruncated', 'getServiceLastAccessedDetailsWithEntitiesResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'gsladwerrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'error', 'getServiceLastAccessedDetailsWithEntitiesResponse_error' - An object that contains details about the reason the operation failed.
 --
--- * 'gsladwerrsResponseStatus' - -- | The response status code.
+-- 'marker', 'getServiceLastAccessedDetailsWithEntitiesResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'gsladwerrsJobStatus' - The status of the job.
+-- 'httpStatus', 'getServiceLastAccessedDetailsWithEntitiesResponse_httpStatus' - The response's http status code.
 --
--- * 'gsladwerrsJobCreationDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the report job was created.
+-- 'jobStatus', 'getServiceLastAccessedDetailsWithEntitiesResponse_jobStatus' - The status of the job.
 --
--- * 'gsladwerrsJobCompletionDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the generated report job was completed or failed. This field is null if the job is still in progress, as indicated by a job status value of @IN_PROGRESS@ .
+-- 'jobCreationDate', 'getServiceLastAccessedDetailsWithEntitiesResponse_jobCreationDate' - The date and time,
+-- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- report job was created.
 --
--- * 'gsladwerrsEntityDetailsList' - An @EntityDetailsList@ object that contains details about when an IAM entity (user or role) used group or policy permissions in an attempt to access the specified AWS service.
-getServiceLastAccessedDetailsWithEntitiesResponse ::
-  -- | 'gsladwerrsResponseStatus'
-  Int ->
-  -- | 'gsladwerrsJobStatus'
+-- 'jobCompletionDate', 'getServiceLastAccessedDetailsWithEntitiesResponse_jobCompletionDate' - The date and time,
+-- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- generated report job was completed or failed.
+--
+-- This field is null if the job is still in progress, as indicated by a
+-- job status value of @IN_PROGRESS@.
+--
+-- 'entityDetailsList', 'getServiceLastAccessedDetailsWithEntitiesResponse_entityDetailsList' - An @EntityDetailsList@ object that contains details about when an IAM
+-- entity (user or role) used group or policy permissions in an attempt to
+-- access the specified AWS service.
+newGetServiceLastAccessedDetailsWithEntitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'jobStatus'
   JobStatusType ->
-  -- | 'gsladwerrsJobCreationDate'
-  UTCTime ->
-  -- | 'gsladwerrsJobCompletionDate'
-  UTCTime ->
+  -- | 'jobCreationDate'
+  Prelude.UTCTime ->
+  -- | 'jobCompletionDate'
+  Prelude.UTCTime ->
   GetServiceLastAccessedDetailsWithEntitiesResponse
-getServiceLastAccessedDetailsWithEntitiesResponse
-  pResponseStatus_
+newGetServiceLastAccessedDetailsWithEntitiesResponse
+  pHttpStatus_
   pJobStatus_
   pJobCreationDate_
   pJobCompletionDate_ =
     GetServiceLastAccessedDetailsWithEntitiesResponse'
-      { _gsladwerrsIsTruncated =
-          Nothing,
-        _gsladwerrsError =
-          Nothing,
-        _gsladwerrsMarker =
-          Nothing,
-        _gsladwerrsResponseStatus =
-          pResponseStatus_,
-        _gsladwerrsJobStatus =
-          pJobStatus_,
-        _gsladwerrsJobCreationDate =
-          _Time
-            # pJobCreationDate_,
-        _gsladwerrsJobCompletionDate =
-          _Time
-            # pJobCompletionDate_,
-        _gsladwerrsEntityDetailsList =
-          mempty
+      { isTruncated =
+          Prelude.Nothing,
+        error = Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus =
+          pHttpStatus_,
+        jobStatus = pJobStatus_,
+        jobCreationDate =
+          Prelude._Time
+            Lens.# pJobCreationDate_,
+        jobCompletionDate =
+          Prelude._Time
+            Lens.# pJobCompletionDate_,
+        entityDetailsList =
+          Prelude.mempty
       }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-gsladwerrsIsTruncated :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse (Maybe Bool)
-gsladwerrsIsTruncated = lens _gsladwerrsIsTruncated (\s a -> s {_gsladwerrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+getServiceLastAccessedDetailsWithEntitiesResponse_isTruncated :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse (Prelude.Maybe Prelude.Bool)
+getServiceLastAccessedDetailsWithEntitiesResponse_isTruncated = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {isTruncated} -> isTruncated) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {isTruncated = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse)
 
 -- | An object that contains details about the reason the operation failed.
-gsladwerrsError :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse (Maybe ErrorDetails)
-gsladwerrsError = lens _gsladwerrsError (\s a -> s {_gsladwerrsError = a})
+getServiceLastAccessedDetailsWithEntitiesResponse_error :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse (Prelude.Maybe ErrorDetails)
+getServiceLastAccessedDetailsWithEntitiesResponse_error = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {error} -> error) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {error = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-gsladwerrsMarker :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse (Maybe Text)
-gsladwerrsMarker = lens _gsladwerrsMarker (\s a -> s {_gsladwerrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+getServiceLastAccessedDetailsWithEntitiesResponse_marker :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse (Prelude.Maybe Prelude.Text)
+getServiceLastAccessedDetailsWithEntitiesResponse_marker = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {marker} -> marker) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {marker = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse)
 
--- | -- | The response status code.
-gsladwerrsResponseStatus :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse Int
-gsladwerrsResponseStatus = lens _gsladwerrsResponseStatus (\s a -> s {_gsladwerrsResponseStatus = a})
+-- | The response's http status code.
+getServiceLastAccessedDetailsWithEntitiesResponse_httpStatus :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse Prelude.Int
+getServiceLastAccessedDetailsWithEntitiesResponse_httpStatus = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {httpStatus} -> httpStatus) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {httpStatus = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse)
 
 -- | The status of the job.
-gsladwerrsJobStatus :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse JobStatusType
-gsladwerrsJobStatus = lens _gsladwerrsJobStatus (\s a -> s {_gsladwerrsJobStatus = a})
+getServiceLastAccessedDetailsWithEntitiesResponse_jobStatus :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse JobStatusType
+getServiceLastAccessedDetailsWithEntitiesResponse_jobStatus = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {jobStatus} -> jobStatus) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {jobStatus = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse)
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the report job was created.
-gsladwerrsJobCreationDate :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse UTCTime
-gsladwerrsJobCreationDate = lens _gsladwerrsJobCreationDate (\s a -> s {_gsladwerrsJobCreationDate = a}) . _Time
+-- | The date and time,
+-- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- report job was created.
+getServiceLastAccessedDetailsWithEntitiesResponse_jobCreationDate :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse Prelude.UTCTime
+getServiceLastAccessedDetailsWithEntitiesResponse_jobCreationDate = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {jobCreationDate} -> jobCreationDate) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {jobCreationDate = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse) Prelude.. Prelude._Time
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the generated report job was completed or failed. This field is null if the job is still in progress, as indicated by a job status value of @IN_PROGRESS@ .
-gsladwerrsJobCompletionDate :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse UTCTime
-gsladwerrsJobCompletionDate = lens _gsladwerrsJobCompletionDate (\s a -> s {_gsladwerrsJobCompletionDate = a}) . _Time
+-- | The date and time,
+-- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- generated report job was completed or failed.
+--
+-- This field is null if the job is still in progress, as indicated by a
+-- job status value of @IN_PROGRESS@.
+getServiceLastAccessedDetailsWithEntitiesResponse_jobCompletionDate :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse Prelude.UTCTime
+getServiceLastAccessedDetailsWithEntitiesResponse_jobCompletionDate = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {jobCompletionDate} -> jobCompletionDate) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {jobCompletionDate = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse) Prelude.. Prelude._Time
 
--- | An @EntityDetailsList@ object that contains details about when an IAM entity (user or role) used group or policy permissions in an attempt to access the specified AWS service.
-gsladwerrsEntityDetailsList :: Lens' GetServiceLastAccessedDetailsWithEntitiesResponse [EntityDetails]
-gsladwerrsEntityDetailsList = lens _gsladwerrsEntityDetailsList (\s a -> s {_gsladwerrsEntityDetailsList = a}) . _Coerce
+-- | An @EntityDetailsList@ object that contains details about when an IAM
+-- entity (user or role) used group or policy permissions in an attempt to
+-- access the specified AWS service.
+getServiceLastAccessedDetailsWithEntitiesResponse_entityDetailsList :: Lens.Lens' GetServiceLastAccessedDetailsWithEntitiesResponse [EntityDetails]
+getServiceLastAccessedDetailsWithEntitiesResponse_entityDetailsList = Lens.lens (\GetServiceLastAccessedDetailsWithEntitiesResponse' {entityDetailsList} -> entityDetailsList) (\s@GetServiceLastAccessedDetailsWithEntitiesResponse' {} a -> s {entityDetailsList = a} :: GetServiceLastAccessedDetailsWithEntitiesResponse) Prelude.. Prelude._Coerce
 
 instance
-  NFData
+  Prelude.NFData
     GetServiceLastAccessedDetailsWithEntitiesResponse

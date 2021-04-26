@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,222 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or updates an inline policy document that is embedded in the specified IAM group.
+-- Adds or updates an inline policy document that is embedded in the
+-- specified IAM group.
 --
+-- A user can also have managed policies attached to it. To attach a
+-- managed policy to a group, use AttachGroupPolicy. To create a new
+-- managed policy, use CreatePolicy. For information about policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 --
--- A user can also have managed policies attached to it. To attach a managed policy to a group, use 'AttachGroupPolicy' . To create a new managed policy, use 'CreatePolicy' . For information about policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
+-- For information about the maximum number of inline policies that you can
+-- embed in a group, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas>
+-- in the /IAM User Guide/.
 --
--- For information about the maximum number of inline policies that you can embed in a group, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas> in the /IAM User Guide/ .
+-- Because policy documents can be large, you should use POST rather than
+-- GET when calling @PutGroupPolicy@. For general information about using
+-- the Query API with IAM, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html Making query requests>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.PutGroupPolicy
   ( -- * Creating a Request
-    putGroupPolicy,
-    PutGroupPolicy,
+    PutGroupPolicy (..),
+    newPutGroupPolicy,
 
     -- * Request Lenses
-    pgpGroupName,
-    pgpPolicyName,
-    pgpPolicyDocument,
+    putGroupPolicy_groupName,
+    putGroupPolicy_policyName,
+    putGroupPolicy_policyDocument,
 
     -- * Destructuring the Response
-    putGroupPolicyResponse,
-    PutGroupPolicyResponse,
+    PutGroupPolicyResponse (..),
+    newPutGroupPolicyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putGroupPolicy' smart constructor.
+-- | /See:/ 'newPutGroupPolicy' smart constructor.
 data PutGroupPolicy = PutGroupPolicy'
-  { _pgpGroupName ::
-      !Text,
-    _pgpPolicyName :: !Text,
-    _pgpPolicyDocument :: !Text
+  { -- | The name of the group to associate the policy with.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-.
+    groupName :: Prelude.Text,
+    -- | The name of the policy document.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    policyName :: Prelude.Text,
+    -- | The policy document.
+    --
+    -- You must provide policies in JSON format in IAM. However, for AWS
+    -- CloudFormation templates formatted in YAML, you can provide the policy
+    -- in JSON or YAML format. AWS CloudFormation always converts a YAML policy
+    -- to JSON format before submitting it to IAM.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+    -- this parameter is a string of characters consisting of the following:
+    --
+    -- -   Any printable ASCII character ranging from the space character
+    --     (@\\u0020@) through the end of the ASCII character range
+    --
+    -- -   The printable characters in the Basic Latin and Latin-1 Supplement
+    --     character set (through @\\u00FF@)
+    --
+    -- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+    --     carriage return (@\\u000D@)
+    policyDocument :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutGroupPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutGroupPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgpGroupName' - The name of the group to associate the policy with. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pgpPolicyName' - The name of the policy document. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- 'groupName', 'putGroupPolicy_groupName' - The name of the group to associate the policy with.
 --
--- * 'pgpPolicyDocument' - The policy document. You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of the following:     * Any printable ASCII character ranging from the space character (@\u0020@ ) through the end of the ASCII character range     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through @\u00FF@ )     * The special characters tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ )
-putGroupPolicy ::
-  -- | 'pgpGroupName'
-  Text ->
-  -- | 'pgpPolicyName'
-  Text ->
-  -- | 'pgpPolicyDocument'
-  Text ->
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-.
+--
+-- 'policyName', 'putGroupPolicy_policyName' - The name of the policy document.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'policyDocument', 'putGroupPolicy_policyDocument' - The policy document.
+--
+-- You must provide policies in JSON format in IAM. However, for AWS
+-- CloudFormation templates formatted in YAML, you can provide the policy
+-- in JSON or YAML format. AWS CloudFormation always converts a YAML policy
+-- to JSON format before submitting it to IAM.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
+newPutGroupPolicy ::
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
+  -- | 'policyDocument'
+  Prelude.Text ->
   PutGroupPolicy
-putGroupPolicy
+newPutGroupPolicy
   pGroupName_
   pPolicyName_
   pPolicyDocument_ =
     PutGroupPolicy'
-      { _pgpGroupName = pGroupName_,
-        _pgpPolicyName = pPolicyName_,
-        _pgpPolicyDocument = pPolicyDocument_
+      { groupName = pGroupName_,
+        policyName = pPolicyName_,
+        policyDocument = pPolicyDocument_
       }
 
--- | The name of the group to associate the policy with. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-.
-pgpGroupName :: Lens' PutGroupPolicy Text
-pgpGroupName = lens _pgpGroupName (\s a -> s {_pgpGroupName = a})
+-- | The name of the group to associate the policy with.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-.
+putGroupPolicy_groupName :: Lens.Lens' PutGroupPolicy Prelude.Text
+putGroupPolicy_groupName = Lens.lens (\PutGroupPolicy' {groupName} -> groupName) (\s@PutGroupPolicy' {} a -> s {groupName = a} :: PutGroupPolicy)
 
--- | The name of the policy document. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-pgpPolicyName :: Lens' PutGroupPolicy Text
-pgpPolicyName = lens _pgpPolicyName (\s a -> s {_pgpPolicyName = a})
+-- | The name of the policy document.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+putGroupPolicy_policyName :: Lens.Lens' PutGroupPolicy Prelude.Text
+putGroupPolicy_policyName = Lens.lens (\PutGroupPolicy' {policyName} -> policyName) (\s@PutGroupPolicy' {} a -> s {policyName = a} :: PutGroupPolicy)
 
--- | The policy document. You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of the following:     * Any printable ASCII character ranging from the space character (@\u0020@ ) through the end of the ASCII character range     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through @\u00FF@ )     * The special characters tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ )
-pgpPolicyDocument :: Lens' PutGroupPolicy Text
-pgpPolicyDocument = lens _pgpPolicyDocument (\s a -> s {_pgpPolicyDocument = a})
+-- | The policy document.
+--
+-- You must provide policies in JSON format in IAM. However, for AWS
+-- CloudFormation templates formatted in YAML, you can provide the policy
+-- in JSON or YAML format. AWS CloudFormation always converts a YAML policy
+-- to JSON format before submitting it to IAM.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
+putGroupPolicy_policyDocument :: Lens.Lens' PutGroupPolicy Prelude.Text
+putGroupPolicy_policyDocument = Lens.lens (\PutGroupPolicy' {policyDocument} -> policyDocument) (\s@PutGroupPolicy' {} a -> s {policyDocument = a} :: PutGroupPolicy)
 
-instance AWSRequest PutGroupPolicy where
+instance Prelude.AWSRequest PutGroupPolicy where
   type Rs PutGroupPolicy = PutGroupPolicyResponse
-  request = postQuery iam
-  response = receiveNull PutGroupPolicyResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull PutGroupPolicyResponse'
 
-instance Hashable PutGroupPolicy
+instance Prelude.Hashable PutGroupPolicy
 
-instance NFData PutGroupPolicy
+instance Prelude.NFData PutGroupPolicy
 
-instance ToHeaders PutGroupPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutGroupPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath PutGroupPolicy where
-  toPath = const "/"
+instance Prelude.ToPath PutGroupPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutGroupPolicy where
+instance Prelude.ToQuery PutGroupPolicy where
   toQuery PutGroupPolicy' {..} =
-    mconcat
-      [ "Action" =: ("PutGroupPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "GroupName" =: _pgpGroupName,
-        "PolicyName" =: _pgpPolicyName,
-        "PolicyDocument" =: _pgpPolicyDocument
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("PutGroupPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "GroupName" Prelude.=: groupName,
+        "PolicyName" Prelude.=: policyName,
+        "PolicyDocument" Prelude.=: policyDocument
       ]
 
--- | /See:/ 'putGroupPolicyResponse' smart constructor.
+-- | /See:/ 'newPutGroupPolicyResponse' smart constructor.
 data PutGroupPolicyResponse = PutGroupPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutGroupPolicyResponse' with the minimum fields required to make a request.
-putGroupPolicyResponse ::
+-- |
+-- Create a value of 'PutGroupPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutGroupPolicyResponse ::
   PutGroupPolicyResponse
-putGroupPolicyResponse = PutGroupPolicyResponse'
+newPutGroupPolicyResponse = PutGroupPolicyResponse'
 
-instance NFData PutGroupPolicyResponse
+instance Prelude.NFData PutGroupPolicyResponse

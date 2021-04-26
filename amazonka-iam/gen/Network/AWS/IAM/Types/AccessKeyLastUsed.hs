@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,167 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.AccessKeyLastUsed where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the last time an AWS access key was used since IAM began tracking this information on April 22, 2015.
+-- | Contains information about the last time an AWS access key was used
+-- since IAM began tracking this information on April 22, 2015.
 --
+-- This data type is used as a response element in the GetAccessKeyLastUsed
+-- operation.
 --
--- This data type is used as a response element in the 'GetAccessKeyLastUsed' operation.
---
---
--- /See:/ 'accessKeyLastUsed' smart constructor.
+-- /See:/ 'newAccessKeyLastUsed' smart constructor.
 data AccessKeyLastUsed = AccessKeyLastUsed'
-  { _akluLastUsedDate ::
-      !ISO8601,
-    _akluServiceName :: !Text,
-    _akluRegion :: !Text
+  { -- | The date and time, in
+    -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+    -- access key was most recently used. This field is null in the following
+    -- situations:
+    --
+    -- -   The user does not have an access key.
+    --
+    -- -   An access key exists but has not been used since IAM began tracking
+    --     this information.
+    --
+    -- -   There is no sign-in data associated with the user.
+    lastUsedDate :: Prelude.ISO8601,
+    -- | The name of the AWS service with which this access key was most recently
+    -- used. The value of this field is \"N\/A\" in the following situations:
+    --
+    -- -   The user does not have an access key.
+    --
+    -- -   An access key exists but has not been used since IAM started
+    --     tracking this information.
+    --
+    -- -   There is no sign-in data associated with the user.
+    serviceName :: Prelude.Text,
+    -- | The AWS Region where this access key was most recently used. The value
+    -- for this field is \"N\/A\" in the following situations:
+    --
+    -- -   The user does not have an access key.
+    --
+    -- -   An access key exists but has not been used since IAM began tracking
+    --     this information.
+    --
+    -- -   There is no sign-in data associated with the user.
+    --
+    -- For more information about AWS Regions, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and endpoints>
+    -- in the Amazon Web Services General Reference.
+    region :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessKeyLastUsed' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessKeyLastUsed' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akluLastUsedDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the access key was most recently used. This field is null in the following situations:     * The user does not have an access key.     * An access key exists but has not been used since IAM began tracking this information.     * There is no sign-in data associated with the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akluServiceName' - The name of the AWS service with which this access key was most recently used. The value of this field is "N/A" in the following situations:     * The user does not have an access key.     * An access key exists but has not been used since IAM started tracking this information.     * There is no sign-in data associated with the user.
+-- 'lastUsedDate', 'accessKeyLastUsed_lastUsedDate' - The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- access key was most recently used. This field is null in the following
+-- situations:
 --
--- * 'akluRegion' - The AWS Region where this access key was most recently used. The value for this field is "N/A" in the following situations:     * The user does not have an access key.     * An access key exists but has not been used since IAM began tracking this information.     * There is no sign-in data associated with the user. For more information about AWS Regions, see <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and endpoints> in the Amazon Web Services General Reference.
-accessKeyLastUsed ::
-  -- | 'akluLastUsedDate'
-  UTCTime ->
-  -- | 'akluServiceName'
-  Text ->
-  -- | 'akluRegion'
-  Text ->
+-- -   The user does not have an access key.
+--
+-- -   An access key exists but has not been used since IAM began tracking
+--     this information.
+--
+-- -   There is no sign-in data associated with the user.
+--
+-- 'serviceName', 'accessKeyLastUsed_serviceName' - The name of the AWS service with which this access key was most recently
+-- used. The value of this field is \"N\/A\" in the following situations:
+--
+-- -   The user does not have an access key.
+--
+-- -   An access key exists but has not been used since IAM started
+--     tracking this information.
+--
+-- -   There is no sign-in data associated with the user.
+--
+-- 'region', 'accessKeyLastUsed_region' - The AWS Region where this access key was most recently used. The value
+-- for this field is \"N\/A\" in the following situations:
+--
+-- -   The user does not have an access key.
+--
+-- -   An access key exists but has not been used since IAM began tracking
+--     this information.
+--
+-- -   There is no sign-in data associated with the user.
+--
+-- For more information about AWS Regions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and endpoints>
+-- in the Amazon Web Services General Reference.
+newAccessKeyLastUsed ::
+  -- | 'lastUsedDate'
+  Prelude.UTCTime ->
+  -- | 'serviceName'
+  Prelude.Text ->
+  -- | 'region'
+  Prelude.Text ->
   AccessKeyLastUsed
-accessKeyLastUsed
+newAccessKeyLastUsed
   pLastUsedDate_
   pServiceName_
   pRegion_ =
     AccessKeyLastUsed'
-      { _akluLastUsedDate =
-          _Time # pLastUsedDate_,
-        _akluServiceName = pServiceName_,
-        _akluRegion = pRegion_
+      { lastUsedDate =
+          Prelude._Time Lens.# pLastUsedDate_,
+        serviceName = pServiceName_,
+        region = pRegion_
       }
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the access key was most recently used. This field is null in the following situations:     * The user does not have an access key.     * An access key exists but has not been used since IAM began tracking this information.     * There is no sign-in data associated with the user.
-akluLastUsedDate :: Lens' AccessKeyLastUsed UTCTime
-akluLastUsedDate = lens _akluLastUsedDate (\s a -> s {_akluLastUsedDate = a}) . _Time
+-- | The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- access key was most recently used. This field is null in the following
+-- situations:
+--
+-- -   The user does not have an access key.
+--
+-- -   An access key exists but has not been used since IAM began tracking
+--     this information.
+--
+-- -   There is no sign-in data associated with the user.
+accessKeyLastUsed_lastUsedDate :: Lens.Lens' AccessKeyLastUsed Prelude.UTCTime
+accessKeyLastUsed_lastUsedDate = Lens.lens (\AccessKeyLastUsed' {lastUsedDate} -> lastUsedDate) (\s@AccessKeyLastUsed' {} a -> s {lastUsedDate = a} :: AccessKeyLastUsed) Prelude.. Prelude._Time
 
--- | The name of the AWS service with which this access key was most recently used. The value of this field is "N/A" in the following situations:     * The user does not have an access key.     * An access key exists but has not been used since IAM started tracking this information.     * There is no sign-in data associated with the user.
-akluServiceName :: Lens' AccessKeyLastUsed Text
-akluServiceName = lens _akluServiceName (\s a -> s {_akluServiceName = a})
+-- | The name of the AWS service with which this access key was most recently
+-- used. The value of this field is \"N\/A\" in the following situations:
+--
+-- -   The user does not have an access key.
+--
+-- -   An access key exists but has not been used since IAM started
+--     tracking this information.
+--
+-- -   There is no sign-in data associated with the user.
+accessKeyLastUsed_serviceName :: Lens.Lens' AccessKeyLastUsed Prelude.Text
+accessKeyLastUsed_serviceName = Lens.lens (\AccessKeyLastUsed' {serviceName} -> serviceName) (\s@AccessKeyLastUsed' {} a -> s {serviceName = a} :: AccessKeyLastUsed)
 
--- | The AWS Region where this access key was most recently used. The value for this field is "N/A" in the following situations:     * The user does not have an access key.     * An access key exists but has not been used since IAM began tracking this information.     * There is no sign-in data associated with the user. For more information about AWS Regions, see <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and endpoints> in the Amazon Web Services General Reference.
-akluRegion :: Lens' AccessKeyLastUsed Text
-akluRegion = lens _akluRegion (\s a -> s {_akluRegion = a})
+-- | The AWS Region where this access key was most recently used. The value
+-- for this field is \"N\/A\" in the following situations:
+--
+-- -   The user does not have an access key.
+--
+-- -   An access key exists but has not been used since IAM began tracking
+--     this information.
+--
+-- -   There is no sign-in data associated with the user.
+--
+-- For more information about AWS Regions, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html Regions and endpoints>
+-- in the Amazon Web Services General Reference.
+accessKeyLastUsed_region :: Lens.Lens' AccessKeyLastUsed Prelude.Text
+accessKeyLastUsed_region = Lens.lens (\AccessKeyLastUsed' {region} -> region) (\s@AccessKeyLastUsed' {} a -> s {region = a} :: AccessKeyLastUsed)
 
-instance FromXML AccessKeyLastUsed where
+instance Prelude.FromXML AccessKeyLastUsed where
   parseXML x =
     AccessKeyLastUsed'
-      <$> (x .@ "LastUsedDate")
-      <*> (x .@ "ServiceName")
-      <*> (x .@ "Region")
+      Prelude.<$> (x Prelude..@ "LastUsedDate")
+      Prelude.<*> (x Prelude..@ "ServiceName")
+      Prelude.<*> (x Prelude..@ "Region")
 
-instance Hashable AccessKeyLastUsed
+instance Prelude.Hashable AccessKeyLastUsed
 
-instance NFData AccessKeyLastUsed
+instance Prelude.NFData AccessKeyLastUsed

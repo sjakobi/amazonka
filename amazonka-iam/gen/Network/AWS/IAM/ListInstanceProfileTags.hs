@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,184 +21,266 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the tags that are attached to the specified IAM instance profile. The returned list of tags is sorted by tag key. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Lists the tags that are attached to the specified IAM instance profile.
+-- The returned list of tags is sorted by tag key. For more information
+-- about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.ListInstanceProfileTags
   ( -- * Creating a Request
-    listInstanceProfileTags,
-    ListInstanceProfileTags,
+    ListInstanceProfileTags (..),
+    newListInstanceProfileTags,
 
     -- * Request Lenses
-    liptMaxItems,
-    liptMarker,
-    liptInstanceProfileName,
+    listInstanceProfileTags_maxItems,
+    listInstanceProfileTags_marker,
+    listInstanceProfileTags_instanceProfileName,
 
     -- * Destructuring the Response
-    listInstanceProfileTagsResponse,
-    ListInstanceProfileTagsResponse,
+    ListInstanceProfileTagsResponse (..),
+    newListInstanceProfileTagsResponse,
 
     -- * Response Lenses
-    liptrrsIsTruncated,
-    liptrrsMarker,
-    liptrrsResponseStatus,
-    liptrrsTags,
+    listInstanceProfileTagsResponse_isTruncated,
+    listInstanceProfileTagsResponse_marker,
+    listInstanceProfileTagsResponse_httpStatus,
+    listInstanceProfileTagsResponse_tags,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listInstanceProfileTags' smart constructor.
+-- | /See:/ 'newListInstanceProfileTags' smart constructor.
 data ListInstanceProfileTags = ListInstanceProfileTags'
-  { _liptMaxItems ::
-      !(Maybe Nat),
-    _liptMarker ::
-      !(Maybe Text),
-    _liptInstanceProfileName ::
-      !Text
+  { -- | (Optional) Use this only when paginating results to indicate the maximum
+    -- number of items that you want in the response. If additional items exist
+    -- beyond the maximum that you specify, the @IsTruncated@ response element
+    -- is @true@.
+    --
+    -- If you do not include this parameter, it defaults to 100. Note that IAM
+    -- might return fewer results, even when more results are available. In
+    -- that case, the @IsTruncated@ response element returns @true@, and
+    -- @Marker@ contains a value to include in the subsequent call that tells
+    -- the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The name of the IAM instance profile whose tags you want to see.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    instanceProfileName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceProfileTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceProfileTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liptMaxItems' - (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liptMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- 'maxItems', 'listInstanceProfileTags_maxItems' - (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
 --
--- * 'liptInstanceProfileName' - The name of the IAM instance profile whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-listInstanceProfileTags ::
-  -- | 'liptInstanceProfileName'
-  Text ->
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+--
+-- 'marker', 'listInstanceProfileTags_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'instanceProfileName', 'listInstanceProfileTags_instanceProfileName' - The name of the IAM instance profile whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+newListInstanceProfileTags ::
+  -- | 'instanceProfileName'
+  Prelude.Text ->
   ListInstanceProfileTags
-listInstanceProfileTags pInstanceProfileName_ =
+newListInstanceProfileTags pInstanceProfileName_ =
   ListInstanceProfileTags'
-    { _liptMaxItems = Nothing,
-      _liptMarker = Nothing,
-      _liptInstanceProfileName = pInstanceProfileName_
+    { maxItems =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      instanceProfileName = pInstanceProfileName_
     }
 
--- | (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-liptMaxItems :: Lens' ListInstanceProfileTags (Maybe Natural)
-liptMaxItems = lens _liptMaxItems (\s a -> s {_liptMaxItems = a}) . mapping _Nat
+-- | (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
+--
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+listInstanceProfileTags_maxItems :: Lens.Lens' ListInstanceProfileTags (Prelude.Maybe Prelude.Natural)
+listInstanceProfileTags_maxItems = Lens.lens (\ListInstanceProfileTags' {maxItems} -> maxItems) (\s@ListInstanceProfileTags' {} a -> s {maxItems = a} :: ListInstanceProfileTags) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-liptMarker :: Lens' ListInstanceProfileTags (Maybe Text)
-liptMarker = lens _liptMarker (\s a -> s {_liptMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listInstanceProfileTags_marker :: Lens.Lens' ListInstanceProfileTags (Prelude.Maybe Prelude.Text)
+listInstanceProfileTags_marker = Lens.lens (\ListInstanceProfileTags' {marker} -> marker) (\s@ListInstanceProfileTags' {} a -> s {marker = a} :: ListInstanceProfileTags)
 
--- | The name of the IAM instance profile whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-liptInstanceProfileName :: Lens' ListInstanceProfileTags Text
-liptInstanceProfileName = lens _liptInstanceProfileName (\s a -> s {_liptInstanceProfileName = a})
+-- | The name of the IAM instance profile whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+listInstanceProfileTags_instanceProfileName :: Lens.Lens' ListInstanceProfileTags Prelude.Text
+listInstanceProfileTags_instanceProfileName = Lens.lens (\ListInstanceProfileTags' {instanceProfileName} -> instanceProfileName) (\s@ListInstanceProfileTags' {} a -> s {instanceProfileName = a} :: ListInstanceProfileTags)
 
-instance AWSRequest ListInstanceProfileTags where
+instance Prelude.AWSRequest ListInstanceProfileTags where
   type
     Rs ListInstanceProfileTags =
       ListInstanceProfileTagsResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListInstanceProfileTagsResult"
       ( \s h x ->
           ListInstanceProfileTagsResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> (x .@? "Tags" .!@ mempty >>= parseXMLList "member")
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListInstanceProfileTags
+instance Prelude.Hashable ListInstanceProfileTags
 
-instance NFData ListInstanceProfileTags
+instance Prelude.NFData ListInstanceProfileTags
 
-instance ToHeaders ListInstanceProfileTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListInstanceProfileTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListInstanceProfileTags where
-  toPath = const "/"
+instance Prelude.ToPath ListInstanceProfileTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListInstanceProfileTags where
+instance Prelude.ToQuery ListInstanceProfileTags where
   toQuery ListInstanceProfileTags' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ListInstanceProfileTags" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "MaxItems" =: _liptMaxItems,
-        "Marker" =: _liptMarker,
-        "InstanceProfileName" =: _liptInstanceProfileName
+          Prelude.=: ("ListInstanceProfileTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker,
+        "InstanceProfileName" Prelude.=: instanceProfileName
       ]
 
--- | /See:/ 'listInstanceProfileTagsResponse' smart constructor.
+-- | /See:/ 'newListInstanceProfileTagsResponse' smart constructor.
 data ListInstanceProfileTagsResponse = ListInstanceProfileTagsResponse'
-  { _liptrrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _liptrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _liptrrsResponseStatus ::
-      !Int,
-    _liptrrsTags ::
-      ![Tag]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can use the @Marker@ request parameter to
+    -- make a subsequent pagination request that retrieves more items. Note
+    -- that IAM might return fewer than the @MaxItems@ number of results even
+    -- when more results are available. Check @IsTruncated@ after every call to
+    -- ensure that you receive all of your results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The list of tags that are currently attached to the IAM instance
+    -- profile. Each tag consists of a key name and an associated value. If no
+    -- tags are attached to the specified resource, the response contains an
+    -- empty list.
+    tags :: [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceProfileTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceProfileTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liptrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liptrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listInstanceProfileTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
 --
--- * 'liptrrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listInstanceProfileTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'liptrrsTags' - The list of tags that are currently attached to the IAM instance profile. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-listInstanceProfileTagsResponse ::
-  -- | 'liptrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listInstanceProfileTagsResponse_httpStatus' - The response's http status code.
+--
+-- 'tags', 'listInstanceProfileTagsResponse_tags' - The list of tags that are currently attached to the IAM instance
+-- profile. Each tag consists of a key name and an associated value. If no
+-- tags are attached to the specified resource, the response contains an
+-- empty list.
+newListInstanceProfileTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListInstanceProfileTagsResponse
-listInstanceProfileTagsResponse pResponseStatus_ =
+newListInstanceProfileTagsResponse pHttpStatus_ =
   ListInstanceProfileTagsResponse'
-    { _liptrrsIsTruncated =
-        Nothing,
-      _liptrrsMarker = Nothing,
-      _liptrrsResponseStatus = pResponseStatus_,
-      _liptrrsTags = mempty
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      tags = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
-liptrrsIsTruncated :: Lens' ListInstanceProfileTagsResponse (Maybe Bool)
-liptrrsIsTruncated = lens _liptrrsIsTruncated (\s a -> s {_liptrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
+listInstanceProfileTagsResponse_isTruncated :: Lens.Lens' ListInstanceProfileTagsResponse (Prelude.Maybe Prelude.Bool)
+listInstanceProfileTagsResponse_isTruncated = Lens.lens (\ListInstanceProfileTagsResponse' {isTruncated} -> isTruncated) (\s@ListInstanceProfileTagsResponse' {} a -> s {isTruncated = a} :: ListInstanceProfileTagsResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-liptrrsMarker :: Lens' ListInstanceProfileTagsResponse (Maybe Text)
-liptrrsMarker = lens _liptrrsMarker (\s a -> s {_liptrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listInstanceProfileTagsResponse_marker :: Lens.Lens' ListInstanceProfileTagsResponse (Prelude.Maybe Prelude.Text)
+listInstanceProfileTagsResponse_marker = Lens.lens (\ListInstanceProfileTagsResponse' {marker} -> marker) (\s@ListInstanceProfileTagsResponse' {} a -> s {marker = a} :: ListInstanceProfileTagsResponse)
 
--- | -- | The response status code.
-liptrrsResponseStatus :: Lens' ListInstanceProfileTagsResponse Int
-liptrrsResponseStatus = lens _liptrrsResponseStatus (\s a -> s {_liptrrsResponseStatus = a})
+-- | The response's http status code.
+listInstanceProfileTagsResponse_httpStatus :: Lens.Lens' ListInstanceProfileTagsResponse Prelude.Int
+listInstanceProfileTagsResponse_httpStatus = Lens.lens (\ListInstanceProfileTagsResponse' {httpStatus} -> httpStatus) (\s@ListInstanceProfileTagsResponse' {} a -> s {httpStatus = a} :: ListInstanceProfileTagsResponse)
 
--- | The list of tags that are currently attached to the IAM instance profile. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-liptrrsTags :: Lens' ListInstanceProfileTagsResponse [Tag]
-liptrrsTags = lens _liptrrsTags (\s a -> s {_liptrrsTags = a}) . _Coerce
+-- | The list of tags that are currently attached to the IAM instance
+-- profile. Each tag consists of a key name and an associated value. If no
+-- tags are attached to the specified resource, the response contains an
+-- empty list.
+listInstanceProfileTagsResponse_tags :: Lens.Lens' ListInstanceProfileTagsResponse [Tag]
+listInstanceProfileTagsResponse_tags = Lens.lens (\ListInstanceProfileTagsResponse' {tags} -> tags) (\s@ListInstanceProfileTagsResponse' {} a -> s {tags = a} :: ListInstanceProfileTagsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListInstanceProfileTagsResponse
+instance
+  Prelude.NFData
+    ListInstanceProfileTagsResponse

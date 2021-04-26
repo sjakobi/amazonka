@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,105 +23,140 @@
 --
 -- Attaches the specified managed policy to the specified IAM group.
 --
+-- You use this operation to attach a managed policy to a group. To embed
+-- an inline policy in a group, use PutGroupPolicy.
 --
--- You use this operation to attach a managed policy to a group. To embed an inline policy in a group, use 'PutGroupPolicy' .
---
--- For more information about policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
+-- For more information about policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.AttachGroupPolicy
   ( -- * Creating a Request
-    attachGroupPolicy,
-    AttachGroupPolicy,
+    AttachGroupPolicy (..),
+    newAttachGroupPolicy,
 
     -- * Request Lenses
-    agpGroupName,
-    agpPolicyARN,
+    attachGroupPolicy_groupName,
+    attachGroupPolicy_policyArn,
 
     -- * Destructuring the Response
-    attachGroupPolicyResponse,
-    AttachGroupPolicyResponse,
+    AttachGroupPolicyResponse (..),
+    newAttachGroupPolicyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachGroupPolicy' smart constructor.
+-- | /See:/ 'newAttachGroupPolicy' smart constructor.
 data AttachGroupPolicy = AttachGroupPolicy'
-  { _agpGroupName ::
-      !Text,
-    _agpPolicyARN :: !Text
+  { -- | The name (friendly name, not ARN) of the group to attach the policy to.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    groupName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM policy you want to attach.
+    --
+    -- For more information about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+    -- in the /AWS General Reference/.
+    policyArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachGroupPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachGroupPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'agpGroupName' - The name (friendly name, not ARN) of the group to attach the policy to. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'agpPolicyARN' - The Amazon Resource Name (ARN) of the IAM policy you want to attach. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
-attachGroupPolicy ::
-  -- | 'agpGroupName'
-  Text ->
-  -- | 'agpPolicyARN'
-  Text ->
+-- 'groupName', 'attachGroupPolicy_groupName' - The name (friendly name, not ARN) of the group to attach the policy to.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'policyArn', 'attachGroupPolicy_policyArn' - The Amazon Resource Name (ARN) of the IAM policy you want to attach.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
+newAttachGroupPolicy ::
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'policyArn'
+  Prelude.Text ->
   AttachGroupPolicy
-attachGroupPolicy pGroupName_ pPolicyARN_ =
+newAttachGroupPolicy pGroupName_ pPolicyArn_ =
   AttachGroupPolicy'
-    { _agpGroupName = pGroupName_,
-      _agpPolicyARN = pPolicyARN_
+    { groupName = pGroupName_,
+      policyArn = pPolicyArn_
     }
 
--- | The name (friendly name, not ARN) of the group to attach the policy to. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-agpGroupName :: Lens' AttachGroupPolicy Text
-agpGroupName = lens _agpGroupName (\s a -> s {_agpGroupName = a})
+-- | The name (friendly name, not ARN) of the group to attach the policy to.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+attachGroupPolicy_groupName :: Lens.Lens' AttachGroupPolicy Prelude.Text
+attachGroupPolicy_groupName = Lens.lens (\AttachGroupPolicy' {groupName} -> groupName) (\s@AttachGroupPolicy' {} a -> s {groupName = a} :: AttachGroupPolicy)
 
--- | The Amazon Resource Name (ARN) of the IAM policy you want to attach. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
-agpPolicyARN :: Lens' AttachGroupPolicy Text
-agpPolicyARN = lens _agpPolicyARN (\s a -> s {_agpPolicyARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM policy you want to attach.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
+attachGroupPolicy_policyArn :: Lens.Lens' AttachGroupPolicy Prelude.Text
+attachGroupPolicy_policyArn = Lens.lens (\AttachGroupPolicy' {policyArn} -> policyArn) (\s@AttachGroupPolicy' {} a -> s {policyArn = a} :: AttachGroupPolicy)
 
-instance AWSRequest AttachGroupPolicy where
+instance Prelude.AWSRequest AttachGroupPolicy where
   type Rs AttachGroupPolicy = AttachGroupPolicyResponse
-  request = postQuery iam
-  response = receiveNull AttachGroupPolicyResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull AttachGroupPolicyResponse'
 
-instance Hashable AttachGroupPolicy
+instance Prelude.Hashable AttachGroupPolicy
 
-instance NFData AttachGroupPolicy
+instance Prelude.NFData AttachGroupPolicy
 
-instance ToHeaders AttachGroupPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AttachGroupPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AttachGroupPolicy where
-  toPath = const "/"
+instance Prelude.ToPath AttachGroupPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery AttachGroupPolicy where
+instance Prelude.ToQuery AttachGroupPolicy where
   toQuery AttachGroupPolicy' {..} =
-    mconcat
-      [ "Action" =: ("AttachGroupPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "GroupName" =: _agpGroupName,
-        "PolicyArn" =: _agpPolicyARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("AttachGroupPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "GroupName" Prelude.=: groupName,
+        "PolicyArn" Prelude.=: policyArn
       ]
 
--- | /See:/ 'attachGroupPolicyResponse' smart constructor.
+-- | /See:/ 'newAttachGroupPolicyResponse' smart constructor.
 data AttachGroupPolicyResponse = AttachGroupPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachGroupPolicyResponse' with the minimum fields required to make a request.
-attachGroupPolicyResponse ::
+-- |
+-- Create a value of 'AttachGroupPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAttachGroupPolicyResponse ::
   AttachGroupPolicyResponse
-attachGroupPolicyResponse =
+newAttachGroupPolicyResponse =
   AttachGroupPolicyResponse'
 
-instance NFData AttachGroupPolicyResponse
+instance Prelude.NFData AttachGroupPolicyResponse

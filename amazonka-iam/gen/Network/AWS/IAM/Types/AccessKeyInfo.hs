@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,91 +20,107 @@
 module Network.AWS.IAM.Types.AccessKeyInfo where
 
 import Network.AWS.IAM.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an AWS access key.
 --
+-- This data type is used as a response element in the CreateAccessKey and
+-- ListAccessKeys operations.
 --
--- This data type is used as a response element in the 'CreateAccessKey' and 'ListAccessKeys' operations.
+-- The @SecretAccessKey@ value is returned only in response to
+-- CreateAccessKey. You can get a secret access key only when you first
+-- create an access key; you cannot recover the secret access key later. If
+-- you lose a secret access key, you must create a new access key.
 --
---
--- /See:/ 'accessKeyInfo' smart constructor.
+-- /See:/ 'newAccessKeyInfo' smart constructor.
 data AccessKeyInfo = AccessKeyInfo'
-  { _akiCreateDate ::
-      !(Maybe ISO8601),
-    _akiUserName :: !Text,
-    _akiAccessKeyId :: !AccessKey,
-    _akiStatus :: !StatusType,
-    _akiSecretAccessKey :: !(Sensitive Text)
+  { -- | The date when the access key was created.
+    createDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the IAM user that the access key is associated with.
+    userName :: Prelude.Text,
+    -- | The ID for this access key.
+    accessKeyId :: AccessKey,
+    -- | The status of the access key. @Active@ means that the key is valid for
+    -- API calls, while @Inactive@ means it is not.
+    status :: StatusType,
+    -- | The secret key used to sign requests.
+    secretAccessKey :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessKeyInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessKeyInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akiCreateDate' - The date when the access key was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akiUserName' - The name of the IAM user that the access key is associated with.
+-- 'createDate', 'accessKeyInfo_createDate' - The date when the access key was created.
 --
--- * 'akiAccessKeyId' - The ID for this access key.
+-- 'userName', 'accessKeyInfo_userName' - The name of the IAM user that the access key is associated with.
 --
--- * 'akiStatus' - The status of the access key. @Active@ means that the key is valid for API calls, while @Inactive@ means it is not.
+-- 'accessKeyId', 'accessKeyInfo_accessKeyId' - The ID for this access key.
 --
--- * 'akiSecretAccessKey' - The secret key used to sign requests.
-accessKeyInfo ::
-  -- | 'akiUserName'
-  Text ->
-  -- | 'akiAccessKeyId'
+-- 'status', 'accessKeyInfo_status' - The status of the access key. @Active@ means that the key is valid for
+-- API calls, while @Inactive@ means it is not.
+--
+-- 'secretAccessKey', 'accessKeyInfo_secretAccessKey' - The secret key used to sign requests.
+newAccessKeyInfo ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'accessKeyId'
   AccessKey ->
-  -- | 'akiStatus'
+  -- | 'status'
   StatusType ->
-  -- | 'akiSecretAccessKey'
-  Text ->
+  -- | 'secretAccessKey'
+  Prelude.Text ->
   AccessKeyInfo
-accessKeyInfo
+newAccessKeyInfo
   pUserName_
   pAccessKeyId_
   pStatus_
   pSecretAccessKey_ =
     AccessKeyInfo'
-      { _akiCreateDate = Nothing,
-        _akiUserName = pUserName_,
-        _akiAccessKeyId = pAccessKeyId_,
-        _akiStatus = pStatus_,
-        _akiSecretAccessKey = _Sensitive # pSecretAccessKey_
+      { createDate = Prelude.Nothing,
+        userName = pUserName_,
+        accessKeyId = pAccessKeyId_,
+        status = pStatus_,
+        secretAccessKey =
+          Prelude._Sensitive Lens.# pSecretAccessKey_
       }
 
 -- | The date when the access key was created.
-akiCreateDate :: Lens' AccessKeyInfo (Maybe UTCTime)
-akiCreateDate = lens _akiCreateDate (\s a -> s {_akiCreateDate = a}) . mapping _Time
+accessKeyInfo_createDate :: Lens.Lens' AccessKeyInfo (Prelude.Maybe Prelude.UTCTime)
+accessKeyInfo_createDate = Lens.lens (\AccessKeyInfo' {createDate} -> createDate) (\s@AccessKeyInfo' {} a -> s {createDate = a} :: AccessKeyInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the IAM user that the access key is associated with.
-akiUserName :: Lens' AccessKeyInfo Text
-akiUserName = lens _akiUserName (\s a -> s {_akiUserName = a})
+accessKeyInfo_userName :: Lens.Lens' AccessKeyInfo Prelude.Text
+accessKeyInfo_userName = Lens.lens (\AccessKeyInfo' {userName} -> userName) (\s@AccessKeyInfo' {} a -> s {userName = a} :: AccessKeyInfo)
 
 -- | The ID for this access key.
-akiAccessKeyId :: Lens' AccessKeyInfo AccessKey
-akiAccessKeyId = lens _akiAccessKeyId (\s a -> s {_akiAccessKeyId = a})
+accessKeyInfo_accessKeyId :: Lens.Lens' AccessKeyInfo AccessKey
+accessKeyInfo_accessKeyId = Lens.lens (\AccessKeyInfo' {accessKeyId} -> accessKeyId) (\s@AccessKeyInfo' {} a -> s {accessKeyId = a} :: AccessKeyInfo)
 
--- | The status of the access key. @Active@ means that the key is valid for API calls, while @Inactive@ means it is not.
-akiStatus :: Lens' AccessKeyInfo StatusType
-akiStatus = lens _akiStatus (\s a -> s {_akiStatus = a})
+-- | The status of the access key. @Active@ means that the key is valid for
+-- API calls, while @Inactive@ means it is not.
+accessKeyInfo_status :: Lens.Lens' AccessKeyInfo StatusType
+accessKeyInfo_status = Lens.lens (\AccessKeyInfo' {status} -> status) (\s@AccessKeyInfo' {} a -> s {status = a} :: AccessKeyInfo)
 
 -- | The secret key used to sign requests.
-akiSecretAccessKey :: Lens' AccessKeyInfo Text
-akiSecretAccessKey = lens _akiSecretAccessKey (\s a -> s {_akiSecretAccessKey = a}) . _Sensitive
+accessKeyInfo_secretAccessKey :: Lens.Lens' AccessKeyInfo Prelude.Text
+accessKeyInfo_secretAccessKey = Lens.lens (\AccessKeyInfo' {secretAccessKey} -> secretAccessKey) (\s@AccessKeyInfo' {} a -> s {secretAccessKey = a} :: AccessKeyInfo) Prelude.. Prelude._Sensitive
 
-instance FromXML AccessKeyInfo where
+instance Prelude.FromXML AccessKeyInfo where
   parseXML x =
     AccessKeyInfo'
-      <$> (x .@? "CreateDate")
-      <*> (x .@ "UserName")
-      <*> (x .@ "AccessKeyId")
-      <*> (x .@ "Status")
-      <*> (x .@ "SecretAccessKey")
+      Prelude.<$> (x Prelude..@? "CreateDate")
+      Prelude.<*> (x Prelude..@ "UserName")
+      Prelude.<*> (x Prelude..@ "AccessKeyId")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "SecretAccessKey")
 
-instance Hashable AccessKeyInfo
+instance Prelude.Hashable AccessKeyInfo
 
-instance NFData AccessKeyInfo
+instance Prelude.NFData AccessKeyInfo

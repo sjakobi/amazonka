@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.PolicyGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a group that a managed policy is attached to.
 --
+-- This data type is used as a response element in the
+-- ListEntitiesForPolicy operation.
 --
--- This data type is used as a response element in the 'ListEntitiesForPolicy' operation.
+-- For more information about managed policies, refer to
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 --
--- For more information about managed policies, refer to <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
---
---
--- /See:/ 'policyGroup' smart constructor.
+-- /See:/ 'newPolicyGroup' smart constructor.
 data PolicyGroup = PolicyGroup'
-  { _pgGroupName ::
-      !(Maybe Text),
-    _pgGroupId :: !(Maybe Text)
+  { -- | The name (friendly name, not ARN) identifying the group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The stable and unique string identifying the group. For more information
+    -- about IDs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    groupId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pgGroupName' - The name (friendly name, not ARN) identifying the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pgGroupId' - The stable and unique string identifying the group. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers> in the /IAM User Guide/ .
-policyGroup ::
+-- 'groupName', 'policyGroup_groupName' - The name (friendly name, not ARN) identifying the group.
+--
+-- 'groupId', 'policyGroup_groupId' - The stable and unique string identifying the group. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+newPolicyGroup ::
   PolicyGroup
-policyGroup =
+newPolicyGroup =
   PolicyGroup'
-    { _pgGroupName = Nothing,
-      _pgGroupId = Nothing
+    { groupName = Prelude.Nothing,
+      groupId = Prelude.Nothing
     }
 
 -- | The name (friendly name, not ARN) identifying the group.
-pgGroupName :: Lens' PolicyGroup (Maybe Text)
-pgGroupName = lens _pgGroupName (\s a -> s {_pgGroupName = a})
+policyGroup_groupName :: Lens.Lens' PolicyGroup (Prelude.Maybe Prelude.Text)
+policyGroup_groupName = Lens.lens (\PolicyGroup' {groupName} -> groupName) (\s@PolicyGroup' {} a -> s {groupName = a} :: PolicyGroup)
 
--- | The stable and unique string identifying the group. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers> in the /IAM User Guide/ .
-pgGroupId :: Lens' PolicyGroup (Maybe Text)
-pgGroupId = lens _pgGroupId (\s a -> s {_pgGroupId = a})
+-- | The stable and unique string identifying the group. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+policyGroup_groupId :: Lens.Lens' PolicyGroup (Prelude.Maybe Prelude.Text)
+policyGroup_groupId = Lens.lens (\PolicyGroup' {groupId} -> groupId) (\s@PolicyGroup' {} a -> s {groupId = a} :: PolicyGroup)
 
-instance FromXML PolicyGroup where
+instance Prelude.FromXML PolicyGroup where
   parseXML x =
     PolicyGroup'
-      <$> (x .@? "GroupName") <*> (x .@? "GroupId")
+      Prelude.<$> (x Prelude..@? "GroupName")
+      Prelude.<*> (x Prelude..@? "GroupId")
 
-instance Hashable PolicyGroup
+instance Prelude.Hashable PolicyGroup
 
-instance NFData PolicyGroup
+instance Prelude.NFData PolicyGroup

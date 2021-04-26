@@ -28,955 +28,955 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCreateVirtualMFADevice $
---             createVirtualMFADevice
+--             newCreateVirtualMFADevice
 --
 --         , requestAttachRolePolicy $
---             attachRolePolicy
+--             newAttachRolePolicy
 --
 --         , requestDeleteSSHPublicKey $
---             deleteSSHPublicKey
+--             newDeleteSSHPublicKey
 --
 --         , requestGetUser $
---             getUser
+--             newGetUser
 --
 --         , requestUpdateSSHPublicKey $
---             updateSSHPublicKey
+--             newUpdateSSHPublicKey
 --
---         , requestUntagOpenIdConnectProvider $
---             untagOpenIdConnectProvider
+--         , requestUntagOpenIDConnectProvider $
+--             newUntagOpenIDConnectProvider
 --
 --         , requestListSigningCertificates $
---             listSigningCertificates
+--             newListSigningCertificates
 --
---         , requestDeleteOpenIdConnectProvider $
---             deleteOpenIdConnectProvider
+--         , requestDeleteOpenIDConnectProvider $
+--             newDeleteOpenIDConnectProvider
 --
 --         , requestListRoleTags $
---             listRoleTags
+--             newListRoleTags
 --
---         , requestListOpenIdConnectProviders $
---             listOpenIdConnectProviders
+--         , requestListOpenIDConnectProviders $
+--             newListOpenIDConnectProviders
 --
 --         , requestCreatePolicy $
---             createPolicy
+--             newCreatePolicy
 --
 --         , requestGetSAMLProvider $
---             getSAMLProvider
+--             newGetSAMLProvider
 --
 --         , requestGetContextKeysForPrincipalPolicy $
---             getContextKeysForPrincipalPolicy
+--             newGetContextKeysForPrincipalPolicy
 --
 --         , requestListEntitiesForPolicy $
---             listEntitiesForPolicy
+--             newListEntitiesForPolicy
 --
 --         , requestListGroupsForUser $
---             listGroupsForUser
+--             newListGroupsForUser
 --
 --         , requestSimulatePrincipalPolicy $
---             simulatePrincipalPolicy
+--             newSimulatePrincipalPolicy
 --
 --         , requestListPolicies $
---             listPolicies
+--             newListPolicies
 --
 --         , requestCreateServiceLinkedRole $
---             createServiceLinkedRole
+--             newCreateServiceLinkedRole
 --
 --         , requestUntagPolicy $
---             untagPolicy
+--             newUntagPolicy
 --
 --         , requestDeletePolicy $
---             deletePolicy
+--             newDeletePolicy
 --
 --         , requestDeleteServerCertificate $
---             deleteServerCertificate
+--             newDeleteServerCertificate
 --
 --         , requestListAttachedGroupPolicies $
---             listAttachedGroupPolicies
+--             newListAttachedGroupPolicies
 --
 --         , requestChangePassword $
---             changePassword
+--             newChangePassword
 --
 --         , requestListMFADeviceTags $
---             listMFADeviceTags
+--             newListMFADeviceTags
 --
 --         , requestUntagServerCertificate $
---             untagServerCertificate
+--             newUntagServerCertificate
 --
 --         , requestUpdateAssumeRolePolicy $
---             updateAssumeRolePolicy
+--             newUpdateAssumeRolePolicy
 --
 --         , requestGetGroupPolicy $
---             getGroupPolicy
+--             newGetGroupPolicy
 --
 --         , requestUpdateServerCertificate $
---             updateServerCertificate
+--             newUpdateServerCertificate
 --
 --         , requestListServerCertificates $
---             listServerCertificates
+--             newListServerCertificates
 --
 --         , requestListInstanceProfileTags $
---             listInstanceProfileTags
+--             newListInstanceProfileTags
 --
 --         , requestDeleteGroupPolicy $
---             deleteGroupPolicy
+--             newDeleteGroupPolicy
 --
 --         , requestCreateInstanceProfile $
---             createInstanceProfile
+--             newCreateInstanceProfile
 --
 --         , requestListGroups $
---             listGroups
+--             newListGroups
 --
 --         , requestGetLoginProfile $
---             getLoginProfile
+--             newGetLoginProfile
 --
 --         , requestTagRole $
---             tagRole
+--             newTagRole
 --
 --         , requestRemoveRoleFromInstanceProfile $
---             removeRoleFromInstanceProfile
+--             newRemoveRoleFromInstanceProfile
 --
 --         , requestGenerateCredentialReport $
---             generateCredentialReport
+--             newGenerateCredentialReport
 --
 --         , requestCreatePolicyVersion $
---             createPolicyVersion
+--             newCreatePolicyVersion
 --
 --         , requestGetServerCertificate $
---             getServerCertificate
+--             newGetServerCertificate
 --
 --         , requestRemoveUserFromGroup $
---             removeUserFromGroup
+--             newRemoveUserFromGroup
 --
 --         , requestSetDefaultPolicyVersion $
---             setDefaultPolicyVersion
+--             newSetDefaultPolicyVersion
 --
 --         , requestResetServiceSpecificCredential $
---             resetServiceSpecificCredential
+--             newResetServiceSpecificCredential
 --
 --         , requestGenerateServiceLastAccessedDetails $
---             generateServiceLastAccessedDetails
+--             newGenerateServiceLastAccessedDetails
 --
 --         , requestListPoliciesGrantingServiceAccess $
---             listPoliciesGrantingServiceAccess
+--             newListPoliciesGrantingServiceAccess
 --
 --         , requestUpdateRoleDescription $
---             updateRoleDescription
+--             newUpdateRoleDescription
 --
 --         , requestUploadServerCertificate $
---             uploadServerCertificate
+--             newUploadServerCertificate
 --
 --         , requestDetachRolePolicy $
---             detachRolePolicy
+--             newDetachRolePolicy
 --
 --         , requestEnableMFADevice $
---             enableMFADevice
+--             newEnableMFADevice
 --
 --         , requestListSAMLProviders $
---             listSAMLProviders
+--             newListSAMLProviders
 --
 --         , requestListPolicyTags $
---             listPolicyTags
+--             newListPolicyTags
 --
 --         , requestCreateGroup $
---             createGroup
+--             newCreateGroup
 --
 --         , requestTagMFADevice $
---             tagMFADevice
+--             newTagMFADevice
 --
 --         , requestTagInstanceProfile $
---             tagInstanceProfile
+--             newTagInstanceProfile
 --
---         , requestGetOpenIdConnectProvider $
---             getOpenIdConnectProvider
+--         , requestGetOpenIDConnectProvider $
+--             newGetOpenIDConnectProvider
 --
 --         , requestCreateRole $
---             createRole
+--             newCreateRole
 --
 --         , requestPutUserPermissionsBoundary $
---             putUserPermissionsBoundary
+--             newPutUserPermissionsBoundary
 --
 --         , requestDeleteUserPolicy $
---             deleteUserPolicy
+--             newDeleteUserPolicy
 --
 --         , requestDeleteRolePermissionsBoundary $
---             deleteRolePermissionsBoundary
+--             newDeleteRolePermissionsBoundary
 --
 --         , requestCreateUser $
---             createUser
+--             newCreateUser
 --
---         , requestListOpenIdConnectProviderTags $
---             listOpenIdConnectProviderTags
+--         , requestListOpenIDConnectProviderTags $
+--             newListOpenIDConnectProviderTags
 --
 --         , requestListRoles $
---             listRoles
+--             newListRoles
 --
 --         , requestUploadSigningCertificate $
---             uploadSigningCertificate
+--             newUploadSigningCertificate
 --
 --         , requestDeleteRolePolicy $
---             deleteRolePolicy
+--             newDeleteRolePolicy
 --
 --         , requestListAttachedRolePolicies $
---             listAttachedRolePolicies
+--             newListAttachedRolePolicies
 --
 --         , requestGetRolePolicy $
---             getRolePolicy
+--             newGetRolePolicy
 --
 --         , requestDeleteAccessKey $
---             deleteAccessKey
+--             newDeleteAccessKey
 --
 --         , requestListVirtualMFADevices $
---             listVirtualMFADevices
+--             newListVirtualMFADevices
 --
 --         , requestTagPolicy $
---             tagPolicy
+--             newTagPolicy
 --
---         , requestRemoveClientIdFromOpenIdConnectProvider $
---             removeClientIdFromOpenIdConnectProvider
+--         , requestRemoveClientIDFromOpenIDConnectProvider $
+--             newRemoveClientIDFromOpenIDConnectProvider
 --
 --         , requestDeleteVirtualMFADevice $
---             deleteVirtualMFADevice
+--             newDeleteVirtualMFADevice
 --
 --         , requestUpdateAccessKey $
---             updateAccessKey
+--             newUpdateAccessKey
 --
 --         , requestCreateServiceSpecificCredential $
---             createServiceSpecificCredential
+--             newCreateServiceSpecificCredential
 --
 --         , requestResyncMFADevice $
---             resyncMFADevice
+--             newResyncMFADevice
 --
 --         , requestUpdateServiceSpecificCredential $
---             updateServiceSpecificCredential
+--             newUpdateServiceSpecificCredential
 --
 --         , requestGetUserPolicy $
---             getUserPolicy
+--             newGetUserPolicy
 --
 --         , requestUpdateAccountPasswordPolicy $
---             updateAccountPasswordPolicy
+--             newUpdateAccountPasswordPolicy
 --
 --         , requestListServiceSpecificCredentials $
---             listServiceSpecificCredentials
+--             newListServiceSpecificCredentials
 --
 --         , requestDeleteSigningCertificate $
---             deleteSigningCertificate
+--             newDeleteSigningCertificate
 --
 --         , requestListAttachedUserPolicies $
---             listAttachedUserPolicies
+--             newListAttachedUserPolicies
 --
 --         , requestUpdateSigningCertificate $
---             updateSigningCertificate
+--             newUpdateSigningCertificate
 --
 --         , requestListSSHPublicKeys $
---             listSSHPublicKeys
+--             newListSSHPublicKeys
 --
 --         , requestDeleteServiceSpecificCredential $
---             deleteServiceSpecificCredential
+--             newDeleteServiceSpecificCredential
 --
 --         , requestCreateAccessKey $
---             createAccessKey
+--             newCreateAccessKey
 --
 --         , requestDeleteAccountPasswordPolicy $
---             deleteAccountPasswordPolicy
+--             newDeleteAccountPasswordPolicy
 --
 --         , requestGetOrganizationsAccessReport $
---             getOrganizationsAccessReport
+--             newGetOrganizationsAccessReport
 --
 --         , requestListInstanceProfilesForRole $
---             listInstanceProfilesForRole
+--             newListInstanceProfilesForRole
 --
 --         , requestGetPolicyVersion $
---             getPolicyVersion
+--             newGetPolicyVersion
 --
 --         , requestCreateLoginProfile $
---             createLoginProfile
+--             newCreateLoginProfile
 --
 --         , requestAddRoleToInstanceProfile $
---             addRoleToInstanceProfile
+--             newAddRoleToInstanceProfile
 --
 --         , requestGetInstanceProfile $
---             getInstanceProfile
+--             newGetInstanceProfile
 --
---         , requestTagOpenIdConnectProvider $
---             tagOpenIdConnectProvider
+--         , requestTagOpenIDConnectProvider $
+--             newTagOpenIDConnectProvider
 --
 --         , requestAddUserToGroup $
---             addUserToGroup
+--             newAddUserToGroup
 --
 --         , requestAttachGroupPolicy $
---             attachGroupPolicy
+--             newAttachGroupPolicy
 --
 --         , requestUpdateLoginProfile $
---             updateLoginProfile
+--             newUpdateLoginProfile
 --
 --         , requestListSAMLProviderTags $
---             listSAMLProviderTags
+--             newListSAMLProviderTags
 --
 --         , requestGetGroup $
---             getGroup
+--             newGetGroup
 --
 --         , requestDeleteLoginProfile $
---             deleteLoginProfile
+--             newDeleteLoginProfile
 --
 --         , requestDeleteServiceLinkedRole $
---             deleteServiceLinkedRole
+--             newDeleteServiceLinkedRole
 --
 --         , requestGenerateOrganizationsAccessReport $
---             generateOrganizationsAccessReport
+--             newGenerateOrganizationsAccessReport
 --
 --         , requestGetServiceLastAccessedDetailsWithEntities $
---             getServiceLastAccessedDetailsWithEntities
+--             newGetServiceLastAccessedDetailsWithEntities
 --
 --         , requestPutGroupPolicy $
---             putGroupPolicy
+--             newPutGroupPolicy
 --
 --         , requestGetServiceLastAccessedDetails $
---             getServiceLastAccessedDetails
+--             newGetServiceLastAccessedDetails
 --
 --         , requestDeleteAccountAlias $
---             deleteAccountAlias
+--             newDeleteAccountAlias
 --
 --         , requestCreateSAMLProvider $
---             createSAMLProvider
+--             newCreateSAMLProvider
 --
 --         , requestGetPolicy $
---             getPolicy
+--             newGetPolicy
 --
 --         , requestDetachUserPolicy $
---             detachUserPolicy
+--             newDetachUserPolicy
 --
 --         , requestUpdateGroup $
---             updateGroup
+--             newUpdateGroup
 --
 --         , requestDeleteGroup $
---             deleteGroup
+--             newDeleteGroup
 --
 --         , requestGetServiceLinkedRoleDeletionStatus $
---             getServiceLinkedRoleDeletionStatus
+--             newGetServiceLinkedRoleDeletionStatus
 --
 --         , requestGetAccountAuthorizationDetails $
---             getAccountAuthorizationDetails
+--             newGetAccountAuthorizationDetails
 --
 --         , requestListGroupPolicies $
---             listGroupPolicies
+--             newListGroupPolicies
 --
 --         , requestDeletePolicyVersion $
---             deletePolicyVersion
+--             newDeletePolicyVersion
 --
 --         , requestDeleteSAMLProvider $
---             deleteSAMLProvider
+--             newDeleteSAMLProvider
 --
 --         , requestTagUser $
---             tagUser
+--             newTagUser
 --
 --         , requestListInstanceProfiles $
---             listInstanceProfiles
+--             newListInstanceProfiles
 --
 --         , requestGetCredentialReport $
---             getCredentialReport
+--             newGetCredentialReport
 --
 --         , requestListMFADevices $
---             listMFADevices
+--             newListMFADevices
 --
 --         , requestUpdateSAMLProvider $
---             updateSAMLProvider
+--             newUpdateSAMLProvider
 --
 --         , requestUntagInstanceProfile $
---             untagInstanceProfile
+--             newUntagInstanceProfile
 --
 --         , requestCreateAccountAlias $
---             createAccountAlias
+--             newCreateAccountAlias
 --
 --         , requestUntagMFADevice $
---             untagMFADevice
+--             newUntagMFADevice
 --
 --         , requestUntagSAMLProvider $
---             untagSAMLProvider
+--             newUntagSAMLProvider
 --
 --         , requestListAccountAliases $
---             listAccountAliases
+--             newListAccountAliases
 --
 --         , requestListPolicyVersions $
---             listPolicyVersions
+--             newListPolicyVersions
 --
 --         , requestDeleteInstanceProfile $
---             deleteInstanceProfile
+--             newDeleteInstanceProfile
 --
 --         , requestGetAccountSummary $
---             getAccountSummary
+--             newGetAccountSummary
 --
 --         , requestListServerCertificateTags $
---             listServerCertificateTags
+--             newListServerCertificateTags
 --
 --         , requestGetSSHPublicKey $
---             getSSHPublicKey
+--             newGetSSHPublicKey
 --
---         , requestUpdateOpenIdConnectProviderThumbprint $
---             updateOpenIdConnectProviderThumbprint
+--         , requestUpdateOpenIDConnectProviderThumbprint $
+--             newUpdateOpenIDConnectProviderThumbprint
 --
 --         , requestGetAccessKeyLastUsed $
---             getAccessKeyLastUsed
+--             newGetAccessKeyLastUsed
 --
 --         , requestTagSAMLProvider $
---             tagSAMLProvider
+--             newTagSAMLProvider
 --
 --         , requestGetAccountPasswordPolicy $
---             getAccountPasswordPolicy
+--             newGetAccountPasswordPolicy
 --
 --         , requestDeleteUser $
---             deleteUser
+--             newDeleteUser
 --
 --         , requestListUsers $
---             listUsers
+--             newListUsers
 --
 --         , requestUpdateUser $
---             updateUser
+--             newUpdateUser
 --
 --         , requestListRolePolicies $
---             listRolePolicies
+--             newListRolePolicies
 --
---         , requestAddClientIdToOpenIdConnectProvider $
---             addClientIdToOpenIdConnectProvider
+--         , requestAddClientIDToOpenIDConnectProvider $
+--             newAddClientIDToOpenIDConnectProvider
 --
 --         , requestDeleteUserPermissionsBoundary $
---             deleteUserPermissionsBoundary
+--             newDeleteUserPermissionsBoundary
 --
 --         , requestPutUserPolicy $
---             putUserPolicy
+--             newPutUserPolicy
 --
 --         , requestDetachGroupPolicy $
---             detachGroupPolicy
+--             newDetachGroupPolicy
 --
 --         , requestUntagUser $
---             untagUser
+--             newUntagUser
 --
 --         , requestGetContextKeysForCustomPolicy $
---             getContextKeysForCustomPolicy
+--             newGetContextKeysForCustomPolicy
 --
 --         , requestPutRolePermissionsBoundary $
---             putRolePermissionsBoundary
+--             newPutRolePermissionsBoundary
 --
 --         , requestUntagRole $
---             untagRole
+--             newUntagRole
 --
 --         , requestSimulateCustomPolicy $
---             simulateCustomPolicy
+--             newSimulateCustomPolicy
 --
 --         , requestUploadSSHPublicKey $
---             uploadSSHPublicKey
+--             newUploadSSHPublicKey
 --
 --         , requestDeleteRole $
---             deleteRole
+--             newDeleteRole
 --
 --         , requestListUserPolicies $
---             listUserPolicies
+--             newListUserPolicies
 --
 --         , requestPutRolePolicy $
---             putRolePolicy
+--             newPutRolePolicy
 --
 --         , requestUpdateRole $
---             updateRole
+--             newUpdateRole
 --
 --         , requestSetSecurityTokenServicePreferences $
---             setSecurityTokenServicePreferences
+--             newSetSecurityTokenServicePreferences
 --
 --         , requestAttachUserPolicy $
---             attachUserPolicy
+--             newAttachUserPolicy
 --
 --         , requestTagServerCertificate $
---             tagServerCertificate
+--             newTagServerCertificate
 --
 --         , requestListAccessKeys $
---             listAccessKeys
+--             newListAccessKeys
 --
---         , requestCreateOpenIdConnectProvider $
---             createOpenIdConnectProvider
+--         , requestCreateOpenIDConnectProvider $
+--             newCreateOpenIDConnectProvider
 --
 --         , requestDeactivateMFADevice $
---             deactivateMFADevice
+--             newDeactivateMFADevice
 --
 --         , requestListUserTags $
---             listUserTags
+--             newListUserTags
 --
 --         , requestGetRole $
---             getRole
+--             newGetRole
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCreateVirtualMFADevice $
---             createVirtualMFADeviceResponse
+--             newCreateVirtualMFADeviceResponse
 --
 --         , responseAttachRolePolicy $
---             attachRolePolicyResponse
+--             newAttachRolePolicyResponse
 --
 --         , responseDeleteSSHPublicKey $
---             deleteSSHPublicKeyResponse
+--             newDeleteSSHPublicKeyResponse
 --
 --         , responseGetUser $
---             getUserResponse
+--             newGetUserResponse
 --
 --         , responseUpdateSSHPublicKey $
---             updateSSHPublicKeyResponse
+--             newUpdateSSHPublicKeyResponse
 --
---         , responseUntagOpenIdConnectProvider $
---             untagOpenIdConnectProviderResponse
+--         , responseUntagOpenIDConnectProvider $
+--             newUntagOpenIDConnectProviderResponse
 --
 --         , responseListSigningCertificates $
---             listSigningCertificatesResponse
+--             newListSigningCertificatesResponse
 --
---         , responseDeleteOpenIdConnectProvider $
---             deleteOpenIdConnectProviderResponse
+--         , responseDeleteOpenIDConnectProvider $
+--             newDeleteOpenIDConnectProviderResponse
 --
 --         , responseListRoleTags $
---             listRoleTagsResponse
+--             newListRoleTagsResponse
 --
---         , responseListOpenIdConnectProviders $
---             listOpenIdConnectProvidersResponse
+--         , responseListOpenIDConnectProviders $
+--             newListOpenIDConnectProvidersResponse
 --
 --         , responseCreatePolicy $
---             createPolicyResponse
+--             newCreatePolicyResponse
 --
 --         , responseGetSAMLProvider $
---             getSAMLProviderResponse
+--             newGetSAMLProviderResponse
 --
 --         , responseGetContextKeysForPrincipalPolicy $
---             getContextKeysForPolicyResponse
+--             newGetContextKeysForPolicyResponse
 --
 --         , responseListEntitiesForPolicy $
---             listEntitiesForPolicyResponse
+--             newListEntitiesForPolicyResponse
 --
 --         , responseListGroupsForUser $
---             listGroupsForUserResponse
+--             newListGroupsForUserResponse
 --
 --         , responseSimulatePrincipalPolicy $
---             simulatePolicyResponse
+--             newSimulatePolicyResponse
 --
 --         , responseListPolicies $
---             listPoliciesResponse
+--             newListPoliciesResponse
 --
 --         , responseCreateServiceLinkedRole $
---             createServiceLinkedRoleResponse
+--             newCreateServiceLinkedRoleResponse
 --
 --         , responseUntagPolicy $
---             untagPolicyResponse
+--             newUntagPolicyResponse
 --
 --         , responseDeletePolicy $
---             deletePolicyResponse
+--             newDeletePolicyResponse
 --
 --         , responseDeleteServerCertificate $
---             deleteServerCertificateResponse
+--             newDeleteServerCertificateResponse
 --
 --         , responseListAttachedGroupPolicies $
---             listAttachedGroupPoliciesResponse
+--             newListAttachedGroupPoliciesResponse
 --
 --         , responseChangePassword $
---             changePasswordResponse
+--             newChangePasswordResponse
 --
 --         , responseListMFADeviceTags $
---             listMFADeviceTagsResponse
+--             newListMFADeviceTagsResponse
 --
 --         , responseUntagServerCertificate $
---             untagServerCertificateResponse
+--             newUntagServerCertificateResponse
 --
 --         , responseUpdateAssumeRolePolicy $
---             updateAssumeRolePolicyResponse
+--             newUpdateAssumeRolePolicyResponse
 --
 --         , responseGetGroupPolicy $
---             getGroupPolicyResponse
+--             newGetGroupPolicyResponse
 --
 --         , responseUpdateServerCertificate $
---             updateServerCertificateResponse
+--             newUpdateServerCertificateResponse
 --
 --         , responseListServerCertificates $
---             listServerCertificatesResponse
+--             newListServerCertificatesResponse
 --
 --         , responseListInstanceProfileTags $
---             listInstanceProfileTagsResponse
+--             newListInstanceProfileTagsResponse
 --
 --         , responseDeleteGroupPolicy $
---             deleteGroupPolicyResponse
+--             newDeleteGroupPolicyResponse
 --
 --         , responseCreateInstanceProfile $
---             createInstanceProfileResponse
+--             newCreateInstanceProfileResponse
 --
 --         , responseListGroups $
---             listGroupsResponse
+--             newListGroupsResponse
 --
 --         , responseGetLoginProfile $
---             getLoginProfileResponse
+--             newGetLoginProfileResponse
 --
 --         , responseTagRole $
---             tagRoleResponse
+--             newTagRoleResponse
 --
 --         , responseRemoveRoleFromInstanceProfile $
---             removeRoleFromInstanceProfileResponse
+--             newRemoveRoleFromInstanceProfileResponse
 --
 --         , responseGenerateCredentialReport $
---             generateCredentialReportResponse
+--             newGenerateCredentialReportResponse
 --
 --         , responseCreatePolicyVersion $
---             createPolicyVersionResponse
+--             newCreatePolicyVersionResponse
 --
 --         , responseGetServerCertificate $
---             getServerCertificateResponse
+--             newGetServerCertificateResponse
 --
 --         , responseRemoveUserFromGroup $
---             removeUserFromGroupResponse
+--             newRemoveUserFromGroupResponse
 --
 --         , responseSetDefaultPolicyVersion $
---             setDefaultPolicyVersionResponse
+--             newSetDefaultPolicyVersionResponse
 --
 --         , responseResetServiceSpecificCredential $
---             resetServiceSpecificCredentialResponse
+--             newResetServiceSpecificCredentialResponse
 --
 --         , responseGenerateServiceLastAccessedDetails $
---             generateServiceLastAccessedDetailsResponse
+--             newGenerateServiceLastAccessedDetailsResponse
 --
 --         , responseListPoliciesGrantingServiceAccess $
---             listPoliciesGrantingServiceAccessResponse
+--             newListPoliciesGrantingServiceAccessResponse
 --
 --         , responseUpdateRoleDescription $
---             updateRoleDescriptionResponse
+--             newUpdateRoleDescriptionResponse
 --
 --         , responseUploadServerCertificate $
---             uploadServerCertificateResponse
+--             newUploadServerCertificateResponse
 --
 --         , responseDetachRolePolicy $
---             detachRolePolicyResponse
+--             newDetachRolePolicyResponse
 --
 --         , responseEnableMFADevice $
---             enableMFADeviceResponse
+--             newEnableMFADeviceResponse
 --
 --         , responseListSAMLProviders $
---             listSAMLProvidersResponse
+--             newListSAMLProvidersResponse
 --
 --         , responseListPolicyTags $
---             listPolicyTagsResponse
+--             newListPolicyTagsResponse
 --
 --         , responseCreateGroup $
---             createGroupResponse
+--             newCreateGroupResponse
 --
 --         , responseTagMFADevice $
---             tagMFADeviceResponse
+--             newTagMFADeviceResponse
 --
 --         , responseTagInstanceProfile $
---             tagInstanceProfileResponse
+--             newTagInstanceProfileResponse
 --
---         , responseGetOpenIdConnectProvider $
---             getOpenIdConnectProviderResponse
+--         , responseGetOpenIDConnectProvider $
+--             newGetOpenIDConnectProviderResponse
 --
 --         , responseCreateRole $
---             createRoleResponse
+--             newCreateRoleResponse
 --
 --         , responsePutUserPermissionsBoundary $
---             putUserPermissionsBoundaryResponse
+--             newPutUserPermissionsBoundaryResponse
 --
 --         , responseDeleteUserPolicy $
---             deleteUserPolicyResponse
+--             newDeleteUserPolicyResponse
 --
 --         , responseDeleteRolePermissionsBoundary $
---             deleteRolePermissionsBoundaryResponse
+--             newDeleteRolePermissionsBoundaryResponse
 --
 --         , responseCreateUser $
---             createUserResponse
+--             newCreateUserResponse
 --
---         , responseListOpenIdConnectProviderTags $
---             listOpenIdConnectProviderTagsResponse
+--         , responseListOpenIDConnectProviderTags $
+--             newListOpenIDConnectProviderTagsResponse
 --
 --         , responseListRoles $
---             listRolesResponse
+--             newListRolesResponse
 --
 --         , responseUploadSigningCertificate $
---             uploadSigningCertificateResponse
+--             newUploadSigningCertificateResponse
 --
 --         , responseDeleteRolePolicy $
---             deleteRolePolicyResponse
+--             newDeleteRolePolicyResponse
 --
 --         , responseListAttachedRolePolicies $
---             listAttachedRolePoliciesResponse
+--             newListAttachedRolePoliciesResponse
 --
 --         , responseGetRolePolicy $
---             getRolePolicyResponse
+--             newGetRolePolicyResponse
 --
 --         , responseDeleteAccessKey $
---             deleteAccessKeyResponse
+--             newDeleteAccessKeyResponse
 --
 --         , responseListVirtualMFADevices $
---             listVirtualMFADevicesResponse
+--             newListVirtualMFADevicesResponse
 --
 --         , responseTagPolicy $
---             tagPolicyResponse
+--             newTagPolicyResponse
 --
---         , responseRemoveClientIdFromOpenIdConnectProvider $
---             removeClientIdFromOpenIdConnectProviderResponse
+--         , responseRemoveClientIDFromOpenIDConnectProvider $
+--             newRemoveClientIDFromOpenIDConnectProviderResponse
 --
 --         , responseDeleteVirtualMFADevice $
---             deleteVirtualMFADeviceResponse
+--             newDeleteVirtualMFADeviceResponse
 --
 --         , responseUpdateAccessKey $
---             updateAccessKeyResponse
+--             newUpdateAccessKeyResponse
 --
 --         , responseCreateServiceSpecificCredential $
---             createServiceSpecificCredentialResponse
+--             newCreateServiceSpecificCredentialResponse
 --
 --         , responseResyncMFADevice $
---             resyncMFADeviceResponse
+--             newResyncMFADeviceResponse
 --
 --         , responseUpdateServiceSpecificCredential $
---             updateServiceSpecificCredentialResponse
+--             newUpdateServiceSpecificCredentialResponse
 --
 --         , responseGetUserPolicy $
---             getUserPolicyResponse
+--             newGetUserPolicyResponse
 --
 --         , responseUpdateAccountPasswordPolicy $
---             updateAccountPasswordPolicyResponse
+--             newUpdateAccountPasswordPolicyResponse
 --
 --         , responseListServiceSpecificCredentials $
---             listServiceSpecificCredentialsResponse
+--             newListServiceSpecificCredentialsResponse
 --
 --         , responseDeleteSigningCertificate $
---             deleteSigningCertificateResponse
+--             newDeleteSigningCertificateResponse
 --
 --         , responseListAttachedUserPolicies $
---             listAttachedUserPoliciesResponse
+--             newListAttachedUserPoliciesResponse
 --
 --         , responseUpdateSigningCertificate $
---             updateSigningCertificateResponse
+--             newUpdateSigningCertificateResponse
 --
 --         , responseListSSHPublicKeys $
---             listSSHPublicKeysResponse
+--             newListSSHPublicKeysResponse
 --
 --         , responseDeleteServiceSpecificCredential $
---             deleteServiceSpecificCredentialResponse
+--             newDeleteServiceSpecificCredentialResponse
 --
 --         , responseCreateAccessKey $
---             createAccessKeyResponse
+--             newCreateAccessKeyResponse
 --
 --         , responseDeleteAccountPasswordPolicy $
---             deleteAccountPasswordPolicyResponse
+--             newDeleteAccountPasswordPolicyResponse
 --
 --         , responseGetOrganizationsAccessReport $
---             getOrganizationsAccessReportResponse
+--             newGetOrganizationsAccessReportResponse
 --
 --         , responseListInstanceProfilesForRole $
---             listInstanceProfilesForRoleResponse
+--             newListInstanceProfilesForRoleResponse
 --
 --         , responseGetPolicyVersion $
---             getPolicyVersionResponse
+--             newGetPolicyVersionResponse
 --
 --         , responseCreateLoginProfile $
---             createLoginProfileResponse
+--             newCreateLoginProfileResponse
 --
 --         , responseAddRoleToInstanceProfile $
---             addRoleToInstanceProfileResponse
+--             newAddRoleToInstanceProfileResponse
 --
 --         , responseGetInstanceProfile $
---             getInstanceProfileResponse
+--             newGetInstanceProfileResponse
 --
---         , responseTagOpenIdConnectProvider $
---             tagOpenIdConnectProviderResponse
+--         , responseTagOpenIDConnectProvider $
+--             newTagOpenIDConnectProviderResponse
 --
 --         , responseAddUserToGroup $
---             addUserToGroupResponse
+--             newAddUserToGroupResponse
 --
 --         , responseAttachGroupPolicy $
---             attachGroupPolicyResponse
+--             newAttachGroupPolicyResponse
 --
 --         , responseUpdateLoginProfile $
---             updateLoginProfileResponse
+--             newUpdateLoginProfileResponse
 --
 --         , responseListSAMLProviderTags $
---             listSAMLProviderTagsResponse
+--             newListSAMLProviderTagsResponse
 --
 --         , responseGetGroup $
---             getGroupResponse
+--             newGetGroupResponse
 --
 --         , responseDeleteLoginProfile $
---             deleteLoginProfileResponse
+--             newDeleteLoginProfileResponse
 --
 --         , responseDeleteServiceLinkedRole $
---             deleteServiceLinkedRoleResponse
+--             newDeleteServiceLinkedRoleResponse
 --
 --         , responseGenerateOrganizationsAccessReport $
---             generateOrganizationsAccessReportResponse
+--             newGenerateOrganizationsAccessReportResponse
 --
 --         , responseGetServiceLastAccessedDetailsWithEntities $
---             getServiceLastAccessedDetailsWithEntitiesResponse
+--             newGetServiceLastAccessedDetailsWithEntitiesResponse
 --
 --         , responsePutGroupPolicy $
---             putGroupPolicyResponse
+--             newPutGroupPolicyResponse
 --
 --         , responseGetServiceLastAccessedDetails $
---             getServiceLastAccessedDetailsResponse
+--             newGetServiceLastAccessedDetailsResponse
 --
 --         , responseDeleteAccountAlias $
---             deleteAccountAliasResponse
+--             newDeleteAccountAliasResponse
 --
 --         , responseCreateSAMLProvider $
---             createSAMLProviderResponse
+--             newCreateSAMLProviderResponse
 --
 --         , responseGetPolicy $
---             getPolicyResponse
+--             newGetPolicyResponse
 --
 --         , responseDetachUserPolicy $
---             detachUserPolicyResponse
+--             newDetachUserPolicyResponse
 --
 --         , responseUpdateGroup $
---             updateGroupResponse
+--             newUpdateGroupResponse
 --
 --         , responseDeleteGroup $
---             deleteGroupResponse
+--             newDeleteGroupResponse
 --
 --         , responseGetServiceLinkedRoleDeletionStatus $
---             getServiceLinkedRoleDeletionStatusResponse
+--             newGetServiceLinkedRoleDeletionStatusResponse
 --
 --         , responseGetAccountAuthorizationDetails $
---             getAccountAuthorizationDetailsResponse
+--             newGetAccountAuthorizationDetailsResponse
 --
 --         , responseListGroupPolicies $
---             listGroupPoliciesResponse
+--             newListGroupPoliciesResponse
 --
 --         , responseDeletePolicyVersion $
---             deletePolicyVersionResponse
+--             newDeletePolicyVersionResponse
 --
 --         , responseDeleteSAMLProvider $
---             deleteSAMLProviderResponse
+--             newDeleteSAMLProviderResponse
 --
 --         , responseTagUser $
---             tagUserResponse
+--             newTagUserResponse
 --
 --         , responseListInstanceProfiles $
---             listInstanceProfilesResponse
+--             newListInstanceProfilesResponse
 --
 --         , responseGetCredentialReport $
---             getCredentialReportResponse
+--             newGetCredentialReportResponse
 --
 --         , responseListMFADevices $
---             listMFADevicesResponse
+--             newListMFADevicesResponse
 --
 --         , responseUpdateSAMLProvider $
---             updateSAMLProviderResponse
+--             newUpdateSAMLProviderResponse
 --
 --         , responseUntagInstanceProfile $
---             untagInstanceProfileResponse
+--             newUntagInstanceProfileResponse
 --
 --         , responseCreateAccountAlias $
---             createAccountAliasResponse
+--             newCreateAccountAliasResponse
 --
 --         , responseUntagMFADevice $
---             untagMFADeviceResponse
+--             newUntagMFADeviceResponse
 --
 --         , responseUntagSAMLProvider $
---             untagSAMLProviderResponse
+--             newUntagSAMLProviderResponse
 --
 --         , responseListAccountAliases $
---             listAccountAliasesResponse
+--             newListAccountAliasesResponse
 --
 --         , responseListPolicyVersions $
---             listPolicyVersionsResponse
+--             newListPolicyVersionsResponse
 --
 --         , responseDeleteInstanceProfile $
---             deleteInstanceProfileResponse
+--             newDeleteInstanceProfileResponse
 --
 --         , responseGetAccountSummary $
---             getAccountSummaryResponse
+--             newGetAccountSummaryResponse
 --
 --         , responseListServerCertificateTags $
---             listServerCertificateTagsResponse
+--             newListServerCertificateTagsResponse
 --
 --         , responseGetSSHPublicKey $
---             getSSHPublicKeyResponse
+--             newGetSSHPublicKeyResponse
 --
---         , responseUpdateOpenIdConnectProviderThumbprint $
---             updateOpenIdConnectProviderThumbprintResponse
+--         , responseUpdateOpenIDConnectProviderThumbprint $
+--             newUpdateOpenIDConnectProviderThumbprintResponse
 --
 --         , responseGetAccessKeyLastUsed $
---             getAccessKeyLastUsedResponse
+--             newGetAccessKeyLastUsedResponse
 --
 --         , responseTagSAMLProvider $
---             tagSAMLProviderResponse
+--             newTagSAMLProviderResponse
 --
 --         , responseGetAccountPasswordPolicy $
---             getAccountPasswordPolicyResponse
+--             newGetAccountPasswordPolicyResponse
 --
 --         , responseDeleteUser $
---             deleteUserResponse
+--             newDeleteUserResponse
 --
 --         , responseListUsers $
---             listUsersResponse
+--             newListUsersResponse
 --
 --         , responseUpdateUser $
---             updateUserResponse
+--             newUpdateUserResponse
 --
 --         , responseListRolePolicies $
---             listRolePoliciesResponse
+--             newListRolePoliciesResponse
 --
---         , responseAddClientIdToOpenIdConnectProvider $
---             addClientIdToOpenIdConnectProviderResponse
+--         , responseAddClientIDToOpenIDConnectProvider $
+--             newAddClientIDToOpenIDConnectProviderResponse
 --
 --         , responseDeleteUserPermissionsBoundary $
---             deleteUserPermissionsBoundaryResponse
+--             newDeleteUserPermissionsBoundaryResponse
 --
 --         , responsePutUserPolicy $
---             putUserPolicyResponse
+--             newPutUserPolicyResponse
 --
 --         , responseDetachGroupPolicy $
---             detachGroupPolicyResponse
+--             newDetachGroupPolicyResponse
 --
 --         , responseUntagUser $
---             untagUserResponse
+--             newUntagUserResponse
 --
 --         , responseGetContextKeysForCustomPolicy $
---             getContextKeysForPolicyResponse
+--             newGetContextKeysForPolicyResponse
 --
 --         , responsePutRolePermissionsBoundary $
---             putRolePermissionsBoundaryResponse
+--             newPutRolePermissionsBoundaryResponse
 --
 --         , responseUntagRole $
---             untagRoleResponse
+--             newUntagRoleResponse
 --
 --         , responseSimulateCustomPolicy $
---             simulatePolicyResponse
+--             newSimulatePolicyResponse
 --
 --         , responseUploadSSHPublicKey $
---             uploadSSHPublicKeyResponse
+--             newUploadSSHPublicKeyResponse
 --
 --         , responseDeleteRole $
---             deleteRoleResponse
+--             newDeleteRoleResponse
 --
 --         , responseListUserPolicies $
---             listUserPoliciesResponse
+--             newListUserPoliciesResponse
 --
 --         , responsePutRolePolicy $
---             putRolePolicyResponse
+--             newPutRolePolicyResponse
 --
 --         , responseUpdateRole $
---             updateRoleResponse
+--             newUpdateRoleResponse
 --
 --         , responseSetSecurityTokenServicePreferences $
---             setSecurityTokenServicePreferencesResponse
+--             newSetSecurityTokenServicePreferencesResponse
 --
 --         , responseAttachUserPolicy $
---             attachUserPolicyResponse
+--             newAttachUserPolicyResponse
 --
 --         , responseTagServerCertificate $
---             tagServerCertificateResponse
+--             newTagServerCertificateResponse
 --
 --         , responseListAccessKeys $
---             listAccessKeysResponse
+--             newListAccessKeysResponse
 --
---         , responseCreateOpenIdConnectProvider $
---             createOpenIdConnectProviderResponse
+--         , responseCreateOpenIDConnectProvider $
+--             newCreateOpenIDConnectProviderResponse
 --
 --         , responseDeactivateMFADevice $
---             deactivateMFADeviceResponse
+--             newDeactivateMFADeviceResponse
 --
 --         , responseListUserTags $
---             listUserTagsResponse
+--             newListUserTagsResponse
 --
 --         , responseGetRole $
---             getRoleResponse
+--             newGetRoleResponse
 --
 --           ]
 --     ]
@@ -1013,11 +1013,11 @@ requestUpdateSSHPublicKey =
     "UpdateSSHPublicKey"
     "fixture/UpdateSSHPublicKey.yaml"
 
-requestUntagOpenIdConnectProvider :: UntagOpenIdConnectProvider -> TestTree
-requestUntagOpenIdConnectProvider =
+requestUntagOpenIDConnectProvider :: UntagOpenIDConnectProvider -> TestTree
+requestUntagOpenIDConnectProvider =
   req
-    "UntagOpenIdConnectProvider"
-    "fixture/UntagOpenIdConnectProvider.yaml"
+    "UntagOpenIDConnectProvider"
+    "fixture/UntagOpenIDConnectProvider.yaml"
 
 requestListSigningCertificates :: ListSigningCertificates -> TestTree
 requestListSigningCertificates =
@@ -1025,11 +1025,11 @@ requestListSigningCertificates =
     "ListSigningCertificates"
     "fixture/ListSigningCertificates.yaml"
 
-requestDeleteOpenIdConnectProvider :: DeleteOpenIdConnectProvider -> TestTree
-requestDeleteOpenIdConnectProvider =
+requestDeleteOpenIDConnectProvider :: DeleteOpenIDConnectProvider -> TestTree
+requestDeleteOpenIDConnectProvider =
   req
-    "DeleteOpenIdConnectProvider"
-    "fixture/DeleteOpenIdConnectProvider.yaml"
+    "DeleteOpenIDConnectProvider"
+    "fixture/DeleteOpenIDConnectProvider.yaml"
 
 requestListRoleTags :: ListRoleTags -> TestTree
 requestListRoleTags =
@@ -1037,11 +1037,11 @@ requestListRoleTags =
     "ListRoleTags"
     "fixture/ListRoleTags.yaml"
 
-requestListOpenIdConnectProviders :: ListOpenIdConnectProviders -> TestTree
-requestListOpenIdConnectProviders =
+requestListOpenIDConnectProviders :: ListOpenIDConnectProviders -> TestTree
+requestListOpenIDConnectProviders =
   req
-    "ListOpenIdConnectProviders"
-    "fixture/ListOpenIdConnectProviders.yaml"
+    "ListOpenIDConnectProviders"
+    "fixture/ListOpenIDConnectProviders.yaml"
 
 requestCreatePolicy :: CreatePolicy -> TestTree
 requestCreatePolicy =
@@ -1301,11 +1301,11 @@ requestTagInstanceProfile =
     "TagInstanceProfile"
     "fixture/TagInstanceProfile.yaml"
 
-requestGetOpenIdConnectProvider :: GetOpenIdConnectProvider -> TestTree
-requestGetOpenIdConnectProvider =
+requestGetOpenIDConnectProvider :: GetOpenIDConnectProvider -> TestTree
+requestGetOpenIDConnectProvider =
   req
-    "GetOpenIdConnectProvider"
-    "fixture/GetOpenIdConnectProvider.yaml"
+    "GetOpenIDConnectProvider"
+    "fixture/GetOpenIDConnectProvider.yaml"
 
 requestCreateRole :: CreateRole -> TestTree
 requestCreateRole =
@@ -1337,11 +1337,11 @@ requestCreateUser =
     "CreateUser"
     "fixture/CreateUser.yaml"
 
-requestListOpenIdConnectProviderTags :: ListOpenIdConnectProviderTags -> TestTree
-requestListOpenIdConnectProviderTags =
+requestListOpenIDConnectProviderTags :: ListOpenIDConnectProviderTags -> TestTree
+requestListOpenIDConnectProviderTags =
   req
-    "ListOpenIdConnectProviderTags"
-    "fixture/ListOpenIdConnectProviderTags.yaml"
+    "ListOpenIDConnectProviderTags"
+    "fixture/ListOpenIDConnectProviderTags.yaml"
 
 requestListRoles :: ListRoles -> TestTree
 requestListRoles =
@@ -1391,11 +1391,11 @@ requestTagPolicy =
     "TagPolicy"
     "fixture/TagPolicy.yaml"
 
-requestRemoveClientIdFromOpenIdConnectProvider :: RemoveClientIdFromOpenIdConnectProvider -> TestTree
-requestRemoveClientIdFromOpenIdConnectProvider =
+requestRemoveClientIDFromOpenIDConnectProvider :: RemoveClientIDFromOpenIDConnectProvider -> TestTree
+requestRemoveClientIDFromOpenIDConnectProvider =
   req
-    "RemoveClientIdFromOpenIdConnectProvider"
-    "fixture/RemoveClientIdFromOpenIdConnectProvider.yaml"
+    "RemoveClientIDFromOpenIDConnectProvider"
+    "fixture/RemoveClientIDFromOpenIDConnectProvider.yaml"
 
 requestDeleteVirtualMFADevice :: DeleteVirtualMFADevice -> TestTree
 requestDeleteVirtualMFADevice =
@@ -1523,11 +1523,11 @@ requestGetInstanceProfile =
     "GetInstanceProfile"
     "fixture/GetInstanceProfile.yaml"
 
-requestTagOpenIdConnectProvider :: TagOpenIdConnectProvider -> TestTree
-requestTagOpenIdConnectProvider =
+requestTagOpenIDConnectProvider :: TagOpenIDConnectProvider -> TestTree
+requestTagOpenIDConnectProvider =
   req
-    "TagOpenIdConnectProvider"
-    "fixture/TagOpenIdConnectProvider.yaml"
+    "TagOpenIDConnectProvider"
+    "fixture/TagOpenIDConnectProvider.yaml"
 
 requestAddUserToGroup :: AddUserToGroup -> TestTree
 requestAddUserToGroup =
@@ -1751,11 +1751,11 @@ requestGetSSHPublicKey =
     "GetSSHPublicKey"
     "fixture/GetSSHPublicKey.yaml"
 
-requestUpdateOpenIdConnectProviderThumbprint :: UpdateOpenIdConnectProviderThumbprint -> TestTree
-requestUpdateOpenIdConnectProviderThumbprint =
+requestUpdateOpenIDConnectProviderThumbprint :: UpdateOpenIDConnectProviderThumbprint -> TestTree
+requestUpdateOpenIDConnectProviderThumbprint =
   req
-    "UpdateOpenIdConnectProviderThumbprint"
-    "fixture/UpdateOpenIdConnectProviderThumbprint.yaml"
+    "UpdateOpenIDConnectProviderThumbprint"
+    "fixture/UpdateOpenIDConnectProviderThumbprint.yaml"
 
 requestGetAccessKeyLastUsed :: GetAccessKeyLastUsed -> TestTree
 requestGetAccessKeyLastUsed =
@@ -1799,11 +1799,11 @@ requestListRolePolicies =
     "ListRolePolicies"
     "fixture/ListRolePolicies.yaml"
 
-requestAddClientIdToOpenIdConnectProvider :: AddClientIdToOpenIdConnectProvider -> TestTree
-requestAddClientIdToOpenIdConnectProvider =
+requestAddClientIDToOpenIDConnectProvider :: AddClientIDToOpenIDConnectProvider -> TestTree
+requestAddClientIDToOpenIDConnectProvider =
   req
-    "AddClientIdToOpenIdConnectProvider"
-    "fixture/AddClientIdToOpenIdConnectProvider.yaml"
+    "AddClientIDToOpenIDConnectProvider"
+    "fixture/AddClientIDToOpenIDConnectProvider.yaml"
 
 requestDeleteUserPermissionsBoundary :: DeleteUserPermissionsBoundary -> TestTree
 requestDeleteUserPermissionsBoundary =
@@ -1907,11 +1907,11 @@ requestListAccessKeys =
     "ListAccessKeys"
     "fixture/ListAccessKeys.yaml"
 
-requestCreateOpenIdConnectProvider :: CreateOpenIdConnectProvider -> TestTree
-requestCreateOpenIdConnectProvider =
+requestCreateOpenIDConnectProvider :: CreateOpenIDConnectProvider -> TestTree
+requestCreateOpenIDConnectProvider =
   req
-    "CreateOpenIdConnectProvider"
-    "fixture/CreateOpenIdConnectProvider.yaml"
+    "CreateOpenIDConnectProvider"
+    "fixture/CreateOpenIDConnectProvider.yaml"
 
 requestDeactivateMFADevice :: DeactivateMFADevice -> TestTree
 requestDeactivateMFADevice =
@@ -1938,7 +1938,7 @@ responseCreateVirtualMFADevice =
   res
     "CreateVirtualMFADeviceResponse"
     "fixture/CreateVirtualMFADeviceResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateVirtualMFADevice)
 
 responseAttachRolePolicy :: AttachRolePolicyResponse -> TestTree
@@ -1946,7 +1946,7 @@ responseAttachRolePolicy =
   res
     "AttachRolePolicyResponse"
     "fixture/AttachRolePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy AttachRolePolicy)
 
 responseDeleteSSHPublicKey :: DeleteSSHPublicKeyResponse -> TestTree
@@ -1954,7 +1954,7 @@ responseDeleteSSHPublicKey =
   res
     "DeleteSSHPublicKeyResponse"
     "fixture/DeleteSSHPublicKeyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteSSHPublicKey)
 
 responseGetUser :: GetUserResponse -> TestTree
@@ -1962,7 +1962,7 @@ responseGetUser =
   res
     "GetUserResponse"
     "fixture/GetUserResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetUser)
 
 responseUpdateSSHPublicKey :: UpdateSSHPublicKeyResponse -> TestTree
@@ -1970,55 +1970,55 @@ responseUpdateSSHPublicKey =
   res
     "UpdateSSHPublicKeyResponse"
     "fixture/UpdateSSHPublicKeyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateSSHPublicKey)
 
-responseUntagOpenIdConnectProvider :: UntagOpenIdConnectProviderResponse -> TestTree
-responseUntagOpenIdConnectProvider =
+responseUntagOpenIDConnectProvider :: UntagOpenIDConnectProviderResponse -> TestTree
+responseUntagOpenIDConnectProvider =
   res
-    "UntagOpenIdConnectProviderResponse"
-    "fixture/UntagOpenIdConnectProviderResponse.proto"
-    iam
-    (Proxy :: Proxy UntagOpenIdConnectProvider)
+    "UntagOpenIDConnectProviderResponse"
+    "fixture/UntagOpenIDConnectProviderResponse.proto"
+    defaultService
+    (Proxy :: Proxy UntagOpenIDConnectProvider)
 
 responseListSigningCertificates :: ListSigningCertificatesResponse -> TestTree
 responseListSigningCertificates =
   res
     "ListSigningCertificatesResponse"
     "fixture/ListSigningCertificatesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListSigningCertificates)
 
-responseDeleteOpenIdConnectProvider :: DeleteOpenIdConnectProviderResponse -> TestTree
-responseDeleteOpenIdConnectProvider =
+responseDeleteOpenIDConnectProvider :: DeleteOpenIDConnectProviderResponse -> TestTree
+responseDeleteOpenIDConnectProvider =
   res
-    "DeleteOpenIdConnectProviderResponse"
-    "fixture/DeleteOpenIdConnectProviderResponse.proto"
-    iam
-    (Proxy :: Proxy DeleteOpenIdConnectProvider)
+    "DeleteOpenIDConnectProviderResponse"
+    "fixture/DeleteOpenIDConnectProviderResponse.proto"
+    defaultService
+    (Proxy :: Proxy DeleteOpenIDConnectProvider)
 
 responseListRoleTags :: ListRoleTagsResponse -> TestTree
 responseListRoleTags =
   res
     "ListRoleTagsResponse"
     "fixture/ListRoleTagsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListRoleTags)
 
-responseListOpenIdConnectProviders :: ListOpenIdConnectProvidersResponse -> TestTree
-responseListOpenIdConnectProviders =
+responseListOpenIDConnectProviders :: ListOpenIDConnectProvidersResponse -> TestTree
+responseListOpenIDConnectProviders =
   res
-    "ListOpenIdConnectProvidersResponse"
-    "fixture/ListOpenIdConnectProvidersResponse.proto"
-    iam
-    (Proxy :: Proxy ListOpenIdConnectProviders)
+    "ListOpenIDConnectProvidersResponse"
+    "fixture/ListOpenIDConnectProvidersResponse.proto"
+    defaultService
+    (Proxy :: Proxy ListOpenIDConnectProviders)
 
 responseCreatePolicy :: CreatePolicyResponse -> TestTree
 responseCreatePolicy =
   res
     "CreatePolicyResponse"
     "fixture/CreatePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreatePolicy)
 
 responseGetSAMLProvider :: GetSAMLProviderResponse -> TestTree
@@ -2026,7 +2026,7 @@ responseGetSAMLProvider =
   res
     "GetSAMLProviderResponse"
     "fixture/GetSAMLProviderResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetSAMLProvider)
 
 responseGetContextKeysForPrincipalPolicy :: GetContextKeysForPolicyResponse -> TestTree
@@ -2034,7 +2034,7 @@ responseGetContextKeysForPrincipalPolicy =
   res
     "GetContextKeysForPrincipalPolicyResponse"
     "fixture/GetContextKeysForPrincipalPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetContextKeysForPrincipalPolicy)
 
 responseListEntitiesForPolicy :: ListEntitiesForPolicyResponse -> TestTree
@@ -2042,7 +2042,7 @@ responseListEntitiesForPolicy =
   res
     "ListEntitiesForPolicyResponse"
     "fixture/ListEntitiesForPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListEntitiesForPolicy)
 
 responseListGroupsForUser :: ListGroupsForUserResponse -> TestTree
@@ -2050,7 +2050,7 @@ responseListGroupsForUser =
   res
     "ListGroupsForUserResponse"
     "fixture/ListGroupsForUserResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListGroupsForUser)
 
 responseSimulatePrincipalPolicy :: SimulatePolicyResponse -> TestTree
@@ -2058,7 +2058,7 @@ responseSimulatePrincipalPolicy =
   res
     "SimulatePrincipalPolicyResponse"
     "fixture/SimulatePrincipalPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy SimulatePrincipalPolicy)
 
 responseListPolicies :: ListPoliciesResponse -> TestTree
@@ -2066,7 +2066,7 @@ responseListPolicies =
   res
     "ListPoliciesResponse"
     "fixture/ListPoliciesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListPolicies)
 
 responseCreateServiceLinkedRole :: CreateServiceLinkedRoleResponse -> TestTree
@@ -2074,7 +2074,7 @@ responseCreateServiceLinkedRole =
   res
     "CreateServiceLinkedRoleResponse"
     "fixture/CreateServiceLinkedRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateServiceLinkedRole)
 
 responseUntagPolicy :: UntagPolicyResponse -> TestTree
@@ -2082,7 +2082,7 @@ responseUntagPolicy =
   res
     "UntagPolicyResponse"
     "fixture/UntagPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UntagPolicy)
 
 responseDeletePolicy :: DeletePolicyResponse -> TestTree
@@ -2090,7 +2090,7 @@ responseDeletePolicy =
   res
     "DeletePolicyResponse"
     "fixture/DeletePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeletePolicy)
 
 responseDeleteServerCertificate :: DeleteServerCertificateResponse -> TestTree
@@ -2098,7 +2098,7 @@ responseDeleteServerCertificate =
   res
     "DeleteServerCertificateResponse"
     "fixture/DeleteServerCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteServerCertificate)
 
 responseListAttachedGroupPolicies :: ListAttachedGroupPoliciesResponse -> TestTree
@@ -2106,7 +2106,7 @@ responseListAttachedGroupPolicies =
   res
     "ListAttachedGroupPoliciesResponse"
     "fixture/ListAttachedGroupPoliciesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListAttachedGroupPolicies)
 
 responseChangePassword :: ChangePasswordResponse -> TestTree
@@ -2114,7 +2114,7 @@ responseChangePassword =
   res
     "ChangePasswordResponse"
     "fixture/ChangePasswordResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ChangePassword)
 
 responseListMFADeviceTags :: ListMFADeviceTagsResponse -> TestTree
@@ -2122,7 +2122,7 @@ responseListMFADeviceTags =
   res
     "ListMFADeviceTagsResponse"
     "fixture/ListMFADeviceTagsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListMFADeviceTags)
 
 responseUntagServerCertificate :: UntagServerCertificateResponse -> TestTree
@@ -2130,7 +2130,7 @@ responseUntagServerCertificate =
   res
     "UntagServerCertificateResponse"
     "fixture/UntagServerCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UntagServerCertificate)
 
 responseUpdateAssumeRolePolicy :: UpdateAssumeRolePolicyResponse -> TestTree
@@ -2138,7 +2138,7 @@ responseUpdateAssumeRolePolicy =
   res
     "UpdateAssumeRolePolicyResponse"
     "fixture/UpdateAssumeRolePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateAssumeRolePolicy)
 
 responseGetGroupPolicy :: GetGroupPolicyResponse -> TestTree
@@ -2146,7 +2146,7 @@ responseGetGroupPolicy =
   res
     "GetGroupPolicyResponse"
     "fixture/GetGroupPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetGroupPolicy)
 
 responseUpdateServerCertificate :: UpdateServerCertificateResponse -> TestTree
@@ -2154,7 +2154,7 @@ responseUpdateServerCertificate =
   res
     "UpdateServerCertificateResponse"
     "fixture/UpdateServerCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateServerCertificate)
 
 responseListServerCertificates :: ListServerCertificatesResponse -> TestTree
@@ -2162,7 +2162,7 @@ responseListServerCertificates =
   res
     "ListServerCertificatesResponse"
     "fixture/ListServerCertificatesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListServerCertificates)
 
 responseListInstanceProfileTags :: ListInstanceProfileTagsResponse -> TestTree
@@ -2170,7 +2170,7 @@ responseListInstanceProfileTags =
   res
     "ListInstanceProfileTagsResponse"
     "fixture/ListInstanceProfileTagsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListInstanceProfileTags)
 
 responseDeleteGroupPolicy :: DeleteGroupPolicyResponse -> TestTree
@@ -2178,7 +2178,7 @@ responseDeleteGroupPolicy =
   res
     "DeleteGroupPolicyResponse"
     "fixture/DeleteGroupPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteGroupPolicy)
 
 responseCreateInstanceProfile :: CreateInstanceProfileResponse -> TestTree
@@ -2186,7 +2186,7 @@ responseCreateInstanceProfile =
   res
     "CreateInstanceProfileResponse"
     "fixture/CreateInstanceProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateInstanceProfile)
 
 responseListGroups :: ListGroupsResponse -> TestTree
@@ -2194,7 +2194,7 @@ responseListGroups =
   res
     "ListGroupsResponse"
     "fixture/ListGroupsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListGroups)
 
 responseGetLoginProfile :: GetLoginProfileResponse -> TestTree
@@ -2202,7 +2202,7 @@ responseGetLoginProfile =
   res
     "GetLoginProfileResponse"
     "fixture/GetLoginProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetLoginProfile)
 
 responseTagRole :: TagRoleResponse -> TestTree
@@ -2210,7 +2210,7 @@ responseTagRole =
   res
     "TagRoleResponse"
     "fixture/TagRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy TagRole)
 
 responseRemoveRoleFromInstanceProfile :: RemoveRoleFromInstanceProfileResponse -> TestTree
@@ -2218,7 +2218,7 @@ responseRemoveRoleFromInstanceProfile =
   res
     "RemoveRoleFromInstanceProfileResponse"
     "fixture/RemoveRoleFromInstanceProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy RemoveRoleFromInstanceProfile)
 
 responseGenerateCredentialReport :: GenerateCredentialReportResponse -> TestTree
@@ -2226,7 +2226,7 @@ responseGenerateCredentialReport =
   res
     "GenerateCredentialReportResponse"
     "fixture/GenerateCredentialReportResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GenerateCredentialReport)
 
 responseCreatePolicyVersion :: CreatePolicyVersionResponse -> TestTree
@@ -2234,7 +2234,7 @@ responseCreatePolicyVersion =
   res
     "CreatePolicyVersionResponse"
     "fixture/CreatePolicyVersionResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreatePolicyVersion)
 
 responseGetServerCertificate :: GetServerCertificateResponse -> TestTree
@@ -2242,7 +2242,7 @@ responseGetServerCertificate =
   res
     "GetServerCertificateResponse"
     "fixture/GetServerCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetServerCertificate)
 
 responseRemoveUserFromGroup :: RemoveUserFromGroupResponse -> TestTree
@@ -2250,7 +2250,7 @@ responseRemoveUserFromGroup =
   res
     "RemoveUserFromGroupResponse"
     "fixture/RemoveUserFromGroupResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy RemoveUserFromGroup)
 
 responseSetDefaultPolicyVersion :: SetDefaultPolicyVersionResponse -> TestTree
@@ -2258,7 +2258,7 @@ responseSetDefaultPolicyVersion =
   res
     "SetDefaultPolicyVersionResponse"
     "fixture/SetDefaultPolicyVersionResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy SetDefaultPolicyVersion)
 
 responseResetServiceSpecificCredential :: ResetServiceSpecificCredentialResponse -> TestTree
@@ -2266,7 +2266,7 @@ responseResetServiceSpecificCredential =
   res
     "ResetServiceSpecificCredentialResponse"
     "fixture/ResetServiceSpecificCredentialResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ResetServiceSpecificCredential)
 
 responseGenerateServiceLastAccessedDetails :: GenerateServiceLastAccessedDetailsResponse -> TestTree
@@ -2274,7 +2274,7 @@ responseGenerateServiceLastAccessedDetails =
   res
     "GenerateServiceLastAccessedDetailsResponse"
     "fixture/GenerateServiceLastAccessedDetailsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GenerateServiceLastAccessedDetails)
 
 responseListPoliciesGrantingServiceAccess :: ListPoliciesGrantingServiceAccessResponse -> TestTree
@@ -2282,7 +2282,7 @@ responseListPoliciesGrantingServiceAccess =
   res
     "ListPoliciesGrantingServiceAccessResponse"
     "fixture/ListPoliciesGrantingServiceAccessResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListPoliciesGrantingServiceAccess)
 
 responseUpdateRoleDescription :: UpdateRoleDescriptionResponse -> TestTree
@@ -2290,7 +2290,7 @@ responseUpdateRoleDescription =
   res
     "UpdateRoleDescriptionResponse"
     "fixture/UpdateRoleDescriptionResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateRoleDescription)
 
 responseUploadServerCertificate :: UploadServerCertificateResponse -> TestTree
@@ -2298,7 +2298,7 @@ responseUploadServerCertificate =
   res
     "UploadServerCertificateResponse"
     "fixture/UploadServerCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UploadServerCertificate)
 
 responseDetachRolePolicy :: DetachRolePolicyResponse -> TestTree
@@ -2306,7 +2306,7 @@ responseDetachRolePolicy =
   res
     "DetachRolePolicyResponse"
     "fixture/DetachRolePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DetachRolePolicy)
 
 responseEnableMFADevice :: EnableMFADeviceResponse -> TestTree
@@ -2314,7 +2314,7 @@ responseEnableMFADevice =
   res
     "EnableMFADeviceResponse"
     "fixture/EnableMFADeviceResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy EnableMFADevice)
 
 responseListSAMLProviders :: ListSAMLProvidersResponse -> TestTree
@@ -2322,7 +2322,7 @@ responseListSAMLProviders =
   res
     "ListSAMLProvidersResponse"
     "fixture/ListSAMLProvidersResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListSAMLProviders)
 
 responseListPolicyTags :: ListPolicyTagsResponse -> TestTree
@@ -2330,7 +2330,7 @@ responseListPolicyTags =
   res
     "ListPolicyTagsResponse"
     "fixture/ListPolicyTagsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListPolicyTags)
 
 responseCreateGroup :: CreateGroupResponse -> TestTree
@@ -2338,7 +2338,7 @@ responseCreateGroup =
   res
     "CreateGroupResponse"
     "fixture/CreateGroupResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateGroup)
 
 responseTagMFADevice :: TagMFADeviceResponse -> TestTree
@@ -2346,7 +2346,7 @@ responseTagMFADevice =
   res
     "TagMFADeviceResponse"
     "fixture/TagMFADeviceResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy TagMFADevice)
 
 responseTagInstanceProfile :: TagInstanceProfileResponse -> TestTree
@@ -2354,23 +2354,23 @@ responseTagInstanceProfile =
   res
     "TagInstanceProfileResponse"
     "fixture/TagInstanceProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy TagInstanceProfile)
 
-responseGetOpenIdConnectProvider :: GetOpenIdConnectProviderResponse -> TestTree
-responseGetOpenIdConnectProvider =
+responseGetOpenIDConnectProvider :: GetOpenIDConnectProviderResponse -> TestTree
+responseGetOpenIDConnectProvider =
   res
-    "GetOpenIdConnectProviderResponse"
-    "fixture/GetOpenIdConnectProviderResponse.proto"
-    iam
-    (Proxy :: Proxy GetOpenIdConnectProvider)
+    "GetOpenIDConnectProviderResponse"
+    "fixture/GetOpenIDConnectProviderResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetOpenIDConnectProvider)
 
 responseCreateRole :: CreateRoleResponse -> TestTree
 responseCreateRole =
   res
     "CreateRoleResponse"
     "fixture/CreateRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateRole)
 
 responsePutUserPermissionsBoundary :: PutUserPermissionsBoundaryResponse -> TestTree
@@ -2378,7 +2378,7 @@ responsePutUserPermissionsBoundary =
   res
     "PutUserPermissionsBoundaryResponse"
     "fixture/PutUserPermissionsBoundaryResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy PutUserPermissionsBoundary)
 
 responseDeleteUserPolicy :: DeleteUserPolicyResponse -> TestTree
@@ -2386,7 +2386,7 @@ responseDeleteUserPolicy =
   res
     "DeleteUserPolicyResponse"
     "fixture/DeleteUserPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteUserPolicy)
 
 responseDeleteRolePermissionsBoundary :: DeleteRolePermissionsBoundaryResponse -> TestTree
@@ -2394,7 +2394,7 @@ responseDeleteRolePermissionsBoundary =
   res
     "DeleteRolePermissionsBoundaryResponse"
     "fixture/DeleteRolePermissionsBoundaryResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteRolePermissionsBoundary)
 
 responseCreateUser :: CreateUserResponse -> TestTree
@@ -2402,23 +2402,23 @@ responseCreateUser =
   res
     "CreateUserResponse"
     "fixture/CreateUserResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateUser)
 
-responseListOpenIdConnectProviderTags :: ListOpenIdConnectProviderTagsResponse -> TestTree
-responseListOpenIdConnectProviderTags =
+responseListOpenIDConnectProviderTags :: ListOpenIDConnectProviderTagsResponse -> TestTree
+responseListOpenIDConnectProviderTags =
   res
-    "ListOpenIdConnectProviderTagsResponse"
-    "fixture/ListOpenIdConnectProviderTagsResponse.proto"
-    iam
-    (Proxy :: Proxy ListOpenIdConnectProviderTags)
+    "ListOpenIDConnectProviderTagsResponse"
+    "fixture/ListOpenIDConnectProviderTagsResponse.proto"
+    defaultService
+    (Proxy :: Proxy ListOpenIDConnectProviderTags)
 
 responseListRoles :: ListRolesResponse -> TestTree
 responseListRoles =
   res
     "ListRolesResponse"
     "fixture/ListRolesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListRoles)
 
 responseUploadSigningCertificate :: UploadSigningCertificateResponse -> TestTree
@@ -2426,7 +2426,7 @@ responseUploadSigningCertificate =
   res
     "UploadSigningCertificateResponse"
     "fixture/UploadSigningCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UploadSigningCertificate)
 
 responseDeleteRolePolicy :: DeleteRolePolicyResponse -> TestTree
@@ -2434,7 +2434,7 @@ responseDeleteRolePolicy =
   res
     "DeleteRolePolicyResponse"
     "fixture/DeleteRolePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteRolePolicy)
 
 responseListAttachedRolePolicies :: ListAttachedRolePoliciesResponse -> TestTree
@@ -2442,7 +2442,7 @@ responseListAttachedRolePolicies =
   res
     "ListAttachedRolePoliciesResponse"
     "fixture/ListAttachedRolePoliciesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListAttachedRolePolicies)
 
 responseGetRolePolicy :: GetRolePolicyResponse -> TestTree
@@ -2450,7 +2450,7 @@ responseGetRolePolicy =
   res
     "GetRolePolicyResponse"
     "fixture/GetRolePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetRolePolicy)
 
 responseDeleteAccessKey :: DeleteAccessKeyResponse -> TestTree
@@ -2458,7 +2458,7 @@ responseDeleteAccessKey =
   res
     "DeleteAccessKeyResponse"
     "fixture/DeleteAccessKeyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteAccessKey)
 
 responseListVirtualMFADevices :: ListVirtualMFADevicesResponse -> TestTree
@@ -2466,7 +2466,7 @@ responseListVirtualMFADevices =
   res
     "ListVirtualMFADevicesResponse"
     "fixture/ListVirtualMFADevicesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListVirtualMFADevices)
 
 responseTagPolicy :: TagPolicyResponse -> TestTree
@@ -2474,23 +2474,23 @@ responseTagPolicy =
   res
     "TagPolicyResponse"
     "fixture/TagPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy TagPolicy)
 
-responseRemoveClientIdFromOpenIdConnectProvider :: RemoveClientIdFromOpenIdConnectProviderResponse -> TestTree
-responseRemoveClientIdFromOpenIdConnectProvider =
+responseRemoveClientIDFromOpenIDConnectProvider :: RemoveClientIDFromOpenIDConnectProviderResponse -> TestTree
+responseRemoveClientIDFromOpenIDConnectProvider =
   res
-    "RemoveClientIdFromOpenIdConnectProviderResponse"
-    "fixture/RemoveClientIdFromOpenIdConnectProviderResponse.proto"
-    iam
-    (Proxy :: Proxy RemoveClientIdFromOpenIdConnectProvider)
+    "RemoveClientIDFromOpenIDConnectProviderResponse"
+    "fixture/RemoveClientIDFromOpenIDConnectProviderResponse.proto"
+    defaultService
+    (Proxy :: Proxy RemoveClientIDFromOpenIDConnectProvider)
 
 responseDeleteVirtualMFADevice :: DeleteVirtualMFADeviceResponse -> TestTree
 responseDeleteVirtualMFADevice =
   res
     "DeleteVirtualMFADeviceResponse"
     "fixture/DeleteVirtualMFADeviceResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteVirtualMFADevice)
 
 responseUpdateAccessKey :: UpdateAccessKeyResponse -> TestTree
@@ -2498,7 +2498,7 @@ responseUpdateAccessKey =
   res
     "UpdateAccessKeyResponse"
     "fixture/UpdateAccessKeyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateAccessKey)
 
 responseCreateServiceSpecificCredential :: CreateServiceSpecificCredentialResponse -> TestTree
@@ -2506,7 +2506,7 @@ responseCreateServiceSpecificCredential =
   res
     "CreateServiceSpecificCredentialResponse"
     "fixture/CreateServiceSpecificCredentialResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateServiceSpecificCredential)
 
 responseResyncMFADevice :: ResyncMFADeviceResponse -> TestTree
@@ -2514,7 +2514,7 @@ responseResyncMFADevice =
   res
     "ResyncMFADeviceResponse"
     "fixture/ResyncMFADeviceResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ResyncMFADevice)
 
 responseUpdateServiceSpecificCredential :: UpdateServiceSpecificCredentialResponse -> TestTree
@@ -2522,7 +2522,7 @@ responseUpdateServiceSpecificCredential =
   res
     "UpdateServiceSpecificCredentialResponse"
     "fixture/UpdateServiceSpecificCredentialResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateServiceSpecificCredential)
 
 responseGetUserPolicy :: GetUserPolicyResponse -> TestTree
@@ -2530,7 +2530,7 @@ responseGetUserPolicy =
   res
     "GetUserPolicyResponse"
     "fixture/GetUserPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetUserPolicy)
 
 responseUpdateAccountPasswordPolicy :: UpdateAccountPasswordPolicyResponse -> TestTree
@@ -2538,7 +2538,7 @@ responseUpdateAccountPasswordPolicy =
   res
     "UpdateAccountPasswordPolicyResponse"
     "fixture/UpdateAccountPasswordPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateAccountPasswordPolicy)
 
 responseListServiceSpecificCredentials :: ListServiceSpecificCredentialsResponse -> TestTree
@@ -2546,7 +2546,7 @@ responseListServiceSpecificCredentials =
   res
     "ListServiceSpecificCredentialsResponse"
     "fixture/ListServiceSpecificCredentialsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListServiceSpecificCredentials)
 
 responseDeleteSigningCertificate :: DeleteSigningCertificateResponse -> TestTree
@@ -2554,7 +2554,7 @@ responseDeleteSigningCertificate =
   res
     "DeleteSigningCertificateResponse"
     "fixture/DeleteSigningCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteSigningCertificate)
 
 responseListAttachedUserPolicies :: ListAttachedUserPoliciesResponse -> TestTree
@@ -2562,7 +2562,7 @@ responseListAttachedUserPolicies =
   res
     "ListAttachedUserPoliciesResponse"
     "fixture/ListAttachedUserPoliciesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListAttachedUserPolicies)
 
 responseUpdateSigningCertificate :: UpdateSigningCertificateResponse -> TestTree
@@ -2570,7 +2570,7 @@ responseUpdateSigningCertificate =
   res
     "UpdateSigningCertificateResponse"
     "fixture/UpdateSigningCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateSigningCertificate)
 
 responseListSSHPublicKeys :: ListSSHPublicKeysResponse -> TestTree
@@ -2578,7 +2578,7 @@ responseListSSHPublicKeys =
   res
     "ListSSHPublicKeysResponse"
     "fixture/ListSSHPublicKeysResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListSSHPublicKeys)
 
 responseDeleteServiceSpecificCredential :: DeleteServiceSpecificCredentialResponse -> TestTree
@@ -2586,7 +2586,7 @@ responseDeleteServiceSpecificCredential =
   res
     "DeleteServiceSpecificCredentialResponse"
     "fixture/DeleteServiceSpecificCredentialResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteServiceSpecificCredential)
 
 responseCreateAccessKey :: CreateAccessKeyResponse -> TestTree
@@ -2594,7 +2594,7 @@ responseCreateAccessKey =
   res
     "CreateAccessKeyResponse"
     "fixture/CreateAccessKeyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateAccessKey)
 
 responseDeleteAccountPasswordPolicy :: DeleteAccountPasswordPolicyResponse -> TestTree
@@ -2602,7 +2602,7 @@ responseDeleteAccountPasswordPolicy =
   res
     "DeleteAccountPasswordPolicyResponse"
     "fixture/DeleteAccountPasswordPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteAccountPasswordPolicy)
 
 responseGetOrganizationsAccessReport :: GetOrganizationsAccessReportResponse -> TestTree
@@ -2610,7 +2610,7 @@ responseGetOrganizationsAccessReport =
   res
     "GetOrganizationsAccessReportResponse"
     "fixture/GetOrganizationsAccessReportResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetOrganizationsAccessReport)
 
 responseListInstanceProfilesForRole :: ListInstanceProfilesForRoleResponse -> TestTree
@@ -2618,7 +2618,7 @@ responseListInstanceProfilesForRole =
   res
     "ListInstanceProfilesForRoleResponse"
     "fixture/ListInstanceProfilesForRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListInstanceProfilesForRole)
 
 responseGetPolicyVersion :: GetPolicyVersionResponse -> TestTree
@@ -2626,7 +2626,7 @@ responseGetPolicyVersion =
   res
     "GetPolicyVersionResponse"
     "fixture/GetPolicyVersionResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetPolicyVersion)
 
 responseCreateLoginProfile :: CreateLoginProfileResponse -> TestTree
@@ -2634,7 +2634,7 @@ responseCreateLoginProfile =
   res
     "CreateLoginProfileResponse"
     "fixture/CreateLoginProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateLoginProfile)
 
 responseAddRoleToInstanceProfile :: AddRoleToInstanceProfileResponse -> TestTree
@@ -2642,7 +2642,7 @@ responseAddRoleToInstanceProfile =
   res
     "AddRoleToInstanceProfileResponse"
     "fixture/AddRoleToInstanceProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy AddRoleToInstanceProfile)
 
 responseGetInstanceProfile :: GetInstanceProfileResponse -> TestTree
@@ -2650,23 +2650,23 @@ responseGetInstanceProfile =
   res
     "GetInstanceProfileResponse"
     "fixture/GetInstanceProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetInstanceProfile)
 
-responseTagOpenIdConnectProvider :: TagOpenIdConnectProviderResponse -> TestTree
-responseTagOpenIdConnectProvider =
+responseTagOpenIDConnectProvider :: TagOpenIDConnectProviderResponse -> TestTree
+responseTagOpenIDConnectProvider =
   res
-    "TagOpenIdConnectProviderResponse"
-    "fixture/TagOpenIdConnectProviderResponse.proto"
-    iam
-    (Proxy :: Proxy TagOpenIdConnectProvider)
+    "TagOpenIDConnectProviderResponse"
+    "fixture/TagOpenIDConnectProviderResponse.proto"
+    defaultService
+    (Proxy :: Proxy TagOpenIDConnectProvider)
 
 responseAddUserToGroup :: AddUserToGroupResponse -> TestTree
 responseAddUserToGroup =
   res
     "AddUserToGroupResponse"
     "fixture/AddUserToGroupResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy AddUserToGroup)
 
 responseAttachGroupPolicy :: AttachGroupPolicyResponse -> TestTree
@@ -2674,7 +2674,7 @@ responseAttachGroupPolicy =
   res
     "AttachGroupPolicyResponse"
     "fixture/AttachGroupPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy AttachGroupPolicy)
 
 responseUpdateLoginProfile :: UpdateLoginProfileResponse -> TestTree
@@ -2682,7 +2682,7 @@ responseUpdateLoginProfile =
   res
     "UpdateLoginProfileResponse"
     "fixture/UpdateLoginProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateLoginProfile)
 
 responseListSAMLProviderTags :: ListSAMLProviderTagsResponse -> TestTree
@@ -2690,7 +2690,7 @@ responseListSAMLProviderTags =
   res
     "ListSAMLProviderTagsResponse"
     "fixture/ListSAMLProviderTagsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListSAMLProviderTags)
 
 responseGetGroup :: GetGroupResponse -> TestTree
@@ -2698,7 +2698,7 @@ responseGetGroup =
   res
     "GetGroupResponse"
     "fixture/GetGroupResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetGroup)
 
 responseDeleteLoginProfile :: DeleteLoginProfileResponse -> TestTree
@@ -2706,7 +2706,7 @@ responseDeleteLoginProfile =
   res
     "DeleteLoginProfileResponse"
     "fixture/DeleteLoginProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteLoginProfile)
 
 responseDeleteServiceLinkedRole :: DeleteServiceLinkedRoleResponse -> TestTree
@@ -2714,7 +2714,7 @@ responseDeleteServiceLinkedRole =
   res
     "DeleteServiceLinkedRoleResponse"
     "fixture/DeleteServiceLinkedRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteServiceLinkedRole)
 
 responseGenerateOrganizationsAccessReport :: GenerateOrganizationsAccessReportResponse -> TestTree
@@ -2722,7 +2722,7 @@ responseGenerateOrganizationsAccessReport =
   res
     "GenerateOrganizationsAccessReportResponse"
     "fixture/GenerateOrganizationsAccessReportResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GenerateOrganizationsAccessReport)
 
 responseGetServiceLastAccessedDetailsWithEntities :: GetServiceLastAccessedDetailsWithEntitiesResponse -> TestTree
@@ -2730,7 +2730,7 @@ responseGetServiceLastAccessedDetailsWithEntities =
   res
     "GetServiceLastAccessedDetailsWithEntitiesResponse"
     "fixture/GetServiceLastAccessedDetailsWithEntitiesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetServiceLastAccessedDetailsWithEntities)
 
 responsePutGroupPolicy :: PutGroupPolicyResponse -> TestTree
@@ -2738,7 +2738,7 @@ responsePutGroupPolicy =
   res
     "PutGroupPolicyResponse"
     "fixture/PutGroupPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy PutGroupPolicy)
 
 responseGetServiceLastAccessedDetails :: GetServiceLastAccessedDetailsResponse -> TestTree
@@ -2746,7 +2746,7 @@ responseGetServiceLastAccessedDetails =
   res
     "GetServiceLastAccessedDetailsResponse"
     "fixture/GetServiceLastAccessedDetailsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetServiceLastAccessedDetails)
 
 responseDeleteAccountAlias :: DeleteAccountAliasResponse -> TestTree
@@ -2754,7 +2754,7 @@ responseDeleteAccountAlias =
   res
     "DeleteAccountAliasResponse"
     "fixture/DeleteAccountAliasResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteAccountAlias)
 
 responseCreateSAMLProvider :: CreateSAMLProviderResponse -> TestTree
@@ -2762,7 +2762,7 @@ responseCreateSAMLProvider =
   res
     "CreateSAMLProviderResponse"
     "fixture/CreateSAMLProviderResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateSAMLProvider)
 
 responseGetPolicy :: GetPolicyResponse -> TestTree
@@ -2770,7 +2770,7 @@ responseGetPolicy =
   res
     "GetPolicyResponse"
     "fixture/GetPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetPolicy)
 
 responseDetachUserPolicy :: DetachUserPolicyResponse -> TestTree
@@ -2778,7 +2778,7 @@ responseDetachUserPolicy =
   res
     "DetachUserPolicyResponse"
     "fixture/DetachUserPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DetachUserPolicy)
 
 responseUpdateGroup :: UpdateGroupResponse -> TestTree
@@ -2786,7 +2786,7 @@ responseUpdateGroup =
   res
     "UpdateGroupResponse"
     "fixture/UpdateGroupResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateGroup)
 
 responseDeleteGroup :: DeleteGroupResponse -> TestTree
@@ -2794,7 +2794,7 @@ responseDeleteGroup =
   res
     "DeleteGroupResponse"
     "fixture/DeleteGroupResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteGroup)
 
 responseGetServiceLinkedRoleDeletionStatus :: GetServiceLinkedRoleDeletionStatusResponse -> TestTree
@@ -2802,7 +2802,7 @@ responseGetServiceLinkedRoleDeletionStatus =
   res
     "GetServiceLinkedRoleDeletionStatusResponse"
     "fixture/GetServiceLinkedRoleDeletionStatusResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetServiceLinkedRoleDeletionStatus)
 
 responseGetAccountAuthorizationDetails :: GetAccountAuthorizationDetailsResponse -> TestTree
@@ -2810,7 +2810,7 @@ responseGetAccountAuthorizationDetails =
   res
     "GetAccountAuthorizationDetailsResponse"
     "fixture/GetAccountAuthorizationDetailsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetAccountAuthorizationDetails)
 
 responseListGroupPolicies :: ListGroupPoliciesResponse -> TestTree
@@ -2818,7 +2818,7 @@ responseListGroupPolicies =
   res
     "ListGroupPoliciesResponse"
     "fixture/ListGroupPoliciesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListGroupPolicies)
 
 responseDeletePolicyVersion :: DeletePolicyVersionResponse -> TestTree
@@ -2826,7 +2826,7 @@ responseDeletePolicyVersion =
   res
     "DeletePolicyVersionResponse"
     "fixture/DeletePolicyVersionResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeletePolicyVersion)
 
 responseDeleteSAMLProvider :: DeleteSAMLProviderResponse -> TestTree
@@ -2834,7 +2834,7 @@ responseDeleteSAMLProvider =
   res
     "DeleteSAMLProviderResponse"
     "fixture/DeleteSAMLProviderResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteSAMLProvider)
 
 responseTagUser :: TagUserResponse -> TestTree
@@ -2842,7 +2842,7 @@ responseTagUser =
   res
     "TagUserResponse"
     "fixture/TagUserResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy TagUser)
 
 responseListInstanceProfiles :: ListInstanceProfilesResponse -> TestTree
@@ -2850,7 +2850,7 @@ responseListInstanceProfiles =
   res
     "ListInstanceProfilesResponse"
     "fixture/ListInstanceProfilesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListInstanceProfiles)
 
 responseGetCredentialReport :: GetCredentialReportResponse -> TestTree
@@ -2858,7 +2858,7 @@ responseGetCredentialReport =
   res
     "GetCredentialReportResponse"
     "fixture/GetCredentialReportResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetCredentialReport)
 
 responseListMFADevices :: ListMFADevicesResponse -> TestTree
@@ -2866,7 +2866,7 @@ responseListMFADevices =
   res
     "ListMFADevicesResponse"
     "fixture/ListMFADevicesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListMFADevices)
 
 responseUpdateSAMLProvider :: UpdateSAMLProviderResponse -> TestTree
@@ -2874,7 +2874,7 @@ responseUpdateSAMLProvider =
   res
     "UpdateSAMLProviderResponse"
     "fixture/UpdateSAMLProviderResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateSAMLProvider)
 
 responseUntagInstanceProfile :: UntagInstanceProfileResponse -> TestTree
@@ -2882,7 +2882,7 @@ responseUntagInstanceProfile =
   res
     "UntagInstanceProfileResponse"
     "fixture/UntagInstanceProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UntagInstanceProfile)
 
 responseCreateAccountAlias :: CreateAccountAliasResponse -> TestTree
@@ -2890,7 +2890,7 @@ responseCreateAccountAlias =
   res
     "CreateAccountAliasResponse"
     "fixture/CreateAccountAliasResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy CreateAccountAlias)
 
 responseUntagMFADevice :: UntagMFADeviceResponse -> TestTree
@@ -2898,7 +2898,7 @@ responseUntagMFADevice =
   res
     "UntagMFADeviceResponse"
     "fixture/UntagMFADeviceResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UntagMFADevice)
 
 responseUntagSAMLProvider :: UntagSAMLProviderResponse -> TestTree
@@ -2906,7 +2906,7 @@ responseUntagSAMLProvider =
   res
     "UntagSAMLProviderResponse"
     "fixture/UntagSAMLProviderResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UntagSAMLProvider)
 
 responseListAccountAliases :: ListAccountAliasesResponse -> TestTree
@@ -2914,7 +2914,7 @@ responseListAccountAliases =
   res
     "ListAccountAliasesResponse"
     "fixture/ListAccountAliasesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListAccountAliases)
 
 responseListPolicyVersions :: ListPolicyVersionsResponse -> TestTree
@@ -2922,7 +2922,7 @@ responseListPolicyVersions =
   res
     "ListPolicyVersionsResponse"
     "fixture/ListPolicyVersionsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListPolicyVersions)
 
 responseDeleteInstanceProfile :: DeleteInstanceProfileResponse -> TestTree
@@ -2930,7 +2930,7 @@ responseDeleteInstanceProfile =
   res
     "DeleteInstanceProfileResponse"
     "fixture/DeleteInstanceProfileResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteInstanceProfile)
 
 responseGetAccountSummary :: GetAccountSummaryResponse -> TestTree
@@ -2938,7 +2938,7 @@ responseGetAccountSummary =
   res
     "GetAccountSummaryResponse"
     "fixture/GetAccountSummaryResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetAccountSummary)
 
 responseListServerCertificateTags :: ListServerCertificateTagsResponse -> TestTree
@@ -2946,7 +2946,7 @@ responseListServerCertificateTags =
   res
     "ListServerCertificateTagsResponse"
     "fixture/ListServerCertificateTagsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListServerCertificateTags)
 
 responseGetSSHPublicKey :: GetSSHPublicKeyResponse -> TestTree
@@ -2954,23 +2954,23 @@ responseGetSSHPublicKey =
   res
     "GetSSHPublicKeyResponse"
     "fixture/GetSSHPublicKeyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetSSHPublicKey)
 
-responseUpdateOpenIdConnectProviderThumbprint :: UpdateOpenIdConnectProviderThumbprintResponse -> TestTree
-responseUpdateOpenIdConnectProviderThumbprint =
+responseUpdateOpenIDConnectProviderThumbprint :: UpdateOpenIDConnectProviderThumbprintResponse -> TestTree
+responseUpdateOpenIDConnectProviderThumbprint =
   res
-    "UpdateOpenIdConnectProviderThumbprintResponse"
-    "fixture/UpdateOpenIdConnectProviderThumbprintResponse.proto"
-    iam
-    (Proxy :: Proxy UpdateOpenIdConnectProviderThumbprint)
+    "UpdateOpenIDConnectProviderThumbprintResponse"
+    "fixture/UpdateOpenIDConnectProviderThumbprintResponse.proto"
+    defaultService
+    (Proxy :: Proxy UpdateOpenIDConnectProviderThumbprint)
 
 responseGetAccessKeyLastUsed :: GetAccessKeyLastUsedResponse -> TestTree
 responseGetAccessKeyLastUsed =
   res
     "GetAccessKeyLastUsedResponse"
     "fixture/GetAccessKeyLastUsedResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetAccessKeyLastUsed)
 
 responseTagSAMLProvider :: TagSAMLProviderResponse -> TestTree
@@ -2978,7 +2978,7 @@ responseTagSAMLProvider =
   res
     "TagSAMLProviderResponse"
     "fixture/TagSAMLProviderResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy TagSAMLProvider)
 
 responseGetAccountPasswordPolicy :: GetAccountPasswordPolicyResponse -> TestTree
@@ -2986,7 +2986,7 @@ responseGetAccountPasswordPolicy =
   res
     "GetAccountPasswordPolicyResponse"
     "fixture/GetAccountPasswordPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetAccountPasswordPolicy)
 
 responseDeleteUser :: DeleteUserResponse -> TestTree
@@ -2994,7 +2994,7 @@ responseDeleteUser =
   res
     "DeleteUserResponse"
     "fixture/DeleteUserResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteUser)
 
 responseListUsers :: ListUsersResponse -> TestTree
@@ -3002,7 +3002,7 @@ responseListUsers =
   res
     "ListUsersResponse"
     "fixture/ListUsersResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListUsers)
 
 responseUpdateUser :: UpdateUserResponse -> TestTree
@@ -3010,7 +3010,7 @@ responseUpdateUser =
   res
     "UpdateUserResponse"
     "fixture/UpdateUserResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateUser)
 
 responseListRolePolicies :: ListRolePoliciesResponse -> TestTree
@@ -3018,23 +3018,23 @@ responseListRolePolicies =
   res
     "ListRolePoliciesResponse"
     "fixture/ListRolePoliciesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListRolePolicies)
 
-responseAddClientIdToOpenIdConnectProvider :: AddClientIdToOpenIdConnectProviderResponse -> TestTree
-responseAddClientIdToOpenIdConnectProvider =
+responseAddClientIDToOpenIDConnectProvider :: AddClientIDToOpenIDConnectProviderResponse -> TestTree
+responseAddClientIDToOpenIDConnectProvider =
   res
-    "AddClientIdToOpenIdConnectProviderResponse"
-    "fixture/AddClientIdToOpenIdConnectProviderResponse.proto"
-    iam
-    (Proxy :: Proxy AddClientIdToOpenIdConnectProvider)
+    "AddClientIDToOpenIDConnectProviderResponse"
+    "fixture/AddClientIDToOpenIDConnectProviderResponse.proto"
+    defaultService
+    (Proxy :: Proxy AddClientIDToOpenIDConnectProvider)
 
 responseDeleteUserPermissionsBoundary :: DeleteUserPermissionsBoundaryResponse -> TestTree
 responseDeleteUserPermissionsBoundary =
   res
     "DeleteUserPermissionsBoundaryResponse"
     "fixture/DeleteUserPermissionsBoundaryResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteUserPermissionsBoundary)
 
 responsePutUserPolicy :: PutUserPolicyResponse -> TestTree
@@ -3042,7 +3042,7 @@ responsePutUserPolicy =
   res
     "PutUserPolicyResponse"
     "fixture/PutUserPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy PutUserPolicy)
 
 responseDetachGroupPolicy :: DetachGroupPolicyResponse -> TestTree
@@ -3050,7 +3050,7 @@ responseDetachGroupPolicy =
   res
     "DetachGroupPolicyResponse"
     "fixture/DetachGroupPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DetachGroupPolicy)
 
 responseUntagUser :: UntagUserResponse -> TestTree
@@ -3058,7 +3058,7 @@ responseUntagUser =
   res
     "UntagUserResponse"
     "fixture/UntagUserResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UntagUser)
 
 responseGetContextKeysForCustomPolicy :: GetContextKeysForPolicyResponse -> TestTree
@@ -3066,7 +3066,7 @@ responseGetContextKeysForCustomPolicy =
   res
     "GetContextKeysForCustomPolicyResponse"
     "fixture/GetContextKeysForCustomPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetContextKeysForCustomPolicy)
 
 responsePutRolePermissionsBoundary :: PutRolePermissionsBoundaryResponse -> TestTree
@@ -3074,7 +3074,7 @@ responsePutRolePermissionsBoundary =
   res
     "PutRolePermissionsBoundaryResponse"
     "fixture/PutRolePermissionsBoundaryResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy PutRolePermissionsBoundary)
 
 responseUntagRole :: UntagRoleResponse -> TestTree
@@ -3082,7 +3082,7 @@ responseUntagRole =
   res
     "UntagRoleResponse"
     "fixture/UntagRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UntagRole)
 
 responseSimulateCustomPolicy :: SimulatePolicyResponse -> TestTree
@@ -3090,7 +3090,7 @@ responseSimulateCustomPolicy =
   res
     "SimulateCustomPolicyResponse"
     "fixture/SimulateCustomPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy SimulateCustomPolicy)
 
 responseUploadSSHPublicKey :: UploadSSHPublicKeyResponse -> TestTree
@@ -3098,7 +3098,7 @@ responseUploadSSHPublicKey =
   res
     "UploadSSHPublicKeyResponse"
     "fixture/UploadSSHPublicKeyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UploadSSHPublicKey)
 
 responseDeleteRole :: DeleteRoleResponse -> TestTree
@@ -3106,7 +3106,7 @@ responseDeleteRole =
   res
     "DeleteRoleResponse"
     "fixture/DeleteRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeleteRole)
 
 responseListUserPolicies :: ListUserPoliciesResponse -> TestTree
@@ -3114,7 +3114,7 @@ responseListUserPolicies =
   res
     "ListUserPoliciesResponse"
     "fixture/ListUserPoliciesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListUserPolicies)
 
 responsePutRolePolicy :: PutRolePolicyResponse -> TestTree
@@ -3122,7 +3122,7 @@ responsePutRolePolicy =
   res
     "PutRolePolicyResponse"
     "fixture/PutRolePolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy PutRolePolicy)
 
 responseUpdateRole :: UpdateRoleResponse -> TestTree
@@ -3130,7 +3130,7 @@ responseUpdateRole =
   res
     "UpdateRoleResponse"
     "fixture/UpdateRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy UpdateRole)
 
 responseSetSecurityTokenServicePreferences :: SetSecurityTokenServicePreferencesResponse -> TestTree
@@ -3138,7 +3138,7 @@ responseSetSecurityTokenServicePreferences =
   res
     "SetSecurityTokenServicePreferencesResponse"
     "fixture/SetSecurityTokenServicePreferencesResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy SetSecurityTokenServicePreferences)
 
 responseAttachUserPolicy :: AttachUserPolicyResponse -> TestTree
@@ -3146,7 +3146,7 @@ responseAttachUserPolicy =
   res
     "AttachUserPolicyResponse"
     "fixture/AttachUserPolicyResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy AttachUserPolicy)
 
 responseTagServerCertificate :: TagServerCertificateResponse -> TestTree
@@ -3154,7 +3154,7 @@ responseTagServerCertificate =
   res
     "TagServerCertificateResponse"
     "fixture/TagServerCertificateResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy TagServerCertificate)
 
 responseListAccessKeys :: ListAccessKeysResponse -> TestTree
@@ -3162,23 +3162,23 @@ responseListAccessKeys =
   res
     "ListAccessKeysResponse"
     "fixture/ListAccessKeysResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListAccessKeys)
 
-responseCreateOpenIdConnectProvider :: CreateOpenIdConnectProviderResponse -> TestTree
-responseCreateOpenIdConnectProvider =
+responseCreateOpenIDConnectProvider :: CreateOpenIDConnectProviderResponse -> TestTree
+responseCreateOpenIDConnectProvider =
   res
-    "CreateOpenIdConnectProviderResponse"
-    "fixture/CreateOpenIdConnectProviderResponse.proto"
-    iam
-    (Proxy :: Proxy CreateOpenIdConnectProvider)
+    "CreateOpenIDConnectProviderResponse"
+    "fixture/CreateOpenIDConnectProviderResponse.proto"
+    defaultService
+    (Proxy :: Proxy CreateOpenIDConnectProvider)
 
 responseDeactivateMFADevice :: DeactivateMFADeviceResponse -> TestTree
 responseDeactivateMFADevice =
   res
     "DeactivateMFADeviceResponse"
     "fixture/DeactivateMFADeviceResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy DeactivateMFADevice)
 
 responseListUserTags :: ListUserTagsResponse -> TestTree
@@ -3186,7 +3186,7 @@ responseListUserTags =
   res
     "ListUserTagsResponse"
     "fixture/ListUserTagsResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy ListUserTags)
 
 responseGetRole :: GetRoleResponse -> TestTree
@@ -3194,5 +3194,5 @@ responseGetRole =
   res
     "GetRoleResponse"
     "fixture/GetRoleResponse.proto"
-    iam
+    defaultService
     (Proxy :: Proxy GetRole)

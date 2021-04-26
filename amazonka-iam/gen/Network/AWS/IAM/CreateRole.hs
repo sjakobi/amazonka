@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,397 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new role for your AWS account. For more information about roles, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html IAM roles> . For information about quotas for role names and the number of roles you can create, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas> in the /IAM User Guide/ .
+-- Creates a new role for your AWS account. For more information about
+-- roles, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html IAM roles>.
+-- For information about quotas for role names and the number of roles you
+-- can create, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.CreateRole
   ( -- * Creating a Request
-    createRole,
-    CreateRole,
+    CreateRole (..),
+    newCreateRole,
 
     -- * Request Lenses
-    crMaxSessionDuration,
-    crPermissionsBoundary,
-    crTags,
-    crDescription,
-    crPath,
-    crRoleName,
-    crAssumeRolePolicyDocument,
+    createRole_maxSessionDuration,
+    createRole_permissionsBoundary,
+    createRole_tags,
+    createRole_description,
+    createRole_path,
+    createRole_roleName,
+    createRole_assumeRolePolicyDocument,
 
     -- * Destructuring the Response
-    createRoleResponse,
-    CreateRoleResponse,
+    CreateRoleResponse (..),
+    newCreateRoleResponse,
 
     -- * Response Lenses
-    crrrsResponseStatus,
-    crrrsRole,
+    createRoleResponse_httpStatus,
+    createRoleResponse_role,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Role
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createRole' smart constructor.
+-- | /See:/ 'newCreateRole' smart constructor.
 data CreateRole = CreateRole'
-  { _crMaxSessionDuration ::
-      !(Maybe Nat),
-    _crPermissionsBoundary :: !(Maybe Text),
-    _crTags :: !(Maybe [Tag]),
-    _crDescription :: !(Maybe Text),
-    _crPath :: !(Maybe Text),
-    _crRoleName :: !Text,
-    _crAssumeRolePolicyDocument :: !Text
+  { -- | The maximum session duration (in seconds) that you want to set for the
+    -- specified role. If you do not specify a value for this setting, the
+    -- default maximum of one hour is applied. This setting can have a value
+    -- from 1 hour to 12 hours.
+    --
+    -- Anyone who assumes the role from the AWS CLI or API can use the
+    -- @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter
+    -- to request a longer session. The @MaxSessionDuration@ setting determines
+    -- the maximum duration that can be requested using the @DurationSeconds@
+    -- parameter. If users don\'t specify a value for the @DurationSeconds@
+    -- parameter, their security credentials are valid for one hour by default.
+    -- This applies when you use the @AssumeRole*@ API operations or the
+    -- @assume-role*@ CLI operations but does not apply when you use those
+    -- operations to create a console URL. For more information, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html Using IAM roles>
+    -- in the /IAM User Guide/.
+    maxSessionDuration :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of the policy that is used to set the permissions boundary for
+    -- the role.
+    permissionsBoundary :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags that you want to attach to the new role. Each tag
+    -- consists of a key name and an associated value. For more information
+    -- about tagging, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+    -- in the /IAM User Guide/.
+    --
+    -- If any one of the tags is invalid or if you exceed the allowed maximum
+    -- number of tags, then the entire request fails and the resource is not
+    -- created.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the role.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The path to the role. For more information about paths, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers>
+    -- in the /IAM User Guide/.
+    --
+    -- This parameter is optional. If it is not included, it defaults to a
+    -- slash (\/).
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of either a forward slash (\/) by itself or a string that
+    -- must begin and end with forward slashes. In addition, it can contain any
+    -- ASCII character from the ! (@\\u0021@) through the DEL character
+    -- (@\\u007F@), including most punctuation characters, digits, and upper
+    -- and lowercased letters.
+    path :: Prelude.Maybe Prelude.Text,
+    -- | The name of the role to create.
+    --
+    -- IAM user, group, role, and policy names must be unique within the
+    -- account. Names are not distinguished by case. For example, you cannot
+    -- create resources named both \"MyResource\" and \"myresource\".
+    roleName :: Prelude.Text,
+    -- | The trust relationship policy document that grants an entity permission
+    -- to assume the role.
+    --
+    -- In IAM, you must provide a JSON policy that has been converted to a
+    -- string. However, for AWS CloudFormation templates formatted in YAML, you
+    -- can provide the policy in JSON or YAML format. AWS CloudFormation always
+    -- converts a YAML policy to JSON format before submitting it to IAM.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+    -- this parameter is a string of characters consisting of the following:
+    --
+    -- -   Any printable ASCII character ranging from the space character
+    --     (@\\u0020@) through the end of the ASCII character range
+    --
+    -- -   The printable characters in the Basic Latin and Latin-1 Supplement
+    --     character set (through @\\u00FF@)
+    --
+    -- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+    --     carriage return (@\\u000D@)
+    --
+    -- Upon success, the response includes the same trust policy in JSON
+    -- format.
+    assumeRolePolicyDocument :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crMaxSessionDuration' - The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to 12 hours. Anyone who assumes the role from the AWS CLI or API can use the @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter to request a longer session. The @MaxSessionDuration@ setting determines the maximum duration that can be requested using the @DurationSeconds@ parameter. If users don't specify a value for the @DurationSeconds@ parameter, their security credentials are valid for one hour by default. This applies when you use the @AssumeRole*@ API operations or the @assume-role*@ CLI operations but does not apply when you use those operations to create a console URL. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html Using IAM roles> in the /IAM User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crPermissionsBoundary' - The ARN of the policy that is used to set the permissions boundary for the role.
+-- 'maxSessionDuration', 'createRole_maxSessionDuration' - The maximum session duration (in seconds) that you want to set for the
+-- specified role. If you do not specify a value for this setting, the
+-- default maximum of one hour is applied. This setting can have a value
+-- from 1 hour to 12 hours.
 --
--- * 'crTags' - A list of tags that you want to attach to the new role. Each tag consists of a key name and an associated value. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Anyone who assumes the role from the AWS CLI or API can use the
+-- @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter
+-- to request a longer session. The @MaxSessionDuration@ setting determines
+-- the maximum duration that can be requested using the @DurationSeconds@
+-- parameter. If users don\'t specify a value for the @DurationSeconds@
+-- parameter, their security credentials are valid for one hour by default.
+-- This applies when you use the @AssumeRole*@ API operations or the
+-- @assume-role*@ CLI operations but does not apply when you use those
+-- operations to create a console URL. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html Using IAM roles>
+-- in the /IAM User Guide/.
 --
--- * 'crDescription' - A description of the role.
+-- 'permissionsBoundary', 'createRole_permissionsBoundary' - The ARN of the policy that is used to set the permissions boundary for
+-- the role.
 --
--- * 'crPath' - The path to the role. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers> in the /IAM User Guide/ . This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
+-- 'tags', 'createRole_tags' - A list of tags that you want to attach to the new role. Each tag
+-- consists of a key name and an associated value. For more information
+-- about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 --
--- * 'crRoleName' - The name of the role to create. IAM user, group, role, and policy names must be unique within the account. Names are not distinguished by case. For example, you cannot create resources named both "MyResource" and "myresource".
+-- If any one of the tags is invalid or if you exceed the allowed maximum
+-- number of tags, then the entire request fails and the resource is not
+-- created.
 --
--- * 'crAssumeRolePolicyDocument' - The trust relationship policy document that grants an entity permission to assume the role. In IAM, you must provide a JSON policy that has been converted to a string. However, for AWS CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of the following:     * Any printable ASCII character ranging from the space character (@\u0020@ ) through the end of the ASCII character range     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through @\u00FF@ )     * The special characters tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ ) Upon success, the response includes the same trust policy in JSON format.
-createRole ::
-  -- | 'crRoleName'
-  Text ->
-  -- | 'crAssumeRolePolicyDocument'
-  Text ->
+-- 'description', 'createRole_description' - A description of the role.
+--
+-- 'path', 'createRole_path' - The path to the role. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+--
+-- This parameter is optional. If it is not included, it defaults to a
+-- slash (\/).
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+--
+-- 'roleName', 'createRole_roleName' - The name of the role to create.
+--
+-- IAM user, group, role, and policy names must be unique within the
+-- account. Names are not distinguished by case. For example, you cannot
+-- create resources named both \"MyResource\" and \"myresource\".
+--
+-- 'assumeRolePolicyDocument', 'createRole_assumeRolePolicyDocument' - The trust relationship policy document that grants an entity permission
+-- to assume the role.
+--
+-- In IAM, you must provide a JSON policy that has been converted to a
+-- string. However, for AWS CloudFormation templates formatted in YAML, you
+-- can provide the policy in JSON or YAML format. AWS CloudFormation always
+-- converts a YAML policy to JSON format before submitting it to IAM.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
+--
+-- Upon success, the response includes the same trust policy in JSON
+-- format.
+newCreateRole ::
+  -- | 'roleName'
+  Prelude.Text ->
+  -- | 'assumeRolePolicyDocument'
+  Prelude.Text ->
   CreateRole
-createRole pRoleName_ pAssumeRolePolicyDocument_ =
+newCreateRole pRoleName_ pAssumeRolePolicyDocument_ =
   CreateRole'
-    { _crMaxSessionDuration = Nothing,
-      _crPermissionsBoundary = Nothing,
-      _crTags = Nothing,
-      _crDescription = Nothing,
-      _crPath = Nothing,
-      _crRoleName = pRoleName_,
-      _crAssumeRolePolicyDocument =
+    { maxSessionDuration = Prelude.Nothing,
+      permissionsBoundary = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      path = Prelude.Nothing,
+      roleName = pRoleName_,
+      assumeRolePolicyDocument =
         pAssumeRolePolicyDocument_
     }
 
--- | The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to 12 hours. Anyone who assumes the role from the AWS CLI or API can use the @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter to request a longer session. The @MaxSessionDuration@ setting determines the maximum duration that can be requested using the @DurationSeconds@ parameter. If users don't specify a value for the @DurationSeconds@ parameter, their security credentials are valid for one hour by default. This applies when you use the @AssumeRole*@ API operations or the @assume-role*@ CLI operations but does not apply when you use those operations to create a console URL. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html Using IAM roles> in the /IAM User Guide/ .
-crMaxSessionDuration :: Lens' CreateRole (Maybe Natural)
-crMaxSessionDuration = lens _crMaxSessionDuration (\s a -> s {_crMaxSessionDuration = a}) . mapping _Nat
+-- | The maximum session duration (in seconds) that you want to set for the
+-- specified role. If you do not specify a value for this setting, the
+-- default maximum of one hour is applied. This setting can have a value
+-- from 1 hour to 12 hours.
+--
+-- Anyone who assumes the role from the AWS CLI or API can use the
+-- @DurationSeconds@ API parameter or the @duration-seconds@ CLI parameter
+-- to request a longer session. The @MaxSessionDuration@ setting determines
+-- the maximum duration that can be requested using the @DurationSeconds@
+-- parameter. If users don\'t specify a value for the @DurationSeconds@
+-- parameter, their security credentials are valid for one hour by default.
+-- This applies when you use the @AssumeRole*@ API operations or the
+-- @assume-role*@ CLI operations but does not apply when you use those
+-- operations to create a console URL. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html Using IAM roles>
+-- in the /IAM User Guide/.
+createRole_maxSessionDuration :: Lens.Lens' CreateRole (Prelude.Maybe Prelude.Natural)
+createRole_maxSessionDuration = Lens.lens (\CreateRole' {maxSessionDuration} -> maxSessionDuration) (\s@CreateRole' {} a -> s {maxSessionDuration = a} :: CreateRole) Prelude.. Lens.mapping Prelude._Nat
 
--- | The ARN of the policy that is used to set the permissions boundary for the role.
-crPermissionsBoundary :: Lens' CreateRole (Maybe Text)
-crPermissionsBoundary = lens _crPermissionsBoundary (\s a -> s {_crPermissionsBoundary = a})
+-- | The ARN of the policy that is used to set the permissions boundary for
+-- the role.
+createRole_permissionsBoundary :: Lens.Lens' CreateRole (Prelude.Maybe Prelude.Text)
+createRole_permissionsBoundary = Lens.lens (\CreateRole' {permissionsBoundary} -> permissionsBoundary) (\s@CreateRole' {} a -> s {permissionsBoundary = a} :: CreateRole)
 
--- | A list of tags that you want to attach to the new role. Each tag consists of a key name and an associated value. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
-crTags :: Lens' CreateRole [Tag]
-crTags = lens _crTags (\s a -> s {_crTags = a}) . _Default . _Coerce
+-- | A list of tags that you want to attach to the new role. Each tag
+-- consists of a key name and an associated value. For more information
+-- about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+--
+-- If any one of the tags is invalid or if you exceed the allowed maximum
+-- number of tags, then the entire request fails and the resource is not
+-- created.
+createRole_tags :: Lens.Lens' CreateRole (Prelude.Maybe [Tag])
+createRole_tags = Lens.lens (\CreateRole' {tags} -> tags) (\s@CreateRole' {} a -> s {tags = a} :: CreateRole) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the role.
-crDescription :: Lens' CreateRole (Maybe Text)
-crDescription = lens _crDescription (\s a -> s {_crDescription = a})
+createRole_description :: Lens.Lens' CreateRole (Prelude.Maybe Prelude.Text)
+createRole_description = Lens.lens (\CreateRole' {description} -> description) (\s@CreateRole' {} a -> s {description = a} :: CreateRole)
 
--- | The path to the role. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers> in the /IAM User Guide/ . This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
-crPath :: Lens' CreateRole (Maybe Text)
-crPath = lens _crPath (\s a -> s {_crPath = a})
+-- | The path to the role. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM Identifiers>
+-- in the /IAM User Guide/.
+--
+-- This parameter is optional. If it is not included, it defaults to a
+-- slash (\/).
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+createRole_path :: Lens.Lens' CreateRole (Prelude.Maybe Prelude.Text)
+createRole_path = Lens.lens (\CreateRole' {path} -> path) (\s@CreateRole' {} a -> s {path = a} :: CreateRole)
 
--- | The name of the role to create. IAM user, group, role, and policy names must be unique within the account. Names are not distinguished by case. For example, you cannot create resources named both "MyResource" and "myresource".
-crRoleName :: Lens' CreateRole Text
-crRoleName = lens _crRoleName (\s a -> s {_crRoleName = a})
+-- | The name of the role to create.
+--
+-- IAM user, group, role, and policy names must be unique within the
+-- account. Names are not distinguished by case. For example, you cannot
+-- create resources named both \"MyResource\" and \"myresource\".
+createRole_roleName :: Lens.Lens' CreateRole Prelude.Text
+createRole_roleName = Lens.lens (\CreateRole' {roleName} -> roleName) (\s@CreateRole' {} a -> s {roleName = a} :: CreateRole)
 
--- | The trust relationship policy document that grants an entity permission to assume the role. In IAM, you must provide a JSON policy that has been converted to a string. However, for AWS CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of the following:     * Any printable ASCII character ranging from the space character (@\u0020@ ) through the end of the ASCII character range     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through @\u00FF@ )     * The special characters tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ ) Upon success, the response includes the same trust policy in JSON format.
-crAssumeRolePolicyDocument :: Lens' CreateRole Text
-crAssumeRolePolicyDocument = lens _crAssumeRolePolicyDocument (\s a -> s {_crAssumeRolePolicyDocument = a})
+-- | The trust relationship policy document that grants an entity permission
+-- to assume the role.
+--
+-- In IAM, you must provide a JSON policy that has been converted to a
+-- string. However, for AWS CloudFormation templates formatted in YAML, you
+-- can provide the policy in JSON or YAML format. AWS CloudFormation always
+-- converts a YAML policy to JSON format before submitting it to IAM.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
+--
+-- Upon success, the response includes the same trust policy in JSON
+-- format.
+createRole_assumeRolePolicyDocument :: Lens.Lens' CreateRole Prelude.Text
+createRole_assumeRolePolicyDocument = Lens.lens (\CreateRole' {assumeRolePolicyDocument} -> assumeRolePolicyDocument) (\s@CreateRole' {} a -> s {assumeRolePolicyDocument = a} :: CreateRole)
 
-instance AWSRequest CreateRole where
+instance Prelude.AWSRequest CreateRole where
   type Rs CreateRole = CreateRoleResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateRoleResult"
       ( \s h x ->
           CreateRoleResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "Role")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Role")
       )
 
-instance Hashable CreateRole
+instance Prelude.Hashable CreateRole
 
-instance NFData CreateRole
+instance Prelude.NFData CreateRole
 
-instance ToHeaders CreateRole where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateRole where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateRole where
-  toPath = const "/"
+instance Prelude.ToPath CreateRole where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateRole where
+instance Prelude.ToQuery CreateRole where
   toQuery CreateRole' {..} =
-    mconcat
-      [ "Action" =: ("CreateRole" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "MaxSessionDuration" =: _crMaxSessionDuration,
-        "PermissionsBoundary" =: _crPermissionsBoundary,
-        "Tags" =: toQuery (toQueryList "member" <$> _crTags),
-        "Description" =: _crDescription,
-        "Path" =: _crPath,
-        "RoleName" =: _crRoleName,
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateRole" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "MaxSessionDuration" Prelude.=: maxSessionDuration,
+        "PermissionsBoundary" Prelude.=: permissionsBoundary,
+        "Tags"
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> tags),
+        "Description" Prelude.=: description,
+        "Path" Prelude.=: path,
+        "RoleName" Prelude.=: roleName,
         "AssumeRolePolicyDocument"
-          =: _crAssumeRolePolicyDocument
+          Prelude.=: assumeRolePolicyDocument
       ]
 
--- | Contains the response to a successful 'CreateRole' request.
+-- | Contains the response to a successful CreateRole request.
 --
---
---
--- /See:/ 'createRoleResponse' smart constructor.
+-- /See:/ 'newCreateRoleResponse' smart constructor.
 data CreateRoleResponse = CreateRoleResponse'
-  { _crrrsResponseStatus ::
-      !Int,
-    _crrrsRole :: !Role
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A structure containing details about the new role.
+    role' :: Role
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateRoleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateRoleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'crrrsRole' - A structure containing details about the new role.
-createRoleResponse ::
-  -- | 'crrrsResponseStatus'
-  Int ->
-  -- | 'crrrsRole'
+-- 'httpStatus', 'createRoleResponse_httpStatus' - The response's http status code.
+--
+-- 'role'', 'createRoleResponse_role' - A structure containing details about the new role.
+newCreateRoleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'role''
   Role ->
   CreateRoleResponse
-createRoleResponse pResponseStatus_ pRole_ =
+newCreateRoleResponse pHttpStatus_ pRole_ =
   CreateRoleResponse'
-    { _crrrsResponseStatus =
-        pResponseStatus_,
-      _crrrsRole = pRole_
+    { httpStatus = pHttpStatus_,
+      role' = pRole_
     }
 
--- | -- | The response status code.
-crrrsResponseStatus :: Lens' CreateRoleResponse Int
-crrrsResponseStatus = lens _crrrsResponseStatus (\s a -> s {_crrrsResponseStatus = a})
+-- | The response's http status code.
+createRoleResponse_httpStatus :: Lens.Lens' CreateRoleResponse Prelude.Int
+createRoleResponse_httpStatus = Lens.lens (\CreateRoleResponse' {httpStatus} -> httpStatus) (\s@CreateRoleResponse' {} a -> s {httpStatus = a} :: CreateRoleResponse)
 
 -- | A structure containing details about the new role.
-crrrsRole :: Lens' CreateRoleResponse Role
-crrrsRole = lens _crrrsRole (\s a -> s {_crrrsRole = a})
+createRoleResponse_role :: Lens.Lens' CreateRoleResponse Role
+createRoleResponse_role = Lens.lens (\CreateRoleResponse' {role'} -> role') (\s@CreateRoleResponse' {} a -> s {role' = a} :: CreateRoleResponse)
 
-instance NFData CreateRoleResponse
+instance Prelude.NFData CreateRoleResponse

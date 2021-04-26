@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,91 +21,126 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tags from the user. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Removes the specified tags from the user. For more information about
+-- tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UntagUser
   ( -- * Creating a Request
-    untagUser,
-    UntagUser,
+    UntagUser (..),
+    newUntagUser,
 
     -- * Request Lenses
-    untUserName,
-    untTagKeys,
+    untagUser_userName,
+    untagUser_tagKeys,
 
     -- * Destructuring the Response
-    untagUserResponse,
-    UntagUserResponse,
+    UntagUserResponse (..),
+    newUntagUserResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagUser' smart constructor.
+-- | /See:/ 'newUntagUser' smart constructor.
 data UntagUser = UntagUser'
-  { _untUserName :: !Text,
-    _untTagKeys :: ![Text]
+  { -- | The name of the IAM user from which you want to remove tags.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    userName :: Prelude.Text,
+    -- | A list of key names as a simple array of strings. The tags with matching
+    -- keys are removed from the specified user.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'untUserName' - The name of the IAM user from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'untTagKeys' - A list of key names as a simple array of strings. The tags with matching keys are removed from the specified user.
-untagUser ::
-  -- | 'untUserName'
-  Text ->
+-- 'userName', 'untagUser_userName' - The name of the IAM user from which you want to remove tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+--
+-- 'tagKeys', 'untagUser_tagKeys' - A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified user.
+newUntagUser ::
+  -- | 'userName'
+  Prelude.Text ->
   UntagUser
-untagUser pUserName_ =
+newUntagUser pUserName_ =
   UntagUser'
-    { _untUserName = pUserName_,
-      _untTagKeys = mempty
+    { userName = pUserName_,
+      tagKeys = Prelude.mempty
     }
 
--- | The name of the IAM user from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-untUserName :: Lens' UntagUser Text
-untUserName = lens _untUserName (\s a -> s {_untUserName = a})
+-- | The name of the IAM user from which you want to remove tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+untagUser_userName :: Lens.Lens' UntagUser Prelude.Text
+untagUser_userName = Lens.lens (\UntagUser' {userName} -> userName) (\s@UntagUser' {} a -> s {userName = a} :: UntagUser)
 
--- | A list of key names as a simple array of strings. The tags with matching keys are removed from the specified user.
-untTagKeys :: Lens' UntagUser [Text]
-untTagKeys = lens _untTagKeys (\s a -> s {_untTagKeys = a}) . _Coerce
+-- | A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified user.
+untagUser_tagKeys :: Lens.Lens' UntagUser [Prelude.Text]
+untagUser_tagKeys = Lens.lens (\UntagUser' {tagKeys} -> tagKeys) (\s@UntagUser' {} a -> s {tagKeys = a} :: UntagUser) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagUser where
+instance Prelude.AWSRequest UntagUser where
   type Rs UntagUser = UntagUserResponse
-  request = postQuery iam
-  response = receiveNull UntagUserResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull UntagUserResponse'
 
-instance Hashable UntagUser
+instance Prelude.Hashable UntagUser
 
-instance NFData UntagUser
+instance Prelude.NFData UntagUser
 
-instance ToHeaders UntagUser where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagUser where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagUser where
-  toPath = const "/"
+instance Prelude.ToPath UntagUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagUser where
+instance Prelude.ToQuery UntagUser where
   toQuery UntagUser' {..} =
-    mconcat
-      [ "Action" =: ("UntagUser" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _untUserName,
-        "TagKeys" =: toQueryList "member" _untTagKeys
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UntagUser" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]
 
--- | /See:/ 'untagUserResponse' smart constructor.
+-- | /See:/ 'newUntagUserResponse' smart constructor.
 data UntagUserResponse = UntagUserResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagUserResponse' with the minimum fields required to make a request.
-untagUserResponse ::
+-- |
+-- Create a value of 'UntagUserResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagUserResponse ::
   UntagUserResponse
-untagUserResponse = UntagUserResponse'
+newUntagUserResponse = UntagUserResponse'
 
-instance NFData UntagUserResponse
+instance Prelude.NFData UntagUserResponse

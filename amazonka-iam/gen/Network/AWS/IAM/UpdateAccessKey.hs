@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,116 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the status of the specified access key from Active to Inactive, or vice versa. This operation can be used to disable a user's key as part of a key rotation workflow.
+-- Changes the status of the specified access key from Active to Inactive,
+-- or vice versa. This operation can be used to disable a user\'s key as
+-- part of a key rotation workflow.
 --
+-- If the @UserName@ is not specified, the user name is determined
+-- implicitly based on the AWS access key ID used to sign the request. This
+-- operation works for access keys under the AWS account. Consequently, you
+-- can use this operation to manage AWS account root user credentials even
+-- if the AWS account has no associated users.
 --
--- If the @UserName@ is not specified, the user name is determined implicitly based on the AWS access key ID used to sign the request. This operation works for access keys under the AWS account. Consequently, you can use this operation to manage AWS account root user credentials even if the AWS account has no associated users.
---
--- For information about rotating keys, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html Managing keys and certificates> in the /IAM User Guide/ .
+-- For information about rotating keys, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html Managing keys and certificates>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UpdateAccessKey
   ( -- * Creating a Request
-    updateAccessKey,
-    UpdateAccessKey,
+    UpdateAccessKey (..),
+    newUpdateAccessKey,
 
     -- * Request Lenses
-    uakUserName,
-    uakAccessKeyId,
-    uakStatus,
+    updateAccessKey_userName,
+    updateAccessKey_accessKeyId,
+    updateAccessKey_status,
 
     -- * Destructuring the Response
-    updateAccessKeyResponse,
-    UpdateAccessKeyResponse,
+    UpdateAccessKeyResponse (..),
+    newUpdateAccessKeyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateAccessKey' smart constructor.
+-- | /See:/ 'newUpdateAccessKey' smart constructor.
 data UpdateAccessKey = UpdateAccessKey'
-  { _uakUserName ::
-      !(Maybe Text),
-    _uakAccessKeyId :: !AccessKey,
-    _uakStatus :: !StatusType
+  { -- | The name of the user whose key you want to update.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Maybe Prelude.Text,
+    -- | The access key ID of the secret access key you want to update.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that can consist of any upper or lowercased letter or digit.
+    accessKeyId :: AccessKey,
+    -- | The status you want to assign to the secret access key. @Active@ means
+    -- that the key can be used for programmatic calls to AWS, while @Inactive@
+    -- means that the key cannot be used.
+    status :: StatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAccessKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAccessKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uakUserName' - The name of the user whose key you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uakAccessKeyId' - The access key ID of the secret access key you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that can consist of any upper or lowercased letter or digit.
+-- 'userName', 'updateAccessKey_userName' - The name of the user whose key you want to update.
 --
--- * 'uakStatus' - The status you want to assign to the secret access key. @Active@ means that the key can be used for programmatic calls to AWS, while @Inactive@ means that the key cannot be used.
-updateAccessKey ::
-  -- | 'uakAccessKeyId'
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'accessKeyId', 'updateAccessKey_accessKeyId' - The access key ID of the secret access key you want to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that can consist of any upper or lowercased letter or digit.
+--
+-- 'status', 'updateAccessKey_status' - The status you want to assign to the secret access key. @Active@ means
+-- that the key can be used for programmatic calls to AWS, while @Inactive@
+-- means that the key cannot be used.
+newUpdateAccessKey ::
+  -- | 'accessKeyId'
   AccessKey ->
-  -- | 'uakStatus'
+  -- | 'status'
   StatusType ->
   UpdateAccessKey
-updateAccessKey pAccessKeyId_ pStatus_ =
+newUpdateAccessKey pAccessKeyId_ pStatus_ =
   UpdateAccessKey'
-    { _uakUserName = Nothing,
-      _uakAccessKeyId = pAccessKeyId_,
-      _uakStatus = pStatus_
+    { userName = Prelude.Nothing,
+      accessKeyId = pAccessKeyId_,
+      status = pStatus_
     }
 
--- | The name of the user whose key you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-uakUserName :: Lens' UpdateAccessKey (Maybe Text)
-uakUserName = lens _uakUserName (\s a -> s {_uakUserName = a})
+-- | The name of the user whose key you want to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+updateAccessKey_userName :: Lens.Lens' UpdateAccessKey (Prelude.Maybe Prelude.Text)
+updateAccessKey_userName = Lens.lens (\UpdateAccessKey' {userName} -> userName) (\s@UpdateAccessKey' {} a -> s {userName = a} :: UpdateAccessKey)
 
--- | The access key ID of the secret access key you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that can consist of any upper or lowercased letter or digit.
-uakAccessKeyId :: Lens' UpdateAccessKey AccessKey
-uakAccessKeyId = lens _uakAccessKeyId (\s a -> s {_uakAccessKeyId = a})
+-- | The access key ID of the secret access key you want to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that can consist of any upper or lowercased letter or digit.
+updateAccessKey_accessKeyId :: Lens.Lens' UpdateAccessKey AccessKey
+updateAccessKey_accessKeyId = Lens.lens (\UpdateAccessKey' {accessKeyId} -> accessKeyId) (\s@UpdateAccessKey' {} a -> s {accessKeyId = a} :: UpdateAccessKey)
 
--- | The status you want to assign to the secret access key. @Active@ means that the key can be used for programmatic calls to AWS, while @Inactive@ means that the key cannot be used.
-uakStatus :: Lens' UpdateAccessKey StatusType
-uakStatus = lens _uakStatus (\s a -> s {_uakStatus = a})
+-- | The status you want to assign to the secret access key. @Active@ means
+-- that the key can be used for programmatic calls to AWS, while @Inactive@
+-- means that the key cannot be used.
+updateAccessKey_status :: Lens.Lens' UpdateAccessKey StatusType
+updateAccessKey_status = Lens.lens (\UpdateAccessKey' {status} -> status) (\s@UpdateAccessKey' {} a -> s {status = a} :: UpdateAccessKey)
 
-instance AWSRequest UpdateAccessKey where
+instance Prelude.AWSRequest UpdateAccessKey where
   type Rs UpdateAccessKey = UpdateAccessKeyResponse
-  request = postQuery iam
-  response = receiveNull UpdateAccessKeyResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull UpdateAccessKeyResponse'
 
-instance Hashable UpdateAccessKey
+instance Prelude.Hashable UpdateAccessKey
 
-instance NFData UpdateAccessKey
+instance Prelude.NFData UpdateAccessKey
 
-instance ToHeaders UpdateAccessKey where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateAccessKey where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateAccessKey where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAccessKey where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAccessKey where
+instance Prelude.ToQuery UpdateAccessKey where
   toQuery UpdateAccessKey' {..} =
-    mconcat
-      [ "Action" =: ("UpdateAccessKey" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _uakUserName,
-        "AccessKeyId" =: _uakAccessKeyId,
-        "Status" =: _uakStatus
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UpdateAccessKey" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "AccessKeyId" Prelude.=: accessKeyId,
+        "Status" Prelude.=: status
       ]
 
--- | /See:/ 'updateAccessKeyResponse' smart constructor.
+-- | /See:/ 'newUpdateAccessKeyResponse' smart constructor.
 data UpdateAccessKeyResponse = UpdateAccessKeyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAccessKeyResponse' with the minimum fields required to make a request.
-updateAccessKeyResponse ::
+-- |
+-- Create a value of 'UpdateAccessKeyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateAccessKeyResponse ::
   UpdateAccessKeyResponse
-updateAccessKeyResponse = UpdateAccessKeyResponse'
+newUpdateAccessKeyResponse = UpdateAccessKeyResponse'
 
-instance NFData UpdateAccessKeyResponse
+instance Prelude.NFData UpdateAccessKeyResponse

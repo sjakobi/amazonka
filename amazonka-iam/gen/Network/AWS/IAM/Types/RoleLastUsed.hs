@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.RoleLastUsed where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the last time that an IAM role was used. This includes the date and time and the Region in which the role was last used. Activity is only reported for the trailing 400 days. This period can be shorter if your Region began supporting these features within the last year. The role might have been used more than 400 days ago. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked> in the /IAM User Guide/ .
+-- | Contains information about the last time that an IAM role was used. This
+-- includes the date and time and the Region in which the role was last
+-- used. Activity is only reported for the trailing 400 days. This period
+-- can be shorter if your Region began supporting these features within the
+-- last year. The role might have been used more than 400 days ago. For
+-- more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
+-- in the /IAM User Guide/.
 --
+-- This data type is returned as a response element in the GetRole and
+-- GetAccountAuthorizationDetails operations.
 --
--- This data type is returned as a response element in the 'GetRole' and 'GetAccountAuthorizationDetails' operations.
---
---
--- /See:/ 'roleLastUsed' smart constructor.
+-- /See:/ 'newRoleLastUsed' smart constructor.
 data RoleLastUsed = RoleLastUsed'
-  { _rluLastUsedDate ::
-      !(Maybe ISO8601),
-    _rluRegion :: !(Maybe Text)
+  { -- | The date and time,
+    -- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> that the
+    -- role was last used.
+    --
+    -- This field is null if the role has not been used within the IAM tracking
+    -- period. For more information about the tracking period, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
+    -- in the /IAM User Guide/.
+    lastUsedDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the AWS Region in which the role was last used.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RoleLastUsed' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RoleLastUsed' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rluLastUsedDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> that the role was last used. This field is null if the role has not been used within the IAM tracking period. For more information about the tracking period, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked> in the /IAM User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rluRegion' - The name of the AWS Region in which the role was last used.
-roleLastUsed ::
+-- 'lastUsedDate', 'roleLastUsed_lastUsedDate' - The date and time,
+-- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> that the
+-- role was last used.
+--
+-- This field is null if the role has not been used within the IAM tracking
+-- period. For more information about the tracking period, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
+-- in the /IAM User Guide/.
+--
+-- 'region', 'roleLastUsed_region' - The name of the AWS Region in which the role was last used.
+newRoleLastUsed ::
   RoleLastUsed
-roleLastUsed =
+newRoleLastUsed =
   RoleLastUsed'
-    { _rluLastUsedDate = Nothing,
-      _rluRegion = Nothing
+    { lastUsedDate = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> that the role was last used. This field is null if the role has not been used within the IAM tracking period. For more information about the tracking period, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked> in the /IAM User Guide/ .
-rluLastUsedDate :: Lens' RoleLastUsed (Maybe UTCTime)
-rluLastUsedDate = lens _rluLastUsedDate (\s a -> s {_rluLastUsedDate = a}) . mapping _Time
+-- | The date and time,
+-- in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> that the
+-- role was last used.
+--
+-- This field is null if the role has not been used within the IAM tracking
+-- period. For more information about the tracking period, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
+-- in the /IAM User Guide/.
+roleLastUsed_lastUsedDate :: Lens.Lens' RoleLastUsed (Prelude.Maybe Prelude.UTCTime)
+roleLastUsed_lastUsedDate = Lens.lens (\RoleLastUsed' {lastUsedDate} -> lastUsedDate) (\s@RoleLastUsed' {} a -> s {lastUsedDate = a} :: RoleLastUsed) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the AWS Region in which the role was last used.
-rluRegion :: Lens' RoleLastUsed (Maybe Text)
-rluRegion = lens _rluRegion (\s a -> s {_rluRegion = a})
+roleLastUsed_region :: Lens.Lens' RoleLastUsed (Prelude.Maybe Prelude.Text)
+roleLastUsed_region = Lens.lens (\RoleLastUsed' {region} -> region) (\s@RoleLastUsed' {} a -> s {region = a} :: RoleLastUsed)
 
-instance FromXML RoleLastUsed where
+instance Prelude.FromXML RoleLastUsed where
   parseXML x =
     RoleLastUsed'
-      <$> (x .@? "LastUsedDate") <*> (x .@? "Region")
+      Prelude.<$> (x Prelude..@? "LastUsedDate")
+      Prelude.<*> (x Prelude..@? "Region")
 
-instance Hashable RoleLastUsed
+instance Prelude.Hashable RoleLastUsed
 
-instance NFData RoleLastUsed
+instance Prelude.NFData RoleLastUsed

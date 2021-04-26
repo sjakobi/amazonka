@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,50 @@
 module Network.AWS.IAM.Types.PermissionsBoundaryAttachmentType
   ( PermissionsBoundaryAttachmentType
       ( ..,
-        PermissionsBoundaryPolicy
+        PermissionsBoundaryAttachmentTypePermissionsBoundaryPolicy
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PermissionsBoundaryAttachmentType
-  = PermissionsBoundaryAttachmentType'
-      ( CI
-          Text
-      )
+newtype PermissionsBoundaryAttachmentType = PermissionsBoundaryAttachmentType'
+  { fromPermissionsBoundaryAttachmentType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PermissionsBoundaryPolicy :: PermissionsBoundaryAttachmentType
-pattern PermissionsBoundaryPolicy = PermissionsBoundaryAttachmentType' "PermissionsBoundaryPolicy"
+pattern PermissionsBoundaryAttachmentTypePermissionsBoundaryPolicy :: PermissionsBoundaryAttachmentType
+pattern PermissionsBoundaryAttachmentTypePermissionsBoundaryPolicy = PermissionsBoundaryAttachmentType' "PermissionsBoundaryPolicy"
 
 {-# COMPLETE
-  PermissionsBoundaryPolicy,
+  PermissionsBoundaryAttachmentTypePermissionsBoundaryPolicy,
   PermissionsBoundaryAttachmentType'
   #-}
 
-instance FromText PermissionsBoundaryAttachmentType where
-  parser = (PermissionsBoundaryAttachmentType' . mk) <$> takeText
+instance Prelude.FromText PermissionsBoundaryAttachmentType where
+  parser = PermissionsBoundaryAttachmentType' Prelude.<$> Prelude.takeText
 
-instance ToText PermissionsBoundaryAttachmentType where
-  toText (PermissionsBoundaryAttachmentType' ci) = original ci
+instance Prelude.ToText PermissionsBoundaryAttachmentType where
+  toText (PermissionsBoundaryAttachmentType' x) = x
 
-instance Hashable PermissionsBoundaryAttachmentType
+instance Prelude.Hashable PermissionsBoundaryAttachmentType
 
-instance NFData PermissionsBoundaryAttachmentType
+instance Prelude.NFData PermissionsBoundaryAttachmentType
 
-instance ToByteString PermissionsBoundaryAttachmentType
+instance Prelude.ToByteString PermissionsBoundaryAttachmentType
 
-instance ToQuery PermissionsBoundaryAttachmentType
+instance Prelude.ToQuery PermissionsBoundaryAttachmentType
 
-instance ToHeader PermissionsBoundaryAttachmentType
+instance Prelude.ToHeader PermissionsBoundaryAttachmentType
 
-instance FromXML PermissionsBoundaryAttachmentType where
-  parseXML = parseXMLText "PermissionsBoundaryAttachmentType"
+instance Prelude.FromXML PermissionsBoundaryAttachmentType where
+  parseXML = Prelude.parseXMLText "PermissionsBoundaryAttachmentType"

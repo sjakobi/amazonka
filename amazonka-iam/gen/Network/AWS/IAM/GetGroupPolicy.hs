@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the specified inline policy document that is embedded in the specified IAM group.
+-- Retrieves the specified inline policy document that is embedded in the
+-- specified IAM group.
 --
+-- Policies returned by this operation are URL-encoded compliant with
+-- <https://tools.ietf.org/html/rfc3986 RFC 3986>. You can use a URL
+-- decoding method to convert the policy back to plain JSON text. For
+-- example, if you use Java, you can use the @decode@ method of the
+-- @java.net.URLDecoder@ utility class in the Java SDK. Other languages and
+-- SDKs provide similar functionality.
 --
--- An IAM group can also have managed policies attached to it. To retrieve a managed policy document that is attached to a group, use 'GetPolicy' to determine the policy's default version, then use 'GetPolicyVersion' to retrieve the policy document.
+-- An IAM group can also have managed policies attached to it. To retrieve
+-- a managed policy document that is attached to a group, use GetPolicy to
+-- determine the policy\'s default version, then use GetPolicyVersion to
+-- retrieve the policy document.
 --
--- For more information about policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
+-- For more information about policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.GetGroupPolicy
   ( -- * Creating a Request
-    getGroupPolicy,
-    GetGroupPolicy,
+    GetGroupPolicy (..),
+    newGetGroupPolicy,
 
     -- * Request Lenses
-    ggpGroupName,
-    ggpPolicyName,
+    getGroupPolicy_groupName,
+    getGroupPolicy_policyName,
 
     -- * Destructuring the Response
-    getGroupPolicyResponse,
-    GetGroupPolicyResponse,
+    GetGroupPolicyResponse (..),
+    newGetGroupPolicyResponse,
 
     -- * Response Lenses
-    ggprrsResponseStatus,
-    ggprrsGroupName,
-    ggprrsPolicyName,
-    ggprrsPolicyDocument,
+    getGroupPolicyResponse_httpStatus,
+    getGroupPolicyResponse_groupName,
+    getGroupPolicyResponse_policyName,
+    getGroupPolicyResponse_policyDocument,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGroupPolicy' smart constructor.
+-- | /See:/ 'newGetGroupPolicy' smart constructor.
 data GetGroupPolicy = GetGroupPolicy'
-  { _ggpGroupName ::
-      !Text,
-    _ggpPolicyName :: !Text
+  { -- | The name of the group the policy is associated with.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    groupName :: Prelude.Text,
+    -- | The name of the policy document to get.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    policyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggpGroupName' - The name of the group the policy is associated with. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggpPolicyName' - The name of the policy document to get. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-getGroupPolicy ::
-  -- | 'ggpGroupName'
-  Text ->
-  -- | 'ggpPolicyName'
-  Text ->
+-- 'groupName', 'getGroupPolicy_groupName' - The name of the group the policy is associated with.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'policyName', 'getGroupPolicy_policyName' - The name of the policy document to get.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newGetGroupPolicy ::
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
   GetGroupPolicy
-getGroupPolicy pGroupName_ pPolicyName_ =
+newGetGroupPolicy pGroupName_ pPolicyName_ =
   GetGroupPolicy'
-    { _ggpGroupName = pGroupName_,
-      _ggpPolicyName = pPolicyName_
+    { groupName = pGroupName_,
+      policyName = pPolicyName_
     }
 
--- | The name of the group the policy is associated with. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-ggpGroupName :: Lens' GetGroupPolicy Text
-ggpGroupName = lens _ggpGroupName (\s a -> s {_ggpGroupName = a})
+-- | The name of the group the policy is associated with.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+getGroupPolicy_groupName :: Lens.Lens' GetGroupPolicy Prelude.Text
+getGroupPolicy_groupName = Lens.lens (\GetGroupPolicy' {groupName} -> groupName) (\s@GetGroupPolicy' {} a -> s {groupName = a} :: GetGroupPolicy)
 
--- | The name of the policy document to get. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-ggpPolicyName :: Lens' GetGroupPolicy Text
-ggpPolicyName = lens _ggpPolicyName (\s a -> s {_ggpPolicyName = a})
+-- | The name of the policy document to get.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+getGroupPolicy_policyName :: Lens.Lens' GetGroupPolicy Prelude.Text
+getGroupPolicy_policyName = Lens.lens (\GetGroupPolicy' {policyName} -> policyName) (\s@GetGroupPolicy' {} a -> s {policyName = a} :: GetGroupPolicy)
 
-instance AWSRequest GetGroupPolicy where
+instance Prelude.AWSRequest GetGroupPolicy where
   type Rs GetGroupPolicy = GetGroupPolicyResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetGroupPolicyResult"
       ( \s h x ->
           GetGroupPolicyResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .@ "GroupName")
-            <*> (x .@ "PolicyName")
-            <*> (x .@ "PolicyDocument")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "GroupName")
+            Prelude.<*> (x Prelude..@ "PolicyName")
+            Prelude.<*> (x Prelude..@ "PolicyDocument")
       )
 
-instance Hashable GetGroupPolicy
+instance Prelude.Hashable GetGroupPolicy
 
-instance NFData GetGroupPolicy
+instance Prelude.NFData GetGroupPolicy
 
-instance ToHeaders GetGroupPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetGroupPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetGroupPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetGroupPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetGroupPolicy where
+instance Prelude.ToQuery GetGroupPolicy where
   toQuery GetGroupPolicy' {..} =
-    mconcat
-      [ "Action" =: ("GetGroupPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "GroupName" =: _ggpGroupName,
-        "PolicyName" =: _ggpPolicyName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetGroupPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "GroupName" Prelude.=: groupName,
+        "PolicyName" Prelude.=: policyName
       ]
 
--- | Contains the response to a successful 'GetGroupPolicy' request.
+-- | Contains the response to a successful GetGroupPolicy request.
 --
---
---
--- /See:/ 'getGroupPolicyResponse' smart constructor.
+-- /See:/ 'newGetGroupPolicyResponse' smart constructor.
 data GetGroupPolicyResponse = GetGroupPolicyResponse'
-  { _ggprrsResponseStatus ::
-      !Int,
-    _ggprrsGroupName :: !Text,
-    _ggprrsPolicyName ::
-      !Text,
-    _ggprrsPolicyDocument ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The group the policy is associated with.
+    groupName :: Prelude.Text,
+    -- | The name of the policy.
+    policyName :: Prelude.Text,
+    -- | The policy document.
+    --
+    -- IAM stores policies in JSON format. However, resources that were created
+    -- using AWS CloudFormation templates can be formatted in YAML. AWS
+    -- CloudFormation always converts a YAML policy to JSON format before
+    -- submitting it to IAM.
+    policyDocument :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGroupPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGroupPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggprrsGroupName' - The group the policy is associated with.
+-- 'httpStatus', 'getGroupPolicyResponse_httpStatus' - The response's http status code.
 --
--- * 'ggprrsPolicyName' - The name of the policy.
+-- 'groupName', 'getGroupPolicyResponse_groupName' - The group the policy is associated with.
 --
--- * 'ggprrsPolicyDocument' - The policy document. IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
-getGroupPolicyResponse ::
-  -- | 'ggprrsResponseStatus'
-  Int ->
-  -- | 'ggprrsGroupName'
-  Text ->
-  -- | 'ggprrsPolicyName'
-  Text ->
-  -- | 'ggprrsPolicyDocument'
-  Text ->
+-- 'policyName', 'getGroupPolicyResponse_policyName' - The name of the policy.
+--
+-- 'policyDocument', 'getGroupPolicyResponse_policyDocument' - The policy document.
+--
+-- IAM stores policies in JSON format. However, resources that were created
+-- using AWS CloudFormation templates can be formatted in YAML. AWS
+-- CloudFormation always converts a YAML policy to JSON format before
+-- submitting it to IAM.
+newGetGroupPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
+  -- | 'policyDocument'
+  Prelude.Text ->
   GetGroupPolicyResponse
-getGroupPolicyResponse
-  pResponseStatus_
+newGetGroupPolicyResponse
+  pHttpStatus_
   pGroupName_
   pPolicyName_
   pPolicyDocument_ =
     GetGroupPolicyResponse'
-      { _ggprrsResponseStatus =
-          pResponseStatus_,
-        _ggprrsGroupName = pGroupName_,
-        _ggprrsPolicyName = pPolicyName_,
-        _ggprrsPolicyDocument = pPolicyDocument_
+      { httpStatus = pHttpStatus_,
+        groupName = pGroupName_,
+        policyName = pPolicyName_,
+        policyDocument = pPolicyDocument_
       }
 
--- | -- | The response status code.
-ggprrsResponseStatus :: Lens' GetGroupPolicyResponse Int
-ggprrsResponseStatus = lens _ggprrsResponseStatus (\s a -> s {_ggprrsResponseStatus = a})
+-- | The response's http status code.
+getGroupPolicyResponse_httpStatus :: Lens.Lens' GetGroupPolicyResponse Prelude.Int
+getGroupPolicyResponse_httpStatus = Lens.lens (\GetGroupPolicyResponse' {httpStatus} -> httpStatus) (\s@GetGroupPolicyResponse' {} a -> s {httpStatus = a} :: GetGroupPolicyResponse)
 
 -- | The group the policy is associated with.
-ggprrsGroupName :: Lens' GetGroupPolicyResponse Text
-ggprrsGroupName = lens _ggprrsGroupName (\s a -> s {_ggprrsGroupName = a})
+getGroupPolicyResponse_groupName :: Lens.Lens' GetGroupPolicyResponse Prelude.Text
+getGroupPolicyResponse_groupName = Lens.lens (\GetGroupPolicyResponse' {groupName} -> groupName) (\s@GetGroupPolicyResponse' {} a -> s {groupName = a} :: GetGroupPolicyResponse)
 
 -- | The name of the policy.
-ggprrsPolicyName :: Lens' GetGroupPolicyResponse Text
-ggprrsPolicyName = lens _ggprrsPolicyName (\s a -> s {_ggprrsPolicyName = a})
+getGroupPolicyResponse_policyName :: Lens.Lens' GetGroupPolicyResponse Prelude.Text
+getGroupPolicyResponse_policyName = Lens.lens (\GetGroupPolicyResponse' {policyName} -> policyName) (\s@GetGroupPolicyResponse' {} a -> s {policyName = a} :: GetGroupPolicyResponse)
 
--- | The policy document. IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
-ggprrsPolicyDocument :: Lens' GetGroupPolicyResponse Text
-ggprrsPolicyDocument = lens _ggprrsPolicyDocument (\s a -> s {_ggprrsPolicyDocument = a})
+-- | The policy document.
+--
+-- IAM stores policies in JSON format. However, resources that were created
+-- using AWS CloudFormation templates can be formatted in YAML. AWS
+-- CloudFormation always converts a YAML policy to JSON format before
+-- submitting it to IAM.
+getGroupPolicyResponse_policyDocument :: Lens.Lens' GetGroupPolicyResponse Prelude.Text
+getGroupPolicyResponse_policyDocument = Lens.lens (\GetGroupPolicyResponse' {policyDocument} -> policyDocument) (\s@GetGroupPolicyResponse' {} a -> s {policyDocument = a} :: GetGroupPolicyResponse)
 
-instance NFData GetGroupPolicyResponse
+instance Prelude.NFData GetGroupPolicyResponse

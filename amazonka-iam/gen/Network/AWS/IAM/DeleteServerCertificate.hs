@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,105 +23,131 @@
 --
 -- Deletes the specified server certificate.
 --
+-- For more information about working with server certificates, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Working with server certificates>
+-- in the /IAM User Guide/. This topic also includes a list of AWS services
+-- that can use the server certificates that you manage with IAM.
 --
--- For more information about working with server certificates, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Working with server certificates> in the /IAM User Guide/ . This topic also includes a list of AWS services that can use the server certificates that you manage with IAM.
---
--- /Important:/ If you are using a server certificate with Elastic Load Balancing, deleting the certificate could have implications for your application. If Elastic Load Balancing doesn't detect the deletion of bound certificates, it may continue to use the certificates. This could cause Elastic Load Balancing to stop accepting traffic. We recommend that you remove the reference to the certificate from Elastic Load Balancing before using this command to delete the certificate. For more information, see <https://docs.aws.amazon.com/ElasticLoadBalancing/latest/APIReference/API_DeleteLoadBalancerListeners.html DeleteLoadBalancerListeners> in the /Elastic Load Balancing API Reference/ .
+-- If you are using a server certificate with Elastic Load Balancing,
+-- deleting the certificate could have implications for your application.
+-- If Elastic Load Balancing doesn\'t detect the deletion of bound
+-- certificates, it may continue to use the certificates. This could cause
+-- Elastic Load Balancing to stop accepting traffic. We recommend that you
+-- remove the reference to the certificate from Elastic Load Balancing
+-- before using this command to delete the certificate. For more
+-- information, see
+-- <https://docs.aws.amazon.com/ElasticLoadBalancing/latest/APIReference/API_DeleteLoadBalancerListeners.html DeleteLoadBalancerListeners>
+-- in the /Elastic Load Balancing API Reference/.
 module Network.AWS.IAM.DeleteServerCertificate
   ( -- * Creating a Request
-    deleteServerCertificate,
-    DeleteServerCertificate,
+    DeleteServerCertificate (..),
+    newDeleteServerCertificate,
 
     -- * Request Lenses
-    dscServerCertificateName,
+    deleteServerCertificate_serverCertificateName,
 
     -- * Destructuring the Response
-    deleteServerCertificateResponse,
-    DeleteServerCertificateResponse,
+    DeleteServerCertificateResponse (..),
+    newDeleteServerCertificateResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteServerCertificate' smart constructor.
-newtype DeleteServerCertificate = DeleteServerCertificate'
-  { _dscServerCertificateName ::
-      Text
+-- | /See:/ 'newDeleteServerCertificate' smart constructor.
+data DeleteServerCertificate = DeleteServerCertificate'
+  { -- | The name of the server certificate you want to delete.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    serverCertificateName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServerCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteServerCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dscServerCertificateName' - The name of the server certificate you want to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-deleteServerCertificate ::
-  -- | 'dscServerCertificateName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'serverCertificateName', 'deleteServerCertificate_serverCertificateName' - The name of the server certificate you want to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newDeleteServerCertificate ::
+  -- | 'serverCertificateName'
+  Prelude.Text ->
   DeleteServerCertificate
-deleteServerCertificate pServerCertificateName_ =
+newDeleteServerCertificate pServerCertificateName_ =
   DeleteServerCertificate'
-    { _dscServerCertificateName =
+    { serverCertificateName =
         pServerCertificateName_
     }
 
--- | The name of the server certificate you want to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-dscServerCertificateName :: Lens' DeleteServerCertificate Text
-dscServerCertificateName = lens _dscServerCertificateName (\s a -> s {_dscServerCertificateName = a})
+-- | The name of the server certificate you want to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteServerCertificate_serverCertificateName :: Lens.Lens' DeleteServerCertificate Prelude.Text
+deleteServerCertificate_serverCertificateName = Lens.lens (\DeleteServerCertificate' {serverCertificateName} -> serverCertificateName) (\s@DeleteServerCertificate' {} a -> s {serverCertificateName = a} :: DeleteServerCertificate)
 
-instance AWSRequest DeleteServerCertificate where
+instance Prelude.AWSRequest DeleteServerCertificate where
   type
     Rs DeleteServerCertificate =
       DeleteServerCertificateResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteServerCertificateResponse'
+    Response.receiveNull
+      DeleteServerCertificateResponse'
 
-instance Hashable DeleteServerCertificate
+instance Prelude.Hashable DeleteServerCertificate
 
-instance NFData DeleteServerCertificate
+instance Prelude.NFData DeleteServerCertificate
 
-instance ToHeaders DeleteServerCertificate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteServerCertificate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteServerCertificate where
-  toPath = const "/"
+instance Prelude.ToPath DeleteServerCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteServerCertificate where
+instance Prelude.ToQuery DeleteServerCertificate where
   toQuery DeleteServerCertificate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteServerCertificate" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "ServerCertificateName" =: _dscServerCertificateName
+          Prelude.=: ("DeleteServerCertificate" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "ServerCertificateName"
+          Prelude.=: serverCertificateName
       ]
 
--- | /See:/ 'deleteServerCertificateResponse' smart constructor.
+-- | /See:/ 'newDeleteServerCertificateResponse' smart constructor.
 data DeleteServerCertificateResponse = DeleteServerCertificateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteServerCertificateResponse' with the minimum fields required to make a request.
-deleteServerCertificateResponse ::
+-- |
+-- Create a value of 'DeleteServerCertificateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteServerCertificateResponse ::
   DeleteServerCertificateResponse
-deleteServerCertificateResponse =
+newDeleteServerCertificateResponse =
   DeleteServerCertificateResponse'
 
-instance NFData DeleteServerCertificateResponse
+instance
+  Prelude.NFData
+    DeleteServerCertificateResponse

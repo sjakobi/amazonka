@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,91 +21,126 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tags from the role. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Removes the specified tags from the role. For more information about
+-- tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UntagRole
   ( -- * Creating a Request
-    untagRole,
-    UntagRole,
+    UntagRole (..),
+    newUntagRole,
 
     -- * Request Lenses
-    urRoleName,
-    urTagKeys,
+    untagRole_roleName,
+    untagRole_tagKeys,
 
     -- * Destructuring the Response
-    untagRoleResponse,
-    UntagRoleResponse,
+    UntagRoleResponse (..),
+    newUntagRoleResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagRole' smart constructor.
+-- | /See:/ 'newUntagRole' smart constructor.
 data UntagRole = UntagRole'
-  { _urRoleName :: !Text,
-    _urTagKeys :: ![Text]
+  { -- | The name of the IAM role from which you want to remove tags.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    roleName :: Prelude.Text,
+    -- | A list of key names as a simple array of strings. The tags with matching
+    -- keys are removed from the specified role.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urRoleName' - The name of the IAM role from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urTagKeys' - A list of key names as a simple array of strings. The tags with matching keys are removed from the specified role.
-untagRole ::
-  -- | 'urRoleName'
-  Text ->
+-- 'roleName', 'untagRole_roleName' - The name of the IAM role from which you want to remove tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'tagKeys', 'untagRole_tagKeys' - A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified role.
+newUntagRole ::
+  -- | 'roleName'
+  Prelude.Text ->
   UntagRole
-untagRole pRoleName_ =
+newUntagRole pRoleName_ =
   UntagRole'
-    { _urRoleName = pRoleName_,
-      _urTagKeys = mempty
+    { roleName = pRoleName_,
+      tagKeys = Prelude.mempty
     }
 
--- | The name of the IAM role from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-urRoleName :: Lens' UntagRole Text
-urRoleName = lens _urRoleName (\s a -> s {_urRoleName = a})
+-- | The name of the IAM role from which you want to remove tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+untagRole_roleName :: Lens.Lens' UntagRole Prelude.Text
+untagRole_roleName = Lens.lens (\UntagRole' {roleName} -> roleName) (\s@UntagRole' {} a -> s {roleName = a} :: UntagRole)
 
--- | A list of key names as a simple array of strings. The tags with matching keys are removed from the specified role.
-urTagKeys :: Lens' UntagRole [Text]
-urTagKeys = lens _urTagKeys (\s a -> s {_urTagKeys = a}) . _Coerce
+-- | A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified role.
+untagRole_tagKeys :: Lens.Lens' UntagRole [Prelude.Text]
+untagRole_tagKeys = Lens.lens (\UntagRole' {tagKeys} -> tagKeys) (\s@UntagRole' {} a -> s {tagKeys = a} :: UntagRole) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagRole where
+instance Prelude.AWSRequest UntagRole where
   type Rs UntagRole = UntagRoleResponse
-  request = postQuery iam
-  response = receiveNull UntagRoleResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull UntagRoleResponse'
 
-instance Hashable UntagRole
+instance Prelude.Hashable UntagRole
 
-instance NFData UntagRole
+instance Prelude.NFData UntagRole
 
-instance ToHeaders UntagRole where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagRole where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagRole where
-  toPath = const "/"
+instance Prelude.ToPath UntagRole where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagRole where
+instance Prelude.ToQuery UntagRole where
   toQuery UntagRole' {..} =
-    mconcat
-      [ "Action" =: ("UntagRole" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "RoleName" =: _urRoleName,
-        "TagKeys" =: toQueryList "member" _urTagKeys
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UntagRole" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Prelude.=: roleName,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]
 
--- | /See:/ 'untagRoleResponse' smart constructor.
+-- | /See:/ 'newUntagRoleResponse' smart constructor.
 data UntagRoleResponse = UntagRoleResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagRoleResponse' with the minimum fields required to make a request.
-untagRoleResponse ::
+-- |
+-- Create a value of 'UntagRoleResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagRoleResponse ::
   UntagRoleResponse
-untagRoleResponse = UntagRoleResponse'
+newUntagRoleResponse = UntagRoleResponse'
 
-instance NFData UntagRoleResponse
+instance Prelude.NFData UntagRoleResponse

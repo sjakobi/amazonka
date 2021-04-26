@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.IAM.Types.AccessAdvisorUsageGranularityType
   ( AccessAdvisorUsageGranularityType
       ( ..,
-        ActionLevel,
-        ServiceLevel
+        AccessAdvisorUsageGranularityTypeACTIONLEVEL,
+        AccessAdvisorUsageGranularityTypeSERVICELEVEL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AccessAdvisorUsageGranularityType
-  = AccessAdvisorUsageGranularityType'
-      ( CI
-          Text
-      )
+newtype AccessAdvisorUsageGranularityType = AccessAdvisorUsageGranularityType'
+  { fromAccessAdvisorUsageGranularityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ActionLevel :: AccessAdvisorUsageGranularityType
-pattern ActionLevel = AccessAdvisorUsageGranularityType' "ACTION_LEVEL"
+pattern AccessAdvisorUsageGranularityTypeACTIONLEVEL :: AccessAdvisorUsageGranularityType
+pattern AccessAdvisorUsageGranularityTypeACTIONLEVEL = AccessAdvisorUsageGranularityType' "ACTION_LEVEL"
 
-pattern ServiceLevel :: AccessAdvisorUsageGranularityType
-pattern ServiceLevel = AccessAdvisorUsageGranularityType' "SERVICE_LEVEL"
+pattern AccessAdvisorUsageGranularityTypeSERVICELEVEL :: AccessAdvisorUsageGranularityType
+pattern AccessAdvisorUsageGranularityTypeSERVICELEVEL = AccessAdvisorUsageGranularityType' "SERVICE_LEVEL"
 
 {-# COMPLETE
-  ActionLevel,
-  ServiceLevel,
+  AccessAdvisorUsageGranularityTypeACTIONLEVEL,
+  AccessAdvisorUsageGranularityTypeSERVICELEVEL,
   AccessAdvisorUsageGranularityType'
   #-}
 
-instance FromText AccessAdvisorUsageGranularityType where
-  parser = (AccessAdvisorUsageGranularityType' . mk) <$> takeText
+instance Prelude.FromText AccessAdvisorUsageGranularityType where
+  parser = AccessAdvisorUsageGranularityType' Prelude.<$> Prelude.takeText
 
-instance ToText AccessAdvisorUsageGranularityType where
-  toText (AccessAdvisorUsageGranularityType' ci) = original ci
+instance Prelude.ToText AccessAdvisorUsageGranularityType where
+  toText (AccessAdvisorUsageGranularityType' x) = x
 
-instance Hashable AccessAdvisorUsageGranularityType
+instance Prelude.Hashable AccessAdvisorUsageGranularityType
 
-instance NFData AccessAdvisorUsageGranularityType
+instance Prelude.NFData AccessAdvisorUsageGranularityType
 
-instance ToByteString AccessAdvisorUsageGranularityType
+instance Prelude.ToByteString AccessAdvisorUsageGranularityType
 
-instance ToQuery AccessAdvisorUsageGranularityType
+instance Prelude.ToQuery AccessAdvisorUsageGranularityType
 
-instance ToHeader AccessAdvisorUsageGranularityType
+instance Prelude.ToHeader AccessAdvisorUsageGranularityType
 
-instance FromXML AccessAdvisorUsageGranularityType where
-  parseXML = parseXMLText "AccessAdvisorUsageGranularityType"
+instance Prelude.FromXML AccessAdvisorUsageGranularityType where
+  parseXML = Prelude.parseXMLText "AccessAdvisorUsageGranularityType"

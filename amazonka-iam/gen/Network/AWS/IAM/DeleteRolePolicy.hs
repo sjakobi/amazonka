@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,104 +21,148 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified inline policy that is embedded in the specified IAM role.
+-- Deletes the specified inline policy that is embedded in the specified
+-- IAM role.
 --
---
--- A role can also have managed policies attached to it. To detach a managed policy from a role, use 'DetachRolePolicy' . For more information about policies, refer to <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
+-- A role can also have managed policies attached to it. To detach a
+-- managed policy from a role, use DetachRolePolicy. For more information
+-- about policies, refer to
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.DeleteRolePolicy
   ( -- * Creating a Request
-    deleteRolePolicy,
-    DeleteRolePolicy,
+    DeleteRolePolicy (..),
+    newDeleteRolePolicy,
 
     -- * Request Lenses
-    dRoleName,
-    dPolicyName,
+    deleteRolePolicy_roleName,
+    deleteRolePolicy_policyName,
 
     -- * Destructuring the Response
-    deleteRolePolicyResponse,
-    DeleteRolePolicyResponse,
+    DeleteRolePolicyResponse (..),
+    newDeleteRolePolicyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteRolePolicy' smart constructor.
+-- | /See:/ 'newDeleteRolePolicy' smart constructor.
 data DeleteRolePolicy = DeleteRolePolicy'
-  { _dRoleName ::
-      !Text,
-    _dPolicyName :: !Text
+  { -- | The name (friendly name, not ARN) identifying the role that the policy
+    -- is embedded in.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    roleName :: Prelude.Text,
+    -- | The name of the inline policy to delete from the specified IAM role.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    policyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRolePolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteRolePolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dRoleName' - The name (friendly name, not ARN) identifying the role that the policy is embedded in. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dPolicyName' - The name of the inline policy to delete from the specified IAM role. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-deleteRolePolicy ::
-  -- | 'dRoleName'
-  Text ->
-  -- | 'dPolicyName'
-  Text ->
+-- 'roleName', 'deleteRolePolicy_roleName' - The name (friendly name, not ARN) identifying the role that the policy
+-- is embedded in.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'policyName', 'deleteRolePolicy_policyName' - The name of the inline policy to delete from the specified IAM role.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newDeleteRolePolicy ::
+  -- | 'roleName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
   DeleteRolePolicy
-deleteRolePolicy pRoleName_ pPolicyName_ =
+newDeleteRolePolicy pRoleName_ pPolicyName_ =
   DeleteRolePolicy'
-    { _dRoleName = pRoleName_,
-      _dPolicyName = pPolicyName_
+    { roleName = pRoleName_,
+      policyName = pPolicyName_
     }
 
--- | The name (friendly name, not ARN) identifying the role that the policy is embedded in. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-dRoleName :: Lens' DeleteRolePolicy Text
-dRoleName = lens _dRoleName (\s a -> s {_dRoleName = a})
+-- | The name (friendly name, not ARN) identifying the role that the policy
+-- is embedded in.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteRolePolicy_roleName :: Lens.Lens' DeleteRolePolicy Prelude.Text
+deleteRolePolicy_roleName = Lens.lens (\DeleteRolePolicy' {roleName} -> roleName) (\s@DeleteRolePolicy' {} a -> s {roleName = a} :: DeleteRolePolicy)
 
--- | The name of the inline policy to delete from the specified IAM role. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-dPolicyName :: Lens' DeleteRolePolicy Text
-dPolicyName = lens _dPolicyName (\s a -> s {_dPolicyName = a})
+-- | The name of the inline policy to delete from the specified IAM role.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteRolePolicy_policyName :: Lens.Lens' DeleteRolePolicy Prelude.Text
+deleteRolePolicy_policyName = Lens.lens (\DeleteRolePolicy' {policyName} -> policyName) (\s@DeleteRolePolicy' {} a -> s {policyName = a} :: DeleteRolePolicy)
 
-instance AWSRequest DeleteRolePolicy where
+instance Prelude.AWSRequest DeleteRolePolicy where
   type Rs DeleteRolePolicy = DeleteRolePolicyResponse
-  request = postQuery iam
-  response = receiveNull DeleteRolePolicyResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteRolePolicyResponse'
 
-instance Hashable DeleteRolePolicy
+instance Prelude.Hashable DeleteRolePolicy
 
-instance NFData DeleteRolePolicy
+instance Prelude.NFData DeleteRolePolicy
 
-instance ToHeaders DeleteRolePolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteRolePolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteRolePolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteRolePolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteRolePolicy where
+instance Prelude.ToQuery DeleteRolePolicy where
   toQuery DeleteRolePolicy' {..} =
-    mconcat
-      [ "Action" =: ("DeleteRolePolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "RoleName" =: _dRoleName,
-        "PolicyName" =: _dPolicyName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteRolePolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Prelude.=: roleName,
+        "PolicyName" Prelude.=: policyName
       ]
 
--- | /See:/ 'deleteRolePolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteRolePolicyResponse' smart constructor.
 data DeleteRolePolicyResponse = DeleteRolePolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteRolePolicyResponse' with the minimum fields required to make a request.
-deleteRolePolicyResponse ::
+-- |
+-- Create a value of 'DeleteRolePolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteRolePolicyResponse ::
   DeleteRolePolicyResponse
-deleteRolePolicyResponse = DeleteRolePolicyResponse'
+newDeleteRolePolicyResponse =
+  DeleteRolePolicyResponse'
 
-instance NFData DeleteRolePolicyResponse
+instance Prelude.NFData DeleteRolePolicyResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,99 +21,133 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tags from the IAM virtual multi-factor authentication (MFA) device. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Removes the specified tags from the IAM virtual multi-factor
+-- authentication (MFA) device. For more information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UntagMFADevice
   ( -- * Creating a Request
-    untagMFADevice,
-    UntagMFADevice,
+    UntagMFADevice (..),
+    newUntagMFADevice,
 
     -- * Request Lenses
-    umdSerialNumber,
-    umdTagKeys,
+    untagMFADevice_serialNumber,
+    untagMFADevice_tagKeys,
 
     -- * Destructuring the Response
-    untagMFADeviceResponse,
-    UntagMFADeviceResponse,
+    UntagMFADeviceResponse (..),
+    newUntagMFADeviceResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagMFADevice' smart constructor.
+-- | /See:/ 'newUntagMFADevice' smart constructor.
 data UntagMFADevice = UntagMFADevice'
-  { _umdSerialNumber ::
-      !Text,
-    _umdTagKeys :: ![Text]
+  { -- | The unique identifier for the IAM virtual MFA device from which you want
+    -- to remove tags. For virtual MFA devices, the serial number is the same
+    -- as the ARN.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    serialNumber :: Prelude.Text,
+    -- | A list of key names as a simple array of strings. The tags with matching
+    -- keys are removed from the specified instance profile.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagMFADevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagMFADevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'umdSerialNumber' - The unique identifier for the IAM virtual MFA device from which you want to remove tags. For virtual MFA devices, the serial number is the same as the ARN. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'umdTagKeys' - A list of key names as a simple array of strings. The tags with matching keys are removed from the specified instance profile.
-untagMFADevice ::
-  -- | 'umdSerialNumber'
-  Text ->
+-- 'serialNumber', 'untagMFADevice_serialNumber' - The unique identifier for the IAM virtual MFA device from which you want
+-- to remove tags. For virtual MFA devices, the serial number is the same
+-- as the ARN.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+--
+-- 'tagKeys', 'untagMFADevice_tagKeys' - A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified instance profile.
+newUntagMFADevice ::
+  -- | 'serialNumber'
+  Prelude.Text ->
   UntagMFADevice
-untagMFADevice pSerialNumber_ =
+newUntagMFADevice pSerialNumber_ =
   UntagMFADevice'
-    { _umdSerialNumber = pSerialNumber_,
-      _umdTagKeys = mempty
+    { serialNumber = pSerialNumber_,
+      tagKeys = Prelude.mempty
     }
 
--- | The unique identifier for the IAM virtual MFA device from which you want to remove tags. For virtual MFA devices, the serial number is the same as the ARN. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-umdSerialNumber :: Lens' UntagMFADevice Text
-umdSerialNumber = lens _umdSerialNumber (\s a -> s {_umdSerialNumber = a})
+-- | The unique identifier for the IAM virtual MFA device from which you want
+-- to remove tags. For virtual MFA devices, the serial number is the same
+-- as the ARN.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+untagMFADevice_serialNumber :: Lens.Lens' UntagMFADevice Prelude.Text
+untagMFADevice_serialNumber = Lens.lens (\UntagMFADevice' {serialNumber} -> serialNumber) (\s@UntagMFADevice' {} a -> s {serialNumber = a} :: UntagMFADevice)
 
--- | A list of key names as a simple array of strings. The tags with matching keys are removed from the specified instance profile.
-umdTagKeys :: Lens' UntagMFADevice [Text]
-umdTagKeys = lens _umdTagKeys (\s a -> s {_umdTagKeys = a}) . _Coerce
+-- | A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified instance profile.
+untagMFADevice_tagKeys :: Lens.Lens' UntagMFADevice [Prelude.Text]
+untagMFADevice_tagKeys = Lens.lens (\UntagMFADevice' {tagKeys} -> tagKeys) (\s@UntagMFADevice' {} a -> s {tagKeys = a} :: UntagMFADevice) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagMFADevice where
+instance Prelude.AWSRequest UntagMFADevice where
   type Rs UntagMFADevice = UntagMFADeviceResponse
-  request = postQuery iam
-  response = receiveNull UntagMFADeviceResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull UntagMFADeviceResponse'
 
-instance Hashable UntagMFADevice
+instance Prelude.Hashable UntagMFADevice
 
-instance NFData UntagMFADevice
+instance Prelude.NFData UntagMFADevice
 
-instance ToHeaders UntagMFADevice where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagMFADevice where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagMFADevice where
-  toPath = const "/"
+instance Prelude.ToPath UntagMFADevice where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagMFADevice where
+instance Prelude.ToQuery UntagMFADevice where
   toQuery UntagMFADevice' {..} =
-    mconcat
-      [ "Action" =: ("UntagMFADevice" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "SerialNumber" =: _umdSerialNumber,
-        "TagKeys" =: toQueryList "member" _umdTagKeys
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UntagMFADevice" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "SerialNumber" Prelude.=: serialNumber,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]
 
--- | /See:/ 'untagMFADeviceResponse' smart constructor.
+-- | /See:/ 'newUntagMFADeviceResponse' smart constructor.
 data UntagMFADeviceResponse = UntagMFADeviceResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagMFADeviceResponse' with the minimum fields required to make a request.
-untagMFADeviceResponse ::
+-- |
+-- Create a value of 'UntagMFADeviceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagMFADeviceResponse ::
   UntagMFADeviceResponse
-untagMFADeviceResponse = UntagMFADeviceResponse'
+newUntagMFADeviceResponse = UntagMFADeviceResponse'
 
-instance NFData UntagMFADeviceResponse
+instance Prelude.NFData UntagMFADeviceResponse

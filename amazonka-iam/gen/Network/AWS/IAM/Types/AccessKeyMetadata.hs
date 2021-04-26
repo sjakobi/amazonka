@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,71 +20,79 @@
 module Network.AWS.IAM.Types.AccessKeyMetadata where
 
 import Network.AWS.IAM.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an AWS access key, without its secret key.
 --
+-- This data type is used as a response element in the ListAccessKeys
+-- operation.
 --
--- This data type is used as a response element in the 'ListAccessKeys' operation.
---
---
--- /See:/ 'accessKeyMetadata' smart constructor.
+-- /See:/ 'newAccessKeyMetadata' smart constructor.
 data AccessKeyMetadata = AccessKeyMetadata'
-  { _akmStatus ::
-      !(Maybe StatusType),
-    _akmCreateDate :: !(Maybe ISO8601),
-    _akmAccessKeyId ::
-      !(Maybe AccessKey),
-    _akmUserName :: !(Maybe Text)
+  { -- | The status of the access key. @Active@ means that the key is valid for
+    -- API calls; @Inactive@ means it is not.
+    status :: Prelude.Maybe StatusType,
+    -- | The date when the access key was created.
+    createDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The ID for this access key.
+    accessKeyId :: Prelude.Maybe AccessKey,
+    -- | The name of the IAM user that the key is associated with.
+    userName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AccessKeyMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AccessKeyMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'akmStatus' - The status of the access key. @Active@ means that the key is valid for API calls; @Inactive@ means it is not.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'akmCreateDate' - The date when the access key was created.
+-- 'status', 'accessKeyMetadata_status' - The status of the access key. @Active@ means that the key is valid for
+-- API calls; @Inactive@ means it is not.
 --
--- * 'akmAccessKeyId' - The ID for this access key.
+-- 'createDate', 'accessKeyMetadata_createDate' - The date when the access key was created.
 --
--- * 'akmUserName' - The name of the IAM user that the key is associated with.
-accessKeyMetadata ::
+-- 'accessKeyId', 'accessKeyMetadata_accessKeyId' - The ID for this access key.
+--
+-- 'userName', 'accessKeyMetadata_userName' - The name of the IAM user that the key is associated with.
+newAccessKeyMetadata ::
   AccessKeyMetadata
-accessKeyMetadata =
+newAccessKeyMetadata =
   AccessKeyMetadata'
-    { _akmStatus = Nothing,
-      _akmCreateDate = Nothing,
-      _akmAccessKeyId = Nothing,
-      _akmUserName = Nothing
+    { status = Prelude.Nothing,
+      createDate = Prelude.Nothing,
+      accessKeyId = Prelude.Nothing,
+      userName = Prelude.Nothing
     }
 
--- | The status of the access key. @Active@ means that the key is valid for API calls; @Inactive@ means it is not.
-akmStatus :: Lens' AccessKeyMetadata (Maybe StatusType)
-akmStatus = lens _akmStatus (\s a -> s {_akmStatus = a})
+-- | The status of the access key. @Active@ means that the key is valid for
+-- API calls; @Inactive@ means it is not.
+accessKeyMetadata_status :: Lens.Lens' AccessKeyMetadata (Prelude.Maybe StatusType)
+accessKeyMetadata_status = Lens.lens (\AccessKeyMetadata' {status} -> status) (\s@AccessKeyMetadata' {} a -> s {status = a} :: AccessKeyMetadata)
 
 -- | The date when the access key was created.
-akmCreateDate :: Lens' AccessKeyMetadata (Maybe UTCTime)
-akmCreateDate = lens _akmCreateDate (\s a -> s {_akmCreateDate = a}) . mapping _Time
+accessKeyMetadata_createDate :: Lens.Lens' AccessKeyMetadata (Prelude.Maybe Prelude.UTCTime)
+accessKeyMetadata_createDate = Lens.lens (\AccessKeyMetadata' {createDate} -> createDate) (\s@AccessKeyMetadata' {} a -> s {createDate = a} :: AccessKeyMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ID for this access key.
-akmAccessKeyId :: Lens' AccessKeyMetadata (Maybe AccessKey)
-akmAccessKeyId = lens _akmAccessKeyId (\s a -> s {_akmAccessKeyId = a})
+accessKeyMetadata_accessKeyId :: Lens.Lens' AccessKeyMetadata (Prelude.Maybe AccessKey)
+accessKeyMetadata_accessKeyId = Lens.lens (\AccessKeyMetadata' {accessKeyId} -> accessKeyId) (\s@AccessKeyMetadata' {} a -> s {accessKeyId = a} :: AccessKeyMetadata)
 
 -- | The name of the IAM user that the key is associated with.
-akmUserName :: Lens' AccessKeyMetadata (Maybe Text)
-akmUserName = lens _akmUserName (\s a -> s {_akmUserName = a})
+accessKeyMetadata_userName :: Lens.Lens' AccessKeyMetadata (Prelude.Maybe Prelude.Text)
+accessKeyMetadata_userName = Lens.lens (\AccessKeyMetadata' {userName} -> userName) (\s@AccessKeyMetadata' {} a -> s {userName = a} :: AccessKeyMetadata)
 
-instance FromXML AccessKeyMetadata where
+instance Prelude.FromXML AccessKeyMetadata where
   parseXML x =
     AccessKeyMetadata'
-      <$> (x .@? "Status")
-      <*> (x .@? "CreateDate")
-      <*> (x .@? "AccessKeyId")
-      <*> (x .@? "UserName")
+      Prelude.<$> (x Prelude..@? "Status")
+      Prelude.<*> (x Prelude..@? "CreateDate")
+      Prelude.<*> (x Prelude..@? "AccessKeyId")
+      Prelude.<*> (x Prelude..@? "UserName")
 
-instance Hashable AccessKeyMetadata
+instance Prelude.Hashable AccessKeyMetadata
 
-instance NFData AccessKeyMetadata
+instance Prelude.NFData AccessKeyMetadata

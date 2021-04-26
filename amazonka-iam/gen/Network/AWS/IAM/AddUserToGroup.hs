@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,98 +24,134 @@
 -- Adds the specified user to the specified group.
 module Network.AWS.IAM.AddUserToGroup
   ( -- * Creating a Request
-    addUserToGroup,
-    AddUserToGroup,
+    AddUserToGroup (..),
+    newAddUserToGroup,
 
     -- * Request Lenses
-    autgGroupName,
-    autgUserName,
+    addUserToGroup_groupName,
+    addUserToGroup_userName,
 
     -- * Destructuring the Response
-    addUserToGroupResponse,
-    AddUserToGroupResponse,
+    AddUserToGroupResponse (..),
+    newAddUserToGroupResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'addUserToGroup' smart constructor.
+-- | /See:/ 'newAddUserToGroup' smart constructor.
 data AddUserToGroup = AddUserToGroup'
-  { _autgGroupName ::
-      !Text,
-    _autgUserName :: !Text
+  { -- | The name of the group to update.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    groupName :: Prelude.Text,
+    -- | The name of the user to add.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddUserToGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddUserToGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'autgGroupName' - The name of the group to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'autgUserName' - The name of the user to add. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-addUserToGroup ::
-  -- | 'autgGroupName'
-  Text ->
-  -- | 'autgUserName'
-  Text ->
+-- 'groupName', 'addUserToGroup_groupName' - The name of the group to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'userName', 'addUserToGroup_userName' - The name of the user to add.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newAddUserToGroup ::
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'userName'
+  Prelude.Text ->
   AddUserToGroup
-addUserToGroup pGroupName_ pUserName_ =
+newAddUserToGroup pGroupName_ pUserName_ =
   AddUserToGroup'
-    { _autgGroupName = pGroupName_,
-      _autgUserName = pUserName_
+    { groupName = pGroupName_,
+      userName = pUserName_
     }
 
--- | The name of the group to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-autgGroupName :: Lens' AddUserToGroup Text
-autgGroupName = lens _autgGroupName (\s a -> s {_autgGroupName = a})
+-- | The name of the group to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+addUserToGroup_groupName :: Lens.Lens' AddUserToGroup Prelude.Text
+addUserToGroup_groupName = Lens.lens (\AddUserToGroup' {groupName} -> groupName) (\s@AddUserToGroup' {} a -> s {groupName = a} :: AddUserToGroup)
 
--- | The name of the user to add. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-autgUserName :: Lens' AddUserToGroup Text
-autgUserName = lens _autgUserName (\s a -> s {_autgUserName = a})
+-- | The name of the user to add.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+addUserToGroup_userName :: Lens.Lens' AddUserToGroup Prelude.Text
+addUserToGroup_userName = Lens.lens (\AddUserToGroup' {userName} -> userName) (\s@AddUserToGroup' {} a -> s {userName = a} :: AddUserToGroup)
 
-instance AWSRequest AddUserToGroup where
+instance Prelude.AWSRequest AddUserToGroup where
   type Rs AddUserToGroup = AddUserToGroupResponse
-  request = postQuery iam
-  response = receiveNull AddUserToGroupResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull AddUserToGroupResponse'
 
-instance Hashable AddUserToGroup
+instance Prelude.Hashable AddUserToGroup
 
-instance NFData AddUserToGroup
+instance Prelude.NFData AddUserToGroup
 
-instance ToHeaders AddUserToGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AddUserToGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AddUserToGroup where
-  toPath = const "/"
+instance Prelude.ToPath AddUserToGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery AddUserToGroup where
+instance Prelude.ToQuery AddUserToGroup where
   toQuery AddUserToGroup' {..} =
-    mconcat
-      [ "Action" =: ("AddUserToGroup" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "GroupName" =: _autgGroupName,
-        "UserName" =: _autgUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("AddUserToGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "GroupName" Prelude.=: groupName,
+        "UserName" Prelude.=: userName
       ]
 
--- | /See:/ 'addUserToGroupResponse' smart constructor.
+-- | /See:/ 'newAddUserToGroupResponse' smart constructor.
 data AddUserToGroupResponse = AddUserToGroupResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddUserToGroupResponse' with the minimum fields required to make a request.
-addUserToGroupResponse ::
+-- |
+-- Create a value of 'AddUserToGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAddUserToGroupResponse ::
   AddUserToGroupResponse
-addUserToGroupResponse = AddUserToGroupResponse'
+newAddUserToGroupResponse = AddUserToGroupResponse'
 
-instance NFData AddUserToGroupResponse
+instance Prelude.NFData AddUserToGroupResponse

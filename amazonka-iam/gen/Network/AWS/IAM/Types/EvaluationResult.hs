@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -20,140 +24,243 @@ import Network.AWS.IAM.Types.PermissionsBoundaryDecisionDetail
 import Network.AWS.IAM.Types.PolicyEvaluationDecisionType
 import Network.AWS.IAM.Types.ResourceSpecificResult
 import Network.AWS.IAM.Types.Statement
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the results of a simulation.
 --
+-- This data type is used by the return parameter of
+-- @ SimulateCustomPolicy @ and @ SimulatePrincipalPolicy @.
 --
--- This data type is used by the return parameter of @'SimulateCustomPolicy' @ and @'SimulatePrincipalPolicy' @ .
---
---
--- /See:/ 'evaluationResult' smart constructor.
+-- /See:/ 'newEvaluationResult' smart constructor.
 data EvaluationResult = EvaluationResult'
-  { _erEvalDecisionDetails ::
-      !( Maybe
-           ( Map
-               Text
-               PolicyEvaluationDecisionType
-           )
-       ),
-    _erPermissionsBoundaryDecisionDetail ::
-      !( Maybe
-           PermissionsBoundaryDecisionDetail
-       ),
-    _erOrganizationsDecisionDetail ::
-      !(Maybe OrganizationsDecisionDetail),
-    _erResourceSpecificResults ::
-      !(Maybe [ResourceSpecificResult]),
-    _erMatchedStatements ::
-      !(Maybe [Statement]),
-    _erEvalResourceName :: !(Maybe Text),
-    _erMissingContextValues ::
-      !(Maybe [Text]),
-    _erEvalActionName :: !Text,
-    _erEvalDecision ::
-      !PolicyEvaluationDecisionType
+  { -- | Additional details about the results of the cross-account evaluation
+    -- decision. This parameter is populated for only cross-account
+    -- simulations. It contains a brief summary of how each policy type
+    -- contributes to the final evaluation decision.
+    --
+    -- If the simulation evaluates policies within the same account and
+    -- includes a resource ARN, then the parameter is present but the response
+    -- is empty. If the simulation evaluates policies within the same account
+    -- and specifies all resources (@*@), then the parameter is not returned.
+    --
+    -- When you make a cross-account request, AWS evaluates the request in the
+    -- trusting account and the trusted account. The request is allowed only if
+    -- both evaluations return @true@. For more information about how policies
+    -- are evaluated, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics Evaluating policies within a single account>.
+    --
+    -- If an AWS Organizations SCP included in the evaluation denies access,
+    -- the simulation ends. In this case, policy evaluation does not proceed
+    -- any further and this parameter is not returned.
+    evalDecisionDetails :: Prelude.Maybe (Prelude.Map Prelude.Text PolicyEvaluationDecisionType),
+    -- | Contains information about the effect that a permissions boundary has on
+    -- a policy simulation when the boundary is applied to an IAM entity.
+    permissionsBoundaryDecisionDetail :: Prelude.Maybe PermissionsBoundaryDecisionDetail,
+    -- | A structure that details how Organizations and its service control
+    -- policies affect the results of the simulation. Only applies if the
+    -- simulated user\'s account is part of an organization.
+    organizationsDecisionDetail :: Prelude.Maybe OrganizationsDecisionDetail,
+    -- | The individual results of the simulation of the API operation specified
+    -- in EvalActionName on each resource.
+    resourceSpecificResults :: Prelude.Maybe [ResourceSpecificResult],
+    -- | A list of the statements in the input policies that determine the result
+    -- for this scenario. Remember that even if multiple statements allow the
+    -- operation on the resource, if only one statement denies that operation,
+    -- then the explicit deny overrides any allow. In addition, the deny
+    -- statement is the only entry included in the result.
+    matchedStatements :: Prelude.Maybe [Statement],
+    -- | The ARN of the resource that the indicated API operation was tested on.
+    evalResourceName :: Prelude.Maybe Prelude.Text,
+    -- | A list of context keys that are required by the included input policies
+    -- but that were not provided by one of the input parameters. This list is
+    -- used when the resource in a simulation is \"*\", either explicitly, or
+    -- when the @ResourceArns@ parameter blank. If you include a list of
+    -- resources, then any missing context values are instead included under
+    -- the @ResourceSpecificResults@ section. To discover the context keys used
+    -- by a set of policies, you can call GetContextKeysForCustomPolicy or
+    -- GetContextKeysForPrincipalPolicy.
+    missingContextValues :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the API operation tested on the indicated resource.
+    evalActionName :: Prelude.Text,
+    -- | The result of the simulation.
+    evalDecision :: PolicyEvaluationDecisionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EvaluationResult' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EvaluationResult' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'erEvalDecisionDetails' - Additional details about the results of the cross-account evaluation decision. This parameter is populated for only cross-account simulations. It contains a brief summary of how each policy type contributes to the final evaluation decision. If the simulation evaluates policies within the same account and includes a resource ARN, then the parameter is present but the response is empty. If the simulation evaluates policies within the same account and specifies all resources (@*@ ), then the parameter is not returned. When you make a cross-account request, AWS evaluates the request in the trusting account and the trusted account. The request is allowed only if both evaluations return @true@ . For more information about how policies are evaluated, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics Evaluating policies within a single account> . If an AWS Organizations SCP included in the evaluation denies access, the simulation ends. In this case, policy evaluation does not proceed any further and this parameter is not returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'erPermissionsBoundaryDecisionDetail' - Contains information about the effect that a permissions boundary has on a policy simulation when the boundary is applied to an IAM entity.
+-- 'evalDecisionDetails', 'evaluationResult_evalDecisionDetails' - Additional details about the results of the cross-account evaluation
+-- decision. This parameter is populated for only cross-account
+-- simulations. It contains a brief summary of how each policy type
+-- contributes to the final evaluation decision.
 --
--- * 'erOrganizationsDecisionDetail' - A structure that details how Organizations and its service control policies affect the results of the simulation. Only applies if the simulated user's account is part of an organization.
+-- If the simulation evaluates policies within the same account and
+-- includes a resource ARN, then the parameter is present but the response
+-- is empty. If the simulation evaluates policies within the same account
+-- and specifies all resources (@*@), then the parameter is not returned.
 --
--- * 'erResourceSpecificResults' - The individual results of the simulation of the API operation specified in EvalActionName on each resource.
+-- When you make a cross-account request, AWS evaluates the request in the
+-- trusting account and the trusted account. The request is allowed only if
+-- both evaluations return @true@. For more information about how policies
+-- are evaluated, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics Evaluating policies within a single account>.
 --
--- * 'erMatchedStatements' - A list of the statements in the input policies that determine the result for this scenario. Remember that even if multiple statements allow the operation on the resource, if only one statement denies that operation, then the explicit deny overrides any allow. In addition, the deny statement is the only entry included in the result.
+-- If an AWS Organizations SCP included in the evaluation denies access,
+-- the simulation ends. In this case, policy evaluation does not proceed
+-- any further and this parameter is not returned.
 --
--- * 'erEvalResourceName' - The ARN of the resource that the indicated API operation was tested on.
+-- 'permissionsBoundaryDecisionDetail', 'evaluationResult_permissionsBoundaryDecisionDetail' - Contains information about the effect that a permissions boundary has on
+-- a policy simulation when the boundary is applied to an IAM entity.
 --
--- * 'erMissingContextValues' - A list of context keys that are required by the included input policies but that were not provided by one of the input parameters. This list is used when the resource in a simulation is "*", either explicitly, or when the @ResourceArns@ parameter blank. If you include a list of resources, then any missing context values are instead included under the @ResourceSpecificResults@ section. To discover the context keys used by a set of policies, you can call 'GetContextKeysForCustomPolicy' or 'GetContextKeysForPrincipalPolicy' .
+-- 'organizationsDecisionDetail', 'evaluationResult_organizationsDecisionDetail' - A structure that details how Organizations and its service control
+-- policies affect the results of the simulation. Only applies if the
+-- simulated user\'s account is part of an organization.
 --
--- * 'erEvalActionName' - The name of the API operation tested on the indicated resource.
+-- 'resourceSpecificResults', 'evaluationResult_resourceSpecificResults' - The individual results of the simulation of the API operation specified
+-- in EvalActionName on each resource.
 --
--- * 'erEvalDecision' - The result of the simulation.
-evaluationResult ::
-  -- | 'erEvalActionName'
-  Text ->
-  -- | 'erEvalDecision'
+-- 'matchedStatements', 'evaluationResult_matchedStatements' - A list of the statements in the input policies that determine the result
+-- for this scenario. Remember that even if multiple statements allow the
+-- operation on the resource, if only one statement denies that operation,
+-- then the explicit deny overrides any allow. In addition, the deny
+-- statement is the only entry included in the result.
+--
+-- 'evalResourceName', 'evaluationResult_evalResourceName' - The ARN of the resource that the indicated API operation was tested on.
+--
+-- 'missingContextValues', 'evaluationResult_missingContextValues' - A list of context keys that are required by the included input policies
+-- but that were not provided by one of the input parameters. This list is
+-- used when the resource in a simulation is \"*\", either explicitly, or
+-- when the @ResourceArns@ parameter blank. If you include a list of
+-- resources, then any missing context values are instead included under
+-- the @ResourceSpecificResults@ section. To discover the context keys used
+-- by a set of policies, you can call GetContextKeysForCustomPolicy or
+-- GetContextKeysForPrincipalPolicy.
+--
+-- 'evalActionName', 'evaluationResult_evalActionName' - The name of the API operation tested on the indicated resource.
+--
+-- 'evalDecision', 'evaluationResult_evalDecision' - The result of the simulation.
+newEvaluationResult ::
+  -- | 'evalActionName'
+  Prelude.Text ->
+  -- | 'evalDecision'
   PolicyEvaluationDecisionType ->
   EvaluationResult
-evaluationResult pEvalActionName_ pEvalDecision_ =
+newEvaluationResult pEvalActionName_ pEvalDecision_ =
   EvaluationResult'
-    { _erEvalDecisionDetails = Nothing,
-      _erPermissionsBoundaryDecisionDetail = Nothing,
-      _erOrganizationsDecisionDetail = Nothing,
-      _erResourceSpecificResults = Nothing,
-      _erMatchedStatements = Nothing,
-      _erEvalResourceName = Nothing,
-      _erMissingContextValues = Nothing,
-      _erEvalActionName = pEvalActionName_,
-      _erEvalDecision = pEvalDecision_
+    { evalDecisionDetails =
+        Prelude.Nothing,
+      permissionsBoundaryDecisionDetail = Prelude.Nothing,
+      organizationsDecisionDetail = Prelude.Nothing,
+      resourceSpecificResults = Prelude.Nothing,
+      matchedStatements = Prelude.Nothing,
+      evalResourceName = Prelude.Nothing,
+      missingContextValues = Prelude.Nothing,
+      evalActionName = pEvalActionName_,
+      evalDecision = pEvalDecision_
     }
 
--- | Additional details about the results of the cross-account evaluation decision. This parameter is populated for only cross-account simulations. It contains a brief summary of how each policy type contributes to the final evaluation decision. If the simulation evaluates policies within the same account and includes a resource ARN, then the parameter is present but the response is empty. If the simulation evaluates policies within the same account and specifies all resources (@*@ ), then the parameter is not returned. When you make a cross-account request, AWS evaluates the request in the trusting account and the trusted account. The request is allowed only if both evaluations return @true@ . For more information about how policies are evaluated, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics Evaluating policies within a single account> . If an AWS Organizations SCP included in the evaluation denies access, the simulation ends. In this case, policy evaluation does not proceed any further and this parameter is not returned.
-erEvalDecisionDetails :: Lens' EvaluationResult (HashMap Text PolicyEvaluationDecisionType)
-erEvalDecisionDetails = lens _erEvalDecisionDetails (\s a -> s {_erEvalDecisionDetails = a}) . _Default . _Map
+-- | Additional details about the results of the cross-account evaluation
+-- decision. This parameter is populated for only cross-account
+-- simulations. It contains a brief summary of how each policy type
+-- contributes to the final evaluation decision.
+--
+-- If the simulation evaluates policies within the same account and
+-- includes a resource ARN, then the parameter is present but the response
+-- is empty. If the simulation evaluates policies within the same account
+-- and specifies all resources (@*@), then the parameter is not returned.
+--
+-- When you make a cross-account request, AWS evaluates the request in the
+-- trusting account and the trusted account. The request is allowed only if
+-- both evaluations return @true@. For more information about how policies
+-- are evaluated, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics Evaluating policies within a single account>.
+--
+-- If an AWS Organizations SCP included in the evaluation denies access,
+-- the simulation ends. In this case, policy evaluation does not proceed
+-- any further and this parameter is not returned.
+evaluationResult_evalDecisionDetails :: Lens.Lens' EvaluationResult (Prelude.Maybe (Prelude.HashMap Prelude.Text PolicyEvaluationDecisionType))
+evaluationResult_evalDecisionDetails = Lens.lens (\EvaluationResult' {evalDecisionDetails} -> evalDecisionDetails) (\s@EvaluationResult' {} a -> s {evalDecisionDetails = a} :: EvaluationResult) Prelude.. Lens.mapping Prelude._Map
 
--- | Contains information about the effect that a permissions boundary has on a policy simulation when the boundary is applied to an IAM entity.
-erPermissionsBoundaryDecisionDetail :: Lens' EvaluationResult (Maybe PermissionsBoundaryDecisionDetail)
-erPermissionsBoundaryDecisionDetail = lens _erPermissionsBoundaryDecisionDetail (\s a -> s {_erPermissionsBoundaryDecisionDetail = a})
+-- | Contains information about the effect that a permissions boundary has on
+-- a policy simulation when the boundary is applied to an IAM entity.
+evaluationResult_permissionsBoundaryDecisionDetail :: Lens.Lens' EvaluationResult (Prelude.Maybe PermissionsBoundaryDecisionDetail)
+evaluationResult_permissionsBoundaryDecisionDetail = Lens.lens (\EvaluationResult' {permissionsBoundaryDecisionDetail} -> permissionsBoundaryDecisionDetail) (\s@EvaluationResult' {} a -> s {permissionsBoundaryDecisionDetail = a} :: EvaluationResult)
 
--- | A structure that details how Organizations and its service control policies affect the results of the simulation. Only applies if the simulated user's account is part of an organization.
-erOrganizationsDecisionDetail :: Lens' EvaluationResult (Maybe OrganizationsDecisionDetail)
-erOrganizationsDecisionDetail = lens _erOrganizationsDecisionDetail (\s a -> s {_erOrganizationsDecisionDetail = a})
+-- | A structure that details how Organizations and its service control
+-- policies affect the results of the simulation. Only applies if the
+-- simulated user\'s account is part of an organization.
+evaluationResult_organizationsDecisionDetail :: Lens.Lens' EvaluationResult (Prelude.Maybe OrganizationsDecisionDetail)
+evaluationResult_organizationsDecisionDetail = Lens.lens (\EvaluationResult' {organizationsDecisionDetail} -> organizationsDecisionDetail) (\s@EvaluationResult' {} a -> s {organizationsDecisionDetail = a} :: EvaluationResult)
 
--- | The individual results of the simulation of the API operation specified in EvalActionName on each resource.
-erResourceSpecificResults :: Lens' EvaluationResult [ResourceSpecificResult]
-erResourceSpecificResults = lens _erResourceSpecificResults (\s a -> s {_erResourceSpecificResults = a}) . _Default . _Coerce
+-- | The individual results of the simulation of the API operation specified
+-- in EvalActionName on each resource.
+evaluationResult_resourceSpecificResults :: Lens.Lens' EvaluationResult (Prelude.Maybe [ResourceSpecificResult])
+evaluationResult_resourceSpecificResults = Lens.lens (\EvaluationResult' {resourceSpecificResults} -> resourceSpecificResults) (\s@EvaluationResult' {} a -> s {resourceSpecificResults = a} :: EvaluationResult) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of the statements in the input policies that determine the result for this scenario. Remember that even if multiple statements allow the operation on the resource, if only one statement denies that operation, then the explicit deny overrides any allow. In addition, the deny statement is the only entry included in the result.
-erMatchedStatements :: Lens' EvaluationResult [Statement]
-erMatchedStatements = lens _erMatchedStatements (\s a -> s {_erMatchedStatements = a}) . _Default . _Coerce
+-- | A list of the statements in the input policies that determine the result
+-- for this scenario. Remember that even if multiple statements allow the
+-- operation on the resource, if only one statement denies that operation,
+-- then the explicit deny overrides any allow. In addition, the deny
+-- statement is the only entry included in the result.
+evaluationResult_matchedStatements :: Lens.Lens' EvaluationResult (Prelude.Maybe [Statement])
+evaluationResult_matchedStatements = Lens.lens (\EvaluationResult' {matchedStatements} -> matchedStatements) (\s@EvaluationResult' {} a -> s {matchedStatements = a} :: EvaluationResult) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the resource that the indicated API operation was tested on.
-erEvalResourceName :: Lens' EvaluationResult (Maybe Text)
-erEvalResourceName = lens _erEvalResourceName (\s a -> s {_erEvalResourceName = a})
+evaluationResult_evalResourceName :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Text)
+evaluationResult_evalResourceName = Lens.lens (\EvaluationResult' {evalResourceName} -> evalResourceName) (\s@EvaluationResult' {} a -> s {evalResourceName = a} :: EvaluationResult)
 
--- | A list of context keys that are required by the included input policies but that were not provided by one of the input parameters. This list is used when the resource in a simulation is "*", either explicitly, or when the @ResourceArns@ parameter blank. If you include a list of resources, then any missing context values are instead included under the @ResourceSpecificResults@ section. To discover the context keys used by a set of policies, you can call 'GetContextKeysForCustomPolicy' or 'GetContextKeysForPrincipalPolicy' .
-erMissingContextValues :: Lens' EvaluationResult [Text]
-erMissingContextValues = lens _erMissingContextValues (\s a -> s {_erMissingContextValues = a}) . _Default . _Coerce
+-- | A list of context keys that are required by the included input policies
+-- but that were not provided by one of the input parameters. This list is
+-- used when the resource in a simulation is \"*\", either explicitly, or
+-- when the @ResourceArns@ parameter blank. If you include a list of
+-- resources, then any missing context values are instead included under
+-- the @ResourceSpecificResults@ section. To discover the context keys used
+-- by a set of policies, you can call GetContextKeysForCustomPolicy or
+-- GetContextKeysForPrincipalPolicy.
+evaluationResult_missingContextValues :: Lens.Lens' EvaluationResult (Prelude.Maybe [Prelude.Text])
+evaluationResult_missingContextValues = Lens.lens (\EvaluationResult' {missingContextValues} -> missingContextValues) (\s@EvaluationResult' {} a -> s {missingContextValues = a} :: EvaluationResult) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the API operation tested on the indicated resource.
-erEvalActionName :: Lens' EvaluationResult Text
-erEvalActionName = lens _erEvalActionName (\s a -> s {_erEvalActionName = a})
+evaluationResult_evalActionName :: Lens.Lens' EvaluationResult Prelude.Text
+evaluationResult_evalActionName = Lens.lens (\EvaluationResult' {evalActionName} -> evalActionName) (\s@EvaluationResult' {} a -> s {evalActionName = a} :: EvaluationResult)
 
 -- | The result of the simulation.
-erEvalDecision :: Lens' EvaluationResult PolicyEvaluationDecisionType
-erEvalDecision = lens _erEvalDecision (\s a -> s {_erEvalDecision = a})
+evaluationResult_evalDecision :: Lens.Lens' EvaluationResult PolicyEvaluationDecisionType
+evaluationResult_evalDecision = Lens.lens (\EvaluationResult' {evalDecision} -> evalDecision) (\s@EvaluationResult' {} a -> s {evalDecision = a} :: EvaluationResult)
 
-instance FromXML EvaluationResult where
+instance Prelude.FromXML EvaluationResult where
   parseXML x =
     EvaluationResult'
-      <$> ( x .@? "EvalDecisionDetails" .!@ mempty
-              >>= may (parseXMLMap "entry" "key" "value")
-          )
-      <*> (x .@? "PermissionsBoundaryDecisionDetail")
-      <*> (x .@? "OrganizationsDecisionDetail")
-      <*> ( x .@? "ResourceSpecificResults" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> ( x .@? "MatchedStatements" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "EvalResourceName")
-      <*> ( x .@? "MissingContextValues" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@ "EvalActionName")
-      <*> (x .@ "EvalDecision")
+      Prelude.<$> ( x Prelude..@? "EvalDecisionDetails"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may
+                        (Prelude.parseXMLMap "entry" "key" "value")
+                  )
+      Prelude.<*> (x Prelude..@? "PermissionsBoundaryDecisionDetail")
+      Prelude.<*> (x Prelude..@? "OrganizationsDecisionDetail")
+      Prelude.<*> ( x Prelude..@? "ResourceSpecificResults"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> ( x Prelude..@? "MatchedStatements"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "EvalResourceName")
+      Prelude.<*> ( x Prelude..@? "MissingContextValues"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@ "EvalActionName")
+      Prelude.<*> (x Prelude..@ "EvalDecision")
 
-instance Hashable EvaluationResult
+instance Prelude.Hashable EvaluationResult
 
-instance NFData EvaluationResult
+instance Prelude.NFData EvaluationResult

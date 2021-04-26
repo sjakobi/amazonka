@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about the specified IAM user, including the user's creation date, path, unique ID, and ARN.
+-- Retrieves information about the specified IAM user, including the
+-- user\'s creation date, path, unique ID, and ARN.
 --
---
--- If you do not specify a user name, IAM determines the user name implicitly based on the AWS access key ID used to sign the request to this operation.
+-- If you do not specify a user name, IAM determines the user name
+-- implicitly based on the AWS access key ID used to sign the request to
+-- this operation.
 module Network.AWS.IAM.GetUser
   ( -- * Creating a Request
-    getUser,
-    GetUser,
+    GetUser (..),
+    newGetUser,
 
     -- * Request Lenses
-    guUserName,
+    getUser_userName,
 
     -- * Destructuring the Response
-    getUserResponse,
-    GetUserResponse,
+    GetUserResponse (..),
+    newGetUserResponse,
 
     -- * Response Lenses
-    gurrsResponseStatus,
-    gurrsUser,
+    getUserResponse_httpStatus,
+    getUserResponse_user,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.User
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getUser' smart constructor.
-newtype GetUser = GetUser' {_guUserName :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetUser' smart constructor.
+data GetUser = GetUser'
+  { -- | The name of the user to get information about.
+    --
+    -- This parameter is optional. If it is not included, it defaults to the
+    -- user making the request. This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guUserName' - The name of the user to get information about. This parameter is optional. If it is not included, it defaults to the user making the request. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-getUser ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userName', 'getUser_userName' - The name of the user to get information about.
+--
+-- This parameter is optional. If it is not included, it defaults to the
+-- user making the request. This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newGetUser ::
   GetUser
-getUser = GetUser' {_guUserName = Nothing}
+newGetUser = GetUser' {userName = Prelude.Nothing}
 
--- | The name of the user to get information about. This parameter is optional. If it is not included, it defaults to the user making the request. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-guUserName :: Lens' GetUser (Maybe Text)
-guUserName = lens _guUserName (\s a -> s {_guUserName = a})
+-- | The name of the user to get information about.
+--
+-- This parameter is optional. If it is not included, it defaults to the
+-- user making the request. This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+getUser_userName :: Lens.Lens' GetUser (Prelude.Maybe Prelude.Text)
+getUser_userName = Lens.lens (\GetUser' {userName} -> userName) (\s@GetUser' {} a -> s {userName = a} :: GetUser)
 
-instance AWSRequest GetUser where
+instance Prelude.AWSRequest GetUser where
   type Rs GetUser = GetUserResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetUserResult"
       ( \s h x ->
           GetUserResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "User")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "User")
       )
 
-instance Hashable GetUser
+instance Prelude.Hashable GetUser
 
-instance NFData GetUser
+instance Prelude.NFData GetUser
 
-instance ToHeaders GetUser where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetUser where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetUser where
-  toPath = const "/"
+instance Prelude.ToPath GetUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetUser where
+instance Prelude.ToQuery GetUser where
   toQuery GetUser' {..} =
-    mconcat
-      [ "Action" =: ("GetUser" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _guUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetUser" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName
       ]
 
--- | Contains the response to a successful 'GetUser' request.
+-- | Contains the response to a successful GetUser request.
 --
---
---
--- /See:/ 'getUserResponse' smart constructor.
+-- /See:/ 'newGetUserResponse' smart constructor.
 data GetUserResponse = GetUserResponse'
-  { _gurrsResponseStatus ::
-      !Int,
-    _gurrsUser :: !User
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A structure containing details about the IAM user.
+    --
+    -- Due to a service issue, password last used data does not include
+    -- password use from May 3, 2018 22:50 PDT to May 23, 2018 14:08 PDT. This
+    -- affects
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html last sign-in>
+    -- dates shown in the IAM console and password last used dates in the
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html IAM credential report>,
+    -- and returned by this operation. If users signed in during the affected
+    -- time, the password last used date that is returned is the date the user
+    -- last signed in before May 3, 2018. For users that signed in after May
+    -- 23, 2018 14:08 PDT, the returned password last used date is accurate.
+    --
+    -- You can use password last used information to identify unused
+    -- credentials for deletion. For example, you might delete users who did
+    -- not sign in to AWS in the last 90 days. In cases like this, we recommend
+    -- that you adjust your evaluation window to include dates after May 23,
+    -- 2018. Alternatively, if your users use access keys to access AWS
+    -- programmatically you can refer to access key last used information
+    -- because it is accurate for all dates.
+    user :: User
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gurrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gurrsUser' - A structure containing details about the IAM user. /Important:/ Due to a service issue, password last used data does not include password use from May 3, 2018 22:50 PDT to May 23, 2018 14:08 PDT. This affects <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html last sign-in> dates shown in the IAM console and password last used dates in the <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html IAM credential report> , and returned by this operation. If users signed in during the affected time, the password last used date that is returned is the date the user last signed in before May 3, 2018. For users that signed in after May 23, 2018 14:08 PDT, the returned password last used date is accurate. You can use password last used information to identify unused credentials for deletion. For example, you might delete users who did not sign in to AWS in the last 90 days. In cases like this, we recommend that you adjust your evaluation window to include dates after May 23, 2018. Alternatively, if your users use access keys to access AWS programmatically you can refer to access key last used information because it is accurate for all dates.
-getUserResponse ::
-  -- | 'gurrsResponseStatus'
-  Int ->
-  -- | 'gurrsUser'
+-- 'httpStatus', 'getUserResponse_httpStatus' - The response's http status code.
+--
+-- 'user', 'getUserResponse_user' - A structure containing details about the IAM user.
+--
+-- Due to a service issue, password last used data does not include
+-- password use from May 3, 2018 22:50 PDT to May 23, 2018 14:08 PDT. This
+-- affects
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html last sign-in>
+-- dates shown in the IAM console and password last used dates in the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html IAM credential report>,
+-- and returned by this operation. If users signed in during the affected
+-- time, the password last used date that is returned is the date the user
+-- last signed in before May 3, 2018. For users that signed in after May
+-- 23, 2018 14:08 PDT, the returned password last used date is accurate.
+--
+-- You can use password last used information to identify unused
+-- credentials for deletion. For example, you might delete users who did
+-- not sign in to AWS in the last 90 days. In cases like this, we recommend
+-- that you adjust your evaluation window to include dates after May 23,
+-- 2018. Alternatively, if your users use access keys to access AWS
+-- programmatically you can refer to access key last used information
+-- because it is accurate for all dates.
+newGetUserResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'user'
   User ->
   GetUserResponse
-getUserResponse pResponseStatus_ pUser_ =
+newGetUserResponse pHttpStatus_ pUser_ =
   GetUserResponse'
-    { _gurrsResponseStatus =
-        pResponseStatus_,
-      _gurrsUser = pUser_
+    { httpStatus = pHttpStatus_,
+      user = pUser_
     }
 
--- | -- | The response status code.
-gurrsResponseStatus :: Lens' GetUserResponse Int
-gurrsResponseStatus = lens _gurrsResponseStatus (\s a -> s {_gurrsResponseStatus = a})
+-- | The response's http status code.
+getUserResponse_httpStatus :: Lens.Lens' GetUserResponse Prelude.Int
+getUserResponse_httpStatus = Lens.lens (\GetUserResponse' {httpStatus} -> httpStatus) (\s@GetUserResponse' {} a -> s {httpStatus = a} :: GetUserResponse)
 
--- | A structure containing details about the IAM user. /Important:/ Due to a service issue, password last used data does not include password use from May 3, 2018 22:50 PDT to May 23, 2018 14:08 PDT. This affects <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html last sign-in> dates shown in the IAM console and password last used dates in the <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html IAM credential report> , and returned by this operation. If users signed in during the affected time, the password last used date that is returned is the date the user last signed in before May 3, 2018. For users that signed in after May 23, 2018 14:08 PDT, the returned password last used date is accurate. You can use password last used information to identify unused credentials for deletion. For example, you might delete users who did not sign in to AWS in the last 90 days. In cases like this, we recommend that you adjust your evaluation window to include dates after May 23, 2018. Alternatively, if your users use access keys to access AWS programmatically you can refer to access key last used information because it is accurate for all dates.
-gurrsUser :: Lens' GetUserResponse User
-gurrsUser = lens _gurrsUser (\s a -> s {_gurrsUser = a})
+-- | A structure containing details about the IAM user.
+--
+-- Due to a service issue, password last used data does not include
+-- password use from May 3, 2018 22:50 PDT to May 23, 2018 14:08 PDT. This
+-- affects
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html last sign-in>
+-- dates shown in the IAM console and password last used dates in the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html IAM credential report>,
+-- and returned by this operation. If users signed in during the affected
+-- time, the password last used date that is returned is the date the user
+-- last signed in before May 3, 2018. For users that signed in after May
+-- 23, 2018 14:08 PDT, the returned password last used date is accurate.
+--
+-- You can use password last used information to identify unused
+-- credentials for deletion. For example, you might delete users who did
+-- not sign in to AWS in the last 90 days. In cases like this, we recommend
+-- that you adjust your evaluation window to include dates after May 23,
+-- 2018. Alternatively, if your users use access keys to access AWS
+-- programmatically you can refer to access key last used information
+-- because it is accurate for all dates.
+getUserResponse_user :: Lens.Lens' GetUserResponse User
+getUserResponse_user = Lens.lens (\GetUserResponse' {user} -> user) (\s@GetUserResponse' {} a -> s {user = a} :: GetUserResponse)
 
-instance NFData GetUserResponse
+instance Prelude.NFData GetUserResponse

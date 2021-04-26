@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,237 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the specified inline policy document that is embedded in the specified IAM user.
+-- Retrieves the specified inline policy document that is embedded in the
+-- specified IAM user.
 --
+-- Policies returned by this operation are URL-encoded compliant with
+-- <https://tools.ietf.org/html/rfc3986 RFC 3986>. You can use a URL
+-- decoding method to convert the policy back to plain JSON text. For
+-- example, if you use Java, you can use the @decode@ method of the
+-- @java.net.URLDecoder@ utility class in the Java SDK. Other languages and
+-- SDKs provide similar functionality.
 --
--- An IAM user can also have managed policies attached to it. To retrieve a managed policy document that is attached to a user, use 'GetPolicy' to determine the policy's default version. Then use 'GetPolicyVersion' to retrieve the policy document.
+-- An IAM user can also have managed policies attached to it. To retrieve a
+-- managed policy document that is attached to a user, use GetPolicy to
+-- determine the policy\'s default version. Then use GetPolicyVersion to
+-- retrieve the policy document.
 --
--- For more information about policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
+-- For more information about policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.GetUserPolicy
   ( -- * Creating a Request
-    getUserPolicy,
-    GetUserPolicy,
+    GetUserPolicy (..),
+    newGetUserPolicy,
 
     -- * Request Lenses
-    gupUserName,
-    gupPolicyName,
+    getUserPolicy_userName,
+    getUserPolicy_policyName,
 
     -- * Destructuring the Response
-    getUserPolicyResponse,
-    GetUserPolicyResponse,
+    GetUserPolicyResponse (..),
+    newGetUserPolicyResponse,
 
     -- * Response Lenses
-    guprrsResponseStatus,
-    guprrsUserName,
-    guprrsPolicyName,
-    guprrsPolicyDocument,
+    getUserPolicyResponse_httpStatus,
+    getUserPolicyResponse_userName,
+    getUserPolicyResponse_policyName,
+    getUserPolicyResponse_policyDocument,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getUserPolicy' smart constructor.
+-- | /See:/ 'newGetUserPolicy' smart constructor.
 data GetUserPolicy = GetUserPolicy'
-  { _gupUserName ::
-      !Text,
-    _gupPolicyName :: !Text
+  { -- | The name of the user who the policy is associated with.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text,
+    -- | The name of the policy document to get.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    policyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gupUserName' - The name of the user who the policy is associated with. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gupPolicyName' - The name of the policy document to get. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-getUserPolicy ::
-  -- | 'gupUserName'
-  Text ->
-  -- | 'gupPolicyName'
-  Text ->
+-- 'userName', 'getUserPolicy_userName' - The name of the user who the policy is associated with.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'policyName', 'getUserPolicy_policyName' - The name of the policy document to get.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newGetUserPolicy ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
   GetUserPolicy
-getUserPolicy pUserName_ pPolicyName_ =
+newGetUserPolicy pUserName_ pPolicyName_ =
   GetUserPolicy'
-    { _gupUserName = pUserName_,
-      _gupPolicyName = pPolicyName_
+    { userName = pUserName_,
+      policyName = pPolicyName_
     }
 
--- | The name of the user who the policy is associated with. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-gupUserName :: Lens' GetUserPolicy Text
-gupUserName = lens _gupUserName (\s a -> s {_gupUserName = a})
+-- | The name of the user who the policy is associated with.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+getUserPolicy_userName :: Lens.Lens' GetUserPolicy Prelude.Text
+getUserPolicy_userName = Lens.lens (\GetUserPolicy' {userName} -> userName) (\s@GetUserPolicy' {} a -> s {userName = a} :: GetUserPolicy)
 
--- | The name of the policy document to get. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-gupPolicyName :: Lens' GetUserPolicy Text
-gupPolicyName = lens _gupPolicyName (\s a -> s {_gupPolicyName = a})
+-- | The name of the policy document to get.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+getUserPolicy_policyName :: Lens.Lens' GetUserPolicy Prelude.Text
+getUserPolicy_policyName = Lens.lens (\GetUserPolicy' {policyName} -> policyName) (\s@GetUserPolicy' {} a -> s {policyName = a} :: GetUserPolicy)
 
-instance AWSRequest GetUserPolicy where
+instance Prelude.AWSRequest GetUserPolicy where
   type Rs GetUserPolicy = GetUserPolicyResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetUserPolicyResult"
       ( \s h x ->
           GetUserPolicyResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .@ "UserName")
-            <*> (x .@ "PolicyName")
-            <*> (x .@ "PolicyDocument")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "UserName")
+            Prelude.<*> (x Prelude..@ "PolicyName")
+            Prelude.<*> (x Prelude..@ "PolicyDocument")
       )
 
-instance Hashable GetUserPolicy
+instance Prelude.Hashable GetUserPolicy
 
-instance NFData GetUserPolicy
+instance Prelude.NFData GetUserPolicy
 
-instance ToHeaders GetUserPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetUserPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetUserPolicy where
-  toPath = const "/"
+instance Prelude.ToPath GetUserPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetUserPolicy where
+instance Prelude.ToQuery GetUserPolicy where
   toQuery GetUserPolicy' {..} =
-    mconcat
-      [ "Action" =: ("GetUserPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _gupUserName,
-        "PolicyName" =: _gupPolicyName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetUserPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "PolicyName" Prelude.=: policyName
       ]
 
--- | Contains the response to a successful 'GetUserPolicy' request.
+-- | Contains the response to a successful GetUserPolicy request.
 --
---
---
--- /See:/ 'getUserPolicyResponse' smart constructor.
+-- /See:/ 'newGetUserPolicyResponse' smart constructor.
 data GetUserPolicyResponse = GetUserPolicyResponse'
-  { _guprrsResponseStatus ::
-      !Int,
-    _guprrsUserName :: !Text,
-    _guprrsPolicyName :: !Text,
-    _guprrsPolicyDocument ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The user the policy is associated with.
+    userName :: Prelude.Text,
+    -- | The name of the policy.
+    policyName :: Prelude.Text,
+    -- | The policy document.
+    --
+    -- IAM stores policies in JSON format. However, resources that were created
+    -- using AWS CloudFormation templates can be formatted in YAML. AWS
+    -- CloudFormation always converts a YAML policy to JSON format before
+    -- submitting it to IAM.
+    policyDocument :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetUserPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetUserPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'guprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'guprrsUserName' - The user the policy is associated with.
+-- 'httpStatus', 'getUserPolicyResponse_httpStatus' - The response's http status code.
 --
--- * 'guprrsPolicyName' - The name of the policy.
+-- 'userName', 'getUserPolicyResponse_userName' - The user the policy is associated with.
 --
--- * 'guprrsPolicyDocument' - The policy document. IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
-getUserPolicyResponse ::
-  -- | 'guprrsResponseStatus'
-  Int ->
-  -- | 'guprrsUserName'
-  Text ->
-  -- | 'guprrsPolicyName'
-  Text ->
-  -- | 'guprrsPolicyDocument'
-  Text ->
+-- 'policyName', 'getUserPolicyResponse_policyName' - The name of the policy.
+--
+-- 'policyDocument', 'getUserPolicyResponse_policyDocument' - The policy document.
+--
+-- IAM stores policies in JSON format. However, resources that were created
+-- using AWS CloudFormation templates can be formatted in YAML. AWS
+-- CloudFormation always converts a YAML policy to JSON format before
+-- submitting it to IAM.
+newGetUserPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
+  -- | 'policyDocument'
+  Prelude.Text ->
   GetUserPolicyResponse
-getUserPolicyResponse
-  pResponseStatus_
+newGetUserPolicyResponse
+  pHttpStatus_
   pUserName_
   pPolicyName_
   pPolicyDocument_ =
     GetUserPolicyResponse'
-      { _guprrsResponseStatus =
-          pResponseStatus_,
-        _guprrsUserName = pUserName_,
-        _guprrsPolicyName = pPolicyName_,
-        _guprrsPolicyDocument = pPolicyDocument_
+      { httpStatus = pHttpStatus_,
+        userName = pUserName_,
+        policyName = pPolicyName_,
+        policyDocument = pPolicyDocument_
       }
 
--- | -- | The response status code.
-guprrsResponseStatus :: Lens' GetUserPolicyResponse Int
-guprrsResponseStatus = lens _guprrsResponseStatus (\s a -> s {_guprrsResponseStatus = a})
+-- | The response's http status code.
+getUserPolicyResponse_httpStatus :: Lens.Lens' GetUserPolicyResponse Prelude.Int
+getUserPolicyResponse_httpStatus = Lens.lens (\GetUserPolicyResponse' {httpStatus} -> httpStatus) (\s@GetUserPolicyResponse' {} a -> s {httpStatus = a} :: GetUserPolicyResponse)
 
 -- | The user the policy is associated with.
-guprrsUserName :: Lens' GetUserPolicyResponse Text
-guprrsUserName = lens _guprrsUserName (\s a -> s {_guprrsUserName = a})
+getUserPolicyResponse_userName :: Lens.Lens' GetUserPolicyResponse Prelude.Text
+getUserPolicyResponse_userName = Lens.lens (\GetUserPolicyResponse' {userName} -> userName) (\s@GetUserPolicyResponse' {} a -> s {userName = a} :: GetUserPolicyResponse)
 
 -- | The name of the policy.
-guprrsPolicyName :: Lens' GetUserPolicyResponse Text
-guprrsPolicyName = lens _guprrsPolicyName (\s a -> s {_guprrsPolicyName = a})
+getUserPolicyResponse_policyName :: Lens.Lens' GetUserPolicyResponse Prelude.Text
+getUserPolicyResponse_policyName = Lens.lens (\GetUserPolicyResponse' {policyName} -> policyName) (\s@GetUserPolicyResponse' {} a -> s {policyName = a} :: GetUserPolicyResponse)
 
--- | The policy document. IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
-guprrsPolicyDocument :: Lens' GetUserPolicyResponse Text
-guprrsPolicyDocument = lens _guprrsPolicyDocument (\s a -> s {_guprrsPolicyDocument = a})
+-- | The policy document.
+--
+-- IAM stores policies in JSON format. However, resources that were created
+-- using AWS CloudFormation templates can be formatted in YAML. AWS
+-- CloudFormation always converts a YAML policy to JSON format before
+-- submitting it to IAM.
+getUserPolicyResponse_policyDocument :: Lens.Lens' GetUserPolicyResponse Prelude.Text
+getUserPolicyResponse_policyDocument = Lens.lens (\GetUserPolicyResponse' {policyDocument} -> policyDocument) (\s@GetUserPolicyResponse' {} a -> s {policyDocument = a} :: GetUserPolicyResponse)
 
-instance NFData GetUserPolicyResponse
+instance Prelude.NFData GetUserPolicyResponse

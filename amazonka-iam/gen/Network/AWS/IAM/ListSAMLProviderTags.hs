@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,269 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the tags that are attached to the specified Security Assertion Markup Language (SAML) identity provider. The returned list of tags is sorted by tag key. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation> .
+-- Lists the tags that are attached to the specified Security Assertion
+-- Markup Language (SAML) identity provider. The returned list of tags is
+-- sorted by tag key. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation>.
 --
---
--- For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- For more information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.ListSAMLProviderTags
   ( -- * Creating a Request
-    listSAMLProviderTags,
-    ListSAMLProviderTags,
+    ListSAMLProviderTags (..),
+    newListSAMLProviderTags,
 
     -- * Request Lenses
-    lsamlptMaxItems,
-    lsamlptMarker,
-    lsamlptSAMLProviderARN,
+    listSAMLProviderTags_maxItems,
+    listSAMLProviderTags_marker,
+    listSAMLProviderTags_sAMLProviderArn,
 
     -- * Destructuring the Response
-    listSAMLProviderTagsResponse,
-    ListSAMLProviderTagsResponse,
+    ListSAMLProviderTagsResponse (..),
+    newListSAMLProviderTagsResponse,
 
     -- * Response Lenses
-    lsamlptrrsIsTruncated,
-    lsamlptrrsMarker,
-    lsamlptrrsResponseStatus,
-    lsamlptrrsTags,
+    listSAMLProviderTagsResponse_isTruncated,
+    listSAMLProviderTagsResponse_marker,
+    listSAMLProviderTagsResponse_httpStatus,
+    listSAMLProviderTagsResponse_tags,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSAMLProviderTags' smart constructor.
+-- | /See:/ 'newListSAMLProviderTags' smart constructor.
 data ListSAMLProviderTags = ListSAMLProviderTags'
-  { _lsamlptMaxItems ::
-      !(Maybe Nat),
-    _lsamlptMarker ::
-      !(Maybe Text),
-    _lsamlptSAMLProviderARN ::
-      !Text
+  { -- | (Optional) Use this only when paginating results to indicate the maximum
+    -- number of items that you want in the response. If additional items exist
+    -- beyond the maximum that you specify, the @IsTruncated@ response element
+    -- is @true@.
+    --
+    -- If you do not include this parameter, it defaults to 100. Note that IAM
+    -- might return fewer results, even when more results are available. In
+    -- that case, the @IsTruncated@ response element returns @true@, and
+    -- @Marker@ contains a value to include in the subsequent call that tells
+    -- the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the Security Assertion Markup Language (SAML) identity
+    -- provider whose tags you want to see.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    sAMLProviderArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSAMLProviderTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSAMLProviderTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsamlptMaxItems' - (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsamlptMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- 'maxItems', 'listSAMLProviderTags_maxItems' - (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
 --
--- * 'lsamlptSAMLProviderARN' - The ARN of the Security Assertion Markup Language (SAML) identity provider whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-listSAMLProviderTags ::
-  -- | 'lsamlptSAMLProviderARN'
-  Text ->
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+--
+-- 'marker', 'listSAMLProviderTags_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'sAMLProviderArn', 'listSAMLProviderTags_sAMLProviderArn' - The ARN of the Security Assertion Markup Language (SAML) identity
+-- provider whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+newListSAMLProviderTags ::
+  -- | 'sAMLProviderArn'
+  Prelude.Text ->
   ListSAMLProviderTags
-listSAMLProviderTags pSAMLProviderARN_ =
+newListSAMLProviderTags pSAMLProviderArn_ =
   ListSAMLProviderTags'
-    { _lsamlptMaxItems = Nothing,
-      _lsamlptMarker = Nothing,
-      _lsamlptSAMLProviderARN = pSAMLProviderARN_
+    { maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      sAMLProviderArn = pSAMLProviderArn_
     }
 
--- | (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lsamlptMaxItems :: Lens' ListSAMLProviderTags (Maybe Natural)
-lsamlptMaxItems = lens _lsamlptMaxItems (\s a -> s {_lsamlptMaxItems = a}) . mapping _Nat
+-- | (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
+--
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+listSAMLProviderTags_maxItems :: Lens.Lens' ListSAMLProviderTags (Prelude.Maybe Prelude.Natural)
+listSAMLProviderTags_maxItems = Lens.lens (\ListSAMLProviderTags' {maxItems} -> maxItems) (\s@ListSAMLProviderTags' {} a -> s {maxItems = a} :: ListSAMLProviderTags) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lsamlptMarker :: Lens' ListSAMLProviderTags (Maybe Text)
-lsamlptMarker = lens _lsamlptMarker (\s a -> s {_lsamlptMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listSAMLProviderTags_marker :: Lens.Lens' ListSAMLProviderTags (Prelude.Maybe Prelude.Text)
+listSAMLProviderTags_marker = Lens.lens (\ListSAMLProviderTags' {marker} -> marker) (\s@ListSAMLProviderTags' {} a -> s {marker = a} :: ListSAMLProviderTags)
 
--- | The ARN of the Security Assertion Markup Language (SAML) identity provider whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-lsamlptSAMLProviderARN :: Lens' ListSAMLProviderTags Text
-lsamlptSAMLProviderARN = lens _lsamlptSAMLProviderARN (\s a -> s {_lsamlptSAMLProviderARN = a})
+-- | The ARN of the Security Assertion Markup Language (SAML) identity
+-- provider whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+listSAMLProviderTags_sAMLProviderArn :: Lens.Lens' ListSAMLProviderTags Prelude.Text
+listSAMLProviderTags_sAMLProviderArn = Lens.lens (\ListSAMLProviderTags' {sAMLProviderArn} -> sAMLProviderArn) (\s@ListSAMLProviderTags' {} a -> s {sAMLProviderArn = a} :: ListSAMLProviderTags)
 
-instance AWSRequest ListSAMLProviderTags where
+instance Prelude.AWSRequest ListSAMLProviderTags where
   type
     Rs ListSAMLProviderTags =
       ListSAMLProviderTagsResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListSAMLProviderTagsResult"
       ( \s h x ->
           ListSAMLProviderTagsResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> (x .@? "Tags" .!@ mempty >>= parseXMLList "member")
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListSAMLProviderTags
+instance Prelude.Hashable ListSAMLProviderTags
 
-instance NFData ListSAMLProviderTags
+instance Prelude.NFData ListSAMLProviderTags
 
-instance ToHeaders ListSAMLProviderTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListSAMLProviderTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListSAMLProviderTags where
-  toPath = const "/"
+instance Prelude.ToPath ListSAMLProviderTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSAMLProviderTags where
+instance Prelude.ToQuery ListSAMLProviderTags where
   toQuery ListSAMLProviderTags' {..} =
-    mconcat
-      [ "Action" =: ("ListSAMLProviderTags" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "MaxItems" =: _lsamlptMaxItems,
-        "Marker" =: _lsamlptMarker,
-        "SAMLProviderArn" =: _lsamlptSAMLProviderARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListSAMLProviderTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker,
+        "SAMLProviderArn" Prelude.=: sAMLProviderArn
       ]
 
--- | /See:/ 'listSAMLProviderTagsResponse' smart constructor.
+-- | /See:/ 'newListSAMLProviderTagsResponse' smart constructor.
 data ListSAMLProviderTagsResponse = ListSAMLProviderTagsResponse'
-  { _lsamlptrrsIsTruncated ::
-      !(Maybe Bool),
-    _lsamlptrrsMarker ::
-      !(Maybe Text),
-    _lsamlptrrsResponseStatus ::
-      !Int,
-    _lsamlptrrsTags ::
-      ![Tag]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can use the @Marker@ request parameter to
+    -- make a subsequent pagination request that retrieves more items. Note
+    -- that IAM might return fewer than the @MaxItems@ number of results even
+    -- when more results are available. Check @IsTruncated@ after every call to
+    -- ensure that you receive all of your results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The list of tags that are currently attached to the Security Assertion
+    -- Markup Language (SAML) identity provider. Each tag consists of a key
+    -- name and an associated value. If no tags are attached to the specified
+    -- resource, the response contains an empty list.
+    tags :: [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSAMLProviderTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSAMLProviderTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsamlptrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsamlptrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listSAMLProviderTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
 --
--- * 'lsamlptrrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listSAMLProviderTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'lsamlptrrsTags' - The list of tags that are currently attached to the Security Assertion Markup Language (SAML) identity provider. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-listSAMLProviderTagsResponse ::
-  -- | 'lsamlptrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listSAMLProviderTagsResponse_httpStatus' - The response's http status code.
+--
+-- 'tags', 'listSAMLProviderTagsResponse_tags' - The list of tags that are currently attached to the Security Assertion
+-- Markup Language (SAML) identity provider. Each tag consists of a key
+-- name and an associated value. If no tags are attached to the specified
+-- resource, the response contains an empty list.
+newListSAMLProviderTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSAMLProviderTagsResponse
-listSAMLProviderTagsResponse pResponseStatus_ =
+newListSAMLProviderTagsResponse pHttpStatus_ =
   ListSAMLProviderTagsResponse'
-    { _lsamlptrrsIsTruncated =
-        Nothing,
-      _lsamlptrrsMarker = Nothing,
-      _lsamlptrrsResponseStatus = pResponseStatus_,
-      _lsamlptrrsTags = mempty
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      tags = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
-lsamlptrrsIsTruncated :: Lens' ListSAMLProviderTagsResponse (Maybe Bool)
-lsamlptrrsIsTruncated = lens _lsamlptrrsIsTruncated (\s a -> s {_lsamlptrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
+listSAMLProviderTagsResponse_isTruncated :: Lens.Lens' ListSAMLProviderTagsResponse (Prelude.Maybe Prelude.Bool)
+listSAMLProviderTagsResponse_isTruncated = Lens.lens (\ListSAMLProviderTagsResponse' {isTruncated} -> isTruncated) (\s@ListSAMLProviderTagsResponse' {} a -> s {isTruncated = a} :: ListSAMLProviderTagsResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lsamlptrrsMarker :: Lens' ListSAMLProviderTagsResponse (Maybe Text)
-lsamlptrrsMarker = lens _lsamlptrrsMarker (\s a -> s {_lsamlptrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listSAMLProviderTagsResponse_marker :: Lens.Lens' ListSAMLProviderTagsResponse (Prelude.Maybe Prelude.Text)
+listSAMLProviderTagsResponse_marker = Lens.lens (\ListSAMLProviderTagsResponse' {marker} -> marker) (\s@ListSAMLProviderTagsResponse' {} a -> s {marker = a} :: ListSAMLProviderTagsResponse)
 
--- | -- | The response status code.
-lsamlptrrsResponseStatus :: Lens' ListSAMLProviderTagsResponse Int
-lsamlptrrsResponseStatus = lens _lsamlptrrsResponseStatus (\s a -> s {_lsamlptrrsResponseStatus = a})
+-- | The response's http status code.
+listSAMLProviderTagsResponse_httpStatus :: Lens.Lens' ListSAMLProviderTagsResponse Prelude.Int
+listSAMLProviderTagsResponse_httpStatus = Lens.lens (\ListSAMLProviderTagsResponse' {httpStatus} -> httpStatus) (\s@ListSAMLProviderTagsResponse' {} a -> s {httpStatus = a} :: ListSAMLProviderTagsResponse)
 
--- | The list of tags that are currently attached to the Security Assertion Markup Language (SAML) identity provider. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-lsamlptrrsTags :: Lens' ListSAMLProviderTagsResponse [Tag]
-lsamlptrrsTags = lens _lsamlptrrsTags (\s a -> s {_lsamlptrrsTags = a}) . _Coerce
+-- | The list of tags that are currently attached to the Security Assertion
+-- Markup Language (SAML) identity provider. Each tag consists of a key
+-- name and an associated value. If no tags are attached to the specified
+-- resource, the response contains an empty list.
+listSAMLProviderTagsResponse_tags :: Lens.Lens' ListSAMLProviderTagsResponse [Tag]
+listSAMLProviderTagsResponse_tags = Lens.lens (\ListSAMLProviderTagsResponse' {tags} -> tags) (\s@ListSAMLProviderTagsResponse' {} a -> s {tags = a} :: ListSAMLProviderTagsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListSAMLProviderTagsResponse
+instance Prelude.NFData ListSAMLProviderTagsResponse

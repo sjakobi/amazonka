@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.IAM" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.IAM.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.IAM" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,15 +37,15 @@ source-repository head
   subdir:   amazonka-iam
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
 
   exposed-modules:
     Network.AWS.IAM
-    Network.AWS.IAM.AddClientIdToOpenIdConnectProvider
+    Network.AWS.IAM.AddClientIDToOpenIDConnectProvider
     Network.AWS.IAM.AddRoleToInstanceProfile
     Network.AWS.IAM.AddUserToGroup
     Network.AWS.IAM.AttachGroupPolicy
@@ -59,7 +57,7 @@ library
     Network.AWS.IAM.CreateGroup
     Network.AWS.IAM.CreateInstanceProfile
     Network.AWS.IAM.CreateLoginProfile
-    Network.AWS.IAM.CreateOpenIdConnectProvider
+    Network.AWS.IAM.CreateOpenIDConnectProvider
     Network.AWS.IAM.CreatePolicy
     Network.AWS.IAM.CreatePolicyVersion
     Network.AWS.IAM.CreateRole
@@ -76,7 +74,7 @@ library
     Network.AWS.IAM.DeleteGroupPolicy
     Network.AWS.IAM.DeleteInstanceProfile
     Network.AWS.IAM.DeleteLoginProfile
-    Network.AWS.IAM.DeleteOpenIdConnectProvider
+    Network.AWS.IAM.DeleteOpenIDConnectProvider
     Network.AWS.IAM.DeletePolicy
     Network.AWS.IAM.DeletePolicyVersion
     Network.AWS.IAM.DeleteRole
@@ -110,7 +108,7 @@ library
     Network.AWS.IAM.GetGroupPolicy
     Network.AWS.IAM.GetInstanceProfile
     Network.AWS.IAM.GetLoginProfile
-    Network.AWS.IAM.GetOpenIdConnectProvider
+    Network.AWS.IAM.GetOpenIDConnectProvider
     Network.AWS.IAM.GetOrganizationsAccessReport
     Network.AWS.IAM.GetPolicy
     Network.AWS.IAM.GetPolicyVersion
@@ -124,6 +122,7 @@ library
     Network.AWS.IAM.GetSSHPublicKey
     Network.AWS.IAM.GetUser
     Network.AWS.IAM.GetUserPolicy
+    Network.AWS.IAM.Lens
     Network.AWS.IAM.ListAccessKeys
     Network.AWS.IAM.ListAccountAliases
     Network.AWS.IAM.ListAttachedGroupPolicies
@@ -138,8 +137,8 @@ library
     Network.AWS.IAM.ListInstanceProfileTags
     Network.AWS.IAM.ListMFADevices
     Network.AWS.IAM.ListMFADeviceTags
-    Network.AWS.IAM.ListOpenIdConnectProviders
-    Network.AWS.IAM.ListOpenIdConnectProviderTags
+    Network.AWS.IAM.ListOpenIDConnectProviders
+    Network.AWS.IAM.ListOpenIDConnectProviderTags
     Network.AWS.IAM.ListPolicies
     Network.AWS.IAM.ListPoliciesGrantingServiceAccess
     Network.AWS.IAM.ListPolicyTags
@@ -163,7 +162,7 @@ library
     Network.AWS.IAM.PutRolePolicy
     Network.AWS.IAM.PutUserPermissionsBoundary
     Network.AWS.IAM.PutUserPolicy
-    Network.AWS.IAM.RemoveClientIdFromOpenIdConnectProvider
+    Network.AWS.IAM.RemoveClientIDFromOpenIDConnectProvider
     Network.AWS.IAM.RemoveRoleFromInstanceProfile
     Network.AWS.IAM.RemoveUserFromGroup
     Network.AWS.IAM.ResetServiceSpecificCredential
@@ -174,41 +173,13 @@ library
     Network.AWS.IAM.SimulatePrincipalPolicy
     Network.AWS.IAM.TagInstanceProfile
     Network.AWS.IAM.TagMFADevice
-    Network.AWS.IAM.TagOpenIdConnectProvider
+    Network.AWS.IAM.TagOpenIDConnectProvider
     Network.AWS.IAM.TagPolicy
     Network.AWS.IAM.TagRole
     Network.AWS.IAM.TagSAMLProvider
     Network.AWS.IAM.TagServerCertificate
     Network.AWS.IAM.TagUser
     Network.AWS.IAM.Types
-    Network.AWS.IAM.UntagInstanceProfile
-    Network.AWS.IAM.UntagMFADevice
-    Network.AWS.IAM.UntagOpenIdConnectProvider
-    Network.AWS.IAM.UntagPolicy
-    Network.AWS.IAM.UntagRole
-    Network.AWS.IAM.UntagSAMLProvider
-    Network.AWS.IAM.UntagServerCertificate
-    Network.AWS.IAM.UntagUser
-    Network.AWS.IAM.UpdateAccessKey
-    Network.AWS.IAM.UpdateAccountPasswordPolicy
-    Network.AWS.IAM.UpdateAssumeRolePolicy
-    Network.AWS.IAM.UpdateGroup
-    Network.AWS.IAM.UpdateLoginProfile
-    Network.AWS.IAM.UpdateOpenIdConnectProviderThumbprint
-    Network.AWS.IAM.UpdateRole
-    Network.AWS.IAM.UpdateRoleDescription
-    Network.AWS.IAM.UpdateSAMLProvider
-    Network.AWS.IAM.UpdateServerCertificate
-    Network.AWS.IAM.UpdateServiceSpecificCredential
-    Network.AWS.IAM.UpdateSigningCertificate
-    Network.AWS.IAM.UpdateSSHPublicKey
-    Network.AWS.IAM.UpdateUser
-    Network.AWS.IAM.UploadServerCertificate
-    Network.AWS.IAM.UploadSigningCertificate
-    Network.AWS.IAM.UploadSSHPublicKey
-    Network.AWS.IAM.Waiters
-
-  other-modules:
     Network.AWS.IAM.Types.AccessAdvisorUsageGranularityType
     Network.AWS.IAM.Types.AccessDetail
     Network.AWS.IAM.Types.AccessKeyInfo
@@ -237,7 +208,7 @@ library
     Network.AWS.IAM.Types.LoginProfile
     Network.AWS.IAM.Types.ManagedPolicyDetail
     Network.AWS.IAM.Types.MFADevice
-    Network.AWS.IAM.Types.OpenIdConnectProviderListEntry
+    Network.AWS.IAM.Types.OpenIDConnectProviderListEntry
     Network.AWS.IAM.Types.OrganizationsDecisionDetail
     Network.AWS.IAM.Types.PasswordPolicy
     Network.AWS.IAM.Types.PermissionsBoundaryAttachmentType
@@ -282,11 +253,37 @@ library
     Network.AWS.IAM.Types.User
     Network.AWS.IAM.Types.UserDetail
     Network.AWS.IAM.Types.VirtualMFADevice
+    Network.AWS.IAM.UntagInstanceProfile
+    Network.AWS.IAM.UntagMFADevice
+    Network.AWS.IAM.UntagOpenIDConnectProvider
+    Network.AWS.IAM.UntagPolicy
+    Network.AWS.IAM.UntagRole
+    Network.AWS.IAM.UntagSAMLProvider
+    Network.AWS.IAM.UntagServerCertificate
+    Network.AWS.IAM.UntagUser
+    Network.AWS.IAM.UpdateAccessKey
+    Network.AWS.IAM.UpdateAccountPasswordPolicy
+    Network.AWS.IAM.UpdateAssumeRolePolicy
+    Network.AWS.IAM.UpdateGroup
+    Network.AWS.IAM.UpdateLoginProfile
+    Network.AWS.IAM.UpdateOpenIDConnectProviderThumbprint
+    Network.AWS.IAM.UpdateRole
+    Network.AWS.IAM.UpdateRoleDescription
+    Network.AWS.IAM.UpdateSAMLProvider
+    Network.AWS.IAM.UpdateServerCertificate
+    Network.AWS.IAM.UpdateServiceSpecificCredential
+    Network.AWS.IAM.UpdateSigningCertificate
+    Network.AWS.IAM.UpdateSSHPublicKey
+    Network.AWS.IAM.UpdateUser
+    Network.AWS.IAM.UploadServerCertificate
+    Network.AWS.IAM.UploadSigningCertificate
+    Network.AWS.IAM.UploadSSHPublicKey
+    Network.AWS.IAM.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-iam-test
   type:             exitcode-stdio-1.0

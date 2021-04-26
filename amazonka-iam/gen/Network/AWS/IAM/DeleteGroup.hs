@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,80 +21,107 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified IAM group. The group must not contain any users or have any attached policies.
+-- Deletes the specified IAM group. The group must not contain any users or
+-- have any attached policies.
 module Network.AWS.IAM.DeleteGroup
   ( -- * Creating a Request
-    deleteGroup,
-    DeleteGroup,
+    DeleteGroup (..),
+    newDeleteGroup,
 
     -- * Request Lenses
-    dgGroupName,
+    deleteGroup_groupName,
 
     -- * Destructuring the Response
-    deleteGroupResponse,
-    DeleteGroupResponse,
+    DeleteGroupResponse (..),
+    newDeleteGroupResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteGroup' smart constructor.
-newtype DeleteGroup = DeleteGroup'
-  { _dgGroupName ::
-      Text
+-- | /See:/ 'newDeleteGroup' smart constructor.
+data DeleteGroup = DeleteGroup'
+  { -- | The name of the IAM group to delete.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    groupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dgGroupName' - The name of the IAM group to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-deleteGroup ::
-  -- | 'dgGroupName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'groupName', 'deleteGroup_groupName' - The name of the IAM group to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newDeleteGroup ::
+  -- | 'groupName'
+  Prelude.Text ->
   DeleteGroup
-deleteGroup pGroupName_ =
-  DeleteGroup' {_dgGroupName = pGroupName_}
+newDeleteGroup pGroupName_ =
+  DeleteGroup' {groupName = pGroupName_}
 
--- | The name of the IAM group to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-dgGroupName :: Lens' DeleteGroup Text
-dgGroupName = lens _dgGroupName (\s a -> s {_dgGroupName = a})
+-- | The name of the IAM group to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteGroup_groupName :: Lens.Lens' DeleteGroup Prelude.Text
+deleteGroup_groupName = Lens.lens (\DeleteGroup' {groupName} -> groupName) (\s@DeleteGroup' {} a -> s {groupName = a} :: DeleteGroup)
 
-instance AWSRequest DeleteGroup where
+instance Prelude.AWSRequest DeleteGroup where
   type Rs DeleteGroup = DeleteGroupResponse
-  request = postQuery iam
-  response = receiveNull DeleteGroupResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull DeleteGroupResponse'
 
-instance Hashable DeleteGroup
+instance Prelude.Hashable DeleteGroup
 
-instance NFData DeleteGroup
+instance Prelude.NFData DeleteGroup
 
-instance ToHeaders DeleteGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteGroup where
+instance Prelude.ToQuery DeleteGroup where
   toQuery DeleteGroup' {..} =
-    mconcat
-      [ "Action" =: ("DeleteGroup" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "GroupName" =: _dgGroupName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "GroupName" Prelude.=: groupName
       ]
 
--- | /See:/ 'deleteGroupResponse' smart constructor.
+-- | /See:/ 'newDeleteGroupResponse' smart constructor.
 data DeleteGroupResponse = DeleteGroupResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGroupResponse' with the minimum fields required to make a request.
-deleteGroupResponse ::
+-- |
+-- Create a value of 'DeleteGroupResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteGroupResponse ::
   DeleteGroupResponse
-deleteGroupResponse = DeleteGroupResponse'
+newDeleteGroupResponse = DeleteGroupResponse'
 
-instance NFData DeleteGroupResponse
+instance Prelude.NFData DeleteGroupResponse

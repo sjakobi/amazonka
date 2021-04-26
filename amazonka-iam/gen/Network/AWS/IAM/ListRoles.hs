@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,173 +21,298 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the IAM roles that have the specified path prefix. If there are none, the operation returns an empty list. For more information about roles, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html Working with roles> .
+-- Lists the IAM roles that have the specified path prefix. If there are
+-- none, the operation returns an empty list. For more information about
+-- roles, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html Working with roles>.
 --
+-- IAM resource-listing operations return a subset of the available
+-- attributes for the resource. For example, this operation does not return
+-- tags, even though they are an attribute of the returned object. To view
+-- all of the information for a role, see GetRole.
 --
--- You can paginate the results using the @MaxItems@ and @Marker@ parameters.
---
+-- You can paginate the results using the @MaxItems@ and @Marker@
+-- parameters.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.ListRoles
   ( -- * Creating a Request
-    listRoles,
-    ListRoles,
+    ListRoles (..),
+    newListRoles,
 
     -- * Request Lenses
-    lrPathPrefix,
-    lrMaxItems,
-    lrMarker,
+    listRoles_pathPrefix,
+    listRoles_maxItems,
+    listRoles_marker,
 
     -- * Destructuring the Response
-    listRolesResponse,
-    ListRolesResponse,
+    ListRolesResponse (..),
+    newListRolesResponse,
 
     -- * Response Lenses
-    lrrrsIsTruncated,
-    lrrrsMarker,
-    lrrrsResponseStatus,
-    lrrrsRoles,
+    listRolesResponse_isTruncated,
+    listRolesResponse_marker,
+    listRolesResponse_httpStatus,
+    listRolesResponse_roles,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Role
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listRoles' smart constructor.
+-- | /See:/ 'newListRoles' smart constructor.
 data ListRoles = ListRoles'
-  { _lrPathPrefix ::
-      !(Maybe Text),
-    _lrMaxItems :: !(Maybe Nat),
-    _lrMarker :: !(Maybe Text)
+  { -- | The path prefix for filtering the results. For example, the prefix
+    -- @\/application_abc\/component_xyz\/@ gets all roles whose path starts
+    -- with @\/application_abc\/component_xyz\/@.
+    --
+    -- This parameter is optional. If it is not included, it defaults to a
+    -- slash (\/), listing all roles. This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of either a forward slash (\/) by itself or a string that
+    -- must begin and end with forward slashes. In addition, it can contain any
+    -- ASCII character from the ! (@\\u0021@) through the DEL character
+    -- (@\\u007F@), including most punctuation characters, digits, and upper
+    -- and lowercased letters.
+    pathPrefix :: Prelude.Maybe Prelude.Text,
+    -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRoles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRoles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrPathPrefix' - The path prefix for filtering the results. For example, the prefix @/application_abc/component_xyz/@ gets all roles whose path starts with @/application_abc/component_xyz/@ . This parameter is optional. If it is not included, it defaults to a slash (/), listing all roles. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- 'pathPrefix', 'listRoles_pathPrefix' - The path prefix for filtering the results. For example, the prefix
+-- @\/application_abc\/component_xyz\/@ gets all roles whose path starts
+-- with @\/application_abc\/component_xyz\/@.
 --
--- * 'lrMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-listRoles ::
+-- This parameter is optional. If it is not included, it defaults to a
+-- slash (\/), listing all roles. This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+--
+-- 'maxItems', 'listRoles_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'listRoles_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+newListRoles ::
   ListRoles
-listRoles =
+newListRoles =
   ListRoles'
-    { _lrPathPrefix = Nothing,
-      _lrMaxItems = Nothing,
-      _lrMarker = Nothing
+    { pathPrefix = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The path prefix for filtering the results. For example, the prefix @/application_abc/component_xyz/@ gets all roles whose path starts with @/application_abc/component_xyz/@ . This parameter is optional. If it is not included, it defaults to a slash (/), listing all roles. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
-lrPathPrefix :: Lens' ListRoles (Maybe Text)
-lrPathPrefix = lens _lrPathPrefix (\s a -> s {_lrPathPrefix = a})
+-- | The path prefix for filtering the results. For example, the prefix
+-- @\/application_abc\/component_xyz\/@ gets all roles whose path starts
+-- with @\/application_abc\/component_xyz\/@.
+--
+-- This parameter is optional. If it is not included, it defaults to a
+-- slash (\/), listing all roles. This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+listRoles_pathPrefix :: Lens.Lens' ListRoles (Prelude.Maybe Prelude.Text)
+listRoles_pathPrefix = Lens.lens (\ListRoles' {pathPrefix} -> pathPrefix) (\s@ListRoles' {} a -> s {pathPrefix = a} :: ListRoles)
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lrMaxItems :: Lens' ListRoles (Maybe Natural)
-lrMaxItems = lens _lrMaxItems (\s a -> s {_lrMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+listRoles_maxItems :: Lens.Lens' ListRoles (Prelude.Maybe Prelude.Natural)
+listRoles_maxItems = Lens.lens (\ListRoles' {maxItems} -> maxItems) (\s@ListRoles' {} a -> s {maxItems = a} :: ListRoles) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lrMarker :: Lens' ListRoles (Maybe Text)
-lrMarker = lens _lrMarker (\s a -> s {_lrMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listRoles_marker :: Lens.Lens' ListRoles (Prelude.Maybe Prelude.Text)
+listRoles_marker = Lens.lens (\ListRoles' {marker} -> marker) (\s@ListRoles' {} a -> s {marker = a} :: ListRoles)
 
-instance AWSPager ListRoles where
+instance Pager.AWSPager ListRoles where
   page rq rs
-    | stop (rs ^. lrrrsIsTruncated) = Nothing
-    | isNothing (rs ^. lrrrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & lrMarker .~ rs ^. lrrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listRolesResponse_isTruncated Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listRolesResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listRoles_marker
+          Lens..~ rs
+          Lens.^? listRolesResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest ListRoles where
+instance Prelude.AWSRequest ListRoles where
   type Rs ListRoles = ListRolesResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListRolesResult"
       ( \s h x ->
           ListRolesResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> (x .@? "Roles" .!@ mempty >>= parseXMLList "member")
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "Roles" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListRoles
+instance Prelude.Hashable ListRoles
 
-instance NFData ListRoles
+instance Prelude.NFData ListRoles
 
-instance ToHeaders ListRoles where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListRoles where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListRoles where
-  toPath = const "/"
+instance Prelude.ToPath ListRoles where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListRoles where
+instance Prelude.ToQuery ListRoles where
   toQuery ListRoles' {..} =
-    mconcat
-      [ "Action" =: ("ListRoles" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "PathPrefix" =: _lrPathPrefix,
-        "MaxItems" =: _lrMaxItems,
-        "Marker" =: _lrMarker
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListRoles" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "PathPrefix" Prelude.=: pathPrefix,
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | Contains the response to a successful 'ListRoles' request.
+-- | Contains the response to a successful ListRoles request.
 --
---
---
--- /See:/ 'listRolesResponse' smart constructor.
+-- /See:/ 'newListRolesResponse' smart constructor.
 data ListRolesResponse = ListRolesResponse'
-  { _lrrrsIsTruncated ::
-      !(Maybe Bool),
-    _lrrrsMarker :: !(Maybe Text),
-    _lrrrsResponseStatus :: !Int,
-    _lrrrsRoles :: ![Role]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of roles.
+    roles :: [Role]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRolesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRolesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listRolesResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'lrrrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listRolesResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'lrrrsRoles' - A list of roles.
-listRolesResponse ::
-  -- | 'lrrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listRolesResponse_httpStatus' - The response's http status code.
+--
+-- 'roles', 'listRolesResponse_roles' - A list of roles.
+newListRolesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListRolesResponse
-listRolesResponse pResponseStatus_ =
+newListRolesResponse pHttpStatus_ =
   ListRolesResponse'
-    { _lrrrsIsTruncated = Nothing,
-      _lrrrsMarker = Nothing,
-      _lrrrsResponseStatus = pResponseStatus_,
-      _lrrrsRoles = mempty
+    { isTruncated = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      roles = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-lrrrsIsTruncated :: Lens' ListRolesResponse (Maybe Bool)
-lrrrsIsTruncated = lens _lrrrsIsTruncated (\s a -> s {_lrrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+listRolesResponse_isTruncated :: Lens.Lens' ListRolesResponse (Prelude.Maybe Prelude.Bool)
+listRolesResponse_isTruncated = Lens.lens (\ListRolesResponse' {isTruncated} -> isTruncated) (\s@ListRolesResponse' {} a -> s {isTruncated = a} :: ListRolesResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lrrrsMarker :: Lens' ListRolesResponse (Maybe Text)
-lrrrsMarker = lens _lrrrsMarker (\s a -> s {_lrrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listRolesResponse_marker :: Lens.Lens' ListRolesResponse (Prelude.Maybe Prelude.Text)
+listRolesResponse_marker = Lens.lens (\ListRolesResponse' {marker} -> marker) (\s@ListRolesResponse' {} a -> s {marker = a} :: ListRolesResponse)
 
--- | -- | The response status code.
-lrrrsResponseStatus :: Lens' ListRolesResponse Int
-lrrrsResponseStatus = lens _lrrrsResponseStatus (\s a -> s {_lrrrsResponseStatus = a})
+-- | The response's http status code.
+listRolesResponse_httpStatus :: Lens.Lens' ListRolesResponse Prelude.Int
+listRolesResponse_httpStatus = Lens.lens (\ListRolesResponse' {httpStatus} -> httpStatus) (\s@ListRolesResponse' {} a -> s {httpStatus = a} :: ListRolesResponse)
 
 -- | A list of roles.
-lrrrsRoles :: Lens' ListRolesResponse [Role]
-lrrrsRoles = lens _lrrrsRoles (\s a -> s {_lrrrsRoles = a}) . _Coerce
+listRolesResponse_roles :: Lens.Lens' ListRolesResponse [Role]
+listRolesResponse_roles = Lens.lens (\ListRolesResponse' {roles} -> roles) (\s@ListRolesResponse' {} a -> s {roles = a} :: ListRolesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListRolesResponse
+instance Prelude.NFData ListRolesResponse

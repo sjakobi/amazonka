@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,117 +21,195 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the password for the specified IAM user. You can use the AWS CLI, the AWS API, or the __Users__ page in the IAM console to change the password for any IAM user. Use 'ChangePassword' to change your own password in the __My Security Credentials__ page in the AWS Management Console.
+-- Changes the password for the specified IAM user. You can use the AWS
+-- CLI, the AWS API, or the __Users__ page in the IAM console to change the
+-- password for any IAM user. Use ChangePassword to change your own
+-- password in the __My Security Credentials__ page in the AWS Management
+-- Console.
 --
---
--- For more information about modifying passwords, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html Managing passwords> in the /IAM User Guide/ .
+-- For more information about modifying passwords, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html Managing passwords>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UpdateLoginProfile
   ( -- * Creating a Request
-    updateLoginProfile,
-    UpdateLoginProfile,
+    UpdateLoginProfile (..),
+    newUpdateLoginProfile,
 
     -- * Request Lenses
-    ulpPasswordResetRequired,
-    ulpPassword,
-    ulpUserName,
+    updateLoginProfile_passwordResetRequired,
+    updateLoginProfile_password,
+    updateLoginProfile_userName,
 
     -- * Destructuring the Response
-    updateLoginProfileResponse,
-    UpdateLoginProfileResponse,
+    UpdateLoginProfileResponse (..),
+    newUpdateLoginProfileResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateLoginProfile' smart constructor.
+-- | /See:/ 'newUpdateLoginProfile' smart constructor.
 data UpdateLoginProfile = UpdateLoginProfile'
-  { _ulpPasswordResetRequired ::
-      !(Maybe Bool),
-    _ulpPassword ::
-      !(Maybe (Sensitive Text)),
-    _ulpUserName :: !Text
+  { -- | Allows this new password to be used only once by requiring the specified
+    -- IAM user to set a new password on next sign-in.
+    passwordResetRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The new password for the specified IAM user.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+    -- this parameter is a string of characters consisting of the following:
+    --
+    -- -   Any printable ASCII character ranging from the space character
+    --     (@\\u0020@) through the end of the ASCII character range
+    --
+    -- -   The printable characters in the Basic Latin and Latin-1 Supplement
+    --     character set (through @\\u00FF@)
+    --
+    -- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+    --     carriage return (@\\u000D@)
+    --
+    -- However, the format can be further restricted by the account
+    -- administrator by setting a password policy on the AWS account. For more
+    -- information, see UpdateAccountPasswordPolicy.
+    password :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the user whose password you want to update.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateLoginProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateLoginProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ulpPasswordResetRequired' - Allows this new password to be used only once by requiring the specified IAM user to set a new password on next sign-in.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ulpPassword' - The new password for the specified IAM user. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of the following:     * Any printable ASCII character ranging from the space character (@\u0020@ ) through the end of the ASCII character range     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through @\u00FF@ )     * The special characters tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ ) However, the format can be further restricted by the account administrator by setting a password policy on the AWS account. For more information, see 'UpdateAccountPasswordPolicy' .
+-- 'passwordResetRequired', 'updateLoginProfile_passwordResetRequired' - Allows this new password to be used only once by requiring the specified
+-- IAM user to set a new password on next sign-in.
 --
--- * 'ulpUserName' - The name of the user whose password you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-updateLoginProfile ::
-  -- | 'ulpUserName'
-  Text ->
+-- 'password', 'updateLoginProfile_password' - The new password for the specified IAM user.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
+--
+-- However, the format can be further restricted by the account
+-- administrator by setting a password policy on the AWS account. For more
+-- information, see UpdateAccountPasswordPolicy.
+--
+-- 'userName', 'updateLoginProfile_userName' - The name of the user whose password you want to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newUpdateLoginProfile ::
+  -- | 'userName'
+  Prelude.Text ->
   UpdateLoginProfile
-updateLoginProfile pUserName_ =
+newUpdateLoginProfile pUserName_ =
   UpdateLoginProfile'
-    { _ulpPasswordResetRequired =
-        Nothing,
-      _ulpPassword = Nothing,
-      _ulpUserName = pUserName_
+    { passwordResetRequired =
+        Prelude.Nothing,
+      password = Prelude.Nothing,
+      userName = pUserName_
     }
 
--- | Allows this new password to be used only once by requiring the specified IAM user to set a new password on next sign-in.
-ulpPasswordResetRequired :: Lens' UpdateLoginProfile (Maybe Bool)
-ulpPasswordResetRequired = lens _ulpPasswordResetRequired (\s a -> s {_ulpPasswordResetRequired = a})
+-- | Allows this new password to be used only once by requiring the specified
+-- IAM user to set a new password on next sign-in.
+updateLoginProfile_passwordResetRequired :: Lens.Lens' UpdateLoginProfile (Prelude.Maybe Prelude.Bool)
+updateLoginProfile_passwordResetRequired = Lens.lens (\UpdateLoginProfile' {passwordResetRequired} -> passwordResetRequired) (\s@UpdateLoginProfile' {} a -> s {passwordResetRequired = a} :: UpdateLoginProfile)
 
--- | The new password for the specified IAM user. The <http://wikipedia.org/wiki/regex regex pattern> used to validate this parameter is a string of characters consisting of the following:     * Any printable ASCII character ranging from the space character (@\u0020@ ) through the end of the ASCII character range     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through @\u00FF@ )     * The special characters tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ ) However, the format can be further restricted by the account administrator by setting a password policy on the AWS account. For more information, see 'UpdateAccountPasswordPolicy' .
-ulpPassword :: Lens' UpdateLoginProfile (Maybe Text)
-ulpPassword = lens _ulpPassword (\s a -> s {_ulpPassword = a}) . mapping _Sensitive
+-- | The new password for the specified IAM user.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
+--
+-- However, the format can be further restricted by the account
+-- administrator by setting a password policy on the AWS account. For more
+-- information, see UpdateAccountPasswordPolicy.
+updateLoginProfile_password :: Lens.Lens' UpdateLoginProfile (Prelude.Maybe Prelude.Text)
+updateLoginProfile_password = Lens.lens (\UpdateLoginProfile' {password} -> password) (\s@UpdateLoginProfile' {} a -> s {password = a} :: UpdateLoginProfile) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The name of the user whose password you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-ulpUserName :: Lens' UpdateLoginProfile Text
-ulpUserName = lens _ulpUserName (\s a -> s {_ulpUserName = a})
+-- | The name of the user whose password you want to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+updateLoginProfile_userName :: Lens.Lens' UpdateLoginProfile Prelude.Text
+updateLoginProfile_userName = Lens.lens (\UpdateLoginProfile' {userName} -> userName) (\s@UpdateLoginProfile' {} a -> s {userName = a} :: UpdateLoginProfile)
 
-instance AWSRequest UpdateLoginProfile where
+instance Prelude.AWSRequest UpdateLoginProfile where
   type
     Rs UpdateLoginProfile =
       UpdateLoginProfileResponse
-  request = postQuery iam
-  response = receiveNull UpdateLoginProfileResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull UpdateLoginProfileResponse'
 
-instance Hashable UpdateLoginProfile
+instance Prelude.Hashable UpdateLoginProfile
 
-instance NFData UpdateLoginProfile
+instance Prelude.NFData UpdateLoginProfile
 
-instance ToHeaders UpdateLoginProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateLoginProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateLoginProfile where
-  toPath = const "/"
+instance Prelude.ToPath UpdateLoginProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateLoginProfile where
+instance Prelude.ToQuery UpdateLoginProfile where
   toQuery UpdateLoginProfile' {..} =
-    mconcat
-      [ "Action" =: ("UpdateLoginProfile" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "PasswordResetRequired" =: _ulpPasswordResetRequired,
-        "Password" =: _ulpPassword,
-        "UserName" =: _ulpUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UpdateLoginProfile" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "PasswordResetRequired"
+          Prelude.=: passwordResetRequired,
+        "Password" Prelude.=: password,
+        "UserName" Prelude.=: userName
       ]
 
--- | /See:/ 'updateLoginProfileResponse' smart constructor.
+-- | /See:/ 'newUpdateLoginProfileResponse' smart constructor.
 data UpdateLoginProfileResponse = UpdateLoginProfileResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateLoginProfileResponse' with the minimum fields required to make a request.
-updateLoginProfileResponse ::
+-- |
+-- Create a value of 'UpdateLoginProfileResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateLoginProfileResponse ::
   UpdateLoginProfileResponse
-updateLoginProfileResponse =
+newUpdateLoginProfileResponse =
   UpdateLoginProfileResponse'
 
-instance NFData UpdateLoginProfileResponse
+instance Prelude.NFData UpdateLoginProfileResponse

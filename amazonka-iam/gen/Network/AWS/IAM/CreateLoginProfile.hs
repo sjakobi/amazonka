@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,163 +21,225 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a password for the specified IAM user. A password allows an IAM user to access AWS services through the AWS Management Console.
+-- Creates a password for the specified IAM user. A password allows an IAM
+-- user to access AWS services through the AWS Management Console.
 --
+-- You can use the AWS CLI, the AWS API, or the __Users__ page in the IAM
+-- console to create a password for any IAM user. Use ChangePassword to
+-- update your own existing password in the __My Security Credentials__
+-- page in the AWS Management Console.
 --
--- You can use the AWS CLI, the AWS API, or the __Users__ page in the IAM console to create a password for any IAM user. Use 'ChangePassword' to update your own existing password in the __My Security Credentials__ page in the AWS Management Console.
---
--- For more information about managing passwords, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html Managing passwords> in the /IAM User Guide/ .
+-- For more information about managing passwords, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html Managing passwords>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.CreateLoginProfile
   ( -- * Creating a Request
-    createLoginProfile,
-    CreateLoginProfile,
+    CreateLoginProfile (..),
+    newCreateLoginProfile,
 
     -- * Request Lenses
-    clpPasswordResetRequired,
-    clpUserName,
-    clpPassword,
+    createLoginProfile_passwordResetRequired,
+    createLoginProfile_userName,
+    createLoginProfile_password,
 
     -- * Destructuring the Response
-    createLoginProfileResponse,
-    CreateLoginProfileResponse,
+    CreateLoginProfileResponse (..),
+    newCreateLoginProfileResponse,
 
     -- * Response Lenses
-    clprrsResponseStatus,
-    clprrsLoginProfile,
+    createLoginProfileResponse_httpStatus,
+    createLoginProfileResponse_loginProfile,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.LoginProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createLoginProfile' smart constructor.
+-- | /See:/ 'newCreateLoginProfile' smart constructor.
 data CreateLoginProfile = CreateLoginProfile'
-  { _clpPasswordResetRequired ::
-      !(Maybe Bool),
-    _clpUserName :: !Text,
-    _clpPassword :: !(Sensitive Text)
+  { -- | Specifies whether the user is required to set a new password on next
+    -- sign-in.
+    passwordResetRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the IAM user to create a password for. The user must already
+    -- exist.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text,
+    -- | The new password for the user.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+    -- validate this parameter is a string of characters. That string can
+    -- include almost any printable ASCII character from the space (@\\u0020@)
+    -- through the end of the ASCII character range (@\\u00FF@). You can also
+    -- include the tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+    -- (@\\u000D@) characters. Any of these characters are valid in a password.
+    -- However, many tools, such as the AWS Management Console, might restrict
+    -- the ability to type certain characters because they have special meaning
+    -- within that tool.
+    password :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoginProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoginProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clpPasswordResetRequired' - Specifies whether the user is required to set a new password on next sign-in.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clpUserName' - The name of the IAM user to create a password for. The user must already exist. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- 'passwordResetRequired', 'createLoginProfile_passwordResetRequired' - Specifies whether the user is required to set a new password on next
+-- sign-in.
 --
--- * 'clpPassword' - The new password for the user. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of characters. That string can include almost any printable ASCII character from the space (@\u0020@ ) through the end of the ASCII character range (@\u00FF@ ). You can also include the tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ ) characters. Any of these characters are valid in a password. However, many tools, such as the AWS Management Console, might restrict the ability to type certain characters because they have special meaning within that tool.
-createLoginProfile ::
-  -- | 'clpUserName'
-  Text ->
-  -- | 'clpPassword'
-  Text ->
+-- 'userName', 'createLoginProfile_userName' - The name of the IAM user to create a password for. The user must already
+-- exist.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'password', 'createLoginProfile_password' - The new password for the user.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of characters. That string can
+-- include almost any printable ASCII character from the space (@\\u0020@)
+-- through the end of the ASCII character range (@\\u00FF@). You can also
+-- include the tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+-- (@\\u000D@) characters. Any of these characters are valid in a password.
+-- However, many tools, such as the AWS Management Console, might restrict
+-- the ability to type certain characters because they have special meaning
+-- within that tool.
+newCreateLoginProfile ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'password'
+  Prelude.Text ->
   CreateLoginProfile
-createLoginProfile pUserName_ pPassword_ =
+newCreateLoginProfile pUserName_ pPassword_ =
   CreateLoginProfile'
-    { _clpPasswordResetRequired =
-        Nothing,
-      _clpUserName = pUserName_,
-      _clpPassword = _Sensitive # pPassword_
+    { passwordResetRequired =
+        Prelude.Nothing,
+      userName = pUserName_,
+      password = Prelude._Sensitive Lens.# pPassword_
     }
 
--- | Specifies whether the user is required to set a new password on next sign-in.
-clpPasswordResetRequired :: Lens' CreateLoginProfile (Maybe Bool)
-clpPasswordResetRequired = lens _clpPasswordResetRequired (\s a -> s {_clpPasswordResetRequired = a})
+-- | Specifies whether the user is required to set a new password on next
+-- sign-in.
+createLoginProfile_passwordResetRequired :: Lens.Lens' CreateLoginProfile (Prelude.Maybe Prelude.Bool)
+createLoginProfile_passwordResetRequired = Lens.lens (\CreateLoginProfile' {passwordResetRequired} -> passwordResetRequired) (\s@CreateLoginProfile' {} a -> s {passwordResetRequired = a} :: CreateLoginProfile)
 
--- | The name of the IAM user to create a password for. The user must already exist. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-clpUserName :: Lens' CreateLoginProfile Text
-clpUserName = lens _clpUserName (\s a -> s {_clpUserName = a})
+-- | The name of the IAM user to create a password for. The user must already
+-- exist.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+createLoginProfile_userName :: Lens.Lens' CreateLoginProfile Prelude.Text
+createLoginProfile_userName = Lens.lens (\CreateLoginProfile' {userName} -> userName) (\s@CreateLoginProfile' {} a -> s {userName = a} :: CreateLoginProfile)
 
--- | The new password for the user. The <http://wikipedia.org/wiki/regex regex pattern> that is used to validate this parameter is a string of characters. That string can include almost any printable ASCII character from the space (@\u0020@ ) through the end of the ASCII character range (@\u00FF@ ). You can also include the tab (@\u0009@ ), line feed (@\u000A@ ), and carriage return (@\u000D@ ) characters. Any of these characters are valid in a password. However, many tools, such as the AWS Management Console, might restrict the ability to type certain characters because they have special meaning within that tool.
-clpPassword :: Lens' CreateLoginProfile Text
-clpPassword = lens _clpPassword (\s a -> s {_clpPassword = a}) . _Sensitive
+-- | The new password for the user.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of characters. That string can
+-- include almost any printable ASCII character from the space (@\\u0020@)
+-- through the end of the ASCII character range (@\\u00FF@). You can also
+-- include the tab (@\\u0009@), line feed (@\\u000A@), and carriage return
+-- (@\\u000D@) characters. Any of these characters are valid in a password.
+-- However, many tools, such as the AWS Management Console, might restrict
+-- the ability to type certain characters because they have special meaning
+-- within that tool.
+createLoginProfile_password :: Lens.Lens' CreateLoginProfile Prelude.Text
+createLoginProfile_password = Lens.lens (\CreateLoginProfile' {password} -> password) (\s@CreateLoginProfile' {} a -> s {password = a} :: CreateLoginProfile) Prelude.. Prelude._Sensitive
 
-instance AWSRequest CreateLoginProfile where
+instance Prelude.AWSRequest CreateLoginProfile where
   type
     Rs CreateLoginProfile =
       CreateLoginProfileResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateLoginProfileResult"
       ( \s h x ->
           CreateLoginProfileResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "LoginProfile")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "LoginProfile")
       )
 
-instance Hashable CreateLoginProfile
+instance Prelude.Hashable CreateLoginProfile
 
-instance NFData CreateLoginProfile
+instance Prelude.NFData CreateLoginProfile
 
-instance ToHeaders CreateLoginProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateLoginProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateLoginProfile where
-  toPath = const "/"
+instance Prelude.ToPath CreateLoginProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateLoginProfile where
+instance Prelude.ToQuery CreateLoginProfile where
   toQuery CreateLoginProfile' {..} =
-    mconcat
-      [ "Action" =: ("CreateLoginProfile" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "PasswordResetRequired" =: _clpPasswordResetRequired,
-        "UserName" =: _clpUserName,
-        "Password" =: _clpPassword
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateLoginProfile" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "PasswordResetRequired"
+          Prelude.=: passwordResetRequired,
+        "UserName" Prelude.=: userName,
+        "Password" Prelude.=: password
       ]
 
--- | Contains the response to a successful 'CreateLoginProfile' request.
+-- | Contains the response to a successful CreateLoginProfile request.
 --
---
---
--- /See:/ 'createLoginProfileResponse' smart constructor.
+-- /See:/ 'newCreateLoginProfileResponse' smart constructor.
 data CreateLoginProfileResponse = CreateLoginProfileResponse'
-  { _clprrsResponseStatus ::
-      !Int,
-    _clprrsLoginProfile ::
-      !LoginProfile
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A structure containing the user name and password create date.
+    loginProfile :: LoginProfile
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateLoginProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateLoginProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clprrsLoginProfile' - A structure containing the user name and password create date.
-createLoginProfileResponse ::
-  -- | 'clprrsResponseStatus'
-  Int ->
-  -- | 'clprrsLoginProfile'
+-- 'httpStatus', 'createLoginProfileResponse_httpStatus' - The response's http status code.
+--
+-- 'loginProfile', 'createLoginProfileResponse_loginProfile' - A structure containing the user name and password create date.
+newCreateLoginProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'loginProfile'
   LoginProfile ->
   CreateLoginProfileResponse
-createLoginProfileResponse
-  pResponseStatus_
+newCreateLoginProfileResponse
+  pHttpStatus_
   pLoginProfile_ =
     CreateLoginProfileResponse'
-      { _clprrsResponseStatus =
-          pResponseStatus_,
-        _clprrsLoginProfile = pLoginProfile_
+      { httpStatus =
+          pHttpStatus_,
+        loginProfile = pLoginProfile_
       }
 
--- | -- | The response status code.
-clprrsResponseStatus :: Lens' CreateLoginProfileResponse Int
-clprrsResponseStatus = lens _clprrsResponseStatus (\s a -> s {_clprrsResponseStatus = a})
+-- | The response's http status code.
+createLoginProfileResponse_httpStatus :: Lens.Lens' CreateLoginProfileResponse Prelude.Int
+createLoginProfileResponse_httpStatus = Lens.lens (\CreateLoginProfileResponse' {httpStatus} -> httpStatus) (\s@CreateLoginProfileResponse' {} a -> s {httpStatus = a} :: CreateLoginProfileResponse)
 
 -- | A structure containing the user name and password create date.
-clprrsLoginProfile :: Lens' CreateLoginProfileResponse LoginProfile
-clprrsLoginProfile = lens _clprrsLoginProfile (\s a -> s {_clprrsLoginProfile = a})
+createLoginProfileResponse_loginProfile :: Lens.Lens' CreateLoginProfileResponse LoginProfile
+createLoginProfileResponse_loginProfile = Lens.lens (\CreateLoginProfileResponse' {loginProfile} -> loginProfile) (\s@CreateLoginProfileResponse' {} a -> s {loginProfile = a} :: CreateLoginProfileResponse)
 
-instance NFData CreateLoginProfileResponse
+instance Prelude.NFData CreateLoginProfileResponse

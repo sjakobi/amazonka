@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,104 +23,143 @@
 --
 -- Attaches the specified managed policy to the specified user.
 --
+-- You use this operation to attach a /managed/ policy to a user. To embed
+-- an inline policy in a user, use PutUserPolicy.
 --
--- You use this operation to attach a /managed/ policy to a user. To embed an inline policy in a user, use 'PutUserPolicy' .
---
--- For more information about policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
+-- For more information about policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.AttachUserPolicy
   ( -- * Creating a Request
-    attachUserPolicy,
-    AttachUserPolicy,
+    AttachUserPolicy (..),
+    newAttachUserPolicy,
 
     -- * Request Lenses
-    aupUserName,
-    aupPolicyARN,
+    attachUserPolicy_userName,
+    attachUserPolicy_policyArn,
 
     -- * Destructuring the Response
-    attachUserPolicyResponse,
-    AttachUserPolicyResponse,
+    AttachUserPolicyResponse (..),
+    newAttachUserPolicyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'attachUserPolicy' smart constructor.
+-- | /See:/ 'newAttachUserPolicy' smart constructor.
 data AttachUserPolicy = AttachUserPolicy'
-  { _aupUserName ::
-      !Text,
-    _aupPolicyARN :: !Text
+  { -- | The name (friendly name, not ARN) of the IAM user to attach the policy
+    -- to.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM policy you want to attach.
+    --
+    -- For more information about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+    -- in the /AWS General Reference/.
+    policyArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachUserPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AttachUserPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aupUserName' - The name (friendly name, not ARN) of the IAM user to attach the policy to. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aupPolicyARN' - The Amazon Resource Name (ARN) of the IAM policy you want to attach. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
-attachUserPolicy ::
-  -- | 'aupUserName'
-  Text ->
-  -- | 'aupPolicyARN'
-  Text ->
+-- 'userName', 'attachUserPolicy_userName' - The name (friendly name, not ARN) of the IAM user to attach the policy
+-- to.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'policyArn', 'attachUserPolicy_policyArn' - The Amazon Resource Name (ARN) of the IAM policy you want to attach.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
+newAttachUserPolicy ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'policyArn'
+  Prelude.Text ->
   AttachUserPolicy
-attachUserPolicy pUserName_ pPolicyARN_ =
+newAttachUserPolicy pUserName_ pPolicyArn_ =
   AttachUserPolicy'
-    { _aupUserName = pUserName_,
-      _aupPolicyARN = pPolicyARN_
+    { userName = pUserName_,
+      policyArn = pPolicyArn_
     }
 
--- | The name (friendly name, not ARN) of the IAM user to attach the policy to. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-aupUserName :: Lens' AttachUserPolicy Text
-aupUserName = lens _aupUserName (\s a -> s {_aupUserName = a})
+-- | The name (friendly name, not ARN) of the IAM user to attach the policy
+-- to.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+attachUserPolicy_userName :: Lens.Lens' AttachUserPolicy Prelude.Text
+attachUserPolicy_userName = Lens.lens (\AttachUserPolicy' {userName} -> userName) (\s@AttachUserPolicy' {} a -> s {userName = a} :: AttachUserPolicy)
 
--- | The Amazon Resource Name (ARN) of the IAM policy you want to attach. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
-aupPolicyARN :: Lens' AttachUserPolicy Text
-aupPolicyARN = lens _aupPolicyARN (\s a -> s {_aupPolicyARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM policy you want to attach.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
+attachUserPolicy_policyArn :: Lens.Lens' AttachUserPolicy Prelude.Text
+attachUserPolicy_policyArn = Lens.lens (\AttachUserPolicy' {policyArn} -> policyArn) (\s@AttachUserPolicy' {} a -> s {policyArn = a} :: AttachUserPolicy)
 
-instance AWSRequest AttachUserPolicy where
+instance Prelude.AWSRequest AttachUserPolicy where
   type Rs AttachUserPolicy = AttachUserPolicyResponse
-  request = postQuery iam
-  response = receiveNull AttachUserPolicyResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull AttachUserPolicyResponse'
 
-instance Hashable AttachUserPolicy
+instance Prelude.Hashable AttachUserPolicy
 
-instance NFData AttachUserPolicy
+instance Prelude.NFData AttachUserPolicy
 
-instance ToHeaders AttachUserPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders AttachUserPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath AttachUserPolicy where
-  toPath = const "/"
+instance Prelude.ToPath AttachUserPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery AttachUserPolicy where
+instance Prelude.ToQuery AttachUserPolicy where
   toQuery AttachUserPolicy' {..} =
-    mconcat
-      [ "Action" =: ("AttachUserPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _aupUserName,
-        "PolicyArn" =: _aupPolicyARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("AttachUserPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "PolicyArn" Prelude.=: policyArn
       ]
 
--- | /See:/ 'attachUserPolicyResponse' smart constructor.
+-- | /See:/ 'newAttachUserPolicyResponse' smart constructor.
 data AttachUserPolicyResponse = AttachUserPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AttachUserPolicyResponse' with the minimum fields required to make a request.
-attachUserPolicyResponse ::
+-- |
+-- Create a value of 'AttachUserPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newAttachUserPolicyResponse ::
   AttachUserPolicyResponse
-attachUserPolicyResponse = AttachUserPolicyResponse'
+newAttachUserPolicyResponse =
+  AttachUserPolicyResponse'
 
-instance NFData AttachUserPolicyResponse
+instance Prelude.NFData AttachUserPolicyResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,129 +21,209 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the name and/or the path of the specified server certificate stored in IAM.
+-- Updates the name and\/or the path of the specified server certificate
+-- stored in IAM.
 --
+-- For more information about working with server certificates, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Working with server certificates>
+-- in the /IAM User Guide/. This topic also includes a list of AWS services
+-- that can use the server certificates that you manage with IAM.
 --
--- For more information about working with server certificates, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Working with server certificates> in the /IAM User Guide/ . This topic also includes a list of AWS services that can use the server certificates that you manage with IAM.
+-- You should understand the implications of changing a server
+-- certificate\'s path or name. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#RenamingServerCerts Renaming a server certificate>
+-- in the /IAM User Guide/.
 --
--- /Important:/ You should understand the implications of changing a server certificate's path or name. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#RenamingServerCerts Renaming a server certificate> in the /IAM User Guide/ .
+-- The person making the request (the principal), must have permission to
+-- change the server certificate with the old name and the new name. For
+-- example, to change the certificate named @ProductionCert@ to @ProdCert@,
+-- the principal must have a policy that allows them to update both
+-- certificates. If the principal has permission to update the
+-- @ProductionCert@ group, but not the @ProdCert@ certificate, then the
+-- update fails. For more information about permissions, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html Access management>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UpdateServerCertificate
   ( -- * Creating a Request
-    updateServerCertificate,
-    UpdateServerCertificate,
+    UpdateServerCertificate (..),
+    newUpdateServerCertificate,
 
     -- * Request Lenses
-    uNewPath,
-    uNewServerCertificateName,
-    uServerCertificateName,
+    updateServerCertificate_newPath,
+    updateServerCertificate_newServerCertificateName,
+    updateServerCertificate_serverCertificateName,
 
     -- * Destructuring the Response
-    updateServerCertificateResponse,
-    UpdateServerCertificateResponse,
+    UpdateServerCertificateResponse (..),
+    newUpdateServerCertificateResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateServerCertificate' smart constructor.
+-- | /See:/ 'newUpdateServerCertificate' smart constructor.
 data UpdateServerCertificate = UpdateServerCertificate'
-  { _uNewPath ::
-      !(Maybe Text),
-    _uNewServerCertificateName ::
-      !(Maybe Text),
-    _uServerCertificateName ::
-      !Text
+  { -- | The new path for the server certificate. Include this only if you are
+    -- updating the server certificate\'s path.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of either a forward slash (\/) by itself or a string that
+    -- must begin and end with forward slashes. In addition, it can contain any
+    -- ASCII character from the ! (@\\u0021@) through the DEL character
+    -- (@\\u007F@), including most punctuation characters, digits, and upper
+    -- and lowercased letters.
+    newPath' :: Prelude.Maybe Prelude.Text,
+    -- | The new name for the server certificate. Include this only if you are
+    -- updating the server certificate\'s name. The name of the certificate
+    -- cannot contain any spaces.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    newServerCertificateName' :: Prelude.Maybe Prelude.Text,
+    -- | The name of the server certificate that you want to update.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    serverCertificateName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServerCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateServerCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uNewPath' - The new path for the server certificate. Include this only if you are updating the server certificate's path. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uNewServerCertificateName' - The new name for the server certificate. Include this only if you are updating the server certificate's name. The name of the certificate cannot contain any spaces. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- 'newPath'', 'updateServerCertificate_newPath' - The new path for the server certificate. Include this only if you are
+-- updating the server certificate\'s path.
 --
--- * 'uServerCertificateName' - The name of the server certificate that you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-updateServerCertificate ::
-  -- | 'uServerCertificateName'
-  Text ->
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+--
+-- 'newServerCertificateName'', 'updateServerCertificate_newServerCertificateName' - The new name for the server certificate. Include this only if you are
+-- updating the server certificate\'s name. The name of the certificate
+-- cannot contain any spaces.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'serverCertificateName', 'updateServerCertificate_serverCertificateName' - The name of the server certificate that you want to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newUpdateServerCertificate ::
+  -- | 'serverCertificateName'
+  Prelude.Text ->
   UpdateServerCertificate
-updateServerCertificate pServerCertificateName_ =
+newUpdateServerCertificate pServerCertificateName_ =
   UpdateServerCertificate'
-    { _uNewPath = Nothing,
-      _uNewServerCertificateName = Nothing,
-      _uServerCertificateName = pServerCertificateName_
+    { newPath' =
+        Prelude.Nothing,
+      newServerCertificateName' = Prelude.Nothing,
+      serverCertificateName = pServerCertificateName_
     }
 
--- | The new path for the server certificate. Include this only if you are updating the server certificate's path. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
-uNewPath :: Lens' UpdateServerCertificate (Maybe Text)
-uNewPath = lens _uNewPath (\s a -> s {_uNewPath = a})
+-- | The new path for the server certificate. Include this only if you are
+-- updating the server certificate\'s path.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+updateServerCertificate_newPath :: Lens.Lens' UpdateServerCertificate (Prelude.Maybe Prelude.Text)
+updateServerCertificate_newPath = Lens.lens (\UpdateServerCertificate' {newPath'} -> newPath') (\s@UpdateServerCertificate' {} a -> s {newPath' = a} :: UpdateServerCertificate)
 
--- | The new name for the server certificate. Include this only if you are updating the server certificate's name. The name of the certificate cannot contain any spaces. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-uNewServerCertificateName :: Lens' UpdateServerCertificate (Maybe Text)
-uNewServerCertificateName = lens _uNewServerCertificateName (\s a -> s {_uNewServerCertificateName = a})
+-- | The new name for the server certificate. Include this only if you are
+-- updating the server certificate\'s name. The name of the certificate
+-- cannot contain any spaces.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+updateServerCertificate_newServerCertificateName :: Lens.Lens' UpdateServerCertificate (Prelude.Maybe Prelude.Text)
+updateServerCertificate_newServerCertificateName = Lens.lens (\UpdateServerCertificate' {newServerCertificateName'} -> newServerCertificateName') (\s@UpdateServerCertificate' {} a -> s {newServerCertificateName' = a} :: UpdateServerCertificate)
 
--- | The name of the server certificate that you want to update. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-uServerCertificateName :: Lens' UpdateServerCertificate Text
-uServerCertificateName = lens _uServerCertificateName (\s a -> s {_uServerCertificateName = a})
+-- | The name of the server certificate that you want to update.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+updateServerCertificate_serverCertificateName :: Lens.Lens' UpdateServerCertificate Prelude.Text
+updateServerCertificate_serverCertificateName = Lens.lens (\UpdateServerCertificate' {serverCertificateName} -> serverCertificateName) (\s@UpdateServerCertificate' {} a -> s {serverCertificateName = a} :: UpdateServerCertificate)
 
-instance AWSRequest UpdateServerCertificate where
+instance Prelude.AWSRequest UpdateServerCertificate where
   type
     Rs UpdateServerCertificate =
       UpdateServerCertificateResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveNull UpdateServerCertificateResponse'
+    Response.receiveNull
+      UpdateServerCertificateResponse'
 
-instance Hashable UpdateServerCertificate
+instance Prelude.Hashable UpdateServerCertificate
 
-instance NFData UpdateServerCertificate
+instance Prelude.NFData UpdateServerCertificate
 
-instance ToHeaders UpdateServerCertificate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateServerCertificate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateServerCertificate where
-  toPath = const "/"
+instance Prelude.ToPath UpdateServerCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateServerCertificate where
+instance Prelude.ToQuery UpdateServerCertificate where
   toQuery UpdateServerCertificate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("UpdateServerCertificate" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "NewPath" =: _uNewPath,
+          Prelude.=: ("UpdateServerCertificate" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "NewPath" Prelude.=: newPath',
         "NewServerCertificateName"
-          =: _uNewServerCertificateName,
-        "ServerCertificateName" =: _uServerCertificateName
+          Prelude.=: newServerCertificateName',
+        "ServerCertificateName"
+          Prelude.=: serverCertificateName
       ]
 
--- | /See:/ 'updateServerCertificateResponse' smart constructor.
+-- | /See:/ 'newUpdateServerCertificateResponse' smart constructor.
 data UpdateServerCertificateResponse = UpdateServerCertificateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateServerCertificateResponse' with the minimum fields required to make a request.
-updateServerCertificateResponse ::
+-- |
+-- Create a value of 'UpdateServerCertificateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateServerCertificateResponse ::
   UpdateServerCertificateResponse
-updateServerCertificateResponse =
+newUpdateServerCertificateResponse =
   UpdateServerCertificateResponse'
 
-instance NFData UpdateServerCertificateResponse
+instance
+  Prelude.NFData
+    UpdateServerCertificateResponse

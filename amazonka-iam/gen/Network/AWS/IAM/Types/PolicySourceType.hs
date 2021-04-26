@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,78 +19,80 @@
 module Network.AWS.IAM.Types.PolicySourceType
   ( PolicySourceType
       ( ..,
-        AWSManaged,
-        Group,
-        None,
-        Resource,
-        Role,
-        User,
-        UserManaged
+        PolicySourceTypeAwsManaged,
+        PolicySourceTypeGroup,
+        PolicySourceTypeNone,
+        PolicySourceTypeResource,
+        PolicySourceTypeRole,
+        PolicySourceTypeUser,
+        PolicySourceTypeUserManaged
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicySourceType = PolicySourceType' (CI Text)
+newtype PolicySourceType = PolicySourceType'
+  { fromPolicySourceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSManaged :: PolicySourceType
-pattern AWSManaged = PolicySourceType' "aws-managed"
+pattern PolicySourceTypeAwsManaged :: PolicySourceType
+pattern PolicySourceTypeAwsManaged = PolicySourceType' "aws-managed"
 
-pattern Group :: PolicySourceType
-pattern Group = PolicySourceType' "group"
+pattern PolicySourceTypeGroup :: PolicySourceType
+pattern PolicySourceTypeGroup = PolicySourceType' "group"
 
-pattern None :: PolicySourceType
-pattern None = PolicySourceType' "none"
+pattern PolicySourceTypeNone :: PolicySourceType
+pattern PolicySourceTypeNone = PolicySourceType' "none"
 
-pattern Resource :: PolicySourceType
-pattern Resource = PolicySourceType' "resource"
+pattern PolicySourceTypeResource :: PolicySourceType
+pattern PolicySourceTypeResource = PolicySourceType' "resource"
 
-pattern Role :: PolicySourceType
-pattern Role = PolicySourceType' "role"
+pattern PolicySourceTypeRole :: PolicySourceType
+pattern PolicySourceTypeRole = PolicySourceType' "role"
 
-pattern User :: PolicySourceType
-pattern User = PolicySourceType' "user"
+pattern PolicySourceTypeUser :: PolicySourceType
+pattern PolicySourceTypeUser = PolicySourceType' "user"
 
-pattern UserManaged :: PolicySourceType
-pattern UserManaged = PolicySourceType' "user-managed"
+pattern PolicySourceTypeUserManaged :: PolicySourceType
+pattern PolicySourceTypeUserManaged = PolicySourceType' "user-managed"
 
 {-# COMPLETE
-  AWSManaged,
-  Group,
-  None,
-  Resource,
-  Role,
-  User,
-  UserManaged,
+  PolicySourceTypeAwsManaged,
+  PolicySourceTypeGroup,
+  PolicySourceTypeNone,
+  PolicySourceTypeResource,
+  PolicySourceTypeRole,
+  PolicySourceTypeUser,
+  PolicySourceTypeUserManaged,
   PolicySourceType'
   #-}
 
-instance FromText PolicySourceType where
-  parser = (PolicySourceType' . mk) <$> takeText
+instance Prelude.FromText PolicySourceType where
+  parser = PolicySourceType' Prelude.<$> Prelude.takeText
 
-instance ToText PolicySourceType where
-  toText (PolicySourceType' ci) = original ci
+instance Prelude.ToText PolicySourceType where
+  toText (PolicySourceType' x) = x
 
-instance Hashable PolicySourceType
+instance Prelude.Hashable PolicySourceType
 
-instance NFData PolicySourceType
+instance Prelude.NFData PolicySourceType
 
-instance ToByteString PolicySourceType
+instance Prelude.ToByteString PolicySourceType
 
-instance ToQuery PolicySourceType
+instance Prelude.ToQuery PolicySourceType
 
-instance ToHeader PolicySourceType
+instance Prelude.ToHeader PolicySourceType
 
-instance FromXML PolicySourceType where
-  parseXML = parseXMLText "PolicySourceType"
+instance Prelude.FromXML PolicySourceType where
+  parseXML = Prelude.parseXMLText "PolicySourceType"

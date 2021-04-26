@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.Position where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the row and column of a location of a @Statement@ element in a policy document.
+-- | Contains the row and column of a location of a @Statement@ element in a
+-- policy document.
 --
+-- This data type is used as a member of the @ Statement @ type.
 --
--- This data type is used as a member of the @'Statement' @ type.
---
---
--- /See:/ 'position' smart constructor.
+-- /See:/ 'newPosition' smart constructor.
 data Position = Position'
-  { _pColumn :: !(Maybe Int),
-    _pLine :: !(Maybe Int)
+  { -- | The column in the line containing the specified position in the
+    -- document.
+    column :: Prelude.Maybe Prelude.Int,
+    -- | The line containing the specified position in the document.
+    line :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Position' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Position' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pColumn' - The column in the line containing the specified position in the document.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pLine' - The line containing the specified position in the document.
-position ::
+-- 'column', 'position_column' - The column in the line containing the specified position in the
+-- document.
+--
+-- 'line', 'position_line' - The line containing the specified position in the document.
+newPosition ::
   Position
-position =
-  Position' {_pColumn = Nothing, _pLine = Nothing}
+newPosition =
+  Position'
+    { column = Prelude.Nothing,
+      line = Prelude.Nothing
+    }
 
--- | The column in the line containing the specified position in the document.
-pColumn :: Lens' Position (Maybe Int)
-pColumn = lens _pColumn (\s a -> s {_pColumn = a})
+-- | The column in the line containing the specified position in the
+-- document.
+position_column :: Lens.Lens' Position (Prelude.Maybe Prelude.Int)
+position_column = Lens.lens (\Position' {column} -> column) (\s@Position' {} a -> s {column = a} :: Position)
 
 -- | The line containing the specified position in the document.
-pLine :: Lens' Position (Maybe Int)
-pLine = lens _pLine (\s a -> s {_pLine = a})
+position_line :: Lens.Lens' Position (Prelude.Maybe Prelude.Int)
+position_line = Lens.lens (\Position' {line} -> line) (\s@Position' {} a -> s {line = a} :: Position)
 
-instance FromXML Position where
+instance Prelude.FromXML Position where
   parseXML x =
-    Position' <$> (x .@? "Column") <*> (x .@? "Line")
+    Position'
+      Prelude.<$> (x Prelude..@? "Column")
+      Prelude.<*> (x Prelude..@? "Line")
 
-instance Hashable Position
+instance Prelude.Hashable Position
 
-instance NFData Position
+instance Prelude.NFData Position

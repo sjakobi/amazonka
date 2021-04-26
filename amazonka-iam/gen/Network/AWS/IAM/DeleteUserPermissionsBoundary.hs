@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,103 +23,119 @@
 --
 -- Deletes the permissions boundary for the specified IAM user.
 --
---
--- /Important:/ Deleting the permissions boundary for a user might increase its permissions by allowing the user to perform all the actions granted in its permissions policies.
+-- Deleting the permissions boundary for a user might increase its
+-- permissions by allowing the user to perform all the actions granted in
+-- its permissions policies.
 module Network.AWS.IAM.DeleteUserPermissionsBoundary
   ( -- * Creating a Request
-    deleteUserPermissionsBoundary,
-    DeleteUserPermissionsBoundary,
+    DeleteUserPermissionsBoundary (..),
+    newDeleteUserPermissionsBoundary,
 
     -- * Request Lenses
-    dupbUserName,
+    deleteUserPermissionsBoundary_userName,
 
     -- * Destructuring the Response
-    deleteUserPermissionsBoundaryResponse,
-    DeleteUserPermissionsBoundaryResponse,
+    DeleteUserPermissionsBoundaryResponse (..),
+    newDeleteUserPermissionsBoundaryResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUserPermissionsBoundary' smart constructor.
-newtype DeleteUserPermissionsBoundary = DeleteUserPermissionsBoundary'
-  { _dupbUserName ::
-      Text
+-- | /See:/ 'newDeleteUserPermissionsBoundary' smart constructor.
+data DeleteUserPermissionsBoundary = DeleteUserPermissionsBoundary'
+  { -- | The name (friendly name, not ARN) of the IAM user from which you want to
+    -- remove the permissions boundary.
+    userName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserPermissionsBoundary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserPermissionsBoundary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dupbUserName' - The name (friendly name, not ARN) of the IAM user from which you want to remove the permissions boundary.
-deleteUserPermissionsBoundary ::
-  -- | 'dupbUserName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userName', 'deleteUserPermissionsBoundary_userName' - The name (friendly name, not ARN) of the IAM user from which you want to
+-- remove the permissions boundary.
+newDeleteUserPermissionsBoundary ::
+  -- | 'userName'
+  Prelude.Text ->
   DeleteUserPermissionsBoundary
-deleteUserPermissionsBoundary pUserName_ =
+newDeleteUserPermissionsBoundary pUserName_ =
   DeleteUserPermissionsBoundary'
-    { _dupbUserName =
+    { userName =
         pUserName_
     }
 
--- | The name (friendly name, not ARN) of the IAM user from which you want to remove the permissions boundary.
-dupbUserName :: Lens' DeleteUserPermissionsBoundary Text
-dupbUserName = lens _dupbUserName (\s a -> s {_dupbUserName = a})
+-- | The name (friendly name, not ARN) of the IAM user from which you want to
+-- remove the permissions boundary.
+deleteUserPermissionsBoundary_userName :: Lens.Lens' DeleteUserPermissionsBoundary Prelude.Text
+deleteUserPermissionsBoundary_userName = Lens.lens (\DeleteUserPermissionsBoundary' {userName} -> userName) (\s@DeleteUserPermissionsBoundary' {} a -> s {userName = a} :: DeleteUserPermissionsBoundary)
 
-instance AWSRequest DeleteUserPermissionsBoundary where
+instance
+  Prelude.AWSRequest
+    DeleteUserPermissionsBoundary
+  where
   type
     Rs DeleteUserPermissionsBoundary =
       DeleteUserPermissionsBoundaryResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteUserPermissionsBoundaryResponse'
+    Response.receiveNull
+      DeleteUserPermissionsBoundaryResponse'
 
-instance Hashable DeleteUserPermissionsBoundary
+instance
+  Prelude.Hashable
+    DeleteUserPermissionsBoundary
 
-instance NFData DeleteUserPermissionsBoundary
+instance Prelude.NFData DeleteUserPermissionsBoundary
 
-instance ToHeaders DeleteUserPermissionsBoundary where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteUserPermissionsBoundary
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteUserPermissionsBoundary where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUserPermissionsBoundary where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUserPermissionsBoundary where
+instance
+  Prelude.ToQuery
+    DeleteUserPermissionsBoundary
+  where
   toQuery DeleteUserPermissionsBoundary' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteUserPermissionsBoundary" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _dupbUserName
+          Prelude.=: ( "DeleteUserPermissionsBoundary" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName
       ]
 
--- | /See:/ 'deleteUserPermissionsBoundaryResponse' smart constructor.
+-- | /See:/ 'newDeleteUserPermissionsBoundaryResponse' smart constructor.
 data DeleteUserPermissionsBoundaryResponse = DeleteUserPermissionsBoundaryResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserPermissionsBoundaryResponse' with the minimum fields required to make a request.
-deleteUserPermissionsBoundaryResponse ::
+-- |
+-- Create a value of 'DeleteUserPermissionsBoundaryResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUserPermissionsBoundaryResponse ::
   DeleteUserPermissionsBoundaryResponse
-deleteUserPermissionsBoundaryResponse =
+newDeleteUserPermissionsBoundaryResponse =
   DeleteUserPermissionsBoundaryResponse'
 
-instance NFData DeleteUserPermissionsBoundaryResponse
+instance
+  Prelude.NFData
+    DeleteUserPermissionsBoundaryResponse

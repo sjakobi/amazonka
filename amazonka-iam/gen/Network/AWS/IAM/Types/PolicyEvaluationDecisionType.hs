@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.IAM.Types.PolicyEvaluationDecisionType
   ( PolicyEvaluationDecisionType
       ( ..,
-        Allowed,
-        ExplicitDeny,
-        ImplicitDeny
+        PolicyEvaluationDecisionTypeAllowed,
+        PolicyEvaluationDecisionTypeExplicitDeny,
+        PolicyEvaluationDecisionTypeImplicitDeny
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyEvaluationDecisionType
-  = PolicyEvaluationDecisionType'
-      ( CI
-          Text
-      )
+newtype PolicyEvaluationDecisionType = PolicyEvaluationDecisionType'
+  { fromPolicyEvaluationDecisionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allowed :: PolicyEvaluationDecisionType
-pattern Allowed = PolicyEvaluationDecisionType' "allowed"
+pattern PolicyEvaluationDecisionTypeAllowed :: PolicyEvaluationDecisionType
+pattern PolicyEvaluationDecisionTypeAllowed = PolicyEvaluationDecisionType' "allowed"
 
-pattern ExplicitDeny :: PolicyEvaluationDecisionType
-pattern ExplicitDeny = PolicyEvaluationDecisionType' "explicitDeny"
+pattern PolicyEvaluationDecisionTypeExplicitDeny :: PolicyEvaluationDecisionType
+pattern PolicyEvaluationDecisionTypeExplicitDeny = PolicyEvaluationDecisionType' "explicitDeny"
 
-pattern ImplicitDeny :: PolicyEvaluationDecisionType
-pattern ImplicitDeny = PolicyEvaluationDecisionType' "implicitDeny"
+pattern PolicyEvaluationDecisionTypeImplicitDeny :: PolicyEvaluationDecisionType
+pattern PolicyEvaluationDecisionTypeImplicitDeny = PolicyEvaluationDecisionType' "implicitDeny"
 
 {-# COMPLETE
-  Allowed,
-  ExplicitDeny,
-  ImplicitDeny,
+  PolicyEvaluationDecisionTypeAllowed,
+  PolicyEvaluationDecisionTypeExplicitDeny,
+  PolicyEvaluationDecisionTypeImplicitDeny,
   PolicyEvaluationDecisionType'
   #-}
 
-instance FromText PolicyEvaluationDecisionType where
-  parser = (PolicyEvaluationDecisionType' . mk) <$> takeText
+instance Prelude.FromText PolicyEvaluationDecisionType where
+  parser = PolicyEvaluationDecisionType' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyEvaluationDecisionType where
-  toText (PolicyEvaluationDecisionType' ci) = original ci
+instance Prelude.ToText PolicyEvaluationDecisionType where
+  toText (PolicyEvaluationDecisionType' x) = x
 
-instance Hashable PolicyEvaluationDecisionType
+instance Prelude.Hashable PolicyEvaluationDecisionType
 
-instance NFData PolicyEvaluationDecisionType
+instance Prelude.NFData PolicyEvaluationDecisionType
 
-instance ToByteString PolicyEvaluationDecisionType
+instance Prelude.ToByteString PolicyEvaluationDecisionType
 
-instance ToQuery PolicyEvaluationDecisionType
+instance Prelude.ToQuery PolicyEvaluationDecisionType
 
-instance ToHeader PolicyEvaluationDecisionType
+instance Prelude.ToHeader PolicyEvaluationDecisionType
 
-instance FromXML PolicyEvaluationDecisionType where
-  parseXML = parseXMLText "PolicyEvaluationDecisionType"
+instance Prelude.FromXML PolicyEvaluationDecisionType where
+  parseXML = Prelude.parseXMLText "PolicyEvaluationDecisionType"

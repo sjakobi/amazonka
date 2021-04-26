@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,92 +21,129 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tags from the customer managed policy. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Removes the specified tags from the customer managed policy. For more
+-- information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UntagPolicy
   ( -- * Creating a Request
-    untagPolicy,
-    UntagPolicy,
+    UntagPolicy (..),
+    newUntagPolicy,
 
     -- * Request Lenses
-    upPolicyARN,
-    upTagKeys,
+    untagPolicy_policyArn,
+    untagPolicy_tagKeys,
 
     -- * Destructuring the Response
-    untagPolicyResponse,
-    UntagPolicyResponse,
+    UntagPolicyResponse (..),
+    newUntagPolicyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagPolicy' smart constructor.
+-- | /See:/ 'newUntagPolicy' smart constructor.
 data UntagPolicy = UntagPolicy'
-  { _upPolicyARN ::
-      !Text,
-    _upTagKeys :: ![Text]
+  { -- | The ARN of the IAM customer managed policy from which you want to remove
+    -- tags.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    policyArn :: Prelude.Text,
+    -- | A list of key names as a simple array of strings. The tags with matching
+    -- keys are removed from the specified policy.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upPolicyARN' - The ARN of the IAM customer managed policy from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upTagKeys' - A list of key names as a simple array of strings. The tags with matching keys are removed from the specified policy.
-untagPolicy ::
-  -- | 'upPolicyARN'
-  Text ->
+-- 'policyArn', 'untagPolicy_policyArn' - The ARN of the IAM customer managed policy from which you want to remove
+-- tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+--
+-- 'tagKeys', 'untagPolicy_tagKeys' - A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified policy.
+newUntagPolicy ::
+  -- | 'policyArn'
+  Prelude.Text ->
   UntagPolicy
-untagPolicy pPolicyARN_ =
+newUntagPolicy pPolicyArn_ =
   UntagPolicy'
-    { _upPolicyARN = pPolicyARN_,
-      _upTagKeys = mempty
+    { policyArn = pPolicyArn_,
+      tagKeys = Prelude.mempty
     }
 
--- | The ARN of the IAM customer managed policy from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-upPolicyARN :: Lens' UntagPolicy Text
-upPolicyARN = lens _upPolicyARN (\s a -> s {_upPolicyARN = a})
+-- | The ARN of the IAM customer managed policy from which you want to remove
+-- tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+untagPolicy_policyArn :: Lens.Lens' UntagPolicy Prelude.Text
+untagPolicy_policyArn = Lens.lens (\UntagPolicy' {policyArn} -> policyArn) (\s@UntagPolicy' {} a -> s {policyArn = a} :: UntagPolicy)
 
--- | A list of key names as a simple array of strings. The tags with matching keys are removed from the specified policy.
-upTagKeys :: Lens' UntagPolicy [Text]
-upTagKeys = lens _upTagKeys (\s a -> s {_upTagKeys = a}) . _Coerce
+-- | A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified policy.
+untagPolicy_tagKeys :: Lens.Lens' UntagPolicy [Prelude.Text]
+untagPolicy_tagKeys = Lens.lens (\UntagPolicy' {tagKeys} -> tagKeys) (\s@UntagPolicy' {} a -> s {tagKeys = a} :: UntagPolicy) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagPolicy where
+instance Prelude.AWSRequest UntagPolicy where
   type Rs UntagPolicy = UntagPolicyResponse
-  request = postQuery iam
-  response = receiveNull UntagPolicyResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull UntagPolicyResponse'
 
-instance Hashable UntagPolicy
+instance Prelude.Hashable UntagPolicy
 
-instance NFData UntagPolicy
+instance Prelude.NFData UntagPolicy
 
-instance ToHeaders UntagPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagPolicy where
-  toPath = const "/"
+instance Prelude.ToPath UntagPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagPolicy where
+instance Prelude.ToQuery UntagPolicy where
   toQuery UntagPolicy' {..} =
-    mconcat
-      [ "Action" =: ("UntagPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "PolicyArn" =: _upPolicyARN,
-        "TagKeys" =: toQueryList "member" _upTagKeys
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UntagPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "PolicyArn" Prelude.=: policyArn,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]
 
--- | /See:/ 'untagPolicyResponse' smart constructor.
+-- | /See:/ 'newUntagPolicyResponse' smart constructor.
 data UntagPolicyResponse = UntagPolicyResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagPolicyResponse' with the minimum fields required to make a request.
-untagPolicyResponse ::
+-- |
+-- Create a value of 'UntagPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagPolicyResponse ::
   UntagPolicyResponse
-untagPolicyResponse = UntagPolicyResponse'
+newUntagPolicyResponse = UntagPolicyResponse'
 
-instance NFData UntagPolicyResponse
+instance Prelude.NFData UntagPolicyResponse

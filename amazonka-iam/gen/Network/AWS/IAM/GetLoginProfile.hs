@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,153 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the user name and password creation date for the specified IAM user. If the user has not been assigned a password, the operation returns a 404 (@NoSuchEntity@ ) error.
+-- Retrieves the user name and password creation date for the specified IAM
+-- user. If the user has not been assigned a password, the operation
+-- returns a 404 (@NoSuchEntity@) error.
 module Network.AWS.IAM.GetLoginProfile
   ( -- * Creating a Request
-    getLoginProfile,
-    GetLoginProfile,
+    GetLoginProfile (..),
+    newGetLoginProfile,
 
     -- * Request Lenses
-    glpUserName,
+    getLoginProfile_userName,
 
     -- * Destructuring the Response
-    getLoginProfileResponse,
-    GetLoginProfileResponse,
+    GetLoginProfileResponse (..),
+    newGetLoginProfileResponse,
 
     -- * Response Lenses
-    glprrsResponseStatus,
-    glprrsLoginProfile,
+    getLoginProfileResponse_httpStatus,
+    getLoginProfileResponse_loginProfile,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.LoginProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getLoginProfile' smart constructor.
-newtype GetLoginProfile = GetLoginProfile'
-  { _glpUserName ::
-      Text
+-- | /See:/ 'newGetLoginProfile' smart constructor.
+data GetLoginProfile = GetLoginProfile'
+  { -- | The name of the user whose login profile you want to retrieve.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetLoginProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetLoginProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glpUserName' - The name of the user whose login profile you want to retrieve. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-getLoginProfile ::
-  -- | 'glpUserName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userName', 'getLoginProfile_userName' - The name of the user whose login profile you want to retrieve.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newGetLoginProfile ::
+  -- | 'userName'
+  Prelude.Text ->
   GetLoginProfile
-getLoginProfile pUserName_ =
-  GetLoginProfile' {_glpUserName = pUserName_}
+newGetLoginProfile pUserName_ =
+  GetLoginProfile' {userName = pUserName_}
 
--- | The name of the user whose login profile you want to retrieve. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-glpUserName :: Lens' GetLoginProfile Text
-glpUserName = lens _glpUserName (\s a -> s {_glpUserName = a})
+-- | The name of the user whose login profile you want to retrieve.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+getLoginProfile_userName :: Lens.Lens' GetLoginProfile Prelude.Text
+getLoginProfile_userName = Lens.lens (\GetLoginProfile' {userName} -> userName) (\s@GetLoginProfile' {} a -> s {userName = a} :: GetLoginProfile)
 
-instance AWSRequest GetLoginProfile where
+instance Prelude.AWSRequest GetLoginProfile where
   type Rs GetLoginProfile = GetLoginProfileResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetLoginProfileResult"
       ( \s h x ->
           GetLoginProfileResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "LoginProfile")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "LoginProfile")
       )
 
-instance Hashable GetLoginProfile
+instance Prelude.Hashable GetLoginProfile
 
-instance NFData GetLoginProfile
+instance Prelude.NFData GetLoginProfile
 
-instance ToHeaders GetLoginProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetLoginProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetLoginProfile where
-  toPath = const "/"
+instance Prelude.ToPath GetLoginProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetLoginProfile where
+instance Prelude.ToQuery GetLoginProfile where
   toQuery GetLoginProfile' {..} =
-    mconcat
-      [ "Action" =: ("GetLoginProfile" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _glpUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetLoginProfile" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName
       ]
 
--- | Contains the response to a successful 'GetLoginProfile' request.
+-- | Contains the response to a successful GetLoginProfile request.
 --
---
---
--- /See:/ 'getLoginProfileResponse' smart constructor.
+-- /See:/ 'newGetLoginProfileResponse' smart constructor.
 data GetLoginProfileResponse = GetLoginProfileResponse'
-  { _glprrsResponseStatus ::
-      !Int,
-    _glprrsLoginProfile ::
-      !LoginProfile
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A structure containing the user name and password create date for the
+    -- user.
+    loginProfile :: LoginProfile
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetLoginProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetLoginProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'glprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'glprrsLoginProfile' - A structure containing the user name and password create date for the user.
-getLoginProfileResponse ::
-  -- | 'glprrsResponseStatus'
-  Int ->
-  -- | 'glprrsLoginProfile'
+-- 'httpStatus', 'getLoginProfileResponse_httpStatus' - The response's http status code.
+--
+-- 'loginProfile', 'getLoginProfileResponse_loginProfile' - A structure containing the user name and password create date for the
+-- user.
+newGetLoginProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'loginProfile'
   LoginProfile ->
   GetLoginProfileResponse
-getLoginProfileResponse
-  pResponseStatus_
+newGetLoginProfileResponse
+  pHttpStatus_
   pLoginProfile_ =
     GetLoginProfileResponse'
-      { _glprrsResponseStatus =
-          pResponseStatus_,
-        _glprrsLoginProfile = pLoginProfile_
+      { httpStatus = pHttpStatus_,
+        loginProfile = pLoginProfile_
       }
 
--- | -- | The response status code.
-glprrsResponseStatus :: Lens' GetLoginProfileResponse Int
-glprrsResponseStatus = lens _glprrsResponseStatus (\s a -> s {_glprrsResponseStatus = a})
+-- | The response's http status code.
+getLoginProfileResponse_httpStatus :: Lens.Lens' GetLoginProfileResponse Prelude.Int
+getLoginProfileResponse_httpStatus = Lens.lens (\GetLoginProfileResponse' {httpStatus} -> httpStatus) (\s@GetLoginProfileResponse' {} a -> s {httpStatus = a} :: GetLoginProfileResponse)
 
--- | A structure containing the user name and password create date for the user.
-glprrsLoginProfile :: Lens' GetLoginProfileResponse LoginProfile
-glprrsLoginProfile = lens _glprrsLoginProfile (\s a -> s {_glprrsLoginProfile = a})
+-- | A structure containing the user name and password create date for the
+-- user.
+getLoginProfileResponse_loginProfile :: Lens.Lens' GetLoginProfileResponse LoginProfile
+getLoginProfileResponse_loginProfile = Lens.lens (\GetLoginProfileResponse' {loginProfile} -> loginProfile) (\s@GetLoginProfileResponse' {} a -> s {loginProfile = a} :: GetLoginProfileResponse)
 
-instance NFData GetLoginProfileResponse
+instance Prelude.NFData GetLoginProfileResponse

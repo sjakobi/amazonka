@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,82 +20,101 @@
 module Network.AWS.IAM.Types.SSHPublicKeyMetadata where
 
 import Network.AWS.IAM.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an SSH public key, without the key's body or fingerprint.
+-- | Contains information about an SSH public key, without the key\'s body or
+-- fingerprint.
 --
+-- This data type is used as a response element in the ListSSHPublicKeys
+-- operation.
 --
--- This data type is used as a response element in the 'ListSSHPublicKeys' operation.
---
---
--- /See:/ 'sshPublicKeyMetadata' smart constructor.
+-- /See:/ 'newSSHPublicKeyMetadata' smart constructor.
 data SSHPublicKeyMetadata = SSHPublicKeyMetadata'
-  { _spkmUserName ::
-      !Text,
-    _spkmSSHPublicKeyId :: !Text,
-    _spkmStatus :: !StatusType,
-    _spkmUploadDate :: !ISO8601
+  { -- | The name of the IAM user associated with the SSH public key.
+    userName :: Prelude.Text,
+    -- | The unique identifier for the SSH public key.
+    sSHPublicKeyId :: Prelude.Text,
+    -- | The status of the SSH public key. @Active@ means that the key can be
+    -- used for authentication with an AWS CodeCommit repository. @Inactive@
+    -- means that the key cannot be used.
+    status :: StatusType,
+    -- | The date and time, in
+    -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the SSH
+    -- public key was uploaded.
+    uploadDate :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SSHPublicKeyMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SSHPublicKeyMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spkmUserName' - The name of the IAM user associated with the SSH public key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spkmSSHPublicKeyId' - The unique identifier for the SSH public key.
+-- 'userName', 'sSHPublicKeyMetadata_userName' - The name of the IAM user associated with the SSH public key.
 --
--- * 'spkmStatus' - The status of the SSH public key. @Active@ means that the key can be used for authentication with an AWS CodeCommit repository. @Inactive@ means that the key cannot be used.
+-- 'sSHPublicKeyId', 'sSHPublicKeyMetadata_sSHPublicKeyId' - The unique identifier for the SSH public key.
 --
--- * 'spkmUploadDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the SSH public key was uploaded.
-sshPublicKeyMetadata ::
-  -- | 'spkmUserName'
-  Text ->
-  -- | 'spkmSSHPublicKeyId'
-  Text ->
-  -- | 'spkmStatus'
+-- 'status', 'sSHPublicKeyMetadata_status' - The status of the SSH public key. @Active@ means that the key can be
+-- used for authentication with an AWS CodeCommit repository. @Inactive@
+-- means that the key cannot be used.
+--
+-- 'uploadDate', 'sSHPublicKeyMetadata_uploadDate' - The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the SSH
+-- public key was uploaded.
+newSSHPublicKeyMetadata ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'sSHPublicKeyId'
+  Prelude.Text ->
+  -- | 'status'
   StatusType ->
-  -- | 'spkmUploadDate'
-  UTCTime ->
+  -- | 'uploadDate'
+  Prelude.UTCTime ->
   SSHPublicKeyMetadata
-sshPublicKeyMetadata
+newSSHPublicKeyMetadata
   pUserName_
   pSSHPublicKeyId_
   pStatus_
   pUploadDate_ =
     SSHPublicKeyMetadata'
-      { _spkmUserName = pUserName_,
-        _spkmSSHPublicKeyId = pSSHPublicKeyId_,
-        _spkmStatus = pStatus_,
-        _spkmUploadDate = _Time # pUploadDate_
+      { userName = pUserName_,
+        sSHPublicKeyId = pSSHPublicKeyId_,
+        status = pStatus_,
+        uploadDate = Prelude._Time Lens.# pUploadDate_
       }
 
 -- | The name of the IAM user associated with the SSH public key.
-spkmUserName :: Lens' SSHPublicKeyMetadata Text
-spkmUserName = lens _spkmUserName (\s a -> s {_spkmUserName = a})
+sSHPublicKeyMetadata_userName :: Lens.Lens' SSHPublicKeyMetadata Prelude.Text
+sSHPublicKeyMetadata_userName = Lens.lens (\SSHPublicKeyMetadata' {userName} -> userName) (\s@SSHPublicKeyMetadata' {} a -> s {userName = a} :: SSHPublicKeyMetadata)
 
 -- | The unique identifier for the SSH public key.
-spkmSSHPublicKeyId :: Lens' SSHPublicKeyMetadata Text
-spkmSSHPublicKeyId = lens _spkmSSHPublicKeyId (\s a -> s {_spkmSSHPublicKeyId = a})
+sSHPublicKeyMetadata_sSHPublicKeyId :: Lens.Lens' SSHPublicKeyMetadata Prelude.Text
+sSHPublicKeyMetadata_sSHPublicKeyId = Lens.lens (\SSHPublicKeyMetadata' {sSHPublicKeyId} -> sSHPublicKeyId) (\s@SSHPublicKeyMetadata' {} a -> s {sSHPublicKeyId = a} :: SSHPublicKeyMetadata)
 
--- | The status of the SSH public key. @Active@ means that the key can be used for authentication with an AWS CodeCommit repository. @Inactive@ means that the key cannot be used.
-spkmStatus :: Lens' SSHPublicKeyMetadata StatusType
-spkmStatus = lens _spkmStatus (\s a -> s {_spkmStatus = a})
+-- | The status of the SSH public key. @Active@ means that the key can be
+-- used for authentication with an AWS CodeCommit repository. @Inactive@
+-- means that the key cannot be used.
+sSHPublicKeyMetadata_status :: Lens.Lens' SSHPublicKeyMetadata StatusType
+sSHPublicKeyMetadata_status = Lens.lens (\SSHPublicKeyMetadata' {status} -> status) (\s@SSHPublicKeyMetadata' {} a -> s {status = a} :: SSHPublicKeyMetadata)
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the SSH public key was uploaded.
-spkmUploadDate :: Lens' SSHPublicKeyMetadata UTCTime
-spkmUploadDate = lens _spkmUploadDate (\s a -> s {_spkmUploadDate = a}) . _Time
+-- | The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the SSH
+-- public key was uploaded.
+sSHPublicKeyMetadata_uploadDate :: Lens.Lens' SSHPublicKeyMetadata Prelude.UTCTime
+sSHPublicKeyMetadata_uploadDate = Lens.lens (\SSHPublicKeyMetadata' {uploadDate} -> uploadDate) (\s@SSHPublicKeyMetadata' {} a -> s {uploadDate = a} :: SSHPublicKeyMetadata) Prelude.. Prelude._Time
 
-instance FromXML SSHPublicKeyMetadata where
+instance Prelude.FromXML SSHPublicKeyMetadata where
   parseXML x =
     SSHPublicKeyMetadata'
-      <$> (x .@ "UserName")
-      <*> (x .@ "SSHPublicKeyId")
-      <*> (x .@ "Status")
-      <*> (x .@ "UploadDate")
+      Prelude.<$> (x Prelude..@ "UserName")
+      Prelude.<*> (x Prelude..@ "SSHPublicKeyId")
+      Prelude.<*> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "UploadDate")
 
-instance Hashable SSHPublicKeyMetadata
+instance Prelude.Hashable SSHPublicKeyMetadata
 
-instance NFData SSHPublicKeyMetadata
+instance Prelude.NFData SSHPublicKeyMetadata

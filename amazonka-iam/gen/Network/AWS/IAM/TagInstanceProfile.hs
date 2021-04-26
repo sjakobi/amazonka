@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,110 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more tags to an IAM instance profile. If a tag with the same key name already exists, then that tag is overwritten with the new value.
+-- Adds one or more tags to an IAM instance profile. If a tag with the same
+-- key name already exists, then that tag is overwritten with the new
+-- value.
 --
+-- Each tag consists of a key name and an associated value. By assigning
+-- tags to your resources, you can do the following:
 --
--- Each tag consists of a key name and an associated value. By assigning tags to your resources, you can do the following:
+-- -   __Administrative grouping and discovery__ - Attach tags to resources
+--     to aid in organization and search. For example, you could search for
+--     all resources with the key name /Project/ and the value
+--     /MyImportantProject/. Or search for all resources with the key name
+--     /Cost Center/ and the value /41200/.
 --
---     * __Administrative grouping and discovery__ - Attach tags to resources to aid in organization and search. For example, you could search for all resources with the key name /Project/ and the value /MyImportantProject/ . Or search for all resources with the key name /Cost Center/ and the value /41200/ .
+-- -   __Access control__ - Include tags in IAM user-based and
+--     resource-based policies. You can use tags to restrict access to only
+--     an IAM instance profile that has a specified tag attached. For
+--     examples of policies that show how to use tags to control access,
+--     see
+--     <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html Control access using IAM tags>
+--     in the /IAM User Guide/.
 --
---     * __Access control__ - Include tags in IAM user-based and resource-based policies. You can use tags to restrict access to only an IAM instance profile that has a specified tag attached. For examples of policies that show how to use tags to control access, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html Control access using IAM tags> in the /IAM User Guide/ .
+-- -   If any one of the tags is invalid or if you exceed the allowed
+--     maximum number of tags, then the entire request fails and the
+--     resource is not created. For more information about tagging, see
+--     <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+--     in the /IAM User Guide/.
+--
+-- -   AWS always interprets the tag @Value@ as a single string. If you
+--     need to store an array, you can store comma-separated values in the
+--     string. However, you must interpret the value in your code.
 module Network.AWS.IAM.TagInstanceProfile
   ( -- * Creating a Request
-    tagInstanceProfile,
-    TagInstanceProfile,
+    TagInstanceProfile (..),
+    newTagInstanceProfile,
 
     -- * Request Lenses
-    tipInstanceProfileName,
-    tipTags,
+    tagInstanceProfile_instanceProfileName,
+    tagInstanceProfile_tags,
 
     -- * Destructuring the Response
-    tagInstanceProfileResponse,
-    TagInstanceProfileResponse,
+    TagInstanceProfileResponse (..),
+    newTagInstanceProfileResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagInstanceProfile' smart constructor.
+-- | /See:/ 'newTagInstanceProfile' smart constructor.
 data TagInstanceProfile = TagInstanceProfile'
-  { _tipInstanceProfileName ::
-      !Text,
-    _tipTags :: ![Tag]
+  { -- | The name of the IAM instance profile to which you want to add tags.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    instanceProfileName :: Prelude.Text,
+    -- | The list of tags that you want to attach to the IAM instance profile.
+    -- Each tag consists of a key name and an associated value.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagInstanceProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagInstanceProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tipInstanceProfileName' - The name of the IAM instance profile to which you want to add tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tipTags' - The list of tags that you want to attach to the IAM instance profile. Each tag consists of a key name and an associated value.
-tagInstanceProfile ::
-  -- | 'tipInstanceProfileName'
-  Text ->
+-- 'instanceProfileName', 'tagInstanceProfile_instanceProfileName' - The name of the IAM instance profile to which you want to add tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+--
+-- 'tags', 'tagInstanceProfile_tags' - The list of tags that you want to attach to the IAM instance profile.
+-- Each tag consists of a key name and an associated value.
+newTagInstanceProfile ::
+  -- | 'instanceProfileName'
+  Prelude.Text ->
   TagInstanceProfile
-tagInstanceProfile pInstanceProfileName_ =
+newTagInstanceProfile pInstanceProfileName_ =
   TagInstanceProfile'
-    { _tipInstanceProfileName =
+    { instanceProfileName =
         pInstanceProfileName_,
-      _tipTags = mempty
+      tags = Prelude.mempty
     }
 
--- | The name of the IAM instance profile to which you want to add tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-tipInstanceProfileName :: Lens' TagInstanceProfile Text
-tipInstanceProfileName = lens _tipInstanceProfileName (\s a -> s {_tipInstanceProfileName = a})
+-- | The name of the IAM instance profile to which you want to add tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+tagInstanceProfile_instanceProfileName :: Lens.Lens' TagInstanceProfile Prelude.Text
+tagInstanceProfile_instanceProfileName = Lens.lens (\TagInstanceProfile' {instanceProfileName} -> instanceProfileName) (\s@TagInstanceProfile' {} a -> s {instanceProfileName = a} :: TagInstanceProfile)
 
--- | The list of tags that you want to attach to the IAM instance profile. Each tag consists of a key name and an associated value.
-tipTags :: Lens' TagInstanceProfile [Tag]
-tipTags = lens _tipTags (\s a -> s {_tipTags = a}) . _Coerce
+-- | The list of tags that you want to attach to the IAM instance profile.
+-- Each tag consists of a key name and an associated value.
+tagInstanceProfile_tags :: Lens.Lens' TagInstanceProfile [Tag]
+tagInstanceProfile_tags = Lens.lens (\TagInstanceProfile' {tags} -> tags) (\s@TagInstanceProfile' {} a -> s {tags = a} :: TagInstanceProfile) Prelude.. Prelude._Coerce
 
-instance AWSRequest TagInstanceProfile where
+instance Prelude.AWSRequest TagInstanceProfile where
   type
     Rs TagInstanceProfile =
       TagInstanceProfileResponse
-  request = postQuery iam
-  response = receiveNull TagInstanceProfileResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull TagInstanceProfileResponse'
 
-instance Hashable TagInstanceProfile
+instance Prelude.Hashable TagInstanceProfile
 
-instance NFData TagInstanceProfile
+instance Prelude.NFData TagInstanceProfile
 
-instance ToHeaders TagInstanceProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TagInstanceProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath TagInstanceProfile where
-  toPath = const "/"
+instance Prelude.ToPath TagInstanceProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagInstanceProfile where
+instance Prelude.ToQuery TagInstanceProfile where
   toQuery TagInstanceProfile' {..} =
-    mconcat
-      [ "Action" =: ("TagInstanceProfile" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "InstanceProfileName" =: _tipInstanceProfileName,
-        "Tags" =: toQueryList "member" _tipTags
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("TagInstanceProfile" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "InstanceProfileName" Prelude.=: instanceProfileName,
+        "Tags" Prelude.=: Prelude.toQueryList "member" tags
       ]
 
--- | /See:/ 'tagInstanceProfileResponse' smart constructor.
+-- | /See:/ 'newTagInstanceProfileResponse' smart constructor.
 data TagInstanceProfileResponse = TagInstanceProfileResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagInstanceProfileResponse' with the minimum fields required to make a request.
-tagInstanceProfileResponse ::
+-- |
+-- Create a value of 'TagInstanceProfileResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newTagInstanceProfileResponse ::
   TagInstanceProfileResponse
-tagInstanceProfileResponse =
+newTagInstanceProfileResponse =
   TagInstanceProfileResponse'
 
-instance NFData TagInstanceProfileResponse
+instance Prelude.NFData TagInstanceProfileResponse

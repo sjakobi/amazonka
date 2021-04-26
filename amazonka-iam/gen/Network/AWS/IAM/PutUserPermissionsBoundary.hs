@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,121 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or updates the policy that is specified as the IAM user's permissions boundary. You can use an AWS managed policy or a customer managed policy to set the boundary for a user. Use the boundary to control the maximum permissions that the user can have. Setting a permissions boundary is an advanced feature that can affect the permissions for the user.
+-- Adds or updates the policy that is specified as the IAM user\'s
+-- permissions boundary. You can use an AWS managed policy or a customer
+-- managed policy to set the boundary for a user. Use the boundary to
+-- control the maximum permissions that the user can have. Setting a
+-- permissions boundary is an advanced feature that can affect the
+-- permissions for the user.
 --
---
--- /Important:/ Policies that are used as permissions boundaries do not provide permissions. You must also attach a permissions policy to the user. To learn how the effective permissions for a user are evaluated, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html IAM JSON policy evaluation logic> in the IAM User Guide.
+-- Policies that are used as permissions boundaries do not provide
+-- permissions. You must also attach a permissions policy to the user. To
+-- learn how the effective permissions for a user are evaluated, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html IAM JSON policy evaluation logic>
+-- in the IAM User Guide.
 module Network.AWS.IAM.PutUserPermissionsBoundary
   ( -- * Creating a Request
-    putUserPermissionsBoundary,
-    PutUserPermissionsBoundary,
+    PutUserPermissionsBoundary (..),
+    newPutUserPermissionsBoundary,
 
     -- * Request Lenses
-    pupbUserName,
-    pupbPermissionsBoundary,
+    putUserPermissionsBoundary_userName,
+    putUserPermissionsBoundary_permissionsBoundary,
 
     -- * Destructuring the Response
-    putUserPermissionsBoundaryResponse,
-    PutUserPermissionsBoundaryResponse,
+    PutUserPermissionsBoundaryResponse (..),
+    newPutUserPermissionsBoundaryResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putUserPermissionsBoundary' smart constructor.
+-- | /See:/ 'newPutUserPermissionsBoundary' smart constructor.
 data PutUserPermissionsBoundary = PutUserPermissionsBoundary'
-  { _pupbUserName ::
-      !Text,
-    _pupbPermissionsBoundary ::
-      !Text
+  { -- | The name (friendly name, not ARN) of the IAM user for which you want to
+    -- set the permissions boundary.
+    userName :: Prelude.Text,
+    -- | The ARN of the policy that is used to set the permissions boundary for
+    -- the user.
+    permissionsBoundary :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutUserPermissionsBoundary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutUserPermissionsBoundary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pupbUserName' - The name (friendly name, not ARN) of the IAM user for which you want to set the permissions boundary.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pupbPermissionsBoundary' - The ARN of the policy that is used to set the permissions boundary for the user.
-putUserPermissionsBoundary ::
-  -- | 'pupbUserName'
-  Text ->
-  -- | 'pupbPermissionsBoundary'
-  Text ->
+-- 'userName', 'putUserPermissionsBoundary_userName' - The name (friendly name, not ARN) of the IAM user for which you want to
+-- set the permissions boundary.
+--
+-- 'permissionsBoundary', 'putUserPermissionsBoundary_permissionsBoundary' - The ARN of the policy that is used to set the permissions boundary for
+-- the user.
+newPutUserPermissionsBoundary ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'permissionsBoundary'
+  Prelude.Text ->
   PutUserPermissionsBoundary
-putUserPermissionsBoundary
+newPutUserPermissionsBoundary
   pUserName_
   pPermissionsBoundary_ =
     PutUserPermissionsBoundary'
-      { _pupbUserName =
-          pUserName_,
-        _pupbPermissionsBoundary =
-          pPermissionsBoundary_
+      { userName = pUserName_,
+        permissionsBoundary = pPermissionsBoundary_
       }
 
--- | The name (friendly name, not ARN) of the IAM user for which you want to set the permissions boundary.
-pupbUserName :: Lens' PutUserPermissionsBoundary Text
-pupbUserName = lens _pupbUserName (\s a -> s {_pupbUserName = a})
+-- | The name (friendly name, not ARN) of the IAM user for which you want to
+-- set the permissions boundary.
+putUserPermissionsBoundary_userName :: Lens.Lens' PutUserPermissionsBoundary Prelude.Text
+putUserPermissionsBoundary_userName = Lens.lens (\PutUserPermissionsBoundary' {userName} -> userName) (\s@PutUserPermissionsBoundary' {} a -> s {userName = a} :: PutUserPermissionsBoundary)
 
--- | The ARN of the policy that is used to set the permissions boundary for the user.
-pupbPermissionsBoundary :: Lens' PutUserPermissionsBoundary Text
-pupbPermissionsBoundary = lens _pupbPermissionsBoundary (\s a -> s {_pupbPermissionsBoundary = a})
+-- | The ARN of the policy that is used to set the permissions boundary for
+-- the user.
+putUserPermissionsBoundary_permissionsBoundary :: Lens.Lens' PutUserPermissionsBoundary Prelude.Text
+putUserPermissionsBoundary_permissionsBoundary = Lens.lens (\PutUserPermissionsBoundary' {permissionsBoundary} -> permissionsBoundary) (\s@PutUserPermissionsBoundary' {} a -> s {permissionsBoundary = a} :: PutUserPermissionsBoundary)
 
-instance AWSRequest PutUserPermissionsBoundary where
+instance
+  Prelude.AWSRequest
+    PutUserPermissionsBoundary
+  where
   type
     Rs PutUserPermissionsBoundary =
       PutUserPermissionsBoundaryResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveNull PutUserPermissionsBoundaryResponse'
+    Response.receiveNull
+      PutUserPermissionsBoundaryResponse'
 
-instance Hashable PutUserPermissionsBoundary
+instance Prelude.Hashable PutUserPermissionsBoundary
 
-instance NFData PutUserPermissionsBoundary
+instance Prelude.NFData PutUserPermissionsBoundary
 
-instance ToHeaders PutUserPermissionsBoundary where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutUserPermissionsBoundary where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath PutUserPermissionsBoundary where
-  toPath = const "/"
+instance Prelude.ToPath PutUserPermissionsBoundary where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutUserPermissionsBoundary where
+instance Prelude.ToQuery PutUserPermissionsBoundary where
   toQuery PutUserPermissionsBoundary' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("PutUserPermissionsBoundary" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _pupbUserName,
-        "PermissionsBoundary" =: _pupbPermissionsBoundary
+          Prelude.=: ("PutUserPermissionsBoundary" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "PermissionsBoundary" Prelude.=: permissionsBoundary
       ]
 
--- | /See:/ 'putUserPermissionsBoundaryResponse' smart constructor.
+-- | /See:/ 'newPutUserPermissionsBoundaryResponse' smart constructor.
 data PutUserPermissionsBoundaryResponse = PutUserPermissionsBoundaryResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutUserPermissionsBoundaryResponse' with the minimum fields required to make a request.
-putUserPermissionsBoundaryResponse ::
+-- |
+-- Create a value of 'PutUserPermissionsBoundaryResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutUserPermissionsBoundaryResponse ::
   PutUserPermissionsBoundaryResponse
-putUserPermissionsBoundaryResponse =
+newPutUserPermissionsBoundaryResponse =
   PutUserPermissionsBoundaryResponse'
 
-instance NFData PutUserPermissionsBoundaryResponse
+instance
+  Prelude.NFData
+    PutUserPermissionsBoundaryResponse

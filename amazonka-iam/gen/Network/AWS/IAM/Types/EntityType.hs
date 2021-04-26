@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,67 @@
 module Network.AWS.IAM.Types.EntityType
   ( EntityType
       ( ..,
-        ETAWSManagedPolicy,
-        ETGroup,
-        ETLocalManagedPolicy,
-        ETRole,
-        ETUser
+        EntityTypeAWSManagedPolicy,
+        EntityTypeGroup,
+        EntityTypeLocalManagedPolicy,
+        EntityTypeRole,
+        EntityTypeUser
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EntityType = EntityType' (CI Text)
+newtype EntityType = EntityType'
+  { fromEntityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ETAWSManagedPolicy :: EntityType
-pattern ETAWSManagedPolicy = EntityType' "AWSManagedPolicy"
+pattern EntityTypeAWSManagedPolicy :: EntityType
+pattern EntityTypeAWSManagedPolicy = EntityType' "AWSManagedPolicy"
 
-pattern ETGroup :: EntityType
-pattern ETGroup = EntityType' "Group"
+pattern EntityTypeGroup :: EntityType
+pattern EntityTypeGroup = EntityType' "Group"
 
-pattern ETLocalManagedPolicy :: EntityType
-pattern ETLocalManagedPolicy = EntityType' "LocalManagedPolicy"
+pattern EntityTypeLocalManagedPolicy :: EntityType
+pattern EntityTypeLocalManagedPolicy = EntityType' "LocalManagedPolicy"
 
-pattern ETRole :: EntityType
-pattern ETRole = EntityType' "Role"
+pattern EntityTypeRole :: EntityType
+pattern EntityTypeRole = EntityType' "Role"
 
-pattern ETUser :: EntityType
-pattern ETUser = EntityType' "User"
+pattern EntityTypeUser :: EntityType
+pattern EntityTypeUser = EntityType' "User"
 
 {-# COMPLETE
-  ETAWSManagedPolicy,
-  ETGroup,
-  ETLocalManagedPolicy,
-  ETRole,
-  ETUser,
+  EntityTypeAWSManagedPolicy,
+  EntityTypeGroup,
+  EntityTypeLocalManagedPolicy,
+  EntityTypeRole,
+  EntityTypeUser,
   EntityType'
   #-}
 
-instance FromText EntityType where
-  parser = (EntityType' . mk) <$> takeText
+instance Prelude.FromText EntityType where
+  parser = EntityType' Prelude.<$> Prelude.takeText
 
-instance ToText EntityType where
-  toText (EntityType' ci) = original ci
+instance Prelude.ToText EntityType where
+  toText (EntityType' x) = x
 
-instance Hashable EntityType
+instance Prelude.Hashable EntityType
 
-instance NFData EntityType
+instance Prelude.NFData EntityType
 
-instance ToByteString EntityType
+instance Prelude.ToByteString EntityType
 
-instance ToQuery EntityType
+instance Prelude.ToQuery EntityType
 
-instance ToHeader EntityType
+instance Prelude.ToHeader EntityType

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,217 +21,312 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of policies that the IAM identity (user, group, or role) can use to access each specified service.
+-- Retrieves a list of policies that the IAM identity (user, group, or
+-- role) can use to access each specified service.
 --
+-- This operation does not use other policy types when determining whether
+-- a resource could access a service. These other policy types include
+-- resource-based policies, access control lists, AWS Organizations
+-- policies, IAM permissions boundaries, and AWS STS assume role policies.
+-- It only applies permissions policy logic. For more about the evaluation
+-- of policy types, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics Evaluating policies>
+-- in the /IAM User Guide/.
 --
--- The list of policies returned by the operation depends on the ARN of the identity that you provide.
+-- The list of policies returned by the operation depends on the ARN of the
+-- identity that you provide.
 --
---     * __User__ – The list of policies includes the managed and inline policies that are attached to the user directly. The list also includes any additional managed and inline policies that are attached to the group to which the user belongs.
+-- -   __User__ – The list of policies includes the managed and inline
+--     policies that are attached to the user directly. The list also
+--     includes any additional managed and inline policies that are
+--     attached to the group to which the user belongs.
 --
---     * __Group__ – The list of policies includes only the managed and inline policies that are attached to the group directly. Policies that are attached to the group’s user are not included.
+-- -   __Group__ – The list of policies includes only the managed and
+--     inline policies that are attached to the group directly. Policies
+--     that are attached to the group’s user are not included.
 --
---     * __Role__ – The list of policies includes only the managed and inline policies that are attached to the role.
+-- -   __Role__ – The list of policies includes only the managed and inline
+--     policies that are attached to the role.
 --
+-- For each managed policy, this operation returns the ARN and policy name.
+-- For each inline policy, it returns the policy name and the entity to
+-- which it is attached. Inline policies do not have an ARN. For more
+-- information about these policy types, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 --
---
--- For each managed policy, this operation returns the ARN and policy name. For each inline policy, it returns the policy name and the entity to which it is attached. Inline policies do not have an ARN. For more information about these policy types, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
---
--- Policies that are attached to users and roles as permissions boundaries are not returned. To view which managed policy is currently used to set the permissions boundary for a user or role, use the 'GetUser' or 'GetRole' operations.
+-- Policies that are attached to users and roles as permissions boundaries
+-- are not returned. To view which managed policy is currently used to set
+-- the permissions boundary for a user or role, use the GetUser or GetRole
+-- operations.
 module Network.AWS.IAM.ListPoliciesGrantingServiceAccess
   ( -- * Creating a Request
-    listPoliciesGrantingServiceAccess,
-    ListPoliciesGrantingServiceAccess,
+    ListPoliciesGrantingServiceAccess (..),
+    newListPoliciesGrantingServiceAccess,
 
     -- * Request Lenses
-    lpgsaMarker,
-    lpgsaARN,
-    lpgsaServiceNamespaces,
+    listPoliciesGrantingServiceAccess_marker,
+    listPoliciesGrantingServiceAccess_arn,
+    listPoliciesGrantingServiceAccess_serviceNamespaces,
 
     -- * Destructuring the Response
-    listPoliciesGrantingServiceAccessResponse,
-    ListPoliciesGrantingServiceAccessResponse,
+    ListPoliciesGrantingServiceAccessResponse (..),
+    newListPoliciesGrantingServiceAccessResponse,
 
     -- * Response Lenses
-    lpgsarrsIsTruncated,
-    lpgsarrsMarker,
-    lpgsarrsResponseStatus,
-    lpgsarrsPoliciesGrantingServiceAccess,
+    listPoliciesGrantingServiceAccessResponse_isTruncated,
+    listPoliciesGrantingServiceAccessResponse_marker,
+    listPoliciesGrantingServiceAccessResponse_httpStatus,
+    listPoliciesGrantingServiceAccessResponse_policiesGrantingServiceAccess,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.ListPoliciesGrantingServiceAccessEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPoliciesGrantingServiceAccess' smart constructor.
+-- | /See:/ 'newListPoliciesGrantingServiceAccess' smart constructor.
 data ListPoliciesGrantingServiceAccess = ListPoliciesGrantingServiceAccess'
-  { _lpgsaMarker ::
-      !( Maybe
-           Text
-       ),
-    _lpgsaARN ::
-      !Text,
-    _lpgsaServiceNamespaces ::
-      !( List1
-           Text
-       )
+  { -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM identity (user, group, or role) whose policies you
+    -- want to list.
+    arn :: Prelude.Text,
+    -- | The service namespace for the AWS services whose policies you want to
+    -- list.
+    --
+    -- To learn the service namespace for a service, see
+    -- <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services>
+    -- in the /IAM User Guide/. Choose the name of the service to view details
+    -- for that service. In the first paragraph, find the service prefix. For
+    -- example, @(service prefix: a4b)@. For more information about service
+    -- namespaces, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces>
+    -- in the /AWS General Reference/.
+    serviceNamespaces :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPoliciesGrantingServiceAccess' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPoliciesGrantingServiceAccess' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpgsaMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpgsaARN' - The ARN of the IAM identity (user, group, or role) whose policies you want to list.
+-- 'marker', 'listPoliciesGrantingServiceAccess_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
 --
--- * 'lpgsaServiceNamespaces' - The service namespace for the AWS services whose policies you want to list. To learn the service namespace for a service, see <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services> in the /IAM User Guide/ . Choose the name of the service to view details for that service. In the first paragraph, find the service prefix. For example, @(service prefix: a4b)@ . For more information about service namespaces, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces> in the /AWS General Reference/ .
-listPoliciesGrantingServiceAccess ::
-  -- | 'lpgsaARN'
-  Text ->
-  -- | 'lpgsaServiceNamespaces'
-  NonEmpty Text ->
+-- 'arn', 'listPoliciesGrantingServiceAccess_arn' - The ARN of the IAM identity (user, group, or role) whose policies you
+-- want to list.
+--
+-- 'serviceNamespaces', 'listPoliciesGrantingServiceAccess_serviceNamespaces' - The service namespace for the AWS services whose policies you want to
+-- list.
+--
+-- To learn the service namespace for a service, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services>
+-- in the /IAM User Guide/. Choose the name of the service to view details
+-- for that service. In the first paragraph, find the service prefix. For
+-- example, @(service prefix: a4b)@. For more information about service
+-- namespaces, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces>
+-- in the /AWS General Reference/.
+newListPoliciesGrantingServiceAccess ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'serviceNamespaces'
+  Prelude.NonEmpty Prelude.Text ->
   ListPoliciesGrantingServiceAccess
-listPoliciesGrantingServiceAccess
-  pARN_
+newListPoliciesGrantingServiceAccess
+  pArn_
   pServiceNamespaces_ =
     ListPoliciesGrantingServiceAccess'
-      { _lpgsaMarker =
-          Nothing,
-        _lpgsaARN = pARN_,
-        _lpgsaServiceNamespaces =
-          _List1 # pServiceNamespaces_
+      { marker =
+          Prelude.Nothing,
+        arn = pArn_,
+        serviceNamespaces =
+          Prelude._List1
+            Lens.# pServiceNamespaces_
       }
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lpgsaMarker :: Lens' ListPoliciesGrantingServiceAccess (Maybe Text)
-lpgsaMarker = lens _lpgsaMarker (\s a -> s {_lpgsaMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listPoliciesGrantingServiceAccess_marker :: Lens.Lens' ListPoliciesGrantingServiceAccess (Prelude.Maybe Prelude.Text)
+listPoliciesGrantingServiceAccess_marker = Lens.lens (\ListPoliciesGrantingServiceAccess' {marker} -> marker) (\s@ListPoliciesGrantingServiceAccess' {} a -> s {marker = a} :: ListPoliciesGrantingServiceAccess)
 
--- | The ARN of the IAM identity (user, group, or role) whose policies you want to list.
-lpgsaARN :: Lens' ListPoliciesGrantingServiceAccess Text
-lpgsaARN = lens _lpgsaARN (\s a -> s {_lpgsaARN = a})
+-- | The ARN of the IAM identity (user, group, or role) whose policies you
+-- want to list.
+listPoliciesGrantingServiceAccess_arn :: Lens.Lens' ListPoliciesGrantingServiceAccess Prelude.Text
+listPoliciesGrantingServiceAccess_arn = Lens.lens (\ListPoliciesGrantingServiceAccess' {arn} -> arn) (\s@ListPoliciesGrantingServiceAccess' {} a -> s {arn = a} :: ListPoliciesGrantingServiceAccess)
 
--- | The service namespace for the AWS services whose policies you want to list. To learn the service namespace for a service, see <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services> in the /IAM User Guide/ . Choose the name of the service to view details for that service. In the first paragraph, find the service prefix. For example, @(service prefix: a4b)@ . For more information about service namespaces, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces> in the /AWS General Reference/ .
-lpgsaServiceNamespaces :: Lens' ListPoliciesGrantingServiceAccess (NonEmpty Text)
-lpgsaServiceNamespaces = lens _lpgsaServiceNamespaces (\s a -> s {_lpgsaServiceNamespaces = a}) . _List1
+-- | The service namespace for the AWS services whose policies you want to
+-- list.
+--
+-- To learn the service namespace for a service, see
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html Actions, resources, and condition keys for AWS services>
+-- in the /IAM User Guide/. Choose the name of the service to view details
+-- for that service. In the first paragraph, find the service prefix. For
+-- example, @(service prefix: a4b)@. For more information about service
+-- namespaces, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces AWS service namespaces>
+-- in the /AWS General Reference/.
+listPoliciesGrantingServiceAccess_serviceNamespaces :: Lens.Lens' ListPoliciesGrantingServiceAccess (Prelude.NonEmpty Prelude.Text)
+listPoliciesGrantingServiceAccess_serviceNamespaces = Lens.lens (\ListPoliciesGrantingServiceAccess' {serviceNamespaces} -> serviceNamespaces) (\s@ListPoliciesGrantingServiceAccess' {} a -> s {serviceNamespaces = a} :: ListPoliciesGrantingServiceAccess) Prelude.. Prelude._List1
 
-instance AWSRequest ListPoliciesGrantingServiceAccess where
+instance
+  Prelude.AWSRequest
+    ListPoliciesGrantingServiceAccess
+  where
   type
     Rs ListPoliciesGrantingServiceAccess =
       ListPoliciesGrantingServiceAccessResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListPoliciesGrantingServiceAccessResult"
       ( \s h x ->
           ListPoliciesGrantingServiceAccessResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> ( x .@? "PoliciesGrantingServiceAccess" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+              Prelude.<*> (x Prelude..@? "Marker")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> ( x Prelude..@? "PoliciesGrantingServiceAccess"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.parseXMLList "member"
+                          )
       )
 
-instance Hashable ListPoliciesGrantingServiceAccess
-
-instance NFData ListPoliciesGrantingServiceAccess
-
-instance ToHeaders ListPoliciesGrantingServiceAccess where
-  toHeaders = const mempty
-
-instance ToPath ListPoliciesGrantingServiceAccess where
-  toPath = const "/"
-
-instance ToQuery ListPoliciesGrantingServiceAccess where
-  toQuery ListPoliciesGrantingServiceAccess' {..} =
-    mconcat
-      [ "Action"
-          =: ("ListPoliciesGrantingServiceAccess" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "Marker" =: _lpgsaMarker,
-        "Arn" =: _lpgsaARN,
-        "ServiceNamespaces"
-          =: toQueryList "member" _lpgsaServiceNamespaces
-      ]
-
--- | /See:/ 'listPoliciesGrantingServiceAccessResponse' smart constructor.
-data ListPoliciesGrantingServiceAccessResponse = ListPoliciesGrantingServiceAccessResponse'
-  { _lpgsarrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _lpgsarrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _lpgsarrsResponseStatus ::
-      !Int,
-    _lpgsarrsPoliciesGrantingServiceAccess ::
-      ![ListPoliciesGrantingServiceAccessEntry]
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListPoliciesGrantingServiceAccessResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'lpgsarrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
---
--- * 'lpgsarrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
---
--- * 'lpgsarrsResponseStatus' - -- | The response status code.
---
--- * 'lpgsarrsPoliciesGrantingServiceAccess' - A @ListPoliciesGrantingServiceAccess@ object that contains details about the permissions policies attached to the specified identity (user, group, or role).
-listPoliciesGrantingServiceAccessResponse ::
-  -- | 'lpgsarrsResponseStatus'
-  Int ->
-  ListPoliciesGrantingServiceAccessResponse
-listPoliciesGrantingServiceAccessResponse
-  pResponseStatus_ =
-    ListPoliciesGrantingServiceAccessResponse'
-      { _lpgsarrsIsTruncated =
-          Nothing,
-        _lpgsarrsMarker = Nothing,
-        _lpgsarrsResponseStatus =
-          pResponseStatus_,
-        _lpgsarrsPoliciesGrantingServiceAccess =
-          mempty
-      }
-
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-lpgsarrsIsTruncated :: Lens' ListPoliciesGrantingServiceAccessResponse (Maybe Bool)
-lpgsarrsIsTruncated = lens _lpgsarrsIsTruncated (\s a -> s {_lpgsarrsIsTruncated = a})
-
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lpgsarrsMarker :: Lens' ListPoliciesGrantingServiceAccessResponse (Maybe Text)
-lpgsarrsMarker = lens _lpgsarrsMarker (\s a -> s {_lpgsarrsMarker = a})
-
--- | -- | The response status code.
-lpgsarrsResponseStatus :: Lens' ListPoliciesGrantingServiceAccessResponse Int
-lpgsarrsResponseStatus = lens _lpgsarrsResponseStatus (\s a -> s {_lpgsarrsResponseStatus = a})
-
--- | A @ListPoliciesGrantingServiceAccess@ object that contains details about the permissions policies attached to the specified identity (user, group, or role).
-lpgsarrsPoliciesGrantingServiceAccess :: Lens' ListPoliciesGrantingServiceAccessResponse [ListPoliciesGrantingServiceAccessEntry]
-lpgsarrsPoliciesGrantingServiceAccess = lens _lpgsarrsPoliciesGrantingServiceAccess (\s a -> s {_lpgsarrsPoliciesGrantingServiceAccess = a}) . _Coerce
+instance
+  Prelude.Hashable
+    ListPoliciesGrantingServiceAccess
 
 instance
-  NFData
+  Prelude.NFData
+    ListPoliciesGrantingServiceAccess
+
+instance
+  Prelude.ToHeaders
+    ListPoliciesGrantingServiceAccess
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    ListPoliciesGrantingServiceAccess
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    ListPoliciesGrantingServiceAccess
+  where
+  toQuery ListPoliciesGrantingServiceAccess' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "ListPoliciesGrantingServiceAccess" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Prelude.=: marker,
+        "Arn" Prelude.=: arn,
+        "ServiceNamespaces"
+          Prelude.=: Prelude.toQueryList "member" serviceNamespaces
+      ]
+
+-- | /See:/ 'newListPoliciesGrantingServiceAccessResponse' smart constructor.
+data ListPoliciesGrantingServiceAccessResponse = ListPoliciesGrantingServiceAccessResponse'
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. We
+    -- recommend that you check @IsTruncated@ after every call to ensure that
+    -- you receive all your results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A @ListPoliciesGrantingServiceAccess@ object that contains details about
+    -- the permissions policies attached to the specified identity (user,
+    -- group, or role).
+    policiesGrantingServiceAccess :: [ListPoliciesGrantingServiceAccessEntry]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListPoliciesGrantingServiceAccessResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'isTruncated', 'listPoliciesGrantingServiceAccessResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. We
+-- recommend that you check @IsTruncated@ after every call to ensure that
+-- you receive all your results.
+--
+-- 'marker', 'listPoliciesGrantingServiceAccessResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+--
+-- 'httpStatus', 'listPoliciesGrantingServiceAccessResponse_httpStatus' - The response's http status code.
+--
+-- 'policiesGrantingServiceAccess', 'listPoliciesGrantingServiceAccessResponse_policiesGrantingServiceAccess' - A @ListPoliciesGrantingServiceAccess@ object that contains details about
+-- the permissions policies attached to the specified identity (user,
+-- group, or role).
+newListPoliciesGrantingServiceAccessResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListPoliciesGrantingServiceAccessResponse
+newListPoliciesGrantingServiceAccessResponse
+  pHttpStatus_ =
+    ListPoliciesGrantingServiceAccessResponse'
+      { isTruncated =
+          Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        policiesGrantingServiceAccess =
+          Prelude.mempty
+      }
+
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. We
+-- recommend that you check @IsTruncated@ after every call to ensure that
+-- you receive all your results.
+listPoliciesGrantingServiceAccessResponse_isTruncated :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse (Prelude.Maybe Prelude.Bool)
+listPoliciesGrantingServiceAccessResponse_isTruncated = Lens.lens (\ListPoliciesGrantingServiceAccessResponse' {isTruncated} -> isTruncated) (\s@ListPoliciesGrantingServiceAccessResponse' {} a -> s {isTruncated = a} :: ListPoliciesGrantingServiceAccessResponse)
+
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listPoliciesGrantingServiceAccessResponse_marker :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse (Prelude.Maybe Prelude.Text)
+listPoliciesGrantingServiceAccessResponse_marker = Lens.lens (\ListPoliciesGrantingServiceAccessResponse' {marker} -> marker) (\s@ListPoliciesGrantingServiceAccessResponse' {} a -> s {marker = a} :: ListPoliciesGrantingServiceAccessResponse)
+
+-- | The response's http status code.
+listPoliciesGrantingServiceAccessResponse_httpStatus :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse Prelude.Int
+listPoliciesGrantingServiceAccessResponse_httpStatus = Lens.lens (\ListPoliciesGrantingServiceAccessResponse' {httpStatus} -> httpStatus) (\s@ListPoliciesGrantingServiceAccessResponse' {} a -> s {httpStatus = a} :: ListPoliciesGrantingServiceAccessResponse)
+
+-- | A @ListPoliciesGrantingServiceAccess@ object that contains details about
+-- the permissions policies attached to the specified identity (user,
+-- group, or role).
+listPoliciesGrantingServiceAccessResponse_policiesGrantingServiceAccess :: Lens.Lens' ListPoliciesGrantingServiceAccessResponse [ListPoliciesGrantingServiceAccessEntry]
+listPoliciesGrantingServiceAccessResponse_policiesGrantingServiceAccess = Lens.lens (\ListPoliciesGrantingServiceAccessResponse' {policiesGrantingServiceAccess} -> policiesGrantingServiceAccess) (\s@ListPoliciesGrantingServiceAccessResponse' {} a -> s {policiesGrantingServiceAccess = a} :: ListPoliciesGrantingServiceAccessResponse) Prelude.. Prelude._Coerce
+
+instance
+  Prelude.NFData
     ListPoliciesGrantingServiceAccessResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.PolicyRole where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a role that a managed policy is attached to.
 --
+-- This data type is used as a response element in the
+-- ListEntitiesForPolicy operation.
 --
--- This data type is used as a response element in the 'ListEntitiesForPolicy' operation.
+-- For more information about managed policies, refer to
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 --
--- For more information about managed policies, refer to <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
---
---
--- /See:/ 'policyRole' smart constructor.
+-- /See:/ 'newPolicyRole' smart constructor.
 data PolicyRole = PolicyRole'
-  { _prRoleId ::
-      !(Maybe Text),
-    _prRoleName :: !(Maybe Text)
+  { -- | The stable and unique string identifying the role. For more information
+    -- about IDs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    roleId :: Prelude.Maybe Prelude.Text,
+    -- | The name (friendly name, not ARN) identifying the role.
+    roleName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prRoleId' - The stable and unique string identifying the role. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prRoleName' - The name (friendly name, not ARN) identifying the role.
-policyRole ::
+-- 'roleId', 'policyRole_roleId' - The stable and unique string identifying the role. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+--
+-- 'roleName', 'policyRole_roleName' - The name (friendly name, not ARN) identifying the role.
+newPolicyRole ::
   PolicyRole
-policyRole =
+newPolicyRole =
   PolicyRole'
-    { _prRoleId = Nothing,
-      _prRoleName = Nothing
+    { roleId = Prelude.Nothing,
+      roleName = Prelude.Nothing
     }
 
--- | The stable and unique string identifying the role. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers> in the /IAM User Guide/ .
-prRoleId :: Lens' PolicyRole (Maybe Text)
-prRoleId = lens _prRoleId (\s a -> s {_prRoleId = a})
+-- | The stable and unique string identifying the role. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+policyRole_roleId :: Lens.Lens' PolicyRole (Prelude.Maybe Prelude.Text)
+policyRole_roleId = Lens.lens (\PolicyRole' {roleId} -> roleId) (\s@PolicyRole' {} a -> s {roleId = a} :: PolicyRole)
 
 -- | The name (friendly name, not ARN) identifying the role.
-prRoleName :: Lens' PolicyRole (Maybe Text)
-prRoleName = lens _prRoleName (\s a -> s {_prRoleName = a})
+policyRole_roleName :: Lens.Lens' PolicyRole (Prelude.Maybe Prelude.Text)
+policyRole_roleName = Lens.lens (\PolicyRole' {roleName} -> roleName) (\s@PolicyRole' {} a -> s {roleName = a} :: PolicyRole)
 
-instance FromXML PolicyRole where
+instance Prelude.FromXML PolicyRole where
   parseXML x =
     PolicyRole'
-      <$> (x .@? "RoleId") <*> (x .@? "RoleName")
+      Prelude.<$> (x Prelude..@? "RoleId")
+      Prelude.<*> (x Prelude..@? "RoleName")
 
-instance Hashable PolicyRole
+instance Prelude.Hashable PolicyRole
 
-instance NFData PolicyRole
+instance Prelude.NFData PolicyRole

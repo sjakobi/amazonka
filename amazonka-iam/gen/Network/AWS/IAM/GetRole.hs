@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,156 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about the specified role, including the role's path, GUID, ARN, and the role's trust policy that grants permission to assume the role. For more information about roles, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html Working with roles> .
+-- Retrieves information about the specified role, including the role\'s
+-- path, GUID, ARN, and the role\'s trust policy that grants permission to
+-- assume the role. For more information about roles, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html Working with roles>.
+--
+-- Policies returned by this operation are URL-encoded compliant with
+-- <https://tools.ietf.org/html/rfc3986 RFC 3986>. You can use a URL
+-- decoding method to convert the policy back to plain JSON text. For
+-- example, if you use Java, you can use the @decode@ method of the
+-- @java.net.URLDecoder@ utility class in the Java SDK. Other languages and
+-- SDKs provide similar functionality.
 module Network.AWS.IAM.GetRole
   ( -- * Creating a Request
-    getRole,
-    GetRole,
+    GetRole (..),
+    newGetRole,
 
     -- * Request Lenses
-    grRoleName,
+    getRole_roleName,
 
     -- * Destructuring the Response
-    getRoleResponse,
-    GetRoleResponse,
+    GetRoleResponse (..),
+    newGetRoleResponse,
 
     -- * Response Lenses
-    grrrsResponseStatus,
-    grrrsRole,
+    getRoleResponse_httpStatus,
+    getRoleResponse_role,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Role
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRole' smart constructor.
-newtype GetRole = GetRole' {_grRoleName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetRole' smart constructor.
+data GetRole = GetRole'
+  { -- | The name of the IAM role to get information about.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    roleName :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grRoleName' - The name of the IAM role to get information about. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-getRole ::
-  -- | 'grRoleName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roleName', 'getRole_roleName' - The name of the IAM role to get information about.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newGetRole ::
+  -- | 'roleName'
+  Prelude.Text ->
   GetRole
-getRole pRoleName_ =
-  GetRole' {_grRoleName = pRoleName_}
+newGetRole pRoleName_ =
+  GetRole' {roleName = pRoleName_}
 
--- | The name of the IAM role to get information about. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-grRoleName :: Lens' GetRole Text
-grRoleName = lens _grRoleName (\s a -> s {_grRoleName = a})
+-- | The name of the IAM role to get information about.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+getRole_roleName :: Lens.Lens' GetRole Prelude.Text
+getRole_roleName = Lens.lens (\GetRole' {roleName} -> roleName) (\s@GetRole' {} a -> s {roleName = a} :: GetRole)
 
-instance AWSRequest GetRole where
+instance Prelude.AWSRequest GetRole where
   type Rs GetRole = GetRoleResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetRoleResult"
       ( \s h x ->
           GetRoleResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "Role")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Role")
       )
 
-instance Hashable GetRole
+instance Prelude.Hashable GetRole
 
-instance NFData GetRole
+instance Prelude.NFData GetRole
 
-instance ToHeaders GetRole where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetRole where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetRole where
-  toPath = const "/"
+instance Prelude.ToPath GetRole where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRole where
+instance Prelude.ToQuery GetRole where
   toQuery GetRole' {..} =
-    mconcat
-      [ "Action" =: ("GetRole" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "RoleName" =: _grRoleName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("GetRole" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Prelude.=: roleName
       ]
 
--- | Contains the response to a successful 'GetRole' request.
+-- | Contains the response to a successful GetRole request.
 --
---
---
--- /See:/ 'getRoleResponse' smart constructor.
+-- /See:/ 'newGetRoleResponse' smart constructor.
 data GetRoleResponse = GetRoleResponse'
-  { _grrrsResponseStatus ::
-      !Int,
-    _grrrsRole :: !Role
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A structure containing details about the IAM role.
+    role' :: Role
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRoleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRoleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrrsRole' - A structure containing details about the IAM role.
-getRoleResponse ::
-  -- | 'grrrsResponseStatus'
-  Int ->
-  -- | 'grrrsRole'
+-- 'httpStatus', 'getRoleResponse_httpStatus' - The response's http status code.
+--
+-- 'role'', 'getRoleResponse_role' - A structure containing details about the IAM role.
+newGetRoleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'role''
   Role ->
   GetRoleResponse
-getRoleResponse pResponseStatus_ pRole_ =
+newGetRoleResponse pHttpStatus_ pRole_ =
   GetRoleResponse'
-    { _grrrsResponseStatus =
-        pResponseStatus_,
-      _grrrsRole = pRole_
+    { httpStatus = pHttpStatus_,
+      role' = pRole_
     }
 
--- | -- | The response status code.
-grrrsResponseStatus :: Lens' GetRoleResponse Int
-grrrsResponseStatus = lens _grrrsResponseStatus (\s a -> s {_grrrsResponseStatus = a})
+-- | The response's http status code.
+getRoleResponse_httpStatus :: Lens.Lens' GetRoleResponse Prelude.Int
+getRoleResponse_httpStatus = Lens.lens (\GetRoleResponse' {httpStatus} -> httpStatus) (\s@GetRoleResponse' {} a -> s {httpStatus = a} :: GetRoleResponse)
 
 -- | A structure containing details about the IAM role.
-grrrsRole :: Lens' GetRoleResponse Role
-grrrsRole = lens _grrrsRole (\s a -> s {_grrrsRole = a})
+getRoleResponse_role :: Lens.Lens' GetRoleResponse Role
+getRoleResponse_role = Lens.lens (\GetRoleResponse' {role'} -> role') (\s@GetRoleResponse' {} a -> s {role' = a} :: GetRoleResponse)
 
-instance NFData GetRoleResponse
+instance Prelude.NFData GetRoleResponse

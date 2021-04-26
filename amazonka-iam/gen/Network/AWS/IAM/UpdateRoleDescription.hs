@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,151 +21,149 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Use 'UpdateRole' instead.
+-- Use UpdateRole instead.
 --
---
--- Modifies only the description of a role. This operation performs the same function as the @Description@ parameter in the @UpdateRole@ operation.
+-- Modifies only the description of a role. This operation performs the
+-- same function as the @Description@ parameter in the @UpdateRole@
+-- operation.
 module Network.AWS.IAM.UpdateRoleDescription
   ( -- * Creating a Request
-    updateRoleDescription,
-    UpdateRoleDescription,
+    UpdateRoleDescription (..),
+    newUpdateRoleDescription,
 
     -- * Request Lenses
-    urdRoleName,
-    urdDescription,
+    updateRoleDescription_roleName,
+    updateRoleDescription_description,
 
     -- * Destructuring the Response
-    updateRoleDescriptionResponse,
-    UpdateRoleDescriptionResponse,
+    UpdateRoleDescriptionResponse (..),
+    newUpdateRoleDescriptionResponse,
 
     -- * Response Lenses
-    urdrrsRole,
-    urdrrsResponseStatus,
+    updateRoleDescriptionResponse_role,
+    updateRoleDescriptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Role
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRoleDescription' smart constructor.
+-- | /See:/ 'newUpdateRoleDescription' smart constructor.
 data UpdateRoleDescription = UpdateRoleDescription'
-  { _urdRoleName ::
-      !Text,
-    _urdDescription :: !Text
+  { -- | The name of the role that you want to modify.
+    roleName :: Prelude.Text,
+    -- | The new description that you want to apply to the specified role.
+    description :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoleDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoleDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urdRoleName' - The name of the role that you want to modify.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urdDescription' - The new description that you want to apply to the specified role.
-updateRoleDescription ::
-  -- | 'urdRoleName'
-  Text ->
-  -- | 'urdDescription'
-  Text ->
+-- 'roleName', 'updateRoleDescription_roleName' - The name of the role that you want to modify.
+--
+-- 'description', 'updateRoleDescription_description' - The new description that you want to apply to the specified role.
+newUpdateRoleDescription ::
+  -- | 'roleName'
+  Prelude.Text ->
+  -- | 'description'
+  Prelude.Text ->
   UpdateRoleDescription
-updateRoleDescription pRoleName_ pDescription_ =
+newUpdateRoleDescription pRoleName_ pDescription_ =
   UpdateRoleDescription'
-    { _urdRoleName = pRoleName_,
-      _urdDescription = pDescription_
+    { roleName = pRoleName_,
+      description = pDescription_
     }
 
 -- | The name of the role that you want to modify.
-urdRoleName :: Lens' UpdateRoleDescription Text
-urdRoleName = lens _urdRoleName (\s a -> s {_urdRoleName = a})
+updateRoleDescription_roleName :: Lens.Lens' UpdateRoleDescription Prelude.Text
+updateRoleDescription_roleName = Lens.lens (\UpdateRoleDescription' {roleName} -> roleName) (\s@UpdateRoleDescription' {} a -> s {roleName = a} :: UpdateRoleDescription)
 
 -- | The new description that you want to apply to the specified role.
-urdDescription :: Lens' UpdateRoleDescription Text
-urdDescription = lens _urdDescription (\s a -> s {_urdDescription = a})
+updateRoleDescription_description :: Lens.Lens' UpdateRoleDescription Prelude.Text
+updateRoleDescription_description = Lens.lens (\UpdateRoleDescription' {description} -> description) (\s@UpdateRoleDescription' {} a -> s {description = a} :: UpdateRoleDescription)
 
-instance AWSRequest UpdateRoleDescription where
+instance Prelude.AWSRequest UpdateRoleDescription where
   type
     Rs UpdateRoleDescription =
       UpdateRoleDescriptionResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateRoleDescriptionResult"
       ( \s h x ->
           UpdateRoleDescriptionResponse'
-            <$> (x .@? "Role") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Role")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateRoleDescription
+instance Prelude.Hashable UpdateRoleDescription
 
-instance NFData UpdateRoleDescription
+instance Prelude.NFData UpdateRoleDescription
 
-instance ToHeaders UpdateRoleDescription where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateRoleDescription where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateRoleDescription where
-  toPath = const "/"
+instance Prelude.ToPath UpdateRoleDescription where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateRoleDescription where
+instance Prelude.ToQuery UpdateRoleDescription where
   toQuery UpdateRoleDescription' {..} =
-    mconcat
-      [ "Action" =: ("UpdateRoleDescription" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "RoleName" =: _urdRoleName,
-        "Description" =: _urdDescription
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UpdateRoleDescription" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Prelude.=: roleName,
+        "Description" Prelude.=: description
       ]
 
--- | /See:/ 'updateRoleDescriptionResponse' smart constructor.
+-- | /See:/ 'newUpdateRoleDescriptionResponse' smart constructor.
 data UpdateRoleDescriptionResponse = UpdateRoleDescriptionResponse'
-  { _urdrrsRole ::
-      !( Maybe
-           Role
-       ),
-    _urdrrsResponseStatus ::
-      !Int
+  { -- | A structure that contains details about the modified role.
+    role' :: Prelude.Maybe Role,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoleDescriptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoleDescriptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urdrrsRole' - A structure that contains details about the modified role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urdrrsResponseStatus' - -- | The response status code.
-updateRoleDescriptionResponse ::
-  -- | 'urdrrsResponseStatus'
-  Int ->
+-- 'role'', 'updateRoleDescriptionResponse_role' - A structure that contains details about the modified role.
+--
+-- 'httpStatus', 'updateRoleDescriptionResponse_httpStatus' - The response's http status code.
+newUpdateRoleDescriptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateRoleDescriptionResponse
-updateRoleDescriptionResponse pResponseStatus_ =
+newUpdateRoleDescriptionResponse pHttpStatus_ =
   UpdateRoleDescriptionResponse'
-    { _urdrrsRole =
-        Nothing,
-      _urdrrsResponseStatus = pResponseStatus_
+    { role' =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A structure that contains details about the modified role.
-urdrrsRole :: Lens' UpdateRoleDescriptionResponse (Maybe Role)
-urdrrsRole = lens _urdrrsRole (\s a -> s {_urdrrsRole = a})
+updateRoleDescriptionResponse_role :: Lens.Lens' UpdateRoleDescriptionResponse (Prelude.Maybe Role)
+updateRoleDescriptionResponse_role = Lens.lens (\UpdateRoleDescriptionResponse' {role'} -> role') (\s@UpdateRoleDescriptionResponse' {} a -> s {role' = a} :: UpdateRoleDescriptionResponse)
 
--- | -- | The response status code.
-urdrrsResponseStatus :: Lens' UpdateRoleDescriptionResponse Int
-urdrrsResponseStatus = lens _urdrrsResponseStatus (\s a -> s {_urdrrsResponseStatus = a})
+-- | The response's http status code.
+updateRoleDescriptionResponse_httpStatus :: Lens.Lens' UpdateRoleDescriptionResponse Prelude.Int
+updateRoleDescriptionResponse_httpStatus = Lens.lens (\UpdateRoleDescriptionResponse' {httpStatus} -> httpStatus) (\s@UpdateRoleDescriptionResponse' {} a -> s {httpStatus = a} :: UpdateRoleDescriptionResponse)
 
-instance NFData UpdateRoleDescriptionResponse
+instance Prelude.NFData UpdateRoleDescriptionResponse

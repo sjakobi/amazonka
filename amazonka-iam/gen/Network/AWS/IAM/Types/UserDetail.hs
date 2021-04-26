@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,133 +23,189 @@ import Network.AWS.IAM.Types.AttachedPermissionsBoundary
 import Network.AWS.IAM.Types.AttachedPolicy
 import Network.AWS.IAM.Types.PolicyDetail
 import Network.AWS.IAM.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an IAM user, including all the user's policies and all the IAM groups the user is in.
+-- | Contains information about an IAM user, including all the user\'s
+-- policies and all the IAM groups the user is in.
 --
+-- This data type is used as a response element in the
+-- GetAccountAuthorizationDetails operation.
 --
--- This data type is used as a response element in the 'GetAccountAuthorizationDetails' operation.
---
---
--- /See:/ 'userDetail' smart constructor.
+-- /See:/ 'newUserDetail' smart constructor.
 data UserDetail = UserDetail'
-  { _udAttachedManagedPolicies ::
-      !(Maybe [AttachedPolicy]),
-    _udPermissionsBoundary ::
-      !(Maybe AttachedPermissionsBoundary),
-    _udCreateDate :: !(Maybe ISO8601),
-    _udARN :: !(Maybe Text),
-    _udGroupList :: !(Maybe [Text]),
-    _udUserId :: !(Maybe Text),
-    _udTags :: !(Maybe [Tag]),
-    _udUserName :: !(Maybe Text),
-    _udUserPolicyList :: !(Maybe [PolicyDetail]),
-    _udPath :: !(Maybe Text)
+  { -- | A list of the managed policies attached to the user.
+    attachedManagedPolicies :: Prelude.Maybe [AttachedPolicy],
+    -- | The ARN of the policy used to set the permissions boundary for the user.
+    --
+    -- For more information about permissions boundaries, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities>
+    -- in the /IAM User Guide/.
+    permissionsBoundary :: Prelude.Maybe AttachedPermissionsBoundary,
+    -- | The date and time, in
+    -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+    -- user was created.
+    createDate :: Prelude.Maybe Prelude.ISO8601,
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | A list of IAM groups that the user is in.
+    groupList :: Prelude.Maybe [Prelude.Text],
+    -- | The stable and unique string identifying the user. For more information
+    -- about IDs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags that are associated with the user. For more information
+    -- about tagging, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+    -- in the /IAM User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | The friendly name identifying the user.
+    userName :: Prelude.Maybe Prelude.Text,
+    -- | A list of the inline policies embedded in the user.
+    userPolicyList :: Prelude.Maybe [PolicyDetail],
+    -- | The path to the user. For more information about paths, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udAttachedManagedPolicies' - A list of the managed policies attached to the user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udPermissionsBoundary' - The ARN of the policy used to set the permissions boundary for the user. For more information about permissions boundaries, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities > in the /IAM User Guide/ .
+-- 'attachedManagedPolicies', 'userDetail_attachedManagedPolicies' - A list of the managed policies attached to the user.
 --
--- * 'udCreateDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the user was created.
+-- 'permissionsBoundary', 'userDetail_permissionsBoundary' - The ARN of the policy used to set the permissions boundary for the user.
 --
--- * 'udARN' - Undocumented member.
+-- For more information about permissions boundaries, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities>
+-- in the /IAM User Guide/.
 --
--- * 'udGroupList' - A list of IAM groups that the user is in.
+-- 'createDate', 'userDetail_createDate' - The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- user was created.
 --
--- * 'udUserId' - The stable and unique string identifying the user. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'arn', 'userDetail_arn' - Undocumented member.
 --
--- * 'udTags' - A list of tags that are associated with the user. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- 'groupList', 'userDetail_groupList' - A list of IAM groups that the user is in.
 --
--- * 'udUserName' - The friendly name identifying the user.
+-- 'userId', 'userDetail_userId' - The stable and unique string identifying the user. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
 --
--- * 'udUserPolicyList' - A list of the inline policies embedded in the user.
+-- 'tags', 'userDetail_tags' - A list of tags that are associated with the user. For more information
+-- about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 --
--- * 'udPath' - The path to the user. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-userDetail ::
+-- 'userName', 'userDetail_userName' - The friendly name identifying the user.
+--
+-- 'userPolicyList', 'userDetail_userPolicyList' - A list of the inline policies embedded in the user.
+--
+-- 'path', 'userDetail_path' - The path to the user. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+newUserDetail ::
   UserDetail
-userDetail =
+newUserDetail =
   UserDetail'
-    { _udAttachedManagedPolicies = Nothing,
-      _udPermissionsBoundary = Nothing,
-      _udCreateDate = Nothing,
-      _udARN = Nothing,
-      _udGroupList = Nothing,
-      _udUserId = Nothing,
-      _udTags = Nothing,
-      _udUserName = Nothing,
-      _udUserPolicyList = Nothing,
-      _udPath = Nothing
+    { attachedManagedPolicies =
+        Prelude.Nothing,
+      permissionsBoundary = Prelude.Nothing,
+      createDate = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      groupList = Prelude.Nothing,
+      userId = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      userName = Prelude.Nothing,
+      userPolicyList = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
 -- | A list of the managed policies attached to the user.
-udAttachedManagedPolicies :: Lens' UserDetail [AttachedPolicy]
-udAttachedManagedPolicies = lens _udAttachedManagedPolicies (\s a -> s {_udAttachedManagedPolicies = a}) . _Default . _Coerce
+userDetail_attachedManagedPolicies :: Lens.Lens' UserDetail (Prelude.Maybe [AttachedPolicy])
+userDetail_attachedManagedPolicies = Lens.lens (\UserDetail' {attachedManagedPolicies} -> attachedManagedPolicies) (\s@UserDetail' {} a -> s {attachedManagedPolicies = a} :: UserDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The ARN of the policy used to set the permissions boundary for the user. For more information about permissions boundaries, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities > in the /IAM User Guide/ .
-udPermissionsBoundary :: Lens' UserDetail (Maybe AttachedPermissionsBoundary)
-udPermissionsBoundary = lens _udPermissionsBoundary (\s a -> s {_udPermissionsBoundary = a})
+-- | The ARN of the policy used to set the permissions boundary for the user.
+--
+-- For more information about permissions boundaries, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities>
+-- in the /IAM User Guide/.
+userDetail_permissionsBoundary :: Lens.Lens' UserDetail (Prelude.Maybe AttachedPermissionsBoundary)
+userDetail_permissionsBoundary = Lens.lens (\UserDetail' {permissionsBoundary} -> permissionsBoundary) (\s@UserDetail' {} a -> s {permissionsBoundary = a} :: UserDetail)
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the user was created.
-udCreateDate :: Lens' UserDetail (Maybe UTCTime)
-udCreateDate = lens _udCreateDate (\s a -> s {_udCreateDate = a}) . mapping _Time
+-- | The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- user was created.
+userDetail_createDate :: Lens.Lens' UserDetail (Prelude.Maybe Prelude.UTCTime)
+userDetail_createDate = Lens.lens (\UserDetail' {createDate} -> createDate) (\s@UserDetail' {} a -> s {createDate = a} :: UserDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-udARN :: Lens' UserDetail (Maybe Text)
-udARN = lens _udARN (\s a -> s {_udARN = a})
+userDetail_arn :: Lens.Lens' UserDetail (Prelude.Maybe Prelude.Text)
+userDetail_arn = Lens.lens (\UserDetail' {arn} -> arn) (\s@UserDetail' {} a -> s {arn = a} :: UserDetail)
 
 -- | A list of IAM groups that the user is in.
-udGroupList :: Lens' UserDetail [Text]
-udGroupList = lens _udGroupList (\s a -> s {_udGroupList = a}) . _Default . _Coerce
+userDetail_groupList :: Lens.Lens' UserDetail (Prelude.Maybe [Prelude.Text])
+userDetail_groupList = Lens.lens (\UserDetail' {groupList} -> groupList) (\s@UserDetail' {} a -> s {groupList = a} :: UserDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The stable and unique string identifying the user. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-udUserId :: Lens' UserDetail (Maybe Text)
-udUserId = lens _udUserId (\s a -> s {_udUserId = a})
+-- | The stable and unique string identifying the user. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+userDetail_userId :: Lens.Lens' UserDetail (Prelude.Maybe Prelude.Text)
+userDetail_userId = Lens.lens (\UserDetail' {userId} -> userId) (\s@UserDetail' {} a -> s {userId = a} :: UserDetail)
 
--- | A list of tags that are associated with the user. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
-udTags :: Lens' UserDetail [Tag]
-udTags = lens _udTags (\s a -> s {_udTags = a}) . _Default . _Coerce
+-- | A list of tags that are associated with the user. For more information
+-- about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+userDetail_tags :: Lens.Lens' UserDetail (Prelude.Maybe [Tag])
+userDetail_tags = Lens.lens (\UserDetail' {tags} -> tags) (\s@UserDetail' {} a -> s {tags = a} :: UserDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The friendly name identifying the user.
-udUserName :: Lens' UserDetail (Maybe Text)
-udUserName = lens _udUserName (\s a -> s {_udUserName = a})
+userDetail_userName :: Lens.Lens' UserDetail (Prelude.Maybe Prelude.Text)
+userDetail_userName = Lens.lens (\UserDetail' {userName} -> userName) (\s@UserDetail' {} a -> s {userName = a} :: UserDetail)
 
 -- | A list of the inline policies embedded in the user.
-udUserPolicyList :: Lens' UserDetail [PolicyDetail]
-udUserPolicyList = lens _udUserPolicyList (\s a -> s {_udUserPolicyList = a}) . _Default . _Coerce
+userDetail_userPolicyList :: Lens.Lens' UserDetail (Prelude.Maybe [PolicyDetail])
+userDetail_userPolicyList = Lens.lens (\UserDetail' {userPolicyList} -> userPolicyList) (\s@UserDetail' {} a -> s {userPolicyList = a} :: UserDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The path to the user. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-udPath :: Lens' UserDetail (Maybe Text)
-udPath = lens _udPath (\s a -> s {_udPath = a})
+-- | The path to the user. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+userDetail_path :: Lens.Lens' UserDetail (Prelude.Maybe Prelude.Text)
+userDetail_path = Lens.lens (\UserDetail' {path} -> path) (\s@UserDetail' {} a -> s {path = a} :: UserDetail)
 
-instance FromXML UserDetail where
+instance Prelude.FromXML UserDetail where
   parseXML x =
     UserDetail'
-      <$> ( x .@? "AttachedManagedPolicies" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "PermissionsBoundary")
-      <*> (x .@? "CreateDate")
-      <*> (x .@? "Arn")
-      <*> ( x .@? "GroupList" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "UserId")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "UserName")
-      <*> ( x .@? "UserPolicyList" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Path")
+      Prelude.<$> ( x Prelude..@? "AttachedManagedPolicies"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "PermissionsBoundary")
+      Prelude.<*> (x Prelude..@? "CreateDate")
+      Prelude.<*> (x Prelude..@? "Arn")
+      Prelude.<*> ( x Prelude..@? "GroupList" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "UserId")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "UserName")
+      Prelude.<*> ( x Prelude..@? "UserPolicyList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Path")
 
-instance Hashable UserDetail
+instance Prelude.Hashable UserDetail
 
-instance NFData UserDetail
+instance Prelude.NFData UserDetail

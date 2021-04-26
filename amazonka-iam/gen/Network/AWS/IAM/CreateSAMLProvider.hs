@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,276 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an IAM resource that describes an identity provider (IdP) that supports SAML 2.0.
+-- Creates an IAM resource that describes an identity provider (IdP) that
+-- supports SAML 2.0.
 --
+-- The SAML provider resource that you create with this operation can be
+-- used as a principal in an IAM role\'s trust policy. Such a policy can
+-- enable federated users who sign in using the SAML IdP to assume the
+-- role. You can create an IAM role that supports Web-based single sign-on
+-- (SSO) to the AWS Management Console or one that supports API access to
+-- AWS.
 --
--- The SAML provider resource that you create with this operation can be used as a principal in an IAM role's trust policy. Such a policy can enable federated users who sign in using the SAML IdP to assume the role. You can create an IAM role that supports Web-based single sign-on (SSO) to the AWS Management Console or one that supports API access to AWS.
+-- When you create the SAML provider resource, you upload a SAML metadata
+-- document that you get from your IdP. That document includes the
+-- issuer\'s name, expiration information, and keys that can be used to
+-- validate the SAML authentication response (assertions) that the IdP
+-- sends. You must generate the metadata document using the identity
+-- management software that is used as your organization\'s IdP.
 --
--- When you create the SAML provider resource, you upload a SAML metadata document that you get from your IdP. That document includes the issuer's name, expiration information, and keys that can be used to validate the SAML authentication response (assertions) that the IdP sends. You must generate the metadata document using the identity management software that is used as your organization's IdP.
+-- This operation requires
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4>.
 --
--- For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html Enabling SAML 2.0 federated users to access the AWS Management Console> and <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation> in the /IAM User Guide/ .
+-- For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html Enabling SAML 2.0 federated users to access the AWS Management Console>
+-- and
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.CreateSAMLProvider
   ( -- * Creating a Request
-    createSAMLProvider,
-    CreateSAMLProvider,
+    CreateSAMLProvider (..),
+    newCreateSAMLProvider,
 
     -- * Request Lenses
-    csamlpTags,
-    csamlpSAMLMetadataDocument,
-    csamlpName,
+    createSAMLProvider_tags,
+    createSAMLProvider_sAMLMetadataDocument,
+    createSAMLProvider_name,
 
     -- * Destructuring the Response
-    createSAMLProviderResponse,
-    CreateSAMLProviderResponse,
+    CreateSAMLProviderResponse (..),
+    newCreateSAMLProviderResponse,
 
     -- * Response Lenses
-    csamlprrsSAMLProviderARN,
-    csamlprrsTags,
-    csamlprrsResponseStatus,
+    createSAMLProviderResponse_sAMLProviderArn,
+    createSAMLProviderResponse_tags,
+    createSAMLProviderResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createSAMLProvider' smart constructor.
+-- | /See:/ 'newCreateSAMLProvider' smart constructor.
 data CreateSAMLProvider = CreateSAMLProvider'
-  { _csamlpTags ::
-      !(Maybe [Tag]),
-    _csamlpSAMLMetadataDocument ::
-      !Text,
-    _csamlpName :: !Text
+  { -- | A list of tags that you want to attach to the new IAM SAML provider.
+    -- Each tag consists of a key name and an associated value. For more
+    -- information about tagging, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+    -- in the /IAM User Guide/.
+    --
+    -- If any one of the tags is invalid or if you exceed the allowed maximum
+    -- number of tags, then the entire request fails and the resource is not
+    -- created.
+    tags :: Prelude.Maybe [Tag],
+    -- | An XML document generated by an identity provider (IdP) that supports
+    -- SAML 2.0. The document includes the issuer\'s name, expiration
+    -- information, and keys that can be used to validate the SAML
+    -- authentication response (assertions) that are received from the IdP. You
+    -- must generate the metadata document using the identity management
+    -- software that is used as your organization\'s IdP.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation>
+    -- in the /IAM User Guide/
+    sAMLMetadataDocument :: Prelude.Text,
+    -- | The name of the provider to create.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSAMLProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSAMLProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csamlpTags' - A list of tags that you want to attach to the new IAM SAML provider. Each tag consists of a key name and an associated value. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csamlpSAMLMetadataDocument' - An XML document generated by an identity provider (IdP) that supports SAML 2.0. The document includes the issuer's name, expiration information, and keys that can be used to validate the SAML authentication response (assertions) that are received from the IdP. You must generate the metadata document using the identity management software that is used as your organization's IdP. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation> in the /IAM User Guide/
+-- 'tags', 'createSAMLProvider_tags' - A list of tags that you want to attach to the new IAM SAML provider.
+-- Each tag consists of a key name and an associated value. For more
+-- information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 --
--- * 'csamlpName' - The name of the provider to create. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-createSAMLProvider ::
-  -- | 'csamlpSAMLMetadataDocument'
-  Text ->
-  -- | 'csamlpName'
-  Text ->
+-- If any one of the tags is invalid or if you exceed the allowed maximum
+-- number of tags, then the entire request fails and the resource is not
+-- created.
+--
+-- 'sAMLMetadataDocument', 'createSAMLProvider_sAMLMetadataDocument' - An XML document generated by an identity provider (IdP) that supports
+-- SAML 2.0. The document includes the issuer\'s name, expiration
+-- information, and keys that can be used to validate the SAML
+-- authentication response (assertions) that are received from the IdP. You
+-- must generate the metadata document using the identity management
+-- software that is used as your organization\'s IdP.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation>
+-- in the /IAM User Guide/
+--
+-- 'name', 'createSAMLProvider_name' - The name of the provider to create.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newCreateSAMLProvider ::
+  -- | 'sAMLMetadataDocument'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
   CreateSAMLProvider
-createSAMLProvider pSAMLMetadataDocument_ pName_ =
+newCreateSAMLProvider pSAMLMetadataDocument_ pName_ =
   CreateSAMLProvider'
-    { _csamlpTags = Nothing,
-      _csamlpSAMLMetadataDocument = pSAMLMetadataDocument_,
-      _csamlpName = pName_
+    { tags = Prelude.Nothing,
+      sAMLMetadataDocument = pSAMLMetadataDocument_,
+      name = pName_
     }
 
--- | A list of tags that you want to attach to the new IAM SAML provider. Each tag consists of a key name and an associated value. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
-csamlpTags :: Lens' CreateSAMLProvider [Tag]
-csamlpTags = lens _csamlpTags (\s a -> s {_csamlpTags = a}) . _Default . _Coerce
+-- | A list of tags that you want to attach to the new IAM SAML provider.
+-- Each tag consists of a key name and an associated value. For more
+-- information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+--
+-- If any one of the tags is invalid or if you exceed the allowed maximum
+-- number of tags, then the entire request fails and the resource is not
+-- created.
+createSAMLProvider_tags :: Lens.Lens' CreateSAMLProvider (Prelude.Maybe [Tag])
+createSAMLProvider_tags = Lens.lens (\CreateSAMLProvider' {tags} -> tags) (\s@CreateSAMLProvider' {} a -> s {tags = a} :: CreateSAMLProvider) Prelude.. Lens.mapping Prelude._Coerce
 
--- | An XML document generated by an identity provider (IdP) that supports SAML 2.0. The document includes the issuer's name, expiration information, and keys that can be used to validate the SAML authentication response (assertions) that are received from the IdP. You must generate the metadata document using the identity management software that is used as your organization's IdP. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation> in the /IAM User Guide/
-csamlpSAMLMetadataDocument :: Lens' CreateSAMLProvider Text
-csamlpSAMLMetadataDocument = lens _csamlpSAMLMetadataDocument (\s a -> s {_csamlpSAMLMetadataDocument = a})
+-- | An XML document generated by an identity provider (IdP) that supports
+-- SAML 2.0. The document includes the issuer\'s name, expiration
+-- information, and keys that can be used to validate the SAML
+-- authentication response (assertions) that are received from the IdP. You
+-- must generate the metadata document using the identity management
+-- software that is used as your organization\'s IdP.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html About SAML 2.0-based federation>
+-- in the /IAM User Guide/
+createSAMLProvider_sAMLMetadataDocument :: Lens.Lens' CreateSAMLProvider Prelude.Text
+createSAMLProvider_sAMLMetadataDocument = Lens.lens (\CreateSAMLProvider' {sAMLMetadataDocument} -> sAMLMetadataDocument) (\s@CreateSAMLProvider' {} a -> s {sAMLMetadataDocument = a} :: CreateSAMLProvider)
 
--- | The name of the provider to create. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-csamlpName :: Lens' CreateSAMLProvider Text
-csamlpName = lens _csamlpName (\s a -> s {_csamlpName = a})
+-- | The name of the provider to create.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+createSAMLProvider_name :: Lens.Lens' CreateSAMLProvider Prelude.Text
+createSAMLProvider_name = Lens.lens (\CreateSAMLProvider' {name} -> name) (\s@CreateSAMLProvider' {} a -> s {name = a} :: CreateSAMLProvider)
 
-instance AWSRequest CreateSAMLProvider where
+instance Prelude.AWSRequest CreateSAMLProvider where
   type
     Rs CreateSAMLProvider =
       CreateSAMLProviderResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateSAMLProviderResult"
       ( \s h x ->
           CreateSAMLProviderResponse'
-            <$> (x .@? "SAMLProviderArn")
-            <*> ( x .@? "Tags" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "SAMLProviderArn")
+            Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateSAMLProvider
+instance Prelude.Hashable CreateSAMLProvider
 
-instance NFData CreateSAMLProvider
+instance Prelude.NFData CreateSAMLProvider
 
-instance ToHeaders CreateSAMLProvider where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateSAMLProvider where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateSAMLProvider where
-  toPath = const "/"
+instance Prelude.ToPath CreateSAMLProvider where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateSAMLProvider where
+instance Prelude.ToQuery CreateSAMLProvider where
   toQuery CreateSAMLProvider' {..} =
-    mconcat
-      [ "Action" =: ("CreateSAMLProvider" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateSAMLProvider" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
         "Tags"
-          =: toQuery (toQueryList "member" <$> _csamlpTags),
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> tags),
         "SAMLMetadataDocument"
-          =: _csamlpSAMLMetadataDocument,
-        "Name" =: _csamlpName
+          Prelude.=: sAMLMetadataDocument,
+        "Name" Prelude.=: name
       ]
 
--- | Contains the response to a successful 'CreateSAMLProvider' request.
+-- | Contains the response to a successful CreateSAMLProvider request.
 --
---
---
--- /See:/ 'createSAMLProviderResponse' smart constructor.
+-- /See:/ 'newCreateSAMLProviderResponse' smart constructor.
 data CreateSAMLProviderResponse = CreateSAMLProviderResponse'
-  { _csamlprrsSAMLProviderARN ::
-      !(Maybe Text),
-    _csamlprrsTags ::
-      !(Maybe [Tag]),
-    _csamlprrsResponseStatus ::
-      !Int
+  { -- | The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.
+    sAMLProviderArn :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags that are attached to the new IAM SAML provider. The
+    -- returned list of tags is sorted by tag key. For more information about
+    -- tagging, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+    -- in the /IAM User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateSAMLProviderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateSAMLProviderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csamlprrsSAMLProviderARN' - The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csamlprrsTags' - A list of tags that are attached to the new IAM SAML provider. The returned list of tags is sorted by tag key. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- 'sAMLProviderArn', 'createSAMLProviderResponse_sAMLProviderArn' - The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.
 --
--- * 'csamlprrsResponseStatus' - -- | The response status code.
-createSAMLProviderResponse ::
-  -- | 'csamlprrsResponseStatus'
-  Int ->
+-- 'tags', 'createSAMLProviderResponse_tags' - A list of tags that are attached to the new IAM SAML provider. The
+-- returned list of tags is sorted by tag key. For more information about
+-- tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+--
+-- 'httpStatus', 'createSAMLProviderResponse_httpStatus' - The response's http status code.
+newCreateSAMLProviderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateSAMLProviderResponse
-createSAMLProviderResponse pResponseStatus_ =
+newCreateSAMLProviderResponse pHttpStatus_ =
   CreateSAMLProviderResponse'
-    { _csamlprrsSAMLProviderARN =
-        Nothing,
-      _csamlprrsTags = Nothing,
-      _csamlprrsResponseStatus = pResponseStatus_
+    { sAMLProviderArn =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.
-csamlprrsSAMLProviderARN :: Lens' CreateSAMLProviderResponse (Maybe Text)
-csamlprrsSAMLProviderARN = lens _csamlprrsSAMLProviderARN (\s a -> s {_csamlprrsSAMLProviderARN = a})
+createSAMLProviderResponse_sAMLProviderArn :: Lens.Lens' CreateSAMLProviderResponse (Prelude.Maybe Prelude.Text)
+createSAMLProviderResponse_sAMLProviderArn = Lens.lens (\CreateSAMLProviderResponse' {sAMLProviderArn} -> sAMLProviderArn) (\s@CreateSAMLProviderResponse' {} a -> s {sAMLProviderArn = a} :: CreateSAMLProviderResponse)
 
--- | A list of tags that are attached to the new IAM SAML provider. The returned list of tags is sorted by tag key. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
-csamlprrsTags :: Lens' CreateSAMLProviderResponse [Tag]
-csamlprrsTags = lens _csamlprrsTags (\s a -> s {_csamlprrsTags = a}) . _Default . _Coerce
+-- | A list of tags that are attached to the new IAM SAML provider. The
+-- returned list of tags is sorted by tag key. For more information about
+-- tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+createSAMLProviderResponse_tags :: Lens.Lens' CreateSAMLProviderResponse (Prelude.Maybe [Tag])
+createSAMLProviderResponse_tags = Lens.lens (\CreateSAMLProviderResponse' {tags} -> tags) (\s@CreateSAMLProviderResponse' {} a -> s {tags = a} :: CreateSAMLProviderResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-csamlprrsResponseStatus :: Lens' CreateSAMLProviderResponse Int
-csamlprrsResponseStatus = lens _csamlprrsResponseStatus (\s a -> s {_csamlprrsResponseStatus = a})
+-- | The response's http status code.
+createSAMLProviderResponse_httpStatus :: Lens.Lens' CreateSAMLProviderResponse Prelude.Int
+createSAMLProviderResponse_httpStatus = Lens.lens (\CreateSAMLProviderResponse' {httpStatus} -> httpStatus) (\s@CreateSAMLProviderResponse' {} a -> s {httpStatus = a} :: CreateSAMLProviderResponse)
 
-instance NFData CreateSAMLProviderResponse
+instance Prelude.NFData CreateSAMLProviderResponse

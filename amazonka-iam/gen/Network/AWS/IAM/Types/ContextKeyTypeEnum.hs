@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,104 +19,102 @@
 module Network.AWS.IAM.Types.ContextKeyTypeEnum
   ( ContextKeyTypeEnum
       ( ..,
-        Binary,
-        BinaryList,
-        Boolean,
-        BooleanList,
-        Date,
-        DateList,
-        IP,
-        IPList,
-        Numeric,
-        NumericList,
-        String,
-        StringList
+        ContextKeyTypeEnumBinary,
+        ContextKeyTypeEnumBinaryList,
+        ContextKeyTypeEnumBoolean,
+        ContextKeyTypeEnumBooleanList,
+        ContextKeyTypeEnumDate,
+        ContextKeyTypeEnumDateList,
+        ContextKeyTypeEnumIP,
+        ContextKeyTypeEnumIpList,
+        ContextKeyTypeEnumNumeric,
+        ContextKeyTypeEnumNumericList,
+        ContextKeyTypeEnumString,
+        ContextKeyTypeEnumStringList
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContextKeyTypeEnum
-  = ContextKeyTypeEnum'
-      ( CI
-          Text
-      )
+newtype ContextKeyTypeEnum = ContextKeyTypeEnum'
+  { fromContextKeyTypeEnum ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Binary :: ContextKeyTypeEnum
-pattern Binary = ContextKeyTypeEnum' "binary"
+pattern ContextKeyTypeEnumBinary :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumBinary = ContextKeyTypeEnum' "binary"
 
-pattern BinaryList :: ContextKeyTypeEnum
-pattern BinaryList = ContextKeyTypeEnum' "binaryList"
+pattern ContextKeyTypeEnumBinaryList :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumBinaryList = ContextKeyTypeEnum' "binaryList"
 
-pattern Boolean :: ContextKeyTypeEnum
-pattern Boolean = ContextKeyTypeEnum' "boolean"
+pattern ContextKeyTypeEnumBoolean :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumBoolean = ContextKeyTypeEnum' "boolean"
 
-pattern BooleanList :: ContextKeyTypeEnum
-pattern BooleanList = ContextKeyTypeEnum' "booleanList"
+pattern ContextKeyTypeEnumBooleanList :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumBooleanList = ContextKeyTypeEnum' "booleanList"
 
-pattern Date :: ContextKeyTypeEnum
-pattern Date = ContextKeyTypeEnum' "date"
+pattern ContextKeyTypeEnumDate :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumDate = ContextKeyTypeEnum' "date"
 
-pattern DateList :: ContextKeyTypeEnum
-pattern DateList = ContextKeyTypeEnum' "dateList"
+pattern ContextKeyTypeEnumDateList :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumDateList = ContextKeyTypeEnum' "dateList"
 
-pattern IP :: ContextKeyTypeEnum
-pattern IP = ContextKeyTypeEnum' "ip"
+pattern ContextKeyTypeEnumIP :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumIP = ContextKeyTypeEnum' "ip"
 
-pattern IPList :: ContextKeyTypeEnum
-pattern IPList = ContextKeyTypeEnum' "ipList"
+pattern ContextKeyTypeEnumIpList :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumIpList = ContextKeyTypeEnum' "ipList"
 
-pattern Numeric :: ContextKeyTypeEnum
-pattern Numeric = ContextKeyTypeEnum' "numeric"
+pattern ContextKeyTypeEnumNumeric :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumNumeric = ContextKeyTypeEnum' "numeric"
 
-pattern NumericList :: ContextKeyTypeEnum
-pattern NumericList = ContextKeyTypeEnum' "numericList"
+pattern ContextKeyTypeEnumNumericList :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumNumericList = ContextKeyTypeEnum' "numericList"
 
-pattern String :: ContextKeyTypeEnum
-pattern String = ContextKeyTypeEnum' "string"
+pattern ContextKeyTypeEnumString :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumString = ContextKeyTypeEnum' "string"
 
-pattern StringList :: ContextKeyTypeEnum
-pattern StringList = ContextKeyTypeEnum' "stringList"
+pattern ContextKeyTypeEnumStringList :: ContextKeyTypeEnum
+pattern ContextKeyTypeEnumStringList = ContextKeyTypeEnum' "stringList"
 
 {-# COMPLETE
-  Binary,
-  BinaryList,
-  Boolean,
-  BooleanList,
-  Date,
-  DateList,
-  IP,
-  IPList,
-  Numeric,
-  NumericList,
-  String,
-  StringList,
+  ContextKeyTypeEnumBinary,
+  ContextKeyTypeEnumBinaryList,
+  ContextKeyTypeEnumBoolean,
+  ContextKeyTypeEnumBooleanList,
+  ContextKeyTypeEnumDate,
+  ContextKeyTypeEnumDateList,
+  ContextKeyTypeEnumIP,
+  ContextKeyTypeEnumIpList,
+  ContextKeyTypeEnumNumeric,
+  ContextKeyTypeEnumNumericList,
+  ContextKeyTypeEnumString,
+  ContextKeyTypeEnumStringList,
   ContextKeyTypeEnum'
   #-}
 
-instance FromText ContextKeyTypeEnum where
-  parser = (ContextKeyTypeEnum' . mk) <$> takeText
+instance Prelude.FromText ContextKeyTypeEnum where
+  parser = ContextKeyTypeEnum' Prelude.<$> Prelude.takeText
 
-instance ToText ContextKeyTypeEnum where
-  toText (ContextKeyTypeEnum' ci) = original ci
+instance Prelude.ToText ContextKeyTypeEnum where
+  toText (ContextKeyTypeEnum' x) = x
 
-instance Hashable ContextKeyTypeEnum
+instance Prelude.Hashable ContextKeyTypeEnum
 
-instance NFData ContextKeyTypeEnum
+instance Prelude.NFData ContextKeyTypeEnum
 
-instance ToByteString ContextKeyTypeEnum
+instance Prelude.ToByteString ContextKeyTypeEnum
 
-instance ToQuery ContextKeyTypeEnum
+instance Prelude.ToQuery ContextKeyTypeEnum
 
-instance ToHeader ContextKeyTypeEnum
+instance Prelude.ToHeader ContextKeyTypeEnum

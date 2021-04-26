@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,134 +23,197 @@
 --
 -- Creates a new group.
 --
---
--- For information about the number of groups you can create, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas> in the /IAM User Guide/ .
+-- For information about the number of groups you can create, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.CreateGroup
   ( -- * Creating a Request
-    createGroup,
-    CreateGroup,
+    CreateGroup (..),
+    newCreateGroup,
 
     -- * Request Lenses
-    cgPath,
-    cgGroupName,
+    createGroup_path,
+    createGroup_groupName,
 
     -- * Destructuring the Response
-    createGroupResponse,
-    CreateGroupResponse,
+    CreateGroupResponse (..),
+    newCreateGroupResponse,
 
     -- * Response Lenses
-    cgrrsResponseStatus,
-    cgrrsGroup,
+    createGroupResponse_httpStatus,
+    createGroupResponse_group,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Group
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createGroup' smart constructor.
+-- | /See:/ 'newCreateGroup' smart constructor.
 data CreateGroup = CreateGroup'
-  { _cgPath ::
-      !(Maybe Text),
-    _cgGroupName :: !Text
+  { -- | The path to the group. For more information about paths, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    --
+    -- This parameter is optional. If it is not included, it defaults to a
+    -- slash (\/).
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of either a forward slash (\/) by itself or a string that
+    -- must begin and end with forward slashes. In addition, it can contain any
+    -- ASCII character from the ! (@\\u0021@) through the DEL character
+    -- (@\\u007F@), including most punctuation characters, digits, and upper
+    -- and lowercased letters.
+    path :: Prelude.Maybe Prelude.Text,
+    -- | The name of the group to create. Do not include the path in this value.
+    --
+    -- IAM user, group, role, and policy names must be unique within the
+    -- account. Names are not distinguished by case. For example, you cannot
+    -- create resources named both \"MyResource\" and \"myresource\".
+    groupName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgPath' - The path to the group. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ . This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgGroupName' - The name of the group to create. Do not include the path in this value. IAM user, group, role, and policy names must be unique within the account. Names are not distinguished by case. For example, you cannot create resources named both "MyResource" and "myresource".
-createGroup ::
-  -- | 'cgGroupName'
-  Text ->
+-- 'path', 'createGroup_path' - The path to the group. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+--
+-- This parameter is optional. If it is not included, it defaults to a
+-- slash (\/).
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+--
+-- 'groupName', 'createGroup_groupName' - The name of the group to create. Do not include the path in this value.
+--
+-- IAM user, group, role, and policy names must be unique within the
+-- account. Names are not distinguished by case. For example, you cannot
+-- create resources named both \"MyResource\" and \"myresource\".
+newCreateGroup ::
+  -- | 'groupName'
+  Prelude.Text ->
   CreateGroup
-createGroup pGroupName_ =
+newCreateGroup pGroupName_ =
   CreateGroup'
-    { _cgPath = Nothing,
-      _cgGroupName = pGroupName_
+    { path = Prelude.Nothing,
+      groupName = pGroupName_
     }
 
--- | The path to the group. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ . This parameter is optional. If it is not included, it defaults to a slash (/). This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
-cgPath :: Lens' CreateGroup (Maybe Text)
-cgPath = lens _cgPath (\s a -> s {_cgPath = a})
+-- | The path to the group. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+--
+-- This parameter is optional. If it is not included, it defaults to a
+-- slash (\/).
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+createGroup_path :: Lens.Lens' CreateGroup (Prelude.Maybe Prelude.Text)
+createGroup_path = Lens.lens (\CreateGroup' {path} -> path) (\s@CreateGroup' {} a -> s {path = a} :: CreateGroup)
 
--- | The name of the group to create. Do not include the path in this value. IAM user, group, role, and policy names must be unique within the account. Names are not distinguished by case. For example, you cannot create resources named both "MyResource" and "myresource".
-cgGroupName :: Lens' CreateGroup Text
-cgGroupName = lens _cgGroupName (\s a -> s {_cgGroupName = a})
+-- | The name of the group to create. Do not include the path in this value.
+--
+-- IAM user, group, role, and policy names must be unique within the
+-- account. Names are not distinguished by case. For example, you cannot
+-- create resources named both \"MyResource\" and \"myresource\".
+createGroup_groupName :: Lens.Lens' CreateGroup Prelude.Text
+createGroup_groupName = Lens.lens (\CreateGroup' {groupName} -> groupName) (\s@CreateGroup' {} a -> s {groupName = a} :: CreateGroup)
 
-instance AWSRequest CreateGroup where
+instance Prelude.AWSRequest CreateGroup where
   type Rs CreateGroup = CreateGroupResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateGroupResult"
       ( \s h x ->
           CreateGroupResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "Group")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "Group")
       )
 
-instance Hashable CreateGroup
+instance Prelude.Hashable CreateGroup
 
-instance NFData CreateGroup
+instance Prelude.NFData CreateGroup
 
-instance ToHeaders CreateGroup where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateGroup where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateGroup where
+instance Prelude.ToQuery CreateGroup where
   toQuery CreateGroup' {..} =
-    mconcat
-      [ "Action" =: ("CreateGroup" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "Path" =: _cgPath,
-        "GroupName" =: _cgGroupName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateGroup" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "Path" Prelude.=: path,
+        "GroupName" Prelude.=: groupName
       ]
 
--- | Contains the response to a successful 'CreateGroup' request.
+-- | Contains the response to a successful CreateGroup request.
 --
---
---
--- /See:/ 'createGroupResponse' smart constructor.
+-- /See:/ 'newCreateGroupResponse' smart constructor.
 data CreateGroupResponse = CreateGroupResponse'
-  { _cgrrsResponseStatus ::
-      !Int,
-    _cgrrsGroup :: !Group
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A structure containing details about the new group.
+    group' :: Group
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cgrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cgrrsGroup' - A structure containing details about the new group.
-createGroupResponse ::
-  -- | 'cgrrsResponseStatus'
-  Int ->
-  -- | 'cgrrsGroup'
+-- 'httpStatus', 'createGroupResponse_httpStatus' - The response's http status code.
+--
+-- 'group'', 'createGroupResponse_group' - A structure containing details about the new group.
+newCreateGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'group''
   Group ->
   CreateGroupResponse
-createGroupResponse pResponseStatus_ pGroup_ =
+newCreateGroupResponse pHttpStatus_ pGroup_ =
   CreateGroupResponse'
-    { _cgrrsResponseStatus =
-        pResponseStatus_,
-      _cgrrsGroup = pGroup_
+    { httpStatus = pHttpStatus_,
+      group' = pGroup_
     }
 
--- | -- | The response status code.
-cgrrsResponseStatus :: Lens' CreateGroupResponse Int
-cgrrsResponseStatus = lens _cgrrsResponseStatus (\s a -> s {_cgrrsResponseStatus = a})
+-- | The response's http status code.
+createGroupResponse_httpStatus :: Lens.Lens' CreateGroupResponse Prelude.Int
+createGroupResponse_httpStatus = Lens.lens (\CreateGroupResponse' {httpStatus} -> httpStatus) (\s@CreateGroupResponse' {} a -> s {httpStatus = a} :: CreateGroupResponse)
 
 -- | A structure containing details about the new group.
-cgrrsGroup :: Lens' CreateGroupResponse Group
-cgrrsGroup = lens _cgrrsGroup (\s a -> s {_cgrrsGroup = a})
+createGroupResponse_group :: Lens.Lens' CreateGroupResponse Group
+createGroupResponse_group = Lens.lens (\CreateGroupResponse' {group'} -> group') (\s@CreateGroupResponse' {} a -> s {group' = a} :: CreateGroupResponse)
 
-instance NFData CreateGroupResponse
+instance Prelude.NFData CreateGroupResponse

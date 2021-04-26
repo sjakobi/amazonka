@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,290 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the SSH public keys associated with the specified IAM user. If none exists, the operation returns an empty list.
+-- Returns information about the SSH public keys associated with the
+-- specified IAM user. If none exists, the operation returns an empty list.
 --
+-- The SSH public keys returned by this operation are used only for
+-- authenticating the IAM user to an AWS CodeCommit repository. For more
+-- information about using SSH keys to authenticate to an AWS CodeCommit
+-- repository, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html Set up AWS CodeCommit for SSH connections>
+-- in the /AWS CodeCommit User Guide/.
 --
--- The SSH public keys returned by this operation are used only for authenticating the IAM user to an AWS CodeCommit repository. For more information about using SSH keys to authenticate to an AWS CodeCommit repository, see <https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html Set up AWS CodeCommit for SSH connections> in the /AWS CodeCommit User Guide/ .
---
--- Although each user is limited to a small number of keys, you can still paginate the results using the @MaxItems@ and @Marker@ parameters.
---
+-- Although each user is limited to a small number of keys, you can still
+-- paginate the results using the @MaxItems@ and @Marker@ parameters.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.ListSSHPublicKeys
   ( -- * Creating a Request
-    listSSHPublicKeys,
-    ListSSHPublicKeys,
+    ListSSHPublicKeys (..),
+    newListSSHPublicKeys,
 
     -- * Request Lenses
-    lspkUserName,
-    lspkMaxItems,
-    lspkMarker,
+    listSSHPublicKeys_userName,
+    listSSHPublicKeys_maxItems,
+    listSSHPublicKeys_marker,
 
     -- * Destructuring the Response
-    listSSHPublicKeysResponse,
-    ListSSHPublicKeysResponse,
+    ListSSHPublicKeysResponse (..),
+    newListSSHPublicKeysResponse,
 
     -- * Response Lenses
-    lspkrrsIsTruncated,
-    lspkrrsSSHPublicKeys,
-    lspkrrsMarker,
-    lspkrrsResponseStatus,
+    listSSHPublicKeysResponse_isTruncated,
+    listSSHPublicKeysResponse_sSHPublicKeys,
+    listSSHPublicKeysResponse_marker,
+    listSSHPublicKeysResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.SSHPublicKeyMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSSHPublicKeys' smart constructor.
+-- | /See:/ 'newListSSHPublicKeys' smart constructor.
 data ListSSHPublicKeys = ListSSHPublicKeys'
-  { _lspkUserName ::
-      !(Maybe Text),
-    _lspkMaxItems :: !(Maybe Nat),
-    _lspkMarker :: !(Maybe Text)
+  { -- | The name of the IAM user to list SSH public keys for. If none is
+    -- specified, the @UserName@ field is determined implicitly based on the
+    -- AWS access key used to sign the request.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Maybe Prelude.Text,
+    -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSSHPublicKeys' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSSHPublicKeys' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lspkUserName' - The name of the IAM user to list SSH public keys for. If none is specified, the @UserName@ field is determined implicitly based on the AWS access key used to sign the request. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lspkMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- 'userName', 'listSSHPublicKeys_userName' - The name of the IAM user to list SSH public keys for. If none is
+-- specified, the @UserName@ field is determined implicitly based on the
+-- AWS access key used to sign the request.
 --
--- * 'lspkMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-listSSHPublicKeys ::
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'maxItems', 'listSSHPublicKeys_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'listSSHPublicKeys_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+newListSSHPublicKeys ::
   ListSSHPublicKeys
-listSSHPublicKeys =
+newListSSHPublicKeys =
   ListSSHPublicKeys'
-    { _lspkUserName = Nothing,
-      _lspkMaxItems = Nothing,
-      _lspkMarker = Nothing
+    { userName = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The name of the IAM user to list SSH public keys for. If none is specified, the @UserName@ field is determined implicitly based on the AWS access key used to sign the request. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-lspkUserName :: Lens' ListSSHPublicKeys (Maybe Text)
-lspkUserName = lens _lspkUserName (\s a -> s {_lspkUserName = a})
+-- | The name of the IAM user to list SSH public keys for. If none is
+-- specified, the @UserName@ field is determined implicitly based on the
+-- AWS access key used to sign the request.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+listSSHPublicKeys_userName :: Lens.Lens' ListSSHPublicKeys (Prelude.Maybe Prelude.Text)
+listSSHPublicKeys_userName = Lens.lens (\ListSSHPublicKeys' {userName} -> userName) (\s@ListSSHPublicKeys' {} a -> s {userName = a} :: ListSSHPublicKeys)
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lspkMaxItems :: Lens' ListSSHPublicKeys (Maybe Natural)
-lspkMaxItems = lens _lspkMaxItems (\s a -> s {_lspkMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+listSSHPublicKeys_maxItems :: Lens.Lens' ListSSHPublicKeys (Prelude.Maybe Prelude.Natural)
+listSSHPublicKeys_maxItems = Lens.lens (\ListSSHPublicKeys' {maxItems} -> maxItems) (\s@ListSSHPublicKeys' {} a -> s {maxItems = a} :: ListSSHPublicKeys) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lspkMarker :: Lens' ListSSHPublicKeys (Maybe Text)
-lspkMarker = lens _lspkMarker (\s a -> s {_lspkMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listSSHPublicKeys_marker :: Lens.Lens' ListSSHPublicKeys (Prelude.Maybe Prelude.Text)
+listSSHPublicKeys_marker = Lens.lens (\ListSSHPublicKeys' {marker} -> marker) (\s@ListSSHPublicKeys' {} a -> s {marker = a} :: ListSSHPublicKeys)
 
-instance AWSPager ListSSHPublicKeys where
+instance Pager.AWSPager ListSSHPublicKeys where
   page rq rs
-    | stop (rs ^. lspkrrsIsTruncated) = Nothing
-    | isNothing (rs ^. lspkrrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & lspkMarker .~ rs ^. lspkrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listSSHPublicKeysResponse_isTruncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listSSHPublicKeysResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSSHPublicKeys_marker
+          Lens..~ rs
+          Lens.^? listSSHPublicKeysResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest ListSSHPublicKeys where
+instance Prelude.AWSRequest ListSSHPublicKeys where
   type Rs ListSSHPublicKeys = ListSSHPublicKeysResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListSSHPublicKeysResult"
       ( \s h x ->
           ListSSHPublicKeysResponse'
-            <$> (x .@? "IsTruncated")
-            <*> ( x .@? "SSHPublicKeys" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> ( x Prelude..@? "SSHPublicKeys"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSSHPublicKeys
+instance Prelude.Hashable ListSSHPublicKeys
 
-instance NFData ListSSHPublicKeys
+instance Prelude.NFData ListSSHPublicKeys
 
-instance ToHeaders ListSSHPublicKeys where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListSSHPublicKeys where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListSSHPublicKeys where
-  toPath = const "/"
+instance Prelude.ToPath ListSSHPublicKeys where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSSHPublicKeys where
+instance Prelude.ToQuery ListSSHPublicKeys where
   toQuery ListSSHPublicKeys' {..} =
-    mconcat
-      [ "Action" =: ("ListSSHPublicKeys" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _lspkUserName,
-        "MaxItems" =: _lspkMaxItems,
-        "Marker" =: _lspkMarker
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListSSHPublicKeys" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | Contains the response to a successful 'ListSSHPublicKeys' request.
+-- | Contains the response to a successful ListSSHPublicKeys request.
 --
---
---
--- /See:/ 'listSSHPublicKeysResponse' smart constructor.
+-- /See:/ 'newListSSHPublicKeysResponse' smart constructor.
 data ListSSHPublicKeysResponse = ListSSHPublicKeysResponse'
-  { _lspkrrsIsTruncated ::
-      !(Maybe Bool),
-    _lspkrrsSSHPublicKeys ::
-      !( Maybe
-           [SSHPublicKeyMetadata]
-       ),
-    _lspkrrsMarker ::
-      !(Maybe Text),
-    _lspkrrsResponseStatus ::
-      !Int
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | A list of the SSH public keys assigned to IAM user.
+    sSHPublicKeys :: Prelude.Maybe [SSHPublicKeyMetadata],
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSSHPublicKeysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSSHPublicKeysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lspkrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lspkrrsSSHPublicKeys' - A list of the SSH public keys assigned to IAM user.
+-- 'isTruncated', 'listSSHPublicKeysResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'lspkrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'sSHPublicKeys', 'listSSHPublicKeysResponse_sSHPublicKeys' - A list of the SSH public keys assigned to IAM user.
 --
--- * 'lspkrrsResponseStatus' - -- | The response status code.
-listSSHPublicKeysResponse ::
-  -- | 'lspkrrsResponseStatus'
-  Int ->
+-- 'marker', 'listSSHPublicKeysResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+--
+-- 'httpStatus', 'listSSHPublicKeysResponse_httpStatus' - The response's http status code.
+newListSSHPublicKeysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSSHPublicKeysResponse
-listSSHPublicKeysResponse pResponseStatus_ =
+newListSSHPublicKeysResponse pHttpStatus_ =
   ListSSHPublicKeysResponse'
-    { _lspkrrsIsTruncated =
-        Nothing,
-      _lspkrrsSSHPublicKeys = Nothing,
-      _lspkrrsMarker = Nothing,
-      _lspkrrsResponseStatus = pResponseStatus_
+    { isTruncated =
+        Prelude.Nothing,
+      sSHPublicKeys = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-lspkrrsIsTruncated :: Lens' ListSSHPublicKeysResponse (Maybe Bool)
-lspkrrsIsTruncated = lens _lspkrrsIsTruncated (\s a -> s {_lspkrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+listSSHPublicKeysResponse_isTruncated :: Lens.Lens' ListSSHPublicKeysResponse (Prelude.Maybe Prelude.Bool)
+listSSHPublicKeysResponse_isTruncated = Lens.lens (\ListSSHPublicKeysResponse' {isTruncated} -> isTruncated) (\s@ListSSHPublicKeysResponse' {} a -> s {isTruncated = a} :: ListSSHPublicKeysResponse)
 
 -- | A list of the SSH public keys assigned to IAM user.
-lspkrrsSSHPublicKeys :: Lens' ListSSHPublicKeysResponse [SSHPublicKeyMetadata]
-lspkrrsSSHPublicKeys = lens _lspkrrsSSHPublicKeys (\s a -> s {_lspkrrsSSHPublicKeys = a}) . _Default . _Coerce
+listSSHPublicKeysResponse_sSHPublicKeys :: Lens.Lens' ListSSHPublicKeysResponse (Prelude.Maybe [SSHPublicKeyMetadata])
+listSSHPublicKeysResponse_sSHPublicKeys = Lens.lens (\ListSSHPublicKeysResponse' {sSHPublicKeys} -> sSHPublicKeys) (\s@ListSSHPublicKeysResponse' {} a -> s {sSHPublicKeys = a} :: ListSSHPublicKeysResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lspkrrsMarker :: Lens' ListSSHPublicKeysResponse (Maybe Text)
-lspkrrsMarker = lens _lspkrrsMarker (\s a -> s {_lspkrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listSSHPublicKeysResponse_marker :: Lens.Lens' ListSSHPublicKeysResponse (Prelude.Maybe Prelude.Text)
+listSSHPublicKeysResponse_marker = Lens.lens (\ListSSHPublicKeysResponse' {marker} -> marker) (\s@ListSSHPublicKeysResponse' {} a -> s {marker = a} :: ListSSHPublicKeysResponse)
 
--- | -- | The response status code.
-lspkrrsResponseStatus :: Lens' ListSSHPublicKeysResponse Int
-lspkrrsResponseStatus = lens _lspkrrsResponseStatus (\s a -> s {_lspkrrsResponseStatus = a})
+-- | The response's http status code.
+listSSHPublicKeysResponse_httpStatus :: Lens.Lens' ListSSHPublicKeysResponse Prelude.Int
+listSSHPublicKeysResponse_httpStatus = Lens.lens (\ListSSHPublicKeysResponse' {httpStatus} -> httpStatus) (\s@ListSSHPublicKeysResponse' {} a -> s {httpStatus = a} :: ListSSHPublicKeysResponse)
 
-instance NFData ListSSHPublicKeysResponse
+instance Prelude.NFData ListSSHPublicKeysResponse

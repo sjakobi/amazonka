@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,112 +19,137 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.ServerCertificateMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about a server certificate without its certificate body, certificate chain, and private key.
+-- | Contains information about a server certificate without its certificate
+-- body, certificate chain, and private key.
 --
+-- This data type is used as a response element in the
+-- UploadServerCertificate and ListServerCertificates operations.
 --
--- This data type is used as a response element in the 'UploadServerCertificate' and 'ListServerCertificates' operations.
---
---
--- /See:/ 'serverCertificateMetadata' smart constructor.
+-- /See:/ 'newServerCertificateMetadata' smart constructor.
 data ServerCertificateMetadata = ServerCertificateMetadata'
-  { _scmUploadDate ::
-      !(Maybe ISO8601),
-    _scmExpiration ::
-      !(Maybe ISO8601),
-    _scmPath :: !Text,
-    _scmServerCertificateName ::
-      !Text,
-    _scmServerCertificateId ::
-      !Text,
-    _scmARN :: !Text
+  { -- | The date when the server certificate was uploaded.
+    uploadDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The date on which the certificate is set to expire.
+    expiration :: Prelude.Maybe Prelude.ISO8601,
+    -- | The path to the server certificate. For more information about paths,
+    -- see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    path :: Prelude.Text,
+    -- | The name that identifies the server certificate.
+    serverCertificateName :: Prelude.Text,
+    -- | The stable and unique string identifying the server certificate. For
+    -- more information about IDs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    serverCertificateId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) specifying the server certificate. For
+    -- more information about ARNs and how to use them in policies, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerCertificateMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerCertificateMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scmUploadDate' - The date when the server certificate was uploaded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scmExpiration' - The date on which the certificate is set to expire.
+-- 'uploadDate', 'serverCertificateMetadata_uploadDate' - The date when the server certificate was uploaded.
 --
--- * 'scmPath' - The path to the server certificate. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'expiration', 'serverCertificateMetadata_expiration' - The date on which the certificate is set to expire.
 --
--- * 'scmServerCertificateName' - The name that identifies the server certificate.
+-- 'path', 'serverCertificateMetadata_path' - The path to the server certificate. For more information about paths,
+-- see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
 --
--- * 'scmServerCertificateId' - The stable and unique string identifying the server certificate. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'serverCertificateName', 'serverCertificateMetadata_serverCertificateName' - The name that identifies the server certificate.
 --
--- * 'scmARN' - The Amazon Resource Name (ARN) specifying the server certificate. For more information about ARNs and how to use them in policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-serverCertificateMetadata ::
-  -- | 'scmPath'
-  Text ->
-  -- | 'scmServerCertificateName'
-  Text ->
-  -- | 'scmServerCertificateId'
-  Text ->
-  -- | 'scmARN'
-  Text ->
+-- 'serverCertificateId', 'serverCertificateMetadata_serverCertificateId' - The stable and unique string identifying the server certificate. For
+-- more information about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+--
+-- 'arn', 'serverCertificateMetadata_arn' - The Amazon Resource Name (ARN) specifying the server certificate. For
+-- more information about ARNs and how to use them in policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+newServerCertificateMetadata ::
+  -- | 'path'
+  Prelude.Text ->
+  -- | 'serverCertificateName'
+  Prelude.Text ->
+  -- | 'serverCertificateId'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
   ServerCertificateMetadata
-serverCertificateMetadata
+newServerCertificateMetadata
   pPath_
   pServerCertificateName_
   pServerCertificateId_
-  pARN_ =
+  pArn_ =
     ServerCertificateMetadata'
-      { _scmUploadDate =
-          Nothing,
-        _scmExpiration = Nothing,
-        _scmPath = pPath_,
-        _scmServerCertificateName =
-          pServerCertificateName_,
-        _scmServerCertificateId = pServerCertificateId_,
-        _scmARN = pARN_
+      { uploadDate =
+          Prelude.Nothing,
+        expiration = Prelude.Nothing,
+        path = pPath_,
+        serverCertificateName = pServerCertificateName_,
+        serverCertificateId = pServerCertificateId_,
+        arn = pArn_
       }
 
 -- | The date when the server certificate was uploaded.
-scmUploadDate :: Lens' ServerCertificateMetadata (Maybe UTCTime)
-scmUploadDate = lens _scmUploadDate (\s a -> s {_scmUploadDate = a}) . mapping _Time
+serverCertificateMetadata_uploadDate :: Lens.Lens' ServerCertificateMetadata (Prelude.Maybe Prelude.UTCTime)
+serverCertificateMetadata_uploadDate = Lens.lens (\ServerCertificateMetadata' {uploadDate} -> uploadDate) (\s@ServerCertificateMetadata' {} a -> s {uploadDate = a} :: ServerCertificateMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date on which the certificate is set to expire.
-scmExpiration :: Lens' ServerCertificateMetadata (Maybe UTCTime)
-scmExpiration = lens _scmExpiration (\s a -> s {_scmExpiration = a}) . mapping _Time
+serverCertificateMetadata_expiration :: Lens.Lens' ServerCertificateMetadata (Prelude.Maybe Prelude.UTCTime)
+serverCertificateMetadata_expiration = Lens.lens (\ServerCertificateMetadata' {expiration} -> expiration) (\s@ServerCertificateMetadata' {} a -> s {expiration = a} :: ServerCertificateMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The path to the server certificate. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-scmPath :: Lens' ServerCertificateMetadata Text
-scmPath = lens _scmPath (\s a -> s {_scmPath = a})
+-- | The path to the server certificate. For more information about paths,
+-- see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+serverCertificateMetadata_path :: Lens.Lens' ServerCertificateMetadata Prelude.Text
+serverCertificateMetadata_path = Lens.lens (\ServerCertificateMetadata' {path} -> path) (\s@ServerCertificateMetadata' {} a -> s {path = a} :: ServerCertificateMetadata)
 
 -- | The name that identifies the server certificate.
-scmServerCertificateName :: Lens' ServerCertificateMetadata Text
-scmServerCertificateName = lens _scmServerCertificateName (\s a -> s {_scmServerCertificateName = a})
+serverCertificateMetadata_serverCertificateName :: Lens.Lens' ServerCertificateMetadata Prelude.Text
+serverCertificateMetadata_serverCertificateName = Lens.lens (\ServerCertificateMetadata' {serverCertificateName} -> serverCertificateName) (\s@ServerCertificateMetadata' {} a -> s {serverCertificateName = a} :: ServerCertificateMetadata)
 
--- | The stable and unique string identifying the server certificate. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-scmServerCertificateId :: Lens' ServerCertificateMetadata Text
-scmServerCertificateId = lens _scmServerCertificateId (\s a -> s {_scmServerCertificateId = a})
+-- | The stable and unique string identifying the server certificate. For
+-- more information about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+serverCertificateMetadata_serverCertificateId :: Lens.Lens' ServerCertificateMetadata Prelude.Text
+serverCertificateMetadata_serverCertificateId = Lens.lens (\ServerCertificateMetadata' {serverCertificateId} -> serverCertificateId) (\s@ServerCertificateMetadata' {} a -> s {serverCertificateId = a} :: ServerCertificateMetadata)
 
--- | The Amazon Resource Name (ARN) specifying the server certificate. For more information about ARNs and how to use them in policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-scmARN :: Lens' ServerCertificateMetadata Text
-scmARN = lens _scmARN (\s a -> s {_scmARN = a})
+-- | The Amazon Resource Name (ARN) specifying the server certificate. For
+-- more information about ARNs and how to use them in policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+serverCertificateMetadata_arn :: Lens.Lens' ServerCertificateMetadata Prelude.Text
+serverCertificateMetadata_arn = Lens.lens (\ServerCertificateMetadata' {arn} -> arn) (\s@ServerCertificateMetadata' {} a -> s {arn = a} :: ServerCertificateMetadata)
 
-instance FromXML ServerCertificateMetadata where
+instance Prelude.FromXML ServerCertificateMetadata where
   parseXML x =
     ServerCertificateMetadata'
-      <$> (x .@? "UploadDate")
-      <*> (x .@? "Expiration")
-      <*> (x .@ "Path")
-      <*> (x .@ "ServerCertificateName")
-      <*> (x .@ "ServerCertificateId")
-      <*> (x .@ "Arn")
+      Prelude.<$> (x Prelude..@? "UploadDate")
+      Prelude.<*> (x Prelude..@? "Expiration")
+      Prelude.<*> (x Prelude..@ "Path")
+      Prelude.<*> (x Prelude..@ "ServerCertificateName")
+      Prelude.<*> (x Prelude..@ "ServerCertificateId")
+      Prelude.<*> (x Prelude..@ "Arn")
 
-instance Hashable ServerCertificateMetadata
+instance Prelude.Hashable ServerCertificateMetadata
 
-instance NFData ServerCertificateMetadata
+instance Prelude.NFData ServerCertificateMetadata

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.ErrorDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the reason that the operation failed.
 --
+-- This data type is used as a response element in the
+-- GetOrganizationsAccessReport, GetServiceLastAccessedDetails, and
+-- GetServiceLastAccessedDetailsWithEntities operations.
 --
--- This data type is used as a response element in the 'GetOrganizationsAccessReport' , 'GetServiceLastAccessedDetails' , and 'GetServiceLastAccessedDetailsWithEntities' operations.
---
---
--- /See:/ 'errorDetails' smart constructor.
+-- /See:/ 'newErrorDetails' smart constructor.
 data ErrorDetails = ErrorDetails'
-  { _edMessage ::
-      !Text,
-    _edCode :: !Text
+  { -- | Detailed information about the reason that the operation failed.
+    message :: Prelude.Text,
+    -- | The error code associated with the operation failure.
+    code :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ErrorDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ErrorDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'edMessage' - Detailed information about the reason that the operation failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'edCode' - The error code associated with the operation failure.
-errorDetails ::
-  -- | 'edMessage'
-  Text ->
-  -- | 'edCode'
-  Text ->
+-- 'message', 'errorDetails_message' - Detailed information about the reason that the operation failed.
+--
+-- 'code', 'errorDetails_code' - The error code associated with the operation failure.
+newErrorDetails ::
+  -- | 'message'
+  Prelude.Text ->
+  -- | 'code'
+  Prelude.Text ->
   ErrorDetails
-errorDetails pMessage_ pCode_ =
-  ErrorDetails'
-    { _edMessage = pMessage_,
-      _edCode = pCode_
-    }
+newErrorDetails pMessage_ pCode_ =
+  ErrorDetails' {message = pMessage_, code = pCode_}
 
 -- | Detailed information about the reason that the operation failed.
-edMessage :: Lens' ErrorDetails Text
-edMessage = lens _edMessage (\s a -> s {_edMessage = a})
+errorDetails_message :: Lens.Lens' ErrorDetails Prelude.Text
+errorDetails_message = Lens.lens (\ErrorDetails' {message} -> message) (\s@ErrorDetails' {} a -> s {message = a} :: ErrorDetails)
 
 -- | The error code associated with the operation failure.
-edCode :: Lens' ErrorDetails Text
-edCode = lens _edCode (\s a -> s {_edCode = a})
+errorDetails_code :: Lens.Lens' ErrorDetails Prelude.Text
+errorDetails_code = Lens.lens (\ErrorDetails' {code} -> code) (\s@ErrorDetails' {} a -> s {code = a} :: ErrorDetails)
 
-instance FromXML ErrorDetails where
+instance Prelude.FromXML ErrorDetails where
   parseXML x =
     ErrorDetails'
-      <$> (x .@ "Message") <*> (x .@ "Code")
+      Prelude.<$> (x Prelude..@ "Message")
+      Prelude.<*> (x Prelude..@ "Code")
 
-instance Hashable ErrorDetails
+instance Prelude.Hashable ErrorDetails
 
-instance NFData ErrorDetails
+instance Prelude.NFData ErrorDetails

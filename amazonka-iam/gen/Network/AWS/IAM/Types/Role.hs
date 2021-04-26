@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,144 +22,237 @@ module Network.AWS.IAM.Types.Role where
 import Network.AWS.IAM.Types.AttachedPermissionsBoundary
 import Network.AWS.IAM.Types.RoleLastUsed
 import Network.AWS.IAM.Types.Tag
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an IAM role. This structure is returned as a response element in several API operations that interact with roles.
+-- | Contains information about an IAM role. This structure is returned as a
+-- response element in several API operations that interact with roles.
 --
---
---
--- /See:/ 'role'' smart constructor.
+-- /See:/ 'newRole' smart constructor.
 data Role = Role'
-  { _rAssumeRolePolicyDocument ::
-      !(Maybe Text),
-    _rMaxSessionDuration :: !(Maybe Nat),
-    _rRoleLastUsed :: !(Maybe RoleLastUsed),
-    _rPermissionsBoundary ::
-      !(Maybe AttachedPermissionsBoundary),
-    _rTags :: !(Maybe [Tag]),
-    _rDescription :: !(Maybe Text),
-    _rPath :: !Text,
-    _rRoleName :: !Text,
-    _rRoleId :: !Text,
-    _rARN :: !Text,
-    _rCreateDate :: !ISO8601
+  { -- | The policy that grants an entity permission to assume the role.
+    assumeRolePolicyDocument :: Prelude.Maybe Prelude.Text,
+    -- | The maximum session duration (in seconds) for the specified role. Anyone
+    -- who uses the AWS CLI, or API to assume the role can specify the duration
+    -- using the optional @DurationSeconds@ API parameter or @duration-seconds@
+    -- CLI parameter.
+    maxSessionDuration :: Prelude.Maybe Prelude.Nat,
+    -- | Contains information about the last time that an IAM role was used. This
+    -- includes the date and time and the Region in which the role was last
+    -- used. Activity is only reported for the trailing 400 days. This period
+    -- can be shorter if your Region began supporting these features within the
+    -- last year. The role might have been used more than 400 days ago. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
+    -- in the /IAM User Guide/.
+    roleLastUsed :: Prelude.Maybe RoleLastUsed,
+    -- | The ARN of the policy used to set the permissions boundary for the role.
+    --
+    -- For more information about permissions boundaries, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities>
+    -- in the /IAM User Guide/.
+    permissionsBoundary :: Prelude.Maybe AttachedPermissionsBoundary,
+    -- | A list of tags that are attached to the role. For more information about
+    -- tagging, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+    -- in the /IAM User Guide/.
+    tags :: Prelude.Maybe [Tag],
+    -- | A description of the role that you provide.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The path to the role. For more information about paths, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    path :: Prelude.Text,
+    -- | The friendly name that identifies the role.
+    roleName :: Prelude.Text,
+    -- | The stable and unique string identifying the role. For more information
+    -- about IDs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    roleId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) specifying the role. For more information
+    -- about ARNs and how to use them in policies, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/ guide.
+    arn :: Prelude.Text,
+    -- | The date and time, in
+    -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+    -- role was created.
+    createDate :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Role' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Role' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rAssumeRolePolicyDocument' - The policy that grants an entity permission to assume the role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rMaxSessionDuration' - The maximum session duration (in seconds) for the specified role. Anyone who uses the AWS CLI, or API to assume the role can specify the duration using the optional @DurationSeconds@ API parameter or @duration-seconds@ CLI parameter.
+-- 'assumeRolePolicyDocument', 'role_assumeRolePolicyDocument' - The policy that grants an entity permission to assume the role.
 --
--- * 'rRoleLastUsed' - Contains information about the last time that an IAM role was used. This includes the date and time and the Region in which the role was last used. Activity is only reported for the trailing 400 days. This period can be shorter if your Region began supporting these features within the last year. The role might have been used more than 400 days ago. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked> in the /IAM User Guide/ .
+-- 'maxSessionDuration', 'role_maxSessionDuration' - The maximum session duration (in seconds) for the specified role. Anyone
+-- who uses the AWS CLI, or API to assume the role can specify the duration
+-- using the optional @DurationSeconds@ API parameter or @duration-seconds@
+-- CLI parameter.
 --
--- * 'rPermissionsBoundary' - The ARN of the policy used to set the permissions boundary for the role. For more information about permissions boundaries, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities > in the /IAM User Guide/ .
+-- 'roleLastUsed', 'role_roleLastUsed' - Contains information about the last time that an IAM role was used. This
+-- includes the date and time and the Region in which the role was last
+-- used. Activity is only reported for the trailing 400 days. This period
+-- can be shorter if your Region began supporting these features within the
+-- last year. The role might have been used more than 400 days ago. For
+-- more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
+-- in the /IAM User Guide/.
 --
--- * 'rTags' - A list of tags that are attached to the role. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- 'permissionsBoundary', 'role_permissionsBoundary' - The ARN of the policy used to set the permissions boundary for the role.
 --
--- * 'rDescription' - A description of the role that you provide.
+-- For more information about permissions boundaries, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities>
+-- in the /IAM User Guide/.
 --
--- * 'rPath' - The path to the role. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'tags', 'role_tags' - A list of tags that are attached to the role. For more information about
+-- tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 --
--- * 'rRoleName' - The friendly name that identifies the role.
+-- 'description', 'role_description' - A description of the role that you provide.
 --
--- * 'rRoleId' - The stable and unique string identifying the role. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'path', 'role_path' - The path to the role. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
 --
--- * 'rARN' - The Amazon Resource Name (ARN) specifying the role. For more information about ARNs and how to use them in policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ guide.
+-- 'roleName', 'role_roleName' - The friendly name that identifies the role.
 --
--- * 'rCreateDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the role was created.
-role' ::
-  -- | 'rPath'
-  Text ->
-  -- | 'rRoleName'
-  Text ->
-  -- | 'rRoleId'
-  Text ->
-  -- | 'rARN'
-  Text ->
-  -- | 'rCreateDate'
-  UTCTime ->
+-- 'roleId', 'role_roleId' - The stable and unique string identifying the role. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+--
+-- 'arn', 'role_arn' - The Amazon Resource Name (ARN) specifying the role. For more information
+-- about ARNs and how to use them in policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/ guide.
+--
+-- 'createDate', 'role_createDate' - The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- role was created.
+newRole ::
+  -- | 'path'
+  Prelude.Text ->
+  -- | 'roleName'
+  Prelude.Text ->
+  -- | 'roleId'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'createDate'
+  Prelude.UTCTime ->
   Role
-role' pPath_ pRoleName_ pRoleId_ pARN_ pCreateDate_ =
+newRole pPath_ pRoleName_ pRoleId_ pArn_ pCreateDate_ =
   Role'
-    { _rAssumeRolePolicyDocument = Nothing,
-      _rMaxSessionDuration = Nothing,
-      _rRoleLastUsed = Nothing,
-      _rPermissionsBoundary = Nothing,
-      _rTags = Nothing,
-      _rDescription = Nothing,
-      _rPath = pPath_,
-      _rRoleName = pRoleName_,
-      _rRoleId = pRoleId_,
-      _rARN = pARN_,
-      _rCreateDate = _Time # pCreateDate_
+    { assumeRolePolicyDocument = Prelude.Nothing,
+      maxSessionDuration = Prelude.Nothing,
+      roleLastUsed = Prelude.Nothing,
+      permissionsBoundary = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      path = pPath_,
+      roleName = pRoleName_,
+      roleId = pRoleId_,
+      arn = pArn_,
+      createDate = Prelude._Time Lens.# pCreateDate_
     }
 
 -- | The policy that grants an entity permission to assume the role.
-rAssumeRolePolicyDocument :: Lens' Role (Maybe Text)
-rAssumeRolePolicyDocument = lens _rAssumeRolePolicyDocument (\s a -> s {_rAssumeRolePolicyDocument = a})
+role_assumeRolePolicyDocument :: Lens.Lens' Role (Prelude.Maybe Prelude.Text)
+role_assumeRolePolicyDocument = Lens.lens (\Role' {assumeRolePolicyDocument} -> assumeRolePolicyDocument) (\s@Role' {} a -> s {assumeRolePolicyDocument = a} :: Role)
 
--- | The maximum session duration (in seconds) for the specified role. Anyone who uses the AWS CLI, or API to assume the role can specify the duration using the optional @DurationSeconds@ API parameter or @duration-seconds@ CLI parameter.
-rMaxSessionDuration :: Lens' Role (Maybe Natural)
-rMaxSessionDuration = lens _rMaxSessionDuration (\s a -> s {_rMaxSessionDuration = a}) . mapping _Nat
+-- | The maximum session duration (in seconds) for the specified role. Anyone
+-- who uses the AWS CLI, or API to assume the role can specify the duration
+-- using the optional @DurationSeconds@ API parameter or @duration-seconds@
+-- CLI parameter.
+role_maxSessionDuration :: Lens.Lens' Role (Prelude.Maybe Prelude.Natural)
+role_maxSessionDuration = Lens.lens (\Role' {maxSessionDuration} -> maxSessionDuration) (\s@Role' {} a -> s {maxSessionDuration = a} :: Role) Prelude.. Lens.mapping Prelude._Nat
 
--- | Contains information about the last time that an IAM role was used. This includes the date and time and the Region in which the role was last used. Activity is only reported for the trailing 400 days. This period can be shorter if your Region began supporting these features within the last year. The role might have been used more than 400 days ago. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked> in the /IAM User Guide/ .
-rRoleLastUsed :: Lens' Role (Maybe RoleLastUsed)
-rRoleLastUsed = lens _rRoleLastUsed (\s a -> s {_rRoleLastUsed = a})
+-- | Contains information about the last time that an IAM role was used. This
+-- includes the date and time and the Region in which the role was last
+-- used. Activity is only reported for the trailing 400 days. This period
+-- can be shorter if your Region began supporting these features within the
+-- last year. The role might have been used more than 400 days ago. For
+-- more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period Regions where data is tracked>
+-- in the /IAM User Guide/.
+role_roleLastUsed :: Lens.Lens' Role (Prelude.Maybe RoleLastUsed)
+role_roleLastUsed = Lens.lens (\Role' {roleLastUsed} -> roleLastUsed) (\s@Role' {} a -> s {roleLastUsed = a} :: Role)
 
--- | The ARN of the policy used to set the permissions boundary for the role. For more information about permissions boundaries, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities > in the /IAM User Guide/ .
-rPermissionsBoundary :: Lens' Role (Maybe AttachedPermissionsBoundary)
-rPermissionsBoundary = lens _rPermissionsBoundary (\s a -> s {_rPermissionsBoundary = a})
+-- | The ARN of the policy used to set the permissions boundary for the role.
+--
+-- For more information about permissions boundaries, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html Permissions boundaries for IAM identities>
+-- in the /IAM User Guide/.
+role_permissionsBoundary :: Lens.Lens' Role (Prelude.Maybe AttachedPermissionsBoundary)
+role_permissionsBoundary = Lens.lens (\Role' {permissionsBoundary} -> permissionsBoundary) (\s@Role' {} a -> s {permissionsBoundary = a} :: Role)
 
--- | A list of tags that are attached to the role. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
-rTags :: Lens' Role [Tag]
-rTags = lens _rTags (\s a -> s {_rTags = a}) . _Default . _Coerce
+-- | A list of tags that are attached to the role. For more information about
+-- tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+role_tags :: Lens.Lens' Role (Prelude.Maybe [Tag])
+role_tags = Lens.lens (\Role' {tags} -> tags) (\s@Role' {} a -> s {tags = a} :: Role) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A description of the role that you provide.
-rDescription :: Lens' Role (Maybe Text)
-rDescription = lens _rDescription (\s a -> s {_rDescription = a})
+role_description :: Lens.Lens' Role (Prelude.Maybe Prelude.Text)
+role_description = Lens.lens (\Role' {description} -> description) (\s@Role' {} a -> s {description = a} :: Role)
 
--- | The path to the role. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-rPath :: Lens' Role Text
-rPath = lens _rPath (\s a -> s {_rPath = a})
+-- | The path to the role. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+role_path :: Lens.Lens' Role Prelude.Text
+role_path = Lens.lens (\Role' {path} -> path) (\s@Role' {} a -> s {path = a} :: Role)
 
 -- | The friendly name that identifies the role.
-rRoleName :: Lens' Role Text
-rRoleName = lens _rRoleName (\s a -> s {_rRoleName = a})
+role_roleName :: Lens.Lens' Role Prelude.Text
+role_roleName = Lens.lens (\Role' {roleName} -> roleName) (\s@Role' {} a -> s {roleName = a} :: Role)
 
--- | The stable and unique string identifying the role. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-rRoleId :: Lens' Role Text
-rRoleId = lens _rRoleId (\s a -> s {_rRoleId = a})
+-- | The stable and unique string identifying the role. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+role_roleId :: Lens.Lens' Role Prelude.Text
+role_roleId = Lens.lens (\Role' {roleId} -> roleId) (\s@Role' {} a -> s {roleId = a} :: Role)
 
--- | The Amazon Resource Name (ARN) specifying the role. For more information about ARNs and how to use them in policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ guide.
-rARN :: Lens' Role Text
-rARN = lens _rARN (\s a -> s {_rARN = a})
+-- | The Amazon Resource Name (ARN) specifying the role. For more information
+-- about ARNs and how to use them in policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/ guide.
+role_arn :: Lens.Lens' Role Prelude.Text
+role_arn = Lens.lens (\Role' {arn} -> arn) (\s@Role' {} a -> s {arn = a} :: Role)
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the role was created.
-rCreateDate :: Lens' Role UTCTime
-rCreateDate = lens _rCreateDate (\s a -> s {_rCreateDate = a}) . _Time
+-- | The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- role was created.
+role_createDate :: Lens.Lens' Role Prelude.UTCTime
+role_createDate = Lens.lens (\Role' {createDate} -> createDate) (\s@Role' {} a -> s {createDate = a} :: Role) Prelude.. Prelude._Time
 
-instance FromXML Role where
+instance Prelude.FromXML Role where
   parseXML x =
     Role'
-      <$> (x .@? "AssumeRolePolicyDocument")
-      <*> (x .@? "MaxSessionDuration")
-      <*> (x .@? "RoleLastUsed")
-      <*> (x .@? "PermissionsBoundary")
-      <*> ( x .@? "Tags" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Description")
-      <*> (x .@ "Path")
-      <*> (x .@ "RoleName")
-      <*> (x .@ "RoleId")
-      <*> (x .@ "Arn")
-      <*> (x .@ "CreateDate")
+      Prelude.<$> (x Prelude..@? "AssumeRolePolicyDocument")
+      Prelude.<*> (x Prelude..@? "MaxSessionDuration")
+      Prelude.<*> (x Prelude..@? "RoleLastUsed")
+      Prelude.<*> (x Prelude..@? "PermissionsBoundary")
+      Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Description")
+      Prelude.<*> (x Prelude..@ "Path")
+      Prelude.<*> (x Prelude..@ "RoleName")
+      Prelude.<*> (x Prelude..@ "RoleId")
+      Prelude.<*> (x Prelude..@ "Arn")
+      Prelude.<*> (x Prelude..@ "CreateDate")
 
-instance Hashable Role
+instance Prelude.Hashable Role
 
-instance NFData Role
+instance Prelude.NFData Role

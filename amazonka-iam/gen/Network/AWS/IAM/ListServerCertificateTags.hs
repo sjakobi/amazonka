@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,187 +21,274 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the tags that are attached to the specified IAM server certificate. The returned list of tags is sorted by tag key. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Lists the tags that are attached to the specified IAM server
+-- certificate. The returned list of tags is sorted by tag key. For more
+-- information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+--
+-- For certificates in a Region supported by AWS Certificate Manager (ACM),
+-- we recommend that you don\'t use IAM server certificates. Instead, use
+-- ACM to provision, manage, and deploy your server certificates. For more
+-- information about IAM server certificates,
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Working with server certificates>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.ListServerCertificateTags
   ( -- * Creating a Request
-    listServerCertificateTags,
-    ListServerCertificateTags,
+    ListServerCertificateTags (..),
+    newListServerCertificateTags,
 
     -- * Request Lenses
-    lsctMaxItems,
-    lsctMarker,
-    lsctServerCertificateName,
+    listServerCertificateTags_maxItems,
+    listServerCertificateTags_marker,
+    listServerCertificateTags_serverCertificateName,
 
     -- * Destructuring the Response
-    listServerCertificateTagsResponse,
-    ListServerCertificateTagsResponse,
+    ListServerCertificateTagsResponse (..),
+    newListServerCertificateTagsResponse,
 
     -- * Response Lenses
-    lsctrrsIsTruncated,
-    lsctrrsMarker,
-    lsctrrsResponseStatus,
-    lsctrrsTags,
+    listServerCertificateTagsResponse_isTruncated,
+    listServerCertificateTagsResponse_marker,
+    listServerCertificateTagsResponse_httpStatus,
+    listServerCertificateTagsResponse_tags,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listServerCertificateTags' smart constructor.
+-- | /See:/ 'newListServerCertificateTags' smart constructor.
 data ListServerCertificateTags = ListServerCertificateTags'
-  { _lsctMaxItems ::
-      !(Maybe Nat),
-    _lsctMarker ::
-      !(Maybe Text),
-    _lsctServerCertificateName ::
-      !Text
+  { -- | (Optional) Use this only when paginating results to indicate the maximum
+    -- number of items that you want in the response. If additional items exist
+    -- beyond the maximum that you specify, the @IsTruncated@ response element
+    -- is @true@.
+    --
+    -- If you do not include this parameter, it defaults to 100. Note that IAM
+    -- might return fewer results, even when more results are available. In
+    -- that case, the @IsTruncated@ response element returns @true@, and
+    -- @Marker@ contains a value to include in the subsequent call that tells
+    -- the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The name of the IAM server certificate whose tags you want to see.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    serverCertificateName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServerCertificateTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServerCertificateTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsctMaxItems' - (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsctMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- 'maxItems', 'listServerCertificateTags_maxItems' - (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
 --
--- * 'lsctServerCertificateName' - The name of the IAM server certificate whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-listServerCertificateTags ::
-  -- | 'lsctServerCertificateName'
-  Text ->
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+--
+-- 'marker', 'listServerCertificateTags_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'serverCertificateName', 'listServerCertificateTags_serverCertificateName' - The name of the IAM server certificate whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+newListServerCertificateTags ::
+  -- | 'serverCertificateName'
+  Prelude.Text ->
   ListServerCertificateTags
-listServerCertificateTags pServerCertificateName_ =
+newListServerCertificateTags pServerCertificateName_ =
   ListServerCertificateTags'
-    { _lsctMaxItems = Nothing,
-      _lsctMarker = Nothing,
-      _lsctServerCertificateName =
-        pServerCertificateName_
+    { maxItems =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      serverCertificateName = pServerCertificateName_
     }
 
--- | (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lsctMaxItems :: Lens' ListServerCertificateTags (Maybe Natural)
-lsctMaxItems = lens _lsctMaxItems (\s a -> s {_lsctMaxItems = a}) . mapping _Nat
+-- | (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
+--
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+listServerCertificateTags_maxItems :: Lens.Lens' ListServerCertificateTags (Prelude.Maybe Prelude.Natural)
+listServerCertificateTags_maxItems = Lens.lens (\ListServerCertificateTags' {maxItems} -> maxItems) (\s@ListServerCertificateTags' {} a -> s {maxItems = a} :: ListServerCertificateTags) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lsctMarker :: Lens' ListServerCertificateTags (Maybe Text)
-lsctMarker = lens _lsctMarker (\s a -> s {_lsctMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listServerCertificateTags_marker :: Lens.Lens' ListServerCertificateTags (Prelude.Maybe Prelude.Text)
+listServerCertificateTags_marker = Lens.lens (\ListServerCertificateTags' {marker} -> marker) (\s@ListServerCertificateTags' {} a -> s {marker = a} :: ListServerCertificateTags)
 
--- | The name of the IAM server certificate whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-lsctServerCertificateName :: Lens' ListServerCertificateTags Text
-lsctServerCertificateName = lens _lsctServerCertificateName (\s a -> s {_lsctServerCertificateName = a})
+-- | The name of the IAM server certificate whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+listServerCertificateTags_serverCertificateName :: Lens.Lens' ListServerCertificateTags Prelude.Text
+listServerCertificateTags_serverCertificateName = Lens.lens (\ListServerCertificateTags' {serverCertificateName} -> serverCertificateName) (\s@ListServerCertificateTags' {} a -> s {serverCertificateName = a} :: ListServerCertificateTags)
 
-instance AWSRequest ListServerCertificateTags where
+instance Prelude.AWSRequest ListServerCertificateTags where
   type
     Rs ListServerCertificateTags =
       ListServerCertificateTagsResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListServerCertificateTagsResult"
       ( \s h x ->
           ListServerCertificateTagsResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> (x .@? "Tags" .!@ mempty >>= parseXMLList "member")
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListServerCertificateTags
+instance Prelude.Hashable ListServerCertificateTags
 
-instance NFData ListServerCertificateTags
+instance Prelude.NFData ListServerCertificateTags
 
-instance ToHeaders ListServerCertificateTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListServerCertificateTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListServerCertificateTags where
-  toPath = const "/"
+instance Prelude.ToPath ListServerCertificateTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListServerCertificateTags where
+instance Prelude.ToQuery ListServerCertificateTags where
   toQuery ListServerCertificateTags' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ListServerCertificateTags" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "MaxItems" =: _lsctMaxItems,
-        "Marker" =: _lsctMarker,
+          Prelude.=: ("ListServerCertificateTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker,
         "ServerCertificateName"
-          =: _lsctServerCertificateName
+          Prelude.=: serverCertificateName
       ]
 
--- | /See:/ 'listServerCertificateTagsResponse' smart constructor.
+-- | /See:/ 'newListServerCertificateTagsResponse' smart constructor.
 data ListServerCertificateTagsResponse = ListServerCertificateTagsResponse'
-  { _lsctrrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _lsctrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _lsctrrsResponseStatus ::
-      !Int,
-    _lsctrrsTags ::
-      ![Tag]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can use the @Marker@ request parameter to
+    -- make a subsequent pagination request that retrieves more items. Note
+    -- that IAM might return fewer than the @MaxItems@ number of results even
+    -- when more results are available. Check @IsTruncated@ after every call to
+    -- ensure that you receive all of your results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The list of tags that are currently attached to the IAM server
+    -- certificate. Each tag consists of a key name and an associated value. If
+    -- no tags are attached to the specified resource, the response contains an
+    -- empty list.
+    tags :: [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServerCertificateTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServerCertificateTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsctrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsctrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listServerCertificateTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
 --
--- * 'lsctrrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listServerCertificateTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'lsctrrsTags' - The list of tags that are currently attached to the IAM server certificate. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-listServerCertificateTagsResponse ::
-  -- | 'lsctrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listServerCertificateTagsResponse_httpStatus' - The response's http status code.
+--
+-- 'tags', 'listServerCertificateTagsResponse_tags' - The list of tags that are currently attached to the IAM server
+-- certificate. Each tag consists of a key name and an associated value. If
+-- no tags are attached to the specified resource, the response contains an
+-- empty list.
+newListServerCertificateTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListServerCertificateTagsResponse
-listServerCertificateTagsResponse pResponseStatus_ =
+newListServerCertificateTagsResponse pHttpStatus_ =
   ListServerCertificateTagsResponse'
-    { _lsctrrsIsTruncated =
-        Nothing,
-      _lsctrrsMarker = Nothing,
-      _lsctrrsResponseStatus =
-        pResponseStatus_,
-      _lsctrrsTags = mempty
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      tags = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
-lsctrrsIsTruncated :: Lens' ListServerCertificateTagsResponse (Maybe Bool)
-lsctrrsIsTruncated = lens _lsctrrsIsTruncated (\s a -> s {_lsctrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
+listServerCertificateTagsResponse_isTruncated :: Lens.Lens' ListServerCertificateTagsResponse (Prelude.Maybe Prelude.Bool)
+listServerCertificateTagsResponse_isTruncated = Lens.lens (\ListServerCertificateTagsResponse' {isTruncated} -> isTruncated) (\s@ListServerCertificateTagsResponse' {} a -> s {isTruncated = a} :: ListServerCertificateTagsResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lsctrrsMarker :: Lens' ListServerCertificateTagsResponse (Maybe Text)
-lsctrrsMarker = lens _lsctrrsMarker (\s a -> s {_lsctrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listServerCertificateTagsResponse_marker :: Lens.Lens' ListServerCertificateTagsResponse (Prelude.Maybe Prelude.Text)
+listServerCertificateTagsResponse_marker = Lens.lens (\ListServerCertificateTagsResponse' {marker} -> marker) (\s@ListServerCertificateTagsResponse' {} a -> s {marker = a} :: ListServerCertificateTagsResponse)
 
--- | -- | The response status code.
-lsctrrsResponseStatus :: Lens' ListServerCertificateTagsResponse Int
-lsctrrsResponseStatus = lens _lsctrrsResponseStatus (\s a -> s {_lsctrrsResponseStatus = a})
+-- | The response's http status code.
+listServerCertificateTagsResponse_httpStatus :: Lens.Lens' ListServerCertificateTagsResponse Prelude.Int
+listServerCertificateTagsResponse_httpStatus = Lens.lens (\ListServerCertificateTagsResponse' {httpStatus} -> httpStatus) (\s@ListServerCertificateTagsResponse' {} a -> s {httpStatus = a} :: ListServerCertificateTagsResponse)
 
--- | The list of tags that are currently attached to the IAM server certificate. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-lsctrrsTags :: Lens' ListServerCertificateTagsResponse [Tag]
-lsctrrsTags = lens _lsctrrsTags (\s a -> s {_lsctrrsTags = a}) . _Coerce
+-- | The list of tags that are currently attached to the IAM server
+-- certificate. Each tag consists of a key name and an associated value. If
+-- no tags are attached to the specified resource, the response contains an
+-- empty list.
+listServerCertificateTagsResponse_tags :: Lens.Lens' ListServerCertificateTagsResponse [Tag]
+listServerCertificateTagsResponse_tags = Lens.lens (\ListServerCertificateTagsResponse' {tags} -> tags) (\s@ListServerCertificateTagsResponse' {} a -> s {tags = a} :: ListServerCertificateTagsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListServerCertificateTagsResponse
+instance
+  Prelude.NFData
+    ListServerCertificateTagsResponse

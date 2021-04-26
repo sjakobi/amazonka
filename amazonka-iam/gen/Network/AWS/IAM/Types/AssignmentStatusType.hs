@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,57 @@
 module Network.AWS.IAM.Types.AssignmentStatusType
   ( AssignmentStatusType
       ( ..,
-        Any,
-        Assigned,
-        Unassigned
+        AssignmentStatusTypeAny,
+        AssignmentStatusTypeAssigned,
+        AssignmentStatusTypeUnassigned
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AssignmentStatusType
-  = AssignmentStatusType'
-      ( CI
-          Text
-      )
+newtype AssignmentStatusType = AssignmentStatusType'
+  { fromAssignmentStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Any :: AssignmentStatusType
-pattern Any = AssignmentStatusType' "Any"
+pattern AssignmentStatusTypeAny :: AssignmentStatusType
+pattern AssignmentStatusTypeAny = AssignmentStatusType' "Any"
 
-pattern Assigned :: AssignmentStatusType
-pattern Assigned = AssignmentStatusType' "Assigned"
+pattern AssignmentStatusTypeAssigned :: AssignmentStatusType
+pattern AssignmentStatusTypeAssigned = AssignmentStatusType' "Assigned"
 
-pattern Unassigned :: AssignmentStatusType
-pattern Unassigned = AssignmentStatusType' "Unassigned"
+pattern AssignmentStatusTypeUnassigned :: AssignmentStatusType
+pattern AssignmentStatusTypeUnassigned = AssignmentStatusType' "Unassigned"
 
 {-# COMPLETE
-  Any,
-  Assigned,
-  Unassigned,
+  AssignmentStatusTypeAny,
+  AssignmentStatusTypeAssigned,
+  AssignmentStatusTypeUnassigned,
   AssignmentStatusType'
   #-}
 
-instance FromText AssignmentStatusType where
-  parser = (AssignmentStatusType' . mk) <$> takeText
+instance Prelude.FromText AssignmentStatusType where
+  parser = AssignmentStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText AssignmentStatusType where
-  toText (AssignmentStatusType' ci) = original ci
+instance Prelude.ToText AssignmentStatusType where
+  toText (AssignmentStatusType' x) = x
 
-instance Hashable AssignmentStatusType
+instance Prelude.Hashable AssignmentStatusType
 
-instance NFData AssignmentStatusType
+instance Prelude.NFData AssignmentStatusType
 
-instance ToByteString AssignmentStatusType
+instance Prelude.ToByteString AssignmentStatusType
 
-instance ToQuery AssignmentStatusType
+instance Prelude.ToQuery AssignmentStatusType
 
-instance ToHeader AssignmentStatusType
+instance Prelude.ToHeader AssignmentStatusType

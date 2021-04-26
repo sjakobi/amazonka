@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,211 +21,391 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the managed policies that are available in your AWS account, including your own customer-defined managed policies and all AWS managed policies.
+-- Lists all the managed policies that are available in your AWS account,
+-- including your own customer-defined managed policies and all AWS managed
+-- policies.
 --
+-- You can filter the list of policies that is returned using the optional
+-- @OnlyAttached@, @Scope@, and @PathPrefix@ parameters. For example, to
+-- list only the customer managed policies in your AWS account, set @Scope@
+-- to @Local@. To list only AWS managed policies, set @Scope@ to @AWS@.
 --
--- You can filter the list of policies that is returned using the optional @OnlyAttached@ , @Scope@ , and @PathPrefix@ parameters. For example, to list only the customer managed policies in your AWS account, set @Scope@ to @Local@ . To list only AWS managed policies, set @Scope@ to @AWS@ .
+-- You can paginate the results using the @MaxItems@ and @Marker@
+-- parameters.
 --
--- You can paginate the results using the @MaxItems@ and @Marker@ parameters.
+-- For more information about managed policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 --
--- For more information about managed policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
---
+-- IAM resource-listing operations return a subset of the available
+-- attributes for the resource. For example, this operation does not return
+-- tags, even though they are an attribute of the returned object. To view
+-- all of the information for a customer manged policy, see GetPolicy.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.ListPolicies
   ( -- * Creating a Request
-    listPolicies,
-    ListPolicies,
+    ListPolicies (..),
+    newListPolicies,
 
     -- * Request Lenses
-    lpScope,
-    lpOnlyAttached,
-    lpPolicyUsageFilter,
-    lpPathPrefix,
-    lpMaxItems,
-    lpMarker,
+    listPolicies_scope,
+    listPolicies_onlyAttached,
+    listPolicies_policyUsageFilter,
+    listPolicies_pathPrefix,
+    listPolicies_maxItems,
+    listPolicies_marker,
 
     -- * Destructuring the Response
-    listPoliciesResponse,
-    ListPoliciesResponse,
+    ListPoliciesResponse (..),
+    newListPoliciesResponse,
 
     -- * Response Lenses
-    lprrsPolicies,
-    lprrsIsTruncated,
-    lprrsMarker,
-    lprrsResponseStatus,
+    listPoliciesResponse_policies,
+    listPoliciesResponse_isTruncated,
+    listPoliciesResponse_marker,
+    listPoliciesResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Policy
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listPolicies' smart constructor.
+-- | /See:/ 'newListPolicies' smart constructor.
 data ListPolicies = ListPolicies'
-  { _lpScope ::
-      !(Maybe PolicyScopeType),
-    _lpOnlyAttached :: !(Maybe Bool),
-    _lpPolicyUsageFilter ::
-      !(Maybe PolicyUsageType),
-    _lpPathPrefix :: !(Maybe Text),
-    _lpMaxItems :: !(Maybe Nat),
-    _lpMarker :: !(Maybe Text)
+  { -- | The scope to use for filtering the results.
+    --
+    -- To list only AWS managed policies, set @Scope@ to @AWS@. To list only
+    -- the customer managed policies in your AWS account, set @Scope@ to
+    -- @Local@.
+    --
+    -- This parameter is optional. If it is not included, or if it is set to
+    -- @All@, all policies are returned.
+    scope :: Prelude.Maybe PolicyScopeType,
+    -- | A flag to filter the results to only the attached policies.
+    --
+    -- When @OnlyAttached@ is @true@, the returned list contains only the
+    -- policies that are attached to an IAM user, group, or role. When
+    -- @OnlyAttached@ is @false@, or when the parameter is not included, all
+    -- policies are returned.
+    onlyAttached :: Prelude.Maybe Prelude.Bool,
+    -- | The policy usage method to use for filtering the results.
+    --
+    -- To list only permissions policies,
+    -- set @PolicyUsageFilter@ to @PermissionsPolicy@. To list only the
+    -- policies used to set permissions boundaries, set the value
+    -- to @PermissionsBoundary@.
+    --
+    -- This parameter is optional. If it is not included, all policies are
+    -- returned.
+    policyUsageFilter :: Prelude.Maybe PolicyUsageType,
+    -- | The path prefix for filtering the results. This parameter is optional.
+    -- If it is not included, it defaults to a slash (\/), listing all
+    -- policies. This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of either a forward slash (\/) by itself or a string that
+    -- must begin and end with forward slashes. In addition, it can contain any
+    -- ASCII character from the ! (@\\u0021@) through the DEL character
+    -- (@\\u007F@), including most punctuation characters, digits, and upper
+    -- and lowercased letters.
+    pathPrefix :: Prelude.Maybe Prelude.Text,
+    -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpScope' - The scope to use for filtering the results. To list only AWS managed policies, set @Scope@ to @AWS@ . To list only the customer managed policies in your AWS account, set @Scope@ to @Local@ . This parameter is optional. If it is not included, or if it is set to @All@ , all policies are returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpOnlyAttached' - A flag to filter the results to only the attached policies. When @OnlyAttached@ is @true@ , the returned list contains only the policies that are attached to an IAM user, group, or role. When @OnlyAttached@ is @false@ , or when the parameter is not included, all policies are returned.
+-- 'scope', 'listPolicies_scope' - The scope to use for filtering the results.
 --
--- * 'lpPolicyUsageFilter' - The policy usage method to use for filtering the results. To list only permissions policies, set @PolicyUsageFilter@ to @PermissionsPolicy@ . To list only the policies used to set permissions boundaries, set the value to @PermissionsBoundary@ . This parameter is optional. If it is not included, all policies are returned.
+-- To list only AWS managed policies, set @Scope@ to @AWS@. To list only
+-- the customer managed policies in your AWS account, set @Scope@ to
+-- @Local@.
 --
--- * 'lpPathPrefix' - The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults to a slash (/), listing all policies. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
+-- This parameter is optional. If it is not included, or if it is set to
+-- @All@, all policies are returned.
 --
--- * 'lpMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- 'onlyAttached', 'listPolicies_onlyAttached' - A flag to filter the results to only the attached policies.
 --
--- * 'lpMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-listPolicies ::
+-- When @OnlyAttached@ is @true@, the returned list contains only the
+-- policies that are attached to an IAM user, group, or role. When
+-- @OnlyAttached@ is @false@, or when the parameter is not included, all
+-- policies are returned.
+--
+-- 'policyUsageFilter', 'listPolicies_policyUsageFilter' - The policy usage method to use for filtering the results.
+--
+-- To list only permissions policies,
+-- set @PolicyUsageFilter@ to @PermissionsPolicy@. To list only the
+-- policies used to set permissions boundaries, set the value
+-- to @PermissionsBoundary@.
+--
+-- This parameter is optional. If it is not included, all policies are
+-- returned.
+--
+-- 'pathPrefix', 'listPolicies_pathPrefix' - The path prefix for filtering the results. This parameter is optional.
+-- If it is not included, it defaults to a slash (\/), listing all
+-- policies. This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+--
+-- 'maxItems', 'listPolicies_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'listPolicies_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+newListPolicies ::
   ListPolicies
-listPolicies =
+newListPolicies =
   ListPolicies'
-    { _lpScope = Nothing,
-      _lpOnlyAttached = Nothing,
-      _lpPolicyUsageFilter = Nothing,
-      _lpPathPrefix = Nothing,
-      _lpMaxItems = Nothing,
-      _lpMarker = Nothing
+    { scope = Prelude.Nothing,
+      onlyAttached = Prelude.Nothing,
+      policyUsageFilter = Prelude.Nothing,
+      pathPrefix = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The scope to use for filtering the results. To list only AWS managed policies, set @Scope@ to @AWS@ . To list only the customer managed policies in your AWS account, set @Scope@ to @Local@ . This parameter is optional. If it is not included, or if it is set to @All@ , all policies are returned.
-lpScope :: Lens' ListPolicies (Maybe PolicyScopeType)
-lpScope = lens _lpScope (\s a -> s {_lpScope = a})
+-- | The scope to use for filtering the results.
+--
+-- To list only AWS managed policies, set @Scope@ to @AWS@. To list only
+-- the customer managed policies in your AWS account, set @Scope@ to
+-- @Local@.
+--
+-- This parameter is optional. If it is not included, or if it is set to
+-- @All@, all policies are returned.
+listPolicies_scope :: Lens.Lens' ListPolicies (Prelude.Maybe PolicyScopeType)
+listPolicies_scope = Lens.lens (\ListPolicies' {scope} -> scope) (\s@ListPolicies' {} a -> s {scope = a} :: ListPolicies)
 
--- | A flag to filter the results to only the attached policies. When @OnlyAttached@ is @true@ , the returned list contains only the policies that are attached to an IAM user, group, or role. When @OnlyAttached@ is @false@ , or when the parameter is not included, all policies are returned.
-lpOnlyAttached :: Lens' ListPolicies (Maybe Bool)
-lpOnlyAttached = lens _lpOnlyAttached (\s a -> s {_lpOnlyAttached = a})
+-- | A flag to filter the results to only the attached policies.
+--
+-- When @OnlyAttached@ is @true@, the returned list contains only the
+-- policies that are attached to an IAM user, group, or role. When
+-- @OnlyAttached@ is @false@, or when the parameter is not included, all
+-- policies are returned.
+listPolicies_onlyAttached :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Bool)
+listPolicies_onlyAttached = Lens.lens (\ListPolicies' {onlyAttached} -> onlyAttached) (\s@ListPolicies' {} a -> s {onlyAttached = a} :: ListPolicies)
 
--- | The policy usage method to use for filtering the results. To list only permissions policies, set @PolicyUsageFilter@ to @PermissionsPolicy@ . To list only the policies used to set permissions boundaries, set the value to @PermissionsBoundary@ . This parameter is optional. If it is not included, all policies are returned.
-lpPolicyUsageFilter :: Lens' ListPolicies (Maybe PolicyUsageType)
-lpPolicyUsageFilter = lens _lpPolicyUsageFilter (\s a -> s {_lpPolicyUsageFilter = a})
+-- | The policy usage method to use for filtering the results.
+--
+-- To list only permissions policies,
+-- set @PolicyUsageFilter@ to @PermissionsPolicy@. To list only the
+-- policies used to set permissions boundaries, set the value
+-- to @PermissionsBoundary@.
+--
+-- This parameter is optional. If it is not included, all policies are
+-- returned.
+listPolicies_policyUsageFilter :: Lens.Lens' ListPolicies (Prelude.Maybe PolicyUsageType)
+listPolicies_policyUsageFilter = Lens.lens (\ListPolicies' {policyUsageFilter} -> policyUsageFilter) (\s@ListPolicies' {} a -> s {policyUsageFilter = a} :: ListPolicies)
 
--- | The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults to a slash (/), listing all policies. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
-lpPathPrefix :: Lens' ListPolicies (Maybe Text)
-lpPathPrefix = lens _lpPathPrefix (\s a -> s {_lpPathPrefix = a})
+-- | The path prefix for filtering the results. This parameter is optional.
+-- If it is not included, it defaults to a slash (\/), listing all
+-- policies. This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+listPolicies_pathPrefix :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Text)
+listPolicies_pathPrefix = Lens.lens (\ListPolicies' {pathPrefix} -> pathPrefix) (\s@ListPolicies' {} a -> s {pathPrefix = a} :: ListPolicies)
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lpMaxItems :: Lens' ListPolicies (Maybe Natural)
-lpMaxItems = lens _lpMaxItems (\s a -> s {_lpMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+listPolicies_maxItems :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Natural)
+listPolicies_maxItems = Lens.lens (\ListPolicies' {maxItems} -> maxItems) (\s@ListPolicies' {} a -> s {maxItems = a} :: ListPolicies) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lpMarker :: Lens' ListPolicies (Maybe Text)
-lpMarker = lens _lpMarker (\s a -> s {_lpMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listPolicies_marker :: Lens.Lens' ListPolicies (Prelude.Maybe Prelude.Text)
+listPolicies_marker = Lens.lens (\ListPolicies' {marker} -> marker) (\s@ListPolicies' {} a -> s {marker = a} :: ListPolicies)
 
-instance AWSPager ListPolicies where
+instance Pager.AWSPager ListPolicies where
   page rq rs
-    | stop (rs ^. lprrsIsTruncated) = Nothing
-    | isNothing (rs ^. lprrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & lpMarker .~ rs ^. lprrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listPoliciesResponse_isTruncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listPoliciesResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listPolicies_marker
+          Lens..~ rs
+          Lens.^? listPoliciesResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest ListPolicies where
+instance Prelude.AWSRequest ListPolicies where
   type Rs ListPolicies = ListPoliciesResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListPoliciesResult"
       ( \s h x ->
           ListPoliciesResponse'
-            <$> ( x .@? "Policies" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Policies" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListPolicies
+instance Prelude.Hashable ListPolicies
 
-instance NFData ListPolicies
+instance Prelude.NFData ListPolicies
 
-instance ToHeaders ListPolicies where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListPolicies where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListPolicies where
-  toPath = const "/"
+instance Prelude.ToPath ListPolicies where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListPolicies where
+instance Prelude.ToQuery ListPolicies where
   toQuery ListPolicies' {..} =
-    mconcat
-      [ "Action" =: ("ListPolicies" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "Scope" =: _lpScope,
-        "OnlyAttached" =: _lpOnlyAttached,
-        "PolicyUsageFilter" =: _lpPolicyUsageFilter,
-        "PathPrefix" =: _lpPathPrefix,
-        "MaxItems" =: _lpMaxItems,
-        "Marker" =: _lpMarker
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListPolicies" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "Scope" Prelude.=: scope,
+        "OnlyAttached" Prelude.=: onlyAttached,
+        "PolicyUsageFilter" Prelude.=: policyUsageFilter,
+        "PathPrefix" Prelude.=: pathPrefix,
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | Contains the response to a successful 'ListPolicies' request.
+-- | Contains the response to a successful ListPolicies request.
 --
---
---
--- /See:/ 'listPoliciesResponse' smart constructor.
+-- /See:/ 'newListPoliciesResponse' smart constructor.
 data ListPoliciesResponse = ListPoliciesResponse'
-  { _lprrsPolicies ::
-      !(Maybe [Policy]),
-    _lprrsIsTruncated ::
-      !(Maybe Bool),
-    _lprrsMarker :: !(Maybe Text),
-    _lprrsResponseStatus :: !Int
+  { -- | A list of policies.
+    policies :: Prelude.Maybe [Policy],
+    -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListPoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListPoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprrsPolicies' - A list of policies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- 'policies', 'listPoliciesResponse_policies' - A list of policies.
 --
--- * 'lprrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listPoliciesResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'lprrsResponseStatus' - -- | The response status code.
-listPoliciesResponse ::
-  -- | 'lprrsResponseStatus'
-  Int ->
+-- 'marker', 'listPoliciesResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+--
+-- 'httpStatus', 'listPoliciesResponse_httpStatus' - The response's http status code.
+newListPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListPoliciesResponse
-listPoliciesResponse pResponseStatus_ =
+newListPoliciesResponse pHttpStatus_ =
   ListPoliciesResponse'
-    { _lprrsPolicies = Nothing,
-      _lprrsIsTruncated = Nothing,
-      _lprrsMarker = Nothing,
-      _lprrsResponseStatus = pResponseStatus_
+    { policies = Prelude.Nothing,
+      isTruncated = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of policies.
-lprrsPolicies :: Lens' ListPoliciesResponse [Policy]
-lprrsPolicies = lens _lprrsPolicies (\s a -> s {_lprrsPolicies = a}) . _Default . _Coerce
+listPoliciesResponse_policies :: Lens.Lens' ListPoliciesResponse (Prelude.Maybe [Policy])
+listPoliciesResponse_policies = Lens.lens (\ListPoliciesResponse' {policies} -> policies) (\s@ListPoliciesResponse' {} a -> s {policies = a} :: ListPoliciesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-lprrsIsTruncated :: Lens' ListPoliciesResponse (Maybe Bool)
-lprrsIsTruncated = lens _lprrsIsTruncated (\s a -> s {_lprrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+listPoliciesResponse_isTruncated :: Lens.Lens' ListPoliciesResponse (Prelude.Maybe Prelude.Bool)
+listPoliciesResponse_isTruncated = Lens.lens (\ListPoliciesResponse' {isTruncated} -> isTruncated) (\s@ListPoliciesResponse' {} a -> s {isTruncated = a} :: ListPoliciesResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lprrsMarker :: Lens' ListPoliciesResponse (Maybe Text)
-lprrsMarker = lens _lprrsMarker (\s a -> s {_lprrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listPoliciesResponse_marker :: Lens.Lens' ListPoliciesResponse (Prelude.Maybe Prelude.Text)
+listPoliciesResponse_marker = Lens.lens (\ListPoliciesResponse' {marker} -> marker) (\s@ListPoliciesResponse' {} a -> s {marker = a} :: ListPoliciesResponse)
 
--- | -- | The response status code.
-lprrsResponseStatus :: Lens' ListPoliciesResponse Int
-lprrsResponseStatus = lens _lprrsResponseStatus (\s a -> s {_lprrsResponseStatus = a})
+-- | The response's http status code.
+listPoliciesResponse_httpStatus :: Lens.Lens' ListPoliciesResponse Prelude.Int
+listPoliciesResponse_httpStatus = Lens.lens (\ListPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListPoliciesResponse' {} a -> s {httpStatus = a} :: ListPoliciesResponse)
 
-instance NFData ListPoliciesResponse
+instance Prelude.NFData ListPoliciesResponse

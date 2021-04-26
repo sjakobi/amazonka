@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,101 +19,137 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.Group where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an IAM group entity.
 --
+-- This data type is used as a response element in the following
+-- operations:
 --
--- This data type is used as a response element in the following operations:
+-- -   CreateGroup
 --
---     * 'CreateGroup'
+-- -   GetGroup
 --
---     * 'GetGroup'
+-- -   ListGroups
 --
---     * 'ListGroups'
---
---
---
---
--- /See:/ 'group'' smart constructor.
+-- /See:/ 'newGroup' smart constructor.
 data Group = Group'
-  { _gPath :: !Text,
-    _gGroupName :: !Text,
-    _gGroupId :: !Text,
-    _gARN :: !Text,
-    _gCreateDate :: !ISO8601
+  { -- | The path to the group. For more information about paths, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    path :: Prelude.Text,
+    -- | The friendly name that identifies the group.
+    groupName :: Prelude.Text,
+    -- | The stable and unique string identifying the group. For more information
+    -- about IDs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    groupId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) specifying the group. For more
+    -- information about ARNs and how to use them in policies, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    arn :: Prelude.Text,
+    -- | The date and time, in
+    -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+    -- group was created.
+    createDate :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Group' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Group' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gPath' - The path to the group. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gGroupName' - The friendly name that identifies the group.
+-- 'path', 'group_path' - The path to the group. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
 --
--- * 'gGroupId' - The stable and unique string identifying the group. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'groupName', 'group_groupName' - The friendly name that identifies the group.
 --
--- * 'gARN' - The Amazon Resource Name (ARN) specifying the group. For more information about ARNs and how to use them in policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'groupId', 'group_groupId' - The stable and unique string identifying the group. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
 --
--- * 'gCreateDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the group was created.
-group' ::
-  -- | 'gPath'
-  Text ->
-  -- | 'gGroupName'
-  Text ->
-  -- | 'gGroupId'
-  Text ->
-  -- | 'gARN'
-  Text ->
-  -- | 'gCreateDate'
-  UTCTime ->
+-- 'arn', 'group_arn' - The Amazon Resource Name (ARN) specifying the group. For more
+-- information about ARNs and how to use them in policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+--
+-- 'createDate', 'group_createDate' - The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- group was created.
+newGroup ::
+  -- | 'path'
+  Prelude.Text ->
+  -- | 'groupName'
+  Prelude.Text ->
+  -- | 'groupId'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'createDate'
+  Prelude.UTCTime ->
   Group
-group'
+newGroup
   pPath_
   pGroupName_
   pGroupId_
-  pARN_
+  pArn_
   pCreateDate_ =
     Group'
-      { _gPath = pPath_,
-        _gGroupName = pGroupName_,
-        _gGroupId = pGroupId_,
-        _gARN = pARN_,
-        _gCreateDate = _Time # pCreateDate_
+      { path = pPath_,
+        groupName = pGroupName_,
+        groupId = pGroupId_,
+        arn = pArn_,
+        createDate = Prelude._Time Lens.# pCreateDate_
       }
 
--- | The path to the group. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-gPath :: Lens' Group Text
-gPath = lens _gPath (\s a -> s {_gPath = a})
+-- | The path to the group. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+group_path :: Lens.Lens' Group Prelude.Text
+group_path = Lens.lens (\Group' {path} -> path) (\s@Group' {} a -> s {path = a} :: Group)
 
 -- | The friendly name that identifies the group.
-gGroupName :: Lens' Group Text
-gGroupName = lens _gGroupName (\s a -> s {_gGroupName = a})
+group_groupName :: Lens.Lens' Group Prelude.Text
+group_groupName = Lens.lens (\Group' {groupName} -> groupName) (\s@Group' {} a -> s {groupName = a} :: Group)
 
--- | The stable and unique string identifying the group. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-gGroupId :: Lens' Group Text
-gGroupId = lens _gGroupId (\s a -> s {_gGroupId = a})
+-- | The stable and unique string identifying the group. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+group_groupId :: Lens.Lens' Group Prelude.Text
+group_groupId = Lens.lens (\Group' {groupId} -> groupId) (\s@Group' {} a -> s {groupId = a} :: Group)
 
--- | The Amazon Resource Name (ARN) specifying the group. For more information about ARNs and how to use them in policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-gARN :: Lens' Group Text
-gARN = lens _gARN (\s a -> s {_gARN = a})
+-- | The Amazon Resource Name (ARN) specifying the group. For more
+-- information about ARNs and how to use them in policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+group_arn :: Lens.Lens' Group Prelude.Text
+group_arn = Lens.lens (\Group' {arn} -> arn) (\s@Group' {} a -> s {arn = a} :: Group)
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the group was created.
-gCreateDate :: Lens' Group UTCTime
-gCreateDate = lens _gCreateDate (\s a -> s {_gCreateDate = a}) . _Time
+-- | The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- group was created.
+group_createDate :: Lens.Lens' Group Prelude.UTCTime
+group_createDate = Lens.lens (\Group' {createDate} -> createDate) (\s@Group' {} a -> s {createDate = a} :: Group) Prelude.. Prelude._Time
 
-instance FromXML Group where
+instance Prelude.FromXML Group where
   parseXML x =
     Group'
-      <$> (x .@ "Path")
-      <*> (x .@ "GroupName")
-      <*> (x .@ "GroupId")
-      <*> (x .@ "Arn")
-      <*> (x .@ "CreateDate")
+      Prelude.<$> (x Prelude..@ "Path")
+      Prelude.<*> (x Prelude..@ "GroupName")
+      Prelude.<*> (x Prelude..@ "GroupId")
+      Prelude.<*> (x Prelude..@ "Arn")
+      Prelude.<*> (x Prelude..@ "CreateDate")
 
-instance Hashable Group
+instance Prelude.Hashable Group
 
-instance NFData Group
+instance Prelude.NFData Group

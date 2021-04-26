@@ -11,12 +11,19 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Identity and Access Management__
+-- AWS Identity and Access Management
 --
--- AWS Identity and Access Management (IAM) is a web service for securely controlling access to AWS services. With IAM, you can centrally manage users, security credentials such as access keys, and permissions that control which AWS resources users and applications can access. For more information about IAM, see <http://aws.amazon.com/iam/ AWS Identity and Access Management (IAM)> and the <https://docs.aws.amazon.com/IAM/latest/UserGuide/ AWS Identity and Access Management User Guide> .
+-- AWS Identity and Access Management (IAM) is a web service for securely
+-- controlling access to AWS services. With IAM, you can centrally manage
+-- users, security credentials such as access keys, and permissions that
+-- control which AWS resources users and applications can access. For more
+-- information about IAM, see
+-- <http://aws.amazon.com/iam/ AWS Identity and Access Management (IAM)>
+-- and the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/ AWS Identity and Access Management User Guide>.
 module Network.AWS.IAM
   ( -- * Service Configuration
-    iam,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -106,493 +113,967 @@ module Network.AWS.IAM
     -- $waiters
 
     -- ** UserExists
-    userExists,
+    newUserExists,
 
     -- ** RoleExists
-    roleExists,
+    newRoleExists,
 
     -- ** PolicyExists
-    policyExists,
+    newPolicyExists,
 
     -- ** InstanceProfileExists
-    instanceProfileExists,
+    newInstanceProfileExists,
 
     -- * Operations
     -- $operations
 
     -- ** CreateVirtualMFADevice
-    module Network.AWS.IAM.CreateVirtualMFADevice,
+    CreateVirtualMFADevice (CreateVirtualMFADevice'),
+    newCreateVirtualMFADevice,
+    CreateVirtualMFADeviceResponse (CreateVirtualMFADeviceResponse'),
+    newCreateVirtualMFADeviceResponse,
 
     -- ** AttachRolePolicy
-    module Network.AWS.IAM.AttachRolePolicy,
+    AttachRolePolicy (AttachRolePolicy'),
+    newAttachRolePolicy,
+    AttachRolePolicyResponse (AttachRolePolicyResponse'),
+    newAttachRolePolicyResponse,
 
     -- ** DeleteSSHPublicKey
-    module Network.AWS.IAM.DeleteSSHPublicKey,
+    DeleteSSHPublicKey (DeleteSSHPublicKey'),
+    newDeleteSSHPublicKey,
+    DeleteSSHPublicKeyResponse (DeleteSSHPublicKeyResponse'),
+    newDeleteSSHPublicKeyResponse,
 
     -- ** GetUser
-    module Network.AWS.IAM.GetUser,
+    GetUser (GetUser'),
+    newGetUser,
+    GetUserResponse (GetUserResponse'),
+    newGetUserResponse,
 
     -- ** UpdateSSHPublicKey
-    module Network.AWS.IAM.UpdateSSHPublicKey,
+    UpdateSSHPublicKey (UpdateSSHPublicKey'),
+    newUpdateSSHPublicKey,
+    UpdateSSHPublicKeyResponse (UpdateSSHPublicKeyResponse'),
+    newUpdateSSHPublicKeyResponse,
 
-    -- ** UntagOpenIdConnectProvider
-    module Network.AWS.IAM.UntagOpenIdConnectProvider,
+    -- ** UntagOpenIDConnectProvider
+    UntagOpenIDConnectProvider (UntagOpenIDConnectProvider'),
+    newUntagOpenIDConnectProvider,
+    UntagOpenIDConnectProviderResponse (UntagOpenIDConnectProviderResponse'),
+    newUntagOpenIDConnectProviderResponse,
 
     -- ** ListSigningCertificates (Paginated)
-    module Network.AWS.IAM.ListSigningCertificates,
+    ListSigningCertificates (ListSigningCertificates'),
+    newListSigningCertificates,
+    ListSigningCertificatesResponse (ListSigningCertificatesResponse'),
+    newListSigningCertificatesResponse,
 
-    -- ** DeleteOpenIdConnectProvider
-    module Network.AWS.IAM.DeleteOpenIdConnectProvider,
+    -- ** DeleteOpenIDConnectProvider
+    DeleteOpenIDConnectProvider (DeleteOpenIDConnectProvider'),
+    newDeleteOpenIDConnectProvider,
+    DeleteOpenIDConnectProviderResponse (DeleteOpenIDConnectProviderResponse'),
+    newDeleteOpenIDConnectProviderResponse,
 
     -- ** ListRoleTags
-    module Network.AWS.IAM.ListRoleTags,
+    ListRoleTags (ListRoleTags'),
+    newListRoleTags,
+    ListRoleTagsResponse (ListRoleTagsResponse'),
+    newListRoleTagsResponse,
 
-    -- ** ListOpenIdConnectProviders
-    module Network.AWS.IAM.ListOpenIdConnectProviders,
+    -- ** ListOpenIDConnectProviders
+    ListOpenIDConnectProviders (ListOpenIDConnectProviders'),
+    newListOpenIDConnectProviders,
+    ListOpenIDConnectProvidersResponse (ListOpenIDConnectProvidersResponse'),
+    newListOpenIDConnectProvidersResponse,
 
     -- ** CreatePolicy
-    module Network.AWS.IAM.CreatePolicy,
+    CreatePolicy (CreatePolicy'),
+    newCreatePolicy,
+    CreatePolicyResponse (CreatePolicyResponse'),
+    newCreatePolicyResponse,
 
     -- ** GetSAMLProvider
-    module Network.AWS.IAM.GetSAMLProvider,
+    GetSAMLProvider (GetSAMLProvider'),
+    newGetSAMLProvider,
+    GetSAMLProviderResponse (GetSAMLProviderResponse'),
+    newGetSAMLProviderResponse,
 
     -- ** GetContextKeysForPrincipalPolicy
-    module Network.AWS.IAM.GetContextKeysForPrincipalPolicy,
+    GetContextKeysForPrincipalPolicy (GetContextKeysForPrincipalPolicy'),
+    newGetContextKeysForPrincipalPolicy,
+    GetContextKeysForPolicyResponse (GetContextKeysForPolicyResponse'),
+    newGetContextKeysForPolicyResponse,
 
     -- ** ListEntitiesForPolicy (Paginated)
-    module Network.AWS.IAM.ListEntitiesForPolicy,
+    ListEntitiesForPolicy (ListEntitiesForPolicy'),
+    newListEntitiesForPolicy,
+    ListEntitiesForPolicyResponse (ListEntitiesForPolicyResponse'),
+    newListEntitiesForPolicyResponse,
 
     -- ** ListGroupsForUser (Paginated)
-    module Network.AWS.IAM.ListGroupsForUser,
+    ListGroupsForUser (ListGroupsForUser'),
+    newListGroupsForUser,
+    ListGroupsForUserResponse (ListGroupsForUserResponse'),
+    newListGroupsForUserResponse,
 
     -- ** SimulatePrincipalPolicy (Paginated)
-    module Network.AWS.IAM.SimulatePrincipalPolicy,
+    SimulatePrincipalPolicy (SimulatePrincipalPolicy'),
+    newSimulatePrincipalPolicy,
+    SimulatePolicyResponse (SimulatePolicyResponse'),
+    newSimulatePolicyResponse,
 
     -- ** ListPolicies (Paginated)
-    module Network.AWS.IAM.ListPolicies,
+    ListPolicies (ListPolicies'),
+    newListPolicies,
+    ListPoliciesResponse (ListPoliciesResponse'),
+    newListPoliciesResponse,
 
     -- ** CreateServiceLinkedRole
-    module Network.AWS.IAM.CreateServiceLinkedRole,
+    CreateServiceLinkedRole (CreateServiceLinkedRole'),
+    newCreateServiceLinkedRole,
+    CreateServiceLinkedRoleResponse (CreateServiceLinkedRoleResponse'),
+    newCreateServiceLinkedRoleResponse,
 
     -- ** UntagPolicy
-    module Network.AWS.IAM.UntagPolicy,
+    UntagPolicy (UntagPolicy'),
+    newUntagPolicy,
+    UntagPolicyResponse (UntagPolicyResponse'),
+    newUntagPolicyResponse,
 
     -- ** DeletePolicy
-    module Network.AWS.IAM.DeletePolicy,
+    DeletePolicy (DeletePolicy'),
+    newDeletePolicy,
+    DeletePolicyResponse (DeletePolicyResponse'),
+    newDeletePolicyResponse,
 
     -- ** DeleteServerCertificate
-    module Network.AWS.IAM.DeleteServerCertificate,
+    DeleteServerCertificate (DeleteServerCertificate'),
+    newDeleteServerCertificate,
+    DeleteServerCertificateResponse (DeleteServerCertificateResponse'),
+    newDeleteServerCertificateResponse,
 
     -- ** ListAttachedGroupPolicies (Paginated)
-    module Network.AWS.IAM.ListAttachedGroupPolicies,
+    ListAttachedGroupPolicies (ListAttachedGroupPolicies'),
+    newListAttachedGroupPolicies,
+    ListAttachedGroupPoliciesResponse (ListAttachedGroupPoliciesResponse'),
+    newListAttachedGroupPoliciesResponse,
 
     -- ** ChangePassword
-    module Network.AWS.IAM.ChangePassword,
+    ChangePassword (ChangePassword'),
+    newChangePassword,
+    ChangePasswordResponse (ChangePasswordResponse'),
+    newChangePasswordResponse,
 
     -- ** ListMFADeviceTags
-    module Network.AWS.IAM.ListMFADeviceTags,
+    ListMFADeviceTags (ListMFADeviceTags'),
+    newListMFADeviceTags,
+    ListMFADeviceTagsResponse (ListMFADeviceTagsResponse'),
+    newListMFADeviceTagsResponse,
 
     -- ** UntagServerCertificate
-    module Network.AWS.IAM.UntagServerCertificate,
+    UntagServerCertificate (UntagServerCertificate'),
+    newUntagServerCertificate,
+    UntagServerCertificateResponse (UntagServerCertificateResponse'),
+    newUntagServerCertificateResponse,
 
     -- ** UpdateAssumeRolePolicy
-    module Network.AWS.IAM.UpdateAssumeRolePolicy,
+    UpdateAssumeRolePolicy (UpdateAssumeRolePolicy'),
+    newUpdateAssumeRolePolicy,
+    UpdateAssumeRolePolicyResponse (UpdateAssumeRolePolicyResponse'),
+    newUpdateAssumeRolePolicyResponse,
 
     -- ** GetGroupPolicy
-    module Network.AWS.IAM.GetGroupPolicy,
+    GetGroupPolicy (GetGroupPolicy'),
+    newGetGroupPolicy,
+    GetGroupPolicyResponse (GetGroupPolicyResponse'),
+    newGetGroupPolicyResponse,
 
     -- ** UpdateServerCertificate
-    module Network.AWS.IAM.UpdateServerCertificate,
+    UpdateServerCertificate (UpdateServerCertificate'),
+    newUpdateServerCertificate,
+    UpdateServerCertificateResponse (UpdateServerCertificateResponse'),
+    newUpdateServerCertificateResponse,
 
     -- ** ListServerCertificates (Paginated)
-    module Network.AWS.IAM.ListServerCertificates,
+    ListServerCertificates (ListServerCertificates'),
+    newListServerCertificates,
+    ListServerCertificatesResponse (ListServerCertificatesResponse'),
+    newListServerCertificatesResponse,
 
     -- ** ListInstanceProfileTags
-    module Network.AWS.IAM.ListInstanceProfileTags,
+    ListInstanceProfileTags (ListInstanceProfileTags'),
+    newListInstanceProfileTags,
+    ListInstanceProfileTagsResponse (ListInstanceProfileTagsResponse'),
+    newListInstanceProfileTagsResponse,
 
     -- ** DeleteGroupPolicy
-    module Network.AWS.IAM.DeleteGroupPolicy,
+    DeleteGroupPolicy (DeleteGroupPolicy'),
+    newDeleteGroupPolicy,
+    DeleteGroupPolicyResponse (DeleteGroupPolicyResponse'),
+    newDeleteGroupPolicyResponse,
 
     -- ** CreateInstanceProfile
-    module Network.AWS.IAM.CreateInstanceProfile,
+    CreateInstanceProfile (CreateInstanceProfile'),
+    newCreateInstanceProfile,
+    CreateInstanceProfileResponse (CreateInstanceProfileResponse'),
+    newCreateInstanceProfileResponse,
 
     -- ** ListGroups (Paginated)
-    module Network.AWS.IAM.ListGroups,
+    ListGroups (ListGroups'),
+    newListGroups,
+    ListGroupsResponse (ListGroupsResponse'),
+    newListGroupsResponse,
 
     -- ** GetLoginProfile
-    module Network.AWS.IAM.GetLoginProfile,
+    GetLoginProfile (GetLoginProfile'),
+    newGetLoginProfile,
+    GetLoginProfileResponse (GetLoginProfileResponse'),
+    newGetLoginProfileResponse,
 
     -- ** TagRole
-    module Network.AWS.IAM.TagRole,
+    TagRole (TagRole'),
+    newTagRole,
+    TagRoleResponse (TagRoleResponse'),
+    newTagRoleResponse,
 
     -- ** RemoveRoleFromInstanceProfile
-    module Network.AWS.IAM.RemoveRoleFromInstanceProfile,
+    RemoveRoleFromInstanceProfile (RemoveRoleFromInstanceProfile'),
+    newRemoveRoleFromInstanceProfile,
+    RemoveRoleFromInstanceProfileResponse (RemoveRoleFromInstanceProfileResponse'),
+    newRemoveRoleFromInstanceProfileResponse,
 
     -- ** GenerateCredentialReport
-    module Network.AWS.IAM.GenerateCredentialReport,
+    GenerateCredentialReport (GenerateCredentialReport'),
+    newGenerateCredentialReport,
+    GenerateCredentialReportResponse (GenerateCredentialReportResponse'),
+    newGenerateCredentialReportResponse,
 
     -- ** CreatePolicyVersion
-    module Network.AWS.IAM.CreatePolicyVersion,
+    CreatePolicyVersion (CreatePolicyVersion'),
+    newCreatePolicyVersion,
+    CreatePolicyVersionResponse (CreatePolicyVersionResponse'),
+    newCreatePolicyVersionResponse,
 
     -- ** GetServerCertificate
-    module Network.AWS.IAM.GetServerCertificate,
+    GetServerCertificate (GetServerCertificate'),
+    newGetServerCertificate,
+    GetServerCertificateResponse (GetServerCertificateResponse'),
+    newGetServerCertificateResponse,
 
     -- ** RemoveUserFromGroup
-    module Network.AWS.IAM.RemoveUserFromGroup,
+    RemoveUserFromGroup (RemoveUserFromGroup'),
+    newRemoveUserFromGroup,
+    RemoveUserFromGroupResponse (RemoveUserFromGroupResponse'),
+    newRemoveUserFromGroupResponse,
 
     -- ** SetDefaultPolicyVersion
-    module Network.AWS.IAM.SetDefaultPolicyVersion,
+    SetDefaultPolicyVersion (SetDefaultPolicyVersion'),
+    newSetDefaultPolicyVersion,
+    SetDefaultPolicyVersionResponse (SetDefaultPolicyVersionResponse'),
+    newSetDefaultPolicyVersionResponse,
 
     -- ** ResetServiceSpecificCredential
-    module Network.AWS.IAM.ResetServiceSpecificCredential,
+    ResetServiceSpecificCredential (ResetServiceSpecificCredential'),
+    newResetServiceSpecificCredential,
+    ResetServiceSpecificCredentialResponse (ResetServiceSpecificCredentialResponse'),
+    newResetServiceSpecificCredentialResponse,
 
     -- ** GenerateServiceLastAccessedDetails
-    module Network.AWS.IAM.GenerateServiceLastAccessedDetails,
+    GenerateServiceLastAccessedDetails (GenerateServiceLastAccessedDetails'),
+    newGenerateServiceLastAccessedDetails,
+    GenerateServiceLastAccessedDetailsResponse (GenerateServiceLastAccessedDetailsResponse'),
+    newGenerateServiceLastAccessedDetailsResponse,
 
     -- ** ListPoliciesGrantingServiceAccess
-    module Network.AWS.IAM.ListPoliciesGrantingServiceAccess,
+    ListPoliciesGrantingServiceAccess (ListPoliciesGrantingServiceAccess'),
+    newListPoliciesGrantingServiceAccess,
+    ListPoliciesGrantingServiceAccessResponse (ListPoliciesGrantingServiceAccessResponse'),
+    newListPoliciesGrantingServiceAccessResponse,
 
     -- ** UpdateRoleDescription
-    module Network.AWS.IAM.UpdateRoleDescription,
+    UpdateRoleDescription (UpdateRoleDescription'),
+    newUpdateRoleDescription,
+    UpdateRoleDescriptionResponse (UpdateRoleDescriptionResponse'),
+    newUpdateRoleDescriptionResponse,
 
     -- ** UploadServerCertificate
-    module Network.AWS.IAM.UploadServerCertificate,
+    UploadServerCertificate (UploadServerCertificate'),
+    newUploadServerCertificate,
+    UploadServerCertificateResponse (UploadServerCertificateResponse'),
+    newUploadServerCertificateResponse,
 
     -- ** DetachRolePolicy
-    module Network.AWS.IAM.DetachRolePolicy,
+    DetachRolePolicy (DetachRolePolicy'),
+    newDetachRolePolicy,
+    DetachRolePolicyResponse (DetachRolePolicyResponse'),
+    newDetachRolePolicyResponse,
 
     -- ** EnableMFADevice
-    module Network.AWS.IAM.EnableMFADevice,
+    EnableMFADevice (EnableMFADevice'),
+    newEnableMFADevice,
+    EnableMFADeviceResponse (EnableMFADeviceResponse'),
+    newEnableMFADeviceResponse,
 
     -- ** ListSAMLProviders
-    module Network.AWS.IAM.ListSAMLProviders,
+    ListSAMLProviders (ListSAMLProviders'),
+    newListSAMLProviders,
+    ListSAMLProvidersResponse (ListSAMLProvidersResponse'),
+    newListSAMLProvidersResponse,
 
     -- ** ListPolicyTags
-    module Network.AWS.IAM.ListPolicyTags,
+    ListPolicyTags (ListPolicyTags'),
+    newListPolicyTags,
+    ListPolicyTagsResponse (ListPolicyTagsResponse'),
+    newListPolicyTagsResponse,
 
     -- ** CreateGroup
-    module Network.AWS.IAM.CreateGroup,
+    CreateGroup (CreateGroup'),
+    newCreateGroup,
+    CreateGroupResponse (CreateGroupResponse'),
+    newCreateGroupResponse,
 
     -- ** TagMFADevice
-    module Network.AWS.IAM.TagMFADevice,
+    TagMFADevice (TagMFADevice'),
+    newTagMFADevice,
+    TagMFADeviceResponse (TagMFADeviceResponse'),
+    newTagMFADeviceResponse,
 
     -- ** TagInstanceProfile
-    module Network.AWS.IAM.TagInstanceProfile,
+    TagInstanceProfile (TagInstanceProfile'),
+    newTagInstanceProfile,
+    TagInstanceProfileResponse (TagInstanceProfileResponse'),
+    newTagInstanceProfileResponse,
 
-    -- ** GetOpenIdConnectProvider
-    module Network.AWS.IAM.GetOpenIdConnectProvider,
+    -- ** GetOpenIDConnectProvider
+    GetOpenIDConnectProvider (GetOpenIDConnectProvider'),
+    newGetOpenIDConnectProvider,
+    GetOpenIDConnectProviderResponse (GetOpenIDConnectProviderResponse'),
+    newGetOpenIDConnectProviderResponse,
 
     -- ** CreateRole
-    module Network.AWS.IAM.CreateRole,
+    CreateRole (CreateRole'),
+    newCreateRole,
+    CreateRoleResponse (CreateRoleResponse'),
+    newCreateRoleResponse,
 
     -- ** PutUserPermissionsBoundary
-    module Network.AWS.IAM.PutUserPermissionsBoundary,
+    PutUserPermissionsBoundary (PutUserPermissionsBoundary'),
+    newPutUserPermissionsBoundary,
+    PutUserPermissionsBoundaryResponse (PutUserPermissionsBoundaryResponse'),
+    newPutUserPermissionsBoundaryResponse,
 
     -- ** DeleteUserPolicy
-    module Network.AWS.IAM.DeleteUserPolicy,
+    DeleteUserPolicy (DeleteUserPolicy'),
+    newDeleteUserPolicy,
+    DeleteUserPolicyResponse (DeleteUserPolicyResponse'),
+    newDeleteUserPolicyResponse,
 
     -- ** DeleteRolePermissionsBoundary
-    module Network.AWS.IAM.DeleteRolePermissionsBoundary,
+    DeleteRolePermissionsBoundary (DeleteRolePermissionsBoundary'),
+    newDeleteRolePermissionsBoundary,
+    DeleteRolePermissionsBoundaryResponse (DeleteRolePermissionsBoundaryResponse'),
+    newDeleteRolePermissionsBoundaryResponse,
 
     -- ** CreateUser
-    module Network.AWS.IAM.CreateUser,
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
 
-    -- ** ListOpenIdConnectProviderTags
-    module Network.AWS.IAM.ListOpenIdConnectProviderTags,
+    -- ** ListOpenIDConnectProviderTags
+    ListOpenIDConnectProviderTags (ListOpenIDConnectProviderTags'),
+    newListOpenIDConnectProviderTags,
+    ListOpenIDConnectProviderTagsResponse (ListOpenIDConnectProviderTagsResponse'),
+    newListOpenIDConnectProviderTagsResponse,
 
     -- ** ListRoles (Paginated)
-    module Network.AWS.IAM.ListRoles,
+    ListRoles (ListRoles'),
+    newListRoles,
+    ListRolesResponse (ListRolesResponse'),
+    newListRolesResponse,
 
     -- ** UploadSigningCertificate
-    module Network.AWS.IAM.UploadSigningCertificate,
+    UploadSigningCertificate (UploadSigningCertificate'),
+    newUploadSigningCertificate,
+    UploadSigningCertificateResponse (UploadSigningCertificateResponse'),
+    newUploadSigningCertificateResponse,
 
     -- ** DeleteRolePolicy
-    module Network.AWS.IAM.DeleteRolePolicy,
+    DeleteRolePolicy (DeleteRolePolicy'),
+    newDeleteRolePolicy,
+    DeleteRolePolicyResponse (DeleteRolePolicyResponse'),
+    newDeleteRolePolicyResponse,
 
     -- ** ListAttachedRolePolicies (Paginated)
-    module Network.AWS.IAM.ListAttachedRolePolicies,
+    ListAttachedRolePolicies (ListAttachedRolePolicies'),
+    newListAttachedRolePolicies,
+    ListAttachedRolePoliciesResponse (ListAttachedRolePoliciesResponse'),
+    newListAttachedRolePoliciesResponse,
 
     -- ** GetRolePolicy
-    module Network.AWS.IAM.GetRolePolicy,
+    GetRolePolicy (GetRolePolicy'),
+    newGetRolePolicy,
+    GetRolePolicyResponse (GetRolePolicyResponse'),
+    newGetRolePolicyResponse,
 
     -- ** DeleteAccessKey
-    module Network.AWS.IAM.DeleteAccessKey,
+    DeleteAccessKey (DeleteAccessKey'),
+    newDeleteAccessKey,
+    DeleteAccessKeyResponse (DeleteAccessKeyResponse'),
+    newDeleteAccessKeyResponse,
 
     -- ** ListVirtualMFADevices (Paginated)
-    module Network.AWS.IAM.ListVirtualMFADevices,
+    ListVirtualMFADevices (ListVirtualMFADevices'),
+    newListVirtualMFADevices,
+    ListVirtualMFADevicesResponse (ListVirtualMFADevicesResponse'),
+    newListVirtualMFADevicesResponse,
 
     -- ** TagPolicy
-    module Network.AWS.IAM.TagPolicy,
+    TagPolicy (TagPolicy'),
+    newTagPolicy,
+    TagPolicyResponse (TagPolicyResponse'),
+    newTagPolicyResponse,
 
-    -- ** RemoveClientIdFromOpenIdConnectProvider
-    module Network.AWS.IAM.RemoveClientIdFromOpenIdConnectProvider,
+    -- ** RemoveClientIDFromOpenIDConnectProvider
+    RemoveClientIDFromOpenIDConnectProvider (RemoveClientIDFromOpenIDConnectProvider'),
+    newRemoveClientIDFromOpenIDConnectProvider,
+    RemoveClientIDFromOpenIDConnectProviderResponse (RemoveClientIDFromOpenIDConnectProviderResponse'),
+    newRemoveClientIDFromOpenIDConnectProviderResponse,
 
     -- ** DeleteVirtualMFADevice
-    module Network.AWS.IAM.DeleteVirtualMFADevice,
+    DeleteVirtualMFADevice (DeleteVirtualMFADevice'),
+    newDeleteVirtualMFADevice,
+    DeleteVirtualMFADeviceResponse (DeleteVirtualMFADeviceResponse'),
+    newDeleteVirtualMFADeviceResponse,
 
     -- ** UpdateAccessKey
-    module Network.AWS.IAM.UpdateAccessKey,
+    UpdateAccessKey (UpdateAccessKey'),
+    newUpdateAccessKey,
+    UpdateAccessKeyResponse (UpdateAccessKeyResponse'),
+    newUpdateAccessKeyResponse,
 
     -- ** CreateServiceSpecificCredential
-    module Network.AWS.IAM.CreateServiceSpecificCredential,
+    CreateServiceSpecificCredential (CreateServiceSpecificCredential'),
+    newCreateServiceSpecificCredential,
+    CreateServiceSpecificCredentialResponse (CreateServiceSpecificCredentialResponse'),
+    newCreateServiceSpecificCredentialResponse,
 
     -- ** ResyncMFADevice
-    module Network.AWS.IAM.ResyncMFADevice,
+    ResyncMFADevice (ResyncMFADevice'),
+    newResyncMFADevice,
+    ResyncMFADeviceResponse (ResyncMFADeviceResponse'),
+    newResyncMFADeviceResponse,
 
     -- ** UpdateServiceSpecificCredential
-    module Network.AWS.IAM.UpdateServiceSpecificCredential,
+    UpdateServiceSpecificCredential (UpdateServiceSpecificCredential'),
+    newUpdateServiceSpecificCredential,
+    UpdateServiceSpecificCredentialResponse (UpdateServiceSpecificCredentialResponse'),
+    newUpdateServiceSpecificCredentialResponse,
 
     -- ** GetUserPolicy
-    module Network.AWS.IAM.GetUserPolicy,
+    GetUserPolicy (GetUserPolicy'),
+    newGetUserPolicy,
+    GetUserPolicyResponse (GetUserPolicyResponse'),
+    newGetUserPolicyResponse,
 
     -- ** UpdateAccountPasswordPolicy
-    module Network.AWS.IAM.UpdateAccountPasswordPolicy,
+    UpdateAccountPasswordPolicy (UpdateAccountPasswordPolicy'),
+    newUpdateAccountPasswordPolicy,
+    UpdateAccountPasswordPolicyResponse (UpdateAccountPasswordPolicyResponse'),
+    newUpdateAccountPasswordPolicyResponse,
 
     -- ** ListServiceSpecificCredentials
-    module Network.AWS.IAM.ListServiceSpecificCredentials,
+    ListServiceSpecificCredentials (ListServiceSpecificCredentials'),
+    newListServiceSpecificCredentials,
+    ListServiceSpecificCredentialsResponse (ListServiceSpecificCredentialsResponse'),
+    newListServiceSpecificCredentialsResponse,
 
     -- ** DeleteSigningCertificate
-    module Network.AWS.IAM.DeleteSigningCertificate,
+    DeleteSigningCertificate (DeleteSigningCertificate'),
+    newDeleteSigningCertificate,
+    DeleteSigningCertificateResponse (DeleteSigningCertificateResponse'),
+    newDeleteSigningCertificateResponse,
 
     -- ** ListAttachedUserPolicies (Paginated)
-    module Network.AWS.IAM.ListAttachedUserPolicies,
+    ListAttachedUserPolicies (ListAttachedUserPolicies'),
+    newListAttachedUserPolicies,
+    ListAttachedUserPoliciesResponse (ListAttachedUserPoliciesResponse'),
+    newListAttachedUserPoliciesResponse,
 
     -- ** UpdateSigningCertificate
-    module Network.AWS.IAM.UpdateSigningCertificate,
+    UpdateSigningCertificate (UpdateSigningCertificate'),
+    newUpdateSigningCertificate,
+    UpdateSigningCertificateResponse (UpdateSigningCertificateResponse'),
+    newUpdateSigningCertificateResponse,
 
     -- ** ListSSHPublicKeys (Paginated)
-    module Network.AWS.IAM.ListSSHPublicKeys,
+    ListSSHPublicKeys (ListSSHPublicKeys'),
+    newListSSHPublicKeys,
+    ListSSHPublicKeysResponse (ListSSHPublicKeysResponse'),
+    newListSSHPublicKeysResponse,
 
     -- ** DeleteServiceSpecificCredential
-    module Network.AWS.IAM.DeleteServiceSpecificCredential,
+    DeleteServiceSpecificCredential (DeleteServiceSpecificCredential'),
+    newDeleteServiceSpecificCredential,
+    DeleteServiceSpecificCredentialResponse (DeleteServiceSpecificCredentialResponse'),
+    newDeleteServiceSpecificCredentialResponse,
 
     -- ** CreateAccessKey
-    module Network.AWS.IAM.CreateAccessKey,
+    CreateAccessKey (CreateAccessKey'),
+    newCreateAccessKey,
+    CreateAccessKeyResponse (CreateAccessKeyResponse'),
+    newCreateAccessKeyResponse,
 
     -- ** DeleteAccountPasswordPolicy
-    module Network.AWS.IAM.DeleteAccountPasswordPolicy,
+    DeleteAccountPasswordPolicy (DeleteAccountPasswordPolicy'),
+    newDeleteAccountPasswordPolicy,
+    DeleteAccountPasswordPolicyResponse (DeleteAccountPasswordPolicyResponse'),
+    newDeleteAccountPasswordPolicyResponse,
 
     -- ** GetOrganizationsAccessReport
-    module Network.AWS.IAM.GetOrganizationsAccessReport,
+    GetOrganizationsAccessReport (GetOrganizationsAccessReport'),
+    newGetOrganizationsAccessReport,
+    GetOrganizationsAccessReportResponse (GetOrganizationsAccessReportResponse'),
+    newGetOrganizationsAccessReportResponse,
 
     -- ** ListInstanceProfilesForRole (Paginated)
-    module Network.AWS.IAM.ListInstanceProfilesForRole,
+    ListInstanceProfilesForRole (ListInstanceProfilesForRole'),
+    newListInstanceProfilesForRole,
+    ListInstanceProfilesForRoleResponse (ListInstanceProfilesForRoleResponse'),
+    newListInstanceProfilesForRoleResponse,
 
     -- ** GetPolicyVersion
-    module Network.AWS.IAM.GetPolicyVersion,
+    GetPolicyVersion (GetPolicyVersion'),
+    newGetPolicyVersion,
+    GetPolicyVersionResponse (GetPolicyVersionResponse'),
+    newGetPolicyVersionResponse,
 
     -- ** CreateLoginProfile
-    module Network.AWS.IAM.CreateLoginProfile,
+    CreateLoginProfile (CreateLoginProfile'),
+    newCreateLoginProfile,
+    CreateLoginProfileResponse (CreateLoginProfileResponse'),
+    newCreateLoginProfileResponse,
 
     -- ** AddRoleToInstanceProfile
-    module Network.AWS.IAM.AddRoleToInstanceProfile,
+    AddRoleToInstanceProfile (AddRoleToInstanceProfile'),
+    newAddRoleToInstanceProfile,
+    AddRoleToInstanceProfileResponse (AddRoleToInstanceProfileResponse'),
+    newAddRoleToInstanceProfileResponse,
 
     -- ** GetInstanceProfile
-    module Network.AWS.IAM.GetInstanceProfile,
+    GetInstanceProfile (GetInstanceProfile'),
+    newGetInstanceProfile,
+    GetInstanceProfileResponse (GetInstanceProfileResponse'),
+    newGetInstanceProfileResponse,
 
-    -- ** TagOpenIdConnectProvider
-    module Network.AWS.IAM.TagOpenIdConnectProvider,
+    -- ** TagOpenIDConnectProvider
+    TagOpenIDConnectProvider (TagOpenIDConnectProvider'),
+    newTagOpenIDConnectProvider,
+    TagOpenIDConnectProviderResponse (TagOpenIDConnectProviderResponse'),
+    newTagOpenIDConnectProviderResponse,
 
     -- ** AddUserToGroup
-    module Network.AWS.IAM.AddUserToGroup,
+    AddUserToGroup (AddUserToGroup'),
+    newAddUserToGroup,
+    AddUserToGroupResponse (AddUserToGroupResponse'),
+    newAddUserToGroupResponse,
 
     -- ** AttachGroupPolicy
-    module Network.AWS.IAM.AttachGroupPolicy,
+    AttachGroupPolicy (AttachGroupPolicy'),
+    newAttachGroupPolicy,
+    AttachGroupPolicyResponse (AttachGroupPolicyResponse'),
+    newAttachGroupPolicyResponse,
 
     -- ** UpdateLoginProfile
-    module Network.AWS.IAM.UpdateLoginProfile,
+    UpdateLoginProfile (UpdateLoginProfile'),
+    newUpdateLoginProfile,
+    UpdateLoginProfileResponse (UpdateLoginProfileResponse'),
+    newUpdateLoginProfileResponse,
 
     -- ** ListSAMLProviderTags
-    module Network.AWS.IAM.ListSAMLProviderTags,
+    ListSAMLProviderTags (ListSAMLProviderTags'),
+    newListSAMLProviderTags,
+    ListSAMLProviderTagsResponse (ListSAMLProviderTagsResponse'),
+    newListSAMLProviderTagsResponse,
 
     -- ** GetGroup (Paginated)
-    module Network.AWS.IAM.GetGroup,
+    GetGroup (GetGroup'),
+    newGetGroup,
+    GetGroupResponse (GetGroupResponse'),
+    newGetGroupResponse,
 
     -- ** DeleteLoginProfile
-    module Network.AWS.IAM.DeleteLoginProfile,
+    DeleteLoginProfile (DeleteLoginProfile'),
+    newDeleteLoginProfile,
+    DeleteLoginProfileResponse (DeleteLoginProfileResponse'),
+    newDeleteLoginProfileResponse,
 
     -- ** DeleteServiceLinkedRole
-    module Network.AWS.IAM.DeleteServiceLinkedRole,
+    DeleteServiceLinkedRole (DeleteServiceLinkedRole'),
+    newDeleteServiceLinkedRole,
+    DeleteServiceLinkedRoleResponse (DeleteServiceLinkedRoleResponse'),
+    newDeleteServiceLinkedRoleResponse,
 
     -- ** GenerateOrganizationsAccessReport
-    module Network.AWS.IAM.GenerateOrganizationsAccessReport,
+    GenerateOrganizationsAccessReport (GenerateOrganizationsAccessReport'),
+    newGenerateOrganizationsAccessReport,
+    GenerateOrganizationsAccessReportResponse (GenerateOrganizationsAccessReportResponse'),
+    newGenerateOrganizationsAccessReportResponse,
 
     -- ** GetServiceLastAccessedDetailsWithEntities
-    module Network.AWS.IAM.GetServiceLastAccessedDetailsWithEntities,
+    GetServiceLastAccessedDetailsWithEntities (GetServiceLastAccessedDetailsWithEntities'),
+    newGetServiceLastAccessedDetailsWithEntities,
+    GetServiceLastAccessedDetailsWithEntitiesResponse (GetServiceLastAccessedDetailsWithEntitiesResponse'),
+    newGetServiceLastAccessedDetailsWithEntitiesResponse,
 
     -- ** PutGroupPolicy
-    module Network.AWS.IAM.PutGroupPolicy,
+    PutGroupPolicy (PutGroupPolicy'),
+    newPutGroupPolicy,
+    PutGroupPolicyResponse (PutGroupPolicyResponse'),
+    newPutGroupPolicyResponse,
 
     -- ** GetServiceLastAccessedDetails
-    module Network.AWS.IAM.GetServiceLastAccessedDetails,
+    GetServiceLastAccessedDetails (GetServiceLastAccessedDetails'),
+    newGetServiceLastAccessedDetails,
+    GetServiceLastAccessedDetailsResponse (GetServiceLastAccessedDetailsResponse'),
+    newGetServiceLastAccessedDetailsResponse,
 
     -- ** DeleteAccountAlias
-    module Network.AWS.IAM.DeleteAccountAlias,
+    DeleteAccountAlias (DeleteAccountAlias'),
+    newDeleteAccountAlias,
+    DeleteAccountAliasResponse (DeleteAccountAliasResponse'),
+    newDeleteAccountAliasResponse,
 
     -- ** CreateSAMLProvider
-    module Network.AWS.IAM.CreateSAMLProvider,
+    CreateSAMLProvider (CreateSAMLProvider'),
+    newCreateSAMLProvider,
+    CreateSAMLProviderResponse (CreateSAMLProviderResponse'),
+    newCreateSAMLProviderResponse,
 
     -- ** GetPolicy
-    module Network.AWS.IAM.GetPolicy,
+    GetPolicy (GetPolicy'),
+    newGetPolicy,
+    GetPolicyResponse (GetPolicyResponse'),
+    newGetPolicyResponse,
 
     -- ** DetachUserPolicy
-    module Network.AWS.IAM.DetachUserPolicy,
+    DetachUserPolicy (DetachUserPolicy'),
+    newDetachUserPolicy,
+    DetachUserPolicyResponse (DetachUserPolicyResponse'),
+    newDetachUserPolicyResponse,
 
     -- ** UpdateGroup
-    module Network.AWS.IAM.UpdateGroup,
+    UpdateGroup (UpdateGroup'),
+    newUpdateGroup,
+    UpdateGroupResponse (UpdateGroupResponse'),
+    newUpdateGroupResponse,
 
     -- ** DeleteGroup
-    module Network.AWS.IAM.DeleteGroup,
+    DeleteGroup (DeleteGroup'),
+    newDeleteGroup,
+    DeleteGroupResponse (DeleteGroupResponse'),
+    newDeleteGroupResponse,
 
     -- ** GetServiceLinkedRoleDeletionStatus
-    module Network.AWS.IAM.GetServiceLinkedRoleDeletionStatus,
+    GetServiceLinkedRoleDeletionStatus (GetServiceLinkedRoleDeletionStatus'),
+    newGetServiceLinkedRoleDeletionStatus,
+    GetServiceLinkedRoleDeletionStatusResponse (GetServiceLinkedRoleDeletionStatusResponse'),
+    newGetServiceLinkedRoleDeletionStatusResponse,
 
     -- ** GetAccountAuthorizationDetails (Paginated)
-    module Network.AWS.IAM.GetAccountAuthorizationDetails,
+    GetAccountAuthorizationDetails (GetAccountAuthorizationDetails'),
+    newGetAccountAuthorizationDetails,
+    GetAccountAuthorizationDetailsResponse (GetAccountAuthorizationDetailsResponse'),
+    newGetAccountAuthorizationDetailsResponse,
 
     -- ** ListGroupPolicies (Paginated)
-    module Network.AWS.IAM.ListGroupPolicies,
+    ListGroupPolicies (ListGroupPolicies'),
+    newListGroupPolicies,
+    ListGroupPoliciesResponse (ListGroupPoliciesResponse'),
+    newListGroupPoliciesResponse,
 
     -- ** DeletePolicyVersion
-    module Network.AWS.IAM.DeletePolicyVersion,
+    DeletePolicyVersion (DeletePolicyVersion'),
+    newDeletePolicyVersion,
+    DeletePolicyVersionResponse (DeletePolicyVersionResponse'),
+    newDeletePolicyVersionResponse,
 
     -- ** DeleteSAMLProvider
-    module Network.AWS.IAM.DeleteSAMLProvider,
+    DeleteSAMLProvider (DeleteSAMLProvider'),
+    newDeleteSAMLProvider,
+    DeleteSAMLProviderResponse (DeleteSAMLProviderResponse'),
+    newDeleteSAMLProviderResponse,
 
     -- ** TagUser
-    module Network.AWS.IAM.TagUser,
+    TagUser (TagUser'),
+    newTagUser,
+    TagUserResponse (TagUserResponse'),
+    newTagUserResponse,
 
     -- ** ListInstanceProfiles (Paginated)
-    module Network.AWS.IAM.ListInstanceProfiles,
+    ListInstanceProfiles (ListInstanceProfiles'),
+    newListInstanceProfiles,
+    ListInstanceProfilesResponse (ListInstanceProfilesResponse'),
+    newListInstanceProfilesResponse,
 
     -- ** GetCredentialReport
-    module Network.AWS.IAM.GetCredentialReport,
+    GetCredentialReport (GetCredentialReport'),
+    newGetCredentialReport,
+    GetCredentialReportResponse (GetCredentialReportResponse'),
+    newGetCredentialReportResponse,
 
     -- ** ListMFADevices (Paginated)
-    module Network.AWS.IAM.ListMFADevices,
+    ListMFADevices (ListMFADevices'),
+    newListMFADevices,
+    ListMFADevicesResponse (ListMFADevicesResponse'),
+    newListMFADevicesResponse,
 
     -- ** UpdateSAMLProvider
-    module Network.AWS.IAM.UpdateSAMLProvider,
+    UpdateSAMLProvider (UpdateSAMLProvider'),
+    newUpdateSAMLProvider,
+    UpdateSAMLProviderResponse (UpdateSAMLProviderResponse'),
+    newUpdateSAMLProviderResponse,
 
     -- ** UntagInstanceProfile
-    module Network.AWS.IAM.UntagInstanceProfile,
+    UntagInstanceProfile (UntagInstanceProfile'),
+    newUntagInstanceProfile,
+    UntagInstanceProfileResponse (UntagInstanceProfileResponse'),
+    newUntagInstanceProfileResponse,
 
     -- ** CreateAccountAlias
-    module Network.AWS.IAM.CreateAccountAlias,
+    CreateAccountAlias (CreateAccountAlias'),
+    newCreateAccountAlias,
+    CreateAccountAliasResponse (CreateAccountAliasResponse'),
+    newCreateAccountAliasResponse,
 
     -- ** UntagMFADevice
-    module Network.AWS.IAM.UntagMFADevice,
+    UntagMFADevice (UntagMFADevice'),
+    newUntagMFADevice,
+    UntagMFADeviceResponse (UntagMFADeviceResponse'),
+    newUntagMFADeviceResponse,
 
     -- ** UntagSAMLProvider
-    module Network.AWS.IAM.UntagSAMLProvider,
+    UntagSAMLProvider (UntagSAMLProvider'),
+    newUntagSAMLProvider,
+    UntagSAMLProviderResponse (UntagSAMLProviderResponse'),
+    newUntagSAMLProviderResponse,
 
     -- ** ListAccountAliases (Paginated)
-    module Network.AWS.IAM.ListAccountAliases,
+    ListAccountAliases (ListAccountAliases'),
+    newListAccountAliases,
+    ListAccountAliasesResponse (ListAccountAliasesResponse'),
+    newListAccountAliasesResponse,
 
     -- ** ListPolicyVersions (Paginated)
-    module Network.AWS.IAM.ListPolicyVersions,
+    ListPolicyVersions (ListPolicyVersions'),
+    newListPolicyVersions,
+    ListPolicyVersionsResponse (ListPolicyVersionsResponse'),
+    newListPolicyVersionsResponse,
 
     -- ** DeleteInstanceProfile
-    module Network.AWS.IAM.DeleteInstanceProfile,
+    DeleteInstanceProfile (DeleteInstanceProfile'),
+    newDeleteInstanceProfile,
+    DeleteInstanceProfileResponse (DeleteInstanceProfileResponse'),
+    newDeleteInstanceProfileResponse,
 
     -- ** GetAccountSummary
-    module Network.AWS.IAM.GetAccountSummary,
+    GetAccountSummary (GetAccountSummary'),
+    newGetAccountSummary,
+    GetAccountSummaryResponse (GetAccountSummaryResponse'),
+    newGetAccountSummaryResponse,
 
     -- ** ListServerCertificateTags
-    module Network.AWS.IAM.ListServerCertificateTags,
+    ListServerCertificateTags (ListServerCertificateTags'),
+    newListServerCertificateTags,
+    ListServerCertificateTagsResponse (ListServerCertificateTagsResponse'),
+    newListServerCertificateTagsResponse,
 
     -- ** GetSSHPublicKey
-    module Network.AWS.IAM.GetSSHPublicKey,
+    GetSSHPublicKey (GetSSHPublicKey'),
+    newGetSSHPublicKey,
+    GetSSHPublicKeyResponse (GetSSHPublicKeyResponse'),
+    newGetSSHPublicKeyResponse,
 
-    -- ** UpdateOpenIdConnectProviderThumbprint
-    module Network.AWS.IAM.UpdateOpenIdConnectProviderThumbprint,
+    -- ** UpdateOpenIDConnectProviderThumbprint
+    UpdateOpenIDConnectProviderThumbprint (UpdateOpenIDConnectProviderThumbprint'),
+    newUpdateOpenIDConnectProviderThumbprint,
+    UpdateOpenIDConnectProviderThumbprintResponse (UpdateOpenIDConnectProviderThumbprintResponse'),
+    newUpdateOpenIDConnectProviderThumbprintResponse,
 
     -- ** GetAccessKeyLastUsed
-    module Network.AWS.IAM.GetAccessKeyLastUsed,
+    GetAccessKeyLastUsed (GetAccessKeyLastUsed'),
+    newGetAccessKeyLastUsed,
+    GetAccessKeyLastUsedResponse (GetAccessKeyLastUsedResponse'),
+    newGetAccessKeyLastUsedResponse,
 
     -- ** TagSAMLProvider
-    module Network.AWS.IAM.TagSAMLProvider,
+    TagSAMLProvider (TagSAMLProvider'),
+    newTagSAMLProvider,
+    TagSAMLProviderResponse (TagSAMLProviderResponse'),
+    newTagSAMLProviderResponse,
 
     -- ** GetAccountPasswordPolicy
-    module Network.AWS.IAM.GetAccountPasswordPolicy,
+    GetAccountPasswordPolicy (GetAccountPasswordPolicy'),
+    newGetAccountPasswordPolicy,
+    GetAccountPasswordPolicyResponse (GetAccountPasswordPolicyResponse'),
+    newGetAccountPasswordPolicyResponse,
 
     -- ** DeleteUser
-    module Network.AWS.IAM.DeleteUser,
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** ListUsers (Paginated)
-    module Network.AWS.IAM.ListUsers,
+    ListUsers (ListUsers'),
+    newListUsers,
+    ListUsersResponse (ListUsersResponse'),
+    newListUsersResponse,
 
     -- ** UpdateUser
-    module Network.AWS.IAM.UpdateUser,
+    UpdateUser (UpdateUser'),
+    newUpdateUser,
+    UpdateUserResponse (UpdateUserResponse'),
+    newUpdateUserResponse,
 
     -- ** ListRolePolicies (Paginated)
-    module Network.AWS.IAM.ListRolePolicies,
+    ListRolePolicies (ListRolePolicies'),
+    newListRolePolicies,
+    ListRolePoliciesResponse (ListRolePoliciesResponse'),
+    newListRolePoliciesResponse,
 
-    -- ** AddClientIdToOpenIdConnectProvider
-    module Network.AWS.IAM.AddClientIdToOpenIdConnectProvider,
+    -- ** AddClientIDToOpenIDConnectProvider
+    AddClientIDToOpenIDConnectProvider (AddClientIDToOpenIDConnectProvider'),
+    newAddClientIDToOpenIDConnectProvider,
+    AddClientIDToOpenIDConnectProviderResponse (AddClientIDToOpenIDConnectProviderResponse'),
+    newAddClientIDToOpenIDConnectProviderResponse,
 
     -- ** DeleteUserPermissionsBoundary
-    module Network.AWS.IAM.DeleteUserPermissionsBoundary,
+    DeleteUserPermissionsBoundary (DeleteUserPermissionsBoundary'),
+    newDeleteUserPermissionsBoundary,
+    DeleteUserPermissionsBoundaryResponse (DeleteUserPermissionsBoundaryResponse'),
+    newDeleteUserPermissionsBoundaryResponse,
 
     -- ** PutUserPolicy
-    module Network.AWS.IAM.PutUserPolicy,
+    PutUserPolicy (PutUserPolicy'),
+    newPutUserPolicy,
+    PutUserPolicyResponse (PutUserPolicyResponse'),
+    newPutUserPolicyResponse,
 
     -- ** DetachGroupPolicy
-    module Network.AWS.IAM.DetachGroupPolicy,
+    DetachGroupPolicy (DetachGroupPolicy'),
+    newDetachGroupPolicy,
+    DetachGroupPolicyResponse (DetachGroupPolicyResponse'),
+    newDetachGroupPolicyResponse,
 
     -- ** UntagUser
-    module Network.AWS.IAM.UntagUser,
+    UntagUser (UntagUser'),
+    newUntagUser,
+    UntagUserResponse (UntagUserResponse'),
+    newUntagUserResponse,
 
     -- ** GetContextKeysForCustomPolicy
-    module Network.AWS.IAM.GetContextKeysForCustomPolicy,
+    GetContextKeysForCustomPolicy (GetContextKeysForCustomPolicy'),
+    newGetContextKeysForCustomPolicy,
+    GetContextKeysForPolicyResponse (GetContextKeysForPolicyResponse'),
+    newGetContextKeysForPolicyResponse,
 
     -- ** PutRolePermissionsBoundary
-    module Network.AWS.IAM.PutRolePermissionsBoundary,
+    PutRolePermissionsBoundary (PutRolePermissionsBoundary'),
+    newPutRolePermissionsBoundary,
+    PutRolePermissionsBoundaryResponse (PutRolePermissionsBoundaryResponse'),
+    newPutRolePermissionsBoundaryResponse,
 
     -- ** UntagRole
-    module Network.AWS.IAM.UntagRole,
+    UntagRole (UntagRole'),
+    newUntagRole,
+    UntagRoleResponse (UntagRoleResponse'),
+    newUntagRoleResponse,
 
     -- ** SimulateCustomPolicy (Paginated)
-    module Network.AWS.IAM.SimulateCustomPolicy,
+    SimulateCustomPolicy (SimulateCustomPolicy'),
+    newSimulateCustomPolicy,
+    SimulatePolicyResponse (SimulatePolicyResponse'),
+    newSimulatePolicyResponse,
 
     -- ** UploadSSHPublicKey
-    module Network.AWS.IAM.UploadSSHPublicKey,
+    UploadSSHPublicKey (UploadSSHPublicKey'),
+    newUploadSSHPublicKey,
+    UploadSSHPublicKeyResponse (UploadSSHPublicKeyResponse'),
+    newUploadSSHPublicKeyResponse,
 
     -- ** DeleteRole
-    module Network.AWS.IAM.DeleteRole,
+    DeleteRole (DeleteRole'),
+    newDeleteRole,
+    DeleteRoleResponse (DeleteRoleResponse'),
+    newDeleteRoleResponse,
 
     -- ** ListUserPolicies (Paginated)
-    module Network.AWS.IAM.ListUserPolicies,
+    ListUserPolicies (ListUserPolicies'),
+    newListUserPolicies,
+    ListUserPoliciesResponse (ListUserPoliciesResponse'),
+    newListUserPoliciesResponse,
 
     -- ** PutRolePolicy
-    module Network.AWS.IAM.PutRolePolicy,
+    PutRolePolicy (PutRolePolicy'),
+    newPutRolePolicy,
+    PutRolePolicyResponse (PutRolePolicyResponse'),
+    newPutRolePolicyResponse,
 
     -- ** UpdateRole
-    module Network.AWS.IAM.UpdateRole,
+    UpdateRole (UpdateRole'),
+    newUpdateRole,
+    UpdateRoleResponse (UpdateRoleResponse'),
+    newUpdateRoleResponse,
 
     -- ** SetSecurityTokenServicePreferences
-    module Network.AWS.IAM.SetSecurityTokenServicePreferences,
+    SetSecurityTokenServicePreferences (SetSecurityTokenServicePreferences'),
+    newSetSecurityTokenServicePreferences,
+    SetSecurityTokenServicePreferencesResponse (SetSecurityTokenServicePreferencesResponse'),
+    newSetSecurityTokenServicePreferencesResponse,
 
     -- ** AttachUserPolicy
-    module Network.AWS.IAM.AttachUserPolicy,
+    AttachUserPolicy (AttachUserPolicy'),
+    newAttachUserPolicy,
+    AttachUserPolicyResponse (AttachUserPolicyResponse'),
+    newAttachUserPolicyResponse,
 
     -- ** TagServerCertificate
-    module Network.AWS.IAM.TagServerCertificate,
+    TagServerCertificate (TagServerCertificate'),
+    newTagServerCertificate,
+    TagServerCertificateResponse (TagServerCertificateResponse'),
+    newTagServerCertificateResponse,
 
     -- ** ListAccessKeys (Paginated)
-    module Network.AWS.IAM.ListAccessKeys,
+    ListAccessKeys (ListAccessKeys'),
+    newListAccessKeys,
+    ListAccessKeysResponse (ListAccessKeysResponse'),
+    newListAccessKeysResponse,
 
-    -- ** CreateOpenIdConnectProvider
-    module Network.AWS.IAM.CreateOpenIdConnectProvider,
+    -- ** CreateOpenIDConnectProvider
+    CreateOpenIDConnectProvider (CreateOpenIDConnectProvider'),
+    newCreateOpenIDConnectProvider,
+    CreateOpenIDConnectProviderResponse (CreateOpenIDConnectProviderResponse'),
+    newCreateOpenIDConnectProviderResponse,
 
     -- ** DeactivateMFADevice
-    module Network.AWS.IAM.DeactivateMFADevice,
+    DeactivateMFADevice (DeactivateMFADevice'),
+    newDeactivateMFADevice,
+    DeactivateMFADeviceResponse (DeactivateMFADeviceResponse'),
+    newDeactivateMFADeviceResponse,
 
     -- ** ListUserTags
-    module Network.AWS.IAM.ListUserTags,
+    ListUserTags (ListUserTags'),
+    newListUserTags,
+    ListUserTagsResponse (ListUserTagsResponse'),
+    newListUserTagsResponse,
 
     -- ** GetRole
-    module Network.AWS.IAM.GetRole,
+    GetRole (GetRole'),
+    newGetRole,
+    GetRoleResponse (GetRoleResponse'),
+    newGetRoleResponse,
 
     -- * Types
 
@@ -657,467 +1138,220 @@ module Network.AWS.IAM
     SummaryKeyType (..),
 
     -- ** AccessDetail
-    AccessDetail,
-    accessDetail,
-    adTotalAuthenticatedEntities,
-    adEntityPath,
-    adLastAuthenticatedTime,
-    adRegion,
-    adServiceName,
-    adServiceNamespace,
+    AccessDetail (AccessDetail'),
+    newAccessDetail,
 
     -- ** AccessKeyInfo
-    AccessKeyInfo,
-    accessKeyInfo,
-    akiCreateDate,
-    akiUserName,
-    akiAccessKeyId,
-    akiStatus,
-    akiSecretAccessKey,
+    AccessKeyInfo (AccessKeyInfo'),
+    newAccessKeyInfo,
 
     -- ** AccessKeyLastUsed
-    AccessKeyLastUsed,
-    accessKeyLastUsed,
-    akluLastUsedDate,
-    akluServiceName,
-    akluRegion,
+    AccessKeyLastUsed (AccessKeyLastUsed'),
+    newAccessKeyLastUsed,
 
     -- ** AccessKeyMetadata
-    AccessKeyMetadata,
-    accessKeyMetadata,
-    akmStatus,
-    akmCreateDate,
-    akmAccessKeyId,
-    akmUserName,
+    AccessKeyMetadata (AccessKeyMetadata'),
+    newAccessKeyMetadata,
 
     -- ** AttachedPermissionsBoundary
-    AttachedPermissionsBoundary,
-    attachedPermissionsBoundary,
-    apbPermissionsBoundaryARN,
-    apbPermissionsBoundaryType,
+    AttachedPermissionsBoundary (AttachedPermissionsBoundary'),
+    newAttachedPermissionsBoundary,
 
     -- ** AttachedPolicy
-    AttachedPolicy,
-    attachedPolicy,
-    apPolicyName,
-    apPolicyARN,
+    AttachedPolicy (AttachedPolicy'),
+    newAttachedPolicy,
 
     -- ** ContextEntry
-    ContextEntry,
-    contextEntry,
-    ceContextKeyValues,
-    ceContextKeyName,
-    ceContextKeyType,
+    ContextEntry (ContextEntry'),
+    newContextEntry,
 
     -- ** DeletionTaskFailureReasonType
-    DeletionTaskFailureReasonType,
-    deletionTaskFailureReasonType,
-    dtfrtReason,
-    dtfrtRoleUsageList,
+    DeletionTaskFailureReasonType (DeletionTaskFailureReasonType'),
+    newDeletionTaskFailureReasonType,
 
     -- ** EntityDetails
-    EntityDetails,
-    entityDetails,
-    edLastAuthenticated,
-    edEntityInfo,
+    EntityDetails (EntityDetails'),
+    newEntityDetails,
 
     -- ** EntityInfo
-    EntityInfo,
-    entityInfo,
-    eiPath,
-    eiARN,
-    eiName,
-    eiType,
-    eiId,
+    EntityInfo (EntityInfo'),
+    newEntityInfo,
 
     -- ** ErrorDetails
-    ErrorDetails,
-    errorDetails,
-    edMessage,
-    edCode,
+    ErrorDetails (ErrorDetails'),
+    newErrorDetails,
 
     -- ** EvaluationResult
-    EvaluationResult,
-    evaluationResult,
-    erEvalDecisionDetails,
-    erPermissionsBoundaryDecisionDetail,
-    erOrganizationsDecisionDetail,
-    erResourceSpecificResults,
-    erMatchedStatements,
-    erEvalResourceName,
-    erMissingContextValues,
-    erEvalActionName,
-    erEvalDecision,
+    EvaluationResult (EvaluationResult'),
+    newEvaluationResult,
 
     -- ** GetContextKeysForPolicyResponse
-    GetContextKeysForPolicyResponse,
-    getContextKeysForPolicyResponse,
-    gckfprContextKeyNames,
+    GetContextKeysForPolicyResponse (GetContextKeysForPolicyResponse'),
+    newGetContextKeysForPolicyResponse,
 
     -- ** Group
-    Group,
-    group',
-    gPath,
-    gGroupName,
-    gGroupId,
-    gARN,
-    gCreateDate,
+    Group (Group'),
+    newGroup,
 
     -- ** GroupDetail
-    GroupDetail,
-    groupDetail,
-    gdAttachedManagedPolicies,
-    gdGroupName,
-    gdCreateDate,
-    gdARN,
-    gdGroupId,
-    gdGroupPolicyList,
-    gdPath,
+    GroupDetail (GroupDetail'),
+    newGroupDetail,
 
     -- ** InstanceProfile
-    InstanceProfile,
-    instanceProfile,
-    ipTags,
-    ipPath,
-    ipInstanceProfileName,
-    ipInstanceProfileId,
-    ipARN,
-    ipCreateDate,
-    ipRoles,
+    InstanceProfile (InstanceProfile'),
+    newInstanceProfile,
 
     -- ** ListPoliciesGrantingServiceAccessEntry
-    ListPoliciesGrantingServiceAccessEntry,
-    listPoliciesGrantingServiceAccessEntry,
-    lpgsaePolicies,
-    lpgsaeServiceNamespace,
+    ListPoliciesGrantingServiceAccessEntry (ListPoliciesGrantingServiceAccessEntry'),
+    newListPoliciesGrantingServiceAccessEntry,
 
     -- ** LoginProfile
-    LoginProfile,
-    loginProfile,
-    lpPasswordResetRequired,
-    lpUserName,
-    lpCreateDate,
+    LoginProfile (LoginProfile'),
+    newLoginProfile,
 
     -- ** MFADevice
-    MFADevice,
-    mfaDevice,
-    mdUserName,
-    mdSerialNumber,
-    mdEnableDate,
+    MFADevice (MFADevice'),
+    newMFADevice,
 
     -- ** ManagedPolicyDetail
-    ManagedPolicyDetail,
-    managedPolicyDetail,
-    mpdPolicyName,
-    mpdPermissionsBoundaryUsageCount,
-    mpdIsAttachable,
-    mpdCreateDate,
-    mpdARN,
-    mpdAttachmentCount,
-    mpdDefaultVersionId,
-    mpdDescription,
-    mpdPolicyVersionList,
-    mpdPath,
-    mpdPolicyId,
-    mpdUpdateDate,
+    ManagedPolicyDetail (ManagedPolicyDetail'),
+    newManagedPolicyDetail,
 
-    -- ** OpenIdConnectProviderListEntry
-    OpenIdConnectProviderListEntry,
-    openIdConnectProviderListEntry,
-    oicpleARN,
+    -- ** OpenIDConnectProviderListEntry
+    OpenIDConnectProviderListEntry (OpenIDConnectProviderListEntry'),
+    newOpenIDConnectProviderListEntry,
 
     -- ** OrganizationsDecisionDetail
-    OrganizationsDecisionDetail,
-    organizationsDecisionDetail,
-    oddAllowedByOrganizations,
+    OrganizationsDecisionDetail (OrganizationsDecisionDetail'),
+    newOrganizationsDecisionDetail,
 
     -- ** PasswordPolicy
-    PasswordPolicy,
-    passwordPolicy,
-    ppMaxPasswordAge,
-    ppRequireLowercaseCharacters,
-    ppMinimumPasswordLength,
-    ppPasswordReusePrevention,
-    ppExpirePasswords,
-    ppRequireUppercaseCharacters,
-    ppAllowUsersToChangePassword,
-    ppHardExpiry,
-    ppRequireSymbols,
-    ppRequireNumbers,
+    PasswordPolicy (PasswordPolicy'),
+    newPasswordPolicy,
 
     -- ** PermissionsBoundaryDecisionDetail
-    PermissionsBoundaryDecisionDetail,
-    permissionsBoundaryDecisionDetail,
-    pbddAllowedByPermissionsBoundary,
+    PermissionsBoundaryDecisionDetail (PermissionsBoundaryDecisionDetail'),
+    newPermissionsBoundaryDecisionDetail,
 
     -- ** Policy
-    Policy,
-    policy,
-    pPolicyName,
-    pPermissionsBoundaryUsageCount,
-    pIsAttachable,
-    pCreateDate,
-    pARN,
-    pAttachmentCount,
-    pDefaultVersionId,
-    pTags,
-    pDescription,
-    pPath,
-    pPolicyId,
-    pUpdateDate,
+    Policy (Policy'),
+    newPolicy,
 
     -- ** PolicyDetail
-    PolicyDetail,
-    policyDetail,
-    pdPolicyName,
-    pdPolicyDocument,
+    PolicyDetail (PolicyDetail'),
+    newPolicyDetail,
 
     -- ** PolicyGrantingServiceAccess
-    PolicyGrantingServiceAccess,
-    policyGrantingServiceAccess,
-    pgsaEntityName,
-    pgsaEntityType,
-    pgsaPolicyARN,
-    pgsaPolicyName,
-    pgsaPolicyType,
+    PolicyGrantingServiceAccess (PolicyGrantingServiceAccess'),
+    newPolicyGrantingServiceAccess,
 
     -- ** PolicyGroup
-    PolicyGroup,
-    policyGroup,
-    pgGroupName,
-    pgGroupId,
+    PolicyGroup (PolicyGroup'),
+    newPolicyGroup,
 
     -- ** PolicyRole
-    PolicyRole,
-    policyRole,
-    prRoleId,
-    prRoleName,
+    PolicyRole (PolicyRole'),
+    newPolicyRole,
 
     -- ** PolicyUser
-    PolicyUser,
-    policyUser,
-    puUserId,
-    puUserName,
+    PolicyUser (PolicyUser'),
+    newPolicyUser,
 
     -- ** PolicyVersion
-    PolicyVersion,
-    policyVersion,
-    pvCreateDate,
-    pvVersionId,
-    pvDocument,
-    pvIsDefaultVersion,
+    PolicyVersion (PolicyVersion'),
+    newPolicyVersion,
 
     -- ** Position
-    Position,
-    position,
-    pColumn,
-    pLine,
+    Position (Position'),
+    newPosition,
 
     -- ** ResourceSpecificResult
-    ResourceSpecificResult,
-    resourceSpecificResult,
-    rsrEvalDecisionDetails,
-    rsrPermissionsBoundaryDecisionDetail,
-    rsrMatchedStatements,
-    rsrMissingContextValues,
-    rsrEvalResourceName,
-    rsrEvalResourceDecision,
+    ResourceSpecificResult (ResourceSpecificResult'),
+    newResourceSpecificResult,
 
     -- ** Role
-    Role,
-    role',
-    rAssumeRolePolicyDocument,
-    rMaxSessionDuration,
-    rRoleLastUsed,
-    rPermissionsBoundary,
-    rTags,
-    rDescription,
-    rPath,
-    rRoleName,
-    rRoleId,
-    rARN,
-    rCreateDate,
+    Role (Role'),
+    newRole,
 
     -- ** RoleDetail
-    RoleDetail,
-    roleDetail,
-    rdAssumeRolePolicyDocument,
-    rdRoleId,
-    rdRoleLastUsed,
-    rdAttachedManagedPolicies,
-    rdRolePolicyList,
-    rdRoleName,
-    rdPermissionsBoundary,
-    rdCreateDate,
-    rdARN,
-    rdTags,
-    rdInstanceProfileList,
-    rdPath,
+    RoleDetail (RoleDetail'),
+    newRoleDetail,
 
     -- ** RoleLastUsed
-    RoleLastUsed,
-    roleLastUsed,
-    rluLastUsedDate,
-    rluRegion,
+    RoleLastUsed (RoleLastUsed'),
+    newRoleLastUsed,
 
     -- ** RoleUsageType
-    RoleUsageType,
-    roleUsageType,
-    rutResources,
-    rutRegion,
+    RoleUsageType (RoleUsageType'),
+    newRoleUsageType,
 
     -- ** SAMLProviderListEntry
-    SAMLProviderListEntry,
-    sAMLProviderListEntry,
-    samlpleCreateDate,
-    samlpleARN,
-    samlpleValidUntil,
+    SAMLProviderListEntry (SAMLProviderListEntry'),
+    newSAMLProviderListEntry,
 
     -- ** SSHPublicKey
-    SSHPublicKey,
-    sshPublicKey,
-    spkUploadDate,
-    spkUserName,
-    spkSSHPublicKeyId,
-    spkFingerprint,
-    spkSSHPublicKeyBody,
-    spkStatus,
+    SSHPublicKey (SSHPublicKey'),
+    newSSHPublicKey,
 
     -- ** SSHPublicKeyMetadata
-    SSHPublicKeyMetadata,
-    sshPublicKeyMetadata,
-    spkmUserName,
-    spkmSSHPublicKeyId,
-    spkmStatus,
-    spkmUploadDate,
+    SSHPublicKeyMetadata (SSHPublicKeyMetadata'),
+    newSSHPublicKeyMetadata,
 
     -- ** ServerCertificate
-    ServerCertificate,
-    serverCertificate,
-    sTags,
-    sCertificateChain,
-    sServerCertificateMetadata,
-    sCertificateBody,
+    ServerCertificate (ServerCertificate'),
+    newServerCertificate,
 
     -- ** ServerCertificateMetadata
-    ServerCertificateMetadata,
-    serverCertificateMetadata,
-    scmUploadDate,
-    scmExpiration,
-    scmPath,
-    scmServerCertificateName,
-    scmServerCertificateId,
-    scmARN,
+    ServerCertificateMetadata (ServerCertificateMetadata'),
+    newServerCertificateMetadata,
 
     -- ** ServiceLastAccessed
-    ServiceLastAccessed,
-    serviceLastAccessed,
-    slaTotalAuthenticatedEntities,
-    slaLastAuthenticatedRegion,
-    slaLastAuthenticatedEntity,
-    slaTrackedActionsLastAccessed,
-    slaLastAuthenticated,
-    slaServiceName,
-    slaServiceNamespace,
+    ServiceLastAccessed (ServiceLastAccessed'),
+    newServiceLastAccessed,
 
     -- ** ServiceSpecificCredential
-    ServiceSpecificCredential,
-    serviceSpecificCredential,
-    sscCreateDate,
-    sscServiceName,
-    sscServiceUserName,
-    sscServicePassword,
-    sscServiceSpecificCredentialId,
-    sscUserName,
-    sscStatus,
+    ServiceSpecificCredential (ServiceSpecificCredential'),
+    newServiceSpecificCredential,
 
     -- ** ServiceSpecificCredentialMetadata
-    ServiceSpecificCredentialMetadata,
-    serviceSpecificCredentialMetadata,
-    sscmUserName,
-    sscmStatus,
-    sscmServiceUserName,
-    sscmCreateDate,
-    sscmServiceSpecificCredentialId,
-    sscmServiceName,
+    ServiceSpecificCredentialMetadata (ServiceSpecificCredentialMetadata'),
+    newServiceSpecificCredentialMetadata,
 
     -- ** SigningCertificate
-    SigningCertificate,
-    signingCertificate,
-    scUploadDate,
-    scUserName,
-    scCertificateId,
-    scCertificateBody,
-    scStatus,
+    SigningCertificate (SigningCertificate'),
+    newSigningCertificate,
 
     -- ** SimulatePolicyResponse
-    SimulatePolicyResponse,
-    simulatePolicyResponse,
-    sprIsTruncated,
-    sprEvaluationResults,
-    sprMarker,
+    SimulatePolicyResponse (SimulatePolicyResponse'),
+    newSimulatePolicyResponse,
 
     -- ** Statement
-    Statement,
-    statement,
-    sStartPosition,
-    sSourcePolicyType,
-    sEndPosition,
-    sSourcePolicyId,
+    Statement (Statement'),
+    newStatement,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TrackedActionLastAccessed
-    TrackedActionLastAccessed,
-    trackedActionLastAccessed,
-    talaActionName,
-    talaLastAccessedTime,
-    talaLastAccessedRegion,
-    talaLastAccessedEntity,
+    TrackedActionLastAccessed (TrackedActionLastAccessed'),
+    newTrackedActionLastAccessed,
 
     -- ** User
-    User,
-    user,
-    uPermissionsBoundary,
-    uPasswordLastUsed,
-    uTags,
-    uPath,
-    uUserName,
-    uUserId,
-    uARN,
-    uCreateDate,
+    User (User'),
+    newUser,
 
     -- ** UserDetail
-    UserDetail,
-    userDetail,
-    udAttachedManagedPolicies,
-    udPermissionsBoundary,
-    udCreateDate,
-    udARN,
-    udGroupList,
-    udUserId,
-    udTags,
-    udUserName,
-    udUserPolicyList,
-    udPath,
+    UserDetail (UserDetail'),
+    newUserDetail,
 
     -- ** VirtualMFADevice
-    VirtualMFADevice,
-    virtualMFADevice,
-    vmdUser,
-    vmdEnableDate,
-    vmdQRCodePNG,
-    vmdTags,
-    vmdBase32StringSeed,
-    vmdSerialNumber,
+    VirtualMFADevice (VirtualMFADevice'),
+    newVirtualMFADevice,
   )
 where
 
-import Network.AWS.IAM.AddClientIdToOpenIdConnectProvider
+import Network.AWS.IAM.AddClientIDToOpenIDConnectProvider
 import Network.AWS.IAM.AddRoleToInstanceProfile
 import Network.AWS.IAM.AddUserToGroup
 import Network.AWS.IAM.AttachGroupPolicy
@@ -1129,7 +1363,7 @@ import Network.AWS.IAM.CreateAccountAlias
 import Network.AWS.IAM.CreateGroup
 import Network.AWS.IAM.CreateInstanceProfile
 import Network.AWS.IAM.CreateLoginProfile
-import Network.AWS.IAM.CreateOpenIdConnectProvider
+import Network.AWS.IAM.CreateOpenIDConnectProvider
 import Network.AWS.IAM.CreatePolicy
 import Network.AWS.IAM.CreatePolicyVersion
 import Network.AWS.IAM.CreateRole
@@ -1146,7 +1380,7 @@ import Network.AWS.IAM.DeleteGroup
 import Network.AWS.IAM.DeleteGroupPolicy
 import Network.AWS.IAM.DeleteInstanceProfile
 import Network.AWS.IAM.DeleteLoginProfile
-import Network.AWS.IAM.DeleteOpenIdConnectProvider
+import Network.AWS.IAM.DeleteOpenIDConnectProvider
 import Network.AWS.IAM.DeletePolicy
 import Network.AWS.IAM.DeletePolicyVersion
 import Network.AWS.IAM.DeleteRole
@@ -1180,7 +1414,7 @@ import Network.AWS.IAM.GetGroup
 import Network.AWS.IAM.GetGroupPolicy
 import Network.AWS.IAM.GetInstanceProfile
 import Network.AWS.IAM.GetLoginProfile
-import Network.AWS.IAM.GetOpenIdConnectProvider
+import Network.AWS.IAM.GetOpenIDConnectProvider
 import Network.AWS.IAM.GetOrganizationsAccessReport
 import Network.AWS.IAM.GetPolicy
 import Network.AWS.IAM.GetPolicyVersion
@@ -1194,6 +1428,7 @@ import Network.AWS.IAM.GetServiceLastAccessedDetailsWithEntities
 import Network.AWS.IAM.GetServiceLinkedRoleDeletionStatus
 import Network.AWS.IAM.GetUser
 import Network.AWS.IAM.GetUserPolicy
+import Network.AWS.IAM.Lens
 import Network.AWS.IAM.ListAccessKeys
 import Network.AWS.IAM.ListAccountAliases
 import Network.AWS.IAM.ListAttachedGroupPolicies
@@ -1208,8 +1443,8 @@ import Network.AWS.IAM.ListInstanceProfiles
 import Network.AWS.IAM.ListInstanceProfilesForRole
 import Network.AWS.IAM.ListMFADeviceTags
 import Network.AWS.IAM.ListMFADevices
-import Network.AWS.IAM.ListOpenIdConnectProviderTags
-import Network.AWS.IAM.ListOpenIdConnectProviders
+import Network.AWS.IAM.ListOpenIDConnectProviderTags
+import Network.AWS.IAM.ListOpenIDConnectProviders
 import Network.AWS.IAM.ListPolicies
 import Network.AWS.IAM.ListPoliciesGrantingServiceAccess
 import Network.AWS.IAM.ListPolicyTags
@@ -1233,7 +1468,7 @@ import Network.AWS.IAM.PutRolePermissionsBoundary
 import Network.AWS.IAM.PutRolePolicy
 import Network.AWS.IAM.PutUserPermissionsBoundary
 import Network.AWS.IAM.PutUserPolicy
-import Network.AWS.IAM.RemoveClientIdFromOpenIdConnectProvider
+import Network.AWS.IAM.RemoveClientIDFromOpenIDConnectProvider
 import Network.AWS.IAM.RemoveRoleFromInstanceProfile
 import Network.AWS.IAM.RemoveUserFromGroup
 import Network.AWS.IAM.ResetServiceSpecificCredential
@@ -1244,7 +1479,7 @@ import Network.AWS.IAM.SimulateCustomPolicy
 import Network.AWS.IAM.SimulatePrincipalPolicy
 import Network.AWS.IAM.TagInstanceProfile
 import Network.AWS.IAM.TagMFADevice
-import Network.AWS.IAM.TagOpenIdConnectProvider
+import Network.AWS.IAM.TagOpenIDConnectProvider
 import Network.AWS.IAM.TagPolicy
 import Network.AWS.IAM.TagRole
 import Network.AWS.IAM.TagSAMLProvider
@@ -1253,7 +1488,7 @@ import Network.AWS.IAM.TagUser
 import Network.AWS.IAM.Types
 import Network.AWS.IAM.UntagInstanceProfile
 import Network.AWS.IAM.UntagMFADevice
-import Network.AWS.IAM.UntagOpenIdConnectProvider
+import Network.AWS.IAM.UntagOpenIDConnectProvider
 import Network.AWS.IAM.UntagPolicy
 import Network.AWS.IAM.UntagRole
 import Network.AWS.IAM.UntagSAMLProvider
@@ -1264,7 +1499,7 @@ import Network.AWS.IAM.UpdateAccountPasswordPolicy
 import Network.AWS.IAM.UpdateAssumeRolePolicy
 import Network.AWS.IAM.UpdateGroup
 import Network.AWS.IAM.UpdateLoginProfile
-import Network.AWS.IAM.UpdateOpenIdConnectProviderThumbprint
+import Network.AWS.IAM.UpdateOpenIDConnectProviderThumbprint
 import Network.AWS.IAM.UpdateRole
 import Network.AWS.IAM.UpdateRoleDescription
 import Network.AWS.IAM.UpdateSAMLProvider

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,284 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the names of the inline policies embedded in the specified IAM user.
+-- Lists the names of the inline policies embedded in the specified IAM
+-- user.
 --
+-- An IAM user can also have managed policies attached to it. To list the
+-- managed policies that are attached to a user, use
+-- ListAttachedUserPolicies. For more information about policies, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 --
--- An IAM user can also have managed policies attached to it. To list the managed policies that are attached to a user, use 'ListAttachedUserPolicies' . For more information about policies, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
---
--- You can paginate the results using the @MaxItems@ and @Marker@ parameters. If there are no inline policies embedded with the specified user, the operation returns an empty list.
---
+-- You can paginate the results using the @MaxItems@ and @Marker@
+-- parameters. If there are no inline policies embedded with the specified
+-- user, the operation returns an empty list.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.ListUserPolicies
   ( -- * Creating a Request
-    listUserPolicies,
-    ListUserPolicies,
+    ListUserPolicies (..),
+    newListUserPolicies,
 
     -- * Request Lenses
-    lupMaxItems,
-    lupMarker,
-    lupUserName,
+    listUserPolicies_maxItems,
+    listUserPolicies_marker,
+    listUserPolicies_userName,
 
     -- * Destructuring the Response
-    listUserPoliciesResponse,
-    ListUserPoliciesResponse,
+    ListUserPoliciesResponse (..),
+    newListUserPoliciesResponse,
 
     -- * Response Lenses
-    luprrsIsTruncated,
-    luprrsMarker,
-    luprrsResponseStatus,
-    luprrsPolicyNames,
+    listUserPoliciesResponse_isTruncated,
+    listUserPoliciesResponse_marker,
+    listUserPoliciesResponse_httpStatus,
+    listUserPoliciesResponse_policyNames,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listUserPolicies' smart constructor.
+-- | /See:/ 'newListUserPolicies' smart constructor.
 data ListUserPolicies = ListUserPolicies'
-  { _lupMaxItems ::
-      !(Maybe Nat),
-    _lupMarker :: !(Maybe Text),
-    _lupUserName :: !Text
+  { -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The name of the user to list policies for.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lupMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lupMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- 'maxItems', 'listUserPolicies_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
 --
--- * 'lupUserName' - The name of the user to list policies for. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-listUserPolicies ::
-  -- | 'lupUserName'
-  Text ->
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'listUserPolicies_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'userName', 'listUserPolicies_userName' - The name of the user to list policies for.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newListUserPolicies ::
+  -- | 'userName'
+  Prelude.Text ->
   ListUserPolicies
-listUserPolicies pUserName_ =
+newListUserPolicies pUserName_ =
   ListUserPolicies'
-    { _lupMaxItems = Nothing,
-      _lupMarker = Nothing,
-      _lupUserName = pUserName_
+    { maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      userName = pUserName_
     }
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lupMaxItems :: Lens' ListUserPolicies (Maybe Natural)
-lupMaxItems = lens _lupMaxItems (\s a -> s {_lupMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+listUserPolicies_maxItems :: Lens.Lens' ListUserPolicies (Prelude.Maybe Prelude.Natural)
+listUserPolicies_maxItems = Lens.lens (\ListUserPolicies' {maxItems} -> maxItems) (\s@ListUserPolicies' {} a -> s {maxItems = a} :: ListUserPolicies) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lupMarker :: Lens' ListUserPolicies (Maybe Text)
-lupMarker = lens _lupMarker (\s a -> s {_lupMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listUserPolicies_marker :: Lens.Lens' ListUserPolicies (Prelude.Maybe Prelude.Text)
+listUserPolicies_marker = Lens.lens (\ListUserPolicies' {marker} -> marker) (\s@ListUserPolicies' {} a -> s {marker = a} :: ListUserPolicies)
 
--- | The name of the user to list policies for. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-lupUserName :: Lens' ListUserPolicies Text
-lupUserName = lens _lupUserName (\s a -> s {_lupUserName = a})
+-- | The name of the user to list policies for.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+listUserPolicies_userName :: Lens.Lens' ListUserPolicies Prelude.Text
+listUserPolicies_userName = Lens.lens (\ListUserPolicies' {userName} -> userName) (\s@ListUserPolicies' {} a -> s {userName = a} :: ListUserPolicies)
 
-instance AWSPager ListUserPolicies where
+instance Pager.AWSPager ListUserPolicies where
   page rq rs
-    | stop (rs ^. luprrsIsTruncated) = Nothing
-    | isNothing (rs ^. luprrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & lupMarker .~ rs ^. luprrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listUserPoliciesResponse_isTruncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listUserPoliciesResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listUserPolicies_marker
+          Lens..~ rs
+          Lens.^? listUserPoliciesResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest ListUserPolicies where
+instance Prelude.AWSRequest ListUserPolicies where
   type Rs ListUserPolicies = ListUserPoliciesResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListUserPoliciesResult"
       ( \s h x ->
           ListUserPoliciesResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> ( x .@? "PolicyNames" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "PolicyNames"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListUserPolicies
+instance Prelude.Hashable ListUserPolicies
 
-instance NFData ListUserPolicies
+instance Prelude.NFData ListUserPolicies
 
-instance ToHeaders ListUserPolicies where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListUserPolicies where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListUserPolicies where
-  toPath = const "/"
+instance Prelude.ToPath ListUserPolicies where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListUserPolicies where
+instance Prelude.ToQuery ListUserPolicies where
   toQuery ListUserPolicies' {..} =
-    mconcat
-      [ "Action" =: ("ListUserPolicies" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "MaxItems" =: _lupMaxItems,
-        "Marker" =: _lupMarker,
-        "UserName" =: _lupUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListUserPolicies" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker,
+        "UserName" Prelude.=: userName
       ]
 
--- | Contains the response to a successful 'ListUserPolicies' request.
+-- | Contains the response to a successful ListUserPolicies request.
 --
---
---
--- /See:/ 'listUserPoliciesResponse' smart constructor.
+-- /See:/ 'newListUserPoliciesResponse' smart constructor.
 data ListUserPoliciesResponse = ListUserPoliciesResponse'
-  { _luprrsIsTruncated ::
-      !(Maybe Bool),
-    _luprrsMarker ::
-      !(Maybe Text),
-    _luprrsResponseStatus ::
-      !Int,
-    _luprrsPolicyNames ::
-      ![Text]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of policy names.
+    policyNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserPoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserPoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'luprrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'luprrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listUserPoliciesResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'luprrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listUserPoliciesResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'luprrsPolicyNames' - A list of policy names.
-listUserPoliciesResponse ::
-  -- | 'luprrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listUserPoliciesResponse_httpStatus' - The response's http status code.
+--
+-- 'policyNames', 'listUserPoliciesResponse_policyNames' - A list of policy names.
+newListUserPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListUserPoliciesResponse
-listUserPoliciesResponse pResponseStatus_ =
+newListUserPoliciesResponse pHttpStatus_ =
   ListUserPoliciesResponse'
-    { _luprrsIsTruncated =
-        Nothing,
-      _luprrsMarker = Nothing,
-      _luprrsResponseStatus = pResponseStatus_,
-      _luprrsPolicyNames = mempty
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      policyNames = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-luprrsIsTruncated :: Lens' ListUserPoliciesResponse (Maybe Bool)
-luprrsIsTruncated = lens _luprrsIsTruncated (\s a -> s {_luprrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+listUserPoliciesResponse_isTruncated :: Lens.Lens' ListUserPoliciesResponse (Prelude.Maybe Prelude.Bool)
+listUserPoliciesResponse_isTruncated = Lens.lens (\ListUserPoliciesResponse' {isTruncated} -> isTruncated) (\s@ListUserPoliciesResponse' {} a -> s {isTruncated = a} :: ListUserPoliciesResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-luprrsMarker :: Lens' ListUserPoliciesResponse (Maybe Text)
-luprrsMarker = lens _luprrsMarker (\s a -> s {_luprrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listUserPoliciesResponse_marker :: Lens.Lens' ListUserPoliciesResponse (Prelude.Maybe Prelude.Text)
+listUserPoliciesResponse_marker = Lens.lens (\ListUserPoliciesResponse' {marker} -> marker) (\s@ListUserPoliciesResponse' {} a -> s {marker = a} :: ListUserPoliciesResponse)
 
--- | -- | The response status code.
-luprrsResponseStatus :: Lens' ListUserPoliciesResponse Int
-luprrsResponseStatus = lens _luprrsResponseStatus (\s a -> s {_luprrsResponseStatus = a})
+-- | The response's http status code.
+listUserPoliciesResponse_httpStatus :: Lens.Lens' ListUserPoliciesResponse Prelude.Int
+listUserPoliciesResponse_httpStatus = Lens.lens (\ListUserPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListUserPoliciesResponse' {} a -> s {httpStatus = a} :: ListUserPoliciesResponse)
 
 -- | A list of policy names.
-luprrsPolicyNames :: Lens' ListUserPoliciesResponse [Text]
-luprrsPolicyNames = lens _luprrsPolicyNames (\s a -> s {_luprrsPolicyNames = a}) . _Coerce
+listUserPoliciesResponse_policyNames :: Lens.Lens' ListUserPoliciesResponse [Prelude.Text]
+listUserPoliciesResponse_policyNames = Lens.lens (\ListUserPoliciesResponse' {policyNames} -> policyNames) (\s@ListUserPoliciesResponse' {} a -> s {policyNames = a} :: ListUserPoliciesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListUserPoliciesResponse
+instance Prelude.NFData ListUserPoliciesResponse

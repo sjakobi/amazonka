@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.RoleUsageType where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An object that contains details about how a service-linked role is used, if that information is returned by the service.
+-- | An object that contains details about how a service-linked role is used,
+-- if that information is returned by the service.
 --
+-- This data type is used as a response element in the
+-- GetServiceLinkedRoleDeletionStatus operation.
 --
--- This data type is used as a response element in the 'GetServiceLinkedRoleDeletionStatus' operation.
---
---
--- /See:/ 'roleUsageType' smart constructor.
+-- /See:/ 'newRoleUsageType' smart constructor.
 data RoleUsageType = RoleUsageType'
-  { _rutResources ::
-      !(Maybe [Text]),
-    _rutRegion :: !(Maybe Text)
+  { -- | The name of the resource that is using the service-linked role.
+    resources :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the Region where the service-linked role is being used.
+    region :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RoleUsageType' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RoleUsageType' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rutResources' - The name of the resource that is using the service-linked role.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rutRegion' - The name of the Region where the service-linked role is being used.
-roleUsageType ::
+-- 'resources', 'roleUsageType_resources' - The name of the resource that is using the service-linked role.
+--
+-- 'region', 'roleUsageType_region' - The name of the Region where the service-linked role is being used.
+newRoleUsageType ::
   RoleUsageType
-roleUsageType =
+newRoleUsageType =
   RoleUsageType'
-    { _rutResources = Nothing,
-      _rutRegion = Nothing
+    { resources = Prelude.Nothing,
+      region = Prelude.Nothing
     }
 
 -- | The name of the resource that is using the service-linked role.
-rutResources :: Lens' RoleUsageType [Text]
-rutResources = lens _rutResources (\s a -> s {_rutResources = a}) . _Default . _Coerce
+roleUsageType_resources :: Lens.Lens' RoleUsageType (Prelude.Maybe [Prelude.Text])
+roleUsageType_resources = Lens.lens (\RoleUsageType' {resources} -> resources) (\s@RoleUsageType' {} a -> s {resources = a} :: RoleUsageType) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the Region where the service-linked role is being used.
-rutRegion :: Lens' RoleUsageType (Maybe Text)
-rutRegion = lens _rutRegion (\s a -> s {_rutRegion = a})
+roleUsageType_region :: Lens.Lens' RoleUsageType (Prelude.Maybe Prelude.Text)
+roleUsageType_region = Lens.lens (\RoleUsageType' {region} -> region) (\s@RoleUsageType' {} a -> s {region = a} :: RoleUsageType)
 
-instance FromXML RoleUsageType where
+instance Prelude.FromXML RoleUsageType where
   parseXML x =
     RoleUsageType'
-      <$> ( x .@? "Resources" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Region")
+      Prelude.<$> ( x Prelude..@? "Resources" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Region")
 
-instance Hashable RoleUsageType
+instance Prelude.Hashable RoleUsageType
 
-instance NFData RoleUsageType
+instance Prelude.NFData RoleUsageType

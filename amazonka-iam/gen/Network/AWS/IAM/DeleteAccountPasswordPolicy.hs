@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,84 +21,93 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the password policy for the AWS account. There are no parameters.
+-- Deletes the password policy for the AWS account. There are no
+-- parameters.
 module Network.AWS.IAM.DeleteAccountPasswordPolicy
   ( -- * Creating a Request
-    deleteAccountPasswordPolicy,
-    DeleteAccountPasswordPolicy,
+    DeleteAccountPasswordPolicy (..),
+    newDeleteAccountPasswordPolicy,
 
     -- * Destructuring the Response
-    deleteAccountPasswordPolicyResponse,
-    DeleteAccountPasswordPolicyResponse,
+    DeleteAccountPasswordPolicyResponse (..),
+    newDeleteAccountPasswordPolicyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteAccountPasswordPolicy' smart constructor.
+-- | /See:/ 'newDeleteAccountPasswordPolicy' smart constructor.
 data DeleteAccountPasswordPolicy = DeleteAccountPasswordPolicy'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAccountPasswordPolicy' with the minimum fields required to make a request.
-deleteAccountPasswordPolicy ::
+-- |
+-- Create a value of 'DeleteAccountPasswordPolicy' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAccountPasswordPolicy ::
   DeleteAccountPasswordPolicy
-deleteAccountPasswordPolicy =
+newDeleteAccountPasswordPolicy =
   DeleteAccountPasswordPolicy'
 
-instance AWSRequest DeleteAccountPasswordPolicy where
+instance
+  Prelude.AWSRequest
+    DeleteAccountPasswordPolicy
+  where
   type
     Rs DeleteAccountPasswordPolicy =
       DeleteAccountPasswordPolicyResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteAccountPasswordPolicyResponse'
+    Response.receiveNull
+      DeleteAccountPasswordPolicyResponse'
 
-instance Hashable DeleteAccountPasswordPolicy
+instance Prelude.Hashable DeleteAccountPasswordPolicy
 
-instance NFData DeleteAccountPasswordPolicy
+instance Prelude.NFData DeleteAccountPasswordPolicy
 
-instance ToHeaders DeleteAccountPasswordPolicy where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    DeleteAccountPasswordPolicy
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteAccountPasswordPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteAccountPasswordPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteAccountPasswordPolicy where
+instance Prelude.ToQuery DeleteAccountPasswordPolicy where
   toQuery =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Action"
-              =: ("DeleteAccountPasswordPolicy" :: ByteString),
-            "Version" =: ("2010-05-08" :: ByteString)
+              Prelude.=: ( "DeleteAccountPasswordPolicy" ::
+                             Prelude.ByteString
+                         ),
+            "Version"
+              Prelude.=: ("2010-05-08" :: Prelude.ByteString)
           ]
       )
 
--- | /See:/ 'deleteAccountPasswordPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteAccountPasswordPolicyResponse' smart constructor.
 data DeleteAccountPasswordPolicyResponse = DeleteAccountPasswordPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteAccountPasswordPolicyResponse' with the minimum fields required to make a request.
-deleteAccountPasswordPolicyResponse ::
+-- |
+-- Create a value of 'DeleteAccountPasswordPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteAccountPasswordPolicyResponse ::
   DeleteAccountPasswordPolicyResponse
-deleteAccountPasswordPolicyResponse =
+newDeleteAccountPasswordPolicyResponse =
   DeleteAccountPasswordPolicyResponse'
 
-instance NFData DeleteAccountPasswordPolicyResponse
+instance
+  Prelude.NFData
+    DeleteAccountPasswordPolicyResponse

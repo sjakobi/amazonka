@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,96 +21,129 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified IAM user. Unlike the AWS Management Console, when you delete a user programmatically, you must delete the items attached to the user manually, or the deletion fails. For more information, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli Deleting an IAM user> . Before attempting to delete a user, remove the following items:
+-- Deletes the specified IAM user. Unlike the AWS Management Console, when
+-- you delete a user programmatically, you must delete the items attached
+-- to the user manually, or the deletion fails. For more information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli Deleting an IAM user>.
+-- Before attempting to delete a user, remove the following items:
 --
+-- -   Password (DeleteLoginProfile)
 --
---     * Password ('DeleteLoginProfile' )
+-- -   Access keys (DeleteAccessKey)
 --
---     * Access keys ('DeleteAccessKey' )
+-- -   Signing certificate (DeleteSigningCertificate)
 --
---     * Signing certificate ('DeleteSigningCertificate' )
+-- -   SSH public key (DeleteSSHPublicKey)
 --
---     * SSH public key ('DeleteSSHPublicKey' )
+-- -   Git credentials (DeleteServiceSpecificCredential)
 --
---     * Git credentials ('DeleteServiceSpecificCredential' )
+-- -   Multi-factor authentication (MFA) device (DeactivateMFADevice,
+--     DeleteVirtualMFADevice)
 --
---     * Multi-factor authentication (MFA) device ('DeactivateMFADevice' , 'DeleteVirtualMFADevice' )
+-- -   Inline policies (DeleteUserPolicy)
 --
---     * Inline policies ('DeleteUserPolicy' )
+-- -   Attached managed policies (DetachUserPolicy)
 --
---     * Attached managed policies ('DetachUserPolicy' )
---
---     * Group memberships ('RemoveUserFromGroup' )
+-- -   Group memberships (RemoveUserFromGroup)
 module Network.AWS.IAM.DeleteUser
   ( -- * Creating a Request
-    deleteUser,
-    DeleteUser,
+    DeleteUser (..),
+    newDeleteUser,
 
     -- * Request Lenses
-    duUserName,
+    deleteUser_userName,
 
     -- * Destructuring the Response
-    deleteUserResponse,
-    DeleteUserResponse,
+    DeleteUserResponse (..),
+    newDeleteUserResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUser' smart constructor.
-newtype DeleteUser = DeleteUser' {_duUserName :: Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newDeleteUser' smart constructor.
+data DeleteUser = DeleteUser'
+  { -- | The name of the user to delete.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUser' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUser' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duUserName' - The name of the user to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-deleteUser ::
-  -- | 'duUserName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userName', 'deleteUser_userName' - The name of the user to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newDeleteUser ::
+  -- | 'userName'
+  Prelude.Text ->
   DeleteUser
-deleteUser pUserName_ =
-  DeleteUser' {_duUserName = pUserName_}
+newDeleteUser pUserName_ =
+  DeleteUser' {userName = pUserName_}
 
--- | The name of the user to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-duUserName :: Lens' DeleteUser Text
-duUserName = lens _duUserName (\s a -> s {_duUserName = a})
+-- | The name of the user to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteUser_userName :: Lens.Lens' DeleteUser Prelude.Text
+deleteUser_userName = Lens.lens (\DeleteUser' {userName} -> userName) (\s@DeleteUser' {} a -> s {userName = a} :: DeleteUser)
 
-instance AWSRequest DeleteUser where
+instance Prelude.AWSRequest DeleteUser where
   type Rs DeleteUser = DeleteUserResponse
-  request = postQuery iam
-  response = receiveNull DeleteUserResponse'
+  request = Request.postQuery defaultService
+  response = Response.receiveNull DeleteUserResponse'
 
-instance Hashable DeleteUser
+instance Prelude.Hashable DeleteUser
 
-instance NFData DeleteUser
+instance Prelude.NFData DeleteUser
 
-instance ToHeaders DeleteUser where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteUser where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteUser where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUser where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUser where
+instance Prelude.ToQuery DeleteUser where
   toQuery DeleteUser' {..} =
-    mconcat
-      [ "Action" =: ("DeleteUser" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _duUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteUser" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName
       ]
 
--- | /See:/ 'deleteUserResponse' smart constructor.
+-- | /See:/ 'newDeleteUserResponse' smart constructor.
 data DeleteUserResponse = DeleteUserResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserResponse' with the minimum fields required to make a request.
-deleteUserResponse ::
+-- |
+-- Create a value of 'DeleteUserResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUserResponse ::
   DeleteUserResponse
-deleteUserResponse = DeleteUserResponse'
+newDeleteUserResponse = DeleteUserResponse'
 
-instance NFData DeleteUserResponse
+instance Prelude.NFData DeleteUserResponse

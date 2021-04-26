@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,122 +21,127 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about IAM entity usage and IAM quotas in the AWS account.
+-- Retrieves information about IAM entity usage and IAM quotas in the AWS
+-- account.
 --
---
--- For information about IAM quotas, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas> in the /IAM User Guide/ .
+-- For information about IAM quotas, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html IAM and STS quotas>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.GetAccountSummary
   ( -- * Creating a Request
-    getAccountSummary,
-    GetAccountSummary,
+    GetAccountSummary (..),
+    newGetAccountSummary,
 
     -- * Destructuring the Response
-    getAccountSummaryResponse,
-    GetAccountSummaryResponse,
+    GetAccountSummaryResponse (..),
+    newGetAccountSummaryResponse,
 
     -- * Response Lenses
-    gasrrsSummaryMap,
-    gasrrsResponseStatus,
+    getAccountSummaryResponse_summaryMap,
+    getAccountSummaryResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.SummaryKeyType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAccountSummary' smart constructor.
+-- | /See:/ 'newGetAccountSummary' smart constructor.
 data GetAccountSummary = GetAccountSummary'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountSummary' with the minimum fields required to make a request.
-getAccountSummary ::
+-- |
+-- Create a value of 'GetAccountSummary' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetAccountSummary ::
   GetAccountSummary
-getAccountSummary = GetAccountSummary'
+newGetAccountSummary = GetAccountSummary'
 
-instance AWSRequest GetAccountSummary where
+instance Prelude.AWSRequest GetAccountSummary where
   type Rs GetAccountSummary = GetAccountSummaryResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetAccountSummaryResult"
       ( \s h x ->
           GetAccountSummaryResponse'
-            <$> ( x .@? "SummaryMap" .!@ mempty
-                    >>= may (parseXMLMap "entry" "key" "value")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "SummaryMap"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may
+                              (Prelude.parseXMLMap "entry" "key" "value")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAccountSummary
+instance Prelude.Hashable GetAccountSummary
 
-instance NFData GetAccountSummary
+instance Prelude.NFData GetAccountSummary
 
-instance ToHeaders GetAccountSummary where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetAccountSummary where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetAccountSummary where
-  toPath = const "/"
+instance Prelude.ToPath GetAccountSummary where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAccountSummary where
+instance Prelude.ToQuery GetAccountSummary where
   toQuery =
-    const
-      ( mconcat
-          [ "Action" =: ("GetAccountSummary" :: ByteString),
-            "Version" =: ("2010-05-08" :: ByteString)
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Action"
+              Prelude.=: ("GetAccountSummary" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-05-08" :: Prelude.ByteString)
           ]
       )
 
--- | Contains the response to a successful 'GetAccountSummary' request.
+-- | Contains the response to a successful GetAccountSummary request.
 --
---
---
--- /See:/ 'getAccountSummaryResponse' smart constructor.
+-- /See:/ 'newGetAccountSummaryResponse' smart constructor.
 data GetAccountSummaryResponse = GetAccountSummaryResponse'
-  { _gasrrsSummaryMap ::
-      !( Maybe
-           ( Map
-               SummaryKeyType
-               Int
-           )
-       ),
-    _gasrrsResponseStatus ::
-      !Int
+  { -- | A set of key–value pairs containing information about IAM entity usage
+    -- and IAM quotas.
+    summaryMap :: Prelude.Maybe (Prelude.Map SummaryKeyType Prelude.Int),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountSummaryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccountSummaryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gasrrsSummaryMap' - A set of key–value pairs containing information about IAM entity usage and IAM quotas.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gasrrsResponseStatus' - -- | The response status code.
-getAccountSummaryResponse ::
-  -- | 'gasrrsResponseStatus'
-  Int ->
+-- 'summaryMap', 'getAccountSummaryResponse_summaryMap' - A set of key–value pairs containing information about IAM entity usage
+-- and IAM quotas.
+--
+-- 'httpStatus', 'getAccountSummaryResponse_httpStatus' - The response's http status code.
+newGetAccountSummaryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAccountSummaryResponse
-getAccountSummaryResponse pResponseStatus_ =
+newGetAccountSummaryResponse pHttpStatus_ =
   GetAccountSummaryResponse'
-    { _gasrrsSummaryMap =
-        Nothing,
-      _gasrrsResponseStatus = pResponseStatus_
+    { summaryMap =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A set of key–value pairs containing information about IAM entity usage and IAM quotas.
-gasrrsSummaryMap :: Lens' GetAccountSummaryResponse (HashMap SummaryKeyType Int)
-gasrrsSummaryMap = lens _gasrrsSummaryMap (\s a -> s {_gasrrsSummaryMap = a}) . _Default . _Map
+-- | A set of key–value pairs containing information about IAM entity usage
+-- and IAM quotas.
+getAccountSummaryResponse_summaryMap :: Lens.Lens' GetAccountSummaryResponse (Prelude.Maybe (Prelude.HashMap SummaryKeyType Prelude.Int))
+getAccountSummaryResponse_summaryMap = Lens.lens (\GetAccountSummaryResponse' {summaryMap} -> summaryMap) (\s@GetAccountSummaryResponse' {} a -> s {summaryMap = a} :: GetAccountSummaryResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-gasrrsResponseStatus :: Lens' GetAccountSummaryResponse Int
-gasrrsResponseStatus = lens _gasrrsResponseStatus (\s a -> s {_gasrrsResponseStatus = a})
+-- | The response's http status code.
+getAccountSummaryResponse_httpStatus :: Lens.Lens' GetAccountSummaryResponse Prelude.Int
+getAccountSummaryResponse_httpStatus = Lens.lens (\GetAccountSummaryResponse' {httpStatus} -> httpStatus) (\s@GetAccountSummaryResponse' {} a -> s {httpStatus = a} :: GetAccountSummaryResponse)
 
-instance NFData GetAccountSummaryResponse
+instance Prelude.NFData GetAccountSummaryResponse

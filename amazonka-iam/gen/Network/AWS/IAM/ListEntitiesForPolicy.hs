@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,269 +21,423 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all IAM users, groups, and roles that the specified managed policy is attached to.
+-- Lists all IAM users, groups, and roles that the specified managed policy
+-- is attached to.
 --
+-- You can use the optional @EntityFilter@ parameter to limit the results
+-- to a particular type of entity (users, groups, or roles). For example,
+-- to list only the roles that are attached to the specified policy, set
+-- @EntityFilter@ to @Role@.
 --
--- You can use the optional @EntityFilter@ parameter to limit the results to a particular type of entity (users, groups, or roles). For example, to list only the roles that are attached to the specified policy, set @EntityFilter@ to @Role@ .
---
--- You can paginate the results using the @MaxItems@ and @Marker@ parameters.
---
+-- You can paginate the results using the @MaxItems@ and @Marker@
+-- parameters.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.ListEntitiesForPolicy
   ( -- * Creating a Request
-    listEntitiesForPolicy,
-    ListEntitiesForPolicy,
+    ListEntitiesForPolicy (..),
+    newListEntitiesForPolicy,
 
     -- * Request Lenses
-    lefpEntityFilter,
-    lefpPolicyUsageFilter,
-    lefpPathPrefix,
-    lefpMaxItems,
-    lefpMarker,
-    lefpPolicyARN,
+    listEntitiesForPolicy_entityFilter,
+    listEntitiesForPolicy_policyUsageFilter,
+    listEntitiesForPolicy_pathPrefix,
+    listEntitiesForPolicy_maxItems,
+    listEntitiesForPolicy_marker,
+    listEntitiesForPolicy_policyArn,
 
     -- * Destructuring the Response
-    listEntitiesForPolicyResponse,
-    ListEntitiesForPolicyResponse,
+    ListEntitiesForPolicyResponse (..),
+    newListEntitiesForPolicyResponse,
 
     -- * Response Lenses
-    lefprrsPolicyRoles,
-    lefprrsIsTruncated,
-    lefprrsPolicyUsers,
-    lefprrsPolicyGroups,
-    lefprrsMarker,
-    lefprrsResponseStatus,
+    listEntitiesForPolicyResponse_policyRoles,
+    listEntitiesForPolicyResponse_isTruncated,
+    listEntitiesForPolicyResponse_policyUsers,
+    listEntitiesForPolicyResponse_policyGroups,
+    listEntitiesForPolicyResponse_marker,
+    listEntitiesForPolicyResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.PolicyGroup
+import Network.AWS.IAM.Types.PolicyRole
+import Network.AWS.IAM.Types.PolicyUser
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listEntitiesForPolicy' smart constructor.
+-- | /See:/ 'newListEntitiesForPolicy' smart constructor.
 data ListEntitiesForPolicy = ListEntitiesForPolicy'
-  { _lefpEntityFilter ::
-      !(Maybe EntityType),
-    _lefpPolicyUsageFilter ::
-      !(Maybe PolicyUsageType),
-    _lefpPathPrefix ::
-      !(Maybe Text),
-    _lefpMaxItems ::
-      !(Maybe Nat),
-    _lefpMarker ::
-      !(Maybe Text),
-    _lefpPolicyARN :: !Text
+  { -- | The entity type to use for filtering the results.
+    --
+    -- For example, when @EntityFilter@ is @Role@, only the roles that are
+    -- attached to the specified policy are returned. This parameter is
+    -- optional. If it is not included, all attached entities (users, groups,
+    -- and roles) are returned. The argument for this parameter must be one of
+    -- the valid values listed below.
+    entityFilter :: Prelude.Maybe EntityType,
+    -- | The policy usage method to use for filtering the results.
+    --
+    -- To list only permissions policies,
+    -- set @PolicyUsageFilter@ to @PermissionsPolicy@. To list only the
+    -- policies used to set permissions boundaries, set the value
+    -- to @PermissionsBoundary@.
+    --
+    -- This parameter is optional. If it is not included, all policies are
+    -- returned.
+    policyUsageFilter :: Prelude.Maybe PolicyUsageType,
+    -- | The path prefix for filtering the results. This parameter is optional.
+    -- If it is not included, it defaults to a slash (\/), listing all
+    -- entities.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of either a forward slash (\/) by itself or a string that
+    -- must begin and end with forward slashes. In addition, it can contain any
+    -- ASCII character from the ! (@\\u0021@) through the DEL character
+    -- (@\\u007F@), including most punctuation characters, digits, and upper
+    -- and lowercased letters.
+    pathPrefix :: Prelude.Maybe Prelude.Text,
+    -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM policy for which you want the
+    -- versions.
+    --
+    -- For more information about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+    -- in the /AWS General Reference/.
+    policyArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEntitiesForPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEntitiesForPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lefpEntityFilter' - The entity type to use for filtering the results. For example, when @EntityFilter@ is @Role@ , only the roles that are attached to the specified policy are returned. This parameter is optional. If it is not included, all attached entities (users, groups, and roles) are returned. The argument for this parameter must be one of the valid values listed below.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lefpPolicyUsageFilter' - The policy usage method to use for filtering the results. To list only permissions policies, set @PolicyUsageFilter@ to @PermissionsPolicy@ . To list only the policies used to set permissions boundaries, set the value to @PermissionsBoundary@ . This parameter is optional. If it is not included, all policies are returned.
+-- 'entityFilter', 'listEntitiesForPolicy_entityFilter' - The entity type to use for filtering the results.
 --
--- * 'lefpPathPrefix' - The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults to a slash (/), listing all entities. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
+-- For example, when @EntityFilter@ is @Role@, only the roles that are
+-- attached to the specified policy are returned. This parameter is
+-- optional. If it is not included, all attached entities (users, groups,
+-- and roles) are returned. The argument for this parameter must be one of
+-- the valid values listed below.
 --
--- * 'lefpMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- 'policyUsageFilter', 'listEntitiesForPolicy_policyUsageFilter' - The policy usage method to use for filtering the results.
 --
--- * 'lefpMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- To list only permissions policies,
+-- set @PolicyUsageFilter@ to @PermissionsPolicy@. To list only the
+-- policies used to set permissions boundaries, set the value
+-- to @PermissionsBoundary@.
 --
--- * 'lefpPolicyARN' - The Amazon Resource Name (ARN) of the IAM policy for which you want the versions. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
-listEntitiesForPolicy ::
-  -- | 'lefpPolicyARN'
-  Text ->
+-- This parameter is optional. If it is not included, all policies are
+-- returned.
+--
+-- 'pathPrefix', 'listEntitiesForPolicy_pathPrefix' - The path prefix for filtering the results. This parameter is optional.
+-- If it is not included, it defaults to a slash (\/), listing all
+-- entities.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+--
+-- 'maxItems', 'listEntitiesForPolicy_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'listEntitiesForPolicy_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'policyArn', 'listEntitiesForPolicy_policyArn' - The Amazon Resource Name (ARN) of the IAM policy for which you want the
+-- versions.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
+newListEntitiesForPolicy ::
+  -- | 'policyArn'
+  Prelude.Text ->
   ListEntitiesForPolicy
-listEntitiesForPolicy pPolicyARN_ =
+newListEntitiesForPolicy pPolicyArn_ =
   ListEntitiesForPolicy'
-    { _lefpEntityFilter = Nothing,
-      _lefpPolicyUsageFilter = Nothing,
-      _lefpPathPrefix = Nothing,
-      _lefpMaxItems = Nothing,
-      _lefpMarker = Nothing,
-      _lefpPolicyARN = pPolicyARN_
+    { entityFilter =
+        Prelude.Nothing,
+      policyUsageFilter = Prelude.Nothing,
+      pathPrefix = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      policyArn = pPolicyArn_
     }
 
--- | The entity type to use for filtering the results. For example, when @EntityFilter@ is @Role@ , only the roles that are attached to the specified policy are returned. This parameter is optional. If it is not included, all attached entities (users, groups, and roles) are returned. The argument for this parameter must be one of the valid values listed below.
-lefpEntityFilter :: Lens' ListEntitiesForPolicy (Maybe EntityType)
-lefpEntityFilter = lens _lefpEntityFilter (\s a -> s {_lefpEntityFilter = a})
+-- | The entity type to use for filtering the results.
+--
+-- For example, when @EntityFilter@ is @Role@, only the roles that are
+-- attached to the specified policy are returned. This parameter is
+-- optional. If it is not included, all attached entities (users, groups,
+-- and roles) are returned. The argument for this parameter must be one of
+-- the valid values listed below.
+listEntitiesForPolicy_entityFilter :: Lens.Lens' ListEntitiesForPolicy (Prelude.Maybe EntityType)
+listEntitiesForPolicy_entityFilter = Lens.lens (\ListEntitiesForPolicy' {entityFilter} -> entityFilter) (\s@ListEntitiesForPolicy' {} a -> s {entityFilter = a} :: ListEntitiesForPolicy)
 
--- | The policy usage method to use for filtering the results. To list only permissions policies, set @PolicyUsageFilter@ to @PermissionsPolicy@ . To list only the policies used to set permissions boundaries, set the value to @PermissionsBoundary@ . This parameter is optional. If it is not included, all policies are returned.
-lefpPolicyUsageFilter :: Lens' ListEntitiesForPolicy (Maybe PolicyUsageType)
-lefpPolicyUsageFilter = lens _lefpPolicyUsageFilter (\s a -> s {_lefpPolicyUsageFilter = a})
+-- | The policy usage method to use for filtering the results.
+--
+-- To list only permissions policies,
+-- set @PolicyUsageFilter@ to @PermissionsPolicy@. To list only the
+-- policies used to set permissions boundaries, set the value
+-- to @PermissionsBoundary@.
+--
+-- This parameter is optional. If it is not included, all policies are
+-- returned.
+listEntitiesForPolicy_policyUsageFilter :: Lens.Lens' ListEntitiesForPolicy (Prelude.Maybe PolicyUsageType)
+listEntitiesForPolicy_policyUsageFilter = Lens.lens (\ListEntitiesForPolicy' {policyUsageFilter} -> policyUsageFilter) (\s@ListEntitiesForPolicy' {} a -> s {policyUsageFilter = a} :: ListEntitiesForPolicy)
 
--- | The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults to a slash (/), listing all entities. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any ASCII character from the ! (@\u0021@ ) through the DEL character (@\u007F@ ), including most punctuation characters, digits, and upper and lowercased letters.
-lefpPathPrefix :: Lens' ListEntitiesForPolicy (Maybe Text)
-lefpPathPrefix = lens _lefpPathPrefix (\s a -> s {_lefpPathPrefix = a})
+-- | The path prefix for filtering the results. This parameter is optional.
+-- If it is not included, it defaults to a slash (\/), listing all
+-- entities.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of either a forward slash (\/) by itself or a string that
+-- must begin and end with forward slashes. In addition, it can contain any
+-- ASCII character from the ! (@\\u0021@) through the DEL character
+-- (@\\u007F@), including most punctuation characters, digits, and upper
+-- and lowercased letters.
+listEntitiesForPolicy_pathPrefix :: Lens.Lens' ListEntitiesForPolicy (Prelude.Maybe Prelude.Text)
+listEntitiesForPolicy_pathPrefix = Lens.lens (\ListEntitiesForPolicy' {pathPrefix} -> pathPrefix) (\s@ListEntitiesForPolicy' {} a -> s {pathPrefix = a} :: ListEntitiesForPolicy)
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lefpMaxItems :: Lens' ListEntitiesForPolicy (Maybe Natural)
-lefpMaxItems = lens _lefpMaxItems (\s a -> s {_lefpMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+listEntitiesForPolicy_maxItems :: Lens.Lens' ListEntitiesForPolicy (Prelude.Maybe Prelude.Natural)
+listEntitiesForPolicy_maxItems = Lens.lens (\ListEntitiesForPolicy' {maxItems} -> maxItems) (\s@ListEntitiesForPolicy' {} a -> s {maxItems = a} :: ListEntitiesForPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lefpMarker :: Lens' ListEntitiesForPolicy (Maybe Text)
-lefpMarker = lens _lefpMarker (\s a -> s {_lefpMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listEntitiesForPolicy_marker :: Lens.Lens' ListEntitiesForPolicy (Prelude.Maybe Prelude.Text)
+listEntitiesForPolicy_marker = Lens.lens (\ListEntitiesForPolicy' {marker} -> marker) (\s@ListEntitiesForPolicy' {} a -> s {marker = a} :: ListEntitiesForPolicy)
 
--- | The Amazon Resource Name (ARN) of the IAM policy for which you want the versions. For more information about ARNs, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)> in the /AWS General Reference/ .
-lefpPolicyARN :: Lens' ListEntitiesForPolicy Text
-lefpPolicyARN = lens _lefpPolicyARN (\s a -> s {_lefpPolicyARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM policy for which you want the
+-- versions.
+--
+-- For more information about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>
+-- in the /AWS General Reference/.
+listEntitiesForPolicy_policyArn :: Lens.Lens' ListEntitiesForPolicy Prelude.Text
+listEntitiesForPolicy_policyArn = Lens.lens (\ListEntitiesForPolicy' {policyArn} -> policyArn) (\s@ListEntitiesForPolicy' {} a -> s {policyArn = a} :: ListEntitiesForPolicy)
 
-instance AWSPager ListEntitiesForPolicy where
+instance Pager.AWSPager ListEntitiesForPolicy where
   page rq rs
-    | stop (rs ^. lefprrsIsTruncated) = Nothing
-    | isNothing (rs ^. lefprrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & lefpMarker .~ rs ^. lefprrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listEntitiesForPolicyResponse_isTruncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listEntitiesForPolicyResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listEntitiesForPolicy_marker
+          Lens..~ rs
+          Lens.^? listEntitiesForPolicyResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListEntitiesForPolicy where
+instance Prelude.AWSRequest ListEntitiesForPolicy where
   type
     Rs ListEntitiesForPolicy =
       ListEntitiesForPolicyResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListEntitiesForPolicyResult"
       ( \s h x ->
           ListEntitiesForPolicyResponse'
-            <$> ( x .@? "PolicyRoles" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "IsTruncated")
-            <*> ( x .@? "PolicyUsers" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> ( x .@? "PolicyGroups" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "PolicyRoles"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "IsTruncated")
+            Prelude.<*> ( x Prelude..@? "PolicyUsers"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> ( x Prelude..@? "PolicyGroups"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListEntitiesForPolicy
+instance Prelude.Hashable ListEntitiesForPolicy
 
-instance NFData ListEntitiesForPolicy
+instance Prelude.NFData ListEntitiesForPolicy
 
-instance ToHeaders ListEntitiesForPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListEntitiesForPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListEntitiesForPolicy where
-  toPath = const "/"
+instance Prelude.ToPath ListEntitiesForPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListEntitiesForPolicy where
+instance Prelude.ToQuery ListEntitiesForPolicy where
   toQuery ListEntitiesForPolicy' {..} =
-    mconcat
-      [ "Action" =: ("ListEntitiesForPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "EntityFilter" =: _lefpEntityFilter,
-        "PolicyUsageFilter" =: _lefpPolicyUsageFilter,
-        "PathPrefix" =: _lefpPathPrefix,
-        "MaxItems" =: _lefpMaxItems,
-        "Marker" =: _lefpMarker,
-        "PolicyArn" =: _lefpPolicyARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListEntitiesForPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "EntityFilter" Prelude.=: entityFilter,
+        "PolicyUsageFilter" Prelude.=: policyUsageFilter,
+        "PathPrefix" Prelude.=: pathPrefix,
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker,
+        "PolicyArn" Prelude.=: policyArn
       ]
 
--- | Contains the response to a successful 'ListEntitiesForPolicy' request.
+-- | Contains the response to a successful ListEntitiesForPolicy request.
 --
---
---
--- /See:/ 'listEntitiesForPolicyResponse' smart constructor.
+-- /See:/ 'newListEntitiesForPolicyResponse' smart constructor.
 data ListEntitiesForPolicyResponse = ListEntitiesForPolicyResponse'
-  { _lefprrsPolicyRoles ::
-      !( Maybe
-           [PolicyRole]
-       ),
-    _lefprrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _lefprrsPolicyUsers ::
-      !( Maybe
-           [PolicyUser]
-       ),
-    _lefprrsPolicyGroups ::
-      !( Maybe
-           [PolicyGroup]
-       ),
-    _lefprrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _lefprrsResponseStatus ::
-      !Int
+  { -- | A list of IAM roles that the policy is attached to.
+    policyRoles :: Prelude.Maybe [PolicyRole],
+    -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | A list of IAM users that the policy is attached to.
+    policyUsers :: Prelude.Maybe [PolicyUser],
+    -- | A list of IAM groups that the policy is attached to.
+    policyGroups :: Prelude.Maybe [PolicyGroup],
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListEntitiesForPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListEntitiesForPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lefprrsPolicyRoles' - A list of IAM roles that the policy is attached to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lefprrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- 'policyRoles', 'listEntitiesForPolicyResponse_policyRoles' - A list of IAM roles that the policy is attached to.
 --
--- * 'lefprrsPolicyUsers' - A list of IAM users that the policy is attached to.
+-- 'isTruncated', 'listEntitiesForPolicyResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'lefprrsPolicyGroups' - A list of IAM groups that the policy is attached to.
+-- 'policyUsers', 'listEntitiesForPolicyResponse_policyUsers' - A list of IAM users that the policy is attached to.
 --
--- * 'lefprrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'policyGroups', 'listEntitiesForPolicyResponse_policyGroups' - A list of IAM groups that the policy is attached to.
 --
--- * 'lefprrsResponseStatus' - -- | The response status code.
-listEntitiesForPolicyResponse ::
-  -- | 'lefprrsResponseStatus'
-  Int ->
+-- 'marker', 'listEntitiesForPolicyResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+--
+-- 'httpStatus', 'listEntitiesForPolicyResponse_httpStatus' - The response's http status code.
+newListEntitiesForPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListEntitiesForPolicyResponse
-listEntitiesForPolicyResponse pResponseStatus_ =
+newListEntitiesForPolicyResponse pHttpStatus_ =
   ListEntitiesForPolicyResponse'
-    { _lefprrsPolicyRoles =
-        Nothing,
-      _lefprrsIsTruncated = Nothing,
-      _lefprrsPolicyUsers = Nothing,
-      _lefprrsPolicyGroups = Nothing,
-      _lefprrsMarker = Nothing,
-      _lefprrsResponseStatus = pResponseStatus_
+    { policyRoles =
+        Prelude.Nothing,
+      isTruncated = Prelude.Nothing,
+      policyUsers = Prelude.Nothing,
+      policyGroups = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of IAM roles that the policy is attached to.
-lefprrsPolicyRoles :: Lens' ListEntitiesForPolicyResponse [PolicyRole]
-lefprrsPolicyRoles = lens _lefprrsPolicyRoles (\s a -> s {_lefprrsPolicyRoles = a}) . _Default . _Coerce
+listEntitiesForPolicyResponse_policyRoles :: Lens.Lens' ListEntitiesForPolicyResponse (Prelude.Maybe [PolicyRole])
+listEntitiesForPolicyResponse_policyRoles = Lens.lens (\ListEntitiesForPolicyResponse' {policyRoles} -> policyRoles) (\s@ListEntitiesForPolicyResponse' {} a -> s {policyRoles = a} :: ListEntitiesForPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-lefprrsIsTruncated :: Lens' ListEntitiesForPolicyResponse (Maybe Bool)
-lefprrsIsTruncated = lens _lefprrsIsTruncated (\s a -> s {_lefprrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+listEntitiesForPolicyResponse_isTruncated :: Lens.Lens' ListEntitiesForPolicyResponse (Prelude.Maybe Prelude.Bool)
+listEntitiesForPolicyResponse_isTruncated = Lens.lens (\ListEntitiesForPolicyResponse' {isTruncated} -> isTruncated) (\s@ListEntitiesForPolicyResponse' {} a -> s {isTruncated = a} :: ListEntitiesForPolicyResponse)
 
 -- | A list of IAM users that the policy is attached to.
-lefprrsPolicyUsers :: Lens' ListEntitiesForPolicyResponse [PolicyUser]
-lefprrsPolicyUsers = lens _lefprrsPolicyUsers (\s a -> s {_lefprrsPolicyUsers = a}) . _Default . _Coerce
+listEntitiesForPolicyResponse_policyUsers :: Lens.Lens' ListEntitiesForPolicyResponse (Prelude.Maybe [PolicyUser])
+listEntitiesForPolicyResponse_policyUsers = Lens.lens (\ListEntitiesForPolicyResponse' {policyUsers} -> policyUsers) (\s@ListEntitiesForPolicyResponse' {} a -> s {policyUsers = a} :: ListEntitiesForPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of IAM groups that the policy is attached to.
-lefprrsPolicyGroups :: Lens' ListEntitiesForPolicyResponse [PolicyGroup]
-lefprrsPolicyGroups = lens _lefprrsPolicyGroups (\s a -> s {_lefprrsPolicyGroups = a}) . _Default . _Coerce
+listEntitiesForPolicyResponse_policyGroups :: Lens.Lens' ListEntitiesForPolicyResponse (Prelude.Maybe [PolicyGroup])
+listEntitiesForPolicyResponse_policyGroups = Lens.lens (\ListEntitiesForPolicyResponse' {policyGroups} -> policyGroups) (\s@ListEntitiesForPolicyResponse' {} a -> s {policyGroups = a} :: ListEntitiesForPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lefprrsMarker :: Lens' ListEntitiesForPolicyResponse (Maybe Text)
-lefprrsMarker = lens _lefprrsMarker (\s a -> s {_lefprrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listEntitiesForPolicyResponse_marker :: Lens.Lens' ListEntitiesForPolicyResponse (Prelude.Maybe Prelude.Text)
+listEntitiesForPolicyResponse_marker = Lens.lens (\ListEntitiesForPolicyResponse' {marker} -> marker) (\s@ListEntitiesForPolicyResponse' {} a -> s {marker = a} :: ListEntitiesForPolicyResponse)
 
--- | -- | The response status code.
-lefprrsResponseStatus :: Lens' ListEntitiesForPolicyResponse Int
-lefprrsResponseStatus = lens _lefprrsResponseStatus (\s a -> s {_lefprrsResponseStatus = a})
+-- | The response's http status code.
+listEntitiesForPolicyResponse_httpStatus :: Lens.Lens' ListEntitiesForPolicyResponse Prelude.Int
+listEntitiesForPolicyResponse_httpStatus = Lens.lens (\ListEntitiesForPolicyResponse' {httpStatus} -> httpStatus) (\s@ListEntitiesForPolicyResponse' {} a -> s {httpStatus = a} :: ListEntitiesForPolicyResponse)
 
-instance NFData ListEntitiesForPolicyResponse
+instance Prelude.NFData ListEntitiesForPolicyResponse

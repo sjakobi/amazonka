@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,52 @@
 module Network.AWS.IAM.Types.EncodingType
   ( EncodingType
       ( ..,
-        Pem,
-        SSH
+        EncodingTypePEM,
+        EncodingTypeSSH
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EncodingType = EncodingType' (CI Text)
+newtype EncodingType = EncodingType'
+  { fromEncodingType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Pem :: EncodingType
-pattern Pem = EncodingType' "PEM"
+pattern EncodingTypePEM :: EncodingType
+pattern EncodingTypePEM = EncodingType' "PEM"
 
-pattern SSH :: EncodingType
-pattern SSH = EncodingType' "SSH"
+pattern EncodingTypeSSH :: EncodingType
+pattern EncodingTypeSSH = EncodingType' "SSH"
 
 {-# COMPLETE
-  Pem,
-  SSH,
+  EncodingTypePEM,
+  EncodingTypeSSH,
   EncodingType'
   #-}
 
-instance FromText EncodingType where
-  parser = (EncodingType' . mk) <$> takeText
+instance Prelude.FromText EncodingType where
+  parser = EncodingType' Prelude.<$> Prelude.takeText
 
-instance ToText EncodingType where
-  toText (EncodingType' ci) = original ci
+instance Prelude.ToText EncodingType where
+  toText (EncodingType' x) = x
 
-instance Hashable EncodingType
+instance Prelude.Hashable EncodingType
 
-instance NFData EncodingType
+instance Prelude.NFData EncodingType
 
-instance ToByteString EncodingType
+instance Prelude.ToByteString EncodingType
 
-instance ToQuery EncodingType
+instance Prelude.ToQuery EncodingType
 
-instance ToHeader EncodingType
+instance Prelude.ToHeader EncodingType

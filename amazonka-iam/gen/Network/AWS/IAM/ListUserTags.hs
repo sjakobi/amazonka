@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,258 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the tags that are attached to the specified IAM user. The returned list of tags is sorted by tag key. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Lists the tags that are attached to the specified IAM user. The returned
+-- list of tags is sorted by tag key. For more information about tagging,
+-- see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.ListUserTags
   ( -- * Creating a Request
-    listUserTags,
-    ListUserTags,
+    ListUserTags (..),
+    newListUserTags,
 
     -- * Request Lenses
-    lutMaxItems,
-    lutMarker,
-    lutUserName,
+    listUserTags_maxItems,
+    listUserTags_marker,
+    listUserTags_userName,
 
     -- * Destructuring the Response
-    listUserTagsResponse,
-    ListUserTagsResponse,
+    ListUserTagsResponse (..),
+    newListUserTagsResponse,
 
     -- * Response Lenses
-    lutrrsIsTruncated,
-    lutrrsMarker,
-    lutrrsResponseStatus,
-    lutrrsTags,
+    listUserTagsResponse_isTruncated,
+    listUserTagsResponse_marker,
+    listUserTagsResponse_httpStatus,
+    listUserTagsResponse_tags,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listUserTags' smart constructor.
+-- | /See:/ 'newListUserTags' smart constructor.
 data ListUserTags = ListUserTags'
-  { _lutMaxItems ::
-      !(Maybe Nat),
-    _lutMarker :: !(Maybe Text),
-    _lutUserName :: !Text
+  { -- | (Optional) Use this only when paginating results to indicate the maximum
+    -- number of items that you want in the response. If additional items exist
+    -- beyond the maximum that you specify, the @IsTruncated@ response element
+    -- is @true@.
+    --
+    -- If you do not include this parameter, it defaults to 100. Note that IAM
+    -- might return fewer results, even when more results are available. In
+    -- that case, the @IsTruncated@ response element returns @true@, and
+    -- @Marker@ contains a value to include in the subsequent call that tells
+    -- the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The name of the IAM user whose tags you want to see.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    userName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lutMaxItems' - (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lutMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- 'maxItems', 'listUserTags_maxItems' - (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
 --
--- * 'lutUserName' - The name of the IAM user whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-listUserTags ::
-  -- | 'lutUserName'
-  Text ->
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+--
+-- 'marker', 'listUserTags_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'userName', 'listUserTags_userName' - The name of the IAM user whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+newListUserTags ::
+  -- | 'userName'
+  Prelude.Text ->
   ListUserTags
-listUserTags pUserName_ =
+newListUserTags pUserName_ =
   ListUserTags'
-    { _lutMaxItems = Nothing,
-      _lutMarker = Nothing,
-      _lutUserName = pUserName_
+    { maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      userName = pUserName_
     }
 
--- | (Optional) Use this only when paginating results to indicate the maximum number of items that you want in the response. If additional items exist beyond the maximum that you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, it defaults to 100. Note that IAM might return fewer results, even when more results are available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lutMaxItems :: Lens' ListUserTags (Maybe Natural)
-lutMaxItems = lens _lutMaxItems (\s a -> s {_lutMaxItems = a}) . mapping _Nat
+-- | (Optional) Use this only when paginating results to indicate the maximum
+-- number of items that you want in the response. If additional items exist
+-- beyond the maximum that you specify, the @IsTruncated@ response element
+-- is @true@.
+--
+-- If you do not include this parameter, it defaults to 100. Note that IAM
+-- might return fewer results, even when more results are available. In
+-- that case, the @IsTruncated@ response element returns @true@, and
+-- @Marker@ contains a value to include in the subsequent call that tells
+-- the service where to continue from.
+listUserTags_maxItems :: Lens.Lens' ListUserTags (Prelude.Maybe Prelude.Natural)
+listUserTags_maxItems = Lens.lens (\ListUserTags' {maxItems} -> maxItems) (\s@ListUserTags' {} a -> s {maxItems = a} :: ListUserTags) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lutMarker :: Lens' ListUserTags (Maybe Text)
-lutMarker = lens _lutMarker (\s a -> s {_lutMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listUserTags_marker :: Lens.Lens' ListUserTags (Prelude.Maybe Prelude.Text)
+listUserTags_marker = Lens.lens (\ListUserTags' {marker} -> marker) (\s@ListUserTags' {} a -> s {marker = a} :: ListUserTags)
 
--- | The name of the IAM user whose tags you want to see. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-lutUserName :: Lens' ListUserTags Text
-lutUserName = lens _lutUserName (\s a -> s {_lutUserName = a})
+-- | The name of the IAM user whose tags you want to see.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+listUserTags_userName :: Lens.Lens' ListUserTags Prelude.Text
+listUserTags_userName = Lens.lens (\ListUserTags' {userName} -> userName) (\s@ListUserTags' {} a -> s {userName = a} :: ListUserTags)
 
-instance AWSRequest ListUserTags where
+instance Prelude.AWSRequest ListUserTags where
   type Rs ListUserTags = ListUserTagsResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListUserTagsResult"
       ( \s h x ->
           ListUserTagsResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> (x .@? "Tags" .!@ mempty >>= parseXMLList "member")
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "Tags" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListUserTags
+instance Prelude.Hashable ListUserTags
 
-instance NFData ListUserTags
+instance Prelude.NFData ListUserTags
 
-instance ToHeaders ListUserTags where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListUserTags where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListUserTags where
-  toPath = const "/"
+instance Prelude.ToPath ListUserTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListUserTags where
+instance Prelude.ToQuery ListUserTags where
   toQuery ListUserTags' {..} =
-    mconcat
-      [ "Action" =: ("ListUserTags" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "MaxItems" =: _lutMaxItems,
-        "Marker" =: _lutMarker,
-        "UserName" =: _lutUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListUserTags" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker,
+        "UserName" Prelude.=: userName
       ]
 
--- | /See:/ 'listUserTagsResponse' smart constructor.
+-- | /See:/ 'newListUserTagsResponse' smart constructor.
 data ListUserTagsResponse = ListUserTagsResponse'
-  { _lutrrsIsTruncated ::
-      !(Maybe Bool),
-    _lutrrsMarker ::
-      !(Maybe Text),
-    _lutrrsResponseStatus :: !Int,
-    _lutrrsTags :: ![Tag]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can use the @Marker@ request parameter to
+    -- make a subsequent pagination request that retrieves more items. Note
+    -- that IAM might return fewer than the @MaxItems@ number of results even
+    -- when more results are available. Check @IsTruncated@ after every call to
+    -- ensure that you receive all of your results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The list of tags that are currently attached to the user. Each tag
+    -- consists of a key name and an associated value. If no tags are attached
+    -- to the specified resource, the response contains an empty list.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lutrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lutrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listUserTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
 --
--- * 'lutrrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listUserTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'lutrrsTags' - The list of tags that are currently attached to the user. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-listUserTagsResponse ::
-  -- | 'lutrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listUserTagsResponse_httpStatus' - The response's http status code.
+--
+-- 'tags', 'listUserTagsResponse_tags' - The list of tags that are currently attached to the user. Each tag
+-- consists of a key name and an associated value. If no tags are attached
+-- to the specified resource, the response contains an empty list.
+newListUserTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListUserTagsResponse
-listUserTagsResponse pResponseStatus_ =
+newListUserTagsResponse pHttpStatus_ =
   ListUserTagsResponse'
-    { _lutrrsIsTruncated = Nothing,
-      _lutrrsMarker = Nothing,
-      _lutrrsResponseStatus = pResponseStatus_,
-      _lutrrsTags = mempty
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      tags = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can use the @Marker@ request parameter to make a subsequent pagination request that retrieves more items. Note that IAM might return fewer than the @MaxItems@ number of results even when more results are available. Check @IsTruncated@ after every call to ensure that you receive all of your results.
-lutrrsIsTruncated :: Lens' ListUserTagsResponse (Maybe Bool)
-lutrrsIsTruncated = lens _lutrrsIsTruncated (\s a -> s {_lutrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can use the @Marker@ request parameter to
+-- make a subsequent pagination request that retrieves more items. Note
+-- that IAM might return fewer than the @MaxItems@ number of results even
+-- when more results are available. Check @IsTruncated@ after every call to
+-- ensure that you receive all of your results.
+listUserTagsResponse_isTruncated :: Lens.Lens' ListUserTagsResponse (Prelude.Maybe Prelude.Bool)
+listUserTagsResponse_isTruncated = Lens.lens (\ListUserTagsResponse' {isTruncated} -> isTruncated) (\s@ListUserTagsResponse' {} a -> s {isTruncated = a} :: ListUserTagsResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lutrrsMarker :: Lens' ListUserTagsResponse (Maybe Text)
-lutrrsMarker = lens _lutrrsMarker (\s a -> s {_lutrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listUserTagsResponse_marker :: Lens.Lens' ListUserTagsResponse (Prelude.Maybe Prelude.Text)
+listUserTagsResponse_marker = Lens.lens (\ListUserTagsResponse' {marker} -> marker) (\s@ListUserTagsResponse' {} a -> s {marker = a} :: ListUserTagsResponse)
 
--- | -- | The response status code.
-lutrrsResponseStatus :: Lens' ListUserTagsResponse Int
-lutrrsResponseStatus = lens _lutrrsResponseStatus (\s a -> s {_lutrrsResponseStatus = a})
+-- | The response's http status code.
+listUserTagsResponse_httpStatus :: Lens.Lens' ListUserTagsResponse Prelude.Int
+listUserTagsResponse_httpStatus = Lens.lens (\ListUserTagsResponse' {httpStatus} -> httpStatus) (\s@ListUserTagsResponse' {} a -> s {httpStatus = a} :: ListUserTagsResponse)
 
--- | The list of tags that are currently attached to the user. Each tag consists of a key name and an associated value. If no tags are attached to the specified resource, the response contains an empty list.
-lutrrsTags :: Lens' ListUserTagsResponse [Tag]
-lutrrsTags = lens _lutrrsTags (\s a -> s {_lutrrsTags = a}) . _Coerce
+-- | The list of tags that are currently attached to the user. Each tag
+-- consists of a key name and an associated value. If no tags are attached
+-- to the specified resource, the response contains an empty list.
+listUserTagsResponse_tags :: Lens.Lens' ListUserTagsResponse [Tag]
+listUserTagsResponse_tags = Lens.lens (\ListUserTagsResponse' {tags} -> tags) (\s@ListUserTagsResponse' {} a -> s {tags = a} :: ListUserTagsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListUserTagsResponse
+instance Prelude.NFData ListUserTagsResponse

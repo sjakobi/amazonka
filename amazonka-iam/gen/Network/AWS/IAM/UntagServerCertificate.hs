@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,112 +21,145 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tags from the IAM server certificate. For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Removes the specified tags from the IAM server certificate. For more
+-- information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
+--
+-- For certificates in a Region supported by AWS Certificate Manager (ACM),
+-- we recommend that you don\'t use IAM server certificates. Instead, use
+-- ACM to provision, manage, and deploy your server certificates. For more
+-- information about IAM server certificates,
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Working with server certificates>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UntagServerCertificate
   ( -- * Creating a Request
-    untagServerCertificate,
-    UntagServerCertificate,
+    UntagServerCertificate (..),
+    newUntagServerCertificate,
 
     -- * Request Lenses
-    uscServerCertificateName,
-    uscTagKeys,
+    untagServerCertificate_serverCertificateName,
+    untagServerCertificate_tagKeys,
 
     -- * Destructuring the Response
-    untagServerCertificateResponse,
-    UntagServerCertificateResponse,
+    UntagServerCertificateResponse (..),
+    newUntagServerCertificateResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagServerCertificate' smart constructor.
+-- | /See:/ 'newUntagServerCertificate' smart constructor.
 data UntagServerCertificate = UntagServerCertificate'
-  { _uscServerCertificateName ::
-      !Text,
-    _uscTagKeys :: ![Text]
+  { -- | The name of the IAM server certificate from which you want to remove
+    -- tags.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    serverCertificateName :: Prelude.Text,
+    -- | A list of key names as a simple array of strings. The tags with matching
+    -- keys are removed from the specified IAM server certificate.
+    tagKeys :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagServerCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagServerCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uscServerCertificateName' - The name of the IAM server certificate from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uscTagKeys' - A list of key names as a simple array of strings. The tags with matching keys are removed from the specified IAM server certificate.
-untagServerCertificate ::
-  -- | 'uscServerCertificateName'
-  Text ->
+-- 'serverCertificateName', 'untagServerCertificate_serverCertificateName' - The name of the IAM server certificate from which you want to remove
+-- tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+--
+-- 'tagKeys', 'untagServerCertificate_tagKeys' - A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified IAM server certificate.
+newUntagServerCertificate ::
+  -- | 'serverCertificateName'
+  Prelude.Text ->
   UntagServerCertificate
-untagServerCertificate pServerCertificateName_ =
+newUntagServerCertificate pServerCertificateName_ =
   UntagServerCertificate'
-    { _uscServerCertificateName =
+    { serverCertificateName =
         pServerCertificateName_,
-      _uscTagKeys = mempty
+      tagKeys = Prelude.mempty
     }
 
--- | The name of the IAM server certificate from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-uscServerCertificateName :: Lens' UntagServerCertificate Text
-uscServerCertificateName = lens _uscServerCertificateName (\s a -> s {_uscServerCertificateName = a})
+-- | The name of the IAM server certificate from which you want to remove
+-- tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+untagServerCertificate_serverCertificateName :: Lens.Lens' UntagServerCertificate Prelude.Text
+untagServerCertificate_serverCertificateName = Lens.lens (\UntagServerCertificate' {serverCertificateName} -> serverCertificateName) (\s@UntagServerCertificate' {} a -> s {serverCertificateName = a} :: UntagServerCertificate)
 
--- | A list of key names as a simple array of strings. The tags with matching keys are removed from the specified IAM server certificate.
-uscTagKeys :: Lens' UntagServerCertificate [Text]
-uscTagKeys = lens _uscTagKeys (\s a -> s {_uscTagKeys = a}) . _Coerce
+-- | A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified IAM server certificate.
+untagServerCertificate_tagKeys :: Lens.Lens' UntagServerCertificate [Prelude.Text]
+untagServerCertificate_tagKeys = Lens.lens (\UntagServerCertificate' {tagKeys} -> tagKeys) (\s@UntagServerCertificate' {} a -> s {tagKeys = a} :: UntagServerCertificate) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagServerCertificate where
+instance Prelude.AWSRequest UntagServerCertificate where
   type
     Rs UntagServerCertificate =
       UntagServerCertificateResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveNull UntagServerCertificateResponse'
+    Response.receiveNull
+      UntagServerCertificateResponse'
 
-instance Hashable UntagServerCertificate
+instance Prelude.Hashable UntagServerCertificate
 
-instance NFData UntagServerCertificate
+instance Prelude.NFData UntagServerCertificate
 
-instance ToHeaders UntagServerCertificate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagServerCertificate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagServerCertificate where
-  toPath = const "/"
+instance Prelude.ToPath UntagServerCertificate where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagServerCertificate where
+instance Prelude.ToQuery UntagServerCertificate where
   toQuery UntagServerCertificate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("UntagServerCertificate" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "ServerCertificateName" =: _uscServerCertificateName,
-        "TagKeys" =: toQueryList "member" _uscTagKeys
+          Prelude.=: ("UntagServerCertificate" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "ServerCertificateName"
+          Prelude.=: serverCertificateName,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]
 
--- | /See:/ 'untagServerCertificateResponse' smart constructor.
+-- | /See:/ 'newUntagServerCertificateResponse' smart constructor.
 data UntagServerCertificateResponse = UntagServerCertificateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagServerCertificateResponse' with the minimum fields required to make a request.
-untagServerCertificateResponse ::
+-- |
+-- Create a value of 'UntagServerCertificateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagServerCertificateResponse ::
   UntagServerCertificateResponse
-untagServerCertificateResponse =
+newUntagServerCertificateResponse =
   UntagServerCertificateResponse'
 
-instance NFData UntagServerCertificateResponse
+instance
+  Prelude.NFData
+    UntagServerCertificateResponse

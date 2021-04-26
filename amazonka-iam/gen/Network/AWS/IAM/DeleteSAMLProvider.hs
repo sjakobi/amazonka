@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,101 +23,104 @@
 --
 -- Deletes a SAML provider resource in IAM.
 --
+-- Deleting the provider resource from IAM does not update any roles that
+-- reference the SAML provider resource\'s ARN as a principal in their
+-- trust policies. Any attempt to assume a role that references a
+-- non-existent provider resource ARN fails.
 --
--- Deleting the provider resource from IAM does not update any roles that reference the SAML provider resource's ARN as a principal in their trust policies. Any attempt to assume a role that references a non-existent provider resource ARN fails.
+-- This operation requires
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4>.
 module Network.AWS.IAM.DeleteSAMLProvider
   ( -- * Creating a Request
-    deleteSAMLProvider,
-    DeleteSAMLProvider,
+    DeleteSAMLProvider (..),
+    newDeleteSAMLProvider,
 
     -- * Request Lenses
-    dsamlpSAMLProviderARN,
+    deleteSAMLProvider_sAMLProviderArn,
 
     -- * Destructuring the Response
-    deleteSAMLProviderResponse,
-    DeleteSAMLProviderResponse,
+    DeleteSAMLProviderResponse (..),
+    newDeleteSAMLProviderResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSAMLProvider' smart constructor.
-newtype DeleteSAMLProvider = DeleteSAMLProvider'
-  { _dsamlpSAMLProviderARN ::
-      Text
+-- | /See:/ 'newDeleteSAMLProvider' smart constructor.
+data DeleteSAMLProvider = DeleteSAMLProvider'
+  { -- | The Amazon Resource Name (ARN) of the SAML provider to delete.
+    sAMLProviderArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSAMLProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSAMLProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsamlpSAMLProviderARN' - The Amazon Resource Name (ARN) of the SAML provider to delete.
-deleteSAMLProvider ::
-  -- | 'dsamlpSAMLProviderARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'sAMLProviderArn', 'deleteSAMLProvider_sAMLProviderArn' - The Amazon Resource Name (ARN) of the SAML provider to delete.
+newDeleteSAMLProvider ::
+  -- | 'sAMLProviderArn'
+  Prelude.Text ->
   DeleteSAMLProvider
-deleteSAMLProvider pSAMLProviderARN_ =
+newDeleteSAMLProvider pSAMLProviderArn_ =
   DeleteSAMLProvider'
-    { _dsamlpSAMLProviderARN =
-        pSAMLProviderARN_
+    { sAMLProviderArn =
+        pSAMLProviderArn_
     }
 
 -- | The Amazon Resource Name (ARN) of the SAML provider to delete.
-dsamlpSAMLProviderARN :: Lens' DeleteSAMLProvider Text
-dsamlpSAMLProviderARN = lens _dsamlpSAMLProviderARN (\s a -> s {_dsamlpSAMLProviderARN = a})
+deleteSAMLProvider_sAMLProviderArn :: Lens.Lens' DeleteSAMLProvider Prelude.Text
+deleteSAMLProvider_sAMLProviderArn = Lens.lens (\DeleteSAMLProvider' {sAMLProviderArn} -> sAMLProviderArn) (\s@DeleteSAMLProvider' {} a -> s {sAMLProviderArn = a} :: DeleteSAMLProvider)
 
-instance AWSRequest DeleteSAMLProvider where
+instance Prelude.AWSRequest DeleteSAMLProvider where
   type
     Rs DeleteSAMLProvider =
       DeleteSAMLProviderResponse
-  request = postQuery iam
-  response = receiveNull DeleteSAMLProviderResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteSAMLProviderResponse'
 
-instance Hashable DeleteSAMLProvider
+instance Prelude.Hashable DeleteSAMLProvider
 
-instance NFData DeleteSAMLProvider
+instance Prelude.NFData DeleteSAMLProvider
 
-instance ToHeaders DeleteSAMLProvider where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteSAMLProvider where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteSAMLProvider where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSAMLProvider where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSAMLProvider where
+instance Prelude.ToQuery DeleteSAMLProvider where
   toQuery DeleteSAMLProvider' {..} =
-    mconcat
-      [ "Action" =: ("DeleteSAMLProvider" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "SAMLProviderArn" =: _dsamlpSAMLProviderARN
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteSAMLProvider" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "SAMLProviderArn" Prelude.=: sAMLProviderArn
       ]
 
--- | /See:/ 'deleteSAMLProviderResponse' smart constructor.
+-- | /See:/ 'newDeleteSAMLProviderResponse' smart constructor.
 data DeleteSAMLProviderResponse = DeleteSAMLProviderResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSAMLProviderResponse' with the minimum fields required to make a request.
-deleteSAMLProviderResponse ::
+-- |
+-- Create a value of 'DeleteSAMLProviderResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteSAMLProviderResponse ::
   DeleteSAMLProviderResponse
-deleteSAMLProviderResponse =
+newDeleteSAMLProviderResponse =
   DeleteSAMLProviderResponse'
 
-instance NFData DeleteSAMLProviderResponse
+instance Prelude.NFData DeleteSAMLProviderResponse

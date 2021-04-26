@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,261 +21,364 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves information about all IAM users, groups, roles, and policies in your AWS account, including their relationships to one another. Use this operation to obtain a snapshot of the configuration of IAM permissions (users, groups, roles, and policies) in your account.
+-- Retrieves information about all IAM users, groups, roles, and policies
+-- in your AWS account, including their relationships to one another. Use
+-- this operation to obtain a snapshot of the configuration of IAM
+-- permissions (users, groups, roles, and policies) in your account.
 --
+-- Policies returned by this operation are URL-encoded compliant with
+-- <https://tools.ietf.org/html/rfc3986 RFC 3986>. You can use a URL
+-- decoding method to convert the policy back to plain JSON text. For
+-- example, if you use Java, you can use the @decode@ method of the
+-- @java.net.URLDecoder@ utility class in the Java SDK. Other languages and
+-- SDKs provide similar functionality.
 --
--- You can optionally filter the results using the @Filter@ parameter. You can paginate the results using the @MaxItems@ and @Marker@ parameters.
---
+-- You can optionally filter the results using the @Filter@ parameter. You
+-- can paginate the results using the @MaxItems@ and @Marker@ parameters.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.GetAccountAuthorizationDetails
   ( -- * Creating a Request
-    getAccountAuthorizationDetails,
-    GetAccountAuthorizationDetails,
+    GetAccountAuthorizationDetails (..),
+    newGetAccountAuthorizationDetails,
 
     -- * Request Lenses
-    gaadFilter,
-    gaadMaxItems,
-    gaadMarker,
+    getAccountAuthorizationDetails_filter,
+    getAccountAuthorizationDetails_maxItems,
+    getAccountAuthorizationDetails_marker,
 
     -- * Destructuring the Response
-    getAccountAuthorizationDetailsResponse,
-    GetAccountAuthorizationDetailsResponse,
+    GetAccountAuthorizationDetailsResponse (..),
+    newGetAccountAuthorizationDetailsResponse,
 
     -- * Response Lenses
-    gaadrrsRoleDetailList,
-    gaadrrsGroupDetailList,
-    gaadrrsPolicies,
-    gaadrrsIsTruncated,
-    gaadrrsUserDetailList,
-    gaadrrsMarker,
-    gaadrrsResponseStatus,
+    getAccountAuthorizationDetailsResponse_roleDetailList,
+    getAccountAuthorizationDetailsResponse_groupDetailList,
+    getAccountAuthorizationDetailsResponse_policies,
+    getAccountAuthorizationDetailsResponse_isTruncated,
+    getAccountAuthorizationDetailsResponse_userDetailList,
+    getAccountAuthorizationDetailsResponse_marker,
+    getAccountAuthorizationDetailsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.GroupDetail
+import Network.AWS.IAM.Types.ManagedPolicyDetail
+import Network.AWS.IAM.Types.RoleDetail
+import Network.AWS.IAM.Types.UserDetail
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getAccountAuthorizationDetails' smart constructor.
+-- | /See:/ 'newGetAccountAuthorizationDetails' smart constructor.
 data GetAccountAuthorizationDetails = GetAccountAuthorizationDetails'
-  { _gaadFilter ::
-      !( Maybe
-           [EntityType]
-       ),
-    _gaadMaxItems ::
-      !( Maybe
-           Nat
-       ),
-    _gaadMarker ::
-      !( Maybe
-           Text
-       )
+  { -- | A list of entity types used to filter the results. Only the entities
+    -- that match the types you specify are included in the output. Use the
+    -- value @LocalManagedPolicy@ to include customer managed policies.
+    --
+    -- The format for this parameter is a comma-separated (if more than one)
+    -- list of strings. Each string value in the list must be one of the valid
+    -- values listed below.
+    filter' :: Prelude.Maybe [EntityType],
+    -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountAuthorizationDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccountAuthorizationDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaadFilter' - A list of entity types used to filter the results. Only the entities that match the types you specify are included in the output. Use the value @LocalManagedPolicy@ to include customer managed policies. The format for this parameter is a comma-separated (if more than one) list of strings. Each string value in the list must be one of the valid values listed below.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaadMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- 'filter'', 'getAccountAuthorizationDetails_filter' - A list of entity types used to filter the results. Only the entities
+-- that match the types you specify are included in the output. Use the
+-- value @LocalManagedPolicy@ to include customer managed policies.
 --
--- * 'gaadMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-getAccountAuthorizationDetails ::
+-- The format for this parameter is a comma-separated (if more than one)
+-- list of strings. Each string value in the list must be one of the valid
+-- values listed below.
+--
+-- 'maxItems', 'getAccountAuthorizationDetails_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'getAccountAuthorizationDetails_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+newGetAccountAuthorizationDetails ::
   GetAccountAuthorizationDetails
-getAccountAuthorizationDetails =
+newGetAccountAuthorizationDetails =
   GetAccountAuthorizationDetails'
-    { _gaadFilter =
-        Nothing,
-      _gaadMaxItems = Nothing,
-      _gaadMarker = Nothing
+    { filter' =
+        Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | A list of entity types used to filter the results. Only the entities that match the types you specify are included in the output. Use the value @LocalManagedPolicy@ to include customer managed policies. The format for this parameter is a comma-separated (if more than one) list of strings. Each string value in the list must be one of the valid values listed below.
-gaadFilter :: Lens' GetAccountAuthorizationDetails [EntityType]
-gaadFilter = lens _gaadFilter (\s a -> s {_gaadFilter = a}) . _Default . _Coerce
+-- | A list of entity types used to filter the results. Only the entities
+-- that match the types you specify are included in the output. Use the
+-- value @LocalManagedPolicy@ to include customer managed policies.
+--
+-- The format for this parameter is a comma-separated (if more than one)
+-- list of strings. Each string value in the list must be one of the valid
+-- values listed below.
+getAccountAuthorizationDetails_filter :: Lens.Lens' GetAccountAuthorizationDetails (Prelude.Maybe [EntityType])
+getAccountAuthorizationDetails_filter = Lens.lens (\GetAccountAuthorizationDetails' {filter'} -> filter') (\s@GetAccountAuthorizationDetails' {} a -> s {filter' = a} :: GetAccountAuthorizationDetails) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-gaadMaxItems :: Lens' GetAccountAuthorizationDetails (Maybe Natural)
-gaadMaxItems = lens _gaadMaxItems (\s a -> s {_gaadMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+getAccountAuthorizationDetails_maxItems :: Lens.Lens' GetAccountAuthorizationDetails (Prelude.Maybe Prelude.Natural)
+getAccountAuthorizationDetails_maxItems = Lens.lens (\GetAccountAuthorizationDetails' {maxItems} -> maxItems) (\s@GetAccountAuthorizationDetails' {} a -> s {maxItems = a} :: GetAccountAuthorizationDetails) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-gaadMarker :: Lens' GetAccountAuthorizationDetails (Maybe Text)
-gaadMarker = lens _gaadMarker (\s a -> s {_gaadMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+getAccountAuthorizationDetails_marker :: Lens.Lens' GetAccountAuthorizationDetails (Prelude.Maybe Prelude.Text)
+getAccountAuthorizationDetails_marker = Lens.lens (\GetAccountAuthorizationDetails' {marker} -> marker) (\s@GetAccountAuthorizationDetails' {} a -> s {marker = a} :: GetAccountAuthorizationDetails)
 
-instance AWSPager GetAccountAuthorizationDetails where
+instance
+  Pager.AWSPager
+    GetAccountAuthorizationDetails
+  where
   page rq rs
-    | stop (rs ^. gaadrrsIsTruncated) = Nothing
-    | isNothing (rs ^. gaadrrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & gaadMarker .~ rs ^. gaadrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? getAccountAuthorizationDetailsResponse_isTruncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? getAccountAuthorizationDetailsResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getAccountAuthorizationDetails_marker
+          Lens..~ rs
+          Lens.^? getAccountAuthorizationDetailsResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest GetAccountAuthorizationDetails where
+instance
+  Prelude.AWSRequest
+    GetAccountAuthorizationDetails
+  where
   type
     Rs GetAccountAuthorizationDetails =
       GetAccountAuthorizationDetailsResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetAccountAuthorizationDetailsResult"
       ( \s h x ->
           GetAccountAuthorizationDetailsResponse'
-            <$> ( x .@? "RoleDetailList" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> ( x .@? "GroupDetailList" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> ( x .@? "Policies" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "IsTruncated")
-            <*> ( x .@? "UserDetailList" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "RoleDetailList"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> ( x Prelude..@? "GroupDetailList"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> ( x Prelude..@? "Policies" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "IsTruncated")
+            Prelude.<*> ( x Prelude..@? "UserDetailList"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAccountAuthorizationDetails
+instance
+  Prelude.Hashable
+    GetAccountAuthorizationDetails
 
-instance NFData GetAccountAuthorizationDetails
+instance
+  Prelude.NFData
+    GetAccountAuthorizationDetails
 
-instance ToHeaders GetAccountAuthorizationDetails where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    GetAccountAuthorizationDetails
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetAccountAuthorizationDetails where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    GetAccountAuthorizationDetails
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAccountAuthorizationDetails where
+instance
+  Prelude.ToQuery
+    GetAccountAuthorizationDetails
+  where
   toQuery GetAccountAuthorizationDetails' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("GetAccountAuthorizationDetails" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
+          Prelude.=: ( "GetAccountAuthorizationDetails" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
         "Filter"
-          =: toQuery (toQueryList "member" <$> _gaadFilter),
-        "MaxItems" =: _gaadMaxItems,
-        "Marker" =: _gaadMarker
+          Prelude.=: Prelude.toQuery
+            (Prelude.toQueryList "member" Prelude.<$> filter'),
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | Contains the response to a successful 'GetAccountAuthorizationDetails' request.
+-- | Contains the response to a successful GetAccountAuthorizationDetails
+-- request.
 --
---
---
--- /See:/ 'getAccountAuthorizationDetailsResponse' smart constructor.
+-- /See:/ 'newGetAccountAuthorizationDetailsResponse' smart constructor.
 data GetAccountAuthorizationDetailsResponse = GetAccountAuthorizationDetailsResponse'
-  { _gaadrrsRoleDetailList ::
-      !( Maybe
-           [RoleDetail]
-       ),
-    _gaadrrsGroupDetailList ::
-      !( Maybe
-           [GroupDetail]
-       ),
-    _gaadrrsPolicies ::
-      !( Maybe
-           [ManagedPolicyDetail]
-       ),
-    _gaadrrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _gaadrrsUserDetailList ::
-      !( Maybe
-           [UserDetail]
-       ),
-    _gaadrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _gaadrrsResponseStatus ::
-      !Int
+  { -- | A list containing information about IAM roles.
+    roleDetailList :: Prelude.Maybe [RoleDetail],
+    -- | A list containing information about IAM groups.
+    groupDetailList :: Prelude.Maybe [GroupDetail],
+    -- | A list containing information about managed policies.
+    policies :: Prelude.Maybe [ManagedPolicyDetail],
+    -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | A list containing information about IAM users.
+    userDetailList :: Prelude.Maybe [UserDetail],
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountAuthorizationDetailsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccountAuthorizationDetailsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaadrrsRoleDetailList' - A list containing information about IAM roles.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaadrrsGroupDetailList' - A list containing information about IAM groups.
+-- 'roleDetailList', 'getAccountAuthorizationDetailsResponse_roleDetailList' - A list containing information about IAM roles.
 --
--- * 'gaadrrsPolicies' - A list containing information about managed policies.
+-- 'groupDetailList', 'getAccountAuthorizationDetailsResponse_groupDetailList' - A list containing information about IAM groups.
 --
--- * 'gaadrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- 'policies', 'getAccountAuthorizationDetailsResponse_policies' - A list containing information about managed policies.
 --
--- * 'gaadrrsUserDetailList' - A list containing information about IAM users.
+-- 'isTruncated', 'getAccountAuthorizationDetailsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'gaadrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'userDetailList', 'getAccountAuthorizationDetailsResponse_userDetailList' - A list containing information about IAM users.
 --
--- * 'gaadrrsResponseStatus' - -- | The response status code.
-getAccountAuthorizationDetailsResponse ::
-  -- | 'gaadrrsResponseStatus'
-  Int ->
+-- 'marker', 'getAccountAuthorizationDetailsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+--
+-- 'httpStatus', 'getAccountAuthorizationDetailsResponse_httpStatus' - The response's http status code.
+newGetAccountAuthorizationDetailsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAccountAuthorizationDetailsResponse
-getAccountAuthorizationDetailsResponse
-  pResponseStatus_ =
+newGetAccountAuthorizationDetailsResponse
+  pHttpStatus_ =
     GetAccountAuthorizationDetailsResponse'
-      { _gaadrrsRoleDetailList =
-          Nothing,
-        _gaadrrsGroupDetailList = Nothing,
-        _gaadrrsPolicies = Nothing,
-        _gaadrrsIsTruncated = Nothing,
-        _gaadrrsUserDetailList = Nothing,
-        _gaadrrsMarker = Nothing,
-        _gaadrrsResponseStatus =
-          pResponseStatus_
+      { roleDetailList =
+          Prelude.Nothing,
+        groupDetailList = Prelude.Nothing,
+        policies = Prelude.Nothing,
+        isTruncated = Prelude.Nothing,
+        userDetailList = Prelude.Nothing,
+        marker = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | A list containing information about IAM roles.
-gaadrrsRoleDetailList :: Lens' GetAccountAuthorizationDetailsResponse [RoleDetail]
-gaadrrsRoleDetailList = lens _gaadrrsRoleDetailList (\s a -> s {_gaadrrsRoleDetailList = a}) . _Default . _Coerce
+getAccountAuthorizationDetailsResponse_roleDetailList :: Lens.Lens' GetAccountAuthorizationDetailsResponse (Prelude.Maybe [RoleDetail])
+getAccountAuthorizationDetailsResponse_roleDetailList = Lens.lens (\GetAccountAuthorizationDetailsResponse' {roleDetailList} -> roleDetailList) (\s@GetAccountAuthorizationDetailsResponse' {} a -> s {roleDetailList = a} :: GetAccountAuthorizationDetailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list containing information about IAM groups.
-gaadrrsGroupDetailList :: Lens' GetAccountAuthorizationDetailsResponse [GroupDetail]
-gaadrrsGroupDetailList = lens _gaadrrsGroupDetailList (\s a -> s {_gaadrrsGroupDetailList = a}) . _Default . _Coerce
+getAccountAuthorizationDetailsResponse_groupDetailList :: Lens.Lens' GetAccountAuthorizationDetailsResponse (Prelude.Maybe [GroupDetail])
+getAccountAuthorizationDetailsResponse_groupDetailList = Lens.lens (\GetAccountAuthorizationDetailsResponse' {groupDetailList} -> groupDetailList) (\s@GetAccountAuthorizationDetailsResponse' {} a -> s {groupDetailList = a} :: GetAccountAuthorizationDetailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list containing information about managed policies.
-gaadrrsPolicies :: Lens' GetAccountAuthorizationDetailsResponse [ManagedPolicyDetail]
-gaadrrsPolicies = lens _gaadrrsPolicies (\s a -> s {_gaadrrsPolicies = a}) . _Default . _Coerce
+getAccountAuthorizationDetailsResponse_policies :: Lens.Lens' GetAccountAuthorizationDetailsResponse (Prelude.Maybe [ManagedPolicyDetail])
+getAccountAuthorizationDetailsResponse_policies = Lens.lens (\GetAccountAuthorizationDetailsResponse' {policies} -> policies) (\s@GetAccountAuthorizationDetailsResponse' {} a -> s {policies = a} :: GetAccountAuthorizationDetailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-gaadrrsIsTruncated :: Lens' GetAccountAuthorizationDetailsResponse (Maybe Bool)
-gaadrrsIsTruncated = lens _gaadrrsIsTruncated (\s a -> s {_gaadrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+getAccountAuthorizationDetailsResponse_isTruncated :: Lens.Lens' GetAccountAuthorizationDetailsResponse (Prelude.Maybe Prelude.Bool)
+getAccountAuthorizationDetailsResponse_isTruncated = Lens.lens (\GetAccountAuthorizationDetailsResponse' {isTruncated} -> isTruncated) (\s@GetAccountAuthorizationDetailsResponse' {} a -> s {isTruncated = a} :: GetAccountAuthorizationDetailsResponse)
 
 -- | A list containing information about IAM users.
-gaadrrsUserDetailList :: Lens' GetAccountAuthorizationDetailsResponse [UserDetail]
-gaadrrsUserDetailList = lens _gaadrrsUserDetailList (\s a -> s {_gaadrrsUserDetailList = a}) . _Default . _Coerce
+getAccountAuthorizationDetailsResponse_userDetailList :: Lens.Lens' GetAccountAuthorizationDetailsResponse (Prelude.Maybe [UserDetail])
+getAccountAuthorizationDetailsResponse_userDetailList = Lens.lens (\GetAccountAuthorizationDetailsResponse' {userDetailList} -> userDetailList) (\s@GetAccountAuthorizationDetailsResponse' {} a -> s {userDetailList = a} :: GetAccountAuthorizationDetailsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-gaadrrsMarker :: Lens' GetAccountAuthorizationDetailsResponse (Maybe Text)
-gaadrrsMarker = lens _gaadrrsMarker (\s a -> s {_gaadrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+getAccountAuthorizationDetailsResponse_marker :: Lens.Lens' GetAccountAuthorizationDetailsResponse (Prelude.Maybe Prelude.Text)
+getAccountAuthorizationDetailsResponse_marker = Lens.lens (\GetAccountAuthorizationDetailsResponse' {marker} -> marker) (\s@GetAccountAuthorizationDetailsResponse' {} a -> s {marker = a} :: GetAccountAuthorizationDetailsResponse)
 
--- | -- | The response status code.
-gaadrrsResponseStatus :: Lens' GetAccountAuthorizationDetailsResponse Int
-gaadrrsResponseStatus = lens _gaadrrsResponseStatus (\s a -> s {_gaadrrsResponseStatus = a})
+-- | The response's http status code.
+getAccountAuthorizationDetailsResponse_httpStatus :: Lens.Lens' GetAccountAuthorizationDetailsResponse Prelude.Int
+getAccountAuthorizationDetailsResponse_httpStatus = Lens.lens (\GetAccountAuthorizationDetailsResponse' {httpStatus} -> httpStatus) (\s@GetAccountAuthorizationDetailsResponse' {} a -> s {httpStatus = a} :: GetAccountAuthorizationDetailsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetAccountAuthorizationDetailsResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,87 +20,101 @@
 module Network.AWS.IAM.Types.EntityInfo where
 
 import Network.AWS.IAM.Types.PolicyOwnerEntityType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains details about the specified entity (user or role).
 --
+-- This data type is an element of the EntityDetails object.
 --
--- This data type is an element of the 'EntityDetails' object.
---
---
--- /See:/ 'entityInfo' smart constructor.
+-- /See:/ 'newEntityInfo' smart constructor.
 data EntityInfo = EntityInfo'
-  { _eiPath ::
-      !(Maybe Text),
-    _eiARN :: !Text,
-    _eiName :: !Text,
-    _eiType :: !PolicyOwnerEntityType,
-    _eiId :: !Text
+  { -- | The path to the entity (user or role). For more information about paths,
+    -- see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    path :: Prelude.Maybe Prelude.Text,
+    arn :: Prelude.Text,
+    -- | The name of the entity (user or role).
+    name :: Prelude.Text,
+    -- | The type of entity (user or role).
+    type' :: PolicyOwnerEntityType,
+    -- | The identifier of the entity (user or role).
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EntityInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EntityInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eiPath' - The path to the entity (user or role). For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eiARN' - Undocumented member.
+-- 'path', 'entityInfo_path' - The path to the entity (user or role). For more information about paths,
+-- see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
 --
--- * 'eiName' - The name of the entity (user or role).
+-- 'arn', 'entityInfo_arn' - Undocumented member.
 --
--- * 'eiType' - The type of entity (user or role).
+-- 'name', 'entityInfo_name' - The name of the entity (user or role).
 --
--- * 'eiId' - The identifier of the entity (user or role).
-entityInfo ::
-  -- | 'eiARN'
-  Text ->
-  -- | 'eiName'
-  Text ->
-  -- | 'eiType'
+-- 'type'', 'entityInfo_type' - The type of entity (user or role).
+--
+-- 'id', 'entityInfo_id' - The identifier of the entity (user or role).
+newEntityInfo ::
+  -- | 'arn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   PolicyOwnerEntityType ->
-  -- | 'eiId'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
   EntityInfo
-entityInfo pARN_ pName_ pType_ pId_ =
+newEntityInfo pArn_ pName_ pType_ pId_ =
   EntityInfo'
-    { _eiPath = Nothing,
-      _eiARN = pARN_,
-      _eiName = pName_,
-      _eiType = pType_,
-      _eiId = pId_
+    { path = Prelude.Nothing,
+      arn = pArn_,
+      name = pName_,
+      type' = pType_,
+      id = pId_
     }
 
--- | The path to the entity (user or role). For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-eiPath :: Lens' EntityInfo (Maybe Text)
-eiPath = lens _eiPath (\s a -> s {_eiPath = a})
+-- | The path to the entity (user or role). For more information about paths,
+-- see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+entityInfo_path :: Lens.Lens' EntityInfo (Prelude.Maybe Prelude.Text)
+entityInfo_path = Lens.lens (\EntityInfo' {path} -> path) (\s@EntityInfo' {} a -> s {path = a} :: EntityInfo)
 
 -- | Undocumented member.
-eiARN :: Lens' EntityInfo Text
-eiARN = lens _eiARN (\s a -> s {_eiARN = a})
+entityInfo_arn :: Lens.Lens' EntityInfo Prelude.Text
+entityInfo_arn = Lens.lens (\EntityInfo' {arn} -> arn) (\s@EntityInfo' {} a -> s {arn = a} :: EntityInfo)
 
 -- | The name of the entity (user or role).
-eiName :: Lens' EntityInfo Text
-eiName = lens _eiName (\s a -> s {_eiName = a})
+entityInfo_name :: Lens.Lens' EntityInfo Prelude.Text
+entityInfo_name = Lens.lens (\EntityInfo' {name} -> name) (\s@EntityInfo' {} a -> s {name = a} :: EntityInfo)
 
 -- | The type of entity (user or role).
-eiType :: Lens' EntityInfo PolicyOwnerEntityType
-eiType = lens _eiType (\s a -> s {_eiType = a})
+entityInfo_type :: Lens.Lens' EntityInfo PolicyOwnerEntityType
+entityInfo_type = Lens.lens (\EntityInfo' {type'} -> type') (\s@EntityInfo' {} a -> s {type' = a} :: EntityInfo)
 
 -- | The identifier of the entity (user or role).
-eiId :: Lens' EntityInfo Text
-eiId = lens _eiId (\s a -> s {_eiId = a})
+entityInfo_id :: Lens.Lens' EntityInfo Prelude.Text
+entityInfo_id = Lens.lens (\EntityInfo' {id} -> id) (\s@EntityInfo' {} a -> s {id = a} :: EntityInfo)
 
-instance FromXML EntityInfo where
+instance Prelude.FromXML EntityInfo where
   parseXML x =
     EntityInfo'
-      <$> (x .@? "Path")
-      <*> (x .@ "Arn")
-      <*> (x .@ "Name")
-      <*> (x .@ "Type")
-      <*> (x .@ "Id")
+      Prelude.<$> (x Prelude..@? "Path")
+      Prelude.<*> (x Prelude..@ "Arn")
+      Prelude.<*> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "Type")
+      Prelude.<*> (x Prelude..@ "Id")
 
-instance Hashable EntityInfo
+instance Prelude.Hashable EntityInfo
 
-instance NFData EntityInfo
+instance Prelude.NFData EntityInfo

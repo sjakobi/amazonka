@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,62 @@
 module Network.AWS.IAM.Types.SortKeyType
   ( SortKeyType
       ( ..,
-        LastAuthenticatedTimeAscending,
-        LastAuthenticatedTimeDescending,
-        ServiceNamespaceAscending,
-        ServiceNamespaceDescending
+        SortKeyTypeLASTAUTHENTICATEDTIMEASCENDING,
+        SortKeyTypeLASTAUTHENTICATEDTIMEDESCENDING,
+        SortKeyTypeSERVICENAMESPACEASCENDING,
+        SortKeyTypeSERVICENAMESPACEDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortKeyType = SortKeyType' (CI Text)
+newtype SortKeyType = SortKeyType'
+  { fromSortKeyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern LastAuthenticatedTimeAscending :: SortKeyType
-pattern LastAuthenticatedTimeAscending = SortKeyType' "LAST_AUTHENTICATED_TIME_ASCENDING"
+pattern SortKeyTypeLASTAUTHENTICATEDTIMEASCENDING :: SortKeyType
+pattern SortKeyTypeLASTAUTHENTICATEDTIMEASCENDING = SortKeyType' "LAST_AUTHENTICATED_TIME_ASCENDING"
 
-pattern LastAuthenticatedTimeDescending :: SortKeyType
-pattern LastAuthenticatedTimeDescending = SortKeyType' "LAST_AUTHENTICATED_TIME_DESCENDING"
+pattern SortKeyTypeLASTAUTHENTICATEDTIMEDESCENDING :: SortKeyType
+pattern SortKeyTypeLASTAUTHENTICATEDTIMEDESCENDING = SortKeyType' "LAST_AUTHENTICATED_TIME_DESCENDING"
 
-pattern ServiceNamespaceAscending :: SortKeyType
-pattern ServiceNamespaceAscending = SortKeyType' "SERVICE_NAMESPACE_ASCENDING"
+pattern SortKeyTypeSERVICENAMESPACEASCENDING :: SortKeyType
+pattern SortKeyTypeSERVICENAMESPACEASCENDING = SortKeyType' "SERVICE_NAMESPACE_ASCENDING"
 
-pattern ServiceNamespaceDescending :: SortKeyType
-pattern ServiceNamespaceDescending = SortKeyType' "SERVICE_NAMESPACE_DESCENDING"
+pattern SortKeyTypeSERVICENAMESPACEDESCENDING :: SortKeyType
+pattern SortKeyTypeSERVICENAMESPACEDESCENDING = SortKeyType' "SERVICE_NAMESPACE_DESCENDING"
 
 {-# COMPLETE
-  LastAuthenticatedTimeAscending,
-  LastAuthenticatedTimeDescending,
-  ServiceNamespaceAscending,
-  ServiceNamespaceDescending,
+  SortKeyTypeLASTAUTHENTICATEDTIMEASCENDING,
+  SortKeyTypeLASTAUTHENTICATEDTIMEDESCENDING,
+  SortKeyTypeSERVICENAMESPACEASCENDING,
+  SortKeyTypeSERVICENAMESPACEDESCENDING,
   SortKeyType'
   #-}
 
-instance FromText SortKeyType where
-  parser = (SortKeyType' . mk) <$> takeText
+instance Prelude.FromText SortKeyType where
+  parser = SortKeyType' Prelude.<$> Prelude.takeText
 
-instance ToText SortKeyType where
-  toText (SortKeyType' ci) = original ci
+instance Prelude.ToText SortKeyType where
+  toText (SortKeyType' x) = x
 
-instance Hashable SortKeyType
+instance Prelude.Hashable SortKeyType
 
-instance NFData SortKeyType
+instance Prelude.NFData SortKeyType
 
-instance ToByteString SortKeyType
+instance Prelude.ToByteString SortKeyType
 
-instance ToQuery SortKeyType
+instance Prelude.ToQuery SortKeyType
 
-instance ToHeader SortKeyType
+instance Prelude.ToHeader SortKeyType

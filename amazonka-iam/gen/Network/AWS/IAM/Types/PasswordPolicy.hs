@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,128 +19,166 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.PasswordPolicy where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about the account password policy.
 --
+-- This data type is used as a response element in the
+-- GetAccountPasswordPolicy operation.
 --
--- This data type is used as a response element in the 'GetAccountPasswordPolicy' operation.
---
---
--- /See:/ 'passwordPolicy' smart constructor.
+-- /See:/ 'newPasswordPolicy' smart constructor.
 data PasswordPolicy = PasswordPolicy'
-  { _ppMaxPasswordAge ::
-      !(Maybe Nat),
-    _ppRequireLowercaseCharacters ::
-      !(Maybe Bool),
-    _ppMinimumPasswordLength :: !(Maybe Nat),
-    _ppPasswordReusePrevention ::
-      !(Maybe Nat),
-    _ppExpirePasswords :: !(Maybe Bool),
-    _ppRequireUppercaseCharacters ::
-      !(Maybe Bool),
-    _ppAllowUsersToChangePassword ::
-      !(Maybe Bool),
-    _ppHardExpiry :: !(Maybe Bool),
-    _ppRequireSymbols :: !(Maybe Bool),
-    _ppRequireNumbers :: !(Maybe Bool)
+  { -- | The number of days that an IAM user password is valid.
+    maxPasswordAge :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies whether IAM user passwords must contain at least one lowercase
+    -- character (a to z).
+    requireLowercaseCharacters :: Prelude.Maybe Prelude.Bool,
+    -- | Minimum length to require for IAM user passwords.
+    minimumPasswordLength :: Prelude.Maybe Prelude.Nat,
+    -- | Specifies the number of previous passwords that IAM users are prevented
+    -- from reusing.
+    passwordReusePrevention :: Prelude.Maybe Prelude.Nat,
+    -- | Indicates whether passwords in the account expire. Returns true if
+    -- @MaxPasswordAge@ contains a value greater than 0. Returns false if
+    -- MaxPasswordAge is 0 or not present.
+    expirePasswords :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether IAM user passwords must contain at least one uppercase
+    -- character (A to Z).
+    requireUppercaseCharacters :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether IAM users are allowed to change their own password.
+    allowUsersToChangePassword :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether IAM users are prevented from setting a new password
+    -- after their password has expired.
+    hardExpiry :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether IAM user passwords must contain at least one of the
+    -- following symbols:
+    --
+    -- ! \@ # $ % ^ & * ( ) _ + - = [ ] { } | \'
+    requireSymbols :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether IAM user passwords must contain at least one numeric
+    -- character (0 to 9).
+    requireNumbers :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PasswordPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PasswordPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppMaxPasswordAge' - The number of days that an IAM user password is valid.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppRequireLowercaseCharacters' - Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
+-- 'maxPasswordAge', 'passwordPolicy_maxPasswordAge' - The number of days that an IAM user password is valid.
 --
--- * 'ppMinimumPasswordLength' - Minimum length to require for IAM user passwords.
+-- 'requireLowercaseCharacters', 'passwordPolicy_requireLowercaseCharacters' - Specifies whether IAM user passwords must contain at least one lowercase
+-- character (a to z).
 --
--- * 'ppPasswordReusePrevention' - Specifies the number of previous passwords that IAM users are prevented from reusing.
+-- 'minimumPasswordLength', 'passwordPolicy_minimumPasswordLength' - Minimum length to require for IAM user passwords.
 --
--- * 'ppExpirePasswords' - Indicates whether passwords in the account expire. Returns true if @MaxPasswordAge@ contains a value greater than 0. Returns false if MaxPasswordAge is 0 or not present.
+-- 'passwordReusePrevention', 'passwordPolicy_passwordReusePrevention' - Specifies the number of previous passwords that IAM users are prevented
+-- from reusing.
 --
--- * 'ppRequireUppercaseCharacters' - Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
+-- 'expirePasswords', 'passwordPolicy_expirePasswords' - Indicates whether passwords in the account expire. Returns true if
+-- @MaxPasswordAge@ contains a value greater than 0. Returns false if
+-- MaxPasswordAge is 0 or not present.
 --
--- * 'ppAllowUsersToChangePassword' - Specifies whether IAM users are allowed to change their own password.
+-- 'requireUppercaseCharacters', 'passwordPolicy_requireUppercaseCharacters' - Specifies whether IAM user passwords must contain at least one uppercase
+-- character (A to Z).
 --
--- * 'ppHardExpiry' - Specifies whether IAM users are prevented from setting a new password after their password has expired.
+-- 'allowUsersToChangePassword', 'passwordPolicy_allowUsersToChangePassword' - Specifies whether IAM users are allowed to change their own password.
 --
--- * 'ppRequireSymbols' - Specifies whether IAM user passwords must contain at least one of the following symbols: ! @ # $ % ^ & * ( ) _ + - = [ ] { } | '
+-- 'hardExpiry', 'passwordPolicy_hardExpiry' - Specifies whether IAM users are prevented from setting a new password
+-- after their password has expired.
 --
--- * 'ppRequireNumbers' - Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
-passwordPolicy ::
+-- 'requireSymbols', 'passwordPolicy_requireSymbols' - Specifies whether IAM user passwords must contain at least one of the
+-- following symbols:
+--
+-- ! \@ # $ % ^ & * ( ) _ + - = [ ] { } | \'
+--
+-- 'requireNumbers', 'passwordPolicy_requireNumbers' - Specifies whether IAM user passwords must contain at least one numeric
+-- character (0 to 9).
+newPasswordPolicy ::
   PasswordPolicy
-passwordPolicy =
+newPasswordPolicy =
   PasswordPolicy'
-    { _ppMaxPasswordAge = Nothing,
-      _ppRequireLowercaseCharacters = Nothing,
-      _ppMinimumPasswordLength = Nothing,
-      _ppPasswordReusePrevention = Nothing,
-      _ppExpirePasswords = Nothing,
-      _ppRequireUppercaseCharacters = Nothing,
-      _ppAllowUsersToChangePassword = Nothing,
-      _ppHardExpiry = Nothing,
-      _ppRequireSymbols = Nothing,
-      _ppRequireNumbers = Nothing
+    { maxPasswordAge = Prelude.Nothing,
+      requireLowercaseCharacters = Prelude.Nothing,
+      minimumPasswordLength = Prelude.Nothing,
+      passwordReusePrevention = Prelude.Nothing,
+      expirePasswords = Prelude.Nothing,
+      requireUppercaseCharacters = Prelude.Nothing,
+      allowUsersToChangePassword = Prelude.Nothing,
+      hardExpiry = Prelude.Nothing,
+      requireSymbols = Prelude.Nothing,
+      requireNumbers = Prelude.Nothing
     }
 
 -- | The number of days that an IAM user password is valid.
-ppMaxPasswordAge :: Lens' PasswordPolicy (Maybe Natural)
-ppMaxPasswordAge = lens _ppMaxPasswordAge (\s a -> s {_ppMaxPasswordAge = a}) . mapping _Nat
+passwordPolicy_maxPasswordAge :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Natural)
+passwordPolicy_maxPasswordAge = Lens.lens (\PasswordPolicy' {maxPasswordAge} -> maxPasswordAge) (\s@PasswordPolicy' {} a -> s {maxPasswordAge = a} :: PasswordPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
-ppRequireLowercaseCharacters :: Lens' PasswordPolicy (Maybe Bool)
-ppRequireLowercaseCharacters = lens _ppRequireLowercaseCharacters (\s a -> s {_ppRequireLowercaseCharacters = a})
+-- | Specifies whether IAM user passwords must contain at least one lowercase
+-- character (a to z).
+passwordPolicy_requireLowercaseCharacters :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Bool)
+passwordPolicy_requireLowercaseCharacters = Lens.lens (\PasswordPolicy' {requireLowercaseCharacters} -> requireLowercaseCharacters) (\s@PasswordPolicy' {} a -> s {requireLowercaseCharacters = a} :: PasswordPolicy)
 
 -- | Minimum length to require for IAM user passwords.
-ppMinimumPasswordLength :: Lens' PasswordPolicy (Maybe Natural)
-ppMinimumPasswordLength = lens _ppMinimumPasswordLength (\s a -> s {_ppMinimumPasswordLength = a}) . mapping _Nat
+passwordPolicy_minimumPasswordLength :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Natural)
+passwordPolicy_minimumPasswordLength = Lens.lens (\PasswordPolicy' {minimumPasswordLength} -> minimumPasswordLength) (\s@PasswordPolicy' {} a -> s {minimumPasswordLength = a} :: PasswordPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | Specifies the number of previous passwords that IAM users are prevented from reusing.
-ppPasswordReusePrevention :: Lens' PasswordPolicy (Maybe Natural)
-ppPasswordReusePrevention = lens _ppPasswordReusePrevention (\s a -> s {_ppPasswordReusePrevention = a}) . mapping _Nat
+-- | Specifies the number of previous passwords that IAM users are prevented
+-- from reusing.
+passwordPolicy_passwordReusePrevention :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Natural)
+passwordPolicy_passwordReusePrevention = Lens.lens (\PasswordPolicy' {passwordReusePrevention} -> passwordReusePrevention) (\s@PasswordPolicy' {} a -> s {passwordReusePrevention = a} :: PasswordPolicy) Prelude.. Lens.mapping Prelude._Nat
 
--- | Indicates whether passwords in the account expire. Returns true if @MaxPasswordAge@ contains a value greater than 0. Returns false if MaxPasswordAge is 0 or not present.
-ppExpirePasswords :: Lens' PasswordPolicy (Maybe Bool)
-ppExpirePasswords = lens _ppExpirePasswords (\s a -> s {_ppExpirePasswords = a})
+-- | Indicates whether passwords in the account expire. Returns true if
+-- @MaxPasswordAge@ contains a value greater than 0. Returns false if
+-- MaxPasswordAge is 0 or not present.
+passwordPolicy_expirePasswords :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Bool)
+passwordPolicy_expirePasswords = Lens.lens (\PasswordPolicy' {expirePasswords} -> expirePasswords) (\s@PasswordPolicy' {} a -> s {expirePasswords = a} :: PasswordPolicy)
 
--- | Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
-ppRequireUppercaseCharacters :: Lens' PasswordPolicy (Maybe Bool)
-ppRequireUppercaseCharacters = lens _ppRequireUppercaseCharacters (\s a -> s {_ppRequireUppercaseCharacters = a})
+-- | Specifies whether IAM user passwords must contain at least one uppercase
+-- character (A to Z).
+passwordPolicy_requireUppercaseCharacters :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Bool)
+passwordPolicy_requireUppercaseCharacters = Lens.lens (\PasswordPolicy' {requireUppercaseCharacters} -> requireUppercaseCharacters) (\s@PasswordPolicy' {} a -> s {requireUppercaseCharacters = a} :: PasswordPolicy)
 
 -- | Specifies whether IAM users are allowed to change their own password.
-ppAllowUsersToChangePassword :: Lens' PasswordPolicy (Maybe Bool)
-ppAllowUsersToChangePassword = lens _ppAllowUsersToChangePassword (\s a -> s {_ppAllowUsersToChangePassword = a})
+passwordPolicy_allowUsersToChangePassword :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Bool)
+passwordPolicy_allowUsersToChangePassword = Lens.lens (\PasswordPolicy' {allowUsersToChangePassword} -> allowUsersToChangePassword) (\s@PasswordPolicy' {} a -> s {allowUsersToChangePassword = a} :: PasswordPolicy)
 
--- | Specifies whether IAM users are prevented from setting a new password after their password has expired.
-ppHardExpiry :: Lens' PasswordPolicy (Maybe Bool)
-ppHardExpiry = lens _ppHardExpiry (\s a -> s {_ppHardExpiry = a})
+-- | Specifies whether IAM users are prevented from setting a new password
+-- after their password has expired.
+passwordPolicy_hardExpiry :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Bool)
+passwordPolicy_hardExpiry = Lens.lens (\PasswordPolicy' {hardExpiry} -> hardExpiry) (\s@PasswordPolicy' {} a -> s {hardExpiry = a} :: PasswordPolicy)
 
--- | Specifies whether IAM user passwords must contain at least one of the following symbols: ! @ # $ % ^ & * ( ) _ + - = [ ] { } | '
-ppRequireSymbols :: Lens' PasswordPolicy (Maybe Bool)
-ppRequireSymbols = lens _ppRequireSymbols (\s a -> s {_ppRequireSymbols = a})
+-- | Specifies whether IAM user passwords must contain at least one of the
+-- following symbols:
+--
+-- ! \@ # $ % ^ & * ( ) _ + - = [ ] { } | \'
+passwordPolicy_requireSymbols :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Bool)
+passwordPolicy_requireSymbols = Lens.lens (\PasswordPolicy' {requireSymbols} -> requireSymbols) (\s@PasswordPolicy' {} a -> s {requireSymbols = a} :: PasswordPolicy)
 
--- | Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
-ppRequireNumbers :: Lens' PasswordPolicy (Maybe Bool)
-ppRequireNumbers = lens _ppRequireNumbers (\s a -> s {_ppRequireNumbers = a})
+-- | Specifies whether IAM user passwords must contain at least one numeric
+-- character (0 to 9).
+passwordPolicy_requireNumbers :: Lens.Lens' PasswordPolicy (Prelude.Maybe Prelude.Bool)
+passwordPolicy_requireNumbers = Lens.lens (\PasswordPolicy' {requireNumbers} -> requireNumbers) (\s@PasswordPolicy' {} a -> s {requireNumbers = a} :: PasswordPolicy)
 
-instance FromXML PasswordPolicy where
+instance Prelude.FromXML PasswordPolicy where
   parseXML x =
     PasswordPolicy'
-      <$> (x .@? "MaxPasswordAge")
-      <*> (x .@? "RequireLowercaseCharacters")
-      <*> (x .@? "MinimumPasswordLength")
-      <*> (x .@? "PasswordReusePrevention")
-      <*> (x .@? "ExpirePasswords")
-      <*> (x .@? "RequireUppercaseCharacters")
-      <*> (x .@? "AllowUsersToChangePassword")
-      <*> (x .@? "HardExpiry")
-      <*> (x .@? "RequireSymbols")
-      <*> (x .@? "RequireNumbers")
+      Prelude.<$> (x Prelude..@? "MaxPasswordAge")
+      Prelude.<*> (x Prelude..@? "RequireLowercaseCharacters")
+      Prelude.<*> (x Prelude..@? "MinimumPasswordLength")
+      Prelude.<*> (x Prelude..@? "PasswordReusePrevention")
+      Prelude.<*> (x Prelude..@? "ExpirePasswords")
+      Prelude.<*> (x Prelude..@? "RequireUppercaseCharacters")
+      Prelude.<*> (x Prelude..@? "AllowUsersToChangePassword")
+      Prelude.<*> (x Prelude..@? "HardExpiry")
+      Prelude.<*> (x Prelude..@? "RequireSymbols")
+      Prelude.<*> (x Prelude..@? "RequireNumbers")
 
-instance Hashable PasswordPolicy
+instance Prelude.Hashable PasswordPolicy
 
-instance NFData PasswordPolicy
+instance Prelude.NFData PasswordPolicy

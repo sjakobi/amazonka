@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,122 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the status of an IAM user's SSH public key to active or inactive. SSH public keys that are inactive cannot be used for authentication. This operation can be used to disable a user's SSH public key as part of a key rotation work flow.
+-- Sets the status of an IAM user\'s SSH public key to active or inactive.
+-- SSH public keys that are inactive cannot be used for authentication.
+-- This operation can be used to disable a user\'s SSH public key as part
+-- of a key rotation work flow.
 --
---
--- The SSH public key affected by this operation is used only for authenticating the associated IAM user to an AWS CodeCommit repository. For more information about using SSH keys to authenticate to an AWS CodeCommit repository, see <https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html Set up AWS CodeCommit for SSH connections> in the /AWS CodeCommit User Guide/ .
+-- The SSH public key affected by this operation is used only for
+-- authenticating the associated IAM user to an AWS CodeCommit repository.
+-- For more information about using SSH keys to authenticate to an AWS
+-- CodeCommit repository, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html Set up AWS CodeCommit for SSH connections>
+-- in the /AWS CodeCommit User Guide/.
 module Network.AWS.IAM.UpdateSSHPublicKey
   ( -- * Creating a Request
-    updateSSHPublicKey,
-    UpdateSSHPublicKey,
+    UpdateSSHPublicKey (..),
+    newUpdateSSHPublicKey,
 
     -- * Request Lenses
-    uspkUserName,
-    uspkSSHPublicKeyId,
-    uspkStatus,
+    updateSSHPublicKey_userName,
+    updateSSHPublicKey_sSHPublicKeyId,
+    updateSSHPublicKey_status,
 
     -- * Destructuring the Response
-    updateSSHPublicKeyResponse,
-    UpdateSSHPublicKeyResponse,
+    UpdateSSHPublicKeyResponse (..),
+    newUpdateSSHPublicKeyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateSSHPublicKey' smart constructor.
+-- | /See:/ 'newUpdateSSHPublicKey' smart constructor.
 data UpdateSSHPublicKey = UpdateSSHPublicKey'
-  { _uspkUserName ::
-      !Text,
-    _uspkSSHPublicKeyId :: !Text,
-    _uspkStatus :: !StatusType
+  { -- | The name of the IAM user associated with the SSH public key.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text,
+    -- | The unique identifier for the SSH public key.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that can consist of any upper or lowercased letter or digit.
+    sSHPublicKeyId :: Prelude.Text,
+    -- | The status to assign to the SSH public key. @Active@ means that the key
+    -- can be used for authentication with an AWS CodeCommit repository.
+    -- @Inactive@ means that the key cannot be used.
+    status :: StatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSSHPublicKey' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateSSHPublicKey' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uspkUserName' - The name of the IAM user associated with the SSH public key. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uspkSSHPublicKeyId' - The unique identifier for the SSH public key. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that can consist of any upper or lowercased letter or digit.
+-- 'userName', 'updateSSHPublicKey_userName' - The name of the IAM user associated with the SSH public key.
 --
--- * 'uspkStatus' - The status to assign to the SSH public key. @Active@ means that the key can be used for authentication with an AWS CodeCommit repository. @Inactive@ means that the key cannot be used.
-updateSSHPublicKey ::
-  -- | 'uspkUserName'
-  Text ->
-  -- | 'uspkSSHPublicKeyId'
-  Text ->
-  -- | 'uspkStatus'
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'sSHPublicKeyId', 'updateSSHPublicKey_sSHPublicKeyId' - The unique identifier for the SSH public key.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that can consist of any upper or lowercased letter or digit.
+--
+-- 'status', 'updateSSHPublicKey_status' - The status to assign to the SSH public key. @Active@ means that the key
+-- can be used for authentication with an AWS CodeCommit repository.
+-- @Inactive@ means that the key cannot be used.
+newUpdateSSHPublicKey ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'sSHPublicKeyId'
+  Prelude.Text ->
+  -- | 'status'
   StatusType ->
   UpdateSSHPublicKey
-updateSSHPublicKey
+newUpdateSSHPublicKey
   pUserName_
   pSSHPublicKeyId_
   pStatus_ =
     UpdateSSHPublicKey'
-      { _uspkUserName = pUserName_,
-        _uspkSSHPublicKeyId = pSSHPublicKeyId_,
-        _uspkStatus = pStatus_
+      { userName = pUserName_,
+        sSHPublicKeyId = pSSHPublicKeyId_,
+        status = pStatus_
       }
 
--- | The name of the IAM user associated with the SSH public key. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-uspkUserName :: Lens' UpdateSSHPublicKey Text
-uspkUserName = lens _uspkUserName (\s a -> s {_uspkUserName = a})
+-- | The name of the IAM user associated with the SSH public key.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+updateSSHPublicKey_userName :: Lens.Lens' UpdateSSHPublicKey Prelude.Text
+updateSSHPublicKey_userName = Lens.lens (\UpdateSSHPublicKey' {userName} -> userName) (\s@UpdateSSHPublicKey' {} a -> s {userName = a} :: UpdateSSHPublicKey)
 
--- | The unique identifier for the SSH public key. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that can consist of any upper or lowercased letter or digit.
-uspkSSHPublicKeyId :: Lens' UpdateSSHPublicKey Text
-uspkSSHPublicKeyId = lens _uspkSSHPublicKeyId (\s a -> s {_uspkSSHPublicKeyId = a})
+-- | The unique identifier for the SSH public key.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that can consist of any upper or lowercased letter or digit.
+updateSSHPublicKey_sSHPublicKeyId :: Lens.Lens' UpdateSSHPublicKey Prelude.Text
+updateSSHPublicKey_sSHPublicKeyId = Lens.lens (\UpdateSSHPublicKey' {sSHPublicKeyId} -> sSHPublicKeyId) (\s@UpdateSSHPublicKey' {} a -> s {sSHPublicKeyId = a} :: UpdateSSHPublicKey)
 
--- | The status to assign to the SSH public key. @Active@ means that the key can be used for authentication with an AWS CodeCommit repository. @Inactive@ means that the key cannot be used.
-uspkStatus :: Lens' UpdateSSHPublicKey StatusType
-uspkStatus = lens _uspkStatus (\s a -> s {_uspkStatus = a})
+-- | The status to assign to the SSH public key. @Active@ means that the key
+-- can be used for authentication with an AWS CodeCommit repository.
+-- @Inactive@ means that the key cannot be used.
+updateSSHPublicKey_status :: Lens.Lens' UpdateSSHPublicKey StatusType
+updateSSHPublicKey_status = Lens.lens (\UpdateSSHPublicKey' {status} -> status) (\s@UpdateSSHPublicKey' {} a -> s {status = a} :: UpdateSSHPublicKey)
 
-instance AWSRequest UpdateSSHPublicKey where
+instance Prelude.AWSRequest UpdateSSHPublicKey where
   type
     Rs UpdateSSHPublicKey =
       UpdateSSHPublicKeyResponse
-  request = postQuery iam
-  response = receiveNull UpdateSSHPublicKeyResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull UpdateSSHPublicKeyResponse'
 
-instance Hashable UpdateSSHPublicKey
+instance Prelude.Hashable UpdateSSHPublicKey
 
-instance NFData UpdateSSHPublicKey
+instance Prelude.NFData UpdateSSHPublicKey
 
-instance ToHeaders UpdateSSHPublicKey where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateSSHPublicKey where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateSSHPublicKey where
-  toPath = const "/"
+instance Prelude.ToPath UpdateSSHPublicKey where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateSSHPublicKey where
+instance Prelude.ToQuery UpdateSSHPublicKey where
   toQuery UpdateSSHPublicKey' {..} =
-    mconcat
-      [ "Action" =: ("UpdateSSHPublicKey" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _uspkUserName,
-        "SSHPublicKeyId" =: _uspkSSHPublicKeyId,
-        "Status" =: _uspkStatus
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UpdateSSHPublicKey" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "SSHPublicKeyId" Prelude.=: sSHPublicKeyId,
+        "Status" Prelude.=: status
       ]
 
--- | /See:/ 'updateSSHPublicKeyResponse' smart constructor.
+-- | /See:/ 'newUpdateSSHPublicKeyResponse' smart constructor.
 data UpdateSSHPublicKeyResponse = UpdateSSHPublicKeyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateSSHPublicKeyResponse' with the minimum fields required to make a request.
-updateSSHPublicKeyResponse ::
+-- |
+-- Create a value of 'UpdateSSHPublicKeyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateSSHPublicKeyResponse ::
   UpdateSSHPublicKeyResponse
-updateSSHPublicKeyResponse =
+newUpdateSSHPublicKeyResponse =
   UpdateSSHPublicKeyResponse'
 
-instance NFData UpdateSSHPublicKeyResponse
+instance Prelude.NFData UpdateSSHPublicKeyResponse

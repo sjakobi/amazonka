@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,134 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a credential report for the AWS account. For more information about the credential report, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html Getting credential reports> in the /IAM User Guide/ .
+-- Generates a credential report for the AWS account. For more information
+-- about the credential report, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html Getting credential reports>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.GenerateCredentialReport
   ( -- * Creating a Request
-    generateCredentialReport,
-    GenerateCredentialReport,
+    GenerateCredentialReport (..),
+    newGenerateCredentialReport,
 
     -- * Destructuring the Response
-    generateCredentialReportResponse,
-    GenerateCredentialReportResponse,
+    GenerateCredentialReportResponse (..),
+    newGenerateCredentialReportResponse,
 
     -- * Response Lenses
-    genrsState,
-    genrsDescription,
-    genrsResponseStatus,
+    generateCredentialReportResponse_state,
+    generateCredentialReportResponse_description,
+    generateCredentialReportResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.ReportStateType
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'generateCredentialReport' smart constructor.
+-- | /See:/ 'newGenerateCredentialReport' smart constructor.
 data GenerateCredentialReport = GenerateCredentialReport'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateCredentialReport' with the minimum fields required to make a request.
-generateCredentialReport ::
+-- |
+-- Create a value of 'GenerateCredentialReport' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGenerateCredentialReport ::
   GenerateCredentialReport
-generateCredentialReport = GenerateCredentialReport'
+newGenerateCredentialReport =
+  GenerateCredentialReport'
 
-instance AWSRequest GenerateCredentialReport where
+instance Prelude.AWSRequest GenerateCredentialReport where
   type
     Rs GenerateCredentialReport =
       GenerateCredentialReportResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GenerateCredentialReportResult"
       ( \s h x ->
           GenerateCredentialReportResponse'
-            <$> (x .@? "State")
-            <*> (x .@? "Description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "State")
+            Prelude.<*> (x Prelude..@? "Description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GenerateCredentialReport
+instance Prelude.Hashable GenerateCredentialReport
 
-instance NFData GenerateCredentialReport
+instance Prelude.NFData GenerateCredentialReport
 
-instance ToHeaders GenerateCredentialReport where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GenerateCredentialReport where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GenerateCredentialReport where
-  toPath = const "/"
+instance Prelude.ToPath GenerateCredentialReport where
+  toPath = Prelude.const "/"
 
-instance ToQuery GenerateCredentialReport where
+instance Prelude.ToQuery GenerateCredentialReport where
   toQuery =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Action"
-              =: ("GenerateCredentialReport" :: ByteString),
-            "Version" =: ("2010-05-08" :: ByteString)
+              Prelude.=: ("GenerateCredentialReport" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-05-08" :: Prelude.ByteString)
           ]
       )
 
--- | Contains the response to a successful 'GenerateCredentialReport' request.
+-- | Contains the response to a successful GenerateCredentialReport request.
 --
---
---
--- /See:/ 'generateCredentialReportResponse' smart constructor.
+-- /See:/ 'newGenerateCredentialReportResponse' smart constructor.
 data GenerateCredentialReportResponse = GenerateCredentialReportResponse'
-  { _genrsState ::
-      !( Maybe
-           ReportStateType
-       ),
-    _genrsDescription ::
-      !( Maybe
-           Text
-       ),
-    _genrsResponseStatus ::
-      !Int
+  { -- | Information about the state of the credential report.
+    state :: Prelude.Maybe ReportStateType,
+    -- | Information about the credential report.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateCredentialReportResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateCredentialReportResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'genrsState' - Information about the state of the credential report.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'genrsDescription' - Information about the credential report.
+-- 'state', 'generateCredentialReportResponse_state' - Information about the state of the credential report.
 --
--- * 'genrsResponseStatus' - -- | The response status code.
-generateCredentialReportResponse ::
-  -- | 'genrsResponseStatus'
-  Int ->
+-- 'description', 'generateCredentialReportResponse_description' - Information about the credential report.
+--
+-- 'httpStatus', 'generateCredentialReportResponse_httpStatus' - The response's http status code.
+newGenerateCredentialReportResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GenerateCredentialReportResponse
-generateCredentialReportResponse pResponseStatus_ =
+newGenerateCredentialReportResponse pHttpStatus_ =
   GenerateCredentialReportResponse'
-    { _genrsState =
-        Nothing,
-      _genrsDescription = Nothing,
-      _genrsResponseStatus = pResponseStatus_
+    { state =
+        Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the state of the credential report.
-genrsState :: Lens' GenerateCredentialReportResponse (Maybe ReportStateType)
-genrsState = lens _genrsState (\s a -> s {_genrsState = a})
+generateCredentialReportResponse_state :: Lens.Lens' GenerateCredentialReportResponse (Prelude.Maybe ReportStateType)
+generateCredentialReportResponse_state = Lens.lens (\GenerateCredentialReportResponse' {state} -> state) (\s@GenerateCredentialReportResponse' {} a -> s {state = a} :: GenerateCredentialReportResponse)
 
 -- | Information about the credential report.
-genrsDescription :: Lens' GenerateCredentialReportResponse (Maybe Text)
-genrsDescription = lens _genrsDescription (\s a -> s {_genrsDescription = a})
+generateCredentialReportResponse_description :: Lens.Lens' GenerateCredentialReportResponse (Prelude.Maybe Prelude.Text)
+generateCredentialReportResponse_description = Lens.lens (\GenerateCredentialReportResponse' {description} -> description) (\s@GenerateCredentialReportResponse' {} a -> s {description = a} :: GenerateCredentialReportResponse)
 
--- | -- | The response status code.
-genrsResponseStatus :: Lens' GenerateCredentialReportResponse Int
-genrsResponseStatus = lens _genrsResponseStatus (\s a -> s {_genrsResponseStatus = a})
+-- | The response's http status code.
+generateCredentialReportResponse_httpStatus :: Lens.Lens' GenerateCredentialReportResponse Prelude.Int
+generateCredentialReportResponse_httpStatus = Lens.lens (\GenerateCredentialReportResponse' {httpStatus} -> httpStatus) (\s@GenerateCredentialReportResponse' {} a -> s {httpStatus = a} :: GenerateCredentialReportResponse)
 
-instance NFData GenerateCredentialReportResponse
+instance
+  Prelude.NFData
+    GenerateCredentialReportResponse

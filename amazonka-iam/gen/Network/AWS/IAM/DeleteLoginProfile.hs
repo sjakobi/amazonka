@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,102 +21,123 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the password for the specified IAM user, which terminates the user's ability to access AWS services through the AWS Management Console.
+-- Deletes the password for the specified IAM user, which terminates the
+-- user\'s ability to access AWS services through the AWS Management
+-- Console.
 --
+-- You can use the AWS CLI, the AWS API, or the __Users__ page in the IAM
+-- console to delete a password for any IAM user. You can use
+-- ChangePassword to update, but not delete, your own password in the __My
+-- Security Credentials__ page in the AWS Management Console.
 --
--- You can use the AWS CLI, the AWS API, or the __Users__ page in the IAM console to delete a password for any IAM user. You can use 'ChangePassword' to update, but not delete, your own password in the __My Security Credentials__ page in the AWS Management Console.
---
--- /Important:/ Deleting a user's password does not prevent a user from accessing AWS through the command line interface or the API. To prevent all user access, you must also either make any access keys inactive or delete them. For more information about making keys inactive or deleting them, see 'UpdateAccessKey' and 'DeleteAccessKey' .
+-- Deleting a user\'s password does not prevent a user from accessing AWS
+-- through the command line interface or the API. To prevent all user
+-- access, you must also either make any access keys inactive or delete
+-- them. For more information about making keys inactive or deleting them,
+-- see UpdateAccessKey and DeleteAccessKey.
 module Network.AWS.IAM.DeleteLoginProfile
   ( -- * Creating a Request
-    deleteLoginProfile,
-    DeleteLoginProfile,
+    DeleteLoginProfile (..),
+    newDeleteLoginProfile,
 
     -- * Request Lenses
-    dlpUserName,
+    deleteLoginProfile_userName,
 
     -- * Destructuring the Response
-    deleteLoginProfileResponse,
-    DeleteLoginProfileResponse,
+    DeleteLoginProfileResponse (..),
+    newDeleteLoginProfileResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteLoginProfile' smart constructor.
-newtype DeleteLoginProfile = DeleteLoginProfile'
-  { _dlpUserName ::
-      Text
+-- | /See:/ 'newDeleteLoginProfile' smart constructor.
+data DeleteLoginProfile = DeleteLoginProfile'
+  { -- | The name of the user whose password you want to delete.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLoginProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteLoginProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlpUserName' - The name of the user whose password you want to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-deleteLoginProfile ::
-  -- | 'dlpUserName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userName', 'deleteLoginProfile_userName' - The name of the user whose password you want to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newDeleteLoginProfile ::
+  -- | 'userName'
+  Prelude.Text ->
   DeleteLoginProfile
-deleteLoginProfile pUserName_ =
-  DeleteLoginProfile' {_dlpUserName = pUserName_}
+newDeleteLoginProfile pUserName_ =
+  DeleteLoginProfile' {userName = pUserName_}
 
--- | The name of the user whose password you want to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-dlpUserName :: Lens' DeleteLoginProfile Text
-dlpUserName = lens _dlpUserName (\s a -> s {_dlpUserName = a})
+-- | The name of the user whose password you want to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteLoginProfile_userName :: Lens.Lens' DeleteLoginProfile Prelude.Text
+deleteLoginProfile_userName = Lens.lens (\DeleteLoginProfile' {userName} -> userName) (\s@DeleteLoginProfile' {} a -> s {userName = a} :: DeleteLoginProfile)
 
-instance AWSRequest DeleteLoginProfile where
+instance Prelude.AWSRequest DeleteLoginProfile where
   type
     Rs DeleteLoginProfile =
       DeleteLoginProfileResponse
-  request = postQuery iam
-  response = receiveNull DeleteLoginProfileResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteLoginProfileResponse'
 
-instance Hashable DeleteLoginProfile
+instance Prelude.Hashable DeleteLoginProfile
 
-instance NFData DeleteLoginProfile
+instance Prelude.NFData DeleteLoginProfile
 
-instance ToHeaders DeleteLoginProfile where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteLoginProfile where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteLoginProfile where
-  toPath = const "/"
+instance Prelude.ToPath DeleteLoginProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteLoginProfile where
+instance Prelude.ToQuery DeleteLoginProfile where
   toQuery DeleteLoginProfile' {..} =
-    mconcat
-      [ "Action" =: ("DeleteLoginProfile" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _dlpUserName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteLoginProfile" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName
       ]
 
--- | /See:/ 'deleteLoginProfileResponse' smart constructor.
+-- | /See:/ 'newDeleteLoginProfileResponse' smart constructor.
 data DeleteLoginProfileResponse = DeleteLoginProfileResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteLoginProfileResponse' with the minimum fields required to make a request.
-deleteLoginProfileResponse ::
+-- |
+-- Create a value of 'DeleteLoginProfileResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteLoginProfileResponse ::
   DeleteLoginProfileResponse
-deleteLoginProfileResponse =
+newDeleteLoginProfileResponse =
   DeleteLoginProfileResponse'
 
-instance NFData DeleteLoginProfileResponse
+instance Prelude.NFData DeleteLoginProfileResponse

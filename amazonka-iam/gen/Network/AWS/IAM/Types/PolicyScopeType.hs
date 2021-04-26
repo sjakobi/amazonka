@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,57 @@
 module Network.AWS.IAM.Types.PolicyScopeType
   ( PolicyScopeType
       ( ..,
-        AWS,
-        All,
-        Local
+        PolicyScopeTypeAWS,
+        PolicyScopeTypeAll,
+        PolicyScopeTypeLocal
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyScopeType = PolicyScopeType' (CI Text)
+newtype PolicyScopeType = PolicyScopeType'
+  { fromPolicyScopeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWS :: PolicyScopeType
-pattern AWS = PolicyScopeType' "AWS"
+pattern PolicyScopeTypeAWS :: PolicyScopeType
+pattern PolicyScopeTypeAWS = PolicyScopeType' "AWS"
 
-pattern All :: PolicyScopeType
-pattern All = PolicyScopeType' "All"
+pattern PolicyScopeTypeAll :: PolicyScopeType
+pattern PolicyScopeTypeAll = PolicyScopeType' "All"
 
-pattern Local :: PolicyScopeType
-pattern Local = PolicyScopeType' "Local"
+pattern PolicyScopeTypeLocal :: PolicyScopeType
+pattern PolicyScopeTypeLocal = PolicyScopeType' "Local"
 
 {-# COMPLETE
-  AWS,
-  All,
-  Local,
+  PolicyScopeTypeAWS,
+  PolicyScopeTypeAll,
+  PolicyScopeTypeLocal,
   PolicyScopeType'
   #-}
 
-instance FromText PolicyScopeType where
-  parser = (PolicyScopeType' . mk) <$> takeText
+instance Prelude.FromText PolicyScopeType where
+  parser = PolicyScopeType' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyScopeType where
-  toText (PolicyScopeType' ci) = original ci
+instance Prelude.ToText PolicyScopeType where
+  toText (PolicyScopeType' x) = x
 
-instance Hashable PolicyScopeType
+instance Prelude.Hashable PolicyScopeType
 
-instance NFData PolicyScopeType
+instance Prelude.NFData PolicyScopeType
 
-instance ToByteString PolicyScopeType
+instance Prelude.ToByteString PolicyScopeType
 
-instance ToQuery PolicyScopeType
+instance Prelude.ToQuery PolicyScopeType
 
-instance ToHeader PolicyScopeType
+instance Prelude.ToHeader PolicyScopeType

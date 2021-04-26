@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,188 +21,286 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the access key IDs associated with the specified IAM user. If there is none, the operation returns an empty list.
+-- Returns information about the access key IDs associated with the
+-- specified IAM user. If there is none, the operation returns an empty
+-- list.
 --
+-- Although each user is limited to a small number of keys, you can still
+-- paginate the results using the @MaxItems@ and @Marker@ parameters.
 --
--- Although each user is limited to a small number of keys, you can still paginate the results using the @MaxItems@ and @Marker@ parameters.
+-- If the @UserName@ field is not specified, the user name is determined
+-- implicitly based on the AWS access key ID used to sign the request. This
+-- operation works for access keys under the AWS account. Consequently, you
+-- can use this operation to manage AWS account root user credentials even
+-- if the AWS account has no associated users.
 --
--- If the @UserName@ field is not specified, the user name is determined implicitly based on the AWS access key ID used to sign the request. This operation works for access keys under the AWS account. Consequently, you can use this operation to manage AWS account root user credentials even if the AWS account has no associated users.
---
+-- To ensure the security of your AWS account, the secret access key is
+-- accessible only during key and user creation.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.ListAccessKeys
   ( -- * Creating a Request
-    listAccessKeys,
-    ListAccessKeys,
+    ListAccessKeys (..),
+    newListAccessKeys,
 
     -- * Request Lenses
-    lakUserName,
-    lakMaxItems,
-    lakMarker,
+    listAccessKeys_userName,
+    listAccessKeys_maxItems,
+    listAccessKeys_marker,
 
     -- * Destructuring the Response
-    listAccessKeysResponse,
-    ListAccessKeysResponse,
+    ListAccessKeysResponse (..),
+    newListAccessKeysResponse,
 
     -- * Response Lenses
-    lakrrsIsTruncated,
-    lakrrsMarker,
-    lakrrsResponseStatus,
-    lakrrsAccessKeyMetadata,
+    listAccessKeysResponse_isTruncated,
+    listAccessKeysResponse_marker,
+    listAccessKeysResponse_httpStatus,
+    listAccessKeysResponse_accessKeyMetadata,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.AccessKeyMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listAccessKeys' smart constructor.
+-- | /See:/ 'newListAccessKeys' smart constructor.
 data ListAccessKeys = ListAccessKeys'
-  { _lakUserName ::
-      !(Maybe Text),
-    _lakMaxItems :: !(Maybe Nat),
-    _lakMarker :: !(Maybe Text)
+  { -- | The name of the user.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Maybe Prelude.Text,
+    -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAccessKeys' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAccessKeys' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lakUserName' - The name of the user. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lakMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- 'userName', 'listAccessKeys_userName' - The name of the user.
 --
--- * 'lakMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-listAccessKeys ::
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'maxItems', 'listAccessKeys_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'listAccessKeys_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+newListAccessKeys ::
   ListAccessKeys
-listAccessKeys =
+newListAccessKeys =
   ListAccessKeys'
-    { _lakUserName = Nothing,
-      _lakMaxItems = Nothing,
-      _lakMarker = Nothing
+    { userName = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | The name of the user. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-lakUserName :: Lens' ListAccessKeys (Maybe Text)
-lakUserName = lens _lakUserName (\s a -> s {_lakUserName = a})
+-- | The name of the user.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+listAccessKeys_userName :: Lens.Lens' ListAccessKeys (Prelude.Maybe Prelude.Text)
+listAccessKeys_userName = Lens.lens (\ListAccessKeys' {userName} -> userName) (\s@ListAccessKeys' {} a -> s {userName = a} :: ListAccessKeys)
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lakMaxItems :: Lens' ListAccessKeys (Maybe Natural)
-lakMaxItems = lens _lakMaxItems (\s a -> s {_lakMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+listAccessKeys_maxItems :: Lens.Lens' ListAccessKeys (Prelude.Maybe Prelude.Natural)
+listAccessKeys_maxItems = Lens.lens (\ListAccessKeys' {maxItems} -> maxItems) (\s@ListAccessKeys' {} a -> s {maxItems = a} :: ListAccessKeys) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lakMarker :: Lens' ListAccessKeys (Maybe Text)
-lakMarker = lens _lakMarker (\s a -> s {_lakMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listAccessKeys_marker :: Lens.Lens' ListAccessKeys (Prelude.Maybe Prelude.Text)
+listAccessKeys_marker = Lens.lens (\ListAccessKeys' {marker} -> marker) (\s@ListAccessKeys' {} a -> s {marker = a} :: ListAccessKeys)
 
-instance AWSPager ListAccessKeys where
+instance Pager.AWSPager ListAccessKeys where
   page rq rs
-    | stop (rs ^. lakrrsIsTruncated) = Nothing
-    | isNothing (rs ^. lakrrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & lakMarker .~ rs ^. lakrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listAccessKeysResponse_isTruncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listAccessKeysResponse_marker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listAccessKeys_marker
+          Lens..~ rs
+          Lens.^? listAccessKeysResponse_marker Prelude.. Lens._Just
 
-instance AWSRequest ListAccessKeys where
+instance Prelude.AWSRequest ListAccessKeys where
   type Rs ListAccessKeys = ListAccessKeysResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListAccessKeysResult"
       ( \s h x ->
           ListAccessKeysResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> ( x .@? "AccessKeyMetadata" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "AccessKeyMetadata"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListAccessKeys
+instance Prelude.Hashable ListAccessKeys
 
-instance NFData ListAccessKeys
+instance Prelude.NFData ListAccessKeys
 
-instance ToHeaders ListAccessKeys where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListAccessKeys where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListAccessKeys where
-  toPath = const "/"
+instance Prelude.ToPath ListAccessKeys where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListAccessKeys where
+instance Prelude.ToQuery ListAccessKeys where
   toQuery ListAccessKeys' {..} =
-    mconcat
-      [ "Action" =: ("ListAccessKeys" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _lakUserName,
-        "MaxItems" =: _lakMaxItems,
-        "Marker" =: _lakMarker
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListAccessKeys" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker
       ]
 
--- | Contains the response to a successful 'ListAccessKeys' request.
+-- | Contains the response to a successful ListAccessKeys request.
 --
---
---
--- /See:/ 'listAccessKeysResponse' smart constructor.
+-- /See:/ 'newListAccessKeysResponse' smart constructor.
 data ListAccessKeysResponse = ListAccessKeysResponse'
-  { _lakrrsIsTruncated ::
-      !(Maybe Bool),
-    _lakrrsMarker ::
-      !(Maybe Text),
-    _lakrrsResponseStatus ::
-      !Int,
-    _lakrrsAccessKeyMetadata ::
-      ![AccessKeyMetadata]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of objects containing metadata about the access keys.
+    accessKeyMetadata :: [AccessKeyMetadata]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListAccessKeysResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListAccessKeysResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lakrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lakrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listAccessKeysResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'lakrrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listAccessKeysResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'lakrrsAccessKeyMetadata' - A list of objects containing metadata about the access keys.
-listAccessKeysResponse ::
-  -- | 'lakrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listAccessKeysResponse_httpStatus' - The response's http status code.
+--
+-- 'accessKeyMetadata', 'listAccessKeysResponse_accessKeyMetadata' - A list of objects containing metadata about the access keys.
+newListAccessKeysResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListAccessKeysResponse
-listAccessKeysResponse pResponseStatus_ =
+newListAccessKeysResponse pHttpStatus_ =
   ListAccessKeysResponse'
-    { _lakrrsIsTruncated =
-        Nothing,
-      _lakrrsMarker = Nothing,
-      _lakrrsResponseStatus = pResponseStatus_,
-      _lakrrsAccessKeyMetadata = mempty
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      accessKeyMetadata = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-lakrrsIsTruncated :: Lens' ListAccessKeysResponse (Maybe Bool)
-lakrrsIsTruncated = lens _lakrrsIsTruncated (\s a -> s {_lakrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+listAccessKeysResponse_isTruncated :: Lens.Lens' ListAccessKeysResponse (Prelude.Maybe Prelude.Bool)
+listAccessKeysResponse_isTruncated = Lens.lens (\ListAccessKeysResponse' {isTruncated} -> isTruncated) (\s@ListAccessKeysResponse' {} a -> s {isTruncated = a} :: ListAccessKeysResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lakrrsMarker :: Lens' ListAccessKeysResponse (Maybe Text)
-lakrrsMarker = lens _lakrrsMarker (\s a -> s {_lakrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listAccessKeysResponse_marker :: Lens.Lens' ListAccessKeysResponse (Prelude.Maybe Prelude.Text)
+listAccessKeysResponse_marker = Lens.lens (\ListAccessKeysResponse' {marker} -> marker) (\s@ListAccessKeysResponse' {} a -> s {marker = a} :: ListAccessKeysResponse)
 
--- | -- | The response status code.
-lakrrsResponseStatus :: Lens' ListAccessKeysResponse Int
-lakrrsResponseStatus = lens _lakrrsResponseStatus (\s a -> s {_lakrrsResponseStatus = a})
+-- | The response's http status code.
+listAccessKeysResponse_httpStatus :: Lens.Lens' ListAccessKeysResponse Prelude.Int
+listAccessKeysResponse_httpStatus = Lens.lens (\ListAccessKeysResponse' {httpStatus} -> httpStatus) (\s@ListAccessKeysResponse' {} a -> s {httpStatus = a} :: ListAccessKeysResponse)
 
 -- | A list of objects containing metadata about the access keys.
-lakrrsAccessKeyMetadata :: Lens' ListAccessKeysResponse [AccessKeyMetadata]
-lakrrsAccessKeyMetadata = lens _lakrrsAccessKeyMetadata (\s a -> s {_lakrrsAccessKeyMetadata = a}) . _Coerce
+listAccessKeysResponse_accessKeyMetadata :: Lens.Lens' ListAccessKeysResponse [AccessKeyMetadata]
+listAccessKeysResponse_accessKeyMetadata = Lens.lens (\ListAccessKeysResponse' {accessKeyMetadata} -> accessKeyMetadata) (\s@ListAccessKeysResponse' {} a -> s {accessKeyMetadata = a} :: ListAccessKeysResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListAccessKeysResponse
+instance Prelude.NFData ListAccessKeysResponse

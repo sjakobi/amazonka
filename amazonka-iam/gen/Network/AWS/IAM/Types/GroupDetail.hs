@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,101 +21,134 @@ module Network.AWS.IAM.Types.GroupDetail where
 
 import Network.AWS.IAM.Types.AttachedPolicy
 import Network.AWS.IAM.Types.PolicyDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about an IAM group, including all of the group's policies.
+-- | Contains information about an IAM group, including all of the group\'s
+-- policies.
 --
+-- This data type is used as a response element in the
+-- GetAccountAuthorizationDetails operation.
 --
--- This data type is used as a response element in the 'GetAccountAuthorizationDetails' operation.
---
---
--- /See:/ 'groupDetail' smart constructor.
+-- /See:/ 'newGroupDetail' smart constructor.
 data GroupDetail = GroupDetail'
-  { _gdAttachedManagedPolicies ::
-      !(Maybe [AttachedPolicy]),
-    _gdGroupName :: !(Maybe Text),
-    _gdCreateDate :: !(Maybe ISO8601),
-    _gdARN :: !(Maybe Text),
-    _gdGroupId :: !(Maybe Text),
-    _gdGroupPolicyList :: !(Maybe [PolicyDetail]),
-    _gdPath :: !(Maybe Text)
+  { -- | A list of the managed policies attached to the group.
+    attachedManagedPolicies :: Prelude.Maybe [AttachedPolicy],
+    -- | The friendly name that identifies the group.
+    groupName :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in
+    -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+    -- group was created.
+    createDate :: Prelude.Maybe Prelude.ISO8601,
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The stable and unique string identifying the group. For more information
+    -- about IDs, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    groupId :: Prelude.Maybe Prelude.Text,
+    -- | A list of the inline policies embedded in the group.
+    groupPolicyList :: Prelude.Maybe [PolicyDetail],
+    -- | The path to the group. For more information about paths, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+    -- in the /IAM User Guide/.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GroupDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GroupDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdAttachedManagedPolicies' - A list of the managed policies attached to the group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdGroupName' - The friendly name that identifies the group.
+-- 'attachedManagedPolicies', 'groupDetail_attachedManagedPolicies' - A list of the managed policies attached to the group.
 --
--- * 'gdCreateDate' - The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the group was created.
+-- 'groupName', 'groupDetail_groupName' - The friendly name that identifies the group.
 --
--- * 'gdARN' - Undocumented member.
+-- 'createDate', 'groupDetail_createDate' - The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- group was created.
 --
--- * 'gdGroupId' - The stable and unique string identifying the group. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
+-- 'arn', 'groupDetail_arn' - Undocumented member.
 --
--- * 'gdGroupPolicyList' - A list of the inline policies embedded in the group.
+-- 'groupId', 'groupDetail_groupId' - The stable and unique string identifying the group. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
 --
--- * 'gdPath' - The path to the group. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-groupDetail ::
+-- 'groupPolicyList', 'groupDetail_groupPolicyList' - A list of the inline policies embedded in the group.
+--
+-- 'path', 'groupDetail_path' - The path to the group. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+newGroupDetail ::
   GroupDetail
-groupDetail =
+newGroupDetail =
   GroupDetail'
-    { _gdAttachedManagedPolicies = Nothing,
-      _gdGroupName = Nothing,
-      _gdCreateDate = Nothing,
-      _gdARN = Nothing,
-      _gdGroupId = Nothing,
-      _gdGroupPolicyList = Nothing,
-      _gdPath = Nothing
+    { attachedManagedPolicies =
+        Prelude.Nothing,
+      groupName = Prelude.Nothing,
+      createDate = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      groupId = Prelude.Nothing,
+      groupPolicyList = Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
 -- | A list of the managed policies attached to the group.
-gdAttachedManagedPolicies :: Lens' GroupDetail [AttachedPolicy]
-gdAttachedManagedPolicies = lens _gdAttachedManagedPolicies (\s a -> s {_gdAttachedManagedPolicies = a}) . _Default . _Coerce
+groupDetail_attachedManagedPolicies :: Lens.Lens' GroupDetail (Prelude.Maybe [AttachedPolicy])
+groupDetail_attachedManagedPolicies = Lens.lens (\GroupDetail' {attachedManagedPolicies} -> attachedManagedPolicies) (\s@GroupDetail' {} a -> s {attachedManagedPolicies = a} :: GroupDetail) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The friendly name that identifies the group.
-gdGroupName :: Lens' GroupDetail (Maybe Text)
-gdGroupName = lens _gdGroupName (\s a -> s {_gdGroupName = a})
+groupDetail_groupName :: Lens.Lens' GroupDetail (Prelude.Maybe Prelude.Text)
+groupDetail_groupName = Lens.lens (\GroupDetail' {groupName} -> groupName) (\s@GroupDetail' {} a -> s {groupName = a} :: GroupDetail)
 
--- | The date and time, in <http://www.iso.org/iso/iso8601 ISO 8601 date-time format> , when the group was created.
-gdCreateDate :: Lens' GroupDetail (Maybe UTCTime)
-gdCreateDate = lens _gdCreateDate (\s a -> s {_gdCreateDate = a}) . mapping _Time
+-- | The date and time, in
+-- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
+-- group was created.
+groupDetail_createDate :: Lens.Lens' GroupDetail (Prelude.Maybe Prelude.UTCTime)
+groupDetail_createDate = Lens.lens (\GroupDetail' {createDate} -> createDate) (\s@GroupDetail' {} a -> s {createDate = a} :: GroupDetail) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-gdARN :: Lens' GroupDetail (Maybe Text)
-gdARN = lens _gdARN (\s a -> s {_gdARN = a})
+groupDetail_arn :: Lens.Lens' GroupDetail (Prelude.Maybe Prelude.Text)
+groupDetail_arn = Lens.lens (\GroupDetail' {arn} -> arn) (\s@GroupDetail' {} a -> s {arn = a} :: GroupDetail)
 
--- | The stable and unique string identifying the group. For more information about IDs, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-gdGroupId :: Lens' GroupDetail (Maybe Text)
-gdGroupId = lens _gdGroupId (\s a -> s {_gdGroupId = a})
+-- | The stable and unique string identifying the group. For more information
+-- about IDs, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+groupDetail_groupId :: Lens.Lens' GroupDetail (Prelude.Maybe Prelude.Text)
+groupDetail_groupId = Lens.lens (\GroupDetail' {groupId} -> groupId) (\s@GroupDetail' {} a -> s {groupId = a} :: GroupDetail)
 
 -- | A list of the inline policies embedded in the group.
-gdGroupPolicyList :: Lens' GroupDetail [PolicyDetail]
-gdGroupPolicyList = lens _gdGroupPolicyList (\s a -> s {_gdGroupPolicyList = a}) . _Default . _Coerce
+groupDetail_groupPolicyList :: Lens.Lens' GroupDetail (Prelude.Maybe [PolicyDetail])
+groupDetail_groupPolicyList = Lens.lens (\GroupDetail' {groupPolicyList} -> groupPolicyList) (\s@GroupDetail' {} a -> s {groupPolicyList = a} :: GroupDetail) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The path to the group. For more information about paths, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers> in the /IAM User Guide/ .
-gdPath :: Lens' GroupDetail (Maybe Text)
-gdPath = lens _gdPath (\s a -> s {_gdPath = a})
+-- | The path to the group. For more information about paths, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
+-- in the /IAM User Guide/.
+groupDetail_path :: Lens.Lens' GroupDetail (Prelude.Maybe Prelude.Text)
+groupDetail_path = Lens.lens (\GroupDetail' {path} -> path) (\s@GroupDetail' {} a -> s {path = a} :: GroupDetail)
 
-instance FromXML GroupDetail where
+instance Prelude.FromXML GroupDetail where
   parseXML x =
     GroupDetail'
-      <$> ( x .@? "AttachedManagedPolicies" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "GroupName")
-      <*> (x .@? "CreateDate")
-      <*> (x .@? "Arn")
-      <*> (x .@? "GroupId")
-      <*> ( x .@? "GroupPolicyList" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
-      <*> (x .@? "Path")
+      Prelude.<$> ( x Prelude..@? "AttachedManagedPolicies"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "GroupName")
+      Prelude.<*> (x Prelude..@? "CreateDate")
+      Prelude.<*> (x Prelude..@? "Arn")
+      Prelude.<*> (x Prelude..@? "GroupId")
+      Prelude.<*> ( x Prelude..@? "GroupPolicyList"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
+      Prelude.<*> (x Prelude..@? "Path")
 
-instance Hashable GroupDetail
+instance Prelude.Hashable GroupDetail
 
-instance NFData GroupDetail
+instance Prelude.NFData GroupDetail

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,206 +21,296 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the instance profiles that have the specified associated IAM role. If there are none, the operation returns an empty list. For more information about instance profiles, go to <https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html About instance profiles> .
+-- Lists the instance profiles that have the specified associated IAM role.
+-- If there are none, the operation returns an empty list. For more
+-- information about instance profiles, go to
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html About instance profiles>.
 --
---
--- You can paginate the results using the @MaxItems@ and @Marker@ parameters.
---
+-- You can paginate the results using the @MaxItems@ and @Marker@
+-- parameters.
 --
 -- This operation returns paginated results.
 module Network.AWS.IAM.ListInstanceProfilesForRole
   ( -- * Creating a Request
-    listInstanceProfilesForRole,
-    ListInstanceProfilesForRole,
+    ListInstanceProfilesForRole (..),
+    newListInstanceProfilesForRole,
 
     -- * Request Lenses
-    lipfrMaxItems,
-    lipfrMarker,
-    lipfrRoleName,
+    listInstanceProfilesForRole_maxItems,
+    listInstanceProfilesForRole_marker,
+    listInstanceProfilesForRole_roleName,
 
     -- * Destructuring the Response
-    listInstanceProfilesForRoleResponse,
-    ListInstanceProfilesForRoleResponse,
+    ListInstanceProfilesForRoleResponse (..),
+    newListInstanceProfilesForRoleResponse,
 
     -- * Response Lenses
-    lipfrrrsIsTruncated,
-    lipfrrrsMarker,
-    lipfrrrsResponseStatus,
-    lipfrrrsInstanceProfiles,
+    listInstanceProfilesForRoleResponse_isTruncated,
+    listInstanceProfilesForRoleResponse_marker,
+    listInstanceProfilesForRoleResponse_httpStatus,
+    listInstanceProfilesForRoleResponse_instanceProfiles,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.InstanceProfile
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listInstanceProfilesForRole' smart constructor.
+-- | /See:/ 'newListInstanceProfilesForRole' smart constructor.
 data ListInstanceProfilesForRole = ListInstanceProfilesForRole'
-  { _lipfrMaxItems ::
-      !(Maybe Nat),
-    _lipfrMarker ::
-      !(Maybe Text),
-    _lipfrRoleName ::
-      !Text
+  { -- | Use this only when paginating results to indicate the maximum number of
+    -- items you want in the response. If additional items exist beyond the
+    -- maximum you specify, the @IsTruncated@ response element is @true@.
+    --
+    -- If you do not include this parameter, the number of items defaults to
+    -- 100. Note that IAM might return fewer results, even when there are more
+    -- results available. In that case, the @IsTruncated@ response element
+    -- returns @true@, and @Marker@ contains a value to include in the
+    -- subsequent call that tells the service where to continue from.
+    maxItems :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter only when paginating results and only after you
+    -- receive a response indicating that the results are truncated. Set it to
+    -- the value of the @Marker@ element in the response that you received to
+    -- indicate where the next call should start.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The name of the role to list instance profiles for.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    roleName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceProfilesForRole' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceProfilesForRole' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lipfrMaxItems' - Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lipfrMarker' - Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
+-- 'maxItems', 'listInstanceProfilesForRole_maxItems' - Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
 --
--- * 'lipfrRoleName' - The name of the role to list instance profiles for. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-listInstanceProfilesForRole ::
-  -- | 'lipfrRoleName'
-  Text ->
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+--
+-- 'marker', 'listInstanceProfilesForRole_marker' - Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+--
+-- 'roleName', 'listInstanceProfilesForRole_roleName' - The name of the role to list instance profiles for.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newListInstanceProfilesForRole ::
+  -- | 'roleName'
+  Prelude.Text ->
   ListInstanceProfilesForRole
-listInstanceProfilesForRole pRoleName_ =
+newListInstanceProfilesForRole pRoleName_ =
   ListInstanceProfilesForRole'
-    { _lipfrMaxItems =
-        Nothing,
-      _lipfrMarker = Nothing,
-      _lipfrRoleName = pRoleName_
+    { maxItems =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      roleName = pRoleName_
     }
 
--- | Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the @IsTruncated@ response element is @true@ . If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the @IsTruncated@ response element returns @true@ , and @Marker@ contains a value to include in the subsequent call that tells the service where to continue from.
-lipfrMaxItems :: Lens' ListInstanceProfilesForRole (Maybe Natural)
-lipfrMaxItems = lens _lipfrMaxItems (\s a -> s {_lipfrMaxItems = a}) . mapping _Nat
+-- | Use this only when paginating results to indicate the maximum number of
+-- items you want in the response. If additional items exist beyond the
+-- maximum you specify, the @IsTruncated@ response element is @true@.
+--
+-- If you do not include this parameter, the number of items defaults to
+-- 100. Note that IAM might return fewer results, even when there are more
+-- results available. In that case, the @IsTruncated@ response element
+-- returns @true@, and @Marker@ contains a value to include in the
+-- subsequent call that tells the service where to continue from.
+listInstanceProfilesForRole_maxItems :: Lens.Lens' ListInstanceProfilesForRole (Prelude.Maybe Prelude.Natural)
+listInstanceProfilesForRole_maxItems = Lens.lens (\ListInstanceProfilesForRole' {maxItems} -> maxItems) (\s@ListInstanceProfilesForRole' {} a -> s {maxItems = a} :: ListInstanceProfilesForRole) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the @Marker@ element in the response that you received to indicate where the next call should start.
-lipfrMarker :: Lens' ListInstanceProfilesForRole (Maybe Text)
-lipfrMarker = lens _lipfrMarker (\s a -> s {_lipfrMarker = a})
+-- | Use this parameter only when paginating results and only after you
+-- receive a response indicating that the results are truncated. Set it to
+-- the value of the @Marker@ element in the response that you received to
+-- indicate where the next call should start.
+listInstanceProfilesForRole_marker :: Lens.Lens' ListInstanceProfilesForRole (Prelude.Maybe Prelude.Text)
+listInstanceProfilesForRole_marker = Lens.lens (\ListInstanceProfilesForRole' {marker} -> marker) (\s@ListInstanceProfilesForRole' {} a -> s {marker = a} :: ListInstanceProfilesForRole)
 
--- | The name of the role to list instance profiles for. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-lipfrRoleName :: Lens' ListInstanceProfilesForRole Text
-lipfrRoleName = lens _lipfrRoleName (\s a -> s {_lipfrRoleName = a})
+-- | The name of the role to list instance profiles for.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+listInstanceProfilesForRole_roleName :: Lens.Lens' ListInstanceProfilesForRole Prelude.Text
+listInstanceProfilesForRole_roleName = Lens.lens (\ListInstanceProfilesForRole' {roleName} -> roleName) (\s@ListInstanceProfilesForRole' {} a -> s {roleName = a} :: ListInstanceProfilesForRole)
 
-instance AWSPager ListInstanceProfilesForRole where
+instance Pager.AWSPager ListInstanceProfilesForRole where
   page rq rs
-    | stop (rs ^. lipfrrrsIsTruncated) = Nothing
-    | isNothing (rs ^. lipfrrrsMarker) = Nothing
-    | otherwise =
-      Just $ rq & lipfrMarker .~ rs ^. lipfrrrsMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listInstanceProfilesForRoleResponse_isTruncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listInstanceProfilesForRoleResponse_marker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listInstanceProfilesForRole_marker
+          Lens..~ rs
+          Lens.^? listInstanceProfilesForRoleResponse_marker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListInstanceProfilesForRole where
+instance
+  Prelude.AWSRequest
+    ListInstanceProfilesForRole
+  where
   type
     Rs ListInstanceProfilesForRole =
       ListInstanceProfilesForRoleResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListInstanceProfilesForRoleResult"
       ( \s h x ->
           ListInstanceProfilesForRoleResponse'
-            <$> (x .@? "IsTruncated")
-            <*> (x .@? "Marker")
-            <*> (pure (fromEnum s))
-            <*> ( x .@? "InstanceProfiles" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (x Prelude..@? "IsTruncated")
+            Prelude.<*> (x Prelude..@? "Marker")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "InstanceProfiles"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListInstanceProfilesForRole
+instance Prelude.Hashable ListInstanceProfilesForRole
 
-instance NFData ListInstanceProfilesForRole
+instance Prelude.NFData ListInstanceProfilesForRole
 
-instance ToHeaders ListInstanceProfilesForRole where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    ListInstanceProfilesForRole
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListInstanceProfilesForRole where
-  toPath = const "/"
+instance Prelude.ToPath ListInstanceProfilesForRole where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListInstanceProfilesForRole where
+instance Prelude.ToQuery ListInstanceProfilesForRole where
   toQuery ListInstanceProfilesForRole' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("ListInstanceProfilesForRole" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "MaxItems" =: _lipfrMaxItems,
-        "Marker" =: _lipfrMarker,
-        "RoleName" =: _lipfrRoleName
+          Prelude.=: ( "ListInstanceProfilesForRole" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "MaxItems" Prelude.=: maxItems,
+        "Marker" Prelude.=: marker,
+        "RoleName" Prelude.=: roleName
       ]
 
--- | Contains the response to a successful 'ListInstanceProfilesForRole' request.
+-- | Contains the response to a successful ListInstanceProfilesForRole
+-- request.
 --
---
---
--- /See:/ 'listInstanceProfilesForRoleResponse' smart constructor.
+-- /See:/ 'newListInstanceProfilesForRoleResponse' smart constructor.
 data ListInstanceProfilesForRoleResponse = ListInstanceProfilesForRoleResponse'
-  { _lipfrrrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _lipfrrrsMarker ::
-      !( Maybe
-           Text
-       ),
-    _lipfrrrsResponseStatus ::
-      !Int,
-    _lipfrrrsInstanceProfiles ::
-      ![InstanceProfile]
+  { -- | A flag that indicates whether there are more items to return. If your
+    -- results were truncated, you can make a subsequent pagination request
+    -- using the @Marker@ request parameter to retrieve more items. Note that
+    -- IAM might return fewer than the @MaxItems@ number of results even when
+    -- there are more results available. We recommend that you check
+    -- @IsTruncated@ after every call to ensure that you receive all your
+    -- results.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of instance profiles.
+    instanceProfiles :: [InstanceProfile]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListInstanceProfilesForRoleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListInstanceProfilesForRoleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lipfrrrsIsTruncated' - A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lipfrrrsMarker' - When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
+-- 'isTruncated', 'listInstanceProfilesForRoleResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
 --
--- * 'lipfrrrsResponseStatus' - -- | The response status code.
+-- 'marker', 'listInstanceProfilesForRoleResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
--- * 'lipfrrrsInstanceProfiles' - A list of instance profiles.
-listInstanceProfilesForRoleResponse ::
-  -- | 'lipfrrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listInstanceProfilesForRoleResponse_httpStatus' - The response's http status code.
+--
+-- 'instanceProfiles', 'listInstanceProfilesForRoleResponse_instanceProfiles' - A list of instance profiles.
+newListInstanceProfilesForRoleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListInstanceProfilesForRoleResponse
-listInstanceProfilesForRoleResponse pResponseStatus_ =
+newListInstanceProfilesForRoleResponse pHttpStatus_ =
   ListInstanceProfilesForRoleResponse'
-    { _lipfrrrsIsTruncated =
-        Nothing,
-      _lipfrrrsMarker = Nothing,
-      _lipfrrrsResponseStatus =
-        pResponseStatus_,
-      _lipfrrrsInstanceProfiles = mempty
+    { isTruncated =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      instanceProfiles = Prelude.mempty
     }
 
--- | A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the @Marker@ request parameter to retrieve more items. Note that IAM might return fewer than the @MaxItems@ number of results even when there are more results available. We recommend that you check @IsTruncated@ after every call to ensure that you receive all your results.
-lipfrrrsIsTruncated :: Lens' ListInstanceProfilesForRoleResponse (Maybe Bool)
-lipfrrrsIsTruncated = lens _lipfrrrsIsTruncated (\s a -> s {_lipfrrrsIsTruncated = a})
+-- | A flag that indicates whether there are more items to return. If your
+-- results were truncated, you can make a subsequent pagination request
+-- using the @Marker@ request parameter to retrieve more items. Note that
+-- IAM might return fewer than the @MaxItems@ number of results even when
+-- there are more results available. We recommend that you check
+-- @IsTruncated@ after every call to ensure that you receive all your
+-- results.
+listInstanceProfilesForRoleResponse_isTruncated :: Lens.Lens' ListInstanceProfilesForRoleResponse (Prelude.Maybe Prelude.Bool)
+listInstanceProfilesForRoleResponse_isTruncated = Lens.lens (\ListInstanceProfilesForRoleResponse' {isTruncated} -> isTruncated) (\s@ListInstanceProfilesForRoleResponse' {} a -> s {isTruncated = a} :: ListInstanceProfilesForRoleResponse)
 
--- | When @IsTruncated@ is @true@ , this element is present and contains the value to use for the @Marker@ parameter in a subsequent pagination request.
-lipfrrrsMarker :: Lens' ListInstanceProfilesForRoleResponse (Maybe Text)
-lipfrrrsMarker = lens _lipfrrrsMarker (\s a -> s {_lipfrrrsMarker = a})
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listInstanceProfilesForRoleResponse_marker :: Lens.Lens' ListInstanceProfilesForRoleResponse (Prelude.Maybe Prelude.Text)
+listInstanceProfilesForRoleResponse_marker = Lens.lens (\ListInstanceProfilesForRoleResponse' {marker} -> marker) (\s@ListInstanceProfilesForRoleResponse' {} a -> s {marker = a} :: ListInstanceProfilesForRoleResponse)
 
--- | -- | The response status code.
-lipfrrrsResponseStatus :: Lens' ListInstanceProfilesForRoleResponse Int
-lipfrrrsResponseStatus = lens _lipfrrrsResponseStatus (\s a -> s {_lipfrrrsResponseStatus = a})
+-- | The response's http status code.
+listInstanceProfilesForRoleResponse_httpStatus :: Lens.Lens' ListInstanceProfilesForRoleResponse Prelude.Int
+listInstanceProfilesForRoleResponse_httpStatus = Lens.lens (\ListInstanceProfilesForRoleResponse' {httpStatus} -> httpStatus) (\s@ListInstanceProfilesForRoleResponse' {} a -> s {httpStatus = a} :: ListInstanceProfilesForRoleResponse)
 
 -- | A list of instance profiles.
-lipfrrrsInstanceProfiles :: Lens' ListInstanceProfilesForRoleResponse [InstanceProfile]
-lipfrrrsInstanceProfiles = lens _lipfrrrsInstanceProfiles (\s a -> s {_lipfrrrsInstanceProfiles = a}) . _Coerce
+listInstanceProfilesForRoleResponse_instanceProfiles :: Lens.Lens' ListInstanceProfilesForRoleResponse [InstanceProfile]
+listInstanceProfilesForRoleResponse_instanceProfiles = Lens.lens (\ListInstanceProfilesForRoleResponse' {instanceProfiles} -> instanceProfiles) (\s@ListInstanceProfilesForRoleResponse' {} a -> s {instanceProfiles = a} :: ListInstanceProfilesForRoleResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListInstanceProfilesForRoleResponse
+instance
+  Prelude.NFData
+    ListInstanceProfilesForRoleResponse

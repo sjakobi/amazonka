@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.LoginProfile where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the user name and password create date for a user.
 --
+-- This data type is used as a response element in the CreateLoginProfile
+-- and GetLoginProfile operations.
 --
--- This data type is used as a response element in the 'CreateLoginProfile' and 'GetLoginProfile' operations.
---
---
--- /See:/ 'loginProfile' smart constructor.
+-- /See:/ 'newLoginProfile' smart constructor.
 data LoginProfile = LoginProfile'
-  { _lpPasswordResetRequired ::
-      !(Maybe Bool),
-    _lpUserName :: !Text,
-    _lpCreateDate :: !ISO8601
+  { -- | Specifies whether the user is required to set a new password on next
+    -- sign-in.
+    passwordResetRequired :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the user, which can be used for signing in to the AWS
+    -- Management Console.
+    userName :: Prelude.Text,
+    -- | The date when the password for the user was created.
+    createDate :: Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoginProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoginProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpPasswordResetRequired' - Specifies whether the user is required to set a new password on next sign-in.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpUserName' - The name of the user, which can be used for signing in to the AWS Management Console.
+-- 'passwordResetRequired', 'loginProfile_passwordResetRequired' - Specifies whether the user is required to set a new password on next
+-- sign-in.
 --
--- * 'lpCreateDate' - The date when the password for the user was created.
-loginProfile ::
-  -- | 'lpUserName'
-  Text ->
-  -- | 'lpCreateDate'
-  UTCTime ->
+-- 'userName', 'loginProfile_userName' - The name of the user, which can be used for signing in to the AWS
+-- Management Console.
+--
+-- 'createDate', 'loginProfile_createDate' - The date when the password for the user was created.
+newLoginProfile ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'createDate'
+  Prelude.UTCTime ->
   LoginProfile
-loginProfile pUserName_ pCreateDate_ =
+newLoginProfile pUserName_ pCreateDate_ =
   LoginProfile'
-    { _lpPasswordResetRequired = Nothing,
-      _lpUserName = pUserName_,
-      _lpCreateDate = _Time # pCreateDate_
+    { passwordResetRequired =
+        Prelude.Nothing,
+      userName = pUserName_,
+      createDate = Prelude._Time Lens.# pCreateDate_
     }
 
--- | Specifies whether the user is required to set a new password on next sign-in.
-lpPasswordResetRequired :: Lens' LoginProfile (Maybe Bool)
-lpPasswordResetRequired = lens _lpPasswordResetRequired (\s a -> s {_lpPasswordResetRequired = a})
+-- | Specifies whether the user is required to set a new password on next
+-- sign-in.
+loginProfile_passwordResetRequired :: Lens.Lens' LoginProfile (Prelude.Maybe Prelude.Bool)
+loginProfile_passwordResetRequired = Lens.lens (\LoginProfile' {passwordResetRequired} -> passwordResetRequired) (\s@LoginProfile' {} a -> s {passwordResetRequired = a} :: LoginProfile)
 
--- | The name of the user, which can be used for signing in to the AWS Management Console.
-lpUserName :: Lens' LoginProfile Text
-lpUserName = lens _lpUserName (\s a -> s {_lpUserName = a})
+-- | The name of the user, which can be used for signing in to the AWS
+-- Management Console.
+loginProfile_userName :: Lens.Lens' LoginProfile Prelude.Text
+loginProfile_userName = Lens.lens (\LoginProfile' {userName} -> userName) (\s@LoginProfile' {} a -> s {userName = a} :: LoginProfile)
 
 -- | The date when the password for the user was created.
-lpCreateDate :: Lens' LoginProfile UTCTime
-lpCreateDate = lens _lpCreateDate (\s a -> s {_lpCreateDate = a}) . _Time
+loginProfile_createDate :: Lens.Lens' LoginProfile Prelude.UTCTime
+loginProfile_createDate = Lens.lens (\LoginProfile' {createDate} -> createDate) (\s@LoginProfile' {} a -> s {createDate = a} :: LoginProfile) Prelude.. Prelude._Time
 
-instance FromXML LoginProfile where
+instance Prelude.FromXML LoginProfile where
   parseXML x =
     LoginProfile'
-      <$> (x .@? "PasswordResetRequired")
-      <*> (x .@ "UserName")
-      <*> (x .@ "CreateDate")
+      Prelude.<$> (x Prelude..@? "PasswordResetRequired")
+      Prelude.<*> (x Prelude..@ "UserName")
+      Prelude.<*> (x Prelude..@ "CreateDate")
 
-instance Hashable LoginProfile
+instance Prelude.Hashable LoginProfile
 
-instance NFData LoginProfile
+instance Prelude.NFData LoginProfile

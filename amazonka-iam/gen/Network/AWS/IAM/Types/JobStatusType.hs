@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IAM.Types.JobStatusType
   ( JobStatusType
       ( ..,
-        JSTCompleted,
-        JSTFailed,
-        JSTInProgress
+        JobStatusTypeCOMPLETED,
+        JobStatusTypeFAILED,
+        JobStatusTypeINPROGRESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data JobStatusType = JobStatusType' (CI Text)
+newtype JobStatusType = JobStatusType'
+  { fromJobStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSTCompleted :: JobStatusType
-pattern JSTCompleted = JobStatusType' "COMPLETED"
+pattern JobStatusTypeCOMPLETED :: JobStatusType
+pattern JobStatusTypeCOMPLETED = JobStatusType' "COMPLETED"
 
-pattern JSTFailed :: JobStatusType
-pattern JSTFailed = JobStatusType' "FAILED"
+pattern JobStatusTypeFAILED :: JobStatusType
+pattern JobStatusTypeFAILED = JobStatusType' "FAILED"
 
-pattern JSTInProgress :: JobStatusType
-pattern JSTInProgress = JobStatusType' "IN_PROGRESS"
+pattern JobStatusTypeINPROGRESS :: JobStatusType
+pattern JobStatusTypeINPROGRESS = JobStatusType' "IN_PROGRESS"
 
 {-# COMPLETE
-  JSTCompleted,
-  JSTFailed,
-  JSTInProgress,
+  JobStatusTypeCOMPLETED,
+  JobStatusTypeFAILED,
+  JobStatusTypeINPROGRESS,
   JobStatusType'
   #-}
 
-instance FromText JobStatusType where
-  parser = (JobStatusType' . mk) <$> takeText
+instance Prelude.FromText JobStatusType where
+  parser = JobStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText JobStatusType where
-  toText (JobStatusType' ci) = original ci
+instance Prelude.ToText JobStatusType where
+  toText (JobStatusType' x) = x
 
-instance Hashable JobStatusType
+instance Prelude.Hashable JobStatusType
 
-instance NFData JobStatusType
+instance Prelude.NFData JobStatusType
 
-instance ToByteString JobStatusType
+instance Prelude.ToByteString JobStatusType
 
-instance ToQuery JobStatusType
+instance Prelude.ToQuery JobStatusType
 
-instance ToHeader JobStatusType
+instance Prelude.ToHeader JobStatusType
 
-instance FromXML JobStatusType where
-  parseXML = parseXMLText "JobStatusType"
+instance Prelude.FromXML JobStatusType where
+  parseXML = Prelude.parseXMLText "JobStatusType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.GetContextKeysForPolicyResponse where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the response to a successful 'GetContextKeysForPrincipalPolicy' or 'GetContextKeysForCustomPolicy' request.
+-- | Contains the response to a successful GetContextKeysForPrincipalPolicy
+-- or GetContextKeysForCustomPolicy request.
 --
---
---
--- /See:/ 'getContextKeysForPolicyResponse' smart constructor.
-newtype GetContextKeysForPolicyResponse = GetContextKeysForPolicyResponse'
-  { _gckfprContextKeyNames ::
-      Maybe
-        [Text]
+-- /See:/ 'newGetContextKeysForPolicyResponse' smart constructor.
+data GetContextKeysForPolicyResponse = GetContextKeysForPolicyResponse'
+  { -- | The list of context keys that are referenced in the input policies.
+    contextKeyNames :: Prelude.Maybe [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContextKeysForPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContextKeysForPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gckfprContextKeyNames' - The list of context keys that are referenced in the input policies.
-getContextKeysForPolicyResponse ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'contextKeyNames', 'getContextKeysForPolicyResponse_contextKeyNames' - The list of context keys that are referenced in the input policies.
+newGetContextKeysForPolicyResponse ::
   GetContextKeysForPolicyResponse
-getContextKeysForPolicyResponse =
+newGetContextKeysForPolicyResponse =
   GetContextKeysForPolicyResponse'
-    { _gckfprContextKeyNames =
-        Nothing
+    { contextKeyNames =
+        Prelude.Nothing
     }
 
 -- | The list of context keys that are referenced in the input policies.
-gckfprContextKeyNames :: Lens' GetContextKeysForPolicyResponse [Text]
-gckfprContextKeyNames = lens _gckfprContextKeyNames (\s a -> s {_gckfprContextKeyNames = a}) . _Default . _Coerce
+getContextKeysForPolicyResponse_contextKeyNames :: Lens.Lens' GetContextKeysForPolicyResponse (Prelude.Maybe [Prelude.Text])
+getContextKeysForPolicyResponse_contextKeyNames = Lens.lens (\GetContextKeysForPolicyResponse' {contextKeyNames} -> contextKeyNames) (\s@GetContextKeysForPolicyResponse' {} a -> s {contextKeyNames = a} :: GetContextKeysForPolicyResponse) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML GetContextKeysForPolicyResponse where
+instance
+  Prelude.FromXML
+    GetContextKeysForPolicyResponse
+  where
   parseXML x =
     GetContextKeysForPolicyResponse'
-      <$> ( x .@? "ContextKeyNames" .!@ mempty
-              >>= may (parseXMLList "member")
-          )
+      Prelude.<$> ( x Prelude..@? "ContextKeyNames"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                  )
 
-instance Hashable GetContextKeysForPolicyResponse
+instance
+  Prelude.Hashable
+    GetContextKeysForPolicyResponse
 
-instance NFData GetContextKeysForPolicyResponse
+instance
+  Prelude.NFData
+    GetContextKeysForPolicyResponse

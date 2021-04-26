@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.IAM.Types.DeletionTaskStatusType
   ( DeletionTaskStatusType
       ( ..,
-        Failed,
-        InProgress,
-        NotStarted,
-        Succeeded
+        DeletionTaskStatusTypeFAILED,
+        DeletionTaskStatusTypeINPROGRESS,
+        DeletionTaskStatusTypeNOTSTARTED,
+        DeletionTaskStatusTypeSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeletionTaskStatusType
-  = DeletionTaskStatusType'
-      ( CI
-          Text
-      )
+newtype DeletionTaskStatusType = DeletionTaskStatusType'
+  { fromDeletionTaskStatusType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: DeletionTaskStatusType
-pattern Failed = DeletionTaskStatusType' "FAILED"
+pattern DeletionTaskStatusTypeFAILED :: DeletionTaskStatusType
+pattern DeletionTaskStatusTypeFAILED = DeletionTaskStatusType' "FAILED"
 
-pattern InProgress :: DeletionTaskStatusType
-pattern InProgress = DeletionTaskStatusType' "IN_PROGRESS"
+pattern DeletionTaskStatusTypeINPROGRESS :: DeletionTaskStatusType
+pattern DeletionTaskStatusTypeINPROGRESS = DeletionTaskStatusType' "IN_PROGRESS"
 
-pattern NotStarted :: DeletionTaskStatusType
-pattern NotStarted = DeletionTaskStatusType' "NOT_STARTED"
+pattern DeletionTaskStatusTypeNOTSTARTED :: DeletionTaskStatusType
+pattern DeletionTaskStatusTypeNOTSTARTED = DeletionTaskStatusType' "NOT_STARTED"
 
-pattern Succeeded :: DeletionTaskStatusType
-pattern Succeeded = DeletionTaskStatusType' "SUCCEEDED"
+pattern DeletionTaskStatusTypeSUCCEEDED :: DeletionTaskStatusType
+pattern DeletionTaskStatusTypeSUCCEEDED = DeletionTaskStatusType' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  NotStarted,
-  Succeeded,
+  DeletionTaskStatusTypeFAILED,
+  DeletionTaskStatusTypeINPROGRESS,
+  DeletionTaskStatusTypeNOTSTARTED,
+  DeletionTaskStatusTypeSUCCEEDED,
   DeletionTaskStatusType'
   #-}
 
-instance FromText DeletionTaskStatusType where
-  parser = (DeletionTaskStatusType' . mk) <$> takeText
+instance Prelude.FromText DeletionTaskStatusType where
+  parser = DeletionTaskStatusType' Prelude.<$> Prelude.takeText
 
-instance ToText DeletionTaskStatusType where
-  toText (DeletionTaskStatusType' ci) = original ci
+instance Prelude.ToText DeletionTaskStatusType where
+  toText (DeletionTaskStatusType' x) = x
 
-instance Hashable DeletionTaskStatusType
+instance Prelude.Hashable DeletionTaskStatusType
 
-instance NFData DeletionTaskStatusType
+instance Prelude.NFData DeletionTaskStatusType
 
-instance ToByteString DeletionTaskStatusType
+instance Prelude.ToByteString DeletionTaskStatusType
 
-instance ToQuery DeletionTaskStatusType
+instance Prelude.ToQuery DeletionTaskStatusType
 
-instance ToHeader DeletionTaskStatusType
+instance Prelude.ToHeader DeletionTaskStatusType
 
-instance FromXML DeletionTaskStatusType where
-  parseXML = parseXMLText "DeletionTaskStatusType"
+instance Prelude.FromXML DeletionTaskStatusType where
+  parseXML = Prelude.parseXMLText "DeletionTaskStatusType"

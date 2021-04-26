@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,51 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.OrganizationsDecisionDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the effect that Organizations has on a policy simulation.
+-- | Contains information about the effect that Organizations has on a policy
+-- simulation.
 --
---
---
--- /See:/ 'organizationsDecisionDetail' smart constructor.
-newtype OrganizationsDecisionDetail = OrganizationsDecisionDetail'
-  { _oddAllowedByOrganizations ::
-      Maybe Bool
+-- /See:/ 'newOrganizationsDecisionDetail' smart constructor.
+data OrganizationsDecisionDetail = OrganizationsDecisionDetail'
+  { -- | Specifies whether the simulated operation is allowed by the
+    -- Organizations service control policies that impact the simulated user\'s
+    -- account.
+    allowedByOrganizations :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OrganizationsDecisionDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OrganizationsDecisionDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'oddAllowedByOrganizations' - Specifies whether the simulated operation is allowed by the Organizations service control policies that impact the simulated user's account.
-organizationsDecisionDetail ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'allowedByOrganizations', 'organizationsDecisionDetail_allowedByOrganizations' - Specifies whether the simulated operation is allowed by the
+-- Organizations service control policies that impact the simulated user\'s
+-- account.
+newOrganizationsDecisionDetail ::
   OrganizationsDecisionDetail
-organizationsDecisionDetail =
+newOrganizationsDecisionDetail =
   OrganizationsDecisionDetail'
-    { _oddAllowedByOrganizations =
-        Nothing
+    { allowedByOrganizations =
+        Prelude.Nothing
     }
 
--- | Specifies whether the simulated operation is allowed by the Organizations service control policies that impact the simulated user's account.
-oddAllowedByOrganizations :: Lens' OrganizationsDecisionDetail (Maybe Bool)
-oddAllowedByOrganizations = lens _oddAllowedByOrganizations (\s a -> s {_oddAllowedByOrganizations = a})
+-- | Specifies whether the simulated operation is allowed by the
+-- Organizations service control policies that impact the simulated user\'s
+-- account.
+organizationsDecisionDetail_allowedByOrganizations :: Lens.Lens' OrganizationsDecisionDetail (Prelude.Maybe Prelude.Bool)
+organizationsDecisionDetail_allowedByOrganizations = Lens.lens (\OrganizationsDecisionDetail' {allowedByOrganizations} -> allowedByOrganizations) (\s@OrganizationsDecisionDetail' {} a -> s {allowedByOrganizations = a} :: OrganizationsDecisionDetail)
 
-instance FromXML OrganizationsDecisionDetail where
+instance Prelude.FromXML OrganizationsDecisionDetail where
   parseXML x =
     OrganizationsDecisionDetail'
-      <$> (x .@? "AllowedByOrganizations")
+      Prelude.<$> (x Prelude..@? "AllowedByOrganizations")
 
-instance Hashable OrganizationsDecisionDetail
+instance Prelude.Hashable OrganizationsDecisionDetail
 
-instance NFData OrganizationsDecisionDetail
+instance Prelude.NFData OrganizationsDecisionDetail

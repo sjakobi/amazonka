@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IAM.Types.ReportStateType
   ( ReportStateType
       ( ..,
-        RSTComplete,
-        RSTInprogress,
-        RSTStarted
+        ReportStateTypeCOMPLETE,
+        ReportStateTypeINPROGRESS,
+        ReportStateTypeSTARTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReportStateType = ReportStateType' (CI Text)
+newtype ReportStateType = ReportStateType'
+  { fromReportStateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSTComplete :: ReportStateType
-pattern RSTComplete = ReportStateType' "COMPLETE"
+pattern ReportStateTypeCOMPLETE :: ReportStateType
+pattern ReportStateTypeCOMPLETE = ReportStateType' "COMPLETE"
 
-pattern RSTInprogress :: ReportStateType
-pattern RSTInprogress = ReportStateType' "INPROGRESS"
+pattern ReportStateTypeINPROGRESS :: ReportStateType
+pattern ReportStateTypeINPROGRESS = ReportStateType' "INPROGRESS"
 
-pattern RSTStarted :: ReportStateType
-pattern RSTStarted = ReportStateType' "STARTED"
+pattern ReportStateTypeSTARTED :: ReportStateType
+pattern ReportStateTypeSTARTED = ReportStateType' "STARTED"
 
 {-# COMPLETE
-  RSTComplete,
-  RSTInprogress,
-  RSTStarted,
+  ReportStateTypeCOMPLETE,
+  ReportStateTypeINPROGRESS,
+  ReportStateTypeSTARTED,
   ReportStateType'
   #-}
 
-instance FromText ReportStateType where
-  parser = (ReportStateType' . mk) <$> takeText
+instance Prelude.FromText ReportStateType where
+  parser = ReportStateType' Prelude.<$> Prelude.takeText
 
-instance ToText ReportStateType where
-  toText (ReportStateType' ci) = original ci
+instance Prelude.ToText ReportStateType where
+  toText (ReportStateType' x) = x
 
-instance Hashable ReportStateType
+instance Prelude.Hashable ReportStateType
 
-instance NFData ReportStateType
+instance Prelude.NFData ReportStateType
 
-instance ToByteString ReportStateType
+instance Prelude.ToByteString ReportStateType
 
-instance ToQuery ReportStateType
+instance Prelude.ToQuery ReportStateType
 
-instance ToHeader ReportStateType
+instance Prelude.ToHeader ReportStateType
 
-instance FromXML ReportStateType where
-  parseXML = parseXMLText "ReportStateType"
+instance Prelude.FromXML ReportStateType where
+  parseXML = Prelude.parseXMLText "ReportStateType"

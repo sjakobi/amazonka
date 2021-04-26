@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.IAM.Types.PolicyOwnerEntityType
   ( PolicyOwnerEntityType
       ( ..,
-        POETGroup,
-        POETRole,
-        POETUser
+        PolicyOwnerEntityTypeGROUP,
+        PolicyOwnerEntityTypeROLE,
+        PolicyOwnerEntityTypeUSER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PolicyOwnerEntityType
-  = PolicyOwnerEntityType'
-      ( CI
-          Text
-      )
+newtype PolicyOwnerEntityType = PolicyOwnerEntityType'
+  { fromPolicyOwnerEntityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern POETGroup :: PolicyOwnerEntityType
-pattern POETGroup = PolicyOwnerEntityType' "GROUP"
+pattern PolicyOwnerEntityTypeGROUP :: PolicyOwnerEntityType
+pattern PolicyOwnerEntityTypeGROUP = PolicyOwnerEntityType' "GROUP"
 
-pattern POETRole :: PolicyOwnerEntityType
-pattern POETRole = PolicyOwnerEntityType' "ROLE"
+pattern PolicyOwnerEntityTypeROLE :: PolicyOwnerEntityType
+pattern PolicyOwnerEntityTypeROLE = PolicyOwnerEntityType' "ROLE"
 
-pattern POETUser :: PolicyOwnerEntityType
-pattern POETUser = PolicyOwnerEntityType' "USER"
+pattern PolicyOwnerEntityTypeUSER :: PolicyOwnerEntityType
+pattern PolicyOwnerEntityTypeUSER = PolicyOwnerEntityType' "USER"
 
 {-# COMPLETE
-  POETGroup,
-  POETRole,
-  POETUser,
+  PolicyOwnerEntityTypeGROUP,
+  PolicyOwnerEntityTypeROLE,
+  PolicyOwnerEntityTypeUSER,
   PolicyOwnerEntityType'
   #-}
 
-instance FromText PolicyOwnerEntityType where
-  parser = (PolicyOwnerEntityType' . mk) <$> takeText
+instance Prelude.FromText PolicyOwnerEntityType where
+  parser = PolicyOwnerEntityType' Prelude.<$> Prelude.takeText
 
-instance ToText PolicyOwnerEntityType where
-  toText (PolicyOwnerEntityType' ci) = original ci
+instance Prelude.ToText PolicyOwnerEntityType where
+  toText (PolicyOwnerEntityType' x) = x
 
-instance Hashable PolicyOwnerEntityType
+instance Prelude.Hashable PolicyOwnerEntityType
 
-instance NFData PolicyOwnerEntityType
+instance Prelude.NFData PolicyOwnerEntityType
 
-instance ToByteString PolicyOwnerEntityType
+instance Prelude.ToByteString PolicyOwnerEntityType
 
-instance ToQuery PolicyOwnerEntityType
+instance Prelude.ToQuery PolicyOwnerEntityType
 
-instance ToHeader PolicyOwnerEntityType
+instance Prelude.ToHeader PolicyOwnerEntityType
 
-instance FromXML PolicyOwnerEntityType where
-  parseXML = parseXMLText "PolicyOwnerEntityType"
+instance Prelude.FromXML PolicyOwnerEntityType where
+  parseXML = Prelude.parseXMLText "PolicyOwnerEntityType"

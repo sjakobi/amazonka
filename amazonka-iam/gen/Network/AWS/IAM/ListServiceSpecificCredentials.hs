@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,203 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about the service-specific credentials associated with the specified IAM user. If none exists, the operation returns an empty list. The service-specific credentials returned by this operation are used only for authenticating the IAM user to a specific service. For more information about using service-specific credentials to authenticate to an AWS service, see <https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html Set up service-specific credentials> in the AWS CodeCommit User Guide.
+-- Returns information about the service-specific credentials associated
+-- with the specified IAM user. If none exists, the operation returns an
+-- empty list. The service-specific credentials returned by this operation
+-- are used only for authenticating the IAM user to a specific service. For
+-- more information about using service-specific credentials to
+-- authenticate to an AWS service, see
+-- <https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html Set up service-specific credentials>
+-- in the AWS CodeCommit User Guide.
 module Network.AWS.IAM.ListServiceSpecificCredentials
   ( -- * Creating a Request
-    listServiceSpecificCredentials,
-    ListServiceSpecificCredentials,
+    ListServiceSpecificCredentials (..),
+    newListServiceSpecificCredentials,
 
     -- * Request Lenses
-    lsscServiceName,
-    lsscUserName,
+    listServiceSpecificCredentials_serviceName,
+    listServiceSpecificCredentials_userName,
 
     -- * Destructuring the Response
-    listServiceSpecificCredentialsResponse,
-    ListServiceSpecificCredentialsResponse,
+    ListServiceSpecificCredentialsResponse (..),
+    newListServiceSpecificCredentialsResponse,
 
     -- * Response Lenses
-    lsscrrsServiceSpecificCredentials,
-    lsscrrsResponseStatus,
+    listServiceSpecificCredentialsResponse_serviceSpecificCredentials,
+    listServiceSpecificCredentialsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IAM.Types.ServiceSpecificCredentialMetadata
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listServiceSpecificCredentials' smart constructor.
+-- | /See:/ 'newListServiceSpecificCredentials' smart constructor.
 data ListServiceSpecificCredentials = ListServiceSpecificCredentials'
-  { _lsscServiceName ::
-      !( Maybe
-           Text
-       ),
-    _lsscUserName ::
-      !( Maybe
-           Text
-       )
+  { -- | Filters the returned results to only those for the specified AWS
+    -- service. If not specified, then AWS returns service-specific credentials
+    -- for all services.
+    serviceName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the user whose service-specific credentials you want
+    -- information about. If this value is not specified, then the operation
+    -- assumes the user whose credentials are used to call the operation.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListServiceSpecificCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListServiceSpecificCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsscServiceName' - Filters the returned results to only those for the specified AWS service. If not specified, then AWS returns service-specific credentials for all services.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsscUserName' - The name of the user whose service-specific credentials you want information about. If this value is not specified, then the operation assumes the user whose credentials are used to call the operation. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-listServiceSpecificCredentials ::
+-- 'serviceName', 'listServiceSpecificCredentials_serviceName' - Filters the returned results to only those for the specified AWS
+-- service. If not specified, then AWS returns service-specific credentials
+-- for all services.
+--
+-- 'userName', 'listServiceSpecificCredentials_userName' - The name of the user whose service-specific credentials you want
+-- information about. If this value is not specified, then the operation
+-- assumes the user whose credentials are used to call the operation.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newListServiceSpecificCredentials ::
   ListServiceSpecificCredentials
-listServiceSpecificCredentials =
+newListServiceSpecificCredentials =
   ListServiceSpecificCredentials'
-    { _lsscServiceName =
-        Nothing,
-      _lsscUserName = Nothing
+    { serviceName =
+        Prelude.Nothing,
+      userName = Prelude.Nothing
     }
 
--- | Filters the returned results to only those for the specified AWS service. If not specified, then AWS returns service-specific credentials for all services.
-lsscServiceName :: Lens' ListServiceSpecificCredentials (Maybe Text)
-lsscServiceName = lens _lsscServiceName (\s a -> s {_lsscServiceName = a})
+-- | Filters the returned results to only those for the specified AWS
+-- service. If not specified, then AWS returns service-specific credentials
+-- for all services.
+listServiceSpecificCredentials_serviceName :: Lens.Lens' ListServiceSpecificCredentials (Prelude.Maybe Prelude.Text)
+listServiceSpecificCredentials_serviceName = Lens.lens (\ListServiceSpecificCredentials' {serviceName} -> serviceName) (\s@ListServiceSpecificCredentials' {} a -> s {serviceName = a} :: ListServiceSpecificCredentials)
 
--- | The name of the user whose service-specific credentials you want information about. If this value is not specified, then the operation assumes the user whose credentials are used to call the operation. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-lsscUserName :: Lens' ListServiceSpecificCredentials (Maybe Text)
-lsscUserName = lens _lsscUserName (\s a -> s {_lsscUserName = a})
+-- | The name of the user whose service-specific credentials you want
+-- information about. If this value is not specified, then the operation
+-- assumes the user whose credentials are used to call the operation.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+listServiceSpecificCredentials_userName :: Lens.Lens' ListServiceSpecificCredentials (Prelude.Maybe Prelude.Text)
+listServiceSpecificCredentials_userName = Lens.lens (\ListServiceSpecificCredentials' {userName} -> userName) (\s@ListServiceSpecificCredentials' {} a -> s {userName = a} :: ListServiceSpecificCredentials)
 
-instance AWSRequest ListServiceSpecificCredentials where
+instance
+  Prelude.AWSRequest
+    ListServiceSpecificCredentials
+  where
   type
     Rs ListServiceSpecificCredentials =
       ListServiceSpecificCredentialsResponse
-  request = postQuery iam
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListServiceSpecificCredentialsResult"
       ( \s h x ->
           ListServiceSpecificCredentialsResponse'
-            <$> ( x .@? "ServiceSpecificCredentials" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "ServiceSpecificCredentials"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListServiceSpecificCredentials
-
-instance NFData ListServiceSpecificCredentials
-
-instance ToHeaders ListServiceSpecificCredentials where
-  toHeaders = const mempty
-
-instance ToPath ListServiceSpecificCredentials where
-  toPath = const "/"
-
-instance ToQuery ListServiceSpecificCredentials where
-  toQuery ListServiceSpecificCredentials' {..} =
-    mconcat
-      [ "Action"
-          =: ("ListServiceSpecificCredentials" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "ServiceName" =: _lsscServiceName,
-        "UserName" =: _lsscUserName
-      ]
-
--- | /See:/ 'listServiceSpecificCredentialsResponse' smart constructor.
-data ListServiceSpecificCredentialsResponse = ListServiceSpecificCredentialsResponse'
-  { _lsscrrsServiceSpecificCredentials ::
-      !( Maybe
-           [ServiceSpecificCredentialMetadata]
-       ),
-    _lsscrrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'ListServiceSpecificCredentialsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'lsscrrsServiceSpecificCredentials' - A list of structures that each contain details about a service-specific credential.
---
--- * 'lsscrrsResponseStatus' - -- | The response status code.
-listServiceSpecificCredentialsResponse ::
-  -- | 'lsscrrsResponseStatus'
-  Int ->
-  ListServiceSpecificCredentialsResponse
-listServiceSpecificCredentialsResponse
-  pResponseStatus_ =
-    ListServiceSpecificCredentialsResponse'
-      { _lsscrrsServiceSpecificCredentials =
-          Nothing,
-        _lsscrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | A list of structures that each contain details about a service-specific credential.
-lsscrrsServiceSpecificCredentials :: Lens' ListServiceSpecificCredentialsResponse [ServiceSpecificCredentialMetadata]
-lsscrrsServiceSpecificCredentials = lens _lsscrrsServiceSpecificCredentials (\s a -> s {_lsscrrsServiceSpecificCredentials = a}) . _Default . _Coerce
-
--- | -- | The response status code.
-lsscrrsResponseStatus :: Lens' ListServiceSpecificCredentialsResponse Int
-lsscrrsResponseStatus = lens _lsscrrsResponseStatus (\s a -> s {_lsscrrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    ListServiceSpecificCredentials
 
 instance
-  NFData
+  Prelude.NFData
+    ListServiceSpecificCredentials
+
+instance
+  Prelude.ToHeaders
+    ListServiceSpecificCredentials
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    ListServiceSpecificCredentials
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    ListServiceSpecificCredentials
+  where
+  toQuery ListServiceSpecificCredentials' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "ListServiceSpecificCredentials" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "ServiceName" Prelude.=: serviceName,
+        "UserName" Prelude.=: userName
+      ]
+
+-- | /See:/ 'newListServiceSpecificCredentialsResponse' smart constructor.
+data ListServiceSpecificCredentialsResponse = ListServiceSpecificCredentialsResponse'
+  { -- | A list of structures that each contain details about a service-specific
+    -- credential.
+    serviceSpecificCredentials :: Prelude.Maybe [ServiceSpecificCredentialMetadata],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'ListServiceSpecificCredentialsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'serviceSpecificCredentials', 'listServiceSpecificCredentialsResponse_serviceSpecificCredentials' - A list of structures that each contain details about a service-specific
+-- credential.
+--
+-- 'httpStatus', 'listServiceSpecificCredentialsResponse_httpStatus' - The response's http status code.
+newListServiceSpecificCredentialsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  ListServiceSpecificCredentialsResponse
+newListServiceSpecificCredentialsResponse
+  pHttpStatus_ =
+    ListServiceSpecificCredentialsResponse'
+      { serviceSpecificCredentials =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | A list of structures that each contain details about a service-specific
+-- credential.
+listServiceSpecificCredentialsResponse_serviceSpecificCredentials :: Lens.Lens' ListServiceSpecificCredentialsResponse (Prelude.Maybe [ServiceSpecificCredentialMetadata])
+listServiceSpecificCredentialsResponse_serviceSpecificCredentials = Lens.lens (\ListServiceSpecificCredentialsResponse' {serviceSpecificCredentials} -> serviceSpecificCredentials) (\s@ListServiceSpecificCredentialsResponse' {} a -> s {serviceSpecificCredentials = a} :: ListServiceSpecificCredentialsResponse) Prelude.. Lens.mapping Prelude._Coerce
+
+-- | The response's http status code.
+listServiceSpecificCredentialsResponse_httpStatus :: Lens.Lens' ListServiceSpecificCredentialsResponse Prelude.Int
+listServiceSpecificCredentialsResponse_httpStatus = Lens.lens (\ListServiceSpecificCredentialsResponse' {httpStatus} -> httpStatus) (\s@ListServiceSpecificCredentialsResponse' {} a -> s {httpStatus = a} :: ListServiceSpecificCredentialsResponse)
+
+instance
+  Prelude.NFData
     ListServiceSpecificCredentialsResponse

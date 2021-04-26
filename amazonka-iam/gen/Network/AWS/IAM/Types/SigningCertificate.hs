@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,91 +20,101 @@
 module Network.AWS.IAM.Types.SigningCertificate where
 
 import Network.AWS.IAM.Types.StatusType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an X.509 signing certificate.
 --
+-- This data type is used as a response element in the
+-- UploadSigningCertificate and ListSigningCertificates operations.
 --
--- This data type is used as a response element in the 'UploadSigningCertificate' and 'ListSigningCertificates' operations.
---
---
--- /See:/ 'signingCertificate' smart constructor.
+-- /See:/ 'newSigningCertificate' smart constructor.
 data SigningCertificate = SigningCertificate'
-  { _scUploadDate ::
-      !(Maybe ISO8601),
-    _scUserName :: !Text,
-    _scCertificateId :: !Text,
-    _scCertificateBody :: !Text,
-    _scStatus :: !StatusType
+  { -- | The date when the signing certificate was uploaded.
+    uploadDate :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the user the signing certificate is associated with.
+    userName :: Prelude.Text,
+    -- | The ID for the signing certificate.
+    certificateId :: Prelude.Text,
+    -- | The contents of the signing certificate.
+    certificateBody :: Prelude.Text,
+    -- | The status of the signing certificate. @Active@ means that the key is
+    -- valid for API calls, while @Inactive@ means it is not.
+    status :: StatusType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SigningCertificate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SigningCertificate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scUploadDate' - The date when the signing certificate was uploaded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scUserName' - The name of the user the signing certificate is associated with.
+-- 'uploadDate', 'signingCertificate_uploadDate' - The date when the signing certificate was uploaded.
 --
--- * 'scCertificateId' - The ID for the signing certificate.
+-- 'userName', 'signingCertificate_userName' - The name of the user the signing certificate is associated with.
 --
--- * 'scCertificateBody' - The contents of the signing certificate.
+-- 'certificateId', 'signingCertificate_certificateId' - The ID for the signing certificate.
 --
--- * 'scStatus' - The status of the signing certificate. @Active@ means that the key is valid for API calls, while @Inactive@ means it is not.
-signingCertificate ::
-  -- | 'scUserName'
-  Text ->
-  -- | 'scCertificateId'
-  Text ->
-  -- | 'scCertificateBody'
-  Text ->
-  -- | 'scStatus'
+-- 'certificateBody', 'signingCertificate_certificateBody' - The contents of the signing certificate.
+--
+-- 'status', 'signingCertificate_status' - The status of the signing certificate. @Active@ means that the key is
+-- valid for API calls, while @Inactive@ means it is not.
+newSigningCertificate ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'certificateId'
+  Prelude.Text ->
+  -- | 'certificateBody'
+  Prelude.Text ->
+  -- | 'status'
   StatusType ->
   SigningCertificate
-signingCertificate
+newSigningCertificate
   pUserName_
   pCertificateId_
   pCertificateBody_
   pStatus_ =
     SigningCertificate'
-      { _scUploadDate = Nothing,
-        _scUserName = pUserName_,
-        _scCertificateId = pCertificateId_,
-        _scCertificateBody = pCertificateBody_,
-        _scStatus = pStatus_
+      { uploadDate = Prelude.Nothing,
+        userName = pUserName_,
+        certificateId = pCertificateId_,
+        certificateBody = pCertificateBody_,
+        status = pStatus_
       }
 
 -- | The date when the signing certificate was uploaded.
-scUploadDate :: Lens' SigningCertificate (Maybe UTCTime)
-scUploadDate = lens _scUploadDate (\s a -> s {_scUploadDate = a}) . mapping _Time
+signingCertificate_uploadDate :: Lens.Lens' SigningCertificate (Prelude.Maybe Prelude.UTCTime)
+signingCertificate_uploadDate = Lens.lens (\SigningCertificate' {uploadDate} -> uploadDate) (\s@SigningCertificate' {} a -> s {uploadDate = a} :: SigningCertificate) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the user the signing certificate is associated with.
-scUserName :: Lens' SigningCertificate Text
-scUserName = lens _scUserName (\s a -> s {_scUserName = a})
+signingCertificate_userName :: Lens.Lens' SigningCertificate Prelude.Text
+signingCertificate_userName = Lens.lens (\SigningCertificate' {userName} -> userName) (\s@SigningCertificate' {} a -> s {userName = a} :: SigningCertificate)
 
 -- | The ID for the signing certificate.
-scCertificateId :: Lens' SigningCertificate Text
-scCertificateId = lens _scCertificateId (\s a -> s {_scCertificateId = a})
+signingCertificate_certificateId :: Lens.Lens' SigningCertificate Prelude.Text
+signingCertificate_certificateId = Lens.lens (\SigningCertificate' {certificateId} -> certificateId) (\s@SigningCertificate' {} a -> s {certificateId = a} :: SigningCertificate)
 
 -- | The contents of the signing certificate.
-scCertificateBody :: Lens' SigningCertificate Text
-scCertificateBody = lens _scCertificateBody (\s a -> s {_scCertificateBody = a})
+signingCertificate_certificateBody :: Lens.Lens' SigningCertificate Prelude.Text
+signingCertificate_certificateBody = Lens.lens (\SigningCertificate' {certificateBody} -> certificateBody) (\s@SigningCertificate' {} a -> s {certificateBody = a} :: SigningCertificate)
 
--- | The status of the signing certificate. @Active@ means that the key is valid for API calls, while @Inactive@ means it is not.
-scStatus :: Lens' SigningCertificate StatusType
-scStatus = lens _scStatus (\s a -> s {_scStatus = a})
+-- | The status of the signing certificate. @Active@ means that the key is
+-- valid for API calls, while @Inactive@ means it is not.
+signingCertificate_status :: Lens.Lens' SigningCertificate StatusType
+signingCertificate_status = Lens.lens (\SigningCertificate' {status} -> status) (\s@SigningCertificate' {} a -> s {status = a} :: SigningCertificate)
 
-instance FromXML SigningCertificate where
+instance Prelude.FromXML SigningCertificate where
   parseXML x =
     SigningCertificate'
-      <$> (x .@? "UploadDate")
-      <*> (x .@ "UserName")
-      <*> (x .@ "CertificateId")
-      <*> (x .@ "CertificateBody")
-      <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@? "UploadDate")
+      Prelude.<*> (x Prelude..@ "UserName")
+      Prelude.<*> (x Prelude..@ "CertificateId")
+      Prelude.<*> (x Prelude..@ "CertificateBody")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable SigningCertificate
+instance Prelude.Hashable SigningCertificate
 
-instance NFData SigningCertificate
+instance Prelude.NFData SigningCertificate

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,173 +19,175 @@
 module Network.AWS.IAM.Types.SummaryKeyType
   ( SummaryKeyType
       ( ..,
-        AccessKeysPerUserQuota,
-        AccountAccessKeysPresent,
-        AccountMFAEnabled,
-        AccountSigningCertificatesPresent,
-        AttachedPoliciesPerGroupQuota,
-        AttachedPoliciesPerRoleQuota,
-        AttachedPoliciesPerUserQuota,
-        GlobalEndpointTokenVersion,
-        GroupPolicySizeQuota,
-        Groups,
-        GroupsPerUserQuota,
-        GroupsQuota,
-        MFADevices,
-        MFADevicesInUse,
-        Policies,
-        PoliciesQuota,
-        PolicySizeQuota,
-        PolicyVersionsInUse,
-        PolicyVersionsInUseQuota,
-        ServerCertificates,
-        ServerCertificatesQuota,
-        SigningCertificatesPerUserQuota,
-        UserPolicySizeQuota,
-        Users,
-        UsersQuota,
-        VersionsPerPolicyQuota
+        SummaryKeyTypeAccessKeysPerUserQuota,
+        SummaryKeyTypeAccountAccessKeysPresent,
+        SummaryKeyTypeAccountMFAEnabled,
+        SummaryKeyTypeAccountSigningCertificatesPresent,
+        SummaryKeyTypeAttachedPoliciesPerGroupQuota,
+        SummaryKeyTypeAttachedPoliciesPerRoleQuota,
+        SummaryKeyTypeAttachedPoliciesPerUserQuota,
+        SummaryKeyTypeGlobalEndpointTokenVersion,
+        SummaryKeyTypeGroupPolicySizeQuota,
+        SummaryKeyTypeGroups,
+        SummaryKeyTypeGroupsPerUserQuota,
+        SummaryKeyTypeGroupsQuota,
+        SummaryKeyTypeMFADevices,
+        SummaryKeyTypeMFADevicesInUse,
+        SummaryKeyTypePolicies,
+        SummaryKeyTypePoliciesQuota,
+        SummaryKeyTypePolicySizeQuota,
+        SummaryKeyTypePolicyVersionsInUse,
+        SummaryKeyTypePolicyVersionsInUseQuota,
+        SummaryKeyTypeServerCertificates,
+        SummaryKeyTypeServerCertificatesQuota,
+        SummaryKeyTypeSigningCertificatesPerUserQuota,
+        SummaryKeyTypeUserPolicySizeQuota,
+        SummaryKeyTypeUsers,
+        SummaryKeyTypeUsersQuota,
+        SummaryKeyTypeVersionsPerPolicyQuota
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SummaryKeyType = SummaryKeyType' (CI Text)
+newtype SummaryKeyType = SummaryKeyType'
+  { fromSummaryKeyType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessKeysPerUserQuota :: SummaryKeyType
-pattern AccessKeysPerUserQuota = SummaryKeyType' "AccessKeysPerUserQuota"
+pattern SummaryKeyTypeAccessKeysPerUserQuota :: SummaryKeyType
+pattern SummaryKeyTypeAccessKeysPerUserQuota = SummaryKeyType' "AccessKeysPerUserQuota"
 
-pattern AccountAccessKeysPresent :: SummaryKeyType
-pattern AccountAccessKeysPresent = SummaryKeyType' "AccountAccessKeysPresent"
+pattern SummaryKeyTypeAccountAccessKeysPresent :: SummaryKeyType
+pattern SummaryKeyTypeAccountAccessKeysPresent = SummaryKeyType' "AccountAccessKeysPresent"
 
-pattern AccountMFAEnabled :: SummaryKeyType
-pattern AccountMFAEnabled = SummaryKeyType' "AccountMFAEnabled"
+pattern SummaryKeyTypeAccountMFAEnabled :: SummaryKeyType
+pattern SummaryKeyTypeAccountMFAEnabled = SummaryKeyType' "AccountMFAEnabled"
 
-pattern AccountSigningCertificatesPresent :: SummaryKeyType
-pattern AccountSigningCertificatesPresent = SummaryKeyType' "AccountSigningCertificatesPresent"
+pattern SummaryKeyTypeAccountSigningCertificatesPresent :: SummaryKeyType
+pattern SummaryKeyTypeAccountSigningCertificatesPresent = SummaryKeyType' "AccountSigningCertificatesPresent"
 
-pattern AttachedPoliciesPerGroupQuota :: SummaryKeyType
-pattern AttachedPoliciesPerGroupQuota = SummaryKeyType' "AttachedPoliciesPerGroupQuota"
+pattern SummaryKeyTypeAttachedPoliciesPerGroupQuota :: SummaryKeyType
+pattern SummaryKeyTypeAttachedPoliciesPerGroupQuota = SummaryKeyType' "AttachedPoliciesPerGroupQuota"
 
-pattern AttachedPoliciesPerRoleQuota :: SummaryKeyType
-pattern AttachedPoliciesPerRoleQuota = SummaryKeyType' "AttachedPoliciesPerRoleQuota"
+pattern SummaryKeyTypeAttachedPoliciesPerRoleQuota :: SummaryKeyType
+pattern SummaryKeyTypeAttachedPoliciesPerRoleQuota = SummaryKeyType' "AttachedPoliciesPerRoleQuota"
 
-pattern AttachedPoliciesPerUserQuota :: SummaryKeyType
-pattern AttachedPoliciesPerUserQuota = SummaryKeyType' "AttachedPoliciesPerUserQuota"
+pattern SummaryKeyTypeAttachedPoliciesPerUserQuota :: SummaryKeyType
+pattern SummaryKeyTypeAttachedPoliciesPerUserQuota = SummaryKeyType' "AttachedPoliciesPerUserQuota"
 
-pattern GlobalEndpointTokenVersion :: SummaryKeyType
-pattern GlobalEndpointTokenVersion = SummaryKeyType' "GlobalEndpointTokenVersion"
+pattern SummaryKeyTypeGlobalEndpointTokenVersion :: SummaryKeyType
+pattern SummaryKeyTypeGlobalEndpointTokenVersion = SummaryKeyType' "GlobalEndpointTokenVersion"
 
-pattern GroupPolicySizeQuota :: SummaryKeyType
-pattern GroupPolicySizeQuota = SummaryKeyType' "GroupPolicySizeQuota"
+pattern SummaryKeyTypeGroupPolicySizeQuota :: SummaryKeyType
+pattern SummaryKeyTypeGroupPolicySizeQuota = SummaryKeyType' "GroupPolicySizeQuota"
 
-pattern Groups :: SummaryKeyType
-pattern Groups = SummaryKeyType' "Groups"
+pattern SummaryKeyTypeGroups :: SummaryKeyType
+pattern SummaryKeyTypeGroups = SummaryKeyType' "Groups"
 
-pattern GroupsPerUserQuota :: SummaryKeyType
-pattern GroupsPerUserQuota = SummaryKeyType' "GroupsPerUserQuota"
+pattern SummaryKeyTypeGroupsPerUserQuota :: SummaryKeyType
+pattern SummaryKeyTypeGroupsPerUserQuota = SummaryKeyType' "GroupsPerUserQuota"
 
-pattern GroupsQuota :: SummaryKeyType
-pattern GroupsQuota = SummaryKeyType' "GroupsQuota"
+pattern SummaryKeyTypeGroupsQuota :: SummaryKeyType
+pattern SummaryKeyTypeGroupsQuota = SummaryKeyType' "GroupsQuota"
 
-pattern MFADevices :: SummaryKeyType
-pattern MFADevices = SummaryKeyType' "MFADevices"
+pattern SummaryKeyTypeMFADevices :: SummaryKeyType
+pattern SummaryKeyTypeMFADevices = SummaryKeyType' "MFADevices"
 
-pattern MFADevicesInUse :: SummaryKeyType
-pattern MFADevicesInUse = SummaryKeyType' "MFADevicesInUse"
+pattern SummaryKeyTypeMFADevicesInUse :: SummaryKeyType
+pattern SummaryKeyTypeMFADevicesInUse = SummaryKeyType' "MFADevicesInUse"
 
-pattern Policies :: SummaryKeyType
-pattern Policies = SummaryKeyType' "Policies"
+pattern SummaryKeyTypePolicies :: SummaryKeyType
+pattern SummaryKeyTypePolicies = SummaryKeyType' "Policies"
 
-pattern PoliciesQuota :: SummaryKeyType
-pattern PoliciesQuota = SummaryKeyType' "PoliciesQuota"
+pattern SummaryKeyTypePoliciesQuota :: SummaryKeyType
+pattern SummaryKeyTypePoliciesQuota = SummaryKeyType' "PoliciesQuota"
 
-pattern PolicySizeQuota :: SummaryKeyType
-pattern PolicySizeQuota = SummaryKeyType' "PolicySizeQuota"
+pattern SummaryKeyTypePolicySizeQuota :: SummaryKeyType
+pattern SummaryKeyTypePolicySizeQuota = SummaryKeyType' "PolicySizeQuota"
 
-pattern PolicyVersionsInUse :: SummaryKeyType
-pattern PolicyVersionsInUse = SummaryKeyType' "PolicyVersionsInUse"
+pattern SummaryKeyTypePolicyVersionsInUse :: SummaryKeyType
+pattern SummaryKeyTypePolicyVersionsInUse = SummaryKeyType' "PolicyVersionsInUse"
 
-pattern PolicyVersionsInUseQuota :: SummaryKeyType
-pattern PolicyVersionsInUseQuota = SummaryKeyType' "PolicyVersionsInUseQuota"
+pattern SummaryKeyTypePolicyVersionsInUseQuota :: SummaryKeyType
+pattern SummaryKeyTypePolicyVersionsInUseQuota = SummaryKeyType' "PolicyVersionsInUseQuota"
 
-pattern ServerCertificates :: SummaryKeyType
-pattern ServerCertificates = SummaryKeyType' "ServerCertificates"
+pattern SummaryKeyTypeServerCertificates :: SummaryKeyType
+pattern SummaryKeyTypeServerCertificates = SummaryKeyType' "ServerCertificates"
 
-pattern ServerCertificatesQuota :: SummaryKeyType
-pattern ServerCertificatesQuota = SummaryKeyType' "ServerCertificatesQuota"
+pattern SummaryKeyTypeServerCertificatesQuota :: SummaryKeyType
+pattern SummaryKeyTypeServerCertificatesQuota = SummaryKeyType' "ServerCertificatesQuota"
 
-pattern SigningCertificatesPerUserQuota :: SummaryKeyType
-pattern SigningCertificatesPerUserQuota = SummaryKeyType' "SigningCertificatesPerUserQuota"
+pattern SummaryKeyTypeSigningCertificatesPerUserQuota :: SummaryKeyType
+pattern SummaryKeyTypeSigningCertificatesPerUserQuota = SummaryKeyType' "SigningCertificatesPerUserQuota"
 
-pattern UserPolicySizeQuota :: SummaryKeyType
-pattern UserPolicySizeQuota = SummaryKeyType' "UserPolicySizeQuota"
+pattern SummaryKeyTypeUserPolicySizeQuota :: SummaryKeyType
+pattern SummaryKeyTypeUserPolicySizeQuota = SummaryKeyType' "UserPolicySizeQuota"
 
-pattern Users :: SummaryKeyType
-pattern Users = SummaryKeyType' "Users"
+pattern SummaryKeyTypeUsers :: SummaryKeyType
+pattern SummaryKeyTypeUsers = SummaryKeyType' "Users"
 
-pattern UsersQuota :: SummaryKeyType
-pattern UsersQuota = SummaryKeyType' "UsersQuota"
+pattern SummaryKeyTypeUsersQuota :: SummaryKeyType
+pattern SummaryKeyTypeUsersQuota = SummaryKeyType' "UsersQuota"
 
-pattern VersionsPerPolicyQuota :: SummaryKeyType
-pattern VersionsPerPolicyQuota = SummaryKeyType' "VersionsPerPolicyQuota"
+pattern SummaryKeyTypeVersionsPerPolicyQuota :: SummaryKeyType
+pattern SummaryKeyTypeVersionsPerPolicyQuota = SummaryKeyType' "VersionsPerPolicyQuota"
 
 {-# COMPLETE
-  AccessKeysPerUserQuota,
-  AccountAccessKeysPresent,
-  AccountMFAEnabled,
-  AccountSigningCertificatesPresent,
-  AttachedPoliciesPerGroupQuota,
-  AttachedPoliciesPerRoleQuota,
-  AttachedPoliciesPerUserQuota,
-  GlobalEndpointTokenVersion,
-  GroupPolicySizeQuota,
-  Groups,
-  GroupsPerUserQuota,
-  GroupsQuota,
-  MFADevices,
-  MFADevicesInUse,
-  Policies,
-  PoliciesQuota,
-  PolicySizeQuota,
-  PolicyVersionsInUse,
-  PolicyVersionsInUseQuota,
-  ServerCertificates,
-  ServerCertificatesQuota,
-  SigningCertificatesPerUserQuota,
-  UserPolicySizeQuota,
-  Users,
-  UsersQuota,
-  VersionsPerPolicyQuota,
+  SummaryKeyTypeAccessKeysPerUserQuota,
+  SummaryKeyTypeAccountAccessKeysPresent,
+  SummaryKeyTypeAccountMFAEnabled,
+  SummaryKeyTypeAccountSigningCertificatesPresent,
+  SummaryKeyTypeAttachedPoliciesPerGroupQuota,
+  SummaryKeyTypeAttachedPoliciesPerRoleQuota,
+  SummaryKeyTypeAttachedPoliciesPerUserQuota,
+  SummaryKeyTypeGlobalEndpointTokenVersion,
+  SummaryKeyTypeGroupPolicySizeQuota,
+  SummaryKeyTypeGroups,
+  SummaryKeyTypeGroupsPerUserQuota,
+  SummaryKeyTypeGroupsQuota,
+  SummaryKeyTypeMFADevices,
+  SummaryKeyTypeMFADevicesInUse,
+  SummaryKeyTypePolicies,
+  SummaryKeyTypePoliciesQuota,
+  SummaryKeyTypePolicySizeQuota,
+  SummaryKeyTypePolicyVersionsInUse,
+  SummaryKeyTypePolicyVersionsInUseQuota,
+  SummaryKeyTypeServerCertificates,
+  SummaryKeyTypeServerCertificatesQuota,
+  SummaryKeyTypeSigningCertificatesPerUserQuota,
+  SummaryKeyTypeUserPolicySizeQuota,
+  SummaryKeyTypeUsers,
+  SummaryKeyTypeUsersQuota,
+  SummaryKeyTypeVersionsPerPolicyQuota,
   SummaryKeyType'
   #-}
 
-instance FromText SummaryKeyType where
-  parser = (SummaryKeyType' . mk) <$> takeText
+instance Prelude.FromText SummaryKeyType where
+  parser = SummaryKeyType' Prelude.<$> Prelude.takeText
 
-instance ToText SummaryKeyType where
-  toText (SummaryKeyType' ci) = original ci
+instance Prelude.ToText SummaryKeyType where
+  toText (SummaryKeyType' x) = x
 
-instance Hashable SummaryKeyType
+instance Prelude.Hashable SummaryKeyType
 
-instance NFData SummaryKeyType
+instance Prelude.NFData SummaryKeyType
 
-instance ToByteString SummaryKeyType
+instance Prelude.ToByteString SummaryKeyType
 
-instance ToQuery SummaryKeyType
+instance Prelude.ToQuery SummaryKeyType
 
-instance ToHeader SummaryKeyType
+instance Prelude.ToHeader SummaryKeyType
 
-instance FromXML SummaryKeyType where
-  parseXML = parseXMLText "SummaryKeyType"
+instance Prelude.FromXML SummaryKeyType where
+  parseXML = Prelude.parseXMLText "SummaryKeyType"

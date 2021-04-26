@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IAM.Types.PolicyDetail where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an IAM policy, including the policy document.
 --
+-- This data type is used as a response element in the
+-- GetAccountAuthorizationDetails operation.
 --
--- This data type is used as a response element in the 'GetAccountAuthorizationDetails' operation.
---
---
--- /See:/ 'policyDetail' smart constructor.
+-- /See:/ 'newPolicyDetail' smart constructor.
 data PolicyDetail = PolicyDetail'
-  { _pdPolicyName ::
-      !(Maybe Text),
-    _pdPolicyDocument :: !(Maybe Text)
+  { -- | The name of the policy.
+    policyName :: Prelude.Maybe Prelude.Text,
+    -- | The policy document.
+    policyDocument :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PolicyDetail' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PolicyDetail' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdPolicyName' - The name of the policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdPolicyDocument' - The policy document.
-policyDetail ::
+-- 'policyName', 'policyDetail_policyName' - The name of the policy.
+--
+-- 'policyDocument', 'policyDetail_policyDocument' - The policy document.
+newPolicyDetail ::
   PolicyDetail
-policyDetail =
+newPolicyDetail =
   PolicyDetail'
-    { _pdPolicyName = Nothing,
-      _pdPolicyDocument = Nothing
+    { policyName = Prelude.Nothing,
+      policyDocument = Prelude.Nothing
     }
 
 -- | The name of the policy.
-pdPolicyName :: Lens' PolicyDetail (Maybe Text)
-pdPolicyName = lens _pdPolicyName (\s a -> s {_pdPolicyName = a})
+policyDetail_policyName :: Lens.Lens' PolicyDetail (Prelude.Maybe Prelude.Text)
+policyDetail_policyName = Lens.lens (\PolicyDetail' {policyName} -> policyName) (\s@PolicyDetail' {} a -> s {policyName = a} :: PolicyDetail)
 
 -- | The policy document.
-pdPolicyDocument :: Lens' PolicyDetail (Maybe Text)
-pdPolicyDocument = lens _pdPolicyDocument (\s a -> s {_pdPolicyDocument = a})
+policyDetail_policyDocument :: Lens.Lens' PolicyDetail (Prelude.Maybe Prelude.Text)
+policyDetail_policyDocument = Lens.lens (\PolicyDetail' {policyDocument} -> policyDocument) (\s@PolicyDetail' {} a -> s {policyDocument = a} :: PolicyDetail)
 
-instance FromXML PolicyDetail where
+instance Prelude.FromXML PolicyDetail where
   parseXML x =
     PolicyDetail'
-      <$> (x .@? "PolicyName") <*> (x .@? "PolicyDocument")
+      Prelude.<$> (x Prelude..@? "PolicyName")
+      Prelude.<*> (x Prelude..@? "PolicyDocument")
 
-instance Hashable PolicyDetail
+instance Prelude.Hashable PolicyDetail
 
-instance NFData PolicyDetail
+instance Prelude.NFData PolicyDetail

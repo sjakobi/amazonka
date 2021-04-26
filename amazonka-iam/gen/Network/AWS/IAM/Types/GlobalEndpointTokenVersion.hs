@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,52 @@
 module Network.AWS.IAM.Types.GlobalEndpointTokenVersion
   ( GlobalEndpointTokenVersion
       ( ..,
-        V1Token,
-        V2Token
+        GlobalEndpointTokenVersionV1Token,
+        GlobalEndpointTokenVersionV2Token
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GlobalEndpointTokenVersion
-  = GlobalEndpointTokenVersion'
-      ( CI
-          Text
-      )
+newtype GlobalEndpointTokenVersion = GlobalEndpointTokenVersion'
+  { fromGlobalEndpointTokenVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern V1Token :: GlobalEndpointTokenVersion
-pattern V1Token = GlobalEndpointTokenVersion' "v1Token"
+pattern GlobalEndpointTokenVersionV1Token :: GlobalEndpointTokenVersion
+pattern GlobalEndpointTokenVersionV1Token = GlobalEndpointTokenVersion' "v1Token"
 
-pattern V2Token :: GlobalEndpointTokenVersion
-pattern V2Token = GlobalEndpointTokenVersion' "v2Token"
+pattern GlobalEndpointTokenVersionV2Token :: GlobalEndpointTokenVersion
+pattern GlobalEndpointTokenVersionV2Token = GlobalEndpointTokenVersion' "v2Token"
 
 {-# COMPLETE
-  V1Token,
-  V2Token,
+  GlobalEndpointTokenVersionV1Token,
+  GlobalEndpointTokenVersionV2Token,
   GlobalEndpointTokenVersion'
   #-}
 
-instance FromText GlobalEndpointTokenVersion where
-  parser = (GlobalEndpointTokenVersion' . mk) <$> takeText
+instance Prelude.FromText GlobalEndpointTokenVersion where
+  parser = GlobalEndpointTokenVersion' Prelude.<$> Prelude.takeText
 
-instance ToText GlobalEndpointTokenVersion where
-  toText (GlobalEndpointTokenVersion' ci) = original ci
+instance Prelude.ToText GlobalEndpointTokenVersion where
+  toText (GlobalEndpointTokenVersion' x) = x
 
-instance Hashable GlobalEndpointTokenVersion
+instance Prelude.Hashable GlobalEndpointTokenVersion
 
-instance NFData GlobalEndpointTokenVersion
+instance Prelude.NFData GlobalEndpointTokenVersion
 
-instance ToByteString GlobalEndpointTokenVersion
+instance Prelude.ToByteString GlobalEndpointTokenVersion
 
-instance ToQuery GlobalEndpointTokenVersion
+instance Prelude.ToQuery GlobalEndpointTokenVersion
 
-instance ToHeader GlobalEndpointTokenVersion
+instance Prelude.ToHeader GlobalEndpointTokenVersion

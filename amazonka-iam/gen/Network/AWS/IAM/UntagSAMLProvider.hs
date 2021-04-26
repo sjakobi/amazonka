@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,101 +21,135 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified tags from the specified Security Assertion Markup Language (SAML) identity provider in IAM. For more information about these providers, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html About web identity federation> . For more information about tagging, see <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources> in the /IAM User Guide/ .
+-- Removes the specified tags from the specified Security Assertion Markup
+-- Language (SAML) identity provider in IAM. For more information about
+-- these providers, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html About web identity federation>.
+-- For more information about tagging, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html Tagging IAM resources>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.UntagSAMLProvider
   ( -- * Creating a Request
-    untagSAMLProvider,
-    UntagSAMLProvider,
+    UntagSAMLProvider (..),
+    newUntagSAMLProvider,
 
     -- * Request Lenses
-    uSAMLProviderARN,
-    uTagKeys,
+    untagSAMLProvider_sAMLProviderArn,
+    untagSAMLProvider_tagKeys,
 
     -- * Destructuring the Response
-    untagSAMLProviderResponse,
-    UntagSAMLProviderResponse,
+    UntagSAMLProviderResponse (..),
+    newUntagSAMLProviderResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagSAMLProvider' smart constructor.
+-- | /See:/ 'newUntagSAMLProvider' smart constructor.
 data UntagSAMLProvider = UntagSAMLProvider'
-  { _uSAMLProviderARN ::
-      !Text,
-    _uTagKeys :: ![Text]
+  { -- | The ARN of the SAML identity provider in IAM from which you want to
+    -- remove tags.
+    --
+    -- This parameter accepts (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- that consist of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: =,.\@-
+    sAMLProviderArn :: Prelude.Text,
+    -- | A list of key names as a simple array of strings. The tags with matching
+    -- keys are removed from the specified SAML identity provider.
+    tagKeys :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagSAMLProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagSAMLProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uSAMLProviderARN' - The ARN of the SAML identity provider in IAM from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uTagKeys' - A list of key names as a simple array of strings. The tags with matching keys are removed from the specified SAML identity provider.
-untagSAMLProvider ::
-  -- | 'uSAMLProviderARN'
-  Text ->
+-- 'sAMLProviderArn', 'untagSAMLProvider_sAMLProviderArn' - The ARN of the SAML identity provider in IAM from which you want to
+-- remove tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+--
+-- 'tagKeys', 'untagSAMLProvider_tagKeys' - A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified SAML identity provider.
+newUntagSAMLProvider ::
+  -- | 'sAMLProviderArn'
+  Prelude.Text ->
   UntagSAMLProvider
-untagSAMLProvider pSAMLProviderARN_ =
+newUntagSAMLProvider pSAMLProviderArn_ =
   UntagSAMLProvider'
-    { _uSAMLProviderARN =
-        pSAMLProviderARN_,
-      _uTagKeys = mempty
+    { sAMLProviderArn =
+        pSAMLProviderArn_,
+      tagKeys = Prelude.mempty
     }
 
--- | The ARN of the SAML identity provider in IAM from which you want to remove tags. This parameter accepts (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters that consist of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: =,.@-
-uSAMLProviderARN :: Lens' UntagSAMLProvider Text
-uSAMLProviderARN = lens _uSAMLProviderARN (\s a -> s {_uSAMLProviderARN = a})
+-- | The ARN of the SAML identity provider in IAM from which you want to
+-- remove tags.
+--
+-- This parameter accepts (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- that consist of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: =,.\@-
+untagSAMLProvider_sAMLProviderArn :: Lens.Lens' UntagSAMLProvider Prelude.Text
+untagSAMLProvider_sAMLProviderArn = Lens.lens (\UntagSAMLProvider' {sAMLProviderArn} -> sAMLProviderArn) (\s@UntagSAMLProvider' {} a -> s {sAMLProviderArn = a} :: UntagSAMLProvider)
 
--- | A list of key names as a simple array of strings. The tags with matching keys are removed from the specified SAML identity provider.
-uTagKeys :: Lens' UntagSAMLProvider [Text]
-uTagKeys = lens _uTagKeys (\s a -> s {_uTagKeys = a}) . _Coerce
+-- | A list of key names as a simple array of strings. The tags with matching
+-- keys are removed from the specified SAML identity provider.
+untagSAMLProvider_tagKeys :: Lens.Lens' UntagSAMLProvider [Prelude.Text]
+untagSAMLProvider_tagKeys = Lens.lens (\UntagSAMLProvider' {tagKeys} -> tagKeys) (\s@UntagSAMLProvider' {} a -> s {tagKeys = a} :: UntagSAMLProvider) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagSAMLProvider where
+instance Prelude.AWSRequest UntagSAMLProvider where
   type Rs UntagSAMLProvider = UntagSAMLProviderResponse
-  request = postQuery iam
-  response = receiveNull UntagSAMLProviderResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull UntagSAMLProviderResponse'
 
-instance Hashable UntagSAMLProvider
+instance Prelude.Hashable UntagSAMLProvider
 
-instance NFData UntagSAMLProvider
+instance Prelude.NFData UntagSAMLProvider
 
-instance ToHeaders UntagSAMLProvider where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UntagSAMLProvider where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UntagSAMLProvider where
-  toPath = const "/"
+instance Prelude.ToPath UntagSAMLProvider where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagSAMLProvider where
+instance Prelude.ToQuery UntagSAMLProvider where
   toQuery UntagSAMLProvider' {..} =
-    mconcat
-      [ "Action" =: ("UntagSAMLProvider" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "SAMLProviderArn" =: _uSAMLProviderARN,
-        "TagKeys" =: toQueryList "member" _uTagKeys
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UntagSAMLProvider" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "SAMLProviderArn" Prelude.=: sAMLProviderArn,
+        "TagKeys"
+          Prelude.=: Prelude.toQueryList "member" tagKeys
       ]
 
--- | /See:/ 'untagSAMLProviderResponse' smart constructor.
+-- | /See:/ 'newUntagSAMLProviderResponse' smart constructor.
 data UntagSAMLProviderResponse = UntagSAMLProviderResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagSAMLProviderResponse' with the minimum fields required to make a request.
-untagSAMLProviderResponse ::
+-- |
+-- Create a value of 'UntagSAMLProviderResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUntagSAMLProviderResponse ::
   UntagSAMLProviderResponse
-untagSAMLProviderResponse =
+newUntagSAMLProviderResponse =
   UntagSAMLProviderResponse'
 
-instance NFData UntagSAMLProviderResponse
+instance Prelude.NFData UntagSAMLProviderResponse

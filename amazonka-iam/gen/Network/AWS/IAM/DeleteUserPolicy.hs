@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,104 +21,148 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified inline policy that is embedded in the specified IAM user.
+-- Deletes the specified inline policy that is embedded in the specified
+-- IAM user.
 --
---
--- A user can also have managed policies attached to it. To detach a managed policy from a user, use 'DetachUserPolicy' . For more information about policies, refer to <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies> in the /IAM User Guide/ .
+-- A user can also have managed policies attached to it. To detach a
+-- managed policy from a user, use DetachUserPolicy. For more information
+-- about policies, refer to
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html Managed policies and inline policies>
+-- in the /IAM User Guide/.
 module Network.AWS.IAM.DeleteUserPolicy
   ( -- * Creating a Request
-    deleteUserPolicy,
-    DeleteUserPolicy,
+    DeleteUserPolicy (..),
+    newDeleteUserPolicy,
 
     -- * Request Lenses
-    dupUserName,
-    dupPolicyName,
+    deleteUserPolicy_userName,
+    deleteUserPolicy_policyName,
 
     -- * Destructuring the Response
-    deleteUserPolicyResponse,
-    DeleteUserPolicyResponse,
+    DeleteUserPolicyResponse (..),
+    newDeleteUserPolicyResponse,
   )
 where
 
 import Network.AWS.IAM.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteUserPolicy' smart constructor.
+-- | /See:/ 'newDeleteUserPolicy' smart constructor.
 data DeleteUserPolicy = DeleteUserPolicy'
-  { _dupUserName ::
-      !Text,
-    _dupPolicyName :: !Text
+  { -- | The name (friendly name, not ARN) identifying the user that the policy
+    -- is embedded in.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    userName :: Prelude.Text,
+    -- | The name identifying the policy document to delete.
+    --
+    -- This parameter allows (through its
+    -- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+    -- consisting of upper and lowercase alphanumeric characters with no
+    -- spaces. You can also include any of the following characters: _+=,.\@-
+    policyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteUserPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dupUserName' - The name (friendly name, not ARN) identifying the user that the policy is embedded in. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dupPolicyName' - The name identifying the policy document to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-deleteUserPolicy ::
-  -- | 'dupUserName'
-  Text ->
-  -- | 'dupPolicyName'
-  Text ->
+-- 'userName', 'deleteUserPolicy_userName' - The name (friendly name, not ARN) identifying the user that the policy
+-- is embedded in.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+--
+-- 'policyName', 'deleteUserPolicy_policyName' - The name identifying the policy document to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+newDeleteUserPolicy ::
+  -- | 'userName'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
   DeleteUserPolicy
-deleteUserPolicy pUserName_ pPolicyName_ =
+newDeleteUserPolicy pUserName_ pPolicyName_ =
   DeleteUserPolicy'
-    { _dupUserName = pUserName_,
-      _dupPolicyName = pPolicyName_
+    { userName = pUserName_,
+      policyName = pPolicyName_
     }
 
--- | The name (friendly name, not ARN) identifying the user that the policy is embedded in. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-dupUserName :: Lens' DeleteUserPolicy Text
-dupUserName = lens _dupUserName (\s a -> s {_dupUserName = a})
+-- | The name (friendly name, not ARN) identifying the user that the policy
+-- is embedded in.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteUserPolicy_userName :: Lens.Lens' DeleteUserPolicy Prelude.Text
+deleteUserPolicy_userName = Lens.lens (\DeleteUserPolicy' {userName} -> userName) (\s@DeleteUserPolicy' {} a -> s {userName = a} :: DeleteUserPolicy)
 
--- | The name identifying the policy document to delete. This parameter allows (through its <http://wikipedia.org/wiki/regex regex pattern> ) a string of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of the following characters: _+=,.@-
-dupPolicyName :: Lens' DeleteUserPolicy Text
-dupPolicyName = lens _dupPolicyName (\s a -> s {_dupPolicyName = a})
+-- | The name identifying the policy document to delete.
+--
+-- This parameter allows (through its
+-- <http://wikipedia.org/wiki/regex regex pattern>) a string of characters
+-- consisting of upper and lowercase alphanumeric characters with no
+-- spaces. You can also include any of the following characters: _+=,.\@-
+deleteUserPolicy_policyName :: Lens.Lens' DeleteUserPolicy Prelude.Text
+deleteUserPolicy_policyName = Lens.lens (\DeleteUserPolicy' {policyName} -> policyName) (\s@DeleteUserPolicy' {} a -> s {policyName = a} :: DeleteUserPolicy)
 
-instance AWSRequest DeleteUserPolicy where
+instance Prelude.AWSRequest DeleteUserPolicy where
   type Rs DeleteUserPolicy = DeleteUserPolicyResponse
-  request = postQuery iam
-  response = receiveNull DeleteUserPolicyResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull DeleteUserPolicyResponse'
 
-instance Hashable DeleteUserPolicy
+instance Prelude.Hashable DeleteUserPolicy
 
-instance NFData DeleteUserPolicy
+instance Prelude.NFData DeleteUserPolicy
 
-instance ToHeaders DeleteUserPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteUserPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteUserPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteUserPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteUserPolicy where
+instance Prelude.ToQuery DeleteUserPolicy where
   toQuery DeleteUserPolicy' {..} =
-    mconcat
-      [ "Action" =: ("DeleteUserPolicy" :: ByteString),
-        "Version" =: ("2010-05-08" :: ByteString),
-        "UserName" =: _dupUserName,
-        "PolicyName" =: _dupPolicyName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteUserPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Prelude.=: userName,
+        "PolicyName" Prelude.=: policyName
       ]
 
--- | /See:/ 'deleteUserPolicyResponse' smart constructor.
+-- | /See:/ 'newDeleteUserPolicyResponse' smart constructor.
 data DeleteUserPolicyResponse = DeleteUserPolicyResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteUserPolicyResponse' with the minimum fields required to make a request.
-deleteUserPolicyResponse ::
+-- |
+-- Create a value of 'DeleteUserPolicyResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteUserPolicyResponse ::
   DeleteUserPolicyResponse
-deleteUserPolicyResponse = DeleteUserPolicyResponse'
+newDeleteUserPolicyResponse =
+  DeleteUserPolicyResponse'
 
-instance NFData DeleteUserPolicyResponse
+instance Prelude.NFData DeleteUserPolicyResponse
