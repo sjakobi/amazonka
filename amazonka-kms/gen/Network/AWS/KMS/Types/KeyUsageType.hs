@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.KMS.Types.KeyUsageType
   ( KeyUsageType
       ( ..,
-        EncryptDecrypt,
-        SignVerify
+        KeyUsageTypeENCRYPTDECRYPT,
+        KeyUsageTypeSIGNVERIFY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data KeyUsageType = KeyUsageType' (CI Text)
+newtype KeyUsageType = KeyUsageType'
+  { fromKeyUsageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EncryptDecrypt :: KeyUsageType
-pattern EncryptDecrypt = KeyUsageType' "ENCRYPT_DECRYPT"
+pattern KeyUsageTypeENCRYPTDECRYPT :: KeyUsageType
+pattern KeyUsageTypeENCRYPTDECRYPT = KeyUsageType' "ENCRYPT_DECRYPT"
 
-pattern SignVerify :: KeyUsageType
-pattern SignVerify = KeyUsageType' "SIGN_VERIFY"
+pattern KeyUsageTypeSIGNVERIFY :: KeyUsageType
+pattern KeyUsageTypeSIGNVERIFY = KeyUsageType' "SIGN_VERIFY"
 
 {-# COMPLETE
-  EncryptDecrypt,
-  SignVerify,
+  KeyUsageTypeENCRYPTDECRYPT,
+  KeyUsageTypeSIGNVERIFY,
   KeyUsageType'
   #-}
 
-instance FromText KeyUsageType where
-  parser = (KeyUsageType' . mk) <$> takeText
+instance Prelude.FromText KeyUsageType where
+  parser = KeyUsageType' Prelude.<$> Prelude.takeText
 
-instance ToText KeyUsageType where
-  toText (KeyUsageType' ci) = original ci
+instance Prelude.ToText KeyUsageType where
+  toText (KeyUsageType' x) = x
 
-instance Hashable KeyUsageType
+instance Prelude.Hashable KeyUsageType
 
-instance NFData KeyUsageType
+instance Prelude.NFData KeyUsageType
 
-instance ToByteString KeyUsageType
+instance Prelude.ToByteString KeyUsageType
 
-instance ToQuery KeyUsageType
+instance Prelude.ToQuery KeyUsageType
 
-instance ToHeader KeyUsageType
+instance Prelude.ToHeader KeyUsageType
 
-instance ToJSON KeyUsageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON KeyUsageType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON KeyUsageType where
-  parseJSON = parseJSONText "KeyUsageType"
+instance Prelude.FromJSON KeyUsageType where
+  parseJSON = Prelude.parseJSONText "KeyUsageType"

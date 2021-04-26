@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KMS.Types.KeyListEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about each entry in the key list.
 --
---
---
--- /See:/ 'keyListEntry' smart constructor.
+-- /See:/ 'newKeyListEntry' smart constructor.
 data KeyListEntry = KeyListEntry'
-  { _kleKeyARN ::
-      !(Maybe Text),
-    _kleKeyId :: !(Maybe Text)
+  { -- | ARN of the key.
+    keyArn :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier of the key.
+    keyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'KeyListEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'KeyListEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'kleKeyARN' - ARN of the key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'kleKeyId' - Unique identifier of the key.
-keyListEntry ::
+-- 'keyArn', 'keyListEntry_keyArn' - ARN of the key.
+--
+-- 'keyId', 'keyListEntry_keyId' - Unique identifier of the key.
+newKeyListEntry ::
   KeyListEntry
-keyListEntry =
+newKeyListEntry =
   KeyListEntry'
-    { _kleKeyARN = Nothing,
-      _kleKeyId = Nothing
+    { keyArn = Prelude.Nothing,
+      keyId = Prelude.Nothing
     }
 
 -- | ARN of the key.
-kleKeyARN :: Lens' KeyListEntry (Maybe Text)
-kleKeyARN = lens _kleKeyARN (\s a -> s {_kleKeyARN = a})
+keyListEntry_keyArn :: Lens.Lens' KeyListEntry (Prelude.Maybe Prelude.Text)
+keyListEntry_keyArn = Lens.lens (\KeyListEntry' {keyArn} -> keyArn) (\s@KeyListEntry' {} a -> s {keyArn = a} :: KeyListEntry)
 
 -- | Unique identifier of the key.
-kleKeyId :: Lens' KeyListEntry (Maybe Text)
-kleKeyId = lens _kleKeyId (\s a -> s {_kleKeyId = a})
+keyListEntry_keyId :: Lens.Lens' KeyListEntry (Prelude.Maybe Prelude.Text)
+keyListEntry_keyId = Lens.lens (\KeyListEntry' {keyId} -> keyId) (\s@KeyListEntry' {} a -> s {keyId = a} :: KeyListEntry)
 
-instance FromJSON KeyListEntry where
+instance Prelude.FromJSON KeyListEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "KeyListEntry"
       ( \x ->
           KeyListEntry'
-            <$> (x .:? "KeyArn") <*> (x .:? "KeyId")
+            Prelude.<$> (x Prelude..:? "KeyArn")
+            Prelude.<*> (x Prelude..:? "KeyId")
       )
 
-instance Hashable KeyListEntry
+instance Prelude.Hashable KeyListEntry
 
-instance NFData KeyListEntry
+instance Prelude.NFData KeyListEntry

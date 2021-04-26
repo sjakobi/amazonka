@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.KMS.Types.MessageType
   ( MessageType
       ( ..,
-        Digest,
-        Raw
+        MessageTypeDIGEST,
+        MessageTypeRAW
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data MessageType = MessageType' (CI Text)
+newtype MessageType = MessageType'
+  { fromMessageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Digest :: MessageType
-pattern Digest = MessageType' "DIGEST"
+pattern MessageTypeDIGEST :: MessageType
+pattern MessageTypeDIGEST = MessageType' "DIGEST"
 
-pattern Raw :: MessageType
-pattern Raw = MessageType' "RAW"
+pattern MessageTypeRAW :: MessageType
+pattern MessageTypeRAW = MessageType' "RAW"
 
 {-# COMPLETE
-  Digest,
-  Raw,
+  MessageTypeDIGEST,
+  MessageTypeRAW,
   MessageType'
   #-}
 
-instance FromText MessageType where
-  parser = (MessageType' . mk) <$> takeText
+instance Prelude.FromText MessageType where
+  parser = MessageType' Prelude.<$> Prelude.takeText
 
-instance ToText MessageType where
-  toText (MessageType' ci) = original ci
+instance Prelude.ToText MessageType where
+  toText (MessageType' x) = x
 
-instance Hashable MessageType
+instance Prelude.Hashable MessageType
 
-instance NFData MessageType
+instance Prelude.NFData MessageType
 
-instance ToByteString MessageType
+instance Prelude.ToByteString MessageType
 
-instance ToQuery MessageType
+instance Prelude.ToQuery MessageType
 
-instance ToHeader MessageType
+instance Prelude.ToHeader MessageType
 
-instance ToJSON MessageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON MessageType where
+  toJSON = Prelude.toJSONText

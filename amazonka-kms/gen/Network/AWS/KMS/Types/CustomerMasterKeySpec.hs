@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,90 +19,88 @@
 module Network.AWS.KMS.Types.CustomerMasterKeySpec
   ( CustomerMasterKeySpec
       ( ..,
-        CMKSEccNistP256,
-        CMKSEccNistP384,
-        CMKSEccNistP521,
-        CMKSEccSecgP256K1,
-        CMKSRsa2048,
-        CMKSRsa3072,
-        CMKSRsa4096,
-        CMKSSymmetricDefault
+        CustomerMasterKeySpecECCNISTP256,
+        CustomerMasterKeySpecECCNISTP384,
+        CustomerMasterKeySpecECCNISTP521,
+        CustomerMasterKeySpecECCSECGP256K1,
+        CustomerMasterKeySpecRSA2048,
+        CustomerMasterKeySpecRSA3072,
+        CustomerMasterKeySpecRSA4096,
+        CustomerMasterKeySpecSYMMETRICDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CustomerMasterKeySpec
-  = CustomerMasterKeySpec'
-      ( CI
-          Text
-      )
+newtype CustomerMasterKeySpec = CustomerMasterKeySpec'
+  { fromCustomerMasterKeySpec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CMKSEccNistP256 :: CustomerMasterKeySpec
-pattern CMKSEccNistP256 = CustomerMasterKeySpec' "ECC_NIST_P256"
+pattern CustomerMasterKeySpecECCNISTP256 :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecECCNISTP256 = CustomerMasterKeySpec' "ECC_NIST_P256"
 
-pattern CMKSEccNistP384 :: CustomerMasterKeySpec
-pattern CMKSEccNistP384 = CustomerMasterKeySpec' "ECC_NIST_P384"
+pattern CustomerMasterKeySpecECCNISTP384 :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecECCNISTP384 = CustomerMasterKeySpec' "ECC_NIST_P384"
 
-pattern CMKSEccNistP521 :: CustomerMasterKeySpec
-pattern CMKSEccNistP521 = CustomerMasterKeySpec' "ECC_NIST_P521"
+pattern CustomerMasterKeySpecECCNISTP521 :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecECCNISTP521 = CustomerMasterKeySpec' "ECC_NIST_P521"
 
-pattern CMKSEccSecgP256K1 :: CustomerMasterKeySpec
-pattern CMKSEccSecgP256K1 = CustomerMasterKeySpec' "ECC_SECG_P256K1"
+pattern CustomerMasterKeySpecECCSECGP256K1 :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecECCSECGP256K1 = CustomerMasterKeySpec' "ECC_SECG_P256K1"
 
-pattern CMKSRsa2048 :: CustomerMasterKeySpec
-pattern CMKSRsa2048 = CustomerMasterKeySpec' "RSA_2048"
+pattern CustomerMasterKeySpecRSA2048 :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecRSA2048 = CustomerMasterKeySpec' "RSA_2048"
 
-pattern CMKSRsa3072 :: CustomerMasterKeySpec
-pattern CMKSRsa3072 = CustomerMasterKeySpec' "RSA_3072"
+pattern CustomerMasterKeySpecRSA3072 :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecRSA3072 = CustomerMasterKeySpec' "RSA_3072"
 
-pattern CMKSRsa4096 :: CustomerMasterKeySpec
-pattern CMKSRsa4096 = CustomerMasterKeySpec' "RSA_4096"
+pattern CustomerMasterKeySpecRSA4096 :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecRSA4096 = CustomerMasterKeySpec' "RSA_4096"
 
-pattern CMKSSymmetricDefault :: CustomerMasterKeySpec
-pattern CMKSSymmetricDefault = CustomerMasterKeySpec' "SYMMETRIC_DEFAULT"
+pattern CustomerMasterKeySpecSYMMETRICDEFAULT :: CustomerMasterKeySpec
+pattern CustomerMasterKeySpecSYMMETRICDEFAULT = CustomerMasterKeySpec' "SYMMETRIC_DEFAULT"
 
 {-# COMPLETE
-  CMKSEccNistP256,
-  CMKSEccNistP384,
-  CMKSEccNistP521,
-  CMKSEccSecgP256K1,
-  CMKSRsa2048,
-  CMKSRsa3072,
-  CMKSRsa4096,
-  CMKSSymmetricDefault,
+  CustomerMasterKeySpecECCNISTP256,
+  CustomerMasterKeySpecECCNISTP384,
+  CustomerMasterKeySpecECCNISTP521,
+  CustomerMasterKeySpecECCSECGP256K1,
+  CustomerMasterKeySpecRSA2048,
+  CustomerMasterKeySpecRSA3072,
+  CustomerMasterKeySpecRSA4096,
+  CustomerMasterKeySpecSYMMETRICDEFAULT,
   CustomerMasterKeySpec'
   #-}
 
-instance FromText CustomerMasterKeySpec where
-  parser = (CustomerMasterKeySpec' . mk) <$> takeText
+instance Prelude.FromText CustomerMasterKeySpec where
+  parser = CustomerMasterKeySpec' Prelude.<$> Prelude.takeText
 
-instance ToText CustomerMasterKeySpec where
-  toText (CustomerMasterKeySpec' ci) = original ci
+instance Prelude.ToText CustomerMasterKeySpec where
+  toText (CustomerMasterKeySpec' x) = x
 
-instance Hashable CustomerMasterKeySpec
+instance Prelude.Hashable CustomerMasterKeySpec
 
-instance NFData CustomerMasterKeySpec
+instance Prelude.NFData CustomerMasterKeySpec
 
-instance ToByteString CustomerMasterKeySpec
+instance Prelude.ToByteString CustomerMasterKeySpec
 
-instance ToQuery CustomerMasterKeySpec
+instance Prelude.ToQuery CustomerMasterKeySpec
 
-instance ToHeader CustomerMasterKeySpec
+instance Prelude.ToHeader CustomerMasterKeySpec
 
-instance ToJSON CustomerMasterKeySpec where
-  toJSON = toJSONText
+instance Prelude.ToJSON CustomerMasterKeySpec where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CustomerMasterKeySpec where
-  parseJSON = parseJSONText "CustomerMasterKeySpec"
+instance Prelude.FromJSON CustomerMasterKeySpec where
+  parseJSON = Prelude.parseJSONText "CustomerMasterKeySpec"

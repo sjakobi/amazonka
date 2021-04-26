@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.KMS.Types.EncryptionAlgorithmSpec
   ( EncryptionAlgorithmSpec
       ( ..,
-        RsaesOaepSha1,
-        RsaesOaepSha256,
-        SymmetricDefault
+        EncryptionAlgorithmSpecRSAESOAEPSHA1,
+        EncryptionAlgorithmSpecRSAESOAEPSHA256,
+        EncryptionAlgorithmSpecSYMMETRICDEFAULT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EncryptionAlgorithmSpec
-  = EncryptionAlgorithmSpec'
-      ( CI
-          Text
-      )
+newtype EncryptionAlgorithmSpec = EncryptionAlgorithmSpec'
+  { fromEncryptionAlgorithmSpec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RsaesOaepSha1 :: EncryptionAlgorithmSpec
-pattern RsaesOaepSha1 = EncryptionAlgorithmSpec' "RSAES_OAEP_SHA_1"
+pattern EncryptionAlgorithmSpecRSAESOAEPSHA1 :: EncryptionAlgorithmSpec
+pattern EncryptionAlgorithmSpecRSAESOAEPSHA1 = EncryptionAlgorithmSpec' "RSAES_OAEP_SHA_1"
 
-pattern RsaesOaepSha256 :: EncryptionAlgorithmSpec
-pattern RsaesOaepSha256 = EncryptionAlgorithmSpec' "RSAES_OAEP_SHA_256"
+pattern EncryptionAlgorithmSpecRSAESOAEPSHA256 :: EncryptionAlgorithmSpec
+pattern EncryptionAlgorithmSpecRSAESOAEPSHA256 = EncryptionAlgorithmSpec' "RSAES_OAEP_SHA_256"
 
-pattern SymmetricDefault :: EncryptionAlgorithmSpec
-pattern SymmetricDefault = EncryptionAlgorithmSpec' "SYMMETRIC_DEFAULT"
+pattern EncryptionAlgorithmSpecSYMMETRICDEFAULT :: EncryptionAlgorithmSpec
+pattern EncryptionAlgorithmSpecSYMMETRICDEFAULT = EncryptionAlgorithmSpec' "SYMMETRIC_DEFAULT"
 
 {-# COMPLETE
-  RsaesOaepSha1,
-  RsaesOaepSha256,
-  SymmetricDefault,
+  EncryptionAlgorithmSpecRSAESOAEPSHA1,
+  EncryptionAlgorithmSpecRSAESOAEPSHA256,
+  EncryptionAlgorithmSpecSYMMETRICDEFAULT,
   EncryptionAlgorithmSpec'
   #-}
 
-instance FromText EncryptionAlgorithmSpec where
-  parser = (EncryptionAlgorithmSpec' . mk) <$> takeText
+instance Prelude.FromText EncryptionAlgorithmSpec where
+  parser = EncryptionAlgorithmSpec' Prelude.<$> Prelude.takeText
 
-instance ToText EncryptionAlgorithmSpec where
-  toText (EncryptionAlgorithmSpec' ci) = original ci
+instance Prelude.ToText EncryptionAlgorithmSpec where
+  toText (EncryptionAlgorithmSpec' x) = x
 
-instance Hashable EncryptionAlgorithmSpec
+instance Prelude.Hashable EncryptionAlgorithmSpec
 
-instance NFData EncryptionAlgorithmSpec
+instance Prelude.NFData EncryptionAlgorithmSpec
 
-instance ToByteString EncryptionAlgorithmSpec
+instance Prelude.ToByteString EncryptionAlgorithmSpec
 
-instance ToQuery EncryptionAlgorithmSpec
+instance Prelude.ToQuery EncryptionAlgorithmSpec
 
-instance ToHeader EncryptionAlgorithmSpec
+instance Prelude.ToHeader EncryptionAlgorithmSpec
 
-instance ToJSON EncryptionAlgorithmSpec where
-  toJSON = toJSONText
+instance Prelude.ToJSON EncryptionAlgorithmSpec where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EncryptionAlgorithmSpec where
-  parseJSON = parseJSONText "EncryptionAlgorithmSpec"
+instance Prelude.FromJSON EncryptionAlgorithmSpec where
+  parseJSON = Prelude.parseJSONText "EncryptionAlgorithmSpec"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,120 +21,208 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or edits tags on a <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK> .
+-- Adds or edits tags on a
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK>.
 --
+-- Each tag consists of a tag key and a tag value, both of which are
+-- case-sensitive strings. The tag value can be an empty (null) string.
 --
--- Each tag consists of a tag key and a tag value, both of which are case-sensitive strings. The tag value can be an empty (null) string.
+-- To add a tag, specify a new tag key and a tag value. To edit a tag,
+-- specify an existing tag key and a new tag value.
 --
--- To add a tag, specify a new tag key and a tag value. To edit a tag, specify an existing tag key and a new tag value.
+-- You can use this operation to tag a
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK>,
+-- but you cannot tag an
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk AWS managed CMK>,
+-- an
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk AWS owned CMK>,
+-- or an alias.
 --
--- You can use this operation to tag a <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK> , but you cannot tag an <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk AWS managed CMK> , an <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk AWS owned CMK> , or an alias.
+-- For general information about tags, including the format and syntax, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /Amazon Web Services General Reference/. For information about
+-- using tags in AWS KMS, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html Tagging keys>.
 --
--- For general information about tags, including the format and syntax, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /Amazon Web Services General Reference/ . For information about using tags in AWS KMS, see <https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html Tagging keys> .
+-- The CMK that you use for this operation must be in a compatible key
+-- state. For details, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key>
+-- in the /AWS Key Management Service Developer Guide/.
 --
--- The CMK that you use for this operation must be in a compatible key state. For details, see <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key> in the /AWS Key Management Service Developer Guide/ .
+-- __Cross-account use__: No. You cannot perform this operation on a CMK in
+-- a different AWS account.
 --
--- __Cross-account use__ : No. You cannot perform this operation on a CMK in a different AWS account.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:TagResource> (key policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:TagResource>
+-- (key policy)
 --
 -- __Related operations__
 --
---     * 'UntagResource'
+-- -   UntagResource
 --
---     * 'ListResourceTags'
+-- -   ListResourceTags
 module Network.AWS.KMS.TagResource
   ( -- * Creating a Request
-    tagResource,
-    TagResource,
+    TagResource (..),
+    newTagResource,
 
     -- * Request Lenses
-    trKeyId,
-    trTags,
+    tagResource_keyId,
+    tagResource_tags,
 
     -- * Destructuring the Response
-    tagResourceResponse,
-    TagResourceResponse,
+    TagResourceResponse (..),
+    newTagResourceResponse,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { _trKeyId :: !Text,
-    _trTags :: ![Tag]
+  { -- | Identifies a customer managed CMK in the account and Region.
+    --
+    -- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+    --
+    -- For example:
+    --
+    -- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Key ARN:
+    --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+    keyId :: Prelude.Text,
+    -- | One or more tags.
+    --
+    -- Each tag consists of a tag key and a tag value. The tag value can be an
+    -- empty (null) string.
+    --
+    -- You cannot have more than one tag on a CMK with the same tag key. If you
+    -- specify an existing tag key with a different tag value, AWS KMS replaces
+    -- the current tag value with the specified one.
+    tags :: [Tag]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResource' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagResource' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trKeyId' - Identifies a customer managed CMK in the account and Region. Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trTags' - One or more tags.  Each tag consists of a tag key and a tag value. The tag value can be an empty (null) string.  You cannot have more than one tag on a CMK with the same tag key. If you specify an existing tag key with a different tag value, AWS KMS replaces the current tag value with the specified one.
-tagResource ::
-  -- | 'trKeyId'
-  Text ->
+-- 'keyId', 'tagResource_keyId' - Identifies a customer managed CMK in the account and Region.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+--
+-- 'tags', 'tagResource_tags' - One or more tags.
+--
+-- Each tag consists of a tag key and a tag value. The tag value can be an
+-- empty (null) string.
+--
+-- You cannot have more than one tag on a CMK with the same tag key. If you
+-- specify an existing tag key with a different tag value, AWS KMS replaces
+-- the current tag value with the specified one.
+newTagResource ::
+  -- | 'keyId'
+  Prelude.Text ->
   TagResource
-tagResource pKeyId_ =
-  TagResource' {_trKeyId = pKeyId_, _trTags = mempty}
+newTagResource pKeyId_ =
+  TagResource'
+    { keyId = pKeyId_,
+      tags = Prelude.mempty
+    }
 
--- | Identifies a customer managed CMK in the account and Region. Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-trKeyId :: Lens' TagResource Text
-trKeyId = lens _trKeyId (\s a -> s {_trKeyId = a})
+-- | Identifies a customer managed CMK in the account and Region.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+tagResource_keyId :: Lens.Lens' TagResource Prelude.Text
+tagResource_keyId = Lens.lens (\TagResource' {keyId} -> keyId) (\s@TagResource' {} a -> s {keyId = a} :: TagResource)
 
--- | One or more tags.  Each tag consists of a tag key and a tag value. The tag value can be an empty (null) string.  You cannot have more than one tag on a CMK with the same tag key. If you specify an existing tag key with a different tag value, AWS KMS replaces the current tag value with the specified one.
-trTags :: Lens' TagResource [Tag]
-trTags = lens _trTags (\s a -> s {_trTags = a}) . _Coerce
+-- | One or more tags.
+--
+-- Each tag consists of a tag key and a tag value. The tag value can be an
+-- empty (null) string.
+--
+-- You cannot have more than one tag on a CMK with the same tag key. If you
+-- specify an existing tag key with a different tag value, AWS KMS replaces
+-- the current tag value with the specified one.
+tagResource_tags :: Lens.Lens' TagResource [Tag]
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Prelude._Coerce
 
-instance AWSRequest TagResource where
+instance Prelude.AWSRequest TagResource where
   type Rs TagResource = TagResourceResponse
-  request = postJSON kms
-  response = receiveNull TagResourceResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull TagResourceResponse'
 
-instance Hashable TagResource
+instance Prelude.Hashable TagResource
 
-instance NFData TagResource
+instance Prelude.NFData TagResource
 
-instance ToHeaders TagResource where
+instance Prelude.ToHeaders TagResource where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.TagResource" :: ByteString),
+              Prelude.=# ("TrentService.TagResource" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagResource where
+instance Prelude.ToJSON TagResource where
   toJSON TagResource' {..} =
-    object
-      ( catMaybes
-          [ Just ("KeyId" .= _trKeyId),
-            Just ("Tags" .= _trTags)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("KeyId" Prelude..= keyId),
+            Prelude.Just ("Tags" Prelude..= tags)
           ]
       )
 
-instance ToPath TagResource where
-  toPath = const "/"
+instance Prelude.ToPath TagResource where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagResource where
-  toQuery = const mempty
+instance Prelude.ToQuery TagResource where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagResourceResponse' smart constructor.
+-- | /See:/ 'newTagResourceResponse' smart constructor.
 data TagResourceResponse = TagResourceResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagResourceResponse' with the minimum fields required to make a request.
-tagResourceResponse ::
+-- |
+-- Create a value of 'TagResourceResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newTagResourceResponse ::
   TagResourceResponse
-tagResourceResponse = TagResourceResponse'
+newTagResourceResponse = TagResourceResponse'
 
-instance NFData TagResourceResponse
+instance Prelude.NFData TagResourceResponse

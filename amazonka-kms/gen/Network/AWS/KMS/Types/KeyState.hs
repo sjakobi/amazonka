@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.KMS.Types.KeyState
   ( KeyState
       ( ..,
-        Disabled,
-        Enabled,
-        PendingDeletion,
-        PendingImport,
-        Unavailable
+        KeyStateDisabled,
+        KeyStateEnabled,
+        KeyStatePendingDeletion,
+        KeyStatePendingImport,
+        KeyStateUnavailable
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data KeyState = KeyState' (CI Text)
+newtype KeyState = KeyState'
+  { fromKeyState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: KeyState
-pattern Disabled = KeyState' "Disabled"
+pattern KeyStateDisabled :: KeyState
+pattern KeyStateDisabled = KeyState' "Disabled"
 
-pattern Enabled :: KeyState
-pattern Enabled = KeyState' "Enabled"
+pattern KeyStateEnabled :: KeyState
+pattern KeyStateEnabled = KeyState' "Enabled"
 
-pattern PendingDeletion :: KeyState
-pattern PendingDeletion = KeyState' "PendingDeletion"
+pattern KeyStatePendingDeletion :: KeyState
+pattern KeyStatePendingDeletion = KeyState' "PendingDeletion"
 
-pattern PendingImport :: KeyState
-pattern PendingImport = KeyState' "PendingImport"
+pattern KeyStatePendingImport :: KeyState
+pattern KeyStatePendingImport = KeyState' "PendingImport"
 
-pattern Unavailable :: KeyState
-pattern Unavailable = KeyState' "Unavailable"
+pattern KeyStateUnavailable :: KeyState
+pattern KeyStateUnavailable = KeyState' "Unavailable"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
-  PendingDeletion,
-  PendingImport,
-  Unavailable,
+  KeyStateDisabled,
+  KeyStateEnabled,
+  KeyStatePendingDeletion,
+  KeyStatePendingImport,
+  KeyStateUnavailable,
   KeyState'
   #-}
 
-instance FromText KeyState where
-  parser = (KeyState' . mk) <$> takeText
+instance Prelude.FromText KeyState where
+  parser = KeyState' Prelude.<$> Prelude.takeText
 
-instance ToText KeyState where
-  toText (KeyState' ci) = original ci
+instance Prelude.ToText KeyState where
+  toText (KeyState' x) = x
 
-instance Hashable KeyState
+instance Prelude.Hashable KeyState
 
-instance NFData KeyState
+instance Prelude.NFData KeyState
 
-instance ToByteString KeyState
+instance Prelude.ToByteString KeyState
 
-instance ToQuery KeyState
+instance Prelude.ToQuery KeyState
 
-instance ToHeader KeyState
+instance Prelude.ToHeader KeyState
 
-instance FromJSON KeyState where
-  parseJSON = parseJSONText "KeyState"
+instance Prelude.FromJSON KeyState where
+  parseJSON = Prelude.parseJSONText "KeyState"

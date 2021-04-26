@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.KMS.Types.DataKeySpec
   ( DataKeySpec
       ( ..,
-        AES128,
-        AES256
+        DataKeySpecAES128,
+        DataKeySpecAES256
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataKeySpec = DataKeySpec' (CI Text)
+newtype DataKeySpec = DataKeySpec'
+  { fromDataKeySpec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AES128 :: DataKeySpec
-pattern AES128 = DataKeySpec' "AES_128"
+pattern DataKeySpecAES128 :: DataKeySpec
+pattern DataKeySpecAES128 = DataKeySpec' "AES_128"
 
-pattern AES256 :: DataKeySpec
-pattern AES256 = DataKeySpec' "AES_256"
+pattern DataKeySpecAES256 :: DataKeySpec
+pattern DataKeySpecAES256 = DataKeySpec' "AES_256"
 
 {-# COMPLETE
-  AES128,
-  AES256,
+  DataKeySpecAES128,
+  DataKeySpecAES256,
   DataKeySpec'
   #-}
 
-instance FromText DataKeySpec where
-  parser = (DataKeySpec' . mk) <$> takeText
+instance Prelude.FromText DataKeySpec where
+  parser = DataKeySpec' Prelude.<$> Prelude.takeText
 
-instance ToText DataKeySpec where
-  toText (DataKeySpec' ci) = original ci
+instance Prelude.ToText DataKeySpec where
+  toText (DataKeySpec' x) = x
 
-instance Hashable DataKeySpec
+instance Prelude.Hashable DataKeySpec
 
-instance NFData DataKeySpec
+instance Prelude.NFData DataKeySpec
 
-instance ToByteString DataKeySpec
+instance Prelude.ToByteString DataKeySpec
 
-instance ToQuery DataKeySpec
+instance Prelude.ToQuery DataKeySpec
 
-instance ToHeader DataKeySpec
+instance Prelude.ToHeader DataKeySpec
 
-instance ToJSON DataKeySpec where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataKeySpec where
+  toJSON = Prelude.toJSONText

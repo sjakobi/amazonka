@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,202 +21,300 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the names of the key policies that are attached to a customer master key (CMK). This operation is designed to get policy names that you can use in a 'GetKeyPolicy' operation. However, the only valid policy name is @default@ .
+-- Gets the names of the key policies that are attached to a customer
+-- master key (CMK). This operation is designed to get policy names that
+-- you can use in a GetKeyPolicy operation. However, the only valid policy
+-- name is @default@.
 --
+-- __Cross-account use__: No. You cannot perform this operation on a CMK in
+-- a different AWS account.
 --
--- __Cross-account use__ : No. You cannot perform this operation on a CMK in a different AWS account.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListKeyPolicies> (key policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListKeyPolicies>
+-- (key policy)
 --
 -- __Related operations:__
 --
---     * 'GetKeyPolicy'
+-- -   GetKeyPolicy
 --
---     * 'PutKeyPolicy'
---
---
---
+-- -   PutKeyPolicy
 --
 -- This operation returns paginated results.
 module Network.AWS.KMS.ListKeyPolicies
   ( -- * Creating a Request
-    listKeyPolicies,
-    ListKeyPolicies,
+    ListKeyPolicies (..),
+    newListKeyPolicies,
 
     -- * Request Lenses
-    lkpLimit,
-    lkpMarker,
-    lkpKeyId,
+    listKeyPolicies_limit,
+    listKeyPolicies_marker,
+    listKeyPolicies_keyId,
 
     -- * Destructuring the Response
-    listKeyPoliciesResponse,
-    ListKeyPoliciesResponse,
+    ListKeyPoliciesResponse (..),
+    newListKeyPoliciesResponse,
 
     -- * Response Lenses
-    lkprrsNextMarker,
-    lkprrsPolicyNames,
-    lkprrsTruncated,
-    lkprrsResponseStatus,
+    listKeyPoliciesResponse_nextMarker,
+    listKeyPoliciesResponse_policyNames,
+    listKeyPoliciesResponse_truncated,
+    listKeyPoliciesResponse_httpStatus,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listKeyPolicies' smart constructor.
+-- | /See:/ 'newListKeyPolicies' smart constructor.
 data ListKeyPolicies = ListKeyPolicies'
-  { _lkpLimit ::
-      !(Maybe Nat),
-    _lkpMarker :: !(Maybe Text),
-    _lkpKeyId :: !Text
+  { -- | Use this parameter to specify the maximum number of items to return.
+    -- When this value is present, AWS KMS does not return more than the
+    -- specified number of items, but it might return fewer.
+    --
+    -- This value is optional. If you include a value, it must be between 1 and
+    -- 1000, inclusive. If you do not include a value, it defaults to 100.
+    --
+    -- Only one policy can be attached to a key.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter in a subsequent request after you receive a response
+    -- with truncated results. Set it to the value of @NextMarker@ from the
+    -- truncated response you just received.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the customer master key (CMK).
+    --
+    -- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+    --
+    -- For example:
+    --
+    -- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Key ARN:
+    --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+    keyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListKeyPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListKeyPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lkpLimit' - Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 1000, inclusive. If you do not include a value, it defaults to 100. Only one policy can be attached to a key.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lkpMarker' - Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
+-- 'limit', 'listKeyPolicies_limit' - Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
 --
--- * 'lkpKeyId' - A unique identifier for the customer master key (CMK). Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-listKeyPolicies ::
-  -- | 'lkpKeyId'
-  Text ->
+-- This value is optional. If you include a value, it must be between 1 and
+-- 1000, inclusive. If you do not include a value, it defaults to 100.
+--
+-- Only one policy can be attached to a key.
+--
+-- 'marker', 'listKeyPolicies_marker' - Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+--
+-- 'keyId', 'listKeyPolicies_keyId' - A unique identifier for the customer master key (CMK).
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+newListKeyPolicies ::
+  -- | 'keyId'
+  Prelude.Text ->
   ListKeyPolicies
-listKeyPolicies pKeyId_ =
+newListKeyPolicies pKeyId_ =
   ListKeyPolicies'
-    { _lkpLimit = Nothing,
-      _lkpMarker = Nothing,
-      _lkpKeyId = pKeyId_
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      keyId = pKeyId_
     }
 
--- | Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 1000, inclusive. If you do not include a value, it defaults to 100. Only one policy can be attached to a key.
-lkpLimit :: Lens' ListKeyPolicies (Maybe Natural)
-lkpLimit = lens _lkpLimit (\s a -> s {_lkpLimit = a}) . mapping _Nat
+-- | Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
+--
+-- This value is optional. If you include a value, it must be between 1 and
+-- 1000, inclusive. If you do not include a value, it defaults to 100.
+--
+-- Only one policy can be attached to a key.
+listKeyPolicies_limit :: Lens.Lens' ListKeyPolicies (Prelude.Maybe Prelude.Natural)
+listKeyPolicies_limit = Lens.lens (\ListKeyPolicies' {limit} -> limit) (\s@ListKeyPolicies' {} a -> s {limit = a} :: ListKeyPolicies) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
-lkpMarker :: Lens' ListKeyPolicies (Maybe Text)
-lkpMarker = lens _lkpMarker (\s a -> s {_lkpMarker = a})
+-- | Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+listKeyPolicies_marker :: Lens.Lens' ListKeyPolicies (Prelude.Maybe Prelude.Text)
+listKeyPolicies_marker = Lens.lens (\ListKeyPolicies' {marker} -> marker) (\s@ListKeyPolicies' {} a -> s {marker = a} :: ListKeyPolicies)
 
--- | A unique identifier for the customer master key (CMK). Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-lkpKeyId :: Lens' ListKeyPolicies Text
-lkpKeyId = lens _lkpKeyId (\s a -> s {_lkpKeyId = a})
+-- | A unique identifier for the customer master key (CMK).
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+listKeyPolicies_keyId :: Lens.Lens' ListKeyPolicies Prelude.Text
+listKeyPolicies_keyId = Lens.lens (\ListKeyPolicies' {keyId} -> keyId) (\s@ListKeyPolicies' {} a -> s {keyId = a} :: ListKeyPolicies)
 
-instance AWSPager ListKeyPolicies where
+instance Pager.AWSPager ListKeyPolicies where
   page rq rs
-    | stop (rs ^. lkprrsTruncated) = Nothing
-    | isNothing (rs ^. lkprrsNextMarker) = Nothing
-    | otherwise =
-      Just $ rq & lkpMarker .~ rs ^. lkprrsNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listKeyPoliciesResponse_truncated
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listKeyPoliciesResponse_nextMarker
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listKeyPolicies_marker
+          Lens..~ rs
+          Lens.^? listKeyPoliciesResponse_nextMarker
+            Prelude.. Lens._Just
 
-instance AWSRequest ListKeyPolicies where
+instance Prelude.AWSRequest ListKeyPolicies where
   type Rs ListKeyPolicies = ListKeyPoliciesResponse
-  request = postJSON kms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListKeyPoliciesResponse'
-            <$> (x .?> "NextMarker")
-            <*> (x .?> "PolicyNames" .!@ mempty)
-            <*> (x .?> "Truncated")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextMarker")
+            Prelude.<*> ( x Prelude..?> "PolicyNames"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "Truncated")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListKeyPolicies
+instance Prelude.Hashable ListKeyPolicies
 
-instance NFData ListKeyPolicies
+instance Prelude.NFData ListKeyPolicies
 
-instance ToHeaders ListKeyPolicies where
+instance Prelude.ToHeaders ListKeyPolicies where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.ListKeyPolicies" :: ByteString),
+              Prelude.=# ( "TrentService.ListKeyPolicies" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListKeyPolicies where
+instance Prelude.ToJSON ListKeyPolicies where
   toJSON ListKeyPolicies' {..} =
-    object
-      ( catMaybes
-          [ ("Limit" .=) <$> _lkpLimit,
-            ("Marker" .=) <$> _lkpMarker,
-            Just ("KeyId" .= _lkpKeyId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Limit" Prelude..=) Prelude.<$> limit,
+            ("Marker" Prelude..=) Prelude.<$> marker,
+            Prelude.Just ("KeyId" Prelude..= keyId)
           ]
       )
 
-instance ToPath ListKeyPolicies where
-  toPath = const "/"
+instance Prelude.ToPath ListKeyPolicies where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListKeyPolicies where
-  toQuery = const mempty
+instance Prelude.ToQuery ListKeyPolicies where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listKeyPoliciesResponse' smart constructor.
+-- | /See:/ 'newListKeyPoliciesResponse' smart constructor.
 data ListKeyPoliciesResponse = ListKeyPoliciesResponse'
-  { _lkprrsNextMarker ::
-      !(Maybe Text),
-    _lkprrsPolicyNames ::
-      !(Maybe [Text]),
-    _lkprrsTruncated ::
-      !(Maybe Bool),
-    _lkprrsResponseStatus ::
-      !Int
+  { -- | When @Truncated@ is true, this element is present and contains the value
+    -- to use for the @Marker@ parameter in a subsequent request.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | A list of key policy names. The only valid value is @default@.
+    policyNames :: Prelude.Maybe [Prelude.Text],
+    -- | A flag that indicates whether there are more items in the list. When
+    -- this value is true, the list in this response is truncated. To get more
+    -- items, pass the value of the @NextMarker@ element in thisresponse to the
+    -- @Marker@ parameter in a subsequent request.
+    truncated :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListKeyPoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListKeyPoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lkprrsNextMarker' - When @Truncated@ is true, this element is present and contains the value to use for the @Marker@ parameter in a subsequent request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lkprrsPolicyNames' - A list of key policy names. The only valid value is @default@ .
+-- 'nextMarker', 'listKeyPoliciesResponse_nextMarker' - When @Truncated@ is true, this element is present and contains the value
+-- to use for the @Marker@ parameter in a subsequent request.
 --
--- * 'lkprrsTruncated' - A flag that indicates whether there are more items in the list. When this value is true, the list in this response is truncated. To get more items, pass the value of the @NextMarker@ element in thisresponse to the @Marker@ parameter in a subsequent request.
+-- 'policyNames', 'listKeyPoliciesResponse_policyNames' - A list of key policy names. The only valid value is @default@.
 --
--- * 'lkprrsResponseStatus' - -- | The response status code.
-listKeyPoliciesResponse ::
-  -- | 'lkprrsResponseStatus'
-  Int ->
+-- 'truncated', 'listKeyPoliciesResponse_truncated' - A flag that indicates whether there are more items in the list. When
+-- this value is true, the list in this response is truncated. To get more
+-- items, pass the value of the @NextMarker@ element in thisresponse to the
+-- @Marker@ parameter in a subsequent request.
+--
+-- 'httpStatus', 'listKeyPoliciesResponse_httpStatus' - The response's http status code.
+newListKeyPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListKeyPoliciesResponse
-listKeyPoliciesResponse pResponseStatus_ =
+newListKeyPoliciesResponse pHttpStatus_ =
   ListKeyPoliciesResponse'
-    { _lkprrsNextMarker =
-        Nothing,
-      _lkprrsPolicyNames = Nothing,
-      _lkprrsTruncated = Nothing,
-      _lkprrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      policyNames = Prelude.Nothing,
+      truncated = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | When @Truncated@ is true, this element is present and contains the value to use for the @Marker@ parameter in a subsequent request.
-lkprrsNextMarker :: Lens' ListKeyPoliciesResponse (Maybe Text)
-lkprrsNextMarker = lens _lkprrsNextMarker (\s a -> s {_lkprrsNextMarker = a})
+-- | When @Truncated@ is true, this element is present and contains the value
+-- to use for the @Marker@ parameter in a subsequent request.
+listKeyPoliciesResponse_nextMarker :: Lens.Lens' ListKeyPoliciesResponse (Prelude.Maybe Prelude.Text)
+listKeyPoliciesResponse_nextMarker = Lens.lens (\ListKeyPoliciesResponse' {nextMarker} -> nextMarker) (\s@ListKeyPoliciesResponse' {} a -> s {nextMarker = a} :: ListKeyPoliciesResponse)
 
--- | A list of key policy names. The only valid value is @default@ .
-lkprrsPolicyNames :: Lens' ListKeyPoliciesResponse [Text]
-lkprrsPolicyNames = lens _lkprrsPolicyNames (\s a -> s {_lkprrsPolicyNames = a}) . _Default . _Coerce
+-- | A list of key policy names. The only valid value is @default@.
+listKeyPoliciesResponse_policyNames :: Lens.Lens' ListKeyPoliciesResponse (Prelude.Maybe [Prelude.Text])
+listKeyPoliciesResponse_policyNames = Lens.lens (\ListKeyPoliciesResponse' {policyNames} -> policyNames) (\s@ListKeyPoliciesResponse' {} a -> s {policyNames = a} :: ListKeyPoliciesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A flag that indicates whether there are more items in the list. When this value is true, the list in this response is truncated. To get more items, pass the value of the @NextMarker@ element in thisresponse to the @Marker@ parameter in a subsequent request.
-lkprrsTruncated :: Lens' ListKeyPoliciesResponse (Maybe Bool)
-lkprrsTruncated = lens _lkprrsTruncated (\s a -> s {_lkprrsTruncated = a})
+-- | A flag that indicates whether there are more items in the list. When
+-- this value is true, the list in this response is truncated. To get more
+-- items, pass the value of the @NextMarker@ element in thisresponse to the
+-- @Marker@ parameter in a subsequent request.
+listKeyPoliciesResponse_truncated :: Lens.Lens' ListKeyPoliciesResponse (Prelude.Maybe Prelude.Bool)
+listKeyPoliciesResponse_truncated = Lens.lens (\ListKeyPoliciesResponse' {truncated} -> truncated) (\s@ListKeyPoliciesResponse' {} a -> s {truncated = a} :: ListKeyPoliciesResponse)
 
--- | -- | The response status code.
-lkprrsResponseStatus :: Lens' ListKeyPoliciesResponse Int
-lkprrsResponseStatus = lens _lkprrsResponseStatus (\s a -> s {_lkprrsResponseStatus = a})
+-- | The response's http status code.
+listKeyPoliciesResponse_httpStatus :: Lens.Lens' ListKeyPoliciesResponse Prelude.Int
+listKeyPoliciesResponse_httpStatus = Lens.lens (\ListKeyPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListKeyPoliciesResponse' {} a -> s {httpStatus = a} :: ListKeyPoliciesResponse)
 
-instance NFData ListKeyPoliciesResponse
+instance Prelude.NFData ListKeyPoliciesResponse

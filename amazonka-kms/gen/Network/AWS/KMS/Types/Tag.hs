@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,74 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KMS.Types.Tag where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A key-value pair. A tag consists of a tag key and a tag value. Tag keys and tag values are both required, but tag values can be empty (null) strings.
+-- | A key-value pair. A tag consists of a tag key and a tag value. Tag keys
+-- and tag values are both required, but tag values can be empty (null)
+-- strings.
 --
+-- For information about the rules that apply to tag keys and tag values,
+-- see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html User-Defined Tag Restrictions>
+-- in the /AWS Billing and Cost Management User Guide/.
 --
--- For information about the rules that apply to tag keys and tag values, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html User-Defined Tag Restrictions> in the /AWS Billing and Cost Management User Guide/ .
---
---
--- /See:/ 'tag' smart constructor.
+-- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { _tagTagKey :: !Text,
-    _tagTagValue :: !Text
+  { -- | The key of the tag.
+    tagKey :: Prelude.Text,
+    -- | The value of the tag.
+    tagValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tag' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tag' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tagTagKey' - The key of the tag.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tagTagValue' - The value of the tag.
-tag ::
-  -- | 'tagTagKey'
-  Text ->
-  -- | 'tagTagValue'
-  Text ->
+-- 'tagKey', 'tag_tagKey' - The key of the tag.
+--
+-- 'tagValue', 'tag_tagValue' - The value of the tag.
+newTag ::
+  -- | 'tagKey'
+  Prelude.Text ->
+  -- | 'tagValue'
+  Prelude.Text ->
   Tag
-tag pTagKey_ pTagValue_ =
-  Tag'
-    { _tagTagKey = pTagKey_,
-      _tagTagValue = pTagValue_
-    }
+newTag pTagKey_ pTagValue_ =
+  Tag' {tagKey = pTagKey_, tagValue = pTagValue_}
 
 -- | The key of the tag.
-tagTagKey :: Lens' Tag Text
-tagTagKey = lens _tagTagKey (\s a -> s {_tagTagKey = a})
+tag_tagKey :: Lens.Lens' Tag Prelude.Text
+tag_tagKey = Lens.lens (\Tag' {tagKey} -> tagKey) (\s@Tag' {} a -> s {tagKey = a} :: Tag)
 
 -- | The value of the tag.
-tagTagValue :: Lens' Tag Text
-tagTagValue = lens _tagTagValue (\s a -> s {_tagTagValue = a})
+tag_tagValue :: Lens.Lens' Tag Prelude.Text
+tag_tagValue = Lens.lens (\Tag' {tagValue} -> tagValue) (\s@Tag' {} a -> s {tagValue = a} :: Tag)
 
-instance FromJSON Tag where
+instance Prelude.FromJSON Tag where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Tag"
       ( \x ->
-          Tag' <$> (x .: "TagKey") <*> (x .: "TagValue")
+          Tag'
+            Prelude.<$> (x Prelude..: "TagKey")
+            Prelude.<*> (x Prelude..: "TagValue")
       )
 
-instance Hashable Tag
+instance Prelude.Hashable Tag
 
-instance NFData Tag
+instance Prelude.NFData Tag
 
-instance ToJSON Tag where
+instance Prelude.ToJSON Tag where
   toJSON Tag' {..} =
-    object
-      ( catMaybes
-          [ Just ("TagKey" .= _tagTagKey),
-            Just ("TagValue" .= _tagTagValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("TagKey" Prelude..= tagKey),
+            Prelude.Just ("TagValue" Prelude..= tagValue)
           ]
       )

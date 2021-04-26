@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,273 +21,450 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a unique asymmetric data key pair. The @GenerateDataKeyPairWithoutPlaintext@ operation returns a plaintext public key and a copy of the private key that is encrypted under the symmetric CMK you specify. Unlike 'GenerateDataKeyPair' , this operation does not return a plaintext private key.
+-- Generates a unique asymmetric data key pair. The
+-- @GenerateDataKeyPairWithoutPlaintext@ operation returns a plaintext
+-- public key and a copy of the private key that is encrypted under the
+-- symmetric CMK you specify. Unlike GenerateDataKeyPair, this operation
+-- does not return a plaintext private key.
 --
+-- To generate a data key pair, you must specify a symmetric customer
+-- master key (CMK) to encrypt the private key in the data key pair. You
+-- cannot use an asymmetric CMK or a CMK in a custom key store. To get the
+-- type and origin of your CMK, use the @KeySpec@ field in the DescribeKey
+-- response.
 --
--- To generate a data key pair, you must specify a symmetric customer master key (CMK) to encrypt the private key in the data key pair. You cannot use an asymmetric CMK or a CMK in a custom key store. To get the type and origin of your CMK, use the @KeySpec@ field in the 'DescribeKey' response.
+-- You can use the public key that @GenerateDataKeyPairWithoutPlaintext@
+-- returns to encrypt data or verify a signature outside of AWS KMS. Then,
+-- store the encrypted private key with the data. When you are ready to
+-- decrypt data or sign a message, you can use the Decrypt operation to
+-- decrypt the encrypted private key.
 --
--- You can use the public key that @GenerateDataKeyPairWithoutPlaintext@ returns to encrypt data or verify a signature outside of AWS KMS. Then, store the encrypted private key with the data. When you are ready to decrypt data or sign a message, you can use the 'Decrypt' operation to decrypt the encrypted private key.
+-- @GenerateDataKeyPairWithoutPlaintext@ returns a unique data key pair for
+-- each request. The bytes in the key are not related to the caller or CMK
+-- that is used to encrypt the private key.
 --
--- @GenerateDataKeyPairWithoutPlaintext@ returns a unique data key pair for each request. The bytes in the key are not related to the caller or CMK that is used to encrypt the private key.
+-- You can use the optional encryption context to add additional security
+-- to the encryption operation. If you specify an @EncryptionContext@, you
+-- must specify the same encryption context (a case-sensitive exact match)
+-- when decrypting the encrypted data key. Otherwise, the request to
+-- decrypt fails with an @InvalidCiphertextException@. For more
+-- information, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context>
+-- in the /AWS Key Management Service Developer Guide/.
 --
--- You can use the optional encryption context to add additional security to the encryption operation. If you specify an @EncryptionContext@ , you must specify the same encryption context (a case-sensitive exact match) when decrypting the encrypted data key. Otherwise, the request to decrypt fails with an @InvalidCiphertextException@ . For more information, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context> in the /AWS Key Management Service Developer Guide/ .
+-- The CMK that you use for this operation must be in a compatible key
+-- state. For details, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key>
+-- in the /AWS Key Management Service Developer Guide/.
 --
--- The CMK that you use for this operation must be in a compatible key state. For details, see <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key> in the /AWS Key Management Service Developer Guide/ .
+-- __Cross-account use__: Yes. To perform this operation with a CMK in a
+-- different AWS account, specify the key ARN or alias ARN in the value of
+-- the @KeyId@ parameter.
 --
--- __Cross-account use__ : Yes. To perform this operation with a CMK in a different AWS account, specify the key ARN or alias ARN in the value of the @KeyId@ parameter.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:GenerateDataKeyPairWithoutPlaintext> (key policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:GenerateDataKeyPairWithoutPlaintext>
+-- (key policy)
 --
 -- __Related operations:__
 --
---     * 'Decrypt'
+-- -   Decrypt
 --
---     * 'Encrypt'
+-- -   Encrypt
 --
---     * 'GenerateDataKey'
+-- -   GenerateDataKey
 --
---     * 'GenerateDataKeyPair'
+-- -   GenerateDataKeyPair
 --
---     * 'GenerateDataKeyWithoutPlaintext'
+-- -   GenerateDataKeyWithoutPlaintext
 module Network.AWS.KMS.GenerateDataKeyPairWithoutPlaintext
   ( -- * Creating a Request
-    generateDataKeyPairWithoutPlaintext,
-    GenerateDataKeyPairWithoutPlaintext,
+    GenerateDataKeyPairWithoutPlaintext (..),
+    newGenerateDataKeyPairWithoutPlaintext,
 
     -- * Request Lenses
-    gdkpwpGrantTokens,
-    gdkpwpEncryptionContext,
-    gdkpwpKeyId,
-    gdkpwpKeyPairSpec,
+    generateDataKeyPairWithoutPlaintext_grantTokens,
+    generateDataKeyPairWithoutPlaintext_encryptionContext,
+    generateDataKeyPairWithoutPlaintext_keyId,
+    generateDataKeyPairWithoutPlaintext_keyPairSpec,
 
     -- * Destructuring the Response
-    generateDataKeyPairWithoutPlaintextResponse,
-    GenerateDataKeyPairWithoutPlaintextResponse,
+    GenerateDataKeyPairWithoutPlaintextResponse (..),
+    newGenerateDataKeyPairWithoutPlaintextResponse,
 
     -- * Response Lenses
-    gdkpwprrsPublicKey,
-    gdkpwprrsKeyPairSpec,
-    gdkpwprrsPrivateKeyCiphertextBlob,
-    gdkpwprrsKeyId,
-    gdkpwprrsResponseStatus,
+    generateDataKeyPairWithoutPlaintextResponse_publicKey,
+    generateDataKeyPairWithoutPlaintextResponse_keyPairSpec,
+    generateDataKeyPairWithoutPlaintextResponse_privateKeyCiphertextBlob,
+    generateDataKeyPairWithoutPlaintextResponse_keyId,
+    generateDataKeyPairWithoutPlaintextResponse_httpStatus,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KMS.Types.DataKeyPairSpec
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'generateDataKeyPairWithoutPlaintext' smart constructor.
+-- | /See:/ 'newGenerateDataKeyPairWithoutPlaintext' smart constructor.
 data GenerateDataKeyPairWithoutPlaintext = GenerateDataKeyPairWithoutPlaintext'
-  { _gdkpwpGrantTokens ::
-      !( Maybe
-           [Text]
-       ),
-    _gdkpwpEncryptionContext ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _gdkpwpKeyId ::
-      !Text,
-    _gdkpwpKeyPairSpec ::
-      !DataKeyPairSpec
+  { -- | A list of grant tokens.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token Grant Tokens>
+    -- in the /AWS Key Management Service Developer Guide/.
+    grantTokens :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies the encryption context that will be used when encrypting the
+    -- private key in the data key pair.
+    --
+    -- An /encryption context/ is a collection of non-secret key-value pairs
+    -- that represents additional authenticated data. When you use an
+    -- encryption context to encrypt data, you must specify the same (an exact
+    -- case-sensitive match) encryption context to decrypt the data. An
+    -- encryption context is optional when encrypting with a symmetric CMK, but
+    -- it is highly recommended.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context>
+    -- in the /AWS Key Management Service Developer Guide/.
+    encryptionContext :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | Specifies the CMK that encrypts the private key in the data key pair.
+    -- You must specify a symmetric CMK. You cannot use an asymmetric CMK or a
+    -- CMK in a custom key store. To get the type and origin of your CMK, use
+    -- the DescribeKey operation.
+    --
+    -- To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias
+    -- name, or alias ARN. When using an alias name, prefix it with
+    -- @\"alias\/\"@. To specify a CMK in a different AWS account, you must use
+    -- the key ARN or alias ARN.
+    --
+    -- For example:
+    --
+    -- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Key ARN:
+    --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Alias name: @alias\/ExampleAlias@
+    --
+    -- -   Alias ARN: @arn:aws:kms:us-east-2:111122223333:alias\/ExampleAlias@
+    --
+    -- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+    -- get the alias name and alias ARN, use ListAliases.
+    keyId :: Prelude.Text,
+    -- | Determines the type of data key pair that is generated.
+    --
+    -- The AWS KMS rule that restricts the use of asymmetric RSA CMKs to
+    -- encrypt and decrypt or to sign and verify (but not both), and the rule
+    -- that permits you to use ECC CMKs only to sign and verify, are not
+    -- effective outside of AWS KMS.
+    keyPairSpec :: DataKeyPairSpec
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GenerateDataKeyPairWithoutPlaintext' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GenerateDataKeyPairWithoutPlaintext' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gdkpwpGrantTokens' - A list of grant tokens. For more information, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token Grant Tokens> in the /AWS Key Management Service Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gdkpwpEncryptionContext' - Specifies the encryption context that will be used when encrypting the private key in the data key pair. An /encryption context/ is a collection of non-secret key-value pairs that represents additional authenticated data. When you use an encryption context to encrypt data, you must specify the same (an exact case-sensitive match) encryption context to decrypt the data. An encryption context is optional when encrypting with a symmetric CMK, but it is highly recommended. For more information, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context> in the /AWS Key Management Service Developer Guide/ .
+-- 'grantTokens', 'generateDataKeyPairWithoutPlaintext_grantTokens' - A list of grant tokens.
 --
--- * 'gdkpwpKeyId' - Specifies the CMK that encrypts the private key in the data key pair. You must specify a symmetric CMK. You cannot use an asymmetric CMK or a CMK in a custom key store. To get the type and origin of your CMK, use the 'DescribeKey' operation.  To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with @"alias/"@ . To specify a CMK in a different AWS account, you must use the key ARN or alias ARN. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@      * Alias name: @alias/ExampleAlias@      * Alias ARN: @arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' . To get the alias name and alias ARN, use 'ListAliases' .
+-- For more information, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token Grant Tokens>
+-- in the /AWS Key Management Service Developer Guide/.
 --
--- * 'gdkpwpKeyPairSpec' - Determines the type of data key pair that is generated. The AWS KMS rule that restricts the use of asymmetric RSA CMKs to encrypt and decrypt or to sign and verify (but not both), and the rule that permits you to use ECC CMKs only to sign and verify, are not effective outside of AWS KMS.
-generateDataKeyPairWithoutPlaintext ::
-  -- | 'gdkpwpKeyId'
-  Text ->
-  -- | 'gdkpwpKeyPairSpec'
+-- 'encryptionContext', 'generateDataKeyPairWithoutPlaintext_encryptionContext' - Specifies the encryption context that will be used when encrypting the
+-- private key in the data key pair.
+--
+-- An /encryption context/ is a collection of non-secret key-value pairs
+-- that represents additional authenticated data. When you use an
+-- encryption context to encrypt data, you must specify the same (an exact
+-- case-sensitive match) encryption context to decrypt the data. An
+-- encryption context is optional when encrypting with a symmetric CMK, but
+-- it is highly recommended.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context>
+-- in the /AWS Key Management Service Developer Guide/.
+--
+-- 'keyId', 'generateDataKeyPairWithoutPlaintext_keyId' - Specifies the CMK that encrypts the private key in the data key pair.
+-- You must specify a symmetric CMK. You cannot use an asymmetric CMK or a
+-- CMK in a custom key store. To get the type and origin of your CMK, use
+-- the DescribeKey operation.
+--
+-- To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias
+-- name, or alias ARN. When using an alias name, prefix it with
+-- @\"alias\/\"@. To specify a CMK in a different AWS account, you must use
+-- the key ARN or alias ARN.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Alias name: @alias\/ExampleAlias@
+--
+-- -   Alias ARN: @arn:aws:kms:us-east-2:111122223333:alias\/ExampleAlias@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+-- get the alias name and alias ARN, use ListAliases.
+--
+-- 'keyPairSpec', 'generateDataKeyPairWithoutPlaintext_keyPairSpec' - Determines the type of data key pair that is generated.
+--
+-- The AWS KMS rule that restricts the use of asymmetric RSA CMKs to
+-- encrypt and decrypt or to sign and verify (but not both), and the rule
+-- that permits you to use ECC CMKs only to sign and verify, are not
+-- effective outside of AWS KMS.
+newGenerateDataKeyPairWithoutPlaintext ::
+  -- | 'keyId'
+  Prelude.Text ->
+  -- | 'keyPairSpec'
   DataKeyPairSpec ->
   GenerateDataKeyPairWithoutPlaintext
-generateDataKeyPairWithoutPlaintext
+newGenerateDataKeyPairWithoutPlaintext
   pKeyId_
   pKeyPairSpec_ =
     GenerateDataKeyPairWithoutPlaintext'
-      { _gdkpwpGrantTokens =
-          Nothing,
-        _gdkpwpEncryptionContext = Nothing,
-        _gdkpwpKeyId = pKeyId_,
-        _gdkpwpKeyPairSpec = pKeyPairSpec_
+      { grantTokens =
+          Prelude.Nothing,
+        encryptionContext = Prelude.Nothing,
+        keyId = pKeyId_,
+        keyPairSpec = pKeyPairSpec_
       }
 
--- | A list of grant tokens. For more information, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token Grant Tokens> in the /AWS Key Management Service Developer Guide/ .
-gdkpwpGrantTokens :: Lens' GenerateDataKeyPairWithoutPlaintext [Text]
-gdkpwpGrantTokens = lens _gdkpwpGrantTokens (\s a -> s {_gdkpwpGrantTokens = a}) . _Default . _Coerce
+-- | A list of grant tokens.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token Grant Tokens>
+-- in the /AWS Key Management Service Developer Guide/.
+generateDataKeyPairWithoutPlaintext_grantTokens :: Lens.Lens' GenerateDataKeyPairWithoutPlaintext (Prelude.Maybe [Prelude.Text])
+generateDataKeyPairWithoutPlaintext_grantTokens = Lens.lens (\GenerateDataKeyPairWithoutPlaintext' {grantTokens} -> grantTokens) (\s@GenerateDataKeyPairWithoutPlaintext' {} a -> s {grantTokens = a} :: GenerateDataKeyPairWithoutPlaintext) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies the encryption context that will be used when encrypting the private key in the data key pair. An /encryption context/ is a collection of non-secret key-value pairs that represents additional authenticated data. When you use an encryption context to encrypt data, you must specify the same (an exact case-sensitive match) encryption context to decrypt the data. An encryption context is optional when encrypting with a symmetric CMK, but it is highly recommended. For more information, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context> in the /AWS Key Management Service Developer Guide/ .
-gdkpwpEncryptionContext :: Lens' GenerateDataKeyPairWithoutPlaintext (HashMap Text Text)
-gdkpwpEncryptionContext = lens _gdkpwpEncryptionContext (\s a -> s {_gdkpwpEncryptionContext = a}) . _Default . _Map
+-- | Specifies the encryption context that will be used when encrypting the
+-- private key in the data key pair.
+--
+-- An /encryption context/ is a collection of non-secret key-value pairs
+-- that represents additional authenticated data. When you use an
+-- encryption context to encrypt data, you must specify the same (an exact
+-- case-sensitive match) encryption context to decrypt the data. An
+-- encryption context is optional when encrypting with a symmetric CMK, but
+-- it is highly recommended.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context Encryption Context>
+-- in the /AWS Key Management Service Developer Guide/.
+generateDataKeyPairWithoutPlaintext_encryptionContext :: Lens.Lens' GenerateDataKeyPairWithoutPlaintext (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+generateDataKeyPairWithoutPlaintext_encryptionContext = Lens.lens (\GenerateDataKeyPairWithoutPlaintext' {encryptionContext} -> encryptionContext) (\s@GenerateDataKeyPairWithoutPlaintext' {} a -> s {encryptionContext = a} :: GenerateDataKeyPairWithoutPlaintext) Prelude.. Lens.mapping Prelude._Map
 
--- | Specifies the CMK that encrypts the private key in the data key pair. You must specify a symmetric CMK. You cannot use an asymmetric CMK or a CMK in a custom key store. To get the type and origin of your CMK, use the 'DescribeKey' operation.  To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with @"alias/"@ . To specify a CMK in a different AWS account, you must use the key ARN or alias ARN. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@      * Alias name: @alias/ExampleAlias@      * Alias ARN: @arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' . To get the alias name and alias ARN, use 'ListAliases' .
-gdkpwpKeyId :: Lens' GenerateDataKeyPairWithoutPlaintext Text
-gdkpwpKeyId = lens _gdkpwpKeyId (\s a -> s {_gdkpwpKeyId = a})
+-- | Specifies the CMK that encrypts the private key in the data key pair.
+-- You must specify a symmetric CMK. You cannot use an asymmetric CMK or a
+-- CMK in a custom key store. To get the type and origin of your CMK, use
+-- the DescribeKey operation.
+--
+-- To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias
+-- name, or alias ARN. When using an alias name, prefix it with
+-- @\"alias\/\"@. To specify a CMK in a different AWS account, you must use
+-- the key ARN or alias ARN.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Alias name: @alias\/ExampleAlias@
+--
+-- -   Alias ARN: @arn:aws:kms:us-east-2:111122223333:alias\/ExampleAlias@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey. To
+-- get the alias name and alias ARN, use ListAliases.
+generateDataKeyPairWithoutPlaintext_keyId :: Lens.Lens' GenerateDataKeyPairWithoutPlaintext Prelude.Text
+generateDataKeyPairWithoutPlaintext_keyId = Lens.lens (\GenerateDataKeyPairWithoutPlaintext' {keyId} -> keyId) (\s@GenerateDataKeyPairWithoutPlaintext' {} a -> s {keyId = a} :: GenerateDataKeyPairWithoutPlaintext)
 
--- | Determines the type of data key pair that is generated. The AWS KMS rule that restricts the use of asymmetric RSA CMKs to encrypt and decrypt or to sign and verify (but not both), and the rule that permits you to use ECC CMKs only to sign and verify, are not effective outside of AWS KMS.
-gdkpwpKeyPairSpec :: Lens' GenerateDataKeyPairWithoutPlaintext DataKeyPairSpec
-gdkpwpKeyPairSpec = lens _gdkpwpKeyPairSpec (\s a -> s {_gdkpwpKeyPairSpec = a})
+-- | Determines the type of data key pair that is generated.
+--
+-- The AWS KMS rule that restricts the use of asymmetric RSA CMKs to
+-- encrypt and decrypt or to sign and verify (but not both), and the rule
+-- that permits you to use ECC CMKs only to sign and verify, are not
+-- effective outside of AWS KMS.
+generateDataKeyPairWithoutPlaintext_keyPairSpec :: Lens.Lens' GenerateDataKeyPairWithoutPlaintext DataKeyPairSpec
+generateDataKeyPairWithoutPlaintext_keyPairSpec = Lens.lens (\GenerateDataKeyPairWithoutPlaintext' {keyPairSpec} -> keyPairSpec) (\s@GenerateDataKeyPairWithoutPlaintext' {} a -> s {keyPairSpec = a} :: GenerateDataKeyPairWithoutPlaintext)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GenerateDataKeyPairWithoutPlaintext
   where
   type
     Rs GenerateDataKeyPairWithoutPlaintext =
       GenerateDataKeyPairWithoutPlaintextResponse
-  request = postJSON kms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GenerateDataKeyPairWithoutPlaintextResponse'
-            <$> (x .?> "PublicKey")
-            <*> (x .?> "KeyPairSpec")
-            <*> (x .?> "PrivateKeyCiphertextBlob")
-            <*> (x .?> "KeyId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "PublicKey")
+              Prelude.<*> (x Prelude..?> "KeyPairSpec")
+              Prelude.<*> (x Prelude..?> "PrivateKeyCiphertextBlob")
+              Prelude.<*> (x Prelude..?> "KeyId")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GenerateDataKeyPairWithoutPlaintext
-
-instance NFData GenerateDataKeyPairWithoutPlaintext
+instance
+  Prelude.Hashable
+    GenerateDataKeyPairWithoutPlaintext
 
 instance
-  ToHeaders
+  Prelude.NFData
+    GenerateDataKeyPairWithoutPlaintext
+
+instance
+  Prelude.ToHeaders
     GenerateDataKeyPairWithoutPlaintext
   where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "TrentService.GenerateDataKeyPairWithoutPlaintext" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "TrentService.GenerateDataKeyPairWithoutPlaintext" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
-
-instance ToJSON GenerateDataKeyPairWithoutPlaintext where
-  toJSON GenerateDataKeyPairWithoutPlaintext' {..} =
-    object
-      ( catMaybes
-          [ ("GrantTokens" .=) <$> _gdkpwpGrantTokens,
-            ("EncryptionContext" .=)
-              <$> _gdkpwpEncryptionContext,
-            Just ("KeyId" .= _gdkpwpKeyId),
-            Just ("KeyPairSpec" .= _gdkpwpKeyPairSpec)
-          ]
-      )
-
-instance ToPath GenerateDataKeyPairWithoutPlaintext where
-  toPath = const "/"
-
-instance ToQuery GenerateDataKeyPairWithoutPlaintext where
-  toQuery = const mempty
-
--- | /See:/ 'generateDataKeyPairWithoutPlaintextResponse' smart constructor.
-data GenerateDataKeyPairWithoutPlaintextResponse = GenerateDataKeyPairWithoutPlaintextResponse'
-  { _gdkpwprrsPublicKey ::
-      !( Maybe
-           Base64
-       ),
-    _gdkpwprrsKeyPairSpec ::
-      !( Maybe
-           DataKeyPairSpec
-       ),
-    _gdkpwprrsPrivateKeyCiphertextBlob ::
-      !( Maybe
-           Base64
-       ),
-    _gdkpwprrsKeyId ::
-      !( Maybe
-           Text
-       ),
-    _gdkpwprrsResponseStatus ::
-      !Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'GenerateDataKeyPairWithoutPlaintextResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'gdkpwprrsPublicKey' - The public key (in plaintext).-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
---
--- * 'gdkpwprrsKeyPairSpec' - The type of data key pair that was generated.
---
--- * 'gdkpwprrsPrivateKeyCiphertextBlob' - The encrypted copy of the private key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not Base64-encoded.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
---
--- * 'gdkpwprrsKeyId' - The Amazon Resource Name (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN> ) of the CMK that encrypted the private key.
---
--- * 'gdkpwprrsResponseStatus' - -- | The response status code.
-generateDataKeyPairWithoutPlaintextResponse ::
-  -- | 'gdkpwprrsResponseStatus'
-  Int ->
-  GenerateDataKeyPairWithoutPlaintextResponse
-generateDataKeyPairWithoutPlaintextResponse
-  pResponseStatus_ =
-    GenerateDataKeyPairWithoutPlaintextResponse'
-      { _gdkpwprrsPublicKey =
-          Nothing,
-        _gdkpwprrsKeyPairSpec =
-          Nothing,
-        _gdkpwprrsPrivateKeyCiphertextBlob =
-          Nothing,
-        _gdkpwprrsKeyId = Nothing,
-        _gdkpwprrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | The public key (in plaintext).-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-gdkpwprrsPublicKey :: Lens' GenerateDataKeyPairWithoutPlaintextResponse (Maybe ByteString)
-gdkpwprrsPublicKey = lens _gdkpwprrsPublicKey (\s a -> s {_gdkpwprrsPublicKey = a}) . mapping _Base64
-
--- | The type of data key pair that was generated.
-gdkpwprrsKeyPairSpec :: Lens' GenerateDataKeyPairWithoutPlaintextResponse (Maybe DataKeyPairSpec)
-gdkpwprrsKeyPairSpec = lens _gdkpwprrsKeyPairSpec (\s a -> s {_gdkpwprrsKeyPairSpec = a})
-
--- | The encrypted copy of the private key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not Base64-encoded.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-gdkpwprrsPrivateKeyCiphertextBlob :: Lens' GenerateDataKeyPairWithoutPlaintextResponse (Maybe ByteString)
-gdkpwprrsPrivateKeyCiphertextBlob = lens _gdkpwprrsPrivateKeyCiphertextBlob (\s a -> s {_gdkpwprrsPrivateKeyCiphertextBlob = a}) . mapping _Base64
-
--- | The Amazon Resource Name (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN> ) of the CMK that encrypted the private key.
-gdkpwprrsKeyId :: Lens' GenerateDataKeyPairWithoutPlaintextResponse (Maybe Text)
-gdkpwprrsKeyId = lens _gdkpwprrsKeyId (\s a -> s {_gdkpwprrsKeyId = a})
-
--- | -- | The response status code.
-gdkpwprrsResponseStatus :: Lens' GenerateDataKeyPairWithoutPlaintextResponse Int
-gdkpwprrsResponseStatus = lens _gdkpwprrsResponseStatus (\s a -> s {_gdkpwprrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.ToJSON
+    GenerateDataKeyPairWithoutPlaintext
+  where
+  toJSON GenerateDataKeyPairWithoutPlaintext' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GrantTokens" Prelude..=) Prelude.<$> grantTokens,
+            ("EncryptionContext" Prelude..=)
+              Prelude.<$> encryptionContext,
+            Prelude.Just ("KeyId" Prelude..= keyId),
+            Prelude.Just ("KeyPairSpec" Prelude..= keyPairSpec)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    GenerateDataKeyPairWithoutPlaintext
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    GenerateDataKeyPairWithoutPlaintext
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newGenerateDataKeyPairWithoutPlaintextResponse' smart constructor.
+data GenerateDataKeyPairWithoutPlaintextResponse = GenerateDataKeyPairWithoutPlaintextResponse'
+  { -- | The public key (in plaintext).
+    publicKey :: Prelude.Maybe Prelude.Base64,
+    -- | The type of data key pair that was generated.
+    keyPairSpec :: Prelude.Maybe DataKeyPairSpec,
+    -- | The encrypted copy of the private key. When you use the HTTP API or the
+    -- AWS CLI, the value is Base64-encoded. Otherwise, it is not
+    -- Base64-encoded.
+    privateKeyCiphertextBlob :: Prelude.Maybe Prelude.Base64,
+    -- | The Amazon Resource Name
+    -- (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN>)
+    -- of the CMK that encrypted the private key.
+    keyId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'GenerateDataKeyPairWithoutPlaintextResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'publicKey', 'generateDataKeyPairWithoutPlaintextResponse_publicKey' - The public key (in plaintext).--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'keyPairSpec', 'generateDataKeyPairWithoutPlaintextResponse_keyPairSpec' - The type of data key pair that was generated.
+--
+-- 'privateKeyCiphertextBlob', 'generateDataKeyPairWithoutPlaintextResponse_privateKeyCiphertextBlob' - The encrypted copy of the private key. When you use the HTTP API or the
+-- AWS CLI, the value is Base64-encoded. Otherwise, it is not
+-- Base64-encoded.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+--
+-- 'keyId', 'generateDataKeyPairWithoutPlaintextResponse_keyId' - The Amazon Resource Name
+-- (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN>)
+-- of the CMK that encrypted the private key.
+--
+-- 'httpStatus', 'generateDataKeyPairWithoutPlaintextResponse_httpStatus' - The response's http status code.
+newGenerateDataKeyPairWithoutPlaintextResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  GenerateDataKeyPairWithoutPlaintextResponse
+newGenerateDataKeyPairWithoutPlaintextResponse
+  pHttpStatus_ =
+    GenerateDataKeyPairWithoutPlaintextResponse'
+      { publicKey =
+          Prelude.Nothing,
+        keyPairSpec = Prelude.Nothing,
+        privateKeyCiphertextBlob =
+          Prelude.Nothing,
+        keyId = Prelude.Nothing,
+        httpStatus = pHttpStatus_
+      }
+
+-- | The public key (in plaintext).--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+generateDataKeyPairWithoutPlaintextResponse_publicKey :: Lens.Lens' GenerateDataKeyPairWithoutPlaintextResponse (Prelude.Maybe Prelude.ByteString)
+generateDataKeyPairWithoutPlaintextResponse_publicKey = Lens.lens (\GenerateDataKeyPairWithoutPlaintextResponse' {publicKey} -> publicKey) (\s@GenerateDataKeyPairWithoutPlaintextResponse' {} a -> s {publicKey = a} :: GenerateDataKeyPairWithoutPlaintextResponse) Prelude.. Lens.mapping Prelude._Base64
+
+-- | The type of data key pair that was generated.
+generateDataKeyPairWithoutPlaintextResponse_keyPairSpec :: Lens.Lens' GenerateDataKeyPairWithoutPlaintextResponse (Prelude.Maybe DataKeyPairSpec)
+generateDataKeyPairWithoutPlaintextResponse_keyPairSpec = Lens.lens (\GenerateDataKeyPairWithoutPlaintextResponse' {keyPairSpec} -> keyPairSpec) (\s@GenerateDataKeyPairWithoutPlaintextResponse' {} a -> s {keyPairSpec = a} :: GenerateDataKeyPairWithoutPlaintextResponse)
+
+-- | The encrypted copy of the private key. When you use the HTTP API or the
+-- AWS CLI, the value is Base64-encoded. Otherwise, it is not
+-- Base64-encoded.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+generateDataKeyPairWithoutPlaintextResponse_privateKeyCiphertextBlob :: Lens.Lens' GenerateDataKeyPairWithoutPlaintextResponse (Prelude.Maybe Prelude.ByteString)
+generateDataKeyPairWithoutPlaintextResponse_privateKeyCiphertextBlob = Lens.lens (\GenerateDataKeyPairWithoutPlaintextResponse' {privateKeyCiphertextBlob} -> privateKeyCiphertextBlob) (\s@GenerateDataKeyPairWithoutPlaintextResponse' {} a -> s {privateKeyCiphertextBlob = a} :: GenerateDataKeyPairWithoutPlaintextResponse) Prelude.. Lens.mapping Prelude._Base64
+
+-- | The Amazon Resource Name
+-- (<https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN key ARN>)
+-- of the CMK that encrypted the private key.
+generateDataKeyPairWithoutPlaintextResponse_keyId :: Lens.Lens' GenerateDataKeyPairWithoutPlaintextResponse (Prelude.Maybe Prelude.Text)
+generateDataKeyPairWithoutPlaintextResponse_keyId = Lens.lens (\GenerateDataKeyPairWithoutPlaintextResponse' {keyId} -> keyId) (\s@GenerateDataKeyPairWithoutPlaintextResponse' {} a -> s {keyId = a} :: GenerateDataKeyPairWithoutPlaintextResponse)
+
+-- | The response's http status code.
+generateDataKeyPairWithoutPlaintextResponse_httpStatus :: Lens.Lens' GenerateDataKeyPairWithoutPlaintextResponse Prelude.Int
+generateDataKeyPairWithoutPlaintextResponse_httpStatus = Lens.lens (\GenerateDataKeyPairWithoutPlaintextResponse' {httpStatus} -> httpStatus) (\s@GenerateDataKeyPairWithoutPlaintextResponse' {} a -> s {httpStatus = a} :: GenerateDataKeyPairWithoutPlaintextResponse)
+
+instance
+  Prelude.NFData
     GenerateDataKeyPairWithoutPlaintextResponse

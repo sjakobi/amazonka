@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.KMS.Types.ConnectionStateType
   ( ConnectionStateType
       ( ..,
-        Connected,
-        Connecting,
-        Disconnected,
-        Disconnecting,
-        Failed
+        ConnectionStateTypeCONNECTED,
+        ConnectionStateTypeCONNECTING,
+        ConnectionStateTypeDISCONNECTED,
+        ConnectionStateTypeDISCONNECTING,
+        ConnectionStateTypeFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionStateType
-  = ConnectionStateType'
-      ( CI
-          Text
-      )
+newtype ConnectionStateType = ConnectionStateType'
+  { fromConnectionStateType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Connected :: ConnectionStateType
-pattern Connected = ConnectionStateType' "CONNECTED"
+pattern ConnectionStateTypeCONNECTED :: ConnectionStateType
+pattern ConnectionStateTypeCONNECTED = ConnectionStateType' "CONNECTED"
 
-pattern Connecting :: ConnectionStateType
-pattern Connecting = ConnectionStateType' "CONNECTING"
+pattern ConnectionStateTypeCONNECTING :: ConnectionStateType
+pattern ConnectionStateTypeCONNECTING = ConnectionStateType' "CONNECTING"
 
-pattern Disconnected :: ConnectionStateType
-pattern Disconnected = ConnectionStateType' "DISCONNECTED"
+pattern ConnectionStateTypeDISCONNECTED :: ConnectionStateType
+pattern ConnectionStateTypeDISCONNECTED = ConnectionStateType' "DISCONNECTED"
 
-pattern Disconnecting :: ConnectionStateType
-pattern Disconnecting = ConnectionStateType' "DISCONNECTING"
+pattern ConnectionStateTypeDISCONNECTING :: ConnectionStateType
+pattern ConnectionStateTypeDISCONNECTING = ConnectionStateType' "DISCONNECTING"
 
-pattern Failed :: ConnectionStateType
-pattern Failed = ConnectionStateType' "FAILED"
+pattern ConnectionStateTypeFAILED :: ConnectionStateType
+pattern ConnectionStateTypeFAILED = ConnectionStateType' "FAILED"
 
 {-# COMPLETE
-  Connected,
-  Connecting,
-  Disconnected,
-  Disconnecting,
-  Failed,
+  ConnectionStateTypeCONNECTED,
+  ConnectionStateTypeCONNECTING,
+  ConnectionStateTypeDISCONNECTED,
+  ConnectionStateTypeDISCONNECTING,
+  ConnectionStateTypeFAILED,
   ConnectionStateType'
   #-}
 
-instance FromText ConnectionStateType where
-  parser = (ConnectionStateType' . mk) <$> takeText
+instance Prelude.FromText ConnectionStateType where
+  parser = ConnectionStateType' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionStateType where
-  toText (ConnectionStateType' ci) = original ci
+instance Prelude.ToText ConnectionStateType where
+  toText (ConnectionStateType' x) = x
 
-instance Hashable ConnectionStateType
+instance Prelude.Hashable ConnectionStateType
 
-instance NFData ConnectionStateType
+instance Prelude.NFData ConnectionStateType
 
-instance ToByteString ConnectionStateType
+instance Prelude.ToByteString ConnectionStateType
 
-instance ToQuery ConnectionStateType
+instance Prelude.ToQuery ConnectionStateType
 
-instance ToHeader ConnectionStateType
+instance Prelude.ToHeader ConnectionStateType
 
-instance FromJSON ConnectionStateType where
-  parseJSON = parseJSONText "ConnectionStateType"
+instance Prelude.FromJSON ConnectionStateType where
+  parseJSON = Prelude.parseJSONText "ConnectionStateType"

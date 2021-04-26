@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.KMS.Types.KeyManagerType
   ( KeyManagerType
       ( ..,
-        AWS,
-        Customer
+        KeyManagerTypeAWS,
+        KeyManagerTypeCUSTOMER
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data KeyManagerType = KeyManagerType' (CI Text)
+newtype KeyManagerType = KeyManagerType'
+  { fromKeyManagerType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWS :: KeyManagerType
-pattern AWS = KeyManagerType' "AWS"
+pattern KeyManagerTypeAWS :: KeyManagerType
+pattern KeyManagerTypeAWS = KeyManagerType' "AWS"
 
-pattern Customer :: KeyManagerType
-pattern Customer = KeyManagerType' "CUSTOMER"
+pattern KeyManagerTypeCUSTOMER :: KeyManagerType
+pattern KeyManagerTypeCUSTOMER = KeyManagerType' "CUSTOMER"
 
 {-# COMPLETE
-  AWS,
-  Customer,
+  KeyManagerTypeAWS,
+  KeyManagerTypeCUSTOMER,
   KeyManagerType'
   #-}
 
-instance FromText KeyManagerType where
-  parser = (KeyManagerType' . mk) <$> takeText
+instance Prelude.FromText KeyManagerType where
+  parser = KeyManagerType' Prelude.<$> Prelude.takeText
 
-instance ToText KeyManagerType where
-  toText (KeyManagerType' ci) = original ci
+instance Prelude.ToText KeyManagerType where
+  toText (KeyManagerType' x) = x
 
-instance Hashable KeyManagerType
+instance Prelude.Hashable KeyManagerType
 
-instance NFData KeyManagerType
+instance Prelude.NFData KeyManagerType
 
-instance ToByteString KeyManagerType
+instance Prelude.ToByteString KeyManagerType
 
-instance ToQuery KeyManagerType
+instance Prelude.ToQuery KeyManagerType
 
-instance ToHeader KeyManagerType
+instance Prelude.ToHeader KeyManagerType
 
-instance FromJSON KeyManagerType where
-  parseJSON = parseJSONText "KeyManagerType"
+instance Prelude.FromJSON KeyManagerType where
+  parseJSON = Prelude.parseJSONText "KeyManagerType"

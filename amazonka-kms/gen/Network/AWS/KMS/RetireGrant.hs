@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,180 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retires a grant. To clean up, you can retire a grant when you're done using it. You should revoke a grant when you intend to actively deny operations that depend on it. The following are permitted to call this API:
+-- Retires a grant. To clean up, you can retire a grant when you\'re done
+-- using it. You should revoke a grant when you intend to actively deny
+-- operations that depend on it. The following are permitted to call this
+-- API:
 --
+-- -   The AWS account (root user) under which the grant was created
 --
---     * The AWS account (root user) under which the grant was created
+-- -   The @RetiringPrincipal@, if present in the grant
 --
---     * The @RetiringPrincipal@ , if present in the grant
+-- -   The @GranteePrincipal@, if @RetireGrant@ is an operation specified
+--     in the grant
 --
---     * The @GranteePrincipal@ , if @RetireGrant@ is an operation specified in the grant
+-- You must identify the grant to retire by its grant token or by a
+-- combination of the grant ID and the Amazon Resource Name (ARN) of the
+-- customer master key (CMK). A grant token is a unique variable-length
+-- base64-encoded string. A grant ID is a 64 character unique identifier of
+-- a grant. The CreateGrant operation returns both.
 --
+-- __Cross-account use__: Yes. You can retire a grant on a CMK in a
+-- different AWS account.
 --
---
--- You must identify the grant to retire by its grant token or by a combination of the grant ID and the Amazon Resource Name (ARN) of the customer master key (CMK). A grant token is a unique variable-length base64-encoded string. A grant ID is a 64 character unique identifier of a grant. The 'CreateGrant' operation returns both.
---
--- __Cross-account use__ : Yes. You can retire a grant on a CMK in a different AWS account.
---
--- __Required permissions:__ : Permission to retire a grant is specified in the grant. You cannot control access to this operation in a policy. For more information, see <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Using grants> in the /AWS Key Management Service Developer Guide/ .
+-- __Required permissions:__: Permission to retire a grant is specified in
+-- the grant. You cannot control access to this operation in a policy. For
+-- more information, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Using grants>
+-- in the /AWS Key Management Service Developer Guide/.
 --
 -- __Related operations:__
 --
---     * 'CreateGrant'
+-- -   CreateGrant
 --
---     * 'ListGrants'
+-- -   ListGrants
 --
---     * 'ListRetirableGrants'
+-- -   ListRetirableGrants
 --
---     * 'RevokeGrant'
+-- -   RevokeGrant
 module Network.AWS.KMS.RetireGrant
   ( -- * Creating a Request
-    retireGrant,
-    RetireGrant,
+    RetireGrant (..),
+    newRetireGrant,
 
     -- * Request Lenses
-    rGrantToken,
-    rGrantId,
-    rKeyId,
+    retireGrant_grantToken,
+    retireGrant_grantId,
+    retireGrant_keyId,
 
     -- * Destructuring the Response
-    retireGrantResponse,
-    RetireGrantResponse,
+    RetireGrantResponse (..),
+    newRetireGrantResponse,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'retireGrant' smart constructor.
+-- | /See:/ 'newRetireGrant' smart constructor.
 data RetireGrant = RetireGrant'
-  { _rGrantToken ::
-      !(Maybe Text),
-    _rGrantId :: !(Maybe Text),
-    _rKeyId :: !(Maybe Text)
+  { -- | Token that identifies the grant to be retired.
+    grantToken :: Prelude.Maybe Prelude.Text,
+    -- | Unique identifier of the grant to retire. The grant ID is returned in
+    -- the response to a @CreateGrant@ operation.
+    --
+    -- -   Grant ID Example -
+    --     0123456789012345678901234567890123456789012345678901234567890123
+    grantId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the CMK associated with the grant.
+    --
+    -- For example:
+    -- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    keyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetireGrant' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RetireGrant' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rGrantToken' - Token that identifies the grant to be retired.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rGrantId' - Unique identifier of the grant to retire. The grant ID is returned in the response to a @CreateGrant@ operation.     * Grant ID Example - 0123456789012345678901234567890123456789012345678901234567890123
+-- 'grantToken', 'retireGrant_grantToken' - Token that identifies the grant to be retired.
 --
--- * 'rKeyId' - The Amazon Resource Name (ARN) of the CMK associated with the grant.  For example: @arn:aws:kms:us-east-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab@
-retireGrant ::
+-- 'grantId', 'retireGrant_grantId' - Unique identifier of the grant to retire. The grant ID is returned in
+-- the response to a @CreateGrant@ operation.
+--
+-- -   Grant ID Example -
+--     0123456789012345678901234567890123456789012345678901234567890123
+--
+-- 'keyId', 'retireGrant_keyId' - The Amazon Resource Name (ARN) of the CMK associated with the grant.
+--
+-- For example:
+-- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+newRetireGrant ::
   RetireGrant
-retireGrant =
+newRetireGrant =
   RetireGrant'
-    { _rGrantToken = Nothing,
-      _rGrantId = Nothing,
-      _rKeyId = Nothing
+    { grantToken = Prelude.Nothing,
+      grantId = Prelude.Nothing,
+      keyId = Prelude.Nothing
     }
 
 -- | Token that identifies the grant to be retired.
-rGrantToken :: Lens' RetireGrant (Maybe Text)
-rGrantToken = lens _rGrantToken (\s a -> s {_rGrantToken = a})
+retireGrant_grantToken :: Lens.Lens' RetireGrant (Prelude.Maybe Prelude.Text)
+retireGrant_grantToken = Lens.lens (\RetireGrant' {grantToken} -> grantToken) (\s@RetireGrant' {} a -> s {grantToken = a} :: RetireGrant)
 
--- | Unique identifier of the grant to retire. The grant ID is returned in the response to a @CreateGrant@ operation.     * Grant ID Example - 0123456789012345678901234567890123456789012345678901234567890123
-rGrantId :: Lens' RetireGrant (Maybe Text)
-rGrantId = lens _rGrantId (\s a -> s {_rGrantId = a})
+-- | Unique identifier of the grant to retire. The grant ID is returned in
+-- the response to a @CreateGrant@ operation.
+--
+-- -   Grant ID Example -
+--     0123456789012345678901234567890123456789012345678901234567890123
+retireGrant_grantId :: Lens.Lens' RetireGrant (Prelude.Maybe Prelude.Text)
+retireGrant_grantId = Lens.lens (\RetireGrant' {grantId} -> grantId) (\s@RetireGrant' {} a -> s {grantId = a} :: RetireGrant)
 
--- | The Amazon Resource Name (ARN) of the CMK associated with the grant.  For example: @arn:aws:kms:us-east-2:444455556666:key/1234abcd-12ab-34cd-56ef-1234567890ab@
-rKeyId :: Lens' RetireGrant (Maybe Text)
-rKeyId = lens _rKeyId (\s a -> s {_rKeyId = a})
+-- | The Amazon Resource Name (ARN) of the CMK associated with the grant.
+--
+-- For example:
+-- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+retireGrant_keyId :: Lens.Lens' RetireGrant (Prelude.Maybe Prelude.Text)
+retireGrant_keyId = Lens.lens (\RetireGrant' {keyId} -> keyId) (\s@RetireGrant' {} a -> s {keyId = a} :: RetireGrant)
 
-instance AWSRequest RetireGrant where
+instance Prelude.AWSRequest RetireGrant where
   type Rs RetireGrant = RetireGrantResponse
-  request = postJSON kms
-  response = receiveNull RetireGrantResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull RetireGrantResponse'
 
-instance Hashable RetireGrant
+instance Prelude.Hashable RetireGrant
 
-instance NFData RetireGrant
+instance Prelude.NFData RetireGrant
 
-instance ToHeaders RetireGrant where
+instance Prelude.ToHeaders RetireGrant where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.RetireGrant" :: ByteString),
+              Prelude.=# ("TrentService.RetireGrant" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RetireGrant where
+instance Prelude.ToJSON RetireGrant where
   toJSON RetireGrant' {..} =
-    object
-      ( catMaybes
-          [ ("GrantToken" .=) <$> _rGrantToken,
-            ("GrantId" .=) <$> _rGrantId,
-            ("KeyId" .=) <$> _rKeyId
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GrantToken" Prelude..=) Prelude.<$> grantToken,
+            ("GrantId" Prelude..=) Prelude.<$> grantId,
+            ("KeyId" Prelude..=) Prelude.<$> keyId
           ]
       )
 
-instance ToPath RetireGrant where
-  toPath = const "/"
+instance Prelude.ToPath RetireGrant where
+  toPath = Prelude.const "/"
 
-instance ToQuery RetireGrant where
-  toQuery = const mempty
+instance Prelude.ToQuery RetireGrant where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'retireGrantResponse' smart constructor.
+-- | /See:/ 'newRetireGrantResponse' smart constructor.
 data RetireGrantResponse = RetireGrantResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RetireGrantResponse' with the minimum fields required to make a request.
-retireGrantResponse ::
+-- |
+-- Create a value of 'RetireGrantResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRetireGrantResponse ::
   RetireGrantResponse
-retireGrantResponse = RetireGrantResponse'
+newRetireGrantResponse = RetireGrantResponse'
 
-instance NFData RetireGrantResponse
+instance Prelude.NFData RetireGrantResponse

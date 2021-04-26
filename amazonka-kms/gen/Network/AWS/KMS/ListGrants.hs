@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,155 +23,256 @@
 --
 -- Gets a list of all grants for the specified customer master key (CMK).
 --
+-- You must specify the CMK in all requests. You can filter the grant list
+-- by grant ID or grantee principal.
 --
--- You must specify the CMK in all requests. You can filter the grant list by grant ID or grantee principal.
+-- The @GranteePrincipal@ field in the @ListGrants@ response usually
+-- contains the user or role designated as the grantee principal in the
+-- grant. However, when the grantee principal in the grant is an AWS
+-- service, the @GranteePrincipal@ field contains the
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services service principal>,
+-- which might represent several different grantee principals.
 --
--- __Cross-account use__ : Yes. To perform this operation on a CMK in a different AWS account, specify the key ARN in the value of the @KeyId@ parameter.
+-- __Cross-account use__: Yes. To perform this operation on a CMK in a
+-- different AWS account, specify the key ARN in the value of the @KeyId@
+-- parameter.
 --
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListGrants> (key policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListGrants>
+-- (key policy)
 --
 -- __Related operations:__
 --
---     * 'CreateGrant'
+-- -   CreateGrant
 --
---     * 'ListRetirableGrants'
+-- -   ListRetirableGrants
 --
---     * 'RetireGrant'
+-- -   RetireGrant
 --
---     * 'RevokeGrant'
---
---
---
+-- -   RevokeGrant
 --
 -- This operation returns paginated results.
 module Network.AWS.KMS.ListGrants
   ( -- * Creating a Request
-    listGrants,
-    ListGrants,
+    ListGrants (..),
+    newListGrants,
 
     -- * Request Lenses
-    lgGranteePrincipal,
-    lgGrantId,
-    lgLimit,
-    lgMarker,
-    lgKeyId,
+    listGrants_granteePrincipal,
+    listGrants_grantId,
+    listGrants_limit,
+    listGrants_marker,
+    listGrants_keyId,
 
     -- * Destructuring the Response
-    listGrantsResponse,
-    ListGrantsResponse,
+    ListGrantsResponse (..),
+    newListGrantsResponse,
 
     -- * Response Lenses
-    lgrNextMarker,
-    lgrGrants,
-    lgrTruncated,
+    listGrantsResponse_nextMarker,
+    listGrantsResponse_grants,
+    listGrantsResponse_truncated,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KMS.Types.GrantListEntry
+import Network.AWS.KMS.Types.ListGrantsResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listGrants' smart constructor.
+-- | /See:/ 'newListGrants' smart constructor.
 data ListGrants = ListGrants'
-  { _lgGranteePrincipal ::
-      !(Maybe Text),
-    _lgGrantId :: !(Maybe Text),
-    _lgLimit :: !(Maybe Nat),
-    _lgMarker :: !(Maybe Text),
-    _lgKeyId :: !Text
+  { -- | Returns only grants where the specified principal is the grantee
+    -- principal for the grant.
+    granteePrincipal :: Prelude.Maybe Prelude.Text,
+    -- | Returns only the grant with the specified grant ID. The grant ID
+    -- uniquely identifies the grant.
+    grantId :: Prelude.Maybe Prelude.Text,
+    -- | Use this parameter to specify the maximum number of items to return.
+    -- When this value is present, AWS KMS does not return more than the
+    -- specified number of items, but it might return fewer.
+    --
+    -- This value is optional. If you include a value, it must be between 1 and
+    -- 100, inclusive. If you do not include a value, it defaults to 50.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter in a subsequent request after you receive a response
+    -- with truncated results. Set it to the value of @NextMarker@ from the
+    -- truncated response you just received.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | Returns only grants for the specified customer master key (CMK). This
+    -- parameter is required.
+    --
+    -- Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+    -- specify a CMK in a different AWS account, you must use the key ARN.
+    --
+    -- For example:
+    --
+    -- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Key ARN:
+    --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+    keyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGrants' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGrants' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lgGranteePrincipal' - Returns only grants where the specified principal is the grantee principal for the grant.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lgGrantId' - Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+-- 'granteePrincipal', 'listGrants_granteePrincipal' - Returns only grants where the specified principal is the grantee
+-- principal for the grant.
 --
--- * 'lgLimit' - Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not include a value, it defaults to 50.
+-- 'grantId', 'listGrants_grantId' - Returns only the grant with the specified grant ID. The grant ID
+-- uniquely identifies the grant.
 --
--- * 'lgMarker' - Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
+-- 'limit', 'listGrants_limit' - Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
 --
--- * 'lgKeyId' - Returns only grants for the specified customer master key (CMK). This parameter is required. Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you must use the key ARN. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-listGrants ::
-  -- | 'lgKeyId'
-  Text ->
+-- This value is optional. If you include a value, it must be between 1 and
+-- 100, inclusive. If you do not include a value, it defaults to 50.
+--
+-- 'marker', 'listGrants_marker' - Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+--
+-- 'keyId', 'listGrants_keyId' - Returns only grants for the specified customer master key (CMK). This
+-- parameter is required.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+-- specify a CMK in a different AWS account, you must use the key ARN.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+newListGrants ::
+  -- | 'keyId'
+  Prelude.Text ->
   ListGrants
-listGrants pKeyId_ =
+newListGrants pKeyId_ =
   ListGrants'
-    { _lgGranteePrincipal = Nothing,
-      _lgGrantId = Nothing,
-      _lgLimit = Nothing,
-      _lgMarker = Nothing,
-      _lgKeyId = pKeyId_
+    { granteePrincipal = Prelude.Nothing,
+      grantId = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      keyId = pKeyId_
     }
 
--- | Returns only grants where the specified principal is the grantee principal for the grant.
-lgGranteePrincipal :: Lens' ListGrants (Maybe Text)
-lgGranteePrincipal = lens _lgGranteePrincipal (\s a -> s {_lgGranteePrincipal = a})
+-- | Returns only grants where the specified principal is the grantee
+-- principal for the grant.
+listGrants_granteePrincipal :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Text)
+listGrants_granteePrincipal = Lens.lens (\ListGrants' {granteePrincipal} -> granteePrincipal) (\s@ListGrants' {} a -> s {granteePrincipal = a} :: ListGrants)
 
--- | Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
-lgGrantId :: Lens' ListGrants (Maybe Text)
-lgGrantId = lens _lgGrantId (\s a -> s {_lgGrantId = a})
+-- | Returns only the grant with the specified grant ID. The grant ID
+-- uniquely identifies the grant.
+listGrants_grantId :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Text)
+listGrants_grantId = Lens.lens (\ListGrants' {grantId} -> grantId) (\s@ListGrants' {} a -> s {grantId = a} :: ListGrants)
 
--- | Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not include a value, it defaults to 50.
-lgLimit :: Lens' ListGrants (Maybe Natural)
-lgLimit = lens _lgLimit (\s a -> s {_lgLimit = a}) . mapping _Nat
+-- | Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
+--
+-- This value is optional. If you include a value, it must be between 1 and
+-- 100, inclusive. If you do not include a value, it defaults to 50.
+listGrants_limit :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Natural)
+listGrants_limit = Lens.lens (\ListGrants' {limit} -> limit) (\s@ListGrants' {} a -> s {limit = a} :: ListGrants) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
-lgMarker :: Lens' ListGrants (Maybe Text)
-lgMarker = lens _lgMarker (\s a -> s {_lgMarker = a})
+-- | Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+listGrants_marker :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Text)
+listGrants_marker = Lens.lens (\ListGrants' {marker} -> marker) (\s@ListGrants' {} a -> s {marker = a} :: ListGrants)
 
--- | Returns only grants for the specified customer master key (CMK). This parameter is required. Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you must use the key ARN. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-lgKeyId :: Lens' ListGrants Text
-lgKeyId = lens _lgKeyId (\s a -> s {_lgKeyId = a})
+-- | Returns only grants for the specified customer master key (CMK). This
+-- parameter is required.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+-- specify a CMK in a different AWS account, you must use the key ARN.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+listGrants_keyId :: Lens.Lens' ListGrants Prelude.Text
+listGrants_keyId = Lens.lens (\ListGrants' {keyId} -> keyId) (\s@ListGrants' {} a -> s {keyId = a} :: ListGrants)
 
-instance AWSPager ListGrants where
+instance Pager.AWSPager ListGrants where
   page rq rs
-    | stop (rs ^. lgrTruncated) = Nothing
-    | isNothing (rs ^. lgrNextMarker) = Nothing
-    | otherwise =
-      Just $ rq & lgMarker .~ rs ^. lgrNextMarker
+    | Pager.stop
+        ( rs
+            Lens.^? listGrantsResponse_truncated Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.isNothing
+        ( rs
+            Lens.^? listGrantsResponse_nextMarker Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listGrants_marker
+          Lens..~ rs
+          Lens.^? listGrantsResponse_nextMarker Prelude.. Lens._Just
 
-instance AWSRequest ListGrants where
+instance Prelude.AWSRequest ListGrants where
   type Rs ListGrants = ListGrantsResponse
-  request = postJSON kms
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable ListGrants
+instance Prelude.Hashable ListGrants
 
-instance NFData ListGrants
+instance Prelude.NFData ListGrants
 
-instance ToHeaders ListGrants where
+instance Prelude.ToHeaders ListGrants where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.ListGrants" :: ByteString),
+              Prelude.=# ("TrentService.ListGrants" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListGrants where
+instance Prelude.ToJSON ListGrants where
   toJSON ListGrants' {..} =
-    object
-      ( catMaybes
-          [ ("GranteePrincipal" .=) <$> _lgGranteePrincipal,
-            ("GrantId" .=) <$> _lgGrantId,
-            ("Limit" .=) <$> _lgLimit,
-            ("Marker" .=) <$> _lgMarker,
-            Just ("KeyId" .= _lgKeyId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("GranteePrincipal" Prelude..=)
+              Prelude.<$> granteePrincipal,
+            ("GrantId" Prelude..=) Prelude.<$> grantId,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            ("Marker" Prelude..=) Prelude.<$> marker,
+            Prelude.Just ("KeyId" Prelude..= keyId)
           ]
       )
 
-instance ToPath ListGrants where
-  toPath = const "/"
+instance Prelude.ToPath ListGrants where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListGrants where
-  toQuery = const mempty
+instance Prelude.ToQuery ListGrants where
+  toQuery = Prelude.const Prelude.mempty

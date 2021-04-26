@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.KMS.Types.AlgorithmSpec
   ( AlgorithmSpec
       ( ..,
-        ASRsaesOaepSha1,
-        ASRsaesOaepSha256,
-        ASRsaesPKCS1V15
+        AlgorithmSpecRSAESOAEPSHA1,
+        AlgorithmSpecRSAESOAEPSHA256,
+        AlgorithmSpecRSAESPKCS1V15
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AlgorithmSpec = AlgorithmSpec' (CI Text)
+newtype AlgorithmSpec = AlgorithmSpec'
+  { fromAlgorithmSpec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASRsaesOaepSha1 :: AlgorithmSpec
-pattern ASRsaesOaepSha1 = AlgorithmSpec' "RSAES_OAEP_SHA_1"
+pattern AlgorithmSpecRSAESOAEPSHA1 :: AlgorithmSpec
+pattern AlgorithmSpecRSAESOAEPSHA1 = AlgorithmSpec' "RSAES_OAEP_SHA_1"
 
-pattern ASRsaesOaepSha256 :: AlgorithmSpec
-pattern ASRsaesOaepSha256 = AlgorithmSpec' "RSAES_OAEP_SHA_256"
+pattern AlgorithmSpecRSAESOAEPSHA256 :: AlgorithmSpec
+pattern AlgorithmSpecRSAESOAEPSHA256 = AlgorithmSpec' "RSAES_OAEP_SHA_256"
 
-pattern ASRsaesPKCS1V15 :: AlgorithmSpec
-pattern ASRsaesPKCS1V15 = AlgorithmSpec' "RSAES_PKCS1_V1_5"
+pattern AlgorithmSpecRSAESPKCS1V15 :: AlgorithmSpec
+pattern AlgorithmSpecRSAESPKCS1V15 = AlgorithmSpec' "RSAES_PKCS1_V1_5"
 
 {-# COMPLETE
-  ASRsaesOaepSha1,
-  ASRsaesOaepSha256,
-  ASRsaesPKCS1V15,
+  AlgorithmSpecRSAESOAEPSHA1,
+  AlgorithmSpecRSAESOAEPSHA256,
+  AlgorithmSpecRSAESPKCS1V15,
   AlgorithmSpec'
   #-}
 
-instance FromText AlgorithmSpec where
-  parser = (AlgorithmSpec' . mk) <$> takeText
+instance Prelude.FromText AlgorithmSpec where
+  parser = AlgorithmSpec' Prelude.<$> Prelude.takeText
 
-instance ToText AlgorithmSpec where
-  toText (AlgorithmSpec' ci) = original ci
+instance Prelude.ToText AlgorithmSpec where
+  toText (AlgorithmSpec' x) = x
 
-instance Hashable AlgorithmSpec
+instance Prelude.Hashable AlgorithmSpec
 
-instance NFData AlgorithmSpec
+instance Prelude.NFData AlgorithmSpec
 
-instance ToByteString AlgorithmSpec
+instance Prelude.ToByteString AlgorithmSpec
 
-instance ToQuery AlgorithmSpec
+instance Prelude.ToQuery AlgorithmSpec
 
-instance ToHeader AlgorithmSpec
+instance Prelude.ToHeader AlgorithmSpec
 
-instance ToJSON AlgorithmSpec where
-  toJSON = toJSONText
+instance Prelude.ToJSON AlgorithmSpec where
+  toJSON = Prelude.toJSONText

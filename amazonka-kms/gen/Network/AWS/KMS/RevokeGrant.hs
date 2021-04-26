@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,119 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Revokes the specified grant for the specified customer master key (CMK). You can revoke a grant to actively deny operations that depend on it.
+-- Revokes the specified grant for the specified customer master key (CMK).
+-- You can revoke a grant to actively deny operations that depend on it.
 --
+-- __Cross-account use__: Yes. To perform this operation on a CMK in a
+-- different AWS account, specify the key ARN in the value of the @KeyId@
+-- parameter.
 --
--- __Cross-account use__ : Yes. To perform this operation on a CMK in a different AWS account, specify the key ARN in the value of the @KeyId@ parameter.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:RevokeGrant> (key policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:RevokeGrant>
+-- (key policy)
 --
 -- __Related operations:__
 --
---     * 'CreateGrant'
+-- -   CreateGrant
 --
---     * 'ListGrants'
+-- -   ListGrants
 --
---     * 'ListRetirableGrants'
+-- -   ListRetirableGrants
 --
---     * 'RetireGrant'
+-- -   RetireGrant
 module Network.AWS.KMS.RevokeGrant
   ( -- * Creating a Request
-    revokeGrant,
-    RevokeGrant,
+    RevokeGrant (..),
+    newRevokeGrant,
 
     -- * Request Lenses
-    rgKeyId,
-    rgGrantId,
+    revokeGrant_keyId,
+    revokeGrant_grantId,
 
     -- * Destructuring the Response
-    revokeGrantResponse,
-    RevokeGrantResponse,
+    RevokeGrantResponse (..),
+    newRevokeGrantResponse,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'revokeGrant' smart constructor.
+-- | /See:/ 'newRevokeGrant' smart constructor.
 data RevokeGrant = RevokeGrant'
-  { _rgKeyId :: !Text,
-    _rgGrantId :: !Text
+  { -- | A unique identifier for the customer master key associated with the
+    -- grant.
+    --
+    -- Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+    -- specify a CMK in a different AWS account, you must use the key ARN.
+    --
+    -- For example:
+    --
+    -- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Key ARN:
+    --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+    keyId :: Prelude.Text,
+    -- | Identifier of the grant to be revoked.
+    grantId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevokeGrant' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RevokeGrant' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rgKeyId' - A unique identifier for the customer master key associated with the grant. Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you must use the key ARN. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rgGrantId' - Identifier of the grant to be revoked.
-revokeGrant ::
-  -- | 'rgKeyId'
-  Text ->
-  -- | 'rgGrantId'
-  Text ->
+-- 'keyId', 'revokeGrant_keyId' - A unique identifier for the customer master key associated with the
+-- grant.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+-- specify a CMK in a different AWS account, you must use the key ARN.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+--
+-- 'grantId', 'revokeGrant_grantId' - Identifier of the grant to be revoked.
+newRevokeGrant ::
+  -- | 'keyId'
+  Prelude.Text ->
+  -- | 'grantId'
+  Prelude.Text ->
   RevokeGrant
-revokeGrant pKeyId_ pGrantId_ =
-  RevokeGrant'
-    { _rgKeyId = pKeyId_,
-      _rgGrantId = pGrantId_
-    }
+newRevokeGrant pKeyId_ pGrantId_ =
+  RevokeGrant' {keyId = pKeyId_, grantId = pGrantId_}
 
--- | A unique identifier for the customer master key associated with the grant. Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you must use the key ARN. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-rgKeyId :: Lens' RevokeGrant Text
-rgKeyId = lens _rgKeyId (\s a -> s {_rgKeyId = a})
+-- | A unique identifier for the customer master key associated with the
+-- grant.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To
+-- specify a CMK in a different AWS account, you must use the key ARN.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+revokeGrant_keyId :: Lens.Lens' RevokeGrant Prelude.Text
+revokeGrant_keyId = Lens.lens (\RevokeGrant' {keyId} -> keyId) (\s@RevokeGrant' {} a -> s {keyId = a} :: RevokeGrant)
 
 -- | Identifier of the grant to be revoked.
-rgGrantId :: Lens' RevokeGrant Text
-rgGrantId = lens _rgGrantId (\s a -> s {_rgGrantId = a})
+revokeGrant_grantId :: Lens.Lens' RevokeGrant Prelude.Text
+revokeGrant_grantId = Lens.lens (\RevokeGrant' {grantId} -> grantId) (\s@RevokeGrant' {} a -> s {grantId = a} :: RevokeGrant)
 
-instance AWSRequest RevokeGrant where
+instance Prelude.AWSRequest RevokeGrant where
   type Rs RevokeGrant = RevokeGrantResponse
-  request = postJSON kms
-  response = receiveNull RevokeGrantResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull RevokeGrantResponse'
 
-instance Hashable RevokeGrant
+instance Prelude.Hashable RevokeGrant
 
-instance NFData RevokeGrant
+instance Prelude.NFData RevokeGrant
 
-instance ToHeaders RevokeGrant where
+instance Prelude.ToHeaders RevokeGrant where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.RevokeGrant" :: ByteString),
+              Prelude.=# ("TrentService.RevokeGrant" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RevokeGrant where
+instance Prelude.ToJSON RevokeGrant where
   toJSON RevokeGrant' {..} =
-    object
-      ( catMaybes
-          [ Just ("KeyId" .= _rgKeyId),
-            Just ("GrantId" .= _rgGrantId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("KeyId" Prelude..= keyId),
+            Prelude.Just ("GrantId" Prelude..= grantId)
           ]
       )
 
-instance ToPath RevokeGrant where
-  toPath = const "/"
+instance Prelude.ToPath RevokeGrant where
+  toPath = Prelude.const "/"
 
-instance ToQuery RevokeGrant where
-  toQuery = const mempty
+instance Prelude.ToQuery RevokeGrant where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'revokeGrantResponse' smart constructor.
+-- | /See:/ 'newRevokeGrantResponse' smart constructor.
 data RevokeGrantResponse = RevokeGrantResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RevokeGrantResponse' with the minimum fields required to make a request.
-revokeGrantResponse ::
+-- |
+-- Create a value of 'RevokeGrantResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newRevokeGrantResponse ::
   RevokeGrantResponse
-revokeGrantResponse = RevokeGrantResponse'
+newRevokeGrantResponse = RevokeGrantResponse'
 
-instance NFData RevokeGrantResponse
+instance Prelude.NFData RevokeGrantResponse

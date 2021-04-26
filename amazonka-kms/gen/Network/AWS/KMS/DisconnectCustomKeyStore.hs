@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,161 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disconnects the <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store> from its associated AWS CloudHSM cluster. While a custom key store is disconnected, you can manage the custom key store and its customer master keys (CMKs), but you cannot create or use CMKs in the custom key store. You can reconnect the custom key store at any time.
+-- Disconnects the
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store>
+-- from its associated AWS CloudHSM cluster. While a custom key store is
+-- disconnected, you can manage the custom key store and its customer
+-- master keys (CMKs), but you cannot create or use CMKs in the custom key
+-- store. You can reconnect the custom key store at any time.
 --
+-- While a custom key store is disconnected, all attempts to create
+-- customer master keys (CMKs) in the custom key store or to use existing
+-- CMKs in
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations cryptographic operations>
+-- will fail. This action can prevent users from storing and accessing
+-- sensitive data.
 --
---
---
--- To find the connection state of a custom key store, use the 'DescribeCustomKeyStores' operation. To reconnect a custom key store, use the 'ConnectCustomKeyStore' operation.
+-- To find the connection state of a custom key store, use the
+-- DescribeCustomKeyStores operation. To reconnect a custom key store, use
+-- the ConnectCustomKeyStore operation.
 --
 -- If the operation succeeds, it returns a JSON object with no properties.
 --
--- This operation is part of the <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html Custom Key Store feature> feature in AWS KMS, which combines the convenience and extensive integration of AWS KMS with the isolation and control of a single-tenant key store.
+-- This operation is part of the
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html Custom Key Store feature>
+-- feature in AWS KMS, which combines the convenience and extensive
+-- integration of AWS KMS with the isolation and control of a single-tenant
+-- key store.
 --
--- __Cross-account use__ : No. You cannot perform this operation on a custom key store in a different AWS account.
+-- __Cross-account use__: No. You cannot perform this operation on a custom
+-- key store in a different AWS account.
 --
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:DisconnectCustomKeyStore> (IAM policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:DisconnectCustomKeyStore>
+-- (IAM policy)
 --
 -- __Related operations:__
 --
---     * 'ConnectCustomKeyStore'
+-- -   ConnectCustomKeyStore
 --
---     * 'CreateCustomKeyStore'
+-- -   CreateCustomKeyStore
 --
---     * 'DeleteCustomKeyStore'
+-- -   DeleteCustomKeyStore
 --
---     * 'DescribeCustomKeyStores'
+-- -   DescribeCustomKeyStores
 --
---     * 'UpdateCustomKeyStore'
+-- -   UpdateCustomKeyStore
 module Network.AWS.KMS.DisconnectCustomKeyStore
   ( -- * Creating a Request
-    disconnectCustomKeyStore,
-    DisconnectCustomKeyStore,
+    DisconnectCustomKeyStore (..),
+    newDisconnectCustomKeyStore,
 
     -- * Request Lenses
-    dcksCustomKeyStoreId,
+    disconnectCustomKeyStore_customKeyStoreId,
 
     -- * Destructuring the Response
-    disconnectCustomKeyStoreResponse,
-    DisconnectCustomKeyStoreResponse,
+    DisconnectCustomKeyStoreResponse (..),
+    newDisconnectCustomKeyStoreResponse,
 
     -- * Response Lenses
-    disrsResponseStatus,
+    disconnectCustomKeyStoreResponse_httpStatus,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disconnectCustomKeyStore' smart constructor.
-newtype DisconnectCustomKeyStore = DisconnectCustomKeyStore'
-  { _dcksCustomKeyStoreId ::
-      Text
+-- | /See:/ 'newDisconnectCustomKeyStore' smart constructor.
+data DisconnectCustomKeyStore = DisconnectCustomKeyStore'
+  { -- | Enter the ID of the custom key store you want to disconnect. To find the
+    -- ID of a custom key store, use the DescribeCustomKeyStores operation.
+    customKeyStoreId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisconnectCustomKeyStore' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisconnectCustomKeyStore' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcksCustomKeyStoreId' - Enter the ID of the custom key store you want to disconnect. To find the ID of a custom key store, use the 'DescribeCustomKeyStores' operation.
-disconnectCustomKeyStore ::
-  -- | 'dcksCustomKeyStoreId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'customKeyStoreId', 'disconnectCustomKeyStore_customKeyStoreId' - Enter the ID of the custom key store you want to disconnect. To find the
+-- ID of a custom key store, use the DescribeCustomKeyStores operation.
+newDisconnectCustomKeyStore ::
+  -- | 'customKeyStoreId'
+  Prelude.Text ->
   DisconnectCustomKeyStore
-disconnectCustomKeyStore pCustomKeyStoreId_ =
+newDisconnectCustomKeyStore pCustomKeyStoreId_ =
   DisconnectCustomKeyStore'
-    { _dcksCustomKeyStoreId =
+    { customKeyStoreId =
         pCustomKeyStoreId_
     }
 
--- | Enter the ID of the custom key store you want to disconnect. To find the ID of a custom key store, use the 'DescribeCustomKeyStores' operation.
-dcksCustomKeyStoreId :: Lens' DisconnectCustomKeyStore Text
-dcksCustomKeyStoreId = lens _dcksCustomKeyStoreId (\s a -> s {_dcksCustomKeyStoreId = a})
+-- | Enter the ID of the custom key store you want to disconnect. To find the
+-- ID of a custom key store, use the DescribeCustomKeyStores operation.
+disconnectCustomKeyStore_customKeyStoreId :: Lens.Lens' DisconnectCustomKeyStore Prelude.Text
+disconnectCustomKeyStore_customKeyStoreId = Lens.lens (\DisconnectCustomKeyStore' {customKeyStoreId} -> customKeyStoreId) (\s@DisconnectCustomKeyStore' {} a -> s {customKeyStoreId = a} :: DisconnectCustomKeyStore)
 
-instance AWSRequest DisconnectCustomKeyStore where
+instance Prelude.AWSRequest DisconnectCustomKeyStore where
   type
     Rs DisconnectCustomKeyStore =
       DisconnectCustomKeyStoreResponse
-  request = postJSON kms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisconnectCustomKeyStoreResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisconnectCustomKeyStore
+instance Prelude.Hashable DisconnectCustomKeyStore
 
-instance NFData DisconnectCustomKeyStore
+instance Prelude.NFData DisconnectCustomKeyStore
 
-instance ToHeaders DisconnectCustomKeyStore where
+instance Prelude.ToHeaders DisconnectCustomKeyStore where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "TrentService.DisconnectCustomKeyStore" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "TrentService.DisconnectCustomKeyStore" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisconnectCustomKeyStore where
+instance Prelude.ToJSON DisconnectCustomKeyStore where
   toJSON DisconnectCustomKeyStore' {..} =
-    object
-      ( catMaybes
-          [Just ("CustomKeyStoreId" .= _dcksCustomKeyStoreId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CustomKeyStoreId" Prelude..= customKeyStoreId)
+          ]
       )
 
-instance ToPath DisconnectCustomKeyStore where
-  toPath = const "/"
+instance Prelude.ToPath DisconnectCustomKeyStore where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisconnectCustomKeyStore where
-  toQuery = const mempty
+instance Prelude.ToQuery DisconnectCustomKeyStore where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disconnectCustomKeyStoreResponse' smart constructor.
-newtype DisconnectCustomKeyStoreResponse = DisconnectCustomKeyStoreResponse'
-  { _disrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisconnectCustomKeyStoreResponse' smart constructor.
+data DisconnectCustomKeyStoreResponse = DisconnectCustomKeyStoreResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisconnectCustomKeyStoreResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisconnectCustomKeyStoreResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'disrsResponseStatus' - -- | The response status code.
-disconnectCustomKeyStoreResponse ::
-  -- | 'disrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disconnectCustomKeyStoreResponse_httpStatus' - The response's http status code.
+newDisconnectCustomKeyStoreResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisconnectCustomKeyStoreResponse
-disconnectCustomKeyStoreResponse pResponseStatus_ =
+newDisconnectCustomKeyStoreResponse pHttpStatus_ =
   DisconnectCustomKeyStoreResponse'
-    { _disrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-disrsResponseStatus :: Lens' DisconnectCustomKeyStoreResponse Int
-disrsResponseStatus = lens _disrsResponseStatus (\s a -> s {_disrsResponseStatus = a})
+-- | The response's http status code.
+disconnectCustomKeyStoreResponse_httpStatus :: Lens.Lens' DisconnectCustomKeyStoreResponse Prelude.Int
+disconnectCustomKeyStoreResponse_httpStatus = Lens.lens (\DisconnectCustomKeyStoreResponse' {httpStatus} -> httpStatus) (\s@DisconnectCustomKeyStoreResponse' {} a -> s {httpStatus = a} :: DisconnectCustomKeyStoreResponse)
 
-instance NFData DisconnectCustomKeyStoreResponse
+instance
+  Prelude.NFData
+    DisconnectCustomKeyStoreResponse

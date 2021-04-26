@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,235 +21,314 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key stores> in the account and region.
+-- Gets information about
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key stores>
+-- in the account and region.
 --
+-- This operation is part of the
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html Custom Key Store feature>
+-- feature in AWS KMS, which combines the convenience and extensive
+-- integration of AWS KMS with the isolation and control of a single-tenant
+-- key store.
 --
--- This operation is part of the <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html Custom Key Store feature> feature in AWS KMS, which combines the convenience and extensive integration of AWS KMS with the isolation and control of a single-tenant key store.
+-- By default, this operation returns information about all custom key
+-- stores in the account and region. To get only information about a
+-- particular custom key store, use either the @CustomKeyStoreName@ or
+-- @CustomKeyStoreId@ parameter (but not both).
 --
--- By default, this operation returns information about all custom key stores in the account and region. To get only information about a particular custom key store, use either the @CustomKeyStoreName@ or @CustomKeyStoreId@ parameter (but not both).
+-- To determine whether the custom key store is connected to its AWS
+-- CloudHSM cluster, use the @ConnectionState@ element in the response. If
+-- an attempt to connect the custom key store failed, the @ConnectionState@
+-- value is @FAILED@ and the @ConnectionErrorCode@ element in the response
+-- indicates the cause of the failure. For help interpreting the
+-- @ConnectionErrorCode@, see CustomKeyStoresListEntry.
 --
--- To determine whether the custom key store is connected to its AWS CloudHSM cluster, use the @ConnectionState@ element in the response. If an attempt to connect the custom key store failed, the @ConnectionState@ value is @FAILED@ and the @ConnectionErrorCode@ element in the response indicates the cause of the failure. For help interpreting the @ConnectionErrorCode@ , see 'CustomKeyStoresListEntry' .
+-- Custom key stores have a @DISCONNECTED@ connection state if the key
+-- store has never been connected or you use the DisconnectCustomKeyStore
+-- operation to disconnect it. If your custom key store state is
+-- @CONNECTED@ but you are having trouble using it, make sure that its
+-- associated AWS CloudHSM cluster is active and contains the minimum
+-- number of HSMs required for the operation, if any.
 --
--- Custom key stores have a @DISCONNECTED@ connection state if the key store has never been connected or you use the 'DisconnectCustomKeyStore' operation to disconnect it. If your custom key store state is @CONNECTED@ but you are having trouble using it, make sure that its associated AWS CloudHSM cluster is active and contains the minimum number of HSMs required for the operation, if any.
+-- For help repairing your custom key store, see the
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html Troubleshooting Custom Key Stores>
+-- topic in the /AWS Key Management Service Developer Guide/.
 --
--- For help repairing your custom key store, see the <https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html Troubleshooting Custom Key Stores> topic in the /AWS Key Management Service Developer Guide/ .
+-- __Cross-account use__: No. You cannot perform this operation on a custom
+-- key store in a different AWS account.
 --
--- __Cross-account use__ : No. You cannot perform this operation on a custom key store in a different AWS account.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:DescribeCustomKeyStores> (IAM policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:DescribeCustomKeyStores>
+-- (IAM policy)
 --
 -- __Related operations:__
 --
---     * 'ConnectCustomKeyStore'
+-- -   ConnectCustomKeyStore
 --
---     * 'CreateCustomKeyStore'
+-- -   CreateCustomKeyStore
 --
---     * 'DeleteCustomKeyStore'
+-- -   DeleteCustomKeyStore
 --
---     * 'DisconnectCustomKeyStore'
+-- -   DisconnectCustomKeyStore
 --
---     * 'UpdateCustomKeyStore'
+-- -   UpdateCustomKeyStore
 module Network.AWS.KMS.DescribeCustomKeyStores
   ( -- * Creating a Request
-    describeCustomKeyStores,
-    DescribeCustomKeyStores,
+    DescribeCustomKeyStores (..),
+    newDescribeCustomKeyStores,
 
     -- * Request Lenses
-    dckssCustomKeyStoreName,
-    dckssCustomKeyStoreId,
-    dckssLimit,
-    dckssMarker,
+    describeCustomKeyStores_customKeyStoreName,
+    describeCustomKeyStores_customKeyStoreId,
+    describeCustomKeyStores_limit,
+    describeCustomKeyStores_marker,
 
     -- * Destructuring the Response
-    describeCustomKeyStoresResponse,
-    DescribeCustomKeyStoresResponse,
+    DescribeCustomKeyStoresResponse (..),
+    newDescribeCustomKeyStoresResponse,
 
     -- * Response Lenses
-    drsCustomKeyStores,
-    drsNextMarker,
-    drsTruncated,
-    drsResponseStatus,
+    describeCustomKeyStoresResponse_customKeyStores,
+    describeCustomKeyStoresResponse_nextMarker,
+    describeCustomKeyStoresResponse_truncated,
+    describeCustomKeyStoresResponse_httpStatus,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KMS.Types.CustomKeyStoresListEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeCustomKeyStores' smart constructor.
+-- | /See:/ 'newDescribeCustomKeyStores' smart constructor.
 data DescribeCustomKeyStores = DescribeCustomKeyStores'
-  { _dckssCustomKeyStoreName ::
-      !(Maybe Text),
-    _dckssCustomKeyStoreId ::
-      !(Maybe Text),
-    _dckssLimit ::
-      !(Maybe Nat),
-    _dckssMarker ::
-      !(Maybe Text)
+  { -- | Gets only information about the specified custom key store. Enter the
+    -- friendly name of the custom key store.
+    --
+    -- By default, this operation gets information about all custom key stores
+    -- in the account and region. To limit the output to a particular custom
+    -- key store, you can use either the @CustomKeyStoreId@ or
+    -- @CustomKeyStoreName@ parameter, but not both.
+    customKeyStoreName :: Prelude.Maybe Prelude.Text,
+    -- | Gets only information about the specified custom key store. Enter the
+    -- key store ID.
+    --
+    -- By default, this operation gets information about all custom key stores
+    -- in the account and region. To limit the output to a particular custom
+    -- key store, you can use either the @CustomKeyStoreId@ or
+    -- @CustomKeyStoreName@ parameter, but not both.
+    customKeyStoreId :: Prelude.Maybe Prelude.Text,
+    -- | Use this parameter to specify the maximum number of items to return.
+    -- When this value is present, AWS KMS does not return more than the
+    -- specified number of items, but it might return fewer.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter in a subsequent request after you receive a response
+    -- with truncated results. Set it to the value of @NextMarker@ from the
+    -- truncated response you just received.
+    marker :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCustomKeyStores' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCustomKeyStores' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dckssCustomKeyStoreName' - Gets only information about the specified custom key store. Enter the friendly name of the custom key store. By default, this operation gets information about all custom key stores in the account and region. To limit the output to a particular custom key store, you can use either the @CustomKeyStoreId@ or @CustomKeyStoreName@ parameter, but not both.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dckssCustomKeyStoreId' - Gets only information about the specified custom key store. Enter the key store ID. By default, this operation gets information about all custom key stores in the account and region. To limit the output to a particular custom key store, you can use either the @CustomKeyStoreId@ or @CustomKeyStoreName@ parameter, but not both.
+-- 'customKeyStoreName', 'describeCustomKeyStores_customKeyStoreName' - Gets only information about the specified custom key store. Enter the
+-- friendly name of the custom key store.
 --
--- * 'dckssLimit' - Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer.
+-- By default, this operation gets information about all custom key stores
+-- in the account and region. To limit the output to a particular custom
+-- key store, you can use either the @CustomKeyStoreId@ or
+-- @CustomKeyStoreName@ parameter, but not both.
 --
--- * 'dckssMarker' - Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
-describeCustomKeyStores ::
+-- 'customKeyStoreId', 'describeCustomKeyStores_customKeyStoreId' - Gets only information about the specified custom key store. Enter the
+-- key store ID.
+--
+-- By default, this operation gets information about all custom key stores
+-- in the account and region. To limit the output to a particular custom
+-- key store, you can use either the @CustomKeyStoreId@ or
+-- @CustomKeyStoreName@ parameter, but not both.
+--
+-- 'limit', 'describeCustomKeyStores_limit' - Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
+--
+-- 'marker', 'describeCustomKeyStores_marker' - Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+newDescribeCustomKeyStores ::
   DescribeCustomKeyStores
-describeCustomKeyStores =
+newDescribeCustomKeyStores =
   DescribeCustomKeyStores'
-    { _dckssCustomKeyStoreName =
-        Nothing,
-      _dckssCustomKeyStoreId = Nothing,
-      _dckssLimit = Nothing,
-      _dckssMarker = Nothing
+    { customKeyStoreName =
+        Prelude.Nothing,
+      customKeyStoreId = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
--- | Gets only information about the specified custom key store. Enter the friendly name of the custom key store. By default, this operation gets information about all custom key stores in the account and region. To limit the output to a particular custom key store, you can use either the @CustomKeyStoreId@ or @CustomKeyStoreName@ parameter, but not both.
-dckssCustomKeyStoreName :: Lens' DescribeCustomKeyStores (Maybe Text)
-dckssCustomKeyStoreName = lens _dckssCustomKeyStoreName (\s a -> s {_dckssCustomKeyStoreName = a})
+-- | Gets only information about the specified custom key store. Enter the
+-- friendly name of the custom key store.
+--
+-- By default, this operation gets information about all custom key stores
+-- in the account and region. To limit the output to a particular custom
+-- key store, you can use either the @CustomKeyStoreId@ or
+-- @CustomKeyStoreName@ parameter, but not both.
+describeCustomKeyStores_customKeyStoreName :: Lens.Lens' DescribeCustomKeyStores (Prelude.Maybe Prelude.Text)
+describeCustomKeyStores_customKeyStoreName = Lens.lens (\DescribeCustomKeyStores' {customKeyStoreName} -> customKeyStoreName) (\s@DescribeCustomKeyStores' {} a -> s {customKeyStoreName = a} :: DescribeCustomKeyStores)
 
--- | Gets only information about the specified custom key store. Enter the key store ID. By default, this operation gets information about all custom key stores in the account and region. To limit the output to a particular custom key store, you can use either the @CustomKeyStoreId@ or @CustomKeyStoreName@ parameter, but not both.
-dckssCustomKeyStoreId :: Lens' DescribeCustomKeyStores (Maybe Text)
-dckssCustomKeyStoreId = lens _dckssCustomKeyStoreId (\s a -> s {_dckssCustomKeyStoreId = a})
+-- | Gets only information about the specified custom key store. Enter the
+-- key store ID.
+--
+-- By default, this operation gets information about all custom key stores
+-- in the account and region. To limit the output to a particular custom
+-- key store, you can use either the @CustomKeyStoreId@ or
+-- @CustomKeyStoreName@ parameter, but not both.
+describeCustomKeyStores_customKeyStoreId :: Lens.Lens' DescribeCustomKeyStores (Prelude.Maybe Prelude.Text)
+describeCustomKeyStores_customKeyStoreId = Lens.lens (\DescribeCustomKeyStores' {customKeyStoreId} -> customKeyStoreId) (\s@DescribeCustomKeyStores' {} a -> s {customKeyStoreId = a} :: DescribeCustomKeyStores)
 
--- | Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer.
-dckssLimit :: Lens' DescribeCustomKeyStores (Maybe Natural)
-dckssLimit = lens _dckssLimit (\s a -> s {_dckssLimit = a}) . mapping _Nat
+-- | Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
+describeCustomKeyStores_limit :: Lens.Lens' DescribeCustomKeyStores (Prelude.Maybe Prelude.Natural)
+describeCustomKeyStores_limit = Lens.lens (\DescribeCustomKeyStores' {limit} -> limit) (\s@DescribeCustomKeyStores' {} a -> s {limit = a} :: DescribeCustomKeyStores) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
-dckssMarker :: Lens' DescribeCustomKeyStores (Maybe Text)
-dckssMarker = lens _dckssMarker (\s a -> s {_dckssMarker = a})
+-- | Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+describeCustomKeyStores_marker :: Lens.Lens' DescribeCustomKeyStores (Prelude.Maybe Prelude.Text)
+describeCustomKeyStores_marker = Lens.lens (\DescribeCustomKeyStores' {marker} -> marker) (\s@DescribeCustomKeyStores' {} a -> s {marker = a} :: DescribeCustomKeyStores)
 
-instance AWSRequest DescribeCustomKeyStores where
+instance Prelude.AWSRequest DescribeCustomKeyStores where
   type
     Rs DescribeCustomKeyStores =
       DescribeCustomKeyStoresResponse
-  request = postJSON kms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeCustomKeyStoresResponse'
-            <$> (x .?> "CustomKeyStores" .!@ mempty)
-            <*> (x .?> "NextMarker")
-            <*> (x .?> "Truncated")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "CustomKeyStores"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextMarker")
+            Prelude.<*> (x Prelude..?> "Truncated")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeCustomKeyStores
+instance Prelude.Hashable DescribeCustomKeyStores
 
-instance NFData DescribeCustomKeyStores
+instance Prelude.NFData DescribeCustomKeyStores
 
-instance ToHeaders DescribeCustomKeyStores where
+instance Prelude.ToHeaders DescribeCustomKeyStores where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "TrentService.DescribeCustomKeyStores" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "TrentService.DescribeCustomKeyStores" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeCustomKeyStores where
+instance Prelude.ToJSON DescribeCustomKeyStores where
   toJSON DescribeCustomKeyStores' {..} =
-    object
-      ( catMaybes
-          [ ("CustomKeyStoreName" .=)
-              <$> _dckssCustomKeyStoreName,
-            ("CustomKeyStoreId" .=) <$> _dckssCustomKeyStoreId,
-            ("Limit" .=) <$> _dckssLimit,
-            ("Marker" .=) <$> _dckssMarker
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CustomKeyStoreName" Prelude..=)
+              Prelude.<$> customKeyStoreName,
+            ("CustomKeyStoreId" Prelude..=)
+              Prelude.<$> customKeyStoreId,
+            ("Limit" Prelude..=) Prelude.<$> limit,
+            ("Marker" Prelude..=) Prelude.<$> marker
           ]
       )
 
-instance ToPath DescribeCustomKeyStores where
-  toPath = const "/"
+instance Prelude.ToPath DescribeCustomKeyStores where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeCustomKeyStores where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeCustomKeyStores where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeCustomKeyStoresResponse' smart constructor.
+-- | /See:/ 'newDescribeCustomKeyStoresResponse' smart constructor.
 data DescribeCustomKeyStoresResponse = DescribeCustomKeyStoresResponse'
-  { _drsCustomKeyStores ::
-      !( Maybe
-           [CustomKeyStoresListEntry]
-       ),
-    _drsNextMarker ::
-      !( Maybe
-           Text
-       ),
-    _drsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _drsResponseStatus ::
-      !Int
+  { -- | Contains metadata about each custom key store.
+    customKeyStores :: Prelude.Maybe [CustomKeyStoresListEntry],
+    -- | When @Truncated@ is true, this element is present and contains the value
+    -- to use for the @Marker@ parameter in a subsequent request.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | A flag that indicates whether there are more items in the list. When
+    -- this value is true, the list in this response is truncated. To get more
+    -- items, pass the value of the @NextMarker@ element in thisresponse to the
+    -- @Marker@ parameter in a subsequent request.
+    truncated :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeCustomKeyStoresResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeCustomKeyStoresResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsCustomKeyStores' - Contains metadata about each custom key store.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drsNextMarker' - When @Truncated@ is true, this element is present and contains the value to use for the @Marker@ parameter in a subsequent request.
+-- 'customKeyStores', 'describeCustomKeyStoresResponse_customKeyStores' - Contains metadata about each custom key store.
 --
--- * 'drsTruncated' - A flag that indicates whether there are more items in the list. When this value is true, the list in this response is truncated. To get more items, pass the value of the @NextMarker@ element in thisresponse to the @Marker@ parameter in a subsequent request.
+-- 'nextMarker', 'describeCustomKeyStoresResponse_nextMarker' - When @Truncated@ is true, this element is present and contains the value
+-- to use for the @Marker@ parameter in a subsequent request.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-describeCustomKeyStoresResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- 'truncated', 'describeCustomKeyStoresResponse_truncated' - A flag that indicates whether there are more items in the list. When
+-- this value is true, the list in this response is truncated. To get more
+-- items, pass the value of the @NextMarker@ element in thisresponse to the
+-- @Marker@ parameter in a subsequent request.
+--
+-- 'httpStatus', 'describeCustomKeyStoresResponse_httpStatus' - The response's http status code.
+newDescribeCustomKeyStoresResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeCustomKeyStoresResponse
-describeCustomKeyStoresResponse pResponseStatus_ =
+newDescribeCustomKeyStoresResponse pHttpStatus_ =
   DescribeCustomKeyStoresResponse'
-    { _drsCustomKeyStores =
-        Nothing,
-      _drsNextMarker = Nothing,
-      _drsTruncated = Nothing,
-      _drsResponseStatus = pResponseStatus_
+    { customKeyStores =
+        Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
+      truncated = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Contains metadata about each custom key store.
-drsCustomKeyStores :: Lens' DescribeCustomKeyStoresResponse [CustomKeyStoresListEntry]
-drsCustomKeyStores = lens _drsCustomKeyStores (\s a -> s {_drsCustomKeyStores = a}) . _Default . _Coerce
+describeCustomKeyStoresResponse_customKeyStores :: Lens.Lens' DescribeCustomKeyStoresResponse (Prelude.Maybe [CustomKeyStoresListEntry])
+describeCustomKeyStoresResponse_customKeyStores = Lens.lens (\DescribeCustomKeyStoresResponse' {customKeyStores} -> customKeyStores) (\s@DescribeCustomKeyStoresResponse' {} a -> s {customKeyStores = a} :: DescribeCustomKeyStoresResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | When @Truncated@ is true, this element is present and contains the value to use for the @Marker@ parameter in a subsequent request.
-drsNextMarker :: Lens' DescribeCustomKeyStoresResponse (Maybe Text)
-drsNextMarker = lens _drsNextMarker (\s a -> s {_drsNextMarker = a})
+-- | When @Truncated@ is true, this element is present and contains the value
+-- to use for the @Marker@ parameter in a subsequent request.
+describeCustomKeyStoresResponse_nextMarker :: Lens.Lens' DescribeCustomKeyStoresResponse (Prelude.Maybe Prelude.Text)
+describeCustomKeyStoresResponse_nextMarker = Lens.lens (\DescribeCustomKeyStoresResponse' {nextMarker} -> nextMarker) (\s@DescribeCustomKeyStoresResponse' {} a -> s {nextMarker = a} :: DescribeCustomKeyStoresResponse)
 
--- | A flag that indicates whether there are more items in the list. When this value is true, the list in this response is truncated. To get more items, pass the value of the @NextMarker@ element in thisresponse to the @Marker@ parameter in a subsequent request.
-drsTruncated :: Lens' DescribeCustomKeyStoresResponse (Maybe Bool)
-drsTruncated = lens _drsTruncated (\s a -> s {_drsTruncated = a})
+-- | A flag that indicates whether there are more items in the list. When
+-- this value is true, the list in this response is truncated. To get more
+-- items, pass the value of the @NextMarker@ element in thisresponse to the
+-- @Marker@ parameter in a subsequent request.
+describeCustomKeyStoresResponse_truncated :: Lens.Lens' DescribeCustomKeyStoresResponse (Prelude.Maybe Prelude.Bool)
+describeCustomKeyStoresResponse_truncated = Lens.lens (\DescribeCustomKeyStoresResponse' {truncated} -> truncated) (\s@DescribeCustomKeyStoresResponse' {} a -> s {truncated = a} :: DescribeCustomKeyStoresResponse)
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DescribeCustomKeyStoresResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+describeCustomKeyStoresResponse_httpStatus :: Lens.Lens' DescribeCustomKeyStoresResponse Prelude.Int
+describeCustomKeyStoresResponse_httpStatus = Lens.lens (\DescribeCustomKeyStoresResponse' {httpStatus} -> httpStatus) (\s@DescribeCustomKeyStoresResponse' {} a -> s {httpStatus = a} :: DescribeCustomKeyStoresResponse)
 
-instance NFData DescribeCustomKeyStoresResponse
+instance
+  Prelude.NFData
+    DescribeCustomKeyStoresResponse

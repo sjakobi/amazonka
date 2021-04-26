@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.KMS.Types.WrappingKeySpec
   ( WrappingKeySpec
       ( ..,
-        WKSRsa2048
+        WrappingKeySpecRSA2048
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WrappingKeySpec = WrappingKeySpec' (CI Text)
+newtype WrappingKeySpec = WrappingKeySpec'
+  { fromWrappingKeySpec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern WKSRsa2048 :: WrappingKeySpec
-pattern WKSRsa2048 = WrappingKeySpec' "RSA_2048"
+pattern WrappingKeySpecRSA2048 :: WrappingKeySpec
+pattern WrappingKeySpecRSA2048 = WrappingKeySpec' "RSA_2048"
 
 {-# COMPLETE
-  WKSRsa2048,
+  WrappingKeySpecRSA2048,
   WrappingKeySpec'
   #-}
 
-instance FromText WrappingKeySpec where
-  parser = (WrappingKeySpec' . mk) <$> takeText
+instance Prelude.FromText WrappingKeySpec where
+  parser = WrappingKeySpec' Prelude.<$> Prelude.takeText
 
-instance ToText WrappingKeySpec where
-  toText (WrappingKeySpec' ci) = original ci
+instance Prelude.ToText WrappingKeySpec where
+  toText (WrappingKeySpec' x) = x
 
-instance Hashable WrappingKeySpec
+instance Prelude.Hashable WrappingKeySpec
 
-instance NFData WrappingKeySpec
+instance Prelude.NFData WrappingKeySpec
 
-instance ToByteString WrappingKeySpec
+instance Prelude.ToByteString WrappingKeySpec
 
-instance ToQuery WrappingKeySpec
+instance Prelude.ToQuery WrappingKeySpec
 
-instance ToHeader WrappingKeySpec
+instance Prelude.ToHeader WrappingKeySpec
 
-instance ToJSON WrappingKeySpec where
-  toJSON = toJSONText
+instance Prelude.ToJSON WrappingKeySpec where
+  toJSON = Prelude.toJSONText

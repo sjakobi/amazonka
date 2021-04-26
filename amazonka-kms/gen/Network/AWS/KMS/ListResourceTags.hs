@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,189 +23,284 @@
 --
 -- Returns all tags on the specified customer master key (CMK).
 --
+-- For general information about tags, including the format and syntax, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources>
+-- in the /Amazon Web Services General Reference/. For information about
+-- using tags in AWS KMS, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html Tagging keys>.
 --
--- For general information about tags, including the format and syntax, see <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS resources> in the /Amazon Web Services General Reference/ . For information about using tags in AWS KMS, see <https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html Tagging keys> .
+-- __Cross-account use__: No. You cannot perform this operation on a CMK in
+-- a different AWS account.
 --
--- __Cross-account use__ : No. You cannot perform this operation on a CMK in a different AWS account.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListResourceTags> (key policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListResourceTags>
+-- (key policy)
 --
 -- __Related operations:__
 --
---     * 'TagResource'
+-- -   TagResource
 --
---     * 'UntagResource'
+-- -   UntagResource
 module Network.AWS.KMS.ListResourceTags
   ( -- * Creating a Request
-    listResourceTags,
-    ListResourceTags,
+    ListResourceTags (..),
+    newListResourceTags,
 
     -- * Request Lenses
-    lrtLimit,
-    lrtMarker,
-    lrtKeyId,
+    listResourceTags_limit,
+    listResourceTags_marker,
+    listResourceTags_keyId,
 
     -- * Destructuring the Response
-    listResourceTagsResponse,
-    ListResourceTagsResponse,
+    ListResourceTagsResponse (..),
+    newListResourceTagsResponse,
 
     -- * Response Lenses
-    lrtrrsNextMarker,
-    lrtrrsTags,
-    lrtrrsTruncated,
-    lrtrrsResponseStatus,
+    listResourceTagsResponse_nextMarker,
+    listResourceTagsResponse_tags,
+    listResourceTagsResponse_truncated,
+    listResourceTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KMS.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listResourceTags' smart constructor.
+-- | /See:/ 'newListResourceTags' smart constructor.
 data ListResourceTags = ListResourceTags'
-  { _lrtLimit ::
-      !(Maybe Nat),
-    _lrtMarker :: !(Maybe Text),
-    _lrtKeyId :: !Text
+  { -- | Use this parameter to specify the maximum number of items to return.
+    -- When this value is present, AWS KMS does not return more than the
+    -- specified number of items, but it might return fewer.
+    --
+    -- This value is optional. If you include a value, it must be between 1 and
+    -- 50, inclusive. If you do not include a value, it defaults to 50.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter in a subsequent request after you receive a response
+    -- with truncated results. Set it to the value of @NextMarker@ from the
+    -- truncated response you just received.
+    --
+    -- Do not attempt to construct this value. Use only the value of
+    -- @NextMarker@ from the truncated response you just received.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the customer master key (CMK).
+    --
+    -- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+    --
+    -- For example:
+    --
+    -- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Key ARN:
+    --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+    keyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResourceTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResourceTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrtLimit' - Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 50, inclusive. If you do not include a value, it defaults to 50.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrtMarker' - Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received. Do not attempt to construct this value. Use only the value of @NextMarker@ from the truncated response you just received.
+-- 'limit', 'listResourceTags_limit' - Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
 --
--- * 'lrtKeyId' - A unique identifier for the customer master key (CMK). Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-listResourceTags ::
-  -- | 'lrtKeyId'
-  Text ->
+-- This value is optional. If you include a value, it must be between 1 and
+-- 50, inclusive. If you do not include a value, it defaults to 50.
+--
+-- 'marker', 'listResourceTags_marker' - Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+--
+-- Do not attempt to construct this value. Use only the value of
+-- @NextMarker@ from the truncated response you just received.
+--
+-- 'keyId', 'listResourceTags_keyId' - A unique identifier for the customer master key (CMK).
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+newListResourceTags ::
+  -- | 'keyId'
+  Prelude.Text ->
   ListResourceTags
-listResourceTags pKeyId_ =
+newListResourceTags pKeyId_ =
   ListResourceTags'
-    { _lrtLimit = Nothing,
-      _lrtMarker = Nothing,
-      _lrtKeyId = pKeyId_
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      keyId = pKeyId_
     }
 
--- | Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 50, inclusive. If you do not include a value, it defaults to 50.
-lrtLimit :: Lens' ListResourceTags (Maybe Natural)
-lrtLimit = lens _lrtLimit (\s a -> s {_lrtLimit = a}) . mapping _Nat
+-- | Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
+--
+-- This value is optional. If you include a value, it must be between 1 and
+-- 50, inclusive. If you do not include a value, it defaults to 50.
+listResourceTags_limit :: Lens.Lens' ListResourceTags (Prelude.Maybe Prelude.Natural)
+listResourceTags_limit = Lens.lens (\ListResourceTags' {limit} -> limit) (\s@ListResourceTags' {} a -> s {limit = a} :: ListResourceTags) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received. Do not attempt to construct this value. Use only the value of @NextMarker@ from the truncated response you just received.
-lrtMarker :: Lens' ListResourceTags (Maybe Text)
-lrtMarker = lens _lrtMarker (\s a -> s {_lrtMarker = a})
+-- | Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+--
+-- Do not attempt to construct this value. Use only the value of
+-- @NextMarker@ from the truncated response you just received.
+listResourceTags_marker :: Lens.Lens' ListResourceTags (Prelude.Maybe Prelude.Text)
+listResourceTags_marker = Lens.lens (\ListResourceTags' {marker} -> marker) (\s@ListResourceTags' {} a -> s {marker = a} :: ListResourceTags)
 
--- | A unique identifier for the customer master key (CMK). Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-lrtKeyId :: Lens' ListResourceTags Text
-lrtKeyId = lens _lrtKeyId (\s a -> s {_lrtKeyId = a})
+-- | A unique identifier for the customer master key (CMK).
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+listResourceTags_keyId :: Lens.Lens' ListResourceTags Prelude.Text
+listResourceTags_keyId = Lens.lens (\ListResourceTags' {keyId} -> keyId) (\s@ListResourceTags' {} a -> s {keyId = a} :: ListResourceTags)
 
-instance AWSRequest ListResourceTags where
+instance Prelude.AWSRequest ListResourceTags where
   type Rs ListResourceTags = ListResourceTagsResponse
-  request = postJSON kms
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListResourceTagsResponse'
-            <$> (x .?> "NextMarker")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (x .?> "Truncated")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextMarker")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "Truncated")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListResourceTags
+instance Prelude.Hashable ListResourceTags
 
-instance NFData ListResourceTags
+instance Prelude.NFData ListResourceTags
 
-instance ToHeaders ListResourceTags where
+instance Prelude.ToHeaders ListResourceTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.ListResourceTags" :: ByteString),
+              Prelude.=# ( "TrentService.ListResourceTags" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListResourceTags where
+instance Prelude.ToJSON ListResourceTags where
   toJSON ListResourceTags' {..} =
-    object
-      ( catMaybes
-          [ ("Limit" .=) <$> _lrtLimit,
-            ("Marker" .=) <$> _lrtMarker,
-            Just ("KeyId" .= _lrtKeyId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Limit" Prelude..=) Prelude.<$> limit,
+            ("Marker" Prelude..=) Prelude.<$> marker,
+            Prelude.Just ("KeyId" Prelude..= keyId)
           ]
       )
 
-instance ToPath ListResourceTags where
-  toPath = const "/"
+instance Prelude.ToPath ListResourceTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListResourceTags where
-  toQuery = const mempty
+instance Prelude.ToQuery ListResourceTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listResourceTagsResponse' smart constructor.
+-- | /See:/ 'newListResourceTagsResponse' smart constructor.
 data ListResourceTagsResponse = ListResourceTagsResponse'
-  { _lrtrrsNextMarker ::
-      !(Maybe Text),
-    _lrtrrsTags ::
-      !(Maybe [Tag]),
-    _lrtrrsTruncated ::
-      !(Maybe Bool),
-    _lrtrrsResponseStatus ::
-      !Int
+  { -- | When @Truncated@ is true, this element is present and contains the value
+    -- to use for the @Marker@ parameter in a subsequent request.
+    --
+    -- Do not assume or infer any information from this value.
+    nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | A list of tags. Each tag consists of a tag key and a tag value.
+    tags :: Prelude.Maybe [Tag],
+    -- | A flag that indicates whether there are more items in the list. When
+    -- this value is true, the list in this response is truncated. To get more
+    -- items, pass the value of the @NextMarker@ element in thisresponse to the
+    -- @Marker@ parameter in a subsequent request.
+    truncated :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListResourceTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListResourceTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrtrrsNextMarker' - When @Truncated@ is true, this element is present and contains the value to use for the @Marker@ parameter in a subsequent request. Do not assume or infer any information from this value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrtrrsTags' - A list of tags. Each tag consists of a tag key and a tag value.
+-- 'nextMarker', 'listResourceTagsResponse_nextMarker' - When @Truncated@ is true, this element is present and contains the value
+-- to use for the @Marker@ parameter in a subsequent request.
 --
--- * 'lrtrrsTruncated' - A flag that indicates whether there are more items in the list. When this value is true, the list in this response is truncated. To get more items, pass the value of the @NextMarker@ element in thisresponse to the @Marker@ parameter in a subsequent request.
+-- Do not assume or infer any information from this value.
 --
--- * 'lrtrrsResponseStatus' - -- | The response status code.
-listResourceTagsResponse ::
-  -- | 'lrtrrsResponseStatus'
-  Int ->
+-- 'tags', 'listResourceTagsResponse_tags' - A list of tags. Each tag consists of a tag key and a tag value.
+--
+-- 'truncated', 'listResourceTagsResponse_truncated' - A flag that indicates whether there are more items in the list. When
+-- this value is true, the list in this response is truncated. To get more
+-- items, pass the value of the @NextMarker@ element in thisresponse to the
+-- @Marker@ parameter in a subsequent request.
+--
+-- 'httpStatus', 'listResourceTagsResponse_httpStatus' - The response's http status code.
+newListResourceTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListResourceTagsResponse
-listResourceTagsResponse pResponseStatus_ =
+newListResourceTagsResponse pHttpStatus_ =
   ListResourceTagsResponse'
-    { _lrtrrsNextMarker =
-        Nothing,
-      _lrtrrsTags = Nothing,
-      _lrtrrsTruncated = Nothing,
-      _lrtrrsResponseStatus = pResponseStatus_
+    { nextMarker =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      truncated = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | When @Truncated@ is true, this element is present and contains the value to use for the @Marker@ parameter in a subsequent request. Do not assume or infer any information from this value.
-lrtrrsNextMarker :: Lens' ListResourceTagsResponse (Maybe Text)
-lrtrrsNextMarker = lens _lrtrrsNextMarker (\s a -> s {_lrtrrsNextMarker = a})
+-- | When @Truncated@ is true, this element is present and contains the value
+-- to use for the @Marker@ parameter in a subsequent request.
+--
+-- Do not assume or infer any information from this value.
+listResourceTagsResponse_nextMarker :: Lens.Lens' ListResourceTagsResponse (Prelude.Maybe Prelude.Text)
+listResourceTagsResponse_nextMarker = Lens.lens (\ListResourceTagsResponse' {nextMarker} -> nextMarker) (\s@ListResourceTagsResponse' {} a -> s {nextMarker = a} :: ListResourceTagsResponse)
 
 -- | A list of tags. Each tag consists of a tag key and a tag value.
-lrtrrsTags :: Lens' ListResourceTagsResponse [Tag]
-lrtrrsTags = lens _lrtrrsTags (\s a -> s {_lrtrrsTags = a}) . _Default . _Coerce
+listResourceTagsResponse_tags :: Lens.Lens' ListResourceTagsResponse (Prelude.Maybe [Tag])
+listResourceTagsResponse_tags = Lens.lens (\ListResourceTagsResponse' {tags} -> tags) (\s@ListResourceTagsResponse' {} a -> s {tags = a} :: ListResourceTagsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A flag that indicates whether there are more items in the list. When this value is true, the list in this response is truncated. To get more items, pass the value of the @NextMarker@ element in thisresponse to the @Marker@ parameter in a subsequent request.
-lrtrrsTruncated :: Lens' ListResourceTagsResponse (Maybe Bool)
-lrtrrsTruncated = lens _lrtrrsTruncated (\s a -> s {_lrtrrsTruncated = a})
+-- | A flag that indicates whether there are more items in the list. When
+-- this value is true, the list in this response is truncated. To get more
+-- items, pass the value of the @NextMarker@ element in thisresponse to the
+-- @Marker@ parameter in a subsequent request.
+listResourceTagsResponse_truncated :: Lens.Lens' ListResourceTagsResponse (Prelude.Maybe Prelude.Bool)
+listResourceTagsResponse_truncated = Lens.lens (\ListResourceTagsResponse' {truncated} -> truncated) (\s@ListResourceTagsResponse' {} a -> s {truncated = a} :: ListResourceTagsResponse)
 
--- | -- | The response status code.
-lrtrrsResponseStatus :: Lens' ListResourceTagsResponse Int
-lrtrrsResponseStatus = lens _lrtrrsResponseStatus (\s a -> s {_lrtrrsResponseStatus = a})
+-- | The response's http status code.
+listResourceTagsResponse_httpStatus :: Lens.Lens' ListResourceTagsResponse Prelude.Int
+listResourceTagsResponse_httpStatus = Lens.lens (\ListResourceTagsResponse' {httpStatus} -> httpStatus) (\s@ListResourceTagsResponse' {} a -> s {httpStatus = a} :: ListResourceTagsResponse)
 
-instance NFData ListResourceTagsResponse
+instance Prelude.NFData ListResourceTagsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,116 +19,118 @@
 module Network.AWS.KMS.Types.GrantOperation
   ( GrantOperation
       ( ..,
-        CreateGrant,
-        Decrypt,
-        DescribeKey,
-        Encrypt,
-        GenerateDataKey,
-        GenerateDataKeyPair,
-        GenerateDataKeyPairWithoutPlaintext,
-        GenerateDataKeyWithoutPlaintext,
-        GetPublicKey,
-        ReEncryptFrom,
-        ReEncryptTo,
-        RetireGrant,
-        Sign,
-        Verify
+        GrantOperationCreateGrant,
+        GrantOperationDecrypt,
+        GrantOperationDescribeKey,
+        GrantOperationEncrypt,
+        GrantOperationGenerateDataKey,
+        GrantOperationGenerateDataKeyPair,
+        GrantOperationGenerateDataKeyPairWithoutPlaintext,
+        GrantOperationGenerateDataKeyWithoutPlaintext,
+        GrantOperationGetPublicKey,
+        GrantOperationReEncryptFrom,
+        GrantOperationReEncryptTo,
+        GrantOperationRetireGrant,
+        GrantOperationSign,
+        GrantOperationVerify
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data GrantOperation = GrantOperation' (CI Text)
+newtype GrantOperation = GrantOperation'
+  { fromGrantOperation ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateGrant :: GrantOperation
-pattern CreateGrant = GrantOperation' "CreateGrant"
+pattern GrantOperationCreateGrant :: GrantOperation
+pattern GrantOperationCreateGrant = GrantOperation' "CreateGrant"
 
-pattern Decrypt :: GrantOperation
-pattern Decrypt = GrantOperation' "Decrypt"
+pattern GrantOperationDecrypt :: GrantOperation
+pattern GrantOperationDecrypt = GrantOperation' "Decrypt"
 
-pattern DescribeKey :: GrantOperation
-pattern DescribeKey = GrantOperation' "DescribeKey"
+pattern GrantOperationDescribeKey :: GrantOperation
+pattern GrantOperationDescribeKey = GrantOperation' "DescribeKey"
 
-pattern Encrypt :: GrantOperation
-pattern Encrypt = GrantOperation' "Encrypt"
+pattern GrantOperationEncrypt :: GrantOperation
+pattern GrantOperationEncrypt = GrantOperation' "Encrypt"
 
-pattern GenerateDataKey :: GrantOperation
-pattern GenerateDataKey = GrantOperation' "GenerateDataKey"
+pattern GrantOperationGenerateDataKey :: GrantOperation
+pattern GrantOperationGenerateDataKey = GrantOperation' "GenerateDataKey"
 
-pattern GenerateDataKeyPair :: GrantOperation
-pattern GenerateDataKeyPair = GrantOperation' "GenerateDataKeyPair"
+pattern GrantOperationGenerateDataKeyPair :: GrantOperation
+pattern GrantOperationGenerateDataKeyPair = GrantOperation' "GenerateDataKeyPair"
 
-pattern GenerateDataKeyPairWithoutPlaintext :: GrantOperation
-pattern GenerateDataKeyPairWithoutPlaintext = GrantOperation' "GenerateDataKeyPairWithoutPlaintext"
+pattern GrantOperationGenerateDataKeyPairWithoutPlaintext :: GrantOperation
+pattern GrantOperationGenerateDataKeyPairWithoutPlaintext = GrantOperation' "GenerateDataKeyPairWithoutPlaintext"
 
-pattern GenerateDataKeyWithoutPlaintext :: GrantOperation
-pattern GenerateDataKeyWithoutPlaintext = GrantOperation' "GenerateDataKeyWithoutPlaintext"
+pattern GrantOperationGenerateDataKeyWithoutPlaintext :: GrantOperation
+pattern GrantOperationGenerateDataKeyWithoutPlaintext = GrantOperation' "GenerateDataKeyWithoutPlaintext"
 
-pattern GetPublicKey :: GrantOperation
-pattern GetPublicKey = GrantOperation' "GetPublicKey"
+pattern GrantOperationGetPublicKey :: GrantOperation
+pattern GrantOperationGetPublicKey = GrantOperation' "GetPublicKey"
 
-pattern ReEncryptFrom :: GrantOperation
-pattern ReEncryptFrom = GrantOperation' "ReEncryptFrom"
+pattern GrantOperationReEncryptFrom :: GrantOperation
+pattern GrantOperationReEncryptFrom = GrantOperation' "ReEncryptFrom"
 
-pattern ReEncryptTo :: GrantOperation
-pattern ReEncryptTo = GrantOperation' "ReEncryptTo"
+pattern GrantOperationReEncryptTo :: GrantOperation
+pattern GrantOperationReEncryptTo = GrantOperation' "ReEncryptTo"
 
-pattern RetireGrant :: GrantOperation
-pattern RetireGrant = GrantOperation' "RetireGrant"
+pattern GrantOperationRetireGrant :: GrantOperation
+pattern GrantOperationRetireGrant = GrantOperation' "RetireGrant"
 
-pattern Sign :: GrantOperation
-pattern Sign = GrantOperation' "Sign"
+pattern GrantOperationSign :: GrantOperation
+pattern GrantOperationSign = GrantOperation' "Sign"
 
-pattern Verify :: GrantOperation
-pattern Verify = GrantOperation' "Verify"
+pattern GrantOperationVerify :: GrantOperation
+pattern GrantOperationVerify = GrantOperation' "Verify"
 
 {-# COMPLETE
-  CreateGrant,
-  Decrypt,
-  DescribeKey,
-  Encrypt,
-  GenerateDataKey,
-  GenerateDataKeyPair,
-  GenerateDataKeyPairWithoutPlaintext,
-  GenerateDataKeyWithoutPlaintext,
-  GetPublicKey,
-  ReEncryptFrom,
-  ReEncryptTo,
-  RetireGrant,
-  Sign,
-  Verify,
+  GrantOperationCreateGrant,
+  GrantOperationDecrypt,
+  GrantOperationDescribeKey,
+  GrantOperationEncrypt,
+  GrantOperationGenerateDataKey,
+  GrantOperationGenerateDataKeyPair,
+  GrantOperationGenerateDataKeyPairWithoutPlaintext,
+  GrantOperationGenerateDataKeyWithoutPlaintext,
+  GrantOperationGetPublicKey,
+  GrantOperationReEncryptFrom,
+  GrantOperationReEncryptTo,
+  GrantOperationRetireGrant,
+  GrantOperationSign,
+  GrantOperationVerify,
   GrantOperation'
   #-}
 
-instance FromText GrantOperation where
-  parser = (GrantOperation' . mk) <$> takeText
+instance Prelude.FromText GrantOperation where
+  parser = GrantOperation' Prelude.<$> Prelude.takeText
 
-instance ToText GrantOperation where
-  toText (GrantOperation' ci) = original ci
+instance Prelude.ToText GrantOperation where
+  toText (GrantOperation' x) = x
 
-instance Hashable GrantOperation
+instance Prelude.Hashable GrantOperation
 
-instance NFData GrantOperation
+instance Prelude.NFData GrantOperation
 
-instance ToByteString GrantOperation
+instance Prelude.ToByteString GrantOperation
 
-instance ToQuery GrantOperation
+instance Prelude.ToQuery GrantOperation
 
-instance ToHeader GrantOperation
+instance Prelude.ToHeader GrantOperation
 
-instance ToJSON GrantOperation where
-  toJSON = toJSONText
+instance Prelude.ToJSON GrantOperation where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON GrantOperation where
-  parseJSON = parseJSONText "GrantOperation"
+instance Prelude.FromJSON GrantOperation where
+  parseJSON = Prelude.parseJSONText "GrantOperation"

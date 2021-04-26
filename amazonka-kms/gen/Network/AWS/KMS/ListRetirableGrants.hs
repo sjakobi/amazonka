@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,126 +21,200 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all grants in which the specified principal is the @RetiringPrincipal@ in the grant.
+-- Returns all grants in which the specified principal is the
+-- @RetiringPrincipal@ in the grant.
 --
+-- You can specify any principal in your AWS account. The grants that are
+-- returned include grants for CMKs in your AWS account and other AWS
+-- accounts.
 --
--- You can specify any principal in your AWS account. The grants that are returned include grants for CMKs in your AWS account and other AWS accounts.
+-- You might use this operation to determine which grants you may retire.
+-- To retire a grant, use the RetireGrant operation.
 --
--- You might use this operation to determine which grants you may retire. To retire a grant, use the 'RetireGrant' operation.
+-- __Cross-account use__: You must specify a principal in your AWS account.
+-- However, this operation can return grants in any AWS account. You do not
+-- need @kms:ListRetirableGrants@ permission (or any other additional
+-- permission) in any AWS account other than your own.
 --
--- __Cross-account use__ : You must specify a principal in your AWS account. However, this operation can return grants in any AWS account. You do not need @kms:ListRetirableGrants@ permission (or any other additional permission) in any AWS account other than your own.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListRetirableGrants> (IAM policy) in your AWS account.
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ListRetirableGrants>
+-- (IAM policy) in your AWS account.
 --
 -- __Related operations:__
 --
---     * 'CreateGrant'
+-- -   CreateGrant
 --
---     * 'ListGrants'
+-- -   ListGrants
 --
---     * 'RetireGrant'
+-- -   RetireGrant
 --
---     * 'RevokeGrant'
+-- -   RevokeGrant
 module Network.AWS.KMS.ListRetirableGrants
   ( -- * Creating a Request
-    listRetirableGrants,
-    ListRetirableGrants,
+    ListRetirableGrants (..),
+    newListRetirableGrants,
 
     -- * Request Lenses
-    lrgLimit,
-    lrgMarker,
-    lrgRetiringPrincipal,
+    listRetirableGrants_limit,
+    listRetirableGrants_marker,
+    listRetirableGrants_retiringPrincipal,
 
     -- * Destructuring the Response
-    listGrantsResponse,
-    ListGrantsResponse,
+    ListGrantsResponse (..),
+    newListGrantsResponse,
 
     -- * Response Lenses
-    lgrNextMarker,
-    lgrGrants,
-    lgrTruncated,
+    listGrantsResponse_nextMarker,
+    listGrantsResponse_grants,
+    listGrantsResponse_truncated,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.KMS.Types.GrantListEntry
+import Network.AWS.KMS.Types.ListGrantsResponse
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listRetirableGrants' smart constructor.
+-- | /See:/ 'newListRetirableGrants' smart constructor.
 data ListRetirableGrants = ListRetirableGrants'
-  { _lrgLimit ::
-      !(Maybe Nat),
-    _lrgMarker :: !(Maybe Text),
-    _lrgRetiringPrincipal :: !Text
+  { -- | Use this parameter to specify the maximum number of items to return.
+    -- When this value is present, AWS KMS does not return more than the
+    -- specified number of items, but it might return fewer.
+    --
+    -- This value is optional. If you include a value, it must be between 1 and
+    -- 100, inclusive. If you do not include a value, it defaults to 50.
+    limit :: Prelude.Maybe Prelude.Nat,
+    -- | Use this parameter in a subsequent request after you receive a response
+    -- with truncated results. Set it to the value of @NextMarker@ from the
+    -- truncated response you just received.
+    marker :: Prelude.Maybe Prelude.Text,
+    -- | The retiring principal for which to list grants. Enter a principal in
+    -- your AWS account.
+    --
+    -- To specify the retiring principal, use the
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Name (ARN)>
+    -- of an AWS principal. Valid AWS principals include AWS accounts (root),
+    -- IAM users, federated users, and assumed role users. For examples of the
+    -- ARN syntax for specifying a principal, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM)>
+    -- in the Example ARNs section of the /Amazon Web Services General
+    -- Reference/.
+    retiringPrincipal :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListRetirableGrants' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListRetirableGrants' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrgLimit' - Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not include a value, it defaults to 50.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrgMarker' - Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
+-- 'limit', 'listRetirableGrants_limit' - Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
 --
--- * 'lrgRetiringPrincipal' - The retiring principal for which to list grants. Enter a principal in your AWS account. To specify the retiring principal, use the <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Name (ARN)> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed role users. For examples of the ARN syntax for specifying a principal, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM)> in the Example ARNs section of the /Amazon Web Services General Reference/ .
-listRetirableGrants ::
-  -- | 'lrgRetiringPrincipal'
-  Text ->
+-- This value is optional. If you include a value, it must be between 1 and
+-- 100, inclusive. If you do not include a value, it defaults to 50.
+--
+-- 'marker', 'listRetirableGrants_marker' - Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+--
+-- 'retiringPrincipal', 'listRetirableGrants_retiringPrincipal' - The retiring principal for which to list grants. Enter a principal in
+-- your AWS account.
+--
+-- To specify the retiring principal, use the
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Name (ARN)>
+-- of an AWS principal. Valid AWS principals include AWS accounts (root),
+-- IAM users, federated users, and assumed role users. For examples of the
+-- ARN syntax for specifying a principal, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM)>
+-- in the Example ARNs section of the /Amazon Web Services General
+-- Reference/.
+newListRetirableGrants ::
+  -- | 'retiringPrincipal'
+  Prelude.Text ->
   ListRetirableGrants
-listRetirableGrants pRetiringPrincipal_ =
+newListRetirableGrants pRetiringPrincipal_ =
   ListRetirableGrants'
-    { _lrgLimit = Nothing,
-      _lrgMarker = Nothing,
-      _lrgRetiringPrincipal = pRetiringPrincipal_
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      retiringPrincipal = pRetiringPrincipal_
     }
 
--- | Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not return more than the specified number of items, but it might return fewer. This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not include a value, it defaults to 50.
-lrgLimit :: Lens' ListRetirableGrants (Maybe Natural)
-lrgLimit = lens _lrgLimit (\s a -> s {_lrgLimit = a}) . mapping _Nat
+-- | Use this parameter to specify the maximum number of items to return.
+-- When this value is present, AWS KMS does not return more than the
+-- specified number of items, but it might return fewer.
+--
+-- This value is optional. If you include a value, it must be between 1 and
+-- 100, inclusive. If you do not include a value, it defaults to 50.
+listRetirableGrants_limit :: Lens.Lens' ListRetirableGrants (Prelude.Maybe Prelude.Natural)
+listRetirableGrants_limit = Lens.lens (\ListRetirableGrants' {limit} -> limit) (\s@ListRetirableGrants' {} a -> s {limit = a} :: ListRetirableGrants) Prelude.. Lens.mapping Prelude._Nat
 
--- | Use this parameter in a subsequent request after you receive a response with truncated results. Set it to the value of @NextMarker@ from the truncated response you just received.
-lrgMarker :: Lens' ListRetirableGrants (Maybe Text)
-lrgMarker = lens _lrgMarker (\s a -> s {_lrgMarker = a})
+-- | Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+listRetirableGrants_marker :: Lens.Lens' ListRetirableGrants (Prelude.Maybe Prelude.Text)
+listRetirableGrants_marker = Lens.lens (\ListRetirableGrants' {marker} -> marker) (\s@ListRetirableGrants' {} a -> s {marker = a} :: ListRetirableGrants)
 
--- | The retiring principal for which to list grants. Enter a principal in your AWS account. To specify the retiring principal, use the <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Name (ARN)> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed role users. For examples of the ARN syntax for specifying a principal, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM)> in the Example ARNs section of the /Amazon Web Services General Reference/ .
-lrgRetiringPrincipal :: Lens' ListRetirableGrants Text
-lrgRetiringPrincipal = lens _lrgRetiringPrincipal (\s a -> s {_lrgRetiringPrincipal = a})
+-- | The retiring principal for which to list grants. Enter a principal in
+-- your AWS account.
+--
+-- To specify the retiring principal, use the
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Name (ARN)>
+-- of an AWS principal. Valid AWS principals include AWS accounts (root),
+-- IAM users, federated users, and assumed role users. For examples of the
+-- ARN syntax for specifying a principal, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM)>
+-- in the Example ARNs section of the /Amazon Web Services General
+-- Reference/.
+listRetirableGrants_retiringPrincipal :: Lens.Lens' ListRetirableGrants Prelude.Text
+listRetirableGrants_retiringPrincipal = Lens.lens (\ListRetirableGrants' {retiringPrincipal} -> retiringPrincipal) (\s@ListRetirableGrants' {} a -> s {retiringPrincipal = a} :: ListRetirableGrants)
 
-instance AWSRequest ListRetirableGrants where
+instance Prelude.AWSRequest ListRetirableGrants where
   type Rs ListRetirableGrants = ListGrantsResponse
-  request = postJSON kms
-  response = receiveJSON (\s h x -> eitherParseJSON x)
+  request = Request.postJSON defaultService
+  response =
+    Response.receiveJSON
+      (\s h x -> Prelude.eitherParseJSON x)
 
-instance Hashable ListRetirableGrants
+instance Prelude.Hashable ListRetirableGrants
 
-instance NFData ListRetirableGrants
+instance Prelude.NFData ListRetirableGrants
 
-instance ToHeaders ListRetirableGrants where
+instance Prelude.ToHeaders ListRetirableGrants where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.ListRetirableGrants" :: ByteString),
+              Prelude.=# ( "TrentService.ListRetirableGrants" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListRetirableGrants where
+instance Prelude.ToJSON ListRetirableGrants where
   toJSON ListRetirableGrants' {..} =
-    object
-      ( catMaybes
-          [ ("Limit" .=) <$> _lrgLimit,
-            ("Marker" .=) <$> _lrgMarker,
-            Just ("RetiringPrincipal" .= _lrgRetiringPrincipal)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Limit" Prelude..=) Prelude.<$> limit,
+            ("Marker" Prelude..=) Prelude.<$> marker,
+            Prelude.Just
+              ("RetiringPrincipal" Prelude..= retiringPrincipal)
           ]
       )
 
-instance ToPath ListRetirableGrants where
-  toPath = const "/"
+instance Prelude.ToPath ListRetirableGrants where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListRetirableGrants where
-  toQuery = const mempty
+instance Prelude.ToQuery ListRetirableGrants where
+  toQuery = Prelude.const Prelude.mempty

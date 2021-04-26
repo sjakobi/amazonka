@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,136 +21,248 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a friendly name for a customer master key (CMK). You can use an alias to identify a CMK in the AWS KMS console, in the 'DescribeKey' operation and in <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations cryptographic operations> , such as 'Encrypt' and 'GenerateDataKey' .
+-- Creates a friendly name for a customer master key (CMK). You can use an
+-- alias to identify a CMK in the AWS KMS console, in the DescribeKey
+-- operation and in
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#cryptographic-operations cryptographic operations>,
+-- such as Encrypt and GenerateDataKey.
 --
+-- You can also change the CMK that\'s associated with the alias
+-- (UpdateAlias) or delete the alias (DeleteAlias) at any time. These
+-- operations don\'t affect the underlying CMK.
 --
--- You can also change the CMK that's associated with the alias ('UpdateAlias' ) or delete the alias ('DeleteAlias' ) at any time. These operations don't affect the underlying CMK.
+-- You can associate the alias with any customer managed CMK in the same
+-- AWS Region. Each alias is associated with only on CMK at a time, but a
+-- CMK can have multiple aliases. A valid CMK is required. You can\'t
+-- create an alias without a CMK.
 --
--- You can associate the alias with any customer managed CMK in the same AWS Region. Each alias is associated with only on CMK at a time, but a CMK can have multiple aliases. A valid CMK is required. You can't create an alias without a CMK.
+-- The alias must be unique in the account and Region, but you can have
+-- aliases with the same name in different Regions. For detailed
+-- information about aliases, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html Using aliases>
+-- in the /AWS Key Management Service Developer Guide/.
 --
--- The alias must be unique in the account and Region, but you can have aliases with the same name in different Regions. For detailed information about aliases, see <https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html Using aliases> in the /AWS Key Management Service Developer Guide/ .
+-- This operation does not return a response. To get the alias that you
+-- created, use the ListAliases operation.
 --
--- This operation does not return a response. To get the alias that you created, use the 'ListAliases' operation.
+-- The CMK that you use for this operation must be in a compatible key
+-- state. For details, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key>
+-- in the /AWS Key Management Service Developer Guide/.
 --
--- The CMK that you use for this operation must be in a compatible key state. For details, see <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html How Key State Affects Use of a Customer Master Key> in the /AWS Key Management Service Developer Guide/ .
---
--- __Cross-account use__ : No. You cannot perform this operation on an alias in a different AWS account.
+-- __Cross-account use__: No. You cannot perform this operation on an alias
+-- in a different AWS account.
 --
 -- __Required permissions__
 --
---     * <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:CreateAlias> on the alias (IAM policy).
+-- -   <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:CreateAlias>
+--     on the alias (IAM policy).
 --
---     * <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:CreateAlias> on the CMK (key policy).
+-- -   <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:CreateAlias>
+--     on the CMK (key policy).
 --
---
---
--- For details, see <https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html#alias-access Controlling access to aliases> in the /AWS Key Management Service Developer Guide/ .
+-- For details, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-alias.html#alias-access Controlling access to aliases>
+-- in the /AWS Key Management Service Developer Guide/.
 --
 -- __Related operations:__
 --
---     * 'DeleteAlias'
+-- -   DeleteAlias
 --
---     * 'ListAliases'
+-- -   ListAliases
 --
---     * 'UpdateAlias'
+-- -   UpdateAlias
 module Network.AWS.KMS.CreateAlias
   ( -- * Creating a Request
-    createAlias,
-    CreateAlias,
+    CreateAlias (..),
+    newCreateAlias,
 
     -- * Request Lenses
-    caAliasName,
-    caTargetKeyId,
+    createAlias_aliasName,
+    createAlias_targetKeyId,
 
     -- * Destructuring the Response
-    createAliasResponse,
-    CreateAliasResponse,
+    CreateAliasResponse (..),
+    newCreateAliasResponse,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createAlias' smart constructor.
+-- | /See:/ 'newCreateAlias' smart constructor.
 data CreateAlias = CreateAlias'
-  { _caAliasName ::
-      !Text,
-    _caTargetKeyId :: !Text
+  { -- | Specifies the alias name. This value must begin with @alias\/@ followed
+    -- by a name, such as @alias\/ExampleAlias@.
+    --
+    -- The @AliasName@ value must be string of 1-256 characters. It can contain
+    -- only alphanumeric characters, forward slashes (\/), underscores (_), and
+    -- dashes (-). The alias name cannot begin with @alias\/aws\/@. The
+    -- @alias\/aws\/@ prefix is reserved for
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk AWS managed CMKs>.
+    aliasName :: Prelude.Text,
+    -- | Associates the alias with the specified
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK>.
+    -- The CMK must be in the same AWS Region.
+    --
+    -- A valid CMK ID is required. If you supply a null or empty string value,
+    -- this operation returns an error.
+    --
+    -- For help finding the key ID and ARN, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn Finding the Key ID and ARN>
+    -- in the /AWS Key Management Service Developer Guide/.
+    --
+    -- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+    --
+    -- For example:
+    --
+    -- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- -   Key ARN:
+    --     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    --
+    -- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+    targetKeyId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAlias' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAlias' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caAliasName' - Specifies the alias name. This value must begin with @alias/@ followed by a name, such as @alias/ExampleAlias@ .  The @AliasName@ value must be string of 1-256 characters. It can contain only alphanumeric characters, forward slashes (/), underscores (_), and dashes (-). The alias name cannot begin with @alias/aws/@ . The @alias/aws/@ prefix is reserved for <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk AWS managed CMKs> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caTargetKeyId' - Associates the alias with the specified <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK> . The CMK must be in the same AWS Region.  A valid CMK ID is required. If you supply a null or empty string value, this operation returns an error. For help finding the key ID and ARN, see <https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn Finding the Key ID and ARN> in the /AWS Key Management Service Developer Guide/ . Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-createAlias ::
-  -- | 'caAliasName'
-  Text ->
-  -- | 'caTargetKeyId'
-  Text ->
+-- 'aliasName', 'createAlias_aliasName' - Specifies the alias name. This value must begin with @alias\/@ followed
+-- by a name, such as @alias\/ExampleAlias@.
+--
+-- The @AliasName@ value must be string of 1-256 characters. It can contain
+-- only alphanumeric characters, forward slashes (\/), underscores (_), and
+-- dashes (-). The alias name cannot begin with @alias\/aws\/@. The
+-- @alias\/aws\/@ prefix is reserved for
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk AWS managed CMKs>.
+--
+-- 'targetKeyId', 'createAlias_targetKeyId' - Associates the alias with the specified
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK>.
+-- The CMK must be in the same AWS Region.
+--
+-- A valid CMK ID is required. If you supply a null or empty string value,
+-- this operation returns an error.
+--
+-- For help finding the key ID and ARN, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn Finding the Key ID and ARN>
+-- in the /AWS Key Management Service Developer Guide/.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+newCreateAlias ::
+  -- | 'aliasName'
+  Prelude.Text ->
+  -- | 'targetKeyId'
+  Prelude.Text ->
   CreateAlias
-createAlias pAliasName_ pTargetKeyId_ =
+newCreateAlias pAliasName_ pTargetKeyId_ =
   CreateAlias'
-    { _caAliasName = pAliasName_,
-      _caTargetKeyId = pTargetKeyId_
+    { aliasName = pAliasName_,
+      targetKeyId = pTargetKeyId_
     }
 
--- | Specifies the alias name. This value must begin with @alias/@ followed by a name, such as @alias/ExampleAlias@ .  The @AliasName@ value must be string of 1-256 characters. It can contain only alphanumeric characters, forward slashes (/), underscores (_), and dashes (-). The alias name cannot begin with @alias/aws/@ . The @alias/aws/@ prefix is reserved for <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk AWS managed CMKs> .
-caAliasName :: Lens' CreateAlias Text
-caAliasName = lens _caAliasName (\s a -> s {_caAliasName = a})
+-- | Specifies the alias name. This value must begin with @alias\/@ followed
+-- by a name, such as @alias\/ExampleAlias@.
+--
+-- The @AliasName@ value must be string of 1-256 characters. It can contain
+-- only alphanumeric characters, forward slashes (\/), underscores (_), and
+-- dashes (-). The alias name cannot begin with @alias\/aws\/@. The
+-- @alias\/aws\/@ prefix is reserved for
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk AWS managed CMKs>.
+createAlias_aliasName :: Lens.Lens' CreateAlias Prelude.Text
+createAlias_aliasName = Lens.lens (\CreateAlias' {aliasName} -> aliasName) (\s@CreateAlias' {} a -> s {aliasName = a} :: CreateAlias)
 
--- | Associates the alias with the specified <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK> . The CMK must be in the same AWS Region.  A valid CMK ID is required. If you supply a null or empty string value, this operation returns an error. For help finding the key ID and ARN, see <https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn Finding the Key ID and ARN> in the /AWS Key Management Service Developer Guide/ . Specify the key ID or the Amazon Resource Name (ARN) of the CMK. For example:     * Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@      * Key ARN: @arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab@  To get the key ID and key ARN for a CMK, use 'ListKeys' or 'DescribeKey' .
-caTargetKeyId :: Lens' CreateAlias Text
-caTargetKeyId = lens _caTargetKeyId (\s a -> s {_caTargetKeyId = a})
+-- | Associates the alias with the specified
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#customer-cmk customer managed CMK>.
+-- The CMK must be in the same AWS Region.
+--
+-- A valid CMK ID is required. If you supply a null or empty string value,
+-- this operation returns an error.
+--
+-- For help finding the key ID and ARN, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html#find-cmk-id-arn Finding the Key ID and ARN>
+-- in the /AWS Key Management Service Developer Guide/.
+--
+-- Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+--
+-- For example:
+--
+-- -   Key ID: @1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- -   Key ARN:
+--     @arn:aws:kms:us-east-2:111122223333:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+--
+-- To get the key ID and key ARN for a CMK, use ListKeys or DescribeKey.
+createAlias_targetKeyId :: Lens.Lens' CreateAlias Prelude.Text
+createAlias_targetKeyId = Lens.lens (\CreateAlias' {targetKeyId} -> targetKeyId) (\s@CreateAlias' {} a -> s {targetKeyId = a} :: CreateAlias)
 
-instance AWSRequest CreateAlias where
+instance Prelude.AWSRequest CreateAlias where
   type Rs CreateAlias = CreateAliasResponse
-  request = postJSON kms
-  response = receiveNull CreateAliasResponse'
+  request = Request.postJSON defaultService
+  response = Response.receiveNull CreateAliasResponse'
 
-instance Hashable CreateAlias
+instance Prelude.Hashable CreateAlias
 
-instance NFData CreateAlias
+instance Prelude.NFData CreateAlias
 
-instance ToHeaders CreateAlias where
+instance Prelude.ToHeaders CreateAlias where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.CreateAlias" :: ByteString),
+              Prelude.=# ("TrentService.CreateAlias" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAlias where
+instance Prelude.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    object
-      ( catMaybes
-          [ Just ("AliasName" .= _caAliasName),
-            Just ("TargetKeyId" .= _caTargetKeyId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("AliasName" Prelude..= aliasName),
+            Prelude.Just ("TargetKeyId" Prelude..= targetKeyId)
           ]
       )
 
-instance ToPath CreateAlias where
-  toPath = const "/"
+instance Prelude.ToPath CreateAlias where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAlias where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAlias where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAliasResponse' smart constructor.
+-- | /See:/ 'newCreateAliasResponse' smart constructor.
 data CreateAliasResponse = CreateAliasResponse'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAliasResponse' with the minimum fields required to make a request.
-createAliasResponse ::
+-- |
+-- Create a value of 'CreateAliasResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCreateAliasResponse ::
   CreateAliasResponse
-createAliasResponse = CreateAliasResponse'
+newCreateAliasResponse = CreateAliasResponse'
 
-instance NFData CreateAliasResponse
+instance Prelude.NFData CreateAliasResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,85 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.KMS.Types.AliasListEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an alias.
 --
---
---
--- /See:/ 'aliasListEntry' smart constructor.
+-- /See:/ 'newAliasListEntry' smart constructor.
 data AliasListEntry = AliasListEntry'
-  { _aleLastUpdatedDate ::
-      !(Maybe POSIX),
-    _aleCreationDate :: !(Maybe POSIX),
-    _aleAliasName :: !(Maybe Text),
-    _aleAliasARN :: !(Maybe Text),
-    _aleTargetKeyId :: !(Maybe Text)
+  { lastUpdatedDate :: Prelude.Maybe Prelude.POSIX,
+    creationDate :: Prelude.Maybe Prelude.POSIX,
+    -- | String that contains the alias. This value begins with @alias\/@.
+    aliasName :: Prelude.Maybe Prelude.Text,
+    -- | String that contains the key ARN.
+    aliasArn :: Prelude.Maybe Prelude.Text,
+    -- | String that contains the key identifier referred to by the alias.
+    targetKeyId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AliasListEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AliasListEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aleLastUpdatedDate' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aleCreationDate' - Undocumented member.
+-- 'lastUpdatedDate', 'aliasListEntry_lastUpdatedDate' - Undocumented member.
 --
--- * 'aleAliasName' - String that contains the alias. This value begins with @alias/@ .
+-- 'creationDate', 'aliasListEntry_creationDate' - Undocumented member.
 --
--- * 'aleAliasARN' - String that contains the key ARN.
+-- 'aliasName', 'aliasListEntry_aliasName' - String that contains the alias. This value begins with @alias\/@.
 --
--- * 'aleTargetKeyId' - String that contains the key identifier referred to by the alias.
-aliasListEntry ::
+-- 'aliasArn', 'aliasListEntry_aliasArn' - String that contains the key ARN.
+--
+-- 'targetKeyId', 'aliasListEntry_targetKeyId' - String that contains the key identifier referred to by the alias.
+newAliasListEntry ::
   AliasListEntry
-aliasListEntry =
+newAliasListEntry =
   AliasListEntry'
-    { _aleLastUpdatedDate = Nothing,
-      _aleCreationDate = Nothing,
-      _aleAliasName = Nothing,
-      _aleAliasARN = Nothing,
-      _aleTargetKeyId = Nothing
+    { lastUpdatedDate = Prelude.Nothing,
+      creationDate = Prelude.Nothing,
+      aliasName = Prelude.Nothing,
+      aliasArn = Prelude.Nothing,
+      targetKeyId = Prelude.Nothing
     }
 
 -- | Undocumented member.
-aleLastUpdatedDate :: Lens' AliasListEntry (Maybe UTCTime)
-aleLastUpdatedDate = lens _aleLastUpdatedDate (\s a -> s {_aleLastUpdatedDate = a}) . mapping _Time
+aliasListEntry_lastUpdatedDate :: Lens.Lens' AliasListEntry (Prelude.Maybe Prelude.UTCTime)
+aliasListEntry_lastUpdatedDate = Lens.lens (\AliasListEntry' {lastUpdatedDate} -> lastUpdatedDate) (\s@AliasListEntry' {} a -> s {lastUpdatedDate = a} :: AliasListEntry) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-aleCreationDate :: Lens' AliasListEntry (Maybe UTCTime)
-aleCreationDate = lens _aleCreationDate (\s a -> s {_aleCreationDate = a}) . mapping _Time
+aliasListEntry_creationDate :: Lens.Lens' AliasListEntry (Prelude.Maybe Prelude.UTCTime)
+aliasListEntry_creationDate = Lens.lens (\AliasListEntry' {creationDate} -> creationDate) (\s@AliasListEntry' {} a -> s {creationDate = a} :: AliasListEntry) Prelude.. Lens.mapping Prelude._Time
 
--- | String that contains the alias. This value begins with @alias/@ .
-aleAliasName :: Lens' AliasListEntry (Maybe Text)
-aleAliasName = lens _aleAliasName (\s a -> s {_aleAliasName = a})
+-- | String that contains the alias. This value begins with @alias\/@.
+aliasListEntry_aliasName :: Lens.Lens' AliasListEntry (Prelude.Maybe Prelude.Text)
+aliasListEntry_aliasName = Lens.lens (\AliasListEntry' {aliasName} -> aliasName) (\s@AliasListEntry' {} a -> s {aliasName = a} :: AliasListEntry)
 
 -- | String that contains the key ARN.
-aleAliasARN :: Lens' AliasListEntry (Maybe Text)
-aleAliasARN = lens _aleAliasARN (\s a -> s {_aleAliasARN = a})
+aliasListEntry_aliasArn :: Lens.Lens' AliasListEntry (Prelude.Maybe Prelude.Text)
+aliasListEntry_aliasArn = Lens.lens (\AliasListEntry' {aliasArn} -> aliasArn) (\s@AliasListEntry' {} a -> s {aliasArn = a} :: AliasListEntry)
 
 -- | String that contains the key identifier referred to by the alias.
-aleTargetKeyId :: Lens' AliasListEntry (Maybe Text)
-aleTargetKeyId = lens _aleTargetKeyId (\s a -> s {_aleTargetKeyId = a})
+aliasListEntry_targetKeyId :: Lens.Lens' AliasListEntry (Prelude.Maybe Prelude.Text)
+aliasListEntry_targetKeyId = Lens.lens (\AliasListEntry' {targetKeyId} -> targetKeyId) (\s@AliasListEntry' {} a -> s {targetKeyId = a} :: AliasListEntry)
 
-instance FromJSON AliasListEntry where
+instance Prelude.FromJSON AliasListEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AliasListEntry"
       ( \x ->
           AliasListEntry'
-            <$> (x .:? "LastUpdatedDate")
-            <*> (x .:? "CreationDate")
-            <*> (x .:? "AliasName")
-            <*> (x .:? "AliasArn")
-            <*> (x .:? "TargetKeyId")
+            Prelude.<$> (x Prelude..:? "LastUpdatedDate")
+            Prelude.<*> (x Prelude..:? "CreationDate")
+            Prelude.<*> (x Prelude..:? "AliasName")
+            Prelude.<*> (x Prelude..:? "AliasArn")
+            Prelude.<*> (x Prelude..:? "TargetKeyId")
       )
 
-instance Hashable AliasListEntry
+instance Prelude.Hashable AliasListEntry
 
-instance NFData AliasListEntry
+instance Prelude.NFData AliasListEntry

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.KMS.Types.ExpirationModelType
   ( ExpirationModelType
       ( ..,
-        KeyMaterialDoesNotExpire,
-        KeyMaterialExpires
+        ExpirationModelTypeKEYMATERIALDOESNOTEXPIRE,
+        ExpirationModelTypeKEYMATERIALEXPIRES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExpirationModelType
-  = ExpirationModelType'
-      ( CI
-          Text
-      )
+newtype ExpirationModelType = ExpirationModelType'
+  { fromExpirationModelType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern KeyMaterialDoesNotExpire :: ExpirationModelType
-pattern KeyMaterialDoesNotExpire = ExpirationModelType' "KEY_MATERIAL_DOES_NOT_EXPIRE"
+pattern ExpirationModelTypeKEYMATERIALDOESNOTEXPIRE :: ExpirationModelType
+pattern ExpirationModelTypeKEYMATERIALDOESNOTEXPIRE = ExpirationModelType' "KEY_MATERIAL_DOES_NOT_EXPIRE"
 
-pattern KeyMaterialExpires :: ExpirationModelType
-pattern KeyMaterialExpires = ExpirationModelType' "KEY_MATERIAL_EXPIRES"
+pattern ExpirationModelTypeKEYMATERIALEXPIRES :: ExpirationModelType
+pattern ExpirationModelTypeKEYMATERIALEXPIRES = ExpirationModelType' "KEY_MATERIAL_EXPIRES"
 
 {-# COMPLETE
-  KeyMaterialDoesNotExpire,
-  KeyMaterialExpires,
+  ExpirationModelTypeKEYMATERIALDOESNOTEXPIRE,
+  ExpirationModelTypeKEYMATERIALEXPIRES,
   ExpirationModelType'
   #-}
 
-instance FromText ExpirationModelType where
-  parser = (ExpirationModelType' . mk) <$> takeText
+instance Prelude.FromText ExpirationModelType where
+  parser = ExpirationModelType' Prelude.<$> Prelude.takeText
 
-instance ToText ExpirationModelType where
-  toText (ExpirationModelType' ci) = original ci
+instance Prelude.ToText ExpirationModelType where
+  toText (ExpirationModelType' x) = x
 
-instance Hashable ExpirationModelType
+instance Prelude.Hashable ExpirationModelType
 
-instance NFData ExpirationModelType
+instance Prelude.NFData ExpirationModelType
 
-instance ToByteString ExpirationModelType
+instance Prelude.ToByteString ExpirationModelType
 
-instance ToQuery ExpirationModelType
+instance Prelude.ToQuery ExpirationModelType
 
-instance ToHeader ExpirationModelType
+instance Prelude.ToHeader ExpirationModelType
 
-instance ToJSON ExpirationModelType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExpirationModelType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExpirationModelType where
-  parseJSON = parseJSONText "ExpirationModelType"
+instance Prelude.FromJSON ExpirationModelType where
+  parseJSON = Prelude.parseJSONText "ExpirationModelType"

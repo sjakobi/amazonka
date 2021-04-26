@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.KMS.Types.OriginType
   ( OriginType
       ( ..,
-        AWSCloudhsm,
-        AWSKMS,
-        External
+        OriginTypeAWSCLOUDHSM,
+        OriginTypeAWSKMS,
+        OriginTypeEXTERNAL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OriginType = OriginType' (CI Text)
+newtype OriginType = OriginType'
+  { fromOriginType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AWSCloudhsm :: OriginType
-pattern AWSCloudhsm = OriginType' "AWS_CLOUDHSM"
+pattern OriginTypeAWSCLOUDHSM :: OriginType
+pattern OriginTypeAWSCLOUDHSM = OriginType' "AWS_CLOUDHSM"
 
-pattern AWSKMS :: OriginType
-pattern AWSKMS = OriginType' "AWS_KMS"
+pattern OriginTypeAWSKMS :: OriginType
+pattern OriginTypeAWSKMS = OriginType' "AWS_KMS"
 
-pattern External :: OriginType
-pattern External = OriginType' "EXTERNAL"
+pattern OriginTypeEXTERNAL :: OriginType
+pattern OriginTypeEXTERNAL = OriginType' "EXTERNAL"
 
 {-# COMPLETE
-  AWSCloudhsm,
-  AWSKMS,
-  External,
+  OriginTypeAWSCLOUDHSM,
+  OriginTypeAWSKMS,
+  OriginTypeEXTERNAL,
   OriginType'
   #-}
 
-instance FromText OriginType where
-  parser = (OriginType' . mk) <$> takeText
+instance Prelude.FromText OriginType where
+  parser = OriginType' Prelude.<$> Prelude.takeText
 
-instance ToText OriginType where
-  toText (OriginType' ci) = original ci
+instance Prelude.ToText OriginType where
+  toText (OriginType' x) = x
 
-instance Hashable OriginType
+instance Prelude.Hashable OriginType
 
-instance NFData OriginType
+instance Prelude.NFData OriginType
 
-instance ToByteString OriginType
+instance Prelude.ToByteString OriginType
 
-instance ToQuery OriginType
+instance Prelude.ToQuery OriginType
 
-instance ToHeader OriginType
+instance Prelude.ToHeader OriginType
 
-instance ToJSON OriginType where
-  toJSON = toJSONText
+instance Prelude.ToJSON OriginType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OriginType where
-  parseJSON = parseJSONText "OriginType"
+instance Prelude.FromJSON OriginType where
+  parseJSON = Prelude.parseJSONText "OriginType"

@@ -11,50 +11,88 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS Key Management Service__
+-- AWS Key Management Service
 --
--- AWS Key Management Service (AWS KMS) is an encryption and key management web service. This guide describes the AWS KMS operations that you can call programmatically. For general information about AWS KMS, see the <https://docs.aws.amazon.com/kms/latest/developerguide/ /AWS Key Management Service Developer Guide/ > .
+-- AWS Key Management Service (AWS KMS) is an encryption and key management
+-- web service. This guide describes the AWS KMS operations that you can
+-- call programmatically. For general information about AWS KMS, see the
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/ AWS Key Management Service Developer Guide>
+-- .
 --
--- We recommend that you use the AWS SDKs to make programmatic API calls to AWS KMS.
+-- AWS provides SDKs that consist of libraries and sample code for various
+-- programming languages and platforms (Java, Ruby, .Net, macOS, Android,
+-- etc.). The SDKs provide a convenient way to create programmatic access
+-- to AWS KMS and other AWS services. For example, the SDKs take care of
+-- tasks such as signing requests (see below), managing errors, and
+-- retrying requests automatically. For more information about the AWS
+-- SDKs, including how to download and install them, see
+-- <http://aws.amazon.com/tools/ Tools for Amazon Web Services>.
 --
--- Clients must support TLS (Transport Layer Security) 1.0. We recommend TLS 1.2. Clients must also support cipher suites with Perfect Forward Secrecy (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic Curve Ephemeral Diffie-Hellman (ECDHE). Most modern systems such as Java 7 and later support these modes.
+-- We recommend that you use the AWS SDKs to make programmatic API calls to
+-- AWS KMS.
+--
+-- Clients must support TLS (Transport Layer Security) 1.0. We recommend
+-- TLS 1.2. Clients must also support cipher suites with Perfect Forward
+-- Secrecy (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic Curve
+-- Ephemeral Diffie-Hellman (ECDHE). Most modern systems such as Java 7 and
+-- later support these modes.
 --
 -- __Signing Requests__
 --
--- Requests must be signed by using an access key ID and a secret access key. We strongly recommend that you /do not/ use your AWS account (root) access key ID and secret key for everyday work with AWS KMS. Instead, use the access key ID and secret access key for an IAM user. You can also use the AWS Security Token Service to generate temporary security credentials that you can use to sign requests.
+-- Requests must be signed by using an access key ID and a secret access
+-- key. We strongly recommend that you /do not/ use your AWS account (root)
+-- access key ID and secret key for everyday work with AWS KMS. Instead,
+-- use the access key ID and secret access key for an IAM user. You can
+-- also use the AWS Security Token Service to generate temporary security
+-- credentials that you can use to sign requests.
 --
--- All AWS KMS operations require <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4> .
+-- All AWS KMS operations require
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4>.
 --
 -- __Logging API Requests__
 --
--- AWS KMS supports AWS CloudTrail, a service that logs AWS API calls and related events for your AWS account and delivers them to an Amazon S3 bucket that you specify. By using the information collected by CloudTrail, you can determine what requests were made to AWS KMS, who made the request, when it was made, and so on. To learn more about CloudTrail, including how to turn it on and find your log files, see the <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/ AWS CloudTrail User Guide> .
+-- AWS KMS supports AWS CloudTrail, a service that logs AWS API calls and
+-- related events for your AWS account and delivers them to an Amazon S3
+-- bucket that you specify. By using the information collected by
+-- CloudTrail, you can determine what requests were made to AWS KMS, who
+-- made the request, when it was made, and so on. To learn more about
+-- CloudTrail, including how to turn it on and find your log files, see the
+-- <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/ AWS CloudTrail User Guide>.
 --
 -- __Additional Resources__
 --
--- For more information about credentials and request signing, see the following:
+-- For more information about credentials and request signing, see the
+-- following:
 --
---     * <https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html AWS Security Credentials> - This topic provides general information about the types of credentials used for accessing AWS.
+-- -   <https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html AWS Security Credentials>
+--     - This topic provides general information about the types of
+--     credentials used for accessing AWS.
 --
---     * <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html Temporary Security Credentials> - This section of the /IAM User Guide/ describes how to create and use temporary security credentials.
+-- -   <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html Temporary Security Credentials>
+--     - This section of the /IAM User Guide/ describes how to create and
+--     use temporary security credentials.
 --
---     * <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 Signing Process> - This set of topics walks you through the process of signing a request using an access key ID and a secret access key.
---
---
+-- -   <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 Signing Process>
+--     - This set of topics walks you through the process of signing a
+--     request using an access key ID and a secret access key.
 --
 -- __Commonly Used API Operations__
 --
--- Of the API operations discussed in this guide, the following will prove the most useful for most applications. You will likely perform operations other than these, such as creating keys and assigning policies, by using the console.
+-- Of the API operations discussed in this guide, the following will prove
+-- the most useful for most applications. You will likely perform
+-- operations other than these, such as creating keys and assigning
+-- policies, by using the console.
 --
---     * 'Encrypt'
+-- -   Encrypt
 --
---     * 'Decrypt'
+-- -   Decrypt
 --
---     * 'GenerateDataKey'
+-- -   GenerateDataKey
 --
---     * 'GenerateDataKeyWithoutPlaintext'
+-- -   GenerateDataKeyWithoutPlaintext
 module Network.AWS.KMS
   ( -- * Service Configuration
-    kms,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -83,8 +121,8 @@ module Network.AWS.KMS
     -- ** InvalidMarkerException
     _InvalidMarkerException,
 
-    -- ** CloudHSMClusterNotFoundException
-    _CloudHSMClusterNotFoundException,
+    -- ** CloudHsmClusterNotFoundException
+    _CloudHsmClusterNotFoundException,
 
     -- ** IncorrectKeyException
     _IncorrectKeyException,
@@ -92,17 +130,17 @@ module Network.AWS.KMS
     -- ** InvalidCiphertextException
     _InvalidCiphertextException,
 
-    -- ** InvalidARNException
-    _InvalidARNException,
+    -- ** InvalidArnException
+    _InvalidArnException,
 
-    -- ** CloudHSMClusterInvalidConfigurationException
-    _CloudHSMClusterInvalidConfigurationException,
+    -- ** CloudHsmClusterInvalidConfigurationException
+    _CloudHsmClusterInvalidConfigurationException,
 
     -- ** CustomKeyStoreHasCMKsException
     _CustomKeyStoreHasCMKsException,
 
-    -- ** CloudHSMClusterNotRelatedException
-    _CloudHSMClusterNotRelatedException,
+    -- ** CloudHsmClusterNotRelatedException
+    _CloudHsmClusterNotRelatedException,
 
     -- ** CustomKeyStoreInvalidStateException
     _CustomKeyStoreInvalidStateException,
@@ -125,11 +163,11 @@ module Network.AWS.KMS
     -- ** ExpiredImportTokenException
     _ExpiredImportTokenException,
 
-    -- ** CloudHSMClusterInUseException
-    _CloudHSMClusterInUseException,
+    -- ** CloudHsmClusterInUseException
+    _CloudHsmClusterInUseException,
 
-    -- ** CloudHSMClusterNotActiveException
-    _CloudHSMClusterNotActiveException,
+    -- ** CloudHsmClusterNotActiveException
+    _CloudHsmClusterNotActiveException,
 
     -- ** InvalidGrantTokenException
     _InvalidGrantTokenException,
@@ -165,142 +203,280 @@ module Network.AWS.KMS
     -- $operations
 
     -- ** DisableKeyRotation
-    module Network.AWS.KMS.DisableKeyRotation,
+    DisableKeyRotation (DisableKeyRotation'),
+    newDisableKeyRotation,
+    DisableKeyRotationResponse (DisableKeyRotationResponse'),
+    newDisableKeyRotationResponse,
 
     -- ** DeleteAlias
-    module Network.AWS.KMS.DeleteAlias,
+    DeleteAlias (DeleteAlias'),
+    newDeleteAlias,
+    DeleteAliasResponse (DeleteAliasResponse'),
+    newDeleteAliasResponse,
 
     -- ** ListGrants (Paginated)
-    module Network.AWS.KMS.ListGrants,
+    ListGrants (ListGrants'),
+    newListGrants,
+    ListGrantsResponse (ListGrantsResponse'),
+    newListGrantsResponse,
 
     -- ** Verify
-    module Network.AWS.KMS.Verify,
+    Verify (Verify'),
+    newVerify,
+    VerifyResponse (VerifyResponse'),
+    newVerifyResponse,
 
     -- ** CreateCustomKeyStore
-    module Network.AWS.KMS.CreateCustomKeyStore,
+    CreateCustomKeyStore (CreateCustomKeyStore'),
+    newCreateCustomKeyStore,
+    CreateCustomKeyStoreResponse (CreateCustomKeyStoreResponse'),
+    newCreateCustomKeyStoreResponse,
 
     -- ** UpdateAlias
-    module Network.AWS.KMS.UpdateAlias,
+    UpdateAlias (UpdateAlias'),
+    newUpdateAlias,
+    UpdateAliasResponse (UpdateAliasResponse'),
+    newUpdateAliasResponse,
 
     -- ** GenerateDataKey
-    module Network.AWS.KMS.GenerateDataKey,
+    GenerateDataKey (GenerateDataKey'),
+    newGenerateDataKey,
+    GenerateDataKeyResponse (GenerateDataKeyResponse'),
+    newGenerateDataKeyResponse,
 
     -- ** DeleteImportedKeyMaterial
-    module Network.AWS.KMS.DeleteImportedKeyMaterial,
+    DeleteImportedKeyMaterial (DeleteImportedKeyMaterial'),
+    newDeleteImportedKeyMaterial,
+    DeleteImportedKeyMaterialResponse (DeleteImportedKeyMaterialResponse'),
+    newDeleteImportedKeyMaterialResponse,
 
     -- ** ImportKeyMaterial
-    module Network.AWS.KMS.ImportKeyMaterial,
+    ImportKeyMaterial (ImportKeyMaterial'),
+    newImportKeyMaterial,
+    ImportKeyMaterialResponse (ImportKeyMaterialResponse'),
+    newImportKeyMaterialResponse,
 
     -- ** GetKeyRotationStatus
-    module Network.AWS.KMS.GetKeyRotationStatus,
+    GetKeyRotationStatus (GetKeyRotationStatus'),
+    newGetKeyRotationStatus,
+    GetKeyRotationStatusResponse (GetKeyRotationStatusResponse'),
+    newGetKeyRotationStatusResponse,
 
     -- ** ListResourceTags
-    module Network.AWS.KMS.ListResourceTags,
+    ListResourceTags (ListResourceTags'),
+    newListResourceTags,
+    ListResourceTagsResponse (ListResourceTagsResponse'),
+    newListResourceTagsResponse,
 
     -- ** PutKeyPolicy
-    module Network.AWS.KMS.PutKeyPolicy,
+    PutKeyPolicy (PutKeyPolicy'),
+    newPutKeyPolicy,
+    PutKeyPolicyResponse (PutKeyPolicyResponse'),
+    newPutKeyPolicyResponse,
 
     -- ** ListKeyPolicies (Paginated)
-    module Network.AWS.KMS.ListKeyPolicies,
+    ListKeyPolicies (ListKeyPolicies'),
+    newListKeyPolicies,
+    ListKeyPoliciesResponse (ListKeyPoliciesResponse'),
+    newListKeyPoliciesResponse,
 
     -- ** DisableKey
-    module Network.AWS.KMS.DisableKey,
+    DisableKey (DisableKey'),
+    newDisableKey,
+    DisableKeyResponse (DisableKeyResponse'),
+    newDisableKeyResponse,
 
     -- ** UntagResource
-    module Network.AWS.KMS.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DisconnectCustomKeyStore
-    module Network.AWS.KMS.DisconnectCustomKeyStore,
+    DisconnectCustomKeyStore (DisconnectCustomKeyStore'),
+    newDisconnectCustomKeyStore,
+    DisconnectCustomKeyStoreResponse (DisconnectCustomKeyStoreResponse'),
+    newDisconnectCustomKeyStoreResponse,
 
     -- ** GenerateRandom
-    module Network.AWS.KMS.GenerateRandom,
+    GenerateRandom (GenerateRandom'),
+    newGenerateRandom,
+    GenerateRandomResponse (GenerateRandomResponse'),
+    newGenerateRandomResponse,
 
     -- ** GetPublicKey
-    module Network.AWS.KMS.GetPublicKey,
+    GetPublicKey (GetPublicKey'),
+    newGetPublicKey,
+    GetPublicKeyResponse (GetPublicKeyResponse'),
+    newGetPublicKeyResponse,
 
     -- ** ReEncrypt
-    module Network.AWS.KMS.ReEncrypt,
+    ReEncrypt (ReEncrypt'),
+    newReEncrypt,
+    ReEncryptResponse (ReEncryptResponse'),
+    newReEncryptResponse,
 
     -- ** TagResource
-    module Network.AWS.KMS.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** ListRetirableGrants
-    module Network.AWS.KMS.ListRetirableGrants,
+    ListRetirableGrants (ListRetirableGrants'),
+    newListRetirableGrants,
+    ListGrantsResponse (ListGrantsResponse'),
+    newListGrantsResponse,
 
     -- ** ConnectCustomKeyStore
-    module Network.AWS.KMS.ConnectCustomKeyStore,
+    ConnectCustomKeyStore (ConnectCustomKeyStore'),
+    newConnectCustomKeyStore,
+    ConnectCustomKeyStoreResponse (ConnectCustomKeyStoreResponse'),
+    newConnectCustomKeyStoreResponse,
 
     -- ** GetParametersForImport
-    module Network.AWS.KMS.GetParametersForImport,
+    GetParametersForImport (GetParametersForImport'),
+    newGetParametersForImport,
+    GetParametersForImportResponse (GetParametersForImportResponse'),
+    newGetParametersForImportResponse,
 
     -- ** DescribeKey
-    module Network.AWS.KMS.DescribeKey,
+    DescribeKey (DescribeKey'),
+    newDescribeKey,
+    DescribeKeyResponse (DescribeKeyResponse'),
+    newDescribeKeyResponse,
 
     -- ** DeleteCustomKeyStore
-    module Network.AWS.KMS.DeleteCustomKeyStore,
+    DeleteCustomKeyStore (DeleteCustomKeyStore'),
+    newDeleteCustomKeyStore,
+    DeleteCustomKeyStoreResponse (DeleteCustomKeyStoreResponse'),
+    newDeleteCustomKeyStoreResponse,
 
     -- ** UpdateCustomKeyStore
-    module Network.AWS.KMS.UpdateCustomKeyStore,
+    UpdateCustomKeyStore (UpdateCustomKeyStore'),
+    newUpdateCustomKeyStore,
+    UpdateCustomKeyStoreResponse (UpdateCustomKeyStoreResponse'),
+    newUpdateCustomKeyStoreResponse,
 
     -- ** GenerateDataKeyWithoutPlaintext
-    module Network.AWS.KMS.GenerateDataKeyWithoutPlaintext,
+    GenerateDataKeyWithoutPlaintext (GenerateDataKeyWithoutPlaintext'),
+    newGenerateDataKeyWithoutPlaintext,
+    GenerateDataKeyWithoutPlaintextResponse (GenerateDataKeyWithoutPlaintextResponse'),
+    newGenerateDataKeyWithoutPlaintextResponse,
 
     -- ** Encrypt
-    module Network.AWS.KMS.Encrypt,
+    Encrypt (Encrypt'),
+    newEncrypt,
+    EncryptResponse (EncryptResponse'),
+    newEncryptResponse,
 
     -- ** GetKeyPolicy
-    module Network.AWS.KMS.GetKeyPolicy,
+    GetKeyPolicy (GetKeyPolicy'),
+    newGetKeyPolicy,
+    GetKeyPolicyResponse (GetKeyPolicyResponse'),
+    newGetKeyPolicyResponse,
 
     -- ** ListKeys (Paginated)
-    module Network.AWS.KMS.ListKeys,
+    ListKeys (ListKeys'),
+    newListKeys,
+    ListKeysResponse (ListKeysResponse'),
+    newListKeysResponse,
 
     -- ** RevokeGrant
-    module Network.AWS.KMS.RevokeGrant,
+    RevokeGrant (RevokeGrant'),
+    newRevokeGrant,
+    RevokeGrantResponse (RevokeGrantResponse'),
+    newRevokeGrantResponse,
 
     -- ** ScheduleKeyDeletion
-    module Network.AWS.KMS.ScheduleKeyDeletion,
+    ScheduleKeyDeletion (ScheduleKeyDeletion'),
+    newScheduleKeyDeletion,
+    ScheduleKeyDeletionResponse (ScheduleKeyDeletionResponse'),
+    newScheduleKeyDeletionResponse,
 
     -- ** EnableKey
-    module Network.AWS.KMS.EnableKey,
+    EnableKey (EnableKey'),
+    newEnableKey,
+    EnableKeyResponse (EnableKeyResponse'),
+    newEnableKeyResponse,
 
     -- ** GenerateDataKeyPair
-    module Network.AWS.KMS.GenerateDataKeyPair,
+    GenerateDataKeyPair (GenerateDataKeyPair'),
+    newGenerateDataKeyPair,
+    GenerateDataKeyPairResponse (GenerateDataKeyPairResponse'),
+    newGenerateDataKeyPairResponse,
 
     -- ** RetireGrant
-    module Network.AWS.KMS.RetireGrant,
+    RetireGrant (RetireGrant'),
+    newRetireGrant,
+    RetireGrantResponse (RetireGrantResponse'),
+    newRetireGrantResponse,
 
     -- ** CreateKey
-    module Network.AWS.KMS.CreateKey,
+    CreateKey (CreateKey'),
+    newCreateKey,
+    CreateKeyResponse (CreateKeyResponse'),
+    newCreateKeyResponse,
 
     -- ** Sign
-    module Network.AWS.KMS.Sign,
+    Sign (Sign'),
+    newSign,
+    SignResponse (SignResponse'),
+    newSignResponse,
 
     -- ** UpdateKeyDescription
-    module Network.AWS.KMS.UpdateKeyDescription,
+    UpdateKeyDescription (UpdateKeyDescription'),
+    newUpdateKeyDescription,
+    UpdateKeyDescriptionResponse (UpdateKeyDescriptionResponse'),
+    newUpdateKeyDescriptionResponse,
 
     -- ** CancelKeyDeletion
-    module Network.AWS.KMS.CancelKeyDeletion,
+    CancelKeyDeletion (CancelKeyDeletion'),
+    newCancelKeyDeletion,
+    CancelKeyDeletionResponse (CancelKeyDeletionResponse'),
+    newCancelKeyDeletionResponse,
 
     -- ** GenerateDataKeyPairWithoutPlaintext
-    module Network.AWS.KMS.GenerateDataKeyPairWithoutPlaintext,
+    GenerateDataKeyPairWithoutPlaintext (GenerateDataKeyPairWithoutPlaintext'),
+    newGenerateDataKeyPairWithoutPlaintext,
+    GenerateDataKeyPairWithoutPlaintextResponse (GenerateDataKeyPairWithoutPlaintextResponse'),
+    newGenerateDataKeyPairWithoutPlaintextResponse,
 
     -- ** DescribeCustomKeyStores
-    module Network.AWS.KMS.DescribeCustomKeyStores,
+    DescribeCustomKeyStores (DescribeCustomKeyStores'),
+    newDescribeCustomKeyStores,
+    DescribeCustomKeyStoresResponse (DescribeCustomKeyStoresResponse'),
+    newDescribeCustomKeyStoresResponse,
 
     -- ** Decrypt
-    module Network.AWS.KMS.Decrypt,
+    Decrypt (Decrypt'),
+    newDecrypt,
+    DecryptResponse (DecryptResponse'),
+    newDecryptResponse,
 
     -- ** CreateAlias
-    module Network.AWS.KMS.CreateAlias,
+    CreateAlias (CreateAlias'),
+    newCreateAlias,
+    CreateAliasResponse (CreateAliasResponse'),
+    newCreateAliasResponse,
 
     -- ** EnableKeyRotation
-    module Network.AWS.KMS.EnableKeyRotation,
+    EnableKeyRotation (EnableKeyRotation'),
+    newEnableKeyRotation,
+    EnableKeyRotationResponse (EnableKeyRotationResponse'),
+    newEnableKeyRotationResponse,
 
     -- ** ListAliases (Paginated)
-    module Network.AWS.KMS.ListAliases,
+    ListAliases (ListAliases'),
+    newListAliases,
+    ListAliasesResponse (ListAliasesResponse'),
+    newListAliasesResponse,
 
     -- ** CreateGrant
-    module Network.AWS.KMS.CreateGrant,
+    CreateGrant (CreateGrant'),
+    newCreateGrant,
+    CreateGrantResponse (CreateGrantResponse'),
+    newCreateGrantResponse,
 
     -- * Types
 
@@ -353,84 +529,36 @@ module Network.AWS.KMS
     WrappingKeySpec (..),
 
     -- ** AliasListEntry
-    AliasListEntry,
-    aliasListEntry,
-    aleLastUpdatedDate,
-    aleCreationDate,
-    aleAliasName,
-    aleAliasARN,
-    aleTargetKeyId,
+    AliasListEntry (AliasListEntry'),
+    newAliasListEntry,
 
     -- ** CustomKeyStoresListEntry
-    CustomKeyStoresListEntry,
-    customKeyStoresListEntry,
-    cksleCustomKeyStoreName,
-    cksleConnectionState,
-    cksleCustomKeyStoreId,
-    cksleCloudHSMClusterId,
-    cksleTrustAnchorCertificate,
-    cksleCreationDate,
-    cksleConnectionErrorCode,
+    CustomKeyStoresListEntry (CustomKeyStoresListEntry'),
+    newCustomKeyStoresListEntry,
 
     -- ** GrantConstraints
-    GrantConstraints,
-    grantConstraints,
-    gcEncryptionContextEquals,
-    gcEncryptionContextSubset,
+    GrantConstraints (GrantConstraints'),
+    newGrantConstraints,
 
     -- ** GrantListEntry
-    GrantListEntry,
-    grantListEntry,
-    gleConstraints,
-    gleOperations,
-    gleCreationDate,
-    gleName,
-    gleGranteePrincipal,
-    gleGrantId,
-    gleIssuingAccount,
-    gleRetiringPrincipal,
-    gleKeyId,
+    GrantListEntry (GrantListEntry'),
+    newGrantListEntry,
 
     -- ** KeyListEntry
-    KeyListEntry,
-    keyListEntry,
-    kleKeyARN,
-    kleKeyId,
+    KeyListEntry (KeyListEntry'),
+    newKeyListEntry,
 
     -- ** KeyMetadata
-    KeyMetadata,
-    keyMetadata,
-    kmSigningAlgorithms,
-    kmKeyManager,
-    kmOrigin,
-    kmAWSAccountId,
-    kmCustomKeyStoreId,
-    kmEncryptionAlgorithms,
-    kmCloudHSMClusterId,
-    kmKeyState,
-    kmARN,
-    kmCreationDate,
-    kmValidTo,
-    kmEnabled,
-    kmExpirationModel,
-    kmDescription,
-    kmDeletionDate,
-    kmKeyUsage,
-    kmCustomerMasterKeySpec,
-    kmKeyId,
+    KeyMetadata (KeyMetadata'),
+    newKeyMetadata,
 
     -- ** ListGrantsResponse
-    ListGrantsResponse,
-    listGrantsResponse,
-    lgrNextMarker,
-    lgrGrants,
-    lgrTruncated,
+    ListGrantsResponse (ListGrantsResponse'),
+    newListGrantsResponse,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagTagKey,
-    tagTagValue,
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -462,6 +590,7 @@ import Network.AWS.KMS.GetKeyRotationStatus
 import Network.AWS.KMS.GetParametersForImport
 import Network.AWS.KMS.GetPublicKey
 import Network.AWS.KMS.ImportKeyMaterial
+import Network.AWS.KMS.Lens
 import Network.AWS.KMS.ListAliases
 import Network.AWS.KMS.ListGrants
 import Network.AWS.KMS.ListKeyPolicies

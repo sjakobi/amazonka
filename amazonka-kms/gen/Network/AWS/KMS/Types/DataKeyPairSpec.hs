@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,81 +19,83 @@
 module Network.AWS.KMS.Types.DataKeyPairSpec
   ( DataKeyPairSpec
       ( ..,
-        EccNistP256,
-        EccNistP384,
-        EccNistP521,
-        EccSecgP256K1,
-        Rsa2048,
-        Rsa3072,
-        Rsa4096
+        DataKeyPairSpecECCNISTP256,
+        DataKeyPairSpecECCNISTP384,
+        DataKeyPairSpecECCNISTP521,
+        DataKeyPairSpecECCSECGP256K1,
+        DataKeyPairSpecRSA2048,
+        DataKeyPairSpecRSA3072,
+        DataKeyPairSpecRSA4096
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DataKeyPairSpec = DataKeyPairSpec' (CI Text)
+newtype DataKeyPairSpec = DataKeyPairSpec'
+  { fromDataKeyPairSpec ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EccNistP256 :: DataKeyPairSpec
-pattern EccNistP256 = DataKeyPairSpec' "ECC_NIST_P256"
+pattern DataKeyPairSpecECCNISTP256 :: DataKeyPairSpec
+pattern DataKeyPairSpecECCNISTP256 = DataKeyPairSpec' "ECC_NIST_P256"
 
-pattern EccNistP384 :: DataKeyPairSpec
-pattern EccNistP384 = DataKeyPairSpec' "ECC_NIST_P384"
+pattern DataKeyPairSpecECCNISTP384 :: DataKeyPairSpec
+pattern DataKeyPairSpecECCNISTP384 = DataKeyPairSpec' "ECC_NIST_P384"
 
-pattern EccNistP521 :: DataKeyPairSpec
-pattern EccNistP521 = DataKeyPairSpec' "ECC_NIST_P521"
+pattern DataKeyPairSpecECCNISTP521 :: DataKeyPairSpec
+pattern DataKeyPairSpecECCNISTP521 = DataKeyPairSpec' "ECC_NIST_P521"
 
-pattern EccSecgP256K1 :: DataKeyPairSpec
-pattern EccSecgP256K1 = DataKeyPairSpec' "ECC_SECG_P256K1"
+pattern DataKeyPairSpecECCSECGP256K1 :: DataKeyPairSpec
+pattern DataKeyPairSpecECCSECGP256K1 = DataKeyPairSpec' "ECC_SECG_P256K1"
 
-pattern Rsa2048 :: DataKeyPairSpec
-pattern Rsa2048 = DataKeyPairSpec' "RSA_2048"
+pattern DataKeyPairSpecRSA2048 :: DataKeyPairSpec
+pattern DataKeyPairSpecRSA2048 = DataKeyPairSpec' "RSA_2048"
 
-pattern Rsa3072 :: DataKeyPairSpec
-pattern Rsa3072 = DataKeyPairSpec' "RSA_3072"
+pattern DataKeyPairSpecRSA3072 :: DataKeyPairSpec
+pattern DataKeyPairSpecRSA3072 = DataKeyPairSpec' "RSA_3072"
 
-pattern Rsa4096 :: DataKeyPairSpec
-pattern Rsa4096 = DataKeyPairSpec' "RSA_4096"
+pattern DataKeyPairSpecRSA4096 :: DataKeyPairSpec
+pattern DataKeyPairSpecRSA4096 = DataKeyPairSpec' "RSA_4096"
 
 {-# COMPLETE
-  EccNistP256,
-  EccNistP384,
-  EccNistP521,
-  EccSecgP256K1,
-  Rsa2048,
-  Rsa3072,
-  Rsa4096,
+  DataKeyPairSpecECCNISTP256,
+  DataKeyPairSpecECCNISTP384,
+  DataKeyPairSpecECCNISTP521,
+  DataKeyPairSpecECCSECGP256K1,
+  DataKeyPairSpecRSA2048,
+  DataKeyPairSpecRSA3072,
+  DataKeyPairSpecRSA4096,
   DataKeyPairSpec'
   #-}
 
-instance FromText DataKeyPairSpec where
-  parser = (DataKeyPairSpec' . mk) <$> takeText
+instance Prelude.FromText DataKeyPairSpec where
+  parser = DataKeyPairSpec' Prelude.<$> Prelude.takeText
 
-instance ToText DataKeyPairSpec where
-  toText (DataKeyPairSpec' ci) = original ci
+instance Prelude.ToText DataKeyPairSpec where
+  toText (DataKeyPairSpec' x) = x
 
-instance Hashable DataKeyPairSpec
+instance Prelude.Hashable DataKeyPairSpec
 
-instance NFData DataKeyPairSpec
+instance Prelude.NFData DataKeyPairSpec
 
-instance ToByteString DataKeyPairSpec
+instance Prelude.ToByteString DataKeyPairSpec
 
-instance ToQuery DataKeyPairSpec
+instance Prelude.ToQuery DataKeyPairSpec
 
-instance ToHeader DataKeyPairSpec
+instance Prelude.ToHeader DataKeyPairSpec
 
-instance ToJSON DataKeyPairSpec where
-  toJSON = toJSONText
+instance Prelude.ToJSON DataKeyPairSpec where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DataKeyPairSpec where
-  parseJSON = parseJSONText "DataKeyPairSpec"
+instance Prelude.FromJSON DataKeyPairSpec where
+  parseJSON = Prelude.parseJSONText "DataKeyPairSpec"

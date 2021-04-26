@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,165 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Connects or reconnects a <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store> to its associated AWS CloudHSM cluster.
+-- Connects or reconnects a
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store>
+-- to its associated AWS CloudHSM cluster.
 --
+-- The custom key store must be connected before you can create customer
+-- master keys (CMKs) in the key store or use the CMKs it contains. You can
+-- disconnect and reconnect a custom key store at any time.
 --
--- The custom key store must be connected before you can create customer master keys (CMKs) in the key store or use the CMKs it contains. You can disconnect and reconnect a custom key store at any time.
+-- To connect a custom key store, its associated AWS CloudHSM cluster must
+-- have at least one active HSM. To get the number of active HSMs in a
+-- cluster, use the
+-- <https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html DescribeClusters>
+-- operation. To add HSMs to the cluster, use the
+-- <https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_CreateHsm.html CreateHsm>
+-- operation. Also, the
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-store-concepts.html#concept-kmsuser kmsuser crypto user>
+-- (CU) must not be logged into the cluster. This prevents AWS KMS from
+-- using this account to log in.
 --
--- To connect a custom key store, its associated AWS CloudHSM cluster must have at least one active HSM. To get the number of active HSMs in a cluster, use the <https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html DescribeClusters> operation. To add HSMs to the cluster, use the <https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_CreateHsm.html CreateHsm> operation. Also, the <https://docs.aws.amazon.com/kms/latest/developerguide/key-store-concepts.html#concept-kmsuser @kmsuser@ crypto user> (CU) must not be logged into the cluster. This prevents AWS KMS from using this account to log in.
+-- The connection process can take an extended amount of time to complete;
+-- up to 20 minutes. This operation starts the connection process, but it
+-- does not wait for it to complete. When it succeeds, this operation
+-- quickly returns an HTTP 200 response and a JSON object with no
+-- properties. However, this response does not indicate that the custom key
+-- store is connected. To get the connection state of the custom key store,
+-- use the DescribeCustomKeyStores operation.
 --
--- The connection process can take an extended amount of time to complete; up to 20 minutes. This operation starts the connection process, but it does not wait for it to complete. When it succeeds, this operation quickly returns an HTTP 200 response and a JSON object with no properties. However, this response does not indicate that the custom key store is connected. To get the connection state of the custom key store, use the 'DescribeCustomKeyStores' operation.
+-- During the connection process, AWS KMS finds the AWS CloudHSM cluster
+-- that is associated with the custom key store, creates the connection
+-- infrastructure, connects to the cluster, logs into the AWS CloudHSM
+-- client as the @kmsuser@ CU, and rotates its password.
 --
--- During the connection process, AWS KMS finds the AWS CloudHSM cluster that is associated with the custom key store, creates the connection infrastructure, connects to the cluster, logs into the AWS CloudHSM client as the @kmsuser@ CU, and rotates its password.
+-- The @ConnectCustomKeyStore@ operation might fail for various reasons. To
+-- find the reason, use the DescribeCustomKeyStores operation and see the
+-- @ConnectionErrorCode@ in the response. For help interpreting the
+-- @ConnectionErrorCode@, see CustomKeyStoresListEntry.
 --
--- The @ConnectCustomKeyStore@ operation might fail for various reasons. To find the reason, use the 'DescribeCustomKeyStores' operation and see the @ConnectionErrorCode@ in the response. For help interpreting the @ConnectionErrorCode@ , see 'CustomKeyStoresListEntry' .
+-- To fix the failure, use the DisconnectCustomKeyStore operation to
+-- disconnect the custom key store, correct the error, use the
+-- UpdateCustomKeyStore operation if necessary, and then use
+-- @ConnectCustomKeyStore@ again.
 --
--- To fix the failure, use the 'DisconnectCustomKeyStore' operation to disconnect the custom key store, correct the error, use the 'UpdateCustomKeyStore' operation if necessary, and then use @ConnectCustomKeyStore@ again.
+-- If you are having trouble connecting or disconnecting a custom key
+-- store, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html Troubleshooting a Custom Key Store>
+-- in the /AWS Key Management Service Developer Guide/.
 --
--- If you are having trouble connecting or disconnecting a custom key store, see <https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html Troubleshooting a Custom Key Store> in the /AWS Key Management Service Developer Guide/ .
+-- __Cross-account use__: No. You cannot perform this operation on a custom
+-- key store in a different AWS account.
 --
--- __Cross-account use__ : No. You cannot perform this operation on a custom key store in a different AWS account.
---
--- __Required permissions__ : <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ConnectCustomKeyStore> (IAM policy)
+-- __Required permissions__:
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:ConnectCustomKeyStore>
+-- (IAM policy)
 --
 -- __Related operations__
 --
---     * 'CreateCustomKeyStore'
+-- -   CreateCustomKeyStore
 --
---     * 'DeleteCustomKeyStore'
+-- -   DeleteCustomKeyStore
 --
---     * 'DescribeCustomKeyStores'
+-- -   DescribeCustomKeyStores
 --
---     * 'DisconnectCustomKeyStore'
+-- -   DisconnectCustomKeyStore
 --
---     * 'UpdateCustomKeyStore'
+-- -   UpdateCustomKeyStore
 module Network.AWS.KMS.ConnectCustomKeyStore
   ( -- * Creating a Request
-    connectCustomKeyStore,
-    ConnectCustomKeyStore,
+    ConnectCustomKeyStore (..),
+    newConnectCustomKeyStore,
 
     -- * Request Lenses
-    ccksCustomKeyStoreId,
+    connectCustomKeyStore_customKeyStoreId,
 
     -- * Destructuring the Response
-    connectCustomKeyStoreResponse,
-    ConnectCustomKeyStoreResponse,
+    ConnectCustomKeyStoreResponse (..),
+    newConnectCustomKeyStoreResponse,
 
     -- * Response Lenses
-    crsResponseStatus,
+    connectCustomKeyStoreResponse_httpStatus,
   )
 where
 
 import Network.AWS.KMS.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'connectCustomKeyStore' smart constructor.
-newtype ConnectCustomKeyStore = ConnectCustomKeyStore'
-  { _ccksCustomKeyStoreId ::
-      Text
+-- | /See:/ 'newConnectCustomKeyStore' smart constructor.
+data ConnectCustomKeyStore = ConnectCustomKeyStore'
+  { -- | Enter the key store ID of the custom key store that you want to connect.
+    -- To find the ID of a custom key store, use the DescribeCustomKeyStores
+    -- operation.
+    customKeyStoreId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectCustomKeyStore' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectCustomKeyStore' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccksCustomKeyStoreId' - Enter the key store ID of the custom key store that you want to connect. To find the ID of a custom key store, use the 'DescribeCustomKeyStores' operation.
-connectCustomKeyStore ::
-  -- | 'ccksCustomKeyStoreId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'customKeyStoreId', 'connectCustomKeyStore_customKeyStoreId' - Enter the key store ID of the custom key store that you want to connect.
+-- To find the ID of a custom key store, use the DescribeCustomKeyStores
+-- operation.
+newConnectCustomKeyStore ::
+  -- | 'customKeyStoreId'
+  Prelude.Text ->
   ConnectCustomKeyStore
-connectCustomKeyStore pCustomKeyStoreId_ =
+newConnectCustomKeyStore pCustomKeyStoreId_ =
   ConnectCustomKeyStore'
-    { _ccksCustomKeyStoreId =
+    { customKeyStoreId =
         pCustomKeyStoreId_
     }
 
--- | Enter the key store ID of the custom key store that you want to connect. To find the ID of a custom key store, use the 'DescribeCustomKeyStores' operation.
-ccksCustomKeyStoreId :: Lens' ConnectCustomKeyStore Text
-ccksCustomKeyStoreId = lens _ccksCustomKeyStoreId (\s a -> s {_ccksCustomKeyStoreId = a})
+-- | Enter the key store ID of the custom key store that you want to connect.
+-- To find the ID of a custom key store, use the DescribeCustomKeyStores
+-- operation.
+connectCustomKeyStore_customKeyStoreId :: Lens.Lens' ConnectCustomKeyStore Prelude.Text
+connectCustomKeyStore_customKeyStoreId = Lens.lens (\ConnectCustomKeyStore' {customKeyStoreId} -> customKeyStoreId) (\s@ConnectCustomKeyStore' {} a -> s {customKeyStoreId = a} :: ConnectCustomKeyStore)
 
-instance AWSRequest ConnectCustomKeyStore where
+instance Prelude.AWSRequest ConnectCustomKeyStore where
   type
     Rs ConnectCustomKeyStore =
       ConnectCustomKeyStoreResponse
-  request = postJSON kms
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ConnectCustomKeyStoreResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ConnectCustomKeyStore
+instance Prelude.Hashable ConnectCustomKeyStore
 
-instance NFData ConnectCustomKeyStore
+instance Prelude.NFData ConnectCustomKeyStore
 
-instance ToHeaders ConnectCustomKeyStore where
+instance Prelude.ToHeaders ConnectCustomKeyStore where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("TrentService.ConnectCustomKeyStore" :: ByteString),
+              Prelude.=# ( "TrentService.ConnectCustomKeyStore" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ConnectCustomKeyStore where
+instance Prelude.ToJSON ConnectCustomKeyStore where
   toJSON ConnectCustomKeyStore' {..} =
-    object
-      ( catMaybes
-          [Just ("CustomKeyStoreId" .= _ccksCustomKeyStoreId)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("CustomKeyStoreId" Prelude..= customKeyStoreId)
+          ]
       )
 
-instance ToPath ConnectCustomKeyStore where
-  toPath = const "/"
+instance Prelude.ToPath ConnectCustomKeyStore where
+  toPath = Prelude.const "/"
 
-instance ToQuery ConnectCustomKeyStore where
-  toQuery = const mempty
+instance Prelude.ToQuery ConnectCustomKeyStore where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'connectCustomKeyStoreResponse' smart constructor.
-newtype ConnectCustomKeyStoreResponse = ConnectCustomKeyStoreResponse'
-  { _crsResponseStatus ::
-      Int
+-- | /See:/ 'newConnectCustomKeyStoreResponse' smart constructor.
+data ConnectCustomKeyStoreResponse = ConnectCustomKeyStoreResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConnectCustomKeyStoreResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConnectCustomKeyStoreResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crsResponseStatus' - -- | The response status code.
-connectCustomKeyStoreResponse ::
-  -- | 'crsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'connectCustomKeyStoreResponse_httpStatus' - The response's http status code.
+newConnectCustomKeyStoreResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ConnectCustomKeyStoreResponse
-connectCustomKeyStoreResponse pResponseStatus_ =
+newConnectCustomKeyStoreResponse pHttpStatus_ =
   ConnectCustomKeyStoreResponse'
-    { _crsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-crsResponseStatus :: Lens' ConnectCustomKeyStoreResponse Int
-crsResponseStatus = lens _crsResponseStatus (\s a -> s {_crsResponseStatus = a})
+-- | The response's http status code.
+connectCustomKeyStoreResponse_httpStatus :: Lens.Lens' ConnectCustomKeyStoreResponse Prelude.Int
+connectCustomKeyStoreResponse_httpStatus = Lens.lens (\ConnectCustomKeyStoreResponse' {httpStatus} -> httpStatus) (\s@ConnectCustomKeyStoreResponse' {} a -> s {httpStatus = a} :: ConnectCustomKeyStoreResponse)
 
-instance NFData ConnectCustomKeyStoreResponse
+instance Prelude.NFData ConnectCustomKeyStoreResponse

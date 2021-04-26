@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +19,90 @@
 module Network.AWS.KMS.Types.ConnectionErrorCodeType
   ( ConnectionErrorCodeType
       ( ..,
-        ClusterNotFound,
-        InsufficientCloudhsmHSMs,
-        InternalError,
-        InvalidCredentials,
-        NetworkErrors,
-        SubnetNotFound,
-        UserLockedOut,
-        UserLoggedIn,
-        UserNotFound
+        ConnectionErrorCodeTypeCLUSTERNOTFOUND,
+        ConnectionErrorCodeTypeINSUFFICIENTCLOUDHSMHSMS,
+        ConnectionErrorCodeTypeINTERNALERROR,
+        ConnectionErrorCodeTypeINVALIDCREDENTIALS,
+        ConnectionErrorCodeTypeNETWORKERRORS,
+        ConnectionErrorCodeTypeSUBNETNOTFOUND,
+        ConnectionErrorCodeTypeUSERLOCKEDOUT,
+        ConnectionErrorCodeTypeUSERLOGGEDIN,
+        ConnectionErrorCodeTypeUSERNOTFOUND
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionErrorCodeType
-  = ConnectionErrorCodeType'
-      ( CI
-          Text
-      )
+newtype ConnectionErrorCodeType = ConnectionErrorCodeType'
+  { fromConnectionErrorCodeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ClusterNotFound :: ConnectionErrorCodeType
-pattern ClusterNotFound = ConnectionErrorCodeType' "CLUSTER_NOT_FOUND"
+pattern ConnectionErrorCodeTypeCLUSTERNOTFOUND :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeCLUSTERNOTFOUND = ConnectionErrorCodeType' "CLUSTER_NOT_FOUND"
 
-pattern InsufficientCloudhsmHSMs :: ConnectionErrorCodeType
-pattern InsufficientCloudhsmHSMs = ConnectionErrorCodeType' "INSUFFICIENT_CLOUDHSM_HSMS"
+pattern ConnectionErrorCodeTypeINSUFFICIENTCLOUDHSMHSMS :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeINSUFFICIENTCLOUDHSMHSMS = ConnectionErrorCodeType' "INSUFFICIENT_CLOUDHSM_HSMS"
 
-pattern InternalError :: ConnectionErrorCodeType
-pattern InternalError = ConnectionErrorCodeType' "INTERNAL_ERROR"
+pattern ConnectionErrorCodeTypeINTERNALERROR :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeINTERNALERROR = ConnectionErrorCodeType' "INTERNAL_ERROR"
 
-pattern InvalidCredentials :: ConnectionErrorCodeType
-pattern InvalidCredentials = ConnectionErrorCodeType' "INVALID_CREDENTIALS"
+pattern ConnectionErrorCodeTypeINVALIDCREDENTIALS :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeINVALIDCREDENTIALS = ConnectionErrorCodeType' "INVALID_CREDENTIALS"
 
-pattern NetworkErrors :: ConnectionErrorCodeType
-pattern NetworkErrors = ConnectionErrorCodeType' "NETWORK_ERRORS"
+pattern ConnectionErrorCodeTypeNETWORKERRORS :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeNETWORKERRORS = ConnectionErrorCodeType' "NETWORK_ERRORS"
 
-pattern SubnetNotFound :: ConnectionErrorCodeType
-pattern SubnetNotFound = ConnectionErrorCodeType' "SUBNET_NOT_FOUND"
+pattern ConnectionErrorCodeTypeSUBNETNOTFOUND :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeSUBNETNOTFOUND = ConnectionErrorCodeType' "SUBNET_NOT_FOUND"
 
-pattern UserLockedOut :: ConnectionErrorCodeType
-pattern UserLockedOut = ConnectionErrorCodeType' "USER_LOCKED_OUT"
+pattern ConnectionErrorCodeTypeUSERLOCKEDOUT :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeUSERLOCKEDOUT = ConnectionErrorCodeType' "USER_LOCKED_OUT"
 
-pattern UserLoggedIn :: ConnectionErrorCodeType
-pattern UserLoggedIn = ConnectionErrorCodeType' "USER_LOGGED_IN"
+pattern ConnectionErrorCodeTypeUSERLOGGEDIN :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeUSERLOGGEDIN = ConnectionErrorCodeType' "USER_LOGGED_IN"
 
-pattern UserNotFound :: ConnectionErrorCodeType
-pattern UserNotFound = ConnectionErrorCodeType' "USER_NOT_FOUND"
+pattern ConnectionErrorCodeTypeUSERNOTFOUND :: ConnectionErrorCodeType
+pattern ConnectionErrorCodeTypeUSERNOTFOUND = ConnectionErrorCodeType' "USER_NOT_FOUND"
 
 {-# COMPLETE
-  ClusterNotFound,
-  InsufficientCloudhsmHSMs,
-  InternalError,
-  InvalidCredentials,
-  NetworkErrors,
-  SubnetNotFound,
-  UserLockedOut,
-  UserLoggedIn,
-  UserNotFound,
+  ConnectionErrorCodeTypeCLUSTERNOTFOUND,
+  ConnectionErrorCodeTypeINSUFFICIENTCLOUDHSMHSMS,
+  ConnectionErrorCodeTypeINTERNALERROR,
+  ConnectionErrorCodeTypeINVALIDCREDENTIALS,
+  ConnectionErrorCodeTypeNETWORKERRORS,
+  ConnectionErrorCodeTypeSUBNETNOTFOUND,
+  ConnectionErrorCodeTypeUSERLOCKEDOUT,
+  ConnectionErrorCodeTypeUSERLOGGEDIN,
+  ConnectionErrorCodeTypeUSERNOTFOUND,
   ConnectionErrorCodeType'
   #-}
 
-instance FromText ConnectionErrorCodeType where
-  parser = (ConnectionErrorCodeType' . mk) <$> takeText
+instance Prelude.FromText ConnectionErrorCodeType where
+  parser = ConnectionErrorCodeType' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionErrorCodeType where
-  toText (ConnectionErrorCodeType' ci) = original ci
+instance Prelude.ToText ConnectionErrorCodeType where
+  toText (ConnectionErrorCodeType' x) = x
 
-instance Hashable ConnectionErrorCodeType
+instance Prelude.Hashable ConnectionErrorCodeType
 
-instance NFData ConnectionErrorCodeType
+instance Prelude.NFData ConnectionErrorCodeType
 
-instance ToByteString ConnectionErrorCodeType
+instance Prelude.ToByteString ConnectionErrorCodeType
 
-instance ToQuery ConnectionErrorCodeType
+instance Prelude.ToQuery ConnectionErrorCodeType
 
-instance ToHeader ConnectionErrorCodeType
+instance Prelude.ToHeader ConnectionErrorCodeType
 
-instance FromJSON ConnectionErrorCodeType where
-  parseJSON = parseJSONText "ConnectionErrorCodeType"
+instance Prelude.FromJSON ConnectionErrorCodeType where
+  parseJSON = Prelude.parseJSONText "ConnectionErrorCodeType"
