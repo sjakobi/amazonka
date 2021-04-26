@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,108 +22,145 @@ module Network.AWS.IoTAnalytics.Types.Channel where
 import Network.AWS.IoTAnalytics.Types.ChannelStatus
 import Network.AWS.IoTAnalytics.Types.ChannelStorage
 import Network.AWS.IoTAnalytics.Types.RetentionPeriod
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A collection of data from an MQTT topic. Channels archive the raw, unprocessed messages before publishing the data to a pipeline.
+-- | A collection of data from an MQTT topic. Channels archive the raw,
+-- unprocessed messages before publishing the data to a pipeline.
 --
---
---
--- /See:/ 'channel' smart constructor.
+-- /See:/ 'newChannel' smart constructor.
 data Channel = Channel'
-  { _chaLastMessageArrivalTime ::
-      !(Maybe POSIX),
-    _chaStatus :: !(Maybe ChannelStatus),
-    _chaCreationTime :: !(Maybe POSIX),
-    _chaLastUpdateTime :: !(Maybe POSIX),
-    _chaArn :: !(Maybe Text),
-    _chaName :: !(Maybe Text),
-    _chaRetentionPeriod :: !(Maybe RetentionPeriod),
-    _chaStorage :: !(Maybe ChannelStorage)
+  { -- | The last time when a new message arrived in the channel.
+    --
+    -- AWS IoT Analytics updates this value at most once per minute for one
+    -- channel. Hence, the @lastMessageArrivalTime@ value is an approximation.
+    --
+    -- This feature only applies to messages that arrived in the data store
+    -- after October 23, 2020.
+    lastMessageArrivalTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the channel.
+    status :: Prelude.Maybe ChannelStatus,
+    -- | When the channel was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | When the channel was last updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of the channel.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the channel.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | How long, in days, message data is kept for the channel.
+    retentionPeriod :: Prelude.Maybe RetentionPeriod,
+    -- | Where channel data is stored. You can choose one of @serviceManagedS3@
+    -- or @customerManagedS3@ storage. If not specified, the default is
+    -- @serviceManagedS3@. You cannot change this storage option after the
+    -- channel is created.
+    storage :: Prelude.Maybe ChannelStorage
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Channel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Channel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'chaLastMessageArrivalTime' - The last time when a new message arrived in the channel. AWS IoT Analytics updates this value at most once per minute for one channel. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'chaStatus' - The status of the channel.
+-- 'lastMessageArrivalTime', 'channel_lastMessageArrivalTime' - The last time when a new message arrived in the channel.
 --
--- * 'chaCreationTime' - When the channel was created.
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- channel. Hence, the @lastMessageArrivalTime@ value is an approximation.
 --
--- * 'chaLastUpdateTime' - When the channel was last updated.
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
 --
--- * 'chaArn' - The ARN of the channel.
+-- 'status', 'channel_status' - The status of the channel.
 --
--- * 'chaName' - The name of the channel.
+-- 'creationTime', 'channel_creationTime' - When the channel was created.
 --
--- * 'chaRetentionPeriod' - How long, in days, message data is kept for the channel.
+-- 'lastUpdateTime', 'channel_lastUpdateTime' - When the channel was last updated.
 --
--- * 'chaStorage' - Where channel data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the channel is created.
-channel ::
+-- 'arn', 'channel_arn' - The ARN of the channel.
+--
+-- 'name', 'channel_name' - The name of the channel.
+--
+-- 'retentionPeriod', 'channel_retentionPeriod' - How long, in days, message data is kept for the channel.
+--
+-- 'storage', 'channel_storage' - Where channel data is stored. You can choose one of @serviceManagedS3@
+-- or @customerManagedS3@ storage. If not specified, the default is
+-- @serviceManagedS3@. You cannot change this storage option after the
+-- channel is created.
+newChannel ::
   Channel
-channel =
+newChannel =
   Channel'
-    { _chaLastMessageArrivalTime = Nothing,
-      _chaStatus = Nothing,
-      _chaCreationTime = Nothing,
-      _chaLastUpdateTime = Nothing,
-      _chaArn = Nothing,
-      _chaName = Nothing,
-      _chaRetentionPeriod = Nothing,
-      _chaStorage = Nothing
+    { lastMessageArrivalTime = Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      retentionPeriod = Prelude.Nothing,
+      storage = Prelude.Nothing
     }
 
--- | The last time when a new message arrived in the channel. AWS IoT Analytics updates this value at most once per minute for one channel. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
-chaLastMessageArrivalTime :: Lens' Channel (Maybe UTCTime)
-chaLastMessageArrivalTime = lens _chaLastMessageArrivalTime (\s a -> s {_chaLastMessageArrivalTime = a}) . mapping _Time
+-- | The last time when a new message arrived in the channel.
+--
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- channel. Hence, the @lastMessageArrivalTime@ value is an approximation.
+--
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
+channel_lastMessageArrivalTime :: Lens.Lens' Channel (Prelude.Maybe Prelude.UTCTime)
+channel_lastMessageArrivalTime = Lens.lens (\Channel' {lastMessageArrivalTime} -> lastMessageArrivalTime) (\s@Channel' {} a -> s {lastMessageArrivalTime = a} :: Channel) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the channel.
-chaStatus :: Lens' Channel (Maybe ChannelStatus)
-chaStatus = lens _chaStatus (\s a -> s {_chaStatus = a})
+channel_status :: Lens.Lens' Channel (Prelude.Maybe ChannelStatus)
+channel_status = Lens.lens (\Channel' {status} -> status) (\s@Channel' {} a -> s {status = a} :: Channel)
 
 -- | When the channel was created.
-chaCreationTime :: Lens' Channel (Maybe UTCTime)
-chaCreationTime = lens _chaCreationTime (\s a -> s {_chaCreationTime = a}) . mapping _Time
+channel_creationTime :: Lens.Lens' Channel (Prelude.Maybe Prelude.UTCTime)
+channel_creationTime = Lens.lens (\Channel' {creationTime} -> creationTime) (\s@Channel' {} a -> s {creationTime = a} :: Channel) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the channel was last updated.
-chaLastUpdateTime :: Lens' Channel (Maybe UTCTime)
-chaLastUpdateTime = lens _chaLastUpdateTime (\s a -> s {_chaLastUpdateTime = a}) . mapping _Time
+channel_lastUpdateTime :: Lens.Lens' Channel (Prelude.Maybe Prelude.UTCTime)
+channel_lastUpdateTime = Lens.lens (\Channel' {lastUpdateTime} -> lastUpdateTime) (\s@Channel' {} a -> s {lastUpdateTime = a} :: Channel) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ARN of the channel.
-chaArn :: Lens' Channel (Maybe Text)
-chaArn = lens _chaArn (\s a -> s {_chaArn = a})
+channel_arn :: Lens.Lens' Channel (Prelude.Maybe Prelude.Text)
+channel_arn = Lens.lens (\Channel' {arn} -> arn) (\s@Channel' {} a -> s {arn = a} :: Channel)
 
 -- | The name of the channel.
-chaName :: Lens' Channel (Maybe Text)
-chaName = lens _chaName (\s a -> s {_chaName = a})
+channel_name :: Lens.Lens' Channel (Prelude.Maybe Prelude.Text)
+channel_name = Lens.lens (\Channel' {name} -> name) (\s@Channel' {} a -> s {name = a} :: Channel)
 
 -- | How long, in days, message data is kept for the channel.
-chaRetentionPeriod :: Lens' Channel (Maybe RetentionPeriod)
-chaRetentionPeriod = lens _chaRetentionPeriod (\s a -> s {_chaRetentionPeriod = a})
+channel_retentionPeriod :: Lens.Lens' Channel (Prelude.Maybe RetentionPeriod)
+channel_retentionPeriod = Lens.lens (\Channel' {retentionPeriod} -> retentionPeriod) (\s@Channel' {} a -> s {retentionPeriod = a} :: Channel)
 
--- | Where channel data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the channel is created.
-chaStorage :: Lens' Channel (Maybe ChannelStorage)
-chaStorage = lens _chaStorage (\s a -> s {_chaStorage = a})
+-- | Where channel data is stored. You can choose one of @serviceManagedS3@
+-- or @customerManagedS3@ storage. If not specified, the default is
+-- @serviceManagedS3@. You cannot change this storage option after the
+-- channel is created.
+channel_storage :: Lens.Lens' Channel (Prelude.Maybe ChannelStorage)
+channel_storage = Lens.lens (\Channel' {storage} -> storage) (\s@Channel' {} a -> s {storage = a} :: Channel)
 
-instance FromJSON Channel where
+instance Prelude.FromJSON Channel where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Channel"
       ( \x ->
           Channel'
-            <$> (x .:? "lastMessageArrivalTime")
-            <*> (x .:? "status")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "lastUpdateTime")
-            <*> (x .:? "arn")
-            <*> (x .:? "name")
-            <*> (x .:? "retentionPeriod")
-            <*> (x .:? "storage")
+            Prelude.<$> (x Prelude..:? "lastMessageArrivalTime")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "lastUpdateTime")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "retentionPeriod")
+            Prelude.<*> (x Prelude..:? "storage")
       )
 
-instance Hashable Channel
+instance Prelude.Hashable Channel
 
-instance NFData Channel
+instance Prelude.NFData Channel

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,155 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a sample of messages from the specified channel ingested during the specified timeframe. Up to 10 messages can be retrieved.
+-- Retrieves a sample of messages from the specified channel ingested
+-- during the specified timeframe. Up to 10 messages can be retrieved.
 module Network.AWS.IoTAnalytics.SampleChannelData
   ( -- * Creating a Request
-    sampleChannelData,
-    SampleChannelData,
+    SampleChannelData (..),
+    newSampleChannelData,
 
     -- * Request Lenses
-    scdMaxMessages,
-    scdStartTime,
-    scdEndTime,
-    scdChannelName,
+    sampleChannelData_maxMessages,
+    sampleChannelData_startTime,
+    sampleChannelData_endTime,
+    sampleChannelData_channelName,
 
     -- * Destructuring the Response
-    sampleChannelDataResponse,
-    SampleChannelDataResponse,
+    SampleChannelDataResponse (..),
+    newSampleChannelDataResponse,
 
     -- * Response Lenses
-    scdrrsPayloads,
-    scdrrsResponseStatus,
+    sampleChannelDataResponse_payloads,
+    sampleChannelDataResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'sampleChannelData' smart constructor.
+-- | /See:/ 'newSampleChannelData' smart constructor.
 data SampleChannelData = SampleChannelData'
-  { _scdMaxMessages ::
-      !(Maybe Nat),
-    _scdStartTime :: !(Maybe POSIX),
-    _scdEndTime :: !(Maybe POSIX),
-    _scdChannelName :: !Text
+  { -- | The number of sample messages to be retrieved. The limit is 10. The
+    -- default is also 10.
+    maxMessages :: Prelude.Maybe Prelude.Nat,
+    -- | The start of the time window from which sample messages are retrieved.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The end of the time window from which sample messages are retrieved.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the channel whose message samples are retrieved.
+    channelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SampleChannelData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SampleChannelData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scdMaxMessages' - The number of sample messages to be retrieved. The limit is 10. The default is also 10.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scdStartTime' - The start of the time window from which sample messages are retrieved.
+-- 'maxMessages', 'sampleChannelData_maxMessages' - The number of sample messages to be retrieved. The limit is 10. The
+-- default is also 10.
 --
--- * 'scdEndTime' - The end of the time window from which sample messages are retrieved.
+-- 'startTime', 'sampleChannelData_startTime' - The start of the time window from which sample messages are retrieved.
 --
--- * 'scdChannelName' - The name of the channel whose message samples are retrieved.
-sampleChannelData ::
-  -- | 'scdChannelName'
-  Text ->
+-- 'endTime', 'sampleChannelData_endTime' - The end of the time window from which sample messages are retrieved.
+--
+-- 'channelName', 'sampleChannelData_channelName' - The name of the channel whose message samples are retrieved.
+newSampleChannelData ::
+  -- | 'channelName'
+  Prelude.Text ->
   SampleChannelData
-sampleChannelData pChannelName_ =
+newSampleChannelData pChannelName_ =
   SampleChannelData'
-    { _scdMaxMessages = Nothing,
-      _scdStartTime = Nothing,
-      _scdEndTime = Nothing,
-      _scdChannelName = pChannelName_
+    { maxMessages = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      channelName = pChannelName_
     }
 
--- | The number of sample messages to be retrieved. The limit is 10. The default is also 10.
-scdMaxMessages :: Lens' SampleChannelData (Maybe Natural)
-scdMaxMessages = lens _scdMaxMessages (\s a -> s {_scdMaxMessages = a}) . mapping _Nat
+-- | The number of sample messages to be retrieved. The limit is 10. The
+-- default is also 10.
+sampleChannelData_maxMessages :: Lens.Lens' SampleChannelData (Prelude.Maybe Prelude.Natural)
+sampleChannelData_maxMessages = Lens.lens (\SampleChannelData' {maxMessages} -> maxMessages) (\s@SampleChannelData' {} a -> s {maxMessages = a} :: SampleChannelData) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The start of the time window from which sample messages are retrieved.
-scdStartTime :: Lens' SampleChannelData (Maybe UTCTime)
-scdStartTime = lens _scdStartTime (\s a -> s {_scdStartTime = a}) . mapping _Time
+sampleChannelData_startTime :: Lens.Lens' SampleChannelData (Prelude.Maybe Prelude.UTCTime)
+sampleChannelData_startTime = Lens.lens (\SampleChannelData' {startTime} -> startTime) (\s@SampleChannelData' {} a -> s {startTime = a} :: SampleChannelData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The end of the time window from which sample messages are retrieved.
-scdEndTime :: Lens' SampleChannelData (Maybe UTCTime)
-scdEndTime = lens _scdEndTime (\s a -> s {_scdEndTime = a}) . mapping _Time
+sampleChannelData_endTime :: Lens.Lens' SampleChannelData (Prelude.Maybe Prelude.UTCTime)
+sampleChannelData_endTime = Lens.lens (\SampleChannelData' {endTime} -> endTime) (\s@SampleChannelData' {} a -> s {endTime = a} :: SampleChannelData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the channel whose message samples are retrieved.
-scdChannelName :: Lens' SampleChannelData Text
-scdChannelName = lens _scdChannelName (\s a -> s {_scdChannelName = a})
+sampleChannelData_channelName :: Lens.Lens' SampleChannelData Prelude.Text
+sampleChannelData_channelName = Lens.lens (\SampleChannelData' {channelName} -> channelName) (\s@SampleChannelData' {} a -> s {channelName = a} :: SampleChannelData)
 
-instance AWSRequest SampleChannelData where
+instance Prelude.AWSRequest SampleChannelData where
   type Rs SampleChannelData = SampleChannelDataResponse
-  request = get ioTAnalytics
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SampleChannelDataResponse'
-            <$> (x .?> "payloads") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "payloads")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SampleChannelData
+instance Prelude.Hashable SampleChannelData
 
-instance NFData SampleChannelData
+instance Prelude.NFData SampleChannelData
 
-instance ToHeaders SampleChannelData where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SampleChannelData where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SampleChannelData where
+instance Prelude.ToPath SampleChannelData where
   toPath SampleChannelData' {..} =
-    mconcat
-      ["/channels/", toBS _scdChannelName, "/sample"]
+    Prelude.mconcat
+      ["/channels/", Prelude.toBS channelName, "/sample"]
 
-instance ToQuery SampleChannelData where
+instance Prelude.ToQuery SampleChannelData where
   toQuery SampleChannelData' {..} =
-    mconcat
-      [ "maxMessages" =: _scdMaxMessages,
-        "startTime" =: _scdStartTime,
-        "endTime" =: _scdEndTime
+    Prelude.mconcat
+      [ "maxMessages" Prelude.=: maxMessages,
+        "startTime" Prelude.=: startTime,
+        "endTime" Prelude.=: endTime
       ]
 
--- | /See:/ 'sampleChannelDataResponse' smart constructor.
+-- | /See:/ 'newSampleChannelDataResponse' smart constructor.
 data SampleChannelDataResponse = SampleChannelDataResponse'
-  { _scdrrsPayloads ::
-      !( Maybe
-           (List1 Base64)
-       ),
-    _scdrrsResponseStatus ::
-      !Int
+  { -- | The list of message samples. Each sample message is returned as a
+    -- base64-encoded string.
+    payloads :: Prelude.Maybe (Prelude.List1 Prelude.Base64),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SampleChannelDataResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SampleChannelDataResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'scdrrsPayloads' - The list of message samples. Each sample message is returned as a base64-encoded string.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'scdrrsResponseStatus' - -- | The response status code.
-sampleChannelDataResponse ::
-  -- | 'scdrrsResponseStatus'
-  Int ->
+-- 'payloads', 'sampleChannelDataResponse_payloads' - The list of message samples. Each sample message is returned as a
+-- base64-encoded string.
+--
+-- 'httpStatus', 'sampleChannelDataResponse_httpStatus' - The response's http status code.
+newSampleChannelDataResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SampleChannelDataResponse
-sampleChannelDataResponse pResponseStatus_ =
+newSampleChannelDataResponse pHttpStatus_ =
   SampleChannelDataResponse'
-    { _scdrrsPayloads =
-        Nothing,
-      _scdrrsResponseStatus = pResponseStatus_
+    { payloads =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The list of message samples. Each sample message is returned as a base64-encoded string.
-scdrrsPayloads :: Lens' SampleChannelDataResponse (Maybe (NonEmpty ByteString))
-scdrrsPayloads = lens _scdrrsPayloads (\s a -> s {_scdrrsPayloads = a}) . mapping _List1
+-- | The list of message samples. Each sample message is returned as a
+-- base64-encoded string.
+sampleChannelDataResponse_payloads :: Lens.Lens' SampleChannelDataResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.ByteString))
+sampleChannelDataResponse_payloads = Lens.lens (\SampleChannelDataResponse' {payloads} -> payloads) (\s@SampleChannelDataResponse' {} a -> s {payloads = a} :: SampleChannelDataResponse) Prelude.. Lens.mapping Prelude._List1
 
--- | -- | The response status code.
-scdrrsResponseStatus :: Lens' SampleChannelDataResponse Int
-scdrrsResponseStatus = lens _scdrrsResponseStatus (\s a -> s {_scdrrsResponseStatus = a})
+-- | The response's http status code.
+sampleChannelDataResponse_httpStatus :: Lens.Lens' SampleChannelDataResponse Prelude.Int
+sampleChannelDataResponse_httpStatus = Lens.lens (\SampleChannelDataResponse' {httpStatus} -> httpStatus) (\s@SampleChannelDataResponse' {} a -> s {httpStatus = a} :: SampleChannelDataResponse)
 
-instance NFData SampleChannelDataResponse
+instance Prelude.NFData SampleChannelDataResponse

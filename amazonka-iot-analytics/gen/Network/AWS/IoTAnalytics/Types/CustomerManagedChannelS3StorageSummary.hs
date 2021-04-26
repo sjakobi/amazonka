@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.CustomerManagedChannelS3StorageSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Used to store channel data in an S3 bucket that you manage.
 --
---
---
--- /See:/ 'customerManagedChannelS3StorageSummary' smart constructor.
+-- /See:/ 'newCustomerManagedChannelS3StorageSummary' smart constructor.
 data CustomerManagedChannelS3StorageSummary = CustomerManagedChannelS3StorageSummary'
-  { _cmcsssKeyPrefix ::
-      !( Maybe
-           Text
-       ),
-    _cmcsssRoleARN ::
-      !( Maybe
-           Text
-       ),
-    _cmcsssBucket ::
-      !( Maybe
-           Text
-       )
+  { -- | Optional. The prefix used to create the keys of the channel data
+    -- objects. Each object in an S3 bucket has a key that is its unique
+    -- identifier within the bucket (each object in a bucket has exactly one
+    -- key). The prefix must end with a forward slash (\/).
+    keyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the role that grants AWS IoT Analytics permission to interact
+    -- with your Amazon S3 resources.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the S3 bucket in which channel data is stored.
+    bucket :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomerManagedChannelS3StorageSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomerManagedChannelS3StorageSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmcsssKeyPrefix' - Optional. The prefix used to create the keys of the channel data objects. Each object in an S3 bucket has a key that is its unique identifier within the bucket (each object in a bucket has exactly one key). The prefix must end with a forward slash (/).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmcsssRoleARN' - The ARN of the role that grants AWS IoT Analytics permission to interact with your Amazon S3 resources.
+-- 'keyPrefix', 'customerManagedChannelS3StorageSummary_keyPrefix' - Optional. The prefix used to create the keys of the channel data
+-- objects. Each object in an S3 bucket has a key that is its unique
+-- identifier within the bucket (each object in a bucket has exactly one
+-- key). The prefix must end with a forward slash (\/).
 --
--- * 'cmcsssBucket' - The name of the S3 bucket in which channel data is stored.
-customerManagedChannelS3StorageSummary ::
+-- 'roleArn', 'customerManagedChannelS3StorageSummary_roleArn' - The ARN of the role that grants AWS IoT Analytics permission to interact
+-- with your Amazon S3 resources.
+--
+-- 'bucket', 'customerManagedChannelS3StorageSummary_bucket' - The name of the S3 bucket in which channel data is stored.
+newCustomerManagedChannelS3StorageSummary ::
   CustomerManagedChannelS3StorageSummary
-customerManagedChannelS3StorageSummary =
+newCustomerManagedChannelS3StorageSummary =
   CustomerManagedChannelS3StorageSummary'
-    { _cmcsssKeyPrefix =
-        Nothing,
-      _cmcsssRoleARN = Nothing,
-      _cmcsssBucket = Nothing
+    { keyPrefix =
+        Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      bucket = Prelude.Nothing
     }
 
--- | Optional. The prefix used to create the keys of the channel data objects. Each object in an S3 bucket has a key that is its unique identifier within the bucket (each object in a bucket has exactly one key). The prefix must end with a forward slash (/).
-cmcsssKeyPrefix :: Lens' CustomerManagedChannelS3StorageSummary (Maybe Text)
-cmcsssKeyPrefix = lens _cmcsssKeyPrefix (\s a -> s {_cmcsssKeyPrefix = a})
+-- | Optional. The prefix used to create the keys of the channel data
+-- objects. Each object in an S3 bucket has a key that is its unique
+-- identifier within the bucket (each object in a bucket has exactly one
+-- key). The prefix must end with a forward slash (\/).
+customerManagedChannelS3StorageSummary_keyPrefix :: Lens.Lens' CustomerManagedChannelS3StorageSummary (Prelude.Maybe Prelude.Text)
+customerManagedChannelS3StorageSummary_keyPrefix = Lens.lens (\CustomerManagedChannelS3StorageSummary' {keyPrefix} -> keyPrefix) (\s@CustomerManagedChannelS3StorageSummary' {} a -> s {keyPrefix = a} :: CustomerManagedChannelS3StorageSummary)
 
--- | The ARN of the role that grants AWS IoT Analytics permission to interact with your Amazon S3 resources.
-cmcsssRoleARN :: Lens' CustomerManagedChannelS3StorageSummary (Maybe Text)
-cmcsssRoleARN = lens _cmcsssRoleARN (\s a -> s {_cmcsssRoleARN = a})
+-- | The ARN of the role that grants AWS IoT Analytics permission to interact
+-- with your Amazon S3 resources.
+customerManagedChannelS3StorageSummary_roleArn :: Lens.Lens' CustomerManagedChannelS3StorageSummary (Prelude.Maybe Prelude.Text)
+customerManagedChannelS3StorageSummary_roleArn = Lens.lens (\CustomerManagedChannelS3StorageSummary' {roleArn} -> roleArn) (\s@CustomerManagedChannelS3StorageSummary' {} a -> s {roleArn = a} :: CustomerManagedChannelS3StorageSummary)
 
 -- | The name of the S3 bucket in which channel data is stored.
-cmcsssBucket :: Lens' CustomerManagedChannelS3StorageSummary (Maybe Text)
-cmcsssBucket = lens _cmcsssBucket (\s a -> s {_cmcsssBucket = a})
+customerManagedChannelS3StorageSummary_bucket :: Lens.Lens' CustomerManagedChannelS3StorageSummary (Prelude.Maybe Prelude.Text)
+customerManagedChannelS3StorageSummary_bucket = Lens.lens (\CustomerManagedChannelS3StorageSummary' {bucket} -> bucket) (\s@CustomerManagedChannelS3StorageSummary' {} a -> s {bucket = a} :: CustomerManagedChannelS3StorageSummary)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     CustomerManagedChannelS3StorageSummary
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CustomerManagedChannelS3StorageSummary"
       ( \x ->
           CustomerManagedChannelS3StorageSummary'
-            <$> (x .:? "keyPrefix")
-            <*> (x .:? "roleArn")
-            <*> (x .:? "bucket")
+            Prelude.<$> (x Prelude..:? "keyPrefix")
+            Prelude.<*> (x Prelude..:? "roleArn")
+            Prelude.<*> (x Prelude..:? "bucket")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CustomerManagedChannelS3StorageSummary
 
 instance
-  NFData
+  Prelude.NFData
     CustomerManagedChannelS3StorageSummary

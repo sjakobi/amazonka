@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,73 +20,79 @@
 module Network.AWS.IoTAnalytics.Types.PipelineSummary where
 
 import Network.AWS.IoTAnalytics.Types.ReprocessingSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of information about a pipeline.
 --
---
---
--- /See:/ 'pipelineSummary' smart constructor.
+-- /See:/ 'newPipelineSummary' smart constructor.
 data PipelineSummary = PipelineSummary'
-  { _psCreationTime ::
-      !(Maybe POSIX),
-    _psLastUpdateTime :: !(Maybe POSIX),
-    _psReprocessingSummaries ::
-      !(Maybe [ReprocessingSummary]),
-    _psPipelineName :: !(Maybe Text)
+  { -- | When the pipeline was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | When the pipeline was last updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A summary of information about the pipeline reprocessing.
+    reprocessingSummaries :: Prelude.Maybe [ReprocessingSummary],
+    -- | The name of the pipeline.
+    pipelineName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PipelineSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PipelineSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psCreationTime' - When the pipeline was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psLastUpdateTime' - When the pipeline was last updated.
+-- 'creationTime', 'pipelineSummary_creationTime' - When the pipeline was created.
 --
--- * 'psReprocessingSummaries' - A summary of information about the pipeline reprocessing.
+-- 'lastUpdateTime', 'pipelineSummary_lastUpdateTime' - When the pipeline was last updated.
 --
--- * 'psPipelineName' - The name of the pipeline.
-pipelineSummary ::
+-- 'reprocessingSummaries', 'pipelineSummary_reprocessingSummaries' - A summary of information about the pipeline reprocessing.
+--
+-- 'pipelineName', 'pipelineSummary_pipelineName' - The name of the pipeline.
+newPipelineSummary ::
   PipelineSummary
-pipelineSummary =
+newPipelineSummary =
   PipelineSummary'
-    { _psCreationTime = Nothing,
-      _psLastUpdateTime = Nothing,
-      _psReprocessingSummaries = Nothing,
-      _psPipelineName = Nothing
+    { creationTime = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      reprocessingSummaries = Prelude.Nothing,
+      pipelineName = Prelude.Nothing
     }
 
 -- | When the pipeline was created.
-psCreationTime :: Lens' PipelineSummary (Maybe UTCTime)
-psCreationTime = lens _psCreationTime (\s a -> s {_psCreationTime = a}) . mapping _Time
+pipelineSummary_creationTime :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
+pipelineSummary_creationTime = Lens.lens (\PipelineSummary' {creationTime} -> creationTime) (\s@PipelineSummary' {} a -> s {creationTime = a} :: PipelineSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | When the pipeline was last updated.
-psLastUpdateTime :: Lens' PipelineSummary (Maybe UTCTime)
-psLastUpdateTime = lens _psLastUpdateTime (\s a -> s {_psLastUpdateTime = a}) . mapping _Time
+pipelineSummary_lastUpdateTime :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.UTCTime)
+pipelineSummary_lastUpdateTime = Lens.lens (\PipelineSummary' {lastUpdateTime} -> lastUpdateTime) (\s@PipelineSummary' {} a -> s {lastUpdateTime = a} :: PipelineSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | A summary of information about the pipeline reprocessing.
-psReprocessingSummaries :: Lens' PipelineSummary [ReprocessingSummary]
-psReprocessingSummaries = lens _psReprocessingSummaries (\s a -> s {_psReprocessingSummaries = a}) . _Default . _Coerce
+pipelineSummary_reprocessingSummaries :: Lens.Lens' PipelineSummary (Prelude.Maybe [ReprocessingSummary])
+pipelineSummary_reprocessingSummaries = Lens.lens (\PipelineSummary' {reprocessingSummaries} -> reprocessingSummaries) (\s@PipelineSummary' {} a -> s {reprocessingSummaries = a} :: PipelineSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the pipeline.
-psPipelineName :: Lens' PipelineSummary (Maybe Text)
-psPipelineName = lens _psPipelineName (\s a -> s {_psPipelineName = a})
+pipelineSummary_pipelineName :: Lens.Lens' PipelineSummary (Prelude.Maybe Prelude.Text)
+pipelineSummary_pipelineName = Lens.lens (\PipelineSummary' {pipelineName} -> pipelineName) (\s@PipelineSummary' {} a -> s {pipelineName = a} :: PipelineSummary)
 
-instance FromJSON PipelineSummary where
+instance Prelude.FromJSON PipelineSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PipelineSummary"
       ( \x ->
           PipelineSummary'
-            <$> (x .:? "creationTime")
-            <*> (x .:? "lastUpdateTime")
-            <*> (x .:? "reprocessingSummaries" .!= mempty)
-            <*> (x .:? "pipelineName")
+            Prelude.<$> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "lastUpdateTime")
+            Prelude.<*> ( x Prelude..:? "reprocessingSummaries"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "pipelineName")
       )
 
-instance Hashable PipelineSummary
+instance Prelude.Hashable PipelineSummary
 
-instance NFData PipelineSummary
+instance Prelude.NFData PipelineSummary

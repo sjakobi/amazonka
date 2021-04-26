@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.IoTAnalytics.Types.ComputeType
   ( ComputeType
       ( ..,
-        Acu1,
-        Acu2
+        ComputeTypeACU1,
+        ComputeTypeACU2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ComputeType = ComputeType' (CI Text)
+newtype ComputeType = ComputeType'
+  { fromComputeType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Acu1 :: ComputeType
-pattern Acu1 = ComputeType' "ACU_1"
+pattern ComputeTypeACU1 :: ComputeType
+pattern ComputeTypeACU1 = ComputeType' "ACU_1"
 
-pattern Acu2 :: ComputeType
-pattern Acu2 = ComputeType' "ACU_2"
+pattern ComputeTypeACU2 :: ComputeType
+pattern ComputeTypeACU2 = ComputeType' "ACU_2"
 
 {-# COMPLETE
-  Acu1,
-  Acu2,
+  ComputeTypeACU1,
+  ComputeTypeACU2,
   ComputeType'
   #-}
 
-instance FromText ComputeType where
-  parser = (ComputeType' . mk) <$> takeText
+instance Prelude.FromText ComputeType where
+  parser = ComputeType' Prelude.<$> Prelude.takeText
 
-instance ToText ComputeType where
-  toText (ComputeType' ci) = original ci
+instance Prelude.ToText ComputeType where
+  toText (ComputeType' x) = x
 
-instance Hashable ComputeType
+instance Prelude.Hashable ComputeType
 
-instance NFData ComputeType
+instance Prelude.NFData ComputeType
 
-instance ToByteString ComputeType
+instance Prelude.ToByteString ComputeType
 
-instance ToQuery ComputeType
+instance Prelude.ToQuery ComputeType
 
-instance ToHeader ComputeType
+instance Prelude.ToHeader ComputeType
 
-instance ToJSON ComputeType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ComputeType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ComputeType where
-  parseJSON = parseJSONText "ComputeType"
+instance Prelude.FromJSON ComputeType where
+  parseJSON = Prelude.parseJSONText "ComputeType"

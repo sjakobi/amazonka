@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.TriggeringDataset where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the dataset whose content generation triggers the new dataset content generation.
+-- | Information about the dataset whose content generation triggers the new
+-- dataset content generation.
 --
---
---
--- /See:/ 'triggeringDataset' smart constructor.
-newtype TriggeringDataset = TriggeringDataset'
-  { _tdName ::
-      Text
+-- /See:/ 'newTriggeringDataset' smart constructor.
+data TriggeringDataset = TriggeringDataset'
+  { -- | The name of the dataset whose content generation triggers the new
+    -- dataset content generation.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TriggeringDataset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TriggeringDataset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tdName' - The name of the dataset whose content generation triggers the new dataset content generation.
-triggeringDataset ::
-  -- | 'tdName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'triggeringDataset_name' - The name of the dataset whose content generation triggers the new
+-- dataset content generation.
+newTriggeringDataset ::
+  -- | 'name'
+  Prelude.Text ->
   TriggeringDataset
-triggeringDataset pName_ =
-  TriggeringDataset' {_tdName = pName_}
+newTriggeringDataset pName_ =
+  TriggeringDataset' {name = pName_}
 
--- | The name of the dataset whose content generation triggers the new dataset content generation.
-tdName :: Lens' TriggeringDataset Text
-tdName = lens _tdName (\s a -> s {_tdName = a})
+-- | The name of the dataset whose content generation triggers the new
+-- dataset content generation.
+triggeringDataset_name :: Lens.Lens' TriggeringDataset Prelude.Text
+triggeringDataset_name = Lens.lens (\TriggeringDataset' {name} -> name) (\s@TriggeringDataset' {} a -> s {name = a} :: TriggeringDataset)
 
-instance FromJSON TriggeringDataset where
+instance Prelude.FromJSON TriggeringDataset where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TriggeringDataset"
-      (\x -> TriggeringDataset' <$> (x .: "name"))
+      ( \x ->
+          TriggeringDataset' Prelude.<$> (x Prelude..: "name")
+      )
 
-instance Hashable TriggeringDataset
+instance Prelude.Hashable TriggeringDataset
 
-instance NFData TriggeringDataset
+instance Prelude.NFData TriggeringDataset
 
-instance ToJSON TriggeringDataset where
+instance Prelude.ToJSON TriggeringDataset where
   toJSON TriggeringDataset' {..} =
-    object (catMaybes [Just ("name" .= _tdName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("name" Prelude..= name)]
+      )

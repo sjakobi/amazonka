@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types
   ( -- * Service Configuration
-    ioTAnalytics,
+    defaultService,
 
     -- * Errors
     _ResourceAlreadyExistsException,
@@ -51,489 +54,287 @@ module Network.AWS.IoTAnalytics.Types
 
     -- * AddAttributesActivity
     AddAttributesActivity (..),
-    addAttributesActivity,
-    aaaNext,
-    aaaName,
-    aaaAttributes,
+    newAddAttributesActivity,
 
     -- * BatchPutMessageErrorEntry
     BatchPutMessageErrorEntry (..),
-    batchPutMessageErrorEntry,
-    bpmeeMessageId,
-    bpmeeErrorMessage,
-    bpmeeErrorCode,
+    newBatchPutMessageErrorEntry,
 
     -- * Channel
     Channel (..),
-    channel,
-    chaLastMessageArrivalTime,
-    chaStatus,
-    chaCreationTime,
-    chaLastUpdateTime,
-    chaArn,
-    chaName,
-    chaRetentionPeriod,
-    chaStorage,
+    newChannel,
 
     -- * ChannelActivity
     ChannelActivity (..),
-    channelActivity,
-    caNext,
-    caName,
-    caChannelName,
+    newChannelActivity,
 
     -- * ChannelMessages
     ChannelMessages (..),
-    channelMessages,
-    cmS3Paths,
+    newChannelMessages,
 
     -- * ChannelStatistics
     ChannelStatistics (..),
-    channelStatistics,
-    csSize,
+    newChannelStatistics,
 
     -- * ChannelStorage
     ChannelStorage (..),
-    channelStorage,
-    csServiceManagedS3,
-    csCustomerManagedS3,
+    newChannelStorage,
 
     -- * ChannelStorageSummary
     ChannelStorageSummary (..),
-    channelStorageSummary,
-    cssServiceManagedS3,
-    cssCustomerManagedS3,
+    newChannelStorageSummary,
 
     -- * ChannelSummary
     ChannelSummary (..),
-    channelSummary,
-    csLastMessageArrivalTime,
-    csChannelName,
-    csStatus,
-    csCreationTime,
-    csLastUpdateTime,
-    csChannelStorage,
+    newChannelSummary,
 
     -- * Column
     Column (..),
-    column,
-    cName,
-    cType,
+    newColumn,
 
     -- * ContainerDatasetAction
     ContainerDatasetAction (..),
-    containerDatasetAction,
-    cdaVariables,
-    cdaImage,
-    cdaExecutionRoleARN,
-    cdaResourceConfiguration,
+    newContainerDatasetAction,
 
     -- * CustomerManagedChannelS3Storage
     CustomerManagedChannelS3Storage (..),
-    customerManagedChannelS3Storage,
-    cmcssKeyPrefix,
-    cmcssBucket,
-    cmcssRoleARN,
+    newCustomerManagedChannelS3Storage,
 
     -- * CustomerManagedChannelS3StorageSummary
     CustomerManagedChannelS3StorageSummary (..),
-    customerManagedChannelS3StorageSummary,
-    cmcsssKeyPrefix,
-    cmcsssRoleARN,
-    cmcsssBucket,
+    newCustomerManagedChannelS3StorageSummary,
 
     -- * CustomerManagedDatastoreS3Storage
     CustomerManagedDatastoreS3Storage (..),
-    customerManagedDatastoreS3Storage,
-    cmdssKeyPrefix,
-    cmdssBucket,
-    cmdssRoleARN,
+    newCustomerManagedDatastoreS3Storage,
 
     -- * CustomerManagedDatastoreS3StorageSummary
     CustomerManagedDatastoreS3StorageSummary (..),
-    customerManagedDatastoreS3StorageSummary,
-    cmdsssKeyPrefix,
-    cmdsssRoleARN,
-    cmdsssBucket,
+    newCustomerManagedDatastoreS3StorageSummary,
 
     -- * Dataset
     Dataset (..),
-    dataset,
-    ddStatus,
-    ddCreationTime,
-    ddLastUpdateTime,
-    ddTriggers,
-    ddActions,
-    ddArn,
-    ddName,
-    ddRetentionPeriod,
-    ddLateDataRules,
-    ddContentDeliveryRules,
-    ddVersioningConfiguration,
+    newDataset,
 
     -- * DatasetAction
     DatasetAction (..),
-    datasetAction,
-    daActionName,
-    daQueryAction,
-    daContainerAction,
+    newDatasetAction,
 
     -- * DatasetActionSummary
     DatasetActionSummary (..),
-    datasetActionSummary,
-    dasActionName,
-    dasActionType,
+    newDatasetActionSummary,
 
     -- * DatasetContentDeliveryDestination
     DatasetContentDeliveryDestination (..),
-    datasetContentDeliveryDestination,
-    dcddS3DestinationConfiguration,
-    dcddIotEventsDestinationConfiguration,
+    newDatasetContentDeliveryDestination,
 
     -- * DatasetContentDeliveryRule
     DatasetContentDeliveryRule (..),
-    datasetContentDeliveryRule,
-    dcdrEntryName,
-    dcdrDestination,
+    newDatasetContentDeliveryRule,
 
     -- * DatasetContentStatus
     DatasetContentStatus (..),
-    datasetContentStatus,
-    dcsState,
-    dcsReason,
+    newDatasetContentStatus,
 
     -- * DatasetContentSummary
     DatasetContentSummary (..),
-    datasetContentSummary,
-    dcsStatus,
-    dcsCreationTime,
-    dcsCompletionTime,
-    dcsScheduleTime,
-    dcsVersion,
+    newDatasetContentSummary,
 
     -- * DatasetContentVersionValue
     DatasetContentVersionValue (..),
-    datasetContentVersionValue,
-    dcvvDatasetName,
+    newDatasetContentVersionValue,
 
     -- * DatasetEntry
     DatasetEntry (..),
-    datasetEntry,
-    deDataURI,
-    deEntryName,
+    newDatasetEntry,
 
     -- * DatasetSummary
     DatasetSummary (..),
-    datasetSummary,
-    dsStatus,
-    dsCreationTime,
-    dsLastUpdateTime,
-    dsTriggers,
-    dsActions,
-    dsDatasetName,
+    newDatasetSummary,
 
     -- * DatasetTrigger
     DatasetTrigger (..),
-    datasetTrigger,
-    dtSchedule,
-    dtDataset,
+    newDatasetTrigger,
 
     -- * Datastore
     Datastore (..),
-    datastore,
-    dLastMessageArrivalTime,
-    dStatus,
-    dCreationTime,
-    dLastUpdateTime,
-    dArn,
-    dFileFormatConfiguration,
-    dName,
-    dRetentionPeriod,
-    dStorage,
+    newDatastore,
 
     -- * DatastoreActivity
     DatastoreActivity (..),
-    datastoreActivity,
-    daName,
-    daDatastoreName,
+    newDatastoreActivity,
 
     -- * DatastoreStatistics
     DatastoreStatistics (..),
-    datastoreStatistics,
-    dsSize,
+    newDatastoreStatistics,
 
     -- * DatastoreStorage
     DatastoreStorage (..),
-    datastoreStorage,
-    dsServiceManagedS3,
-    dsCustomerManagedS3,
+    newDatastoreStorage,
 
     -- * DatastoreStorageSummary
     DatastoreStorageSummary (..),
-    datastoreStorageSummary,
-    dssServiceManagedS3,
-    dssCustomerManagedS3,
+    newDatastoreStorageSummary,
 
     -- * DatastoreSummary
     DatastoreSummary (..),
-    datastoreSummary,
-    datLastMessageArrivalTime,
-    datStatus,
-    datCreationTime,
-    datDatastoreStorage,
-    datLastUpdateTime,
-    datFileFormatType,
-    datDatastoreName,
+    newDatastoreSummary,
 
     -- * DeltaTime
     DeltaTime (..),
-    deltaTime,
-    dtOffsetSeconds,
-    dtTimeExpression,
+    newDeltaTime,
 
     -- * DeltaTimeSessionWindowConfiguration
     DeltaTimeSessionWindowConfiguration (..),
-    deltaTimeSessionWindowConfiguration,
-    dtswcTimeoutInMinutes,
+    newDeltaTimeSessionWindowConfiguration,
 
     -- * DeviceRegistryEnrichActivity
     DeviceRegistryEnrichActivity (..),
-    deviceRegistryEnrichActivity,
-    dreaNext,
-    dreaName,
-    dreaAttribute,
-    dreaThingName,
-    dreaRoleARN,
+    newDeviceRegistryEnrichActivity,
 
     -- * DeviceShadowEnrichActivity
     DeviceShadowEnrichActivity (..),
-    deviceShadowEnrichActivity,
-    dseaNext,
-    dseaName,
-    dseaAttribute,
-    dseaThingName,
-    dseaRoleARN,
+    newDeviceShadowEnrichActivity,
 
     -- * EstimatedResourceSize
     EstimatedResourceSize (..),
-    estimatedResourceSize,
-    ersEstimatedSizeInBytes,
-    ersEstimatedOn,
+    newEstimatedResourceSize,
 
     -- * FileFormatConfiguration
     FileFormatConfiguration (..),
-    fileFormatConfiguration,
-    ffcParquetConfiguration,
-    ffcJsonConfiguration,
+    newFileFormatConfiguration,
 
     -- * FilterActivity
     FilterActivity (..),
-    filterActivity,
-    faNext,
-    faName,
-    faFilter,
+    newFilterActivity,
 
     -- * GlueConfiguration
     GlueConfiguration (..),
-    glueConfiguration,
-    gcTableName,
-    gcDatabaseName,
+    newGlueConfiguration,
 
     -- * IotEventsDestinationConfiguration
     IotEventsDestinationConfiguration (..),
-    iotEventsDestinationConfiguration,
-    iedcInputName,
-    iedcRoleARN,
+    newIotEventsDestinationConfiguration,
 
-    -- * JSONConfiguration
-    JSONConfiguration (..),
-    jsonConfiguration,
+    -- * JsonConfiguration
+    JsonConfiguration (..),
+    newJsonConfiguration,
 
     -- * LambdaActivity
     LambdaActivity (..),
-    lambdaActivity,
-    laNext,
-    laName,
-    laLambdaName,
-    laBatchSize,
+    newLambdaActivity,
 
     -- * LateDataRule
     LateDataRule (..),
-    lateDataRule,
-    ldrRuleName,
-    ldrRuleConfiguration,
+    newLateDataRule,
 
     -- * LateDataRuleConfiguration
     LateDataRuleConfiguration (..),
-    lateDataRuleConfiguration,
-    ldrcDeltaTimeSessionWindowConfiguration,
+    newLateDataRuleConfiguration,
 
     -- * LoggingOptions
     LoggingOptions (..),
-    loggingOptions,
-    loRoleARN,
-    loLevel,
-    loEnabled,
+    newLoggingOptions,
 
     -- * MathActivity
     MathActivity (..),
-    mathActivity,
-    maNext,
-    maName,
-    maAttribute,
-    maMath,
+    newMathActivity,
 
     -- * Message
     Message (..),
-    message,
-    mMessageId,
-    mPayload,
+    newMessage,
 
-    -- * OutputFileURIValue
-    OutputFileURIValue (..),
-    outputFileURIValue,
-    ofuvFileName,
+    -- * OutputFileUriValue
+    OutputFileUriValue (..),
+    newOutputFileUriValue,
 
     -- * ParquetConfiguration
     ParquetConfiguration (..),
-    parquetConfiguration,
-    pcSchemaDefinition,
+    newParquetConfiguration,
 
     -- * Pipeline
     Pipeline (..),
-    pipeline,
-    pCreationTime,
-    pLastUpdateTime,
-    pActivities,
-    pArn,
-    pName,
-    pReprocessingSummaries,
+    newPipeline,
 
     -- * PipelineActivity
     PipelineActivity (..),
-    pipelineActivity,
-    paSelectAttributes,
-    paDatastore,
-    paRemoveAttributes,
-    paAddAttributes,
-    paDeviceShadowEnrich,
-    paLambda,
-    paDeviceRegistryEnrich,
-    paChannel,
-    paFilter,
-    paMath,
+    newPipelineActivity,
 
     -- * PipelineSummary
     PipelineSummary (..),
-    pipelineSummary,
-    psCreationTime,
-    psLastUpdateTime,
-    psReprocessingSummaries,
-    psPipelineName,
+    newPipelineSummary,
 
     -- * QueryFilter
     QueryFilter (..),
-    queryFilter,
-    qfDeltaTime,
+    newQueryFilter,
 
     -- * RemoveAttributesActivity
     RemoveAttributesActivity (..),
-    removeAttributesActivity,
-    raaNext,
-    raaName,
-    raaAttributes,
+    newRemoveAttributesActivity,
 
     -- * ReprocessingSummary
     ReprocessingSummary (..),
-    reprocessingSummary,
-    rsStatus,
-    rsCreationTime,
-    rsId,
+    newReprocessingSummary,
 
     -- * ResourceConfiguration
     ResourceConfiguration (..),
-    resourceConfiguration,
-    rcComputeType,
-    rcVolumeSizeInGB,
+    newResourceConfiguration,
 
     -- * RetentionPeriod
     RetentionPeriod (..),
-    retentionPeriod,
-    rpNumberOfDays,
-    rpUnlimited,
+    newRetentionPeriod,
 
     -- * S3DestinationConfiguration
     S3DestinationConfiguration (..),
-    s3DestinationConfiguration,
-    sdcGlueConfiguration,
-    sdcBucket,
-    sdcKey,
-    sdcRoleARN,
+    newS3DestinationConfiguration,
 
     -- * Schedule
     Schedule (..),
-    schedule,
-    sExpression,
+    newSchedule,
 
     -- * SchemaDefinition
     SchemaDefinition (..),
-    schemaDefinition,
-    sdColumns,
+    newSchemaDefinition,
 
     -- * SelectAttributesActivity
     SelectAttributesActivity (..),
-    selectAttributesActivity,
-    saaNext,
-    saaName,
-    saaAttributes,
+    newSelectAttributesActivity,
 
     -- * ServiceManagedChannelS3Storage
     ServiceManagedChannelS3Storage (..),
-    serviceManagedChannelS3Storage,
+    newServiceManagedChannelS3Storage,
 
     -- * ServiceManagedChannelS3StorageSummary
     ServiceManagedChannelS3StorageSummary (..),
-    serviceManagedChannelS3StorageSummary,
+    newServiceManagedChannelS3StorageSummary,
 
     -- * ServiceManagedDatastoreS3Storage
     ServiceManagedDatastoreS3Storage (..),
-    serviceManagedDatastoreS3Storage,
+    newServiceManagedDatastoreS3Storage,
 
     -- * ServiceManagedDatastoreS3StorageSummary
     ServiceManagedDatastoreS3StorageSummary (..),
-    serviceManagedDatastoreS3StorageSummary,
+    newServiceManagedDatastoreS3StorageSummary,
 
     -- * SqlQueryDatasetAction
     SqlQueryDatasetAction (..),
-    sqlQueryDatasetAction,
-    sqdaFilters,
-    sqdaSqlQuery,
+    newSqlQueryDatasetAction,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TriggeringDataset
     TriggeringDataset (..),
-    triggeringDataset,
-    tdName,
+    newTriggeringDataset,
 
     -- * Variable
     Variable (..),
-    variable,
-    vOutputFileURIValue,
-    vDoubleValue,
-    vStringValue,
-    vDatasetContentVersionValue,
-    vName,
+    newVariable,
 
     -- * VersioningConfiguration
     VersioningConfiguration (..),
-    versioningConfiguration,
-    vcMaxVersions,
-    vcUnlimited,
+    newVersioningConfiguration,
   )
 where
 
@@ -585,7 +386,7 @@ import Network.AWS.IoTAnalytics.Types.FileFormatType
 import Network.AWS.IoTAnalytics.Types.FilterActivity
 import Network.AWS.IoTAnalytics.Types.GlueConfiguration
 import Network.AWS.IoTAnalytics.Types.IotEventsDestinationConfiguration
-import Network.AWS.IoTAnalytics.Types.JSONConfiguration
+import Network.AWS.IoTAnalytics.Types.JsonConfiguration
 import Network.AWS.IoTAnalytics.Types.LambdaActivity
 import Network.AWS.IoTAnalytics.Types.LateDataRule
 import Network.AWS.IoTAnalytics.Types.LateDataRuleConfiguration
@@ -593,7 +394,7 @@ import Network.AWS.IoTAnalytics.Types.LoggingLevel
 import Network.AWS.IoTAnalytics.Types.LoggingOptions
 import Network.AWS.IoTAnalytics.Types.MathActivity
 import Network.AWS.IoTAnalytics.Types.Message
-import Network.AWS.IoTAnalytics.Types.OutputFileURIValue
+import Network.AWS.IoTAnalytics.Types.OutputFileUriValue
 import Network.AWS.IoTAnalytics.Types.ParquetConfiguration
 import Network.AWS.IoTAnalytics.Types.Pipeline
 import Network.AWS.IoTAnalytics.Types.PipelineActivity
@@ -617,113 +418,133 @@ import Network.AWS.IoTAnalytics.Types.Tag
 import Network.AWS.IoTAnalytics.Types.TriggeringDataset
 import Network.AWS.IoTAnalytics.Types.Variable
 import Network.AWS.IoTAnalytics.Types.VersioningConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-11-27@ of the Amazon IoT Analytics SDK configuration.
-ioTAnalytics :: Service
-ioTAnalytics =
-  Service
-    { _svcAbbrev = "IoTAnalytics",
-      _svcSigner = v4,
-      _svcPrefix = "iotanalytics",
-      _svcVersion = "2017-11-27",
-      _svcEndpoint = defaultEndpoint ioTAnalytics,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "IoTAnalytics",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "IoTAnalytics",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "iotanalytics",
+      Prelude._svcVersion = "2017-11-27",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "IoTAnalytics",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | A resource with the same name already exists.
-_ResourceAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAlreadyExistsException =
-  _MatchServiceError
-    ioTAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAlreadyExistsException"
-    . hasStatus 409
+    Prelude.. Prelude.hasStatus 409
 
 -- | The service is temporarily unavailable.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    ioTAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
-    . hasStatus 503
+    Prelude.. Prelude.hasStatus 503
 
 -- | The request was denied due to request throttling.
-_ThrottlingException :: AsError a => Getting (First ServiceError) a ServiceError
+_ThrottlingException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ThrottlingException =
-  _MatchServiceError
-    ioTAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ThrottlingException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
 
 -- | The request was not valid.
-_InvalidRequestException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidRequestException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidRequestException =
-  _MatchServiceError
-    ioTAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "InvalidRequestException"
-    . hasStatus 400
+    Prelude.. Prelude.hasStatus 400
 
 -- | The command caused an internal limit to be exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    ioTAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
-    . hasStatus 410
+    Prelude.. Prelude.hasStatus 410
 
 -- | A resource with the specified name could not be found.
-_ResourceNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceNotFoundException =
-  _MatchServiceError
-    ioTAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "ResourceNotFoundException"
-    . hasStatus 404
+    Prelude.. Prelude.hasStatus 404
 
 -- | There was an internal failure.
-_InternalFailureException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalFailureException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalFailureException =
-  _MatchServiceError
-    ioTAnalytics
+  Prelude._MatchServiceError
+    defaultService
     "InternalFailureException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500

@@ -28,211 +28,211 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestCreateChannel $
---             createChannel
+--             newCreateChannel
 --
 --         , requestDescribePipeline $
---             describePipeline
+--             newDescribePipeline
 --
 --         , requestBatchPutMessage $
---             batchPutMessage
+--             newBatchPutMessage
 --
 --         , requestDescribeLoggingOptions $
---             describeLoggingOptions
+--             newDescribeLoggingOptions
 --
 --         , requestDeleteDatastore $
---             deleteDatastore
+--             newDeleteDatastore
 --
 --         , requestUpdateDatastore $
---             updateDatastore
+--             newUpdateDatastore
 --
 --         , requestCreatePipeline $
---             createPipeline
+--             newCreatePipeline
 --
 --         , requestCreateDataset $
---             createDataset
+--             newCreateDataset
 --
 --         , requestUpdatePipeline $
---             updatePipeline
+--             newUpdatePipeline
 --
 --         , requestUntagResource $
---             untagResource
+--             newUntagResource
 --
 --         , requestDeletePipeline $
---             deletePipeline
+--             newDeletePipeline
 --
 --         , requestCancelPipelineReprocessing $
---             cancelPipelineReprocessing
+--             newCancelPipelineReprocessing
 --
 --         , requestTagResource $
---             tagResource
+--             newTagResource
 --
 --         , requestSampleChannelData $
---             sampleChannelData
+--             newSampleChannelData
 --
 --         , requestDescribeDatastore $
---             describeDatastore
+--             newDescribeDatastore
 --
 --         , requestListChannels $
---             listChannels
+--             newListChannels
 --
 --         , requestDescribeDataset $
---             describeDataset
+--             newDescribeDataset
 --
 --         , requestCreateDatasetContent $
---             createDatasetContent
+--             newCreateDatasetContent
 --
 --         , requestDescribeChannel $
---             describeChannel
+--             newDescribeChannel
 --
 --         , requestListDatastores $
---             listDatastores
+--             newListDatastores
 --
 --         , requestStartPipelineReprocessing $
---             startPipelineReprocessing
+--             newStartPipelineReprocessing
 --
 --         , requestRunPipelineActivity $
---             runPipelineActivity
+--             newRunPipelineActivity
 --
 --         , requestDeleteDataset $
---             deleteDataset
+--             newDeleteDataset
 --
 --         , requestListDatasets $
---             listDatasets
+--             newListDatasets
 --
 --         , requestCreateDatastore $
---             createDatastore
+--             newCreateDatastore
 --
 --         , requestListPipelines $
---             listPipelines
+--             newListPipelines
 --
 --         , requestUpdateDataset $
---             updateDataset
+--             newUpdateDataset
 --
 --         , requestGetDatasetContent $
---             getDatasetContent
+--             newGetDatasetContent
 --
 --         , requestListDatasetContents $
---             listDatasetContents
+--             newListDatasetContents
 --
 --         , requestListTagsForResource $
---             listTagsForResource
+--             newListTagsForResource
 --
 --         , requestDeleteChannel $
---             deleteChannel
+--             newDeleteChannel
 --
 --         , requestUpdateChannel $
---             updateChannel
+--             newUpdateChannel
 --
 --         , requestPutLoggingOptions $
---             putLoggingOptions
+--             newPutLoggingOptions
 --
 --         , requestDeleteDatasetContent $
---             deleteDatasetContent
+--             newDeleteDatasetContent
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseCreateChannel $
---             createChannelResponse
+--             newCreateChannelResponse
 --
 --         , responseDescribePipeline $
---             describePipelineResponse
+--             newDescribePipelineResponse
 --
 --         , responseBatchPutMessage $
---             batchPutMessageResponse
+--             newBatchPutMessageResponse
 --
 --         , responseDescribeLoggingOptions $
---             describeLoggingOptionsResponse
+--             newDescribeLoggingOptionsResponse
 --
 --         , responseDeleteDatastore $
---             deleteDatastoreResponse
+--             newDeleteDatastoreResponse
 --
 --         , responseUpdateDatastore $
---             updateDatastoreResponse
+--             newUpdateDatastoreResponse
 --
 --         , responseCreatePipeline $
---             createPipelineResponse
+--             newCreatePipelineResponse
 --
 --         , responseCreateDataset $
---             createDatasetResponse
+--             newCreateDatasetResponse
 --
 --         , responseUpdatePipeline $
---             updatePipelineResponse
+--             newUpdatePipelineResponse
 --
 --         , responseUntagResource $
---             untagResourceResponse
+--             newUntagResourceResponse
 --
 --         , responseDeletePipeline $
---             deletePipelineResponse
+--             newDeletePipelineResponse
 --
 --         , responseCancelPipelineReprocessing $
---             cancelPipelineReprocessingResponse
+--             newCancelPipelineReprocessingResponse
 --
 --         , responseTagResource $
---             tagResourceResponse
+--             newTagResourceResponse
 --
 --         , responseSampleChannelData $
---             sampleChannelDataResponse
+--             newSampleChannelDataResponse
 --
 --         , responseDescribeDatastore $
---             describeDatastoreResponse
+--             newDescribeDatastoreResponse
 --
 --         , responseListChannels $
---             listChannelsResponse
+--             newListChannelsResponse
 --
 --         , responseDescribeDataset $
---             describeDatasetResponse
+--             newDescribeDatasetResponse
 --
 --         , responseCreateDatasetContent $
---             createDatasetContentResponse
+--             newCreateDatasetContentResponse
 --
 --         , responseDescribeChannel $
---             describeChannelResponse
+--             newDescribeChannelResponse
 --
 --         , responseListDatastores $
---             listDatastoresResponse
+--             newListDatastoresResponse
 --
 --         , responseStartPipelineReprocessing $
---             startPipelineReprocessingResponse
+--             newStartPipelineReprocessingResponse
 --
 --         , responseRunPipelineActivity $
---             runPipelineActivityResponse
+--             newRunPipelineActivityResponse
 --
 --         , responseDeleteDataset $
---             deleteDatasetResponse
+--             newDeleteDatasetResponse
 --
 --         , responseListDatasets $
---             listDatasetsResponse
+--             newListDatasetsResponse
 --
 --         , responseCreateDatastore $
---             createDatastoreResponse
+--             newCreateDatastoreResponse
 --
 --         , responseListPipelines $
---             listPipelinesResponse
+--             newListPipelinesResponse
 --
 --         , responseUpdateDataset $
---             updateDatasetResponse
+--             newUpdateDatasetResponse
 --
 --         , responseGetDatasetContent $
---             getDatasetContentResponse
+--             newGetDatasetContentResponse
 --
 --         , responseListDatasetContents $
---             listDatasetContentsResponse
+--             newListDatasetContentsResponse
 --
 --         , responseListTagsForResource $
---             listTagsForResourceResponse
+--             newListTagsForResourceResponse
 --
 --         , responseDeleteChannel $
---             deleteChannelResponse
+--             newDeleteChannelResponse
 --
 --         , responseUpdateChannel $
---             updateChannelResponse
+--             newUpdateChannelResponse
 --
 --         , responsePutLoggingOptions $
---             putLoggingOptionsResponse
+--             newPutLoggingOptionsResponse
 --
 --         , responseDeleteDatasetContent $
---             deleteDatasetContentResponse
+--             newDeleteDatasetContentResponse
 --
 --           ]
 --     ]
@@ -450,7 +450,7 @@ responseCreateChannel =
   res
     "CreateChannelResponse"
     "fixture/CreateChannelResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy CreateChannel)
 
 responseDescribePipeline :: DescribePipelineResponse -> TestTree
@@ -458,7 +458,7 @@ responseDescribePipeline =
   res
     "DescribePipelineResponse"
     "fixture/DescribePipelineResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DescribePipeline)
 
 responseBatchPutMessage :: BatchPutMessageResponse -> TestTree
@@ -466,7 +466,7 @@ responseBatchPutMessage =
   res
     "BatchPutMessageResponse"
     "fixture/BatchPutMessageResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy BatchPutMessage)
 
 responseDescribeLoggingOptions :: DescribeLoggingOptionsResponse -> TestTree
@@ -474,7 +474,7 @@ responseDescribeLoggingOptions =
   res
     "DescribeLoggingOptionsResponse"
     "fixture/DescribeLoggingOptionsResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DescribeLoggingOptions)
 
 responseDeleteDatastore :: DeleteDatastoreResponse -> TestTree
@@ -482,7 +482,7 @@ responseDeleteDatastore =
   res
     "DeleteDatastoreResponse"
     "fixture/DeleteDatastoreResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DeleteDatastore)
 
 responseUpdateDatastore :: UpdateDatastoreResponse -> TestTree
@@ -490,7 +490,7 @@ responseUpdateDatastore =
   res
     "UpdateDatastoreResponse"
     "fixture/UpdateDatastoreResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy UpdateDatastore)
 
 responseCreatePipeline :: CreatePipelineResponse -> TestTree
@@ -498,7 +498,7 @@ responseCreatePipeline =
   res
     "CreatePipelineResponse"
     "fixture/CreatePipelineResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy CreatePipeline)
 
 responseCreateDataset :: CreateDatasetResponse -> TestTree
@@ -506,7 +506,7 @@ responseCreateDataset =
   res
     "CreateDatasetResponse"
     "fixture/CreateDatasetResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy CreateDataset)
 
 responseUpdatePipeline :: UpdatePipelineResponse -> TestTree
@@ -514,7 +514,7 @@ responseUpdatePipeline =
   res
     "UpdatePipelineResponse"
     "fixture/UpdatePipelineResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy UpdatePipeline)
 
 responseUntagResource :: UntagResourceResponse -> TestTree
@@ -522,7 +522,7 @@ responseUntagResource =
   res
     "UntagResourceResponse"
     "fixture/UntagResourceResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy UntagResource)
 
 responseDeletePipeline :: DeletePipelineResponse -> TestTree
@@ -530,7 +530,7 @@ responseDeletePipeline =
   res
     "DeletePipelineResponse"
     "fixture/DeletePipelineResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DeletePipeline)
 
 responseCancelPipelineReprocessing :: CancelPipelineReprocessingResponse -> TestTree
@@ -538,7 +538,7 @@ responseCancelPipelineReprocessing =
   res
     "CancelPipelineReprocessingResponse"
     "fixture/CancelPipelineReprocessingResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy CancelPipelineReprocessing)
 
 responseTagResource :: TagResourceResponse -> TestTree
@@ -546,7 +546,7 @@ responseTagResource =
   res
     "TagResourceResponse"
     "fixture/TagResourceResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy TagResource)
 
 responseSampleChannelData :: SampleChannelDataResponse -> TestTree
@@ -554,7 +554,7 @@ responseSampleChannelData =
   res
     "SampleChannelDataResponse"
     "fixture/SampleChannelDataResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy SampleChannelData)
 
 responseDescribeDatastore :: DescribeDatastoreResponse -> TestTree
@@ -562,7 +562,7 @@ responseDescribeDatastore =
   res
     "DescribeDatastoreResponse"
     "fixture/DescribeDatastoreResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DescribeDatastore)
 
 responseListChannels :: ListChannelsResponse -> TestTree
@@ -570,7 +570,7 @@ responseListChannels =
   res
     "ListChannelsResponse"
     "fixture/ListChannelsResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy ListChannels)
 
 responseDescribeDataset :: DescribeDatasetResponse -> TestTree
@@ -578,7 +578,7 @@ responseDescribeDataset =
   res
     "DescribeDatasetResponse"
     "fixture/DescribeDatasetResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DescribeDataset)
 
 responseCreateDatasetContent :: CreateDatasetContentResponse -> TestTree
@@ -586,7 +586,7 @@ responseCreateDatasetContent =
   res
     "CreateDatasetContentResponse"
     "fixture/CreateDatasetContentResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy CreateDatasetContent)
 
 responseDescribeChannel :: DescribeChannelResponse -> TestTree
@@ -594,7 +594,7 @@ responseDescribeChannel =
   res
     "DescribeChannelResponse"
     "fixture/DescribeChannelResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DescribeChannel)
 
 responseListDatastores :: ListDatastoresResponse -> TestTree
@@ -602,7 +602,7 @@ responseListDatastores =
   res
     "ListDatastoresResponse"
     "fixture/ListDatastoresResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy ListDatastores)
 
 responseStartPipelineReprocessing :: StartPipelineReprocessingResponse -> TestTree
@@ -610,7 +610,7 @@ responseStartPipelineReprocessing =
   res
     "StartPipelineReprocessingResponse"
     "fixture/StartPipelineReprocessingResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy StartPipelineReprocessing)
 
 responseRunPipelineActivity :: RunPipelineActivityResponse -> TestTree
@@ -618,7 +618,7 @@ responseRunPipelineActivity =
   res
     "RunPipelineActivityResponse"
     "fixture/RunPipelineActivityResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy RunPipelineActivity)
 
 responseDeleteDataset :: DeleteDatasetResponse -> TestTree
@@ -626,7 +626,7 @@ responseDeleteDataset =
   res
     "DeleteDatasetResponse"
     "fixture/DeleteDatasetResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DeleteDataset)
 
 responseListDatasets :: ListDatasetsResponse -> TestTree
@@ -634,7 +634,7 @@ responseListDatasets =
   res
     "ListDatasetsResponse"
     "fixture/ListDatasetsResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy ListDatasets)
 
 responseCreateDatastore :: CreateDatastoreResponse -> TestTree
@@ -642,7 +642,7 @@ responseCreateDatastore =
   res
     "CreateDatastoreResponse"
     "fixture/CreateDatastoreResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy CreateDatastore)
 
 responseListPipelines :: ListPipelinesResponse -> TestTree
@@ -650,7 +650,7 @@ responseListPipelines =
   res
     "ListPipelinesResponse"
     "fixture/ListPipelinesResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy ListPipelines)
 
 responseUpdateDataset :: UpdateDatasetResponse -> TestTree
@@ -658,7 +658,7 @@ responseUpdateDataset =
   res
     "UpdateDatasetResponse"
     "fixture/UpdateDatasetResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy UpdateDataset)
 
 responseGetDatasetContent :: GetDatasetContentResponse -> TestTree
@@ -666,7 +666,7 @@ responseGetDatasetContent =
   res
     "GetDatasetContentResponse"
     "fixture/GetDatasetContentResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy GetDatasetContent)
 
 responseListDatasetContents :: ListDatasetContentsResponse -> TestTree
@@ -674,7 +674,7 @@ responseListDatasetContents =
   res
     "ListDatasetContentsResponse"
     "fixture/ListDatasetContentsResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy ListDatasetContents)
 
 responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
@@ -682,7 +682,7 @@ responseListTagsForResource =
   res
     "ListTagsForResourceResponse"
     "fixture/ListTagsForResourceResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy ListTagsForResource)
 
 responseDeleteChannel :: DeleteChannelResponse -> TestTree
@@ -690,7 +690,7 @@ responseDeleteChannel =
   res
     "DeleteChannelResponse"
     "fixture/DeleteChannelResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DeleteChannel)
 
 responseUpdateChannel :: UpdateChannelResponse -> TestTree
@@ -698,7 +698,7 @@ responseUpdateChannel =
   res
     "UpdateChannelResponse"
     "fixture/UpdateChannelResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy UpdateChannel)
 
 responsePutLoggingOptions :: PutLoggingOptionsResponse -> TestTree
@@ -706,7 +706,7 @@ responsePutLoggingOptions =
   res
     "PutLoggingOptionsResponse"
     "fixture/PutLoggingOptionsResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy PutLoggingOptions)
 
 responseDeleteDatasetContent :: DeleteDatasetContentResponse -> TestTree
@@ -714,5 +714,5 @@ responseDeleteDatasetContent =
   res
     "DeleteDatasetContentResponse"
     "fixture/DeleteDatasetContentResponse.proto"
-    ioTAnalytics
+    defaultService
     (Proxy :: Proxy DeleteDatasetContent)

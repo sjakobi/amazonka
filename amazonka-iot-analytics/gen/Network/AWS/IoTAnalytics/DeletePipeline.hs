@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,80 +24,84 @@
 -- Deletes the specified pipeline.
 module Network.AWS.IoTAnalytics.DeletePipeline
   ( -- * Creating a Request
-    deletePipeline,
-    DeletePipeline,
+    DeletePipeline (..),
+    newDeletePipeline,
 
     -- * Request Lenses
-    dPipelineName,
+    deletePipeline_pipelineName,
 
     -- * Destructuring the Response
-    deletePipelineResponse,
-    DeletePipelineResponse,
+    DeletePipelineResponse (..),
+    newDeletePipelineResponse,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deletePipeline' smart constructor.
-newtype DeletePipeline = DeletePipeline'
-  { _dPipelineName ::
-      Text
+-- | /See:/ 'newDeletePipeline' smart constructor.
+data DeletePipeline = DeletePipeline'
+  { -- | The name of the pipeline to delete.
+    pipelineName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePipeline' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletePipeline' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dPipelineName' - The name of the pipeline to delete.
-deletePipeline ::
-  -- | 'dPipelineName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'pipelineName', 'deletePipeline_pipelineName' - The name of the pipeline to delete.
+newDeletePipeline ::
+  -- | 'pipelineName'
+  Prelude.Text ->
   DeletePipeline
-deletePipeline pPipelineName_ =
-  DeletePipeline' {_dPipelineName = pPipelineName_}
+newDeletePipeline pPipelineName_ =
+  DeletePipeline' {pipelineName = pPipelineName_}
 
 -- | The name of the pipeline to delete.
-dPipelineName :: Lens' DeletePipeline Text
-dPipelineName = lens _dPipelineName (\s a -> s {_dPipelineName = a})
+deletePipeline_pipelineName :: Lens.Lens' DeletePipeline Prelude.Text
+deletePipeline_pipelineName = Lens.lens (\DeletePipeline' {pipelineName} -> pipelineName) (\s@DeletePipeline' {} a -> s {pipelineName = a} :: DeletePipeline)
 
-instance AWSRequest DeletePipeline where
+instance Prelude.AWSRequest DeletePipeline where
   type Rs DeletePipeline = DeletePipelineResponse
-  request = delete ioTAnalytics
-  response = receiveNull DeletePipelineResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeletePipelineResponse'
 
-instance Hashable DeletePipeline
+instance Prelude.Hashable DeletePipeline
 
-instance NFData DeletePipeline
+instance Prelude.NFData DeletePipeline
 
-instance ToHeaders DeletePipeline where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeletePipeline where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeletePipeline where
+instance Prelude.ToPath DeletePipeline where
   toPath DeletePipeline' {..} =
-    mconcat ["/pipelines/", toBS _dPipelineName]
+    Prelude.mconcat
+      ["/pipelines/", Prelude.toBS pipelineName]
 
-instance ToQuery DeletePipeline where
-  toQuery = const mempty
+instance Prelude.ToQuery DeletePipeline where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deletePipelineResponse' smart constructor.
+-- | /See:/ 'newDeletePipelineResponse' smart constructor.
 data DeletePipelineResponse = DeletePipelineResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletePipelineResponse' with the minimum fields required to make a request.
-deletePipelineResponse ::
+-- |
+-- Create a value of 'DeletePipelineResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeletePipelineResponse ::
   DeletePipelineResponse
-deletePipelineResponse = DeletePipelineResponse'
+newDeletePipelineResponse = DeletePipelineResponse'
 
-instance NFData DeletePipelineResponse
+instance Prelude.NFData DeletePipelineResponse

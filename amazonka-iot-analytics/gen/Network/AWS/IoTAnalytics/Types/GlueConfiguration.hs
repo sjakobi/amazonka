@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,84 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.GlueConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration information for coordination with AWS Glue, a fully managed extract, transform and load (ETL) service.
+-- | Configuration information for coordination with AWS Glue, a fully
+-- managed extract, transform and load (ETL) service.
 --
---
---
--- /See:/ 'glueConfiguration' smart constructor.
+-- /See:/ 'newGlueConfiguration' smart constructor.
 data GlueConfiguration = GlueConfiguration'
-  { _gcTableName ::
-      !Text,
-    _gcDatabaseName :: !Text
+  { -- | The name of the table in your AWS Glue Data Catalog that is used to
+    -- perform the ETL operations. An AWS Glue Data Catalog table contains
+    -- partitioned data and descriptions of data sources and targets.
+    tableName :: Prelude.Text,
+    -- | The name of the database in your AWS Glue Data Catalog in which the
+    -- table is located. An AWS Glue Data Catalog database contains metadata
+    -- tables.
+    databaseName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GlueConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GlueConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcTableName' - The name of the table in your AWS Glue Data Catalog that is used to perform the ETL operations. An AWS Glue Data Catalog table contains partitioned data and descriptions of data sources and targets.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcDatabaseName' - The name of the database in your AWS Glue Data Catalog in which the table is located. An AWS Glue Data Catalog database contains metadata tables.
-glueConfiguration ::
-  -- | 'gcTableName'
-  Text ->
-  -- | 'gcDatabaseName'
-  Text ->
+-- 'tableName', 'glueConfiguration_tableName' - The name of the table in your AWS Glue Data Catalog that is used to
+-- perform the ETL operations. An AWS Glue Data Catalog table contains
+-- partitioned data and descriptions of data sources and targets.
+--
+-- 'databaseName', 'glueConfiguration_databaseName' - The name of the database in your AWS Glue Data Catalog in which the
+-- table is located. An AWS Glue Data Catalog database contains metadata
+-- tables.
+newGlueConfiguration ::
+  -- | 'tableName'
+  Prelude.Text ->
+  -- | 'databaseName'
+  Prelude.Text ->
   GlueConfiguration
-glueConfiguration pTableName_ pDatabaseName_ =
+newGlueConfiguration pTableName_ pDatabaseName_ =
   GlueConfiguration'
-    { _gcTableName = pTableName_,
-      _gcDatabaseName = pDatabaseName_
+    { tableName = pTableName_,
+      databaseName = pDatabaseName_
     }
 
--- | The name of the table in your AWS Glue Data Catalog that is used to perform the ETL operations. An AWS Glue Data Catalog table contains partitioned data and descriptions of data sources and targets.
-gcTableName :: Lens' GlueConfiguration Text
-gcTableName = lens _gcTableName (\s a -> s {_gcTableName = a})
+-- | The name of the table in your AWS Glue Data Catalog that is used to
+-- perform the ETL operations. An AWS Glue Data Catalog table contains
+-- partitioned data and descriptions of data sources and targets.
+glueConfiguration_tableName :: Lens.Lens' GlueConfiguration Prelude.Text
+glueConfiguration_tableName = Lens.lens (\GlueConfiguration' {tableName} -> tableName) (\s@GlueConfiguration' {} a -> s {tableName = a} :: GlueConfiguration)
 
--- | The name of the database in your AWS Glue Data Catalog in which the table is located. An AWS Glue Data Catalog database contains metadata tables.
-gcDatabaseName :: Lens' GlueConfiguration Text
-gcDatabaseName = lens _gcDatabaseName (\s a -> s {_gcDatabaseName = a})
+-- | The name of the database in your AWS Glue Data Catalog in which the
+-- table is located. An AWS Glue Data Catalog database contains metadata
+-- tables.
+glueConfiguration_databaseName :: Lens.Lens' GlueConfiguration Prelude.Text
+glueConfiguration_databaseName = Lens.lens (\GlueConfiguration' {databaseName} -> databaseName) (\s@GlueConfiguration' {} a -> s {databaseName = a} :: GlueConfiguration)
 
-instance FromJSON GlueConfiguration where
+instance Prelude.FromJSON GlueConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GlueConfiguration"
       ( \x ->
           GlueConfiguration'
-            <$> (x .: "tableName") <*> (x .: "databaseName")
+            Prelude.<$> (x Prelude..: "tableName")
+            Prelude.<*> (x Prelude..: "databaseName")
       )
 
-instance Hashable GlueConfiguration
+instance Prelude.Hashable GlueConfiguration
 
-instance NFData GlueConfiguration
+instance Prelude.NFData GlueConfiguration
 
-instance ToJSON GlueConfiguration where
+instance Prelude.ToJSON GlueConfiguration where
   toJSON GlueConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just ("tableName" .= _gcTableName),
-            Just ("databaseName" .= _gcDatabaseName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("tableName" Prelude..= tableName),
+            Prelude.Just
+              ("databaseName" Prelude..= databaseName)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,108 +24,105 @@
 -- Retrieves the current settings of the AWS IoT Analytics logging options.
 module Network.AWS.IoTAnalytics.DescribeLoggingOptions
   ( -- * Creating a Request
-    describeLoggingOptions,
-    DescribeLoggingOptions,
+    DescribeLoggingOptions (..),
+    newDescribeLoggingOptions,
 
     -- * Destructuring the Response
-    describeLoggingOptionsResponse,
-    DescribeLoggingOptionsResponse,
+    DescribeLoggingOptionsResponse (..),
+    newDescribeLoggingOptionsResponse,
 
     -- * Response Lenses
-    dlorrsLoggingOptions,
-    dlorrsResponseStatus,
+    describeLoggingOptionsResponse_loggingOptions,
+    describeLoggingOptionsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoTAnalytics.Types.LoggingOptions
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeLoggingOptions' smart constructor.
+-- | /See:/ 'newDescribeLoggingOptions' smart constructor.
 data DescribeLoggingOptions = DescribeLoggingOptions'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLoggingOptions' with the minimum fields required to make a request.
-describeLoggingOptions ::
+-- |
+-- Create a value of 'DescribeLoggingOptions' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDescribeLoggingOptions ::
   DescribeLoggingOptions
-describeLoggingOptions = DescribeLoggingOptions'
+newDescribeLoggingOptions = DescribeLoggingOptions'
 
-instance AWSRequest DescribeLoggingOptions where
+instance Prelude.AWSRequest DescribeLoggingOptions where
   type
     Rs DescribeLoggingOptions =
       DescribeLoggingOptionsResponse
-  request = get ioTAnalytics
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeLoggingOptionsResponse'
-            <$> (x .?> "loggingOptions") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "loggingOptions")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeLoggingOptions
+instance Prelude.Hashable DescribeLoggingOptions
 
-instance NFData DescribeLoggingOptions
+instance Prelude.NFData DescribeLoggingOptions
 
-instance ToHeaders DescribeLoggingOptions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeLoggingOptions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeLoggingOptions where
-  toPath = const "/logging"
+instance Prelude.ToPath DescribeLoggingOptions where
+  toPath = Prelude.const "/logging"
 
-instance ToQuery DescribeLoggingOptions where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeLoggingOptions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeLoggingOptionsResponse' smart constructor.
+-- | /See:/ 'newDescribeLoggingOptionsResponse' smart constructor.
 data DescribeLoggingOptionsResponse = DescribeLoggingOptionsResponse'
-  { _dlorrsLoggingOptions ::
-      !( Maybe
-           LoggingOptions
-       ),
-    _dlorrsResponseStatus ::
-      !Int
+  { -- | The current settings of the AWS IoT Analytics logging options.
+    loggingOptions :: Prelude.Maybe LoggingOptions,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeLoggingOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeLoggingOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dlorrsLoggingOptions' - The current settings of the AWS IoT Analytics logging options.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dlorrsResponseStatus' - -- | The response status code.
-describeLoggingOptionsResponse ::
-  -- | 'dlorrsResponseStatus'
-  Int ->
+-- 'loggingOptions', 'describeLoggingOptionsResponse_loggingOptions' - The current settings of the AWS IoT Analytics logging options.
+--
+-- 'httpStatus', 'describeLoggingOptionsResponse_httpStatus' - The response's http status code.
+newDescribeLoggingOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeLoggingOptionsResponse
-describeLoggingOptionsResponse pResponseStatus_ =
+newDescribeLoggingOptionsResponse pHttpStatus_ =
   DescribeLoggingOptionsResponse'
-    { _dlorrsLoggingOptions =
-        Nothing,
-      _dlorrsResponseStatus = pResponseStatus_
+    { loggingOptions =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current settings of the AWS IoT Analytics logging options.
-dlorrsLoggingOptions :: Lens' DescribeLoggingOptionsResponse (Maybe LoggingOptions)
-dlorrsLoggingOptions = lens _dlorrsLoggingOptions (\s a -> s {_dlorrsLoggingOptions = a})
+describeLoggingOptionsResponse_loggingOptions :: Lens.Lens' DescribeLoggingOptionsResponse (Prelude.Maybe LoggingOptions)
+describeLoggingOptionsResponse_loggingOptions = Lens.lens (\DescribeLoggingOptionsResponse' {loggingOptions} -> loggingOptions) (\s@DescribeLoggingOptionsResponse' {} a -> s {loggingOptions = a} :: DescribeLoggingOptionsResponse)
 
--- | -- | The response status code.
-dlorrsResponseStatus :: Lens' DescribeLoggingOptionsResponse Int
-dlorrsResponseStatus = lens _dlorrsResponseStatus (\s a -> s {_dlorrsResponseStatus = a})
+-- | The response's http status code.
+describeLoggingOptionsResponse_httpStatus :: Lens.Lens' DescribeLoggingOptionsResponse Prelude.Int
+describeLoggingOptionsResponse_httpStatus = Lens.lens (\DescribeLoggingOptionsResponse' {httpStatus} -> httpStatus) (\s@DescribeLoggingOptionsResponse' {} a -> s {httpStatus = a} :: DescribeLoggingOptionsResponse)
 
-instance NFData DescribeLoggingOptionsResponse
+instance
+  Prelude.NFData
+    DescribeLoggingOptionsResponse

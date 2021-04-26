@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.ChannelActivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The activity that determines the source of the messages to be processed.
 --
---
---
--- /See:/ 'channelActivity' smart constructor.
+-- /See:/ 'newChannelActivity' smart constructor.
 data ChannelActivity = ChannelActivity'
-  { _caNext ::
-      !(Maybe Text),
-    _caName :: !Text,
-    _caChannelName :: !Text
+  { -- | The next activity in the pipeline.
+    next :: Prelude.Maybe Prelude.Text,
+    -- | The name of the channel activity.
+    name :: Prelude.Text,
+    -- | The name of the channel from which the messages are processed.
+    channelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caNext' - The next activity in the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caName' - The name of the channel activity.
+-- 'next', 'channelActivity_next' - The next activity in the pipeline.
 --
--- * 'caChannelName' - The name of the channel from which the messages are processed.
-channelActivity ::
-  -- | 'caName'
-  Text ->
-  -- | 'caChannelName'
-  Text ->
+-- 'name', 'channelActivity_name' - The name of the channel activity.
+--
+-- 'channelName', 'channelActivity_channelName' - The name of the channel from which the messages are processed.
+newChannelActivity ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'channelName'
+  Prelude.Text ->
   ChannelActivity
-channelActivity pName_ pChannelName_ =
+newChannelActivity pName_ pChannelName_ =
   ChannelActivity'
-    { _caNext = Nothing,
-      _caName = pName_,
-      _caChannelName = pChannelName_
+    { next = Prelude.Nothing,
+      name = pName_,
+      channelName = pChannelName_
     }
 
 -- | The next activity in the pipeline.
-caNext :: Lens' ChannelActivity (Maybe Text)
-caNext = lens _caNext (\s a -> s {_caNext = a})
+channelActivity_next :: Lens.Lens' ChannelActivity (Prelude.Maybe Prelude.Text)
+channelActivity_next = Lens.lens (\ChannelActivity' {next} -> next) (\s@ChannelActivity' {} a -> s {next = a} :: ChannelActivity)
 
 -- | The name of the channel activity.
-caName :: Lens' ChannelActivity Text
-caName = lens _caName (\s a -> s {_caName = a})
+channelActivity_name :: Lens.Lens' ChannelActivity Prelude.Text
+channelActivity_name = Lens.lens (\ChannelActivity' {name} -> name) (\s@ChannelActivity' {} a -> s {name = a} :: ChannelActivity)
 
 -- | The name of the channel from which the messages are processed.
-caChannelName :: Lens' ChannelActivity Text
-caChannelName = lens _caChannelName (\s a -> s {_caChannelName = a})
+channelActivity_channelName :: Lens.Lens' ChannelActivity Prelude.Text
+channelActivity_channelName = Lens.lens (\ChannelActivity' {channelName} -> channelName) (\s@ChannelActivity' {} a -> s {channelName = a} :: ChannelActivity)
 
-instance FromJSON ChannelActivity where
+instance Prelude.FromJSON ChannelActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelActivity"
       ( \x ->
           ChannelActivity'
-            <$> (x .:? "next")
-            <*> (x .: "name")
-            <*> (x .: "channelName")
+            Prelude.<$> (x Prelude..:? "next")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "channelName")
       )
 
-instance Hashable ChannelActivity
+instance Prelude.Hashable ChannelActivity
 
-instance NFData ChannelActivity
+instance Prelude.NFData ChannelActivity
 
-instance ToJSON ChannelActivity where
+instance Prelude.ToJSON ChannelActivity where
   toJSON ChannelActivity' {..} =
-    object
-      ( catMaybes
-          [ ("next" .=) <$> _caNext,
-            Just ("name" .= _caName),
-            Just ("channelName" .= _caChannelName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("next" Prelude..=) Prelude.<$> next,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("channelName" Prelude..= channelName)
           ]
       )

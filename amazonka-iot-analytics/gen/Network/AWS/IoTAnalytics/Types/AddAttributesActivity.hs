@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.AddAttributesActivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An activity that adds other attributes based on existing attributes in the message.
+-- | An activity that adds other attributes based on existing attributes in
+-- the message.
 --
---
---
--- /See:/ 'addAttributesActivity' smart constructor.
+-- /See:/ 'newAddAttributesActivity' smart constructor.
 data AddAttributesActivity = AddAttributesActivity'
-  { _aaaNext ::
-      !(Maybe Text),
-    _aaaName :: !Text,
-    _aaaAttributes ::
-      !(Map Text Text)
+  { -- | The next activity in the pipeline.
+    next :: Prelude.Maybe Prelude.Text,
+    -- | The name of the addAttributes activity.
+    name :: Prelude.Text,
+    -- | A list of 1-50 @AttributeNameMapping@ objects that map an existing
+    -- attribute to a new attribute.
+    --
+    -- The existing attributes remain in the message, so if you want to remove
+    -- the originals, use @RemoveAttributeActivity@.
+    attributes :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddAttributesActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddAttributesActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aaaNext' - The next activity in the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aaaName' - The name of the addAttributes activity.
+-- 'next', 'addAttributesActivity_next' - The next activity in the pipeline.
 --
--- * 'aaaAttributes' - A list of 1-50 @AttributeNameMapping@ objects that map an existing attribute to a new attribute.
-addAttributesActivity ::
-  -- | 'aaaName'
-  Text ->
+-- 'name', 'addAttributesActivity_name' - The name of the addAttributes activity.
+--
+-- 'attributes', 'addAttributesActivity_attributes' - A list of 1-50 @AttributeNameMapping@ objects that map an existing
+-- attribute to a new attribute.
+--
+-- The existing attributes remain in the message, so if you want to remove
+-- the originals, use @RemoveAttributeActivity@.
+newAddAttributesActivity ::
+  -- | 'name'
+  Prelude.Text ->
   AddAttributesActivity
-addAttributesActivity pName_ =
+newAddAttributesActivity pName_ =
   AddAttributesActivity'
-    { _aaaNext = Nothing,
-      _aaaName = pName_,
-      _aaaAttributes = mempty
+    { next = Prelude.Nothing,
+      name = pName_,
+      attributes = Prelude.mempty
     }
 
 -- | The next activity in the pipeline.
-aaaNext :: Lens' AddAttributesActivity (Maybe Text)
-aaaNext = lens _aaaNext (\s a -> s {_aaaNext = a})
+addAttributesActivity_next :: Lens.Lens' AddAttributesActivity (Prelude.Maybe Prelude.Text)
+addAttributesActivity_next = Lens.lens (\AddAttributesActivity' {next} -> next) (\s@AddAttributesActivity' {} a -> s {next = a} :: AddAttributesActivity)
 
 -- | The name of the addAttributes activity.
-aaaName :: Lens' AddAttributesActivity Text
-aaaName = lens _aaaName (\s a -> s {_aaaName = a})
+addAttributesActivity_name :: Lens.Lens' AddAttributesActivity Prelude.Text
+addAttributesActivity_name = Lens.lens (\AddAttributesActivity' {name} -> name) (\s@AddAttributesActivity' {} a -> s {name = a} :: AddAttributesActivity)
 
--- | A list of 1-50 @AttributeNameMapping@ objects that map an existing attribute to a new attribute.
-aaaAttributes :: Lens' AddAttributesActivity (HashMap Text Text)
-aaaAttributes = lens _aaaAttributes (\s a -> s {_aaaAttributes = a}) . _Map
+-- | A list of 1-50 @AttributeNameMapping@ objects that map an existing
+-- attribute to a new attribute.
+--
+-- The existing attributes remain in the message, so if you want to remove
+-- the originals, use @RemoveAttributeActivity@.
+addAttributesActivity_attributes :: Lens.Lens' AddAttributesActivity (Prelude.HashMap Prelude.Text Prelude.Text)
+addAttributesActivity_attributes = Lens.lens (\AddAttributesActivity' {attributes} -> attributes) (\s@AddAttributesActivity' {} a -> s {attributes = a} :: AddAttributesActivity) Prelude.. Prelude._Map
 
-instance FromJSON AddAttributesActivity where
+instance Prelude.FromJSON AddAttributesActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AddAttributesActivity"
       ( \x ->
           AddAttributesActivity'
-            <$> (x .:? "next")
-            <*> (x .: "name")
-            <*> (x .:? "attributes" .!= mempty)
+            Prelude.<$> (x Prelude..:? "next")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> ( x Prelude..:? "attributes"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable AddAttributesActivity
+instance Prelude.Hashable AddAttributesActivity
 
-instance NFData AddAttributesActivity
+instance Prelude.NFData AddAttributesActivity
 
-instance ToJSON AddAttributesActivity where
+instance Prelude.ToJSON AddAttributesActivity where
   toJSON AddAttributesActivity' {..} =
-    object
-      ( catMaybes
-          [ ("next" .=) <$> _aaaNext,
-            Just ("name" .= _aaaName),
-            Just ("attributes" .= _aaaAttributes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("next" Prelude..=) Prelude.<$> next,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("attributes" Prelude..= attributes)
           ]
       )

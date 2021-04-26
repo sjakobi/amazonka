@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IoTAnalytics.Types.DatastoreStatus
   ( DatastoreStatus
       ( ..,
-        DSActive,
-        DSCreating,
-        DSDeleting
+        DatastoreStatusACTIVE,
+        DatastoreStatusCREATING,
+        DatastoreStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DatastoreStatus = DatastoreStatus' (CI Text)
+newtype DatastoreStatus = DatastoreStatus'
+  { fromDatastoreStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSActive :: DatastoreStatus
-pattern DSActive = DatastoreStatus' "ACTIVE"
+pattern DatastoreStatusACTIVE :: DatastoreStatus
+pattern DatastoreStatusACTIVE = DatastoreStatus' "ACTIVE"
 
-pattern DSCreating :: DatastoreStatus
-pattern DSCreating = DatastoreStatus' "CREATING"
+pattern DatastoreStatusCREATING :: DatastoreStatus
+pattern DatastoreStatusCREATING = DatastoreStatus' "CREATING"
 
-pattern DSDeleting :: DatastoreStatus
-pattern DSDeleting = DatastoreStatus' "DELETING"
+pattern DatastoreStatusDELETING :: DatastoreStatus
+pattern DatastoreStatusDELETING = DatastoreStatus' "DELETING"
 
 {-# COMPLETE
-  DSActive,
-  DSCreating,
-  DSDeleting,
+  DatastoreStatusACTIVE,
+  DatastoreStatusCREATING,
+  DatastoreStatusDELETING,
   DatastoreStatus'
   #-}
 
-instance FromText DatastoreStatus where
-  parser = (DatastoreStatus' . mk) <$> takeText
+instance Prelude.FromText DatastoreStatus where
+  parser = DatastoreStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DatastoreStatus where
-  toText (DatastoreStatus' ci) = original ci
+instance Prelude.ToText DatastoreStatus where
+  toText (DatastoreStatus' x) = x
 
-instance Hashable DatastoreStatus
+instance Prelude.Hashable DatastoreStatus
 
-instance NFData DatastoreStatus
+instance Prelude.NFData DatastoreStatus
 
-instance ToByteString DatastoreStatus
+instance Prelude.ToByteString DatastoreStatus
 
-instance ToQuery DatastoreStatus
+instance Prelude.ToQuery DatastoreStatus
 
-instance ToHeader DatastoreStatus
+instance Prelude.ToHeader DatastoreStatus
 
-instance FromJSON DatastoreStatus where
-  parseJSON = parseJSONText "DatastoreStatus"
+instance Prelude.FromJSON DatastoreStatus where
+  parseJSON = Prelude.parseJSONText "DatastoreStatus"

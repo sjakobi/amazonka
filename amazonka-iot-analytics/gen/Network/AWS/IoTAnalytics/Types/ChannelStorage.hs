@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +21,86 @@ module Network.AWS.IoTAnalytics.Types.ChannelStorage where
 
 import Network.AWS.IoTAnalytics.Types.CustomerManagedChannelS3Storage
 import Network.AWS.IoTAnalytics.Types.ServiceManagedChannelS3Storage
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Where channel data is stored. You may choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . This cannot be changed after creation of the channel.
+-- | Where channel data is stored. You may choose one of @serviceManagedS3@
+-- or @customerManagedS3@ storage. If not specified, the default is
+-- @serviceManagedS3@. This cannot be changed after creation of the
+-- channel.
 --
---
---
--- /See:/ 'channelStorage' smart constructor.
+-- /See:/ 'newChannelStorage' smart constructor.
 data ChannelStorage = ChannelStorage'
-  { _csServiceManagedS3 ::
-      !(Maybe ServiceManagedChannelS3Storage),
-    _csCustomerManagedS3 ::
-      !(Maybe CustomerManagedChannelS3Storage)
+  { -- | Use this to store channel data in an S3 bucket managed by AWS IoT
+    -- Analytics. You cannot change the choice of service-managed or
+    -- customer-managed S3 storage after the channel is created.
+    serviceManagedS3 :: Prelude.Maybe ServiceManagedChannelS3Storage,
+    -- | Use this to store channel data in an S3 bucket that you manage. If
+    -- customer managed storage is selected, the @retentionPeriod@ parameter is
+    -- ignored. You cannot change the choice of service-managed or
+    -- customer-managed S3 storage after the channel is created.
+    customerManagedS3 :: Prelude.Maybe CustomerManagedChannelS3Storage
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelStorage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelStorage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csServiceManagedS3' - Use this to store channel data in an S3 bucket managed by AWS IoT Analytics. You cannot change the choice of service-managed or customer-managed S3 storage after the channel is created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csCustomerManagedS3' - Use this to store channel data in an S3 bucket that you manage. If customer managed storage is selected, the @retentionPeriod@ parameter is ignored. You cannot change the choice of service-managed or customer-managed S3 storage after the channel is created.
-channelStorage ::
+-- 'serviceManagedS3', 'channelStorage_serviceManagedS3' - Use this to store channel data in an S3 bucket managed by AWS IoT
+-- Analytics. You cannot change the choice of service-managed or
+-- customer-managed S3 storage after the channel is created.
+--
+-- 'customerManagedS3', 'channelStorage_customerManagedS3' - Use this to store channel data in an S3 bucket that you manage. If
+-- customer managed storage is selected, the @retentionPeriod@ parameter is
+-- ignored. You cannot change the choice of service-managed or
+-- customer-managed S3 storage after the channel is created.
+newChannelStorage ::
   ChannelStorage
-channelStorage =
+newChannelStorage =
   ChannelStorage'
-    { _csServiceManagedS3 = Nothing,
-      _csCustomerManagedS3 = Nothing
+    { serviceManagedS3 = Prelude.Nothing,
+      customerManagedS3 = Prelude.Nothing
     }
 
--- | Use this to store channel data in an S3 bucket managed by AWS IoT Analytics. You cannot change the choice of service-managed or customer-managed S3 storage after the channel is created.
-csServiceManagedS3 :: Lens' ChannelStorage (Maybe ServiceManagedChannelS3Storage)
-csServiceManagedS3 = lens _csServiceManagedS3 (\s a -> s {_csServiceManagedS3 = a})
+-- | Use this to store channel data in an S3 bucket managed by AWS IoT
+-- Analytics. You cannot change the choice of service-managed or
+-- customer-managed S3 storage after the channel is created.
+channelStorage_serviceManagedS3 :: Lens.Lens' ChannelStorage (Prelude.Maybe ServiceManagedChannelS3Storage)
+channelStorage_serviceManagedS3 = Lens.lens (\ChannelStorage' {serviceManagedS3} -> serviceManagedS3) (\s@ChannelStorage' {} a -> s {serviceManagedS3 = a} :: ChannelStorage)
 
--- | Use this to store channel data in an S3 bucket that you manage. If customer managed storage is selected, the @retentionPeriod@ parameter is ignored. You cannot change the choice of service-managed or customer-managed S3 storage after the channel is created.
-csCustomerManagedS3 :: Lens' ChannelStorage (Maybe CustomerManagedChannelS3Storage)
-csCustomerManagedS3 = lens _csCustomerManagedS3 (\s a -> s {_csCustomerManagedS3 = a})
+-- | Use this to store channel data in an S3 bucket that you manage. If
+-- customer managed storage is selected, the @retentionPeriod@ parameter is
+-- ignored. You cannot change the choice of service-managed or
+-- customer-managed S3 storage after the channel is created.
+channelStorage_customerManagedS3 :: Lens.Lens' ChannelStorage (Prelude.Maybe CustomerManagedChannelS3Storage)
+channelStorage_customerManagedS3 = Lens.lens (\ChannelStorage' {customerManagedS3} -> customerManagedS3) (\s@ChannelStorage' {} a -> s {customerManagedS3 = a} :: ChannelStorage)
 
-instance FromJSON ChannelStorage where
+instance Prelude.FromJSON ChannelStorage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelStorage"
       ( \x ->
           ChannelStorage'
-            <$> (x .:? "serviceManagedS3")
-            <*> (x .:? "customerManagedS3")
+            Prelude.<$> (x Prelude..:? "serviceManagedS3")
+            Prelude.<*> (x Prelude..:? "customerManagedS3")
       )
 
-instance Hashable ChannelStorage
+instance Prelude.Hashable ChannelStorage
 
-instance NFData ChannelStorage
+instance Prelude.NFData ChannelStorage
 
-instance ToJSON ChannelStorage where
+instance Prelude.ToJSON ChannelStorage where
   toJSON ChannelStorage' {..} =
-    object
-      ( catMaybes
-          [ ("serviceManagedS3" .=) <$> _csServiceManagedS3,
-            ("customerManagedS3" .=) <$> _csCustomerManagedS3
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("serviceManagedS3" Prelude..=)
+              Prelude.<$> serviceManagedS3,
+            ("customerManagedS3" Prelude..=)
+              Prelude.<$> customerManagedS3
           ]
       )

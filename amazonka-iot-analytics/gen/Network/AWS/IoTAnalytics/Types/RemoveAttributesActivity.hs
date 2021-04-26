@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.RemoveAttributesActivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An activity that removes attributes from a message.
 --
---
---
--- /See:/ 'removeAttributesActivity' smart constructor.
+-- /See:/ 'newRemoveAttributesActivity' smart constructor.
 data RemoveAttributesActivity = RemoveAttributesActivity'
-  { _raaNext ::
-      !(Maybe Text),
-    _raaName :: !Text,
-    _raaAttributes ::
-      !(List1 Text)
+  { -- | The next activity in the pipeline.
+    next :: Prelude.Maybe Prelude.Text,
+    -- | The name of the @removeAttributes@ activity.
+    name :: Prelude.Text,
+    -- | A list of 1-50 attributes to remove from the message.
+    attributes :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RemoveAttributesActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RemoveAttributesActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'raaNext' - The next activity in the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'raaName' - The name of the @removeAttributes@ activity.
+-- 'next', 'removeAttributesActivity_next' - The next activity in the pipeline.
 --
--- * 'raaAttributes' - A list of 1-50 attributes to remove from the message.
-removeAttributesActivity ::
-  -- | 'raaName'
-  Text ->
-  -- | 'raaAttributes'
-  NonEmpty Text ->
+-- 'name', 'removeAttributesActivity_name' - The name of the @removeAttributes@ activity.
+--
+-- 'attributes', 'removeAttributesActivity_attributes' - A list of 1-50 attributes to remove from the message.
+newRemoveAttributesActivity ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'attributes'
+  Prelude.NonEmpty Prelude.Text ->
   RemoveAttributesActivity
-removeAttributesActivity pName_ pAttributes_ =
+newRemoveAttributesActivity pName_ pAttributes_ =
   RemoveAttributesActivity'
-    { _raaNext = Nothing,
-      _raaName = pName_,
-      _raaAttributes = _List1 # pAttributes_
+    { next = Prelude.Nothing,
+      name = pName_,
+      attributes = Prelude._List1 Lens.# pAttributes_
     }
 
 -- | The next activity in the pipeline.
-raaNext :: Lens' RemoveAttributesActivity (Maybe Text)
-raaNext = lens _raaNext (\s a -> s {_raaNext = a})
+removeAttributesActivity_next :: Lens.Lens' RemoveAttributesActivity (Prelude.Maybe Prelude.Text)
+removeAttributesActivity_next = Lens.lens (\RemoveAttributesActivity' {next} -> next) (\s@RemoveAttributesActivity' {} a -> s {next = a} :: RemoveAttributesActivity)
 
 -- | The name of the @removeAttributes@ activity.
-raaName :: Lens' RemoveAttributesActivity Text
-raaName = lens _raaName (\s a -> s {_raaName = a})
+removeAttributesActivity_name :: Lens.Lens' RemoveAttributesActivity Prelude.Text
+removeAttributesActivity_name = Lens.lens (\RemoveAttributesActivity' {name} -> name) (\s@RemoveAttributesActivity' {} a -> s {name = a} :: RemoveAttributesActivity)
 
 -- | A list of 1-50 attributes to remove from the message.
-raaAttributes :: Lens' RemoveAttributesActivity (NonEmpty Text)
-raaAttributes = lens _raaAttributes (\s a -> s {_raaAttributes = a}) . _List1
+removeAttributesActivity_attributes :: Lens.Lens' RemoveAttributesActivity (Prelude.NonEmpty Prelude.Text)
+removeAttributesActivity_attributes = Lens.lens (\RemoveAttributesActivity' {attributes} -> attributes) (\s@RemoveAttributesActivity' {} a -> s {attributes = a} :: RemoveAttributesActivity) Prelude.. Prelude._List1
 
-instance FromJSON RemoveAttributesActivity where
+instance Prelude.FromJSON RemoveAttributesActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RemoveAttributesActivity"
       ( \x ->
           RemoveAttributesActivity'
-            <$> (x .:? "next")
-            <*> (x .: "name")
-            <*> (x .: "attributes")
+            Prelude.<$> (x Prelude..:? "next")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "attributes")
       )
 
-instance Hashable RemoveAttributesActivity
+instance Prelude.Hashable RemoveAttributesActivity
 
-instance NFData RemoveAttributesActivity
+instance Prelude.NFData RemoveAttributesActivity
 
-instance ToJSON RemoveAttributesActivity where
+instance Prelude.ToJSON RemoveAttributesActivity where
   toJSON RemoveAttributesActivity' {..} =
-    object
-      ( catMaybes
-          [ ("next" .=) <$> _raaNext,
-            Just ("name" .= _raaName),
-            Just ("attributes" .= _raaAttributes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("next" Prelude..=) Prelude.<$> next,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("attributes" Prelude..= attributes)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,44 +20,55 @@
 module Network.AWS.IoTAnalytics.Types.QueryFilter where
 
 import Network.AWS.IoTAnalytics.Types.DeltaTime
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information that is used to filter message data, to segregate it according to the timeframe in which it arrives.
+-- | Information that is used to filter message data, to segregate it
+-- according to the timeframe in which it arrives.
 --
---
---
--- /See:/ 'queryFilter' smart constructor.
-newtype QueryFilter = QueryFilter'
-  { _qfDeltaTime ::
-      Maybe DeltaTime
+-- /See:/ 'newQueryFilter' smart constructor.
+data QueryFilter = QueryFilter'
+  { -- | Used to limit data to that which has arrived since the last execution of
+    -- the action.
+    deltaTime :: Prelude.Maybe DeltaTime
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'QueryFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'QueryFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'qfDeltaTime' - Used to limit data to that which has arrived since the last execution of the action.
-queryFilter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deltaTime', 'queryFilter_deltaTime' - Used to limit data to that which has arrived since the last execution of
+-- the action.
+newQueryFilter ::
   QueryFilter
-queryFilter = QueryFilter' {_qfDeltaTime = Nothing}
+newQueryFilter =
+  QueryFilter' {deltaTime = Prelude.Nothing}
 
--- | Used to limit data to that which has arrived since the last execution of the action.
-qfDeltaTime :: Lens' QueryFilter (Maybe DeltaTime)
-qfDeltaTime = lens _qfDeltaTime (\s a -> s {_qfDeltaTime = a})
+-- | Used to limit data to that which has arrived since the last execution of
+-- the action.
+queryFilter_deltaTime :: Lens.Lens' QueryFilter (Prelude.Maybe DeltaTime)
+queryFilter_deltaTime = Lens.lens (\QueryFilter' {deltaTime} -> deltaTime) (\s@QueryFilter' {} a -> s {deltaTime = a} :: QueryFilter)
 
-instance FromJSON QueryFilter where
+instance Prelude.FromJSON QueryFilter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "QueryFilter"
-      (\x -> QueryFilter' <$> (x .:? "deltaTime"))
+      ( \x ->
+          QueryFilter' Prelude.<$> (x Prelude..:? "deltaTime")
+      )
 
-instance Hashable QueryFilter
+instance Prelude.Hashable QueryFilter
 
-instance NFData QueryFilter
+instance Prelude.NFData QueryFilter
 
-instance ToJSON QueryFilter where
+instance Prelude.ToJSON QueryFilter where
   toJSON QueryFilter' {..} =
-    object
-      (catMaybes [("deltaTime" .=) <$> _qfDeltaTime])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("deltaTime" Prelude..=) Prelude.<$> deltaTime]
+      )

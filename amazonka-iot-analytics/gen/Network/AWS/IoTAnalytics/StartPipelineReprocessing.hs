@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,175 +24,199 @@
 -- Starts the reprocessing of raw message data through the pipeline.
 module Network.AWS.IoTAnalytics.StartPipelineReprocessing
   ( -- * Creating a Request
-    startPipelineReprocessing,
-    StartPipelineReprocessing,
+    StartPipelineReprocessing (..),
+    newStartPipelineReprocessing,
 
     -- * Request Lenses
-    sprChannelMessages,
-    sprStartTime,
-    sprEndTime,
-    sprPipelineName,
+    startPipelineReprocessing_channelMessages,
+    startPipelineReprocessing_startTime,
+    startPipelineReprocessing_endTime,
+    startPipelineReprocessing_pipelineName,
 
     -- * Destructuring the Response
-    startPipelineReprocessingResponse,
-    StartPipelineReprocessingResponse,
+    StartPipelineReprocessingResponse (..),
+    newStartPipelineReprocessingResponse,
 
     -- * Response Lenses
-    sprrrsReprocessingId,
-    sprrrsResponseStatus,
+    startPipelineReprocessingResponse_reprocessingId,
+    startPipelineReprocessingResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startPipelineReprocessing' smart constructor.
+-- | /See:/ 'newStartPipelineReprocessing' smart constructor.
 data StartPipelineReprocessing = StartPipelineReprocessing'
-  { _sprChannelMessages ::
-      !( Maybe
-           ChannelMessages
-       ),
-    _sprStartTime ::
-      !(Maybe POSIX),
-    _sprEndTime ::
-      !(Maybe POSIX),
-    _sprPipelineName ::
-      !Text
+  { -- | Specifies one or more sets of channel messages that you want to
+    -- reprocess.
+    --
+    -- If you use the @channelMessages@ object, you must not specify a value
+    -- for @startTime@ and @endTime@.
+    channelMessages :: Prelude.Maybe ChannelMessages,
+    -- | The start time (inclusive) of raw message data that is reprocessed.
+    --
+    -- If you specify a value for the @startTime@ parameter, you must not use
+    -- the @channelMessages@ object.
+    startTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The end time (exclusive) of raw message data that is reprocessed.
+    --
+    -- If you specify a value for the @endTime@ parameter, you must not use the
+    -- @channelMessages@ object.
+    endTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the pipeline on which to start reprocessing.
+    pipelineName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartPipelineReprocessing' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartPipelineReprocessing' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sprChannelMessages' - Specifies one or more sets of channel messages that you want to reprocess. If you use the @channelMessages@ object, you must not specify a value for @startTime@ and @endTime@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sprStartTime' - The start time (inclusive) of raw message data that is reprocessed. If you specify a value for the @startTime@ parameter, you must not use the @channelMessages@ object.
+-- 'channelMessages', 'startPipelineReprocessing_channelMessages' - Specifies one or more sets of channel messages that you want to
+-- reprocess.
 --
--- * 'sprEndTime' - The end time (exclusive) of raw message data that is reprocessed. If you specify a value for the @endTime@ parameter, you must not use the @channelMessages@ object.
+-- If you use the @channelMessages@ object, you must not specify a value
+-- for @startTime@ and @endTime@.
 --
--- * 'sprPipelineName' - The name of the pipeline on which to start reprocessing.
-startPipelineReprocessing ::
-  -- | 'sprPipelineName'
-  Text ->
+-- 'startTime', 'startPipelineReprocessing_startTime' - The start time (inclusive) of raw message data that is reprocessed.
+--
+-- If you specify a value for the @startTime@ parameter, you must not use
+-- the @channelMessages@ object.
+--
+-- 'endTime', 'startPipelineReprocessing_endTime' - The end time (exclusive) of raw message data that is reprocessed.
+--
+-- If you specify a value for the @endTime@ parameter, you must not use the
+-- @channelMessages@ object.
+--
+-- 'pipelineName', 'startPipelineReprocessing_pipelineName' - The name of the pipeline on which to start reprocessing.
+newStartPipelineReprocessing ::
+  -- | 'pipelineName'
+  Prelude.Text ->
   StartPipelineReprocessing
-startPipelineReprocessing pPipelineName_ =
+newStartPipelineReprocessing pPipelineName_ =
   StartPipelineReprocessing'
-    { _sprChannelMessages =
-        Nothing,
-      _sprStartTime = Nothing,
-      _sprEndTime = Nothing,
-      _sprPipelineName = pPipelineName_
+    { channelMessages =
+        Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      pipelineName = pPipelineName_
     }
 
--- | Specifies one or more sets of channel messages that you want to reprocess. If you use the @channelMessages@ object, you must not specify a value for @startTime@ and @endTime@ .
-sprChannelMessages :: Lens' StartPipelineReprocessing (Maybe ChannelMessages)
-sprChannelMessages = lens _sprChannelMessages (\s a -> s {_sprChannelMessages = a})
+-- | Specifies one or more sets of channel messages that you want to
+-- reprocess.
+--
+-- If you use the @channelMessages@ object, you must not specify a value
+-- for @startTime@ and @endTime@.
+startPipelineReprocessing_channelMessages :: Lens.Lens' StartPipelineReprocessing (Prelude.Maybe ChannelMessages)
+startPipelineReprocessing_channelMessages = Lens.lens (\StartPipelineReprocessing' {channelMessages} -> channelMessages) (\s@StartPipelineReprocessing' {} a -> s {channelMessages = a} :: StartPipelineReprocessing)
 
--- | The start time (inclusive) of raw message data that is reprocessed. If you specify a value for the @startTime@ parameter, you must not use the @channelMessages@ object.
-sprStartTime :: Lens' StartPipelineReprocessing (Maybe UTCTime)
-sprStartTime = lens _sprStartTime (\s a -> s {_sprStartTime = a}) . mapping _Time
+-- | The start time (inclusive) of raw message data that is reprocessed.
+--
+-- If you specify a value for the @startTime@ parameter, you must not use
+-- the @channelMessages@ object.
+startPipelineReprocessing_startTime :: Lens.Lens' StartPipelineReprocessing (Prelude.Maybe Prelude.UTCTime)
+startPipelineReprocessing_startTime = Lens.lens (\StartPipelineReprocessing' {startTime} -> startTime) (\s@StartPipelineReprocessing' {} a -> s {startTime = a} :: StartPipelineReprocessing) Prelude.. Lens.mapping Prelude._Time
 
--- | The end time (exclusive) of raw message data that is reprocessed. If you specify a value for the @endTime@ parameter, you must not use the @channelMessages@ object.
-sprEndTime :: Lens' StartPipelineReprocessing (Maybe UTCTime)
-sprEndTime = lens _sprEndTime (\s a -> s {_sprEndTime = a}) . mapping _Time
+-- | The end time (exclusive) of raw message data that is reprocessed.
+--
+-- If you specify a value for the @endTime@ parameter, you must not use the
+-- @channelMessages@ object.
+startPipelineReprocessing_endTime :: Lens.Lens' StartPipelineReprocessing (Prelude.Maybe Prelude.UTCTime)
+startPipelineReprocessing_endTime = Lens.lens (\StartPipelineReprocessing' {endTime} -> endTime) (\s@StartPipelineReprocessing' {} a -> s {endTime = a} :: StartPipelineReprocessing) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the pipeline on which to start reprocessing.
-sprPipelineName :: Lens' StartPipelineReprocessing Text
-sprPipelineName = lens _sprPipelineName (\s a -> s {_sprPipelineName = a})
+startPipelineReprocessing_pipelineName :: Lens.Lens' StartPipelineReprocessing Prelude.Text
+startPipelineReprocessing_pipelineName = Lens.lens (\StartPipelineReprocessing' {pipelineName} -> pipelineName) (\s@StartPipelineReprocessing' {} a -> s {pipelineName = a} :: StartPipelineReprocessing)
 
-instance AWSRequest StartPipelineReprocessing where
+instance Prelude.AWSRequest StartPipelineReprocessing where
   type
     Rs StartPipelineReprocessing =
       StartPipelineReprocessingResponse
-  request = postJSON ioTAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartPipelineReprocessingResponse'
-            <$> (x .?> "reprocessingId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "reprocessingId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartPipelineReprocessing
+instance Prelude.Hashable StartPipelineReprocessing
 
-instance NFData StartPipelineReprocessing
+instance Prelude.NFData StartPipelineReprocessing
 
-instance ToHeaders StartPipelineReprocessing where
-  toHeaders = const mempty
+instance Prelude.ToHeaders StartPipelineReprocessing where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON StartPipelineReprocessing where
+instance Prelude.ToJSON StartPipelineReprocessing where
   toJSON StartPipelineReprocessing' {..} =
-    object
-      ( catMaybes
-          [ ("channelMessages" .=) <$> _sprChannelMessages,
-            ("startTime" .=) <$> _sprStartTime,
-            ("endTime" .=) <$> _sprEndTime
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("channelMessages" Prelude..=)
+              Prelude.<$> channelMessages,
+            ("startTime" Prelude..=) Prelude.<$> startTime,
+            ("endTime" Prelude..=) Prelude.<$> endTime
           ]
       )
 
-instance ToPath StartPipelineReprocessing where
+instance Prelude.ToPath StartPipelineReprocessing where
   toPath StartPipelineReprocessing' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/pipelines/",
-        toBS _sprPipelineName,
+        Prelude.toBS pipelineName,
         "/reprocessing"
       ]
 
-instance ToQuery StartPipelineReprocessing where
-  toQuery = const mempty
+instance Prelude.ToQuery StartPipelineReprocessing where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startPipelineReprocessingResponse' smart constructor.
+-- | /See:/ 'newStartPipelineReprocessingResponse' smart constructor.
 data StartPipelineReprocessingResponse = StartPipelineReprocessingResponse'
-  { _sprrrsReprocessingId ::
-      !( Maybe
-           Text
-       ),
-    _sprrrsResponseStatus ::
-      !Int
+  { -- | The ID of the pipeline reprocessing activity that was started.
+    reprocessingId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartPipelineReprocessingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartPipelineReprocessingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sprrrsReprocessingId' - The ID of the pipeline reprocessing activity that was started.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sprrrsResponseStatus' - -- | The response status code.
-startPipelineReprocessingResponse ::
-  -- | 'sprrrsResponseStatus'
-  Int ->
+-- 'reprocessingId', 'startPipelineReprocessingResponse_reprocessingId' - The ID of the pipeline reprocessing activity that was started.
+--
+-- 'httpStatus', 'startPipelineReprocessingResponse_httpStatus' - The response's http status code.
+newStartPipelineReprocessingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartPipelineReprocessingResponse
-startPipelineReprocessingResponse pResponseStatus_ =
+newStartPipelineReprocessingResponse pHttpStatus_ =
   StartPipelineReprocessingResponse'
-    { _sprrrsReprocessingId =
-        Nothing,
-      _sprrrsResponseStatus = pResponseStatus_
+    { reprocessingId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ID of the pipeline reprocessing activity that was started.
-sprrrsReprocessingId :: Lens' StartPipelineReprocessingResponse (Maybe Text)
-sprrrsReprocessingId = lens _sprrrsReprocessingId (\s a -> s {_sprrrsReprocessingId = a})
+startPipelineReprocessingResponse_reprocessingId :: Lens.Lens' StartPipelineReprocessingResponse (Prelude.Maybe Prelude.Text)
+startPipelineReprocessingResponse_reprocessingId = Lens.lens (\StartPipelineReprocessingResponse' {reprocessingId} -> reprocessingId) (\s@StartPipelineReprocessingResponse' {} a -> s {reprocessingId = a} :: StartPipelineReprocessingResponse)
 
--- | -- | The response status code.
-sprrrsResponseStatus :: Lens' StartPipelineReprocessingResponse Int
-sprrrsResponseStatus = lens _sprrrsResponseStatus (\s a -> s {_sprrrsResponseStatus = a})
+-- | The response's http status code.
+startPipelineReprocessingResponse_httpStatus :: Lens.Lens' StartPipelineReprocessingResponse Prelude.Int
+startPipelineReprocessingResponse_httpStatus = Lens.lens (\StartPipelineReprocessingResponse' {httpStatus} -> httpStatus) (\s@StartPipelineReprocessingResponse' {} a -> s {httpStatus = a} :: StartPipelineReprocessingResponse)
 
-instance NFData StartPipelineReprocessingResponse
+instance
+  Prelude.NFData
+    StartPipelineReprocessingResponse

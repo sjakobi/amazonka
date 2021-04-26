@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,91 +22,106 @@ module Network.AWS.IoTAnalytics.Types.DatasetSummary where
 import Network.AWS.IoTAnalytics.Types.DatasetActionSummary
 import Network.AWS.IoTAnalytics.Types.DatasetStatus
 import Network.AWS.IoTAnalytics.Types.DatasetTrigger
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of information about a data set.
 --
---
---
--- /See:/ 'datasetSummary' smart constructor.
+-- /See:/ 'newDatasetSummary' smart constructor.
 data DatasetSummary = DatasetSummary'
-  { _dsStatus ::
-      !(Maybe DatasetStatus),
-    _dsCreationTime :: !(Maybe POSIX),
-    _dsLastUpdateTime :: !(Maybe POSIX),
-    _dsTriggers :: !(Maybe [DatasetTrigger]),
-    _dsActions ::
-      !(Maybe (List1 DatasetActionSummary)),
-    _dsDatasetName :: !(Maybe Text)
+  { -- | The status of the data set.
+    status :: Prelude.Maybe DatasetStatus,
+    -- | The time the data set was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The last time the data set was updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | A list of triggers. A trigger causes data set content to be populated at
+    -- a specified time interval or when another data set is populated. The
+    -- list of triggers can be empty or contain up to five @DataSetTrigger@
+    -- objects
+    triggers :: Prelude.Maybe [DatasetTrigger],
+    -- | A list of @DataActionSummary@ objects.
+    actions :: Prelude.Maybe (Prelude.List1 DatasetActionSummary),
+    -- | The name of the data set.
+    datasetName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatasetSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatasetSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsStatus' - The status of the data set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsCreationTime' - The time the data set was created.
+-- 'status', 'datasetSummary_status' - The status of the data set.
 --
--- * 'dsLastUpdateTime' - The last time the data set was updated.
+-- 'creationTime', 'datasetSummary_creationTime' - The time the data set was created.
 --
--- * 'dsTriggers' - A list of triggers. A trigger causes data set content to be populated at a specified time interval or when another data set is populated. The list of triggers can be empty or contain up to five @DataSetTrigger@ objects
+-- 'lastUpdateTime', 'datasetSummary_lastUpdateTime' - The last time the data set was updated.
 --
--- * 'dsActions' - A list of @DataActionSummary@ objects.
+-- 'triggers', 'datasetSummary_triggers' - A list of triggers. A trigger causes data set content to be populated at
+-- a specified time interval or when another data set is populated. The
+-- list of triggers can be empty or contain up to five @DataSetTrigger@
+-- objects
 --
--- * 'dsDatasetName' - The name of the data set.
-datasetSummary ::
+-- 'actions', 'datasetSummary_actions' - A list of @DataActionSummary@ objects.
+--
+-- 'datasetName', 'datasetSummary_datasetName' - The name of the data set.
+newDatasetSummary ::
   DatasetSummary
-datasetSummary =
+newDatasetSummary =
   DatasetSummary'
-    { _dsStatus = Nothing,
-      _dsCreationTime = Nothing,
-      _dsLastUpdateTime = Nothing,
-      _dsTriggers = Nothing,
-      _dsActions = Nothing,
-      _dsDatasetName = Nothing
+    { status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      triggers = Prelude.Nothing,
+      actions = Prelude.Nothing,
+      datasetName = Prelude.Nothing
     }
 
 -- | The status of the data set.
-dsStatus :: Lens' DatasetSummary (Maybe DatasetStatus)
-dsStatus = lens _dsStatus (\s a -> s {_dsStatus = a})
+datasetSummary_status :: Lens.Lens' DatasetSummary (Prelude.Maybe DatasetStatus)
+datasetSummary_status = Lens.lens (\DatasetSummary' {status} -> status) (\s@DatasetSummary' {} a -> s {status = a} :: DatasetSummary)
 
 -- | The time the data set was created.
-dsCreationTime :: Lens' DatasetSummary (Maybe UTCTime)
-dsCreationTime = lens _dsCreationTime (\s a -> s {_dsCreationTime = a}) . mapping _Time
+datasetSummary_creationTime :: Lens.Lens' DatasetSummary (Prelude.Maybe Prelude.UTCTime)
+datasetSummary_creationTime = Lens.lens (\DatasetSummary' {creationTime} -> creationTime) (\s@DatasetSummary' {} a -> s {creationTime = a} :: DatasetSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The last time the data set was updated.
-dsLastUpdateTime :: Lens' DatasetSummary (Maybe UTCTime)
-dsLastUpdateTime = lens _dsLastUpdateTime (\s a -> s {_dsLastUpdateTime = a}) . mapping _Time
+datasetSummary_lastUpdateTime :: Lens.Lens' DatasetSummary (Prelude.Maybe Prelude.UTCTime)
+datasetSummary_lastUpdateTime = Lens.lens (\DatasetSummary' {lastUpdateTime} -> lastUpdateTime) (\s@DatasetSummary' {} a -> s {lastUpdateTime = a} :: DatasetSummary) Prelude.. Lens.mapping Prelude._Time
 
--- | A list of triggers. A trigger causes data set content to be populated at a specified time interval or when another data set is populated. The list of triggers can be empty or contain up to five @DataSetTrigger@ objects
-dsTriggers :: Lens' DatasetSummary [DatasetTrigger]
-dsTriggers = lens _dsTriggers (\s a -> s {_dsTriggers = a}) . _Default . _Coerce
+-- | A list of triggers. A trigger causes data set content to be populated at
+-- a specified time interval or when another data set is populated. The
+-- list of triggers can be empty or contain up to five @DataSetTrigger@
+-- objects
+datasetSummary_triggers :: Lens.Lens' DatasetSummary (Prelude.Maybe [DatasetTrigger])
+datasetSummary_triggers = Lens.lens (\DatasetSummary' {triggers} -> triggers) (\s@DatasetSummary' {} a -> s {triggers = a} :: DatasetSummary) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of @DataActionSummary@ objects.
-dsActions :: Lens' DatasetSummary (Maybe (NonEmpty DatasetActionSummary))
-dsActions = lens _dsActions (\s a -> s {_dsActions = a}) . mapping _List1
+datasetSummary_actions :: Lens.Lens' DatasetSummary (Prelude.Maybe (Prelude.NonEmpty DatasetActionSummary))
+datasetSummary_actions = Lens.lens (\DatasetSummary' {actions} -> actions) (\s@DatasetSummary' {} a -> s {actions = a} :: DatasetSummary) Prelude.. Lens.mapping Prelude._List1
 
 -- | The name of the data set.
-dsDatasetName :: Lens' DatasetSummary (Maybe Text)
-dsDatasetName = lens _dsDatasetName (\s a -> s {_dsDatasetName = a})
+datasetSummary_datasetName :: Lens.Lens' DatasetSummary (Prelude.Maybe Prelude.Text)
+datasetSummary_datasetName = Lens.lens (\DatasetSummary' {datasetName} -> datasetName) (\s@DatasetSummary' {} a -> s {datasetName = a} :: DatasetSummary)
 
-instance FromJSON DatasetSummary where
+instance Prelude.FromJSON DatasetSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatasetSummary"
       ( \x ->
           DatasetSummary'
-            <$> (x .:? "status")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "lastUpdateTime")
-            <*> (x .:? "triggers" .!= mempty)
-            <*> (x .:? "actions")
-            <*> (x .:? "datasetName")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "lastUpdateTime")
+            Prelude.<*> (x Prelude..:? "triggers" Prelude..!= Prelude.mempty)
+            Prelude.<*> (x Prelude..:? "actions")
+            Prelude.<*> (x Prelude..:? "datasetName")
       )
 
-instance Hashable DatasetSummary
+instance Prelude.Hashable DatasetSummary
 
-instance NFData DatasetSummary
+instance Prelude.NFData DatasetSummary

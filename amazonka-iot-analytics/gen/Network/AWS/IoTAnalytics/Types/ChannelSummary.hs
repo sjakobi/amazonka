@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,92 +21,116 @@ module Network.AWS.IoTAnalytics.Types.ChannelSummary where
 
 import Network.AWS.IoTAnalytics.Types.ChannelStatus
 import Network.AWS.IoTAnalytics.Types.ChannelStorageSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of information about a channel.
 --
---
---
--- /See:/ 'channelSummary' smart constructor.
+-- /See:/ 'newChannelSummary' smart constructor.
 data ChannelSummary = ChannelSummary'
-  { _csLastMessageArrivalTime ::
-      !(Maybe POSIX),
-    _csChannelName :: !(Maybe Text),
-    _csStatus :: !(Maybe ChannelStatus),
-    _csCreationTime :: !(Maybe POSIX),
-    _csLastUpdateTime :: !(Maybe POSIX),
-    _csChannelStorage ::
-      !(Maybe ChannelStorageSummary)
+  { -- | The last time when a new message arrived in the channel.
+    --
+    -- AWS IoT Analytics updates this value at most once per minute for one
+    -- channel. Hence, the @lastMessageArrivalTime@ value is an approximation.
+    --
+    -- This feature only applies to messages that arrived in the data store
+    -- after October 23, 2020.
+    lastMessageArrivalTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the channel.
+    channelName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the channel.
+    status :: Prelude.Maybe ChannelStatus,
+    -- | When the channel was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The last time the channel was updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Where channel data is stored.
+    channelStorage :: Prelude.Maybe ChannelStorageSummary
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csLastMessageArrivalTime' - The last time when a new message arrived in the channel. AWS IoT Analytics updates this value at most once per minute for one channel. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csChannelName' - The name of the channel.
+-- 'lastMessageArrivalTime', 'channelSummary_lastMessageArrivalTime' - The last time when a new message arrived in the channel.
 --
--- * 'csStatus' - The status of the channel.
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- channel. Hence, the @lastMessageArrivalTime@ value is an approximation.
 --
--- * 'csCreationTime' - When the channel was created.
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
 --
--- * 'csLastUpdateTime' - The last time the channel was updated.
+-- 'channelName', 'channelSummary_channelName' - The name of the channel.
 --
--- * 'csChannelStorage' - Where channel data is stored.
-channelSummary ::
+-- 'status', 'channelSummary_status' - The status of the channel.
+--
+-- 'creationTime', 'channelSummary_creationTime' - When the channel was created.
+--
+-- 'lastUpdateTime', 'channelSummary_lastUpdateTime' - The last time the channel was updated.
+--
+-- 'channelStorage', 'channelSummary_channelStorage' - Where channel data is stored.
+newChannelSummary ::
   ChannelSummary
-channelSummary =
+newChannelSummary =
   ChannelSummary'
-    { _csLastMessageArrivalTime =
-        Nothing,
-      _csChannelName = Nothing,
-      _csStatus = Nothing,
-      _csCreationTime = Nothing,
-      _csLastUpdateTime = Nothing,
-      _csChannelStorage = Nothing
+    { lastMessageArrivalTime =
+        Prelude.Nothing,
+      channelName = Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      channelStorage = Prelude.Nothing
     }
 
--- | The last time when a new message arrived in the channel. AWS IoT Analytics updates this value at most once per minute for one channel. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
-csLastMessageArrivalTime :: Lens' ChannelSummary (Maybe UTCTime)
-csLastMessageArrivalTime = lens _csLastMessageArrivalTime (\s a -> s {_csLastMessageArrivalTime = a}) . mapping _Time
+-- | The last time when a new message arrived in the channel.
+--
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- channel. Hence, the @lastMessageArrivalTime@ value is an approximation.
+--
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
+channelSummary_lastMessageArrivalTime :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.UTCTime)
+channelSummary_lastMessageArrivalTime = Lens.lens (\ChannelSummary' {lastMessageArrivalTime} -> lastMessageArrivalTime) (\s@ChannelSummary' {} a -> s {lastMessageArrivalTime = a} :: ChannelSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the channel.
-csChannelName :: Lens' ChannelSummary (Maybe Text)
-csChannelName = lens _csChannelName (\s a -> s {_csChannelName = a})
+channelSummary_channelName :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.Text)
+channelSummary_channelName = Lens.lens (\ChannelSummary' {channelName} -> channelName) (\s@ChannelSummary' {} a -> s {channelName = a} :: ChannelSummary)
 
 -- | The status of the channel.
-csStatus :: Lens' ChannelSummary (Maybe ChannelStatus)
-csStatus = lens _csStatus (\s a -> s {_csStatus = a})
+channelSummary_status :: Lens.Lens' ChannelSummary (Prelude.Maybe ChannelStatus)
+channelSummary_status = Lens.lens (\ChannelSummary' {status} -> status) (\s@ChannelSummary' {} a -> s {status = a} :: ChannelSummary)
 
 -- | When the channel was created.
-csCreationTime :: Lens' ChannelSummary (Maybe UTCTime)
-csCreationTime = lens _csCreationTime (\s a -> s {_csCreationTime = a}) . mapping _Time
+channelSummary_creationTime :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.UTCTime)
+channelSummary_creationTime = Lens.lens (\ChannelSummary' {creationTime} -> creationTime) (\s@ChannelSummary' {} a -> s {creationTime = a} :: ChannelSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The last time the channel was updated.
-csLastUpdateTime :: Lens' ChannelSummary (Maybe UTCTime)
-csLastUpdateTime = lens _csLastUpdateTime (\s a -> s {_csLastUpdateTime = a}) . mapping _Time
+channelSummary_lastUpdateTime :: Lens.Lens' ChannelSummary (Prelude.Maybe Prelude.UTCTime)
+channelSummary_lastUpdateTime = Lens.lens (\ChannelSummary' {lastUpdateTime} -> lastUpdateTime) (\s@ChannelSummary' {} a -> s {lastUpdateTime = a} :: ChannelSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Where channel data is stored.
-csChannelStorage :: Lens' ChannelSummary (Maybe ChannelStorageSummary)
-csChannelStorage = lens _csChannelStorage (\s a -> s {_csChannelStorage = a})
+channelSummary_channelStorage :: Lens.Lens' ChannelSummary (Prelude.Maybe ChannelStorageSummary)
+channelSummary_channelStorage = Lens.lens (\ChannelSummary' {channelStorage} -> channelStorage) (\s@ChannelSummary' {} a -> s {channelStorage = a} :: ChannelSummary)
 
-instance FromJSON ChannelSummary where
+instance Prelude.FromJSON ChannelSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelSummary"
       ( \x ->
           ChannelSummary'
-            <$> (x .:? "lastMessageArrivalTime")
-            <*> (x .:? "channelName")
-            <*> (x .:? "status")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "lastUpdateTime")
-            <*> (x .:? "channelStorage")
+            Prelude.<$> (x Prelude..:? "lastMessageArrivalTime")
+            Prelude.<*> (x Prelude..:? "channelName")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "lastUpdateTime")
+            Prelude.<*> (x Prelude..:? "channelStorage")
       )
 
-instance Hashable ChannelSummary
+instance Prelude.Hashable ChannelSummary
 
-instance NFData ChannelSummary
+instance Prelude.NFData ChannelSummary

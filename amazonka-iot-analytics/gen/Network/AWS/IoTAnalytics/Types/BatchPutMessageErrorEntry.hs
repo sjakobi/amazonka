@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.BatchPutMessageErrorEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains informations about errors.
 --
---
---
--- /See:/ 'batchPutMessageErrorEntry' smart constructor.
+-- /See:/ 'newBatchPutMessageErrorEntry' smart constructor.
 data BatchPutMessageErrorEntry = BatchPutMessageErrorEntry'
-  { _bpmeeMessageId ::
-      !(Maybe Text),
-    _bpmeeErrorMessage ::
-      !(Maybe Text),
-    _bpmeeErrorCode ::
-      !(Maybe Text)
+  { -- | The ID of the message that caused the error. See the value corresponding
+    -- to the @messageId@ key in the message object.
+    messageId :: Prelude.Maybe Prelude.Text,
+    -- | The message associated with the error.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The code associated with the error.
+    errorCode :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BatchPutMessageErrorEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BatchPutMessageErrorEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bpmeeMessageId' - The ID of the message that caused the error. See the value corresponding to the @messageId@ key in the message object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bpmeeErrorMessage' - The message associated with the error.
+-- 'messageId', 'batchPutMessageErrorEntry_messageId' - The ID of the message that caused the error. See the value corresponding
+-- to the @messageId@ key in the message object.
 --
--- * 'bpmeeErrorCode' - The code associated with the error.
-batchPutMessageErrorEntry ::
+-- 'errorMessage', 'batchPutMessageErrorEntry_errorMessage' - The message associated with the error.
+--
+-- 'errorCode', 'batchPutMessageErrorEntry_errorCode' - The code associated with the error.
+newBatchPutMessageErrorEntry ::
   BatchPutMessageErrorEntry
-batchPutMessageErrorEntry =
+newBatchPutMessageErrorEntry =
   BatchPutMessageErrorEntry'
-    { _bpmeeMessageId =
-        Nothing,
-      _bpmeeErrorMessage = Nothing,
-      _bpmeeErrorCode = Nothing
+    { messageId =
+        Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
+      errorCode = Prelude.Nothing
     }
 
--- | The ID of the message that caused the error. See the value corresponding to the @messageId@ key in the message object.
-bpmeeMessageId :: Lens' BatchPutMessageErrorEntry (Maybe Text)
-bpmeeMessageId = lens _bpmeeMessageId (\s a -> s {_bpmeeMessageId = a})
+-- | The ID of the message that caused the error. See the value corresponding
+-- to the @messageId@ key in the message object.
+batchPutMessageErrorEntry_messageId :: Lens.Lens' BatchPutMessageErrorEntry (Prelude.Maybe Prelude.Text)
+batchPutMessageErrorEntry_messageId = Lens.lens (\BatchPutMessageErrorEntry' {messageId} -> messageId) (\s@BatchPutMessageErrorEntry' {} a -> s {messageId = a} :: BatchPutMessageErrorEntry)
 
 -- | The message associated with the error.
-bpmeeErrorMessage :: Lens' BatchPutMessageErrorEntry (Maybe Text)
-bpmeeErrorMessage = lens _bpmeeErrorMessage (\s a -> s {_bpmeeErrorMessage = a})
+batchPutMessageErrorEntry_errorMessage :: Lens.Lens' BatchPutMessageErrorEntry (Prelude.Maybe Prelude.Text)
+batchPutMessageErrorEntry_errorMessage = Lens.lens (\BatchPutMessageErrorEntry' {errorMessage} -> errorMessage) (\s@BatchPutMessageErrorEntry' {} a -> s {errorMessage = a} :: BatchPutMessageErrorEntry)
 
 -- | The code associated with the error.
-bpmeeErrorCode :: Lens' BatchPutMessageErrorEntry (Maybe Text)
-bpmeeErrorCode = lens _bpmeeErrorCode (\s a -> s {_bpmeeErrorCode = a})
+batchPutMessageErrorEntry_errorCode :: Lens.Lens' BatchPutMessageErrorEntry (Prelude.Maybe Prelude.Text)
+batchPutMessageErrorEntry_errorCode = Lens.lens (\BatchPutMessageErrorEntry' {errorCode} -> errorCode) (\s@BatchPutMessageErrorEntry' {} a -> s {errorCode = a} :: BatchPutMessageErrorEntry)
 
-instance FromJSON BatchPutMessageErrorEntry where
+instance Prelude.FromJSON BatchPutMessageErrorEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BatchPutMessageErrorEntry"
       ( \x ->
           BatchPutMessageErrorEntry'
-            <$> (x .:? "messageId")
-            <*> (x .:? "errorMessage")
-            <*> (x .:? "errorCode")
+            Prelude.<$> (x Prelude..:? "messageId")
+            Prelude.<*> (x Prelude..:? "errorMessage")
+            Prelude.<*> (x Prelude..:? "errorCode")
       )
 
-instance Hashable BatchPutMessageErrorEntry
+instance Prelude.Hashable BatchPutMessageErrorEntry
 
-instance NFData BatchPutMessageErrorEntry
+instance Prelude.NFData BatchPutMessageErrorEntry

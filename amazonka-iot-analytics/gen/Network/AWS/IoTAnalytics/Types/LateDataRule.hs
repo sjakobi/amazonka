@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,70 @@
 module Network.AWS.IoTAnalytics.Types.LateDataRule where
 
 import Network.AWS.IoTAnalytics.Types.LateDataRuleConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A structure that contains the name and configuration information of a late data rule.
+-- | A structure that contains the name and configuration information of a
+-- late data rule.
 --
---
---
--- /See:/ 'lateDataRule' smart constructor.
+-- /See:/ 'newLateDataRule' smart constructor.
 data LateDataRule = LateDataRule'
-  { _ldrRuleName ::
-      !(Maybe Text),
-    _ldrRuleConfiguration ::
-      !LateDataRuleConfiguration
+  { -- | The name of the late data rule.
+    ruleName :: Prelude.Maybe Prelude.Text,
+    -- | The information needed to configure the late data rule.
+    ruleConfiguration :: LateDataRuleConfiguration
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LateDataRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LateDataRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldrRuleName' - The name of the late data rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldrRuleConfiguration' - The information needed to configure the late data rule.
-lateDataRule ::
-  -- | 'ldrRuleConfiguration'
+-- 'ruleName', 'lateDataRule_ruleName' - The name of the late data rule.
+--
+-- 'ruleConfiguration', 'lateDataRule_ruleConfiguration' - The information needed to configure the late data rule.
+newLateDataRule ::
+  -- | 'ruleConfiguration'
   LateDataRuleConfiguration ->
   LateDataRule
-lateDataRule pRuleConfiguration_ =
+newLateDataRule pRuleConfiguration_ =
   LateDataRule'
-    { _ldrRuleName = Nothing,
-      _ldrRuleConfiguration = pRuleConfiguration_
+    { ruleName = Prelude.Nothing,
+      ruleConfiguration = pRuleConfiguration_
     }
 
 -- | The name of the late data rule.
-ldrRuleName :: Lens' LateDataRule (Maybe Text)
-ldrRuleName = lens _ldrRuleName (\s a -> s {_ldrRuleName = a})
+lateDataRule_ruleName :: Lens.Lens' LateDataRule (Prelude.Maybe Prelude.Text)
+lateDataRule_ruleName = Lens.lens (\LateDataRule' {ruleName} -> ruleName) (\s@LateDataRule' {} a -> s {ruleName = a} :: LateDataRule)
 
 -- | The information needed to configure the late data rule.
-ldrRuleConfiguration :: Lens' LateDataRule LateDataRuleConfiguration
-ldrRuleConfiguration = lens _ldrRuleConfiguration (\s a -> s {_ldrRuleConfiguration = a})
+lateDataRule_ruleConfiguration :: Lens.Lens' LateDataRule LateDataRuleConfiguration
+lateDataRule_ruleConfiguration = Lens.lens (\LateDataRule' {ruleConfiguration} -> ruleConfiguration) (\s@LateDataRule' {} a -> s {ruleConfiguration = a} :: LateDataRule)
 
-instance FromJSON LateDataRule where
+instance Prelude.FromJSON LateDataRule where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LateDataRule"
       ( \x ->
           LateDataRule'
-            <$> (x .:? "ruleName") <*> (x .: "ruleConfiguration")
+            Prelude.<$> (x Prelude..:? "ruleName")
+            Prelude.<*> (x Prelude..: "ruleConfiguration")
       )
 
-instance Hashable LateDataRule
+instance Prelude.Hashable LateDataRule
 
-instance NFData LateDataRule
+instance Prelude.NFData LateDataRule
 
-instance ToJSON LateDataRule where
+instance Prelude.ToJSON LateDataRule where
   toJSON LateDataRule' {..} =
-    object
-      ( catMaybes
-          [ ("ruleName" .=) <$> _ldrRuleName,
-            Just ("ruleConfiguration" .= _ldrRuleConfiguration)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ruleName" Prelude..=) Prelude.<$> ruleName,
+            Prelude.Just
+              ("ruleConfiguration" Prelude..= ruleConfiguration)
           ]
       )

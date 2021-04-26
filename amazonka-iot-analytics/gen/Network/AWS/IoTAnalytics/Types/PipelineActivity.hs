@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -25,150 +29,166 @@ import Network.AWS.IoTAnalytics.Types.LambdaActivity
 import Network.AWS.IoTAnalytics.Types.MathActivity
 import Network.AWS.IoTAnalytics.Types.RemoveAttributesActivity
 import Network.AWS.IoTAnalytics.Types.SelectAttributesActivity
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An activity that performs a transformation on a message.
 --
---
---
--- /See:/ 'pipelineActivity' smart constructor.
+-- /See:/ 'newPipelineActivity' smart constructor.
 data PipelineActivity = PipelineActivity'
-  { _paSelectAttributes ::
-      !(Maybe SelectAttributesActivity),
-    _paDatastore ::
-      !(Maybe DatastoreActivity),
-    _paRemoveAttributes ::
-      !(Maybe RemoveAttributesActivity),
-    _paAddAttributes ::
-      !(Maybe AddAttributesActivity),
-    _paDeviceShadowEnrich ::
-      !(Maybe DeviceShadowEnrichActivity),
-    _paLambda :: !(Maybe LambdaActivity),
-    _paDeviceRegistryEnrich ::
-      !(Maybe DeviceRegistryEnrichActivity),
-    _paChannel ::
-      !(Maybe ChannelActivity),
-    _paFilter :: !(Maybe FilterActivity),
-    _paMath :: !(Maybe MathActivity)
+  { -- | Creates a new message using only the specified attributes from the
+    -- original message.
+    selectAttributes :: Prelude.Maybe SelectAttributesActivity,
+    -- | Specifies where to store the processed message data.
+    datastore :: Prelude.Maybe DatastoreActivity,
+    -- | Removes attributes from a message.
+    removeAttributes :: Prelude.Maybe RemoveAttributesActivity,
+    -- | Adds other attributes based on existing attributes in the message.
+    addAttributes :: Prelude.Maybe AddAttributesActivity,
+    -- | Adds information from the AWS IoT Device Shadow service to a message.
+    deviceShadowEnrich :: Prelude.Maybe DeviceShadowEnrichActivity,
+    -- | Runs a Lambda function to modify the message.
+    lambda :: Prelude.Maybe LambdaActivity,
+    -- | Adds data from the AWS IoT device registry to your message.
+    deviceRegistryEnrich :: Prelude.Maybe DeviceRegistryEnrichActivity,
+    -- | Determines the source of the messages to be processed.
+    channel :: Prelude.Maybe ChannelActivity,
+    -- | Filters a message based on its attributes.
+    filter' :: Prelude.Maybe FilterActivity,
+    -- | Computes an arithmetic expression using the message\'s attributes and
+    -- adds it to the message.
+    math :: Prelude.Maybe MathActivity
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PipelineActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PipelineActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'paSelectAttributes' - Creates a new message using only the specified attributes from the original message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'paDatastore' - Specifies where to store the processed message data.
+-- 'selectAttributes', 'pipelineActivity_selectAttributes' - Creates a new message using only the specified attributes from the
+-- original message.
 --
--- * 'paRemoveAttributes' - Removes attributes from a message.
+-- 'datastore', 'pipelineActivity_datastore' - Specifies where to store the processed message data.
 --
--- * 'paAddAttributes' - Adds other attributes based on existing attributes in the message.
+-- 'removeAttributes', 'pipelineActivity_removeAttributes' - Removes attributes from a message.
 --
--- * 'paDeviceShadowEnrich' - Adds information from the AWS IoT Device Shadow service to a message.
+-- 'addAttributes', 'pipelineActivity_addAttributes' - Adds other attributes based on existing attributes in the message.
 --
--- * 'paLambda' - Runs a Lambda function to modify the message.
+-- 'deviceShadowEnrich', 'pipelineActivity_deviceShadowEnrich' - Adds information from the AWS IoT Device Shadow service to a message.
 --
--- * 'paDeviceRegistryEnrich' - Adds data from the AWS IoT device registry to your message.
+-- 'lambda', 'pipelineActivity_lambda' - Runs a Lambda function to modify the message.
 --
--- * 'paChannel' - Determines the source of the messages to be processed.
+-- 'deviceRegistryEnrich', 'pipelineActivity_deviceRegistryEnrich' - Adds data from the AWS IoT device registry to your message.
 --
--- * 'paFilter' - Filters a message based on its attributes.
+-- 'channel', 'pipelineActivity_channel' - Determines the source of the messages to be processed.
 --
--- * 'paMath' - Computes an arithmetic expression using the message's attributes and adds it to the message.
-pipelineActivity ::
+-- 'filter'', 'pipelineActivity_filter' - Filters a message based on its attributes.
+--
+-- 'math', 'pipelineActivity_math' - Computes an arithmetic expression using the message\'s attributes and
+-- adds it to the message.
+newPipelineActivity ::
   PipelineActivity
-pipelineActivity =
+newPipelineActivity =
   PipelineActivity'
-    { _paSelectAttributes = Nothing,
-      _paDatastore = Nothing,
-      _paRemoveAttributes = Nothing,
-      _paAddAttributes = Nothing,
-      _paDeviceShadowEnrich = Nothing,
-      _paLambda = Nothing,
-      _paDeviceRegistryEnrich = Nothing,
-      _paChannel = Nothing,
-      _paFilter = Nothing,
-      _paMath = Nothing
+    { selectAttributes =
+        Prelude.Nothing,
+      datastore = Prelude.Nothing,
+      removeAttributes = Prelude.Nothing,
+      addAttributes = Prelude.Nothing,
+      deviceShadowEnrich = Prelude.Nothing,
+      lambda = Prelude.Nothing,
+      deviceRegistryEnrich = Prelude.Nothing,
+      channel = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      math = Prelude.Nothing
     }
 
--- | Creates a new message using only the specified attributes from the original message.
-paSelectAttributes :: Lens' PipelineActivity (Maybe SelectAttributesActivity)
-paSelectAttributes = lens _paSelectAttributes (\s a -> s {_paSelectAttributes = a})
+-- | Creates a new message using only the specified attributes from the
+-- original message.
+pipelineActivity_selectAttributes :: Lens.Lens' PipelineActivity (Prelude.Maybe SelectAttributesActivity)
+pipelineActivity_selectAttributes = Lens.lens (\PipelineActivity' {selectAttributes} -> selectAttributes) (\s@PipelineActivity' {} a -> s {selectAttributes = a} :: PipelineActivity)
 
 -- | Specifies where to store the processed message data.
-paDatastore :: Lens' PipelineActivity (Maybe DatastoreActivity)
-paDatastore = lens _paDatastore (\s a -> s {_paDatastore = a})
+pipelineActivity_datastore :: Lens.Lens' PipelineActivity (Prelude.Maybe DatastoreActivity)
+pipelineActivity_datastore = Lens.lens (\PipelineActivity' {datastore} -> datastore) (\s@PipelineActivity' {} a -> s {datastore = a} :: PipelineActivity)
 
 -- | Removes attributes from a message.
-paRemoveAttributes :: Lens' PipelineActivity (Maybe RemoveAttributesActivity)
-paRemoveAttributes = lens _paRemoveAttributes (\s a -> s {_paRemoveAttributes = a})
+pipelineActivity_removeAttributes :: Lens.Lens' PipelineActivity (Prelude.Maybe RemoveAttributesActivity)
+pipelineActivity_removeAttributes = Lens.lens (\PipelineActivity' {removeAttributes} -> removeAttributes) (\s@PipelineActivity' {} a -> s {removeAttributes = a} :: PipelineActivity)
 
 -- | Adds other attributes based on existing attributes in the message.
-paAddAttributes :: Lens' PipelineActivity (Maybe AddAttributesActivity)
-paAddAttributes = lens _paAddAttributes (\s a -> s {_paAddAttributes = a})
+pipelineActivity_addAttributes :: Lens.Lens' PipelineActivity (Prelude.Maybe AddAttributesActivity)
+pipelineActivity_addAttributes = Lens.lens (\PipelineActivity' {addAttributes} -> addAttributes) (\s@PipelineActivity' {} a -> s {addAttributes = a} :: PipelineActivity)
 
 -- | Adds information from the AWS IoT Device Shadow service to a message.
-paDeviceShadowEnrich :: Lens' PipelineActivity (Maybe DeviceShadowEnrichActivity)
-paDeviceShadowEnrich = lens _paDeviceShadowEnrich (\s a -> s {_paDeviceShadowEnrich = a})
+pipelineActivity_deviceShadowEnrich :: Lens.Lens' PipelineActivity (Prelude.Maybe DeviceShadowEnrichActivity)
+pipelineActivity_deviceShadowEnrich = Lens.lens (\PipelineActivity' {deviceShadowEnrich} -> deviceShadowEnrich) (\s@PipelineActivity' {} a -> s {deviceShadowEnrich = a} :: PipelineActivity)
 
 -- | Runs a Lambda function to modify the message.
-paLambda :: Lens' PipelineActivity (Maybe LambdaActivity)
-paLambda = lens _paLambda (\s a -> s {_paLambda = a})
+pipelineActivity_lambda :: Lens.Lens' PipelineActivity (Prelude.Maybe LambdaActivity)
+pipelineActivity_lambda = Lens.lens (\PipelineActivity' {lambda} -> lambda) (\s@PipelineActivity' {} a -> s {lambda = a} :: PipelineActivity)
 
 -- | Adds data from the AWS IoT device registry to your message.
-paDeviceRegistryEnrich :: Lens' PipelineActivity (Maybe DeviceRegistryEnrichActivity)
-paDeviceRegistryEnrich = lens _paDeviceRegistryEnrich (\s a -> s {_paDeviceRegistryEnrich = a})
+pipelineActivity_deviceRegistryEnrich :: Lens.Lens' PipelineActivity (Prelude.Maybe DeviceRegistryEnrichActivity)
+pipelineActivity_deviceRegistryEnrich = Lens.lens (\PipelineActivity' {deviceRegistryEnrich} -> deviceRegistryEnrich) (\s@PipelineActivity' {} a -> s {deviceRegistryEnrich = a} :: PipelineActivity)
 
 -- | Determines the source of the messages to be processed.
-paChannel :: Lens' PipelineActivity (Maybe ChannelActivity)
-paChannel = lens _paChannel (\s a -> s {_paChannel = a})
+pipelineActivity_channel :: Lens.Lens' PipelineActivity (Prelude.Maybe ChannelActivity)
+pipelineActivity_channel = Lens.lens (\PipelineActivity' {channel} -> channel) (\s@PipelineActivity' {} a -> s {channel = a} :: PipelineActivity)
 
 -- | Filters a message based on its attributes.
-paFilter :: Lens' PipelineActivity (Maybe FilterActivity)
-paFilter = lens _paFilter (\s a -> s {_paFilter = a})
+pipelineActivity_filter :: Lens.Lens' PipelineActivity (Prelude.Maybe FilterActivity)
+pipelineActivity_filter = Lens.lens (\PipelineActivity' {filter'} -> filter') (\s@PipelineActivity' {} a -> s {filter' = a} :: PipelineActivity)
 
--- | Computes an arithmetic expression using the message's attributes and adds it to the message.
-paMath :: Lens' PipelineActivity (Maybe MathActivity)
-paMath = lens _paMath (\s a -> s {_paMath = a})
+-- | Computes an arithmetic expression using the message\'s attributes and
+-- adds it to the message.
+pipelineActivity_math :: Lens.Lens' PipelineActivity (Prelude.Maybe MathActivity)
+pipelineActivity_math = Lens.lens (\PipelineActivity' {math} -> math) (\s@PipelineActivity' {} a -> s {math = a} :: PipelineActivity)
 
-instance FromJSON PipelineActivity where
+instance Prelude.FromJSON PipelineActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PipelineActivity"
       ( \x ->
           PipelineActivity'
-            <$> (x .:? "selectAttributes")
-            <*> (x .:? "datastore")
-            <*> (x .:? "removeAttributes")
-            <*> (x .:? "addAttributes")
-            <*> (x .:? "deviceShadowEnrich")
-            <*> (x .:? "lambda")
-            <*> (x .:? "deviceRegistryEnrich")
-            <*> (x .:? "channel")
-            <*> (x .:? "filter")
-            <*> (x .:? "math")
+            Prelude.<$> (x Prelude..:? "selectAttributes")
+            Prelude.<*> (x Prelude..:? "datastore")
+            Prelude.<*> (x Prelude..:? "removeAttributes")
+            Prelude.<*> (x Prelude..:? "addAttributes")
+            Prelude.<*> (x Prelude..:? "deviceShadowEnrich")
+            Prelude.<*> (x Prelude..:? "lambda")
+            Prelude.<*> (x Prelude..:? "deviceRegistryEnrich")
+            Prelude.<*> (x Prelude..:? "channel")
+            Prelude.<*> (x Prelude..:? "filter")
+            Prelude.<*> (x Prelude..:? "math")
       )
 
-instance Hashable PipelineActivity
+instance Prelude.Hashable PipelineActivity
 
-instance NFData PipelineActivity
+instance Prelude.NFData PipelineActivity
 
-instance ToJSON PipelineActivity where
+instance Prelude.ToJSON PipelineActivity where
   toJSON PipelineActivity' {..} =
-    object
-      ( catMaybes
-          [ ("selectAttributes" .=) <$> _paSelectAttributes,
-            ("datastore" .=) <$> _paDatastore,
-            ("removeAttributes" .=) <$> _paRemoveAttributes,
-            ("addAttributes" .=) <$> _paAddAttributes,
-            ("deviceShadowEnrich" .=) <$> _paDeviceShadowEnrich,
-            ("lambda" .=) <$> _paLambda,
-            ("deviceRegistryEnrich" .=)
-              <$> _paDeviceRegistryEnrich,
-            ("channel" .=) <$> _paChannel,
-            ("filter" .=) <$> _paFilter,
-            ("math" .=) <$> _paMath
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("selectAttributes" Prelude..=)
+              Prelude.<$> selectAttributes,
+            ("datastore" Prelude..=) Prelude.<$> datastore,
+            ("removeAttributes" Prelude..=)
+              Prelude.<$> removeAttributes,
+            ("addAttributes" Prelude..=)
+              Prelude.<$> addAttributes,
+            ("deviceShadowEnrich" Prelude..=)
+              Prelude.<$> deviceShadowEnrich,
+            ("lambda" Prelude..=) Prelude.<$> lambda,
+            ("deviceRegistryEnrich" Prelude..=)
+              Prelude.<$> deviceRegistryEnrich,
+            ("channel" Prelude..=) Prelude.<$> channel,
+            ("filter" Prelude..=) Prelude.<$> filter',
+            ("math" Prelude..=) Prelude.<$> math
           ]
       )

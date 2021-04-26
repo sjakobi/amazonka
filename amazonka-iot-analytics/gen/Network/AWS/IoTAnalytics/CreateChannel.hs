@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,180 +21,201 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a channel. A channel collects data from an MQTT topic and archives the raw, unprocessed messages before publishing the data to a pipeline.
+-- Creates a channel. A channel collects data from an MQTT topic and
+-- archives the raw, unprocessed messages before publishing the data to a
+-- pipeline.
 module Network.AWS.IoTAnalytics.CreateChannel
   ( -- * Creating a Request
-    createChannel,
-    CreateChannel,
+    CreateChannel (..),
+    newCreateChannel,
 
     -- * Request Lenses
-    ccRetentionPeriod,
-    ccTags,
-    ccChannelStorage,
-    ccChannelName,
+    createChannel_retentionPeriod,
+    createChannel_tags,
+    createChannel_channelStorage,
+    createChannel_channelName,
 
     -- * Destructuring the Response
-    createChannelResponse,
-    CreateChannelResponse,
+    CreateChannelResponse (..),
+    newCreateChannelResponse,
 
     -- * Response Lenses
-    ccrrsChannelName,
-    ccrrsRetentionPeriod,
-    ccrrsChannelARN,
-    ccrrsResponseStatus,
+    createChannelResponse_channelName,
+    createChannelResponse_retentionPeriod,
+    createChannelResponse_channelArn,
+    createChannelResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoTAnalytics.Types.RetentionPeriod
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createChannel' smart constructor.
+-- | /See:/ 'newCreateChannel' smart constructor.
 data CreateChannel = CreateChannel'
-  { _ccRetentionPeriod ::
-      !(Maybe RetentionPeriod),
-    _ccTags :: !(Maybe (List1 Tag)),
-    _ccChannelStorage ::
-      !(Maybe ChannelStorage),
-    _ccChannelName :: !Text
+  { -- | How long, in days, message data is kept for the channel. When
+    -- @customerManagedS3@ storage is selected, this parameter is ignored.
+    retentionPeriod :: Prelude.Maybe RetentionPeriod,
+    -- | Metadata which can be used to manage the channel.
+    tags :: Prelude.Maybe (Prelude.List1 Tag),
+    -- | Where channel data is stored. You can choose one of @serviceManagedS3@
+    -- or @customerManagedS3@ storage. If not specified, the default is
+    -- @serviceManagedS3@. You cannot change this storage option after the
+    -- channel is created.
+    channelStorage :: Prelude.Maybe ChannelStorage,
+    -- | The name of the channel.
+    channelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccRetentionPeriod' - How long, in days, message data is kept for the channel. When @customerManagedS3@ storage is selected, this parameter is ignored.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccTags' - Metadata which can be used to manage the channel.
+-- 'retentionPeriod', 'createChannel_retentionPeriod' - How long, in days, message data is kept for the channel. When
+-- @customerManagedS3@ storage is selected, this parameter is ignored.
 --
--- * 'ccChannelStorage' - Where channel data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the channel is created.
+-- 'tags', 'createChannel_tags' - Metadata which can be used to manage the channel.
 --
--- * 'ccChannelName' - The name of the channel.
-createChannel ::
-  -- | 'ccChannelName'
-  Text ->
+-- 'channelStorage', 'createChannel_channelStorage' - Where channel data is stored. You can choose one of @serviceManagedS3@
+-- or @customerManagedS3@ storage. If not specified, the default is
+-- @serviceManagedS3@. You cannot change this storage option after the
+-- channel is created.
+--
+-- 'channelName', 'createChannel_channelName' - The name of the channel.
+newCreateChannel ::
+  -- | 'channelName'
+  Prelude.Text ->
   CreateChannel
-createChannel pChannelName_ =
+newCreateChannel pChannelName_ =
   CreateChannel'
-    { _ccRetentionPeriod = Nothing,
-      _ccTags = Nothing,
-      _ccChannelStorage = Nothing,
-      _ccChannelName = pChannelName_
+    { retentionPeriod = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      channelStorage = Prelude.Nothing,
+      channelName = pChannelName_
     }
 
--- | How long, in days, message data is kept for the channel. When @customerManagedS3@ storage is selected, this parameter is ignored.
-ccRetentionPeriod :: Lens' CreateChannel (Maybe RetentionPeriod)
-ccRetentionPeriod = lens _ccRetentionPeriod (\s a -> s {_ccRetentionPeriod = a})
+-- | How long, in days, message data is kept for the channel. When
+-- @customerManagedS3@ storage is selected, this parameter is ignored.
+createChannel_retentionPeriod :: Lens.Lens' CreateChannel (Prelude.Maybe RetentionPeriod)
+createChannel_retentionPeriod = Lens.lens (\CreateChannel' {retentionPeriod} -> retentionPeriod) (\s@CreateChannel' {} a -> s {retentionPeriod = a} :: CreateChannel)
 
 -- | Metadata which can be used to manage the channel.
-ccTags :: Lens' CreateChannel (Maybe (NonEmpty Tag))
-ccTags = lens _ccTags (\s a -> s {_ccTags = a}) . mapping _List1
+createChannel_tags :: Lens.Lens' CreateChannel (Prelude.Maybe (Prelude.NonEmpty Tag))
+createChannel_tags = Lens.lens (\CreateChannel' {tags} -> tags) (\s@CreateChannel' {} a -> s {tags = a} :: CreateChannel) Prelude.. Lens.mapping Prelude._List1
 
--- | Where channel data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the channel is created.
-ccChannelStorage :: Lens' CreateChannel (Maybe ChannelStorage)
-ccChannelStorage = lens _ccChannelStorage (\s a -> s {_ccChannelStorage = a})
+-- | Where channel data is stored. You can choose one of @serviceManagedS3@
+-- or @customerManagedS3@ storage. If not specified, the default is
+-- @serviceManagedS3@. You cannot change this storage option after the
+-- channel is created.
+createChannel_channelStorage :: Lens.Lens' CreateChannel (Prelude.Maybe ChannelStorage)
+createChannel_channelStorage = Lens.lens (\CreateChannel' {channelStorage} -> channelStorage) (\s@CreateChannel' {} a -> s {channelStorage = a} :: CreateChannel)
 
 -- | The name of the channel.
-ccChannelName :: Lens' CreateChannel Text
-ccChannelName = lens _ccChannelName (\s a -> s {_ccChannelName = a})
+createChannel_channelName :: Lens.Lens' CreateChannel Prelude.Text
+createChannel_channelName = Lens.lens (\CreateChannel' {channelName} -> channelName) (\s@CreateChannel' {} a -> s {channelName = a} :: CreateChannel)
 
-instance AWSRequest CreateChannel where
+instance Prelude.AWSRequest CreateChannel where
   type Rs CreateChannel = CreateChannelResponse
-  request = postJSON ioTAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateChannelResponse'
-            <$> (x .?> "channelName")
-            <*> (x .?> "retentionPeriod")
-            <*> (x .?> "channelArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "channelName")
+            Prelude.<*> (x Prelude..?> "retentionPeriod")
+            Prelude.<*> (x Prelude..?> "channelArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateChannel
+instance Prelude.Hashable CreateChannel
 
-instance NFData CreateChannel
+instance Prelude.NFData CreateChannel
 
-instance ToHeaders CreateChannel where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateChannel where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateChannel where
+instance Prelude.ToJSON CreateChannel where
   toJSON CreateChannel' {..} =
-    object
-      ( catMaybes
-          [ ("retentionPeriod" .=) <$> _ccRetentionPeriod,
-            ("tags" .=) <$> _ccTags,
-            ("channelStorage" .=) <$> _ccChannelStorage,
-            Just ("channelName" .= _ccChannelName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("retentionPeriod" Prelude..=)
+              Prelude.<$> retentionPeriod,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("channelStorage" Prelude..=)
+              Prelude.<$> channelStorage,
+            Prelude.Just ("channelName" Prelude..= channelName)
           ]
       )
 
-instance ToPath CreateChannel where
-  toPath = const "/channels"
+instance Prelude.ToPath CreateChannel where
+  toPath = Prelude.const "/channels"
 
-instance ToQuery CreateChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createChannelResponse' smart constructor.
+-- | /See:/ 'newCreateChannelResponse' smart constructor.
 data CreateChannelResponse = CreateChannelResponse'
-  { _ccrrsChannelName ::
-      !(Maybe Text),
-    _ccrrsRetentionPeriod ::
-      !(Maybe RetentionPeriod),
-    _ccrrsChannelARN ::
-      !(Maybe Text),
-    _ccrrsResponseStatus ::
-      !Int
+  { -- | The name of the channel.
+    channelName :: Prelude.Maybe Prelude.Text,
+    -- | How long, in days, message data is kept for the channel.
+    retentionPeriod :: Prelude.Maybe RetentionPeriod,
+    -- | The ARN of the channel.
+    channelArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccrrsChannelName' - The name of the channel.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccrrsRetentionPeriod' - How long, in days, message data is kept for the channel.
+-- 'channelName', 'createChannelResponse_channelName' - The name of the channel.
 --
--- * 'ccrrsChannelARN' - The ARN of the channel.
+-- 'retentionPeriod', 'createChannelResponse_retentionPeriod' - How long, in days, message data is kept for the channel.
 --
--- * 'ccrrsResponseStatus' - -- | The response status code.
-createChannelResponse ::
-  -- | 'ccrrsResponseStatus'
-  Int ->
+-- 'channelArn', 'createChannelResponse_channelArn' - The ARN of the channel.
+--
+-- 'httpStatus', 'createChannelResponse_httpStatus' - The response's http status code.
+newCreateChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateChannelResponse
-createChannelResponse pResponseStatus_ =
+newCreateChannelResponse pHttpStatus_ =
   CreateChannelResponse'
-    { _ccrrsChannelName = Nothing,
-      _ccrrsRetentionPeriod = Nothing,
-      _ccrrsChannelARN = Nothing,
-      _ccrrsResponseStatus = pResponseStatus_
+    { channelName =
+        Prelude.Nothing,
+      retentionPeriod = Prelude.Nothing,
+      channelArn = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The name of the channel.
-ccrrsChannelName :: Lens' CreateChannelResponse (Maybe Text)
-ccrrsChannelName = lens _ccrrsChannelName (\s a -> s {_ccrrsChannelName = a})
+createChannelResponse_channelName :: Lens.Lens' CreateChannelResponse (Prelude.Maybe Prelude.Text)
+createChannelResponse_channelName = Lens.lens (\CreateChannelResponse' {channelName} -> channelName) (\s@CreateChannelResponse' {} a -> s {channelName = a} :: CreateChannelResponse)
 
 -- | How long, in days, message data is kept for the channel.
-ccrrsRetentionPeriod :: Lens' CreateChannelResponse (Maybe RetentionPeriod)
-ccrrsRetentionPeriod = lens _ccrrsRetentionPeriod (\s a -> s {_ccrrsRetentionPeriod = a})
+createChannelResponse_retentionPeriod :: Lens.Lens' CreateChannelResponse (Prelude.Maybe RetentionPeriod)
+createChannelResponse_retentionPeriod = Lens.lens (\CreateChannelResponse' {retentionPeriod} -> retentionPeriod) (\s@CreateChannelResponse' {} a -> s {retentionPeriod = a} :: CreateChannelResponse)
 
 -- | The ARN of the channel.
-ccrrsChannelARN :: Lens' CreateChannelResponse (Maybe Text)
-ccrrsChannelARN = lens _ccrrsChannelARN (\s a -> s {_ccrrsChannelARN = a})
+createChannelResponse_channelArn :: Lens.Lens' CreateChannelResponse (Prelude.Maybe Prelude.Text)
+createChannelResponse_channelArn = Lens.lens (\CreateChannelResponse' {channelArn} -> channelArn) (\s@CreateChannelResponse' {} a -> s {channelArn = a} :: CreateChannelResponse)
 
--- | -- | The response status code.
-ccrrsResponseStatus :: Lens' CreateChannelResponse Int
-ccrrsResponseStatus = lens _ccrrsResponseStatus (\s a -> s {_ccrrsResponseStatus = a})
+-- | The response's http status code.
+createChannelResponse_httpStatus :: Lens.Lens' CreateChannelResponse Prelude.Int
+createChannelResponse_httpStatus = Lens.lens (\CreateChannelResponse' {httpStatus} -> httpStatus) (\s@CreateChannelResponse' {} a -> s {httpStatus = a} :: CreateChannelResponse)
 
-instance NFData CreateChannelResponse
+instance Prelude.NFData CreateChannelResponse

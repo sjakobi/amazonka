@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,40 +20,45 @@
 module Network.AWS.IoTAnalytics.Types.ChannelStatistics where
 
 import Network.AWS.IoTAnalytics.Types.EstimatedResourceSize
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Statistics information about the channel.
 --
---
---
--- /See:/ 'channelStatistics' smart constructor.
-newtype ChannelStatistics = ChannelStatistics'
-  { _csSize ::
-      Maybe EstimatedResourceSize
+-- /See:/ 'newChannelStatistics' smart constructor.
+data ChannelStatistics = ChannelStatistics'
+  { -- | The estimated size of the channel.
+    size :: Prelude.Maybe EstimatedResourceSize
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csSize' - The estimated size of the channel.
-channelStatistics ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'size', 'channelStatistics_size' - The estimated size of the channel.
+newChannelStatistics ::
   ChannelStatistics
-channelStatistics =
-  ChannelStatistics' {_csSize = Nothing}
+newChannelStatistics =
+  ChannelStatistics' {size = Prelude.Nothing}
 
 -- | The estimated size of the channel.
-csSize :: Lens' ChannelStatistics (Maybe EstimatedResourceSize)
-csSize = lens _csSize (\s a -> s {_csSize = a})
+channelStatistics_size :: Lens.Lens' ChannelStatistics (Prelude.Maybe EstimatedResourceSize)
+channelStatistics_size = Lens.lens (\ChannelStatistics' {size} -> size) (\s@ChannelStatistics' {} a -> s {size = a} :: ChannelStatistics)
 
-instance FromJSON ChannelStatistics where
+instance Prelude.FromJSON ChannelStatistics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ChannelStatistics"
-      (\x -> ChannelStatistics' <$> (x .:? "size"))
+      ( \x ->
+          ChannelStatistics'
+            Prelude.<$> (x Prelude..:? "size")
+      )
 
-instance Hashable ChannelStatistics
+instance Prelude.Hashable ChannelStatistics
 
-instance NFData ChannelStatistics
+instance Prelude.NFData ChannelStatistics

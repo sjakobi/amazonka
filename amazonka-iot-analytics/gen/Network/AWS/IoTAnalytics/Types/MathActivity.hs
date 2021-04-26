@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,101 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.MathActivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An activity that computes an arithmetic expression using the message's attributes.
+-- | An activity that computes an arithmetic expression using the message\'s
+-- attributes.
 --
---
---
--- /See:/ 'mathActivity' smart constructor.
+-- /See:/ 'newMathActivity' smart constructor.
 data MathActivity = MathActivity'
-  { _maNext ::
-      !(Maybe Text),
-    _maName :: !Text,
-    _maAttribute :: !Text,
-    _maMath :: !Text
+  { -- | The next activity in the pipeline.
+    next :: Prelude.Maybe Prelude.Text,
+    -- | The name of the math activity.
+    name :: Prelude.Text,
+    -- | The name of the attribute that contains the result of the math
+    -- operation.
+    attribute :: Prelude.Text,
+    -- | An expression that uses one or more existing attributes and must return
+    -- an integer value.
+    math :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MathActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MathActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'maNext' - The next activity in the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'maName' - The name of the math activity.
+-- 'next', 'mathActivity_next' - The next activity in the pipeline.
 --
--- * 'maAttribute' - The name of the attribute that contains the result of the math operation.
+-- 'name', 'mathActivity_name' - The name of the math activity.
 --
--- * 'maMath' - An expression that uses one or more existing attributes and must return an integer value.
-mathActivity ::
-  -- | 'maName'
-  Text ->
-  -- | 'maAttribute'
-  Text ->
-  -- | 'maMath'
-  Text ->
+-- 'attribute', 'mathActivity_attribute' - The name of the attribute that contains the result of the math
+-- operation.
+--
+-- 'math', 'mathActivity_math' - An expression that uses one or more existing attributes and must return
+-- an integer value.
+newMathActivity ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'attribute'
+  Prelude.Text ->
+  -- | 'math'
+  Prelude.Text ->
   MathActivity
-mathActivity pName_ pAttribute_ pMath_ =
+newMathActivity pName_ pAttribute_ pMath_ =
   MathActivity'
-    { _maNext = Nothing,
-      _maName = pName_,
-      _maAttribute = pAttribute_,
-      _maMath = pMath_
+    { next = Prelude.Nothing,
+      name = pName_,
+      attribute = pAttribute_,
+      math = pMath_
     }
 
 -- | The next activity in the pipeline.
-maNext :: Lens' MathActivity (Maybe Text)
-maNext = lens _maNext (\s a -> s {_maNext = a})
+mathActivity_next :: Lens.Lens' MathActivity (Prelude.Maybe Prelude.Text)
+mathActivity_next = Lens.lens (\MathActivity' {next} -> next) (\s@MathActivity' {} a -> s {next = a} :: MathActivity)
 
 -- | The name of the math activity.
-maName :: Lens' MathActivity Text
-maName = lens _maName (\s a -> s {_maName = a})
+mathActivity_name :: Lens.Lens' MathActivity Prelude.Text
+mathActivity_name = Lens.lens (\MathActivity' {name} -> name) (\s@MathActivity' {} a -> s {name = a} :: MathActivity)
 
--- | The name of the attribute that contains the result of the math operation.
-maAttribute :: Lens' MathActivity Text
-maAttribute = lens _maAttribute (\s a -> s {_maAttribute = a})
+-- | The name of the attribute that contains the result of the math
+-- operation.
+mathActivity_attribute :: Lens.Lens' MathActivity Prelude.Text
+mathActivity_attribute = Lens.lens (\MathActivity' {attribute} -> attribute) (\s@MathActivity' {} a -> s {attribute = a} :: MathActivity)
 
--- | An expression that uses one or more existing attributes and must return an integer value.
-maMath :: Lens' MathActivity Text
-maMath = lens _maMath (\s a -> s {_maMath = a})
+-- | An expression that uses one or more existing attributes and must return
+-- an integer value.
+mathActivity_math :: Lens.Lens' MathActivity Prelude.Text
+mathActivity_math = Lens.lens (\MathActivity' {math} -> math) (\s@MathActivity' {} a -> s {math = a} :: MathActivity)
 
-instance FromJSON MathActivity where
+instance Prelude.FromJSON MathActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MathActivity"
       ( \x ->
           MathActivity'
-            <$> (x .:? "next")
-            <*> (x .: "name")
-            <*> (x .: "attribute")
-            <*> (x .: "math")
+            Prelude.<$> (x Prelude..:? "next")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "attribute")
+            Prelude.<*> (x Prelude..: "math")
       )
 
-instance Hashable MathActivity
+instance Prelude.Hashable MathActivity
 
-instance NFData MathActivity
+instance Prelude.NFData MathActivity
 
-instance ToJSON MathActivity where
+instance Prelude.ToJSON MathActivity where
   toJSON MathActivity' {..} =
-    object
-      ( catMaybes
-          [ ("next" .=) <$> _maNext,
-            Just ("name" .= _maName),
-            Just ("attribute" .= _maAttribute),
-            Just ("math" .= _maMath)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("next" Prelude..=) Prelude.<$> next,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("attribute" Prelude..= attribute),
+            Prelude.Just ("math" Prelude..= math)
           ]
       )

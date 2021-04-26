@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,94 +20,87 @@
 module Network.AWS.IoTAnalytics.Types.DatasetContentSummary where
 
 import Network.AWS.IoTAnalytics.Types.DatasetContentStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Summary information about dataset contents.
 --
---
---
--- /See:/ 'datasetContentSummary' smart constructor.
+-- /See:/ 'newDatasetContentSummary' smart constructor.
 data DatasetContentSummary = DatasetContentSummary'
-  { _dcsStatus ::
-      !( Maybe
-           DatasetContentStatus
-       ),
-    _dcsCreationTime ::
-      !(Maybe POSIX),
-    _dcsCompletionTime ::
-      !(Maybe POSIX),
-    _dcsScheduleTime ::
-      !(Maybe POSIX),
-    _dcsVersion ::
-      !(Maybe Text)
+  { -- | The status of the data set contents.
+    status :: Prelude.Maybe DatasetContentStatus,
+    -- | The actual time the creation of the dataset contents was started.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time the dataset content status was updated to SUCCEEDED or FAILED.
+    completionTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The time the creation of the dataset contents was scheduled to start.
+    scheduleTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The version of the dataset contents.
+    version :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatasetContentSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatasetContentSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsStatus' - The status of the data set contents.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsCreationTime' - The actual time the creation of the dataset contents was started.
+-- 'status', 'datasetContentSummary_status' - The status of the data set contents.
 --
--- * 'dcsCompletionTime' - The time the dataset content status was updated to SUCCEEDED or FAILED.
+-- 'creationTime', 'datasetContentSummary_creationTime' - The actual time the creation of the dataset contents was started.
 --
--- * 'dcsScheduleTime' - The time the creation of the dataset contents was scheduled to start.
+-- 'completionTime', 'datasetContentSummary_completionTime' - The time the dataset content status was updated to SUCCEEDED or FAILED.
 --
--- * 'dcsVersion' - The version of the dataset contents.
-datasetContentSummary ::
+-- 'scheduleTime', 'datasetContentSummary_scheduleTime' - The time the creation of the dataset contents was scheduled to start.
+--
+-- 'version', 'datasetContentSummary_version' - The version of the dataset contents.
+newDatasetContentSummary ::
   DatasetContentSummary
-datasetContentSummary =
+newDatasetContentSummary =
   DatasetContentSummary'
-    { _dcsStatus = Nothing,
-      _dcsCreationTime = Nothing,
-      _dcsCompletionTime = Nothing,
-      _dcsScheduleTime = Nothing,
-      _dcsVersion = Nothing
+    { status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      completionTime = Prelude.Nothing,
+      scheduleTime = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
 -- | The status of the data set contents.
-dcsStatus :: Lens' DatasetContentSummary (Maybe DatasetContentStatus)
-dcsStatus = lens _dcsStatus (\s a -> s {_dcsStatus = a})
+datasetContentSummary_status :: Lens.Lens' DatasetContentSummary (Prelude.Maybe DatasetContentStatus)
+datasetContentSummary_status = Lens.lens (\DatasetContentSummary' {status} -> status) (\s@DatasetContentSummary' {} a -> s {status = a} :: DatasetContentSummary)
 
 -- | The actual time the creation of the dataset contents was started.
-dcsCreationTime :: Lens' DatasetContentSummary (Maybe UTCTime)
-dcsCreationTime = lens _dcsCreationTime (\s a -> s {_dcsCreationTime = a}) . mapping _Time
+datasetContentSummary_creationTime :: Lens.Lens' DatasetContentSummary (Prelude.Maybe Prelude.UTCTime)
+datasetContentSummary_creationTime = Lens.lens (\DatasetContentSummary' {creationTime} -> creationTime) (\s@DatasetContentSummary' {} a -> s {creationTime = a} :: DatasetContentSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time the dataset content status was updated to SUCCEEDED or FAILED.
-dcsCompletionTime :: Lens' DatasetContentSummary (Maybe UTCTime)
-dcsCompletionTime = lens _dcsCompletionTime (\s a -> s {_dcsCompletionTime = a}) . mapping _Time
+datasetContentSummary_completionTime :: Lens.Lens' DatasetContentSummary (Prelude.Maybe Prelude.UTCTime)
+datasetContentSummary_completionTime = Lens.lens (\DatasetContentSummary' {completionTime} -> completionTime) (\s@DatasetContentSummary' {} a -> s {completionTime = a} :: DatasetContentSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The time the creation of the dataset contents was scheduled to start.
-dcsScheduleTime :: Lens' DatasetContentSummary (Maybe UTCTime)
-dcsScheduleTime = lens _dcsScheduleTime (\s a -> s {_dcsScheduleTime = a}) . mapping _Time
+datasetContentSummary_scheduleTime :: Lens.Lens' DatasetContentSummary (Prelude.Maybe Prelude.UTCTime)
+datasetContentSummary_scheduleTime = Lens.lens (\DatasetContentSummary' {scheduleTime} -> scheduleTime) (\s@DatasetContentSummary' {} a -> s {scheduleTime = a} :: DatasetContentSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The version of the dataset contents.
-dcsVersion :: Lens' DatasetContentSummary (Maybe Text)
-dcsVersion = lens _dcsVersion (\s a -> s {_dcsVersion = a})
+datasetContentSummary_version :: Lens.Lens' DatasetContentSummary (Prelude.Maybe Prelude.Text)
+datasetContentSummary_version = Lens.lens (\DatasetContentSummary' {version} -> version) (\s@DatasetContentSummary' {} a -> s {version = a} :: DatasetContentSummary)
 
-instance FromJSON DatasetContentSummary where
+instance Prelude.FromJSON DatasetContentSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatasetContentSummary"
       ( \x ->
           DatasetContentSummary'
-            <$> (x .:? "status")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "completionTime")
-            <*> (x .:? "scheduleTime")
-            <*> (x .:? "version")
+            Prelude.<$> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "completionTime")
+            Prelude.<*> (x Prelude..:? "scheduleTime")
+            Prelude.<*> (x Prelude..:? "version")
       )
 
-instance Hashable DatasetContentSummary
+instance Prelude.Hashable DatasetContentSummary
 
-instance NFData DatasetContentSummary
+instance Prelude.NFData DatasetContentSummary

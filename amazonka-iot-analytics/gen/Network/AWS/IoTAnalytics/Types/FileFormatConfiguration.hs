@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,83 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.FileFormatConfiguration where
 
-import Network.AWS.IoTAnalytics.Types.JSONConfiguration
+import Network.AWS.IoTAnalytics.Types.JsonConfiguration
 import Network.AWS.IoTAnalytics.Types.ParquetConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains the configuration information of file formats. AWS IoT Analytics data stores support JSON and <https://parquet.apache.org/ Parquet> .
---
+-- | Contains the configuration information of file formats. AWS IoT
+-- Analytics data stores support JSON and
+-- <https://parquet.apache.org/ Parquet>.
 --
 -- The default file format is JSON. You can specify only one format.
 --
--- You can't change the file format after you create the data store.
+-- You can\'t change the file format after you create the data store.
 --
---
--- /See:/ 'fileFormatConfiguration' smart constructor.
+-- /See:/ 'newFileFormatConfiguration' smart constructor.
 data FileFormatConfiguration = FileFormatConfiguration'
-  { _ffcParquetConfiguration ::
-      !( Maybe
-           ParquetConfiguration
-       ),
-    _ffcJsonConfiguration ::
-      !( Maybe
-           JSONConfiguration
-       )
+  { -- | Contains the configuration information of the Parquet format.
+    parquetConfiguration :: Prelude.Maybe ParquetConfiguration,
+    -- | Contains the configuration information of the JSON format.
+    jsonConfiguration :: Prelude.Maybe JsonConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FileFormatConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FileFormatConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ffcParquetConfiguration' - Contains the configuration information of the Parquet format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ffcJsonConfiguration' - Contains the configuration information of the JSON format.
-fileFormatConfiguration ::
+-- 'parquetConfiguration', 'fileFormatConfiguration_parquetConfiguration' - Contains the configuration information of the Parquet format.
+--
+-- 'jsonConfiguration', 'fileFormatConfiguration_jsonConfiguration' - Contains the configuration information of the JSON format.
+newFileFormatConfiguration ::
   FileFormatConfiguration
-fileFormatConfiguration =
+newFileFormatConfiguration =
   FileFormatConfiguration'
-    { _ffcParquetConfiguration =
-        Nothing,
-      _ffcJsonConfiguration = Nothing
+    { parquetConfiguration =
+        Prelude.Nothing,
+      jsonConfiguration = Prelude.Nothing
     }
 
 -- | Contains the configuration information of the Parquet format.
-ffcParquetConfiguration :: Lens' FileFormatConfiguration (Maybe ParquetConfiguration)
-ffcParquetConfiguration = lens _ffcParquetConfiguration (\s a -> s {_ffcParquetConfiguration = a})
+fileFormatConfiguration_parquetConfiguration :: Lens.Lens' FileFormatConfiguration (Prelude.Maybe ParquetConfiguration)
+fileFormatConfiguration_parquetConfiguration = Lens.lens (\FileFormatConfiguration' {parquetConfiguration} -> parquetConfiguration) (\s@FileFormatConfiguration' {} a -> s {parquetConfiguration = a} :: FileFormatConfiguration)
 
 -- | Contains the configuration information of the JSON format.
-ffcJsonConfiguration :: Lens' FileFormatConfiguration (Maybe JSONConfiguration)
-ffcJsonConfiguration = lens _ffcJsonConfiguration (\s a -> s {_ffcJsonConfiguration = a})
+fileFormatConfiguration_jsonConfiguration :: Lens.Lens' FileFormatConfiguration (Prelude.Maybe JsonConfiguration)
+fileFormatConfiguration_jsonConfiguration = Lens.lens (\FileFormatConfiguration' {jsonConfiguration} -> jsonConfiguration) (\s@FileFormatConfiguration' {} a -> s {jsonConfiguration = a} :: FileFormatConfiguration)
 
-instance FromJSON FileFormatConfiguration where
+instance Prelude.FromJSON FileFormatConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "FileFormatConfiguration"
       ( \x ->
           FileFormatConfiguration'
-            <$> (x .:? "parquetConfiguration")
-            <*> (x .:? "jsonConfiguration")
+            Prelude.<$> (x Prelude..:? "parquetConfiguration")
+            Prelude.<*> (x Prelude..:? "jsonConfiguration")
       )
 
-instance Hashable FileFormatConfiguration
+instance Prelude.Hashable FileFormatConfiguration
 
-instance NFData FileFormatConfiguration
+instance Prelude.NFData FileFormatConfiguration
 
-instance ToJSON FileFormatConfiguration where
+instance Prelude.ToJSON FileFormatConfiguration where
   toJSON FileFormatConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("parquetConfiguration" .=)
-              <$> _ffcParquetConfiguration,
-            ("jsonConfiguration" .=) <$> _ffcJsonConfiguration
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("parquetConfiguration" Prelude..=)
+              Prelude.<$> parquetConfiguration,
+            ("jsonConfiguration" Prelude..=)
+              Prelude.<$> jsonConfiguration
           ]
       )

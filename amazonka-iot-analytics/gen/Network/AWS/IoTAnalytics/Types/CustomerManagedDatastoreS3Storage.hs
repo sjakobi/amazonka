@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,89 +19,109 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.CustomerManagedDatastoreS3Storage where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Use this to store data store data in an S3 bucket that you manage. When customer-managed storage is selected, the @retentionPeriod@ parameter is ignored. You cannot change the choice of service-managed or customer-managed S3 storage after the data store is created.
+-- | Use this to store data store data in an S3 bucket that you manage. When
+-- customer-managed storage is selected, the @retentionPeriod@ parameter is
+-- ignored. You cannot change the choice of service-managed or
+-- customer-managed S3 storage after the data store is created.
 --
---
---
--- /See:/ 'customerManagedDatastoreS3Storage' smart constructor.
+-- /See:/ 'newCustomerManagedDatastoreS3Storage' smart constructor.
 data CustomerManagedDatastoreS3Storage = CustomerManagedDatastoreS3Storage'
-  { _cmdssKeyPrefix ::
-      !( Maybe
-           Text
-       ),
-    _cmdssBucket ::
-      !Text,
-    _cmdssRoleARN ::
-      !Text
+  { -- | Optional. The prefix used to create the keys of the data store data
+    -- objects. Each object in an S3 bucket has a key that is its unique
+    -- identifier in the bucket. Each object in a bucket has exactly one key.
+    -- The prefix must end with a forward slash (\/).
+    keyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The name of the S3 bucket in which data store data is stored.
+    bucket :: Prelude.Text,
+    -- | The ARN of the role that grants AWS IoT Analytics permission to interact
+    -- with your Amazon S3 resources.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CustomerManagedDatastoreS3Storage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CustomerManagedDatastoreS3Storage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmdssKeyPrefix' - Optional. The prefix used to create the keys of the data store data objects. Each object in an S3 bucket has a key that is its unique identifier in the bucket. Each object in a bucket has exactly one key. The prefix must end with a forward slash (/).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmdssBucket' - The name of the S3 bucket in which data store data is stored.
+-- 'keyPrefix', 'customerManagedDatastoreS3Storage_keyPrefix' - Optional. The prefix used to create the keys of the data store data
+-- objects. Each object in an S3 bucket has a key that is its unique
+-- identifier in the bucket. Each object in a bucket has exactly one key.
+-- The prefix must end with a forward slash (\/).
 --
--- * 'cmdssRoleARN' - The ARN of the role that grants AWS IoT Analytics permission to interact with your Amazon S3 resources.
-customerManagedDatastoreS3Storage ::
-  -- | 'cmdssBucket'
-  Text ->
-  -- | 'cmdssRoleARN'
-  Text ->
+-- 'bucket', 'customerManagedDatastoreS3Storage_bucket' - The name of the S3 bucket in which data store data is stored.
+--
+-- 'roleArn', 'customerManagedDatastoreS3Storage_roleArn' - The ARN of the role that grants AWS IoT Analytics permission to interact
+-- with your Amazon S3 resources.
+newCustomerManagedDatastoreS3Storage ::
+  -- | 'bucket'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CustomerManagedDatastoreS3Storage
-customerManagedDatastoreS3Storage pBucket_ pRoleARN_ =
-  CustomerManagedDatastoreS3Storage'
-    { _cmdssKeyPrefix =
-        Nothing,
-      _cmdssBucket = pBucket_,
-      _cmdssRoleARN = pRoleARN_
-    }
+newCustomerManagedDatastoreS3Storage
+  pBucket_
+  pRoleArn_ =
+    CustomerManagedDatastoreS3Storage'
+      { keyPrefix =
+          Prelude.Nothing,
+        bucket = pBucket_,
+        roleArn = pRoleArn_
+      }
 
--- | Optional. The prefix used to create the keys of the data store data objects. Each object in an S3 bucket has a key that is its unique identifier in the bucket. Each object in a bucket has exactly one key. The prefix must end with a forward slash (/).
-cmdssKeyPrefix :: Lens' CustomerManagedDatastoreS3Storage (Maybe Text)
-cmdssKeyPrefix = lens _cmdssKeyPrefix (\s a -> s {_cmdssKeyPrefix = a})
+-- | Optional. The prefix used to create the keys of the data store data
+-- objects. Each object in an S3 bucket has a key that is its unique
+-- identifier in the bucket. Each object in a bucket has exactly one key.
+-- The prefix must end with a forward slash (\/).
+customerManagedDatastoreS3Storage_keyPrefix :: Lens.Lens' CustomerManagedDatastoreS3Storage (Prelude.Maybe Prelude.Text)
+customerManagedDatastoreS3Storage_keyPrefix = Lens.lens (\CustomerManagedDatastoreS3Storage' {keyPrefix} -> keyPrefix) (\s@CustomerManagedDatastoreS3Storage' {} a -> s {keyPrefix = a} :: CustomerManagedDatastoreS3Storage)
 
 -- | The name of the S3 bucket in which data store data is stored.
-cmdssBucket :: Lens' CustomerManagedDatastoreS3Storage Text
-cmdssBucket = lens _cmdssBucket (\s a -> s {_cmdssBucket = a})
+customerManagedDatastoreS3Storage_bucket :: Lens.Lens' CustomerManagedDatastoreS3Storage Prelude.Text
+customerManagedDatastoreS3Storage_bucket = Lens.lens (\CustomerManagedDatastoreS3Storage' {bucket} -> bucket) (\s@CustomerManagedDatastoreS3Storage' {} a -> s {bucket = a} :: CustomerManagedDatastoreS3Storage)
 
--- | The ARN of the role that grants AWS IoT Analytics permission to interact with your Amazon S3 resources.
-cmdssRoleARN :: Lens' CustomerManagedDatastoreS3Storage Text
-cmdssRoleARN = lens _cmdssRoleARN (\s a -> s {_cmdssRoleARN = a})
+-- | The ARN of the role that grants AWS IoT Analytics permission to interact
+-- with your Amazon S3 resources.
+customerManagedDatastoreS3Storage_roleArn :: Lens.Lens' CustomerManagedDatastoreS3Storage Prelude.Text
+customerManagedDatastoreS3Storage_roleArn = Lens.lens (\CustomerManagedDatastoreS3Storage' {roleArn} -> roleArn) (\s@CustomerManagedDatastoreS3Storage' {} a -> s {roleArn = a} :: CustomerManagedDatastoreS3Storage)
 
-instance FromJSON CustomerManagedDatastoreS3Storage where
+instance
+  Prelude.FromJSON
+    CustomerManagedDatastoreS3Storage
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CustomerManagedDatastoreS3Storage"
       ( \x ->
           CustomerManagedDatastoreS3Storage'
-            <$> (x .:? "keyPrefix")
-            <*> (x .: "bucket")
-            <*> (x .: "roleArn")
+            Prelude.<$> (x Prelude..:? "keyPrefix")
+            Prelude.<*> (x Prelude..: "bucket")
+            Prelude.<*> (x Prelude..: "roleArn")
       )
 
-instance Hashable CustomerManagedDatastoreS3Storage
+instance
+  Prelude.Hashable
+    CustomerManagedDatastoreS3Storage
 
-instance NFData CustomerManagedDatastoreS3Storage
+instance
+  Prelude.NFData
+    CustomerManagedDatastoreS3Storage
 
-instance ToJSON CustomerManagedDatastoreS3Storage where
+instance
+  Prelude.ToJSON
+    CustomerManagedDatastoreS3Storage
+  where
   toJSON CustomerManagedDatastoreS3Storage' {..} =
-    object
-      ( catMaybes
-          [ ("keyPrefix" .=) <$> _cmdssKeyPrefix,
-            Just ("bucket" .= _cmdssBucket),
-            Just ("roleArn" .= _cmdssRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("keyPrefix" Prelude..=) Prelude.<$> keyPrefix,
+            Prelude.Just ("bucket" Prelude..= bucket),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,79 +20,86 @@
 module Network.AWS.IoTAnalytics.Types.LoggingOptions where
 
 import Network.AWS.IoTAnalytics.Types.LoggingLevel
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about logging options.
 --
---
---
--- /See:/ 'loggingOptions' smart constructor.
+-- /See:/ 'newLoggingOptions' smart constructor.
 data LoggingOptions = LoggingOptions'
-  { _loRoleARN ::
-      !Text,
-    _loLevel :: !LoggingLevel,
-    _loEnabled :: !Bool
+  { -- | The ARN of the role that grants permission to AWS IoT Analytics to
+    -- perform logging.
+    roleArn :: Prelude.Text,
+    -- | The logging level. Currently, only ERROR is supported.
+    level :: LoggingLevel,
+    -- | If true, logging is enabled for AWS IoT Analytics.
+    enabled :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoggingOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoggingOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'loRoleARN' - The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'loLevel' - The logging level. Currently, only ERROR is supported.
+-- 'roleArn', 'loggingOptions_roleArn' - The ARN of the role that grants permission to AWS IoT Analytics to
+-- perform logging.
 --
--- * 'loEnabled' - If true, logging is enabled for AWS IoT Analytics.
-loggingOptions ::
-  -- | 'loRoleARN'
-  Text ->
-  -- | 'loLevel'
+-- 'level', 'loggingOptions_level' - The logging level. Currently, only ERROR is supported.
+--
+-- 'enabled', 'loggingOptions_enabled' - If true, logging is enabled for AWS IoT Analytics.
+newLoggingOptions ::
+  -- | 'roleArn'
+  Prelude.Text ->
+  -- | 'level'
   LoggingLevel ->
-  -- | 'loEnabled'
-  Bool ->
+  -- | 'enabled'
+  Prelude.Bool ->
   LoggingOptions
-loggingOptions pRoleARN_ pLevel_ pEnabled_ =
+newLoggingOptions pRoleArn_ pLevel_ pEnabled_ =
   LoggingOptions'
-    { _loRoleARN = pRoleARN_,
-      _loLevel = pLevel_,
-      _loEnabled = pEnabled_
+    { roleArn = pRoleArn_,
+      level = pLevel_,
+      enabled = pEnabled_
     }
 
--- | The ARN of the role that grants permission to AWS IoT Analytics to perform logging.
-loRoleARN :: Lens' LoggingOptions Text
-loRoleARN = lens _loRoleARN (\s a -> s {_loRoleARN = a})
+-- | The ARN of the role that grants permission to AWS IoT Analytics to
+-- perform logging.
+loggingOptions_roleArn :: Lens.Lens' LoggingOptions Prelude.Text
+loggingOptions_roleArn = Lens.lens (\LoggingOptions' {roleArn} -> roleArn) (\s@LoggingOptions' {} a -> s {roleArn = a} :: LoggingOptions)
 
 -- | The logging level. Currently, only ERROR is supported.
-loLevel :: Lens' LoggingOptions LoggingLevel
-loLevel = lens _loLevel (\s a -> s {_loLevel = a})
+loggingOptions_level :: Lens.Lens' LoggingOptions LoggingLevel
+loggingOptions_level = Lens.lens (\LoggingOptions' {level} -> level) (\s@LoggingOptions' {} a -> s {level = a} :: LoggingOptions)
 
 -- | If true, logging is enabled for AWS IoT Analytics.
-loEnabled :: Lens' LoggingOptions Bool
-loEnabled = lens _loEnabled (\s a -> s {_loEnabled = a})
+loggingOptions_enabled :: Lens.Lens' LoggingOptions Prelude.Bool
+loggingOptions_enabled = Lens.lens (\LoggingOptions' {enabled} -> enabled) (\s@LoggingOptions' {} a -> s {enabled = a} :: LoggingOptions)
 
-instance FromJSON LoggingOptions where
+instance Prelude.FromJSON LoggingOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LoggingOptions"
       ( \x ->
           LoggingOptions'
-            <$> (x .: "roleArn")
-            <*> (x .: "level")
-            <*> (x .: "enabled")
+            Prelude.<$> (x Prelude..: "roleArn")
+            Prelude.<*> (x Prelude..: "level")
+            Prelude.<*> (x Prelude..: "enabled")
       )
 
-instance Hashable LoggingOptions
+instance Prelude.Hashable LoggingOptions
 
-instance NFData LoggingOptions
+instance Prelude.NFData LoggingOptions
 
-instance ToJSON LoggingOptions where
+instance Prelude.ToJSON LoggingOptions where
   toJSON LoggingOptions' {..} =
-    object
-      ( catMaybes
-          [ Just ("roleArn" .= _loRoleARN),
-            Just ("level" .= _loLevel),
-            Just ("enabled" .= _loEnabled)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("roleArn" Prelude..= roleArn),
+            Prelude.Just ("level" Prelude..= level),
+            Prelude.Just ("enabled" Prelude..= enabled)
           ]
       )

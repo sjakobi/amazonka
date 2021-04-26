@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,70 @@ module Network.AWS.IoTAnalytics.Types.DatasetTrigger where
 
 import Network.AWS.IoTAnalytics.Types.Schedule
 import Network.AWS.IoTAnalytics.Types.TriggeringDataset
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The @DatasetTrigger@ that specifies when the data set is automatically updated.
+-- | The @DatasetTrigger@ that specifies when the data set is automatically
+-- updated.
 --
---
---
--- /See:/ 'datasetTrigger' smart constructor.
+-- /See:/ 'newDatasetTrigger' smart constructor.
 data DatasetTrigger = DatasetTrigger'
-  { _dtSchedule ::
-      !(Maybe Schedule),
-    _dtDataset :: !(Maybe TriggeringDataset)
+  { -- | The Schedule when the trigger is initiated.
+    schedule :: Prelude.Maybe Schedule,
+    -- | The data set whose content creation triggers the creation of this data
+    -- set\'s contents.
+    dataset :: Prelude.Maybe TriggeringDataset
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatasetTrigger' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatasetTrigger' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dtSchedule' - The Schedule when the trigger is initiated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dtDataset' - The data set whose content creation triggers the creation of this data set's contents.
-datasetTrigger ::
+-- 'schedule', 'datasetTrigger_schedule' - The Schedule when the trigger is initiated.
+--
+-- 'dataset', 'datasetTrigger_dataset' - The data set whose content creation triggers the creation of this data
+-- set\'s contents.
+newDatasetTrigger ::
   DatasetTrigger
-datasetTrigger =
+newDatasetTrigger =
   DatasetTrigger'
-    { _dtSchedule = Nothing,
-      _dtDataset = Nothing
+    { schedule = Prelude.Nothing,
+      dataset = Prelude.Nothing
     }
 
 -- | The Schedule when the trigger is initiated.
-dtSchedule :: Lens' DatasetTrigger (Maybe Schedule)
-dtSchedule = lens _dtSchedule (\s a -> s {_dtSchedule = a})
+datasetTrigger_schedule :: Lens.Lens' DatasetTrigger (Prelude.Maybe Schedule)
+datasetTrigger_schedule = Lens.lens (\DatasetTrigger' {schedule} -> schedule) (\s@DatasetTrigger' {} a -> s {schedule = a} :: DatasetTrigger)
 
--- | The data set whose content creation triggers the creation of this data set's contents.
-dtDataset :: Lens' DatasetTrigger (Maybe TriggeringDataset)
-dtDataset = lens _dtDataset (\s a -> s {_dtDataset = a})
+-- | The data set whose content creation triggers the creation of this data
+-- set\'s contents.
+datasetTrigger_dataset :: Lens.Lens' DatasetTrigger (Prelude.Maybe TriggeringDataset)
+datasetTrigger_dataset = Lens.lens (\DatasetTrigger' {dataset} -> dataset) (\s@DatasetTrigger' {} a -> s {dataset = a} :: DatasetTrigger)
 
-instance FromJSON DatasetTrigger where
+instance Prelude.FromJSON DatasetTrigger where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatasetTrigger"
       ( \x ->
           DatasetTrigger'
-            <$> (x .:? "schedule") <*> (x .:? "dataset")
+            Prelude.<$> (x Prelude..:? "schedule")
+            Prelude.<*> (x Prelude..:? "dataset")
       )
 
-instance Hashable DatasetTrigger
+instance Prelude.Hashable DatasetTrigger
 
-instance NFData DatasetTrigger
+instance Prelude.NFData DatasetTrigger
 
-instance ToJSON DatasetTrigger where
+instance Prelude.ToJSON DatasetTrigger where
   toJSON DatasetTrigger' {..} =
-    object
-      ( catMaybes
-          [ ("schedule" .=) <$> _dtSchedule,
-            ("dataset" .=) <$> _dtDataset
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("schedule" Prelude..=) Prelude.<$> schedule,
+            ("dataset" Prelude..=) Prelude.<$> dataset
           ]
       )

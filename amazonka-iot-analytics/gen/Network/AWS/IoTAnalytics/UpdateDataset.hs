@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,157 +24,195 @@
 -- Updates the settings of a data set.
 module Network.AWS.IoTAnalytics.UpdateDataset
   ( -- * Creating a Request
-    updateDataset,
-    UpdateDataset,
+    UpdateDataset (..),
+    newUpdateDataset,
 
     -- * Request Lenses
-    uTriggers,
-    uRetentionPeriod,
-    uLateDataRules,
-    uContentDeliveryRules,
-    uVersioningConfiguration,
-    uDatasetName,
-    uActions,
+    updateDataset_triggers,
+    updateDataset_retentionPeriod,
+    updateDataset_lateDataRules,
+    updateDataset_contentDeliveryRules,
+    updateDataset_versioningConfiguration,
+    updateDataset_datasetName,
+    updateDataset_actions,
 
     -- * Destructuring the Response
-    updateDatasetResponse,
-    UpdateDatasetResponse,
+    UpdateDatasetResponse (..),
+    newUpdateDatasetResponse,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateDataset' smart constructor.
+-- | /See:/ 'newUpdateDataset' smart constructor.
 data UpdateDataset = UpdateDataset'
-  { _uTriggers ::
-      !(Maybe [DatasetTrigger]),
-    _uRetentionPeriod ::
-      !(Maybe RetentionPeriod),
-    _uLateDataRules ::
-      !(Maybe (List1 LateDataRule)),
-    _uContentDeliveryRules ::
-      !(Maybe [DatasetContentDeliveryRule]),
-    _uVersioningConfiguration ::
-      !(Maybe VersioningConfiguration),
-    _uDatasetName :: !Text,
-    _uActions :: !(List1 DatasetAction)
+  { -- | A list of @DatasetTrigger@ objects. The list can be empty or can contain
+    -- up to five @DatasetTrigger@ objects.
+    triggers :: Prelude.Maybe [DatasetTrigger],
+    -- | How long, in days, dataset contents are kept for the dataset.
+    retentionPeriod :: Prelude.Maybe RetentionPeriod,
+    -- | A list of data rules that send notifications to Amazon CloudWatch, when
+    -- data arrives late. To specify @lateDataRules@, the dataset must use a
+    -- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer>
+    -- filter.
+    lateDataRules :: Prelude.Maybe (Prelude.List1 LateDataRule),
+    -- | When dataset contents are created, they are delivered to destinations
+    -- specified here.
+    contentDeliveryRules :: Prelude.Maybe [DatasetContentDeliveryRule],
+    -- | Optional. How many versions of dataset contents are kept. If not
+    -- specified or set to null, only the latest version plus the latest
+    -- succeeded version (if they are different) are kept for the time period
+    -- specified by the @retentionPeriod@ parameter. For more information, see
+    -- <https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions Keeping Multiple Versions of AWS IoT Analytics Data Sets>
+    -- in the /AWS IoT Analytics User Guide/.
+    versioningConfiguration :: Prelude.Maybe VersioningConfiguration,
+    -- | The name of the data set to update.
+    datasetName :: Prelude.Text,
+    -- | A list of @DatasetAction@ objects.
+    actions :: Prelude.List1 DatasetAction
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDataset' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateDataset' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uTriggers' - A list of @DatasetTrigger@ objects. The list can be empty or can contain up to five @DatasetTrigger@ objects.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'uRetentionPeriod' - How long, in days, dataset contents are kept for the dataset.
+-- 'triggers', 'updateDataset_triggers' - A list of @DatasetTrigger@ objects. The list can be empty or can contain
+-- up to five @DatasetTrigger@ objects.
 --
--- * 'uLateDataRules' - A list of data rules that send notifications to Amazon CloudWatch, when data arrives late. To specify @lateDataRules@ , the dataset must use a <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer> filter.
+-- 'retentionPeriod', 'updateDataset_retentionPeriod' - How long, in days, dataset contents are kept for the dataset.
 --
--- * 'uContentDeliveryRules' - When dataset contents are created, they are delivered to destinations specified here.
+-- 'lateDataRules', 'updateDataset_lateDataRules' - A list of data rules that send notifications to Amazon CloudWatch, when
+-- data arrives late. To specify @lateDataRules@, the dataset must use a
+-- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer>
+-- filter.
 --
--- * 'uVersioningConfiguration' - Optional. How many versions of dataset contents are kept. If not specified or set to null, only the latest version plus the latest succeeded version (if they are different) are kept for the time period specified by the @retentionPeriod@ parameter. For more information, see <https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions Keeping Multiple Versions of AWS IoT Analytics Data Sets> in the /AWS IoT Analytics User Guide/ .
+-- 'contentDeliveryRules', 'updateDataset_contentDeliveryRules' - When dataset contents are created, they are delivered to destinations
+-- specified here.
 --
--- * 'uDatasetName' - The name of the data set to update.
+-- 'versioningConfiguration', 'updateDataset_versioningConfiguration' - Optional. How many versions of dataset contents are kept. If not
+-- specified or set to null, only the latest version plus the latest
+-- succeeded version (if they are different) are kept for the time period
+-- specified by the @retentionPeriod@ parameter. For more information, see
+-- <https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions Keeping Multiple Versions of AWS IoT Analytics Data Sets>
+-- in the /AWS IoT Analytics User Guide/.
 --
--- * 'uActions' - A list of @DatasetAction@ objects.
-updateDataset ::
-  -- | 'uDatasetName'
-  Text ->
-  -- | 'uActions'
-  NonEmpty DatasetAction ->
+-- 'datasetName', 'updateDataset_datasetName' - The name of the data set to update.
+--
+-- 'actions', 'updateDataset_actions' - A list of @DatasetAction@ objects.
+newUpdateDataset ::
+  -- | 'datasetName'
+  Prelude.Text ->
+  -- | 'actions'
+  Prelude.NonEmpty DatasetAction ->
   UpdateDataset
-updateDataset pDatasetName_ pActions_ =
+newUpdateDataset pDatasetName_ pActions_ =
   UpdateDataset'
-    { _uTriggers = Nothing,
-      _uRetentionPeriod = Nothing,
-      _uLateDataRules = Nothing,
-      _uContentDeliveryRules = Nothing,
-      _uVersioningConfiguration = Nothing,
-      _uDatasetName = pDatasetName_,
-      _uActions = _List1 # pActions_
+    { triggers = Prelude.Nothing,
+      retentionPeriod = Prelude.Nothing,
+      lateDataRules = Prelude.Nothing,
+      contentDeliveryRules = Prelude.Nothing,
+      versioningConfiguration = Prelude.Nothing,
+      datasetName = pDatasetName_,
+      actions = Prelude._List1 Lens.# pActions_
     }
 
--- | A list of @DatasetTrigger@ objects. The list can be empty or can contain up to five @DatasetTrigger@ objects.
-uTriggers :: Lens' UpdateDataset [DatasetTrigger]
-uTriggers = lens _uTriggers (\s a -> s {_uTriggers = a}) . _Default . _Coerce
+-- | A list of @DatasetTrigger@ objects. The list can be empty or can contain
+-- up to five @DatasetTrigger@ objects.
+updateDataset_triggers :: Lens.Lens' UpdateDataset (Prelude.Maybe [DatasetTrigger])
+updateDataset_triggers = Lens.lens (\UpdateDataset' {triggers} -> triggers) (\s@UpdateDataset' {} a -> s {triggers = a} :: UpdateDataset) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | How long, in days, dataset contents are kept for the dataset.
-uRetentionPeriod :: Lens' UpdateDataset (Maybe RetentionPeriod)
-uRetentionPeriod = lens _uRetentionPeriod (\s a -> s {_uRetentionPeriod = a})
+updateDataset_retentionPeriod :: Lens.Lens' UpdateDataset (Prelude.Maybe RetentionPeriod)
+updateDataset_retentionPeriod = Lens.lens (\UpdateDataset' {retentionPeriod} -> retentionPeriod) (\s@UpdateDataset' {} a -> s {retentionPeriod = a} :: UpdateDataset)
 
--- | A list of data rules that send notifications to Amazon CloudWatch, when data arrives late. To specify @lateDataRules@ , the dataset must use a <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer> filter.
-uLateDataRules :: Lens' UpdateDataset (Maybe (NonEmpty LateDataRule))
-uLateDataRules = lens _uLateDataRules (\s a -> s {_uLateDataRules = a}) . mapping _List1
+-- | A list of data rules that send notifications to Amazon CloudWatch, when
+-- data arrives late. To specify @lateDataRules@, the dataset must use a
+-- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer>
+-- filter.
+updateDataset_lateDataRules :: Lens.Lens' UpdateDataset (Prelude.Maybe (Prelude.NonEmpty LateDataRule))
+updateDataset_lateDataRules = Lens.lens (\UpdateDataset' {lateDataRules} -> lateDataRules) (\s@UpdateDataset' {} a -> s {lateDataRules = a} :: UpdateDataset) Prelude.. Lens.mapping Prelude._List1
 
--- | When dataset contents are created, they are delivered to destinations specified here.
-uContentDeliveryRules :: Lens' UpdateDataset [DatasetContentDeliveryRule]
-uContentDeliveryRules = lens _uContentDeliveryRules (\s a -> s {_uContentDeliveryRules = a}) . _Default . _Coerce
+-- | When dataset contents are created, they are delivered to destinations
+-- specified here.
+updateDataset_contentDeliveryRules :: Lens.Lens' UpdateDataset (Prelude.Maybe [DatasetContentDeliveryRule])
+updateDataset_contentDeliveryRules = Lens.lens (\UpdateDataset' {contentDeliveryRules} -> contentDeliveryRules) (\s@UpdateDataset' {} a -> s {contentDeliveryRules = a} :: UpdateDataset) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Optional. How many versions of dataset contents are kept. If not specified or set to null, only the latest version plus the latest succeeded version (if they are different) are kept for the time period specified by the @retentionPeriod@ parameter. For more information, see <https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions Keeping Multiple Versions of AWS IoT Analytics Data Sets> in the /AWS IoT Analytics User Guide/ .
-uVersioningConfiguration :: Lens' UpdateDataset (Maybe VersioningConfiguration)
-uVersioningConfiguration = lens _uVersioningConfiguration (\s a -> s {_uVersioningConfiguration = a})
+-- | Optional. How many versions of dataset contents are kept. If not
+-- specified or set to null, only the latest version plus the latest
+-- succeeded version (if they are different) are kept for the time period
+-- specified by the @retentionPeriod@ parameter. For more information, see
+-- <https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions Keeping Multiple Versions of AWS IoT Analytics Data Sets>
+-- in the /AWS IoT Analytics User Guide/.
+updateDataset_versioningConfiguration :: Lens.Lens' UpdateDataset (Prelude.Maybe VersioningConfiguration)
+updateDataset_versioningConfiguration = Lens.lens (\UpdateDataset' {versioningConfiguration} -> versioningConfiguration) (\s@UpdateDataset' {} a -> s {versioningConfiguration = a} :: UpdateDataset)
 
 -- | The name of the data set to update.
-uDatasetName :: Lens' UpdateDataset Text
-uDatasetName = lens _uDatasetName (\s a -> s {_uDatasetName = a})
+updateDataset_datasetName :: Lens.Lens' UpdateDataset Prelude.Text
+updateDataset_datasetName = Lens.lens (\UpdateDataset' {datasetName} -> datasetName) (\s@UpdateDataset' {} a -> s {datasetName = a} :: UpdateDataset)
 
 -- | A list of @DatasetAction@ objects.
-uActions :: Lens' UpdateDataset (NonEmpty DatasetAction)
-uActions = lens _uActions (\s a -> s {_uActions = a}) . _List1
+updateDataset_actions :: Lens.Lens' UpdateDataset (Prelude.NonEmpty DatasetAction)
+updateDataset_actions = Lens.lens (\UpdateDataset' {actions} -> actions) (\s@UpdateDataset' {} a -> s {actions = a} :: UpdateDataset) Prelude.. Prelude._List1
 
-instance AWSRequest UpdateDataset where
+instance Prelude.AWSRequest UpdateDataset where
   type Rs UpdateDataset = UpdateDatasetResponse
-  request = putJSON ioTAnalytics
-  response = receiveNull UpdateDatasetResponse'
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveNull UpdateDatasetResponse'
 
-instance Hashable UpdateDataset
+instance Prelude.Hashable UpdateDataset
 
-instance NFData UpdateDataset
+instance Prelude.NFData UpdateDataset
 
-instance ToHeaders UpdateDataset where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateDataset where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateDataset where
+instance Prelude.ToJSON UpdateDataset where
   toJSON UpdateDataset' {..} =
-    object
-      ( catMaybes
-          [ ("triggers" .=) <$> _uTriggers,
-            ("retentionPeriod" .=) <$> _uRetentionPeriod,
-            ("lateDataRules" .=) <$> _uLateDataRules,
-            ("contentDeliveryRules" .=)
-              <$> _uContentDeliveryRules,
-            ("versioningConfiguration" .=)
-              <$> _uVersioningConfiguration,
-            Just ("actions" .= _uActions)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("triggers" Prelude..=) Prelude.<$> triggers,
+            ("retentionPeriod" Prelude..=)
+              Prelude.<$> retentionPeriod,
+            ("lateDataRules" Prelude..=)
+              Prelude.<$> lateDataRules,
+            ("contentDeliveryRules" Prelude..=)
+              Prelude.<$> contentDeliveryRules,
+            ("versioningConfiguration" Prelude..=)
+              Prelude.<$> versioningConfiguration,
+            Prelude.Just ("actions" Prelude..= actions)
           ]
       )
 
-instance ToPath UpdateDataset where
+instance Prelude.ToPath UpdateDataset where
   toPath UpdateDataset' {..} =
-    mconcat ["/datasets/", toBS _uDatasetName]
+    Prelude.mconcat
+      ["/datasets/", Prelude.toBS datasetName]
 
-instance ToQuery UpdateDataset where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateDataset where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateDatasetResponse' smart constructor.
+-- | /See:/ 'newUpdateDatasetResponse' smart constructor.
 data UpdateDatasetResponse = UpdateDatasetResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateDatasetResponse' with the minimum fields required to make a request.
-updateDatasetResponse ::
+-- |
+-- Create a value of 'UpdateDatasetResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateDatasetResponse ::
   UpdateDatasetResponse
-updateDatasetResponse = UpdateDatasetResponse'
+newUpdateDatasetResponse = UpdateDatasetResponse'
 
-instance NFData UpdateDatasetResponse
+instance Prelude.NFData UpdateDatasetResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.IoTAnalytics.Types.DatasetActionType
   ( DatasetActionType
       ( ..,
-        Container,
-        Query
+        DatasetActionTypeCONTAINER,
+        DatasetActionTypeQUERY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DatasetActionType = DatasetActionType' (CI Text)
+newtype DatasetActionType = DatasetActionType'
+  { fromDatasetActionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Container :: DatasetActionType
-pattern Container = DatasetActionType' "CONTAINER"
+pattern DatasetActionTypeCONTAINER :: DatasetActionType
+pattern DatasetActionTypeCONTAINER = DatasetActionType' "CONTAINER"
 
-pattern Query :: DatasetActionType
-pattern Query = DatasetActionType' "QUERY"
+pattern DatasetActionTypeQUERY :: DatasetActionType
+pattern DatasetActionTypeQUERY = DatasetActionType' "QUERY"
 
 {-# COMPLETE
-  Container,
-  Query,
+  DatasetActionTypeCONTAINER,
+  DatasetActionTypeQUERY,
   DatasetActionType'
   #-}
 
-instance FromText DatasetActionType where
-  parser = (DatasetActionType' . mk) <$> takeText
+instance Prelude.FromText DatasetActionType where
+  parser = DatasetActionType' Prelude.<$> Prelude.takeText
 
-instance ToText DatasetActionType where
-  toText (DatasetActionType' ci) = original ci
+instance Prelude.ToText DatasetActionType where
+  toText (DatasetActionType' x) = x
 
-instance Hashable DatasetActionType
+instance Prelude.Hashable DatasetActionType
 
-instance NFData DatasetActionType
+instance Prelude.NFData DatasetActionType
 
-instance ToByteString DatasetActionType
+instance Prelude.ToByteString DatasetActionType
 
-instance ToQuery DatasetActionType
+instance Prelude.ToQuery DatasetActionType
 
-instance ToHeader DatasetActionType
+instance Prelude.ToHeader DatasetActionType
 
-instance FromJSON DatasetActionType where
-  parseJSON = parseJSONText "DatasetActionType"
+instance Prelude.FromJSON DatasetActionType where
+  parseJSON = Prelude.parseJSONText "DatasetActionType"

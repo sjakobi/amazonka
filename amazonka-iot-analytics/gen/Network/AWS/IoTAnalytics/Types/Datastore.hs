@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,118 +23,206 @@ import Network.AWS.IoTAnalytics.Types.DatastoreStatus
 import Network.AWS.IoTAnalytics.Types.DatastoreStorage
 import Network.AWS.IoTAnalytics.Types.FileFormatConfiguration
 import Network.AWS.IoTAnalytics.Types.RetentionPeriod
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a data store.
 --
---
---
--- /See:/ 'datastore' smart constructor.
+-- /See:/ 'newDatastore' smart constructor.
 data Datastore = Datastore'
-  { _dLastMessageArrivalTime ::
-      !(Maybe POSIX),
-    _dStatus :: !(Maybe DatastoreStatus),
-    _dCreationTime :: !(Maybe POSIX),
-    _dLastUpdateTime :: !(Maybe POSIX),
-    _dArn :: !(Maybe Text),
-    _dFileFormatConfiguration ::
-      !(Maybe FileFormatConfiguration),
-    _dName :: !(Maybe Text),
-    _dRetentionPeriod :: !(Maybe RetentionPeriod),
-    _dStorage :: !(Maybe DatastoreStorage)
+  { -- | The last time when a new message arrived in the data store.
+    --
+    -- AWS IoT Analytics updates this value at most once per minute for one
+    -- data store. Hence, the @lastMessageArrivalTime@ value is an
+    -- approximation.
+    --
+    -- This feature only applies to messages that arrived in the data store
+    -- after October 23, 2020.
+    lastMessageArrivalTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of a data store:
+    --
+    -- [CREATING]
+    --     The data store is being created.
+    --
+    -- [ACTIVE]
+    --     The data store has been created and can be used.
+    --
+    -- [DELETING]
+    --     The data store is being deleted.
+    status :: Prelude.Maybe DatastoreStatus,
+    -- | When the data store was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The last time the data store was updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of the data store.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | Contains the configuration information of file formats. AWS IoT
+    -- Analytics data stores support JSON and
+    -- <https://parquet.apache.org/ Parquet>.
+    --
+    -- The default file format is JSON. You can specify only one format.
+    --
+    -- You can\'t change the file format after you create the data store.
+    fileFormatConfiguration :: Prelude.Maybe FileFormatConfiguration,
+    -- | The name of the data store.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | How long, in days, message data is kept for the data store. When
+    -- @customerManagedS3@ storage is selected, this parameter is ignored.
+    retentionPeriod :: Prelude.Maybe RetentionPeriod,
+    -- | Where data store data is stored. You can choose one of
+    -- @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the
+    -- default is @serviceManagedS3@. You cannot change this storage option
+    -- after the data store is created.
+    storage :: Prelude.Maybe DatastoreStorage
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Datastore' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Datastore' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dLastMessageArrivalTime' - The last time when a new message arrived in the data store. AWS IoT Analytics updates this value at most once per minute for one data store. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dStatus' - The status of a data store:     * CREATING    * The data store is being created.     * ACTIVE    * The data store has been created and can be used.     * DELETING    * The data store is being deleted.
+-- 'lastMessageArrivalTime', 'datastore_lastMessageArrivalTime' - The last time when a new message arrived in the data store.
 --
--- * 'dCreationTime' - When the data store was created.
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- data store. Hence, the @lastMessageArrivalTime@ value is an
+-- approximation.
 --
--- * 'dLastUpdateTime' - The last time the data store was updated.
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
 --
--- * 'dArn' - The ARN of the data store.
+-- 'status', 'datastore_status' - The status of a data store:
 --
--- * 'dFileFormatConfiguration' - Contains the configuration information of file formats. AWS IoT Analytics data stores support JSON and <https://parquet.apache.org/ Parquet> . The default file format is JSON. You can specify only one format. You can't change the file format after you create the data store.
+-- [CREATING]
+--     The data store is being created.
 --
--- * 'dName' - The name of the data store.
+-- [ACTIVE]
+--     The data store has been created and can be used.
 --
--- * 'dRetentionPeriod' - How long, in days, message data is kept for the data store. When @customerManagedS3@ storage is selected, this parameter is ignored.
+-- [DELETING]
+--     The data store is being deleted.
 --
--- * 'dStorage' - Where data store data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the data store is created.
-datastore ::
+-- 'creationTime', 'datastore_creationTime' - When the data store was created.
+--
+-- 'lastUpdateTime', 'datastore_lastUpdateTime' - The last time the data store was updated.
+--
+-- 'arn', 'datastore_arn' - The ARN of the data store.
+--
+-- 'fileFormatConfiguration', 'datastore_fileFormatConfiguration' - Contains the configuration information of file formats. AWS IoT
+-- Analytics data stores support JSON and
+-- <https://parquet.apache.org/ Parquet>.
+--
+-- The default file format is JSON. You can specify only one format.
+--
+-- You can\'t change the file format after you create the data store.
+--
+-- 'name', 'datastore_name' - The name of the data store.
+--
+-- 'retentionPeriod', 'datastore_retentionPeriod' - How long, in days, message data is kept for the data store. When
+-- @customerManagedS3@ storage is selected, this parameter is ignored.
+--
+-- 'storage', 'datastore_storage' - Where data store data is stored. You can choose one of
+-- @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the
+-- default is @serviceManagedS3@. You cannot change this storage option
+-- after the data store is created.
+newDatastore ::
   Datastore
-datastore =
+newDatastore =
   Datastore'
-    { _dLastMessageArrivalTime = Nothing,
-      _dStatus = Nothing,
-      _dCreationTime = Nothing,
-      _dLastUpdateTime = Nothing,
-      _dArn = Nothing,
-      _dFileFormatConfiguration = Nothing,
-      _dName = Nothing,
-      _dRetentionPeriod = Nothing,
-      _dStorage = Nothing
+    { lastMessageArrivalTime =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      fileFormatConfiguration = Prelude.Nothing,
+      name = Prelude.Nothing,
+      retentionPeriod = Prelude.Nothing,
+      storage = Prelude.Nothing
     }
 
--- | The last time when a new message arrived in the data store. AWS IoT Analytics updates this value at most once per minute for one data store. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
-dLastMessageArrivalTime :: Lens' Datastore (Maybe UTCTime)
-dLastMessageArrivalTime = lens _dLastMessageArrivalTime (\s a -> s {_dLastMessageArrivalTime = a}) . mapping _Time
+-- | The last time when a new message arrived in the data store.
+--
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- data store. Hence, the @lastMessageArrivalTime@ value is an
+-- approximation.
+--
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
+datastore_lastMessageArrivalTime :: Lens.Lens' Datastore (Prelude.Maybe Prelude.UTCTime)
+datastore_lastMessageArrivalTime = Lens.lens (\Datastore' {lastMessageArrivalTime} -> lastMessageArrivalTime) (\s@Datastore' {} a -> s {lastMessageArrivalTime = a} :: Datastore) Prelude.. Lens.mapping Prelude._Time
 
--- | The status of a data store:     * CREATING    * The data store is being created.     * ACTIVE    * The data store has been created and can be used.     * DELETING    * The data store is being deleted.
-dStatus :: Lens' Datastore (Maybe DatastoreStatus)
-dStatus = lens _dStatus (\s a -> s {_dStatus = a})
+-- | The status of a data store:
+--
+-- [CREATING]
+--     The data store is being created.
+--
+-- [ACTIVE]
+--     The data store has been created and can be used.
+--
+-- [DELETING]
+--     The data store is being deleted.
+datastore_status :: Lens.Lens' Datastore (Prelude.Maybe DatastoreStatus)
+datastore_status = Lens.lens (\Datastore' {status} -> status) (\s@Datastore' {} a -> s {status = a} :: Datastore)
 
 -- | When the data store was created.
-dCreationTime :: Lens' Datastore (Maybe UTCTime)
-dCreationTime = lens _dCreationTime (\s a -> s {_dCreationTime = a}) . mapping _Time
+datastore_creationTime :: Lens.Lens' Datastore (Prelude.Maybe Prelude.UTCTime)
+datastore_creationTime = Lens.lens (\Datastore' {creationTime} -> creationTime) (\s@Datastore' {} a -> s {creationTime = a} :: Datastore) Prelude.. Lens.mapping Prelude._Time
 
 -- | The last time the data store was updated.
-dLastUpdateTime :: Lens' Datastore (Maybe UTCTime)
-dLastUpdateTime = lens _dLastUpdateTime (\s a -> s {_dLastUpdateTime = a}) . mapping _Time
+datastore_lastUpdateTime :: Lens.Lens' Datastore (Prelude.Maybe Prelude.UTCTime)
+datastore_lastUpdateTime = Lens.lens (\Datastore' {lastUpdateTime} -> lastUpdateTime) (\s@Datastore' {} a -> s {lastUpdateTime = a} :: Datastore) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ARN of the data store.
-dArn :: Lens' Datastore (Maybe Text)
-dArn = lens _dArn (\s a -> s {_dArn = a})
+datastore_arn :: Lens.Lens' Datastore (Prelude.Maybe Prelude.Text)
+datastore_arn = Lens.lens (\Datastore' {arn} -> arn) (\s@Datastore' {} a -> s {arn = a} :: Datastore)
 
--- | Contains the configuration information of file formats. AWS IoT Analytics data stores support JSON and <https://parquet.apache.org/ Parquet> . The default file format is JSON. You can specify only one format. You can't change the file format after you create the data store.
-dFileFormatConfiguration :: Lens' Datastore (Maybe FileFormatConfiguration)
-dFileFormatConfiguration = lens _dFileFormatConfiguration (\s a -> s {_dFileFormatConfiguration = a})
+-- | Contains the configuration information of file formats. AWS IoT
+-- Analytics data stores support JSON and
+-- <https://parquet.apache.org/ Parquet>.
+--
+-- The default file format is JSON. You can specify only one format.
+--
+-- You can\'t change the file format after you create the data store.
+datastore_fileFormatConfiguration :: Lens.Lens' Datastore (Prelude.Maybe FileFormatConfiguration)
+datastore_fileFormatConfiguration = Lens.lens (\Datastore' {fileFormatConfiguration} -> fileFormatConfiguration) (\s@Datastore' {} a -> s {fileFormatConfiguration = a} :: Datastore)
 
 -- | The name of the data store.
-dName :: Lens' Datastore (Maybe Text)
-dName = lens _dName (\s a -> s {_dName = a})
+datastore_name :: Lens.Lens' Datastore (Prelude.Maybe Prelude.Text)
+datastore_name = Lens.lens (\Datastore' {name} -> name) (\s@Datastore' {} a -> s {name = a} :: Datastore)
 
--- | How long, in days, message data is kept for the data store. When @customerManagedS3@ storage is selected, this parameter is ignored.
-dRetentionPeriod :: Lens' Datastore (Maybe RetentionPeriod)
-dRetentionPeriod = lens _dRetentionPeriod (\s a -> s {_dRetentionPeriod = a})
+-- | How long, in days, message data is kept for the data store. When
+-- @customerManagedS3@ storage is selected, this parameter is ignored.
+datastore_retentionPeriod :: Lens.Lens' Datastore (Prelude.Maybe RetentionPeriod)
+datastore_retentionPeriod = Lens.lens (\Datastore' {retentionPeriod} -> retentionPeriod) (\s@Datastore' {} a -> s {retentionPeriod = a} :: Datastore)
 
--- | Where data store data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the data store is created.
-dStorage :: Lens' Datastore (Maybe DatastoreStorage)
-dStorage = lens _dStorage (\s a -> s {_dStorage = a})
+-- | Where data store data is stored. You can choose one of
+-- @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the
+-- default is @serviceManagedS3@. You cannot change this storage option
+-- after the data store is created.
+datastore_storage :: Lens.Lens' Datastore (Prelude.Maybe DatastoreStorage)
+datastore_storage = Lens.lens (\Datastore' {storage} -> storage) (\s@Datastore' {} a -> s {storage = a} :: Datastore)
 
-instance FromJSON Datastore where
+instance Prelude.FromJSON Datastore where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Datastore"
       ( \x ->
           Datastore'
-            <$> (x .:? "lastMessageArrivalTime")
-            <*> (x .:? "status")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "lastUpdateTime")
-            <*> (x .:? "arn")
-            <*> (x .:? "fileFormatConfiguration")
-            <*> (x .:? "name")
-            <*> (x .:? "retentionPeriod")
-            <*> (x .:? "storage")
+            Prelude.<$> (x Prelude..:? "lastMessageArrivalTime")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "lastUpdateTime")
+            Prelude.<*> (x Prelude..:? "arn")
+            Prelude.<*> (x Prelude..:? "fileFormatConfiguration")
+            Prelude.<*> (x Prelude..:? "name")
+            Prelude.<*> (x Prelude..:? "retentionPeriod")
+            Prelude.<*> (x Prelude..:? "storage")
       )
 
-instance Hashable Datastore
+instance Prelude.Hashable Datastore
 
-instance NFData Datastore
+instance Prelude.NFData Datastore

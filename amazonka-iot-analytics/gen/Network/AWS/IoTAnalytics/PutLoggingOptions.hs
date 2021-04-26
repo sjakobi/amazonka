@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,94 +23,102 @@
 --
 -- Sets or updates the AWS IoT Analytics logging options.
 --
---
--- If you update the value of any @loggingOptions@ field, it takes up to one minute for the change to take effect. Also, if you change the policy attached to the role you specified in the @roleArn@ field (for example, to correct an invalid policy), it takes up to five minutes for that change to take effect.
+-- If you update the value of any @loggingOptions@ field, it takes up to
+-- one minute for the change to take effect. Also, if you change the policy
+-- attached to the role you specified in the @roleArn@ field (for example,
+-- to correct an invalid policy), it takes up to five minutes for that
+-- change to take effect.
 module Network.AWS.IoTAnalytics.PutLoggingOptions
   ( -- * Creating a Request
-    putLoggingOptions,
-    PutLoggingOptions,
+    PutLoggingOptions (..),
+    newPutLoggingOptions,
 
     -- * Request Lenses
-    ploLoggingOptions,
+    putLoggingOptions_loggingOptions,
 
     -- * Destructuring the Response
-    putLoggingOptionsResponse,
-    PutLoggingOptionsResponse,
+    PutLoggingOptionsResponse (..),
+    newPutLoggingOptionsResponse,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putLoggingOptions' smart constructor.
-newtype PutLoggingOptions = PutLoggingOptions'
-  { _ploLoggingOptions ::
-      LoggingOptions
+-- | /See:/ 'newPutLoggingOptions' smart constructor.
+data PutLoggingOptions = PutLoggingOptions'
+  { -- | The new values of the AWS IoT Analytics logging options.
+    loggingOptions :: LoggingOptions
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutLoggingOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutLoggingOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ploLoggingOptions' - The new values of the AWS IoT Analytics logging options.
-putLoggingOptions ::
-  -- | 'ploLoggingOptions'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'loggingOptions', 'putLoggingOptions_loggingOptions' - The new values of the AWS IoT Analytics logging options.
+newPutLoggingOptions ::
+  -- | 'loggingOptions'
   LoggingOptions ->
   PutLoggingOptions
-putLoggingOptions pLoggingOptions_ =
+newPutLoggingOptions pLoggingOptions_ =
   PutLoggingOptions'
-    { _ploLoggingOptions =
+    { loggingOptions =
         pLoggingOptions_
     }
 
 -- | The new values of the AWS IoT Analytics logging options.
-ploLoggingOptions :: Lens' PutLoggingOptions LoggingOptions
-ploLoggingOptions = lens _ploLoggingOptions (\s a -> s {_ploLoggingOptions = a})
+putLoggingOptions_loggingOptions :: Lens.Lens' PutLoggingOptions LoggingOptions
+putLoggingOptions_loggingOptions = Lens.lens (\PutLoggingOptions' {loggingOptions} -> loggingOptions) (\s@PutLoggingOptions' {} a -> s {loggingOptions = a} :: PutLoggingOptions)
 
-instance AWSRequest PutLoggingOptions where
+instance Prelude.AWSRequest PutLoggingOptions where
   type Rs PutLoggingOptions = PutLoggingOptionsResponse
-  request = putJSON ioTAnalytics
-  response = receiveNull PutLoggingOptionsResponse'
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveNull PutLoggingOptionsResponse'
 
-instance Hashable PutLoggingOptions
+instance Prelude.Hashable PutLoggingOptions
 
-instance NFData PutLoggingOptions
+instance Prelude.NFData PutLoggingOptions
 
-instance ToHeaders PutLoggingOptions where
-  toHeaders = const mempty
+instance Prelude.ToHeaders PutLoggingOptions where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON PutLoggingOptions where
+instance Prelude.ToJSON PutLoggingOptions where
   toJSON PutLoggingOptions' {..} =
-    object
-      ( catMaybes
-          [Just ("loggingOptions" .= _ploLoggingOptions)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("loggingOptions" Prelude..= loggingOptions)
+          ]
       )
 
-instance ToPath PutLoggingOptions where
-  toPath = const "/logging"
+instance Prelude.ToPath PutLoggingOptions where
+  toPath = Prelude.const "/logging"
 
-instance ToQuery PutLoggingOptions where
-  toQuery = const mempty
+instance Prelude.ToQuery PutLoggingOptions where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putLoggingOptionsResponse' smart constructor.
+-- | /See:/ 'newPutLoggingOptionsResponse' smart constructor.
 data PutLoggingOptionsResponse = PutLoggingOptionsResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutLoggingOptionsResponse' with the minimum fields required to make a request.
-putLoggingOptionsResponse ::
+-- |
+-- Create a value of 'PutLoggingOptionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutLoggingOptionsResponse ::
   PutLoggingOptionsResponse
-putLoggingOptionsResponse =
+newPutLoggingOptionsResponse =
   PutLoggingOptionsResponse'
 
-instance NFData PutLoggingOptionsResponse
+instance Prelude.NFData PutLoggingOptionsResponse

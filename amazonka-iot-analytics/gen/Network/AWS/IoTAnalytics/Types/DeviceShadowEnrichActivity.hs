@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,116 +19,115 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.DeviceShadowEnrichActivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An activity that adds information from the AWS IoT Device Shadow service to a message.
+-- | An activity that adds information from the AWS IoT Device Shadow service
+-- to a message.
 --
---
---
--- /See:/ 'deviceShadowEnrichActivity' smart constructor.
+-- /See:/ 'newDeviceShadowEnrichActivity' smart constructor.
 data DeviceShadowEnrichActivity = DeviceShadowEnrichActivity'
-  { _dseaNext ::
-      !(Maybe Text),
-    _dseaName ::
-      !Text,
-    _dseaAttribute ::
-      !Text,
-    _dseaThingName ::
-      !Text,
-    _dseaRoleARN ::
-      !Text
+  { -- | The next activity in the pipeline.
+    next :: Prelude.Maybe Prelude.Text,
+    -- | The name of the @deviceShadowEnrich@ activity.
+    name :: Prelude.Text,
+    -- | The name of the attribute that is added to the message.
+    attribute :: Prelude.Text,
+    -- | The name of the IoT device whose shadow information is added to the
+    -- message.
+    thingName :: Prelude.Text,
+    -- | The ARN of the role that allows access to the device\'s shadow.
+    roleArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceShadowEnrichActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceShadowEnrichActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dseaNext' - The next activity in the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dseaName' - The name of the @deviceShadowEnrich@ activity.
+-- 'next', 'deviceShadowEnrichActivity_next' - The next activity in the pipeline.
 --
--- * 'dseaAttribute' - The name of the attribute that is added to the message.
+-- 'name', 'deviceShadowEnrichActivity_name' - The name of the @deviceShadowEnrich@ activity.
 --
--- * 'dseaThingName' - The name of the IoT device whose shadow information is added to the message.
+-- 'attribute', 'deviceShadowEnrichActivity_attribute' - The name of the attribute that is added to the message.
 --
--- * 'dseaRoleARN' - The ARN of the role that allows access to the device's shadow.
-deviceShadowEnrichActivity ::
-  -- | 'dseaName'
-  Text ->
-  -- | 'dseaAttribute'
-  Text ->
-  -- | 'dseaThingName'
-  Text ->
-  -- | 'dseaRoleARN'
-  Text ->
+-- 'thingName', 'deviceShadowEnrichActivity_thingName' - The name of the IoT device whose shadow information is added to the
+-- message.
+--
+-- 'roleArn', 'deviceShadowEnrichActivity_roleArn' - The ARN of the role that allows access to the device\'s shadow.
+newDeviceShadowEnrichActivity ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'attribute'
+  Prelude.Text ->
+  -- | 'thingName'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   DeviceShadowEnrichActivity
-deviceShadowEnrichActivity
+newDeviceShadowEnrichActivity
   pName_
   pAttribute_
   pThingName_
-  pRoleARN_ =
+  pRoleArn_ =
     DeviceShadowEnrichActivity'
-      { _dseaNext = Nothing,
-        _dseaName = pName_,
-        _dseaAttribute = pAttribute_,
-        _dseaThingName = pThingName_,
-        _dseaRoleARN = pRoleARN_
+      { next = Prelude.Nothing,
+        name = pName_,
+        attribute = pAttribute_,
+        thingName = pThingName_,
+        roleArn = pRoleArn_
       }
 
 -- | The next activity in the pipeline.
-dseaNext :: Lens' DeviceShadowEnrichActivity (Maybe Text)
-dseaNext = lens _dseaNext (\s a -> s {_dseaNext = a})
+deviceShadowEnrichActivity_next :: Lens.Lens' DeviceShadowEnrichActivity (Prelude.Maybe Prelude.Text)
+deviceShadowEnrichActivity_next = Lens.lens (\DeviceShadowEnrichActivity' {next} -> next) (\s@DeviceShadowEnrichActivity' {} a -> s {next = a} :: DeviceShadowEnrichActivity)
 
 -- | The name of the @deviceShadowEnrich@ activity.
-dseaName :: Lens' DeviceShadowEnrichActivity Text
-dseaName = lens _dseaName (\s a -> s {_dseaName = a})
+deviceShadowEnrichActivity_name :: Lens.Lens' DeviceShadowEnrichActivity Prelude.Text
+deviceShadowEnrichActivity_name = Lens.lens (\DeviceShadowEnrichActivity' {name} -> name) (\s@DeviceShadowEnrichActivity' {} a -> s {name = a} :: DeviceShadowEnrichActivity)
 
 -- | The name of the attribute that is added to the message.
-dseaAttribute :: Lens' DeviceShadowEnrichActivity Text
-dseaAttribute = lens _dseaAttribute (\s a -> s {_dseaAttribute = a})
+deviceShadowEnrichActivity_attribute :: Lens.Lens' DeviceShadowEnrichActivity Prelude.Text
+deviceShadowEnrichActivity_attribute = Lens.lens (\DeviceShadowEnrichActivity' {attribute} -> attribute) (\s@DeviceShadowEnrichActivity' {} a -> s {attribute = a} :: DeviceShadowEnrichActivity)
 
--- | The name of the IoT device whose shadow information is added to the message.
-dseaThingName :: Lens' DeviceShadowEnrichActivity Text
-dseaThingName = lens _dseaThingName (\s a -> s {_dseaThingName = a})
+-- | The name of the IoT device whose shadow information is added to the
+-- message.
+deviceShadowEnrichActivity_thingName :: Lens.Lens' DeviceShadowEnrichActivity Prelude.Text
+deviceShadowEnrichActivity_thingName = Lens.lens (\DeviceShadowEnrichActivity' {thingName} -> thingName) (\s@DeviceShadowEnrichActivity' {} a -> s {thingName = a} :: DeviceShadowEnrichActivity)
 
--- | The ARN of the role that allows access to the device's shadow.
-dseaRoleARN :: Lens' DeviceShadowEnrichActivity Text
-dseaRoleARN = lens _dseaRoleARN (\s a -> s {_dseaRoleARN = a})
+-- | The ARN of the role that allows access to the device\'s shadow.
+deviceShadowEnrichActivity_roleArn :: Lens.Lens' DeviceShadowEnrichActivity Prelude.Text
+deviceShadowEnrichActivity_roleArn = Lens.lens (\DeviceShadowEnrichActivity' {roleArn} -> roleArn) (\s@DeviceShadowEnrichActivity' {} a -> s {roleArn = a} :: DeviceShadowEnrichActivity)
 
-instance FromJSON DeviceShadowEnrichActivity where
+instance Prelude.FromJSON DeviceShadowEnrichActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceShadowEnrichActivity"
       ( \x ->
           DeviceShadowEnrichActivity'
-            <$> (x .:? "next")
-            <*> (x .: "name")
-            <*> (x .: "attribute")
-            <*> (x .: "thingName")
-            <*> (x .: "roleArn")
+            Prelude.<$> (x Prelude..:? "next")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "attribute")
+            Prelude.<*> (x Prelude..: "thingName")
+            Prelude.<*> (x Prelude..: "roleArn")
       )
 
-instance Hashable DeviceShadowEnrichActivity
+instance Prelude.Hashable DeviceShadowEnrichActivity
 
-instance NFData DeviceShadowEnrichActivity
+instance Prelude.NFData DeviceShadowEnrichActivity
 
-instance ToJSON DeviceShadowEnrichActivity where
+instance Prelude.ToJSON DeviceShadowEnrichActivity where
   toJSON DeviceShadowEnrichActivity' {..} =
-    object
-      ( catMaybes
-          [ ("next" .=) <$> _dseaNext,
-            Just ("name" .= _dseaName),
-            Just ("attribute" .= _dseaAttribute),
-            Just ("thingName" .= _dseaThingName),
-            Just ("roleArn" .= _dseaRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("next" Prelude..=) Prelude.<$> next,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("attribute" Prelude..= attribute),
+            Prelude.Just ("thingName" Prelude..= thingName),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )

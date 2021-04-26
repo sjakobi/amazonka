@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,47 +20,45 @@
 module Network.AWS.IoTAnalytics.Types.DatastoreStatistics where
 
 import Network.AWS.IoTAnalytics.Types.EstimatedResourceSize
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Statistical information about the data store.
 --
---
---
--- /See:/ 'datastoreStatistics' smart constructor.
-newtype DatastoreStatistics = DatastoreStatistics'
-  { _dsSize ::
-      Maybe EstimatedResourceSize
+-- /See:/ 'newDatastoreStatistics' smart constructor.
+data DatastoreStatistics = DatastoreStatistics'
+  { -- | The estimated size of the data store.
+    size :: Prelude.Maybe EstimatedResourceSize
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatastoreStatistics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatastoreStatistics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsSize' - The estimated size of the data store.
-datastoreStatistics ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'size', 'datastoreStatistics_size' - The estimated size of the data store.
+newDatastoreStatistics ::
   DatastoreStatistics
-datastoreStatistics =
-  DatastoreStatistics' {_dsSize = Nothing}
+newDatastoreStatistics =
+  DatastoreStatistics' {size = Prelude.Nothing}
 
 -- | The estimated size of the data store.
-dsSize :: Lens' DatastoreStatistics (Maybe EstimatedResourceSize)
-dsSize = lens _dsSize (\s a -> s {_dsSize = a})
+datastoreStatistics_size :: Lens.Lens' DatastoreStatistics (Prelude.Maybe EstimatedResourceSize)
+datastoreStatistics_size = Lens.lens (\DatastoreStatistics' {size} -> size) (\s@DatastoreStatistics' {} a -> s {size = a} :: DatastoreStatistics)
 
-instance FromJSON DatastoreStatistics where
+instance Prelude.FromJSON DatastoreStatistics where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatastoreStatistics"
-      (\x -> DatastoreStatistics' <$> (x .:? "size"))
+      ( \x ->
+          DatastoreStatistics'
+            Prelude.<$> (x Prelude..:? "size")
+      )
 
-instance Hashable DatastoreStatistics
+instance Prelude.Hashable DatastoreStatistics
 
-instance NFData DatastoreStatistics
+instance Prelude.NFData DatastoreStatistics

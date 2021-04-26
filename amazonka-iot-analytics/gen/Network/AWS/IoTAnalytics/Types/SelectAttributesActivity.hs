@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.SelectAttributesActivity where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Creates a new message using only the specified attributes from the original message.
+-- | Creates a new message using only the specified attributes from the
+-- original message.
 --
---
---
--- /See:/ 'selectAttributesActivity' smart constructor.
+-- /See:/ 'newSelectAttributesActivity' smart constructor.
 data SelectAttributesActivity = SelectAttributesActivity'
-  { _saaNext ::
-      !(Maybe Text),
-    _saaName :: !Text,
-    _saaAttributes ::
-      !(List1 Text)
+  { -- | The next activity in the pipeline.
+    next :: Prelude.Maybe Prelude.Text,
+    -- | The name of the @selectAttributes@ activity.
+    name :: Prelude.Text,
+    -- | A list of the attributes to select from the message.
+    attributes :: Prelude.List1 Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SelectAttributesActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SelectAttributesActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saaNext' - The next activity in the pipeline.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saaName' - The name of the @selectAttributes@ activity.
+-- 'next', 'selectAttributesActivity_next' - The next activity in the pipeline.
 --
--- * 'saaAttributes' - A list of the attributes to select from the message.
-selectAttributesActivity ::
-  -- | 'saaName'
-  Text ->
-  -- | 'saaAttributes'
-  NonEmpty Text ->
+-- 'name', 'selectAttributesActivity_name' - The name of the @selectAttributes@ activity.
+--
+-- 'attributes', 'selectAttributesActivity_attributes' - A list of the attributes to select from the message.
+newSelectAttributesActivity ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'attributes'
+  Prelude.NonEmpty Prelude.Text ->
   SelectAttributesActivity
-selectAttributesActivity pName_ pAttributes_ =
+newSelectAttributesActivity pName_ pAttributes_ =
   SelectAttributesActivity'
-    { _saaNext = Nothing,
-      _saaName = pName_,
-      _saaAttributes = _List1 # pAttributes_
+    { next = Prelude.Nothing,
+      name = pName_,
+      attributes = Prelude._List1 Lens.# pAttributes_
     }
 
 -- | The next activity in the pipeline.
-saaNext :: Lens' SelectAttributesActivity (Maybe Text)
-saaNext = lens _saaNext (\s a -> s {_saaNext = a})
+selectAttributesActivity_next :: Lens.Lens' SelectAttributesActivity (Prelude.Maybe Prelude.Text)
+selectAttributesActivity_next = Lens.lens (\SelectAttributesActivity' {next} -> next) (\s@SelectAttributesActivity' {} a -> s {next = a} :: SelectAttributesActivity)
 
 -- | The name of the @selectAttributes@ activity.
-saaName :: Lens' SelectAttributesActivity Text
-saaName = lens _saaName (\s a -> s {_saaName = a})
+selectAttributesActivity_name :: Lens.Lens' SelectAttributesActivity Prelude.Text
+selectAttributesActivity_name = Lens.lens (\SelectAttributesActivity' {name} -> name) (\s@SelectAttributesActivity' {} a -> s {name = a} :: SelectAttributesActivity)
 
 -- | A list of the attributes to select from the message.
-saaAttributes :: Lens' SelectAttributesActivity (NonEmpty Text)
-saaAttributes = lens _saaAttributes (\s a -> s {_saaAttributes = a}) . _List1
+selectAttributesActivity_attributes :: Lens.Lens' SelectAttributesActivity (Prelude.NonEmpty Prelude.Text)
+selectAttributesActivity_attributes = Lens.lens (\SelectAttributesActivity' {attributes} -> attributes) (\s@SelectAttributesActivity' {} a -> s {attributes = a} :: SelectAttributesActivity) Prelude.. Prelude._List1
 
-instance FromJSON SelectAttributesActivity where
+instance Prelude.FromJSON SelectAttributesActivity where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SelectAttributesActivity"
       ( \x ->
           SelectAttributesActivity'
-            <$> (x .:? "next")
-            <*> (x .: "name")
-            <*> (x .: "attributes")
+            Prelude.<$> (x Prelude..:? "next")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "attributes")
       )
 
-instance Hashable SelectAttributesActivity
+instance Prelude.Hashable SelectAttributesActivity
 
-instance NFData SelectAttributesActivity
+instance Prelude.NFData SelectAttributesActivity
 
-instance ToJSON SelectAttributesActivity where
+instance Prelude.ToJSON SelectAttributesActivity where
   toJSON SelectAttributesActivity' {..} =
-    object
-      ( catMaybes
-          [ ("next" .=) <$> _saaNext,
-            Just ("name" .= _saaName),
-            Just ("attributes" .= _saaAttributes)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("next" Prelude..=) Prelude.<$> next,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("attributes" Prelude..= attributes)
           ]
       )

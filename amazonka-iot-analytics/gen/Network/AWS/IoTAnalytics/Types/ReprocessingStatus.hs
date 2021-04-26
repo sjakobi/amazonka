@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.IoTAnalytics.Types.ReprocessingStatus
   ( ReprocessingStatus
       ( ..,
-        RSCancelled,
-        RSFailed,
-        RSRunning,
-        RSSucceeded
+        ReprocessingStatusCANCELLED,
+        ReprocessingStatusFAILED,
+        ReprocessingStatusRUNNING,
+        ReprocessingStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ReprocessingStatus
-  = ReprocessingStatus'
-      ( CI
-          Text
-      )
+newtype ReprocessingStatus = ReprocessingStatus'
+  { fromReprocessingStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RSCancelled :: ReprocessingStatus
-pattern RSCancelled = ReprocessingStatus' "CANCELLED"
+pattern ReprocessingStatusCANCELLED :: ReprocessingStatus
+pattern ReprocessingStatusCANCELLED = ReprocessingStatus' "CANCELLED"
 
-pattern RSFailed :: ReprocessingStatus
-pattern RSFailed = ReprocessingStatus' "FAILED"
+pattern ReprocessingStatusFAILED :: ReprocessingStatus
+pattern ReprocessingStatusFAILED = ReprocessingStatus' "FAILED"
 
-pattern RSRunning :: ReprocessingStatus
-pattern RSRunning = ReprocessingStatus' "RUNNING"
+pattern ReprocessingStatusRUNNING :: ReprocessingStatus
+pattern ReprocessingStatusRUNNING = ReprocessingStatus' "RUNNING"
 
-pattern RSSucceeded :: ReprocessingStatus
-pattern RSSucceeded = ReprocessingStatus' "SUCCEEDED"
+pattern ReprocessingStatusSUCCEEDED :: ReprocessingStatus
+pattern ReprocessingStatusSUCCEEDED = ReprocessingStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  RSCancelled,
-  RSFailed,
-  RSRunning,
-  RSSucceeded,
+  ReprocessingStatusCANCELLED,
+  ReprocessingStatusFAILED,
+  ReprocessingStatusRUNNING,
+  ReprocessingStatusSUCCEEDED,
   ReprocessingStatus'
   #-}
 
-instance FromText ReprocessingStatus where
-  parser = (ReprocessingStatus' . mk) <$> takeText
+instance Prelude.FromText ReprocessingStatus where
+  parser = ReprocessingStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReprocessingStatus where
-  toText (ReprocessingStatus' ci) = original ci
+instance Prelude.ToText ReprocessingStatus where
+  toText (ReprocessingStatus' x) = x
 
-instance Hashable ReprocessingStatus
+instance Prelude.Hashable ReprocessingStatus
 
-instance NFData ReprocessingStatus
+instance Prelude.NFData ReprocessingStatus
 
-instance ToByteString ReprocessingStatus
+instance Prelude.ToByteString ReprocessingStatus
 
-instance ToQuery ReprocessingStatus
+instance Prelude.ToQuery ReprocessingStatus
 
-instance ToHeader ReprocessingStatus
+instance Prelude.ToHeader ReprocessingStatus
 
-instance FromJSON ReprocessingStatus where
-  parseJSON = parseJSONText "ReprocessingStatus"
+instance Prelude.FromJSON ReprocessingStatus where
+  parseJSON = Prelude.parseJSONText "ReprocessingStatus"

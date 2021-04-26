@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,38 +19,46 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.ChannelMessages where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Specifies one or more sets of channel messages.
 --
---
---
--- /See:/ 'channelMessages' smart constructor.
-newtype ChannelMessages = ChannelMessages'
-  { _cmS3Paths ::
-      Maybe (List1 Text)
+-- /See:/ 'newChannelMessages' smart constructor.
+data ChannelMessages = ChannelMessages'
+  { -- | Specifies one or more keys that identify the Amazon Simple Storage
+    -- Service (Amazon S3) objects that save your channel messages.
+    s3Paths :: Prelude.Maybe (Prelude.List1 Prelude.Text)
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ChannelMessages' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ChannelMessages' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmS3Paths' - Specifies one or more keys that identify the Amazon Simple Storage Service (Amazon S3) objects that save your channel messages.
-channelMessages ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 's3Paths', 'channelMessages_s3Paths' - Specifies one or more keys that identify the Amazon Simple Storage
+-- Service (Amazon S3) objects that save your channel messages.
+newChannelMessages ::
   ChannelMessages
-channelMessages =
-  ChannelMessages' {_cmS3Paths = Nothing}
+newChannelMessages =
+  ChannelMessages' {s3Paths = Prelude.Nothing}
 
--- | Specifies one or more keys that identify the Amazon Simple Storage Service (Amazon S3) objects that save your channel messages.
-cmS3Paths :: Lens' ChannelMessages (Maybe (NonEmpty Text))
-cmS3Paths = lens _cmS3Paths (\s a -> s {_cmS3Paths = a}) . mapping _List1
+-- | Specifies one or more keys that identify the Amazon Simple Storage
+-- Service (Amazon S3) objects that save your channel messages.
+channelMessages_s3Paths :: Lens.Lens' ChannelMessages (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+channelMessages_s3Paths = Lens.lens (\ChannelMessages' {s3Paths} -> s3Paths) (\s@ChannelMessages' {} a -> s {s3Paths = a} :: ChannelMessages) Prelude.. Lens.mapping Prelude._List1
 
-instance Hashable ChannelMessages
+instance Prelude.Hashable ChannelMessages
 
-instance NFData ChannelMessages
+instance Prelude.NFData ChannelMessages
 
-instance ToJSON ChannelMessages where
+instance Prelude.ToJSON ChannelMessages where
   toJSON ChannelMessages' {..} =
-    object (catMaybes [("s3Paths" .=) <$> _cmS3Paths])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("s3Paths" Prelude..=) Prelude.<$> s3Paths]
+      )

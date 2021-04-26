@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.IoTAnalytics.Types.FileFormatType
   ( FileFormatType
       ( ..,
-        JSON,
-        Parquet
+        FileFormatTypeJSON,
+        FileFormatTypePARQUET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data FileFormatType = FileFormatType' (CI Text)
+newtype FileFormatType = FileFormatType'
+  { fromFileFormatType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern JSON :: FileFormatType
-pattern JSON = FileFormatType' "JSON"
+pattern FileFormatTypeJSON :: FileFormatType
+pattern FileFormatTypeJSON = FileFormatType' "JSON"
 
-pattern Parquet :: FileFormatType
-pattern Parquet = FileFormatType' "PARQUET"
+pattern FileFormatTypePARQUET :: FileFormatType
+pattern FileFormatTypePARQUET = FileFormatType' "PARQUET"
 
 {-# COMPLETE
-  JSON,
-  Parquet,
+  FileFormatTypeJSON,
+  FileFormatTypePARQUET,
   FileFormatType'
   #-}
 
-instance FromText FileFormatType where
-  parser = (FileFormatType' . mk) <$> takeText
+instance Prelude.FromText FileFormatType where
+  parser = FileFormatType' Prelude.<$> Prelude.takeText
 
-instance ToText FileFormatType where
-  toText (FileFormatType' ci) = original ci
+instance Prelude.ToText FileFormatType where
+  toText (FileFormatType' x) = x
 
-instance Hashable FileFormatType
+instance Prelude.Hashable FileFormatType
 
-instance NFData FileFormatType
+instance Prelude.NFData FileFormatType
 
-instance ToByteString FileFormatType
+instance Prelude.ToByteString FileFormatType
 
-instance ToQuery FileFormatType
+instance Prelude.ToQuery FileFormatType
 
-instance ToHeader FileFormatType
+instance Prelude.ToHeader FileFormatType
 
-instance FromJSON FileFormatType where
-  parseJSON = parseJSONText "FileFormatType"
+instance Prelude.FromJSON FileFormatType where
+  parseJSON = Prelude.parseJSONText "FileFormatType"

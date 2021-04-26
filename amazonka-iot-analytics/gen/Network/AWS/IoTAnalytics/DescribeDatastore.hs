@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,142 +24,155 @@
 -- Retrieves information about a data store.
 module Network.AWS.IoTAnalytics.DescribeDatastore
   ( -- * Creating a Request
-    describeDatastore,
-    DescribeDatastore,
+    DescribeDatastore (..),
+    newDescribeDatastore,
 
     -- * Request Lenses
-    dIncludeStatistics,
-    dDatastoreName,
+    describeDatastore_includeStatistics,
+    describeDatastore_datastoreName,
 
     -- * Destructuring the Response
-    describeDatastoreResponse,
-    DescribeDatastoreResponse,
+    DescribeDatastoreResponse (..),
+    newDescribeDatastoreResponse,
 
     -- * Response Lenses
-    ddrrsDatastore,
-    ddrrsStatistics,
-    ddrrsResponseStatus,
+    describeDatastoreResponse_datastore,
+    describeDatastoreResponse_statistics,
+    describeDatastoreResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoTAnalytics.Types.Datastore
+import Network.AWS.IoTAnalytics.Types.DatastoreStatistics
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeDatastore' smart constructor.
+-- | /See:/ 'newDescribeDatastore' smart constructor.
 data DescribeDatastore = DescribeDatastore'
-  { _dIncludeStatistics ::
-      !(Maybe Bool),
-    _dDatastoreName :: !Text
+  { -- | If true, additional statistical information about the data store is
+    -- included in the response. This feature cannot be used with a data store
+    -- whose S3 storage is customer-managed.
+    includeStatistics :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the data store
+    datastoreName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDatastore' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDatastore' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dIncludeStatistics' - If true, additional statistical information about the data store is included in the response. This feature cannot be used with a data store whose S3 storage is customer-managed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dDatastoreName' - The name of the data store
-describeDatastore ::
-  -- | 'dDatastoreName'
-  Text ->
+-- 'includeStatistics', 'describeDatastore_includeStatistics' - If true, additional statistical information about the data store is
+-- included in the response. This feature cannot be used with a data store
+-- whose S3 storage is customer-managed.
+--
+-- 'datastoreName', 'describeDatastore_datastoreName' - The name of the data store
+newDescribeDatastore ::
+  -- | 'datastoreName'
+  Prelude.Text ->
   DescribeDatastore
-describeDatastore pDatastoreName_ =
+newDescribeDatastore pDatastoreName_ =
   DescribeDatastore'
-    { _dIncludeStatistics = Nothing,
-      _dDatastoreName = pDatastoreName_
+    { includeStatistics =
+        Prelude.Nothing,
+      datastoreName = pDatastoreName_
     }
 
--- | If true, additional statistical information about the data store is included in the response. This feature cannot be used with a data store whose S3 storage is customer-managed.
-dIncludeStatistics :: Lens' DescribeDatastore (Maybe Bool)
-dIncludeStatistics = lens _dIncludeStatistics (\s a -> s {_dIncludeStatistics = a})
+-- | If true, additional statistical information about the data store is
+-- included in the response. This feature cannot be used with a data store
+-- whose S3 storage is customer-managed.
+describeDatastore_includeStatistics :: Lens.Lens' DescribeDatastore (Prelude.Maybe Prelude.Bool)
+describeDatastore_includeStatistics = Lens.lens (\DescribeDatastore' {includeStatistics} -> includeStatistics) (\s@DescribeDatastore' {} a -> s {includeStatistics = a} :: DescribeDatastore)
 
 -- | The name of the data store
-dDatastoreName :: Lens' DescribeDatastore Text
-dDatastoreName = lens _dDatastoreName (\s a -> s {_dDatastoreName = a})
+describeDatastore_datastoreName :: Lens.Lens' DescribeDatastore Prelude.Text
+describeDatastore_datastoreName = Lens.lens (\DescribeDatastore' {datastoreName} -> datastoreName) (\s@DescribeDatastore' {} a -> s {datastoreName = a} :: DescribeDatastore)
 
-instance AWSRequest DescribeDatastore where
+instance Prelude.AWSRequest DescribeDatastore where
   type Rs DescribeDatastore = DescribeDatastoreResponse
-  request = get ioTAnalytics
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeDatastoreResponse'
-            <$> (x .?> "datastore")
-            <*> (x .?> "statistics")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "datastore")
+            Prelude.<*> (x Prelude..?> "statistics")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeDatastore
+instance Prelude.Hashable DescribeDatastore
 
-instance NFData DescribeDatastore
+instance Prelude.NFData DescribeDatastore
 
-instance ToHeaders DescribeDatastore where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeDatastore where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeDatastore where
+instance Prelude.ToPath DescribeDatastore where
   toPath DescribeDatastore' {..} =
-    mconcat ["/datastores/", toBS _dDatastoreName]
+    Prelude.mconcat
+      ["/datastores/", Prelude.toBS datastoreName]
 
-instance ToQuery DescribeDatastore where
+instance Prelude.ToQuery DescribeDatastore where
   toQuery DescribeDatastore' {..} =
-    mconcat
-      ["includeStatistics" =: _dIncludeStatistics]
+    Prelude.mconcat
+      ["includeStatistics" Prelude.=: includeStatistics]
 
--- | /See:/ 'describeDatastoreResponse' smart constructor.
+-- | /See:/ 'newDescribeDatastoreResponse' smart constructor.
 data DescribeDatastoreResponse = DescribeDatastoreResponse'
-  { _ddrrsDatastore ::
-      !(Maybe Datastore),
-    _ddrrsStatistics ::
-      !( Maybe
-           DatastoreStatistics
-       ),
-    _ddrrsResponseStatus ::
-      !Int
+  { -- | Information about the data store.
+    datastore :: Prelude.Maybe Datastore,
+    -- | Additional statistical information about the data store. Included if the
+    -- @includeStatistics@ parameter is set to @true@ in the request.
+    statistics :: Prelude.Maybe DatastoreStatistics,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeDatastoreResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeDatastoreResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrrsDatastore' - Information about the data store.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddrrsStatistics' - Additional statistical information about the data store. Included if the @includeStatistics@ parameter is set to @true@ in the request.
+-- 'datastore', 'describeDatastoreResponse_datastore' - Information about the data store.
 --
--- * 'ddrrsResponseStatus' - -- | The response status code.
-describeDatastoreResponse ::
-  -- | 'ddrrsResponseStatus'
-  Int ->
+-- 'statistics', 'describeDatastoreResponse_statistics' - Additional statistical information about the data store. Included if the
+-- @includeStatistics@ parameter is set to @true@ in the request.
+--
+-- 'httpStatus', 'describeDatastoreResponse_httpStatus' - The response's http status code.
+newDescribeDatastoreResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeDatastoreResponse
-describeDatastoreResponse pResponseStatus_ =
+newDescribeDatastoreResponse pHttpStatus_ =
   DescribeDatastoreResponse'
-    { _ddrrsDatastore =
-        Nothing,
-      _ddrrsStatistics = Nothing,
-      _ddrrsResponseStatus = pResponseStatus_
+    { datastore =
+        Prelude.Nothing,
+      statistics = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Information about the data store.
-ddrrsDatastore :: Lens' DescribeDatastoreResponse (Maybe Datastore)
-ddrrsDatastore = lens _ddrrsDatastore (\s a -> s {_ddrrsDatastore = a})
+describeDatastoreResponse_datastore :: Lens.Lens' DescribeDatastoreResponse (Prelude.Maybe Datastore)
+describeDatastoreResponse_datastore = Lens.lens (\DescribeDatastoreResponse' {datastore} -> datastore) (\s@DescribeDatastoreResponse' {} a -> s {datastore = a} :: DescribeDatastoreResponse)
 
--- | Additional statistical information about the data store. Included if the @includeStatistics@ parameter is set to @true@ in the request.
-ddrrsStatistics :: Lens' DescribeDatastoreResponse (Maybe DatastoreStatistics)
-ddrrsStatistics = lens _ddrrsStatistics (\s a -> s {_ddrrsStatistics = a})
+-- | Additional statistical information about the data store. Included if the
+-- @includeStatistics@ parameter is set to @true@ in the request.
+describeDatastoreResponse_statistics :: Lens.Lens' DescribeDatastoreResponse (Prelude.Maybe DatastoreStatistics)
+describeDatastoreResponse_statistics = Lens.lens (\DescribeDatastoreResponse' {statistics} -> statistics) (\s@DescribeDatastoreResponse' {} a -> s {statistics = a} :: DescribeDatastoreResponse)
 
--- | -- | The response status code.
-ddrrsResponseStatus :: Lens' DescribeDatastoreResponse Int
-ddrrsResponseStatus = lens _ddrrsResponseStatus (\s a -> s {_ddrrsResponseStatus = a})
+-- | The response's http status code.
+describeDatastoreResponse_httpStatus :: Lens.Lens' DescribeDatastoreResponse Prelude.Int
+describeDatastoreResponse_httpStatus = Lens.lens (\DescribeDatastoreResponse' {httpStatus} -> httpStatus) (\s@DescribeDatastoreResponse' {} a -> s {httpStatus = a} :: DescribeDatastoreResponse)
 
-instance NFData DescribeDatastoreResponse
+instance Prelude.NFData DescribeDatastoreResponse

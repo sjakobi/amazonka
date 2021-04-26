@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.IoTAnalytics.Types.DatasetStatus
   ( DatasetStatus
       ( ..,
-        DActive,
-        DCreating,
-        DDeleting
+        DatasetStatusACTIVE,
+        DatasetStatusCREATING,
+        DatasetStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DatasetStatus = DatasetStatus' (CI Text)
+newtype DatasetStatus = DatasetStatus'
+  { fromDatasetStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DActive :: DatasetStatus
-pattern DActive = DatasetStatus' "ACTIVE"
+pattern DatasetStatusACTIVE :: DatasetStatus
+pattern DatasetStatusACTIVE = DatasetStatus' "ACTIVE"
 
-pattern DCreating :: DatasetStatus
-pattern DCreating = DatasetStatus' "CREATING"
+pattern DatasetStatusCREATING :: DatasetStatus
+pattern DatasetStatusCREATING = DatasetStatus' "CREATING"
 
-pattern DDeleting :: DatasetStatus
-pattern DDeleting = DatasetStatus' "DELETING"
+pattern DatasetStatusDELETING :: DatasetStatus
+pattern DatasetStatusDELETING = DatasetStatus' "DELETING"
 
 {-# COMPLETE
-  DActive,
-  DCreating,
-  DDeleting,
+  DatasetStatusACTIVE,
+  DatasetStatusCREATING,
+  DatasetStatusDELETING,
   DatasetStatus'
   #-}
 
-instance FromText DatasetStatus where
-  parser = (DatasetStatus' . mk) <$> takeText
+instance Prelude.FromText DatasetStatus where
+  parser = DatasetStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DatasetStatus where
-  toText (DatasetStatus' ci) = original ci
+instance Prelude.ToText DatasetStatus where
+  toText (DatasetStatus' x) = x
 
-instance Hashable DatasetStatus
+instance Prelude.Hashable DatasetStatus
 
-instance NFData DatasetStatus
+instance Prelude.NFData DatasetStatus
 
-instance ToByteString DatasetStatus
+instance Prelude.ToByteString DatasetStatus
 
-instance ToQuery DatasetStatus
+instance Prelude.ToQuery DatasetStatus
 
-instance ToHeader DatasetStatus
+instance Prelude.ToHeader DatasetStatus
 
-instance FromJSON DatasetStatus where
-  parseJSON = parseJSONText "DatasetStatus"
+instance Prelude.FromJSON DatasetStatus where
+  parseJSON = Prelude.parseJSONText "DatasetStatus"

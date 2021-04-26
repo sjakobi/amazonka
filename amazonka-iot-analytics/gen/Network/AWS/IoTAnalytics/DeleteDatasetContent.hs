@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,96 +24,109 @@
 -- Deletes the content of the specified dataset.
 module Network.AWS.IoTAnalytics.DeleteDatasetContent
   ( -- * Creating a Request
-    deleteDatasetContent,
-    DeleteDatasetContent,
+    DeleteDatasetContent (..),
+    newDeleteDatasetContent,
 
     -- * Request Lenses
-    ddcVersionId,
-    ddcDatasetName,
+    deleteDatasetContent_versionId,
+    deleteDatasetContent_datasetName,
 
     -- * Destructuring the Response
-    deleteDatasetContentResponse,
-    DeleteDatasetContentResponse,
+    DeleteDatasetContentResponse (..),
+    newDeleteDatasetContentResponse,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDatasetContent' smart constructor.
+-- | /See:/ 'newDeleteDatasetContent' smart constructor.
 data DeleteDatasetContent = DeleteDatasetContent'
-  { _ddcVersionId ::
-      !(Maybe Text),
-    _ddcDatasetName :: !Text
+  { -- | The version of the dataset whose content is deleted. You can also use
+    -- the strings \"$LATEST\" or \"$LATEST_SUCCEEDED\" to delete the latest or
+    -- latest successfully completed data set. If not specified,
+    -- \"$LATEST_SUCCEEDED\" is the default.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the dataset whose content is deleted.
+    datasetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDatasetContent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDatasetContent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddcVersionId' - The version of the dataset whose content is deleted. You can also use the strings "$LATEST" or "$LATEST_SUCCEEDED" to delete the latest or latest successfully completed data set. If not specified, "$LATEST_SUCCEEDED" is the default.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddcDatasetName' - The name of the dataset whose content is deleted.
-deleteDatasetContent ::
-  -- | 'ddcDatasetName'
-  Text ->
+-- 'versionId', 'deleteDatasetContent_versionId' - The version of the dataset whose content is deleted. You can also use
+-- the strings \"$LATEST\" or \"$LATEST_SUCCEEDED\" to delete the latest or
+-- latest successfully completed data set. If not specified,
+-- \"$LATEST_SUCCEEDED\" is the default.
+--
+-- 'datasetName', 'deleteDatasetContent_datasetName' - The name of the dataset whose content is deleted.
+newDeleteDatasetContent ::
+  -- | 'datasetName'
+  Prelude.Text ->
   DeleteDatasetContent
-deleteDatasetContent pDatasetName_ =
+newDeleteDatasetContent pDatasetName_ =
   DeleteDatasetContent'
-    { _ddcVersionId = Nothing,
-      _ddcDatasetName = pDatasetName_
+    { versionId = Prelude.Nothing,
+      datasetName = pDatasetName_
     }
 
--- | The version of the dataset whose content is deleted. You can also use the strings "$LATEST" or "$LATEST_SUCCEEDED" to delete the latest or latest successfully completed data set. If not specified, "$LATEST_SUCCEEDED" is the default.
-ddcVersionId :: Lens' DeleteDatasetContent (Maybe Text)
-ddcVersionId = lens _ddcVersionId (\s a -> s {_ddcVersionId = a})
+-- | The version of the dataset whose content is deleted. You can also use
+-- the strings \"$LATEST\" or \"$LATEST_SUCCEEDED\" to delete the latest or
+-- latest successfully completed data set. If not specified,
+-- \"$LATEST_SUCCEEDED\" is the default.
+deleteDatasetContent_versionId :: Lens.Lens' DeleteDatasetContent (Prelude.Maybe Prelude.Text)
+deleteDatasetContent_versionId = Lens.lens (\DeleteDatasetContent' {versionId} -> versionId) (\s@DeleteDatasetContent' {} a -> s {versionId = a} :: DeleteDatasetContent)
 
 -- | The name of the dataset whose content is deleted.
-ddcDatasetName :: Lens' DeleteDatasetContent Text
-ddcDatasetName = lens _ddcDatasetName (\s a -> s {_ddcDatasetName = a})
+deleteDatasetContent_datasetName :: Lens.Lens' DeleteDatasetContent Prelude.Text
+deleteDatasetContent_datasetName = Lens.lens (\DeleteDatasetContent' {datasetName} -> datasetName) (\s@DeleteDatasetContent' {} a -> s {datasetName = a} :: DeleteDatasetContent)
 
-instance AWSRequest DeleteDatasetContent where
+instance Prelude.AWSRequest DeleteDatasetContent where
   type
     Rs DeleteDatasetContent =
       DeleteDatasetContentResponse
-  request = delete ioTAnalytics
-  response = receiveNull DeleteDatasetContentResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteDatasetContentResponse'
 
-instance Hashable DeleteDatasetContent
+instance Prelude.Hashable DeleteDatasetContent
 
-instance NFData DeleteDatasetContent
+instance Prelude.NFData DeleteDatasetContent
 
-instance ToHeaders DeleteDatasetContent where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteDatasetContent where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteDatasetContent where
+instance Prelude.ToPath DeleteDatasetContent where
   toPath DeleteDatasetContent' {..} =
-    mconcat
-      ["/datasets/", toBS _ddcDatasetName, "/content"]
+    Prelude.mconcat
+      ["/datasets/", Prelude.toBS datasetName, "/content"]
 
-instance ToQuery DeleteDatasetContent where
+instance Prelude.ToQuery DeleteDatasetContent where
   toQuery DeleteDatasetContent' {..} =
-    mconcat ["versionId" =: _ddcVersionId]
+    Prelude.mconcat ["versionId" Prelude.=: versionId]
 
--- | /See:/ 'deleteDatasetContentResponse' smart constructor.
+-- | /See:/ 'newDeleteDatasetContentResponse' smart constructor.
 data DeleteDatasetContentResponse = DeleteDatasetContentResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDatasetContentResponse' with the minimum fields required to make a request.
-deleteDatasetContentResponse ::
+-- |
+-- Create a value of 'DeleteDatasetContentResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteDatasetContentResponse ::
   DeleteDatasetContentResponse
-deleteDatasetContentResponse =
+newDeleteDatasetContentResponse =
   DeleteDatasetContentResponse'
 
-instance NFData DeleteDatasetContentResponse
+instance Prelude.NFData DeleteDatasetContentResponse

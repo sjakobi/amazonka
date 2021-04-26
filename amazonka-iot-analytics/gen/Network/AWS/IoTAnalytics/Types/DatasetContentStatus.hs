@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,61 @@
 module Network.AWS.IoTAnalytics.Types.DatasetContentStatus where
 
 import Network.AWS.IoTAnalytics.Types.DatasetContentState
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The state of the data set contents and the reason they are in this state.
+-- | The state of the data set contents and the reason they are in this
+-- state.
 --
---
---
--- /See:/ 'datasetContentStatus' smart constructor.
+-- /See:/ 'newDatasetContentStatus' smart constructor.
 data DatasetContentStatus = DatasetContentStatus'
-  { _dcsState ::
-      !(Maybe DatasetContentState),
-    _dcsReason :: !(Maybe Text)
+  { -- | The state of the data set contents. Can be one of READY, CREATING,
+    -- SUCCEEDED, or FAILED.
+    state :: Prelude.Maybe DatasetContentState,
+    -- | The reason the data set contents are in this state.
+    reason :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatasetContentStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatasetContentStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsState' - The state of the data set contents. Can be one of READY, CREATING, SUCCEEDED, or FAILED.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsReason' - The reason the data set contents are in this state.
-datasetContentStatus ::
+-- 'state', 'datasetContentStatus_state' - The state of the data set contents. Can be one of READY, CREATING,
+-- SUCCEEDED, or FAILED.
+--
+-- 'reason', 'datasetContentStatus_reason' - The reason the data set contents are in this state.
+newDatasetContentStatus ::
   DatasetContentStatus
-datasetContentStatus =
+newDatasetContentStatus =
   DatasetContentStatus'
-    { _dcsState = Nothing,
-      _dcsReason = Nothing
+    { state = Prelude.Nothing,
+      reason = Prelude.Nothing
     }
 
--- | The state of the data set contents. Can be one of READY, CREATING, SUCCEEDED, or FAILED.
-dcsState :: Lens' DatasetContentStatus (Maybe DatasetContentState)
-dcsState = lens _dcsState (\s a -> s {_dcsState = a})
+-- | The state of the data set contents. Can be one of READY, CREATING,
+-- SUCCEEDED, or FAILED.
+datasetContentStatus_state :: Lens.Lens' DatasetContentStatus (Prelude.Maybe DatasetContentState)
+datasetContentStatus_state = Lens.lens (\DatasetContentStatus' {state} -> state) (\s@DatasetContentStatus' {} a -> s {state = a} :: DatasetContentStatus)
 
 -- | The reason the data set contents are in this state.
-dcsReason :: Lens' DatasetContentStatus (Maybe Text)
-dcsReason = lens _dcsReason (\s a -> s {_dcsReason = a})
+datasetContentStatus_reason :: Lens.Lens' DatasetContentStatus (Prelude.Maybe Prelude.Text)
+datasetContentStatus_reason = Lens.lens (\DatasetContentStatus' {reason} -> reason) (\s@DatasetContentStatus' {} a -> s {reason = a} :: DatasetContentStatus)
 
-instance FromJSON DatasetContentStatus where
+instance Prelude.FromJSON DatasetContentStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatasetContentStatus"
       ( \x ->
           DatasetContentStatus'
-            <$> (x .:? "state") <*> (x .:? "reason")
+            Prelude.<$> (x Prelude..:? "state")
+            Prelude.<*> (x Prelude..:? "reason")
       )
 
-instance Hashable DatasetContentStatus
+instance Prelude.Hashable DatasetContentStatus
 
-instance NFData DatasetContentStatus
+instance Prelude.NFData DatasetContentStatus

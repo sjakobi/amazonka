@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,192 +23,223 @@
 --
 -- Lists information about data set contents that have been created.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.IoTAnalytics.ListDatasetContents
   ( -- * Creating a Request
-    listDatasetContents,
-    ListDatasetContents,
+    ListDatasetContents (..),
+    newListDatasetContents,
 
     -- * Request Lenses
-    ldcNextToken,
-    ldcMaxResults,
-    ldcScheduledBefore,
-    ldcScheduledOnOrAfter,
-    ldcDatasetName,
+    listDatasetContents_nextToken,
+    listDatasetContents_maxResults,
+    listDatasetContents_scheduledBefore,
+    listDatasetContents_scheduledOnOrAfter,
+    listDatasetContents_datasetName,
 
     -- * Destructuring the Response
-    listDatasetContentsResponse,
-    ListDatasetContentsResponse,
+    ListDatasetContentsResponse (..),
+    newListDatasetContentsResponse,
 
     -- * Response Lenses
-    ldcrrsNextToken,
-    ldcrrsDatasetContentSummaries,
-    ldcrrsResponseStatus,
+    listDatasetContentsResponse_nextToken,
+    listDatasetContentsResponse_datasetContentSummaries,
+    listDatasetContentsResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.IoTAnalytics.Types.DatasetContentSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDatasetContents' smart constructor.
+-- | /See:/ 'newListDatasetContents' smart constructor.
 data ListDatasetContents = ListDatasetContents'
-  { _ldcNextToken ::
-      !(Maybe Text),
-    _ldcMaxResults :: !(Maybe Nat),
-    _ldcScheduledBefore ::
-      !(Maybe POSIX),
-    _ldcScheduledOnOrAfter ::
-      !(Maybe POSIX),
-    _ldcDatasetName :: !Text
+  { -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in this request.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | A filter to limit results to those data set contents whose creation is
+    -- scheduled before the given time. See the field @triggers.schedule@ in
+    -- the @CreateDataset@ request. (timestamp)
+    scheduledBefore :: Prelude.Maybe Prelude.POSIX,
+    -- | A filter to limit results to those data set contents whose creation is
+    -- scheduled on or after the given time. See the field @triggers.schedule@
+    -- in the @CreateDataset@ request. (timestamp)
+    scheduledOnOrAfter :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the data set whose contents information you want to list.
+    datasetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDatasetContents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDatasetContents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldcNextToken' - The token for the next set of results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldcMaxResults' - The maximum number of results to return in this request.
+-- 'nextToken', 'listDatasetContents_nextToken' - The token for the next set of results.
 --
--- * 'ldcScheduledBefore' - A filter to limit results to those data set contents whose creation is scheduled before the given time. See the field @triggers.schedule@ in the @CreateDataset@ request. (timestamp)
+-- 'maxResults', 'listDatasetContents_maxResults' - The maximum number of results to return in this request.
 --
--- * 'ldcScheduledOnOrAfter' - A filter to limit results to those data set contents whose creation is scheduled on or after the given time. See the field @triggers.schedule@ in the @CreateDataset@ request. (timestamp)
+-- 'scheduledBefore', 'listDatasetContents_scheduledBefore' - A filter to limit results to those data set contents whose creation is
+-- scheduled before the given time. See the field @triggers.schedule@ in
+-- the @CreateDataset@ request. (timestamp)
 --
--- * 'ldcDatasetName' - The name of the data set whose contents information you want to list.
-listDatasetContents ::
-  -- | 'ldcDatasetName'
-  Text ->
+-- 'scheduledOnOrAfter', 'listDatasetContents_scheduledOnOrAfter' - A filter to limit results to those data set contents whose creation is
+-- scheduled on or after the given time. See the field @triggers.schedule@
+-- in the @CreateDataset@ request. (timestamp)
+--
+-- 'datasetName', 'listDatasetContents_datasetName' - The name of the data set whose contents information you want to list.
+newListDatasetContents ::
+  -- | 'datasetName'
+  Prelude.Text ->
   ListDatasetContents
-listDatasetContents pDatasetName_ =
+newListDatasetContents pDatasetName_ =
   ListDatasetContents'
-    { _ldcNextToken = Nothing,
-      _ldcMaxResults = Nothing,
-      _ldcScheduledBefore = Nothing,
-      _ldcScheduledOnOrAfter = Nothing,
-      _ldcDatasetName = pDatasetName_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      scheduledBefore = Prelude.Nothing,
+      scheduledOnOrAfter = Prelude.Nothing,
+      datasetName = pDatasetName_
     }
 
 -- | The token for the next set of results.
-ldcNextToken :: Lens' ListDatasetContents (Maybe Text)
-ldcNextToken = lens _ldcNextToken (\s a -> s {_ldcNextToken = a})
+listDatasetContents_nextToken :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.Text)
+listDatasetContents_nextToken = Lens.lens (\ListDatasetContents' {nextToken} -> nextToken) (\s@ListDatasetContents' {} a -> s {nextToken = a} :: ListDatasetContents)
 
 -- | The maximum number of results to return in this request.
-ldcMaxResults :: Lens' ListDatasetContents (Maybe Natural)
-ldcMaxResults = lens _ldcMaxResults (\s a -> s {_ldcMaxResults = a}) . mapping _Nat
+listDatasetContents_maxResults :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.Natural)
+listDatasetContents_maxResults = Lens.lens (\ListDatasetContents' {maxResults} -> maxResults) (\s@ListDatasetContents' {} a -> s {maxResults = a} :: ListDatasetContents) Prelude.. Lens.mapping Prelude._Nat
 
--- | A filter to limit results to those data set contents whose creation is scheduled before the given time. See the field @triggers.schedule@ in the @CreateDataset@ request. (timestamp)
-ldcScheduledBefore :: Lens' ListDatasetContents (Maybe UTCTime)
-ldcScheduledBefore = lens _ldcScheduledBefore (\s a -> s {_ldcScheduledBefore = a}) . mapping _Time
+-- | A filter to limit results to those data set contents whose creation is
+-- scheduled before the given time. See the field @triggers.schedule@ in
+-- the @CreateDataset@ request. (timestamp)
+listDatasetContents_scheduledBefore :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.UTCTime)
+listDatasetContents_scheduledBefore = Lens.lens (\ListDatasetContents' {scheduledBefore} -> scheduledBefore) (\s@ListDatasetContents' {} a -> s {scheduledBefore = a} :: ListDatasetContents) Prelude.. Lens.mapping Prelude._Time
 
--- | A filter to limit results to those data set contents whose creation is scheduled on or after the given time. See the field @triggers.schedule@ in the @CreateDataset@ request. (timestamp)
-ldcScheduledOnOrAfter :: Lens' ListDatasetContents (Maybe UTCTime)
-ldcScheduledOnOrAfter = lens _ldcScheduledOnOrAfter (\s a -> s {_ldcScheduledOnOrAfter = a}) . mapping _Time
+-- | A filter to limit results to those data set contents whose creation is
+-- scheduled on or after the given time. See the field @triggers.schedule@
+-- in the @CreateDataset@ request. (timestamp)
+listDatasetContents_scheduledOnOrAfter :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.UTCTime)
+listDatasetContents_scheduledOnOrAfter = Lens.lens (\ListDatasetContents' {scheduledOnOrAfter} -> scheduledOnOrAfter) (\s@ListDatasetContents' {} a -> s {scheduledOnOrAfter = a} :: ListDatasetContents) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the data set whose contents information you want to list.
-ldcDatasetName :: Lens' ListDatasetContents Text
-ldcDatasetName = lens _ldcDatasetName (\s a -> s {_ldcDatasetName = a})
+listDatasetContents_datasetName :: Lens.Lens' ListDatasetContents Prelude.Text
+listDatasetContents_datasetName = Lens.lens (\ListDatasetContents' {datasetName} -> datasetName) (\s@ListDatasetContents' {} a -> s {datasetName = a} :: ListDatasetContents)
 
-instance AWSPager ListDatasetContents where
+instance Pager.AWSPager ListDatasetContents where
   page rq rs
-    | stop (rs ^. ldcrrsNextToken) = Nothing
-    | stop (rs ^. ldcrrsDatasetContentSummaries) =
-      Nothing
-    | otherwise =
-      Just $ rq & ldcNextToken .~ rs ^. ldcrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDatasetContentsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDatasetContentsResponse_datasetContentSummaries
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDatasetContents_nextToken
+          Lens..~ rs
+          Lens.^? listDatasetContentsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDatasetContents where
+instance Prelude.AWSRequest ListDatasetContents where
   type
     Rs ListDatasetContents =
       ListDatasetContentsResponse
-  request = get ioTAnalytics
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDatasetContentsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "datasetContentSummaries" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "datasetContentSummaries"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDatasetContents
+instance Prelude.Hashable ListDatasetContents
 
-instance NFData ListDatasetContents
+instance Prelude.NFData ListDatasetContents
 
-instance ToHeaders ListDatasetContents where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListDatasetContents where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListDatasetContents where
+instance Prelude.ToPath ListDatasetContents where
   toPath ListDatasetContents' {..} =
-    mconcat
-      ["/datasets/", toBS _ldcDatasetName, "/contents"]
+    Prelude.mconcat
+      ["/datasets/", Prelude.toBS datasetName, "/contents"]
 
-instance ToQuery ListDatasetContents where
+instance Prelude.ToQuery ListDatasetContents where
   toQuery ListDatasetContents' {..} =
-    mconcat
-      [ "nextToken" =: _ldcNextToken,
-        "maxResults" =: _ldcMaxResults,
-        "scheduledBefore" =: _ldcScheduledBefore,
-        "scheduledOnOrAfter" =: _ldcScheduledOnOrAfter
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "scheduledBefore" Prelude.=: scheduledBefore,
+        "scheduledOnOrAfter" Prelude.=: scheduledOnOrAfter
       ]
 
--- | /See:/ 'listDatasetContentsResponse' smart constructor.
+-- | /See:/ 'newListDatasetContentsResponse' smart constructor.
 data ListDatasetContentsResponse = ListDatasetContentsResponse'
-  { _ldcrrsNextToken ::
-      !(Maybe Text),
-    _ldcrrsDatasetContentSummaries ::
-      !( Maybe
-           [DatasetContentSummary]
-       ),
-    _ldcrrsResponseStatus ::
-      !Int
+  { -- | The token to retrieve the next set of results, or @null@ if there are no
+    -- more results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Summary information about data set contents that have been created.
+    datasetContentSummaries :: Prelude.Maybe [DatasetContentSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDatasetContentsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDatasetContentsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldcrrsNextToken' - The token to retrieve the next set of results, or @null@ if there are no more results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldcrrsDatasetContentSummaries' - Summary information about data set contents that have been created.
+-- 'nextToken', 'listDatasetContentsResponse_nextToken' - The token to retrieve the next set of results, or @null@ if there are no
+-- more results.
 --
--- * 'ldcrrsResponseStatus' - -- | The response status code.
-listDatasetContentsResponse ::
-  -- | 'ldcrrsResponseStatus'
-  Int ->
+-- 'datasetContentSummaries', 'listDatasetContentsResponse_datasetContentSummaries' - Summary information about data set contents that have been created.
+--
+-- 'httpStatus', 'listDatasetContentsResponse_httpStatus' - The response's http status code.
+newListDatasetContentsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDatasetContentsResponse
-listDatasetContentsResponse pResponseStatus_ =
+newListDatasetContentsResponse pHttpStatus_ =
   ListDatasetContentsResponse'
-    { _ldcrrsNextToken =
-        Nothing,
-      _ldcrrsDatasetContentSummaries = Nothing,
-      _ldcrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      datasetContentSummaries = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token to retrieve the next set of results, or @null@ if there are no more results.
-ldcrrsNextToken :: Lens' ListDatasetContentsResponse (Maybe Text)
-ldcrrsNextToken = lens _ldcrrsNextToken (\s a -> s {_ldcrrsNextToken = a})
+-- | The token to retrieve the next set of results, or @null@ if there are no
+-- more results.
+listDatasetContentsResponse_nextToken :: Lens.Lens' ListDatasetContentsResponse (Prelude.Maybe Prelude.Text)
+listDatasetContentsResponse_nextToken = Lens.lens (\ListDatasetContentsResponse' {nextToken} -> nextToken) (\s@ListDatasetContentsResponse' {} a -> s {nextToken = a} :: ListDatasetContentsResponse)
 
 -- | Summary information about data set contents that have been created.
-ldcrrsDatasetContentSummaries :: Lens' ListDatasetContentsResponse [DatasetContentSummary]
-ldcrrsDatasetContentSummaries = lens _ldcrrsDatasetContentSummaries (\s a -> s {_ldcrrsDatasetContentSummaries = a}) . _Default . _Coerce
+listDatasetContentsResponse_datasetContentSummaries :: Lens.Lens' ListDatasetContentsResponse (Prelude.Maybe [DatasetContentSummary])
+listDatasetContentsResponse_datasetContentSummaries = Lens.lens (\ListDatasetContentsResponse' {datasetContentSummaries} -> datasetContentSummaries) (\s@ListDatasetContentsResponse' {} a -> s {datasetContentSummaries = a} :: ListDatasetContentsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ldcrrsResponseStatus :: Lens' ListDatasetContentsResponse Int
-ldcrrsResponseStatus = lens _ldcrrsResponseStatus (\s a -> s {_ldcrrsResponseStatus = a})
+-- | The response's http status code.
+listDatasetContentsResponse_httpStatus :: Lens.Lens' ListDatasetContentsResponse Prelude.Int
+listDatasetContentsResponse_httpStatus = Lens.lens (\ListDatasetContentsResponse' {httpStatus} -> httpStatus) (\s@ListDatasetContentsResponse' {} a -> s {httpStatus = a} :: ListDatasetContentsResponse)
 
-instance NFData ListDatasetContentsResponse
+instance Prelude.NFData ListDatasetContentsResponse

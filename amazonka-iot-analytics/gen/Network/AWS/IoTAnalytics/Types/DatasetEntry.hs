@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.IoTAnalytics.Types.DatasetEntry where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The reference to a data set entry.
 --
---
---
--- /See:/ 'datasetEntry' smart constructor.
+-- /See:/ 'newDatasetEntry' smart constructor.
 data DatasetEntry = DatasetEntry'
-  { _deDataURI ::
-      !(Maybe Text),
-    _deEntryName :: !(Maybe Text)
+  { -- | The presigned URI of the data set item.
+    dataURI :: Prelude.Maybe Prelude.Text,
+    -- | The name of the data set item.
+    entryName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatasetEntry' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatasetEntry' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deDataURI' - The presigned URI of the data set item.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deEntryName' - The name of the data set item.
-datasetEntry ::
+-- 'dataURI', 'datasetEntry_dataURI' - The presigned URI of the data set item.
+--
+-- 'entryName', 'datasetEntry_entryName' - The name of the data set item.
+newDatasetEntry ::
   DatasetEntry
-datasetEntry =
+newDatasetEntry =
   DatasetEntry'
-    { _deDataURI = Nothing,
-      _deEntryName = Nothing
+    { dataURI = Prelude.Nothing,
+      entryName = Prelude.Nothing
     }
 
 -- | The presigned URI of the data set item.
-deDataURI :: Lens' DatasetEntry (Maybe Text)
-deDataURI = lens _deDataURI (\s a -> s {_deDataURI = a})
+datasetEntry_dataURI :: Lens.Lens' DatasetEntry (Prelude.Maybe Prelude.Text)
+datasetEntry_dataURI = Lens.lens (\DatasetEntry' {dataURI} -> dataURI) (\s@DatasetEntry' {} a -> s {dataURI = a} :: DatasetEntry)
 
 -- | The name of the data set item.
-deEntryName :: Lens' DatasetEntry (Maybe Text)
-deEntryName = lens _deEntryName (\s a -> s {_deEntryName = a})
+datasetEntry_entryName :: Lens.Lens' DatasetEntry (Prelude.Maybe Prelude.Text)
+datasetEntry_entryName = Lens.lens (\DatasetEntry' {entryName} -> entryName) (\s@DatasetEntry' {} a -> s {entryName = a} :: DatasetEntry)
 
-instance FromJSON DatasetEntry where
+instance Prelude.FromJSON DatasetEntry where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatasetEntry"
       ( \x ->
           DatasetEntry'
-            <$> (x .:? "dataURI") <*> (x .:? "entryName")
+            Prelude.<$> (x Prelude..:? "dataURI")
+            Prelude.<*> (x Prelude..:? "entryName")
       )
 
-instance Hashable DatasetEntry
+instance Prelude.Hashable DatasetEntry
 
-instance NFData DatasetEntry
+instance Prelude.NFData DatasetEntry

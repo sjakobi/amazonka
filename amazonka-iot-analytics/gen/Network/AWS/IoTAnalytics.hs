@@ -11,15 +11,35 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- AWS IoT Analytics allows you to collect large amounts of device data, process messages, and store them. You can then query the data and run sophisticated analytics on it. AWS IoT Analytics enables advanced data exploration through integration with Jupyter Notebooks and data visualization through integration with Amazon QuickSight.
+-- AWS IoT Analytics allows you to collect large amounts of device data,
+-- process messages, and store them. You can then query the data and run
+-- sophisticated analytics on it. AWS IoT Analytics enables advanced data
+-- exploration through integration with Jupyter Notebooks and data
+-- visualization through integration with Amazon QuickSight.
 --
+-- Traditional analytics and business intelligence tools are designed to
+-- process structured data. IoT data often comes from devices that record
+-- noisy processes (such as temperature, motion, or sound). As a result the
+-- data from these devices can have significant gaps, corrupted messages,
+-- and false readings that must be cleaned up before analysis can occur.
+-- Also, IoT data is often only meaningful in the context of other data
+-- from external sources.
 --
--- Traditional analytics and business intelligence tools are designed to process structured data. IoT data often comes from devices that record noisy processes (such as temperature, motion, or sound). As a result the data from these devices can have significant gaps, corrupted messages, and false readings that must be cleaned up before analysis can occur. Also, IoT data is often only meaningful in the context of other data from external sources.
---
--- AWS IoT Analytics automates the steps required to analyze data from IoT devices. AWS IoT Analytics filters, transforms, and enriches IoT data before storing it in a time-series data store for analysis. You can set up the service to collect only the data you need from your devices, apply mathematical transforms to process the data, and enrich the data with device-specific metadata such as device type and location before storing it. Then, you can analyze your data by running queries using the built-in SQL query engine, or perform more complex analytics and machine learning inference. AWS IoT Analytics includes pre-built models for common IoT use cases so you can answer questions like which devices are about to fail or which customers are at risk of abandoning their wearable devices.
+-- AWS IoT Analytics automates the steps required to analyze data from IoT
+-- devices. AWS IoT Analytics filters, transforms, and enriches IoT data
+-- before storing it in a time-series data store for analysis. You can set
+-- up the service to collect only the data you need from your devices,
+-- apply mathematical transforms to process the data, and enrich the data
+-- with device-specific metadata such as device type and location before
+-- storing it. Then, you can analyze your data by running queries using the
+-- built-in SQL query engine, or perform more complex analytics and machine
+-- learning inference. AWS IoT Analytics includes pre-built models for
+-- common IoT use cases so you can answer questions like which devices are
+-- about to fail or which customers are at risk of abandoning their
+-- wearable devices.
 module Network.AWS.IoTAnalytics
   ( -- * Service Configuration
-    ioTAnalytics,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -52,106 +72,208 @@ module Network.AWS.IoTAnalytics
     -- $operations
 
     -- ** CreateChannel
-    module Network.AWS.IoTAnalytics.CreateChannel,
+    CreateChannel (CreateChannel'),
+    newCreateChannel,
+    CreateChannelResponse (CreateChannelResponse'),
+    newCreateChannelResponse,
 
     -- ** DescribePipeline
-    module Network.AWS.IoTAnalytics.DescribePipeline,
+    DescribePipeline (DescribePipeline'),
+    newDescribePipeline,
+    DescribePipelineResponse (DescribePipelineResponse'),
+    newDescribePipelineResponse,
 
     -- ** BatchPutMessage
-    module Network.AWS.IoTAnalytics.BatchPutMessage,
+    BatchPutMessage (BatchPutMessage'),
+    newBatchPutMessage,
+    BatchPutMessageResponse (BatchPutMessageResponse'),
+    newBatchPutMessageResponse,
 
     -- ** DescribeLoggingOptions
-    module Network.AWS.IoTAnalytics.DescribeLoggingOptions,
+    DescribeLoggingOptions (DescribeLoggingOptions'),
+    newDescribeLoggingOptions,
+    DescribeLoggingOptionsResponse (DescribeLoggingOptionsResponse'),
+    newDescribeLoggingOptionsResponse,
 
     -- ** DeleteDatastore
-    module Network.AWS.IoTAnalytics.DeleteDatastore,
+    DeleteDatastore (DeleteDatastore'),
+    newDeleteDatastore,
+    DeleteDatastoreResponse (DeleteDatastoreResponse'),
+    newDeleteDatastoreResponse,
 
     -- ** UpdateDatastore
-    module Network.AWS.IoTAnalytics.UpdateDatastore,
+    UpdateDatastore (UpdateDatastore'),
+    newUpdateDatastore,
+    UpdateDatastoreResponse (UpdateDatastoreResponse'),
+    newUpdateDatastoreResponse,
 
     -- ** CreatePipeline
-    module Network.AWS.IoTAnalytics.CreatePipeline,
+    CreatePipeline (CreatePipeline'),
+    newCreatePipeline,
+    CreatePipelineResponse (CreatePipelineResponse'),
+    newCreatePipelineResponse,
 
     -- ** CreateDataset
-    module Network.AWS.IoTAnalytics.CreateDataset,
+    CreateDataset (CreateDataset'),
+    newCreateDataset,
+    CreateDatasetResponse (CreateDatasetResponse'),
+    newCreateDatasetResponse,
 
     -- ** UpdatePipeline
-    module Network.AWS.IoTAnalytics.UpdatePipeline,
+    UpdatePipeline (UpdatePipeline'),
+    newUpdatePipeline,
+    UpdatePipelineResponse (UpdatePipelineResponse'),
+    newUpdatePipelineResponse,
 
     -- ** UntagResource
-    module Network.AWS.IoTAnalytics.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** DeletePipeline
-    module Network.AWS.IoTAnalytics.DeletePipeline,
+    DeletePipeline (DeletePipeline'),
+    newDeletePipeline,
+    DeletePipelineResponse (DeletePipelineResponse'),
+    newDeletePipelineResponse,
 
     -- ** CancelPipelineReprocessing
-    module Network.AWS.IoTAnalytics.CancelPipelineReprocessing,
+    CancelPipelineReprocessing (CancelPipelineReprocessing'),
+    newCancelPipelineReprocessing,
+    CancelPipelineReprocessingResponse (CancelPipelineReprocessingResponse'),
+    newCancelPipelineReprocessingResponse,
 
     -- ** TagResource
-    module Network.AWS.IoTAnalytics.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** SampleChannelData
-    module Network.AWS.IoTAnalytics.SampleChannelData,
+    SampleChannelData (SampleChannelData'),
+    newSampleChannelData,
+    SampleChannelDataResponse (SampleChannelDataResponse'),
+    newSampleChannelDataResponse,
 
     -- ** DescribeDatastore
-    module Network.AWS.IoTAnalytics.DescribeDatastore,
+    DescribeDatastore (DescribeDatastore'),
+    newDescribeDatastore,
+    DescribeDatastoreResponse (DescribeDatastoreResponse'),
+    newDescribeDatastoreResponse,
 
     -- ** ListChannels (Paginated)
-    module Network.AWS.IoTAnalytics.ListChannels,
+    ListChannels (ListChannels'),
+    newListChannels,
+    ListChannelsResponse (ListChannelsResponse'),
+    newListChannelsResponse,
 
     -- ** DescribeDataset
-    module Network.AWS.IoTAnalytics.DescribeDataset,
+    DescribeDataset (DescribeDataset'),
+    newDescribeDataset,
+    DescribeDatasetResponse (DescribeDatasetResponse'),
+    newDescribeDatasetResponse,
 
     -- ** CreateDatasetContent
-    module Network.AWS.IoTAnalytics.CreateDatasetContent,
+    CreateDatasetContent (CreateDatasetContent'),
+    newCreateDatasetContent,
+    CreateDatasetContentResponse (CreateDatasetContentResponse'),
+    newCreateDatasetContentResponse,
 
     -- ** DescribeChannel
-    module Network.AWS.IoTAnalytics.DescribeChannel,
+    DescribeChannel (DescribeChannel'),
+    newDescribeChannel,
+    DescribeChannelResponse (DescribeChannelResponse'),
+    newDescribeChannelResponse,
 
     -- ** ListDatastores (Paginated)
-    module Network.AWS.IoTAnalytics.ListDatastores,
+    ListDatastores (ListDatastores'),
+    newListDatastores,
+    ListDatastoresResponse (ListDatastoresResponse'),
+    newListDatastoresResponse,
 
     -- ** StartPipelineReprocessing
-    module Network.AWS.IoTAnalytics.StartPipelineReprocessing,
+    StartPipelineReprocessing (StartPipelineReprocessing'),
+    newStartPipelineReprocessing,
+    StartPipelineReprocessingResponse (StartPipelineReprocessingResponse'),
+    newStartPipelineReprocessingResponse,
 
     -- ** RunPipelineActivity
-    module Network.AWS.IoTAnalytics.RunPipelineActivity,
+    RunPipelineActivity (RunPipelineActivity'),
+    newRunPipelineActivity,
+    RunPipelineActivityResponse (RunPipelineActivityResponse'),
+    newRunPipelineActivityResponse,
 
     -- ** DeleteDataset
-    module Network.AWS.IoTAnalytics.DeleteDataset,
+    DeleteDataset (DeleteDataset'),
+    newDeleteDataset,
+    DeleteDatasetResponse (DeleteDatasetResponse'),
+    newDeleteDatasetResponse,
 
     -- ** ListDatasets (Paginated)
-    module Network.AWS.IoTAnalytics.ListDatasets,
+    ListDatasets (ListDatasets'),
+    newListDatasets,
+    ListDatasetsResponse (ListDatasetsResponse'),
+    newListDatasetsResponse,
 
     -- ** CreateDatastore
-    module Network.AWS.IoTAnalytics.CreateDatastore,
+    CreateDatastore (CreateDatastore'),
+    newCreateDatastore,
+    CreateDatastoreResponse (CreateDatastoreResponse'),
+    newCreateDatastoreResponse,
 
     -- ** ListPipelines (Paginated)
-    module Network.AWS.IoTAnalytics.ListPipelines,
+    ListPipelines (ListPipelines'),
+    newListPipelines,
+    ListPipelinesResponse (ListPipelinesResponse'),
+    newListPipelinesResponse,
 
     -- ** UpdateDataset
-    module Network.AWS.IoTAnalytics.UpdateDataset,
+    UpdateDataset (UpdateDataset'),
+    newUpdateDataset,
+    UpdateDatasetResponse (UpdateDatasetResponse'),
+    newUpdateDatasetResponse,
 
     -- ** GetDatasetContent
-    module Network.AWS.IoTAnalytics.GetDatasetContent,
+    GetDatasetContent (GetDatasetContent'),
+    newGetDatasetContent,
+    GetDatasetContentResponse (GetDatasetContentResponse'),
+    newGetDatasetContentResponse,
 
     -- ** ListDatasetContents (Paginated)
-    module Network.AWS.IoTAnalytics.ListDatasetContents,
+    ListDatasetContents (ListDatasetContents'),
+    newListDatasetContents,
+    ListDatasetContentsResponse (ListDatasetContentsResponse'),
+    newListDatasetContentsResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.IoTAnalytics.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DeleteChannel
-    module Network.AWS.IoTAnalytics.DeleteChannel,
+    DeleteChannel (DeleteChannel'),
+    newDeleteChannel,
+    DeleteChannelResponse (DeleteChannelResponse'),
+    newDeleteChannelResponse,
 
     -- ** UpdateChannel
-    module Network.AWS.IoTAnalytics.UpdateChannel,
+    UpdateChannel (UpdateChannel'),
+    newUpdateChannel,
+    UpdateChannelResponse (UpdateChannelResponse'),
+    newUpdateChannelResponse,
 
     -- ** PutLoggingOptions
-    module Network.AWS.IoTAnalytics.PutLoggingOptions,
+    PutLoggingOptions (PutLoggingOptions'),
+    newPutLoggingOptions,
+    PutLoggingOptionsResponse (PutLoggingOptionsResponse'),
+    newPutLoggingOptionsResponse,
 
     -- ** DeleteDatasetContent
-    module Network.AWS.IoTAnalytics.DeleteDatasetContent,
+    DeleteDatasetContent (DeleteDatasetContent'),
+    newDeleteDatasetContent,
+    DeleteDatasetContentResponse (DeleteDatasetContentResponse'),
+    newDeleteDatasetContentResponse,
 
     -- * Types
 
@@ -183,490 +305,288 @@ module Network.AWS.IoTAnalytics
     ReprocessingStatus (..),
 
     -- ** AddAttributesActivity
-    AddAttributesActivity,
-    addAttributesActivity,
-    aaaNext,
-    aaaName,
-    aaaAttributes,
+    AddAttributesActivity (AddAttributesActivity'),
+    newAddAttributesActivity,
 
     -- ** BatchPutMessageErrorEntry
-    BatchPutMessageErrorEntry,
-    batchPutMessageErrorEntry,
-    bpmeeMessageId,
-    bpmeeErrorMessage,
-    bpmeeErrorCode,
+    BatchPutMessageErrorEntry (BatchPutMessageErrorEntry'),
+    newBatchPutMessageErrorEntry,
 
     -- ** Channel
-    Channel,
-    channel,
-    chaLastMessageArrivalTime,
-    chaStatus,
-    chaCreationTime,
-    chaLastUpdateTime,
-    chaArn,
-    chaName,
-    chaRetentionPeriod,
-    chaStorage,
+    Channel (Channel'),
+    newChannel,
 
     -- ** ChannelActivity
-    ChannelActivity,
-    channelActivity,
-    caNext,
-    caName,
-    caChannelName,
+    ChannelActivity (ChannelActivity'),
+    newChannelActivity,
 
     -- ** ChannelMessages
-    ChannelMessages,
-    channelMessages,
-    cmS3Paths,
+    ChannelMessages (ChannelMessages'),
+    newChannelMessages,
 
     -- ** ChannelStatistics
-    ChannelStatistics,
-    channelStatistics,
-    csSize,
+    ChannelStatistics (ChannelStatistics'),
+    newChannelStatistics,
 
     -- ** ChannelStorage
-    ChannelStorage,
-    channelStorage,
-    csServiceManagedS3,
-    csCustomerManagedS3,
+    ChannelStorage (ChannelStorage'),
+    newChannelStorage,
 
     -- ** ChannelStorageSummary
-    ChannelStorageSummary,
-    channelStorageSummary,
-    cssServiceManagedS3,
-    cssCustomerManagedS3,
+    ChannelStorageSummary (ChannelStorageSummary'),
+    newChannelStorageSummary,
 
     -- ** ChannelSummary
-    ChannelSummary,
-    channelSummary,
-    csLastMessageArrivalTime,
-    csChannelName,
-    csStatus,
-    csCreationTime,
-    csLastUpdateTime,
-    csChannelStorage,
+    ChannelSummary (ChannelSummary'),
+    newChannelSummary,
 
     -- ** Column
-    Column,
-    column,
-    cName,
-    cType,
+    Column (Column'),
+    newColumn,
 
     -- ** ContainerDatasetAction
-    ContainerDatasetAction,
-    containerDatasetAction,
-    cdaVariables,
-    cdaImage,
-    cdaExecutionRoleARN,
-    cdaResourceConfiguration,
+    ContainerDatasetAction (ContainerDatasetAction'),
+    newContainerDatasetAction,
 
     -- ** CustomerManagedChannelS3Storage
-    CustomerManagedChannelS3Storage,
-    customerManagedChannelS3Storage,
-    cmcssKeyPrefix,
-    cmcssBucket,
-    cmcssRoleARN,
+    CustomerManagedChannelS3Storage (CustomerManagedChannelS3Storage'),
+    newCustomerManagedChannelS3Storage,
 
     -- ** CustomerManagedChannelS3StorageSummary
-    CustomerManagedChannelS3StorageSummary,
-    customerManagedChannelS3StorageSummary,
-    cmcsssKeyPrefix,
-    cmcsssRoleARN,
-    cmcsssBucket,
+    CustomerManagedChannelS3StorageSummary (CustomerManagedChannelS3StorageSummary'),
+    newCustomerManagedChannelS3StorageSummary,
 
     -- ** CustomerManagedDatastoreS3Storage
-    CustomerManagedDatastoreS3Storage,
-    customerManagedDatastoreS3Storage,
-    cmdssKeyPrefix,
-    cmdssBucket,
-    cmdssRoleARN,
+    CustomerManagedDatastoreS3Storage (CustomerManagedDatastoreS3Storage'),
+    newCustomerManagedDatastoreS3Storage,
 
     -- ** CustomerManagedDatastoreS3StorageSummary
-    CustomerManagedDatastoreS3StorageSummary,
-    customerManagedDatastoreS3StorageSummary,
-    cmdsssKeyPrefix,
-    cmdsssRoleARN,
-    cmdsssBucket,
+    CustomerManagedDatastoreS3StorageSummary (CustomerManagedDatastoreS3StorageSummary'),
+    newCustomerManagedDatastoreS3StorageSummary,
 
     -- ** Dataset
-    Dataset,
-    dataset,
-    ddStatus,
-    ddCreationTime,
-    ddLastUpdateTime,
-    ddTriggers,
-    ddActions,
-    ddArn,
-    ddName,
-    ddRetentionPeriod,
-    ddLateDataRules,
-    ddContentDeliveryRules,
-    ddVersioningConfiguration,
+    Dataset (Dataset'),
+    newDataset,
 
     -- ** DatasetAction
-    DatasetAction,
-    datasetAction,
-    daActionName,
-    daQueryAction,
-    daContainerAction,
+    DatasetAction (DatasetAction'),
+    newDatasetAction,
 
     -- ** DatasetActionSummary
-    DatasetActionSummary,
-    datasetActionSummary,
-    dasActionName,
-    dasActionType,
+    DatasetActionSummary (DatasetActionSummary'),
+    newDatasetActionSummary,
 
     -- ** DatasetContentDeliveryDestination
-    DatasetContentDeliveryDestination,
-    datasetContentDeliveryDestination,
-    dcddS3DestinationConfiguration,
-    dcddIotEventsDestinationConfiguration,
+    DatasetContentDeliveryDestination (DatasetContentDeliveryDestination'),
+    newDatasetContentDeliveryDestination,
 
     -- ** DatasetContentDeliveryRule
-    DatasetContentDeliveryRule,
-    datasetContentDeliveryRule,
-    dcdrEntryName,
-    dcdrDestination,
+    DatasetContentDeliveryRule (DatasetContentDeliveryRule'),
+    newDatasetContentDeliveryRule,
 
     -- ** DatasetContentStatus
-    DatasetContentStatus,
-    datasetContentStatus,
-    dcsState,
-    dcsReason,
+    DatasetContentStatus (DatasetContentStatus'),
+    newDatasetContentStatus,
 
     -- ** DatasetContentSummary
-    DatasetContentSummary,
-    datasetContentSummary,
-    dcsStatus,
-    dcsCreationTime,
-    dcsCompletionTime,
-    dcsScheduleTime,
-    dcsVersion,
+    DatasetContentSummary (DatasetContentSummary'),
+    newDatasetContentSummary,
 
     -- ** DatasetContentVersionValue
-    DatasetContentVersionValue,
-    datasetContentVersionValue,
-    dcvvDatasetName,
+    DatasetContentVersionValue (DatasetContentVersionValue'),
+    newDatasetContentVersionValue,
 
     -- ** DatasetEntry
-    DatasetEntry,
-    datasetEntry,
-    deDataURI,
-    deEntryName,
+    DatasetEntry (DatasetEntry'),
+    newDatasetEntry,
 
     -- ** DatasetSummary
-    DatasetSummary,
-    datasetSummary,
-    dsStatus,
-    dsCreationTime,
-    dsLastUpdateTime,
-    dsTriggers,
-    dsActions,
-    dsDatasetName,
+    DatasetSummary (DatasetSummary'),
+    newDatasetSummary,
 
     -- ** DatasetTrigger
-    DatasetTrigger,
-    datasetTrigger,
-    dtSchedule,
-    dtDataset,
+    DatasetTrigger (DatasetTrigger'),
+    newDatasetTrigger,
 
     -- ** Datastore
-    Datastore,
-    datastore,
-    dLastMessageArrivalTime,
-    dStatus,
-    dCreationTime,
-    dLastUpdateTime,
-    dArn,
-    dFileFormatConfiguration,
-    dName,
-    dRetentionPeriod,
-    dStorage,
+    Datastore (Datastore'),
+    newDatastore,
 
     -- ** DatastoreActivity
-    DatastoreActivity,
-    datastoreActivity,
-    daName,
-    daDatastoreName,
+    DatastoreActivity (DatastoreActivity'),
+    newDatastoreActivity,
 
     -- ** DatastoreStatistics
-    DatastoreStatistics,
-    datastoreStatistics,
-    dsSize,
+    DatastoreStatistics (DatastoreStatistics'),
+    newDatastoreStatistics,
 
     -- ** DatastoreStorage
-    DatastoreStorage,
-    datastoreStorage,
-    dsServiceManagedS3,
-    dsCustomerManagedS3,
+    DatastoreStorage (DatastoreStorage'),
+    newDatastoreStorage,
 
     -- ** DatastoreStorageSummary
-    DatastoreStorageSummary,
-    datastoreStorageSummary,
-    dssServiceManagedS3,
-    dssCustomerManagedS3,
+    DatastoreStorageSummary (DatastoreStorageSummary'),
+    newDatastoreStorageSummary,
 
     -- ** DatastoreSummary
-    DatastoreSummary,
-    datastoreSummary,
-    datLastMessageArrivalTime,
-    datStatus,
-    datCreationTime,
-    datDatastoreStorage,
-    datLastUpdateTime,
-    datFileFormatType,
-    datDatastoreName,
+    DatastoreSummary (DatastoreSummary'),
+    newDatastoreSummary,
 
     -- ** DeltaTime
-    DeltaTime,
-    deltaTime,
-    dtOffsetSeconds,
-    dtTimeExpression,
+    DeltaTime (DeltaTime'),
+    newDeltaTime,
 
     -- ** DeltaTimeSessionWindowConfiguration
-    DeltaTimeSessionWindowConfiguration,
-    deltaTimeSessionWindowConfiguration,
-    dtswcTimeoutInMinutes,
+    DeltaTimeSessionWindowConfiguration (DeltaTimeSessionWindowConfiguration'),
+    newDeltaTimeSessionWindowConfiguration,
 
     -- ** DeviceRegistryEnrichActivity
-    DeviceRegistryEnrichActivity,
-    deviceRegistryEnrichActivity,
-    dreaNext,
-    dreaName,
-    dreaAttribute,
-    dreaThingName,
-    dreaRoleARN,
+    DeviceRegistryEnrichActivity (DeviceRegistryEnrichActivity'),
+    newDeviceRegistryEnrichActivity,
 
     -- ** DeviceShadowEnrichActivity
-    DeviceShadowEnrichActivity,
-    deviceShadowEnrichActivity,
-    dseaNext,
-    dseaName,
-    dseaAttribute,
-    dseaThingName,
-    dseaRoleARN,
+    DeviceShadowEnrichActivity (DeviceShadowEnrichActivity'),
+    newDeviceShadowEnrichActivity,
 
     -- ** EstimatedResourceSize
-    EstimatedResourceSize,
-    estimatedResourceSize,
-    ersEstimatedSizeInBytes,
-    ersEstimatedOn,
+    EstimatedResourceSize (EstimatedResourceSize'),
+    newEstimatedResourceSize,
 
     -- ** FileFormatConfiguration
-    FileFormatConfiguration,
-    fileFormatConfiguration,
-    ffcParquetConfiguration,
-    ffcJsonConfiguration,
+    FileFormatConfiguration (FileFormatConfiguration'),
+    newFileFormatConfiguration,
 
     -- ** FilterActivity
-    FilterActivity,
-    filterActivity,
-    faNext,
-    faName,
-    faFilter,
+    FilterActivity (FilterActivity'),
+    newFilterActivity,
 
     -- ** GlueConfiguration
-    GlueConfiguration,
-    glueConfiguration,
-    gcTableName,
-    gcDatabaseName,
+    GlueConfiguration (GlueConfiguration'),
+    newGlueConfiguration,
 
     -- ** IotEventsDestinationConfiguration
-    IotEventsDestinationConfiguration,
-    iotEventsDestinationConfiguration,
-    iedcInputName,
-    iedcRoleARN,
+    IotEventsDestinationConfiguration (IotEventsDestinationConfiguration'),
+    newIotEventsDestinationConfiguration,
 
-    -- ** JSONConfiguration
-    JSONConfiguration,
-    jsonConfiguration,
+    -- ** JsonConfiguration
+    JsonConfiguration (JsonConfiguration'),
+    newJsonConfiguration,
 
     -- ** LambdaActivity
-    LambdaActivity,
-    lambdaActivity,
-    laNext,
-    laName,
-    laLambdaName,
-    laBatchSize,
+    LambdaActivity (LambdaActivity'),
+    newLambdaActivity,
 
     -- ** LateDataRule
-    LateDataRule,
-    lateDataRule,
-    ldrRuleName,
-    ldrRuleConfiguration,
+    LateDataRule (LateDataRule'),
+    newLateDataRule,
 
     -- ** LateDataRuleConfiguration
-    LateDataRuleConfiguration,
-    lateDataRuleConfiguration,
-    ldrcDeltaTimeSessionWindowConfiguration,
+    LateDataRuleConfiguration (LateDataRuleConfiguration'),
+    newLateDataRuleConfiguration,
 
     -- ** LoggingOptions
-    LoggingOptions,
-    loggingOptions,
-    loRoleARN,
-    loLevel,
-    loEnabled,
+    LoggingOptions (LoggingOptions'),
+    newLoggingOptions,
 
     -- ** MathActivity
-    MathActivity,
-    mathActivity,
-    maNext,
-    maName,
-    maAttribute,
-    maMath,
+    MathActivity (MathActivity'),
+    newMathActivity,
 
     -- ** Message
-    Message,
-    message,
-    mMessageId,
-    mPayload,
+    Message (Message'),
+    newMessage,
 
-    -- ** OutputFileURIValue
-    OutputFileURIValue,
-    outputFileURIValue,
-    ofuvFileName,
+    -- ** OutputFileUriValue
+    OutputFileUriValue (OutputFileUriValue'),
+    newOutputFileUriValue,
 
     -- ** ParquetConfiguration
-    ParquetConfiguration,
-    parquetConfiguration,
-    pcSchemaDefinition,
+    ParquetConfiguration (ParquetConfiguration'),
+    newParquetConfiguration,
 
     -- ** Pipeline
-    Pipeline,
-    pipeline,
-    pCreationTime,
-    pLastUpdateTime,
-    pActivities,
-    pArn,
-    pName,
-    pReprocessingSummaries,
+    Pipeline (Pipeline'),
+    newPipeline,
 
     -- ** PipelineActivity
-    PipelineActivity,
-    pipelineActivity,
-    paSelectAttributes,
-    paDatastore,
-    paRemoveAttributes,
-    paAddAttributes,
-    paDeviceShadowEnrich,
-    paLambda,
-    paDeviceRegistryEnrich,
-    paChannel,
-    paFilter,
-    paMath,
+    PipelineActivity (PipelineActivity'),
+    newPipelineActivity,
 
     -- ** PipelineSummary
-    PipelineSummary,
-    pipelineSummary,
-    psCreationTime,
-    psLastUpdateTime,
-    psReprocessingSummaries,
-    psPipelineName,
+    PipelineSummary (PipelineSummary'),
+    newPipelineSummary,
 
     -- ** QueryFilter
-    QueryFilter,
-    queryFilter,
-    qfDeltaTime,
+    QueryFilter (QueryFilter'),
+    newQueryFilter,
 
     -- ** RemoveAttributesActivity
-    RemoveAttributesActivity,
-    removeAttributesActivity,
-    raaNext,
-    raaName,
-    raaAttributes,
+    RemoveAttributesActivity (RemoveAttributesActivity'),
+    newRemoveAttributesActivity,
 
     -- ** ReprocessingSummary
-    ReprocessingSummary,
-    reprocessingSummary,
-    rsStatus,
-    rsCreationTime,
-    rsId,
+    ReprocessingSummary (ReprocessingSummary'),
+    newReprocessingSummary,
 
     -- ** ResourceConfiguration
-    ResourceConfiguration,
-    resourceConfiguration,
-    rcComputeType,
-    rcVolumeSizeInGB,
+    ResourceConfiguration (ResourceConfiguration'),
+    newResourceConfiguration,
 
     -- ** RetentionPeriod
-    RetentionPeriod,
-    retentionPeriod,
-    rpNumberOfDays,
-    rpUnlimited,
+    RetentionPeriod (RetentionPeriod'),
+    newRetentionPeriod,
 
     -- ** S3DestinationConfiguration
-    S3DestinationConfiguration,
-    s3DestinationConfiguration,
-    sdcGlueConfiguration,
-    sdcBucket,
-    sdcKey,
-    sdcRoleARN,
+    S3DestinationConfiguration (S3DestinationConfiguration'),
+    newS3DestinationConfiguration,
 
     -- ** Schedule
-    Schedule,
-    schedule,
-    sExpression,
+    Schedule (Schedule'),
+    newSchedule,
 
     -- ** SchemaDefinition
-    SchemaDefinition,
-    schemaDefinition,
-    sdColumns,
+    SchemaDefinition (SchemaDefinition'),
+    newSchemaDefinition,
 
     -- ** SelectAttributesActivity
-    SelectAttributesActivity,
-    selectAttributesActivity,
-    saaNext,
-    saaName,
-    saaAttributes,
+    SelectAttributesActivity (SelectAttributesActivity'),
+    newSelectAttributesActivity,
 
     -- ** ServiceManagedChannelS3Storage
-    ServiceManagedChannelS3Storage,
-    serviceManagedChannelS3Storage,
+    ServiceManagedChannelS3Storage (ServiceManagedChannelS3Storage'),
+    newServiceManagedChannelS3Storage,
 
     -- ** ServiceManagedChannelS3StorageSummary
-    ServiceManagedChannelS3StorageSummary,
-    serviceManagedChannelS3StorageSummary,
+    ServiceManagedChannelS3StorageSummary (ServiceManagedChannelS3StorageSummary'),
+    newServiceManagedChannelS3StorageSummary,
 
     -- ** ServiceManagedDatastoreS3Storage
-    ServiceManagedDatastoreS3Storage,
-    serviceManagedDatastoreS3Storage,
+    ServiceManagedDatastoreS3Storage (ServiceManagedDatastoreS3Storage'),
+    newServiceManagedDatastoreS3Storage,
 
     -- ** ServiceManagedDatastoreS3StorageSummary
-    ServiceManagedDatastoreS3StorageSummary,
-    serviceManagedDatastoreS3StorageSummary,
+    ServiceManagedDatastoreS3StorageSummary (ServiceManagedDatastoreS3StorageSummary'),
+    newServiceManagedDatastoreS3StorageSummary,
 
     -- ** SqlQueryDatasetAction
-    SqlQueryDatasetAction,
-    sqlQueryDatasetAction,
-    sqdaFilters,
-    sqdaSqlQuery,
+    SqlQueryDatasetAction (SqlQueryDatasetAction'),
+    newSqlQueryDatasetAction,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** TriggeringDataset
-    TriggeringDataset,
-    triggeringDataset,
-    tdName,
+    TriggeringDataset (TriggeringDataset'),
+    newTriggeringDataset,
 
     -- ** Variable
-    Variable,
-    variable,
-    vOutputFileURIValue,
-    vDoubleValue,
-    vStringValue,
-    vDatasetContentVersionValue,
-    vName,
+    Variable (Variable'),
+    newVariable,
 
     -- ** VersioningConfiguration
-    VersioningConfiguration,
-    versioningConfiguration,
-    vcMaxVersions,
-    vcUnlimited,
+    VersioningConfiguration (VersioningConfiguration'),
+    newVersioningConfiguration,
   )
 where
 
@@ -688,6 +608,7 @@ import Network.AWS.IoTAnalytics.DescribeDatastore
 import Network.AWS.IoTAnalytics.DescribeLoggingOptions
 import Network.AWS.IoTAnalytics.DescribePipeline
 import Network.AWS.IoTAnalytics.GetDatasetContent
+import Network.AWS.IoTAnalytics.Lens
 import Network.AWS.IoTAnalytics.ListChannels
 import Network.AWS.IoTAnalytics.ListDatasetContents
 import Network.AWS.IoTAnalytics.ListDatasets

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.IoTAnalytics.Types.DatasetContentState
   ( DatasetContentState
       ( ..,
-        Creating,
-        Failed,
-        Succeeded
+        DatasetContentStateCREATING,
+        DatasetContentStateFAILED,
+        DatasetContentStateSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DatasetContentState
-  = DatasetContentState'
-      ( CI
-          Text
-      )
+newtype DatasetContentState = DatasetContentState'
+  { fromDatasetContentState ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Creating :: DatasetContentState
-pattern Creating = DatasetContentState' "CREATING"
+pattern DatasetContentStateCREATING :: DatasetContentState
+pattern DatasetContentStateCREATING = DatasetContentState' "CREATING"
 
-pattern Failed :: DatasetContentState
-pattern Failed = DatasetContentState' "FAILED"
+pattern DatasetContentStateFAILED :: DatasetContentState
+pattern DatasetContentStateFAILED = DatasetContentState' "FAILED"
 
-pattern Succeeded :: DatasetContentState
-pattern Succeeded = DatasetContentState' "SUCCEEDED"
+pattern DatasetContentStateSUCCEEDED :: DatasetContentState
+pattern DatasetContentStateSUCCEEDED = DatasetContentState' "SUCCEEDED"
 
 {-# COMPLETE
-  Creating,
-  Failed,
-  Succeeded,
+  DatasetContentStateCREATING,
+  DatasetContentStateFAILED,
+  DatasetContentStateSUCCEEDED,
   DatasetContentState'
   #-}
 
-instance FromText DatasetContentState where
-  parser = (DatasetContentState' . mk) <$> takeText
+instance Prelude.FromText DatasetContentState where
+  parser = DatasetContentState' Prelude.<$> Prelude.takeText
 
-instance ToText DatasetContentState where
-  toText (DatasetContentState' ci) = original ci
+instance Prelude.ToText DatasetContentState where
+  toText (DatasetContentState' x) = x
 
-instance Hashable DatasetContentState
+instance Prelude.Hashable DatasetContentState
 
-instance NFData DatasetContentState
+instance Prelude.NFData DatasetContentState
 
-instance ToByteString DatasetContentState
+instance Prelude.ToByteString DatasetContentState
 
-instance ToQuery DatasetContentState
+instance Prelude.ToQuery DatasetContentState
 
-instance ToHeader DatasetContentState
+instance Prelude.ToHeader DatasetContentState
 
-instance FromJSON DatasetContentState where
-  parseJSON = parseJSONText "DatasetContentState"
+instance Prelude.FromJSON DatasetContentState where
+  parseJSON = Prelude.parseJSONText "DatasetContentState"

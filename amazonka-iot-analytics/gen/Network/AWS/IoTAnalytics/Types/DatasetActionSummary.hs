@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,54 +20,64 @@
 module Network.AWS.IoTAnalytics.Types.DatasetActionSummary where
 
 import Network.AWS.IoTAnalytics.Types.DatasetActionType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the action that automatically creates the dataset's contents.
+-- | Information about the action that automatically creates the dataset\'s
+-- contents.
 --
---
---
--- /See:/ 'datasetActionSummary' smart constructor.
+-- /See:/ 'newDatasetActionSummary' smart constructor.
 data DatasetActionSummary = DatasetActionSummary'
-  { _dasActionName ::
-      !(Maybe Text),
-    _dasActionType ::
-      !(Maybe DatasetActionType)
+  { -- | The name of the action that automatically creates the dataset\'s
+    -- contents.
+    actionName :: Prelude.Maybe Prelude.Text,
+    -- | The type of action by which the dataset\'s contents are automatically
+    -- created.
+    actionType :: Prelude.Maybe DatasetActionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatasetActionSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatasetActionSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dasActionName' - The name of the action that automatically creates the dataset's contents.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dasActionType' - The type of action by which the dataset's contents are automatically created.
-datasetActionSummary ::
+-- 'actionName', 'datasetActionSummary_actionName' - The name of the action that automatically creates the dataset\'s
+-- contents.
+--
+-- 'actionType', 'datasetActionSummary_actionType' - The type of action by which the dataset\'s contents are automatically
+-- created.
+newDatasetActionSummary ::
   DatasetActionSummary
-datasetActionSummary =
+newDatasetActionSummary =
   DatasetActionSummary'
-    { _dasActionName = Nothing,
-      _dasActionType = Nothing
+    { actionName = Prelude.Nothing,
+      actionType = Prelude.Nothing
     }
 
--- | The name of the action that automatically creates the dataset's contents.
-dasActionName :: Lens' DatasetActionSummary (Maybe Text)
-dasActionName = lens _dasActionName (\s a -> s {_dasActionName = a})
+-- | The name of the action that automatically creates the dataset\'s
+-- contents.
+datasetActionSummary_actionName :: Lens.Lens' DatasetActionSummary (Prelude.Maybe Prelude.Text)
+datasetActionSummary_actionName = Lens.lens (\DatasetActionSummary' {actionName} -> actionName) (\s@DatasetActionSummary' {} a -> s {actionName = a} :: DatasetActionSummary)
 
--- | The type of action by which the dataset's contents are automatically created.
-dasActionType :: Lens' DatasetActionSummary (Maybe DatasetActionType)
-dasActionType = lens _dasActionType (\s a -> s {_dasActionType = a})
+-- | The type of action by which the dataset\'s contents are automatically
+-- created.
+datasetActionSummary_actionType :: Lens.Lens' DatasetActionSummary (Prelude.Maybe DatasetActionType)
+datasetActionSummary_actionType = Lens.lens (\DatasetActionSummary' {actionType} -> actionType) (\s@DatasetActionSummary' {} a -> s {actionType = a} :: DatasetActionSummary)
 
-instance FromJSON DatasetActionSummary where
+instance Prelude.FromJSON DatasetActionSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatasetActionSummary"
       ( \x ->
           DatasetActionSummary'
-            <$> (x .:? "actionName") <*> (x .:? "actionType")
+            Prelude.<$> (x Prelude..:? "actionName")
+            Prelude.<*> (x Prelude..:? "actionType")
       )
 
-instance Hashable DatasetActionSummary
+instance Prelude.Hashable DatasetActionSummary
 
-instance NFData DatasetActionSummary
+instance Prelude.NFData DatasetActionSummary

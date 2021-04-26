@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,74 +20,83 @@
 module Network.AWS.IoTAnalytics.Types.ResourceConfiguration where
 
 import Network.AWS.IoTAnalytics.Types.ComputeType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The configuration of the resource used to execute the @containerAction@ .
+-- | The configuration of the resource used to execute the @containerAction@.
 --
---
---
--- /See:/ 'resourceConfiguration' smart constructor.
+-- /See:/ 'newResourceConfiguration' smart constructor.
 data ResourceConfiguration = ResourceConfiguration'
-  { _rcComputeType ::
-      !ComputeType,
-    _rcVolumeSizeInGB :: !Nat
+  { -- | The type of the compute resource used to execute the @containerAction@.
+    -- Possible values are: @ACU_1@ (vCPU=4, memory=16 GiB) or @ACU_2@ (vCPU=8,
+    -- memory=32 GiB).
+    computeType :: ComputeType,
+    -- | The size, in GB, of the persistent storage available to the resource
+    -- instance used to execute the @containerAction@ (min: 1, max: 50).
+    volumeSizeInGB :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResourceConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResourceConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rcComputeType' - The type of the compute resource used to execute the @containerAction@ . Possible values are: @ACU_1@ (vCPU=4, memory=16 GiB) or @ACU_2@ (vCPU=8, memory=32 GiB).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rcVolumeSizeInGB' - The size, in GB, of the persistent storage available to the resource instance used to execute the @containerAction@ (min: 1, max: 50).
-resourceConfiguration ::
-  -- | 'rcComputeType'
+-- 'computeType', 'resourceConfiguration_computeType' - The type of the compute resource used to execute the @containerAction@.
+-- Possible values are: @ACU_1@ (vCPU=4, memory=16 GiB) or @ACU_2@ (vCPU=8,
+-- memory=32 GiB).
+--
+-- 'volumeSizeInGB', 'resourceConfiguration_volumeSizeInGB' - The size, in GB, of the persistent storage available to the resource
+-- instance used to execute the @containerAction@ (min: 1, max: 50).
+newResourceConfiguration ::
+  -- | 'computeType'
   ComputeType ->
-  -- | 'rcVolumeSizeInGB'
-  Natural ->
+  -- | 'volumeSizeInGB'
+  Prelude.Natural ->
   ResourceConfiguration
-resourceConfiguration pComputeType_ pVolumeSizeInGB_ =
-  ResourceConfiguration'
-    { _rcComputeType =
-        pComputeType_,
-      _rcVolumeSizeInGB = _Nat # pVolumeSizeInGB_
-    }
+newResourceConfiguration
+  pComputeType_
+  pVolumeSizeInGB_ =
+    ResourceConfiguration'
+      { computeType = pComputeType_,
+        volumeSizeInGB =
+          Prelude._Nat Lens.# pVolumeSizeInGB_
+      }
 
--- | The type of the compute resource used to execute the @containerAction@ . Possible values are: @ACU_1@ (vCPU=4, memory=16 GiB) or @ACU_2@ (vCPU=8, memory=32 GiB).
-rcComputeType :: Lens' ResourceConfiguration ComputeType
-rcComputeType = lens _rcComputeType (\s a -> s {_rcComputeType = a})
+-- | The type of the compute resource used to execute the @containerAction@.
+-- Possible values are: @ACU_1@ (vCPU=4, memory=16 GiB) or @ACU_2@ (vCPU=8,
+-- memory=32 GiB).
+resourceConfiguration_computeType :: Lens.Lens' ResourceConfiguration ComputeType
+resourceConfiguration_computeType = Lens.lens (\ResourceConfiguration' {computeType} -> computeType) (\s@ResourceConfiguration' {} a -> s {computeType = a} :: ResourceConfiguration)
 
--- | The size, in GB, of the persistent storage available to the resource instance used to execute the @containerAction@ (min: 1, max: 50).
-rcVolumeSizeInGB :: Lens' ResourceConfiguration Natural
-rcVolumeSizeInGB = lens _rcVolumeSizeInGB (\s a -> s {_rcVolumeSizeInGB = a}) . _Nat
+-- | The size, in GB, of the persistent storage available to the resource
+-- instance used to execute the @containerAction@ (min: 1, max: 50).
+resourceConfiguration_volumeSizeInGB :: Lens.Lens' ResourceConfiguration Prelude.Natural
+resourceConfiguration_volumeSizeInGB = Lens.lens (\ResourceConfiguration' {volumeSizeInGB} -> volumeSizeInGB) (\s@ResourceConfiguration' {} a -> s {volumeSizeInGB = a} :: ResourceConfiguration) Prelude.. Prelude._Nat
 
-instance FromJSON ResourceConfiguration where
+instance Prelude.FromJSON ResourceConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ResourceConfiguration"
       ( \x ->
           ResourceConfiguration'
-            <$> (x .: "computeType") <*> (x .: "volumeSizeInGB")
+            Prelude.<$> (x Prelude..: "computeType")
+            Prelude.<*> (x Prelude..: "volumeSizeInGB")
       )
 
-instance Hashable ResourceConfiguration
+instance Prelude.Hashable ResourceConfiguration
 
-instance NFData ResourceConfiguration
+instance Prelude.NFData ResourceConfiguration
 
-instance ToJSON ResourceConfiguration where
+instance Prelude.ToJSON ResourceConfiguration where
   toJSON ResourceConfiguration' {..} =
-    object
-      ( catMaybes
-          [ Just ("computeType" .= _rcComputeType),
-            Just ("volumeSizeInGB" .= _rcVolumeSizeInGB)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("computeType" Prelude..= computeType),
+            Prelude.Just
+              ("volumeSizeInGB" Prelude..= volumeSizeInGB)
           ]
       )

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,152 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates the content of a data set by applying a @queryAction@ (a SQL query) or a @containerAction@ (executing a containerized application).
+-- Creates the content of a data set by applying a @queryAction@ (a SQL
+-- query) or a @containerAction@ (executing a containerized application).
 module Network.AWS.IoTAnalytics.CreateDatasetContent
   ( -- * Creating a Request
-    createDatasetContent,
-    CreateDatasetContent,
+    CreateDatasetContent (..),
+    newCreateDatasetContent,
 
     -- * Request Lenses
-    cdcVersionId,
-    cdcDatasetName,
+    createDatasetContent_versionId,
+    createDatasetContent_datasetName,
 
     -- * Destructuring the Response
-    createDatasetContentResponse,
-    CreateDatasetContentResponse,
+    CreateDatasetContentResponse (..),
+    newCreateDatasetContentResponse,
 
     -- * Response Lenses
-    cdcrrsVersionId,
-    cdcrrsResponseStatus,
+    createDatasetContentResponse_versionId,
+    createDatasetContentResponse_httpStatus,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createDatasetContent' smart constructor.
+-- | /See:/ 'newCreateDatasetContent' smart constructor.
 data CreateDatasetContent = CreateDatasetContent'
-  { _cdcVersionId ::
-      !(Maybe Text),
-    _cdcDatasetName :: !Text
+  { -- | The version ID of the dataset content. To specify @versionId@ for a
+    -- dataset content, the dataset must use a
+    -- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer>
+    -- filter.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the dataset.
+    datasetName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDatasetContent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDatasetContent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcVersionId' - The version ID of the dataset content. To specify @versionId@ for a dataset content, the dataset must use a <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer> filter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcDatasetName' - The name of the dataset.
-createDatasetContent ::
-  -- | 'cdcDatasetName'
-  Text ->
+-- 'versionId', 'createDatasetContent_versionId' - The version ID of the dataset content. To specify @versionId@ for a
+-- dataset content, the dataset must use a
+-- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer>
+-- filter.
+--
+-- 'datasetName', 'createDatasetContent_datasetName' - The name of the dataset.
+newCreateDatasetContent ::
+  -- | 'datasetName'
+  Prelude.Text ->
   CreateDatasetContent
-createDatasetContent pDatasetName_ =
+newCreateDatasetContent pDatasetName_ =
   CreateDatasetContent'
-    { _cdcVersionId = Nothing,
-      _cdcDatasetName = pDatasetName_
+    { versionId = Prelude.Nothing,
+      datasetName = pDatasetName_
     }
 
--- | The version ID of the dataset content. To specify @versionId@ for a dataset content, the dataset must use a <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer> filter.
-cdcVersionId :: Lens' CreateDatasetContent (Maybe Text)
-cdcVersionId = lens _cdcVersionId (\s a -> s {_cdcVersionId = a})
+-- | The version ID of the dataset content. To specify @versionId@ for a
+-- dataset content, the dataset must use a
+-- <https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_DeltaTime.html DeltaTimer>
+-- filter.
+createDatasetContent_versionId :: Lens.Lens' CreateDatasetContent (Prelude.Maybe Prelude.Text)
+createDatasetContent_versionId = Lens.lens (\CreateDatasetContent' {versionId} -> versionId) (\s@CreateDatasetContent' {} a -> s {versionId = a} :: CreateDatasetContent)
 
 -- | The name of the dataset.
-cdcDatasetName :: Lens' CreateDatasetContent Text
-cdcDatasetName = lens _cdcDatasetName (\s a -> s {_cdcDatasetName = a})
+createDatasetContent_datasetName :: Lens.Lens' CreateDatasetContent Prelude.Text
+createDatasetContent_datasetName = Lens.lens (\CreateDatasetContent' {datasetName} -> datasetName) (\s@CreateDatasetContent' {} a -> s {datasetName = a} :: CreateDatasetContent)
 
-instance AWSRequest CreateDatasetContent where
+instance Prelude.AWSRequest CreateDatasetContent where
   type
     Rs CreateDatasetContent =
       CreateDatasetContentResponse
-  request = postJSON ioTAnalytics
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateDatasetContentResponse'
-            <$> (x .?> "versionId") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "versionId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateDatasetContent
+instance Prelude.Hashable CreateDatasetContent
 
-instance NFData CreateDatasetContent
+instance Prelude.NFData CreateDatasetContent
 
-instance ToHeaders CreateDatasetContent where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateDatasetContent where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON CreateDatasetContent where
+instance Prelude.ToJSON CreateDatasetContent where
   toJSON CreateDatasetContent' {..} =
-    object
-      (catMaybes [("versionId" .=) <$> _cdcVersionId])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("versionId" Prelude..=) Prelude.<$> versionId]
+      )
 
-instance ToPath CreateDatasetContent where
+instance Prelude.ToPath CreateDatasetContent where
   toPath CreateDatasetContent' {..} =
-    mconcat
-      ["/datasets/", toBS _cdcDatasetName, "/content"]
+    Prelude.mconcat
+      ["/datasets/", Prelude.toBS datasetName, "/content"]
 
-instance ToQuery CreateDatasetContent where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateDatasetContent where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createDatasetContentResponse' smart constructor.
+-- | /See:/ 'newCreateDatasetContentResponse' smart constructor.
 data CreateDatasetContentResponse = CreateDatasetContentResponse'
-  { _cdcrrsVersionId ::
-      !(Maybe Text),
-    _cdcrrsResponseStatus ::
-      !Int
+  { -- | The version ID of the dataset contents that are being created.
+    versionId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateDatasetContentResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateDatasetContentResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cdcrrsVersionId' - The version ID of the dataset contents that are being created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cdcrrsResponseStatus' - -- | The response status code.
-createDatasetContentResponse ::
-  -- | 'cdcrrsResponseStatus'
-  Int ->
+-- 'versionId', 'createDatasetContentResponse_versionId' - The version ID of the dataset contents that are being created.
+--
+-- 'httpStatus', 'createDatasetContentResponse_httpStatus' - The response's http status code.
+newCreateDatasetContentResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateDatasetContentResponse
-createDatasetContentResponse pResponseStatus_ =
+newCreateDatasetContentResponse pHttpStatus_ =
   CreateDatasetContentResponse'
-    { _cdcrrsVersionId =
-        Nothing,
-      _cdcrrsResponseStatus = pResponseStatus_
+    { versionId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The version ID of the dataset contents that are being created.
-cdcrrsVersionId :: Lens' CreateDatasetContentResponse (Maybe Text)
-cdcrrsVersionId = lens _cdcrrsVersionId (\s a -> s {_cdcrrsVersionId = a})
+createDatasetContentResponse_versionId :: Lens.Lens' CreateDatasetContentResponse (Prelude.Maybe Prelude.Text)
+createDatasetContentResponse_versionId = Lens.lens (\CreateDatasetContentResponse' {versionId} -> versionId) (\s@CreateDatasetContentResponse' {} a -> s {versionId = a} :: CreateDatasetContentResponse)
 
--- | -- | The response status code.
-cdcrrsResponseStatus :: Lens' CreateDatasetContentResponse Int
-cdcrrsResponseStatus = lens _cdcrrsResponseStatus (\s a -> s {_cdcrrsResponseStatus = a})
+-- | The response's http status code.
+createDatasetContentResponse_httpStatus :: Lens.Lens' CreateDatasetContentResponse Prelude.Int
+createDatasetContentResponse_httpStatus = Lens.lens (\CreateDatasetContentResponse' {httpStatus} -> httpStatus) (\s@CreateDatasetContentResponse' {} a -> s {httpStatus = a} :: CreateDatasetContentResponse)
 
-instance NFData CreateDatasetContentResponse
+instance Prelude.NFData CreateDatasetContentResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,103 +22,129 @@ module Network.AWS.IoTAnalytics.Types.DatastoreSummary where
 import Network.AWS.IoTAnalytics.Types.DatastoreStatus
 import Network.AWS.IoTAnalytics.Types.DatastoreStorageSummary
 import Network.AWS.IoTAnalytics.Types.FileFormatType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A summary of information about a data store.
 --
---
---
--- /See:/ 'datastoreSummary' smart constructor.
+-- /See:/ 'newDatastoreSummary' smart constructor.
 data DatastoreSummary = DatastoreSummary'
-  { _datLastMessageArrivalTime ::
-      !(Maybe POSIX),
-    _datStatus ::
-      !(Maybe DatastoreStatus),
-    _datCreationTime :: !(Maybe POSIX),
-    _datDatastoreStorage ::
-      !(Maybe DatastoreStorageSummary),
-    _datLastUpdateTime :: !(Maybe POSIX),
-    _datFileFormatType ::
-      !(Maybe FileFormatType),
-    _datDatastoreName :: !(Maybe Text)
+  { -- | The last time when a new message arrived in the data store.
+    --
+    -- AWS IoT Analytics updates this value at most once per minute for one
+    -- data store. Hence, the @lastMessageArrivalTime@ value is an
+    -- approximation.
+    --
+    -- This feature only applies to messages that arrived in the data store
+    -- after October 23, 2020.
+    lastMessageArrivalTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The status of the data store.
+    status :: Prelude.Maybe DatastoreStatus,
+    -- | When the data store was created.
+    creationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | Where data store data is stored.
+    datastoreStorage :: Prelude.Maybe DatastoreStorageSummary,
+    -- | The last time the data store was updated.
+    lastUpdateTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The file format of the data in the data store.
+    fileFormatType :: Prelude.Maybe FileFormatType,
+    -- | The name of the data store.
+    datastoreName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DatastoreSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DatastoreSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'datLastMessageArrivalTime' - The last time when a new message arrived in the data store. AWS IoT Analytics updates this value at most once per minute for one data store. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'datStatus' - The status of the data store.
+-- 'lastMessageArrivalTime', 'datastoreSummary_lastMessageArrivalTime' - The last time when a new message arrived in the data store.
 --
--- * 'datCreationTime' - When the data store was created.
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- data store. Hence, the @lastMessageArrivalTime@ value is an
+-- approximation.
 --
--- * 'datDatastoreStorage' - Where data store data is stored.
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
 --
--- * 'datLastUpdateTime' - The last time the data store was updated.
+-- 'status', 'datastoreSummary_status' - The status of the data store.
 --
--- * 'datFileFormatType' - The file format of the data in the data store.
+-- 'creationTime', 'datastoreSummary_creationTime' - When the data store was created.
 --
--- * 'datDatastoreName' - The name of the data store.
-datastoreSummary ::
+-- 'datastoreStorage', 'datastoreSummary_datastoreStorage' - Where data store data is stored.
+--
+-- 'lastUpdateTime', 'datastoreSummary_lastUpdateTime' - The last time the data store was updated.
+--
+-- 'fileFormatType', 'datastoreSummary_fileFormatType' - The file format of the data in the data store.
+--
+-- 'datastoreName', 'datastoreSummary_datastoreName' - The name of the data store.
+newDatastoreSummary ::
   DatastoreSummary
-datastoreSummary =
+newDatastoreSummary =
   DatastoreSummary'
-    { _datLastMessageArrivalTime =
-        Nothing,
-      _datStatus = Nothing,
-      _datCreationTime = Nothing,
-      _datDatastoreStorage = Nothing,
-      _datLastUpdateTime = Nothing,
-      _datFileFormatType = Nothing,
-      _datDatastoreName = Nothing
+    { lastMessageArrivalTime =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      datastoreStorage = Prelude.Nothing,
+      lastUpdateTime = Prelude.Nothing,
+      fileFormatType = Prelude.Nothing,
+      datastoreName = Prelude.Nothing
     }
 
--- | The last time when a new message arrived in the data store. AWS IoT Analytics updates this value at most once per minute for one data store. Hence, the @lastMessageArrivalTime@ value is an approximation. This feature only applies to messages that arrived in the data store after October 23, 2020.
-datLastMessageArrivalTime :: Lens' DatastoreSummary (Maybe UTCTime)
-datLastMessageArrivalTime = lens _datLastMessageArrivalTime (\s a -> s {_datLastMessageArrivalTime = a}) . mapping _Time
+-- | The last time when a new message arrived in the data store.
+--
+-- AWS IoT Analytics updates this value at most once per minute for one
+-- data store. Hence, the @lastMessageArrivalTime@ value is an
+-- approximation.
+--
+-- This feature only applies to messages that arrived in the data store
+-- after October 23, 2020.
+datastoreSummary_lastMessageArrivalTime :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.UTCTime)
+datastoreSummary_lastMessageArrivalTime = Lens.lens (\DatastoreSummary' {lastMessageArrivalTime} -> lastMessageArrivalTime) (\s@DatastoreSummary' {} a -> s {lastMessageArrivalTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The status of the data store.
-datStatus :: Lens' DatastoreSummary (Maybe DatastoreStatus)
-datStatus = lens _datStatus (\s a -> s {_datStatus = a})
+datastoreSummary_status :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastoreStatus)
+datastoreSummary_status = Lens.lens (\DatastoreSummary' {status} -> status) (\s@DatastoreSummary' {} a -> s {status = a} :: DatastoreSummary)
 
 -- | When the data store was created.
-datCreationTime :: Lens' DatastoreSummary (Maybe UTCTime)
-datCreationTime = lens _datCreationTime (\s a -> s {_datCreationTime = a}) . mapping _Time
+datastoreSummary_creationTime :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.UTCTime)
+datastoreSummary_creationTime = Lens.lens (\DatastoreSummary' {creationTime} -> creationTime) (\s@DatastoreSummary' {} a -> s {creationTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | Where data store data is stored.
-datDatastoreStorage :: Lens' DatastoreSummary (Maybe DatastoreStorageSummary)
-datDatastoreStorage = lens _datDatastoreStorage (\s a -> s {_datDatastoreStorage = a})
+datastoreSummary_datastoreStorage :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastoreStorageSummary)
+datastoreSummary_datastoreStorage = Lens.lens (\DatastoreSummary' {datastoreStorage} -> datastoreStorage) (\s@DatastoreSummary' {} a -> s {datastoreStorage = a} :: DatastoreSummary)
 
 -- | The last time the data store was updated.
-datLastUpdateTime :: Lens' DatastoreSummary (Maybe UTCTime)
-datLastUpdateTime = lens _datLastUpdateTime (\s a -> s {_datLastUpdateTime = a}) . mapping _Time
+datastoreSummary_lastUpdateTime :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.UTCTime)
+datastoreSummary_lastUpdateTime = Lens.lens (\DatastoreSummary' {lastUpdateTime} -> lastUpdateTime) (\s@DatastoreSummary' {} a -> s {lastUpdateTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Prelude._Time
 
 -- | The file format of the data in the data store.
-datFileFormatType :: Lens' DatastoreSummary (Maybe FileFormatType)
-datFileFormatType = lens _datFileFormatType (\s a -> s {_datFileFormatType = a})
+datastoreSummary_fileFormatType :: Lens.Lens' DatastoreSummary (Prelude.Maybe FileFormatType)
+datastoreSummary_fileFormatType = Lens.lens (\DatastoreSummary' {fileFormatType} -> fileFormatType) (\s@DatastoreSummary' {} a -> s {fileFormatType = a} :: DatastoreSummary)
 
 -- | The name of the data store.
-datDatastoreName :: Lens' DatastoreSummary (Maybe Text)
-datDatastoreName = lens _datDatastoreName (\s a -> s {_datDatastoreName = a})
+datastoreSummary_datastoreName :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.Text)
+datastoreSummary_datastoreName = Lens.lens (\DatastoreSummary' {datastoreName} -> datastoreName) (\s@DatastoreSummary' {} a -> s {datastoreName = a} :: DatastoreSummary)
 
-instance FromJSON DatastoreSummary where
+instance Prelude.FromJSON DatastoreSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DatastoreSummary"
       ( \x ->
           DatastoreSummary'
-            <$> (x .:? "lastMessageArrivalTime")
-            <*> (x .:? "status")
-            <*> (x .:? "creationTime")
-            <*> (x .:? "datastoreStorage")
-            <*> (x .:? "lastUpdateTime")
-            <*> (x .:? "fileFormatType")
-            <*> (x .:? "datastoreName")
+            Prelude.<$> (x Prelude..:? "lastMessageArrivalTime")
+            Prelude.<*> (x Prelude..:? "status")
+            Prelude.<*> (x Prelude..:? "creationTime")
+            Prelude.<*> (x Prelude..:? "datastoreStorage")
+            Prelude.<*> (x Prelude..:? "lastUpdateTime")
+            Prelude.<*> (x Prelude..:? "fileFormatType")
+            Prelude.<*> (x Prelude..:? "datastoreName")
       )
 
-instance Hashable DatastoreSummary
+instance Prelude.Hashable DatastoreSummary
 
-instance NFData DatastoreSummary
+instance Prelude.NFData DatastoreSummary

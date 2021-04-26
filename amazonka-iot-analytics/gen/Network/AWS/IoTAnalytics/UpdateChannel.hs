@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,110 +24,132 @@
 -- Updates the settings of a channel.
 module Network.AWS.IoTAnalytics.UpdateChannel
   ( -- * Creating a Request
-    updateChannel,
-    UpdateChannel,
+    UpdateChannel (..),
+    newUpdateChannel,
 
     -- * Request Lenses
-    ucRetentionPeriod,
-    ucChannelStorage,
-    ucChannelName,
+    updateChannel_retentionPeriod,
+    updateChannel_channelStorage,
+    updateChannel_channelName,
 
     -- * Destructuring the Response
-    updateChannelResponse,
-    UpdateChannelResponse,
+    UpdateChannelResponse (..),
+    newUpdateChannelResponse,
   )
 where
 
 import Network.AWS.IoTAnalytics.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateChannel' smart constructor.
+-- | /See:/ 'newUpdateChannel' smart constructor.
 data UpdateChannel = UpdateChannel'
-  { _ucRetentionPeriod ::
-      !(Maybe RetentionPeriod),
-    _ucChannelStorage ::
-      !(Maybe ChannelStorage),
-    _ucChannelName :: !Text
+  { -- | How long, in days, message data is kept for the channel. The retention
+    -- period cannot be updated if the channel\'s S3 storage is
+    -- customer-managed.
+    retentionPeriod :: Prelude.Maybe RetentionPeriod,
+    -- | Where channel data is stored. You can choose one of @serviceManagedS3@
+    -- or @customerManagedS3@ storage. If not specified, the default is
+    -- @serviceManagedS3@. You cannot change this storage option after the
+    -- channel is created.
+    channelStorage :: Prelude.Maybe ChannelStorage,
+    -- | The name of the channel to be updated.
+    channelName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucRetentionPeriod' - How long, in days, message data is kept for the channel. The retention period cannot be updated if the channel's S3 storage is customer-managed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucChannelStorage' - Where channel data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the channel is created.
+-- 'retentionPeriod', 'updateChannel_retentionPeriod' - How long, in days, message data is kept for the channel. The retention
+-- period cannot be updated if the channel\'s S3 storage is
+-- customer-managed.
 --
--- * 'ucChannelName' - The name of the channel to be updated.
-updateChannel ::
-  -- | 'ucChannelName'
-  Text ->
+-- 'channelStorage', 'updateChannel_channelStorage' - Where channel data is stored. You can choose one of @serviceManagedS3@
+-- or @customerManagedS3@ storage. If not specified, the default is
+-- @serviceManagedS3@. You cannot change this storage option after the
+-- channel is created.
+--
+-- 'channelName', 'updateChannel_channelName' - The name of the channel to be updated.
+newUpdateChannel ::
+  -- | 'channelName'
+  Prelude.Text ->
   UpdateChannel
-updateChannel pChannelName_ =
+newUpdateChannel pChannelName_ =
   UpdateChannel'
-    { _ucRetentionPeriod = Nothing,
-      _ucChannelStorage = Nothing,
-      _ucChannelName = pChannelName_
+    { retentionPeriod = Prelude.Nothing,
+      channelStorage = Prelude.Nothing,
+      channelName = pChannelName_
     }
 
--- | How long, in days, message data is kept for the channel. The retention period cannot be updated if the channel's S3 storage is customer-managed.
-ucRetentionPeriod :: Lens' UpdateChannel (Maybe RetentionPeriod)
-ucRetentionPeriod = lens _ucRetentionPeriod (\s a -> s {_ucRetentionPeriod = a})
+-- | How long, in days, message data is kept for the channel. The retention
+-- period cannot be updated if the channel\'s S3 storage is
+-- customer-managed.
+updateChannel_retentionPeriod :: Lens.Lens' UpdateChannel (Prelude.Maybe RetentionPeriod)
+updateChannel_retentionPeriod = Lens.lens (\UpdateChannel' {retentionPeriod} -> retentionPeriod) (\s@UpdateChannel' {} a -> s {retentionPeriod = a} :: UpdateChannel)
 
--- | Where channel data is stored. You can choose one of @serviceManagedS3@ or @customerManagedS3@ storage. If not specified, the default is @serviceManagedS3@ . You cannot change this storage option after the channel is created.
-ucChannelStorage :: Lens' UpdateChannel (Maybe ChannelStorage)
-ucChannelStorage = lens _ucChannelStorage (\s a -> s {_ucChannelStorage = a})
+-- | Where channel data is stored. You can choose one of @serviceManagedS3@
+-- or @customerManagedS3@ storage. If not specified, the default is
+-- @serviceManagedS3@. You cannot change this storage option after the
+-- channel is created.
+updateChannel_channelStorage :: Lens.Lens' UpdateChannel (Prelude.Maybe ChannelStorage)
+updateChannel_channelStorage = Lens.lens (\UpdateChannel' {channelStorage} -> channelStorage) (\s@UpdateChannel' {} a -> s {channelStorage = a} :: UpdateChannel)
 
 -- | The name of the channel to be updated.
-ucChannelName :: Lens' UpdateChannel Text
-ucChannelName = lens _ucChannelName (\s a -> s {_ucChannelName = a})
+updateChannel_channelName :: Lens.Lens' UpdateChannel Prelude.Text
+updateChannel_channelName = Lens.lens (\UpdateChannel' {channelName} -> channelName) (\s@UpdateChannel' {} a -> s {channelName = a} :: UpdateChannel)
 
-instance AWSRequest UpdateChannel where
+instance Prelude.AWSRequest UpdateChannel where
   type Rs UpdateChannel = UpdateChannelResponse
-  request = putJSON ioTAnalytics
-  response = receiveNull UpdateChannelResponse'
+  request = Request.putJSON defaultService
+  response =
+    Response.receiveNull UpdateChannelResponse'
 
-instance Hashable UpdateChannel
+instance Prelude.Hashable UpdateChannel
 
-instance NFData UpdateChannel
+instance Prelude.NFData UpdateChannel
 
-instance ToHeaders UpdateChannel where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateChannel where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToJSON UpdateChannel where
+instance Prelude.ToJSON UpdateChannel where
   toJSON UpdateChannel' {..} =
-    object
-      ( catMaybes
-          [ ("retentionPeriod" .=) <$> _ucRetentionPeriod,
-            ("channelStorage" .=) <$> _ucChannelStorage
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("retentionPeriod" Prelude..=)
+              Prelude.<$> retentionPeriod,
+            ("channelStorage" Prelude..=)
+              Prelude.<$> channelStorage
           ]
       )
 
-instance ToPath UpdateChannel where
+instance Prelude.ToPath UpdateChannel where
   toPath UpdateChannel' {..} =
-    mconcat ["/channels/", toBS _ucChannelName]
+    Prelude.mconcat
+      ["/channels/", Prelude.toBS channelName]
 
-instance ToQuery UpdateChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateChannelResponse' smart constructor.
+-- | /See:/ 'newUpdateChannelResponse' smart constructor.
 data UpdateChannelResponse = UpdateChannelResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateChannelResponse' with the minimum fields required to make a request.
-updateChannelResponse ::
+-- |
+-- Create a value of 'UpdateChannelResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateChannelResponse ::
   UpdateChannelResponse
-updateChannelResponse = UpdateChannelResponse'
+newUpdateChannelResponse = UpdateChannelResponse'
 
-instance NFData UpdateChannelResponse
+instance Prelude.NFData UpdateChannelResponse

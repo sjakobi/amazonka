@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,59 +20,57 @@
 module Network.AWS.IoTAnalytics.Types.ParquetConfiguration where
 
 import Network.AWS.IoTAnalytics.Types.SchemaDefinition
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains the configuration information of the Parquet format.
 --
---
---
--- /See:/ 'parquetConfiguration' smart constructor.
-newtype ParquetConfiguration = ParquetConfiguration'
-  { _pcSchemaDefinition ::
-      Maybe SchemaDefinition
+-- /See:/ 'newParquetConfiguration' smart constructor.
+data ParquetConfiguration = ParquetConfiguration'
+  { -- | Information needed to define a schema.
+    schemaDefinition :: Prelude.Maybe SchemaDefinition
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ParquetConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ParquetConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcSchemaDefinition' - Information needed to define a schema.
-parquetConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'schemaDefinition', 'parquetConfiguration_schemaDefinition' - Information needed to define a schema.
+newParquetConfiguration ::
   ParquetConfiguration
-parquetConfiguration =
+newParquetConfiguration =
   ParquetConfiguration'
-    { _pcSchemaDefinition =
-        Nothing
+    { schemaDefinition =
+        Prelude.Nothing
     }
 
 -- | Information needed to define a schema.
-pcSchemaDefinition :: Lens' ParquetConfiguration (Maybe SchemaDefinition)
-pcSchemaDefinition = lens _pcSchemaDefinition (\s a -> s {_pcSchemaDefinition = a})
+parquetConfiguration_schemaDefinition :: Lens.Lens' ParquetConfiguration (Prelude.Maybe SchemaDefinition)
+parquetConfiguration_schemaDefinition = Lens.lens (\ParquetConfiguration' {schemaDefinition} -> schemaDefinition) (\s@ParquetConfiguration' {} a -> s {schemaDefinition = a} :: ParquetConfiguration)
 
-instance FromJSON ParquetConfiguration where
+instance Prelude.FromJSON ParquetConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ParquetConfiguration"
       ( \x ->
-          ParquetConfiguration' <$> (x .:? "schemaDefinition")
+          ParquetConfiguration'
+            Prelude.<$> (x Prelude..:? "schemaDefinition")
       )
 
-instance Hashable ParquetConfiguration
+instance Prelude.Hashable ParquetConfiguration
 
-instance NFData ParquetConfiguration
+instance Prelude.NFData ParquetConfiguration
 
-instance ToJSON ParquetConfiguration where
+instance Prelude.ToJSON ParquetConfiguration where
   toJSON ParquetConfiguration' {..} =
-    object
-      ( catMaybes
-          [("schemaDefinition" .=) <$> _pcSchemaDefinition]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("schemaDefinition" Prelude..=)
+              Prelude.<$> schemaDefinition
+          ]
       )
