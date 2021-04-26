@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.ReplicationRuleStatus
   ( ReplicationRuleStatus
       ( ..,
-        RRSDisabled,
-        RRSEnabled
+        ReplicationRuleStatusDisabled,
+        ReplicationRuleStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ReplicationRuleStatus
-  = ReplicationRuleStatus'
-      ( CI
-          Text
-      )
+newtype ReplicationRuleStatus = ReplicationRuleStatus'
+  { fromReplicationRuleStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RRSDisabled :: ReplicationRuleStatus
-pattern RRSDisabled = ReplicationRuleStatus' "Disabled"
+pattern ReplicationRuleStatusDisabled :: ReplicationRuleStatus
+pattern ReplicationRuleStatusDisabled = ReplicationRuleStatus' "Disabled"
 
-pattern RRSEnabled :: ReplicationRuleStatus
-pattern RRSEnabled = ReplicationRuleStatus' "Enabled"
+pattern ReplicationRuleStatusEnabled :: ReplicationRuleStatus
+pattern ReplicationRuleStatusEnabled = ReplicationRuleStatus' "Enabled"
 
 {-# COMPLETE
-  RRSDisabled,
-  RRSEnabled,
+  ReplicationRuleStatusDisabled,
+  ReplicationRuleStatusEnabled,
   ReplicationRuleStatus'
   #-}
 
-instance FromText ReplicationRuleStatus where
-  parser = (ReplicationRuleStatus' . mk) <$> takeText
+instance Prelude.FromText ReplicationRuleStatus where
+  parser = ReplicationRuleStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicationRuleStatus where
-  toText (ReplicationRuleStatus' ci) = original ci
+instance Prelude.ToText ReplicationRuleStatus where
+  toText (ReplicationRuleStatus' x) = x
 
-instance Hashable ReplicationRuleStatus
+instance Prelude.Hashable ReplicationRuleStatus
 
-instance NFData ReplicationRuleStatus
+instance Prelude.NFData ReplicationRuleStatus
 
-instance ToByteString ReplicationRuleStatus
+instance Prelude.ToByteString ReplicationRuleStatus
 
-instance ToQuery ReplicationRuleStatus
+instance Prelude.ToQuery ReplicationRuleStatus
 
-instance ToHeader ReplicationRuleStatus
+instance Prelude.ToHeader ReplicationRuleStatus
 
-instance FromXML ReplicationRuleStatus where
-  parseXML = parseXMLText "ReplicationRuleStatus"
+instance Prelude.FromXML ReplicationRuleStatus where
+  parseXML = Prelude.parseXMLText "ReplicationRuleStatus"
 
-instance ToXML ReplicationRuleStatus where
-  toXML = toXMLText
+instance Prelude.ToXML ReplicationRuleStatus where
+  toXML = Prelude.toXMLText

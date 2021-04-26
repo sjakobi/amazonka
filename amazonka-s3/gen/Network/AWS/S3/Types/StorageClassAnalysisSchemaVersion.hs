@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,54 @@
 module Network.AWS.S3.Types.StorageClassAnalysisSchemaVersion
   ( StorageClassAnalysisSchemaVersion
       ( ..,
-        V1
+        StorageClassAnalysisSchemaVersionV1
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data StorageClassAnalysisSchemaVersion
-  = StorageClassAnalysisSchemaVersion'
-      ( CI
-          Text
-      )
+newtype StorageClassAnalysisSchemaVersion = StorageClassAnalysisSchemaVersion'
+  { fromStorageClassAnalysisSchemaVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern V1 :: StorageClassAnalysisSchemaVersion
-pattern V1 = StorageClassAnalysisSchemaVersion' "V_1"
+pattern StorageClassAnalysisSchemaVersionV1 :: StorageClassAnalysisSchemaVersion
+pattern StorageClassAnalysisSchemaVersionV1 = StorageClassAnalysisSchemaVersion' "V_1"
 
 {-# COMPLETE
-  V1,
+  StorageClassAnalysisSchemaVersionV1,
   StorageClassAnalysisSchemaVersion'
   #-}
 
-instance FromText StorageClassAnalysisSchemaVersion where
-  parser = (StorageClassAnalysisSchemaVersion' . mk) <$> takeText
+instance Prelude.FromText StorageClassAnalysisSchemaVersion where
+  parser = StorageClassAnalysisSchemaVersion' Prelude.<$> Prelude.takeText
 
-instance ToText StorageClassAnalysisSchemaVersion where
-  toText (StorageClassAnalysisSchemaVersion' ci) = original ci
+instance Prelude.ToText StorageClassAnalysisSchemaVersion where
+  toText (StorageClassAnalysisSchemaVersion' x) = x
 
-instance Hashable StorageClassAnalysisSchemaVersion
+instance Prelude.Hashable StorageClassAnalysisSchemaVersion
 
-instance NFData StorageClassAnalysisSchemaVersion
+instance Prelude.NFData StorageClassAnalysisSchemaVersion
 
-instance ToByteString StorageClassAnalysisSchemaVersion
+instance Prelude.ToByteString StorageClassAnalysisSchemaVersion
 
-instance ToQuery StorageClassAnalysisSchemaVersion
+instance Prelude.ToQuery StorageClassAnalysisSchemaVersion
 
-instance ToHeader StorageClassAnalysisSchemaVersion
+instance Prelude.ToHeader StorageClassAnalysisSchemaVersion
 
-instance FromXML StorageClassAnalysisSchemaVersion where
-  parseXML = parseXMLText "StorageClassAnalysisSchemaVersion"
+instance Prelude.FromXML StorageClassAnalysisSchemaVersion where
+  parseXML = Prelude.parseXMLText "StorageClassAnalysisSchemaVersion"
 
-instance ToXML StorageClassAnalysisSchemaVersion where
-  toXML = toXMLText
+instance Prelude.ToXML StorageClassAnalysisSchemaVersion where
+  toXML = Prelude.toXMLText

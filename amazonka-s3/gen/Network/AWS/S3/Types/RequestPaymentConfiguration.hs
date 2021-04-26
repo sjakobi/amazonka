@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,44 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.RequestPaymentConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Payer
 
 -- | Container for Payer.
 --
---
---
--- /See:/ 'requestPaymentConfiguration' smart constructor.
-newtype RequestPaymentConfiguration = RequestPaymentConfiguration'
-  { _rpcPayer ::
-      Payer
+-- /See:/ 'newRequestPaymentConfiguration' smart constructor.
+data RequestPaymentConfiguration = RequestPaymentConfiguration'
+  { -- | Specifies who pays for the download and request fees.
+    payer :: Payer
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RequestPaymentConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RequestPaymentConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rpcPayer' - Specifies who pays for the download and request fees.
-requestPaymentConfiguration ::
-  -- | 'rpcPayer'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'payer', 'requestPaymentConfiguration_payer' - Specifies who pays for the download and request fees.
+newRequestPaymentConfiguration ::
+  -- | 'payer'
   Payer ->
   RequestPaymentConfiguration
-requestPaymentConfiguration pPayer_ =
-  RequestPaymentConfiguration' {_rpcPayer = pPayer_}
+newRequestPaymentConfiguration pPayer_ =
+  RequestPaymentConfiguration' {payer = pPayer_}
 
 -- | Specifies who pays for the download and request fees.
-rpcPayer :: Lens' RequestPaymentConfiguration Payer
-rpcPayer = lens _rpcPayer (\s a -> s {_rpcPayer = a})
+requestPaymentConfiguration_payer :: Lens.Lens' RequestPaymentConfiguration Payer
+requestPaymentConfiguration_payer = Lens.lens (\RequestPaymentConfiguration' {payer} -> payer) (\s@RequestPaymentConfiguration' {} a -> s {payer = a} :: RequestPaymentConfiguration)
 
-instance Hashable RequestPaymentConfiguration
+instance Prelude.Hashable RequestPaymentConfiguration
 
-instance NFData RequestPaymentConfiguration
+instance Prelude.NFData RequestPaymentConfiguration
 
-instance ToXML RequestPaymentConfiguration where
+instance Prelude.ToXML RequestPaymentConfiguration where
   toXML RequestPaymentConfiguration' {..} =
-    mconcat ["Payer" @= _rpcPayer]
+    Prelude.mconcat ["Payer" Prelude.@= payer]

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,57 @@
 module Network.AWS.S3.Types.RequestPayer
   ( RequestPayer
       ( ..,
-        RPRequester
+        RequestPayerRequester
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
--- | Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from requester pays buckets, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html Downloading Objects in Requestor Pays Buckets> in the /Amazon S3 Developer Guide/ .
-data RequestPayer = RequestPayer' (CI Text)
+-- | Confirms that the requester knows that they will be charged for the
+-- request. Bucket owners need not specify this parameter in their
+-- requests. For information about downloading objects from requester pays
+-- buckets, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html Downloading Objects in Requestor Pays Buckets>
+-- in the /Amazon S3 Developer Guide/.
+newtype RequestPayer = RequestPayer'
+  { fromRequestPayer ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RPRequester :: RequestPayer
-pattern RPRequester = RequestPayer' "requester"
+pattern RequestPayerRequester :: RequestPayer
+pattern RequestPayerRequester = RequestPayer' "requester"
 
 {-# COMPLETE
-  RPRequester,
+  RequestPayerRequester,
   RequestPayer'
   #-}
 
-instance FromText RequestPayer where
-  parser = (RequestPayer' . mk) <$> takeText
+instance Prelude.FromText RequestPayer where
+  parser = RequestPayer' Prelude.<$> Prelude.takeText
 
-instance ToText RequestPayer where
-  toText (RequestPayer' ci) = original ci
+instance Prelude.ToText RequestPayer where
+  toText (RequestPayer' x) = x
 
-instance Hashable RequestPayer
+instance Prelude.Hashable RequestPayer
 
-instance NFData RequestPayer
+instance Prelude.NFData RequestPayer
 
-instance ToByteString RequestPayer
+instance Prelude.ToByteString RequestPayer
 
-instance ToQuery RequestPayer
+instance Prelude.ToQuery RequestPayer
 
-instance ToHeader RequestPayer
+instance Prelude.ToHeader RequestPayer
 
-instance ToXML RequestPayer where
-  toXML = toXMLText
+instance Prelude.ToXML RequestPayer where
+  toXML = Prelude.toXMLText

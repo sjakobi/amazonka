@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,54 @@
 module Network.AWS.S3.Types.AnalyticsS3ExportFileFormat
   ( AnalyticsS3ExportFileFormat
       ( ..,
-        CSV
+        AnalyticsS3ExportFileFormatCSV
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data AnalyticsS3ExportFileFormat
-  = AnalyticsS3ExportFileFormat'
-      ( CI
-          Text
-      )
+newtype AnalyticsS3ExportFileFormat = AnalyticsS3ExportFileFormat'
+  { fromAnalyticsS3ExportFileFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: AnalyticsS3ExportFileFormat
-pattern CSV = AnalyticsS3ExportFileFormat' "CSV"
+pattern AnalyticsS3ExportFileFormatCSV :: AnalyticsS3ExportFileFormat
+pattern AnalyticsS3ExportFileFormatCSV = AnalyticsS3ExportFileFormat' "CSV"
 
 {-# COMPLETE
-  CSV,
+  AnalyticsS3ExportFileFormatCSV,
   AnalyticsS3ExportFileFormat'
   #-}
 
-instance FromText AnalyticsS3ExportFileFormat where
-  parser = (AnalyticsS3ExportFileFormat' . mk) <$> takeText
+instance Prelude.FromText AnalyticsS3ExportFileFormat where
+  parser = AnalyticsS3ExportFileFormat' Prelude.<$> Prelude.takeText
 
-instance ToText AnalyticsS3ExportFileFormat where
-  toText (AnalyticsS3ExportFileFormat' ci) = original ci
+instance Prelude.ToText AnalyticsS3ExportFileFormat where
+  toText (AnalyticsS3ExportFileFormat' x) = x
 
-instance Hashable AnalyticsS3ExportFileFormat
+instance Prelude.Hashable AnalyticsS3ExportFileFormat
 
-instance NFData AnalyticsS3ExportFileFormat
+instance Prelude.NFData AnalyticsS3ExportFileFormat
 
-instance ToByteString AnalyticsS3ExportFileFormat
+instance Prelude.ToByteString AnalyticsS3ExportFileFormat
 
-instance ToQuery AnalyticsS3ExportFileFormat
+instance Prelude.ToQuery AnalyticsS3ExportFileFormat
 
-instance ToHeader AnalyticsS3ExportFileFormat
+instance Prelude.ToHeader AnalyticsS3ExportFileFormat
 
-instance FromXML AnalyticsS3ExportFileFormat where
-  parseXML = parseXMLText "AnalyticsS3ExportFileFormat"
+instance Prelude.FromXML AnalyticsS3ExportFileFormat where
+  parseXML = Prelude.parseXMLText "AnalyticsS3ExportFileFormat"
 
-instance ToXML AnalyticsS3ExportFileFormat where
-  toXML = toXMLText
+instance Prelude.ToXML AnalyticsS3ExportFileFormat where
+  toXML = Prelude.toXMLText

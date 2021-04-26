@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,76 +19,74 @@
 module Network.AWS.S3.Types.TransitionStorageClass
   ( TransitionStorageClass
       ( ..,
-        TSCDeepArchive,
-        TSCGlacier,
-        TSCIntelligentTiering,
-        TSCOnezoneIA,
-        TSCStandardIA
+        TransitionStorageClassDEEPARCHIVE,
+        TransitionStorageClassGLACIER,
+        TransitionStorageClassINTELLIGENTTIERING,
+        TransitionStorageClassONEZONEIA,
+        TransitionStorageClassSTANDARDIA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data TransitionStorageClass
-  = TransitionStorageClass'
-      ( CI
-          Text
-      )
+newtype TransitionStorageClass = TransitionStorageClass'
+  { fromTransitionStorageClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TSCDeepArchive :: TransitionStorageClass
-pattern TSCDeepArchive = TransitionStorageClass' "DEEP_ARCHIVE"
+pattern TransitionStorageClassDEEPARCHIVE :: TransitionStorageClass
+pattern TransitionStorageClassDEEPARCHIVE = TransitionStorageClass' "DEEP_ARCHIVE"
 
-pattern TSCGlacier :: TransitionStorageClass
-pattern TSCGlacier = TransitionStorageClass' "GLACIER"
+pattern TransitionStorageClassGLACIER :: TransitionStorageClass
+pattern TransitionStorageClassGLACIER = TransitionStorageClass' "GLACIER"
 
-pattern TSCIntelligentTiering :: TransitionStorageClass
-pattern TSCIntelligentTiering = TransitionStorageClass' "INTELLIGENT_TIERING"
+pattern TransitionStorageClassINTELLIGENTTIERING :: TransitionStorageClass
+pattern TransitionStorageClassINTELLIGENTTIERING = TransitionStorageClass' "INTELLIGENT_TIERING"
 
-pattern TSCOnezoneIA :: TransitionStorageClass
-pattern TSCOnezoneIA = TransitionStorageClass' "ONEZONE_IA"
+pattern TransitionStorageClassONEZONEIA :: TransitionStorageClass
+pattern TransitionStorageClassONEZONEIA = TransitionStorageClass' "ONEZONE_IA"
 
-pattern TSCStandardIA :: TransitionStorageClass
-pattern TSCStandardIA = TransitionStorageClass' "STANDARD_IA"
+pattern TransitionStorageClassSTANDARDIA :: TransitionStorageClass
+pattern TransitionStorageClassSTANDARDIA = TransitionStorageClass' "STANDARD_IA"
 
 {-# COMPLETE
-  TSCDeepArchive,
-  TSCGlacier,
-  TSCIntelligentTiering,
-  TSCOnezoneIA,
-  TSCStandardIA,
+  TransitionStorageClassDEEPARCHIVE,
+  TransitionStorageClassGLACIER,
+  TransitionStorageClassINTELLIGENTTIERING,
+  TransitionStorageClassONEZONEIA,
+  TransitionStorageClassSTANDARDIA,
   TransitionStorageClass'
   #-}
 
-instance FromText TransitionStorageClass where
-  parser = (TransitionStorageClass' . mk) <$> takeText
+instance Prelude.FromText TransitionStorageClass where
+  parser = TransitionStorageClass' Prelude.<$> Prelude.takeText
 
-instance ToText TransitionStorageClass where
-  toText (TransitionStorageClass' ci) = original ci
+instance Prelude.ToText TransitionStorageClass where
+  toText (TransitionStorageClass' x) = x
 
-instance Hashable TransitionStorageClass
+instance Prelude.Hashable TransitionStorageClass
 
-instance NFData TransitionStorageClass
+instance Prelude.NFData TransitionStorageClass
 
-instance ToByteString TransitionStorageClass
+instance Prelude.ToByteString TransitionStorageClass
 
-instance ToQuery TransitionStorageClass
+instance Prelude.ToQuery TransitionStorageClass
 
-instance ToHeader TransitionStorageClass
+instance Prelude.ToHeader TransitionStorageClass
 
-instance FromXML TransitionStorageClass where
-  parseXML = parseXMLText "TransitionStorageClass"
+instance Prelude.FromXML TransitionStorageClass where
+  parseXML = Prelude.parseXMLText "TransitionStorageClass"
 
-instance ToXML TransitionStorageClass where
-  toXML = toXMLText
+instance Prelude.ToXML TransitionStorageClass where
+  toXML = Prelude.toXMLText

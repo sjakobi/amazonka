@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.ReplicationTime where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ReplicationTimeStatus
 import Network.AWS.S3.Types.ReplicationTimeValue
 
--- | A container specifying S3 Replication Time Control (S3 RTC) related information, including whether S3 RTC is enabled and the time when all objects and operations on objects must be replicated. Must be specified together with a @Metrics@ block.
+-- | A container specifying S3 Replication Time Control (S3 RTC) related
+-- information, including whether S3 RTC is enabled and the time when all
+-- objects and operations on objects must be replicated. Must be specified
+-- together with a @Metrics@ block.
 --
---
---
--- /See:/ 'replicationTime' smart constructor.
+-- /See:/ 'newReplicationTime' smart constructor.
 data ReplicationTime = ReplicationTime'
-  { _rtStatus ::
-      !ReplicationTimeStatus,
-    _rtTime :: !ReplicationTimeValue
+  { -- | Specifies whether the replication time is enabled.
+    status :: ReplicationTimeStatus,
+    -- | A container specifying the time by which replication should be complete
+    -- for all objects and operations on objects.
+    time :: ReplicationTimeValue
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationTime' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationTime' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtStatus' - Specifies whether the replication time is enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rtTime' - A container specifying the time by which replication should be complete for all objects and operations on objects.
-replicationTime ::
-  -- | 'rtStatus'
+-- 'status', 'replicationTime_status' - Specifies whether the replication time is enabled.
+--
+-- 'time', 'replicationTime_time' - A container specifying the time by which replication should be complete
+-- for all objects and operations on objects.
+newReplicationTime ::
+  -- | 'status'
   ReplicationTimeStatus ->
-  -- | 'rtTime'
+  -- | 'time'
   ReplicationTimeValue ->
   ReplicationTime
-replicationTime pStatus_ pTime_ =
-  ReplicationTime'
-    { _rtStatus = pStatus_,
-      _rtTime = pTime_
-    }
+newReplicationTime pStatus_ pTime_ =
+  ReplicationTime' {status = pStatus_, time = pTime_}
 
 -- | Specifies whether the replication time is enabled.
-rtStatus :: Lens' ReplicationTime ReplicationTimeStatus
-rtStatus = lens _rtStatus (\s a -> s {_rtStatus = a})
+replicationTime_status :: Lens.Lens' ReplicationTime ReplicationTimeStatus
+replicationTime_status = Lens.lens (\ReplicationTime' {status} -> status) (\s@ReplicationTime' {} a -> s {status = a} :: ReplicationTime)
 
--- | A container specifying the time by which replication should be complete for all objects and operations on objects.
-rtTime :: Lens' ReplicationTime ReplicationTimeValue
-rtTime = lens _rtTime (\s a -> s {_rtTime = a})
+-- | A container specifying the time by which replication should be complete
+-- for all objects and operations on objects.
+replicationTime_time :: Lens.Lens' ReplicationTime ReplicationTimeValue
+replicationTime_time = Lens.lens (\ReplicationTime' {time} -> time) (\s@ReplicationTime' {} a -> s {time = a} :: ReplicationTime)
 
-instance FromXML ReplicationTime where
+instance Prelude.FromXML ReplicationTime where
   parseXML x =
     ReplicationTime'
-      <$> (x .@ "Status") <*> (x .@ "Time")
+      Prelude.<$> (x Prelude..@ "Status")
+      Prelude.<*> (x Prelude..@ "Time")
 
-instance Hashable ReplicationTime
+instance Prelude.Hashable ReplicationTime
 
-instance NFData ReplicationTime
+instance Prelude.NFData ReplicationTime
 
-instance ToXML ReplicationTime where
+instance Prelude.ToXML ReplicationTime where
   toXML ReplicationTime' {..} =
-    mconcat ["Status" @= _rtStatus, "Time" @= _rtTime]
+    Prelude.mconcat
+      ["Status" Prelude.@= status, "Time" Prelude.@= time]

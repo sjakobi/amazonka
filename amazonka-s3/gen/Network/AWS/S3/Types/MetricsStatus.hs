@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.S3.Types.MetricsStatus
   ( MetricsStatus
       ( ..,
-        MSDisabled,
-        MSEnabled
+        MetricsStatusDisabled,
+        MetricsStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data MetricsStatus = MetricsStatus' (CI Text)
+newtype MetricsStatus = MetricsStatus'
+  { fromMetricsStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MSDisabled :: MetricsStatus
-pattern MSDisabled = MetricsStatus' "Disabled"
+pattern MetricsStatusDisabled :: MetricsStatus
+pattern MetricsStatusDisabled = MetricsStatus' "Disabled"
 
-pattern MSEnabled :: MetricsStatus
-pattern MSEnabled = MetricsStatus' "Enabled"
+pattern MetricsStatusEnabled :: MetricsStatus
+pattern MetricsStatusEnabled = MetricsStatus' "Enabled"
 
 {-# COMPLETE
-  MSDisabled,
-  MSEnabled,
+  MetricsStatusDisabled,
+  MetricsStatusEnabled,
   MetricsStatus'
   #-}
 
-instance FromText MetricsStatus where
-  parser = (MetricsStatus' . mk) <$> takeText
+instance Prelude.FromText MetricsStatus where
+  parser = MetricsStatus' Prelude.<$> Prelude.takeText
 
-instance ToText MetricsStatus where
-  toText (MetricsStatus' ci) = original ci
+instance Prelude.ToText MetricsStatus where
+  toText (MetricsStatus' x) = x
 
-instance Hashable MetricsStatus
+instance Prelude.Hashable MetricsStatus
 
-instance NFData MetricsStatus
+instance Prelude.NFData MetricsStatus
 
-instance ToByteString MetricsStatus
+instance Prelude.ToByteString MetricsStatus
 
-instance ToQuery MetricsStatus
+instance Prelude.ToQuery MetricsStatus
 
-instance ToHeader MetricsStatus
+instance Prelude.ToHeader MetricsStatus
 
-instance FromXML MetricsStatus where
-  parseXML = parseXMLText "MetricsStatus"
+instance Prelude.FromXML MetricsStatus where
+  parseXML = Prelude.parseXMLText "MetricsStatus"
 
-instance ToXML MetricsStatus where
-  toXML = toXMLText
+instance Prelude.ToXML MetricsStatus where
+  toXML = Prelude.toXMLText

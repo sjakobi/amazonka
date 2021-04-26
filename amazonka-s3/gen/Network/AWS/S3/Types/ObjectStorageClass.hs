@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,73 +19,71 @@
 module Network.AWS.S3.Types.ObjectStorageClass
   ( ObjectStorageClass
       ( ..,
-        OSCGlacier,
-        OSCIntelligentTiering,
-        OSCReducedRedundancy,
-        OSCStandard,
-        OSCStandardIA
+        ObjectStorageClassGLACIER,
+        ObjectStorageClassINTELLIGENTTIERING,
+        ObjectStorageClassREDUCEDREDUNDANCY,
+        ObjectStorageClassSTANDARD,
+        ObjectStorageClassSTANDARDIA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ObjectStorageClass
-  = ObjectStorageClass'
-      ( CI
-          Text
-      )
+newtype ObjectStorageClass = ObjectStorageClass'
+  { fromObjectStorageClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OSCGlacier :: ObjectStorageClass
-pattern OSCGlacier = ObjectStorageClass' "GLACIER"
+pattern ObjectStorageClassGLACIER :: ObjectStorageClass
+pattern ObjectStorageClassGLACIER = ObjectStorageClass' "GLACIER"
 
-pattern OSCIntelligentTiering :: ObjectStorageClass
-pattern OSCIntelligentTiering = ObjectStorageClass' "INTELLIGENT_TIERING"
+pattern ObjectStorageClassINTELLIGENTTIERING :: ObjectStorageClass
+pattern ObjectStorageClassINTELLIGENTTIERING = ObjectStorageClass' "INTELLIGENT_TIERING"
 
-pattern OSCReducedRedundancy :: ObjectStorageClass
-pattern OSCReducedRedundancy = ObjectStorageClass' "REDUCED_REDUNDANCY"
+pattern ObjectStorageClassREDUCEDREDUNDANCY :: ObjectStorageClass
+pattern ObjectStorageClassREDUCEDREDUNDANCY = ObjectStorageClass' "REDUCED_REDUNDANCY"
 
-pattern OSCStandard :: ObjectStorageClass
-pattern OSCStandard = ObjectStorageClass' "STANDARD"
+pattern ObjectStorageClassSTANDARD :: ObjectStorageClass
+pattern ObjectStorageClassSTANDARD = ObjectStorageClass' "STANDARD"
 
-pattern OSCStandardIA :: ObjectStorageClass
-pattern OSCStandardIA = ObjectStorageClass' "STANDARD_IA"
+pattern ObjectStorageClassSTANDARDIA :: ObjectStorageClass
+pattern ObjectStorageClassSTANDARDIA = ObjectStorageClass' "STANDARD_IA"
 
 {-# COMPLETE
-  OSCGlacier,
-  OSCIntelligentTiering,
-  OSCReducedRedundancy,
-  OSCStandard,
-  OSCStandardIA,
+  ObjectStorageClassGLACIER,
+  ObjectStorageClassINTELLIGENTTIERING,
+  ObjectStorageClassREDUCEDREDUNDANCY,
+  ObjectStorageClassSTANDARD,
+  ObjectStorageClassSTANDARDIA,
   ObjectStorageClass'
   #-}
 
-instance FromText ObjectStorageClass where
-  parser = (ObjectStorageClass' . mk) <$> takeText
+instance Prelude.FromText ObjectStorageClass where
+  parser = ObjectStorageClass' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectStorageClass where
-  toText (ObjectStorageClass' ci) = original ci
+instance Prelude.ToText ObjectStorageClass where
+  toText (ObjectStorageClass' x) = x
 
-instance Hashable ObjectStorageClass
+instance Prelude.Hashable ObjectStorageClass
 
-instance NFData ObjectStorageClass
+instance Prelude.NFData ObjectStorageClass
 
-instance ToByteString ObjectStorageClass
+instance Prelude.ToByteString ObjectStorageClass
 
-instance ToQuery ObjectStorageClass
+instance Prelude.ToQuery ObjectStorageClass
 
-instance ToHeader ObjectStorageClass
+instance Prelude.ToHeader ObjectStorageClass
 
-instance FromXML ObjectStorageClass where
-  parseXML = parseXMLText "ObjectStorageClass"
+instance Prelude.FromXML ObjectStorageClass where
+  parseXML = Prelude.parseXMLText "ObjectStorageClass"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.ReplicaModificationsStatus
   ( ReplicaModificationsStatus
       ( ..,
-        RMSDisabled,
-        RMSEnabled
+        ReplicaModificationsStatusDisabled,
+        ReplicaModificationsStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ReplicaModificationsStatus
-  = ReplicaModificationsStatus'
-      ( CI
-          Text
-      )
+newtype ReplicaModificationsStatus = ReplicaModificationsStatus'
+  { fromReplicaModificationsStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RMSDisabled :: ReplicaModificationsStatus
-pattern RMSDisabled = ReplicaModificationsStatus' "Disabled"
+pattern ReplicaModificationsStatusDisabled :: ReplicaModificationsStatus
+pattern ReplicaModificationsStatusDisabled = ReplicaModificationsStatus' "Disabled"
 
-pattern RMSEnabled :: ReplicaModificationsStatus
-pattern RMSEnabled = ReplicaModificationsStatus' "Enabled"
+pattern ReplicaModificationsStatusEnabled :: ReplicaModificationsStatus
+pattern ReplicaModificationsStatusEnabled = ReplicaModificationsStatus' "Enabled"
 
 {-# COMPLETE
-  RMSDisabled,
-  RMSEnabled,
+  ReplicaModificationsStatusDisabled,
+  ReplicaModificationsStatusEnabled,
   ReplicaModificationsStatus'
   #-}
 
-instance FromText ReplicaModificationsStatus where
-  parser = (ReplicaModificationsStatus' . mk) <$> takeText
+instance Prelude.FromText ReplicaModificationsStatus where
+  parser = ReplicaModificationsStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicaModificationsStatus where
-  toText (ReplicaModificationsStatus' ci) = original ci
+instance Prelude.ToText ReplicaModificationsStatus where
+  toText (ReplicaModificationsStatus' x) = x
 
-instance Hashable ReplicaModificationsStatus
+instance Prelude.Hashable ReplicaModificationsStatus
 
-instance NFData ReplicaModificationsStatus
+instance Prelude.NFData ReplicaModificationsStatus
 
-instance ToByteString ReplicaModificationsStatus
+instance Prelude.ToByteString ReplicaModificationsStatus
 
-instance ToQuery ReplicaModificationsStatus
+instance Prelude.ToQuery ReplicaModificationsStatus
 
-instance ToHeader ReplicaModificationsStatus
+instance Prelude.ToHeader ReplicaModificationsStatus
 
-instance FromXML ReplicaModificationsStatus where
-  parseXML = parseXMLText "ReplicaModificationsStatus"
+instance Prelude.FromXML ReplicaModificationsStatus where
+  parseXML = Prelude.parseXMLText "ReplicaModificationsStatus"
 
-instance ToXML ReplicaModificationsStatus where
-  toXML = toXMLText
+instance Prelude.ToXML ReplicaModificationsStatus where
+  toXML = Prelude.toXMLText

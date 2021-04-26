@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.S3.Types.ReplicationStatus
   ( ReplicationStatus
       ( ..,
-        Completed,
-        Failed,
-        Pending,
-        Replica
+        ReplicationStatusCOMPLETED,
+        ReplicationStatusFAILED,
+        ReplicationStatusPENDING,
+        ReplicationStatusREPLICA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ReplicationStatus = ReplicationStatus' (CI Text)
+newtype ReplicationStatus = ReplicationStatus'
+  { fromReplicationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Completed :: ReplicationStatus
-pattern Completed = ReplicationStatus' "COMPLETED"
+pattern ReplicationStatusCOMPLETED :: ReplicationStatus
+pattern ReplicationStatusCOMPLETED = ReplicationStatus' "COMPLETED"
 
-pattern Failed :: ReplicationStatus
-pattern Failed = ReplicationStatus' "FAILED"
+pattern ReplicationStatusFAILED :: ReplicationStatus
+pattern ReplicationStatusFAILED = ReplicationStatus' "FAILED"
 
-pattern Pending :: ReplicationStatus
-pattern Pending = ReplicationStatus' "PENDING"
+pattern ReplicationStatusPENDING :: ReplicationStatus
+pattern ReplicationStatusPENDING = ReplicationStatus' "PENDING"
 
-pattern Replica :: ReplicationStatus
-pattern Replica = ReplicationStatus' "REPLICA"
+pattern ReplicationStatusREPLICA :: ReplicationStatus
+pattern ReplicationStatusREPLICA = ReplicationStatus' "REPLICA"
 
 {-# COMPLETE
-  Completed,
-  Failed,
-  Pending,
-  Replica,
+  ReplicationStatusCOMPLETED,
+  ReplicationStatusFAILED,
+  ReplicationStatusPENDING,
+  ReplicationStatusREPLICA,
   ReplicationStatus'
   #-}
 
-instance FromText ReplicationStatus where
-  parser = (ReplicationStatus' . mk) <$> takeText
+instance Prelude.FromText ReplicationStatus where
+  parser = ReplicationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicationStatus where
-  toText (ReplicationStatus' ci) = original ci
+instance Prelude.ToText ReplicationStatus where
+  toText (ReplicationStatus' x) = x
 
-instance Hashable ReplicationStatus
+instance Prelude.Hashable ReplicationStatus
 
-instance NFData ReplicationStatus
+instance Prelude.NFData ReplicationStatus
 
-instance ToByteString ReplicationStatus
+instance Prelude.ToByteString ReplicationStatus
 
-instance ToQuery ReplicationStatus
+instance Prelude.ToQuery ReplicationStatus
 
-instance ToHeader ReplicationStatus
+instance Prelude.ToHeader ReplicationStatus
 
-instance FromXML ReplicationStatus where
-  parseXML = parseXMLText "ReplicationStatus"
+instance Prelude.FromXML ReplicationStatus where
+  parseXML = Prelude.parseXMLText "ReplicationStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.CompletedPart where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
 -- | Details of the parts that were uploaded.
 --
---
---
--- /See:/ 'completedPart' smart constructor.
+-- /See:/ 'newCompletedPart' smart constructor.
 data CompletedPart = CompletedPart'
-  { _cpPartNumber ::
-      !Int,
-    _cpETag :: !ETag
+  { -- | Part number that identifies the part. This is a positive integer between
+    -- 1 and 10,000.
+    partNumber :: Prelude.Int,
+    -- | Entity tag returned when the part was uploaded.
+    eTag :: ETag
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompletedPart' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompletedPart' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpPartNumber' - Part number that identifies the part. This is a positive integer between 1 and 10,000.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpETag' - Entity tag returned when the part was uploaded.
-completedPart ::
-  -- | 'cpPartNumber'
-  Int ->
-  -- | 'cpETag'
+-- 'partNumber', 'completedPart_partNumber' - Part number that identifies the part. This is a positive integer between
+-- 1 and 10,000.
+--
+-- 'eTag', 'completedPart_eTag' - Entity tag returned when the part was uploaded.
+newCompletedPart ::
+  -- | 'partNumber'
+  Prelude.Int ->
+  -- | 'eTag'
   ETag ->
   CompletedPart
-completedPart pPartNumber_ pETag_ =
+newCompletedPart pPartNumber_ pETag_ =
   CompletedPart'
-    { _cpPartNumber = pPartNumber_,
-      _cpETag = pETag_
+    { partNumber = pPartNumber_,
+      eTag = pETag_
     }
 
--- | Part number that identifies the part. This is a positive integer between 1 and 10,000.
-cpPartNumber :: Lens' CompletedPart Int
-cpPartNumber = lens _cpPartNumber (\s a -> s {_cpPartNumber = a})
+-- | Part number that identifies the part. This is a positive integer between
+-- 1 and 10,000.
+completedPart_partNumber :: Lens.Lens' CompletedPart Prelude.Int
+completedPart_partNumber = Lens.lens (\CompletedPart' {partNumber} -> partNumber) (\s@CompletedPart' {} a -> s {partNumber = a} :: CompletedPart)
 
 -- | Entity tag returned when the part was uploaded.
-cpETag :: Lens' CompletedPart ETag
-cpETag = lens _cpETag (\s a -> s {_cpETag = a})
+completedPart_eTag :: Lens.Lens' CompletedPart ETag
+completedPart_eTag = Lens.lens (\CompletedPart' {eTag} -> eTag) (\s@CompletedPart' {} a -> s {eTag = a} :: CompletedPart)
 
-instance Hashable CompletedPart
+instance Prelude.Hashable CompletedPart
 
-instance NFData CompletedPart
+instance Prelude.NFData CompletedPart
 
-instance ToXML CompletedPart where
+instance Prelude.ToXML CompletedPart where
   toXML CompletedPart' {..} =
-    mconcat
-      ["PartNumber" @= _cpPartNumber, "ETag" @= _cpETag]
+    Prelude.mconcat
+      [ "PartNumber" Prelude.@= partNumber,
+        "ETag" Prelude.@= eTag
+      ]

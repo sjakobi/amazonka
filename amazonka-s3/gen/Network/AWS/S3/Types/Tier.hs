@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,58 @@
 module Network.AWS.S3.Types.Tier
   ( Tier
       ( ..,
-        TBulk,
-        TExpedited,
-        TStandard
+        TierBulk,
+        TierExpedited,
+        TierStandard
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data Tier = Tier' (CI Text)
+newtype Tier = Tier' {fromTier :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern TBulk :: Tier
-pattern TBulk = Tier' "Bulk"
+pattern TierBulk :: Tier
+pattern TierBulk = Tier' "Bulk"
 
-pattern TExpedited :: Tier
-pattern TExpedited = Tier' "Expedited"
+pattern TierExpedited :: Tier
+pattern TierExpedited = Tier' "Expedited"
 
-pattern TStandard :: Tier
-pattern TStandard = Tier' "Standard"
+pattern TierStandard :: Tier
+pattern TierStandard = Tier' "Standard"
 
 {-# COMPLETE
-  TBulk,
-  TExpedited,
-  TStandard,
+  TierBulk,
+  TierExpedited,
+  TierStandard,
   Tier'
   #-}
 
-instance FromText Tier where
-  parser = (Tier' . mk) <$> takeText
+instance Prelude.FromText Tier where
+  parser = Tier' Prelude.<$> Prelude.takeText
 
-instance ToText Tier where
-  toText (Tier' ci) = original ci
+instance Prelude.ToText Tier where
+  toText (Tier' x) = x
 
-instance Hashable Tier
+instance Prelude.Hashable Tier
 
-instance NFData Tier
+instance Prelude.NFData Tier
 
-instance ToByteString Tier
+instance Prelude.ToByteString Tier
 
-instance ToQuery Tier
+instance Prelude.ToQuery Tier
 
-instance ToHeader Tier
+instance Prelude.ToHeader Tier
 
-instance ToXML Tier where
-  toXML = toXMLText
+instance Prelude.ToXML Tier where
+  toXML = Prelude.toXMLText

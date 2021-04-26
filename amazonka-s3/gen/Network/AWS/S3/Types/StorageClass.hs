@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,87 +19,89 @@
 module Network.AWS.S3.Types.StorageClass
   ( StorageClass
       ( ..,
-        DeepArchive,
-        Glacier,
-        IntelligentTiering,
-        OnezoneIA,
-        Outposts,
-        ReducedRedundancy,
-        Standard,
-        StandardIA
+        StorageClassDEEPARCHIVE,
+        StorageClassGLACIER,
+        StorageClassINTELLIGENTTIERING,
+        StorageClassONEZONEIA,
+        StorageClassOUTPOSTS,
+        StorageClassREDUCEDREDUNDANCY,
+        StorageClassSTANDARD,
+        StorageClassSTANDARDIA
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data StorageClass = StorageClass' (CI Text)
+newtype StorageClass = StorageClass'
+  { fromStorageClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeepArchive :: StorageClass
-pattern DeepArchive = StorageClass' "DEEP_ARCHIVE"
+pattern StorageClassDEEPARCHIVE :: StorageClass
+pattern StorageClassDEEPARCHIVE = StorageClass' "DEEP_ARCHIVE"
 
-pattern Glacier :: StorageClass
-pattern Glacier = StorageClass' "GLACIER"
+pattern StorageClassGLACIER :: StorageClass
+pattern StorageClassGLACIER = StorageClass' "GLACIER"
 
-pattern IntelligentTiering :: StorageClass
-pattern IntelligentTiering = StorageClass' "INTELLIGENT_TIERING"
+pattern StorageClassINTELLIGENTTIERING :: StorageClass
+pattern StorageClassINTELLIGENTTIERING = StorageClass' "INTELLIGENT_TIERING"
 
-pattern OnezoneIA :: StorageClass
-pattern OnezoneIA = StorageClass' "ONEZONE_IA"
+pattern StorageClassONEZONEIA :: StorageClass
+pattern StorageClassONEZONEIA = StorageClass' "ONEZONE_IA"
 
-pattern Outposts :: StorageClass
-pattern Outposts = StorageClass' "OUTPOSTS"
+pattern StorageClassOUTPOSTS :: StorageClass
+pattern StorageClassOUTPOSTS = StorageClass' "OUTPOSTS"
 
-pattern ReducedRedundancy :: StorageClass
-pattern ReducedRedundancy = StorageClass' "REDUCED_REDUNDANCY"
+pattern StorageClassREDUCEDREDUNDANCY :: StorageClass
+pattern StorageClassREDUCEDREDUNDANCY = StorageClass' "REDUCED_REDUNDANCY"
 
-pattern Standard :: StorageClass
-pattern Standard = StorageClass' "STANDARD"
+pattern StorageClassSTANDARD :: StorageClass
+pattern StorageClassSTANDARD = StorageClass' "STANDARD"
 
-pattern StandardIA :: StorageClass
-pattern StandardIA = StorageClass' "STANDARD_IA"
+pattern StorageClassSTANDARDIA :: StorageClass
+pattern StorageClassSTANDARDIA = StorageClass' "STANDARD_IA"
 
 {-# COMPLETE
-  DeepArchive,
-  Glacier,
-  IntelligentTiering,
-  OnezoneIA,
-  Outposts,
-  ReducedRedundancy,
-  Standard,
-  StandardIA,
+  StorageClassDEEPARCHIVE,
+  StorageClassGLACIER,
+  StorageClassINTELLIGENTTIERING,
+  StorageClassONEZONEIA,
+  StorageClassOUTPOSTS,
+  StorageClassREDUCEDREDUNDANCY,
+  StorageClassSTANDARD,
+  StorageClassSTANDARDIA,
   StorageClass'
   #-}
 
-instance FromText StorageClass where
-  parser = (StorageClass' . mk) <$> takeText
+instance Prelude.FromText StorageClass where
+  parser = StorageClass' Prelude.<$> Prelude.takeText
 
-instance ToText StorageClass where
-  toText (StorageClass' ci) = original ci
+instance Prelude.ToText StorageClass where
+  toText (StorageClass' x) = x
 
-instance Hashable StorageClass
+instance Prelude.Hashable StorageClass
 
-instance NFData StorageClass
+instance Prelude.NFData StorageClass
 
-instance ToByteString StorageClass
+instance Prelude.ToByteString StorageClass
 
-instance ToQuery StorageClass
+instance Prelude.ToQuery StorageClass
 
-instance ToHeader StorageClass
+instance Prelude.ToHeader StorageClass
 
-instance FromXML StorageClass where
-  parseXML = parseXMLText "StorageClass"
+instance Prelude.FromXML StorageClass where
+  parseXML = Prelude.parseXMLText "StorageClass"
 
-instance ToXML StorageClass where
-  toXML = toXMLText
+instance Prelude.ToXML StorageClass where
+  toXML = Prelude.toXMLText

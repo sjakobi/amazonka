@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,113 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation removes the website configuration for a bucket. Amazon S3 returns a @200 OK@ response upon successfully deleting a website configuration on the specified bucket. You will get a @200 OK@ response if the website configuration you are trying to delete does not exist on the bucket. Amazon S3 returns a @404@ response if the bucket specified in the request does not exist.
+-- This operation removes the website configuration for a bucket. Amazon S3
+-- returns a @200 OK@ response upon successfully deleting a website
+-- configuration on the specified bucket. You will get a @200 OK@ response
+-- if the website configuration you are trying to delete does not exist on
+-- the bucket. Amazon S3 returns a @404@ response if the bucket specified
+-- in the request does not exist.
 --
+-- This DELETE operation requires the @S3:DeleteBucketWebsite@ permission.
+-- By default, only the bucket owner can delete the website configuration
+-- attached to a bucket. However, bucket owners can grant other users
+-- permission to delete the website configuration by writing a bucket
+-- policy granting them the @S3:DeleteBucketWebsite@ permission.
 --
--- This DELETE operation requires the @S3:DeleteBucketWebsite@ permission. By default, only the bucket owner can delete the website configuration attached to a bucket. However, bucket owners can grant other users permission to delete the website configuration by writing a bucket policy granting them the @S3:DeleteBucketWebsite@ permission.
+-- For more information about hosting websites, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html Hosting Websites on Amazon S3>.
 --
--- For more information about hosting websites, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html Hosting Websites on Amazon S3> .
+-- The following operations are related to @DeleteBucketWebsite@:
 --
--- The following operations are related to @DeleteBucketWebsite@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketWebsite.html GetBucketWebsite>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketWebsite.html GetBucketWebsite>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html PutBucketWebsite>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketWebsite.html PutBucketWebsite>
 module Network.AWS.S3.DeleteBucketWebsite
   ( -- * Creating a Request
-    deleteBucketWebsite,
-    DeleteBucketWebsite,
+    DeleteBucketWebsite (..),
+    newDeleteBucketWebsite,
 
     -- * Request Lenses
-    dbwExpectedBucketOwner,
-    dbwBucket,
+    deleteBucketWebsite_expectedBucketOwner,
+    deleteBucketWebsite_bucket,
 
     -- * Destructuring the Response
-    deleteBucketWebsiteResponse,
-    DeleteBucketWebsiteResponse,
+    DeleteBucketWebsiteResponse (..),
+    newDeleteBucketWebsiteResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
 
--- | /See:/ 'deleteBucketWebsite' smart constructor.
+-- | /See:/ 'newDeleteBucketWebsite' smart constructor.
 data DeleteBucketWebsite = DeleteBucketWebsite'
-  { _dbwExpectedBucketOwner ::
-      !(Maybe Text),
-    _dbwBucket :: !BucketName
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The bucket name for which you want to remove the website configuration.
+    bucket :: BucketName
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketWebsite' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBucketWebsite' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbwExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbwBucket' - The bucket name for which you want to remove the website configuration.
-deleteBucketWebsite ::
-  -- | 'dbwBucket'
+-- 'expectedBucketOwner', 'deleteBucketWebsite_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+--
+-- 'bucket', 'deleteBucketWebsite_bucket' - The bucket name for which you want to remove the website configuration.
+newDeleteBucketWebsite ::
+  -- | 'bucket'
   BucketName ->
   DeleteBucketWebsite
-deleteBucketWebsite pBucket_ =
+newDeleteBucketWebsite pBucket_ =
   DeleteBucketWebsite'
-    { _dbwExpectedBucketOwner =
-        Nothing,
-      _dbwBucket = pBucket_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-dbwExpectedBucketOwner :: Lens' DeleteBucketWebsite (Maybe Text)
-dbwExpectedBucketOwner = lens _dbwExpectedBucketOwner (\s a -> s {_dbwExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+deleteBucketWebsite_expectedBucketOwner :: Lens.Lens' DeleteBucketWebsite (Prelude.Maybe Prelude.Text)
+deleteBucketWebsite_expectedBucketOwner = Lens.lens (\DeleteBucketWebsite' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketWebsite' {} a -> s {expectedBucketOwner = a} :: DeleteBucketWebsite)
 
 -- | The bucket name for which you want to remove the website configuration.
-dbwBucket :: Lens' DeleteBucketWebsite BucketName
-dbwBucket = lens _dbwBucket (\s a -> s {_dbwBucket = a})
+deleteBucketWebsite_bucket :: Lens.Lens' DeleteBucketWebsite BucketName
+deleteBucketWebsite_bucket = Lens.lens (\DeleteBucketWebsite' {bucket} -> bucket) (\s@DeleteBucketWebsite' {} a -> s {bucket = a} :: DeleteBucketWebsite)
 
-instance AWSRequest DeleteBucketWebsite where
+instance Prelude.AWSRequest DeleteBucketWebsite where
   type
     Rs DeleteBucketWebsite =
       DeleteBucketWebsiteResponse
-  request = delete s3
-  response = receiveNull DeleteBucketWebsiteResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteBucketWebsiteResponse'
 
-instance Hashable DeleteBucketWebsite
+instance Prelude.Hashable DeleteBucketWebsite
 
-instance NFData DeleteBucketWebsite
+instance Prelude.NFData DeleteBucketWebsite
 
-instance ToHeaders DeleteBucketWebsite where
+instance Prelude.ToHeaders DeleteBucketWebsite where
   toHeaders DeleteBucketWebsite' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _dbwExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath DeleteBucketWebsite where
+instance Prelude.ToPath DeleteBucketWebsite where
   toPath DeleteBucketWebsite' {..} =
-    mconcat ["/", toBS _dbwBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery DeleteBucketWebsite where
-  toQuery = const (mconcat ["website"])
+instance Prelude.ToQuery DeleteBucketWebsite where
+  toQuery = Prelude.const (Prelude.mconcat ["website"])
 
--- | /See:/ 'deleteBucketWebsiteResponse' smart constructor.
+-- | /See:/ 'newDeleteBucketWebsiteResponse' smart constructor.
 data DeleteBucketWebsiteResponse = DeleteBucketWebsiteResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketWebsiteResponse' with the minimum fields required to make a request.
-deleteBucketWebsiteResponse ::
+-- |
+-- Create a value of 'DeleteBucketWebsiteResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteBucketWebsiteResponse ::
   DeleteBucketWebsiteResponse
-deleteBucketWebsiteResponse =
+newDeleteBucketWebsiteResponse =
   DeleteBucketWebsiteResponse'
 
-instance NFData DeleteBucketWebsiteResponse
+instance Prelude.NFData DeleteBucketWebsiteResponse

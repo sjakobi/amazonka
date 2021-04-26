@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.S3.Types.FileHeaderInfo
   ( FileHeaderInfo
       ( ..,
-        Ignore,
-        None,
-        Use
+        FileHeaderInfoIGNORE,
+        FileHeaderInfoNONE,
+        FileHeaderInfoUSE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data FileHeaderInfo = FileHeaderInfo' (CI Text)
+newtype FileHeaderInfo = FileHeaderInfo'
+  { fromFileHeaderInfo ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ignore :: FileHeaderInfo
-pattern Ignore = FileHeaderInfo' "IGNORE"
+pattern FileHeaderInfoIGNORE :: FileHeaderInfo
+pattern FileHeaderInfoIGNORE = FileHeaderInfo' "IGNORE"
 
-pattern None :: FileHeaderInfo
-pattern None = FileHeaderInfo' "NONE"
+pattern FileHeaderInfoNONE :: FileHeaderInfo
+pattern FileHeaderInfoNONE = FileHeaderInfo' "NONE"
 
-pattern Use :: FileHeaderInfo
-pattern Use = FileHeaderInfo' "USE"
+pattern FileHeaderInfoUSE :: FileHeaderInfo
+pattern FileHeaderInfoUSE = FileHeaderInfo' "USE"
 
 {-# COMPLETE
-  Ignore,
-  None,
-  Use,
+  FileHeaderInfoIGNORE,
+  FileHeaderInfoNONE,
+  FileHeaderInfoUSE,
   FileHeaderInfo'
   #-}
 
-instance FromText FileHeaderInfo where
-  parser = (FileHeaderInfo' . mk) <$> takeText
+instance Prelude.FromText FileHeaderInfo where
+  parser = FileHeaderInfo' Prelude.<$> Prelude.takeText
 
-instance ToText FileHeaderInfo where
-  toText (FileHeaderInfo' ci) = original ci
+instance Prelude.ToText FileHeaderInfo where
+  toText (FileHeaderInfo' x) = x
 
-instance Hashable FileHeaderInfo
+instance Prelude.Hashable FileHeaderInfo
 
-instance NFData FileHeaderInfo
+instance Prelude.NFData FileHeaderInfo
 
-instance ToByteString FileHeaderInfo
+instance Prelude.ToByteString FileHeaderInfo
 
-instance ToQuery FileHeaderInfo
+instance Prelude.ToQuery FileHeaderInfo
 
-instance ToHeader FileHeaderInfo
+instance Prelude.ToHeader FileHeaderInfo
 
-instance ToXML FileHeaderInfo where
-  toXML = toXMLText
+instance Prelude.ToXML FileHeaderInfo where
+  toXML = Prelude.toXMLText

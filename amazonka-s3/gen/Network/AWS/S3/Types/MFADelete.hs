@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.S3.Types.MFADelete
   ( MFADelete
       ( ..,
-        MDDisabled,
-        MDEnabled
+        MFADeleteDisabled,
+        MFADeleteEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data MFADelete = MFADelete' (CI Text)
+newtype MFADelete = MFADelete'
+  { fromMFADelete ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MDDisabled :: MFADelete
-pattern MDDisabled = MFADelete' "Disabled"
+pattern MFADeleteDisabled :: MFADelete
+pattern MFADeleteDisabled = MFADelete' "Disabled"
 
-pattern MDEnabled :: MFADelete
-pattern MDEnabled = MFADelete' "Enabled"
+pattern MFADeleteEnabled :: MFADelete
+pattern MFADeleteEnabled = MFADelete' "Enabled"
 
 {-# COMPLETE
-  MDDisabled,
-  MDEnabled,
+  MFADeleteDisabled,
+  MFADeleteEnabled,
   MFADelete'
   #-}
 
-instance FromText MFADelete where
-  parser = (MFADelete' . mk) <$> takeText
+instance Prelude.FromText MFADelete where
+  parser = MFADelete' Prelude.<$> Prelude.takeText
 
-instance ToText MFADelete where
-  toText (MFADelete' ci) = original ci
+instance Prelude.ToText MFADelete where
+  toText (MFADelete' x) = x
 
-instance Hashable MFADelete
+instance Prelude.Hashable MFADelete
 
-instance NFData MFADelete
+instance Prelude.NFData MFADelete
 
-instance ToByteString MFADelete
+instance Prelude.ToByteString MFADelete
 
-instance ToQuery MFADelete
+instance Prelude.ToQuery MFADelete
 
-instance ToHeader MFADelete
+instance Prelude.ToHeader MFADelete
 
-instance ToXML MFADelete where
-  toXML = toXMLText
+instance Prelude.ToXML MFADelete where
+  toXML = Prelude.toXMLText

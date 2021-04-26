@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.SelectObjectContentEventStream where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ContinuationEvent
 import Network.AWS.S3.Types.EndEvent
@@ -26,94 +30,86 @@ import Network.AWS.S3.Types.StatsEvent
 
 -- | The container for selecting objects from a content event stream.
 --
---
---
--- /See:/ 'selectObjectContentEventStream' smart constructor.
+-- /See:/ 'newSelectObjectContentEventStream' smart constructor.
 data SelectObjectContentEventStream = SelectObjectContentEventStream'
-  { _socesEnd ::
-      !( Maybe
-           EndEvent
-       ),
-    _socesRecords ::
-      !( Maybe
-           RecordsEvent
-       ),
-    _socesStats ::
-      !( Maybe
-           StatsEvent
-       ),
-    _socesCont ::
-      !( Maybe
-           ContinuationEvent
-       ),
-    _socesProgress ::
-      !( Maybe
-           ProgressEvent
-       )
+  { -- | The End Event.
+    end :: Prelude.Maybe EndEvent,
+    -- | The Records Event.
+    records :: Prelude.Maybe RecordsEvent,
+    -- | The Stats Event.
+    stats :: Prelude.Maybe StatsEvent,
+    -- | The Continuation Event.
+    cont :: Prelude.Maybe ContinuationEvent,
+    -- | The Progress Event.
+    progress :: Prelude.Maybe ProgressEvent
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SelectObjectContentEventStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SelectObjectContentEventStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'socesEnd' - The End Event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'socesRecords' - The Records Event.
+-- 'end', 'selectObjectContentEventStream_end' - The End Event.
 --
--- * 'socesStats' - The Stats Event.
+-- 'records', 'selectObjectContentEventStream_records' - The Records Event.
 --
--- * 'socesCont' - The Continuation Event.
+-- 'stats', 'selectObjectContentEventStream_stats' - The Stats Event.
 --
--- * 'socesProgress' - The Progress Event.
-selectObjectContentEventStream ::
+-- 'cont', 'selectObjectContentEventStream_cont' - The Continuation Event.
+--
+-- 'progress', 'selectObjectContentEventStream_progress' - The Progress Event.
+newSelectObjectContentEventStream ::
   SelectObjectContentEventStream
-selectObjectContentEventStream =
+newSelectObjectContentEventStream =
   SelectObjectContentEventStream'
-    { _socesEnd =
-        Nothing,
-      _socesRecords = Nothing,
-      _socesStats = Nothing,
-      _socesCont = Nothing,
-      _socesProgress = Nothing
+    { end =
+        Prelude.Nothing,
+      records = Prelude.Nothing,
+      stats = Prelude.Nothing,
+      cont = Prelude.Nothing,
+      progress = Prelude.Nothing
     }
 
 -- | The End Event.
-socesEnd :: Lens' SelectObjectContentEventStream (Maybe EndEvent)
-socesEnd = lens _socesEnd (\s a -> s {_socesEnd = a})
+selectObjectContentEventStream_end :: Lens.Lens' SelectObjectContentEventStream (Prelude.Maybe EndEvent)
+selectObjectContentEventStream_end = Lens.lens (\SelectObjectContentEventStream' {end} -> end) (\s@SelectObjectContentEventStream' {} a -> s {end = a} :: SelectObjectContentEventStream)
 
 -- | The Records Event.
-socesRecords :: Lens' SelectObjectContentEventStream (Maybe RecordsEvent)
-socesRecords = lens _socesRecords (\s a -> s {_socesRecords = a})
+selectObjectContentEventStream_records :: Lens.Lens' SelectObjectContentEventStream (Prelude.Maybe RecordsEvent)
+selectObjectContentEventStream_records = Lens.lens (\SelectObjectContentEventStream' {records} -> records) (\s@SelectObjectContentEventStream' {} a -> s {records = a} :: SelectObjectContentEventStream)
 
 -- | The Stats Event.
-socesStats :: Lens' SelectObjectContentEventStream (Maybe StatsEvent)
-socesStats = lens _socesStats (\s a -> s {_socesStats = a})
+selectObjectContentEventStream_stats :: Lens.Lens' SelectObjectContentEventStream (Prelude.Maybe StatsEvent)
+selectObjectContentEventStream_stats = Lens.lens (\SelectObjectContentEventStream' {stats} -> stats) (\s@SelectObjectContentEventStream' {} a -> s {stats = a} :: SelectObjectContentEventStream)
 
 -- | The Continuation Event.
-socesCont :: Lens' SelectObjectContentEventStream (Maybe ContinuationEvent)
-socesCont = lens _socesCont (\s a -> s {_socesCont = a})
+selectObjectContentEventStream_cont :: Lens.Lens' SelectObjectContentEventStream (Prelude.Maybe ContinuationEvent)
+selectObjectContentEventStream_cont = Lens.lens (\SelectObjectContentEventStream' {cont} -> cont) (\s@SelectObjectContentEventStream' {} a -> s {cont = a} :: SelectObjectContentEventStream)
 
 -- | The Progress Event.
-socesProgress :: Lens' SelectObjectContentEventStream (Maybe ProgressEvent)
-socesProgress = lens _socesProgress (\s a -> s {_socesProgress = a})
+selectObjectContentEventStream_progress :: Lens.Lens' SelectObjectContentEventStream (Prelude.Maybe ProgressEvent)
+selectObjectContentEventStream_progress = Lens.lens (\SelectObjectContentEventStream' {progress} -> progress) (\s@SelectObjectContentEventStream' {} a -> s {progress = a} :: SelectObjectContentEventStream)
 
-instance FromXML SelectObjectContentEventStream where
+instance
+  Prelude.FromXML
+    SelectObjectContentEventStream
+  where
   parseXML x =
     SelectObjectContentEventStream'
-      <$> (x .@? "End")
-      <*> (x .@? "Records")
-      <*> (x .@? "Stats")
-      <*> (x .@? "Cont")
-      <*> (x .@? "Progress")
+      Prelude.<$> (x Prelude..@? "End")
+      Prelude.<*> (x Prelude..@? "Records")
+      Prelude.<*> (x Prelude..@? "Stats")
+      Prelude.<*> (x Prelude..@? "Cont")
+      Prelude.<*> (x Prelude..@? "Progress")
 
-instance Hashable SelectObjectContentEventStream
+instance
+  Prelude.Hashable
+    SelectObjectContentEventStream
 
-instance NFData SelectObjectContentEventStream
+instance
+  Prelude.NFData
+    SelectObjectContentEventStream

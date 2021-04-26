@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,74 @@
 module Network.AWS.S3.Types.Permission
   ( Permission
       ( ..,
-        PFullControl,
-        PRead,
-        PReadAcp,
-        PWrite,
-        PWriteAcp
+        PermissionFULLCONTROL,
+        PermissionREAD,
+        PermissionREADACP,
+        PermissionWRITE,
+        PermissionWRITEACP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data Permission = Permission' (CI Text)
+newtype Permission = Permission'
+  { fromPermission ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PFullControl :: Permission
-pattern PFullControl = Permission' "FULL_CONTROL"
+pattern PermissionFULLCONTROL :: Permission
+pattern PermissionFULLCONTROL = Permission' "FULL_CONTROL"
 
-pattern PRead :: Permission
-pattern PRead = Permission' "READ"
+pattern PermissionREAD :: Permission
+pattern PermissionREAD = Permission' "READ"
 
-pattern PReadAcp :: Permission
-pattern PReadAcp = Permission' "READ_ACP"
+pattern PermissionREADACP :: Permission
+pattern PermissionREADACP = Permission' "READ_ACP"
 
-pattern PWrite :: Permission
-pattern PWrite = Permission' "WRITE"
+pattern PermissionWRITE :: Permission
+pattern PermissionWRITE = Permission' "WRITE"
 
-pattern PWriteAcp :: Permission
-pattern PWriteAcp = Permission' "WRITE_ACP"
+pattern PermissionWRITEACP :: Permission
+pattern PermissionWRITEACP = Permission' "WRITE_ACP"
 
 {-# COMPLETE
-  PFullControl,
-  PRead,
-  PReadAcp,
-  PWrite,
-  PWriteAcp,
+  PermissionFULLCONTROL,
+  PermissionREAD,
+  PermissionREADACP,
+  PermissionWRITE,
+  PermissionWRITEACP,
   Permission'
   #-}
 
-instance FromText Permission where
-  parser = (Permission' . mk) <$> takeText
+instance Prelude.FromText Permission where
+  parser = Permission' Prelude.<$> Prelude.takeText
 
-instance ToText Permission where
-  toText (Permission' ci) = original ci
+instance Prelude.ToText Permission where
+  toText (Permission' x) = x
 
-instance Hashable Permission
+instance Prelude.Hashable Permission
 
-instance NFData Permission
+instance Prelude.NFData Permission
 
-instance ToByteString Permission
+instance Prelude.ToByteString Permission
 
-instance ToQuery Permission
+instance Prelude.ToQuery Permission
 
-instance ToHeader Permission
+instance Prelude.ToHeader Permission
 
-instance FromXML Permission where
-  parseXML = parseXMLText "Permission"
+instance Prelude.FromXML Permission where
+  parseXML = Prelude.parseXMLText "Permission"
 
-instance ToXML Permission where
-  toXML = toXMLText
+instance Prelude.ToXML Permission where
+  toXML = Prelude.toXMLText

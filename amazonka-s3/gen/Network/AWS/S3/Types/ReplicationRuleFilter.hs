@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,124 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.ReplicationRuleFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ReplicationRuleAndOperator
 import Network.AWS.S3.Types.Tag
 
--- | A filter that identifies the subset of objects to which the replication rule applies. A @Filter@ must specify exactly one @Prefix@ , @Tag@ , or an @And@ child element.
+-- | A filter that identifies the subset of objects to which the replication
+-- rule applies. A @Filter@ must specify exactly one @Prefix@, @Tag@, or an
+-- @And@ child element.
 --
---
---
--- /See:/ 'replicationRuleFilter' smart constructor.
+-- /See:/ 'newReplicationRuleFilter' smart constructor.
 data ReplicationRuleFilter = ReplicationRuleFilter'
-  { _rrfPrefix ::
-      !(Maybe Text),
-    _rrfAnd ::
-      !( Maybe
-           ReplicationRuleAndOperator
-       ),
-    _rrfTag :: !(Maybe Tag)
+  { -- | An object key name prefix that identifies the subset of objects to which
+    -- the rule applies.
+    --
+    -- Replacement must be made for object keys containing special characters
+    -- (such as carriage returns) when using XML requests. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | A container for specifying rule filters. The filters determine the
+    -- subset of objects to which the rule applies. This element is required
+    -- only if you specify more than one filter. For example:
+    --
+    -- -   If you specify both a @Prefix@ and a @Tag@ filter, wrap these
+    --     filters in an @And@ tag.
+    --
+    -- -   If you specify a filter based on multiple tags, wrap the @Tag@
+    --     elements in an @And@ tag.
+    and :: Prelude.Maybe ReplicationRuleAndOperator,
+    -- | A container for specifying a tag key and value.
+    --
+    -- The rule applies only to objects that have the tag in their tag set.
+    tag :: Prelude.Maybe Tag
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationRuleFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationRuleFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrfPrefix' - An object key name prefix that identifies the subset of objects to which the rule applies. /Important:/ Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrfAnd' - A container for specifying rule filters. The filters determine the subset of objects to which the rule applies. This element is required only if you specify more than one filter. For example:      * If you specify both a @Prefix@ and a @Tag@ filter, wrap these filters in an @And@ tag.     * If you specify a filter based on multiple tags, wrap the @Tag@ elements in an @And@ tag.
+-- 'prefix', 'replicationRuleFilter_prefix' - An object key name prefix that identifies the subset of objects to which
+-- the rule applies.
 --
--- * 'rrfTag' - A container for specifying a tag key and value.  The rule applies only to objects that have the tag in their tag set.
-replicationRuleFilter ::
+-- Replacement must be made for object keys containing special characters
+-- (such as carriage returns) when using XML requests. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
+--
+-- 'and', 'replicationRuleFilter_and' - A container for specifying rule filters. The filters determine the
+-- subset of objects to which the rule applies. This element is required
+-- only if you specify more than one filter. For example:
+--
+-- -   If you specify both a @Prefix@ and a @Tag@ filter, wrap these
+--     filters in an @And@ tag.
+--
+-- -   If you specify a filter based on multiple tags, wrap the @Tag@
+--     elements in an @And@ tag.
+--
+-- 'tag', 'replicationRuleFilter_tag' - A container for specifying a tag key and value.
+--
+-- The rule applies only to objects that have the tag in their tag set.
+newReplicationRuleFilter ::
   ReplicationRuleFilter
-replicationRuleFilter =
+newReplicationRuleFilter =
   ReplicationRuleFilter'
-    { _rrfPrefix = Nothing,
-      _rrfAnd = Nothing,
-      _rrfTag = Nothing
+    { prefix = Prelude.Nothing,
+      and = Prelude.Nothing,
+      tag = Prelude.Nothing
     }
 
--- | An object key name prefix that identifies the subset of objects to which the rule applies. /Important:/ Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints> .
-rrfPrefix :: Lens' ReplicationRuleFilter (Maybe Text)
-rrfPrefix = lens _rrfPrefix (\s a -> s {_rrfPrefix = a})
+-- | An object key name prefix that identifies the subset of objects to which
+-- the rule applies.
+--
+-- Replacement must be made for object keys containing special characters
+-- (such as carriage returns) when using XML requests. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
+replicationRuleFilter_prefix :: Lens.Lens' ReplicationRuleFilter (Prelude.Maybe Prelude.Text)
+replicationRuleFilter_prefix = Lens.lens (\ReplicationRuleFilter' {prefix} -> prefix) (\s@ReplicationRuleFilter' {} a -> s {prefix = a} :: ReplicationRuleFilter)
 
--- | A container for specifying rule filters. The filters determine the subset of objects to which the rule applies. This element is required only if you specify more than one filter. For example:      * If you specify both a @Prefix@ and a @Tag@ filter, wrap these filters in an @And@ tag.     * If you specify a filter based on multiple tags, wrap the @Tag@ elements in an @And@ tag.
-rrfAnd :: Lens' ReplicationRuleFilter (Maybe ReplicationRuleAndOperator)
-rrfAnd = lens _rrfAnd (\s a -> s {_rrfAnd = a})
+-- | A container for specifying rule filters. The filters determine the
+-- subset of objects to which the rule applies. This element is required
+-- only if you specify more than one filter. For example:
+--
+-- -   If you specify both a @Prefix@ and a @Tag@ filter, wrap these
+--     filters in an @And@ tag.
+--
+-- -   If you specify a filter based on multiple tags, wrap the @Tag@
+--     elements in an @And@ tag.
+replicationRuleFilter_and :: Lens.Lens' ReplicationRuleFilter (Prelude.Maybe ReplicationRuleAndOperator)
+replicationRuleFilter_and = Lens.lens (\ReplicationRuleFilter' {and} -> and) (\s@ReplicationRuleFilter' {} a -> s {and = a} :: ReplicationRuleFilter)
 
--- | A container for specifying a tag key and value.  The rule applies only to objects that have the tag in their tag set.
-rrfTag :: Lens' ReplicationRuleFilter (Maybe Tag)
-rrfTag = lens _rrfTag (\s a -> s {_rrfTag = a})
+-- | A container for specifying a tag key and value.
+--
+-- The rule applies only to objects that have the tag in their tag set.
+replicationRuleFilter_tag :: Lens.Lens' ReplicationRuleFilter (Prelude.Maybe Tag)
+replicationRuleFilter_tag = Lens.lens (\ReplicationRuleFilter' {tag} -> tag) (\s@ReplicationRuleFilter' {} a -> s {tag = a} :: ReplicationRuleFilter)
 
-instance FromXML ReplicationRuleFilter where
+instance Prelude.FromXML ReplicationRuleFilter where
   parseXML x =
     ReplicationRuleFilter'
-      <$> (x .@? "Prefix") <*> (x .@? "And") <*> (x .@? "Tag")
+      Prelude.<$> (x Prelude..@? "Prefix")
+      Prelude.<*> (x Prelude..@? "And")
+      Prelude.<*> (x Prelude..@? "Tag")
 
-instance Hashable ReplicationRuleFilter
+instance Prelude.Hashable ReplicationRuleFilter
 
-instance NFData ReplicationRuleFilter
+instance Prelude.NFData ReplicationRuleFilter
 
-instance ToXML ReplicationRuleFilter where
+instance Prelude.ToXML ReplicationRuleFilter where
   toXML ReplicationRuleFilter' {..} =
-    mconcat
-      [ "Prefix" @= _rrfPrefix,
-        "And" @= _rrfAnd,
-        "Tag" @= _rrfTag
+    Prelude.mconcat
+      [ "Prefix" Prelude.@= prefix,
+        "And" Prelude.@= and,
+        "Tag" Prelude.@= tag
       ]

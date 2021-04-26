@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,67 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.LifecycleRuleAndOperator where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Tag
 
--- | This is used in a Lifecycle Rule Filter to apply a logical AND to two or more predicates. The Lifecycle Rule will apply to any object matching all of the predicates configured inside the And operator.
+-- | This is used in a Lifecycle Rule Filter to apply a logical AND to two or
+-- more predicates. The Lifecycle Rule will apply to any object matching
+-- all of the predicates configured inside the And operator.
 --
---
---
--- /See:/ 'lifecycleRuleAndOperator' smart constructor.
+-- /See:/ 'newLifecycleRuleAndOperator' smart constructor.
 data LifecycleRuleAndOperator = LifecycleRuleAndOperator'
-  { _lraoPrefix ::
-      !(Maybe Text),
-    _lraoTags ::
-      !(Maybe [Tag])
+  { -- | Prefix identifying one or more objects to which the rule applies.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | All of these tags must exist in the object\'s tag set in order for the
+    -- rule to apply.
+    tags :: Prelude.Maybe [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LifecycleRuleAndOperator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LifecycleRuleAndOperator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lraoPrefix' - Prefix identifying one or more objects to which the rule applies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lraoTags' - All of these tags must exist in the object's tag set in order for the rule to apply.
-lifecycleRuleAndOperator ::
+-- 'prefix', 'lifecycleRuleAndOperator_prefix' - Prefix identifying one or more objects to which the rule applies.
+--
+-- 'tags', 'lifecycleRuleAndOperator_tags' - All of these tags must exist in the object\'s tag set in order for the
+-- rule to apply.
+newLifecycleRuleAndOperator ::
   LifecycleRuleAndOperator
-lifecycleRuleAndOperator =
+newLifecycleRuleAndOperator =
   LifecycleRuleAndOperator'
-    { _lraoPrefix = Nothing,
-      _lraoTags = Nothing
+    { prefix = Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
 -- | Prefix identifying one or more objects to which the rule applies.
-lraoPrefix :: Lens' LifecycleRuleAndOperator (Maybe Text)
-lraoPrefix = lens _lraoPrefix (\s a -> s {_lraoPrefix = a})
+lifecycleRuleAndOperator_prefix :: Lens.Lens' LifecycleRuleAndOperator (Prelude.Maybe Prelude.Text)
+lifecycleRuleAndOperator_prefix = Lens.lens (\LifecycleRuleAndOperator' {prefix} -> prefix) (\s@LifecycleRuleAndOperator' {} a -> s {prefix = a} :: LifecycleRuleAndOperator)
 
--- | All of these tags must exist in the object's tag set in order for the rule to apply.
-lraoTags :: Lens' LifecycleRuleAndOperator [Tag]
-lraoTags = lens _lraoTags (\s a -> s {_lraoTags = a}) . _Default . _Coerce
+-- | All of these tags must exist in the object\'s tag set in order for the
+-- rule to apply.
+lifecycleRuleAndOperator_tags :: Lens.Lens' LifecycleRuleAndOperator (Prelude.Maybe [Tag])
+lifecycleRuleAndOperator_tags = Lens.lens (\LifecycleRuleAndOperator' {tags} -> tags) (\s@LifecycleRuleAndOperator' {} a -> s {tags = a} :: LifecycleRuleAndOperator) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML LifecycleRuleAndOperator where
+instance Prelude.FromXML LifecycleRuleAndOperator where
   parseXML x =
     LifecycleRuleAndOperator'
-      <$> (x .@? "Prefix")
-      <*> (x .@? "Tag" .!@ mempty >>= may (parseXMLList "Tag"))
+      Prelude.<$> (x Prelude..@? "Prefix")
+      Prelude.<*> ( x Prelude..@? "Tag" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
 
-instance Hashable LifecycleRuleAndOperator
+instance Prelude.Hashable LifecycleRuleAndOperator
 
-instance NFData LifecycleRuleAndOperator
+instance Prelude.NFData LifecycleRuleAndOperator
 
-instance ToXML LifecycleRuleAndOperator where
+instance Prelude.ToXML LifecycleRuleAndOperator where
   toXML LifecycleRuleAndOperator' {..} =
-    mconcat
-      [ "Prefix" @= _lraoPrefix,
-        "Tag" @= toXML (toXMLList "Tag" <$> _lraoTags)
+    Prelude.mconcat
+      [ "Prefix" Prelude.@= prefix,
+        "Tag"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Tag" Prelude.<$> tags)
       ]

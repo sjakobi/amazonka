@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Tiering where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.IntelligentTieringAccessTier
 
--- | The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead.
+-- | The S3 Intelligent-Tiering storage class is designed to optimize storage
+-- costs by automatically moving data to the most cost-effective storage
+-- access tier, without additional operational overhead.
 --
---
---
--- /See:/ 'tiering' smart constructor.
+-- /See:/ 'newTiering' smart constructor.
 data Tiering = Tiering'
-  { _tieDays :: !Int,
-    _tieAccessTier :: !IntelligentTieringAccessTier
+  { -- | The number of consecutive days of no access after which an object will
+    -- be eligible to be transitioned to the corresponding tier. The minimum
+    -- number of days specified for Archive Access tier must be at least 90
+    -- days and Deep Archive Access tier must be at least 180 days. The maximum
+    -- can be up to 2 years (730 days).
+    days :: Prelude.Int,
+    -- | S3 Intelligent-Tiering access tier. See
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects>
+    -- for a list of access tiers in the S3 Intelligent-Tiering storage class.
+    accessTier :: IntelligentTieringAccessTier
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tiering' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tiering' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tieDays' - The number of consecutive days of no access after which an object will be eligible to be transitioned to the corresponding tier. The minimum number of days specified for Archive Access tier must be at least 90 days and Deep Archive Access tier must be at least 180 days. The maximum can be up to 2 years (730 days).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tieAccessTier' - S3 Intelligent-Tiering access tier. See <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects> for a list of access tiers in the S3 Intelligent-Tiering storage class.
-tiering ::
-  -- | 'tieDays'
-  Int ->
-  -- | 'tieAccessTier'
+-- 'days', 'tiering_days' - The number of consecutive days of no access after which an object will
+-- be eligible to be transitioned to the corresponding tier. The minimum
+-- number of days specified for Archive Access tier must be at least 90
+-- days and Deep Archive Access tier must be at least 180 days. The maximum
+-- can be up to 2 years (730 days).
+--
+-- 'accessTier', 'tiering_accessTier' - S3 Intelligent-Tiering access tier. See
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects>
+-- for a list of access tiers in the S3 Intelligent-Tiering storage class.
+newTiering ::
+  -- | 'days'
+  Prelude.Int ->
+  -- | 'accessTier'
   IntelligentTieringAccessTier ->
   Tiering
-tiering pDays_ pAccessTier_ =
-  Tiering'
-    { _tieDays = pDays_,
-      _tieAccessTier = pAccessTier_
-    }
+newTiering pDays_ pAccessTier_ =
+  Tiering' {days = pDays_, accessTier = pAccessTier_}
 
--- | The number of consecutive days of no access after which an object will be eligible to be transitioned to the corresponding tier. The minimum number of days specified for Archive Access tier must be at least 90 days and Deep Archive Access tier must be at least 180 days. The maximum can be up to 2 years (730 days).
-tieDays :: Lens' Tiering Int
-tieDays = lens _tieDays (\s a -> s {_tieDays = a})
+-- | The number of consecutive days of no access after which an object will
+-- be eligible to be transitioned to the corresponding tier. The minimum
+-- number of days specified for Archive Access tier must be at least 90
+-- days and Deep Archive Access tier must be at least 180 days. The maximum
+-- can be up to 2 years (730 days).
+tiering_days :: Lens.Lens' Tiering Prelude.Int
+tiering_days = Lens.lens (\Tiering' {days} -> days) (\s@Tiering' {} a -> s {days = a} :: Tiering)
 
--- | S3 Intelligent-Tiering access tier. See <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects> for a list of access tiers in the S3 Intelligent-Tiering storage class.
-tieAccessTier :: Lens' Tiering IntelligentTieringAccessTier
-tieAccessTier = lens _tieAccessTier (\s a -> s {_tieAccessTier = a})
+-- | S3 Intelligent-Tiering access tier. See
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects>
+-- for a list of access tiers in the S3 Intelligent-Tiering storage class.
+tiering_accessTier :: Lens.Lens' Tiering IntelligentTieringAccessTier
+tiering_accessTier = Lens.lens (\Tiering' {accessTier} -> accessTier) (\s@Tiering' {} a -> s {accessTier = a} :: Tiering)
 
-instance FromXML Tiering where
+instance Prelude.FromXML Tiering where
   parseXML x =
-    Tiering' <$> (x .@ "Days") <*> (x .@ "AccessTier")
+    Tiering'
+      Prelude.<$> (x Prelude..@ "Days")
+      Prelude.<*> (x Prelude..@ "AccessTier")
 
-instance Hashable Tiering
+instance Prelude.Hashable Tiering
 
-instance NFData Tiering
+instance Prelude.NFData Tiering
 
-instance ToXML Tiering where
+instance Prelude.ToXML Tiering where
   toXML Tiering' {..} =
-    mconcat
-      ["Days" @= _tieDays, "AccessTier" @= _tieAccessTier]
+    Prelude.mconcat
+      [ "Days" Prelude.@= days,
+        "AccessTier" Prelude.@= accessTier
+      ]

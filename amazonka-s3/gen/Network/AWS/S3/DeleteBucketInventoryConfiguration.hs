@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,164 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an inventory configuration (identified by the inventory ID) from the bucket.
+-- Deletes an inventory configuration (identified by the inventory ID) from
+-- the bucket.
 --
+-- To use this operation, you must have permissions to perform the
+-- @s3:PutInventoryConfiguration@ action. The bucket owner has this
+-- permission by default. The bucket owner can grant this permission to
+-- others. For more information about permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources>.
 --
--- To use this operation, you must have permissions to perform the @s3:PutInventoryConfiguration@ action. The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more information about permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations> and <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources> .
---
--- For information about the Amazon S3 inventory feature, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html Amazon S3 Inventory> .
+-- For information about the Amazon S3 inventory feature, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html Amazon S3 Inventory>.
 --
 -- Operations related to @DeleteBucketInventoryConfiguration@ include:
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketInventoryConfiguration.html GetBucketInventoryConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketInventoryConfiguration.html GetBucketInventoryConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html PutBucketInventoryConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html PutBucketInventoryConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html ListBucketInventoryConfigurations>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html ListBucketInventoryConfigurations>
 module Network.AWS.S3.DeleteBucketInventoryConfiguration
   ( -- * Creating a Request
-    deleteBucketInventoryConfiguration,
-    DeleteBucketInventoryConfiguration,
+    DeleteBucketInventoryConfiguration (..),
+    newDeleteBucketInventoryConfiguration,
 
     -- * Request Lenses
-    dbicExpectedBucketOwner,
-    dbicBucket,
-    dbicId,
+    deleteBucketInventoryConfiguration_expectedBucketOwner,
+    deleteBucketInventoryConfiguration_bucket,
+    deleteBucketInventoryConfiguration_id,
 
     -- * Destructuring the Response
-    deleteBucketInventoryConfigurationResponse,
-    DeleteBucketInventoryConfigurationResponse,
+    DeleteBucketInventoryConfigurationResponse (..),
+    newDeleteBucketInventoryConfigurationResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
 
--- | /See:/ 'deleteBucketInventoryConfiguration' smart constructor.
+-- | /See:/ 'newDeleteBucketInventoryConfiguration' smart constructor.
 data DeleteBucketInventoryConfiguration = DeleteBucketInventoryConfiguration'
-  { _dbicExpectedBucketOwner ::
-      !( Maybe
-           Text
-       ),
-    _dbicBucket ::
-      !BucketName,
-    _dbicId ::
-      !Text
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bucket containing the inventory configuration to delete.
+    bucket :: BucketName,
+    -- | The ID used to identify the inventory configuration.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketInventoryConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBucketInventoryConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbicExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbicBucket' - The name of the bucket containing the inventory configuration to delete.
+-- 'expectedBucketOwner', 'deleteBucketInventoryConfiguration_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'dbicId' - The ID used to identify the inventory configuration.
-deleteBucketInventoryConfiguration ::
-  -- | 'dbicBucket'
+-- 'bucket', 'deleteBucketInventoryConfiguration_bucket' - The name of the bucket containing the inventory configuration to delete.
+--
+-- 'id', 'deleteBucketInventoryConfiguration_id' - The ID used to identify the inventory configuration.
+newDeleteBucketInventoryConfiguration ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'dbicId'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
   DeleteBucketInventoryConfiguration
-deleteBucketInventoryConfiguration pBucket_ pId_ =
+newDeleteBucketInventoryConfiguration pBucket_ pId_ =
   DeleteBucketInventoryConfiguration'
-    { _dbicExpectedBucketOwner =
-        Nothing,
-      _dbicBucket = pBucket_,
-      _dbicId = pId_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_,
+      id = pId_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-dbicExpectedBucketOwner :: Lens' DeleteBucketInventoryConfiguration (Maybe Text)
-dbicExpectedBucketOwner = lens _dbicExpectedBucketOwner (\s a -> s {_dbicExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+deleteBucketInventoryConfiguration_expectedBucketOwner :: Lens.Lens' DeleteBucketInventoryConfiguration (Prelude.Maybe Prelude.Text)
+deleteBucketInventoryConfiguration_expectedBucketOwner = Lens.lens (\DeleteBucketInventoryConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketInventoryConfiguration' {} a -> s {expectedBucketOwner = a} :: DeleteBucketInventoryConfiguration)
 
 -- | The name of the bucket containing the inventory configuration to delete.
-dbicBucket :: Lens' DeleteBucketInventoryConfiguration BucketName
-dbicBucket = lens _dbicBucket (\s a -> s {_dbicBucket = a})
+deleteBucketInventoryConfiguration_bucket :: Lens.Lens' DeleteBucketInventoryConfiguration BucketName
+deleteBucketInventoryConfiguration_bucket = Lens.lens (\DeleteBucketInventoryConfiguration' {bucket} -> bucket) (\s@DeleteBucketInventoryConfiguration' {} a -> s {bucket = a} :: DeleteBucketInventoryConfiguration)
 
 -- | The ID used to identify the inventory configuration.
-dbicId :: Lens' DeleteBucketInventoryConfiguration Text
-dbicId = lens _dbicId (\s a -> s {_dbicId = a})
+deleteBucketInventoryConfiguration_id :: Lens.Lens' DeleteBucketInventoryConfiguration Prelude.Text
+deleteBucketInventoryConfiguration_id = Lens.lens (\DeleteBucketInventoryConfiguration' {id} -> id) (\s@DeleteBucketInventoryConfiguration' {} a -> s {id = a} :: DeleteBucketInventoryConfiguration)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteBucketInventoryConfiguration
   where
   type
     Rs DeleteBucketInventoryConfiguration =
       DeleteBucketInventoryConfigurationResponse
-  request = delete s3
+  request = Request.delete defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DeleteBucketInventoryConfigurationResponse'
 
-instance Hashable DeleteBucketInventoryConfiguration
+instance
+  Prelude.Hashable
+    DeleteBucketInventoryConfiguration
 
-instance NFData DeleteBucketInventoryConfiguration
+instance
+  Prelude.NFData
+    DeleteBucketInventoryConfiguration
 
-instance ToHeaders DeleteBucketInventoryConfiguration where
+instance
+  Prelude.ToHeaders
+    DeleteBucketInventoryConfiguration
+  where
   toHeaders DeleteBucketInventoryConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _dbicExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath DeleteBucketInventoryConfiguration where
+instance
+  Prelude.ToPath
+    DeleteBucketInventoryConfiguration
+  where
   toPath DeleteBucketInventoryConfiguration' {..} =
-    mconcat ["/", toBS _dbicBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery DeleteBucketInventoryConfiguration where
+instance
+  Prelude.ToQuery
+    DeleteBucketInventoryConfiguration
+  where
   toQuery DeleteBucketInventoryConfiguration' {..} =
-    mconcat ["id" =: _dbicId, "inventory"]
+    Prelude.mconcat ["id" Prelude.=: id, "inventory"]
 
--- | /See:/ 'deleteBucketInventoryConfigurationResponse' smart constructor.
+-- | /See:/ 'newDeleteBucketInventoryConfigurationResponse' smart constructor.
 data DeleteBucketInventoryConfigurationResponse = DeleteBucketInventoryConfigurationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketInventoryConfigurationResponse' with the minimum fields required to make a request.
-deleteBucketInventoryConfigurationResponse ::
+-- |
+-- Create a value of 'DeleteBucketInventoryConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteBucketInventoryConfigurationResponse ::
   DeleteBucketInventoryConfigurationResponse
-deleteBucketInventoryConfigurationResponse =
+newDeleteBucketInventoryConfigurationResponse =
   DeleteBucketInventoryConfigurationResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeleteBucketInventoryConfigurationResponse

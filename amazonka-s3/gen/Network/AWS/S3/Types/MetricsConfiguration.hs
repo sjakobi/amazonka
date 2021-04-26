@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,75 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.MetricsConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.MetricsFilter
 
--- | Specifies a metrics configuration for the CloudWatch request metrics (specified by the metrics configuration ID) from an Amazon S3 bucket. If you're updating an existing metrics configuration, note that this is a full replacement of the existing metrics configuration. If you don't include the elements you want to keep, they are erased. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTMetricConfiguration.html PUT Bucket metrics> in the /Amazon Simple Storage Service API Reference/ .
+-- | Specifies a metrics configuration for the CloudWatch request metrics
+-- (specified by the metrics configuration ID) from an Amazon S3 bucket. If
+-- you\'re updating an existing metrics configuration, note that this is a
+-- full replacement of the existing metrics configuration. If you don\'t
+-- include the elements you want to keep, they are erased. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTMetricConfiguration.html PUT Bucket metrics>
+-- in the /Amazon Simple Storage Service API Reference/.
 --
---
---
--- /See:/ 'metricsConfiguration' smart constructor.
+-- /See:/ 'newMetricsConfiguration' smart constructor.
 data MetricsConfiguration = MetricsConfiguration'
-  { _mcFilter ::
-      !(Maybe MetricsFilter),
-    _mcId :: !Text
+  { -- | Specifies a metrics configuration filter. The metrics configuration will
+    -- only include objects that meet the filter\'s criteria. A filter must be
+    -- a prefix, a tag, or a conjunction (MetricsAndOperator).
+    filter' :: Prelude.Maybe MetricsFilter,
+    -- | The ID used to identify the metrics configuration.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MetricsConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MetricsConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mcFilter' - Specifies a metrics configuration filter. The metrics configuration will only include objects that meet the filter's criteria. A filter must be a prefix, a tag, or a conjunction (MetricsAndOperator).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mcId' - The ID used to identify the metrics configuration.
-metricsConfiguration ::
-  -- | 'mcId'
-  Text ->
+-- 'filter'', 'metricsConfiguration_filter' - Specifies a metrics configuration filter. The metrics configuration will
+-- only include objects that meet the filter\'s criteria. A filter must be
+-- a prefix, a tag, or a conjunction (MetricsAndOperator).
+--
+-- 'id', 'metricsConfiguration_id' - The ID used to identify the metrics configuration.
+newMetricsConfiguration ::
+  -- | 'id'
+  Prelude.Text ->
   MetricsConfiguration
-metricsConfiguration pId_ =
+newMetricsConfiguration pId_ =
   MetricsConfiguration'
-    { _mcFilter = Nothing,
-      _mcId = pId_
+    { filter' = Prelude.Nothing,
+      id = pId_
     }
 
--- | Specifies a metrics configuration filter. The metrics configuration will only include objects that meet the filter's criteria. A filter must be a prefix, a tag, or a conjunction (MetricsAndOperator).
-mcFilter :: Lens' MetricsConfiguration (Maybe MetricsFilter)
-mcFilter = lens _mcFilter (\s a -> s {_mcFilter = a})
+-- | Specifies a metrics configuration filter. The metrics configuration will
+-- only include objects that meet the filter\'s criteria. A filter must be
+-- a prefix, a tag, or a conjunction (MetricsAndOperator).
+metricsConfiguration_filter :: Lens.Lens' MetricsConfiguration (Prelude.Maybe MetricsFilter)
+metricsConfiguration_filter = Lens.lens (\MetricsConfiguration' {filter'} -> filter') (\s@MetricsConfiguration' {} a -> s {filter' = a} :: MetricsConfiguration)
 
 -- | The ID used to identify the metrics configuration.
-mcId :: Lens' MetricsConfiguration Text
-mcId = lens _mcId (\s a -> s {_mcId = a})
+metricsConfiguration_id :: Lens.Lens' MetricsConfiguration Prelude.Text
+metricsConfiguration_id = Lens.lens (\MetricsConfiguration' {id} -> id) (\s@MetricsConfiguration' {} a -> s {id = a} :: MetricsConfiguration)
 
-instance FromXML MetricsConfiguration where
+instance Prelude.FromXML MetricsConfiguration where
   parseXML x =
     MetricsConfiguration'
-      <$> (x .@? "Filter") <*> (x .@ "Id")
+      Prelude.<$> (x Prelude..@? "Filter")
+      Prelude.<*> (x Prelude..@ "Id")
 
-instance Hashable MetricsConfiguration
+instance Prelude.Hashable MetricsConfiguration
 
-instance NFData MetricsConfiguration
+instance Prelude.NFData MetricsConfiguration
 
-instance ToXML MetricsConfiguration where
+instance Prelude.ToXML MetricsConfiguration where
   toXML MetricsConfiguration' {..} =
-    mconcat ["Filter" @= _mcFilter, "Id" @= _mcId]
+    Prelude.mconcat
+      ["Filter" Prelude.@= filter', "Id" Prelude.@= id]

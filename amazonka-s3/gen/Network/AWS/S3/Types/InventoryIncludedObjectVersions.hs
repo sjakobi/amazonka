@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.InventoryIncludedObjectVersions
   ( InventoryIncludedObjectVersions
       ( ..,
-        All,
-        Current
+        InventoryIncludedObjectVersionsAll,
+        InventoryIncludedObjectVersionsCurrent
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data InventoryIncludedObjectVersions
-  = InventoryIncludedObjectVersions'
-      ( CI
-          Text
-      )
+newtype InventoryIncludedObjectVersions = InventoryIncludedObjectVersions'
+  { fromInventoryIncludedObjectVersions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: InventoryIncludedObjectVersions
-pattern All = InventoryIncludedObjectVersions' "All"
+pattern InventoryIncludedObjectVersionsAll :: InventoryIncludedObjectVersions
+pattern InventoryIncludedObjectVersionsAll = InventoryIncludedObjectVersions' "All"
 
-pattern Current :: InventoryIncludedObjectVersions
-pattern Current = InventoryIncludedObjectVersions' "Current"
+pattern InventoryIncludedObjectVersionsCurrent :: InventoryIncludedObjectVersions
+pattern InventoryIncludedObjectVersionsCurrent = InventoryIncludedObjectVersions' "Current"
 
 {-# COMPLETE
-  All,
-  Current,
+  InventoryIncludedObjectVersionsAll,
+  InventoryIncludedObjectVersionsCurrent,
   InventoryIncludedObjectVersions'
   #-}
 
-instance FromText InventoryIncludedObjectVersions where
-  parser = (InventoryIncludedObjectVersions' . mk) <$> takeText
+instance Prelude.FromText InventoryIncludedObjectVersions where
+  parser = InventoryIncludedObjectVersions' Prelude.<$> Prelude.takeText
 
-instance ToText InventoryIncludedObjectVersions where
-  toText (InventoryIncludedObjectVersions' ci) = original ci
+instance Prelude.ToText InventoryIncludedObjectVersions where
+  toText (InventoryIncludedObjectVersions' x) = x
 
-instance Hashable InventoryIncludedObjectVersions
+instance Prelude.Hashable InventoryIncludedObjectVersions
 
-instance NFData InventoryIncludedObjectVersions
+instance Prelude.NFData InventoryIncludedObjectVersions
 
-instance ToByteString InventoryIncludedObjectVersions
+instance Prelude.ToByteString InventoryIncludedObjectVersions
 
-instance ToQuery InventoryIncludedObjectVersions
+instance Prelude.ToQuery InventoryIncludedObjectVersions
 
-instance ToHeader InventoryIncludedObjectVersions
+instance Prelude.ToHeader InventoryIncludedObjectVersions
 
-instance FromXML InventoryIncludedObjectVersions where
-  parseXML = parseXMLText "InventoryIncludedObjectVersions"
+instance Prelude.FromXML InventoryIncludedObjectVersions where
+  parseXML = Prelude.parseXMLText "InventoryIncludedObjectVersions"
 
-instance ToXML InventoryIncludedObjectVersions where
-  toXML = toXMLText
+instance Prelude.ToXML InventoryIncludedObjectVersions where
+  toXML = Prelude.toXMLText

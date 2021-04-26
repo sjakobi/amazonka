@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -13,57 +15,60 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Waiters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.HeadBucket
 import Network.AWS.S3.HeadObject
+import Network.AWS.S3.Lens
 import Network.AWS.S3.Types
-import Network.AWS.Waiter
+import qualified Network.AWS.Waiter as Waiter
 
 -- | Polls 'Network.AWS.S3.HeadBucket' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-bucketNotExists :: Wait HeadBucket
-bucketNotExists =
-  Wait
-    { _waitName = "BucketNotExists",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors = [matchStatus 404 AcceptSuccess]
+newBucketNotExists :: Waiter.Wait HeadBucket
+newBucketNotExists =
+  Waiter.Wait
+    { Waiter._waitName = "BucketNotExists",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [Waiter.matchStatus 404 Waiter.AcceptSuccess]
     }
 
 -- | Polls 'Network.AWS.S3.HeadObject' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-objectExists :: Wait HeadObject
-objectExists =
-  Wait
-    { _waitName = "ObjectExists",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchStatus 200 AcceptSuccess,
-          matchStatus 404 AcceptRetry
+newObjectExists :: Waiter.Wait HeadObject
+newObjectExists =
+  Waiter.Wait
+    { Waiter._waitName = "ObjectExists",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchStatus 200 Waiter.AcceptSuccess,
+          Waiter.matchStatus 404 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.S3.HeadBucket' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-bucketExists :: Wait HeadBucket
-bucketExists =
-  Wait
-    { _waitName = "BucketExists",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors =
-        [ matchStatus 200 AcceptSuccess,
-          matchStatus 301 AcceptSuccess,
-          matchStatus 403 AcceptSuccess,
-          matchStatus 404 AcceptRetry
+newBucketExists :: Waiter.Wait HeadBucket
+newBucketExists =
+  Waiter.Wait
+    { Waiter._waitName = "BucketExists",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [ Waiter.matchStatus 200 Waiter.AcceptSuccess,
+          Waiter.matchStatus 301 Waiter.AcceptSuccess,
+          Waiter.matchStatus 403 Waiter.AcceptSuccess,
+          Waiter.matchStatus 404 Waiter.AcceptRetry
         ]
     }
 
 -- | Polls 'Network.AWS.S3.HeadObject' every 5 seconds until a successful state is reached. An error is returned after 20 failed checks.
-objectNotExists :: Wait HeadObject
-objectNotExists =
-  Wait
-    { _waitName = "ObjectNotExists",
-      _waitAttempts = 20,
-      _waitDelay = 5,
-      _waitAcceptors = [matchStatus 404 AcceptSuccess]
+newObjectNotExists :: Waiter.Wait HeadObject
+newObjectNotExists =
+  Waiter.Wait
+    { Waiter._waitName = "ObjectNotExists",
+      Waiter._waitAttempts = 20,
+      Waiter._waitDelay = 5,
+      Waiter._waitAcceptors =
+        [Waiter.matchStatus 404 Waiter.AcceptSuccess]
     }

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.MultipartUpload where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Initiator
 import Network.AWS.S3.Types.Owner
@@ -24,82 +28,88 @@ import Network.AWS.S3.Types.StorageClass
 
 -- | Container for the @MultipartUpload@ for the Amazon S3 object.
 --
---
---
--- /See:/ 'multipartUpload' smart constructor.
+-- /See:/ 'newMultipartUpload' smart constructor.
 data MultipartUpload = MultipartUpload'
-  { _muKey ::
-      !(Maybe ObjectKey),
-    _muUploadId :: !(Maybe Text),
-    _muStorageClass ::
-      !(Maybe StorageClass),
-    _muInitiated :: !(Maybe ISO8601),
-    _muOwner :: !(Maybe Owner),
-    _muInitiator :: !(Maybe Initiator)
+  { -- | Key of the object for which the multipart upload was initiated.
+    key :: Prelude.Maybe ObjectKey,
+    -- | Upload ID that identifies the multipart upload.
+    uploadId :: Prelude.Maybe Prelude.Text,
+    -- | The class of storage used to store the object.
+    storageClass :: Prelude.Maybe StorageClass,
+    -- | Date and time at which the multipart upload was initiated.
+    initiated :: Prelude.Maybe Prelude.ISO8601,
+    -- | Specifies the owner of the object that is part of the multipart upload.
+    owner :: Prelude.Maybe Owner,
+    -- | Identifies who initiated the multipart upload.
+    initiator :: Prelude.Maybe Initiator
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MultipartUpload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MultipartUpload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'muKey' - Key of the object for which the multipart upload was initiated.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'muUploadId' - Upload ID that identifies the multipart upload.
+-- 'key', 'multipartUpload_key' - Key of the object for which the multipart upload was initiated.
 --
--- * 'muStorageClass' - The class of storage used to store the object.
+-- 'uploadId', 'multipartUpload_uploadId' - Upload ID that identifies the multipart upload.
 --
--- * 'muInitiated' - Date and time at which the multipart upload was initiated.
+-- 'storageClass', 'multipartUpload_storageClass' - The class of storage used to store the object.
 --
--- * 'muOwner' - Specifies the owner of the object that is part of the multipart upload.
+-- 'initiated', 'multipartUpload_initiated' - Date and time at which the multipart upload was initiated.
 --
--- * 'muInitiator' - Identifies who initiated the multipart upload.
-multipartUpload ::
+-- 'owner', 'multipartUpload_owner' - Specifies the owner of the object that is part of the multipart upload.
+--
+-- 'initiator', 'multipartUpload_initiator' - Identifies who initiated the multipart upload.
+newMultipartUpload ::
   MultipartUpload
-multipartUpload =
+newMultipartUpload =
   MultipartUpload'
-    { _muKey = Nothing,
-      _muUploadId = Nothing,
-      _muStorageClass = Nothing,
-      _muInitiated = Nothing,
-      _muOwner = Nothing,
-      _muInitiator = Nothing
+    { key = Prelude.Nothing,
+      uploadId = Prelude.Nothing,
+      storageClass = Prelude.Nothing,
+      initiated = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      initiator = Prelude.Nothing
     }
 
 -- | Key of the object for which the multipart upload was initiated.
-muKey :: Lens' MultipartUpload (Maybe ObjectKey)
-muKey = lens _muKey (\s a -> s {_muKey = a})
+multipartUpload_key :: Lens.Lens' MultipartUpload (Prelude.Maybe ObjectKey)
+multipartUpload_key = Lens.lens (\MultipartUpload' {key} -> key) (\s@MultipartUpload' {} a -> s {key = a} :: MultipartUpload)
 
 -- | Upload ID that identifies the multipart upload.
-muUploadId :: Lens' MultipartUpload (Maybe Text)
-muUploadId = lens _muUploadId (\s a -> s {_muUploadId = a})
+multipartUpload_uploadId :: Lens.Lens' MultipartUpload (Prelude.Maybe Prelude.Text)
+multipartUpload_uploadId = Lens.lens (\MultipartUpload' {uploadId} -> uploadId) (\s@MultipartUpload' {} a -> s {uploadId = a} :: MultipartUpload)
 
 -- | The class of storage used to store the object.
-muStorageClass :: Lens' MultipartUpload (Maybe StorageClass)
-muStorageClass = lens _muStorageClass (\s a -> s {_muStorageClass = a})
+multipartUpload_storageClass :: Lens.Lens' MultipartUpload (Prelude.Maybe StorageClass)
+multipartUpload_storageClass = Lens.lens (\MultipartUpload' {storageClass} -> storageClass) (\s@MultipartUpload' {} a -> s {storageClass = a} :: MultipartUpload)
 
 -- | Date and time at which the multipart upload was initiated.
-muInitiated :: Lens' MultipartUpload (Maybe UTCTime)
-muInitiated = lens _muInitiated (\s a -> s {_muInitiated = a}) . mapping _Time
+multipartUpload_initiated :: Lens.Lens' MultipartUpload (Prelude.Maybe Prelude.UTCTime)
+multipartUpload_initiated = Lens.lens (\MultipartUpload' {initiated} -> initiated) (\s@MultipartUpload' {} a -> s {initiated = a} :: MultipartUpload) Prelude.. Lens.mapping Prelude._Time
 
 -- | Specifies the owner of the object that is part of the multipart upload.
-muOwner :: Lens' MultipartUpload (Maybe Owner)
-muOwner = lens _muOwner (\s a -> s {_muOwner = a})
+multipartUpload_owner :: Lens.Lens' MultipartUpload (Prelude.Maybe Owner)
+multipartUpload_owner = Lens.lens (\MultipartUpload' {owner} -> owner) (\s@MultipartUpload' {} a -> s {owner = a} :: MultipartUpload)
 
 -- | Identifies who initiated the multipart upload.
-muInitiator :: Lens' MultipartUpload (Maybe Initiator)
-muInitiator = lens _muInitiator (\s a -> s {_muInitiator = a})
+multipartUpload_initiator :: Lens.Lens' MultipartUpload (Prelude.Maybe Initiator)
+multipartUpload_initiator = Lens.lens (\MultipartUpload' {initiator} -> initiator) (\s@MultipartUpload' {} a -> s {initiator = a} :: MultipartUpload)
 
-instance FromXML MultipartUpload where
+instance Prelude.FromXML MultipartUpload where
   parseXML x =
     MultipartUpload'
-      <$> (x .@? "Key")
-      <*> (x .@? "UploadId")
-      <*> (x .@? "StorageClass")
-      <*> (x .@? "Initiated")
-      <*> (x .@? "Owner")
-      <*> (x .@? "Initiator")
+      Prelude.<$> (x Prelude..@? "Key")
+      Prelude.<*> (x Prelude..@? "UploadId")
+      Prelude.<*> (x Prelude..@? "StorageClass")
+      Prelude.<*> (x Prelude..@? "Initiated")
+      Prelude.<*> (x Prelude..@? "Owner")
+      Prelude.<*> (x Prelude..@? "Initiator")
 
-instance Hashable MultipartUpload
+instance Prelude.Hashable MultipartUpload
 
-instance NFData MultipartUpload
+instance Prelude.NFData MultipartUpload

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,42 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Tagging where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Tag
 
 -- | Container for @TagSet@ elements.
 --
---
---
--- /See:/ 'tagging' smart constructor.
-newtype Tagging = Tagging' {_tTagSet :: [Tag]}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newTagging' smart constructor.
+data Tagging = Tagging'
+  { -- | A collection for a set of tags
+    tagSet :: [Tag]
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Tagging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Tagging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tTagSet' - A collection for a set of tags
-tagging ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'tagSet', 'tagging_tagSet' - A collection for a set of tags
+newTagging ::
   Tagging
-tagging = Tagging' {_tTagSet = mempty}
+newTagging = Tagging' {tagSet = Prelude.mempty}
 
 -- | A collection for a set of tags
-tTagSet :: Lens' Tagging [Tag]
-tTagSet = lens _tTagSet (\s a -> s {_tTagSet = a}) . _Coerce
+tagging_tagSet :: Lens.Lens' Tagging [Tag]
+tagging_tagSet = Lens.lens (\Tagging' {tagSet} -> tagSet) (\s@Tagging' {} a -> s {tagSet = a} :: Tagging) Prelude.. Prelude._Coerce
 
-instance Hashable Tagging
+instance Prelude.Hashable Tagging
 
-instance NFData Tagging
+instance Prelude.NFData Tagging
 
-instance ToXML Tagging where
+instance Prelude.ToXML Tagging where
   toXML Tagging' {..} =
-    mconcat ["TagSet" @= toXMLList "Tag" _tTagSet]
+    Prelude.mconcat
+      ["TagSet" Prelude.@= Prelude.toXMLList "Tag" tagSet]

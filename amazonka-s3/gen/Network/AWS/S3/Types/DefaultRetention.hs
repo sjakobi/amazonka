@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,83 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.DefaultRetention where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ObjectLockRetentionMode
 
--- | The container element for specifying the default Object Lock retention settings for new objects placed in the specified bucket.
+-- | The container element for specifying the default Object Lock retention
+-- settings for new objects placed in the specified bucket.
 --
---
---
--- /See:/ 'defaultRetention' smart constructor.
+-- /See:/ 'newDefaultRetention' smart constructor.
 data DefaultRetention = DefaultRetention'
-  { _drDays ::
-      !(Maybe Int),
-    _drYears :: !(Maybe Int),
-    _drMode ::
-      !(Maybe ObjectLockRetentionMode)
+  { -- | The number of days that you want to specify for the default retention
+    -- period.
+    days :: Prelude.Maybe Prelude.Int,
+    -- | The number of years that you want to specify for the default retention
+    -- period.
+    years :: Prelude.Maybe Prelude.Int,
+    -- | The default Object Lock retention mode you want to apply to new objects
+    -- placed in the specified bucket.
+    mode :: Prelude.Maybe ObjectLockRetentionMode
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DefaultRetention' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DefaultRetention' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drDays' - The number of days that you want to specify for the default retention period.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'drYears' - The number of years that you want to specify for the default retention period.
+-- 'days', 'defaultRetention_days' - The number of days that you want to specify for the default retention
+-- period.
 --
--- * 'drMode' - The default Object Lock retention mode you want to apply to new objects placed in the specified bucket.
-defaultRetention ::
+-- 'years', 'defaultRetention_years' - The number of years that you want to specify for the default retention
+-- period.
+--
+-- 'mode', 'defaultRetention_mode' - The default Object Lock retention mode you want to apply to new objects
+-- placed in the specified bucket.
+newDefaultRetention ::
   DefaultRetention
-defaultRetention =
+newDefaultRetention =
   DefaultRetention'
-    { _drDays = Nothing,
-      _drYears = Nothing,
-      _drMode = Nothing
+    { days = Prelude.Nothing,
+      years = Prelude.Nothing,
+      mode = Prelude.Nothing
     }
 
--- | The number of days that you want to specify for the default retention period.
-drDays :: Lens' DefaultRetention (Maybe Int)
-drDays = lens _drDays (\s a -> s {_drDays = a})
+-- | The number of days that you want to specify for the default retention
+-- period.
+defaultRetention_days :: Lens.Lens' DefaultRetention (Prelude.Maybe Prelude.Int)
+defaultRetention_days = Lens.lens (\DefaultRetention' {days} -> days) (\s@DefaultRetention' {} a -> s {days = a} :: DefaultRetention)
 
--- | The number of years that you want to specify for the default retention period.
-drYears :: Lens' DefaultRetention (Maybe Int)
-drYears = lens _drYears (\s a -> s {_drYears = a})
+-- | The number of years that you want to specify for the default retention
+-- period.
+defaultRetention_years :: Lens.Lens' DefaultRetention (Prelude.Maybe Prelude.Int)
+defaultRetention_years = Lens.lens (\DefaultRetention' {years} -> years) (\s@DefaultRetention' {} a -> s {years = a} :: DefaultRetention)
 
--- | The default Object Lock retention mode you want to apply to new objects placed in the specified bucket.
-drMode :: Lens' DefaultRetention (Maybe ObjectLockRetentionMode)
-drMode = lens _drMode (\s a -> s {_drMode = a})
+-- | The default Object Lock retention mode you want to apply to new objects
+-- placed in the specified bucket.
+defaultRetention_mode :: Lens.Lens' DefaultRetention (Prelude.Maybe ObjectLockRetentionMode)
+defaultRetention_mode = Lens.lens (\DefaultRetention' {mode} -> mode) (\s@DefaultRetention' {} a -> s {mode = a} :: DefaultRetention)
 
-instance FromXML DefaultRetention where
+instance Prelude.FromXML DefaultRetention where
   parseXML x =
     DefaultRetention'
-      <$> (x .@? "Days") <*> (x .@? "Years") <*> (x .@? "Mode")
+      Prelude.<$> (x Prelude..@? "Days")
+      Prelude.<*> (x Prelude..@? "Years")
+      Prelude.<*> (x Prelude..@? "Mode")
 
-instance Hashable DefaultRetention
+instance Prelude.Hashable DefaultRetention
 
-instance NFData DefaultRetention
+instance Prelude.NFData DefaultRetention
 
-instance ToXML DefaultRetention where
+instance Prelude.ToXML DefaultRetention where
   toXML DefaultRetention' {..} =
-    mconcat
-      [ "Days" @= _drDays,
-        "Years" @= _drYears,
-        "Mode" @= _drMode
+    Prelude.mconcat
+      [ "Days" Prelude.@= days,
+        "Years" Prelude.@= years,
+        "Mode" Prelude.@= mode
       ]

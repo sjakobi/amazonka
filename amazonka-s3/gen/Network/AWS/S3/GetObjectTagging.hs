@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,194 +21,272 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the tag-set of an object. You send the GET request against the tagging subresource associated with the object.
+-- Returns the tag-set of an object. You send the GET request against the
+-- tagging subresource associated with the object.
 --
+-- To use this operation, you must have permission to perform the
+-- @s3:GetObjectTagging@ action. By default, the GET operation returns
+-- information about current version of an object. For a versioned bucket,
+-- you can have multiple versions of an object in your bucket. To retrieve
+-- tags of any other version, use the versionId query parameter. You also
+-- need permission for the @s3:GetObjectVersionTagging@ action.
 --
--- To use this operation, you must have permission to perform the @s3:GetObjectTagging@ action. By default, the GET operation returns information about current version of an object. For a versioned bucket, you can have multiple versions of an object in your bucket. To retrieve tags of any other version, use the versionId query parameter. You also need permission for the @s3:GetObjectVersionTagging@ action.
+-- By default, the bucket owner has this permission and can grant this
+-- permission to others.
 --
--- By default, the bucket owner has this permission and can grant this permission to others.
+-- For information about the Amazon S3 object tagging feature, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html Object Tagging>.
 --
--- For information about the Amazon S3 object tagging feature, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html Object Tagging> .
+-- The following operation is related to @GetObjectTagging@:
 --
--- The following operation is related to @GetObjectTagging@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html PutObjectTagging>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html PutObjectTagging>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html DeleteObjectTagging>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html DeleteObjectTagging>
 module Network.AWS.S3.GetObjectTagging
   ( -- * Creating a Request
-    getObjectTagging,
-    GetObjectTagging,
+    GetObjectTagging (..),
+    newGetObjectTagging,
 
     -- * Request Lenses
-    gotExpectedBucketOwner,
-    gotVersionId,
-    gotRequestPayer,
-    gotBucket,
-    gotKey,
+    getObjectTagging_expectedBucketOwner,
+    getObjectTagging_versionId,
+    getObjectTagging_requestPayer,
+    getObjectTagging_bucket,
+    getObjectTagging_key,
 
     -- * Destructuring the Response
-    getObjectTaggingResponse,
-    GetObjectTaggingResponse,
+    GetObjectTaggingResponse (..),
+    newGetObjectTaggingResponse,
 
     -- * Response Lenses
-    gotrorsVersionId,
-    gotrorsResponseStatus,
-    gotrorsTagSet,
+    getObjectTaggingResponse_versionId,
+    getObjectTaggingResponse_httpStatus,
+    getObjectTaggingResponse_tagSet,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.Tag
 
--- | /See:/ 'getObjectTagging' smart constructor.
+-- | /See:/ 'newGetObjectTagging' smart constructor.
 data GetObjectTagging = GetObjectTagging'
-  { _gotExpectedBucketOwner ::
-      !(Maybe Text),
-    _gotVersionId ::
-      !(Maybe ObjectVersionId),
-    _gotRequestPayer ::
-      !(Maybe RequestPayer),
-    _gotBucket :: !BucketName,
-    _gotKey :: !ObjectKey
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The versionId of the object for which to get the tagging information.
+    versionId :: Prelude.Maybe ObjectVersionId,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | The bucket name containing the object for which to get the tagging
+    -- information.
+    --
+    -- When using this API with an access point, you must direct requests to
+    -- the access point hostname. The access point hostname takes the form
+    -- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+    -- When using this operation with an access point through the AWS SDKs, you
+    -- provide the access point ARN in place of the bucket name. For more
+    -- information about access point ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    --
+    -- When using this API with Amazon S3 on Outposts, you must direct requests
+    -- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+    -- form
+    -- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+    -- When using this operation using S3 on Outposts through the AWS SDKs, you
+    -- provide the Outposts bucket ARN in place of the bucket name. For more
+    -- information about S3 on Outposts ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    bucket :: BucketName,
+    -- | Object key for which to get the tagging information.
+    key :: ObjectKey
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectTagging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectTagging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gotExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gotVersionId' - The versionId of the object for which to get the tagging information.
+-- 'expectedBucketOwner', 'getObjectTagging_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'gotRequestPayer' - Undocumented member.
+-- 'versionId', 'getObjectTagging_versionId' - The versionId of the object for which to get the tagging information.
 --
--- * 'gotBucket' - The bucket name containing the object for which to get the tagging information.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ . When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form /AccessPointName/ -/AccountId/ ./outpostID/ .s3-outposts./Region/ .amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts> in the /Amazon Simple Storage Service Developer Guide/ .
+-- 'requestPayer', 'getObjectTagging_requestPayer' - Undocumented member.
 --
--- * 'gotKey' - Object key for which to get the tagging information.
-getObjectTagging ::
-  -- | 'gotBucket'
+-- 'bucket', 'getObjectTagging_bucket' - The bucket name containing the object for which to get the tagging
+-- information.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- When using this API with Amazon S3 on Outposts, you must direct requests
+-- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+-- form
+-- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+-- When using this operation using S3 on Outposts through the AWS SDKs, you
+-- provide the Outposts bucket ARN in place of the bucket name. For more
+-- information about S3 on Outposts ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- 'key', 'getObjectTagging_key' - Object key for which to get the tagging information.
+newGetObjectTagging ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'gotKey'
+  -- | 'key'
   ObjectKey ->
   GetObjectTagging
-getObjectTagging pBucket_ pKey_ =
+newGetObjectTagging pBucket_ pKey_ =
   GetObjectTagging'
-    { _gotExpectedBucketOwner =
-        Nothing,
-      _gotVersionId = Nothing,
-      _gotRequestPayer = Nothing,
-      _gotBucket = pBucket_,
-      _gotKey = pKey_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
+      bucket = pBucket_,
+      key = pKey_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-gotExpectedBucketOwner :: Lens' GetObjectTagging (Maybe Text)
-gotExpectedBucketOwner = lens _gotExpectedBucketOwner (\s a -> s {_gotExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+getObjectTagging_expectedBucketOwner :: Lens.Lens' GetObjectTagging (Prelude.Maybe Prelude.Text)
+getObjectTagging_expectedBucketOwner = Lens.lens (\GetObjectTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetObjectTagging' {} a -> s {expectedBucketOwner = a} :: GetObjectTagging)
 
 -- | The versionId of the object for which to get the tagging information.
-gotVersionId :: Lens' GetObjectTagging (Maybe ObjectVersionId)
-gotVersionId = lens _gotVersionId (\s a -> s {_gotVersionId = a})
+getObjectTagging_versionId :: Lens.Lens' GetObjectTagging (Prelude.Maybe ObjectVersionId)
+getObjectTagging_versionId = Lens.lens (\GetObjectTagging' {versionId} -> versionId) (\s@GetObjectTagging' {} a -> s {versionId = a} :: GetObjectTagging)
 
 -- | Undocumented member.
-gotRequestPayer :: Lens' GetObjectTagging (Maybe RequestPayer)
-gotRequestPayer = lens _gotRequestPayer (\s a -> s {_gotRequestPayer = a})
+getObjectTagging_requestPayer :: Lens.Lens' GetObjectTagging (Prelude.Maybe RequestPayer)
+getObjectTagging_requestPayer = Lens.lens (\GetObjectTagging' {requestPayer} -> requestPayer) (\s@GetObjectTagging' {} a -> s {requestPayer = a} :: GetObjectTagging)
 
--- | The bucket name containing the object for which to get the tagging information.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ . When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form /AccessPointName/ -/AccountId/ ./outpostID/ .s3-outposts./Region/ .amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts> in the /Amazon Simple Storage Service Developer Guide/ .
-gotBucket :: Lens' GetObjectTagging BucketName
-gotBucket = lens _gotBucket (\s a -> s {_gotBucket = a})
+-- | The bucket name containing the object for which to get the tagging
+-- information.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- When using this API with Amazon S3 on Outposts, you must direct requests
+-- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+-- form
+-- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+-- When using this operation using S3 on Outposts through the AWS SDKs, you
+-- provide the Outposts bucket ARN in place of the bucket name. For more
+-- information about S3 on Outposts ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+getObjectTagging_bucket :: Lens.Lens' GetObjectTagging BucketName
+getObjectTagging_bucket = Lens.lens (\GetObjectTagging' {bucket} -> bucket) (\s@GetObjectTagging' {} a -> s {bucket = a} :: GetObjectTagging)
 
 -- | Object key for which to get the tagging information.
-gotKey :: Lens' GetObjectTagging ObjectKey
-gotKey = lens _gotKey (\s a -> s {_gotKey = a})
+getObjectTagging_key :: Lens.Lens' GetObjectTagging ObjectKey
+getObjectTagging_key = Lens.lens (\GetObjectTagging' {key} -> key) (\s@GetObjectTagging' {} a -> s {key = a} :: GetObjectTagging)
 
-instance AWSRequest GetObjectTagging where
+instance Prelude.AWSRequest GetObjectTagging where
   type Rs GetObjectTagging = GetObjectTaggingResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetObjectTaggingResponse'
-            <$> (h .#? "x-amz-version-id")
-            <*> (pure (fromEnum s))
-            <*> (x .@? "TagSet" .!@ mempty >>= parseXMLList "Tag")
+            Prelude.<$> (h Prelude..#? "x-amz-version-id")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "TagSet" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "Tag"
+                        )
       )
 
-instance Hashable GetObjectTagging
+instance Prelude.Hashable GetObjectTagging
 
-instance NFData GetObjectTagging
+instance Prelude.NFData GetObjectTagging
 
-instance ToHeaders GetObjectTagging where
+instance Prelude.ToHeaders GetObjectTagging where
   toHeaders GetObjectTagging' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _gotExpectedBucketOwner,
-        "x-amz-request-payer" =# _gotRequestPayer
+          Prelude.=# expectedBucketOwner,
+        "x-amz-request-payer" Prelude.=# requestPayer
       ]
 
-instance ToPath GetObjectTagging where
+instance Prelude.ToPath GetObjectTagging where
   toPath GetObjectTagging' {..} =
-    mconcat ["/", toBS _gotBucket, "/", toBS _gotKey]
+    Prelude.mconcat
+      ["/", Prelude.toBS bucket, "/", Prelude.toBS key]
 
-instance ToQuery GetObjectTagging where
+instance Prelude.ToQuery GetObjectTagging where
   toQuery GetObjectTagging' {..} =
-    mconcat ["versionId" =: _gotVersionId, "tagging"]
+    Prelude.mconcat
+      ["versionId" Prelude.=: versionId, "tagging"]
 
--- | /See:/ 'getObjectTaggingResponse' smart constructor.
+-- | /See:/ 'newGetObjectTaggingResponse' smart constructor.
 data GetObjectTaggingResponse = GetObjectTaggingResponse'
-  { _gotrorsVersionId ::
-      !( Maybe
-           ObjectVersionId
-       ),
-    _gotrorsResponseStatus ::
-      !Int,
-    _gotrorsTagSet ::
-      ![Tag]
+  { -- | The versionId of the object for which you got the tagging information.
+    versionId :: Prelude.Maybe ObjectVersionId,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | Contains the tag set.
+    tagSet :: [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectTaggingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectTaggingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gotrorsVersionId' - The versionId of the object for which you got the tagging information.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gotrorsResponseStatus' - -- | The response status code.
+-- 'versionId', 'getObjectTaggingResponse_versionId' - The versionId of the object for which you got the tagging information.
 --
--- * 'gotrorsTagSet' - Contains the tag set.
-getObjectTaggingResponse ::
-  -- | 'gotrorsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getObjectTaggingResponse_httpStatus' - The response's http status code.
+--
+-- 'tagSet', 'getObjectTaggingResponse_tagSet' - Contains the tag set.
+newGetObjectTaggingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetObjectTaggingResponse
-getObjectTaggingResponse pResponseStatus_ =
+newGetObjectTaggingResponse pHttpStatus_ =
   GetObjectTaggingResponse'
-    { _gotrorsVersionId =
-        Nothing,
-      _gotrorsResponseStatus = pResponseStatus_,
-      _gotrorsTagSet = mempty
+    { versionId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      tagSet = Prelude.mempty
     }
 
 -- | The versionId of the object for which you got the tagging information.
-gotrorsVersionId :: Lens' GetObjectTaggingResponse (Maybe ObjectVersionId)
-gotrorsVersionId = lens _gotrorsVersionId (\s a -> s {_gotrorsVersionId = a})
+getObjectTaggingResponse_versionId :: Lens.Lens' GetObjectTaggingResponse (Prelude.Maybe ObjectVersionId)
+getObjectTaggingResponse_versionId = Lens.lens (\GetObjectTaggingResponse' {versionId} -> versionId) (\s@GetObjectTaggingResponse' {} a -> s {versionId = a} :: GetObjectTaggingResponse)
 
--- | -- | The response status code.
-gotrorsResponseStatus :: Lens' GetObjectTaggingResponse Int
-gotrorsResponseStatus = lens _gotrorsResponseStatus (\s a -> s {_gotrorsResponseStatus = a})
+-- | The response's http status code.
+getObjectTaggingResponse_httpStatus :: Lens.Lens' GetObjectTaggingResponse Prelude.Int
+getObjectTaggingResponse_httpStatus = Lens.lens (\GetObjectTaggingResponse' {httpStatus} -> httpStatus) (\s@GetObjectTaggingResponse' {} a -> s {httpStatus = a} :: GetObjectTaggingResponse)
 
 -- | Contains the tag set.
-gotrorsTagSet :: Lens' GetObjectTaggingResponse [Tag]
-gotrorsTagSet = lens _gotrorsTagSet (\s a -> s {_gotrorsTagSet = a}) . _Coerce
+getObjectTaggingResponse_tagSet :: Lens.Lens' GetObjectTaggingResponse [Tag]
+getObjectTaggingResponse_tagSet = Lens.lens (\GetObjectTaggingResponse' {tagSet} -> tagSet) (\s@GetObjectTaggingResponse' {} a -> s {tagSet = a} :: GetObjectTaggingResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetObjectTaggingResponse
+instance Prelude.NFData GetObjectTaggingResponse

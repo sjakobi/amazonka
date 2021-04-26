@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,204 +23,253 @@
 --
 -- Applies a Legal Hold configuration to the specified object.
 --
---
 -- This action is not supported by Amazon S3 on Outposts.
 --
 -- __Related Resources__
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html Locking Objects>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html Locking Objects>
 module Network.AWS.S3.PutObjectLegalHold
   ( -- * Creating a Request
-    putObjectLegalHold,
-    PutObjectLegalHold,
+    PutObjectLegalHold (..),
+    newPutObjectLegalHold,
 
     -- * Request Lenses
-    polhExpectedBucketOwner,
-    polhContentMD5,
-    polhVersionId,
-    polhLegalHold,
-    polhRequestPayer,
-    polhBucket,
-    polhKey,
+    putObjectLegalHold_expectedBucketOwner,
+    putObjectLegalHold_contentMD5,
+    putObjectLegalHold_versionId,
+    putObjectLegalHold_legalHold,
+    putObjectLegalHold_requestPayer,
+    putObjectLegalHold_bucket,
+    putObjectLegalHold_key,
 
     -- * Destructuring the Response
-    putObjectLegalHoldResponse,
-    PutObjectLegalHoldResponse,
+    PutObjectLegalHoldResponse (..),
+    newPutObjectLegalHoldResponse,
 
     -- * Response Lenses
-    polhrrsRequestCharged,
-    polhrrsResponseStatus,
+    putObjectLegalHoldResponse_requestCharged,
+    putObjectLegalHoldResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.RequestCharged
 
--- | /See:/ 'putObjectLegalHold' smart constructor.
+-- | /See:/ 'newPutObjectLegalHold' smart constructor.
 data PutObjectLegalHold = PutObjectLegalHold'
-  { _polhExpectedBucketOwner ::
-      !(Maybe Text),
-    _polhContentMD5 :: !(Maybe Text),
-    _polhVersionId ::
-      !(Maybe ObjectVersionId),
-    _polhLegalHold ::
-      !(Maybe ObjectLockLegalHold),
-    _polhRequestPayer ::
-      !(Maybe RequestPayer),
-    _polhBucket :: !BucketName,
-    _polhKey :: !ObjectKey
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The MD5 hash for the request body.
+    --
+    -- For requests made using the AWS Command Line Interface (CLI) or AWS
+    -- SDKs, this field is calculated automatically.
+    contentMD5 :: Prelude.Maybe Prelude.Text,
+    -- | The version ID of the object that you want to place a Legal Hold on.
+    versionId :: Prelude.Maybe ObjectVersionId,
+    -- | Container element for the Legal Hold configuration you want to apply to
+    -- the specified object.
+    legalHold :: Prelude.Maybe ObjectLockLegalHold,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | The bucket name containing the object that you want to place a Legal
+    -- Hold on.
+    --
+    -- When using this API with an access point, you must direct requests to
+    -- the access point hostname. The access point hostname takes the form
+    -- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+    -- When using this operation with an access point through the AWS SDKs, you
+    -- provide the access point ARN in place of the bucket name. For more
+    -- information about access point ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    bucket :: BucketName,
+    -- | The key name for the object that you want to place a Legal Hold on.
+    key :: ObjectKey
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutObjectLegalHold' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutObjectLegalHold' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'polhExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'polhContentMD5' - The MD5 hash for the request body. For requests made using the AWS Command Line Interface (CLI) or AWS SDKs, this field is calculated automatically.
+-- 'expectedBucketOwner', 'putObjectLegalHold_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'polhVersionId' - The version ID of the object that you want to place a Legal Hold on.
+-- 'contentMD5', 'putObjectLegalHold_contentMD5' - The MD5 hash for the request body.
 --
--- * 'polhLegalHold' - Container element for the Legal Hold configuration you want to apply to the specified object.
+-- For requests made using the AWS Command Line Interface (CLI) or AWS
+-- SDKs, this field is calculated automatically.
 --
--- * 'polhRequestPayer' - Undocumented member.
+-- 'versionId', 'putObjectLegalHold_versionId' - The version ID of the object that you want to place a Legal Hold on.
 --
--- * 'polhBucket' - The bucket name containing the object that you want to place a Legal Hold on.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ .
+-- 'legalHold', 'putObjectLegalHold_legalHold' - Container element for the Legal Hold configuration you want to apply to
+-- the specified object.
 --
--- * 'polhKey' - The key name for the object that you want to place a Legal Hold on.
-putObjectLegalHold ::
-  -- | 'polhBucket'
+-- 'requestPayer', 'putObjectLegalHold_requestPayer' - Undocumented member.
+--
+-- 'bucket', 'putObjectLegalHold_bucket' - The bucket name containing the object that you want to place a Legal
+-- Hold on.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- 'key', 'putObjectLegalHold_key' - The key name for the object that you want to place a Legal Hold on.
+newPutObjectLegalHold ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'polhKey'
+  -- | 'key'
   ObjectKey ->
   PutObjectLegalHold
-putObjectLegalHold pBucket_ pKey_ =
+newPutObjectLegalHold pBucket_ pKey_ =
   PutObjectLegalHold'
-    { _polhExpectedBucketOwner =
-        Nothing,
-      _polhContentMD5 = Nothing,
-      _polhVersionId = Nothing,
-      _polhLegalHold = Nothing,
-      _polhRequestPayer = Nothing,
-      _polhBucket = pBucket_,
-      _polhKey = pKey_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      contentMD5 = Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      legalHold = Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
+      bucket = pBucket_,
+      key = pKey_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-polhExpectedBucketOwner :: Lens' PutObjectLegalHold (Maybe Text)
-polhExpectedBucketOwner = lens _polhExpectedBucketOwner (\s a -> s {_polhExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+putObjectLegalHold_expectedBucketOwner :: Lens.Lens' PutObjectLegalHold (Prelude.Maybe Prelude.Text)
+putObjectLegalHold_expectedBucketOwner = Lens.lens (\PutObjectLegalHold' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutObjectLegalHold' {} a -> s {expectedBucketOwner = a} :: PutObjectLegalHold)
 
--- | The MD5 hash for the request body. For requests made using the AWS Command Line Interface (CLI) or AWS SDKs, this field is calculated automatically.
-polhContentMD5 :: Lens' PutObjectLegalHold (Maybe Text)
-polhContentMD5 = lens _polhContentMD5 (\s a -> s {_polhContentMD5 = a})
+-- | The MD5 hash for the request body.
+--
+-- For requests made using the AWS Command Line Interface (CLI) or AWS
+-- SDKs, this field is calculated automatically.
+putObjectLegalHold_contentMD5 :: Lens.Lens' PutObjectLegalHold (Prelude.Maybe Prelude.Text)
+putObjectLegalHold_contentMD5 = Lens.lens (\PutObjectLegalHold' {contentMD5} -> contentMD5) (\s@PutObjectLegalHold' {} a -> s {contentMD5 = a} :: PutObjectLegalHold)
 
 -- | The version ID of the object that you want to place a Legal Hold on.
-polhVersionId :: Lens' PutObjectLegalHold (Maybe ObjectVersionId)
-polhVersionId = lens _polhVersionId (\s a -> s {_polhVersionId = a})
+putObjectLegalHold_versionId :: Lens.Lens' PutObjectLegalHold (Prelude.Maybe ObjectVersionId)
+putObjectLegalHold_versionId = Lens.lens (\PutObjectLegalHold' {versionId} -> versionId) (\s@PutObjectLegalHold' {} a -> s {versionId = a} :: PutObjectLegalHold)
 
--- | Container element for the Legal Hold configuration you want to apply to the specified object.
-polhLegalHold :: Lens' PutObjectLegalHold (Maybe ObjectLockLegalHold)
-polhLegalHold = lens _polhLegalHold (\s a -> s {_polhLegalHold = a})
+-- | Container element for the Legal Hold configuration you want to apply to
+-- the specified object.
+putObjectLegalHold_legalHold :: Lens.Lens' PutObjectLegalHold (Prelude.Maybe ObjectLockLegalHold)
+putObjectLegalHold_legalHold = Lens.lens (\PutObjectLegalHold' {legalHold} -> legalHold) (\s@PutObjectLegalHold' {} a -> s {legalHold = a} :: PutObjectLegalHold)
 
 -- | Undocumented member.
-polhRequestPayer :: Lens' PutObjectLegalHold (Maybe RequestPayer)
-polhRequestPayer = lens _polhRequestPayer (\s a -> s {_polhRequestPayer = a})
+putObjectLegalHold_requestPayer :: Lens.Lens' PutObjectLegalHold (Prelude.Maybe RequestPayer)
+putObjectLegalHold_requestPayer = Lens.lens (\PutObjectLegalHold' {requestPayer} -> requestPayer) (\s@PutObjectLegalHold' {} a -> s {requestPayer = a} :: PutObjectLegalHold)
 
--- | The bucket name containing the object that you want to place a Legal Hold on.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ .
-polhBucket :: Lens' PutObjectLegalHold BucketName
-polhBucket = lens _polhBucket (\s a -> s {_polhBucket = a})
+-- | The bucket name containing the object that you want to place a Legal
+-- Hold on.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+putObjectLegalHold_bucket :: Lens.Lens' PutObjectLegalHold BucketName
+putObjectLegalHold_bucket = Lens.lens (\PutObjectLegalHold' {bucket} -> bucket) (\s@PutObjectLegalHold' {} a -> s {bucket = a} :: PutObjectLegalHold)
 
 -- | The key name for the object that you want to place a Legal Hold on.
-polhKey :: Lens' PutObjectLegalHold ObjectKey
-polhKey = lens _polhKey (\s a -> s {_polhKey = a})
+putObjectLegalHold_key :: Lens.Lens' PutObjectLegalHold ObjectKey
+putObjectLegalHold_key = Lens.lens (\PutObjectLegalHold' {key} -> key) (\s@PutObjectLegalHold' {} a -> s {key = a} :: PutObjectLegalHold)
 
-instance AWSRequest PutObjectLegalHold where
+instance Prelude.AWSRequest PutObjectLegalHold where
   type
     Rs PutObjectLegalHold =
       PutObjectLegalHoldResponse
-  request = putXML s3
+  request = Request.putXML defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutObjectLegalHoldResponse'
-            <$> (h .#? "x-amz-request-charged")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "x-amz-request-charged")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutObjectLegalHold
+instance Prelude.Hashable PutObjectLegalHold
 
-instance NFData PutObjectLegalHold
+instance Prelude.NFData PutObjectLegalHold
 
-instance ToElement PutObjectLegalHold where
-  toElement =
-    mkElement
+instance Prelude.ToElement PutObjectLegalHold where
+  toElement PutObjectLegalHold' {..} =
+    Prelude.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}LegalHold"
-      . _polhLegalHold
+      legalHold
 
-instance ToHeaders PutObjectLegalHold where
+instance Prelude.ToHeaders PutObjectLegalHold where
   toHeaders PutObjectLegalHold' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _polhExpectedBucketOwner,
-        "Content-MD5" =# _polhContentMD5,
-        "x-amz-request-payer" =# _polhRequestPayer
+          Prelude.=# expectedBucketOwner,
+        "Content-MD5" Prelude.=# contentMD5,
+        "x-amz-request-payer" Prelude.=# requestPayer
       ]
 
-instance ToPath PutObjectLegalHold where
+instance Prelude.ToPath PutObjectLegalHold where
   toPath PutObjectLegalHold' {..} =
-    mconcat ["/", toBS _polhBucket, "/", toBS _polhKey]
+    Prelude.mconcat
+      ["/", Prelude.toBS bucket, "/", Prelude.toBS key]
 
-instance ToQuery PutObjectLegalHold where
+instance Prelude.ToQuery PutObjectLegalHold where
   toQuery PutObjectLegalHold' {..} =
-    mconcat
-      ["versionId" =: _polhVersionId, "legal-hold"]
+    Prelude.mconcat
+      ["versionId" Prelude.=: versionId, "legal-hold"]
 
--- | /See:/ 'putObjectLegalHoldResponse' smart constructor.
+-- | /See:/ 'newPutObjectLegalHoldResponse' smart constructor.
 data PutObjectLegalHoldResponse = PutObjectLegalHoldResponse'
-  { _polhrrsRequestCharged ::
-      !( Maybe
-           RequestCharged
-       ),
-    _polhrrsResponseStatus ::
-      !Int
+  { requestCharged :: Prelude.Maybe RequestCharged,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutObjectLegalHoldResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutObjectLegalHoldResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'polhrrsRequestCharged' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'polhrrsResponseStatus' - -- | The response status code.
-putObjectLegalHoldResponse ::
-  -- | 'polhrrsResponseStatus'
-  Int ->
+-- 'requestCharged', 'putObjectLegalHoldResponse_requestCharged' - Undocumented member.
+--
+-- 'httpStatus', 'putObjectLegalHoldResponse_httpStatus' - The response's http status code.
+newPutObjectLegalHoldResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutObjectLegalHoldResponse
-putObjectLegalHoldResponse pResponseStatus_ =
+newPutObjectLegalHoldResponse pHttpStatus_ =
   PutObjectLegalHoldResponse'
-    { _polhrrsRequestCharged =
-        Nothing,
-      _polhrrsResponseStatus = pResponseStatus_
+    { requestCharged =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-polhrrsRequestCharged :: Lens' PutObjectLegalHoldResponse (Maybe RequestCharged)
-polhrrsRequestCharged = lens _polhrrsRequestCharged (\s a -> s {_polhrrsRequestCharged = a})
+putObjectLegalHoldResponse_requestCharged :: Lens.Lens' PutObjectLegalHoldResponse (Prelude.Maybe RequestCharged)
+putObjectLegalHoldResponse_requestCharged = Lens.lens (\PutObjectLegalHoldResponse' {requestCharged} -> requestCharged) (\s@PutObjectLegalHoldResponse' {} a -> s {requestCharged = a} :: PutObjectLegalHoldResponse)
 
--- | -- | The response status code.
-polhrrsResponseStatus :: Lens' PutObjectLegalHoldResponse Int
-polhrrsResponseStatus = lens _polhrrsResponseStatus (\s a -> s {_polhrrsResponseStatus = a})
+-- | The response's http status code.
+putObjectLegalHoldResponse_httpStatus :: Lens.Lens' PutObjectLegalHoldResponse Prelude.Int
+putObjectLegalHoldResponse_httpStatus = Lens.lens (\PutObjectLegalHoldResponse' {httpStatus} -> httpStatus) (\s@PutObjectLegalHoldResponse' {} a -> s {httpStatus = a} :: PutObjectLegalHoldResponse)
 
-instance NFData PutObjectLegalHoldResponse
+instance Prelude.NFData PutObjectLegalHoldResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,175 +21,220 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets an object's current Legal Hold status. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html Locking Objects> .
---
+-- Gets an object\'s current Legal Hold status. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html Locking Objects>.
 --
 -- This action is not supported by Amazon S3 on Outposts.
 module Network.AWS.S3.GetObjectLegalHold
   ( -- * Creating a Request
-    getObjectLegalHold,
-    GetObjectLegalHold,
+    GetObjectLegalHold (..),
+    newGetObjectLegalHold,
 
     -- * Request Lenses
-    golhExpectedBucketOwner,
-    golhVersionId,
-    golhRequestPayer,
-    golhBucket,
-    golhKey,
+    getObjectLegalHold_expectedBucketOwner,
+    getObjectLegalHold_versionId,
+    getObjectLegalHold_requestPayer,
+    getObjectLegalHold_bucket,
+    getObjectLegalHold_key,
 
     -- * Destructuring the Response
-    getObjectLegalHoldResponse,
-    GetObjectLegalHoldResponse,
+    GetObjectLegalHoldResponse (..),
+    newGetObjectLegalHoldResponse,
 
     -- * Response Lenses
-    golhrrsLegalHold,
-    golhrrsResponseStatus,
+    getObjectLegalHoldResponse_legalHold,
+    getObjectLegalHoldResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.ObjectLockLegalHold
 
--- | /See:/ 'getObjectLegalHold' smart constructor.
+-- | /See:/ 'newGetObjectLegalHold' smart constructor.
 data GetObjectLegalHold = GetObjectLegalHold'
-  { _golhExpectedBucketOwner ::
-      !(Maybe Text),
-    _golhVersionId ::
-      !(Maybe ObjectVersionId),
-    _golhRequestPayer ::
-      !(Maybe RequestPayer),
-    _golhBucket :: !BucketName,
-    _golhKey :: !ObjectKey
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The version ID of the object whose Legal Hold status you want to
+    -- retrieve.
+    versionId :: Prelude.Maybe ObjectVersionId,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | The bucket name containing the object whose Legal Hold status you want
+    -- to retrieve.
+    --
+    -- When using this API with an access point, you must direct requests to
+    -- the access point hostname. The access point hostname takes the form
+    -- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+    -- When using this operation with an access point through the AWS SDKs, you
+    -- provide the access point ARN in place of the bucket name. For more
+    -- information about access point ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    bucket :: BucketName,
+    -- | The key name for the object whose Legal Hold status you want to
+    -- retrieve.
+    key :: ObjectKey
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectLegalHold' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectLegalHold' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'golhExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'golhVersionId' - The version ID of the object whose Legal Hold status you want to retrieve.
+-- 'expectedBucketOwner', 'getObjectLegalHold_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'golhRequestPayer' - Undocumented member.
+-- 'versionId', 'getObjectLegalHold_versionId' - The version ID of the object whose Legal Hold status you want to
+-- retrieve.
 --
--- * 'golhBucket' - The bucket name containing the object whose Legal Hold status you want to retrieve.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ .
+-- 'requestPayer', 'getObjectLegalHold_requestPayer' - Undocumented member.
 --
--- * 'golhKey' - The key name for the object whose Legal Hold status you want to retrieve.
-getObjectLegalHold ::
-  -- | 'golhBucket'
+-- 'bucket', 'getObjectLegalHold_bucket' - The bucket name containing the object whose Legal Hold status you want
+-- to retrieve.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- 'key', 'getObjectLegalHold_key' - The key name for the object whose Legal Hold status you want to
+-- retrieve.
+newGetObjectLegalHold ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'golhKey'
+  -- | 'key'
   ObjectKey ->
   GetObjectLegalHold
-getObjectLegalHold pBucket_ pKey_ =
+newGetObjectLegalHold pBucket_ pKey_ =
   GetObjectLegalHold'
-    { _golhExpectedBucketOwner =
-        Nothing,
-      _golhVersionId = Nothing,
-      _golhRequestPayer = Nothing,
-      _golhBucket = pBucket_,
-      _golhKey = pKey_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
+      bucket = pBucket_,
+      key = pKey_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-golhExpectedBucketOwner :: Lens' GetObjectLegalHold (Maybe Text)
-golhExpectedBucketOwner = lens _golhExpectedBucketOwner (\s a -> s {_golhExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+getObjectLegalHold_expectedBucketOwner :: Lens.Lens' GetObjectLegalHold (Prelude.Maybe Prelude.Text)
+getObjectLegalHold_expectedBucketOwner = Lens.lens (\GetObjectLegalHold' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetObjectLegalHold' {} a -> s {expectedBucketOwner = a} :: GetObjectLegalHold)
 
--- | The version ID of the object whose Legal Hold status you want to retrieve.
-golhVersionId :: Lens' GetObjectLegalHold (Maybe ObjectVersionId)
-golhVersionId = lens _golhVersionId (\s a -> s {_golhVersionId = a})
+-- | The version ID of the object whose Legal Hold status you want to
+-- retrieve.
+getObjectLegalHold_versionId :: Lens.Lens' GetObjectLegalHold (Prelude.Maybe ObjectVersionId)
+getObjectLegalHold_versionId = Lens.lens (\GetObjectLegalHold' {versionId} -> versionId) (\s@GetObjectLegalHold' {} a -> s {versionId = a} :: GetObjectLegalHold)
 
 -- | Undocumented member.
-golhRequestPayer :: Lens' GetObjectLegalHold (Maybe RequestPayer)
-golhRequestPayer = lens _golhRequestPayer (\s a -> s {_golhRequestPayer = a})
+getObjectLegalHold_requestPayer :: Lens.Lens' GetObjectLegalHold (Prelude.Maybe RequestPayer)
+getObjectLegalHold_requestPayer = Lens.lens (\GetObjectLegalHold' {requestPayer} -> requestPayer) (\s@GetObjectLegalHold' {} a -> s {requestPayer = a} :: GetObjectLegalHold)
 
--- | The bucket name containing the object whose Legal Hold status you want to retrieve.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ .
-golhBucket :: Lens' GetObjectLegalHold BucketName
-golhBucket = lens _golhBucket (\s a -> s {_golhBucket = a})
+-- | The bucket name containing the object whose Legal Hold status you want
+-- to retrieve.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+getObjectLegalHold_bucket :: Lens.Lens' GetObjectLegalHold BucketName
+getObjectLegalHold_bucket = Lens.lens (\GetObjectLegalHold' {bucket} -> bucket) (\s@GetObjectLegalHold' {} a -> s {bucket = a} :: GetObjectLegalHold)
 
--- | The key name for the object whose Legal Hold status you want to retrieve.
-golhKey :: Lens' GetObjectLegalHold ObjectKey
-golhKey = lens _golhKey (\s a -> s {_golhKey = a})
+-- | The key name for the object whose Legal Hold status you want to
+-- retrieve.
+getObjectLegalHold_key :: Lens.Lens' GetObjectLegalHold ObjectKey
+getObjectLegalHold_key = Lens.lens (\GetObjectLegalHold' {key} -> key) (\s@GetObjectLegalHold' {} a -> s {key = a} :: GetObjectLegalHold)
 
-instance AWSRequest GetObjectLegalHold where
+instance Prelude.AWSRequest GetObjectLegalHold where
   type
     Rs GetObjectLegalHold =
       GetObjectLegalHoldResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetObjectLegalHoldResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetObjectLegalHold
+instance Prelude.Hashable GetObjectLegalHold
 
-instance NFData GetObjectLegalHold
+instance Prelude.NFData GetObjectLegalHold
 
-instance ToHeaders GetObjectLegalHold where
+instance Prelude.ToHeaders GetObjectLegalHold where
   toHeaders GetObjectLegalHold' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _golhExpectedBucketOwner,
-        "x-amz-request-payer" =# _golhRequestPayer
+          Prelude.=# expectedBucketOwner,
+        "x-amz-request-payer" Prelude.=# requestPayer
       ]
 
-instance ToPath GetObjectLegalHold where
+instance Prelude.ToPath GetObjectLegalHold where
   toPath GetObjectLegalHold' {..} =
-    mconcat ["/", toBS _golhBucket, "/", toBS _golhKey]
+    Prelude.mconcat
+      ["/", Prelude.toBS bucket, "/", Prelude.toBS key]
 
-instance ToQuery GetObjectLegalHold where
+instance Prelude.ToQuery GetObjectLegalHold where
   toQuery GetObjectLegalHold' {..} =
-    mconcat
-      ["versionId" =: _golhVersionId, "legal-hold"]
+    Prelude.mconcat
+      ["versionId" Prelude.=: versionId, "legal-hold"]
 
--- | /See:/ 'getObjectLegalHoldResponse' smart constructor.
+-- | /See:/ 'newGetObjectLegalHoldResponse' smart constructor.
 data GetObjectLegalHoldResponse = GetObjectLegalHoldResponse'
-  { _golhrrsLegalHold ::
-      !( Maybe
-           ObjectLockLegalHold
-       ),
-    _golhrrsResponseStatus ::
-      !Int
+  { -- | The current Legal Hold status for the specified object.
+    legalHold :: Prelude.Maybe ObjectLockLegalHold,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectLegalHoldResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectLegalHoldResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'golhrrsLegalHold' - The current Legal Hold status for the specified object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'golhrrsResponseStatus' - -- | The response status code.
-getObjectLegalHoldResponse ::
-  -- | 'golhrrsResponseStatus'
-  Int ->
+-- 'legalHold', 'getObjectLegalHoldResponse_legalHold' - The current Legal Hold status for the specified object.
+--
+-- 'httpStatus', 'getObjectLegalHoldResponse_httpStatus' - The response's http status code.
+newGetObjectLegalHoldResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetObjectLegalHoldResponse
-getObjectLegalHoldResponse pResponseStatus_ =
+newGetObjectLegalHoldResponse pHttpStatus_ =
   GetObjectLegalHoldResponse'
-    { _golhrrsLegalHold =
-        Nothing,
-      _golhrrsResponseStatus = pResponseStatus_
+    { legalHold =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The current Legal Hold status for the specified object.
-golhrrsLegalHold :: Lens' GetObjectLegalHoldResponse (Maybe ObjectLockLegalHold)
-golhrrsLegalHold = lens _golhrrsLegalHold (\s a -> s {_golhrrsLegalHold = a})
+getObjectLegalHoldResponse_legalHold :: Lens.Lens' GetObjectLegalHoldResponse (Prelude.Maybe ObjectLockLegalHold)
+getObjectLegalHoldResponse_legalHold = Lens.lens (\GetObjectLegalHoldResponse' {legalHold} -> legalHold) (\s@GetObjectLegalHoldResponse' {} a -> s {legalHold = a} :: GetObjectLegalHoldResponse)
 
--- | -- | The response status code.
-golhrrsResponseStatus :: Lens' GetObjectLegalHoldResponse Int
-golhrrsResponseStatus = lens _golhrrsResponseStatus (\s a -> s {_golhrrsResponseStatus = a})
+-- | The response's http status code.
+getObjectLegalHoldResponse_httpStatus :: Lens.Lens' GetObjectLegalHoldResponse Prelude.Int
+getObjectLegalHoldResponse_httpStatus = Lens.lens (\GetObjectLegalHoldResponse' {httpStatus} -> httpStatus) (\s@GetObjectLegalHoldResponse' {} a -> s {httpStatus = a} :: GetObjectLegalHoldResponse)
 
-instance NFData GetObjectLegalHoldResponse
+instance Prelude.NFData GetObjectLegalHoldResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,56 @@
 module Network.AWS.S3.Types.Payer
   ( Payer
       ( ..,
-        PBucketOwner,
-        PRequester
+        PayerBucketOwner,
+        PayerRequester
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data Payer = Payer' (CI Text)
+newtype Payer = Payer' {fromPayer :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PBucketOwner :: Payer
-pattern PBucketOwner = Payer' "BucketOwner"
+pattern PayerBucketOwner :: Payer
+pattern PayerBucketOwner = Payer' "BucketOwner"
 
-pattern PRequester :: Payer
-pattern PRequester = Payer' "Requester"
+pattern PayerRequester :: Payer
+pattern PayerRequester = Payer' "Requester"
 
 {-# COMPLETE
-  PBucketOwner,
-  PRequester,
+  PayerBucketOwner,
+  PayerRequester,
   Payer'
   #-}
 
-instance FromText Payer where
-  parser = (Payer' . mk) <$> takeText
+instance Prelude.FromText Payer where
+  parser = Payer' Prelude.<$> Prelude.takeText
 
-instance ToText Payer where
-  toText (Payer' ci) = original ci
+instance Prelude.ToText Payer where
+  toText (Payer' x) = x
 
-instance Hashable Payer
+instance Prelude.Hashable Payer
 
-instance NFData Payer
+instance Prelude.NFData Payer
 
-instance ToByteString Payer
+instance Prelude.ToByteString Payer
 
-instance ToQuery Payer
+instance Prelude.ToQuery Payer
 
-instance ToHeader Payer
+instance Prelude.ToHeader Payer
 
-instance FromXML Payer where
-  parseXML = parseXMLText "Payer"
+instance Prelude.FromXML Payer where
+  parseXML = Prelude.parseXMLText "Payer"
 
-instance ToXML Payer where
-  toXML = toXMLText
+instance Prelude.ToXML Payer where
+  toXML = Prelude.toXMLText

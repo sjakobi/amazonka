@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Part where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
 -- | Container for elements related to a part.
 --
---
---
--- /See:/ 'part' smart constructor.
+-- /See:/ 'newPart' smart constructor.
 data Part = Part'
-  { _pETag :: !(Maybe ETag),
-    _pPartNumber :: !(Maybe Int),
-    _pLastModified :: !(Maybe ISO8601),
-    _pSize :: !(Maybe Int)
+  { -- | Entity tag returned when the part was uploaded.
+    eTag :: Prelude.Maybe ETag,
+    -- | Part number identifying the part. This is a positive integer between 1
+    -- and 10,000.
+    partNumber :: Prelude.Maybe Prelude.Int,
+    -- | Date and time at which the part was uploaded.
+    lastModified :: Prelude.Maybe Prelude.ISO8601,
+    -- | Size in bytes of the uploaded part data.
+    size :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Part' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Part' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pETag' - Entity tag returned when the part was uploaded.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pPartNumber' - Part number identifying the part. This is a positive integer between 1 and 10,000.
+-- 'eTag', 'part_eTag' - Entity tag returned when the part was uploaded.
 --
--- * 'pLastModified' - Date and time at which the part was uploaded.
+-- 'partNumber', 'part_partNumber' - Part number identifying the part. This is a positive integer between 1
+-- and 10,000.
 --
--- * 'pSize' - Size in bytes of the uploaded part data.
-part ::
+-- 'lastModified', 'part_lastModified' - Date and time at which the part was uploaded.
+--
+-- 'size', 'part_size' - Size in bytes of the uploaded part data.
+newPart ::
   Part
-part =
+newPart =
   Part'
-    { _pETag = Nothing,
-      _pPartNumber = Nothing,
-      _pLastModified = Nothing,
-      _pSize = Nothing
+    { eTag = Prelude.Nothing,
+      partNumber = Prelude.Nothing,
+      lastModified = Prelude.Nothing,
+      size = Prelude.Nothing
     }
 
 -- | Entity tag returned when the part was uploaded.
-pETag :: Lens' Part (Maybe ETag)
-pETag = lens _pETag (\s a -> s {_pETag = a})
+part_eTag :: Lens.Lens' Part (Prelude.Maybe ETag)
+part_eTag = Lens.lens (\Part' {eTag} -> eTag) (\s@Part' {} a -> s {eTag = a} :: Part)
 
--- | Part number identifying the part. This is a positive integer between 1 and 10,000.
-pPartNumber :: Lens' Part (Maybe Int)
-pPartNumber = lens _pPartNumber (\s a -> s {_pPartNumber = a})
+-- | Part number identifying the part. This is a positive integer between 1
+-- and 10,000.
+part_partNumber :: Lens.Lens' Part (Prelude.Maybe Prelude.Int)
+part_partNumber = Lens.lens (\Part' {partNumber} -> partNumber) (\s@Part' {} a -> s {partNumber = a} :: Part)
 
 -- | Date and time at which the part was uploaded.
-pLastModified :: Lens' Part (Maybe UTCTime)
-pLastModified = lens _pLastModified (\s a -> s {_pLastModified = a}) . mapping _Time
+part_lastModified :: Lens.Lens' Part (Prelude.Maybe Prelude.UTCTime)
+part_lastModified = Lens.lens (\Part' {lastModified} -> lastModified) (\s@Part' {} a -> s {lastModified = a} :: Part) Prelude.. Lens.mapping Prelude._Time
 
 -- | Size in bytes of the uploaded part data.
-pSize :: Lens' Part (Maybe Int)
-pSize = lens _pSize (\s a -> s {_pSize = a})
+part_size :: Lens.Lens' Part (Prelude.Maybe Prelude.Int)
+part_size = Lens.lens (\Part' {size} -> size) (\s@Part' {} a -> s {size = a} :: Part)
 
-instance FromXML Part where
+instance Prelude.FromXML Part where
   parseXML x =
     Part'
-      <$> (x .@? "ETag")
-      <*> (x .@? "PartNumber")
-      <*> (x .@? "LastModified")
-      <*> (x .@? "Size")
+      Prelude.<$> (x Prelude..@? "ETag")
+      Prelude.<*> (x Prelude..@? "PartNumber")
+      Prelude.<*> (x Prelude..@? "LastModified")
+      Prelude.<*> (x Prelude..@? "Size")
 
-instance Hashable Part
+instance Prelude.Hashable Part
 
-instance NFData Part
+instance Prelude.NFData Part

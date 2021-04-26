@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,62 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.NotificationConfigurationFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.S3KeyFilter
 
--- | Specifies object key name filtering rules. For information about key name filtering, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Configuring Event Notifications> in the /Amazon Simple Storage Service Developer Guide/ .
+-- | Specifies object key name filtering rules. For information about key
+-- name filtering, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Configuring Event Notifications>
+-- in the /Amazon Simple Storage Service Developer Guide/.
 --
---
---
--- /See:/ 'notificationConfigurationFilter' smart constructor.
-newtype NotificationConfigurationFilter = NotificationConfigurationFilter'
-  { _ncfKey ::
-      Maybe
-        S3KeyFilter
+-- /See:/ 'newNotificationConfigurationFilter' smart constructor.
+data NotificationConfigurationFilter = NotificationConfigurationFilter'
+  { key :: Prelude.Maybe S3KeyFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'NotificationConfigurationFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'NotificationConfigurationFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ncfKey' - Undocumented member.
-notificationConfigurationFilter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'key', 'notificationConfigurationFilter_key' - Undocumented member.
+newNotificationConfigurationFilter ::
   NotificationConfigurationFilter
-notificationConfigurationFilter =
-  NotificationConfigurationFilter' {_ncfKey = Nothing}
+newNotificationConfigurationFilter =
+  NotificationConfigurationFilter'
+    { key =
+        Prelude.Nothing
+    }
 
 -- | Undocumented member.
-ncfKey :: Lens' NotificationConfigurationFilter (Maybe S3KeyFilter)
-ncfKey = lens _ncfKey (\s a -> s {_ncfKey = a})
+notificationConfigurationFilter_key :: Lens.Lens' NotificationConfigurationFilter (Prelude.Maybe S3KeyFilter)
+notificationConfigurationFilter_key = Lens.lens (\NotificationConfigurationFilter' {key} -> key) (\s@NotificationConfigurationFilter' {} a -> s {key = a} :: NotificationConfigurationFilter)
 
-instance FromXML NotificationConfigurationFilter where
+instance
+  Prelude.FromXML
+    NotificationConfigurationFilter
+  where
   parseXML x =
     NotificationConfigurationFilter'
-      <$> (x .@? "S3Key")
+      Prelude.<$> (x Prelude..@? "S3Key")
 
-instance Hashable NotificationConfigurationFilter
+instance
+  Prelude.Hashable
+    NotificationConfigurationFilter
 
-instance NFData NotificationConfigurationFilter
+instance
+  Prelude.NFData
+    NotificationConfigurationFilter
 
-instance ToXML NotificationConfigurationFilter where
+instance
+  Prelude.ToXML
+    NotificationConfigurationFilter
+  where
   toXML NotificationConfigurationFilter' {..} =
-    mconcat ["S3Key" @= _ncfKey]
+    Prelude.mconcat ["S3Key" Prelude.@= key]

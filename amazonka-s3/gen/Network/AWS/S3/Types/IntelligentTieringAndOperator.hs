@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,72 +19,79 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.IntelligentTieringAndOperator where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Tag
 
--- | A container for specifying S3 Intelligent-Tiering filters. The filters determine the subset of objects to which the rule applies.
+-- | A container for specifying S3 Intelligent-Tiering filters. The filters
+-- determine the subset of objects to which the rule applies.
 --
---
---
--- /See:/ 'intelligentTieringAndOperator' smart constructor.
+-- /See:/ 'newIntelligentTieringAndOperator' smart constructor.
 data IntelligentTieringAndOperator = IntelligentTieringAndOperator'
-  { _itaoPrefix ::
-      !( Maybe
-           Text
-       ),
-    _itaoTags ::
-      !( Maybe
-           [Tag]
-       )
+  { -- | An object key name prefix that identifies the subset of objects to which
+    -- the configuration applies.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | All of these tags must exist in the object\'s tag set in order for the
+    -- configuration to apply.
+    tags :: Prelude.Maybe [Tag]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IntelligentTieringAndOperator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IntelligentTieringAndOperator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'itaoPrefix' - An object key name prefix that identifies the subset of objects to which the configuration applies.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'itaoTags' - All of these tags must exist in the object's tag set in order for the configuration to apply.
-intelligentTieringAndOperator ::
+-- 'prefix', 'intelligentTieringAndOperator_prefix' - An object key name prefix that identifies the subset of objects to which
+-- the configuration applies.
+--
+-- 'tags', 'intelligentTieringAndOperator_tags' - All of these tags must exist in the object\'s tag set in order for the
+-- configuration to apply.
+newIntelligentTieringAndOperator ::
   IntelligentTieringAndOperator
-intelligentTieringAndOperator =
+newIntelligentTieringAndOperator =
   IntelligentTieringAndOperator'
-    { _itaoPrefix =
-        Nothing,
-      _itaoTags = Nothing
+    { prefix =
+        Prelude.Nothing,
+      tags = Prelude.Nothing
     }
 
--- | An object key name prefix that identifies the subset of objects to which the configuration applies.
-itaoPrefix :: Lens' IntelligentTieringAndOperator (Maybe Text)
-itaoPrefix = lens _itaoPrefix (\s a -> s {_itaoPrefix = a})
+-- | An object key name prefix that identifies the subset of objects to which
+-- the configuration applies.
+intelligentTieringAndOperator_prefix :: Lens.Lens' IntelligentTieringAndOperator (Prelude.Maybe Prelude.Text)
+intelligentTieringAndOperator_prefix = Lens.lens (\IntelligentTieringAndOperator' {prefix} -> prefix) (\s@IntelligentTieringAndOperator' {} a -> s {prefix = a} :: IntelligentTieringAndOperator)
 
--- | All of these tags must exist in the object's tag set in order for the configuration to apply.
-itaoTags :: Lens' IntelligentTieringAndOperator [Tag]
-itaoTags = lens _itaoTags (\s a -> s {_itaoTags = a}) . _Default . _Coerce
+-- | All of these tags must exist in the object\'s tag set in order for the
+-- configuration to apply.
+intelligentTieringAndOperator_tags :: Lens.Lens' IntelligentTieringAndOperator (Prelude.Maybe [Tag])
+intelligentTieringAndOperator_tags = Lens.lens (\IntelligentTieringAndOperator' {tags} -> tags) (\s@IntelligentTieringAndOperator' {} a -> s {tags = a} :: IntelligentTieringAndOperator) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML IntelligentTieringAndOperator where
+instance
+  Prelude.FromXML
+    IntelligentTieringAndOperator
+  where
   parseXML x =
     IntelligentTieringAndOperator'
-      <$> (x .@? "Prefix")
-      <*> (x .@? "Tag" .!@ mempty >>= may (parseXMLList "Tag"))
+      Prelude.<$> (x Prelude..@? "Prefix")
+      Prelude.<*> ( x Prelude..@? "Tag" Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Tag")
+                  )
 
-instance Hashable IntelligentTieringAndOperator
+instance
+  Prelude.Hashable
+    IntelligentTieringAndOperator
 
-instance NFData IntelligentTieringAndOperator
+instance Prelude.NFData IntelligentTieringAndOperator
 
-instance ToXML IntelligentTieringAndOperator where
+instance Prelude.ToXML IntelligentTieringAndOperator where
   toXML IntelligentTieringAndOperator' {..} =
-    mconcat
-      [ "Prefix" @= _itaoPrefix,
-        "Tag" @= toXML (toXMLList "Tag" <$> _itaoTags)
+    Prelude.mconcat
+      [ "Prefix" Prelude.@= prefix,
+        "Tag"
+          Prelude.@= Prelude.toXML
+            (Prelude.toXMLList "Tag" Prelude.<$> tags)
       ]

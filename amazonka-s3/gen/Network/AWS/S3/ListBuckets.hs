@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,104 +21,118 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of all buckets owned by the authenticated sender of the request.
+-- Returns a list of all buckets owned by the authenticated sender of the
+-- request.
 module Network.AWS.S3.ListBuckets
   ( -- * Creating a Request
-    listBuckets,
-    ListBuckets,
+    ListBuckets (..),
+    newListBuckets,
 
     -- * Destructuring the Response
-    listBucketsResponse,
-    ListBucketsResponse,
+    ListBucketsResponse (..),
+    newListBucketsResponse,
 
     -- * Response Lenses
-    lbrrsBuckets,
-    lbrrsOwner,
-    lbrrsResponseStatus,
+    listBucketsResponse_buckets,
+    listBucketsResponse_owner,
+    listBucketsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.Bucket
+import Network.AWS.S3.Types.Owner
 
--- | /See:/ 'listBuckets' smart constructor.
+-- | /See:/ 'newListBuckets' smart constructor.
 data ListBuckets = ListBuckets'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBuckets' with the minimum fields required to make a request.
-listBuckets ::
+-- |
+-- Create a value of 'ListBuckets' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newListBuckets ::
   ListBuckets
-listBuckets = ListBuckets'
+newListBuckets = ListBuckets'
 
-instance AWSRequest ListBuckets where
+instance Prelude.AWSRequest ListBuckets where
   type Rs ListBuckets = ListBucketsResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListBucketsResponse'
-            <$> ( x .@? "Buckets" .!@ mempty
-                    >>= may (parseXMLList "Bucket")
-                )
-            <*> (x .@? "Owner")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "Buckets" Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "Bucket")
+                        )
+            Prelude.<*> (x Prelude..@? "Owner")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListBuckets
+instance Prelude.Hashable ListBuckets
 
-instance NFData ListBuckets
+instance Prelude.NFData ListBuckets
 
-instance ToHeaders ListBuckets where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListBuckets where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListBuckets where
-  toPath = const "/"
+instance Prelude.ToPath ListBuckets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListBuckets where
-  toQuery = const mempty
+instance Prelude.ToQuery ListBuckets where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listBucketsResponse' smart constructor.
+-- | /See:/ 'newListBucketsResponse' smart constructor.
 data ListBucketsResponse = ListBucketsResponse'
-  { _lbrrsBuckets ::
-      !(Maybe [Bucket]),
-    _lbrrsOwner :: !(Maybe Owner),
-    _lbrrsResponseStatus :: !Int
+  { -- | The list of buckets owned by the requestor.
+    buckets :: Prelude.Maybe [Bucket],
+    -- | The owner of the buckets listed.
+    owner :: Prelude.Maybe Owner,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBucketsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBucketsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbrrsBuckets' - The list of buckets owned by the requestor.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbrrsOwner' - The owner of the buckets listed.
+-- 'buckets', 'listBucketsResponse_buckets' - The list of buckets owned by the requestor.
 --
--- * 'lbrrsResponseStatus' - -- | The response status code.
-listBucketsResponse ::
-  -- | 'lbrrsResponseStatus'
-  Int ->
+-- 'owner', 'listBucketsResponse_owner' - The owner of the buckets listed.
+--
+-- 'httpStatus', 'listBucketsResponse_httpStatus' - The response's http status code.
+newListBucketsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListBucketsResponse
-listBucketsResponse pResponseStatus_ =
+newListBucketsResponse pHttpStatus_ =
   ListBucketsResponse'
-    { _lbrrsBuckets = Nothing,
-      _lbrrsOwner = Nothing,
-      _lbrrsResponseStatus = pResponseStatus_
+    { buckets = Prelude.Nothing,
+      owner = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The list of buckets owned by the requestor.
-lbrrsBuckets :: Lens' ListBucketsResponse [Bucket]
-lbrrsBuckets = lens _lbrrsBuckets (\s a -> s {_lbrrsBuckets = a}) . _Default . _Coerce
+listBucketsResponse_buckets :: Lens.Lens' ListBucketsResponse (Prelude.Maybe [Bucket])
+listBucketsResponse_buckets = Lens.lens (\ListBucketsResponse' {buckets} -> buckets) (\s@ListBucketsResponse' {} a -> s {buckets = a} :: ListBucketsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The owner of the buckets listed.
-lbrrsOwner :: Lens' ListBucketsResponse (Maybe Owner)
-lbrrsOwner = lens _lbrrsOwner (\s a -> s {_lbrrsOwner = a})
+listBucketsResponse_owner :: Lens.Lens' ListBucketsResponse (Prelude.Maybe Owner)
+listBucketsResponse_owner = Lens.lens (\ListBucketsResponse' {owner} -> owner) (\s@ListBucketsResponse' {} a -> s {owner = a} :: ListBucketsResponse)
 
--- | -- | The response status code.
-lbrrsResponseStatus :: Lens' ListBucketsResponse Int
-lbrrsResponseStatus = lens _lbrrsResponseStatus (\s a -> s {_lbrrsResponseStatus = a})
+-- | The response's http status code.
+listBucketsResponse_httpStatus :: Lens.Lens' ListBucketsResponse Prelude.Int
+listBucketsResponse_httpStatus = Lens.lens (\ListBucketsResponse' {httpStatus} -> httpStatus) (\s@ListBucketsResponse' {} a -> s {httpStatus = a} :: ListBucketsResponse)
 
-instance NFData ListBucketsResponse
+instance Prelude.NFData ListBucketsResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,376 +23,477 @@
 --
 -- Completes a multipart upload by assembling previously uploaded parts.
 --
+-- You first initiate the multipart upload and then upload all parts using
+-- the
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html UploadPart>
+-- operation. After successfully uploading all relevant parts of an upload,
+-- you call this operation to complete the upload. Upon receiving this
+-- request, Amazon S3 concatenates all the parts in ascending order by part
+-- number to create a new object. In the Complete Multipart Upload request,
+-- you must provide the parts list. You must ensure that the parts list is
+-- complete. This operation concatenates the parts that you provide in the
+-- list. For each part in the list, you must provide the part number and
+-- the @ETag@ value, returned after that part was uploaded.
 --
--- You first initiate the multipart upload and then upload all parts using the <https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html UploadPart> operation. After successfully uploading all relevant parts of an upload, you call this operation to complete the upload. Upon receiving this request, Amazon S3 concatenates all the parts in ascending order by part number to create a new object. In the Complete Multipart Upload request, you must provide the parts list. You must ensure that the parts list is complete. This operation concatenates the parts that you provide in the list. For each part in the list, you must provide the part number and the @ETag@ value, returned after that part was uploaded.
+-- Processing of a Complete Multipart Upload request could take several
+-- minutes to complete. After Amazon S3 begins processing the request, it
+-- sends an HTTP response header that specifies a 200 OK response. While
+-- processing is in progress, Amazon S3 periodically sends white space
+-- characters to keep the connection from timing out. Because a request
+-- could fail after the initial 200 OK response has been sent, it is
+-- important that you check the response body to determine whether the
+-- request succeeded.
 --
--- Processing of a Complete Multipart Upload request could take several minutes to complete. After Amazon S3 begins processing the request, it sends an HTTP response header that specifies a 200 OK response. While processing is in progress, Amazon S3 periodically sends white space characters to keep the connection from timing out. Because a request could fail after the initial 200 OK response has been sent, it is important that you check the response body to determine whether the request succeeded.
+-- Note that if @CompleteMultipartUpload@ fails, applications should be
+-- prepared to retry the failed requests. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/ErrorBestPractices.html Amazon S3 Error Best Practices>.
 --
--- Note that if @CompleteMultipartUpload@ fails, applications should be prepared to retry the failed requests. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/ErrorBestPractices.html Amazon S3 Error Best Practices> .
+-- For more information about multipart uploads, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html Uploading Objects Using Multipart Upload>.
 --
--- For more information about multipart uploads, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html Uploading Objects Using Multipart Upload> .
---
--- For information about permissions required to use the multipart upload API, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html Multipart Upload API and Permissions> .
+-- For information about permissions required to use the multipart upload
+-- API, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html Multipart Upload API and Permissions>.
 --
 -- @CompleteMultipartUpload@ has the following special errors:
 --
---     * Error code: @EntityTooSmall@
+-- -   Error code: @EntityTooSmall@
 --
---     * Description: Your proposed upload is smaller than the minimum allowed object size. Each part must be at least 5 MB in size, except the last part.
+--     -   Description: Your proposed upload is smaller than the minimum
+--         allowed object size. Each part must be at least 5 MB in size,
+--         except the last part.
 --
---     * 400 Bad Request
+--     -   400 Bad Request
 --
+-- -   Error code: @InvalidPart@
 --
+--     -   Description: One or more of the specified parts could not be
+--         found. The part might not have been uploaded, or the specified
+--         entity tag might not have matched the part\'s entity tag.
 --
---     * Error code: @InvalidPart@
+--     -   400 Bad Request
 --
---     * Description: One or more of the specified parts could not be found. The part might not have been uploaded, or the specified entity tag might not have matched the part's entity tag.
+-- -   Error code: @InvalidPartOrder@
 --
---     * 400 Bad Request
+--     -   Description: The list of parts was not in ascending order. The
+--         parts list must be specified in order by part number.
 --
+--     -   400 Bad Request
 --
+-- -   Error code: @NoSuchUpload@
 --
---     * Error code: @InvalidPartOrder@
+--     -   Description: The specified multipart upload does not exist. The
+--         upload ID might be invalid, or the multipart upload might have
+--         been aborted or completed.
 --
---     * Description: The list of parts was not in ascending order. The parts list must be specified in order by part number.
+--     -   404 Not Found
 --
---     * 400 Bad Request
+-- The following operations are related to @CompleteMultipartUpload@:
 --
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html CreateMultipartUpload>
 --
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html UploadPart>
 --
---     * Error code: @NoSuchUpload@
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html AbortMultipartUpload>
 --
---     * Description: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed.
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html ListParts>
 --
---     * 404 Not Found
---
---
---
---
---
--- The following operations are related to @CompleteMultipartUpload@ :
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html CreateMultipartUpload>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html UploadPart>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html AbortMultipartUpload>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html ListParts>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html ListMultipartUploads>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html ListMultipartUploads>
 module Network.AWS.S3.CompleteMultipartUpload
   ( -- * Creating a Request
-    completeMultipartUpload,
-    CompleteMultipartUpload,
+    CompleteMultipartUpload (..),
+    newCompleteMultipartUpload,
 
     -- * Request Lenses
-    cmuExpectedBucketOwner,
-    cmuRequestPayer,
-    cmuMultipartUpload,
-    cmuBucket,
-    cmuKey,
-    cmuUploadId,
+    completeMultipartUpload_expectedBucketOwner,
+    completeMultipartUpload_requestPayer,
+    completeMultipartUpload_multipartUpload,
+    completeMultipartUpload_bucket,
+    completeMultipartUpload_key,
+    completeMultipartUpload_uploadId,
 
     -- * Destructuring the Response
-    completeMultipartUploadResponse,
-    CompleteMultipartUploadResponse,
+    CompleteMultipartUploadResponse (..),
+    newCompleteMultipartUploadResponse,
 
     -- * Response Lenses
-    cmurrsETag,
-    cmurrsRequestCharged,
-    cmurrsKey,
-    cmurrsExpiration,
-    cmurrsSSEKMSKeyId,
-    cmurrsVersionId,
-    cmurrsBucketKeyEnabled,
-    cmurrsServerSideEncryption,
-    cmurrsBucket,
-    cmurrsLocation,
-    cmurrsResponseStatus,
+    completeMultipartUploadResponse_eTag,
+    completeMultipartUploadResponse_requestCharged,
+    completeMultipartUploadResponse_key,
+    completeMultipartUploadResponse_expiration,
+    completeMultipartUploadResponse_sSEKMSKeyId,
+    completeMultipartUploadResponse_versionId,
+    completeMultipartUploadResponse_bucketKeyEnabled,
+    completeMultipartUploadResponse_serverSideEncryption,
+    completeMultipartUploadResponse_bucket,
+    completeMultipartUploadResponse_location,
+    completeMultipartUploadResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.RequestCharged
+import Network.AWS.S3.Types.ServerSideEncryption
 
--- | /See:/ 'completeMultipartUpload' smart constructor.
+-- | /See:/ 'newCompleteMultipartUpload' smart constructor.
 data CompleteMultipartUpload = CompleteMultipartUpload'
-  { _cmuExpectedBucketOwner ::
-      !(Maybe Text),
-    _cmuRequestPayer ::
-      !(Maybe RequestPayer),
-    _cmuMultipartUpload ::
-      !( Maybe
-           CompletedMultipartUpload
-       ),
-    _cmuBucket ::
-      !BucketName,
-    _cmuKey :: !ObjectKey,
-    _cmuUploadId :: !Text
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | The container for the multipart upload request information.
+    multipartUpload :: Prelude.Maybe CompletedMultipartUpload,
+    -- | Name of the bucket to which the multipart upload was initiated.
+    bucket :: BucketName,
+    -- | Object key for which the multipart upload was initiated.
+    key :: ObjectKey,
+    -- | ID for the initiated multipart upload.
+    uploadId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompleteMultipartUpload' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompleteMultipartUpload' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmuExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmuRequestPayer' - Undocumented member.
+-- 'expectedBucketOwner', 'completeMultipartUpload_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'cmuMultipartUpload' - The container for the multipart upload request information.
+-- 'requestPayer', 'completeMultipartUpload_requestPayer' - Undocumented member.
 --
--- * 'cmuBucket' - Name of the bucket to which the multipart upload was initiated.
+-- 'multipartUpload', 'completeMultipartUpload_multipartUpload' - The container for the multipart upload request information.
 --
--- * 'cmuKey' - Object key for which the multipart upload was initiated.
+-- 'bucket', 'completeMultipartUpload_bucket' - Name of the bucket to which the multipart upload was initiated.
 --
--- * 'cmuUploadId' - ID for the initiated multipart upload.
-completeMultipartUpload ::
-  -- | 'cmuBucket'
+-- 'key', 'completeMultipartUpload_key' - Object key for which the multipart upload was initiated.
+--
+-- 'uploadId', 'completeMultipartUpload_uploadId' - ID for the initiated multipart upload.
+newCompleteMultipartUpload ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'cmuKey'
+  -- | 'key'
   ObjectKey ->
-  -- | 'cmuUploadId'
-  Text ->
+  -- | 'uploadId'
+  Prelude.Text ->
   CompleteMultipartUpload
-completeMultipartUpload pBucket_ pKey_ pUploadId_ =
+newCompleteMultipartUpload pBucket_ pKey_ pUploadId_ =
   CompleteMultipartUpload'
-    { _cmuExpectedBucketOwner =
-        Nothing,
-      _cmuRequestPayer = Nothing,
-      _cmuMultipartUpload = Nothing,
-      _cmuBucket = pBucket_,
-      _cmuKey = pKey_,
-      _cmuUploadId = pUploadId_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
+      multipartUpload = Prelude.Nothing,
+      bucket = pBucket_,
+      key = pKey_,
+      uploadId = pUploadId_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-cmuExpectedBucketOwner :: Lens' CompleteMultipartUpload (Maybe Text)
-cmuExpectedBucketOwner = lens _cmuExpectedBucketOwner (\s a -> s {_cmuExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+completeMultipartUpload_expectedBucketOwner :: Lens.Lens' CompleteMultipartUpload (Prelude.Maybe Prelude.Text)
+completeMultipartUpload_expectedBucketOwner = Lens.lens (\CompleteMultipartUpload' {expectedBucketOwner} -> expectedBucketOwner) (\s@CompleteMultipartUpload' {} a -> s {expectedBucketOwner = a} :: CompleteMultipartUpload)
 
 -- | Undocumented member.
-cmuRequestPayer :: Lens' CompleteMultipartUpload (Maybe RequestPayer)
-cmuRequestPayer = lens _cmuRequestPayer (\s a -> s {_cmuRequestPayer = a})
+completeMultipartUpload_requestPayer :: Lens.Lens' CompleteMultipartUpload (Prelude.Maybe RequestPayer)
+completeMultipartUpload_requestPayer = Lens.lens (\CompleteMultipartUpload' {requestPayer} -> requestPayer) (\s@CompleteMultipartUpload' {} a -> s {requestPayer = a} :: CompleteMultipartUpload)
 
 -- | The container for the multipart upload request information.
-cmuMultipartUpload :: Lens' CompleteMultipartUpload (Maybe CompletedMultipartUpload)
-cmuMultipartUpload = lens _cmuMultipartUpload (\s a -> s {_cmuMultipartUpload = a})
+completeMultipartUpload_multipartUpload :: Lens.Lens' CompleteMultipartUpload (Prelude.Maybe CompletedMultipartUpload)
+completeMultipartUpload_multipartUpload = Lens.lens (\CompleteMultipartUpload' {multipartUpload} -> multipartUpload) (\s@CompleteMultipartUpload' {} a -> s {multipartUpload = a} :: CompleteMultipartUpload)
 
 -- | Name of the bucket to which the multipart upload was initiated.
-cmuBucket :: Lens' CompleteMultipartUpload BucketName
-cmuBucket = lens _cmuBucket (\s a -> s {_cmuBucket = a})
+completeMultipartUpload_bucket :: Lens.Lens' CompleteMultipartUpload BucketName
+completeMultipartUpload_bucket = Lens.lens (\CompleteMultipartUpload' {bucket} -> bucket) (\s@CompleteMultipartUpload' {} a -> s {bucket = a} :: CompleteMultipartUpload)
 
 -- | Object key for which the multipart upload was initiated.
-cmuKey :: Lens' CompleteMultipartUpload ObjectKey
-cmuKey = lens _cmuKey (\s a -> s {_cmuKey = a})
+completeMultipartUpload_key :: Lens.Lens' CompleteMultipartUpload ObjectKey
+completeMultipartUpload_key = Lens.lens (\CompleteMultipartUpload' {key} -> key) (\s@CompleteMultipartUpload' {} a -> s {key = a} :: CompleteMultipartUpload)
 
 -- | ID for the initiated multipart upload.
-cmuUploadId :: Lens' CompleteMultipartUpload Text
-cmuUploadId = lens _cmuUploadId (\s a -> s {_cmuUploadId = a})
+completeMultipartUpload_uploadId :: Lens.Lens' CompleteMultipartUpload Prelude.Text
+completeMultipartUpload_uploadId = Lens.lens (\CompleteMultipartUpload' {uploadId} -> uploadId) (\s@CompleteMultipartUpload' {} a -> s {uploadId = a} :: CompleteMultipartUpload)
 
-instance AWSRequest CompleteMultipartUpload where
+instance Prelude.AWSRequest CompleteMultipartUpload where
   type
     Rs CompleteMultipartUpload =
       CompleteMultipartUploadResponse
-  request = postXML s3
+  request = Request.postXML defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           CompleteMultipartUploadResponse'
-            <$> (x .@? "ETag")
-            <*> (h .#? "x-amz-request-charged")
-            <*> (x .@? "Key")
-            <*> (h .#? "x-amz-expiration")
-            <*> (h .#? "x-amz-server-side-encryption-aws-kms-key-id")
-            <*> (h .#? "x-amz-version-id")
-            <*> ( h
-                    .#? "x-amz-server-side-encryption-bucket-key-enabled"
-                )
-            <*> (h .#? "x-amz-server-side-encryption")
-            <*> (x .@? "Bucket")
-            <*> (x .@? "Location")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "ETag")
+            Prelude.<*> (h Prelude..#? "x-amz-request-charged")
+            Prelude.<*> (x Prelude..@? "Key")
+            Prelude.<*> (h Prelude..#? "x-amz-expiration")
+            Prelude.<*> ( h
+                            Prelude..#? "x-amz-server-side-encryption-aws-kms-key-id"
+                        )
+            Prelude.<*> (h Prelude..#? "x-amz-version-id")
+            Prelude.<*> ( h
+                            Prelude..#? "x-amz-server-side-encryption-bucket-key-enabled"
+                        )
+            Prelude.<*> (h Prelude..#? "x-amz-server-side-encryption")
+            Prelude.<*> (x Prelude..@? "Bucket")
+            Prelude.<*> (x Prelude..@? "Location")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CompleteMultipartUpload
+instance Prelude.Hashable CompleteMultipartUpload
 
-instance NFData CompleteMultipartUpload
+instance Prelude.NFData CompleteMultipartUpload
 
-instance ToElement CompleteMultipartUpload where
-  toElement =
-    mkElement
+instance Prelude.ToElement CompleteMultipartUpload where
+  toElement CompleteMultipartUpload' {..} =
+    Prelude.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}CompleteMultipartUpload"
-      . _cmuMultipartUpload
+      multipartUpload
 
-instance ToHeaders CompleteMultipartUpload where
+instance Prelude.ToHeaders CompleteMultipartUpload where
   toHeaders CompleteMultipartUpload' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _cmuExpectedBucketOwner,
-        "x-amz-request-payer" =# _cmuRequestPayer
+          Prelude.=# expectedBucketOwner,
+        "x-amz-request-payer" Prelude.=# requestPayer
       ]
 
-instance ToPath CompleteMultipartUpload where
+instance Prelude.ToPath CompleteMultipartUpload where
   toPath CompleteMultipartUpload' {..} =
-    mconcat ["/", toBS _cmuBucket, "/", toBS _cmuKey]
+    Prelude.mconcat
+      ["/", Prelude.toBS bucket, "/", Prelude.toBS key]
 
-instance ToQuery CompleteMultipartUpload where
+instance Prelude.ToQuery CompleteMultipartUpload where
   toQuery CompleteMultipartUpload' {..} =
-    mconcat ["uploadId" =: _cmuUploadId]
+    Prelude.mconcat ["uploadId" Prelude.=: uploadId]
 
--- | /See:/ 'completeMultipartUploadResponse' smart constructor.
+-- | /See:/ 'newCompleteMultipartUploadResponse' smart constructor.
 data CompleteMultipartUploadResponse = CompleteMultipartUploadResponse'
-  { _cmurrsETag ::
-      !( Maybe
-           ETag
-       ),
-    _cmurrsRequestCharged ::
-      !( Maybe
-           RequestCharged
-       ),
-    _cmurrsKey ::
-      !( Maybe
-           ObjectKey
-       ),
-    _cmurrsExpiration ::
-      !( Maybe
-           Text
-       ),
-    _cmurrsSSEKMSKeyId ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _cmurrsVersionId ::
-      !( Maybe
-           ObjectVersionId
-       ),
-    _cmurrsBucketKeyEnabled ::
-      !( Maybe
-           Bool
-       ),
-    _cmurrsServerSideEncryption ::
-      !( Maybe
-           ServerSideEncryption
-       ),
-    _cmurrsBucket ::
-      !( Maybe
-           BucketName
-       ),
-    _cmurrsLocation ::
-      !( Maybe
-           Text
-       ),
-    _cmurrsResponseStatus ::
-      !Int
+  { -- | Entity tag that identifies the newly created object\'s data. Objects
+    -- with different object data will have different entity tags. The entity
+    -- tag is an opaque string. The entity tag may or may not be an MD5 digest
+    -- of the object data. If the entity tag is not an MD5 digest of the object
+    -- data, it will contain one or more nonhexadecimal characters and\/or will
+    -- consist of less than 32 or more than 32 hexadecimal digits.
+    eTag :: Prelude.Maybe ETag,
+    requestCharged :: Prelude.Maybe RequestCharged,
+    -- | The object key of the newly created object.
+    key :: Prelude.Maybe ObjectKey,
+    -- | If the object expiration is configured, this will contain the expiration
+    -- date (expiry-date) and rule ID (rule-id). The value of rule-id is URL
+    -- encoded.
+    expiration :: Prelude.Maybe Prelude.Text,
+    -- | If present, specifies the ID of the AWS Key Management Service (AWS KMS)
+    -- symmetric customer managed customer master key (CMK) that was used for
+    -- the object.
+    sSEKMSKeyId :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | Version ID of the newly created object, in case the bucket has
+    -- versioning turned on.
+    versionId :: Prelude.Maybe ObjectVersionId,
+    -- | Indicates whether the multipart upload uses an S3 Bucket Key for
+    -- server-side encryption with AWS KMS (SSE-KMS).
+    bucketKeyEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | If you specified server-side encryption either with an Amazon S3-managed
+    -- encryption key or an AWS KMS customer master key (CMK) in your initiate
+    -- multipart upload request, the response includes this header. It confirms
+    -- the encryption algorithm that Amazon S3 used to encrypt the object.
+    serverSideEncryption :: Prelude.Maybe ServerSideEncryption,
+    -- | The name of the bucket that contains the newly created object.
+    --
+    -- When using this API with an access point, you must direct requests to
+    -- the access point hostname. The access point hostname takes the form
+    -- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+    -- When using this operation with an access point through the AWS SDKs, you
+    -- provide the access point ARN in place of the bucket name. For more
+    -- information about access point ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    --
+    -- When using this API with Amazon S3 on Outposts, you must direct requests
+    -- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+    -- form
+    -- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+    -- When using this operation using S3 on Outposts through the AWS SDKs, you
+    -- provide the Outposts bucket ARN in place of the bucket name. For more
+    -- information about S3 on Outposts ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    bucket :: Prelude.Maybe BucketName,
+    -- | The URI that identifies the newly created object.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CompleteMultipartUploadResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CompleteMultipartUploadResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cmurrsETag' - Entity tag that identifies the newly created object's data. Objects with different object data will have different entity tags. The entity tag is an opaque string. The entity tag may or may not be an MD5 digest of the object data. If the entity tag is not an MD5 digest of the object data, it will contain one or more nonhexadecimal characters and/or will consist of less than 32 or more than 32 hexadecimal digits.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cmurrsRequestCharged' - Undocumented member.
+-- 'eTag', 'completeMultipartUploadResponse_eTag' - Entity tag that identifies the newly created object\'s data. Objects
+-- with different object data will have different entity tags. The entity
+-- tag is an opaque string. The entity tag may or may not be an MD5 digest
+-- of the object data. If the entity tag is not an MD5 digest of the object
+-- data, it will contain one or more nonhexadecimal characters and\/or will
+-- consist of less than 32 or more than 32 hexadecimal digits.
 --
--- * 'cmurrsKey' - The object key of the newly created object.
+-- 'requestCharged', 'completeMultipartUploadResponse_requestCharged' - Undocumented member.
 --
--- * 'cmurrsExpiration' - If the object expiration is configured, this will contain the expiration date (expiry-date) and rule ID (rule-id). The value of rule-id is URL encoded.
+-- 'key', 'completeMultipartUploadResponse_key' - The object key of the newly created object.
 --
--- * 'cmurrsSSEKMSKeyId' - If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.
+-- 'expiration', 'completeMultipartUploadResponse_expiration' - If the object expiration is configured, this will contain the expiration
+-- date (expiry-date) and rule ID (rule-id). The value of rule-id is URL
+-- encoded.
 --
--- * 'cmurrsVersionId' - Version ID of the newly created object, in case the bucket has versioning turned on.
+-- 'sSEKMSKeyId', 'completeMultipartUploadResponse_sSEKMSKeyId' - If present, specifies the ID of the AWS Key Management Service (AWS KMS)
+-- symmetric customer managed customer master key (CMK) that was used for
+-- the object.
 --
--- * 'cmurrsBucketKeyEnabled' - Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
+-- 'versionId', 'completeMultipartUploadResponse_versionId' - Version ID of the newly created object, in case the bucket has
+-- versioning turned on.
 --
--- * 'cmurrsServerSideEncryption' - If you specified server-side encryption either with an Amazon S3-managed encryption key or an AWS KMS customer master key (CMK) in your initiate multipart upload request, the response includes this header. It confirms the encryption algorithm that Amazon S3 used to encrypt the object.
+-- 'bucketKeyEnabled', 'completeMultipartUploadResponse_bucketKeyEnabled' - Indicates whether the multipart upload uses an S3 Bucket Key for
+-- server-side encryption with AWS KMS (SSE-KMS).
 --
--- * 'cmurrsBucket' - The name of the bucket that contains the newly created object. When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ . When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form /AccessPointName/ -/AccountId/ ./outpostID/ .s3-outposts./Region/ .amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts> in the /Amazon Simple Storage Service Developer Guide/ .
+-- 'serverSideEncryption', 'completeMultipartUploadResponse_serverSideEncryption' - If you specified server-side encryption either with an Amazon S3-managed
+-- encryption key or an AWS KMS customer master key (CMK) in your initiate
+-- multipart upload request, the response includes this header. It confirms
+-- the encryption algorithm that Amazon S3 used to encrypt the object.
 --
--- * 'cmurrsLocation' - The URI that identifies the newly created object.
+-- 'bucket', 'completeMultipartUploadResponse_bucket' - The name of the bucket that contains the newly created object.
 --
--- * 'cmurrsResponseStatus' - -- | The response status code.
-completeMultipartUploadResponse ::
-  -- | 'cmurrsResponseStatus'
-  Int ->
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- When using this API with Amazon S3 on Outposts, you must direct requests
+-- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+-- form
+-- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+-- When using this operation using S3 on Outposts through the AWS SDKs, you
+-- provide the Outposts bucket ARN in place of the bucket name. For more
+-- information about S3 on Outposts ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- 'location', 'completeMultipartUploadResponse_location' - The URI that identifies the newly created object.
+--
+-- 'httpStatus', 'completeMultipartUploadResponse_httpStatus' - The response's http status code.
+newCompleteMultipartUploadResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CompleteMultipartUploadResponse
-completeMultipartUploadResponse pResponseStatus_ =
+newCompleteMultipartUploadResponse pHttpStatus_ =
   CompleteMultipartUploadResponse'
-    { _cmurrsETag =
-        Nothing,
-      _cmurrsRequestCharged = Nothing,
-      _cmurrsKey = Nothing,
-      _cmurrsExpiration = Nothing,
-      _cmurrsSSEKMSKeyId = Nothing,
-      _cmurrsVersionId = Nothing,
-      _cmurrsBucketKeyEnabled = Nothing,
-      _cmurrsServerSideEncryption = Nothing,
-      _cmurrsBucket = Nothing,
-      _cmurrsLocation = Nothing,
-      _cmurrsResponseStatus = pResponseStatus_
+    { eTag =
+        Prelude.Nothing,
+      requestCharged = Prelude.Nothing,
+      key = Prelude.Nothing,
+      expiration = Prelude.Nothing,
+      sSEKMSKeyId = Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      bucketKeyEnabled = Prelude.Nothing,
+      serverSideEncryption = Prelude.Nothing,
+      bucket = Prelude.Nothing,
+      location = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Entity tag that identifies the newly created object's data. Objects with different object data will have different entity tags. The entity tag is an opaque string. The entity tag may or may not be an MD5 digest of the object data. If the entity tag is not an MD5 digest of the object data, it will contain one or more nonhexadecimal characters and/or will consist of less than 32 or more than 32 hexadecimal digits.
-cmurrsETag :: Lens' CompleteMultipartUploadResponse (Maybe ETag)
-cmurrsETag = lens _cmurrsETag (\s a -> s {_cmurrsETag = a})
+-- | Entity tag that identifies the newly created object\'s data. Objects
+-- with different object data will have different entity tags. The entity
+-- tag is an opaque string. The entity tag may or may not be an MD5 digest
+-- of the object data. If the entity tag is not an MD5 digest of the object
+-- data, it will contain one or more nonhexadecimal characters and\/or will
+-- consist of less than 32 or more than 32 hexadecimal digits.
+completeMultipartUploadResponse_eTag :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe ETag)
+completeMultipartUploadResponse_eTag = Lens.lens (\CompleteMultipartUploadResponse' {eTag} -> eTag) (\s@CompleteMultipartUploadResponse' {} a -> s {eTag = a} :: CompleteMultipartUploadResponse)
 
 -- | Undocumented member.
-cmurrsRequestCharged :: Lens' CompleteMultipartUploadResponse (Maybe RequestCharged)
-cmurrsRequestCharged = lens _cmurrsRequestCharged (\s a -> s {_cmurrsRequestCharged = a})
+completeMultipartUploadResponse_requestCharged :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe RequestCharged)
+completeMultipartUploadResponse_requestCharged = Lens.lens (\CompleteMultipartUploadResponse' {requestCharged} -> requestCharged) (\s@CompleteMultipartUploadResponse' {} a -> s {requestCharged = a} :: CompleteMultipartUploadResponse)
 
 -- | The object key of the newly created object.
-cmurrsKey :: Lens' CompleteMultipartUploadResponse (Maybe ObjectKey)
-cmurrsKey = lens _cmurrsKey (\s a -> s {_cmurrsKey = a})
+completeMultipartUploadResponse_key :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe ObjectKey)
+completeMultipartUploadResponse_key = Lens.lens (\CompleteMultipartUploadResponse' {key} -> key) (\s@CompleteMultipartUploadResponse' {} a -> s {key = a} :: CompleteMultipartUploadResponse)
 
--- | If the object expiration is configured, this will contain the expiration date (expiry-date) and rule ID (rule-id). The value of rule-id is URL encoded.
-cmurrsExpiration :: Lens' CompleteMultipartUploadResponse (Maybe Text)
-cmurrsExpiration = lens _cmurrsExpiration (\s a -> s {_cmurrsExpiration = a})
+-- | If the object expiration is configured, this will contain the expiration
+-- date (expiry-date) and rule ID (rule-id). The value of rule-id is URL
+-- encoded.
+completeMultipartUploadResponse_expiration :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe Prelude.Text)
+completeMultipartUploadResponse_expiration = Lens.lens (\CompleteMultipartUploadResponse' {expiration} -> expiration) (\s@CompleteMultipartUploadResponse' {} a -> s {expiration = a} :: CompleteMultipartUploadResponse)
 
--- | If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.
-cmurrsSSEKMSKeyId :: Lens' CompleteMultipartUploadResponse (Maybe Text)
-cmurrsSSEKMSKeyId = lens _cmurrsSSEKMSKeyId (\s a -> s {_cmurrsSSEKMSKeyId = a}) . mapping _Sensitive
+-- | If present, specifies the ID of the AWS Key Management Service (AWS KMS)
+-- symmetric customer managed customer master key (CMK) that was used for
+-- the object.
+completeMultipartUploadResponse_sSEKMSKeyId :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe Prelude.Text)
+completeMultipartUploadResponse_sSEKMSKeyId = Lens.lens (\CompleteMultipartUploadResponse' {sSEKMSKeyId} -> sSEKMSKeyId) (\s@CompleteMultipartUploadResponse' {} a -> s {sSEKMSKeyId = a} :: CompleteMultipartUploadResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | Version ID of the newly created object, in case the bucket has versioning turned on.
-cmurrsVersionId :: Lens' CompleteMultipartUploadResponse (Maybe ObjectVersionId)
-cmurrsVersionId = lens _cmurrsVersionId (\s a -> s {_cmurrsVersionId = a})
+-- | Version ID of the newly created object, in case the bucket has
+-- versioning turned on.
+completeMultipartUploadResponse_versionId :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe ObjectVersionId)
+completeMultipartUploadResponse_versionId = Lens.lens (\CompleteMultipartUploadResponse' {versionId} -> versionId) (\s@CompleteMultipartUploadResponse' {} a -> s {versionId = a} :: CompleteMultipartUploadResponse)
 
--- | Indicates whether the multipart upload uses an S3 Bucket Key for server-side encryption with AWS KMS (SSE-KMS).
-cmurrsBucketKeyEnabled :: Lens' CompleteMultipartUploadResponse (Maybe Bool)
-cmurrsBucketKeyEnabled = lens _cmurrsBucketKeyEnabled (\s a -> s {_cmurrsBucketKeyEnabled = a})
+-- | Indicates whether the multipart upload uses an S3 Bucket Key for
+-- server-side encryption with AWS KMS (SSE-KMS).
+completeMultipartUploadResponse_bucketKeyEnabled :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe Prelude.Bool)
+completeMultipartUploadResponse_bucketKeyEnabled = Lens.lens (\CompleteMultipartUploadResponse' {bucketKeyEnabled} -> bucketKeyEnabled) (\s@CompleteMultipartUploadResponse' {} a -> s {bucketKeyEnabled = a} :: CompleteMultipartUploadResponse)
 
--- | If you specified server-side encryption either with an Amazon S3-managed encryption key or an AWS KMS customer master key (CMK) in your initiate multipart upload request, the response includes this header. It confirms the encryption algorithm that Amazon S3 used to encrypt the object.
-cmurrsServerSideEncryption :: Lens' CompleteMultipartUploadResponse (Maybe ServerSideEncryption)
-cmurrsServerSideEncryption = lens _cmurrsServerSideEncryption (\s a -> s {_cmurrsServerSideEncryption = a})
+-- | If you specified server-side encryption either with an Amazon S3-managed
+-- encryption key or an AWS KMS customer master key (CMK) in your initiate
+-- multipart upload request, the response includes this header. It confirms
+-- the encryption algorithm that Amazon S3 used to encrypt the object.
+completeMultipartUploadResponse_serverSideEncryption :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe ServerSideEncryption)
+completeMultipartUploadResponse_serverSideEncryption = Lens.lens (\CompleteMultipartUploadResponse' {serverSideEncryption} -> serverSideEncryption) (\s@CompleteMultipartUploadResponse' {} a -> s {serverSideEncryption = a} :: CompleteMultipartUploadResponse)
 
--- | The name of the bucket that contains the newly created object. When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ . When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form /AccessPointName/ -/AccountId/ ./outpostID/ .s3-outposts./Region/ .amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts> in the /Amazon Simple Storage Service Developer Guide/ .
-cmurrsBucket :: Lens' CompleteMultipartUploadResponse (Maybe BucketName)
-cmurrsBucket = lens _cmurrsBucket (\s a -> s {_cmurrsBucket = a})
+-- | The name of the bucket that contains the newly created object.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- When using this API with Amazon S3 on Outposts, you must direct requests
+-- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+-- form
+-- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+-- When using this operation using S3 on Outposts through the AWS SDKs, you
+-- provide the Outposts bucket ARN in place of the bucket name. For more
+-- information about S3 on Outposts ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+completeMultipartUploadResponse_bucket :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe BucketName)
+completeMultipartUploadResponse_bucket = Lens.lens (\CompleteMultipartUploadResponse' {bucket} -> bucket) (\s@CompleteMultipartUploadResponse' {} a -> s {bucket = a} :: CompleteMultipartUploadResponse)
 
 -- | The URI that identifies the newly created object.
-cmurrsLocation :: Lens' CompleteMultipartUploadResponse (Maybe Text)
-cmurrsLocation = lens _cmurrsLocation (\s a -> s {_cmurrsLocation = a})
+completeMultipartUploadResponse_location :: Lens.Lens' CompleteMultipartUploadResponse (Prelude.Maybe Prelude.Text)
+completeMultipartUploadResponse_location = Lens.lens (\CompleteMultipartUploadResponse' {location} -> location) (\s@CompleteMultipartUploadResponse' {} a -> s {location = a} :: CompleteMultipartUploadResponse)
 
--- | -- | The response status code.
-cmurrsResponseStatus :: Lens' CompleteMultipartUploadResponse Int
-cmurrsResponseStatus = lens _cmurrsResponseStatus (\s a -> s {_cmurrsResponseStatus = a})
+-- | The response's http status code.
+completeMultipartUploadResponse_httpStatus :: Lens.Lens' CompleteMultipartUploadResponse Prelude.Int
+completeMultipartUploadResponse_httpStatus = Lens.lens (\CompleteMultipartUploadResponse' {httpStatus} -> httpStatus) (\s@CompleteMultipartUploadResponse' {} a -> s {httpStatus = a} :: CompleteMultipartUploadResponse)
 
-instance NFData CompleteMultipartUploadResponse
+instance
+  Prelude.NFData
+    CompleteMultipartUploadResponse

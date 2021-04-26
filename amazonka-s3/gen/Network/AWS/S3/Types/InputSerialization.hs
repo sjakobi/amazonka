@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.InputSerialization where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.CSVInput
 import Network.AWS.S3.Types.CompressionType
@@ -25,65 +29,72 @@ import Network.AWS.S3.Types.ParquetInput
 
 -- | Describes the serialization format of the object.
 --
---
---
--- /See:/ 'inputSerialization' smart constructor.
+-- /See:/ 'newInputSerialization' smart constructor.
 data InputSerialization = InputSerialization'
-  { _isParquet ::
-      !(Maybe ParquetInput),
-    _isCSV :: !(Maybe CSVInput),
-    _isJSON :: !(Maybe JSONInput),
-    _isCompressionType ::
-      !(Maybe CompressionType)
+  { -- | Specifies Parquet as object\'s input serialization format.
+    parquet :: Prelude.Maybe ParquetInput,
+    -- | Describes the serialization of a CSV-encoded object.
+    cSV :: Prelude.Maybe CSVInput,
+    -- | Specifies JSON as object\'s input serialization format.
+    jSON :: Prelude.Maybe JSONInput,
+    -- | Specifies object\'s compression format. Valid values: NONE, GZIP, BZIP2.
+    -- Default Value: NONE.
+    compressionType :: Prelude.Maybe CompressionType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InputSerialization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InputSerialization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isParquet' - Specifies Parquet as object's input serialization format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isCSV' - Describes the serialization of a CSV-encoded object.
+-- 'parquet', 'inputSerialization_parquet' - Specifies Parquet as object\'s input serialization format.
 --
--- * 'isJSON' - Specifies JSON as object's input serialization format.
+-- 'cSV', 'inputSerialization_cSV' - Describes the serialization of a CSV-encoded object.
 --
--- * 'isCompressionType' - Specifies object's compression format. Valid values: NONE, GZIP, BZIP2. Default Value: NONE.
-inputSerialization ::
+-- 'jSON', 'inputSerialization_jSON' - Specifies JSON as object\'s input serialization format.
+--
+-- 'compressionType', 'inputSerialization_compressionType' - Specifies object\'s compression format. Valid values: NONE, GZIP, BZIP2.
+-- Default Value: NONE.
+newInputSerialization ::
   InputSerialization
-inputSerialization =
+newInputSerialization =
   InputSerialization'
-    { _isParquet = Nothing,
-      _isCSV = Nothing,
-      _isJSON = Nothing,
-      _isCompressionType = Nothing
+    { parquet = Prelude.Nothing,
+      cSV = Prelude.Nothing,
+      jSON = Prelude.Nothing,
+      compressionType = Prelude.Nothing
     }
 
--- | Specifies Parquet as object's input serialization format.
-isParquet :: Lens' InputSerialization (Maybe ParquetInput)
-isParquet = lens _isParquet (\s a -> s {_isParquet = a})
+-- | Specifies Parquet as object\'s input serialization format.
+inputSerialization_parquet :: Lens.Lens' InputSerialization (Prelude.Maybe ParquetInput)
+inputSerialization_parquet = Lens.lens (\InputSerialization' {parquet} -> parquet) (\s@InputSerialization' {} a -> s {parquet = a} :: InputSerialization)
 
 -- | Describes the serialization of a CSV-encoded object.
-isCSV :: Lens' InputSerialization (Maybe CSVInput)
-isCSV = lens _isCSV (\s a -> s {_isCSV = a})
+inputSerialization_cSV :: Lens.Lens' InputSerialization (Prelude.Maybe CSVInput)
+inputSerialization_cSV = Lens.lens (\InputSerialization' {cSV} -> cSV) (\s@InputSerialization' {} a -> s {cSV = a} :: InputSerialization)
 
--- | Specifies JSON as object's input serialization format.
-isJSON :: Lens' InputSerialization (Maybe JSONInput)
-isJSON = lens _isJSON (\s a -> s {_isJSON = a})
+-- | Specifies JSON as object\'s input serialization format.
+inputSerialization_jSON :: Lens.Lens' InputSerialization (Prelude.Maybe JSONInput)
+inputSerialization_jSON = Lens.lens (\InputSerialization' {jSON} -> jSON) (\s@InputSerialization' {} a -> s {jSON = a} :: InputSerialization)
 
--- | Specifies object's compression format. Valid values: NONE, GZIP, BZIP2. Default Value: NONE.
-isCompressionType :: Lens' InputSerialization (Maybe CompressionType)
-isCompressionType = lens _isCompressionType (\s a -> s {_isCompressionType = a})
+-- | Specifies object\'s compression format. Valid values: NONE, GZIP, BZIP2.
+-- Default Value: NONE.
+inputSerialization_compressionType :: Lens.Lens' InputSerialization (Prelude.Maybe CompressionType)
+inputSerialization_compressionType = Lens.lens (\InputSerialization' {compressionType} -> compressionType) (\s@InputSerialization' {} a -> s {compressionType = a} :: InputSerialization)
 
-instance Hashable InputSerialization
+instance Prelude.Hashable InputSerialization
 
-instance NFData InputSerialization
+instance Prelude.NFData InputSerialization
 
-instance ToXML InputSerialization where
+instance Prelude.ToXML InputSerialization where
   toXML InputSerialization' {..} =
-    mconcat
-      [ "Parquet" @= _isParquet,
-        "CSV" @= _isCSV,
-        "JSON" @= _isJSON,
-        "CompressionType" @= _isCompressionType
+    Prelude.mconcat
+      [ "Parquet" Prelude.@= parquet,
+        "CSV" Prelude.@= cSV,
+        "JSON" Prelude.@= jSON,
+        "CompressionType" Prelude.@= compressionType
       ]

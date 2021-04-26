@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.InventoryConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.InventoryDestination
 import Network.AWS.S3.Types.InventoryFilter
@@ -24,131 +28,157 @@ import Network.AWS.S3.Types.InventoryIncludedObjectVersions
 import Network.AWS.S3.Types.InventoryOptionalField
 import Network.AWS.S3.Types.InventorySchedule
 
--- | Specifies the inventory configuration for an Amazon S3 bucket. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETInventoryConfig.html GET Bucket inventory> in the /Amazon Simple Storage Service API Reference/ .
+-- | Specifies the inventory configuration for an Amazon S3 bucket. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETInventoryConfig.html GET Bucket inventory>
+-- in the /Amazon Simple Storage Service API Reference/.
 --
---
---
--- /See:/ 'inventoryConfiguration' smart constructor.
+-- /See:/ 'newInventoryConfiguration' smart constructor.
 data InventoryConfiguration = InventoryConfiguration'
-  { _icOptionalFields ::
-      !( Maybe
-           [InventoryOptionalField]
-       ),
-    _icFilter ::
-      !(Maybe InventoryFilter),
-    _icDestination ::
-      !InventoryDestination,
-    _icIsEnabled :: !Bool,
-    _icId :: !Text,
-    _icIncludedObjectVersions ::
-      !InventoryIncludedObjectVersions,
-    _icSchedule ::
-      !InventorySchedule
+  { -- | Contains the optional fields that are included in the inventory results.
+    optionalFields :: Prelude.Maybe [InventoryOptionalField],
+    -- | Specifies an inventory filter. The inventory only includes objects that
+    -- meet the filter\'s criteria.
+    filter' :: Prelude.Maybe InventoryFilter,
+    -- | Contains information about where to publish the inventory results.
+    destination :: InventoryDestination,
+    -- | Specifies whether the inventory is enabled or disabled. If set to
+    -- @True@, an inventory list is generated. If set to @False@, no inventory
+    -- list is generated.
+    isEnabled :: Prelude.Bool,
+    -- | The ID used to identify the inventory configuration.
+    id :: Prelude.Text,
+    -- | Object versions to include in the inventory list. If set to @All@, the
+    -- list includes all the object versions, which adds the version-related
+    -- fields @VersionId@, @IsLatest@, and @DeleteMarker@ to the list. If set
+    -- to @Current@, the list does not contain these version-related fields.
+    includedObjectVersions :: InventoryIncludedObjectVersions,
+    -- | Specifies the schedule for generating inventory results.
+    schedule :: InventorySchedule
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'icOptionalFields' - Contains the optional fields that are included in the inventory results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'icFilter' - Specifies an inventory filter. The inventory only includes objects that meet the filter's criteria.
+-- 'optionalFields', 'inventoryConfiguration_optionalFields' - Contains the optional fields that are included in the inventory results.
 --
--- * 'icDestination' - Contains information about where to publish the inventory results.
+-- 'filter'', 'inventoryConfiguration_filter' - Specifies an inventory filter. The inventory only includes objects that
+-- meet the filter\'s criteria.
 --
--- * 'icIsEnabled' - Specifies whether the inventory is enabled or disabled. If set to @True@ , an inventory list is generated. If set to @False@ , no inventory list is generated.
+-- 'destination', 'inventoryConfiguration_destination' - Contains information about where to publish the inventory results.
 --
--- * 'icId' - The ID used to identify the inventory configuration.
+-- 'isEnabled', 'inventoryConfiguration_isEnabled' - Specifies whether the inventory is enabled or disabled. If set to
+-- @True@, an inventory list is generated. If set to @False@, no inventory
+-- list is generated.
 --
--- * 'icIncludedObjectVersions' - Object versions to include in the inventory list. If set to @All@ , the list includes all the object versions, which adds the version-related fields @VersionId@ , @IsLatest@ , and @DeleteMarker@ to the list. If set to @Current@ , the list does not contain these version-related fields.
+-- 'id', 'inventoryConfiguration_id' - The ID used to identify the inventory configuration.
 --
--- * 'icSchedule' - Specifies the schedule for generating inventory results.
-inventoryConfiguration ::
-  -- | 'icDestination'
+-- 'includedObjectVersions', 'inventoryConfiguration_includedObjectVersions' - Object versions to include in the inventory list. If set to @All@, the
+-- list includes all the object versions, which adds the version-related
+-- fields @VersionId@, @IsLatest@, and @DeleteMarker@ to the list. If set
+-- to @Current@, the list does not contain these version-related fields.
+--
+-- 'schedule', 'inventoryConfiguration_schedule' - Specifies the schedule for generating inventory results.
+newInventoryConfiguration ::
+  -- | 'destination'
   InventoryDestination ->
-  -- | 'icIsEnabled'
-  Bool ->
-  -- | 'icId'
-  Text ->
-  -- | 'icIncludedObjectVersions'
+  -- | 'isEnabled'
+  Prelude.Bool ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'includedObjectVersions'
   InventoryIncludedObjectVersions ->
-  -- | 'icSchedule'
+  -- | 'schedule'
   InventorySchedule ->
   InventoryConfiguration
-inventoryConfiguration
+newInventoryConfiguration
   pDestination_
   pIsEnabled_
   pId_
   pIncludedObjectVersions_
   pSchedule_ =
     InventoryConfiguration'
-      { _icOptionalFields =
-          Nothing,
-        _icFilter = Nothing,
-        _icDestination = pDestination_,
-        _icIsEnabled = pIsEnabled_,
-        _icId = pId_,
-        _icIncludedObjectVersions =
-          pIncludedObjectVersions_,
-        _icSchedule = pSchedule_
+      { optionalFields =
+          Prelude.Nothing,
+        filter' = Prelude.Nothing,
+        destination = pDestination_,
+        isEnabled = pIsEnabled_,
+        id = pId_,
+        includedObjectVersions = pIncludedObjectVersions_,
+        schedule = pSchedule_
       }
 
 -- | Contains the optional fields that are included in the inventory results.
-icOptionalFields :: Lens' InventoryConfiguration [InventoryOptionalField]
-icOptionalFields = lens _icOptionalFields (\s a -> s {_icOptionalFields = a}) . _Default . _Coerce
+inventoryConfiguration_optionalFields :: Lens.Lens' InventoryConfiguration (Prelude.Maybe [InventoryOptionalField])
+inventoryConfiguration_optionalFields = Lens.lens (\InventoryConfiguration' {optionalFields} -> optionalFields) (\s@InventoryConfiguration' {} a -> s {optionalFields = a} :: InventoryConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Specifies an inventory filter. The inventory only includes objects that meet the filter's criteria.
-icFilter :: Lens' InventoryConfiguration (Maybe InventoryFilter)
-icFilter = lens _icFilter (\s a -> s {_icFilter = a})
+-- | Specifies an inventory filter. The inventory only includes objects that
+-- meet the filter\'s criteria.
+inventoryConfiguration_filter :: Lens.Lens' InventoryConfiguration (Prelude.Maybe InventoryFilter)
+inventoryConfiguration_filter = Lens.lens (\InventoryConfiguration' {filter'} -> filter') (\s@InventoryConfiguration' {} a -> s {filter' = a} :: InventoryConfiguration)
 
 -- | Contains information about where to publish the inventory results.
-icDestination :: Lens' InventoryConfiguration InventoryDestination
-icDestination = lens _icDestination (\s a -> s {_icDestination = a})
+inventoryConfiguration_destination :: Lens.Lens' InventoryConfiguration InventoryDestination
+inventoryConfiguration_destination = Lens.lens (\InventoryConfiguration' {destination} -> destination) (\s@InventoryConfiguration' {} a -> s {destination = a} :: InventoryConfiguration)
 
--- | Specifies whether the inventory is enabled or disabled. If set to @True@ , an inventory list is generated. If set to @False@ , no inventory list is generated.
-icIsEnabled :: Lens' InventoryConfiguration Bool
-icIsEnabled = lens _icIsEnabled (\s a -> s {_icIsEnabled = a})
+-- | Specifies whether the inventory is enabled or disabled. If set to
+-- @True@, an inventory list is generated. If set to @False@, no inventory
+-- list is generated.
+inventoryConfiguration_isEnabled :: Lens.Lens' InventoryConfiguration Prelude.Bool
+inventoryConfiguration_isEnabled = Lens.lens (\InventoryConfiguration' {isEnabled} -> isEnabled) (\s@InventoryConfiguration' {} a -> s {isEnabled = a} :: InventoryConfiguration)
 
 -- | The ID used to identify the inventory configuration.
-icId :: Lens' InventoryConfiguration Text
-icId = lens _icId (\s a -> s {_icId = a})
+inventoryConfiguration_id :: Lens.Lens' InventoryConfiguration Prelude.Text
+inventoryConfiguration_id = Lens.lens (\InventoryConfiguration' {id} -> id) (\s@InventoryConfiguration' {} a -> s {id = a} :: InventoryConfiguration)
 
--- | Object versions to include in the inventory list. If set to @All@ , the list includes all the object versions, which adds the version-related fields @VersionId@ , @IsLatest@ , and @DeleteMarker@ to the list. If set to @Current@ , the list does not contain these version-related fields.
-icIncludedObjectVersions :: Lens' InventoryConfiguration InventoryIncludedObjectVersions
-icIncludedObjectVersions = lens _icIncludedObjectVersions (\s a -> s {_icIncludedObjectVersions = a})
+-- | Object versions to include in the inventory list. If set to @All@, the
+-- list includes all the object versions, which adds the version-related
+-- fields @VersionId@, @IsLatest@, and @DeleteMarker@ to the list. If set
+-- to @Current@, the list does not contain these version-related fields.
+inventoryConfiguration_includedObjectVersions :: Lens.Lens' InventoryConfiguration InventoryIncludedObjectVersions
+inventoryConfiguration_includedObjectVersions = Lens.lens (\InventoryConfiguration' {includedObjectVersions} -> includedObjectVersions) (\s@InventoryConfiguration' {} a -> s {includedObjectVersions = a} :: InventoryConfiguration)
 
 -- | Specifies the schedule for generating inventory results.
-icSchedule :: Lens' InventoryConfiguration InventorySchedule
-icSchedule = lens _icSchedule (\s a -> s {_icSchedule = a})
+inventoryConfiguration_schedule :: Lens.Lens' InventoryConfiguration InventorySchedule
+inventoryConfiguration_schedule = Lens.lens (\InventoryConfiguration' {schedule} -> schedule) (\s@InventoryConfiguration' {} a -> s {schedule = a} :: InventoryConfiguration)
 
-instance FromXML InventoryConfiguration where
+instance Prelude.FromXML InventoryConfiguration where
   parseXML x =
     InventoryConfiguration'
-      <$> ( x .@? "OptionalFields" .!@ mempty
-              >>= may (parseXMLList "Field")
-          )
-      <*> (x .@? "Filter")
-      <*> (x .@ "Destination")
-      <*> (x .@ "IsEnabled")
-      <*> (x .@ "Id")
-      <*> (x .@ "IncludedObjectVersions")
-      <*> (x .@ "Schedule")
+      Prelude.<$> ( x Prelude..@? "OptionalFields"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.may (Prelude.parseXMLList "Field")
+                  )
+      Prelude.<*> (x Prelude..@? "Filter")
+      Prelude.<*> (x Prelude..@ "Destination")
+      Prelude.<*> (x Prelude..@ "IsEnabled")
+      Prelude.<*> (x Prelude..@ "Id")
+      Prelude.<*> (x Prelude..@ "IncludedObjectVersions")
+      Prelude.<*> (x Prelude..@ "Schedule")
 
-instance Hashable InventoryConfiguration
+instance Prelude.Hashable InventoryConfiguration
 
-instance NFData InventoryConfiguration
+instance Prelude.NFData InventoryConfiguration
 
-instance ToXML InventoryConfiguration where
+instance Prelude.ToXML InventoryConfiguration where
   toXML InventoryConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "OptionalFields"
-          @= toXML (toXMLList "Field" <$> _icOptionalFields),
-        "Filter" @= _icFilter,
-        "Destination" @= _icDestination,
-        "IsEnabled" @= _icIsEnabled,
-        "Id" @= _icId,
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "Field"
+                Prelude.<$> optionalFields
+            ),
+        "Filter" Prelude.@= filter',
+        "Destination" Prelude.@= destination,
+        "IsEnabled" Prelude.@= isEnabled,
+        "Id" Prelude.@= id,
         "IncludedObjectVersions"
-          @= _icIncludedObjectVersions,
-        "Schedule" @= _icSchedule
+          Prelude.@= includedObjectVersions,
+        "Schedule" Prelude.@= schedule
       ]

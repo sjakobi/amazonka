@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,239 +23,322 @@
 --
 -- Sets the supplied tag-set to an object that already exists in a bucket.
 --
+-- A tag is a key-value pair. You can associate tags with an object by
+-- sending a PUT request against the tagging subresource that is associated
+-- with the object. You can retrieve tags by sending a GET request. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html GetObjectTagging>.
 --
--- A tag is a key-value pair. You can associate tags with an object by sending a PUT request against the tagging subresource that is associated with the object. You can retrieve tags by sending a GET request. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html GetObjectTagging> .
+-- For tagging-related restrictions related to characters and encodings,
+-- see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html Tag Restrictions>.
+-- Note that Amazon S3 limits the maximum number of tags to 10 tags per
+-- object.
 --
--- For tagging-related restrictions related to characters and encodings, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html Tag Restrictions> . Note that Amazon S3 limits the maximum number of tags to 10 tags per object.
+-- To use this operation, you must have permission to perform the
+-- @s3:PutObjectTagging@ action. By default, the bucket owner has this
+-- permission and can grant this permission to others.
 --
--- To use this operation, you must have permission to perform the @s3:PutObjectTagging@ action. By default, the bucket owner has this permission and can grant this permission to others.
+-- To put tags of any other version, use the @versionId@ query parameter.
+-- You also need permission for the @s3:PutObjectVersionTagging@ action.
 --
--- To put tags of any other version, use the @versionId@ query parameter. You also need permission for the @s3:PutObjectVersionTagging@ action.
---
--- For information about the Amazon S3 object tagging feature, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html Object Tagging> .
+-- For information about the Amazon S3 object tagging feature, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html Object Tagging>.
 --
 -- __Special Errors__
 --
---     *     * /Code: InvalidTagError /
+-- -   -   /Code: InvalidTagError/
 --
---     * /Cause: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation. For more information, see <https:\/\/docs.aws.amazon.com\/AmazonS3\/latest\/dev\/object-tagging.html Object Tagging> ./
+--     -   /Cause: The tag provided was not a valid tag. This error can
+--         occur if the tag did not pass input validation. For more
+--         information, see
+--         <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-tagging.html Object Tagging>./
 --
+-- -   -   /Code: MalformedXMLError/
 --
+--     -   /Cause: The XML provided does not match the schema./
 --
---     *     * /Code: MalformedXMLError /
+-- -   -   /Code: OperationAbortedError/
 --
---     * /Cause: The XML provided does not match the schema./
+--     -   /Cause: A conflicting conditional operation is currently in
+--         progress against this resource. Please try again./
 --
+-- -   -   /Code: InternalError/
 --
---
---     *     * /Code: OperationAbortedError /
---
---     * /Cause: A conflicting conditional operation is currently in progress against this resource. Please try again./
---
---
---
---     *     * /Code: InternalError/
---
---     * /Cause: The service was unable to apply the provided tag to the object./
---
---
---
---
+--     -   /Cause: The service was unable to apply the provided tag to the
+--         object./
 --
 -- __Related Resources__
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html GetObjectTagging>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html GetObjectTagging>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html DeleteObjectTagging>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html DeleteObjectTagging>
 module Network.AWS.S3.PutObjectTagging
   ( -- * Creating a Request
-    putObjectTagging,
-    PutObjectTagging,
+    PutObjectTagging (..),
+    newPutObjectTagging,
 
     -- * Request Lenses
-    potExpectedBucketOwner,
-    potContentMD5,
-    potVersionId,
-    potRequestPayer,
-    potBucket,
-    potKey,
-    potTagging,
+    putObjectTagging_expectedBucketOwner,
+    putObjectTagging_contentMD5,
+    putObjectTagging_versionId,
+    putObjectTagging_requestPayer,
+    putObjectTagging_bucket,
+    putObjectTagging_key,
+    putObjectTagging_tagging,
 
     -- * Destructuring the Response
-    putObjectTaggingResponse,
-    PutObjectTaggingResponse,
+    PutObjectTaggingResponse (..),
+    newPutObjectTaggingResponse,
 
     -- * Response Lenses
-    potrrsVersionId,
-    potrrsResponseStatus,
+    putObjectTaggingResponse_versionId,
+    putObjectTaggingResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
 
--- | /See:/ 'putObjectTagging' smart constructor.
+-- | /See:/ 'newPutObjectTagging' smart constructor.
 data PutObjectTagging = PutObjectTagging'
-  { _potExpectedBucketOwner ::
-      !(Maybe Text),
-    _potContentMD5 :: !(Maybe Text),
-    _potVersionId ::
-      !(Maybe ObjectVersionId),
-    _potRequestPayer ::
-      !(Maybe RequestPayer),
-    _potBucket :: !BucketName,
-    _potKey :: !ObjectKey,
-    _potTagging :: !Tagging
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The MD5 hash for the request body.
+    --
+    -- For requests made using the AWS Command Line Interface (CLI) or AWS
+    -- SDKs, this field is calculated automatically.
+    contentMD5 :: Prelude.Maybe Prelude.Text,
+    -- | The versionId of the object that the tag-set will be added to.
+    versionId :: Prelude.Maybe ObjectVersionId,
+    requestPayer :: Prelude.Maybe RequestPayer,
+    -- | The bucket name containing the object.
+    --
+    -- When using this API with an access point, you must direct requests to
+    -- the access point hostname. The access point hostname takes the form
+    -- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+    -- When using this operation with an access point through the AWS SDKs, you
+    -- provide the access point ARN in place of the bucket name. For more
+    -- information about access point ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    --
+    -- When using this API with Amazon S3 on Outposts, you must direct requests
+    -- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+    -- form
+    -- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+    -- When using this operation using S3 on Outposts through the AWS SDKs, you
+    -- provide the Outposts bucket ARN in place of the bucket name. For more
+    -- information about S3 on Outposts ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    bucket :: BucketName,
+    -- | Name of the object key.
+    key :: ObjectKey,
+    -- | Container for the @TagSet@ and @Tag@ elements
+    tagging :: Tagging
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutObjectTagging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutObjectTagging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'potExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'potContentMD5' - The MD5 hash for the request body. For requests made using the AWS Command Line Interface (CLI) or AWS SDKs, this field is calculated automatically.
+-- 'expectedBucketOwner', 'putObjectTagging_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'potVersionId' - The versionId of the object that the tag-set will be added to.
+-- 'contentMD5', 'putObjectTagging_contentMD5' - The MD5 hash for the request body.
 --
--- * 'potRequestPayer' - Undocumented member.
+-- For requests made using the AWS Command Line Interface (CLI) or AWS
+-- SDKs, this field is calculated automatically.
 --
--- * 'potBucket' - The bucket name containing the object.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ . When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form /AccessPointName/ -/AccountId/ ./outpostID/ .s3-outposts./Region/ .amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts> in the /Amazon Simple Storage Service Developer Guide/ .
+-- 'versionId', 'putObjectTagging_versionId' - The versionId of the object that the tag-set will be added to.
 --
--- * 'potKey' - Name of the object key.
+-- 'requestPayer', 'putObjectTagging_requestPayer' - Undocumented member.
 --
--- * 'potTagging' - Container for the @TagSet@ and @Tag@ elements
-putObjectTagging ::
-  -- | 'potBucket'
+-- 'bucket', 'putObjectTagging_bucket' - The bucket name containing the object.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- When using this API with Amazon S3 on Outposts, you must direct requests
+-- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+-- form
+-- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+-- When using this operation using S3 on Outposts through the AWS SDKs, you
+-- provide the Outposts bucket ARN in place of the bucket name. For more
+-- information about S3 on Outposts ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- 'key', 'putObjectTagging_key' - Name of the object key.
+--
+-- 'tagging', 'putObjectTagging_tagging' - Container for the @TagSet@ and @Tag@ elements
+newPutObjectTagging ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'potKey'
+  -- | 'key'
   ObjectKey ->
-  -- | 'potTagging'
+  -- | 'tagging'
   Tagging ->
   PutObjectTagging
-putObjectTagging pBucket_ pKey_ pTagging_ =
+newPutObjectTagging pBucket_ pKey_ pTagging_ =
   PutObjectTagging'
-    { _potExpectedBucketOwner =
-        Nothing,
-      _potContentMD5 = Nothing,
-      _potVersionId = Nothing,
-      _potRequestPayer = Nothing,
-      _potBucket = pBucket_,
-      _potKey = pKey_,
-      _potTagging = pTagging_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      contentMD5 = Prelude.Nothing,
+      versionId = Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
+      bucket = pBucket_,
+      key = pKey_,
+      tagging = pTagging_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-potExpectedBucketOwner :: Lens' PutObjectTagging (Maybe Text)
-potExpectedBucketOwner = lens _potExpectedBucketOwner (\s a -> s {_potExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+putObjectTagging_expectedBucketOwner :: Lens.Lens' PutObjectTagging (Prelude.Maybe Prelude.Text)
+putObjectTagging_expectedBucketOwner = Lens.lens (\PutObjectTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutObjectTagging' {} a -> s {expectedBucketOwner = a} :: PutObjectTagging)
 
--- | The MD5 hash for the request body. For requests made using the AWS Command Line Interface (CLI) or AWS SDKs, this field is calculated automatically.
-potContentMD5 :: Lens' PutObjectTagging (Maybe Text)
-potContentMD5 = lens _potContentMD5 (\s a -> s {_potContentMD5 = a})
+-- | The MD5 hash for the request body.
+--
+-- For requests made using the AWS Command Line Interface (CLI) or AWS
+-- SDKs, this field is calculated automatically.
+putObjectTagging_contentMD5 :: Lens.Lens' PutObjectTagging (Prelude.Maybe Prelude.Text)
+putObjectTagging_contentMD5 = Lens.lens (\PutObjectTagging' {contentMD5} -> contentMD5) (\s@PutObjectTagging' {} a -> s {contentMD5 = a} :: PutObjectTagging)
 
 -- | The versionId of the object that the tag-set will be added to.
-potVersionId :: Lens' PutObjectTagging (Maybe ObjectVersionId)
-potVersionId = lens _potVersionId (\s a -> s {_potVersionId = a})
+putObjectTagging_versionId :: Lens.Lens' PutObjectTagging (Prelude.Maybe ObjectVersionId)
+putObjectTagging_versionId = Lens.lens (\PutObjectTagging' {versionId} -> versionId) (\s@PutObjectTagging' {} a -> s {versionId = a} :: PutObjectTagging)
 
 -- | Undocumented member.
-potRequestPayer :: Lens' PutObjectTagging (Maybe RequestPayer)
-potRequestPayer = lens _potRequestPayer (\s a -> s {_potRequestPayer = a})
+putObjectTagging_requestPayer :: Lens.Lens' PutObjectTagging (Prelude.Maybe RequestPayer)
+putObjectTagging_requestPayer = Lens.lens (\PutObjectTagging' {requestPayer} -> requestPayer) (\s@PutObjectTagging' {} a -> s {requestPayer = a} :: PutObjectTagging)
 
--- | The bucket name containing the object.  When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ . When using this API with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The S3 on Outposts hostname takes the form /AccessPointName/ -/AccountId/ ./outpostID/ .s3-outposts./Region/ .amazonaws.com. When using this operation using S3 on Outposts through the AWS SDKs, you provide the Outposts bucket ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts> in the /Amazon Simple Storage Service Developer Guide/ .
-potBucket :: Lens' PutObjectTagging BucketName
-potBucket = lens _potBucket (\s a -> s {_potBucket = a})
+-- | The bucket name containing the object.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- When using this API with Amazon S3 on Outposts, you must direct requests
+-- to the S3 on Outposts hostname. The S3 on Outposts hostname takes the
+-- form
+-- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
+-- When using this operation using S3 on Outposts through the AWS SDKs, you
+-- provide the Outposts bucket ARN in place of the bucket name. For more
+-- information about S3 on Outposts ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/S3onOutposts.html Using S3 on Outposts>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+putObjectTagging_bucket :: Lens.Lens' PutObjectTagging BucketName
+putObjectTagging_bucket = Lens.lens (\PutObjectTagging' {bucket} -> bucket) (\s@PutObjectTagging' {} a -> s {bucket = a} :: PutObjectTagging)
 
 -- | Name of the object key.
-potKey :: Lens' PutObjectTagging ObjectKey
-potKey = lens _potKey (\s a -> s {_potKey = a})
+putObjectTagging_key :: Lens.Lens' PutObjectTagging ObjectKey
+putObjectTagging_key = Lens.lens (\PutObjectTagging' {key} -> key) (\s@PutObjectTagging' {} a -> s {key = a} :: PutObjectTagging)
 
 -- | Container for the @TagSet@ and @Tag@ elements
-potTagging :: Lens' PutObjectTagging Tagging
-potTagging = lens _potTagging (\s a -> s {_potTagging = a})
+putObjectTagging_tagging :: Lens.Lens' PutObjectTagging Tagging
+putObjectTagging_tagging = Lens.lens (\PutObjectTagging' {tagging} -> tagging) (\s@PutObjectTagging' {} a -> s {tagging = a} :: PutObjectTagging)
 
-instance AWSRequest PutObjectTagging where
+instance Prelude.AWSRequest PutObjectTagging where
   type Rs PutObjectTagging = PutObjectTaggingResponse
-  request = putXML s3
+  request = Request.putXML defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutObjectTaggingResponse'
-            <$> (h .#? "x-amz-version-id") <*> (pure (fromEnum s))
+            Prelude.<$> (h Prelude..#? "x-amz-version-id")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutObjectTagging
+instance Prelude.Hashable PutObjectTagging
 
-instance NFData PutObjectTagging
+instance Prelude.NFData PutObjectTagging
 
-instance ToElement PutObjectTagging where
-  toElement =
-    mkElement
+instance Prelude.ToElement PutObjectTagging where
+  toElement PutObjectTagging' {..} =
+    Prelude.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}Tagging"
-      . _potTagging
+      tagging
 
-instance ToHeaders PutObjectTagging where
+instance Prelude.ToHeaders PutObjectTagging where
   toHeaders PutObjectTagging' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _potExpectedBucketOwner,
-        "Content-MD5" =# _potContentMD5,
-        "x-amz-request-payer" =# _potRequestPayer
+          Prelude.=# expectedBucketOwner,
+        "Content-MD5" Prelude.=# contentMD5,
+        "x-amz-request-payer" Prelude.=# requestPayer
       ]
 
-instance ToPath PutObjectTagging where
+instance Prelude.ToPath PutObjectTagging where
   toPath PutObjectTagging' {..} =
-    mconcat ["/", toBS _potBucket, "/", toBS _potKey]
+    Prelude.mconcat
+      ["/", Prelude.toBS bucket, "/", Prelude.toBS key]
 
-instance ToQuery PutObjectTagging where
+instance Prelude.ToQuery PutObjectTagging where
   toQuery PutObjectTagging' {..} =
-    mconcat ["versionId" =: _potVersionId, "tagging"]
+    Prelude.mconcat
+      ["versionId" Prelude.=: versionId, "tagging"]
 
--- | /See:/ 'putObjectTaggingResponse' smart constructor.
+-- | /See:/ 'newPutObjectTaggingResponse' smart constructor.
 data PutObjectTaggingResponse = PutObjectTaggingResponse'
-  { _potrrsVersionId ::
-      !( Maybe
-           ObjectVersionId
-       ),
-    _potrrsResponseStatus ::
-      !Int
+  { -- | The versionId of the object the tag-set was added to.
+    versionId :: Prelude.Maybe ObjectVersionId,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutObjectTaggingResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutObjectTaggingResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'potrrsVersionId' - The versionId of the object the tag-set was added to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'potrrsResponseStatus' - -- | The response status code.
-putObjectTaggingResponse ::
-  -- | 'potrrsResponseStatus'
-  Int ->
+-- 'versionId', 'putObjectTaggingResponse_versionId' - The versionId of the object the tag-set was added to.
+--
+-- 'httpStatus', 'putObjectTaggingResponse_httpStatus' - The response's http status code.
+newPutObjectTaggingResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutObjectTaggingResponse
-putObjectTaggingResponse pResponseStatus_ =
+newPutObjectTaggingResponse pHttpStatus_ =
   PutObjectTaggingResponse'
-    { _potrrsVersionId =
-        Nothing,
-      _potrrsResponseStatus = pResponseStatus_
+    { versionId =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The versionId of the object the tag-set was added to.
-potrrsVersionId :: Lens' PutObjectTaggingResponse (Maybe ObjectVersionId)
-potrrsVersionId = lens _potrrsVersionId (\s a -> s {_potrrsVersionId = a})
+putObjectTaggingResponse_versionId :: Lens.Lens' PutObjectTaggingResponse (Prelude.Maybe ObjectVersionId)
+putObjectTaggingResponse_versionId = Lens.lens (\PutObjectTaggingResponse' {versionId} -> versionId) (\s@PutObjectTaggingResponse' {} a -> s {versionId = a} :: PutObjectTaggingResponse)
 
--- | -- | The response status code.
-potrrsResponseStatus :: Lens' PutObjectTaggingResponse Int
-potrrsResponseStatus = lens _potrrsResponseStatus (\s a -> s {_potrrsResponseStatus = a})
+-- | The response's http status code.
+putObjectTaggingResponse_httpStatus :: Lens.Lens' PutObjectTaggingResponse Prelude.Int
+putObjectTaggingResponse_httpStatus = Lens.lens (\PutObjectTaggingResponse' {httpStatus} -> httpStatus) (\s@PutObjectTaggingResponse' {} a -> s {httpStatus = a} :: PutObjectTaggingResponse)
 
-instance NFData PutObjectTaggingResponse
+instance Prelude.NFData PutObjectTaggingResponse

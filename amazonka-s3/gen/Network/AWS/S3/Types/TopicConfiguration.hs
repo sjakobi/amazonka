@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,85 +19,99 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.TopicConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Event
 import Network.AWS.S3.Types.NotificationConfigurationFilter
 
--- | A container for specifying the configuration for publication of messages to an Amazon Simple Notification Service (Amazon SNS) topic when Amazon S3 detects specified events.
+-- | A container for specifying the configuration for publication of messages
+-- to an Amazon Simple Notification Service (Amazon SNS) topic when Amazon
+-- S3 detects specified events.
 --
---
---
--- /See:/ 'topicConfiguration' smart constructor.
+-- /See:/ 'newTopicConfiguration' smart constructor.
 data TopicConfiguration = TopicConfiguration'
-  { _tcId ::
-      !(Maybe Text),
-    _tcFilter ::
-      !( Maybe
-           NotificationConfigurationFilter
-       ),
-    _tcTopicARN :: !Text,
-    _tcEvents :: ![Event]
+  { id :: Prelude.Maybe Prelude.Text,
+    filter' :: Prelude.Maybe NotificationConfigurationFilter,
+    -- | The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon
+    -- S3 publishes a message when it detects events of the specified type.
+    topicArn :: Prelude.Text,
+    -- | The Amazon S3 bucket event about which to send notifications. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Supported Event Types>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    events :: [Event]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TopicConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TopicConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcId' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tcFilter' - Undocumented member.
+-- 'id', 'topicConfiguration_id' - Undocumented member.
 --
--- * 'tcTopicARN' - The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events of the specified type.
+-- 'filter'', 'topicConfiguration_filter' - Undocumented member.
 --
--- * 'tcEvents' - The Amazon S3 bucket event about which to send notifications. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Supported Event Types> in the /Amazon Simple Storage Service Developer Guide/ .
-topicConfiguration ::
-  -- | 'tcTopicARN'
-  Text ->
+-- 'topicArn', 'topicConfiguration_topicArn' - The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon
+-- S3 publishes a message when it detects events of the specified type.
+--
+-- 'events', 'topicConfiguration_events' - The Amazon S3 bucket event about which to send notifications. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Supported Event Types>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+newTopicConfiguration ::
+  -- | 'topicArn'
+  Prelude.Text ->
   TopicConfiguration
-topicConfiguration pTopicARN_ =
+newTopicConfiguration pTopicArn_ =
   TopicConfiguration'
-    { _tcId = Nothing,
-      _tcFilter = Nothing,
-      _tcTopicARN = pTopicARN_,
-      _tcEvents = mempty
+    { id = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      topicArn = pTopicArn_,
+      events = Prelude.mempty
     }
 
 -- | Undocumented member.
-tcId :: Lens' TopicConfiguration (Maybe Text)
-tcId = lens _tcId (\s a -> s {_tcId = a})
+topicConfiguration_id :: Lens.Lens' TopicConfiguration (Prelude.Maybe Prelude.Text)
+topicConfiguration_id = Lens.lens (\TopicConfiguration' {id} -> id) (\s@TopicConfiguration' {} a -> s {id = a} :: TopicConfiguration)
 
 -- | Undocumented member.
-tcFilter :: Lens' TopicConfiguration (Maybe NotificationConfigurationFilter)
-tcFilter = lens _tcFilter (\s a -> s {_tcFilter = a})
+topicConfiguration_filter :: Lens.Lens' TopicConfiguration (Prelude.Maybe NotificationConfigurationFilter)
+topicConfiguration_filter = Lens.lens (\TopicConfiguration' {filter'} -> filter') (\s@TopicConfiguration' {} a -> s {filter' = a} :: TopicConfiguration)
 
--- | The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events of the specified type.
-tcTopicARN :: Lens' TopicConfiguration Text
-tcTopicARN = lens _tcTopicARN (\s a -> s {_tcTopicARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon
+-- S3 publishes a message when it detects events of the specified type.
+topicConfiguration_topicArn :: Lens.Lens' TopicConfiguration Prelude.Text
+topicConfiguration_topicArn = Lens.lens (\TopicConfiguration' {topicArn} -> topicArn) (\s@TopicConfiguration' {} a -> s {topicArn = a} :: TopicConfiguration)
 
--- | The Amazon S3 bucket event about which to send notifications. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Supported Event Types> in the /Amazon Simple Storage Service Developer Guide/ .
-tcEvents :: Lens' TopicConfiguration [Event]
-tcEvents = lens _tcEvents (\s a -> s {_tcEvents = a}) . _Coerce
+-- | The Amazon S3 bucket event about which to send notifications. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Supported Event Types>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+topicConfiguration_events :: Lens.Lens' TopicConfiguration [Event]
+topicConfiguration_events = Lens.lens (\TopicConfiguration' {events} -> events) (\s@TopicConfiguration' {} a -> s {events = a} :: TopicConfiguration) Prelude.. Prelude._Coerce
 
-instance FromXML TopicConfiguration where
+instance Prelude.FromXML TopicConfiguration where
   parseXML x =
     TopicConfiguration'
-      <$> (x .@? "Id")
-      <*> (x .@? "Filter")
-      <*> (x .@ "Topic")
-      <*> (parseXMLList "Event" x)
+      Prelude.<$> (x Prelude..@? "Id")
+      Prelude.<*> (x Prelude..@? "Filter")
+      Prelude.<*> (x Prelude..@ "Topic")
+      Prelude.<*> (Prelude.parseXMLList "Event" x)
 
-instance Hashable TopicConfiguration
+instance Prelude.Hashable TopicConfiguration
 
-instance NFData TopicConfiguration
+instance Prelude.NFData TopicConfiguration
 
-instance ToXML TopicConfiguration where
+instance Prelude.ToXML TopicConfiguration where
   toXML TopicConfiguration' {..} =
-    mconcat
-      [ "Id" @= _tcId,
-        "Filter" @= _tcFilter,
-        "Topic" @= _tcTopicARN,
-        toXMLList "Event" _tcEvents
+    Prelude.mconcat
+      [ "Id" Prelude.@= id,
+        "Filter" Prelude.@= filter',
+        "Topic" Prelude.@= topicArn,
+        Prelude.toXMLList "Event" events
       ]

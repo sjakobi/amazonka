@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,52 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Bucket where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
--- | In terms of implementation, a Bucket is a resource. An Amazon S3 bucket name is globally unique, and the namespace is shared by all AWS accounts.
+-- | In terms of implementation, a Bucket is a resource. An Amazon S3 bucket
+-- name is globally unique, and the namespace is shared by all AWS
+-- accounts.
 --
---
---
--- /See:/ 'bucket' smart constructor.
+-- /See:/ 'newBucket' smart constructor.
 data Bucket = Bucket'
-  { _bCreationDate :: !ISO8601,
-    _bName :: !BucketName
+  { -- | Date the bucket was created. This date can change when making changes to
+    -- your bucket, such as editing its bucket policy.
+    creationDate :: Prelude.ISO8601,
+    -- | The name of the bucket.
+    name :: BucketName
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Bucket' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Bucket' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bCreationDate' - Date the bucket was created. This date can change when making changes to your bucket, such as editing its bucket policy.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bName' - The name of the bucket.
-bucket ::
-  -- | 'bCreationDate'
-  UTCTime ->
-  -- | 'bName'
+-- 'creationDate', 'bucket_creationDate' - Date the bucket was created. This date can change when making changes to
+-- your bucket, such as editing its bucket policy.
+--
+-- 'name', 'bucket_name' - The name of the bucket.
+newBucket ::
+  -- | 'creationDate'
+  Prelude.UTCTime ->
+  -- | 'name'
   BucketName ->
   Bucket
-bucket pCreationDate_ pName_ =
+newBucket pCreationDate_ pName_ =
   Bucket'
-    { _bCreationDate = _Time # pCreationDate_,
-      _bName = pName_
+    { creationDate =
+        Prelude._Time Lens.# pCreationDate_,
+      name = pName_
     }
 
--- | Date the bucket was created. This date can change when making changes to your bucket, such as editing its bucket policy.
-bCreationDate :: Lens' Bucket UTCTime
-bCreationDate = lens _bCreationDate (\s a -> s {_bCreationDate = a}) . _Time
+-- | Date the bucket was created. This date can change when making changes to
+-- your bucket, such as editing its bucket policy.
+bucket_creationDate :: Lens.Lens' Bucket Prelude.UTCTime
+bucket_creationDate = Lens.lens (\Bucket' {creationDate} -> creationDate) (\s@Bucket' {} a -> s {creationDate = a} :: Bucket) Prelude.. Prelude._Time
 
 -- | The name of the bucket.
-bName :: Lens' Bucket BucketName
-bName = lens _bName (\s a -> s {_bName = a})
+bucket_name :: Lens.Lens' Bucket BucketName
+bucket_name = Lens.lens (\Bucket' {name} -> name) (\s@Bucket' {} a -> s {name = a} :: Bucket)
 
-instance FromXML Bucket where
+instance Prelude.FromXML Bucket where
   parseXML x =
-    Bucket' <$> (x .@ "CreationDate") <*> (x .@ "Name")
+    Bucket'
+      Prelude.<$> (x Prelude..@ "CreationDate")
+      Prelude.<*> (x Prelude..@ "Name")
 
-instance Hashable Bucket
+instance Prelude.Hashable Bucket
 
-instance NFData Bucket
+instance Prelude.NFData Bucket

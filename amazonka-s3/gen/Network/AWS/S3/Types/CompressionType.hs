@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,59 +19,61 @@
 module Network.AWS.S3.Types.CompressionType
   ( CompressionType
       ( ..,
-        CTBZIP2,
-        CTGzip,
-        CTNone
+        CompressionTypeBZIP2,
+        CompressionTypeGZIP,
+        CompressionTypeNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data CompressionType = CompressionType' (CI Text)
+newtype CompressionType = CompressionType'
+  { fromCompressionType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CTBZIP2 :: CompressionType
-pattern CTBZIP2 = CompressionType' "BZIP2"
+pattern CompressionTypeBZIP2 :: CompressionType
+pattern CompressionTypeBZIP2 = CompressionType' "BZIP2"
 
-pattern CTGzip :: CompressionType
-pattern CTGzip = CompressionType' "GZIP"
+pattern CompressionTypeGZIP :: CompressionType
+pattern CompressionTypeGZIP = CompressionType' "GZIP"
 
-pattern CTNone :: CompressionType
-pattern CTNone = CompressionType' "NONE"
+pattern CompressionTypeNONE :: CompressionType
+pattern CompressionTypeNONE = CompressionType' "NONE"
 
 {-# COMPLETE
-  CTBZIP2,
-  CTGzip,
-  CTNone,
+  CompressionTypeBZIP2,
+  CompressionTypeGZIP,
+  CompressionTypeNONE,
   CompressionType'
   #-}
 
-instance FromText CompressionType where
-  parser = (CompressionType' . mk) <$> takeText
+instance Prelude.FromText CompressionType where
+  parser = CompressionType' Prelude.<$> Prelude.takeText
 
-instance ToText CompressionType where
-  toText (CompressionType' ci) = original ci
+instance Prelude.ToText CompressionType where
+  toText (CompressionType' x) = x
 
-instance Hashable CompressionType
+instance Prelude.Hashable CompressionType
 
-instance NFData CompressionType
+instance Prelude.NFData CompressionType
 
-instance ToByteString CompressionType
+instance Prelude.ToByteString CompressionType
 
-instance ToQuery CompressionType
+instance Prelude.ToQuery CompressionType
 
-instance ToHeader CompressionType
+instance Prelude.ToHeader CompressionType
 
-instance ToXML CompressionType where
-  toXML = toXMLText
+instance Prelude.ToXML CompressionType where
+  toXML = Prelude.toXMLText

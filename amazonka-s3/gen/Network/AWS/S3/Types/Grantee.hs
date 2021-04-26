@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,90 +19,166 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Grantee where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Type
 
 -- | Container for the person being granted permissions.
 --
---
---
--- /See:/ 'grantee' smart constructor.
+-- /See:/ 'newGrantee' smart constructor.
 data Grantee = Grantee'
-  { _gURI :: !(Maybe Text),
-    _gId :: !(Maybe Text),
-    _gDisplayName :: !(Maybe Text),
-    _gEmailAddress :: !(Maybe Text),
-    _gType :: !Type
+  { -- | URI of the grantee group.
+    uRI :: Prelude.Maybe Prelude.Text,
+    -- | The canonical user ID of the grantee.
+    iD :: Prelude.Maybe Prelude.Text,
+    -- | Screen name of the grantee.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | Email address of the grantee.
+    --
+    -- Using email addresses to specify a grantee is only supported in the
+    -- following AWS Regions:
+    --
+    -- -   US East (N. Virginia)
+    --
+    -- -   US West (N. California)
+    --
+    -- -   US West (Oregon)
+    --
+    -- -   Asia Pacific (Singapore)
+    --
+    -- -   Asia Pacific (Sydney)
+    --
+    -- -   Asia Pacific (Tokyo)
+    --
+    -- -   Europe (Ireland)
+    --
+    -- -   South America (São Paulo)
+    --
+    -- For a list of all the Amazon S3 supported Regions and endpoints, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region Regions and Endpoints>
+    -- in the AWS General Reference.
+    emailAddress :: Prelude.Maybe Prelude.Text,
+    -- | Type of grantee
+    type' :: Type
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Grantee' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Grantee' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gURI' - URI of the grantee group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gId' - The canonical user ID of the grantee.
+-- 'uRI', 'grantee_uRI' - URI of the grantee group.
 --
--- * 'gDisplayName' - Screen name of the grantee.
+-- 'iD', 'grantee_iD' - The canonical user ID of the grantee.
 --
--- * 'gEmailAddress' - Email address of the grantee.
+-- 'displayName', 'grantee_displayName' - Screen name of the grantee.
 --
--- * 'gType' - Type of grantee
-grantee ::
-  -- | 'gType'
+-- 'emailAddress', 'grantee_emailAddress' - Email address of the grantee.
+--
+-- Using email addresses to specify a grantee is only supported in the
+-- following AWS Regions:
+--
+-- -   US East (N. Virginia)
+--
+-- -   US West (N. California)
+--
+-- -   US West (Oregon)
+--
+-- -   Asia Pacific (Singapore)
+--
+-- -   Asia Pacific (Sydney)
+--
+-- -   Asia Pacific (Tokyo)
+--
+-- -   Europe (Ireland)
+--
+-- -   South America (São Paulo)
+--
+-- For a list of all the Amazon S3 supported Regions and endpoints, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region Regions and Endpoints>
+-- in the AWS General Reference.
+--
+-- 'type'', 'grantee_type' - Type of grantee
+newGrantee ::
+  -- | 'type''
   Type ->
   Grantee
-grantee pType_ =
+newGrantee pType_ =
   Grantee'
-    { _gURI = Nothing,
-      _gId = Nothing,
-      _gDisplayName = Nothing,
-      _gEmailAddress = Nothing,
-      _gType = pType_
+    { uRI = Prelude.Nothing,
+      iD = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      emailAddress = Prelude.Nothing,
+      type' = pType_
     }
 
 -- | URI of the grantee group.
-gURI :: Lens' Grantee (Maybe Text)
-gURI = lens _gURI (\s a -> s {_gURI = a})
+grantee_uRI :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
+grantee_uRI = Lens.lens (\Grantee' {uRI} -> uRI) (\s@Grantee' {} a -> s {uRI = a} :: Grantee)
 
 -- | The canonical user ID of the grantee.
-gId :: Lens' Grantee (Maybe Text)
-gId = lens _gId (\s a -> s {_gId = a})
+grantee_iD :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
+grantee_iD = Lens.lens (\Grantee' {iD} -> iD) (\s@Grantee' {} a -> s {iD = a} :: Grantee)
 
 -- | Screen name of the grantee.
-gDisplayName :: Lens' Grantee (Maybe Text)
-gDisplayName = lens _gDisplayName (\s a -> s {_gDisplayName = a})
+grantee_displayName :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
+grantee_displayName = Lens.lens (\Grantee' {displayName} -> displayName) (\s@Grantee' {} a -> s {displayName = a} :: Grantee)
 
 -- | Email address of the grantee.
-gEmailAddress :: Lens' Grantee (Maybe Text)
-gEmailAddress = lens _gEmailAddress (\s a -> s {_gEmailAddress = a})
+--
+-- Using email addresses to specify a grantee is only supported in the
+-- following AWS Regions:
+--
+-- -   US East (N. Virginia)
+--
+-- -   US West (N. California)
+--
+-- -   US West (Oregon)
+--
+-- -   Asia Pacific (Singapore)
+--
+-- -   Asia Pacific (Sydney)
+--
+-- -   Asia Pacific (Tokyo)
+--
+-- -   Europe (Ireland)
+--
+-- -   South America (São Paulo)
+--
+-- For a list of all the Amazon S3 supported Regions and endpoints, see
+-- <https://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region Regions and Endpoints>
+-- in the AWS General Reference.
+grantee_emailAddress :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
+grantee_emailAddress = Lens.lens (\Grantee' {emailAddress} -> emailAddress) (\s@Grantee' {} a -> s {emailAddress = a} :: Grantee)
 
 -- | Type of grantee
-gType :: Lens' Grantee Type
-gType = lens _gType (\s a -> s {_gType = a})
+grantee_type :: Lens.Lens' Grantee Type
+grantee_type = Lens.lens (\Grantee' {type'} -> type') (\s@Grantee' {} a -> s {type' = a} :: Grantee)
 
-instance FromXML Grantee where
+instance Prelude.FromXML Grantee where
   parseXML x =
     Grantee'
-      <$> (x .@? "URI")
-      <*> (x .@? "ID")
-      <*> (x .@? "DisplayName")
-      <*> (x .@? "EmailAddress")
-      <*> (x .@ "xsi:type")
+      Prelude.<$> (x Prelude..@? "URI")
+      Prelude.<*> (x Prelude..@? "ID")
+      Prelude.<*> (x Prelude..@? "DisplayName")
+      Prelude.<*> (x Prelude..@? "EmailAddress")
+      Prelude.<*> (x Prelude..@ "xsi:type")
 
-instance Hashable Grantee
+instance Prelude.Hashable Grantee
 
-instance NFData Grantee
+instance Prelude.NFData Grantee
 
-instance ToXML Grantee where
+instance Prelude.ToXML Grantee where
   toXML Grantee' {..} =
-    mconcat
-      [ "URI" @= _gURI,
-        "ID" @= _gId,
-        "DisplayName" @= _gDisplayName,
-        "EmailAddress" @= _gEmailAddress,
-        "xsi:type" @@= _gType
+    Prelude.mconcat
+      [ "URI" Prelude.@= uRI,
+        "ID" Prelude.@= iD,
+        "DisplayName" Prelude.@= displayName,
+        "EmailAddress" Prelude.@= emailAddress,
+        "xsi:type" Prelude.@@= type'
       ]

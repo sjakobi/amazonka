@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.S3.Types.ObjectLockMode
   ( ObjectLockMode
       ( ..,
-        OLMCompliance,
-        OLMGovernance
+        ObjectLockModeCOMPLIANCE,
+        ObjectLockModeGOVERNANCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ObjectLockMode = ObjectLockMode' (CI Text)
+newtype ObjectLockMode = ObjectLockMode'
+  { fromObjectLockMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OLMCompliance :: ObjectLockMode
-pattern OLMCompliance = ObjectLockMode' "COMPLIANCE"
+pattern ObjectLockModeCOMPLIANCE :: ObjectLockMode
+pattern ObjectLockModeCOMPLIANCE = ObjectLockMode' "COMPLIANCE"
 
-pattern OLMGovernance :: ObjectLockMode
-pattern OLMGovernance = ObjectLockMode' "GOVERNANCE"
+pattern ObjectLockModeGOVERNANCE :: ObjectLockMode
+pattern ObjectLockModeGOVERNANCE = ObjectLockMode' "GOVERNANCE"
 
 {-# COMPLETE
-  OLMCompliance,
-  OLMGovernance,
+  ObjectLockModeCOMPLIANCE,
+  ObjectLockModeGOVERNANCE,
   ObjectLockMode'
   #-}
 
-instance FromText ObjectLockMode where
-  parser = (ObjectLockMode' . mk) <$> takeText
+instance Prelude.FromText ObjectLockMode where
+  parser = ObjectLockMode' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectLockMode where
-  toText (ObjectLockMode' ci) = original ci
+instance Prelude.ToText ObjectLockMode where
+  toText (ObjectLockMode' x) = x
 
-instance Hashable ObjectLockMode
+instance Prelude.Hashable ObjectLockMode
 
-instance NFData ObjectLockMode
+instance Prelude.NFData ObjectLockMode
 
-instance ToByteString ObjectLockMode
+instance Prelude.ToByteString ObjectLockMode
 
-instance ToQuery ObjectLockMode
+instance Prelude.ToQuery ObjectLockMode
 
-instance ToHeader ObjectLockMode
+instance Prelude.ToHeader ObjectLockMode
 
-instance FromXML ObjectLockMode where
-  parseXML = parseXMLText "ObjectLockMode"
+instance Prelude.FromXML ObjectLockMode where
+  parseXML = Prelude.parseXMLText "ObjectLockMode"
 
-instance ToXML ObjectLockMode where
-  toXML = toXMLText
+instance Prelude.ToXML ObjectLockMode where
+  toXML = Prelude.toXMLText

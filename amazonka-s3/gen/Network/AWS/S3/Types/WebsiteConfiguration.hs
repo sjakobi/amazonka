@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.WebsiteConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ErrorDocument
 import Network.AWS.S3.Types.IndexDocument
@@ -25,70 +29,84 @@ import Network.AWS.S3.Types.RoutingRule
 
 -- | Specifies website configuration parameters for an Amazon S3 bucket.
 --
---
---
--- /See:/ 'websiteConfiguration' smart constructor.
+-- /See:/ 'newWebsiteConfiguration' smart constructor.
 data WebsiteConfiguration = WebsiteConfiguration'
-  { _wcErrorDocument ::
-      !(Maybe ErrorDocument),
-    _wcIndexDocument ::
-      !(Maybe IndexDocument),
-    _wcRoutingRules ::
-      !(Maybe [RoutingRule]),
-    _wcRedirectAllRequestsTo ::
-      !( Maybe
-           RedirectAllRequestsTo
-       )
+  { -- | The name of the error document for the website.
+    errorDocument :: Prelude.Maybe ErrorDocument,
+    -- | The name of the index document for the website.
+    indexDocument :: Prelude.Maybe IndexDocument,
+    -- | Rules that define when a redirect is applied and the redirect behavior.
+    routingRules :: Prelude.Maybe [RoutingRule],
+    -- | The redirect behavior for every request to this bucket\'s website
+    -- endpoint.
+    --
+    -- If you specify this property, you can\'t specify any other property.
+    redirectAllRequestsTo :: Prelude.Maybe RedirectAllRequestsTo
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'WebsiteConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'WebsiteConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'wcErrorDocument' - The name of the error document for the website.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'wcIndexDocument' - The name of the index document for the website.
+-- 'errorDocument', 'websiteConfiguration_errorDocument' - The name of the error document for the website.
 --
--- * 'wcRoutingRules' - Rules that define when a redirect is applied and the redirect behavior.
+-- 'indexDocument', 'websiteConfiguration_indexDocument' - The name of the index document for the website.
 --
--- * 'wcRedirectAllRequestsTo' - The redirect behavior for every request to this bucket's website endpoint. /Important:/ If you specify this property, you can't specify any other property.
-websiteConfiguration ::
+-- 'routingRules', 'websiteConfiguration_routingRules' - Rules that define when a redirect is applied and the redirect behavior.
+--
+-- 'redirectAllRequestsTo', 'websiteConfiguration_redirectAllRequestsTo' - The redirect behavior for every request to this bucket\'s website
+-- endpoint.
+--
+-- If you specify this property, you can\'t specify any other property.
+newWebsiteConfiguration ::
   WebsiteConfiguration
-websiteConfiguration =
+newWebsiteConfiguration =
   WebsiteConfiguration'
-    { _wcErrorDocument = Nothing,
-      _wcIndexDocument = Nothing,
-      _wcRoutingRules = Nothing,
-      _wcRedirectAllRequestsTo = Nothing
+    { errorDocument =
+        Prelude.Nothing,
+      indexDocument = Prelude.Nothing,
+      routingRules = Prelude.Nothing,
+      redirectAllRequestsTo = Prelude.Nothing
     }
 
 -- | The name of the error document for the website.
-wcErrorDocument :: Lens' WebsiteConfiguration (Maybe ErrorDocument)
-wcErrorDocument = lens _wcErrorDocument (\s a -> s {_wcErrorDocument = a})
+websiteConfiguration_errorDocument :: Lens.Lens' WebsiteConfiguration (Prelude.Maybe ErrorDocument)
+websiteConfiguration_errorDocument = Lens.lens (\WebsiteConfiguration' {errorDocument} -> errorDocument) (\s@WebsiteConfiguration' {} a -> s {errorDocument = a} :: WebsiteConfiguration)
 
 -- | The name of the index document for the website.
-wcIndexDocument :: Lens' WebsiteConfiguration (Maybe IndexDocument)
-wcIndexDocument = lens _wcIndexDocument (\s a -> s {_wcIndexDocument = a})
+websiteConfiguration_indexDocument :: Lens.Lens' WebsiteConfiguration (Prelude.Maybe IndexDocument)
+websiteConfiguration_indexDocument = Lens.lens (\WebsiteConfiguration' {indexDocument} -> indexDocument) (\s@WebsiteConfiguration' {} a -> s {indexDocument = a} :: WebsiteConfiguration)
 
 -- | Rules that define when a redirect is applied and the redirect behavior.
-wcRoutingRules :: Lens' WebsiteConfiguration [RoutingRule]
-wcRoutingRules = lens _wcRoutingRules (\s a -> s {_wcRoutingRules = a}) . _Default . _Coerce
+websiteConfiguration_routingRules :: Lens.Lens' WebsiteConfiguration (Prelude.Maybe [RoutingRule])
+websiteConfiguration_routingRules = Lens.lens (\WebsiteConfiguration' {routingRules} -> routingRules) (\s@WebsiteConfiguration' {} a -> s {routingRules = a} :: WebsiteConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The redirect behavior for every request to this bucket's website endpoint. /Important:/ If you specify this property, you can't specify any other property.
-wcRedirectAllRequestsTo :: Lens' WebsiteConfiguration (Maybe RedirectAllRequestsTo)
-wcRedirectAllRequestsTo = lens _wcRedirectAllRequestsTo (\s a -> s {_wcRedirectAllRequestsTo = a})
+-- | The redirect behavior for every request to this bucket\'s website
+-- endpoint.
+--
+-- If you specify this property, you can\'t specify any other property.
+websiteConfiguration_redirectAllRequestsTo :: Lens.Lens' WebsiteConfiguration (Prelude.Maybe RedirectAllRequestsTo)
+websiteConfiguration_redirectAllRequestsTo = Lens.lens (\WebsiteConfiguration' {redirectAllRequestsTo} -> redirectAllRequestsTo) (\s@WebsiteConfiguration' {} a -> s {redirectAllRequestsTo = a} :: WebsiteConfiguration)
 
-instance Hashable WebsiteConfiguration
+instance Prelude.Hashable WebsiteConfiguration
 
-instance NFData WebsiteConfiguration
+instance Prelude.NFData WebsiteConfiguration
 
-instance ToXML WebsiteConfiguration where
+instance Prelude.ToXML WebsiteConfiguration where
   toXML WebsiteConfiguration' {..} =
-    mconcat
-      [ "ErrorDocument" @= _wcErrorDocument,
-        "IndexDocument" @= _wcIndexDocument,
+    Prelude.mconcat
+      [ "ErrorDocument" Prelude.@= errorDocument,
+        "IndexDocument" Prelude.@= indexDocument,
         "RoutingRules"
-          @= toXML (toXMLList "RoutingRule" <$> _wcRoutingRules),
-        "RedirectAllRequestsTo" @= _wcRedirectAllRequestsTo
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "RoutingRule"
+                Prelude.<$> routingRules
+            ),
+        "RedirectAllRequestsTo"
+          Prelude.@= redirectAllRequestsTo
       ]

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an analytics configuration for the bucket (specified by the analytics configuration ID).
+-- Deletes an analytics configuration for the bucket (specified by the
+-- analytics configuration ID).
 --
+-- To use this operation, you must have permissions to perform the
+-- @s3:PutAnalyticsConfiguration@ action. The bucket owner has this
+-- permission by default. The bucket owner can grant this permission to
+-- others. For more information about permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources>.
 --
--- To use this operation, you must have permissions to perform the @s3:PutAnalyticsConfiguration@ action. The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more information about permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations> and <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources> .
+-- For information about the Amazon S3 analytics feature, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html Amazon S3 Analytics – Storage Class Analysis>.
 --
--- For information about the Amazon S3 analytics feature, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/analytics-storage-class.html Amazon S3 Analytics – Storage Class Analysis> .
+-- The following operations are related to
+-- @DeleteBucketAnalyticsConfiguration@:
 --
--- The following operations are related to @DeleteBucketAnalyticsConfiguration@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAnalyticsConfiguration.html GetBucketAnalyticsConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAnalyticsConfiguration.html GetBucketAnalyticsConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketAnalyticsConfigurations.html ListBucketAnalyticsConfigurations>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketAnalyticsConfigurations.html ListBucketAnalyticsConfigurations>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html PutBucketAnalyticsConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketAnalyticsConfiguration.html PutBucketAnalyticsConfiguration>
 module Network.AWS.S3.DeleteBucketAnalyticsConfiguration
   ( -- * Creating a Request
-    deleteBucketAnalyticsConfiguration,
-    DeleteBucketAnalyticsConfiguration,
+    DeleteBucketAnalyticsConfiguration (..),
+    newDeleteBucketAnalyticsConfiguration,
 
     -- * Request Lenses
-    dbacExpectedBucketOwner,
-    dbacBucket,
-    dbacId,
+    deleteBucketAnalyticsConfiguration_expectedBucketOwner,
+    deleteBucketAnalyticsConfiguration_bucket,
+    deleteBucketAnalyticsConfiguration_id,
 
     -- * Destructuring the Response
-    deleteBucketAnalyticsConfigurationResponse,
-    DeleteBucketAnalyticsConfigurationResponse,
+    DeleteBucketAnalyticsConfigurationResponse (..),
+    newDeleteBucketAnalyticsConfigurationResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
 
--- | /See:/ 'deleteBucketAnalyticsConfiguration' smart constructor.
+-- | /See:/ 'newDeleteBucketAnalyticsConfiguration' smart constructor.
 data DeleteBucketAnalyticsConfiguration = DeleteBucketAnalyticsConfiguration'
-  { _dbacExpectedBucketOwner ::
-      !( Maybe
-           Text
-       ),
-    _dbacBucket ::
-      !BucketName,
-    _dbacId ::
-      !Text
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bucket from which an analytics configuration is deleted.
+    bucket :: BucketName,
+    -- | The ID that identifies the analytics configuration.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketAnalyticsConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBucketAnalyticsConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbacExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbacBucket' - The name of the bucket from which an analytics configuration is deleted.
+-- 'expectedBucketOwner', 'deleteBucketAnalyticsConfiguration_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'dbacId' - The ID that identifies the analytics configuration.
-deleteBucketAnalyticsConfiguration ::
-  -- | 'dbacBucket'
+-- 'bucket', 'deleteBucketAnalyticsConfiguration_bucket' - The name of the bucket from which an analytics configuration is deleted.
+--
+-- 'id', 'deleteBucketAnalyticsConfiguration_id' - The ID that identifies the analytics configuration.
+newDeleteBucketAnalyticsConfiguration ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'dbacId'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
   DeleteBucketAnalyticsConfiguration
-deleteBucketAnalyticsConfiguration pBucket_ pId_ =
+newDeleteBucketAnalyticsConfiguration pBucket_ pId_ =
   DeleteBucketAnalyticsConfiguration'
-    { _dbacExpectedBucketOwner =
-        Nothing,
-      _dbacBucket = pBucket_,
-      _dbacId = pId_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_,
+      id = pId_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-dbacExpectedBucketOwner :: Lens' DeleteBucketAnalyticsConfiguration (Maybe Text)
-dbacExpectedBucketOwner = lens _dbacExpectedBucketOwner (\s a -> s {_dbacExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+deleteBucketAnalyticsConfiguration_expectedBucketOwner :: Lens.Lens' DeleteBucketAnalyticsConfiguration (Prelude.Maybe Prelude.Text)
+deleteBucketAnalyticsConfiguration_expectedBucketOwner = Lens.lens (\DeleteBucketAnalyticsConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketAnalyticsConfiguration' {} a -> s {expectedBucketOwner = a} :: DeleteBucketAnalyticsConfiguration)
 
 -- | The name of the bucket from which an analytics configuration is deleted.
-dbacBucket :: Lens' DeleteBucketAnalyticsConfiguration BucketName
-dbacBucket = lens _dbacBucket (\s a -> s {_dbacBucket = a})
+deleteBucketAnalyticsConfiguration_bucket :: Lens.Lens' DeleteBucketAnalyticsConfiguration BucketName
+deleteBucketAnalyticsConfiguration_bucket = Lens.lens (\DeleteBucketAnalyticsConfiguration' {bucket} -> bucket) (\s@DeleteBucketAnalyticsConfiguration' {} a -> s {bucket = a} :: DeleteBucketAnalyticsConfiguration)
 
 -- | The ID that identifies the analytics configuration.
-dbacId :: Lens' DeleteBucketAnalyticsConfiguration Text
-dbacId = lens _dbacId (\s a -> s {_dbacId = a})
+deleteBucketAnalyticsConfiguration_id :: Lens.Lens' DeleteBucketAnalyticsConfiguration Prelude.Text
+deleteBucketAnalyticsConfiguration_id = Lens.lens (\DeleteBucketAnalyticsConfiguration' {id} -> id) (\s@DeleteBucketAnalyticsConfiguration' {} a -> s {id = a} :: DeleteBucketAnalyticsConfiguration)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteBucketAnalyticsConfiguration
   where
   type
     Rs DeleteBucketAnalyticsConfiguration =
       DeleteBucketAnalyticsConfigurationResponse
-  request = delete s3
+  request = Request.delete defaultService
   response =
-    receiveNull
+    Response.receiveNull
       DeleteBucketAnalyticsConfigurationResponse'
 
-instance Hashable DeleteBucketAnalyticsConfiguration
+instance
+  Prelude.Hashable
+    DeleteBucketAnalyticsConfiguration
 
-instance NFData DeleteBucketAnalyticsConfiguration
+instance
+  Prelude.NFData
+    DeleteBucketAnalyticsConfiguration
 
-instance ToHeaders DeleteBucketAnalyticsConfiguration where
+instance
+  Prelude.ToHeaders
+    DeleteBucketAnalyticsConfiguration
+  where
   toHeaders DeleteBucketAnalyticsConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _dbacExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath DeleteBucketAnalyticsConfiguration where
+instance
+  Prelude.ToPath
+    DeleteBucketAnalyticsConfiguration
+  where
   toPath DeleteBucketAnalyticsConfiguration' {..} =
-    mconcat ["/", toBS _dbacBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery DeleteBucketAnalyticsConfiguration where
+instance
+  Prelude.ToQuery
+    DeleteBucketAnalyticsConfiguration
+  where
   toQuery DeleteBucketAnalyticsConfiguration' {..} =
-    mconcat ["id" =: _dbacId, "analytics"]
+    Prelude.mconcat ["id" Prelude.=: id, "analytics"]
 
--- | /See:/ 'deleteBucketAnalyticsConfigurationResponse' smart constructor.
+-- | /See:/ 'newDeleteBucketAnalyticsConfigurationResponse' smart constructor.
 data DeleteBucketAnalyticsConfigurationResponse = DeleteBucketAnalyticsConfigurationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketAnalyticsConfigurationResponse' with the minimum fields required to make a request.
-deleteBucketAnalyticsConfigurationResponse ::
+-- |
+-- Create a value of 'DeleteBucketAnalyticsConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteBucketAnalyticsConfigurationResponse ::
   DeleteBucketAnalyticsConfigurationResponse
-deleteBucketAnalyticsConfigurationResponse =
+newDeleteBucketAnalyticsConfigurationResponse =
   DeleteBucketAnalyticsConfigurationResponse'
 
 instance
-  NFData
+  Prelude.NFData
     DeleteBucketAnalyticsConfigurationResponse

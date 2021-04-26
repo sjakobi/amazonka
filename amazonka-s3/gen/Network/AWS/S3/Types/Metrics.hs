@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Metrics where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.MetricsStatus
 import Network.AWS.S3.Types.ReplicationTimeValue
 
--- | A container specifying replication metrics-related settings enabling replication metrics and events.
+-- | A container specifying replication metrics-related settings enabling
+-- replication metrics and events.
 --
---
---
--- /See:/ 'metrics' smart constructor.
+-- /See:/ 'newMetrics' smart constructor.
 data Metrics = Metrics'
-  { _mEventThreshold ::
-      !(Maybe ReplicationTimeValue),
-    _mStatus :: !MetricsStatus
+  { -- | A container specifying the time threshold for emitting the
+    -- @s3:Replication:OperationMissedThreshold@ event.
+    eventThreshold :: Prelude.Maybe ReplicationTimeValue,
+    -- | Specifies whether the replication metrics are enabled.
+    status :: MetricsStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Metrics' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Metrics' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'mEventThreshold' - A container specifying the time threshold for emitting the @s3:Replication:OperationMissedThreshold@ event.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'mStatus' - Specifies whether the replication metrics are enabled.
-metrics ::
-  -- | 'mStatus'
+-- 'eventThreshold', 'metrics_eventThreshold' - A container specifying the time threshold for emitting the
+-- @s3:Replication:OperationMissedThreshold@ event.
+--
+-- 'status', 'metrics_status' - Specifies whether the replication metrics are enabled.
+newMetrics ::
+  -- | 'status'
   MetricsStatus ->
   Metrics
-metrics pStatus_ =
+newMetrics pStatus_ =
   Metrics'
-    { _mEventThreshold = Nothing,
-      _mStatus = pStatus_
+    { eventThreshold = Prelude.Nothing,
+      status = pStatus_
     }
 
--- | A container specifying the time threshold for emitting the @s3:Replication:OperationMissedThreshold@ event.
-mEventThreshold :: Lens' Metrics (Maybe ReplicationTimeValue)
-mEventThreshold = lens _mEventThreshold (\s a -> s {_mEventThreshold = a})
+-- | A container specifying the time threshold for emitting the
+-- @s3:Replication:OperationMissedThreshold@ event.
+metrics_eventThreshold :: Lens.Lens' Metrics (Prelude.Maybe ReplicationTimeValue)
+metrics_eventThreshold = Lens.lens (\Metrics' {eventThreshold} -> eventThreshold) (\s@Metrics' {} a -> s {eventThreshold = a} :: Metrics)
 
 -- | Specifies whether the replication metrics are enabled.
-mStatus :: Lens' Metrics MetricsStatus
-mStatus = lens _mStatus (\s a -> s {_mStatus = a})
+metrics_status :: Lens.Lens' Metrics MetricsStatus
+metrics_status = Lens.lens (\Metrics' {status} -> status) (\s@Metrics' {} a -> s {status = a} :: Metrics)
 
-instance FromXML Metrics where
+instance Prelude.FromXML Metrics where
   parseXML x =
     Metrics'
-      <$> (x .@? "EventThreshold") <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@? "EventThreshold")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable Metrics
+instance Prelude.Hashable Metrics
 
-instance NFData Metrics
+instance Prelude.NFData Metrics
 
-instance ToXML Metrics where
+instance Prelude.ToXML Metrics where
   toXML Metrics' {..} =
-    mconcat
-      [ "EventThreshold" @= _mEventThreshold,
-        "Status" @= _mStatus
+    Prelude.mconcat
+      [ "EventThreshold" Prelude.@= eventThreshold,
+        "Status" Prelude.@= status
       ]

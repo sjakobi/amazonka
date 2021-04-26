@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.DeleteMarkerReplicationStatus
   ( DeleteMarkerReplicationStatus
       ( ..,
-        DMRSDisabled,
-        DMRSEnabled
+        DeleteMarkerReplicationStatusDisabled,
+        DeleteMarkerReplicationStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data DeleteMarkerReplicationStatus
-  = DeleteMarkerReplicationStatus'
-      ( CI
-          Text
-      )
+newtype DeleteMarkerReplicationStatus = DeleteMarkerReplicationStatus'
+  { fromDeleteMarkerReplicationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DMRSDisabled :: DeleteMarkerReplicationStatus
-pattern DMRSDisabled = DeleteMarkerReplicationStatus' "Disabled"
+pattern DeleteMarkerReplicationStatusDisabled :: DeleteMarkerReplicationStatus
+pattern DeleteMarkerReplicationStatusDisabled = DeleteMarkerReplicationStatus' "Disabled"
 
-pattern DMRSEnabled :: DeleteMarkerReplicationStatus
-pattern DMRSEnabled = DeleteMarkerReplicationStatus' "Enabled"
+pattern DeleteMarkerReplicationStatusEnabled :: DeleteMarkerReplicationStatus
+pattern DeleteMarkerReplicationStatusEnabled = DeleteMarkerReplicationStatus' "Enabled"
 
 {-# COMPLETE
-  DMRSDisabled,
-  DMRSEnabled,
+  DeleteMarkerReplicationStatusDisabled,
+  DeleteMarkerReplicationStatusEnabled,
   DeleteMarkerReplicationStatus'
   #-}
 
-instance FromText DeleteMarkerReplicationStatus where
-  parser = (DeleteMarkerReplicationStatus' . mk) <$> takeText
+instance Prelude.FromText DeleteMarkerReplicationStatus where
+  parser = DeleteMarkerReplicationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeleteMarkerReplicationStatus where
-  toText (DeleteMarkerReplicationStatus' ci) = original ci
+instance Prelude.ToText DeleteMarkerReplicationStatus where
+  toText (DeleteMarkerReplicationStatus' x) = x
 
-instance Hashable DeleteMarkerReplicationStatus
+instance Prelude.Hashable DeleteMarkerReplicationStatus
 
-instance NFData DeleteMarkerReplicationStatus
+instance Prelude.NFData DeleteMarkerReplicationStatus
 
-instance ToByteString DeleteMarkerReplicationStatus
+instance Prelude.ToByteString DeleteMarkerReplicationStatus
 
-instance ToQuery DeleteMarkerReplicationStatus
+instance Prelude.ToQuery DeleteMarkerReplicationStatus
 
-instance ToHeader DeleteMarkerReplicationStatus
+instance Prelude.ToHeader DeleteMarkerReplicationStatus
 
-instance FromXML DeleteMarkerReplicationStatus where
-  parseXML = parseXMLText "DeleteMarkerReplicationStatus"
+instance Prelude.FromXML DeleteMarkerReplicationStatus where
+  parseXML = Prelude.parseXMLText "DeleteMarkerReplicationStatus"
 
-instance ToXML DeleteMarkerReplicationStatus where
-  toXML = toXMLText
+instance Prelude.ToXML DeleteMarkerReplicationStatus where
+  toXML = Prelude.toXMLText

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,40 +19,49 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.CORSConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.CORSRule
 
--- | Describes the cross-origin access configuration for objects in an Amazon S3 bucket. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html Enabling Cross-Origin Resource Sharing> in the /Amazon Simple Storage Service Developer Guide/ .
+-- | Describes the cross-origin access configuration for objects in an Amazon
+-- S3 bucket. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html Enabling Cross-Origin Resource Sharing>
+-- in the /Amazon Simple Storage Service Developer Guide/.
 --
---
---
--- /See:/ 'corsConfiguration' smart constructor.
-newtype CORSConfiguration = CORSConfiguration'
-  { _ccCORSRules ::
-      [CORSRule]
+-- /See:/ 'newCORSConfiguration' smart constructor.
+data CORSConfiguration = CORSConfiguration'
+  { -- | A set of origins and methods (cross-origin access that you want to
+    -- allow). You can add up to 100 rules to the configuration.
+    cORSRules :: [CORSRule]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CORSConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CORSConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccCORSRules' - A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
-corsConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'cORSRules', 'cORSConfiguration_cORSRules' - A set of origins and methods (cross-origin access that you want to
+-- allow). You can add up to 100 rules to the configuration.
+newCORSConfiguration ::
   CORSConfiguration
-corsConfiguration =
-  CORSConfiguration' {_ccCORSRules = mempty}
+newCORSConfiguration =
+  CORSConfiguration' {cORSRules = Prelude.mempty}
 
--- | A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
-ccCORSRules :: Lens' CORSConfiguration [CORSRule]
-ccCORSRules = lens _ccCORSRules (\s a -> s {_ccCORSRules = a}) . _Coerce
+-- | A set of origins and methods (cross-origin access that you want to
+-- allow). You can add up to 100 rules to the configuration.
+cORSConfiguration_cORSRules :: Lens.Lens' CORSConfiguration [CORSRule]
+cORSConfiguration_cORSRules = Lens.lens (\CORSConfiguration' {cORSRules} -> cORSRules) (\s@CORSConfiguration' {} a -> s {cORSRules = a} :: CORSConfiguration) Prelude.. Prelude._Coerce
 
-instance Hashable CORSConfiguration
+instance Prelude.Hashable CORSConfiguration
 
-instance NFData CORSConfiguration
+instance Prelude.NFData CORSConfiguration
 
-instance ToXML CORSConfiguration where
+instance Prelude.ToXML CORSConfiguration where
   toXML CORSConfiguration' {..} =
-    mconcat [toXMLList "CORSRule" _ccCORSRules]
+    Prelude.mconcat
+      [Prelude.toXMLList "CORSRule" cORSRules]

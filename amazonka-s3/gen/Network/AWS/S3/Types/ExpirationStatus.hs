@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.S3.Types.ExpirationStatus
   ( ExpirationStatus
       ( ..,
-        ESDisabled,
-        ESEnabled
+        ExpirationStatusDisabled,
+        ExpirationStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ExpirationStatus = ExpirationStatus' (CI Text)
+newtype ExpirationStatus = ExpirationStatus'
+  { fromExpirationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESDisabled :: ExpirationStatus
-pattern ESDisabled = ExpirationStatus' "Disabled"
+pattern ExpirationStatusDisabled :: ExpirationStatus
+pattern ExpirationStatusDisabled = ExpirationStatus' "Disabled"
 
-pattern ESEnabled :: ExpirationStatus
-pattern ESEnabled = ExpirationStatus' "Enabled"
+pattern ExpirationStatusEnabled :: ExpirationStatus
+pattern ExpirationStatusEnabled = ExpirationStatus' "Enabled"
 
 {-# COMPLETE
-  ESDisabled,
-  ESEnabled,
+  ExpirationStatusDisabled,
+  ExpirationStatusEnabled,
   ExpirationStatus'
   #-}
 
-instance FromText ExpirationStatus where
-  parser = (ExpirationStatus' . mk) <$> takeText
+instance Prelude.FromText ExpirationStatus where
+  parser = ExpirationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExpirationStatus where
-  toText (ExpirationStatus' ci) = original ci
+instance Prelude.ToText ExpirationStatus where
+  toText (ExpirationStatus' x) = x
 
-instance Hashable ExpirationStatus
+instance Prelude.Hashable ExpirationStatus
 
-instance NFData ExpirationStatus
+instance Prelude.NFData ExpirationStatus
 
-instance ToByteString ExpirationStatus
+instance Prelude.ToByteString ExpirationStatus
 
-instance ToQuery ExpirationStatus
+instance Prelude.ToQuery ExpirationStatus
 
-instance ToHeader ExpirationStatus
+instance Prelude.ToHeader ExpirationStatus
 
-instance FromXML ExpirationStatus where
-  parseXML = parseXMLText "ExpirationStatus"
+instance Prelude.FromXML ExpirationStatus where
+  parseXML = Prelude.parseXMLText "ExpirationStatus"
 
-instance ToXML ExpirationStatus where
-  toXML = toXMLText
+instance Prelude.ToXML ExpirationStatus where
+  toXML = Prelude.toXMLText

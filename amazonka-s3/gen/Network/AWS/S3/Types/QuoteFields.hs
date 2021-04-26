@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.S3.Types.QuoteFields
   ( QuoteFields
       ( ..,
-        ASNeeded,
-        Always
+        QuoteFieldsALWAYS,
+        QuoteFieldsASNEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data QuoteFields = QuoteFields' (CI Text)
+newtype QuoteFields = QuoteFields'
+  { fromQuoteFields ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASNeeded :: QuoteFields
-pattern ASNeeded = QuoteFields' "ASNEEDED"
+pattern QuoteFieldsALWAYS :: QuoteFields
+pattern QuoteFieldsALWAYS = QuoteFields' "ALWAYS"
 
-pattern Always :: QuoteFields
-pattern Always = QuoteFields' "ALWAYS"
+pattern QuoteFieldsASNEEDED :: QuoteFields
+pattern QuoteFieldsASNEEDED = QuoteFields' "ASNEEDED"
 
 {-# COMPLETE
-  ASNeeded,
-  Always,
+  QuoteFieldsALWAYS,
+  QuoteFieldsASNEEDED,
   QuoteFields'
   #-}
 
-instance FromText QuoteFields where
-  parser = (QuoteFields' . mk) <$> takeText
+instance Prelude.FromText QuoteFields where
+  parser = QuoteFields' Prelude.<$> Prelude.takeText
 
-instance ToText QuoteFields where
-  toText (QuoteFields' ci) = original ci
+instance Prelude.ToText QuoteFields where
+  toText (QuoteFields' x) = x
 
-instance Hashable QuoteFields
+instance Prelude.Hashable QuoteFields
 
-instance NFData QuoteFields
+instance Prelude.NFData QuoteFields
 
-instance ToByteString QuoteFields
+instance Prelude.ToByteString QuoteFields
 
-instance ToQuery QuoteFields
+instance Prelude.ToQuery QuoteFields
 
-instance ToHeader QuoteFields
+instance Prelude.ToHeader QuoteFields
 
-instance ToXML QuoteFields where
-  toXML = toXMLText
+instance Prelude.ToXML QuoteFields where
+  toXML = Prelude.toXMLText

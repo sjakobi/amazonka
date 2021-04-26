@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,64 @@
 module Network.AWS.S3.Types.BucketLogsPermission
   ( BucketLogsPermission
       ( ..,
-        FullControl,
-        Read,
-        Write
+        BucketLogsPermissionFULLCONTROL,
+        BucketLogsPermissionREAD,
+        BucketLogsPermissionWRITE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data BucketLogsPermission
-  = BucketLogsPermission'
-      ( CI
-          Text
-      )
+newtype BucketLogsPermission = BucketLogsPermission'
+  { fromBucketLogsPermission ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern FullControl :: BucketLogsPermission
-pattern FullControl = BucketLogsPermission' "FULL_CONTROL"
+pattern BucketLogsPermissionFULLCONTROL :: BucketLogsPermission
+pattern BucketLogsPermissionFULLCONTROL = BucketLogsPermission' "FULL_CONTROL"
 
-pattern Read :: BucketLogsPermission
-pattern Read = BucketLogsPermission' "READ"
+pattern BucketLogsPermissionREAD :: BucketLogsPermission
+pattern BucketLogsPermissionREAD = BucketLogsPermission' "READ"
 
-pattern Write :: BucketLogsPermission
-pattern Write = BucketLogsPermission' "WRITE"
+pattern BucketLogsPermissionWRITE :: BucketLogsPermission
+pattern BucketLogsPermissionWRITE = BucketLogsPermission' "WRITE"
 
 {-# COMPLETE
-  FullControl,
-  Read,
-  Write,
+  BucketLogsPermissionFULLCONTROL,
+  BucketLogsPermissionREAD,
+  BucketLogsPermissionWRITE,
   BucketLogsPermission'
   #-}
 
-instance FromText BucketLogsPermission where
-  parser = (BucketLogsPermission' . mk) <$> takeText
+instance Prelude.FromText BucketLogsPermission where
+  parser = BucketLogsPermission' Prelude.<$> Prelude.takeText
 
-instance ToText BucketLogsPermission where
-  toText (BucketLogsPermission' ci) = original ci
+instance Prelude.ToText BucketLogsPermission where
+  toText (BucketLogsPermission' x) = x
 
-instance Hashable BucketLogsPermission
+instance Prelude.Hashable BucketLogsPermission
 
-instance NFData BucketLogsPermission
+instance Prelude.NFData BucketLogsPermission
 
-instance ToByteString BucketLogsPermission
+instance Prelude.ToByteString BucketLogsPermission
 
-instance ToQuery BucketLogsPermission
+instance Prelude.ToQuery BucketLogsPermission
 
-instance ToHeader BucketLogsPermission
+instance Prelude.ToHeader BucketLogsPermission
 
-instance FromXML BucketLogsPermission where
-  parseXML = parseXMLText "BucketLogsPermission"
+instance Prelude.FromXML BucketLogsPermission where
+  parseXML = Prelude.parseXMLText "BucketLogsPermission"
 
-instance ToXML BucketLogsPermission where
-  toXML = toXMLText
+instance Prelude.ToXML BucketLogsPermission where
+  toXML = Prelude.toXMLText

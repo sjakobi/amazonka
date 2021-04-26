@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,95 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.ServerSideEncryptionRule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ServerSideEncryptionByDefault
 
 -- | Specifies the default server-side encryption configuration.
 --
---
---
--- /See:/ 'serverSideEncryptionRule' smart constructor.
+-- /See:/ 'newServerSideEncryptionRule' smart constructor.
 data ServerSideEncryptionRule = ServerSideEncryptionRule'
-  { _sserBucketKeyEnabled ::
-      !(Maybe Bool),
-    _sserApplyServerSideEncryptionByDefault ::
-      !( Maybe
-           ServerSideEncryptionByDefault
-       )
+  { -- | Specifies whether Amazon S3 should use an S3 Bucket Key with server-side
+    -- encryption using KMS (SSE-KMS) for new objects in the bucket. Existing
+    -- objects are not affected. Setting the @BucketKeyEnabled@ element to
+    -- @true@ causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket
+    -- Key is not enabled.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html Amazon S3 Bucket Keys>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    bucketKeyEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the default server-side encryption to apply to new objects in
+    -- the bucket. If a PUT Object request doesn\'t specify any server-side
+    -- encryption, this default encryption will be applied.
+    applyServerSideEncryptionByDefault :: Prelude.Maybe ServerSideEncryptionByDefault
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ServerSideEncryptionRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ServerSideEncryptionRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sserBucketKeyEnabled' - Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. Existing objects are not affected. Setting the @BucketKeyEnabled@ element to @true@ causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket Key is not enabled. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html Amazon S3 Bucket Keys> in the /Amazon Simple Storage Service Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sserApplyServerSideEncryptionByDefault' - Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied.
-serverSideEncryptionRule ::
+-- 'bucketKeyEnabled', 'serverSideEncryptionRule_bucketKeyEnabled' - Specifies whether Amazon S3 should use an S3 Bucket Key with server-side
+-- encryption using KMS (SSE-KMS) for new objects in the bucket. Existing
+-- objects are not affected. Setting the @BucketKeyEnabled@ element to
+-- @true@ causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket
+-- Key is not enabled.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html Amazon S3 Bucket Keys>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- 'applyServerSideEncryptionByDefault', 'serverSideEncryptionRule_applyServerSideEncryptionByDefault' - Specifies the default server-side encryption to apply to new objects in
+-- the bucket. If a PUT Object request doesn\'t specify any server-side
+-- encryption, this default encryption will be applied.
+newServerSideEncryptionRule ::
   ServerSideEncryptionRule
-serverSideEncryptionRule =
+newServerSideEncryptionRule =
   ServerSideEncryptionRule'
-    { _sserBucketKeyEnabled =
-        Nothing,
-      _sserApplyServerSideEncryptionByDefault = Nothing
+    { bucketKeyEnabled =
+        Prelude.Nothing,
+      applyServerSideEncryptionByDefault =
+        Prelude.Nothing
     }
 
--- | Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. Existing objects are not affected. Setting the @BucketKeyEnabled@ element to @true@ causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket Key is not enabled. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html Amazon S3 Bucket Keys> in the /Amazon Simple Storage Service Developer Guide/ .
-sserBucketKeyEnabled :: Lens' ServerSideEncryptionRule (Maybe Bool)
-sserBucketKeyEnabled = lens _sserBucketKeyEnabled (\s a -> s {_sserBucketKeyEnabled = a})
+-- | Specifies whether Amazon S3 should use an S3 Bucket Key with server-side
+-- encryption using KMS (SSE-KMS) for new objects in the bucket. Existing
+-- objects are not affected. Setting the @BucketKeyEnabled@ element to
+-- @true@ causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket
+-- Key is not enabled.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html Amazon S3 Bucket Keys>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+serverSideEncryptionRule_bucketKeyEnabled :: Lens.Lens' ServerSideEncryptionRule (Prelude.Maybe Prelude.Bool)
+serverSideEncryptionRule_bucketKeyEnabled = Lens.lens (\ServerSideEncryptionRule' {bucketKeyEnabled} -> bucketKeyEnabled) (\s@ServerSideEncryptionRule' {} a -> s {bucketKeyEnabled = a} :: ServerSideEncryptionRule)
 
--- | Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied.
-sserApplyServerSideEncryptionByDefault :: Lens' ServerSideEncryptionRule (Maybe ServerSideEncryptionByDefault)
-sserApplyServerSideEncryptionByDefault = lens _sserApplyServerSideEncryptionByDefault (\s a -> s {_sserApplyServerSideEncryptionByDefault = a})
+-- | Specifies the default server-side encryption to apply to new objects in
+-- the bucket. If a PUT Object request doesn\'t specify any server-side
+-- encryption, this default encryption will be applied.
+serverSideEncryptionRule_applyServerSideEncryptionByDefault :: Lens.Lens' ServerSideEncryptionRule (Prelude.Maybe ServerSideEncryptionByDefault)
+serverSideEncryptionRule_applyServerSideEncryptionByDefault = Lens.lens (\ServerSideEncryptionRule' {applyServerSideEncryptionByDefault} -> applyServerSideEncryptionByDefault) (\s@ServerSideEncryptionRule' {} a -> s {applyServerSideEncryptionByDefault = a} :: ServerSideEncryptionRule)
 
-instance FromXML ServerSideEncryptionRule where
+instance Prelude.FromXML ServerSideEncryptionRule where
   parseXML x =
     ServerSideEncryptionRule'
-      <$> (x .@? "BucketKeyEnabled")
-      <*> (x .@? "ApplyServerSideEncryptionByDefault")
+      Prelude.<$> (x Prelude..@? "BucketKeyEnabled")
+      Prelude.<*> (x Prelude..@? "ApplyServerSideEncryptionByDefault")
 
-instance Hashable ServerSideEncryptionRule
+instance Prelude.Hashable ServerSideEncryptionRule
 
-instance NFData ServerSideEncryptionRule
+instance Prelude.NFData ServerSideEncryptionRule
 
-instance ToXML ServerSideEncryptionRule where
+instance Prelude.ToXML ServerSideEncryptionRule where
   toXML ServerSideEncryptionRule' {..} =
-    mconcat
-      [ "BucketKeyEnabled" @= _sserBucketKeyEnabled,
+    Prelude.mconcat
+      [ "BucketKeyEnabled" Prelude.@= bucketKeyEnabled,
         "ApplyServerSideEncryptionByDefault"
-          @= _sserApplyServerSideEncryptionByDefault
+          Prelude.@= applyServerSideEncryptionByDefault
       ]

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +19,81 @@
 module Network.AWS.S3.Types.ObjectCannedACL
   ( ObjectCannedACL
       ( ..,
-        OAWSExecRead,
-        OAuthenticatedRead,
-        OBucketOwnerFullControl,
-        OBucketOwnerRead,
-        OPrivate,
-        OPublicRead,
-        OPublicReadWrite
+        ObjectCannedACLOAuthenticatedRead,
+        ObjectCannedACLOAwsExecRead,
+        ObjectCannedACLOBucketOwnerFullControl,
+        ObjectCannedACLOBucketOwnerRead,
+        ObjectCannedACLOPrivate,
+        ObjectCannedACLOPublicRead,
+        ObjectCannedACLOPublicReadWrite
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ObjectCannedACL = ObjectCannedACL' (CI Text)
+newtype ObjectCannedACL = ObjectCannedACL'
+  { fromObjectCannedACL ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OAWSExecRead :: ObjectCannedACL
-pattern OAWSExecRead = ObjectCannedACL' "aws-exec-read"
+pattern ObjectCannedACLOAuthenticatedRead :: ObjectCannedACL
+pattern ObjectCannedACLOAuthenticatedRead = ObjectCannedACL' "authenticated-read"
 
-pattern OAuthenticatedRead :: ObjectCannedACL
-pattern OAuthenticatedRead = ObjectCannedACL' "authenticated-read"
+pattern ObjectCannedACLOAwsExecRead :: ObjectCannedACL
+pattern ObjectCannedACLOAwsExecRead = ObjectCannedACL' "aws-exec-read"
 
-pattern OBucketOwnerFullControl :: ObjectCannedACL
-pattern OBucketOwnerFullControl = ObjectCannedACL' "bucket-owner-full-control"
+pattern ObjectCannedACLOBucketOwnerFullControl :: ObjectCannedACL
+pattern ObjectCannedACLOBucketOwnerFullControl = ObjectCannedACL' "bucket-owner-full-control"
 
-pattern OBucketOwnerRead :: ObjectCannedACL
-pattern OBucketOwnerRead = ObjectCannedACL' "bucket-owner-read"
+pattern ObjectCannedACLOBucketOwnerRead :: ObjectCannedACL
+pattern ObjectCannedACLOBucketOwnerRead = ObjectCannedACL' "bucket-owner-read"
 
-pattern OPrivate :: ObjectCannedACL
-pattern OPrivate = ObjectCannedACL' "private"
+pattern ObjectCannedACLOPrivate :: ObjectCannedACL
+pattern ObjectCannedACLOPrivate = ObjectCannedACL' "private"
 
-pattern OPublicRead :: ObjectCannedACL
-pattern OPublicRead = ObjectCannedACL' "public-read"
+pattern ObjectCannedACLOPublicRead :: ObjectCannedACL
+pattern ObjectCannedACLOPublicRead = ObjectCannedACL' "public-read"
 
-pattern OPublicReadWrite :: ObjectCannedACL
-pattern OPublicReadWrite = ObjectCannedACL' "public-read-write"
+pattern ObjectCannedACLOPublicReadWrite :: ObjectCannedACL
+pattern ObjectCannedACLOPublicReadWrite = ObjectCannedACL' "public-read-write"
 
 {-# COMPLETE
-  OAWSExecRead,
-  OAuthenticatedRead,
-  OBucketOwnerFullControl,
-  OBucketOwnerRead,
-  OPrivate,
-  OPublicRead,
-  OPublicReadWrite,
+  ObjectCannedACLOAuthenticatedRead,
+  ObjectCannedACLOAwsExecRead,
+  ObjectCannedACLOBucketOwnerFullControl,
+  ObjectCannedACLOBucketOwnerRead,
+  ObjectCannedACLOPrivate,
+  ObjectCannedACLOPublicRead,
+  ObjectCannedACLOPublicReadWrite,
   ObjectCannedACL'
   #-}
 
-instance FromText ObjectCannedACL where
-  parser = (ObjectCannedACL' . mk) <$> takeText
+instance Prelude.FromText ObjectCannedACL where
+  parser = ObjectCannedACL' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectCannedACL where
-  toText (ObjectCannedACL' ci) = original ci
+instance Prelude.ToText ObjectCannedACL where
+  toText (ObjectCannedACL' x) = x
 
-instance Hashable ObjectCannedACL
+instance Prelude.Hashable ObjectCannedACL
 
-instance NFData ObjectCannedACL
+instance Prelude.NFData ObjectCannedACL
 
-instance ToByteString ObjectCannedACL
+instance Prelude.ToByteString ObjectCannedACL
 
-instance ToQuery ObjectCannedACL
+instance Prelude.ToQuery ObjectCannedACL
 
-instance ToHeader ObjectCannedACL
+instance Prelude.ToHeader ObjectCannedACL
 
-instance ToXML ObjectCannedACL where
-  toXML = toXMLText
+instance Prelude.ToXML ObjectCannedACL where
+  toXML = Prelude.toXMLText

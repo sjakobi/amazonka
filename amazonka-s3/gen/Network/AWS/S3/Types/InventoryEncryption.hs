@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,57 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.InventoryEncryption where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.SSEKMS
 import Network.AWS.S3.Types.SSES3
 
--- | Contains the type of server-side encryption used to encrypt the inventory results.
+-- | Contains the type of server-side encryption used to encrypt the
+-- inventory results.
 --
---
---
--- /See:/ 'inventoryEncryption' smart constructor.
+-- /See:/ 'newInventoryEncryption' smart constructor.
 data InventoryEncryption = InventoryEncryption'
-  { _ieSSEKMS ::
-      !(Maybe SSEKMS),
-    _ieSSES3 :: !(Maybe SSES3)
+  { -- | Specifies the use of SSE-KMS to encrypt delivered inventory reports.
+    sSEKMS :: Prelude.Maybe SSEKMS,
+    -- | Specifies the use of SSE-S3 to encrypt delivered inventory reports.
+    sSES3 :: Prelude.Maybe SSES3
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ieSSEKMS' - Specifies the use of SSE-KMS to encrypt delivered inventory reports.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ieSSES3' - Specifies the use of SSE-S3 to encrypt delivered inventory reports.
-inventoryEncryption ::
+-- 'sSEKMS', 'inventoryEncryption_sSEKMS' - Specifies the use of SSE-KMS to encrypt delivered inventory reports.
+--
+-- 'sSES3', 'inventoryEncryption_sSES3' - Specifies the use of SSE-S3 to encrypt delivered inventory reports.
+newInventoryEncryption ::
   InventoryEncryption
-inventoryEncryption =
+newInventoryEncryption =
   InventoryEncryption'
-    { _ieSSEKMS = Nothing,
-      _ieSSES3 = Nothing
+    { sSEKMS = Prelude.Nothing,
+      sSES3 = Prelude.Nothing
     }
 
 -- | Specifies the use of SSE-KMS to encrypt delivered inventory reports.
-ieSSEKMS :: Lens' InventoryEncryption (Maybe SSEKMS)
-ieSSEKMS = lens _ieSSEKMS (\s a -> s {_ieSSEKMS = a})
+inventoryEncryption_sSEKMS :: Lens.Lens' InventoryEncryption (Prelude.Maybe SSEKMS)
+inventoryEncryption_sSEKMS = Lens.lens (\InventoryEncryption' {sSEKMS} -> sSEKMS) (\s@InventoryEncryption' {} a -> s {sSEKMS = a} :: InventoryEncryption)
 
 -- | Specifies the use of SSE-S3 to encrypt delivered inventory reports.
-ieSSES3 :: Lens' InventoryEncryption (Maybe SSES3)
-ieSSES3 = lens _ieSSES3 (\s a -> s {_ieSSES3 = a})
+inventoryEncryption_sSES3 :: Lens.Lens' InventoryEncryption (Prelude.Maybe SSES3)
+inventoryEncryption_sSES3 = Lens.lens (\InventoryEncryption' {sSES3} -> sSES3) (\s@InventoryEncryption' {} a -> s {sSES3 = a} :: InventoryEncryption)
 
-instance FromXML InventoryEncryption where
+instance Prelude.FromXML InventoryEncryption where
   parseXML x =
     InventoryEncryption'
-      <$> (x .@? "SSE-KMS") <*> (x .@? "SSE-S3")
+      Prelude.<$> (x Prelude..@? "SSE-KMS")
+      Prelude.<*> (x Prelude..@? "SSE-S3")
 
-instance Hashable InventoryEncryption
+instance Prelude.Hashable InventoryEncryption
 
-instance NFData InventoryEncryption
+instance Prelude.NFData InventoryEncryption
 
-instance ToXML InventoryEncryption where
+instance Prelude.ToXML InventoryEncryption where
   toXML InventoryEncryption' {..} =
-    mconcat
-      ["SSE-KMS" @= _ieSSEKMS, "SSE-S3" @= _ieSSES3]
+    Prelude.mconcat
+      [ "SSE-KMS" Prelude.@= sSEKMS,
+        "SSE-S3" Prelude.@= sSES3
+      ]

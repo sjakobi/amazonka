@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.ObjectLockRetentionMode
   ( ObjectLockRetentionMode
       ( ..,
-        Compliance,
-        Governance
+        ObjectLockRetentionModeCOMPLIANCE,
+        ObjectLockRetentionModeGOVERNANCE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ObjectLockRetentionMode
-  = ObjectLockRetentionMode'
-      ( CI
-          Text
-      )
+newtype ObjectLockRetentionMode = ObjectLockRetentionMode'
+  { fromObjectLockRetentionMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Compliance :: ObjectLockRetentionMode
-pattern Compliance = ObjectLockRetentionMode' "COMPLIANCE"
+pattern ObjectLockRetentionModeCOMPLIANCE :: ObjectLockRetentionMode
+pattern ObjectLockRetentionModeCOMPLIANCE = ObjectLockRetentionMode' "COMPLIANCE"
 
-pattern Governance :: ObjectLockRetentionMode
-pattern Governance = ObjectLockRetentionMode' "GOVERNANCE"
+pattern ObjectLockRetentionModeGOVERNANCE :: ObjectLockRetentionMode
+pattern ObjectLockRetentionModeGOVERNANCE = ObjectLockRetentionMode' "GOVERNANCE"
 
 {-# COMPLETE
-  Compliance,
-  Governance,
+  ObjectLockRetentionModeCOMPLIANCE,
+  ObjectLockRetentionModeGOVERNANCE,
   ObjectLockRetentionMode'
   #-}
 
-instance FromText ObjectLockRetentionMode where
-  parser = (ObjectLockRetentionMode' . mk) <$> takeText
+instance Prelude.FromText ObjectLockRetentionMode where
+  parser = ObjectLockRetentionMode' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectLockRetentionMode where
-  toText (ObjectLockRetentionMode' ci) = original ci
+instance Prelude.ToText ObjectLockRetentionMode where
+  toText (ObjectLockRetentionMode' x) = x
 
-instance Hashable ObjectLockRetentionMode
+instance Prelude.Hashable ObjectLockRetentionMode
 
-instance NFData ObjectLockRetentionMode
+instance Prelude.NFData ObjectLockRetentionMode
 
-instance ToByteString ObjectLockRetentionMode
+instance Prelude.ToByteString ObjectLockRetentionMode
 
-instance ToQuery ObjectLockRetentionMode
+instance Prelude.ToQuery ObjectLockRetentionMode
 
-instance ToHeader ObjectLockRetentionMode
+instance Prelude.ToHeader ObjectLockRetentionMode
 
-instance FromXML ObjectLockRetentionMode where
-  parseXML = parseXMLText "ObjectLockRetentionMode"
+instance Prelude.FromXML ObjectLockRetentionMode where
+  parseXML = Prelude.parseXMLText "ObjectLockRetentionMode"
 
-instance ToXML ObjectLockRetentionMode where
-  toXML = toXMLText
+instance Prelude.ToXML ObjectLockRetentionMode where
+  toXML = Prelude.toXMLText

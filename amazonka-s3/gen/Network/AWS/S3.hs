@@ -11,10 +11,16 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Amazon Simple Storage Service is storage for the Internet. Amazon S3 has a simple web services interface that you can use to store and retrieve any amount of data, at any time, from anywhere on the web. It gives any developer access to the same highly scalable, reliable, fast, inexpensive data storage infrastructure that Amazon uses to run its own global network of web sites. The service aims to maximize benefits of scale and to pass those benefits on to developers.
+-- Amazon Simple Storage Service is storage for the Internet. Amazon S3 has
+-- a simple web services interface that you can use to store and retrieve
+-- any amount of data, at any time, from anywhere on the web. It gives any
+-- developer access to the same highly scalable, reliable, fast,
+-- inexpensive data storage infrastructure that Amazon uses to run its own
+-- global network of web sites. The service aims to maximize benefits of
+-- scale and to pass those benefits on to developers.
 module Network.AWS.S3
   ( -- * Service Configuration
-    s3,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -47,292 +53,565 @@ module Network.AWS.S3
     -- $waiters
 
     -- ** BucketNotExists
-    bucketNotExists,
+    newBucketNotExists,
 
     -- ** ObjectExists
-    objectExists,
+    newObjectExists,
 
     -- ** BucketExists
-    bucketExists,
+    newBucketExists,
 
     -- ** ObjectNotExists
-    objectNotExists,
+    newObjectNotExists,
 
     -- * Operations
     -- $operations
 
     -- ** PutBucketPolicy
-    module Network.AWS.S3.PutBucketPolicy,
+    PutBucketPolicy (PutBucketPolicy'),
+    newPutBucketPolicy,
+    PutBucketPolicyResponse (PutBucketPolicyResponse'),
+    newPutBucketPolicyResponse,
 
     -- ** GetBucketEncryption
-    module Network.AWS.S3.GetBucketEncryption,
+    GetBucketEncryption (GetBucketEncryption'),
+    newGetBucketEncryption,
+    GetBucketEncryptionResponse (GetBucketEncryptionResponse'),
+    newGetBucketEncryptionResponse,
 
     -- ** DeleteBucket
-    module Network.AWS.S3.DeleteBucket,
+    DeleteBucket (DeleteBucket'),
+    newDeleteBucket,
+    DeleteBucketResponse (DeleteBucketResponse'),
+    newDeleteBucketResponse,
 
     -- ** DeleteObjects
-    module Network.AWS.S3.DeleteObjects,
+    DeleteObjects (DeleteObjects'),
+    newDeleteObjects,
+    DeleteObjectsResponse (DeleteObjectsResponse'),
+    newDeleteObjectsResponse,
 
     -- ** PutBucketLogging
-    module Network.AWS.S3.PutBucketLogging,
+    PutBucketLogging (PutBucketLogging'),
+    newPutBucketLogging,
+    PutBucketLoggingResponse (PutBucketLoggingResponse'),
+    newPutBucketLoggingResponse,
 
     -- ** DeleteBucketWebsite
-    module Network.AWS.S3.DeleteBucketWebsite,
+    DeleteBucketWebsite (DeleteBucketWebsite'),
+    newDeleteBucketWebsite,
+    DeleteBucketWebsiteResponse (DeleteBucketWebsiteResponse'),
+    newDeleteBucketWebsiteResponse,
 
     -- ** CompleteMultipartUpload
-    module Network.AWS.S3.CompleteMultipartUpload,
+    CompleteMultipartUpload (CompleteMultipartUpload'),
+    newCompleteMultipartUpload,
+    CompleteMultipartUploadResponse (CompleteMultipartUploadResponse'),
+    newCompleteMultipartUploadResponse,
 
     -- ** SelectObjectContent
-    module Network.AWS.S3.SelectObjectContent,
+    SelectObjectContent (SelectObjectContent'),
+    newSelectObjectContent,
+    SelectObjectContentResponse (SelectObjectContentResponse'),
+    newSelectObjectContentResponse,
 
     -- ** GetBucketPolicyStatus
-    module Network.AWS.S3.GetBucketPolicyStatus,
+    GetBucketPolicyStatus (GetBucketPolicyStatus'),
+    newGetBucketPolicyStatus,
+    GetBucketPolicyStatusResponse (GetBucketPolicyStatusResponse'),
+    newGetBucketPolicyStatusResponse,
 
     -- ** ListObjects (Paginated)
-    module Network.AWS.S3.ListObjects,
+    ListObjects (ListObjects'),
+    newListObjects,
+    ListObjectsResponse (ListObjectsResponse'),
+    newListObjectsResponse,
 
     -- ** DeleteObject
-    module Network.AWS.S3.DeleteObject,
+    DeleteObject (DeleteObject'),
+    newDeleteObject,
+    DeleteObjectResponse (DeleteObjectResponse'),
+    newDeleteObjectResponse,
 
     -- ** DeleteBucketAnalyticsConfiguration
-    module Network.AWS.S3.DeleteBucketAnalyticsConfiguration,
+    DeleteBucketAnalyticsConfiguration (DeleteBucketAnalyticsConfiguration'),
+    newDeleteBucketAnalyticsConfiguration,
+    DeleteBucketAnalyticsConfigurationResponse (DeleteBucketAnalyticsConfigurationResponse'),
+    newDeleteBucketAnalyticsConfigurationResponse,
 
     -- ** DeleteObjectTagging
-    module Network.AWS.S3.DeleteObjectTagging,
+    DeleteObjectTagging (DeleteObjectTagging'),
+    newDeleteObjectTagging,
+    DeleteObjectTaggingResponse (DeleteObjectTaggingResponse'),
+    newDeleteObjectTaggingResponse,
 
-    -- ** GetBucketACL
-    module Network.AWS.S3.GetBucketACL,
+    -- ** GetBucketAcl
+    GetBucketAcl (GetBucketAcl'),
+    newGetBucketAcl,
+    GetBucketAclResponse (GetBucketAclResponse'),
+    newGetBucketAclResponse,
 
     -- ** GetObjectTagging
-    module Network.AWS.S3.GetObjectTagging,
+    GetObjectTagging (GetObjectTagging'),
+    newGetObjectTagging,
+    GetObjectTaggingResponse (GetObjectTaggingResponse'),
+    newGetObjectTaggingResponse,
 
     -- ** PutBucketReplication
-    module Network.AWS.S3.PutBucketReplication,
+    PutBucketReplication (PutBucketReplication'),
+    newPutBucketReplication,
+    PutBucketReplicationResponse (PutBucketReplicationResponse'),
+    newPutBucketReplicationResponse,
 
     -- ** GetBucketWebsite
-    module Network.AWS.S3.GetBucketWebsite,
+    GetBucketWebsite (GetBucketWebsite'),
+    newGetBucketWebsite,
+    GetBucketWebsiteResponse (GetBucketWebsiteResponse'),
+    newGetBucketWebsiteResponse,
 
     -- ** GetObjectLockConfiguration
-    module Network.AWS.S3.GetObjectLockConfiguration,
+    GetObjectLockConfiguration (GetObjectLockConfiguration'),
+    newGetObjectLockConfiguration,
+    GetObjectLockConfigurationResponse (GetObjectLockConfigurationResponse'),
+    newGetObjectLockConfigurationResponse,
 
     -- ** DeleteBucketMetricsConfiguration
-    module Network.AWS.S3.DeleteBucketMetricsConfiguration,
+    DeleteBucketMetricsConfiguration (DeleteBucketMetricsConfiguration'),
+    newDeleteBucketMetricsConfiguration,
+    DeleteBucketMetricsConfigurationResponse (DeleteBucketMetricsConfigurationResponse'),
+    newDeleteBucketMetricsConfigurationResponse,
 
     -- ** GetBucketPolicy
-    module Network.AWS.S3.GetBucketPolicy,
+    GetBucketPolicy (GetBucketPolicy'),
+    newGetBucketPolicy,
+    GetBucketPolicyResponse (GetBucketPolicyResponse'),
+    newGetBucketPolicyResponse,
 
     -- ** PutBucketEncryption
-    module Network.AWS.S3.PutBucketEncryption,
+    PutBucketEncryption (PutBucketEncryption'),
+    newPutBucketEncryption,
+    PutBucketEncryptionResponse (PutBucketEncryptionResponse'),
+    newPutBucketEncryptionResponse,
 
     -- ** ListBucketMetricsConfigurations
-    module Network.AWS.S3.ListBucketMetricsConfigurations,
+    ListBucketMetricsConfigurations (ListBucketMetricsConfigurations'),
+    newListBucketMetricsConfigurations,
+    ListBucketMetricsConfigurationsResponse (ListBucketMetricsConfigurationsResponse'),
+    newListBucketMetricsConfigurationsResponse,
 
     -- ** PutBucketAccelerateConfiguration
-    module Network.AWS.S3.PutBucketAccelerateConfiguration,
+    PutBucketAccelerateConfiguration (PutBucketAccelerateConfiguration'),
+    newPutBucketAccelerateConfiguration,
+    PutBucketAccelerateConfigurationResponse (PutBucketAccelerateConfigurationResponse'),
+    newPutBucketAccelerateConfigurationResponse,
 
     -- ** PutBucketOwnershipControls
-    module Network.AWS.S3.PutBucketOwnershipControls,
+    PutBucketOwnershipControls (PutBucketOwnershipControls'),
+    newPutBucketOwnershipControls,
+    PutBucketOwnershipControlsResponse (PutBucketOwnershipControlsResponse'),
+    newPutBucketOwnershipControlsResponse,
 
     -- ** PutObjectRetention
-    module Network.AWS.S3.PutObjectRetention,
+    PutObjectRetention (PutObjectRetention'),
+    newPutObjectRetention,
+    PutObjectRetentionResponse (PutObjectRetentionResponse'),
+    newPutObjectRetentionResponse,
 
     -- ** PutObjectLegalHold
-    module Network.AWS.S3.PutObjectLegalHold,
+    PutObjectLegalHold (PutObjectLegalHold'),
+    newPutObjectLegalHold,
+    PutObjectLegalHoldResponse (PutObjectLegalHoldResponse'),
+    newPutObjectLegalHoldResponse,
 
     -- ** HeadObject
-    module Network.AWS.S3.HeadObject,
+    HeadObject (HeadObject'),
+    newHeadObject,
+    HeadObjectResponse (HeadObjectResponse'),
+    newHeadObjectResponse,
 
     -- ** GetBucketTagging
-    module Network.AWS.S3.GetBucketTagging,
+    GetBucketTagging (GetBucketTagging'),
+    newGetBucketTagging,
+    GetBucketTaggingResponse (GetBucketTaggingResponse'),
+    newGetBucketTaggingResponse,
 
     -- ** GetBucketLocation
-    module Network.AWS.S3.GetBucketLocation,
+    GetBucketLocation (GetBucketLocation'),
+    newGetBucketLocation,
+    GetBucketLocationResponse (GetBucketLocationResponse'),
+    newGetBucketLocationResponse,
 
     -- ** PutBucketInventoryConfiguration
-    module Network.AWS.S3.PutBucketInventoryConfiguration,
+    PutBucketInventoryConfiguration (PutBucketInventoryConfiguration'),
+    newPutBucketInventoryConfiguration,
+    PutBucketInventoryConfigurationResponse (PutBucketInventoryConfigurationResponse'),
+    newPutBucketInventoryConfigurationResponse,
 
     -- ** ListBucketInventoryConfigurations
-    module Network.AWS.S3.ListBucketInventoryConfigurations,
+    ListBucketInventoryConfigurations (ListBucketInventoryConfigurations'),
+    newListBucketInventoryConfigurations,
+    ListBucketInventoryConfigurationsResponse (ListBucketInventoryConfigurationsResponse'),
+    newListBucketInventoryConfigurationsResponse,
 
-    -- ** GetObjectACL
-    module Network.AWS.S3.GetObjectACL,
+    -- ** GetObjectAcl
+    GetObjectAcl (GetObjectAcl'),
+    newGetObjectAcl,
+    GetObjectAclResponse (GetObjectAclResponse'),
+    newGetObjectAclResponse,
 
     -- ** DeletePublicAccessBlock
-    module Network.AWS.S3.DeletePublicAccessBlock,
+    DeletePublicAccessBlock (DeletePublicAccessBlock'),
+    newDeletePublicAccessBlock,
+    DeletePublicAccessBlockResponse (DeletePublicAccessBlockResponse'),
+    newDeletePublicAccessBlockResponse,
 
     -- ** DeleteBucketIntelligentTieringConfiguration
-    module Network.AWS.S3.DeleteBucketIntelligentTieringConfiguration,
+    DeleteBucketIntelligentTieringConfiguration (DeleteBucketIntelligentTieringConfiguration'),
+    newDeleteBucketIntelligentTieringConfiguration,
+    DeleteBucketIntelligentTieringConfigurationResponse (DeleteBucketIntelligentTieringConfigurationResponse'),
+    newDeleteBucketIntelligentTieringConfigurationResponse,
 
     -- ** GetBucketVersioning
-    module Network.AWS.S3.GetBucketVersioning,
+    GetBucketVersioning (GetBucketVersioning'),
+    newGetBucketVersioning,
+    GetBucketVersioningResponse (GetBucketVersioningResponse'),
+    newGetBucketVersioningResponse,
 
     -- ** PutBucketTagging
-    module Network.AWS.S3.PutBucketTagging,
+    PutBucketTagging (PutBucketTagging'),
+    newPutBucketTagging,
+    PutBucketTaggingResponse (PutBucketTaggingResponse'),
+    newPutBucketTaggingResponse,
 
     -- ** CreateBucket
-    module Network.AWS.S3.CreateBucket,
+    CreateBucket (CreateBucket'),
+    newCreateBucket,
+    CreateBucketResponse (CreateBucketResponse'),
+    newCreateBucketResponse,
 
-    -- ** PutObjectACL
-    module Network.AWS.S3.PutObjectACL,
+    -- ** PutObjectAcl
+    PutObjectAcl (PutObjectAcl'),
+    newPutObjectAcl,
+    PutObjectAclResponse (PutObjectAclResponse'),
+    newPutObjectAclResponse,
 
-    -- ** PutBucketCORS
-    module Network.AWS.S3.PutBucketCORS,
+    -- ** PutBucketCors
+    PutBucketCors (PutBucketCors'),
+    newPutBucketCors,
+    PutBucketCorsResponse (PutBucketCorsResponse'),
+    newPutBucketCorsResponse,
 
     -- ** GetObjectRetention
-    module Network.AWS.S3.GetObjectRetention,
+    GetObjectRetention (GetObjectRetention'),
+    newGetObjectRetention,
+    GetObjectRetentionResponse (GetObjectRetentionResponse'),
+    newGetObjectRetentionResponse,
 
     -- ** GetObjectTorrent
-    module Network.AWS.S3.GetObjectTorrent,
+    GetObjectTorrent (GetObjectTorrent'),
+    newGetObjectTorrent,
+    GetObjectTorrentResponse (GetObjectTorrentResponse'),
+    newGetObjectTorrentResponse,
 
     -- ** GetBucketOwnershipControls
-    module Network.AWS.S3.GetBucketOwnershipControls,
+    GetBucketOwnershipControls (GetBucketOwnershipControls'),
+    newGetBucketOwnershipControls,
+    GetBucketOwnershipControlsResponse (GetBucketOwnershipControlsResponse'),
+    newGetBucketOwnershipControlsResponse,
 
     -- ** GetBucketMetricsConfiguration
-    module Network.AWS.S3.GetBucketMetricsConfiguration,
+    GetBucketMetricsConfiguration (GetBucketMetricsConfiguration'),
+    newGetBucketMetricsConfiguration,
+    GetBucketMetricsConfigurationResponse (GetBucketMetricsConfigurationResponse'),
+    newGetBucketMetricsConfigurationResponse,
 
     -- ** GetBucketAccelerateConfiguration
-    module Network.AWS.S3.GetBucketAccelerateConfiguration,
+    GetBucketAccelerateConfiguration (GetBucketAccelerateConfiguration'),
+    newGetBucketAccelerateConfiguration,
+    GetBucketAccelerateConfigurationResponse (GetBucketAccelerateConfigurationResponse'),
+    newGetBucketAccelerateConfigurationResponse,
 
     -- ** GetObjectLegalHold
-    module Network.AWS.S3.GetObjectLegalHold,
+    GetObjectLegalHold (GetObjectLegalHold'),
+    newGetObjectLegalHold,
+    GetObjectLegalHoldResponse (GetObjectLegalHoldResponse'),
+    newGetObjectLegalHoldResponse,
 
     -- ** ListBuckets
-    module Network.AWS.S3.ListBuckets,
+    ListBuckets (ListBuckets'),
+    newListBuckets,
+    ListBucketsResponse (ListBucketsResponse'),
+    newListBucketsResponse,
 
     -- ** DeleteBucketPolicy
-    module Network.AWS.S3.DeleteBucketPolicy,
+    DeleteBucketPolicy (DeleteBucketPolicy'),
+    newDeleteBucketPolicy,
+    DeleteBucketPolicyResponse (DeleteBucketPolicyResponse'),
+    newDeleteBucketPolicyResponse,
 
     -- ** PutObjectLockConfiguration
-    module Network.AWS.S3.PutObjectLockConfiguration,
+    PutObjectLockConfiguration (PutObjectLockConfiguration'),
+    newPutObjectLockConfiguration,
+    PutObjectLockConfigurationResponse (PutObjectLockConfigurationResponse'),
+    newPutObjectLockConfigurationResponse,
 
     -- ** AbortMultipartUpload
-    module Network.AWS.S3.AbortMultipartUpload,
+    AbortMultipartUpload (AbortMultipartUpload'),
+    newAbortMultipartUpload,
+    AbortMultipartUploadResponse (AbortMultipartUploadResponse'),
+    newAbortMultipartUploadResponse,
 
     -- ** UploadPart
-    module Network.AWS.S3.UploadPart,
+    UploadPart (UploadPart'),
+    newUploadPart,
+    UploadPartResponse (UploadPartResponse'),
+    newUploadPartResponse,
 
     -- ** PutObject
-    module Network.AWS.S3.PutObject,
+    PutObject (PutObject'),
+    newPutObject,
+    PutObjectResponse (PutObjectResponse'),
+    newPutObjectResponse,
 
     -- ** PutBucketRequestPayment
-    module Network.AWS.S3.PutBucketRequestPayment,
+    PutBucketRequestPayment (PutBucketRequestPayment'),
+    newPutBucketRequestPayment,
+    PutBucketRequestPaymentResponse (PutBucketRequestPaymentResponse'),
+    newPutBucketRequestPaymentResponse,
 
     -- ** ListMultipartUploads (Paginated)
-    module Network.AWS.S3.ListMultipartUploads,
+    ListMultipartUploads (ListMultipartUploads'),
+    newListMultipartUploads,
+    ListMultipartUploadsResponse (ListMultipartUploadsResponse'),
+    newListMultipartUploadsResponse,
 
     -- ** GetBucketReplication
-    module Network.AWS.S3.GetBucketReplication,
+    GetBucketReplication (GetBucketReplication'),
+    newGetBucketReplication,
+    GetBucketReplicationResponse (GetBucketReplicationResponse'),
+    newGetBucketReplicationResponse,
 
     -- ** PutBucketWebsite
-    module Network.AWS.S3.PutBucketWebsite,
+    PutBucketWebsite (PutBucketWebsite'),
+    newPutBucketWebsite,
+    PutBucketWebsiteResponse (PutBucketWebsiteResponse'),
+    newPutBucketWebsiteResponse,
 
     -- ** PutBucketAnalyticsConfiguration
-    module Network.AWS.S3.PutBucketAnalyticsConfiguration,
+    PutBucketAnalyticsConfiguration (PutBucketAnalyticsConfiguration'),
+    newPutBucketAnalyticsConfiguration,
+    PutBucketAnalyticsConfigurationResponse (PutBucketAnalyticsConfigurationResponse'),
+    newPutBucketAnalyticsConfigurationResponse,
 
     -- ** PutObjectTagging
-    module Network.AWS.S3.PutObjectTagging,
+    PutObjectTagging (PutObjectTagging'),
+    newPutObjectTagging,
+    PutObjectTaggingResponse (PutObjectTaggingResponse'),
+    newPutObjectTaggingResponse,
 
     -- ** UploadPartCopy
-    module Network.AWS.S3.UploadPartCopy,
+    UploadPartCopy (UploadPartCopy'),
+    newUploadPartCopy,
+    UploadPartCopyResponse (UploadPartCopyResponse'),
+    newUploadPartCopyResponse,
 
     -- ** CreateMultipartUpload
-    module Network.AWS.S3.CreateMultipartUpload,
+    CreateMultipartUpload (CreateMultipartUpload'),
+    newCreateMultipartUpload,
+    CreateMultipartUploadResponse (CreateMultipartUploadResponse'),
+    newCreateMultipartUploadResponse,
 
     -- ** PutBucketLifecycleConfiguration
-    module Network.AWS.S3.PutBucketLifecycleConfiguration,
+    PutBucketLifecycleConfiguration (PutBucketLifecycleConfiguration'),
+    newPutBucketLifecycleConfiguration,
+    PutBucketLifecycleConfigurationResponse (PutBucketLifecycleConfigurationResponse'),
+    newPutBucketLifecycleConfigurationResponse,
 
-    -- ** PutBucketACL
-    module Network.AWS.S3.PutBucketACL,
+    -- ** PutBucketAcl
+    PutBucketAcl (PutBucketAcl'),
+    newPutBucketAcl,
+    PutBucketAclResponse (PutBucketAclResponse'),
+    newPutBucketAclResponse,
 
     -- ** DeleteBucketLifecycle
-    module Network.AWS.S3.DeleteBucketLifecycle,
+    DeleteBucketLifecycle (DeleteBucketLifecycle'),
+    newDeleteBucketLifecycle,
+    DeleteBucketLifecycleResponse (DeleteBucketLifecycleResponse'),
+    newDeleteBucketLifecycleResponse,
 
     -- ** ListBucketAnalyticsConfigurations
-    module Network.AWS.S3.ListBucketAnalyticsConfigurations,
+    ListBucketAnalyticsConfigurations (ListBucketAnalyticsConfigurations'),
+    newListBucketAnalyticsConfigurations,
+    ListBucketAnalyticsConfigurationsResponse (ListBucketAnalyticsConfigurationsResponse'),
+    newListBucketAnalyticsConfigurationsResponse,
 
     -- ** GetBucketAnalyticsConfiguration
-    module Network.AWS.S3.GetBucketAnalyticsConfiguration,
+    GetBucketAnalyticsConfiguration (GetBucketAnalyticsConfiguration'),
+    newGetBucketAnalyticsConfiguration,
+    GetBucketAnalyticsConfigurationResponse (GetBucketAnalyticsConfigurationResponse'),
+    newGetBucketAnalyticsConfigurationResponse,
 
     -- ** HeadBucket
-    module Network.AWS.S3.HeadBucket,
+    HeadBucket (HeadBucket'),
+    newHeadBucket,
+    HeadBucketResponse (HeadBucketResponse'),
+    newHeadBucketResponse,
 
     -- ** ListObjectVersions (Paginated)
-    module Network.AWS.S3.ListObjectVersions,
+    ListObjectVersions (ListObjectVersions'),
+    newListObjectVersions,
+    ListObjectVersionsResponse (ListObjectVersionsResponse'),
+    newListObjectVersionsResponse,
 
     -- ** GetBucketLifecycleConfiguration
-    module Network.AWS.S3.GetBucketLifecycleConfiguration,
+    GetBucketLifecycleConfiguration (GetBucketLifecycleConfiguration'),
+    newGetBucketLifecycleConfiguration,
+    GetBucketLifecycleConfigurationResponse (GetBucketLifecycleConfigurationResponse'),
+    newGetBucketLifecycleConfigurationResponse,
 
     -- ** ListParts (Paginated)
-    module Network.AWS.S3.ListParts,
+    ListParts (ListParts'),
+    newListParts,
+    ListPartsResponse (ListPartsResponse'),
+    newListPartsResponse,
 
     -- ** GetBucketRequestPayment
-    module Network.AWS.S3.GetBucketRequestPayment,
+    GetBucketRequestPayment (GetBucketRequestPayment'),
+    newGetBucketRequestPayment,
+    GetBucketRequestPaymentResponse (GetBucketRequestPaymentResponse'),
+    newGetBucketRequestPaymentResponse,
 
     -- ** DeleteBucketReplication
-    module Network.AWS.S3.DeleteBucketReplication,
+    DeleteBucketReplication (DeleteBucketReplication'),
+    newDeleteBucketReplication,
+    DeleteBucketReplicationResponse (DeleteBucketReplicationResponse'),
+    newDeleteBucketReplicationResponse,
 
     -- ** GetBucketLogging
-    module Network.AWS.S3.GetBucketLogging,
+    GetBucketLogging (GetBucketLogging'),
+    newGetBucketLogging,
+    GetBucketLoggingResponse (GetBucketLoggingResponse'),
+    newGetBucketLoggingResponse,
 
     -- ** GetObject
-    module Network.AWS.S3.GetObject,
+    GetObject (GetObject'),
+    newGetObject,
+    GetObjectResponse (GetObjectResponse'),
+    newGetObjectResponse,
 
     -- ** DeleteBucketOwnershipControls
-    module Network.AWS.S3.DeleteBucketOwnershipControls,
+    DeleteBucketOwnershipControls (DeleteBucketOwnershipControls'),
+    newDeleteBucketOwnershipControls,
+    DeleteBucketOwnershipControlsResponse (DeleteBucketOwnershipControlsResponse'),
+    newDeleteBucketOwnershipControlsResponse,
 
     -- ** PutBucketMetricsConfiguration
-    module Network.AWS.S3.PutBucketMetricsConfiguration,
+    PutBucketMetricsConfiguration (PutBucketMetricsConfiguration'),
+    newPutBucketMetricsConfiguration,
+    PutBucketMetricsConfigurationResponse (PutBucketMetricsConfigurationResponse'),
+    newPutBucketMetricsConfigurationResponse,
 
-    -- ** ListObjectsV2 (Paginated)
-    module Network.AWS.S3.ListObjectsV2,
+    -- ** ListObjectsV
+    ListObjectsV (ListObjectsV'),
+    newListObjectsV,
+    ListObjectsVResponse (ListObjectsVResponse'),
+    newListObjectsVResponse,
 
     -- ** CopyObject
-    module Network.AWS.S3.CopyObject,
+    CopyObject (CopyObject'),
+    newCopyObject,
+    CopyObjectResponse (CopyObjectResponse'),
+    newCopyObjectResponse,
 
     -- ** DeleteBucketEncryption
-    module Network.AWS.S3.DeleteBucketEncryption,
+    DeleteBucketEncryption (DeleteBucketEncryption'),
+    newDeleteBucketEncryption,
+    DeleteBucketEncryptionResponse (DeleteBucketEncryptionResponse'),
+    newDeleteBucketEncryptionResponse,
 
     -- ** PutBucketVersioning
-    module Network.AWS.S3.PutBucketVersioning,
+    PutBucketVersioning (PutBucketVersioning'),
+    newPutBucketVersioning,
+    PutBucketVersioningResponse (PutBucketVersioningResponse'),
+    newPutBucketVersioningResponse,
 
     -- ** GetBucketNotificationConfiguration
-    module Network.AWS.S3.GetBucketNotificationConfiguration,
+    GetBucketNotificationConfiguration (GetBucketNotificationConfiguration'),
+    newGetBucketNotificationConfiguration,
+    NotificationConfiguration (NotificationConfiguration'),
+    newNotificationConfiguration,
 
     -- ** PutPublicAccessBlock
-    module Network.AWS.S3.PutPublicAccessBlock,
+    PutPublicAccessBlock (PutPublicAccessBlock'),
+    newPutPublicAccessBlock,
+    PutPublicAccessBlockResponse (PutPublicAccessBlockResponse'),
+    newPutPublicAccessBlockResponse,
 
     -- ** DeleteBucketInventoryConfiguration
-    module Network.AWS.S3.DeleteBucketInventoryConfiguration,
+    DeleteBucketInventoryConfiguration (DeleteBucketInventoryConfiguration'),
+    newDeleteBucketInventoryConfiguration,
+    DeleteBucketInventoryConfigurationResponse (DeleteBucketInventoryConfigurationResponse'),
+    newDeleteBucketInventoryConfigurationResponse,
 
     -- ** GetBucketIntelligentTieringConfiguration
-    module Network.AWS.S3.GetBucketIntelligentTieringConfiguration,
+    GetBucketIntelligentTieringConfiguration (GetBucketIntelligentTieringConfiguration'),
+    newGetBucketIntelligentTieringConfiguration,
+    GetBucketIntelligentTieringConfigurationResponse (GetBucketIntelligentTieringConfigurationResponse'),
+    newGetBucketIntelligentTieringConfigurationResponse,
 
     -- ** RestoreObject
-    module Network.AWS.S3.RestoreObject,
+    RestoreObject (RestoreObject'),
+    newRestoreObject,
+    RestoreObjectResponse (RestoreObjectResponse'),
+    newRestoreObjectResponse,
 
-    -- ** GetBucketCORS
-    module Network.AWS.S3.GetBucketCORS,
+    -- ** GetBucketCors
+    GetBucketCors (GetBucketCors'),
+    newGetBucketCors,
+    GetBucketCorsResponse (GetBucketCorsResponse'),
+    newGetBucketCorsResponse,
 
     -- ** GetBucketInventoryConfiguration
-    module Network.AWS.S3.GetBucketInventoryConfiguration,
+    GetBucketInventoryConfiguration (GetBucketInventoryConfiguration'),
+    newGetBucketInventoryConfiguration,
+    GetBucketInventoryConfigurationResponse (GetBucketInventoryConfigurationResponse'),
+    newGetBucketInventoryConfigurationResponse,
 
     -- ** GetPublicAccessBlock
-    module Network.AWS.S3.GetPublicAccessBlock,
+    GetPublicAccessBlock (GetPublicAccessBlock'),
+    newGetPublicAccessBlock,
+    GetPublicAccessBlockResponse (GetPublicAccessBlockResponse'),
+    newGetPublicAccessBlockResponse,
 
-    -- ** DeleteBucketCORS
-    module Network.AWS.S3.DeleteBucketCORS,
+    -- ** DeleteBucketCors
+    DeleteBucketCors (DeleteBucketCors'),
+    newDeleteBucketCors,
+    DeleteBucketCorsResponse (DeleteBucketCorsResponse'),
+    newDeleteBucketCorsResponse,
 
     -- ** DeleteBucketTagging
-    module Network.AWS.S3.DeleteBucketTagging,
+    DeleteBucketTagging (DeleteBucketTagging'),
+    newDeleteBucketTagging,
+    DeleteBucketTaggingResponse (DeleteBucketTaggingResponse'),
+    newDeleteBucketTaggingResponse,
 
     -- ** ListBucketIntelligentTieringConfigurations
-    module Network.AWS.S3.ListBucketIntelligentTieringConfigurations,
+    ListBucketIntelligentTieringConfigurations (ListBucketIntelligentTieringConfigurations'),
+    newListBucketIntelligentTieringConfigurations,
+    ListBucketIntelligentTieringConfigurationsResponse (ListBucketIntelligentTieringConfigurationsResponse'),
+    newListBucketIntelligentTieringConfigurationsResponse,
 
     -- ** PutBucketNotificationConfiguration
-    module Network.AWS.S3.PutBucketNotificationConfiguration,
+    PutBucketNotificationConfiguration (PutBucketNotificationConfiguration'),
+    newPutBucketNotificationConfiguration,
+    PutBucketNotificationConfigurationResponse (PutBucketNotificationConfigurationResponse'),
+    newPutBucketNotificationConfigurationResponse,
 
     -- ** PutBucketIntelligentTieringConfiguration
-    module Network.AWS.S3.PutBucketIntelligentTieringConfiguration,
+    PutBucketIntelligentTieringConfiguration (PutBucketIntelligentTieringConfiguration'),
+    newPutBucketIntelligentTieringConfiguration,
+    PutBucketIntelligentTieringConfigurationResponse (PutBucketIntelligentTieringConfigurationResponse'),
+    newPutBucketIntelligentTieringConfigurationResponse,
 
     -- * Types
 
@@ -480,8 +759,8 @@ module Network.AWS.S3
     -- ** ServerSideEncryption
     ServerSideEncryption (..),
 
-    -- ** SseKMSEncryptedObjectsStatus
-    SseKMSEncryptedObjectsStatus (..),
+    -- ** SseKmsEncryptedObjectsStatus
+    SseKmsEncryptedObjectsStatus (..),
 
     -- ** StorageClass
     StorageClass (..),
@@ -502,829 +781,512 @@ module Network.AWS.S3
     Type (..),
 
     -- ** AbortIncompleteMultipartUpload
-    AbortIncompleteMultipartUpload,
-    abortIncompleteMultipartUpload,
-    aimuDaysAfterInitiation,
+    AbortIncompleteMultipartUpload (AbortIncompleteMultipartUpload'),
+    newAbortIncompleteMultipartUpload,
 
     -- ** AccelerateConfiguration
-    AccelerateConfiguration,
-    accelerateConfiguration,
-    acStatus,
+    AccelerateConfiguration (AccelerateConfiguration'),
+    newAccelerateConfiguration,
 
     -- ** AccessControlPolicy
-    AccessControlPolicy,
-    accessControlPolicy,
-    acpOwner,
-    acpGrants,
+    AccessControlPolicy (AccessControlPolicy'),
+    newAccessControlPolicy,
 
     -- ** AccessControlTranslation
-    AccessControlTranslation,
-    accessControlTranslation,
-    actOwner,
+    AccessControlTranslation (AccessControlTranslation'),
+    newAccessControlTranslation,
 
     -- ** AnalyticsAndOperator
-    AnalyticsAndOperator,
-    analyticsAndOperator,
-    aaoPrefix,
-    aaoTags,
+    AnalyticsAndOperator (AnalyticsAndOperator'),
+    newAnalyticsAndOperator,
 
     -- ** AnalyticsConfiguration
-    AnalyticsConfiguration,
-    analyticsConfiguration,
-    acFilter,
-    acId,
-    acStorageClassAnalysis,
+    AnalyticsConfiguration (AnalyticsConfiguration'),
+    newAnalyticsConfiguration,
 
     -- ** AnalyticsExportDestination
-    AnalyticsExportDestination,
-    analyticsExportDestination,
-    aedS3BucketDestination,
+    AnalyticsExportDestination (AnalyticsExportDestination'),
+    newAnalyticsExportDestination,
 
     -- ** AnalyticsFilter
-    AnalyticsFilter,
-    analyticsFilter,
-    afPrefix,
-    afAnd,
-    afTag,
+    AnalyticsFilter (AnalyticsFilter'),
+    newAnalyticsFilter,
 
     -- ** AnalyticsS3BucketDestination
-    AnalyticsS3BucketDestination,
-    analyticsS3BucketDestination,
-    asbdPrefix,
-    asbdBucketAccountId,
-    asbdFormat,
-    asbdBucket,
+    AnalyticsS3BucketDestination (AnalyticsS3BucketDestination'),
+    newAnalyticsS3BucketDestination,
 
     -- ** Bucket
-    Bucket,
-    bucket,
-    bCreationDate,
-    bName,
+    Bucket (Bucket'),
+    newBucket,
 
     -- ** BucketLifecycleConfiguration
-    BucketLifecycleConfiguration,
-    bucketLifecycleConfiguration,
-    blcRules,
+    BucketLifecycleConfiguration (BucketLifecycleConfiguration'),
+    newBucketLifecycleConfiguration,
 
     -- ** BucketLoggingStatus
-    BucketLoggingStatus,
-    bucketLoggingStatus,
-    blsLoggingEnabled,
+    BucketLoggingStatus (BucketLoggingStatus'),
+    newBucketLoggingStatus,
 
     -- ** CORSConfiguration
-    CORSConfiguration,
-    corsConfiguration,
-    ccCORSRules,
+    CORSConfiguration (CORSConfiguration'),
+    newCORSConfiguration,
 
     -- ** CORSRule
-    CORSRule,
-    corsRule,
-    crAllowedHeaders,
-    crMaxAgeSeconds,
-    crExposeHeaders,
-    crAllowedMethods,
-    crAllowedOrigins,
+    CORSRule (CORSRule'),
+    newCORSRule,
 
     -- ** CSVInput
-    CSVInput,
-    csvInput,
-    ciAllowQuotedRecordDelimiter,
-    ciRecordDelimiter,
-    ciQuoteCharacter,
-    ciFileHeaderInfo,
-    ciFieldDelimiter,
-    ciComments,
-    ciQuoteEscapeCharacter,
+    CSVInput (CSVInput'),
+    newCSVInput,
 
     -- ** CSVOutput
-    CSVOutput,
-    csvOutput,
-    coRecordDelimiter,
-    coQuoteCharacter,
-    coFieldDelimiter,
-    coQuoteFields,
-    coQuoteEscapeCharacter,
+    CSVOutput (CSVOutput'),
+    newCSVOutput,
 
     -- ** CommonPrefix
-    CommonPrefix,
-    commonPrefix,
-    cpPrefix,
+    CommonPrefix (CommonPrefix'),
+    newCommonPrefix,
 
     -- ** CompletedMultipartUpload
-    CompletedMultipartUpload,
-    completedMultipartUpload,
-    cmuParts,
+    CompletedMultipartUpload (CompletedMultipartUpload'),
+    newCompletedMultipartUpload,
 
     -- ** CompletedPart
-    CompletedPart,
-    completedPart,
-    cpPartNumber,
-    cpETag,
+    CompletedPart (CompletedPart'),
+    newCompletedPart,
 
     -- ** Condition
-    Condition,
-    condition,
-    cHTTPErrorCodeReturnedEquals,
-    cKeyPrefixEquals,
+    Condition (Condition'),
+    newCondition,
 
     -- ** ContinuationEvent
-    ContinuationEvent,
-    continuationEvent,
+    ContinuationEvent (ContinuationEvent'),
+    newContinuationEvent,
 
     -- ** CopyObjectResult
-    CopyObjectResult,
-    copyObjectResult,
-    corETag,
-    corLastModified,
+    CopyObjectResult (CopyObjectResult'),
+    newCopyObjectResult,
 
     -- ** CopyPartResult
-    CopyPartResult,
-    copyPartResult,
-    cprETag,
-    cprLastModified,
+    CopyPartResult (CopyPartResult'),
+    newCopyPartResult,
 
     -- ** CreateBucketConfiguration
-    CreateBucketConfiguration,
-    createBucketConfiguration,
-    cbcLocationConstraint,
+    CreateBucketConfiguration (CreateBucketConfiguration'),
+    newCreateBucketConfiguration,
 
     -- ** DefaultRetention
-    DefaultRetention,
-    defaultRetention,
-    drDays,
-    drYears,
-    drMode,
+    DefaultRetention (DefaultRetention'),
+    newDefaultRetention,
 
     -- ** Delete
-    Delete,
-    delete',
-    dQuiet,
-    dObjects,
+    Delete (Delete'),
+    newDelete,
 
     -- ** DeleteMarkerEntry
-    DeleteMarkerEntry,
-    deleteMarkerEntry,
-    dmeKey,
-    dmeIsLatest,
-    dmeVersionId,
-    dmeOwner,
-    dmeLastModified,
+    DeleteMarkerEntry (DeleteMarkerEntry'),
+    newDeleteMarkerEntry,
 
     -- ** DeleteMarkerReplication
-    DeleteMarkerReplication,
-    deleteMarkerReplication,
-    dmrStatus,
+    DeleteMarkerReplication (DeleteMarkerReplication'),
+    newDeleteMarkerReplication,
 
     -- ** DeletedObject
-    DeletedObject,
-    deletedObject,
-    doKey,
-    doDeleteMarkerVersionId,
-    doDeleteMarker,
-    doVersionId,
+    DeletedObject (DeletedObject'),
+    newDeletedObject,
 
     -- ** Destination
-    Destination,
-    destination,
-    dEncryptionConfiguration,
-    dReplicationTime,
-    dAccessControlTranslation,
-    dStorageClass,
-    dMetrics,
-    dAccount,
-    dBucket,
+    Destination (Destination'),
+    newDestination,
 
     -- ** Encryption
-    Encryption,
-    encryption,
-    eKMSKeyId,
-    eKMSContext,
-    eEncryptionType,
+    Encryption (Encryption'),
+    newEncryption,
 
     -- ** EncryptionConfiguration
-    EncryptionConfiguration,
-    encryptionConfiguration,
-    ecReplicaKMSKeyId,
+    EncryptionConfiguration (EncryptionConfiguration'),
+    newEncryptionConfiguration,
 
     -- ** EndEvent
-    EndEvent,
-    endEvent,
+    EndEvent (EndEvent'),
+    newEndEvent,
 
     -- ** ErrorDocument
-    ErrorDocument,
-    errorDocument,
-    edKey,
+    ErrorDocument (ErrorDocument'),
+    newErrorDocument,
 
     -- ** ExistingObjectReplication
-    ExistingObjectReplication,
-    existingObjectReplication,
-    eorStatus,
+    ExistingObjectReplication (ExistingObjectReplication'),
+    newExistingObjectReplication,
 
     -- ** FilterRule
-    FilterRule,
-    filterRule,
-    frName,
-    frValue,
+    FilterRule (FilterRule'),
+    newFilterRule,
 
     -- ** GlacierJobParameters
-    GlacierJobParameters,
-    glacierJobParameters,
-    gjpTier,
+    GlacierJobParameters (GlacierJobParameters'),
+    newGlacierJobParameters,
 
     -- ** Grant
-    Grant,
-    grant,
-    gGrantee,
-    gPermission,
+    Grant (Grant'),
+    newGrant,
 
     -- ** Grantee
-    Grantee,
-    grantee,
-    gURI,
-    gId,
-    gDisplayName,
-    gEmailAddress,
-    gType,
+    Grantee (Grantee'),
+    newGrantee,
 
     -- ** IndexDocument
-    IndexDocument,
-    indexDocument,
-    idSuffix,
+    IndexDocument (IndexDocument'),
+    newIndexDocument,
 
     -- ** Initiator
-    Initiator,
-    initiator,
-    iId,
-    iDisplayName,
+    Initiator (Initiator'),
+    newInitiator,
 
     -- ** InputSerialization
-    InputSerialization,
-    inputSerialization,
-    isParquet,
-    isCSV,
-    isJSON,
-    isCompressionType,
+    InputSerialization (InputSerialization'),
+    newInputSerialization,
 
     -- ** IntelligentTieringAndOperator
-    IntelligentTieringAndOperator,
-    intelligentTieringAndOperator,
-    itaoPrefix,
-    itaoTags,
+    IntelligentTieringAndOperator (IntelligentTieringAndOperator'),
+    newIntelligentTieringAndOperator,
 
     -- ** IntelligentTieringConfiguration
-    IntelligentTieringConfiguration,
-    intelligentTieringConfiguration,
-    itcFilter,
-    itcId,
-    itcStatus,
-    itcTierings,
+    IntelligentTieringConfiguration (IntelligentTieringConfiguration'),
+    newIntelligentTieringConfiguration,
 
     -- ** IntelligentTieringFilter
-    IntelligentTieringFilter,
-    intelligentTieringFilter,
-    itfPrefix,
-    itfAnd,
-    itfTag,
+    IntelligentTieringFilter (IntelligentTieringFilter'),
+    newIntelligentTieringFilter,
 
     -- ** InventoryConfiguration
-    InventoryConfiguration,
-    inventoryConfiguration,
-    icOptionalFields,
-    icFilter,
-    icDestination,
-    icIsEnabled,
-    icId,
-    icIncludedObjectVersions,
-    icSchedule,
+    InventoryConfiguration (InventoryConfiguration'),
+    newInventoryConfiguration,
 
     -- ** InventoryDestination
-    InventoryDestination,
-    inventoryDestination,
-    idS3BucketDestination,
+    InventoryDestination (InventoryDestination'),
+    newInventoryDestination,
 
     -- ** InventoryEncryption
-    InventoryEncryption,
-    inventoryEncryption,
-    ieSSEKMS,
-    ieSSES3,
+    InventoryEncryption (InventoryEncryption'),
+    newInventoryEncryption,
 
     -- ** InventoryFilter
-    InventoryFilter,
-    inventoryFilter,
-    ifPrefix,
+    InventoryFilter (InventoryFilter'),
+    newInventoryFilter,
 
     -- ** InventoryS3BucketDestination
-    InventoryS3BucketDestination,
-    inventoryS3BucketDestination,
-    isbdAccountId,
-    isbdPrefix,
-    isbdEncryption,
-    isbdBucket,
-    isbdFormat,
+    InventoryS3BucketDestination (InventoryS3BucketDestination'),
+    newInventoryS3BucketDestination,
 
     -- ** InventorySchedule
-    InventorySchedule,
-    inventorySchedule,
-    isFrequency,
+    InventorySchedule (InventorySchedule'),
+    newInventorySchedule,
 
     -- ** JSONInput
-    JSONInput,
-    jsonInput,
-    jiType,
+    JSONInput (JSONInput'),
+    newJSONInput,
 
     -- ** JSONOutput
-    JSONOutput,
-    jsonOutput,
-    joRecordDelimiter,
+    JSONOutput (JSONOutput'),
+    newJSONOutput,
 
     -- ** LambdaFunctionConfiguration
-    LambdaFunctionConfiguration,
-    lambdaFunctionConfiguration,
-    lfcId,
-    lfcFilter,
-    lfcLambdaFunctionARN,
-    lfcEvents,
+    LambdaFunctionConfiguration (LambdaFunctionConfiguration'),
+    newLambdaFunctionConfiguration,
 
     -- ** LifecycleExpiration
-    LifecycleExpiration,
-    lifecycleExpiration,
-    leDays,
-    leExpiredObjectDeleteMarker,
-    leDate,
+    LifecycleExpiration (LifecycleExpiration'),
+    newLifecycleExpiration,
 
     -- ** LifecycleRule
-    LifecycleRule,
-    lifecycleRule,
-    lrExpiration,
-    lrPrefix,
-    lrNoncurrentVersionTransitions,
-    lrId,
-    lrNoncurrentVersionExpiration,
-    lrTransitions,
-    lrAbortIncompleteMultipartUpload,
-    lrFilter,
-    lrStatus,
+    LifecycleRule (LifecycleRule'),
+    newLifecycleRule,
 
     -- ** LifecycleRuleAndOperator
-    LifecycleRuleAndOperator,
-    lifecycleRuleAndOperator,
-    lraoPrefix,
-    lraoTags,
+    LifecycleRuleAndOperator (LifecycleRuleAndOperator'),
+    newLifecycleRuleAndOperator,
 
     -- ** LifecycleRuleFilter
-    LifecycleRuleFilter,
-    lifecycleRuleFilter,
-    lrfPrefix,
-    lrfAnd,
-    lrfTag,
+    LifecycleRuleFilter (LifecycleRuleFilter'),
+    newLifecycleRuleFilter,
 
     -- ** LoggingEnabled
-    LoggingEnabled,
-    loggingEnabled,
-    leTargetGrants,
-    leTargetBucket,
-    leTargetPrefix,
+    LoggingEnabled (LoggingEnabled'),
+    newLoggingEnabled,
 
     -- ** MetadataEntry
-    MetadataEntry,
-    metadataEntry,
-    meName,
-    meValue,
+    MetadataEntry (MetadataEntry'),
+    newMetadataEntry,
 
     -- ** Metrics
-    Metrics,
-    metrics,
-    mEventThreshold,
-    mStatus,
+    Metrics (Metrics'),
+    newMetrics,
 
     -- ** MetricsAndOperator
-    MetricsAndOperator,
-    metricsAndOperator,
-    maoPrefix,
-    maoTags,
+    MetricsAndOperator (MetricsAndOperator'),
+    newMetricsAndOperator,
 
     -- ** MetricsConfiguration
-    MetricsConfiguration,
-    metricsConfiguration,
-    mcFilter,
-    mcId,
+    MetricsConfiguration (MetricsConfiguration'),
+    newMetricsConfiguration,
 
     -- ** MetricsFilter
-    MetricsFilter,
-    metricsFilter,
-    mfPrefix,
-    mfAnd,
-    mfTag,
+    MetricsFilter (MetricsFilter'),
+    newMetricsFilter,
 
     -- ** MultipartUpload
-    MultipartUpload,
-    multipartUpload,
-    muKey,
-    muUploadId,
-    muStorageClass,
-    muInitiated,
-    muOwner,
-    muInitiator,
+    MultipartUpload (MultipartUpload'),
+    newMultipartUpload,
 
     -- ** NoncurrentVersionExpiration
-    NoncurrentVersionExpiration,
-    noncurrentVersionExpiration,
-    nveNoncurrentDays,
+    NoncurrentVersionExpiration (NoncurrentVersionExpiration'),
+    newNoncurrentVersionExpiration,
 
     -- ** NoncurrentVersionTransition
-    NoncurrentVersionTransition,
-    noncurrentVersionTransition,
-    nvtNoncurrentDays,
-    nvtStorageClass,
+    NoncurrentVersionTransition (NoncurrentVersionTransition'),
+    newNoncurrentVersionTransition,
 
     -- ** NotificationConfiguration
-    NotificationConfiguration,
-    notificationConfiguration,
-    ncLambdaFunctionConfigurations,
-    ncQueueConfigurations,
-    ncTopicConfigurations,
+    NotificationConfiguration (NotificationConfiguration'),
+    newNotificationConfiguration,
 
     -- ** NotificationConfigurationFilter
-    NotificationConfigurationFilter,
-    notificationConfigurationFilter,
-    ncfKey,
+    NotificationConfigurationFilter (NotificationConfigurationFilter'),
+    newNotificationConfigurationFilter,
 
     -- ** Object
-    Object,
-    object',
-    oOwner,
-    oETag,
-    oSize,
-    oKey,
-    oStorageClass,
-    oLastModified,
+    Object (Object'),
+    newObject,
 
     -- ** ObjectIdentifier
-    ObjectIdentifier,
-    objectIdentifier,
-    oiVersionId,
-    oiKey,
+    ObjectIdentifier (ObjectIdentifier'),
+    newObjectIdentifier,
 
     -- ** ObjectLockConfiguration
-    ObjectLockConfiguration,
-    objectLockConfiguration,
-    olcRule,
-    olcObjectLockEnabled,
+    ObjectLockConfiguration (ObjectLockConfiguration'),
+    newObjectLockConfiguration,
 
     -- ** ObjectLockLegalHold
-    ObjectLockLegalHold,
-    objectLockLegalHold,
-    ollhStatus,
+    ObjectLockLegalHold (ObjectLockLegalHold'),
+    newObjectLockLegalHold,
 
     -- ** ObjectLockRetention
-    ObjectLockRetention,
-    objectLockRetention,
-    olrMode,
-    olrRetainUntilDate,
+    ObjectLockRetention (ObjectLockRetention'),
+    newObjectLockRetention,
 
     -- ** ObjectLockRule
-    ObjectLockRule,
-    objectLockRule,
-    olrDefaultRetention,
+    ObjectLockRule (ObjectLockRule'),
+    newObjectLockRule,
 
     -- ** ObjectVersion
-    ObjectVersion,
-    objectVersion,
-    ovETag,
-    ovKey,
-    ovIsLatest,
-    ovStorageClass,
-    ovVersionId,
-    ovOwner,
-    ovLastModified,
-    ovSize,
+    ObjectVersion (ObjectVersion'),
+    newObjectVersion,
 
     -- ** OutputLocation
-    OutputLocation,
-    outputLocation,
-    olS3,
+    OutputLocation (OutputLocation'),
+    newOutputLocation,
 
     -- ** OutputSerialization
-    OutputSerialization,
-    outputSerialization,
-    osCSV,
-    osJSON,
+    OutputSerialization (OutputSerialization'),
+    newOutputSerialization,
 
     -- ** Owner
-    Owner,
-    owner,
-    oId,
-    oDisplayName,
+    Owner (Owner'),
+    newOwner,
 
     -- ** OwnershipControls
-    OwnershipControls,
-    ownershipControls,
-    ocRules,
+    OwnershipControls (OwnershipControls'),
+    newOwnershipControls,
 
     -- ** OwnershipControlsRule
-    OwnershipControlsRule,
-    ownershipControlsRule,
-    ocrObjectOwnership,
+    OwnershipControlsRule (OwnershipControlsRule'),
+    newOwnershipControlsRule,
 
     -- ** ParquetInput
-    ParquetInput,
-    parquetInput,
+    ParquetInput (ParquetInput'),
+    newParquetInput,
 
     -- ** Part
-    Part,
-    part,
-    pETag,
-    pPartNumber,
-    pLastModified,
-    pSize,
+    Part (Part'),
+    newPart,
 
     -- ** PolicyStatus
-    PolicyStatus,
-    policyStatus,
-    psIsPublic,
+    PolicyStatus (PolicyStatus'),
+    newPolicyStatus,
 
     -- ** Progress
-    Progress,
-    progress,
-    pBytesScanned,
-    pBytesProcessed,
-    pBytesReturned,
+    Progress (Progress'),
+    newProgress,
 
     -- ** ProgressEvent
-    ProgressEvent,
-    progressEvent,
-    peDetails,
+    ProgressEvent (ProgressEvent'),
+    newProgressEvent,
 
     -- ** PublicAccessBlockConfiguration
-    PublicAccessBlockConfiguration,
-    publicAccessBlockConfiguration,
-    pabcIgnorePublicACLs,
-    pabcBlockPublicACLs,
-    pabcRestrictPublicBuckets,
-    pabcBlockPublicPolicy,
+    PublicAccessBlockConfiguration (PublicAccessBlockConfiguration'),
+    newPublicAccessBlockConfiguration,
 
     -- ** QueueConfiguration
-    QueueConfiguration,
-    queueConfiguration,
-    qcId,
-    qcFilter,
-    qcQueueARN,
-    qcEvents,
+    QueueConfiguration (QueueConfiguration'),
+    newQueueConfiguration,
 
     -- ** RecordsEvent
-    RecordsEvent,
-    recordsEvent,
-    rePayload,
+    RecordsEvent (RecordsEvent'),
+    newRecordsEvent,
 
     -- ** Redirect
-    Redirect,
-    redirect,
-    rHostName,
-    rHTTPRedirectCode,
-    rReplaceKeyPrefixWith,
-    rReplaceKeyWith,
-    rProtocol,
+    Redirect (Redirect'),
+    newRedirect,
 
     -- ** RedirectAllRequestsTo
-    RedirectAllRequestsTo,
-    redirectAllRequestsTo,
-    rartProtocol,
-    rartHostName,
+    RedirectAllRequestsTo (RedirectAllRequestsTo'),
+    newRedirectAllRequestsTo,
 
     -- ** ReplicaModifications
-    ReplicaModifications,
-    replicaModifications,
-    rmStatus,
+    ReplicaModifications (ReplicaModifications'),
+    newReplicaModifications,
 
     -- ** ReplicationConfiguration
-    ReplicationConfiguration,
-    replicationConfiguration,
-    rcRole,
-    rcRules,
+    ReplicationConfiguration (ReplicationConfiguration'),
+    newReplicationConfiguration,
 
     -- ** ReplicationRule
-    ReplicationRule,
-    replicationRule,
-    rrPrefix,
-    rrId,
-    rrExistingObjectReplication,
-    rrPriority,
-    rrDeleteMarkerReplication,
-    rrSourceSelectionCriteria,
-    rrFilter,
-    rrStatus,
-    rrDestination,
+    ReplicationRule (ReplicationRule'),
+    newReplicationRule,
 
     -- ** ReplicationRuleAndOperator
-    ReplicationRuleAndOperator,
-    replicationRuleAndOperator,
-    rraoPrefix,
-    rraoTags,
+    ReplicationRuleAndOperator (ReplicationRuleAndOperator'),
+    newReplicationRuleAndOperator,
 
     -- ** ReplicationRuleFilter
-    ReplicationRuleFilter,
-    replicationRuleFilter,
-    rrfPrefix,
-    rrfAnd,
-    rrfTag,
+    ReplicationRuleFilter (ReplicationRuleFilter'),
+    newReplicationRuleFilter,
 
     -- ** ReplicationTime
-    ReplicationTime,
-    replicationTime,
-    rtStatus,
-    rtTime,
+    ReplicationTime (ReplicationTime'),
+    newReplicationTime,
 
     -- ** ReplicationTimeValue
-    ReplicationTimeValue,
-    replicationTimeValue,
-    rtvMinutes,
+    ReplicationTimeValue (ReplicationTimeValue'),
+    newReplicationTimeValue,
 
     -- ** RequestPaymentConfiguration
-    RequestPaymentConfiguration,
-    requestPaymentConfiguration,
-    rpcPayer,
+    RequestPaymentConfiguration (RequestPaymentConfiguration'),
+    newRequestPaymentConfiguration,
 
     -- ** RequestProgress
-    RequestProgress,
-    requestProgress,
-    rpEnabled,
+    RequestProgress (RequestProgress'),
+    newRequestProgress,
 
     -- ** RestoreRequest
-    RestoreRequest,
-    restoreRequest,
-    rrDays,
-    rrSelectParameters,
-    rrDescription,
-    rrType,
-    rrOutputLocation,
-    rrTier,
-    rrGlacierJobParameters,
+    RestoreRequest (RestoreRequest'),
+    newRestoreRequest,
 
     -- ** RoutingRule
-    RoutingRule,
-    routingRule,
-    rrCondition,
-    rrRedirect,
+    RoutingRule (RoutingRule'),
+    newRoutingRule,
 
     -- ** S3KeyFilter
-    S3KeyFilter,
-    s3KeyFilter,
-    skfFilterRules,
+    S3KeyFilter (S3KeyFilter'),
+    newS3KeyFilter,
 
     -- ** S3Location
-    S3Location,
-    s3Location,
-    slCannedACL,
-    slEncryption,
-    slStorageClass,
-    slUserMetadata,
-    slAccessControlList,
-    slTagging,
-    slBucketName,
-    slPrefix,
+    S3Location (S3Location'),
+    newS3Location,
 
     -- ** S3ServiceError
-    S3ServiceError,
-    s3ServiceError,
-    sseKey,
-    sseMessage,
-    sseCode,
-    sseVersionId,
+    S3ServiceError (S3ServiceError'),
+    newS3ServiceError,
 
     -- ** SSEKMS
-    SSEKMS,
-    sSEKMS,
-    ssekKeyId,
+    SSEKMS (SSEKMS'),
+    newSSEKMS,
 
     -- ** SSES3
-    SSES3,
-    sSES3,
+    SSES3 (SSES3'),
+    newSSES3,
 
     -- ** ScanRange
-    ScanRange,
-    scanRange,
-    srEnd,
-    srStart,
+    ScanRange (ScanRange'),
+    newScanRange,
 
     -- ** SelectObjectContentEventStream
-    SelectObjectContentEventStream,
-    selectObjectContentEventStream,
-    socesEnd,
-    socesRecords,
-    socesStats,
-    socesCont,
-    socesProgress,
+    SelectObjectContentEventStream (SelectObjectContentEventStream'),
+    newSelectObjectContentEventStream,
 
     -- ** SelectParameters
-    SelectParameters,
-    selectParameters,
-    spInputSerialization,
-    spExpressionType,
-    spExpression,
-    spOutputSerialization,
+    SelectParameters (SelectParameters'),
+    newSelectParameters,
 
     -- ** ServerSideEncryptionByDefault
-    ServerSideEncryptionByDefault,
-    serverSideEncryptionByDefault,
-    ssebdKMSMasterKeyId,
-    ssebdSSEAlgorithm,
+    ServerSideEncryptionByDefault (ServerSideEncryptionByDefault'),
+    newServerSideEncryptionByDefault,
 
     -- ** ServerSideEncryptionConfiguration
-    ServerSideEncryptionConfiguration,
-    serverSideEncryptionConfiguration,
-    ssecRules,
+    ServerSideEncryptionConfiguration (ServerSideEncryptionConfiguration'),
+    newServerSideEncryptionConfiguration,
 
     -- ** ServerSideEncryptionRule
-    ServerSideEncryptionRule,
-    serverSideEncryptionRule,
-    sserBucketKeyEnabled,
-    sserApplyServerSideEncryptionByDefault,
+    ServerSideEncryptionRule (ServerSideEncryptionRule'),
+    newServerSideEncryptionRule,
 
     -- ** SourceSelectionCriteria
-    SourceSelectionCriteria,
-    sourceSelectionCriteria,
-    sscReplicaModifications,
-    sscSseKMSEncryptedObjects,
+    SourceSelectionCriteria (SourceSelectionCriteria'),
+    newSourceSelectionCriteria,
 
-    -- ** SseKMSEncryptedObjects
-    SseKMSEncryptedObjects,
-    sseKMSEncryptedObjects,
-    skeoStatus,
+    -- ** SseKmsEncryptedObjects
+    SseKmsEncryptedObjects (SseKmsEncryptedObjects'),
+    newSseKmsEncryptedObjects,
 
     -- ** Stats
-    Stats,
-    stats,
-    sBytesScanned,
-    sBytesProcessed,
-    sBytesReturned,
+    Stats (Stats'),
+    newStats,
 
     -- ** StatsEvent
-    StatsEvent,
-    statsEvent,
-    seDetails,
+    StatsEvent (StatsEvent'),
+    newStatsEvent,
 
     -- ** StorageClassAnalysis
-    StorageClassAnalysis,
-    storageClassAnalysis,
-    scaDataExport,
+    StorageClassAnalysis (StorageClassAnalysis'),
+    newStorageClassAnalysis,
 
     -- ** StorageClassAnalysisDataExport
-    StorageClassAnalysisDataExport,
-    storageClassAnalysisDataExport,
-    scadeOutputSchemaVersion,
-    scadeDestination,
+    StorageClassAnalysisDataExport (StorageClassAnalysisDataExport'),
+    newStorageClassAnalysisDataExport,
 
     -- ** Tag
-    Tag,
-    tag,
-    tagKey,
-    tagValue,
+    Tag (Tag'),
+    newTag,
 
     -- ** Tagging
-    Tagging,
-    tagging,
-    tTagSet,
+    Tagging (Tagging'),
+    newTagging,
 
     -- ** TargetGrant
-    TargetGrant,
-    targetGrant,
-    tgGrantee,
-    tgPermission,
+    TargetGrant (TargetGrant'),
+    newTargetGrant,
 
     -- ** Tiering
-    Tiering,
-    tiering,
-    tieDays,
-    tieAccessTier,
+    Tiering (Tiering'),
+    newTiering,
 
     -- ** TopicConfiguration
-    TopicConfiguration,
-    topicConfiguration,
-    tcId,
-    tcFilter,
-    tcTopicARN,
-    tcEvents,
+    TopicConfiguration (TopicConfiguration'),
+    newTopicConfiguration,
 
     -- ** Transition
-    Transition,
-    transition,
-    tDays,
-    tStorageClass,
-    tDate,
+    Transition (Transition'),
+    newTransition,
 
     -- ** VersioningConfiguration
-    VersioningConfiguration,
-    versioningConfiguration,
-    vcStatus,
-    vcMFADelete,
+    VersioningConfiguration (VersioningConfiguration'),
+    newVersioningConfiguration,
 
     -- ** WebsiteConfiguration
-    WebsiteConfiguration,
-    websiteConfiguration,
-    wcErrorDocument,
-    wcIndexDocument,
-    wcRoutingRules,
-    wcRedirectAllRequestsTo,
+    WebsiteConfiguration (WebsiteConfiguration'),
+    newWebsiteConfiguration,
   )
 where
 
@@ -1335,7 +1297,7 @@ import Network.AWS.S3.CreateBucket
 import Network.AWS.S3.CreateMultipartUpload
 import Network.AWS.S3.DeleteBucket
 import Network.AWS.S3.DeleteBucketAnalyticsConfiguration
-import Network.AWS.S3.DeleteBucketCORS
+import Network.AWS.S3.DeleteBucketCors
 import Network.AWS.S3.DeleteBucketEncryption
 import Network.AWS.S3.DeleteBucketIntelligentTieringConfiguration
 import Network.AWS.S3.DeleteBucketInventoryConfiguration
@@ -1350,10 +1312,10 @@ import Network.AWS.S3.DeleteObject
 import Network.AWS.S3.DeleteObjectTagging
 import Network.AWS.S3.DeleteObjects
 import Network.AWS.S3.DeletePublicAccessBlock
-import Network.AWS.S3.GetBucketACL
 import Network.AWS.S3.GetBucketAccelerateConfiguration
+import Network.AWS.S3.GetBucketAcl
 import Network.AWS.S3.GetBucketAnalyticsConfiguration
-import Network.AWS.S3.GetBucketCORS
+import Network.AWS.S3.GetBucketCors
 import Network.AWS.S3.GetBucketEncryption
 import Network.AWS.S3.GetBucketIntelligentTieringConfiguration
 import Network.AWS.S3.GetBucketInventoryConfiguration
@@ -1371,7 +1333,7 @@ import Network.AWS.S3.GetBucketTagging
 import Network.AWS.S3.GetBucketVersioning
 import Network.AWS.S3.GetBucketWebsite
 import Network.AWS.S3.GetObject
-import Network.AWS.S3.GetObjectACL
+import Network.AWS.S3.GetObjectAcl
 import Network.AWS.S3.GetObjectLegalHold
 import Network.AWS.S3.GetObjectLockConfiguration
 import Network.AWS.S3.GetObjectRetention
@@ -1381,6 +1343,7 @@ import Network.AWS.S3.GetPublicAccessBlock
 import Network.AWS.S3.HeadBucket
 import Network.AWS.S3.HeadObject
 import Network.AWS.S3.Internal
+import Network.AWS.S3.Lens
 import Network.AWS.S3.ListBucketAnalyticsConfigurations
 import Network.AWS.S3.ListBucketIntelligentTieringConfigurations
 import Network.AWS.S3.ListBucketInventoryConfigurations
@@ -1389,12 +1352,12 @@ import Network.AWS.S3.ListBuckets
 import Network.AWS.S3.ListMultipartUploads
 import Network.AWS.S3.ListObjectVersions
 import Network.AWS.S3.ListObjects
-import Network.AWS.S3.ListObjectsV2
+import Network.AWS.S3.ListObjectsV
 import Network.AWS.S3.ListParts
-import Network.AWS.S3.PutBucketACL
 import Network.AWS.S3.PutBucketAccelerateConfiguration
+import Network.AWS.S3.PutBucketAcl
 import Network.AWS.S3.PutBucketAnalyticsConfiguration
-import Network.AWS.S3.PutBucketCORS
+import Network.AWS.S3.PutBucketCors
 import Network.AWS.S3.PutBucketEncryption
 import Network.AWS.S3.PutBucketIntelligentTieringConfiguration
 import Network.AWS.S3.PutBucketInventoryConfiguration
@@ -1410,7 +1373,7 @@ import Network.AWS.S3.PutBucketTagging
 import Network.AWS.S3.PutBucketVersioning
 import Network.AWS.S3.PutBucketWebsite
 import Network.AWS.S3.PutObject
-import Network.AWS.S3.PutObjectACL
+import Network.AWS.S3.PutObjectAcl
 import Network.AWS.S3.PutObjectLegalHold
 import Network.AWS.S3.PutObjectLockConfiguration
 import Network.AWS.S3.PutObjectRetention

@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.S3" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.S3.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.S3" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-s3
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -54,7 +52,7 @@ library
     Network.AWS.S3.CreateMultipartUpload
     Network.AWS.S3.DeleteBucket
     Network.AWS.S3.DeleteBucketAnalyticsConfiguration
-    Network.AWS.S3.DeleteBucketCORS
+    Network.AWS.S3.DeleteBucketCors
     Network.AWS.S3.DeleteBucketEncryption
     Network.AWS.S3.DeleteBucketIntelligentTieringConfiguration
     Network.AWS.S3.DeleteBucketInventoryConfiguration
@@ -70,9 +68,9 @@ library
     Network.AWS.S3.DeleteObjectTagging
     Network.AWS.S3.DeletePublicAccessBlock
     Network.AWS.S3.GetBucketAccelerateConfiguration
-    Network.AWS.S3.GetBucketACL
+    Network.AWS.S3.GetBucketAcl
     Network.AWS.S3.GetBucketAnalyticsConfiguration
-    Network.AWS.S3.GetBucketCORS
+    Network.AWS.S3.GetBucketCors
     Network.AWS.S3.GetBucketEncryption
     Network.AWS.S3.GetBucketIntelligentTieringConfiguration
     Network.AWS.S3.GetBucketInventoryConfiguration
@@ -90,7 +88,7 @@ library
     Network.AWS.S3.GetBucketVersioning
     Network.AWS.S3.GetBucketWebsite
     Network.AWS.S3.GetObject
-    Network.AWS.S3.GetObjectACL
+    Network.AWS.S3.GetObjectAcl
     Network.AWS.S3.GetObjectLegalHold
     Network.AWS.S3.GetObjectLockConfiguration
     Network.AWS.S3.GetObjectRetention
@@ -99,6 +97,8 @@ library
     Network.AWS.S3.GetPublicAccessBlock
     Network.AWS.S3.HeadBucket
     Network.AWS.S3.HeadObject
+    Network.AWS.S3.Internal
+    Network.AWS.S3.Lens
     Network.AWS.S3.ListBucketAnalyticsConfigurations
     Network.AWS.S3.ListBucketIntelligentTieringConfigurations
     Network.AWS.S3.ListBucketInventoryConfigurations
@@ -106,13 +106,13 @@ library
     Network.AWS.S3.ListBuckets
     Network.AWS.S3.ListMultipartUploads
     Network.AWS.S3.ListObjects
-    Network.AWS.S3.ListObjectsV2
+    Network.AWS.S3.ListObjectsV
     Network.AWS.S3.ListObjectVersions
     Network.AWS.S3.ListParts
     Network.AWS.S3.PutBucketAccelerateConfiguration
-    Network.AWS.S3.PutBucketACL
+    Network.AWS.S3.PutBucketAcl
     Network.AWS.S3.PutBucketAnalyticsConfiguration
-    Network.AWS.S3.PutBucketCORS
+    Network.AWS.S3.PutBucketCors
     Network.AWS.S3.PutBucketEncryption
     Network.AWS.S3.PutBucketIntelligentTieringConfiguration
     Network.AWS.S3.PutBucketInventoryConfiguration
@@ -128,7 +128,7 @@ library
     Network.AWS.S3.PutBucketVersioning
     Network.AWS.S3.PutBucketWebsite
     Network.AWS.S3.PutObject
-    Network.AWS.S3.PutObjectACL
+    Network.AWS.S3.PutObjectAcl
     Network.AWS.S3.PutObjectLegalHold
     Network.AWS.S3.PutObjectLockConfiguration
     Network.AWS.S3.PutObjectRetention
@@ -137,12 +137,6 @@ library
     Network.AWS.S3.RestoreObject
     Network.AWS.S3.SelectObjectContent
     Network.AWS.S3.Types
-    Network.AWS.S3.UploadPart
-    Network.AWS.S3.UploadPartCopy
-    Network.AWS.S3.Waiters
-
-  other-modules:
-    Network.AWS.S3.Internal
     Network.AWS.S3.Types.AbortIncompleteMultipartUpload
     Network.AWS.S3.Types.AccelerateConfiguration
     Network.AWS.S3.Types.AccessControlPolicy
@@ -303,8 +297,8 @@ library
     Network.AWS.S3.Types.ServerSideEncryptionRule
     Network.AWS.S3.Types.SourceSelectionCriteria
     Network.AWS.S3.Types.SSEKMS
-    Network.AWS.S3.Types.SseKMSEncryptedObjects
-    Network.AWS.S3.Types.SseKMSEncryptedObjectsStatus
+    Network.AWS.S3.Types.SseKmsEncryptedObjects
+    Network.AWS.S3.Types.SseKmsEncryptedObjectsStatus
     Network.AWS.S3.Types.SSES3
     Network.AWS.S3.Types.Stats
     Network.AWS.S3.Types.StatsEvent
@@ -324,13 +318,16 @@ library
     Network.AWS.S3.Types.Type
     Network.AWS.S3.Types.VersioningConfiguration
     Network.AWS.S3.Types.WebsiteConfiguration
+    Network.AWS.S3.UploadPart
+    Network.AWS.S3.UploadPartCopy
+    Network.AWS.S3.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
-    , lens              >=4.4
-    , text              >=1.1
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
+    , lens           >=4.4
+    , text           >=1.1
 
 test-suite amazonka-s3-test
   type:             exitcode-stdio-1.0

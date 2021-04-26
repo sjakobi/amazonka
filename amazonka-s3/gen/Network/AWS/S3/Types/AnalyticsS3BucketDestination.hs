@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,94 +19,106 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.AnalyticsS3BucketDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.AnalyticsS3ExportFileFormat
 
 -- | Contains information about where to publish the analytics results.
 --
---
---
--- /See:/ 'analyticsS3BucketDestination' smart constructor.
+-- /See:/ 'newAnalyticsS3BucketDestination' smart constructor.
 data AnalyticsS3BucketDestination = AnalyticsS3BucketDestination'
-  { _asbdPrefix ::
-      !(Maybe Text),
-    _asbdBucketAccountId ::
-      !(Maybe Text),
-    _asbdFormat ::
-      !AnalyticsS3ExportFileFormat,
-    _asbdBucket ::
-      !BucketName
+  { -- | The prefix to use when exporting data. The prefix is prepended to all
+    -- results.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | The account ID that owns the destination S3 bucket. If no account ID is
+    -- provided, the owner is not validated before exporting data.
+    --
+    -- Although this value is optional, we strongly recommend that you set it
+    -- to help prevent problems if the destination bucket ownership changes.
+    bucketAccountId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the file format used when exporting data to Amazon S3.
+    format :: AnalyticsS3ExportFileFormat,
+    -- | The Amazon Resource Name (ARN) of the bucket to which data is exported.
+    bucket :: BucketName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AnalyticsS3BucketDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AnalyticsS3BucketDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'asbdPrefix' - The prefix to use when exporting data. The prefix is prepended to all results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'asbdBucketAccountId' - The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
+-- 'prefix', 'analyticsS3BucketDestination_prefix' - The prefix to use when exporting data. The prefix is prepended to all
+-- results.
 --
--- * 'asbdFormat' - Specifies the file format used when exporting data to Amazon S3.
+-- 'bucketAccountId', 'analyticsS3BucketDestination_bucketAccountId' - The account ID that owns the destination S3 bucket. If no account ID is
+-- provided, the owner is not validated before exporting data.
 --
--- * 'asbdBucket' - The Amazon Resource Name (ARN) of the bucket to which data is exported.
-analyticsS3BucketDestination ::
-  -- | 'asbdFormat'
+-- Although this value is optional, we strongly recommend that you set it
+-- to help prevent problems if the destination bucket ownership changes.
+--
+-- 'format', 'analyticsS3BucketDestination_format' - Specifies the file format used when exporting data to Amazon S3.
+--
+-- 'bucket', 'analyticsS3BucketDestination_bucket' - The Amazon Resource Name (ARN) of the bucket to which data is exported.
+newAnalyticsS3BucketDestination ::
+  -- | 'format'
   AnalyticsS3ExportFileFormat ->
-  -- | 'asbdBucket'
+  -- | 'bucket'
   BucketName ->
   AnalyticsS3BucketDestination
-analyticsS3BucketDestination pFormat_ pBucket_ =
+newAnalyticsS3BucketDestination pFormat_ pBucket_ =
   AnalyticsS3BucketDestination'
-    { _asbdPrefix =
-        Nothing,
-      _asbdBucketAccountId = Nothing,
-      _asbdFormat = pFormat_,
-      _asbdBucket = pBucket_
+    { prefix =
+        Prelude.Nothing,
+      bucketAccountId = Prelude.Nothing,
+      format = pFormat_,
+      bucket = pBucket_
     }
 
--- | The prefix to use when exporting data. The prefix is prepended to all results.
-asbdPrefix :: Lens' AnalyticsS3BucketDestination (Maybe Text)
-asbdPrefix = lens _asbdPrefix (\s a -> s {_asbdPrefix = a})
+-- | The prefix to use when exporting data. The prefix is prepended to all
+-- results.
+analyticsS3BucketDestination_prefix :: Lens.Lens' AnalyticsS3BucketDestination (Prelude.Maybe Prelude.Text)
+analyticsS3BucketDestination_prefix = Lens.lens (\AnalyticsS3BucketDestination' {prefix} -> prefix) (\s@AnalyticsS3BucketDestination' {} a -> s {prefix = a} :: AnalyticsS3BucketDestination)
 
--- | The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
-asbdBucketAccountId :: Lens' AnalyticsS3BucketDestination (Maybe Text)
-asbdBucketAccountId = lens _asbdBucketAccountId (\s a -> s {_asbdBucketAccountId = a})
+-- | The account ID that owns the destination S3 bucket. If no account ID is
+-- provided, the owner is not validated before exporting data.
+--
+-- Although this value is optional, we strongly recommend that you set it
+-- to help prevent problems if the destination bucket ownership changes.
+analyticsS3BucketDestination_bucketAccountId :: Lens.Lens' AnalyticsS3BucketDestination (Prelude.Maybe Prelude.Text)
+analyticsS3BucketDestination_bucketAccountId = Lens.lens (\AnalyticsS3BucketDestination' {bucketAccountId} -> bucketAccountId) (\s@AnalyticsS3BucketDestination' {} a -> s {bucketAccountId = a} :: AnalyticsS3BucketDestination)
 
 -- | Specifies the file format used when exporting data to Amazon S3.
-asbdFormat :: Lens' AnalyticsS3BucketDestination AnalyticsS3ExportFileFormat
-asbdFormat = lens _asbdFormat (\s a -> s {_asbdFormat = a})
+analyticsS3BucketDestination_format :: Lens.Lens' AnalyticsS3BucketDestination AnalyticsS3ExportFileFormat
+analyticsS3BucketDestination_format = Lens.lens (\AnalyticsS3BucketDestination' {format} -> format) (\s@AnalyticsS3BucketDestination' {} a -> s {format = a} :: AnalyticsS3BucketDestination)
 
 -- | The Amazon Resource Name (ARN) of the bucket to which data is exported.
-asbdBucket :: Lens' AnalyticsS3BucketDestination BucketName
-asbdBucket = lens _asbdBucket (\s a -> s {_asbdBucket = a})
+analyticsS3BucketDestination_bucket :: Lens.Lens' AnalyticsS3BucketDestination BucketName
+analyticsS3BucketDestination_bucket = Lens.lens (\AnalyticsS3BucketDestination' {bucket} -> bucket) (\s@AnalyticsS3BucketDestination' {} a -> s {bucket = a} :: AnalyticsS3BucketDestination)
 
-instance FromXML AnalyticsS3BucketDestination where
+instance Prelude.FromXML AnalyticsS3BucketDestination where
   parseXML x =
     AnalyticsS3BucketDestination'
-      <$> (x .@? "Prefix")
-      <*> (x .@? "BucketAccountId")
-      <*> (x .@ "Format")
-      <*> (x .@ "Bucket")
+      Prelude.<$> (x Prelude..@? "Prefix")
+      Prelude.<*> (x Prelude..@? "BucketAccountId")
+      Prelude.<*> (x Prelude..@ "Format")
+      Prelude.<*> (x Prelude..@ "Bucket")
 
-instance Hashable AnalyticsS3BucketDestination
+instance
+  Prelude.Hashable
+    AnalyticsS3BucketDestination
 
-instance NFData AnalyticsS3BucketDestination
+instance Prelude.NFData AnalyticsS3BucketDestination
 
-instance ToXML AnalyticsS3BucketDestination where
+instance Prelude.ToXML AnalyticsS3BucketDestination where
   toXML AnalyticsS3BucketDestination' {..} =
-    mconcat
-      [ "Prefix" @= _asbdPrefix,
-        "BucketAccountId" @= _asbdBucketAccountId,
-        "Format" @= _asbdFormat,
-        "Bucket" @= _asbdBucket
+    Prelude.mconcat
+      [ "Prefix" Prelude.@= prefix,
+        "BucketAccountId" Prelude.@= bucketAccountId,
+        "Format" Prelude.@= format,
+        "Bucket" Prelude.@= bucket
       ]

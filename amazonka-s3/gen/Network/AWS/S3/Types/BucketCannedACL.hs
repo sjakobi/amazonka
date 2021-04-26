@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,66 @@
 module Network.AWS.S3.Types.BucketCannedACL
   ( BucketCannedACL
       ( ..,
-        BAuthenticatedRead,
-        BPrivate,
-        BPublicRead,
-        BPublicReadWrite
+        BucketCannedACLBAuthenticatedRead,
+        BucketCannedACLBPrivate,
+        BucketCannedACLBPublicRead,
+        BucketCannedACLBPublicReadWrite
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data BucketCannedACL = BucketCannedACL' (CI Text)
+newtype BucketCannedACL = BucketCannedACL'
+  { fromBucketCannedACL ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BAuthenticatedRead :: BucketCannedACL
-pattern BAuthenticatedRead = BucketCannedACL' "authenticated-read"
+pattern BucketCannedACLBAuthenticatedRead :: BucketCannedACL
+pattern BucketCannedACLBAuthenticatedRead = BucketCannedACL' "authenticated-read"
 
-pattern BPrivate :: BucketCannedACL
-pattern BPrivate = BucketCannedACL' "private"
+pattern BucketCannedACLBPrivate :: BucketCannedACL
+pattern BucketCannedACLBPrivate = BucketCannedACL' "private"
 
-pattern BPublicRead :: BucketCannedACL
-pattern BPublicRead = BucketCannedACL' "public-read"
+pattern BucketCannedACLBPublicRead :: BucketCannedACL
+pattern BucketCannedACLBPublicRead = BucketCannedACL' "public-read"
 
-pattern BPublicReadWrite :: BucketCannedACL
-pattern BPublicReadWrite = BucketCannedACL' "public-read-write"
+pattern BucketCannedACLBPublicReadWrite :: BucketCannedACL
+pattern BucketCannedACLBPublicReadWrite = BucketCannedACL' "public-read-write"
 
 {-# COMPLETE
-  BAuthenticatedRead,
-  BPrivate,
-  BPublicRead,
-  BPublicReadWrite,
+  BucketCannedACLBAuthenticatedRead,
+  BucketCannedACLBPrivate,
+  BucketCannedACLBPublicRead,
+  BucketCannedACLBPublicReadWrite,
   BucketCannedACL'
   #-}
 
-instance FromText BucketCannedACL where
-  parser = (BucketCannedACL' . mk) <$> takeText
+instance Prelude.FromText BucketCannedACL where
+  parser = BucketCannedACL' Prelude.<$> Prelude.takeText
 
-instance ToText BucketCannedACL where
-  toText (BucketCannedACL' ci) = original ci
+instance Prelude.ToText BucketCannedACL where
+  toText (BucketCannedACL' x) = x
 
-instance Hashable BucketCannedACL
+instance Prelude.Hashable BucketCannedACL
 
-instance NFData BucketCannedACL
+instance Prelude.NFData BucketCannedACL
 
-instance ToByteString BucketCannedACL
+instance Prelude.ToByteString BucketCannedACL
 
-instance ToQuery BucketCannedACL
+instance Prelude.ToQuery BucketCannedACL
 
-instance ToHeader BucketCannedACL
+instance Prelude.ToHeader BucketCannedACL
 
-instance ToXML BucketCannedACL where
-  toXML = toXMLText
+instance Prelude.ToXML BucketCannedACL where
+  toXML = Prelude.toXMLText

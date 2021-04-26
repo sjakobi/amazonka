@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,38 +19,41 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.JSONInput where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.JSONType
 
--- | Specifies JSON as object's input serialization format.
+-- | Specifies JSON as object\'s input serialization format.
 --
---
---
--- /See:/ 'jsonInput' smart constructor.
-newtype JSONInput = JSONInput'
-  { _jiType ::
-      Maybe JSONType
+-- /See:/ 'newJSONInput' smart constructor.
+data JSONInput = JSONInput'
+  { -- | The type of JSON. Valid values: Document, Lines.
+    type' :: Prelude.Maybe JSONType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'JSONInput' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'JSONInput' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'jiType' - The type of JSON. Valid values: Document, Lines.
-jsonInput ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'type'', 'jSONInput_type' - The type of JSON. Valid values: Document, Lines.
+newJSONInput ::
   JSONInput
-jsonInput = JSONInput' {_jiType = Nothing}
+newJSONInput = JSONInput' {type' = Prelude.Nothing}
 
 -- | The type of JSON. Valid values: Document, Lines.
-jiType :: Lens' JSONInput (Maybe JSONType)
-jiType = lens _jiType (\s a -> s {_jiType = a})
+jSONInput_type :: Lens.Lens' JSONInput (Prelude.Maybe JSONType)
+jSONInput_type = Lens.lens (\JSONInput' {type'} -> type') (\s@JSONInput' {} a -> s {type' = a} :: JSONInput)
 
-instance Hashable JSONInput
+instance Prelude.Hashable JSONInput
 
-instance NFData JSONInput
+instance Prelude.NFData JSONInput
 
-instance ToXML JSONInput where
-  toXML JSONInput' {..} = mconcat ["Type" @= _jiType]
+instance Prelude.ToXML JSONInput where
+  toXML JSONInput' {..} =
+    Prelude.mconcat ["Type" Prelude.@= type']

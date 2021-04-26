@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.SelectParameters where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ExpressionType
 import Network.AWS.S3.Types.InputSerialization
@@ -24,78 +28,82 @@ import Network.AWS.S3.Types.OutputSerialization
 
 -- | Describes the parameters for Select job types.
 --
---
---
--- /See:/ 'selectParameters' smart constructor.
+-- /See:/ 'newSelectParameters' smart constructor.
 data SelectParameters = SelectParameters'
-  { _spInputSerialization ::
-      !InputSerialization,
-    _spExpressionType :: !ExpressionType,
-    _spExpression :: !Text,
-    _spOutputSerialization ::
-      !OutputSerialization
+  { -- | Describes the serialization format of the object.
+    inputSerialization :: InputSerialization,
+    -- | The type of the provided expression (for example, SQL).
+    expressionType :: ExpressionType,
+    -- | The expression that is used to query the object.
+    expression :: Prelude.Text,
+    -- | Describes how the results of the Select job are serialized.
+    outputSerialization :: OutputSerialization
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SelectParameters' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SelectParameters' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'spInputSerialization' - Describes the serialization format of the object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'spExpressionType' - The type of the provided expression (for example, SQL).
+-- 'inputSerialization', 'selectParameters_inputSerialization' - Describes the serialization format of the object.
 --
--- * 'spExpression' - The expression that is used to query the object.
+-- 'expressionType', 'selectParameters_expressionType' - The type of the provided expression (for example, SQL).
 --
--- * 'spOutputSerialization' - Describes how the results of the Select job are serialized.
-selectParameters ::
-  -- | 'spInputSerialization'
+-- 'expression', 'selectParameters_expression' - The expression that is used to query the object.
+--
+-- 'outputSerialization', 'selectParameters_outputSerialization' - Describes how the results of the Select job are serialized.
+newSelectParameters ::
+  -- | 'inputSerialization'
   InputSerialization ->
-  -- | 'spExpressionType'
+  -- | 'expressionType'
   ExpressionType ->
-  -- | 'spExpression'
-  Text ->
-  -- | 'spOutputSerialization'
+  -- | 'expression'
+  Prelude.Text ->
+  -- | 'outputSerialization'
   OutputSerialization ->
   SelectParameters
-selectParameters
+newSelectParameters
   pInputSerialization_
   pExpressionType_
   pExpression_
   pOutputSerialization_ =
     SelectParameters'
-      { _spInputSerialization =
+      { inputSerialization =
           pInputSerialization_,
-        _spExpressionType = pExpressionType_,
-        _spExpression = pExpression_,
-        _spOutputSerialization = pOutputSerialization_
+        expressionType = pExpressionType_,
+        expression = pExpression_,
+        outputSerialization = pOutputSerialization_
       }
 
 -- | Describes the serialization format of the object.
-spInputSerialization :: Lens' SelectParameters InputSerialization
-spInputSerialization = lens _spInputSerialization (\s a -> s {_spInputSerialization = a})
+selectParameters_inputSerialization :: Lens.Lens' SelectParameters InputSerialization
+selectParameters_inputSerialization = Lens.lens (\SelectParameters' {inputSerialization} -> inputSerialization) (\s@SelectParameters' {} a -> s {inputSerialization = a} :: SelectParameters)
 
 -- | The type of the provided expression (for example, SQL).
-spExpressionType :: Lens' SelectParameters ExpressionType
-spExpressionType = lens _spExpressionType (\s a -> s {_spExpressionType = a})
+selectParameters_expressionType :: Lens.Lens' SelectParameters ExpressionType
+selectParameters_expressionType = Lens.lens (\SelectParameters' {expressionType} -> expressionType) (\s@SelectParameters' {} a -> s {expressionType = a} :: SelectParameters)
 
 -- | The expression that is used to query the object.
-spExpression :: Lens' SelectParameters Text
-spExpression = lens _spExpression (\s a -> s {_spExpression = a})
+selectParameters_expression :: Lens.Lens' SelectParameters Prelude.Text
+selectParameters_expression = Lens.lens (\SelectParameters' {expression} -> expression) (\s@SelectParameters' {} a -> s {expression = a} :: SelectParameters)
 
 -- | Describes how the results of the Select job are serialized.
-spOutputSerialization :: Lens' SelectParameters OutputSerialization
-spOutputSerialization = lens _spOutputSerialization (\s a -> s {_spOutputSerialization = a})
+selectParameters_outputSerialization :: Lens.Lens' SelectParameters OutputSerialization
+selectParameters_outputSerialization = Lens.lens (\SelectParameters' {outputSerialization} -> outputSerialization) (\s@SelectParameters' {} a -> s {outputSerialization = a} :: SelectParameters)
 
-instance Hashable SelectParameters
+instance Prelude.Hashable SelectParameters
 
-instance NFData SelectParameters
+instance Prelude.NFData SelectParameters
 
-instance ToXML SelectParameters where
+instance Prelude.ToXML SelectParameters where
   toXML SelectParameters' {..} =
-    mconcat
-      [ "InputSerialization" @= _spInputSerialization,
-        "ExpressionType" @= _spExpressionType,
-        "Expression" @= _spExpression,
-        "OutputSerialization" @= _spOutputSerialization
+    Prelude.mconcat
+      [ "InputSerialization" Prelude.@= inputSerialization,
+        "ExpressionType" Prelude.@= expressionType,
+        "Expression" Prelude.@= expression,
+        "OutputSerialization" Prelude.@= outputSerialization
       ]

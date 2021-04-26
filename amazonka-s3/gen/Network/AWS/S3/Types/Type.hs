@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,61 @@
 module Network.AWS.S3.Types.Type
   ( Type
       ( ..,
-        AmazonCustomerByEmail,
-        CanonicalUser,
-        Group
+        TypeAmazonCustomerByEmail,
+        TypeCanonicalUser,
+        TypeGroup
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data Type = Type' (CI Text)
+newtype Type = Type' {fromType :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AmazonCustomerByEmail :: Type
-pattern AmazonCustomerByEmail = Type' "AmazonCustomerByEmail"
+pattern TypeAmazonCustomerByEmail :: Type
+pattern TypeAmazonCustomerByEmail = Type' "AmazonCustomerByEmail"
 
-pattern CanonicalUser :: Type
-pattern CanonicalUser = Type' "CanonicalUser"
+pattern TypeCanonicalUser :: Type
+pattern TypeCanonicalUser = Type' "CanonicalUser"
 
-pattern Group :: Type
-pattern Group = Type' "Group"
+pattern TypeGroup :: Type
+pattern TypeGroup = Type' "Group"
 
 {-# COMPLETE
-  AmazonCustomerByEmail,
-  CanonicalUser,
-  Group,
+  TypeAmazonCustomerByEmail,
+  TypeCanonicalUser,
+  TypeGroup,
   Type'
   #-}
 
-instance FromText Type where
-  parser = (Type' . mk) <$> takeText
+instance Prelude.FromText Type where
+  parser = Type' Prelude.<$> Prelude.takeText
 
-instance ToText Type where
-  toText (Type' ci) = original ci
+instance Prelude.ToText Type where
+  toText (Type' x) = x
 
-instance Hashable Type
+instance Prelude.Hashable Type
 
-instance NFData Type
+instance Prelude.NFData Type
 
-instance ToByteString Type
+instance Prelude.ToByteString Type
 
-instance ToQuery Type
+instance Prelude.ToQuery Type
 
-instance ToHeader Type
+instance Prelude.ToHeader Type
 
-instance FromXML Type where
-  parseXML = parseXMLText "Type"
+instance Prelude.FromXML Type where
+  parseXML = Prelude.parseXMLText "Type"
 
-instance ToXML Type where
-  toXML = toXMLText
+instance Prelude.ToXML Type where
+  toXML = Prelude.toXMLText

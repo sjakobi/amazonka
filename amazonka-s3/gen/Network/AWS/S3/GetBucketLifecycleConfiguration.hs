@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,178 +21,204 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the lifecycle configuration information set on the bucket. For information about lifecycle configuration, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html Object Lifecycle Management> .
+-- Bucket lifecycle configuration now supports specifying a lifecycle rule
+-- using an object key name prefix, one or more object tags, or a
+-- combination of both. Accordingly, this section describes the latest API.
+-- The response describes the new filter element that you can use to
+-- specify a filter to select a subset of objects to which the rule
+-- applies. If you are using a previous version of the lifecycle
+-- configuration, it still works. For the earlier API description, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycle.html GetBucketLifecycle>.
 --
+-- Returns the lifecycle configuration information set on the bucket. For
+-- information about lifecycle configuration, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html Object Lifecycle Management>.
 --
--- To use this operation, you must have permission to perform the @s3:GetLifecycleConfiguration@ action. The bucket owner has this permission, by default. The bucket owner can grant this permission to others. For more information about permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations> and <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources> .
+-- To use this operation, you must have permission to perform the
+-- @s3:GetLifecycleConfiguration@ action. The bucket owner has this
+-- permission, by default. The bucket owner can grant this permission to
+-- others. For more information about permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources>.
 --
 -- @GetBucketLifecycleConfiguration@ has the following special error:
 --
---     * Error code: @NoSuchLifecycleConfiguration@
+-- -   Error code: @NoSuchLifecycleConfiguration@
 --
---     * Description: The lifecycle configuration does not exist.
+--     -   Description: The lifecycle configuration does not exist.
 --
---     * HTTP Status Code: 404 Not Found
+--     -   HTTP Status Code: 404 Not Found
 --
---     * SOAP Fault Code Prefix: Client
+--     -   SOAP Fault Code Prefix: Client
 --
+-- The following operations are related to
+-- @GetBucketLifecycleConfiguration@:
 --
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycle.html GetBucketLifecycle>
 --
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html PutBucketLifecycle>
 --
---
--- The following operations are related to @GetBucketLifecycleConfiguration@ :
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycle.html GetBucketLifecycle>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycle.html PutBucketLifecycle>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html DeleteBucketLifecycle>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html DeleteBucketLifecycle>
 module Network.AWS.S3.GetBucketLifecycleConfiguration
   ( -- * Creating a Request
-    getBucketLifecycleConfiguration,
-    GetBucketLifecycleConfiguration,
+    GetBucketLifecycleConfiguration (..),
+    newGetBucketLifecycleConfiguration,
 
     -- * Request Lenses
-    gblcExpectedBucketOwner,
-    gblcBucket,
+    getBucketLifecycleConfiguration_expectedBucketOwner,
+    getBucketLifecycleConfiguration_bucket,
 
     -- * Destructuring the Response
-    getBucketLifecycleConfigurationResponse,
-    GetBucketLifecycleConfigurationResponse,
+    GetBucketLifecycleConfigurationResponse (..),
+    newGetBucketLifecycleConfigurationResponse,
 
     -- * Response Lenses
-    gblcrrsRules,
-    gblcrrsResponseStatus,
+    getBucketLifecycleConfigurationResponse_rules,
+    getBucketLifecycleConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.LifecycleRule
 
--- | /See:/ 'getBucketLifecycleConfiguration' smart constructor.
+-- | /See:/ 'newGetBucketLifecycleConfiguration' smart constructor.
 data GetBucketLifecycleConfiguration = GetBucketLifecycleConfiguration'
-  { _gblcExpectedBucketOwner ::
-      !( Maybe
-           Text
-       ),
-    _gblcBucket ::
-      !BucketName
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bucket for which to get the lifecycle information.
+    bucket :: BucketName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketLifecycleConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketLifecycleConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gblcExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gblcBucket' - The name of the bucket for which to get the lifecycle information.
-getBucketLifecycleConfiguration ::
-  -- | 'gblcBucket'
+-- 'expectedBucketOwner', 'getBucketLifecycleConfiguration_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+--
+-- 'bucket', 'getBucketLifecycleConfiguration_bucket' - The name of the bucket for which to get the lifecycle information.
+newGetBucketLifecycleConfiguration ::
+  -- | 'bucket'
   BucketName ->
   GetBucketLifecycleConfiguration
-getBucketLifecycleConfiguration pBucket_ =
+newGetBucketLifecycleConfiguration pBucket_ =
   GetBucketLifecycleConfiguration'
-    { _gblcExpectedBucketOwner =
-        Nothing,
-      _gblcBucket = pBucket_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-gblcExpectedBucketOwner :: Lens' GetBucketLifecycleConfiguration (Maybe Text)
-gblcExpectedBucketOwner = lens _gblcExpectedBucketOwner (\s a -> s {_gblcExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+getBucketLifecycleConfiguration_expectedBucketOwner :: Lens.Lens' GetBucketLifecycleConfiguration (Prelude.Maybe Prelude.Text)
+getBucketLifecycleConfiguration_expectedBucketOwner = Lens.lens (\GetBucketLifecycleConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketLifecycleConfiguration' {} a -> s {expectedBucketOwner = a} :: GetBucketLifecycleConfiguration)
 
 -- | The name of the bucket for which to get the lifecycle information.
-gblcBucket :: Lens' GetBucketLifecycleConfiguration BucketName
-gblcBucket = lens _gblcBucket (\s a -> s {_gblcBucket = a})
+getBucketLifecycleConfiguration_bucket :: Lens.Lens' GetBucketLifecycleConfiguration BucketName
+getBucketLifecycleConfiguration_bucket = Lens.lens (\GetBucketLifecycleConfiguration' {bucket} -> bucket) (\s@GetBucketLifecycleConfiguration' {} a -> s {bucket = a} :: GetBucketLifecycleConfiguration)
 
-instance AWSRequest GetBucketLifecycleConfiguration where
+instance
+  Prelude.AWSRequest
+    GetBucketLifecycleConfiguration
+  where
   type
     Rs GetBucketLifecycleConfiguration =
       GetBucketLifecycleConfigurationResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetBucketLifecycleConfigurationResponse'
-            <$> (may (parseXMLList "Rule") x)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.may (Prelude.parseXMLList "Rule") x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBucketLifecycleConfiguration
+instance
+  Prelude.Hashable
+    GetBucketLifecycleConfiguration
 
-instance NFData GetBucketLifecycleConfiguration
+instance
+  Prelude.NFData
+    GetBucketLifecycleConfiguration
 
-instance ToHeaders GetBucketLifecycleConfiguration where
+instance
+  Prelude.ToHeaders
+    GetBucketLifecycleConfiguration
+  where
   toHeaders GetBucketLifecycleConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _gblcExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath GetBucketLifecycleConfiguration where
+instance
+  Prelude.ToPath
+    GetBucketLifecycleConfiguration
+  where
   toPath GetBucketLifecycleConfiguration' {..} =
-    mconcat ["/", toBS _gblcBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery GetBucketLifecycleConfiguration where
-  toQuery = const (mconcat ["lifecycle"])
+instance
+  Prelude.ToQuery
+    GetBucketLifecycleConfiguration
+  where
+  toQuery =
+    Prelude.const (Prelude.mconcat ["lifecycle"])
 
--- | /See:/ 'getBucketLifecycleConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetBucketLifecycleConfigurationResponse' smart constructor.
 data GetBucketLifecycleConfigurationResponse = GetBucketLifecycleConfigurationResponse'
-  { _gblcrrsRules ::
-      !( Maybe
-           [LifecycleRule]
-       ),
-    _gblcrrsResponseStatus ::
-      !Int
+  { -- | Container for a lifecycle rule.
+    rules :: Prelude.Maybe [LifecycleRule],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketLifecycleConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketLifecycleConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gblcrrsRules' - Container for a lifecycle rule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gblcrrsResponseStatus' - -- | The response status code.
-getBucketLifecycleConfigurationResponse ::
-  -- | 'gblcrrsResponseStatus'
-  Int ->
+-- 'rules', 'getBucketLifecycleConfigurationResponse_rules' - Container for a lifecycle rule.
+--
+-- 'httpStatus', 'getBucketLifecycleConfigurationResponse_httpStatus' - The response's http status code.
+newGetBucketLifecycleConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBucketLifecycleConfigurationResponse
-getBucketLifecycleConfigurationResponse
-  pResponseStatus_ =
+newGetBucketLifecycleConfigurationResponse
+  pHttpStatus_ =
     GetBucketLifecycleConfigurationResponse'
-      { _gblcrrsRules =
-          Nothing,
-        _gblcrrsResponseStatus =
-          pResponseStatus_
+      { rules =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Container for a lifecycle rule.
-gblcrrsRules :: Lens' GetBucketLifecycleConfigurationResponse [LifecycleRule]
-gblcrrsRules = lens _gblcrrsRules (\s a -> s {_gblcrrsRules = a}) . _Default . _Coerce
+getBucketLifecycleConfigurationResponse_rules :: Lens.Lens' GetBucketLifecycleConfigurationResponse (Prelude.Maybe [LifecycleRule])
+getBucketLifecycleConfigurationResponse_rules = Lens.lens (\GetBucketLifecycleConfigurationResponse' {rules} -> rules) (\s@GetBucketLifecycleConfigurationResponse' {} a -> s {rules = a} :: GetBucketLifecycleConfigurationResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gblcrrsResponseStatus :: Lens' GetBucketLifecycleConfigurationResponse Int
-gblcrrsResponseStatus = lens _gblcrrsResponseStatus (\s a -> s {_gblcrrsResponseStatus = a})
+-- | The response's http status code.
+getBucketLifecycleConfigurationResponse_httpStatus :: Lens.Lens' GetBucketLifecycleConfigurationResponse Prelude.Int
+getBucketLifecycleConfigurationResponse_httpStatus = Lens.lens (\GetBucketLifecycleConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetBucketLifecycleConfigurationResponse' {} a -> s {httpStatus = a} :: GetBucketLifecycleConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetBucketLifecycleConfigurationResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,46 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Initiator where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
 -- | Container element that identifies who initiated the multipart upload.
 --
---
---
--- /See:/ 'initiator' smart constructor.
+-- /See:/ 'newInitiator' smart constructor.
 data Initiator = Initiator'
-  { _iId :: !(Maybe Text),
-    _iDisplayName :: !(Maybe Text)
+  { -- | If the principal is an AWS account, it provides the Canonical User ID.
+    -- If the principal is an IAM User, it provides a user ARN value.
+    iD :: Prelude.Maybe Prelude.Text,
+    -- | Name of the Principal.
+    displayName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Initiator' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Initiator' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'iId' - If the principal is an AWS account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'iDisplayName' - Name of the Principal.
-initiator ::
+-- 'iD', 'initiator_iD' - If the principal is an AWS account, it provides the Canonical User ID.
+-- If the principal is an IAM User, it provides a user ARN value.
+--
+-- 'displayName', 'initiator_displayName' - Name of the Principal.
+newInitiator ::
   Initiator
-initiator =
-  Initiator' {_iId = Nothing, _iDisplayName = Nothing}
+newInitiator =
+  Initiator'
+    { iD = Prelude.Nothing,
+      displayName = Prelude.Nothing
+    }
 
--- | If the principal is an AWS account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.
-iId :: Lens' Initiator (Maybe Text)
-iId = lens _iId (\s a -> s {_iId = a})
+-- | If the principal is an AWS account, it provides the Canonical User ID.
+-- If the principal is an IAM User, it provides a user ARN value.
+initiator_iD :: Lens.Lens' Initiator (Prelude.Maybe Prelude.Text)
+initiator_iD = Lens.lens (\Initiator' {iD} -> iD) (\s@Initiator' {} a -> s {iD = a} :: Initiator)
 
 -- | Name of the Principal.
-iDisplayName :: Lens' Initiator (Maybe Text)
-iDisplayName = lens _iDisplayName (\s a -> s {_iDisplayName = a})
+initiator_displayName :: Lens.Lens' Initiator (Prelude.Maybe Prelude.Text)
+initiator_displayName = Lens.lens (\Initiator' {displayName} -> displayName) (\s@Initiator' {} a -> s {displayName = a} :: Initiator)
 
-instance FromXML Initiator where
+instance Prelude.FromXML Initiator where
   parseXML x =
     Initiator'
-      <$> (x .@? "ID") <*> (x .@? "DisplayName")
+      Prelude.<$> (x Prelude..@? "ID")
+      Prelude.<*> (x Prelude..@? "DisplayName")
 
-instance Hashable Initiator
+instance Prelude.Hashable Initiator
 
-instance NFData Initiator
+instance Prelude.NFData Initiator

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.ExistingObjectReplicationStatus
   ( ExistingObjectReplicationStatus
       ( ..,
-        EORSDisabled,
-        EORSEnabled
+        ExistingObjectReplicationStatusDisabled,
+        ExistingObjectReplicationStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ExistingObjectReplicationStatus
-  = ExistingObjectReplicationStatus'
-      ( CI
-          Text
-      )
+newtype ExistingObjectReplicationStatus = ExistingObjectReplicationStatus'
+  { fromExistingObjectReplicationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EORSDisabled :: ExistingObjectReplicationStatus
-pattern EORSDisabled = ExistingObjectReplicationStatus' "Disabled"
+pattern ExistingObjectReplicationStatusDisabled :: ExistingObjectReplicationStatus
+pattern ExistingObjectReplicationStatusDisabled = ExistingObjectReplicationStatus' "Disabled"
 
-pattern EORSEnabled :: ExistingObjectReplicationStatus
-pattern EORSEnabled = ExistingObjectReplicationStatus' "Enabled"
+pattern ExistingObjectReplicationStatusEnabled :: ExistingObjectReplicationStatus
+pattern ExistingObjectReplicationStatusEnabled = ExistingObjectReplicationStatus' "Enabled"
 
 {-# COMPLETE
-  EORSDisabled,
-  EORSEnabled,
+  ExistingObjectReplicationStatusDisabled,
+  ExistingObjectReplicationStatusEnabled,
   ExistingObjectReplicationStatus'
   #-}
 
-instance FromText ExistingObjectReplicationStatus where
-  parser = (ExistingObjectReplicationStatus' . mk) <$> takeText
+instance Prelude.FromText ExistingObjectReplicationStatus where
+  parser = ExistingObjectReplicationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExistingObjectReplicationStatus where
-  toText (ExistingObjectReplicationStatus' ci) = original ci
+instance Prelude.ToText ExistingObjectReplicationStatus where
+  toText (ExistingObjectReplicationStatus' x) = x
 
-instance Hashable ExistingObjectReplicationStatus
+instance Prelude.Hashable ExistingObjectReplicationStatus
 
-instance NFData ExistingObjectReplicationStatus
+instance Prelude.NFData ExistingObjectReplicationStatus
 
-instance ToByteString ExistingObjectReplicationStatus
+instance Prelude.ToByteString ExistingObjectReplicationStatus
 
-instance ToQuery ExistingObjectReplicationStatus
+instance Prelude.ToQuery ExistingObjectReplicationStatus
 
-instance ToHeader ExistingObjectReplicationStatus
+instance Prelude.ToHeader ExistingObjectReplicationStatus
 
-instance FromXML ExistingObjectReplicationStatus where
-  parseXML = parseXMLText "ExistingObjectReplicationStatus"
+instance Prelude.FromXML ExistingObjectReplicationStatus where
+  parseXML = Prelude.parseXMLText "ExistingObjectReplicationStatus"
 
-instance ToXML ExistingObjectReplicationStatus where
-  toXML = toXMLText
+instance Prelude.ToXML ExistingObjectReplicationStatus where
+  toXML = Prelude.toXMLText

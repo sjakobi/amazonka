@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.BucketAccelerateStatus
   ( BucketAccelerateStatus
       ( ..,
-        BASEnabled,
-        BASSuspended
+        BucketAccelerateStatusEnabled,
+        BucketAccelerateStatusSuspended
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data BucketAccelerateStatus
-  = BucketAccelerateStatus'
-      ( CI
-          Text
-      )
+newtype BucketAccelerateStatus = BucketAccelerateStatus'
+  { fromBucketAccelerateStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BASEnabled :: BucketAccelerateStatus
-pattern BASEnabled = BucketAccelerateStatus' "Enabled"
+pattern BucketAccelerateStatusEnabled :: BucketAccelerateStatus
+pattern BucketAccelerateStatusEnabled = BucketAccelerateStatus' "Enabled"
 
-pattern BASSuspended :: BucketAccelerateStatus
-pattern BASSuspended = BucketAccelerateStatus' "Suspended"
+pattern BucketAccelerateStatusSuspended :: BucketAccelerateStatus
+pattern BucketAccelerateStatusSuspended = BucketAccelerateStatus' "Suspended"
 
 {-# COMPLETE
-  BASEnabled,
-  BASSuspended,
+  BucketAccelerateStatusEnabled,
+  BucketAccelerateStatusSuspended,
   BucketAccelerateStatus'
   #-}
 
-instance FromText BucketAccelerateStatus where
-  parser = (BucketAccelerateStatus' . mk) <$> takeText
+instance Prelude.FromText BucketAccelerateStatus where
+  parser = BucketAccelerateStatus' Prelude.<$> Prelude.takeText
 
-instance ToText BucketAccelerateStatus where
-  toText (BucketAccelerateStatus' ci) = original ci
+instance Prelude.ToText BucketAccelerateStatus where
+  toText (BucketAccelerateStatus' x) = x
 
-instance Hashable BucketAccelerateStatus
+instance Prelude.Hashable BucketAccelerateStatus
 
-instance NFData BucketAccelerateStatus
+instance Prelude.NFData BucketAccelerateStatus
 
-instance ToByteString BucketAccelerateStatus
+instance Prelude.ToByteString BucketAccelerateStatus
 
-instance ToQuery BucketAccelerateStatus
+instance Prelude.ToQuery BucketAccelerateStatus
 
-instance ToHeader BucketAccelerateStatus
+instance Prelude.ToHeader BucketAccelerateStatus
 
-instance FromXML BucketAccelerateStatus where
-  parseXML = parseXMLText "BucketAccelerateStatus"
+instance Prelude.FromXML BucketAccelerateStatus where
+  parseXML = Prelude.parseXMLText "BucketAccelerateStatus"
 
-instance ToXML BucketAccelerateStatus where
-  toXML = toXMLText
+instance Prelude.ToXML BucketAccelerateStatus where
+  toXML = Prelude.toXMLText

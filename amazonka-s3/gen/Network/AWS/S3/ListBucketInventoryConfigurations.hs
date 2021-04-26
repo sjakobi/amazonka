@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,224 +21,277 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of inventory configurations for the bucket. You can have up to 1,000 analytics configurations per bucket.
+-- Returns a list of inventory configurations for the bucket. You can have
+-- up to 1,000 analytics configurations per bucket.
 --
+-- This operation supports list pagination and does not return more than
+-- 100 configurations at a time. Always check the @IsTruncated@ element in
+-- the response. If there are no more configurations to list, @IsTruncated@
+-- is set to false. If there are more configurations to list, @IsTruncated@
+-- is set to true, and there is a value in @NextContinuationToken@. You use
+-- the @NextContinuationToken@ value to continue the pagination of the list
+-- by passing the value in continuation-token in the request to @GET@ the
+-- next page.
 --
--- This operation supports list pagination and does not return more than 100 configurations at a time. Always check the @IsTruncated@ element in the response. If there are no more configurations to list, @IsTruncated@ is set to false. If there are more configurations to list, @IsTruncated@ is set to true, and there is a value in @NextContinuationToken@ . You use the @NextContinuationToken@ value to continue the pagination of the list by passing the value in continuation-token in the request to @GET@ the next page.
+-- To use this operation, you must have permissions to perform the
+-- @s3:GetInventoryConfiguration@ action. The bucket owner has this
+-- permission by default. The bucket owner can grant this permission to
+-- others. For more information about permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources>.
 --
--- To use this operation, you must have permissions to perform the @s3:GetInventoryConfiguration@ action. The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more information about permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations> and <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources> .
+-- For information about the Amazon S3 inventory feature, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html Amazon S3 Inventory>
 --
--- For information about the Amazon S3 inventory feature, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html Amazon S3 Inventory>
+-- The following operations are related to
+-- @ListBucketInventoryConfigurations@:
 --
--- The following operations are related to @ListBucketInventoryConfigurations@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketInventoryConfiguration.html GetBucketInventoryConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketInventoryConfiguration.html GetBucketInventoryConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketInventoryConfiguration.html DeleteBucketInventoryConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketInventoryConfiguration.html DeleteBucketInventoryConfiguration>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html PutBucketInventoryConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html PutBucketInventoryConfiguration>
 module Network.AWS.S3.ListBucketInventoryConfigurations
   ( -- * Creating a Request
-    listBucketInventoryConfigurations,
-    ListBucketInventoryConfigurations,
+    ListBucketInventoryConfigurations (..),
+    newListBucketInventoryConfigurations,
 
     -- * Request Lenses
-    lbicExpectedBucketOwner,
-    lbicContinuationToken,
-    lbicBucket,
+    listBucketInventoryConfigurations_expectedBucketOwner,
+    listBucketInventoryConfigurations_continuationToken,
+    listBucketInventoryConfigurations_bucket,
 
     -- * Destructuring the Response
-    listBucketInventoryConfigurationsResponse,
-    ListBucketInventoryConfigurationsResponse,
+    ListBucketInventoryConfigurationsResponse (..),
+    newListBucketInventoryConfigurationsResponse,
 
     -- * Response Lenses
-    lbicrrsInventoryConfigurationList,
-    lbicrrsIsTruncated,
-    lbicrrsNextContinuationToken,
-    lbicrrsContinuationToken,
-    lbicrrsResponseStatus,
+    listBucketInventoryConfigurationsResponse_inventoryConfigurationList,
+    listBucketInventoryConfigurationsResponse_isTruncated,
+    listBucketInventoryConfigurationsResponse_nextContinuationToken,
+    listBucketInventoryConfigurationsResponse_continuationToken,
+    listBucketInventoryConfigurationsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.InventoryConfiguration
 
--- | /See:/ 'listBucketInventoryConfigurations' smart constructor.
+-- | /See:/ 'newListBucketInventoryConfigurations' smart constructor.
 data ListBucketInventoryConfigurations = ListBucketInventoryConfigurations'
-  { _lbicExpectedBucketOwner ::
-      !( Maybe
-           Text
-       ),
-    _lbicContinuationToken ::
-      !( Maybe
-           Text
-       ),
-    _lbicBucket ::
-      !BucketName
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The marker used to continue an inventory configuration listing that has
+    -- been truncated. Use the NextContinuationToken from a previously
+    -- truncated list response to continue the listing. The continuation token
+    -- is an opaque value that Amazon S3 understands.
+    continuationToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bucket containing the inventory configurations to
+    -- retrieve.
+    bucket :: BucketName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBucketInventoryConfigurations' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBucketInventoryConfigurations' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbicExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbicContinuationToken' - The marker used to continue an inventory configuration listing that has been truncated. Use the NextContinuationToken from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
+-- 'expectedBucketOwner', 'listBucketInventoryConfigurations_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'lbicBucket' - The name of the bucket containing the inventory configurations to retrieve.
-listBucketInventoryConfigurations ::
-  -- | 'lbicBucket'
+-- 'continuationToken', 'listBucketInventoryConfigurations_continuationToken' - The marker used to continue an inventory configuration listing that has
+-- been truncated. Use the NextContinuationToken from a previously
+-- truncated list response to continue the listing. The continuation token
+-- is an opaque value that Amazon S3 understands.
+--
+-- 'bucket', 'listBucketInventoryConfigurations_bucket' - The name of the bucket containing the inventory configurations to
+-- retrieve.
+newListBucketInventoryConfigurations ::
+  -- | 'bucket'
   BucketName ->
   ListBucketInventoryConfigurations
-listBucketInventoryConfigurations pBucket_ =
+newListBucketInventoryConfigurations pBucket_ =
   ListBucketInventoryConfigurations'
-    { _lbicExpectedBucketOwner =
-        Nothing,
-      _lbicContinuationToken = Nothing,
-      _lbicBucket = pBucket_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      continuationToken = Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-lbicExpectedBucketOwner :: Lens' ListBucketInventoryConfigurations (Maybe Text)
-lbicExpectedBucketOwner = lens _lbicExpectedBucketOwner (\s a -> s {_lbicExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+listBucketInventoryConfigurations_expectedBucketOwner :: Lens.Lens' ListBucketInventoryConfigurations (Prelude.Maybe Prelude.Text)
+listBucketInventoryConfigurations_expectedBucketOwner = Lens.lens (\ListBucketInventoryConfigurations' {expectedBucketOwner} -> expectedBucketOwner) (\s@ListBucketInventoryConfigurations' {} a -> s {expectedBucketOwner = a} :: ListBucketInventoryConfigurations)
 
--- | The marker used to continue an inventory configuration listing that has been truncated. Use the NextContinuationToken from a previously truncated list response to continue the listing. The continuation token is an opaque value that Amazon S3 understands.
-lbicContinuationToken :: Lens' ListBucketInventoryConfigurations (Maybe Text)
-lbicContinuationToken = lens _lbicContinuationToken (\s a -> s {_lbicContinuationToken = a})
+-- | The marker used to continue an inventory configuration listing that has
+-- been truncated. Use the NextContinuationToken from a previously
+-- truncated list response to continue the listing. The continuation token
+-- is an opaque value that Amazon S3 understands.
+listBucketInventoryConfigurations_continuationToken :: Lens.Lens' ListBucketInventoryConfigurations (Prelude.Maybe Prelude.Text)
+listBucketInventoryConfigurations_continuationToken = Lens.lens (\ListBucketInventoryConfigurations' {continuationToken} -> continuationToken) (\s@ListBucketInventoryConfigurations' {} a -> s {continuationToken = a} :: ListBucketInventoryConfigurations)
 
--- | The name of the bucket containing the inventory configurations to retrieve.
-lbicBucket :: Lens' ListBucketInventoryConfigurations BucketName
-lbicBucket = lens _lbicBucket (\s a -> s {_lbicBucket = a})
+-- | The name of the bucket containing the inventory configurations to
+-- retrieve.
+listBucketInventoryConfigurations_bucket :: Lens.Lens' ListBucketInventoryConfigurations BucketName
+listBucketInventoryConfigurations_bucket = Lens.lens (\ListBucketInventoryConfigurations' {bucket} -> bucket) (\s@ListBucketInventoryConfigurations' {} a -> s {bucket = a} :: ListBucketInventoryConfigurations)
 
-instance AWSRequest ListBucketInventoryConfigurations where
+instance
+  Prelude.AWSRequest
+    ListBucketInventoryConfigurations
+  where
   type
     Rs ListBucketInventoryConfigurations =
       ListBucketInventoryConfigurationsResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           ListBucketInventoryConfigurationsResponse'
-            <$> (may (parseXMLList "InventoryConfiguration") x)
-            <*> (x .@? "IsTruncated")
-            <*> (x .@? "NextContinuationToken")
-            <*> (x .@? "ContinuationToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( Prelude.may
+                            (Prelude.parseXMLList "InventoryConfiguration")
+                            x
+                        )
+              Prelude.<*> (x Prelude..@? "IsTruncated")
+              Prelude.<*> (x Prelude..@? "NextContinuationToken")
+              Prelude.<*> (x Prelude..@? "ContinuationToken")
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListBucketInventoryConfigurations
+instance
+  Prelude.Hashable
+    ListBucketInventoryConfigurations
 
-instance NFData ListBucketInventoryConfigurations
+instance
+  Prelude.NFData
+    ListBucketInventoryConfigurations
 
-instance ToHeaders ListBucketInventoryConfigurations where
+instance
+  Prelude.ToHeaders
+    ListBucketInventoryConfigurations
+  where
   toHeaders ListBucketInventoryConfigurations' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _lbicExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath ListBucketInventoryConfigurations where
+instance
+  Prelude.ToPath
+    ListBucketInventoryConfigurations
+  where
   toPath ListBucketInventoryConfigurations' {..} =
-    mconcat ["/", toBS _lbicBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery ListBucketInventoryConfigurations where
+instance
+  Prelude.ToQuery
+    ListBucketInventoryConfigurations
+  where
   toQuery ListBucketInventoryConfigurations' {..} =
-    mconcat
-      [ "continuation-token" =: _lbicContinuationToken,
+    Prelude.mconcat
+      [ "continuation-token" Prelude.=: continuationToken,
         "inventory"
       ]
 
--- | /See:/ 'listBucketInventoryConfigurationsResponse' smart constructor.
+-- | /See:/ 'newListBucketInventoryConfigurationsResponse' smart constructor.
 data ListBucketInventoryConfigurationsResponse = ListBucketInventoryConfigurationsResponse'
-  { _lbicrrsInventoryConfigurationList ::
-      !( Maybe
-           [InventoryConfiguration]
-       ),
-    _lbicrrsIsTruncated ::
-      !( Maybe
-           Bool
-       ),
-    _lbicrrsNextContinuationToken ::
-      !( Maybe
-           Text
-       ),
-    _lbicrrsContinuationToken ::
-      !( Maybe
-           Text
-       ),
-    _lbicrrsResponseStatus ::
-      !Int
+  { -- | The list of inventory configurations for a bucket.
+    inventoryConfigurationList :: Prelude.Maybe [InventoryConfiguration],
+    -- | Tells whether the returned list of inventory configurations is complete.
+    -- A value of true indicates that the list is not complete and the
+    -- NextContinuationToken is provided for a subsequent request.
+    isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | The marker used to continue this inventory configuration listing. Use
+    -- the @NextContinuationToken@ from this response to continue the listing
+    -- in a subsequent request. The continuation token is an opaque value that
+    -- Amazon S3 understands.
+    nextContinuationToken :: Prelude.Maybe Prelude.Text,
+    -- | If sent in the request, the marker that is used as a starting point for
+    -- this inventory configuration list response.
+    continuationToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListBucketInventoryConfigurationsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListBucketInventoryConfigurationsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lbicrrsInventoryConfigurationList' - The list of inventory configurations for a bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lbicrrsIsTruncated' - Tells whether the returned list of inventory configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken is provided for a subsequent request.
+-- 'inventoryConfigurationList', 'listBucketInventoryConfigurationsResponse_inventoryConfigurationList' - The list of inventory configurations for a bucket.
 --
--- * 'lbicrrsNextContinuationToken' - The marker used to continue this inventory configuration listing. Use the @NextContinuationToken@ from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands.
+-- 'isTruncated', 'listBucketInventoryConfigurationsResponse_isTruncated' - Tells whether the returned list of inventory configurations is complete.
+-- A value of true indicates that the list is not complete and the
+-- NextContinuationToken is provided for a subsequent request.
 --
--- * 'lbicrrsContinuationToken' - If sent in the request, the marker that is used as a starting point for this inventory configuration list response.
+-- 'nextContinuationToken', 'listBucketInventoryConfigurationsResponse_nextContinuationToken' - The marker used to continue this inventory configuration listing. Use
+-- the @NextContinuationToken@ from this response to continue the listing
+-- in a subsequent request. The continuation token is an opaque value that
+-- Amazon S3 understands.
 --
--- * 'lbicrrsResponseStatus' - -- | The response status code.
-listBucketInventoryConfigurationsResponse ::
-  -- | 'lbicrrsResponseStatus'
-  Int ->
+-- 'continuationToken', 'listBucketInventoryConfigurationsResponse_continuationToken' - If sent in the request, the marker that is used as a starting point for
+-- this inventory configuration list response.
+--
+-- 'httpStatus', 'listBucketInventoryConfigurationsResponse_httpStatus' - The response's http status code.
+newListBucketInventoryConfigurationsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListBucketInventoryConfigurationsResponse
-listBucketInventoryConfigurationsResponse
-  pResponseStatus_ =
+newListBucketInventoryConfigurationsResponse
+  pHttpStatus_ =
     ListBucketInventoryConfigurationsResponse'
-      { _lbicrrsInventoryConfigurationList =
-          Nothing,
-        _lbicrrsIsTruncated = Nothing,
-        _lbicrrsNextContinuationToken =
-          Nothing,
-        _lbicrrsContinuationToken =
-          Nothing,
-        _lbicrrsResponseStatus =
-          pResponseStatus_
+      { inventoryConfigurationList =
+          Prelude.Nothing,
+        isTruncated = Prelude.Nothing,
+        nextContinuationToken =
+          Prelude.Nothing,
+        continuationToken =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The list of inventory configurations for a bucket.
-lbicrrsInventoryConfigurationList :: Lens' ListBucketInventoryConfigurationsResponse [InventoryConfiguration]
-lbicrrsInventoryConfigurationList = lens _lbicrrsInventoryConfigurationList (\s a -> s {_lbicrrsInventoryConfigurationList = a}) . _Default . _Coerce
+listBucketInventoryConfigurationsResponse_inventoryConfigurationList :: Lens.Lens' ListBucketInventoryConfigurationsResponse (Prelude.Maybe [InventoryConfiguration])
+listBucketInventoryConfigurationsResponse_inventoryConfigurationList = Lens.lens (\ListBucketInventoryConfigurationsResponse' {inventoryConfigurationList} -> inventoryConfigurationList) (\s@ListBucketInventoryConfigurationsResponse' {} a -> s {inventoryConfigurationList = a} :: ListBucketInventoryConfigurationsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Tells whether the returned list of inventory configurations is complete. A value of true indicates that the list is not complete and the NextContinuationToken is provided for a subsequent request.
-lbicrrsIsTruncated :: Lens' ListBucketInventoryConfigurationsResponse (Maybe Bool)
-lbicrrsIsTruncated = lens _lbicrrsIsTruncated (\s a -> s {_lbicrrsIsTruncated = a})
+-- | Tells whether the returned list of inventory configurations is complete.
+-- A value of true indicates that the list is not complete and the
+-- NextContinuationToken is provided for a subsequent request.
+listBucketInventoryConfigurationsResponse_isTruncated :: Lens.Lens' ListBucketInventoryConfigurationsResponse (Prelude.Maybe Prelude.Bool)
+listBucketInventoryConfigurationsResponse_isTruncated = Lens.lens (\ListBucketInventoryConfigurationsResponse' {isTruncated} -> isTruncated) (\s@ListBucketInventoryConfigurationsResponse' {} a -> s {isTruncated = a} :: ListBucketInventoryConfigurationsResponse)
 
--- | The marker used to continue this inventory configuration listing. Use the @NextContinuationToken@ from this response to continue the listing in a subsequent request. The continuation token is an opaque value that Amazon S3 understands.
-lbicrrsNextContinuationToken :: Lens' ListBucketInventoryConfigurationsResponse (Maybe Text)
-lbicrrsNextContinuationToken = lens _lbicrrsNextContinuationToken (\s a -> s {_lbicrrsNextContinuationToken = a})
+-- | The marker used to continue this inventory configuration listing. Use
+-- the @NextContinuationToken@ from this response to continue the listing
+-- in a subsequent request. The continuation token is an opaque value that
+-- Amazon S3 understands.
+listBucketInventoryConfigurationsResponse_nextContinuationToken :: Lens.Lens' ListBucketInventoryConfigurationsResponse (Prelude.Maybe Prelude.Text)
+listBucketInventoryConfigurationsResponse_nextContinuationToken = Lens.lens (\ListBucketInventoryConfigurationsResponse' {nextContinuationToken} -> nextContinuationToken) (\s@ListBucketInventoryConfigurationsResponse' {} a -> s {nextContinuationToken = a} :: ListBucketInventoryConfigurationsResponse)
 
--- | If sent in the request, the marker that is used as a starting point for this inventory configuration list response.
-lbicrrsContinuationToken :: Lens' ListBucketInventoryConfigurationsResponse (Maybe Text)
-lbicrrsContinuationToken = lens _lbicrrsContinuationToken (\s a -> s {_lbicrrsContinuationToken = a})
+-- | If sent in the request, the marker that is used as a starting point for
+-- this inventory configuration list response.
+listBucketInventoryConfigurationsResponse_continuationToken :: Lens.Lens' ListBucketInventoryConfigurationsResponse (Prelude.Maybe Prelude.Text)
+listBucketInventoryConfigurationsResponse_continuationToken = Lens.lens (\ListBucketInventoryConfigurationsResponse' {continuationToken} -> continuationToken) (\s@ListBucketInventoryConfigurationsResponse' {} a -> s {continuationToken = a} :: ListBucketInventoryConfigurationsResponse)
 
--- | -- | The response status code.
-lbicrrsResponseStatus :: Lens' ListBucketInventoryConfigurationsResponse Int
-lbicrrsResponseStatus = lens _lbicrrsResponseStatus (\s a -> s {_lbicrrsResponseStatus = a})
+-- | The response's http status code.
+listBucketInventoryConfigurationsResponse_httpStatus :: Lens.Lens' ListBucketInventoryConfigurationsResponse Prelude.Int
+listBucketInventoryConfigurationsResponse_httpStatus = Lens.lens (\ListBucketInventoryConfigurationsResponse' {httpStatus} -> httpStatus) (\s@ListBucketInventoryConfigurationsResponse' {} a -> s {httpStatus = a} :: ListBucketInventoryConfigurationsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListBucketInventoryConfigurationsResponse

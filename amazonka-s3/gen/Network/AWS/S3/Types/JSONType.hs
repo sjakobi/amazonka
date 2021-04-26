@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.S3.Types.JSONType
   ( JSONType
       ( ..,
-        Document,
-        Lines
+        JSONTypeDOCUMENT,
+        JSONTypeLINES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data JSONType = JSONType' (CI Text)
+newtype JSONType = JSONType'
+  { fromJSONType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Document :: JSONType
-pattern Document = JSONType' "DOCUMENT"
+pattern JSONTypeDOCUMENT :: JSONType
+pattern JSONTypeDOCUMENT = JSONType' "DOCUMENT"
 
-pattern Lines :: JSONType
-pattern Lines = JSONType' "LINES"
+pattern JSONTypeLINES :: JSONType
+pattern JSONTypeLINES = JSONType' "LINES"
 
 {-# COMPLETE
-  Document,
-  Lines,
+  JSONTypeDOCUMENT,
+  JSONTypeLINES,
   JSONType'
   #-}
 
-instance FromText JSONType where
-  parser = (JSONType' . mk) <$> takeText
+instance Prelude.FromText JSONType where
+  parser = JSONType' Prelude.<$> Prelude.takeText
 
-instance ToText JSONType where
-  toText (JSONType' ci) = original ci
+instance Prelude.ToText JSONType where
+  toText (JSONType' x) = x
 
-instance Hashable JSONType
+instance Prelude.Hashable JSONType
 
-instance NFData JSONType
+instance Prelude.NFData JSONType
 
-instance ToByteString JSONType
+instance Prelude.ToByteString JSONType
 
-instance ToQuery JSONType
+instance Prelude.ToQuery JSONType
 
-instance ToHeader JSONType
+instance Prelude.ToHeader JSONType
 
-instance ToXML JSONType where
-  toXML = toXMLText
+instance Prelude.ToXML JSONType where
+  toXML = Prelude.toXMLText

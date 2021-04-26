@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types
   ( -- * Service Configuration
-    s3,
+    defaultService,
 
     -- * Errors
     _ObjectNotInActiveTierError,
@@ -167,8 +170,8 @@ module Network.AWS.S3.Types
     -- * ServerSideEncryption
     ServerSideEncryption (..),
 
-    -- * SseKMSEncryptedObjectsStatus
-    SseKMSEncryptedObjectsStatus (..),
+    -- * SseKmsEncryptedObjectsStatus
+    SseKmsEncryptedObjectsStatus (..),
 
     -- * StorageClass
     StorageClass (..),
@@ -190,833 +193,516 @@ module Network.AWS.S3.Types
 
     -- * AbortIncompleteMultipartUpload
     AbortIncompleteMultipartUpload (..),
-    abortIncompleteMultipartUpload,
-    aimuDaysAfterInitiation,
+    newAbortIncompleteMultipartUpload,
 
     -- * AccelerateConfiguration
     AccelerateConfiguration (..),
-    accelerateConfiguration,
-    acStatus,
+    newAccelerateConfiguration,
 
     -- * AccessControlPolicy
     AccessControlPolicy (..),
-    accessControlPolicy,
-    acpOwner,
-    acpGrants,
+    newAccessControlPolicy,
 
     -- * AccessControlTranslation
     AccessControlTranslation (..),
-    accessControlTranslation,
-    actOwner,
+    newAccessControlTranslation,
 
     -- * AnalyticsAndOperator
     AnalyticsAndOperator (..),
-    analyticsAndOperator,
-    aaoPrefix,
-    aaoTags,
+    newAnalyticsAndOperator,
 
     -- * AnalyticsConfiguration
     AnalyticsConfiguration (..),
-    analyticsConfiguration,
-    acFilter,
-    acId,
-    acStorageClassAnalysis,
+    newAnalyticsConfiguration,
 
     -- * AnalyticsExportDestination
     AnalyticsExportDestination (..),
-    analyticsExportDestination,
-    aedS3BucketDestination,
+    newAnalyticsExportDestination,
 
     -- * AnalyticsFilter
     AnalyticsFilter (..),
-    analyticsFilter,
-    afPrefix,
-    afAnd,
-    afTag,
+    newAnalyticsFilter,
 
     -- * AnalyticsS3BucketDestination
     AnalyticsS3BucketDestination (..),
-    analyticsS3BucketDestination,
-    asbdPrefix,
-    asbdBucketAccountId,
-    asbdFormat,
-    asbdBucket,
+    newAnalyticsS3BucketDestination,
 
     -- * Bucket
     Bucket (..),
-    bucket,
-    bCreationDate,
-    bName,
+    newBucket,
 
     -- * BucketLifecycleConfiguration
     BucketLifecycleConfiguration (..),
-    bucketLifecycleConfiguration,
-    blcRules,
+    newBucketLifecycleConfiguration,
 
     -- * BucketLoggingStatus
     BucketLoggingStatus (..),
-    bucketLoggingStatus,
-    blsLoggingEnabled,
+    newBucketLoggingStatus,
 
     -- * CORSConfiguration
     CORSConfiguration (..),
-    corsConfiguration,
-    ccCORSRules,
+    newCORSConfiguration,
 
     -- * CORSRule
     CORSRule (..),
-    corsRule,
-    crAllowedHeaders,
-    crMaxAgeSeconds,
-    crExposeHeaders,
-    crAllowedMethods,
-    crAllowedOrigins,
+    newCORSRule,
 
     -- * CSVInput
     CSVInput (..),
-    csvInput,
-    ciAllowQuotedRecordDelimiter,
-    ciRecordDelimiter,
-    ciQuoteCharacter,
-    ciFileHeaderInfo,
-    ciFieldDelimiter,
-    ciComments,
-    ciQuoteEscapeCharacter,
+    newCSVInput,
 
     -- * CSVOutput
     CSVOutput (..),
-    csvOutput,
-    coRecordDelimiter,
-    coQuoteCharacter,
-    coFieldDelimiter,
-    coQuoteFields,
-    coQuoteEscapeCharacter,
+    newCSVOutput,
 
     -- * CommonPrefix
     CommonPrefix (..),
-    commonPrefix,
-    cpPrefix,
+    newCommonPrefix,
 
     -- * CompletedMultipartUpload
     CompletedMultipartUpload (..),
-    completedMultipartUpload,
-    cmuParts,
+    newCompletedMultipartUpload,
 
     -- * CompletedPart
     CompletedPart (..),
-    completedPart,
-    cpPartNumber,
-    cpETag,
+    newCompletedPart,
 
     -- * Condition
     Condition (..),
-    condition,
-    cHTTPErrorCodeReturnedEquals,
-    cKeyPrefixEquals,
+    newCondition,
 
     -- * ContinuationEvent
     ContinuationEvent (..),
-    continuationEvent,
+    newContinuationEvent,
 
     -- * CopyObjectResult
     CopyObjectResult (..),
-    copyObjectResult,
-    corETag,
-    corLastModified,
+    newCopyObjectResult,
 
     -- * CopyPartResult
     CopyPartResult (..),
-    copyPartResult,
-    cprETag,
-    cprLastModified,
+    newCopyPartResult,
 
     -- * CreateBucketConfiguration
     CreateBucketConfiguration (..),
-    createBucketConfiguration,
-    cbcLocationConstraint,
+    newCreateBucketConfiguration,
 
     -- * DefaultRetention
     DefaultRetention (..),
-    defaultRetention,
-    drDays,
-    drYears,
-    drMode,
+    newDefaultRetention,
 
     -- * Delete
     Delete (..),
-    delete',
-    dQuiet,
-    dObjects,
+    newDelete,
 
     -- * DeleteMarkerEntry
     DeleteMarkerEntry (..),
-    deleteMarkerEntry,
-    dmeKey,
-    dmeIsLatest,
-    dmeVersionId,
-    dmeOwner,
-    dmeLastModified,
+    newDeleteMarkerEntry,
 
     -- * DeleteMarkerReplication
     DeleteMarkerReplication (..),
-    deleteMarkerReplication,
-    dmrStatus,
+    newDeleteMarkerReplication,
 
     -- * DeletedObject
     DeletedObject (..),
-    deletedObject,
-    doKey,
-    doDeleteMarkerVersionId,
-    doDeleteMarker,
-    doVersionId,
+    newDeletedObject,
 
     -- * Destination
     Destination (..),
-    destination,
-    dEncryptionConfiguration,
-    dReplicationTime,
-    dAccessControlTranslation,
-    dStorageClass,
-    dMetrics,
-    dAccount,
-    dBucket,
+    newDestination,
 
     -- * Encryption
     Encryption (..),
-    encryption,
-    eKMSKeyId,
-    eKMSContext,
-    eEncryptionType,
+    newEncryption,
 
     -- * EncryptionConfiguration
     EncryptionConfiguration (..),
-    encryptionConfiguration,
-    ecReplicaKMSKeyId,
+    newEncryptionConfiguration,
 
     -- * EndEvent
     EndEvent (..),
-    endEvent,
+    newEndEvent,
 
     -- * ErrorDocument
     ErrorDocument (..),
-    errorDocument,
-    edKey,
+    newErrorDocument,
 
     -- * ExistingObjectReplication
     ExistingObjectReplication (..),
-    existingObjectReplication,
-    eorStatus,
+    newExistingObjectReplication,
 
     -- * FilterRule
     FilterRule (..),
-    filterRule,
-    frName,
-    frValue,
+    newFilterRule,
 
     -- * GlacierJobParameters
     GlacierJobParameters (..),
-    glacierJobParameters,
-    gjpTier,
+    newGlacierJobParameters,
 
     -- * Grant
     Grant (..),
-    grant,
-    gGrantee,
-    gPermission,
+    newGrant,
 
     -- * Grantee
     Grantee (..),
-    grantee,
-    gURI,
-    gId,
-    gDisplayName,
-    gEmailAddress,
-    gType,
+    newGrantee,
 
     -- * IndexDocument
     IndexDocument (..),
-    indexDocument,
-    idSuffix,
+    newIndexDocument,
 
     -- * Initiator
     Initiator (..),
-    initiator,
-    iId,
-    iDisplayName,
+    newInitiator,
 
     -- * InputSerialization
     InputSerialization (..),
-    inputSerialization,
-    isParquet,
-    isCSV,
-    isJSON,
-    isCompressionType,
+    newInputSerialization,
 
     -- * IntelligentTieringAndOperator
     IntelligentTieringAndOperator (..),
-    intelligentTieringAndOperator,
-    itaoPrefix,
-    itaoTags,
+    newIntelligentTieringAndOperator,
 
     -- * IntelligentTieringConfiguration
     IntelligentTieringConfiguration (..),
-    intelligentTieringConfiguration,
-    itcFilter,
-    itcId,
-    itcStatus,
-    itcTierings,
+    newIntelligentTieringConfiguration,
 
     -- * IntelligentTieringFilter
     IntelligentTieringFilter (..),
-    intelligentTieringFilter,
-    itfPrefix,
-    itfAnd,
-    itfTag,
+    newIntelligentTieringFilter,
 
     -- * InventoryConfiguration
     InventoryConfiguration (..),
-    inventoryConfiguration,
-    icOptionalFields,
-    icFilter,
-    icDestination,
-    icIsEnabled,
-    icId,
-    icIncludedObjectVersions,
-    icSchedule,
+    newInventoryConfiguration,
 
     -- * InventoryDestination
     InventoryDestination (..),
-    inventoryDestination,
-    idS3BucketDestination,
+    newInventoryDestination,
 
     -- * InventoryEncryption
     InventoryEncryption (..),
-    inventoryEncryption,
-    ieSSEKMS,
-    ieSSES3,
+    newInventoryEncryption,
 
     -- * InventoryFilter
     InventoryFilter (..),
-    inventoryFilter,
-    ifPrefix,
+    newInventoryFilter,
 
     -- * InventoryS3BucketDestination
     InventoryS3BucketDestination (..),
-    inventoryS3BucketDestination,
-    isbdAccountId,
-    isbdPrefix,
-    isbdEncryption,
-    isbdBucket,
-    isbdFormat,
+    newInventoryS3BucketDestination,
 
     -- * InventorySchedule
     InventorySchedule (..),
-    inventorySchedule,
-    isFrequency,
+    newInventorySchedule,
 
     -- * JSONInput
     JSONInput (..),
-    jsonInput,
-    jiType,
+    newJSONInput,
 
     -- * JSONOutput
     JSONOutput (..),
-    jsonOutput,
-    joRecordDelimiter,
+    newJSONOutput,
 
     -- * LambdaFunctionConfiguration
     LambdaFunctionConfiguration (..),
-    lambdaFunctionConfiguration,
-    lfcId,
-    lfcFilter,
-    lfcLambdaFunctionARN,
-    lfcEvents,
+    newLambdaFunctionConfiguration,
 
     -- * LifecycleExpiration
     LifecycleExpiration (..),
-    lifecycleExpiration,
-    leDays,
-    leExpiredObjectDeleteMarker,
-    leDate,
+    newLifecycleExpiration,
 
     -- * LifecycleRule
     LifecycleRule (..),
-    lifecycleRule,
-    lrExpiration,
-    lrPrefix,
-    lrNoncurrentVersionTransitions,
-    lrId,
-    lrNoncurrentVersionExpiration,
-    lrTransitions,
-    lrAbortIncompleteMultipartUpload,
-    lrFilter,
-    lrStatus,
+    newLifecycleRule,
 
     -- * LifecycleRuleAndOperator
     LifecycleRuleAndOperator (..),
-    lifecycleRuleAndOperator,
-    lraoPrefix,
-    lraoTags,
+    newLifecycleRuleAndOperator,
 
     -- * LifecycleRuleFilter
     LifecycleRuleFilter (..),
-    lifecycleRuleFilter,
-    lrfPrefix,
-    lrfAnd,
-    lrfTag,
+    newLifecycleRuleFilter,
 
     -- * LoggingEnabled
     LoggingEnabled (..),
-    loggingEnabled,
-    leTargetGrants,
-    leTargetBucket,
-    leTargetPrefix,
+    newLoggingEnabled,
 
     -- * MetadataEntry
     MetadataEntry (..),
-    metadataEntry,
-    meName,
-    meValue,
+    newMetadataEntry,
 
     -- * Metrics
     Metrics (..),
-    metrics,
-    mEventThreshold,
-    mStatus,
+    newMetrics,
 
     -- * MetricsAndOperator
     MetricsAndOperator (..),
-    metricsAndOperator,
-    maoPrefix,
-    maoTags,
+    newMetricsAndOperator,
 
     -- * MetricsConfiguration
     MetricsConfiguration (..),
-    metricsConfiguration,
-    mcFilter,
-    mcId,
+    newMetricsConfiguration,
 
     -- * MetricsFilter
     MetricsFilter (..),
-    metricsFilter,
-    mfPrefix,
-    mfAnd,
-    mfTag,
+    newMetricsFilter,
 
     -- * MultipartUpload
     MultipartUpload (..),
-    multipartUpload,
-    muKey,
-    muUploadId,
-    muStorageClass,
-    muInitiated,
-    muOwner,
-    muInitiator,
+    newMultipartUpload,
 
     -- * NoncurrentVersionExpiration
     NoncurrentVersionExpiration (..),
-    noncurrentVersionExpiration,
-    nveNoncurrentDays,
+    newNoncurrentVersionExpiration,
 
     -- * NoncurrentVersionTransition
     NoncurrentVersionTransition (..),
-    noncurrentVersionTransition,
-    nvtNoncurrentDays,
-    nvtStorageClass,
+    newNoncurrentVersionTransition,
 
     -- * NotificationConfiguration
     NotificationConfiguration (..),
-    notificationConfiguration,
-    ncLambdaFunctionConfigurations,
-    ncQueueConfigurations,
-    ncTopicConfigurations,
+    newNotificationConfiguration,
 
     -- * NotificationConfigurationFilter
     NotificationConfigurationFilter (..),
-    notificationConfigurationFilter,
-    ncfKey,
+    newNotificationConfigurationFilter,
 
     -- * Object
     Object (..),
-    object',
-    oOwner,
-    oETag,
-    oSize,
-    oKey,
-    oStorageClass,
-    oLastModified,
+    newObject,
 
     -- * ObjectIdentifier
     ObjectIdentifier (..),
-    objectIdentifier,
-    oiVersionId,
-    oiKey,
+    newObjectIdentifier,
 
     -- * ObjectLockConfiguration
     ObjectLockConfiguration (..),
-    objectLockConfiguration,
-    olcRule,
-    olcObjectLockEnabled,
+    newObjectLockConfiguration,
 
     -- * ObjectLockLegalHold
     ObjectLockLegalHold (..),
-    objectLockLegalHold,
-    ollhStatus,
+    newObjectLockLegalHold,
 
     -- * ObjectLockRetention
     ObjectLockRetention (..),
-    objectLockRetention,
-    olrMode,
-    olrRetainUntilDate,
+    newObjectLockRetention,
 
     -- * ObjectLockRule
     ObjectLockRule (..),
-    objectLockRule,
-    olrDefaultRetention,
+    newObjectLockRule,
 
     -- * ObjectVersion
     ObjectVersion (..),
-    objectVersion,
-    ovETag,
-    ovKey,
-    ovIsLatest,
-    ovStorageClass,
-    ovVersionId,
-    ovOwner,
-    ovLastModified,
-    ovSize,
+    newObjectVersion,
 
     -- * OutputLocation
     OutputLocation (..),
-    outputLocation,
-    olS3,
+    newOutputLocation,
 
     -- * OutputSerialization
     OutputSerialization (..),
-    outputSerialization,
-    osCSV,
-    osJSON,
+    newOutputSerialization,
 
     -- * Owner
     Owner (..),
-    owner,
-    oId,
-    oDisplayName,
+    newOwner,
 
     -- * OwnershipControls
     OwnershipControls (..),
-    ownershipControls,
-    ocRules,
+    newOwnershipControls,
 
     -- * OwnershipControlsRule
     OwnershipControlsRule (..),
-    ownershipControlsRule,
-    ocrObjectOwnership,
+    newOwnershipControlsRule,
 
     -- * ParquetInput
     ParquetInput (..),
-    parquetInput,
+    newParquetInput,
 
     -- * Part
     Part (..),
-    part,
-    pETag,
-    pPartNumber,
-    pLastModified,
-    pSize,
+    newPart,
 
     -- * PolicyStatus
     PolicyStatus (..),
-    policyStatus,
-    psIsPublic,
+    newPolicyStatus,
 
     -- * Progress
     Progress (..),
-    progress,
-    pBytesScanned,
-    pBytesProcessed,
-    pBytesReturned,
+    newProgress,
 
     -- * ProgressEvent
     ProgressEvent (..),
-    progressEvent,
-    peDetails,
+    newProgressEvent,
 
     -- * PublicAccessBlockConfiguration
     PublicAccessBlockConfiguration (..),
-    publicAccessBlockConfiguration,
-    pabcIgnorePublicACLs,
-    pabcBlockPublicACLs,
-    pabcRestrictPublicBuckets,
-    pabcBlockPublicPolicy,
+    newPublicAccessBlockConfiguration,
 
     -- * QueueConfiguration
     QueueConfiguration (..),
-    queueConfiguration,
-    qcId,
-    qcFilter,
-    qcQueueARN,
-    qcEvents,
+    newQueueConfiguration,
 
     -- * RecordsEvent
     RecordsEvent (..),
-    recordsEvent,
-    rePayload,
+    newRecordsEvent,
 
     -- * Redirect
     Redirect (..),
-    redirect,
-    rHostName,
-    rHTTPRedirectCode,
-    rReplaceKeyPrefixWith,
-    rReplaceKeyWith,
-    rProtocol,
+    newRedirect,
 
     -- * RedirectAllRequestsTo
     RedirectAllRequestsTo (..),
-    redirectAllRequestsTo,
-    rartProtocol,
-    rartHostName,
+    newRedirectAllRequestsTo,
 
     -- * ReplicaModifications
     ReplicaModifications (..),
-    replicaModifications,
-    rmStatus,
+    newReplicaModifications,
 
     -- * ReplicationConfiguration
     ReplicationConfiguration (..),
-    replicationConfiguration,
-    rcRole,
-    rcRules,
+    newReplicationConfiguration,
 
     -- * ReplicationRule
     ReplicationRule (..),
-    replicationRule,
-    rrPrefix,
-    rrId,
-    rrExistingObjectReplication,
-    rrPriority,
-    rrDeleteMarkerReplication,
-    rrSourceSelectionCriteria,
-    rrFilter,
-    rrStatus,
-    rrDestination,
+    newReplicationRule,
 
     -- * ReplicationRuleAndOperator
     ReplicationRuleAndOperator (..),
-    replicationRuleAndOperator,
-    rraoPrefix,
-    rraoTags,
+    newReplicationRuleAndOperator,
 
     -- * ReplicationRuleFilter
     ReplicationRuleFilter (..),
-    replicationRuleFilter,
-    rrfPrefix,
-    rrfAnd,
-    rrfTag,
+    newReplicationRuleFilter,
 
     -- * ReplicationTime
     ReplicationTime (..),
-    replicationTime,
-    rtStatus,
-    rtTime,
+    newReplicationTime,
 
     -- * ReplicationTimeValue
     ReplicationTimeValue (..),
-    replicationTimeValue,
-    rtvMinutes,
+    newReplicationTimeValue,
 
     -- * RequestPaymentConfiguration
     RequestPaymentConfiguration (..),
-    requestPaymentConfiguration,
-    rpcPayer,
+    newRequestPaymentConfiguration,
 
     -- * RequestProgress
     RequestProgress (..),
-    requestProgress,
-    rpEnabled,
+    newRequestProgress,
 
     -- * RestoreRequest
     RestoreRequest (..),
-    restoreRequest,
-    rrDays,
-    rrSelectParameters,
-    rrDescription,
-    rrType,
-    rrOutputLocation,
-    rrTier,
-    rrGlacierJobParameters,
+    newRestoreRequest,
 
     -- * RoutingRule
     RoutingRule (..),
-    routingRule,
-    rrCondition,
-    rrRedirect,
+    newRoutingRule,
 
     -- * S3KeyFilter
     S3KeyFilter (..),
-    s3KeyFilter,
-    skfFilterRules,
+    newS3KeyFilter,
 
     -- * S3Location
     S3Location (..),
-    s3Location,
-    slCannedACL,
-    slEncryption,
-    slStorageClass,
-    slUserMetadata,
-    slAccessControlList,
-    slTagging,
-    slBucketName,
-    slPrefix,
+    newS3Location,
 
     -- * S3ServiceError
     S3ServiceError (..),
-    s3ServiceError,
-    sseKey,
-    sseMessage,
-    sseCode,
-    sseVersionId,
+    newS3ServiceError,
 
     -- * SSEKMS
     SSEKMS (..),
-    sSEKMS,
-    ssekKeyId,
+    newSSEKMS,
 
     -- * SSES3
     SSES3 (..),
-    sSES3,
+    newSSES3,
 
     -- * ScanRange
     ScanRange (..),
-    scanRange,
-    srEnd,
-    srStart,
+    newScanRange,
 
     -- * SelectObjectContentEventStream
     SelectObjectContentEventStream (..),
-    selectObjectContentEventStream,
-    socesEnd,
-    socesRecords,
-    socesStats,
-    socesCont,
-    socesProgress,
+    newSelectObjectContentEventStream,
 
     -- * SelectParameters
     SelectParameters (..),
-    selectParameters,
-    spInputSerialization,
-    spExpressionType,
-    spExpression,
-    spOutputSerialization,
+    newSelectParameters,
 
     -- * ServerSideEncryptionByDefault
     ServerSideEncryptionByDefault (..),
-    serverSideEncryptionByDefault,
-    ssebdKMSMasterKeyId,
-    ssebdSSEAlgorithm,
+    newServerSideEncryptionByDefault,
 
     -- * ServerSideEncryptionConfiguration
     ServerSideEncryptionConfiguration (..),
-    serverSideEncryptionConfiguration,
-    ssecRules,
+    newServerSideEncryptionConfiguration,
 
     -- * ServerSideEncryptionRule
     ServerSideEncryptionRule (..),
-    serverSideEncryptionRule,
-    sserBucketKeyEnabled,
-    sserApplyServerSideEncryptionByDefault,
+    newServerSideEncryptionRule,
 
     -- * SourceSelectionCriteria
     SourceSelectionCriteria (..),
-    sourceSelectionCriteria,
-    sscReplicaModifications,
-    sscSseKMSEncryptedObjects,
+    newSourceSelectionCriteria,
 
-    -- * SseKMSEncryptedObjects
-    SseKMSEncryptedObjects (..),
-    sseKMSEncryptedObjects,
-    skeoStatus,
+    -- * SseKmsEncryptedObjects
+    SseKmsEncryptedObjects (..),
+    newSseKmsEncryptedObjects,
 
     -- * Stats
     Stats (..),
-    stats,
-    sBytesScanned,
-    sBytesProcessed,
-    sBytesReturned,
+    newStats,
 
     -- * StatsEvent
     StatsEvent (..),
-    statsEvent,
-    seDetails,
+    newStatsEvent,
 
     -- * StorageClassAnalysis
     StorageClassAnalysis (..),
-    storageClassAnalysis,
-    scaDataExport,
+    newStorageClassAnalysis,
 
     -- * StorageClassAnalysisDataExport
     StorageClassAnalysisDataExport (..),
-    storageClassAnalysisDataExport,
-    scadeOutputSchemaVersion,
-    scadeDestination,
+    newStorageClassAnalysisDataExport,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * Tagging
     Tagging (..),
-    tagging,
-    tTagSet,
+    newTagging,
 
     -- * TargetGrant
     TargetGrant (..),
-    targetGrant,
-    tgGrantee,
-    tgPermission,
+    newTargetGrant,
 
     -- * Tiering
     Tiering (..),
-    tiering,
-    tieDays,
-    tieAccessTier,
+    newTiering,
 
     -- * TopicConfiguration
     TopicConfiguration (..),
-    topicConfiguration,
-    tcId,
-    tcFilter,
-    tcTopicARN,
-    tcEvents,
+    newTopicConfiguration,
 
     -- * Transition
     Transition (..),
-    transition,
-    tDays,
-    tStorageClass,
-    tDate,
+    newTransition,
 
     -- * VersioningConfiguration
     VersioningConfiguration (..),
-    versioningConfiguration,
-    vcStatus,
-    vcMFADelete,
+    newVersioningConfiguration,
 
     -- * WebsiteConfiguration
     WebsiteConfiguration (..),
-    websiteConfiguration,
-    wcErrorDocument,
-    wcIndexDocument,
-    wcRoutingRules,
-    wcRedirectAllRequestsTo,
+    newWebsiteConfiguration,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.AbortIncompleteMultipartUpload
 import Network.AWS.S3.Types.AccelerateConfiguration
@@ -1179,8 +865,8 @@ import Network.AWS.S3.Types.ServerSideEncryptionByDefault
 import Network.AWS.S3.Types.ServerSideEncryptionConfiguration
 import Network.AWS.S3.Types.ServerSideEncryptionRule
 import Network.AWS.S3.Types.SourceSelectionCriteria
-import Network.AWS.S3.Types.SseKMSEncryptedObjects
-import Network.AWS.S3.Types.SseKMSEncryptedObjectsStatus
+import Network.AWS.S3.Types.SseKmsEncryptedObjects
+import Network.AWS.S3.Types.SseKmsEncryptedObjectsStatus
 import Network.AWS.S3.Types.Stats
 import Network.AWS.S3.Types.StatsEvent
 import Network.AWS.S3.Types.StorageClass
@@ -1199,98 +885,148 @@ import Network.AWS.S3.Types.TransitionStorageClass
 import Network.AWS.S3.Types.Type
 import Network.AWS.S3.Types.VersioningConfiguration
 import Network.AWS.S3.Types.WebsiteConfiguration
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2006-03-01@ of the Amazon Simple Storage Service SDK configuration.
-s3 :: Service
-s3 =
-  Service
-    { _svcAbbrev = "S3",
-      _svcSigner = v4,
-      _svcPrefix = "s3",
-      _svcVersion = "2006-03-01",
-      _svcEndpoint = defaultEndpoint s3,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseXMLError "S3",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "S3",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "s3",
+      Prelude._svcVersion = "2006-03-01",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError = Prelude.parseXMLError "S3",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has (hasCode "BadDigest" . hasStatus 400) e =
-        Just "contentmd5"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "BadDigest"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "contentmd5"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has (hasCode "RequestTimeout" . hasStatus 400) e =
-        Just "timeouts"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "RequestTimeout"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "timeouts"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | The source object of the COPY operation is not in the active tier and is only stored in Amazon S3 Glacier.
-_ObjectNotInActiveTierError :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The source object of the COPY operation is not in the active tier and is
+-- only stored in Amazon S3 Glacier.
+_ObjectNotInActiveTierError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ObjectNotInActiveTierError =
-  _MatchServiceError s3 "ObjectNotInActiveTierError"
+  Prelude._MatchServiceError
+    defaultService
+    "ObjectNotInActiveTierError"
 
 -- | The specified key does not exist.
-_NoSuchKey :: AsError a => Getting (First ServiceError) a ServiceError
-_NoSuchKey = _MatchServiceError s3 "NoSuchKey"
+_NoSuchKey :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_NoSuchKey =
+  Prelude._MatchServiceError
+    defaultService
+    "NoSuchKey"
 
 -- | This operation is not allowed against this storage tier.
-_ObjectAlreadyInActiveTierError :: AsError a => Getting (First ServiceError) a ServiceError
+_ObjectAlreadyInActiveTierError :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ObjectAlreadyInActiveTierError =
-  _MatchServiceError
-    s3
+  Prelude._MatchServiceError
+    defaultService
     "ObjectAlreadyInActiveTierError"
 
--- | The bucket you tried to create already exists, and you own it. Amazon S3 returns this error in all AWS Regions except in the North Virginia Region. For legacy compatibility, if you re-create an existing bucket that you already own in the North Virginia Region, Amazon S3 returns 200 OK and resets the bucket access control lists (ACLs).
-_BucketAlreadyOwnedByYou :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The bucket you tried to create already exists, and you own it. Amazon S3
+-- returns this error in all AWS Regions except in the North Virginia
+-- Region. For legacy compatibility, if you re-create an existing bucket
+-- that you already own in the North Virginia Region, Amazon S3 returns 200
+-- OK and resets the bucket access control lists (ACLs).
+_BucketAlreadyOwnedByYou :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BucketAlreadyOwnedByYou =
-  _MatchServiceError s3 "BucketAlreadyOwnedByYou"
+  Prelude._MatchServiceError
+    defaultService
+    "BucketAlreadyOwnedByYou"
 
 -- | The specified multipart upload does not exist.
-_NoSuchUpload :: AsError a => Getting (First ServiceError) a ServiceError
-_NoSuchUpload = _MatchServiceError s3 "NoSuchUpload"
+_NoSuchUpload :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_NoSuchUpload =
+  Prelude._MatchServiceError
+    defaultService
+    "NoSuchUpload"
 
 -- | Object is archived and inaccessible until restored.
-_InvalidObjectState :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidObjectState :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidObjectState =
-  _MatchServiceError s3 "InvalidObjectState"
+  Prelude._MatchServiceError
+    defaultService
+    "InvalidObjectState"
 
--- | The requested bucket name is not available. The bucket namespace is shared by all users of the system. Select a different name and try again.
-_BucketAlreadyExists :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The requested bucket name is not available. The bucket namespace is
+-- shared by all users of the system. Select a different name and try
+-- again.
+_BucketAlreadyExists :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _BucketAlreadyExists =
-  _MatchServiceError s3 "BucketAlreadyExists"
+  Prelude._MatchServiceError
+    defaultService
+    "BucketAlreadyExists"
 
 -- | The specified bucket does not exist.
-_NoSuchBucket :: AsError a => Getting (First ServiceError) a ServiceError
-_NoSuchBucket = _MatchServiceError s3 "NoSuchBucket"
+_NoSuchBucket :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
+_NoSuchBucket =
+  Prelude._MatchServiceError
+    defaultService
+    "NoSuchBucket"

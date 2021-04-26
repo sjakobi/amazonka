@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.S3Location where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.Encryption
 import Network.AWS.S3.Types.Grant
@@ -25,109 +29,123 @@ import Network.AWS.S3.Types.ObjectCannedACL
 import Network.AWS.S3.Types.StorageClass
 import Network.AWS.S3.Types.Tagging
 
--- | Describes an Amazon S3 location that will receive the results of the restore request.
+-- | Describes an Amazon S3 location that will receive the results of the
+-- restore request.
 --
---
---
--- /See:/ 's3Location' smart constructor.
+-- /See:/ 'newS3Location' smart constructor.
 data S3Location = S3Location'
-  { _slCannedACL ::
-      !(Maybe ObjectCannedACL),
-    _slEncryption :: !(Maybe Encryption),
-    _slStorageClass :: !(Maybe StorageClass),
-    _slUserMetadata :: !(Maybe [MetadataEntry]),
-    _slAccessControlList :: !(Maybe [Grant]),
-    _slTagging :: !(Maybe Tagging),
-    _slBucketName :: !BucketName,
-    _slPrefix :: !Text
+  { -- | The canned ACL to apply to the restore results.
+    cannedACL :: Prelude.Maybe ObjectCannedACL,
+    encryption :: Prelude.Maybe Encryption,
+    -- | The class of storage used to store the restore results.
+    storageClass :: Prelude.Maybe StorageClass,
+    -- | A list of metadata to store with the restore results in S3.
+    userMetadata :: Prelude.Maybe [MetadataEntry],
+    -- | A list of grants that control access to the staged results.
+    accessControlList :: Prelude.Maybe [Grant],
+    -- | The tag-set that is applied to the restore results.
+    tagging :: Prelude.Maybe Tagging,
+    -- | The name of the bucket where the restore results will be placed.
+    bucketName :: BucketName,
+    -- | The prefix that is prepended to the restore results for this request.
+    prefix :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3Location' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3Location' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'slCannedACL' - The canned ACL to apply to the restore results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'slEncryption' - Undocumented member.
+-- 'cannedACL', 's3Location_cannedACL' - The canned ACL to apply to the restore results.
 --
--- * 'slStorageClass' - The class of storage used to store the restore results.
+-- 'encryption', 's3Location_encryption' - Undocumented member.
 --
--- * 'slUserMetadata' - A list of metadata to store with the restore results in S3.
+-- 'storageClass', 's3Location_storageClass' - The class of storage used to store the restore results.
 --
--- * 'slAccessControlList' - A list of grants that control access to the staged results.
+-- 'userMetadata', 's3Location_userMetadata' - A list of metadata to store with the restore results in S3.
 --
--- * 'slTagging' - The tag-set that is applied to the restore results.
+-- 'accessControlList', 's3Location_accessControlList' - A list of grants that control access to the staged results.
 --
--- * 'slBucketName' - The name of the bucket where the restore results will be placed.
+-- 'tagging', 's3Location_tagging' - The tag-set that is applied to the restore results.
 --
--- * 'slPrefix' - The prefix that is prepended to the restore results for this request.
-s3Location ::
-  -- | 'slBucketName'
+-- 'bucketName', 's3Location_bucketName' - The name of the bucket where the restore results will be placed.
+--
+-- 'prefix', 's3Location_prefix' - The prefix that is prepended to the restore results for this request.
+newS3Location ::
+  -- | 'bucketName'
   BucketName ->
-  -- | 'slPrefix'
-  Text ->
+  -- | 'prefix'
+  Prelude.Text ->
   S3Location
-s3Location pBucketName_ pPrefix_ =
+newS3Location pBucketName_ pPrefix_ =
   S3Location'
-    { _slCannedACL = Nothing,
-      _slEncryption = Nothing,
-      _slStorageClass = Nothing,
-      _slUserMetadata = Nothing,
-      _slAccessControlList = Nothing,
-      _slTagging = Nothing,
-      _slBucketName = pBucketName_,
-      _slPrefix = pPrefix_
+    { cannedACL = Prelude.Nothing,
+      encryption = Prelude.Nothing,
+      storageClass = Prelude.Nothing,
+      userMetadata = Prelude.Nothing,
+      accessControlList = Prelude.Nothing,
+      tagging = Prelude.Nothing,
+      bucketName = pBucketName_,
+      prefix = pPrefix_
     }
 
 -- | The canned ACL to apply to the restore results.
-slCannedACL :: Lens' S3Location (Maybe ObjectCannedACL)
-slCannedACL = lens _slCannedACL (\s a -> s {_slCannedACL = a})
+s3Location_cannedACL :: Lens.Lens' S3Location (Prelude.Maybe ObjectCannedACL)
+s3Location_cannedACL = Lens.lens (\S3Location' {cannedACL} -> cannedACL) (\s@S3Location' {} a -> s {cannedACL = a} :: S3Location)
 
 -- | Undocumented member.
-slEncryption :: Lens' S3Location (Maybe Encryption)
-slEncryption = lens _slEncryption (\s a -> s {_slEncryption = a})
+s3Location_encryption :: Lens.Lens' S3Location (Prelude.Maybe Encryption)
+s3Location_encryption = Lens.lens (\S3Location' {encryption} -> encryption) (\s@S3Location' {} a -> s {encryption = a} :: S3Location)
 
 -- | The class of storage used to store the restore results.
-slStorageClass :: Lens' S3Location (Maybe StorageClass)
-slStorageClass = lens _slStorageClass (\s a -> s {_slStorageClass = a})
+s3Location_storageClass :: Lens.Lens' S3Location (Prelude.Maybe StorageClass)
+s3Location_storageClass = Lens.lens (\S3Location' {storageClass} -> storageClass) (\s@S3Location' {} a -> s {storageClass = a} :: S3Location)
 
 -- | A list of metadata to store with the restore results in S3.
-slUserMetadata :: Lens' S3Location [MetadataEntry]
-slUserMetadata = lens _slUserMetadata (\s a -> s {_slUserMetadata = a}) . _Default . _Coerce
+s3Location_userMetadata :: Lens.Lens' S3Location (Prelude.Maybe [MetadataEntry])
+s3Location_userMetadata = Lens.lens (\S3Location' {userMetadata} -> userMetadata) (\s@S3Location' {} a -> s {userMetadata = a} :: S3Location) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | A list of grants that control access to the staged results.
-slAccessControlList :: Lens' S3Location [Grant]
-slAccessControlList = lens _slAccessControlList (\s a -> s {_slAccessControlList = a}) . _Default . _Coerce
+s3Location_accessControlList :: Lens.Lens' S3Location (Prelude.Maybe [Grant])
+s3Location_accessControlList = Lens.lens (\S3Location' {accessControlList} -> accessControlList) (\s@S3Location' {} a -> s {accessControlList = a} :: S3Location) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tag-set that is applied to the restore results.
-slTagging :: Lens' S3Location (Maybe Tagging)
-slTagging = lens _slTagging (\s a -> s {_slTagging = a})
+s3Location_tagging :: Lens.Lens' S3Location (Prelude.Maybe Tagging)
+s3Location_tagging = Lens.lens (\S3Location' {tagging} -> tagging) (\s@S3Location' {} a -> s {tagging = a} :: S3Location)
 
 -- | The name of the bucket where the restore results will be placed.
-slBucketName :: Lens' S3Location BucketName
-slBucketName = lens _slBucketName (\s a -> s {_slBucketName = a})
+s3Location_bucketName :: Lens.Lens' S3Location BucketName
+s3Location_bucketName = Lens.lens (\S3Location' {bucketName} -> bucketName) (\s@S3Location' {} a -> s {bucketName = a} :: S3Location)
 
 -- | The prefix that is prepended to the restore results for this request.
-slPrefix :: Lens' S3Location Text
-slPrefix = lens _slPrefix (\s a -> s {_slPrefix = a})
+s3Location_prefix :: Lens.Lens' S3Location Prelude.Text
+s3Location_prefix = Lens.lens (\S3Location' {prefix} -> prefix) (\s@S3Location' {} a -> s {prefix = a} :: S3Location)
 
-instance Hashable S3Location
+instance Prelude.Hashable S3Location
 
-instance NFData S3Location
+instance Prelude.NFData S3Location
 
-instance ToXML S3Location where
+instance Prelude.ToXML S3Location where
   toXML S3Location' {..} =
-    mconcat
-      [ "CannedACL" @= _slCannedACL,
-        "Encryption" @= _slEncryption,
-        "StorageClass" @= _slStorageClass,
+    Prelude.mconcat
+      [ "CannedACL" Prelude.@= cannedACL,
+        "Encryption" Prelude.@= encryption,
+        "StorageClass" Prelude.@= storageClass,
         "UserMetadata"
-          @= toXML
-            (toXMLList "MetadataEntry" <$> _slUserMetadata),
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "MetadataEntry"
+                Prelude.<$> userMetadata
+            ),
         "AccessControlList"
-          @= toXML (toXMLList "Grant" <$> _slAccessControlList),
-        "Tagging" @= _slTagging,
-        "BucketName" @= _slBucketName,
-        "Prefix" @= _slPrefix
+          Prelude.@= Prelude.toXML
+            ( Prelude.toXMLList "Grant"
+                Prelude.<$> accessControlList
+            ),
+        "Tagging" Prelude.@= tagging,
+        "BucketName" Prelude.@= bucketName,
+        "Prefix" Prelude.@= prefix
       ]

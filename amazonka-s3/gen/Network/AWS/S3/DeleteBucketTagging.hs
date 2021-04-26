@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,109 +23,120 @@
 --
 -- Deletes the tags from the bucket.
 --
+-- To use this operation, you must have permission to perform the
+-- @s3:PutBucketTagging@ action. By default, the bucket owner has this
+-- permission and can grant this permission to others.
 --
--- To use this operation, you must have permission to perform the @s3:PutBucketTagging@ action. By default, the bucket owner has this permission and can grant this permission to others.
+-- The following operations are related to @DeleteBucketTagging@:
 --
--- The following operations are related to @DeleteBucketTagging@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html GetBucketTagging>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html GetBucketTagging>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html PutBucketTagging>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html PutBucketTagging>
 module Network.AWS.S3.DeleteBucketTagging
   ( -- * Creating a Request
-    deleteBucketTagging,
-    DeleteBucketTagging,
+    DeleteBucketTagging (..),
+    newDeleteBucketTagging,
 
     -- * Request Lenses
-    dbtExpectedBucketOwner,
-    dbtBucket,
+    deleteBucketTagging_expectedBucketOwner,
+    deleteBucketTagging_bucket,
 
     -- * Destructuring the Response
-    deleteBucketTaggingResponse,
-    DeleteBucketTaggingResponse,
+    DeleteBucketTaggingResponse (..),
+    newDeleteBucketTaggingResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
 
--- | /See:/ 'deleteBucketTagging' smart constructor.
+-- | /See:/ 'newDeleteBucketTagging' smart constructor.
 data DeleteBucketTagging = DeleteBucketTagging'
-  { _dbtExpectedBucketOwner ::
-      !(Maybe Text),
-    _dbtBucket :: !BucketName
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The bucket that has the tag set to be removed.
+    bucket :: BucketName
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketTagging' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteBucketTagging' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dbtExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dbtBucket' - The bucket that has the tag set to be removed.
-deleteBucketTagging ::
-  -- | 'dbtBucket'
+-- 'expectedBucketOwner', 'deleteBucketTagging_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+--
+-- 'bucket', 'deleteBucketTagging_bucket' - The bucket that has the tag set to be removed.
+newDeleteBucketTagging ::
+  -- | 'bucket'
   BucketName ->
   DeleteBucketTagging
-deleteBucketTagging pBucket_ =
+newDeleteBucketTagging pBucket_ =
   DeleteBucketTagging'
-    { _dbtExpectedBucketOwner =
-        Nothing,
-      _dbtBucket = pBucket_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-dbtExpectedBucketOwner :: Lens' DeleteBucketTagging (Maybe Text)
-dbtExpectedBucketOwner = lens _dbtExpectedBucketOwner (\s a -> s {_dbtExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+deleteBucketTagging_expectedBucketOwner :: Lens.Lens' DeleteBucketTagging (Prelude.Maybe Prelude.Text)
+deleteBucketTagging_expectedBucketOwner = Lens.lens (\DeleteBucketTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketTagging' {} a -> s {expectedBucketOwner = a} :: DeleteBucketTagging)
 
 -- | The bucket that has the tag set to be removed.
-dbtBucket :: Lens' DeleteBucketTagging BucketName
-dbtBucket = lens _dbtBucket (\s a -> s {_dbtBucket = a})
+deleteBucketTagging_bucket :: Lens.Lens' DeleteBucketTagging BucketName
+deleteBucketTagging_bucket = Lens.lens (\DeleteBucketTagging' {bucket} -> bucket) (\s@DeleteBucketTagging' {} a -> s {bucket = a} :: DeleteBucketTagging)
 
-instance AWSRequest DeleteBucketTagging where
+instance Prelude.AWSRequest DeleteBucketTagging where
   type
     Rs DeleteBucketTagging =
       DeleteBucketTaggingResponse
-  request = delete s3
-  response = receiveNull DeleteBucketTaggingResponse'
+  request = Request.delete defaultService
+  response =
+    Response.receiveNull DeleteBucketTaggingResponse'
 
-instance Hashable DeleteBucketTagging
+instance Prelude.Hashable DeleteBucketTagging
 
-instance NFData DeleteBucketTagging
+instance Prelude.NFData DeleteBucketTagging
 
-instance ToHeaders DeleteBucketTagging where
+instance Prelude.ToHeaders DeleteBucketTagging where
   toHeaders DeleteBucketTagging' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _dbtExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath DeleteBucketTagging where
+instance Prelude.ToPath DeleteBucketTagging where
   toPath DeleteBucketTagging' {..} =
-    mconcat ["/", toBS _dbtBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery DeleteBucketTagging where
-  toQuery = const (mconcat ["tagging"])
+instance Prelude.ToQuery DeleteBucketTagging where
+  toQuery = Prelude.const (Prelude.mconcat ["tagging"])
 
--- | /See:/ 'deleteBucketTaggingResponse' smart constructor.
+-- | /See:/ 'newDeleteBucketTaggingResponse' smart constructor.
 data DeleteBucketTaggingResponse = DeleteBucketTaggingResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteBucketTaggingResponse' with the minimum fields required to make a request.
-deleteBucketTaggingResponse ::
+-- |
+-- Create a value of 'DeleteBucketTaggingResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteBucketTaggingResponse ::
   DeleteBucketTaggingResponse
-deleteBucketTaggingResponse =
+newDeleteBucketTaggingResponse =
   DeleteBucketTaggingResponse'
 
-instance NFData DeleteBucketTaggingResponse
+instance Prelude.NFData DeleteBucketTaggingResponse

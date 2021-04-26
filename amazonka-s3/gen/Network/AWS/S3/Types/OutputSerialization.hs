@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,55 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.OutputSerialization where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.CSVOutput
 import Network.AWS.S3.Types.JSONOutput
 
 -- | Describes how results of the Select job are serialized.
 --
---
---
--- /See:/ 'outputSerialization' smart constructor.
+-- /See:/ 'newOutputSerialization' smart constructor.
 data OutputSerialization = OutputSerialization'
-  { _osCSV ::
-      !(Maybe CSVOutput),
-    _osJSON :: !(Maybe JSONOutput)
+  { -- | Describes the serialization of CSV-encoded Select results.
+    cSV :: Prelude.Maybe CSVOutput,
+    -- | Specifies JSON as request\'s output serialization format.
+    jSON :: Prelude.Maybe JSONOutput
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'OutputSerialization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'OutputSerialization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'osCSV' - Describes the serialization of CSV-encoded Select results.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'osJSON' - Specifies JSON as request's output serialization format.
-outputSerialization ::
+-- 'cSV', 'outputSerialization_cSV' - Describes the serialization of CSV-encoded Select results.
+--
+-- 'jSON', 'outputSerialization_jSON' - Specifies JSON as request\'s output serialization format.
+newOutputSerialization ::
   OutputSerialization
-outputSerialization =
+newOutputSerialization =
   OutputSerialization'
-    { _osCSV = Nothing,
-      _osJSON = Nothing
+    { cSV = Prelude.Nothing,
+      jSON = Prelude.Nothing
     }
 
 -- | Describes the serialization of CSV-encoded Select results.
-osCSV :: Lens' OutputSerialization (Maybe CSVOutput)
-osCSV = lens _osCSV (\s a -> s {_osCSV = a})
+outputSerialization_cSV :: Lens.Lens' OutputSerialization (Prelude.Maybe CSVOutput)
+outputSerialization_cSV = Lens.lens (\OutputSerialization' {cSV} -> cSV) (\s@OutputSerialization' {} a -> s {cSV = a} :: OutputSerialization)
 
--- | Specifies JSON as request's output serialization format.
-osJSON :: Lens' OutputSerialization (Maybe JSONOutput)
-osJSON = lens _osJSON (\s a -> s {_osJSON = a})
+-- | Specifies JSON as request\'s output serialization format.
+outputSerialization_jSON :: Lens.Lens' OutputSerialization (Prelude.Maybe JSONOutput)
+outputSerialization_jSON = Lens.lens (\OutputSerialization' {jSON} -> jSON) (\s@OutputSerialization' {} a -> s {jSON = a} :: OutputSerialization)
 
-instance Hashable OutputSerialization
+instance Prelude.Hashable OutputSerialization
 
-instance NFData OutputSerialization
+instance Prelude.NFData OutputSerialization
 
-instance ToXML OutputSerialization where
+instance Prelude.ToXML OutputSerialization where
   toXML OutputSerialization' {..} =
-    mconcat ["CSV" @= _osCSV, "JSON" @= _osJSON]
+    Prelude.mconcat
+      ["CSV" Prelude.@= cSV, "JSON" Prelude.@= jSON]

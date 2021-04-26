@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,53 @@
 module Network.AWS.S3.Types.RequestCharged
   ( RequestCharged
       ( ..,
-        Requester
+        RequestChargedRequester
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
--- | If present, indicates that the requester was successfully charged for the request.
-data RequestCharged = RequestCharged' (CI Text)
+-- | If present, indicates that the requester was successfully charged for
+-- the request.
+newtype RequestCharged = RequestCharged'
+  { fromRequestCharged ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Requester :: RequestCharged
-pattern Requester = RequestCharged' "requester"
+pattern RequestChargedRequester :: RequestCharged
+pattern RequestChargedRequester = RequestCharged' "requester"
 
 {-# COMPLETE
-  Requester,
+  RequestChargedRequester,
   RequestCharged'
   #-}
 
-instance FromText RequestCharged where
-  parser = (RequestCharged' . mk) <$> takeText
+instance Prelude.FromText RequestCharged where
+  parser = RequestCharged' Prelude.<$> Prelude.takeText
 
-instance ToText RequestCharged where
-  toText (RequestCharged' ci) = original ci
+instance Prelude.ToText RequestCharged where
+  toText (RequestCharged' x) = x
 
-instance Hashable RequestCharged
+instance Prelude.Hashable RequestCharged
 
-instance NFData RequestCharged
+instance Prelude.NFData RequestCharged
 
-instance ToByteString RequestCharged
+instance Prelude.ToByteString RequestCharged
 
-instance ToQuery RequestCharged
+instance Prelude.ToQuery RequestCharged
 
-instance ToHeader RequestCharged
+instance Prelude.ToHeader RequestCharged
 
-instance FromXML RequestCharged where
-  parseXML = parseXMLText "RequestCharged"
+instance Prelude.FromXML RequestCharged where
+  parseXML = Prelude.parseXMLText "RequestCharged"

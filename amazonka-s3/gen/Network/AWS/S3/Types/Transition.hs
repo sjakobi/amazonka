@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,88 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Transition where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.TransitionStorageClass
 
--- | Specifies when an object transitions to a specified storage class. For more information about Amazon S3 lifecycle configuration rules, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/lifecycle-transition-general-considerations.html Transitioning Objects Using Amazon S3 Lifecycle> in the /Amazon Simple Storage Service Developer Guide/ .
+-- | Specifies when an object transitions to a specified storage class. For
+-- more information about Amazon S3 lifecycle configuration rules, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/lifecycle-transition-general-considerations.html Transitioning Objects Using Amazon S3 Lifecycle>
+-- in the /Amazon Simple Storage Service Developer Guide/.
 --
---
---
--- /See:/ 'transition' smart constructor.
+-- /See:/ 'newTransition' smart constructor.
 data Transition = Transition'
-  { _tDays :: !(Maybe Int),
-    _tStorageClass :: !(Maybe TransitionStorageClass),
-    _tDate :: !(Maybe ISO8601)
+  { -- | Indicates the number of days after creation when objects are
+    -- transitioned to the specified storage class. The value must be a
+    -- positive integer.
+    days :: Prelude.Maybe Prelude.Int,
+    -- | The storage class to which you want the object to transition.
+    storageClass :: Prelude.Maybe TransitionStorageClass,
+    -- | Indicates when objects are transitioned to the specified storage class.
+    -- The date value must be in ISO 8601 format. The time is always midnight
+    -- UTC.
+    date :: Prelude.Maybe Prelude.ISO8601
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Transition' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Transition' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tDays' - Indicates the number of days after creation when objects are transitioned to the specified storage class. The value must be a positive integer.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tStorageClass' - The storage class to which you want the object to transition.
+-- 'days', 'transition_days' - Indicates the number of days after creation when objects are
+-- transitioned to the specified storage class. The value must be a
+-- positive integer.
 --
--- * 'tDate' - Indicates when objects are transitioned to the specified storage class. The date value must be in ISO 8601 format. The time is always midnight UTC.
-transition ::
+-- 'storageClass', 'transition_storageClass' - The storage class to which you want the object to transition.
+--
+-- 'date', 'transition_date' - Indicates when objects are transitioned to the specified storage class.
+-- The date value must be in ISO 8601 format. The time is always midnight
+-- UTC.
+newTransition ::
   Transition
-transition =
+newTransition =
   Transition'
-    { _tDays = Nothing,
-      _tStorageClass = Nothing,
-      _tDate = Nothing
+    { days = Prelude.Nothing,
+      storageClass = Prelude.Nothing,
+      date = Prelude.Nothing
     }
 
--- | Indicates the number of days after creation when objects are transitioned to the specified storage class. The value must be a positive integer.
-tDays :: Lens' Transition (Maybe Int)
-tDays = lens _tDays (\s a -> s {_tDays = a})
+-- | Indicates the number of days after creation when objects are
+-- transitioned to the specified storage class. The value must be a
+-- positive integer.
+transition_days :: Lens.Lens' Transition (Prelude.Maybe Prelude.Int)
+transition_days = Lens.lens (\Transition' {days} -> days) (\s@Transition' {} a -> s {days = a} :: Transition)
 
 -- | The storage class to which you want the object to transition.
-tStorageClass :: Lens' Transition (Maybe TransitionStorageClass)
-tStorageClass = lens _tStorageClass (\s a -> s {_tStorageClass = a})
+transition_storageClass :: Lens.Lens' Transition (Prelude.Maybe TransitionStorageClass)
+transition_storageClass = Lens.lens (\Transition' {storageClass} -> storageClass) (\s@Transition' {} a -> s {storageClass = a} :: Transition)
 
--- | Indicates when objects are transitioned to the specified storage class. The date value must be in ISO 8601 format. The time is always midnight UTC.
-tDate :: Lens' Transition (Maybe UTCTime)
-tDate = lens _tDate (\s a -> s {_tDate = a}) . mapping _Time
+-- | Indicates when objects are transitioned to the specified storage class.
+-- The date value must be in ISO 8601 format. The time is always midnight
+-- UTC.
+transition_date :: Lens.Lens' Transition (Prelude.Maybe Prelude.UTCTime)
+transition_date = Lens.lens (\Transition' {date} -> date) (\s@Transition' {} a -> s {date = a} :: Transition) Prelude.. Lens.mapping Prelude._Time
 
-instance FromXML Transition where
+instance Prelude.FromXML Transition where
   parseXML x =
     Transition'
-      <$> (x .@? "Days")
-      <*> (x .@? "StorageClass")
-      <*> (x .@? "Date")
+      Prelude.<$> (x Prelude..@? "Days")
+      Prelude.<*> (x Prelude..@? "StorageClass")
+      Prelude.<*> (x Prelude..@? "Date")
 
-instance Hashable Transition
+instance Prelude.Hashable Transition
 
-instance NFData Transition
+instance Prelude.NFData Transition
 
-instance ToXML Transition where
+instance Prelude.ToXML Transition where
   toXML Transition' {..} =
-    mconcat
-      [ "Days" @= _tDays,
-        "StorageClass" @= _tStorageClass,
-        "Date" @= _tDate
+    Prelude.mconcat
+      [ "Days" Prelude.@= days,
+        "StorageClass" Prelude.@= storageClass,
+        "Date" Prelude.@= date
       ]

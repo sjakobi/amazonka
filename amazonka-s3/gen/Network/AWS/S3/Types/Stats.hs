@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.Stats where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
 -- | Container for the stats details.
 --
---
---
--- /See:/ 'stats' smart constructor.
+-- /See:/ 'newStats' smart constructor.
 data Stats = Stats'
-  { _sBytesScanned ::
-      !(Maybe Integer),
-    _sBytesProcessed :: !(Maybe Integer),
-    _sBytesReturned :: !(Maybe Integer)
+  { -- | The total number of object bytes scanned.
+    bytesScanned :: Prelude.Maybe Prelude.Integer,
+    -- | The total number of uncompressed object bytes processed.
+    bytesProcessed :: Prelude.Maybe Prelude.Integer,
+    -- | The total number of bytes of records payload data returned.
+    bytesReturned :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Stats' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Stats' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sBytesScanned' - The total number of object bytes scanned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sBytesProcessed' - The total number of uncompressed object bytes processed.
+-- 'bytesScanned', 'stats_bytesScanned' - The total number of object bytes scanned.
 --
--- * 'sBytesReturned' - The total number of bytes of records payload data returned.
-stats ::
+-- 'bytesProcessed', 'stats_bytesProcessed' - The total number of uncompressed object bytes processed.
+--
+-- 'bytesReturned', 'stats_bytesReturned' - The total number of bytes of records payload data returned.
+newStats ::
   Stats
-stats =
+newStats =
   Stats'
-    { _sBytesScanned = Nothing,
-      _sBytesProcessed = Nothing,
-      _sBytesReturned = Nothing
+    { bytesScanned = Prelude.Nothing,
+      bytesProcessed = Prelude.Nothing,
+      bytesReturned = Prelude.Nothing
     }
 
 -- | The total number of object bytes scanned.
-sBytesScanned :: Lens' Stats (Maybe Integer)
-sBytesScanned = lens _sBytesScanned (\s a -> s {_sBytesScanned = a})
+stats_bytesScanned :: Lens.Lens' Stats (Prelude.Maybe Prelude.Integer)
+stats_bytesScanned = Lens.lens (\Stats' {bytesScanned} -> bytesScanned) (\s@Stats' {} a -> s {bytesScanned = a} :: Stats)
 
 -- | The total number of uncompressed object bytes processed.
-sBytesProcessed :: Lens' Stats (Maybe Integer)
-sBytesProcessed = lens _sBytesProcessed (\s a -> s {_sBytesProcessed = a})
+stats_bytesProcessed :: Lens.Lens' Stats (Prelude.Maybe Prelude.Integer)
+stats_bytesProcessed = Lens.lens (\Stats' {bytesProcessed} -> bytesProcessed) (\s@Stats' {} a -> s {bytesProcessed = a} :: Stats)
 
 -- | The total number of bytes of records payload data returned.
-sBytesReturned :: Lens' Stats (Maybe Integer)
-sBytesReturned = lens _sBytesReturned (\s a -> s {_sBytesReturned = a})
+stats_bytesReturned :: Lens.Lens' Stats (Prelude.Maybe Prelude.Integer)
+stats_bytesReturned = Lens.lens (\Stats' {bytesReturned} -> bytesReturned) (\s@Stats' {} a -> s {bytesReturned = a} :: Stats)
 
-instance FromXML Stats where
+instance Prelude.FromXML Stats where
   parseXML x =
     Stats'
-      <$> (x .@? "BytesScanned")
-      <*> (x .@? "BytesProcessed")
-      <*> (x .@? "BytesReturned")
+      Prelude.<$> (x Prelude..@? "BytesScanned")
+      Prelude.<*> (x Prelude..@? "BytesProcessed")
+      Prelude.<*> (x Prelude..@? "BytesReturned")
 
-instance Hashable Stats
+instance Prelude.Hashable Stats
 
-instance NFData Stats
+instance Prelude.NFData Stats

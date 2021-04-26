@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.TargetGrant where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.BucketLogsPermission
 import Network.AWS.S3.Types.Grantee
 
 -- | Container for granting information.
 --
---
---
--- /See:/ 'targetGrant' smart constructor.
+-- /See:/ 'newTargetGrant' smart constructor.
 data TargetGrant = TargetGrant'
-  { _tgGrantee ::
-      !(Maybe Grantee),
-    _tgPermission :: !(Maybe BucketLogsPermission)
+  { -- | Container for the person being granted permissions.
+    grantee :: Prelude.Maybe Grantee,
+    -- | Logging permissions assigned to the grantee for the bucket.
+    permission :: Prelude.Maybe BucketLogsPermission
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TargetGrant' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TargetGrant' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tgGrantee' - Container for the person being granted permissions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tgPermission' - Logging permissions assigned to the grantee for the bucket.
-targetGrant ::
+-- 'grantee', 'targetGrant_grantee' - Container for the person being granted permissions.
+--
+-- 'permission', 'targetGrant_permission' - Logging permissions assigned to the grantee for the bucket.
+newTargetGrant ::
   TargetGrant
-targetGrant =
+newTargetGrant =
   TargetGrant'
-    { _tgGrantee = Nothing,
-      _tgPermission = Nothing
+    { grantee = Prelude.Nothing,
+      permission = Prelude.Nothing
     }
 
 -- | Container for the person being granted permissions.
-tgGrantee :: Lens' TargetGrant (Maybe Grantee)
-tgGrantee = lens _tgGrantee (\s a -> s {_tgGrantee = a})
+targetGrant_grantee :: Lens.Lens' TargetGrant (Prelude.Maybe Grantee)
+targetGrant_grantee = Lens.lens (\TargetGrant' {grantee} -> grantee) (\s@TargetGrant' {} a -> s {grantee = a} :: TargetGrant)
 
 -- | Logging permissions assigned to the grantee for the bucket.
-tgPermission :: Lens' TargetGrant (Maybe BucketLogsPermission)
-tgPermission = lens _tgPermission (\s a -> s {_tgPermission = a})
+targetGrant_permission :: Lens.Lens' TargetGrant (Prelude.Maybe BucketLogsPermission)
+targetGrant_permission = Lens.lens (\TargetGrant' {permission} -> permission) (\s@TargetGrant' {} a -> s {permission = a} :: TargetGrant)
 
-instance FromXML TargetGrant where
+instance Prelude.FromXML TargetGrant where
   parseXML x =
     TargetGrant'
-      <$> (x .@? "Grantee") <*> (x .@? "Permission")
+      Prelude.<$> (x Prelude..@? "Grantee")
+      Prelude.<*> (x Prelude..@? "Permission")
 
-instance Hashable TargetGrant
+instance Prelude.Hashable TargetGrant
 
-instance NFData TargetGrant
+instance Prelude.NFData TargetGrant
 
-instance ToXML TargetGrant where
+instance Prelude.ToXML TargetGrant where
   toXML TargetGrant' {..} =
-    mconcat
-      [ "Grantee" @= _tgGrantee,
-        "Permission" @= _tgPermission
+    Prelude.mconcat
+      [ "Grantee" Prelude.@= grantee,
+        "Permission" Prelude.@= permission
       ]

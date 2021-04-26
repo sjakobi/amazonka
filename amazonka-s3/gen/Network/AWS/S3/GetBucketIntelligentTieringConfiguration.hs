@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,180 +23,187 @@
 --
 -- Gets the S3 Intelligent-Tiering configuration from the specified bucket.
 --
+-- The S3 Intelligent-Tiering storage class is designed to optimize storage
+-- costs by automatically moving data to the most cost-effective storage
+-- access tier, without additional operational overhead. S3
+-- Intelligent-Tiering delivers automatic cost savings by moving data
+-- between access tiers, when access patterns change.
 --
--- The S3 Intelligent-Tiering storage class is designed to optimize storage costs by automatically moving data to the most cost-effective storage access tier, without additional operational overhead. S3 Intelligent-Tiering delivers automatic cost savings by moving data between access tiers, when access patterns change.
+-- The S3 Intelligent-Tiering storage class is suitable for objects larger
+-- than 128 KB that you plan to store for at least 30 days. If the size of
+-- an object is less than 128 KB, it is not eligible for auto-tiering.
+-- Smaller objects can be stored, but they are always charged at the
+-- frequent access tier rates in the S3 Intelligent-Tiering storage class.
 --
--- The S3 Intelligent-Tiering storage class is suitable for objects larger than 128 KB that you plan to store for at least 30 days. If the size of an object is less than 128 KB, it is not eligible for auto-tiering. Smaller objects can be stored, but they are always charged at the frequent access tier rates in the S3 Intelligent-Tiering storage class.
+-- If you delete an object before the end of the 30-day minimum storage
+-- duration period, you are charged for 30 days. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects>.
 --
--- If you delete an object before the end of the 30-day minimum storage duration period, you are charged for 30 days. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html#sc-dynamic-data-access Storage class for automatically optimizing frequently and infrequently accessed objects> .
+-- Operations related to @GetBucketIntelligentTieringConfiguration@
+-- include:
 --
--- Operations related to @GetBucketIntelligentTieringConfiguration@ include:
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketIntelligentTieringConfiguration.html DeleteBucketIntelligentTieringConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketIntelligentTieringConfiguration.html DeleteBucketIntelligentTieringConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html PutBucketIntelligentTieringConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketIntelligentTieringConfiguration.html PutBucketIntelligentTieringConfiguration>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketIntelligentTieringConfigurations.html ListBucketIntelligentTieringConfigurations>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketIntelligentTieringConfigurations.html ListBucketIntelligentTieringConfigurations>
 module Network.AWS.S3.GetBucketIntelligentTieringConfiguration
   ( -- * Creating a Request
-    getBucketIntelligentTieringConfiguration,
-    GetBucketIntelligentTieringConfiguration,
+    GetBucketIntelligentTieringConfiguration (..),
+    newGetBucketIntelligentTieringConfiguration,
 
     -- * Request Lenses
-    gbitcBucket,
-    gbitcId,
+    getBucketIntelligentTieringConfiguration_bucket,
+    getBucketIntelligentTieringConfiguration_id,
 
     -- * Destructuring the Response
-    getBucketIntelligentTieringConfigurationResponse,
-    GetBucketIntelligentTieringConfigurationResponse,
+    GetBucketIntelligentTieringConfigurationResponse (..),
+    newGetBucketIntelligentTieringConfigurationResponse,
 
     -- * Response Lenses
-    gbitcrrsIntelligentTieringConfiguration,
-    gbitcrrsResponseStatus,
+    getBucketIntelligentTieringConfigurationResponse_intelligentTieringConfiguration,
+    getBucketIntelligentTieringConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.IntelligentTieringConfiguration
 
--- | /See:/ 'getBucketIntelligentTieringConfiguration' smart constructor.
+-- | /See:/ 'newGetBucketIntelligentTieringConfiguration' smart constructor.
 data GetBucketIntelligentTieringConfiguration = GetBucketIntelligentTieringConfiguration'
-  { _gbitcBucket ::
-      !BucketName,
-    _gbitcId ::
-      !Text
+  { -- | The name of the Amazon S3 bucket whose configuration you want to modify
+    -- or retrieve.
+    bucket :: BucketName,
+    -- | The ID used to identify the S3 Intelligent-Tiering configuration.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketIntelligentTieringConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketIntelligentTieringConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbitcBucket' - The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbitcId' - The ID used to identify the S3 Intelligent-Tiering configuration.
-getBucketIntelligentTieringConfiguration ::
-  -- | 'gbitcBucket'
+-- 'bucket', 'getBucketIntelligentTieringConfiguration_bucket' - The name of the Amazon S3 bucket whose configuration you want to modify
+-- or retrieve.
+--
+-- 'id', 'getBucketIntelligentTieringConfiguration_id' - The ID used to identify the S3 Intelligent-Tiering configuration.
+newGetBucketIntelligentTieringConfiguration ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'gbitcId'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
   GetBucketIntelligentTieringConfiguration
-getBucketIntelligentTieringConfiguration
+newGetBucketIntelligentTieringConfiguration
   pBucket_
   pId_ =
     GetBucketIntelligentTieringConfiguration'
-      { _gbitcBucket =
+      { bucket =
           pBucket_,
-        _gbitcId = pId_
+        id = pId_
       }
 
--- | The name of the Amazon S3 bucket whose configuration you want to modify or retrieve.
-gbitcBucket :: Lens' GetBucketIntelligentTieringConfiguration BucketName
-gbitcBucket = lens _gbitcBucket (\s a -> s {_gbitcBucket = a})
+-- | The name of the Amazon S3 bucket whose configuration you want to modify
+-- or retrieve.
+getBucketIntelligentTieringConfiguration_bucket :: Lens.Lens' GetBucketIntelligentTieringConfiguration BucketName
+getBucketIntelligentTieringConfiguration_bucket = Lens.lens (\GetBucketIntelligentTieringConfiguration' {bucket} -> bucket) (\s@GetBucketIntelligentTieringConfiguration' {} a -> s {bucket = a} :: GetBucketIntelligentTieringConfiguration)
 
 -- | The ID used to identify the S3 Intelligent-Tiering configuration.
-gbitcId :: Lens' GetBucketIntelligentTieringConfiguration Text
-gbitcId = lens _gbitcId (\s a -> s {_gbitcId = a})
+getBucketIntelligentTieringConfiguration_id :: Lens.Lens' GetBucketIntelligentTieringConfiguration Prelude.Text
+getBucketIntelligentTieringConfiguration_id = Lens.lens (\GetBucketIntelligentTieringConfiguration' {id} -> id) (\s@GetBucketIntelligentTieringConfiguration' {} a -> s {id = a} :: GetBucketIntelligentTieringConfiguration)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     GetBucketIntelligentTieringConfiguration
   where
   type
     Rs GetBucketIntelligentTieringConfiguration =
       GetBucketIntelligentTieringConfigurationResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetBucketIntelligentTieringConfigurationResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     GetBucketIntelligentTieringConfiguration
 
 instance
-  NFData
+  Prelude.NFData
     GetBucketIntelligentTieringConfiguration
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     GetBucketIntelligentTieringConfiguration
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToPath
+  Prelude.ToPath
     GetBucketIntelligentTieringConfiguration
   where
   toPath GetBucketIntelligentTieringConfiguration' {..} =
-    mconcat ["/", toBS _gbitcBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
 instance
-  ToQuery
+  Prelude.ToQuery
     GetBucketIntelligentTieringConfiguration
   where
   toQuery GetBucketIntelligentTieringConfiguration' {..} =
-    mconcat ["id" =: _gbitcId, "intelligent-tiering"]
+    Prelude.mconcat
+      ["id" Prelude.=: id, "intelligent-tiering"]
 
--- | /See:/ 'getBucketIntelligentTieringConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetBucketIntelligentTieringConfigurationResponse' smart constructor.
 data GetBucketIntelligentTieringConfigurationResponse = GetBucketIntelligentTieringConfigurationResponse'
-  { _gbitcrrsIntelligentTieringConfiguration ::
-      !( Maybe
-           IntelligentTieringConfiguration
-       ),
-    _gbitcrrsResponseStatus ::
-      !Int
+  { -- | Container for S3 Intelligent-Tiering configuration.
+    intelligentTieringConfiguration :: Prelude.Maybe IntelligentTieringConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketIntelligentTieringConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketIntelligentTieringConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbitcrrsIntelligentTieringConfiguration' - Container for S3 Intelligent-Tiering configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbitcrrsResponseStatus' - -- | The response status code.
-getBucketIntelligentTieringConfigurationResponse ::
-  -- | 'gbitcrrsResponseStatus'
-  Int ->
+-- 'intelligentTieringConfiguration', 'getBucketIntelligentTieringConfigurationResponse_intelligentTieringConfiguration' - Container for S3 Intelligent-Tiering configuration.
+--
+-- 'httpStatus', 'getBucketIntelligentTieringConfigurationResponse_httpStatus' - The response's http status code.
+newGetBucketIntelligentTieringConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBucketIntelligentTieringConfigurationResponse
-getBucketIntelligentTieringConfigurationResponse
-  pResponseStatus_ =
+newGetBucketIntelligentTieringConfigurationResponse
+  pHttpStatus_ =
     GetBucketIntelligentTieringConfigurationResponse'
-      { _gbitcrrsIntelligentTieringConfiguration =
-          Nothing,
-        _gbitcrrsResponseStatus =
-          pResponseStatus_
+      { intelligentTieringConfiguration =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Container for S3 Intelligent-Tiering configuration.
-gbitcrrsIntelligentTieringConfiguration :: Lens' GetBucketIntelligentTieringConfigurationResponse (Maybe IntelligentTieringConfiguration)
-gbitcrrsIntelligentTieringConfiguration = lens _gbitcrrsIntelligentTieringConfiguration (\s a -> s {_gbitcrrsIntelligentTieringConfiguration = a})
+getBucketIntelligentTieringConfigurationResponse_intelligentTieringConfiguration :: Lens.Lens' GetBucketIntelligentTieringConfigurationResponse (Prelude.Maybe IntelligentTieringConfiguration)
+getBucketIntelligentTieringConfigurationResponse_intelligentTieringConfiguration = Lens.lens (\GetBucketIntelligentTieringConfigurationResponse' {intelligentTieringConfiguration} -> intelligentTieringConfiguration) (\s@GetBucketIntelligentTieringConfigurationResponse' {} a -> s {intelligentTieringConfiguration = a} :: GetBucketIntelligentTieringConfigurationResponse)
 
--- | -- | The response status code.
-gbitcrrsResponseStatus :: Lens' GetBucketIntelligentTieringConfigurationResponse Int
-gbitcrrsResponseStatus = lens _gbitcrrsResponseStatus (\s a -> s {_gbitcrrsResponseStatus = a})
+-- | The response's http status code.
+getBucketIntelligentTieringConfigurationResponse_httpStatus :: Lens.Lens' GetBucketIntelligentTieringConfigurationResponse Prelude.Int
+getBucketIntelligentTieringConfigurationResponse_httpStatus = Lens.lens (\GetBucketIntelligentTieringConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetBucketIntelligentTieringConfigurationResponse' {} a -> s {httpStatus = a} :: GetBucketIntelligentTieringConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetBucketIntelligentTieringConfigurationResponse

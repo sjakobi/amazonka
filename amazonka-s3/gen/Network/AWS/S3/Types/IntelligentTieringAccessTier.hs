@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.IntelligentTieringAccessTier
   ( IntelligentTieringAccessTier
       ( ..,
-        ArchiveAccess,
-        DeepArchiveAccess
+        IntelligentTieringAccessTierARCHIVEACCESS,
+        IntelligentTieringAccessTierDEEPARCHIVEACCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data IntelligentTieringAccessTier
-  = IntelligentTieringAccessTier'
-      ( CI
-          Text
-      )
+newtype IntelligentTieringAccessTier = IntelligentTieringAccessTier'
+  { fromIntelligentTieringAccessTier ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ArchiveAccess :: IntelligentTieringAccessTier
-pattern ArchiveAccess = IntelligentTieringAccessTier' "ARCHIVE_ACCESS"
+pattern IntelligentTieringAccessTierARCHIVEACCESS :: IntelligentTieringAccessTier
+pattern IntelligentTieringAccessTierARCHIVEACCESS = IntelligentTieringAccessTier' "ARCHIVE_ACCESS"
 
-pattern DeepArchiveAccess :: IntelligentTieringAccessTier
-pattern DeepArchiveAccess = IntelligentTieringAccessTier' "DEEP_ARCHIVE_ACCESS"
+pattern IntelligentTieringAccessTierDEEPARCHIVEACCESS :: IntelligentTieringAccessTier
+pattern IntelligentTieringAccessTierDEEPARCHIVEACCESS = IntelligentTieringAccessTier' "DEEP_ARCHIVE_ACCESS"
 
 {-# COMPLETE
-  ArchiveAccess,
-  DeepArchiveAccess,
+  IntelligentTieringAccessTierARCHIVEACCESS,
+  IntelligentTieringAccessTierDEEPARCHIVEACCESS,
   IntelligentTieringAccessTier'
   #-}
 
-instance FromText IntelligentTieringAccessTier where
-  parser = (IntelligentTieringAccessTier' . mk) <$> takeText
+instance Prelude.FromText IntelligentTieringAccessTier where
+  parser = IntelligentTieringAccessTier' Prelude.<$> Prelude.takeText
 
-instance ToText IntelligentTieringAccessTier where
-  toText (IntelligentTieringAccessTier' ci) = original ci
+instance Prelude.ToText IntelligentTieringAccessTier where
+  toText (IntelligentTieringAccessTier' x) = x
 
-instance Hashable IntelligentTieringAccessTier
+instance Prelude.Hashable IntelligentTieringAccessTier
 
-instance NFData IntelligentTieringAccessTier
+instance Prelude.NFData IntelligentTieringAccessTier
 
-instance ToByteString IntelligentTieringAccessTier
+instance Prelude.ToByteString IntelligentTieringAccessTier
 
-instance ToQuery IntelligentTieringAccessTier
+instance Prelude.ToQuery IntelligentTieringAccessTier
 
-instance ToHeader IntelligentTieringAccessTier
+instance Prelude.ToHeader IntelligentTieringAccessTier
 
-instance FromXML IntelligentTieringAccessTier where
-  parseXML = parseXMLText "IntelligentTieringAccessTier"
+instance Prelude.FromXML IntelligentTieringAccessTier where
+  parseXML = Prelude.parseXMLText "IntelligentTieringAccessTier"
 
-instance ToXML IntelligentTieringAccessTier where
-  toXML = toXMLText
+instance Prelude.ToXML IntelligentTieringAccessTier where
+  toXML = Prelude.toXMLText

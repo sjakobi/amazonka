@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.S3.Types.ArchiveStatus
   ( ArchiveStatus
       ( ..,
-        ASArchiveAccess,
-        ASDeepArchiveAccess
+        ArchiveStatusARCHIVEACCESS,
+        ArchiveStatusDEEPARCHIVEACCESS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ArchiveStatus = ArchiveStatus' (CI Text)
+newtype ArchiveStatus = ArchiveStatus'
+  { fromArchiveStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ASArchiveAccess :: ArchiveStatus
-pattern ASArchiveAccess = ArchiveStatus' "ARCHIVE_ACCESS"
+pattern ArchiveStatusARCHIVEACCESS :: ArchiveStatus
+pattern ArchiveStatusARCHIVEACCESS = ArchiveStatus' "ARCHIVE_ACCESS"
 
-pattern ASDeepArchiveAccess :: ArchiveStatus
-pattern ASDeepArchiveAccess = ArchiveStatus' "DEEP_ARCHIVE_ACCESS"
+pattern ArchiveStatusDEEPARCHIVEACCESS :: ArchiveStatus
+pattern ArchiveStatusDEEPARCHIVEACCESS = ArchiveStatus' "DEEP_ARCHIVE_ACCESS"
 
 {-# COMPLETE
-  ASArchiveAccess,
-  ASDeepArchiveAccess,
+  ArchiveStatusARCHIVEACCESS,
+  ArchiveStatusDEEPARCHIVEACCESS,
   ArchiveStatus'
   #-}
 
-instance FromText ArchiveStatus where
-  parser = (ArchiveStatus' . mk) <$> takeText
+instance Prelude.FromText ArchiveStatus where
+  parser = ArchiveStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ArchiveStatus where
-  toText (ArchiveStatus' ci) = original ci
+instance Prelude.ToText ArchiveStatus where
+  toText (ArchiveStatus' x) = x
 
-instance Hashable ArchiveStatus
+instance Prelude.Hashable ArchiveStatus
 
-instance NFData ArchiveStatus
+instance Prelude.NFData ArchiveStatus
 
-instance ToByteString ArchiveStatus
+instance Prelude.ToByteString ArchiveStatus
 
-instance ToQuery ArchiveStatus
+instance Prelude.ToQuery ArchiveStatus
 
-instance ToHeader ArchiveStatus
+instance Prelude.ToHeader ArchiveStatus
 
-instance FromXML ArchiveStatus where
-  parseXML = parseXMLText "ArchiveStatus"
+instance Prelude.FromXML ArchiveStatus where
+  parseXML = Prelude.parseXMLText "ArchiveStatus"

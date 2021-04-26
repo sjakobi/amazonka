@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,147 +21,182 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the Object Lock configuration for a bucket. The rule specified in the Object Lock configuration will be applied by default to every new object placed in the specified bucket. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html Locking Objects> .
+-- Gets the Object Lock configuration for a bucket. The rule specified in
+-- the Object Lock configuration will be applied by default to every new
+-- object placed in the specified bucket. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html Locking Objects>.
 module Network.AWS.S3.GetObjectLockConfiguration
   ( -- * Creating a Request
-    getObjectLockConfiguration,
-    GetObjectLockConfiguration,
+    GetObjectLockConfiguration (..),
+    newGetObjectLockConfiguration,
 
     -- * Request Lenses
-    golcExpectedBucketOwner,
-    golcBucket,
+    getObjectLockConfiguration_expectedBucketOwner,
+    getObjectLockConfiguration_bucket,
 
     -- * Destructuring the Response
-    getObjectLockConfigurationResponse,
-    GetObjectLockConfigurationResponse,
+    GetObjectLockConfigurationResponse (..),
+    newGetObjectLockConfigurationResponse,
 
     -- * Response Lenses
-    golcrrsObjectLockConfiguration,
-    golcrrsResponseStatus,
+    getObjectLockConfigurationResponse_objectLockConfiguration,
+    getObjectLockConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.ObjectLockConfiguration
 
--- | /See:/ 'getObjectLockConfiguration' smart constructor.
+-- | /See:/ 'newGetObjectLockConfiguration' smart constructor.
 data GetObjectLockConfiguration = GetObjectLockConfiguration'
-  { _golcExpectedBucketOwner ::
-      !(Maybe Text),
-    _golcBucket ::
-      !BucketName
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The bucket whose Object Lock configuration you want to retrieve.
+    --
+    -- When using this API with an access point, you must direct requests to
+    -- the access point hostname. The access point hostname takes the form
+    -- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+    -- When using this operation with an access point through the AWS SDKs, you
+    -- provide the access point ARN in place of the bucket name. For more
+    -- information about access point ARNs, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    bucket :: BucketName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectLockConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectLockConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'golcExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'golcBucket' - The bucket whose Object Lock configuration you want to retrieve. When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ .
-getObjectLockConfiguration ::
-  -- | 'golcBucket'
+-- 'expectedBucketOwner', 'getObjectLockConfiguration_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+--
+-- 'bucket', 'getObjectLockConfiguration_bucket' - The bucket whose Object Lock configuration you want to retrieve.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+newGetObjectLockConfiguration ::
+  -- | 'bucket'
   BucketName ->
   GetObjectLockConfiguration
-getObjectLockConfiguration pBucket_ =
+newGetObjectLockConfiguration pBucket_ =
   GetObjectLockConfiguration'
-    { _golcExpectedBucketOwner =
-        Nothing,
-      _golcBucket = pBucket_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-golcExpectedBucketOwner :: Lens' GetObjectLockConfiguration (Maybe Text)
-golcExpectedBucketOwner = lens _golcExpectedBucketOwner (\s a -> s {_golcExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+getObjectLockConfiguration_expectedBucketOwner :: Lens.Lens' GetObjectLockConfiguration (Prelude.Maybe Prelude.Text)
+getObjectLockConfiguration_expectedBucketOwner = Lens.lens (\GetObjectLockConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetObjectLockConfiguration' {} a -> s {expectedBucketOwner = a} :: GetObjectLockConfiguration)
 
--- | The bucket whose Object Lock configuration you want to retrieve. When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form /AccessPointName/ -/AccountId/ .s3-accesspoint./Region/ .amazonaws.com. When using this operation with an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points> in the /Amazon Simple Storage Service Developer Guide/ .
-golcBucket :: Lens' GetObjectLockConfiguration BucketName
-golcBucket = lens _golcBucket (\s a -> s {_golcBucket = a})
+-- | The bucket whose Object Lock configuration you want to retrieve.
+--
+-- When using this API with an access point, you must direct requests to
+-- the access point hostname. The access point hostname takes the form
+-- /AccessPointName/-/AccountId/.s3-accesspoint./Region/.amazonaws.com.
+-- When using this operation with an access point through the AWS SDKs, you
+-- provide the access point ARN in place of the bucket name. For more
+-- information about access point ARNs, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html Using Access Points>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+getObjectLockConfiguration_bucket :: Lens.Lens' GetObjectLockConfiguration BucketName
+getObjectLockConfiguration_bucket = Lens.lens (\GetObjectLockConfiguration' {bucket} -> bucket) (\s@GetObjectLockConfiguration' {} a -> s {bucket = a} :: GetObjectLockConfiguration)
 
-instance AWSRequest GetObjectLockConfiguration where
+instance
+  Prelude.AWSRequest
+    GetObjectLockConfiguration
+  where
   type
     Rs GetObjectLockConfiguration =
       GetObjectLockConfigurationResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetObjectLockConfigurationResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetObjectLockConfiguration
+instance Prelude.Hashable GetObjectLockConfiguration
 
-instance NFData GetObjectLockConfiguration
+instance Prelude.NFData GetObjectLockConfiguration
 
-instance ToHeaders GetObjectLockConfiguration where
+instance Prelude.ToHeaders GetObjectLockConfiguration where
   toHeaders GetObjectLockConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _golcExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath GetObjectLockConfiguration where
+instance Prelude.ToPath GetObjectLockConfiguration where
   toPath GetObjectLockConfiguration' {..} =
-    mconcat ["/", toBS _golcBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery GetObjectLockConfiguration where
-  toQuery = const (mconcat ["object-lock"])
+instance Prelude.ToQuery GetObjectLockConfiguration where
+  toQuery =
+    Prelude.const (Prelude.mconcat ["object-lock"])
 
--- | /See:/ 'getObjectLockConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetObjectLockConfigurationResponse' smart constructor.
 data GetObjectLockConfigurationResponse = GetObjectLockConfigurationResponse'
-  { _golcrrsObjectLockConfiguration ::
-      !( Maybe
-           ObjectLockConfiguration
-       ),
-    _golcrrsResponseStatus ::
-      !Int
+  { -- | The specified bucket\'s Object Lock configuration.
+    objectLockConfiguration :: Prelude.Maybe ObjectLockConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetObjectLockConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetObjectLockConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'golcrrsObjectLockConfiguration' - The specified bucket's Object Lock configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'golcrrsResponseStatus' - -- | The response status code.
-getObjectLockConfigurationResponse ::
-  -- | 'golcrrsResponseStatus'
-  Int ->
+-- 'objectLockConfiguration', 'getObjectLockConfigurationResponse_objectLockConfiguration' - The specified bucket\'s Object Lock configuration.
+--
+-- 'httpStatus', 'getObjectLockConfigurationResponse_httpStatus' - The response's http status code.
+newGetObjectLockConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetObjectLockConfigurationResponse
-getObjectLockConfigurationResponse pResponseStatus_ =
+newGetObjectLockConfigurationResponse pHttpStatus_ =
   GetObjectLockConfigurationResponse'
-    { _golcrrsObjectLockConfiguration =
-        Nothing,
-      _golcrrsResponseStatus =
-        pResponseStatus_
+    { objectLockConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The specified bucket's Object Lock configuration.
-golcrrsObjectLockConfiguration :: Lens' GetObjectLockConfigurationResponse (Maybe ObjectLockConfiguration)
-golcrrsObjectLockConfiguration = lens _golcrrsObjectLockConfiguration (\s a -> s {_golcrrsObjectLockConfiguration = a})
+-- | The specified bucket\'s Object Lock configuration.
+getObjectLockConfigurationResponse_objectLockConfiguration :: Lens.Lens' GetObjectLockConfigurationResponse (Prelude.Maybe ObjectLockConfiguration)
+getObjectLockConfigurationResponse_objectLockConfiguration = Lens.lens (\GetObjectLockConfigurationResponse' {objectLockConfiguration} -> objectLockConfiguration) (\s@GetObjectLockConfigurationResponse' {} a -> s {objectLockConfiguration = a} :: GetObjectLockConfigurationResponse)
 
--- | -- | The response status code.
-golcrrsResponseStatus :: Lens' GetObjectLockConfigurationResponse Int
-golcrrsResponseStatus = lens _golcrrsResponseStatus (\s a -> s {_golcrrsResponseStatus = a})
+-- | The response's http status code.
+getObjectLockConfigurationResponse_httpStatus :: Lens.Lens' GetObjectLockConfigurationResponse Prelude.Int
+getObjectLockConfigurationResponse_httpStatus = Lens.lens (\GetObjectLockConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetObjectLockConfigurationResponse' {} a -> s {httpStatus = a} :: GetObjectLockConfigurationResponse)
 
-instance NFData GetObjectLockConfigurationResponse
+instance
+  Prelude.NFData
+    GetObjectLockConfigurationResponse

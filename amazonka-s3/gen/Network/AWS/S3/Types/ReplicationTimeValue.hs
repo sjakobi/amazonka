@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,50 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.ReplicationTimeValue where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
--- | A container specifying the time value for S3 Replication Time Control (S3 RTC) and replication metrics @EventThreshold@ .
+-- | A container specifying the time value for S3 Replication Time Control
+-- (S3 RTC) and replication metrics @EventThreshold@.
 --
---
---
--- /See:/ 'replicationTimeValue' smart constructor.
-newtype ReplicationTimeValue = ReplicationTimeValue'
-  { _rtvMinutes ::
-      Maybe Int
+-- /See:/ 'newReplicationTimeValue' smart constructor.
+data ReplicationTimeValue = ReplicationTimeValue'
+  { -- | Contains an integer specifying time in minutes.
+    --
+    -- Valid values: 15 minutes.
+    minutes :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicationTimeValue' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicationTimeValue' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rtvMinutes' - Contains an integer specifying time in minutes.  Valid values: 15 minutes.
-replicationTimeValue ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'minutes', 'replicationTimeValue_minutes' - Contains an integer specifying time in minutes.
+--
+-- Valid values: 15 minutes.
+newReplicationTimeValue ::
   ReplicationTimeValue
-replicationTimeValue =
-  ReplicationTimeValue' {_rtvMinutes = Nothing}
+newReplicationTimeValue =
+  ReplicationTimeValue' {minutes = Prelude.Nothing}
 
--- | Contains an integer specifying time in minutes.  Valid values: 15 minutes.
-rtvMinutes :: Lens' ReplicationTimeValue (Maybe Int)
-rtvMinutes = lens _rtvMinutes (\s a -> s {_rtvMinutes = a})
+-- | Contains an integer specifying time in minutes.
+--
+-- Valid values: 15 minutes.
+replicationTimeValue_minutes :: Lens.Lens' ReplicationTimeValue (Prelude.Maybe Prelude.Int)
+replicationTimeValue_minutes = Lens.lens (\ReplicationTimeValue' {minutes} -> minutes) (\s@ReplicationTimeValue' {} a -> s {minutes = a} :: ReplicationTimeValue)
 
-instance FromXML ReplicationTimeValue where
+instance Prelude.FromXML ReplicationTimeValue where
   parseXML x =
-    ReplicationTimeValue' <$> (x .@? "Minutes")
+    ReplicationTimeValue'
+      Prelude.<$> (x Prelude..@? "Minutes")
 
-instance Hashable ReplicationTimeValue
+instance Prelude.Hashable ReplicationTimeValue
 
-instance NFData ReplicationTimeValue
+instance Prelude.NFData ReplicationTimeValue
 
-instance ToXML ReplicationTimeValue where
+instance Prelude.ToXML ReplicationTimeValue where
   toXML ReplicationTimeValue' {..} =
-    mconcat ["Minutes" @= _rtvMinutes]
+    Prelude.mconcat ["Minutes" Prelude.@= minutes]

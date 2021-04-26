@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.InventoryFrequency
   ( InventoryFrequency
       ( ..,
-        Daily,
-        Weekly
+        InventoryFrequencyDaily,
+        InventoryFrequencyWeekly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data InventoryFrequency
-  = InventoryFrequency'
-      ( CI
-          Text
-      )
+newtype InventoryFrequency = InventoryFrequency'
+  { fromInventoryFrequency ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Daily :: InventoryFrequency
-pattern Daily = InventoryFrequency' "Daily"
+pattern InventoryFrequencyDaily :: InventoryFrequency
+pattern InventoryFrequencyDaily = InventoryFrequency' "Daily"
 
-pattern Weekly :: InventoryFrequency
-pattern Weekly = InventoryFrequency' "Weekly"
+pattern InventoryFrequencyWeekly :: InventoryFrequency
+pattern InventoryFrequencyWeekly = InventoryFrequency' "Weekly"
 
 {-# COMPLETE
-  Daily,
-  Weekly,
+  InventoryFrequencyDaily,
+  InventoryFrequencyWeekly,
   InventoryFrequency'
   #-}
 
-instance FromText InventoryFrequency where
-  parser = (InventoryFrequency' . mk) <$> takeText
+instance Prelude.FromText InventoryFrequency where
+  parser = InventoryFrequency' Prelude.<$> Prelude.takeText
 
-instance ToText InventoryFrequency where
-  toText (InventoryFrequency' ci) = original ci
+instance Prelude.ToText InventoryFrequency where
+  toText (InventoryFrequency' x) = x
 
-instance Hashable InventoryFrequency
+instance Prelude.Hashable InventoryFrequency
 
-instance NFData InventoryFrequency
+instance Prelude.NFData InventoryFrequency
 
-instance ToByteString InventoryFrequency
+instance Prelude.ToByteString InventoryFrequency
 
-instance ToQuery InventoryFrequency
+instance Prelude.ToQuery InventoryFrequency
 
-instance ToHeader InventoryFrequency
+instance Prelude.ToHeader InventoryFrequency
 
-instance FromXML InventoryFrequency where
-  parseXML = parseXMLText "InventoryFrequency"
+instance Prelude.FromXML InventoryFrequency where
+  parseXML = Prelude.parseXMLText "InventoryFrequency"
 
-instance ToXML InventoryFrequency where
-  toXML = toXMLText
+instance Prelude.ToXML InventoryFrequency where
+  toXML = Prelude.toXMLText

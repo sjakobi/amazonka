@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,107 +19,122 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.InventoryS3BucketDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.InventoryEncryption
 import Network.AWS.S3.Types.InventoryFormat
 
--- | Contains the bucket name, file format, bucket owner (optional), and prefix (optional) where inventory results are published.
+-- | Contains the bucket name, file format, bucket owner (optional), and
+-- prefix (optional) where inventory results are published.
 --
---
---
--- /See:/ 'inventoryS3BucketDestination' smart constructor.
+-- /See:/ 'newInventoryS3BucketDestination' smart constructor.
 data InventoryS3BucketDestination = InventoryS3BucketDestination'
-  { _isbdAccountId ::
-      !(Maybe Text),
-    _isbdPrefix ::
-      !(Maybe Text),
-    _isbdEncryption ::
-      !( Maybe
-           InventoryEncryption
-       ),
-    _isbdBucket ::
-      !BucketName,
-    _isbdFormat ::
-      !InventoryFormat
+  { -- | The account ID that owns the destination S3 bucket. If no account ID is
+    -- provided, the owner is not validated before exporting data.
+    --
+    -- Although this value is optional, we strongly recommend that you set it
+    -- to help prevent problems if the destination bucket ownership changes.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The prefix that is prepended to all inventory results.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | Contains the type of server-side encryption used to encrypt the
+    -- inventory results.
+    encryption :: Prelude.Maybe InventoryEncryption,
+    -- | The Amazon Resource Name (ARN) of the bucket where inventory results
+    -- will be published.
+    bucket :: BucketName,
+    -- | Specifies the output format of the inventory results.
+    format :: InventoryFormat
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'InventoryS3BucketDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'InventoryS3BucketDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'isbdAccountId' - The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'isbdPrefix' - The prefix that is prepended to all inventory results.
+-- 'accountId', 'inventoryS3BucketDestination_accountId' - The account ID that owns the destination S3 bucket. If no account ID is
+-- provided, the owner is not validated before exporting data.
 --
--- * 'isbdEncryption' - Contains the type of server-side encryption used to encrypt the inventory results.
+-- Although this value is optional, we strongly recommend that you set it
+-- to help prevent problems if the destination bucket ownership changes.
 --
--- * 'isbdBucket' - The Amazon Resource Name (ARN) of the bucket where inventory results will be published.
+-- 'prefix', 'inventoryS3BucketDestination_prefix' - The prefix that is prepended to all inventory results.
 --
--- * 'isbdFormat' - Specifies the output format of the inventory results.
-inventoryS3BucketDestination ::
-  -- | 'isbdBucket'
+-- 'encryption', 'inventoryS3BucketDestination_encryption' - Contains the type of server-side encryption used to encrypt the
+-- inventory results.
+--
+-- 'bucket', 'inventoryS3BucketDestination_bucket' - The Amazon Resource Name (ARN) of the bucket where inventory results
+-- will be published.
+--
+-- 'format', 'inventoryS3BucketDestination_format' - Specifies the output format of the inventory results.
+newInventoryS3BucketDestination ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'isbdFormat'
+  -- | 'format'
   InventoryFormat ->
   InventoryS3BucketDestination
-inventoryS3BucketDestination pBucket_ pFormat_ =
+newInventoryS3BucketDestination pBucket_ pFormat_ =
   InventoryS3BucketDestination'
-    { _isbdAccountId =
-        Nothing,
-      _isbdPrefix = Nothing,
-      _isbdEncryption = Nothing,
-      _isbdBucket = pBucket_,
-      _isbdFormat = pFormat_
+    { accountId =
+        Prelude.Nothing,
+      prefix = Prelude.Nothing,
+      encryption = Prelude.Nothing,
+      bucket = pBucket_,
+      format = pFormat_
     }
 
--- | The account ID that owns the destination S3 bucket. If no account ID is provided, the owner is not validated before exporting data.
-isbdAccountId :: Lens' InventoryS3BucketDestination (Maybe Text)
-isbdAccountId = lens _isbdAccountId (\s a -> s {_isbdAccountId = a})
+-- | The account ID that owns the destination S3 bucket. If no account ID is
+-- provided, the owner is not validated before exporting data.
+--
+-- Although this value is optional, we strongly recommend that you set it
+-- to help prevent problems if the destination bucket ownership changes.
+inventoryS3BucketDestination_accountId :: Lens.Lens' InventoryS3BucketDestination (Prelude.Maybe Prelude.Text)
+inventoryS3BucketDestination_accountId = Lens.lens (\InventoryS3BucketDestination' {accountId} -> accountId) (\s@InventoryS3BucketDestination' {} a -> s {accountId = a} :: InventoryS3BucketDestination)
 
 -- | The prefix that is prepended to all inventory results.
-isbdPrefix :: Lens' InventoryS3BucketDestination (Maybe Text)
-isbdPrefix = lens _isbdPrefix (\s a -> s {_isbdPrefix = a})
+inventoryS3BucketDestination_prefix :: Lens.Lens' InventoryS3BucketDestination (Prelude.Maybe Prelude.Text)
+inventoryS3BucketDestination_prefix = Lens.lens (\InventoryS3BucketDestination' {prefix} -> prefix) (\s@InventoryS3BucketDestination' {} a -> s {prefix = a} :: InventoryS3BucketDestination)
 
--- | Contains the type of server-side encryption used to encrypt the inventory results.
-isbdEncryption :: Lens' InventoryS3BucketDestination (Maybe InventoryEncryption)
-isbdEncryption = lens _isbdEncryption (\s a -> s {_isbdEncryption = a})
+-- | Contains the type of server-side encryption used to encrypt the
+-- inventory results.
+inventoryS3BucketDestination_encryption :: Lens.Lens' InventoryS3BucketDestination (Prelude.Maybe InventoryEncryption)
+inventoryS3BucketDestination_encryption = Lens.lens (\InventoryS3BucketDestination' {encryption} -> encryption) (\s@InventoryS3BucketDestination' {} a -> s {encryption = a} :: InventoryS3BucketDestination)
 
--- | The Amazon Resource Name (ARN) of the bucket where inventory results will be published.
-isbdBucket :: Lens' InventoryS3BucketDestination BucketName
-isbdBucket = lens _isbdBucket (\s a -> s {_isbdBucket = a})
+-- | The Amazon Resource Name (ARN) of the bucket where inventory results
+-- will be published.
+inventoryS3BucketDestination_bucket :: Lens.Lens' InventoryS3BucketDestination BucketName
+inventoryS3BucketDestination_bucket = Lens.lens (\InventoryS3BucketDestination' {bucket} -> bucket) (\s@InventoryS3BucketDestination' {} a -> s {bucket = a} :: InventoryS3BucketDestination)
 
 -- | Specifies the output format of the inventory results.
-isbdFormat :: Lens' InventoryS3BucketDestination InventoryFormat
-isbdFormat = lens _isbdFormat (\s a -> s {_isbdFormat = a})
+inventoryS3BucketDestination_format :: Lens.Lens' InventoryS3BucketDestination InventoryFormat
+inventoryS3BucketDestination_format = Lens.lens (\InventoryS3BucketDestination' {format} -> format) (\s@InventoryS3BucketDestination' {} a -> s {format = a} :: InventoryS3BucketDestination)
 
-instance FromXML InventoryS3BucketDestination where
+instance Prelude.FromXML InventoryS3BucketDestination where
   parseXML x =
     InventoryS3BucketDestination'
-      <$> (x .@? "AccountId")
-      <*> (x .@? "Prefix")
-      <*> (x .@? "Encryption")
-      <*> (x .@ "Bucket")
-      <*> (x .@ "Format")
+      Prelude.<$> (x Prelude..@? "AccountId")
+      Prelude.<*> (x Prelude..@? "Prefix")
+      Prelude.<*> (x Prelude..@? "Encryption")
+      Prelude.<*> (x Prelude..@ "Bucket")
+      Prelude.<*> (x Prelude..@ "Format")
 
-instance Hashable InventoryS3BucketDestination
+instance
+  Prelude.Hashable
+    InventoryS3BucketDestination
 
-instance NFData InventoryS3BucketDestination
+instance Prelude.NFData InventoryS3BucketDestination
 
-instance ToXML InventoryS3BucketDestination where
+instance Prelude.ToXML InventoryS3BucketDestination where
   toXML InventoryS3BucketDestination' {..} =
-    mconcat
-      [ "AccountId" @= _isbdAccountId,
-        "Prefix" @= _isbdPrefix,
-        "Encryption" @= _isbdEncryption,
-        "Bucket" @= _isbdBucket,
-        "Format" @= _isbdFormat
+    Prelude.mconcat
+      [ "AccountId" Prelude.@= accountId,
+        "Prefix" Prelude.@= prefix,
+        "Encryption" Prelude.@= encryption,
+        "Bucket" Prelude.@= bucket,
+        "Format" Prelude.@= format
       ]

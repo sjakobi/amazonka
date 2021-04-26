@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.ServerSideEncryption
   ( ServerSideEncryption
       ( ..,
-        AES256,
-        AWSKMS
+        ServerSideEncryptionAES256,
+        ServerSideEncryptionAwsKms
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ServerSideEncryption
-  = ServerSideEncryption'
-      ( CI
-          Text
-      )
+newtype ServerSideEncryption = ServerSideEncryption'
+  { fromServerSideEncryption ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AES256 :: ServerSideEncryption
-pattern AES256 = ServerSideEncryption' "AES256"
+pattern ServerSideEncryptionAES256 :: ServerSideEncryption
+pattern ServerSideEncryptionAES256 = ServerSideEncryption' "AES256"
 
-pattern AWSKMS :: ServerSideEncryption
-pattern AWSKMS = ServerSideEncryption' "aws:kms"
+pattern ServerSideEncryptionAwsKms :: ServerSideEncryption
+pattern ServerSideEncryptionAwsKms = ServerSideEncryption' "aws:kms"
 
 {-# COMPLETE
-  AES256,
-  AWSKMS,
+  ServerSideEncryptionAES256,
+  ServerSideEncryptionAwsKms,
   ServerSideEncryption'
   #-}
 
-instance FromText ServerSideEncryption where
-  parser = (ServerSideEncryption' . mk) <$> takeText
+instance Prelude.FromText ServerSideEncryption where
+  parser = ServerSideEncryption' Prelude.<$> Prelude.takeText
 
-instance ToText ServerSideEncryption where
-  toText (ServerSideEncryption' ci) = original ci
+instance Prelude.ToText ServerSideEncryption where
+  toText (ServerSideEncryption' x) = x
 
-instance Hashable ServerSideEncryption
+instance Prelude.Hashable ServerSideEncryption
 
-instance NFData ServerSideEncryption
+instance Prelude.NFData ServerSideEncryption
 
-instance ToByteString ServerSideEncryption
+instance Prelude.ToByteString ServerSideEncryption
 
-instance ToQuery ServerSideEncryption
+instance Prelude.ToQuery ServerSideEncryption
 
-instance ToHeader ServerSideEncryption
+instance Prelude.ToHeader ServerSideEncryption
 
-instance FromXML ServerSideEncryption where
-  parseXML = parseXMLText "ServerSideEncryption"
+instance Prelude.FromXML ServerSideEncryption where
+  parseXML = Prelude.parseXMLText "ServerSideEncryption"
 
-instance ToXML ServerSideEncryption where
-  toXML = toXMLText
+instance Prelude.ToXML ServerSideEncryption where
+  toXML = Prelude.toXMLText

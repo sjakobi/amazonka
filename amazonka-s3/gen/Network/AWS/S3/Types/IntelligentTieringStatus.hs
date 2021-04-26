@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.IntelligentTieringStatus
   ( IntelligentTieringStatus
       ( ..,
-        ITSDisabled,
-        ITSEnabled
+        IntelligentTieringStatusDisabled,
+        IntelligentTieringStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data IntelligentTieringStatus
-  = IntelligentTieringStatus'
-      ( CI
-          Text
-      )
+newtype IntelligentTieringStatus = IntelligentTieringStatus'
+  { fromIntelligentTieringStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ITSDisabled :: IntelligentTieringStatus
-pattern ITSDisabled = IntelligentTieringStatus' "Disabled"
+pattern IntelligentTieringStatusDisabled :: IntelligentTieringStatus
+pattern IntelligentTieringStatusDisabled = IntelligentTieringStatus' "Disabled"
 
-pattern ITSEnabled :: IntelligentTieringStatus
-pattern ITSEnabled = IntelligentTieringStatus' "Enabled"
+pattern IntelligentTieringStatusEnabled :: IntelligentTieringStatus
+pattern IntelligentTieringStatusEnabled = IntelligentTieringStatus' "Enabled"
 
 {-# COMPLETE
-  ITSDisabled,
-  ITSEnabled,
+  IntelligentTieringStatusDisabled,
+  IntelligentTieringStatusEnabled,
   IntelligentTieringStatus'
   #-}
 
-instance FromText IntelligentTieringStatus where
-  parser = (IntelligentTieringStatus' . mk) <$> takeText
+instance Prelude.FromText IntelligentTieringStatus where
+  parser = IntelligentTieringStatus' Prelude.<$> Prelude.takeText
 
-instance ToText IntelligentTieringStatus where
-  toText (IntelligentTieringStatus' ci) = original ci
+instance Prelude.ToText IntelligentTieringStatus where
+  toText (IntelligentTieringStatus' x) = x
 
-instance Hashable IntelligentTieringStatus
+instance Prelude.Hashable IntelligentTieringStatus
 
-instance NFData IntelligentTieringStatus
+instance Prelude.NFData IntelligentTieringStatus
 
-instance ToByteString IntelligentTieringStatus
+instance Prelude.ToByteString IntelligentTieringStatus
 
-instance ToQuery IntelligentTieringStatus
+instance Prelude.ToQuery IntelligentTieringStatus
 
-instance ToHeader IntelligentTieringStatus
+instance Prelude.ToHeader IntelligentTieringStatus
 
-instance FromXML IntelligentTieringStatus where
-  parseXML = parseXMLText "IntelligentTieringStatus"
+instance Prelude.FromXML IntelligentTieringStatus where
+  parseXML = Prelude.parseXMLText "IntelligentTieringStatus"
 
-instance ToXML IntelligentTieringStatus where
-  toXML = toXMLText
+instance Prelude.ToXML IntelligentTieringStatus where
+  toXML = Prelude.toXMLText

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,52 +19,54 @@
 module Network.AWS.S3.Types.OwnerOverride
   ( OwnerOverride
       ( ..,
-        Destination
+        OwnerOverrideDestination
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data OwnerOverride = OwnerOverride' (CI Text)
+newtype OwnerOverride = OwnerOverride'
+  { fromOwnerOverride ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Destination :: OwnerOverride
-pattern Destination = OwnerOverride' "Destination"
+pattern OwnerOverrideDestination :: OwnerOverride
+pattern OwnerOverrideDestination = OwnerOverride' "Destination"
 
 {-# COMPLETE
-  Destination,
+  OwnerOverrideDestination,
   OwnerOverride'
   #-}
 
-instance FromText OwnerOverride where
-  parser = (OwnerOverride' . mk) <$> takeText
+instance Prelude.FromText OwnerOverride where
+  parser = OwnerOverride' Prelude.<$> Prelude.takeText
 
-instance ToText OwnerOverride where
-  toText (OwnerOverride' ci) = original ci
+instance Prelude.ToText OwnerOverride where
+  toText (OwnerOverride' x) = x
 
-instance Hashable OwnerOverride
+instance Prelude.Hashable OwnerOverride
 
-instance NFData OwnerOverride
+instance Prelude.NFData OwnerOverride
 
-instance ToByteString OwnerOverride
+instance Prelude.ToByteString OwnerOverride
 
-instance ToQuery OwnerOverride
+instance Prelude.ToQuery OwnerOverride
 
-instance ToHeader OwnerOverride
+instance Prelude.ToHeader OwnerOverride
 
-instance FromXML OwnerOverride where
-  parseXML = parseXMLText "OwnerOverride"
+instance Prelude.FromXML OwnerOverride where
+  parseXML = Prelude.parseXMLText "OwnerOverride"
 
-instance ToXML OwnerOverride where
-  toXML = toXMLText
+instance Prelude.ToXML OwnerOverride where
+  toXML = Prelude.toXMLText

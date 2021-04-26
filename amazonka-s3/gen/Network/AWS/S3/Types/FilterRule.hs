@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.FilterRule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.FilterRuleName
 
--- | Specifies the Amazon S3 object key name to filter on and whether to filter on the suffix or prefix of the key name.
+-- | Specifies the Amazon S3 object key name to filter on and whether to
+-- filter on the suffix or prefix of the key name.
 --
---
---
--- /See:/ 'filterRule' smart constructor.
+-- /See:/ 'newFilterRule' smart constructor.
 data FilterRule = FilterRule'
-  { _frName ::
-      !(Maybe FilterRuleName),
-    _frValue :: !(Maybe Text)
+  { -- | The object key name prefix or suffix identifying one or more objects to
+    -- which the filtering rule applies. The maximum length is 1,024
+    -- characters. Overlapping prefixes and suffixes are not supported. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Configuring Event Notifications>
+    -- in the /Amazon Simple Storage Service Developer Guide/.
+    name :: Prelude.Maybe FilterRuleName,
+    -- | The value that the filter searches for in object key names.
+    value :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'FilterRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'FilterRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'frName' - The object key name prefix or suffix identifying one or more objects to which the filtering rule applies. The maximum length is 1,024 characters. Overlapping prefixes and suffixes are not supported. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Configuring Event Notifications> in the /Amazon Simple Storage Service Developer Guide/ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'frValue' - The value that the filter searches for in object key names.
-filterRule ::
+-- 'name', 'filterRule_name' - The object key name prefix or suffix identifying one or more objects to
+-- which the filtering rule applies. The maximum length is 1,024
+-- characters. Overlapping prefixes and suffixes are not supported. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Configuring Event Notifications>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+--
+-- 'value', 'filterRule_value' - The value that the filter searches for in object key names.
+newFilterRule ::
   FilterRule
-filterRule =
-  FilterRule' {_frName = Nothing, _frValue = Nothing}
+newFilterRule =
+  FilterRule'
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
--- | The object key name prefix or suffix identifying one or more objects to which the filtering rule applies. The maximum length is 1,024 characters. Overlapping prefixes and suffixes are not supported. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Configuring Event Notifications> in the /Amazon Simple Storage Service Developer Guide/ .
-frName :: Lens' FilterRule (Maybe FilterRuleName)
-frName = lens _frName (\s a -> s {_frName = a})
+-- | The object key name prefix or suffix identifying one or more objects to
+-- which the filtering rule applies. The maximum length is 1,024
+-- characters. Overlapping prefixes and suffixes are not supported. For
+-- more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html Configuring Event Notifications>
+-- in the /Amazon Simple Storage Service Developer Guide/.
+filterRule_name :: Lens.Lens' FilterRule (Prelude.Maybe FilterRuleName)
+filterRule_name = Lens.lens (\FilterRule' {name} -> name) (\s@FilterRule' {} a -> s {name = a} :: FilterRule)
 
 -- | The value that the filter searches for in object key names.
-frValue :: Lens' FilterRule (Maybe Text)
-frValue = lens _frValue (\s a -> s {_frValue = a})
+filterRule_value :: Lens.Lens' FilterRule (Prelude.Maybe Prelude.Text)
+filterRule_value = Lens.lens (\FilterRule' {value} -> value) (\s@FilterRule' {} a -> s {value = a} :: FilterRule)
 
-instance FromXML FilterRule where
+instance Prelude.FromXML FilterRule where
   parseXML x =
-    FilterRule' <$> (x .@? "Name") <*> (x .@? "Value")
+    FilterRule'
+      Prelude.<$> (x Prelude..@? "Name")
+      Prelude.<*> (x Prelude..@? "Value")
 
-instance Hashable FilterRule
+instance Prelude.Hashable FilterRule
 
-instance NFData FilterRule
+instance Prelude.NFData FilterRule
 
-instance ToXML FilterRule where
+instance Prelude.ToXML FilterRule where
   toXML FilterRule' {..} =
-    mconcat ["Name" @= _frName, "Value" @= _frValue]
+    Prelude.mconcat
+      ["Name" Prelude.@= name, "Value" Prelude.@= value]

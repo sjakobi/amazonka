@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,63 +19,68 @@
 module Network.AWS.S3.Types.ObjectOwnership
   ( ObjectOwnership
       ( ..,
-        BucketOwnerPreferred,
-        ObjectWriter
+        ObjectOwnershipBucketOwnerPreferred,
+        ObjectOwnershipObjectWriter
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
--- | The container element for object ownership for a bucket's ownership controls.
+-- | The container element for object ownership for a bucket\'s ownership
+-- controls.
 --
+-- BucketOwnerPreferred - Objects uploaded to the bucket change ownership
+-- to the bucket owner if the objects are uploaded with the
+-- @bucket-owner-full-control@ canned ACL.
 --
--- BucketOwnerPreferred - Objects uploaded to the bucket change ownership to the bucket owner if the objects are uploaded with the @bucket-owner-full-control@ canned ACL.
---
--- ObjectWriter - The uploading account will own the object if the object is uploaded with the @bucket-owner-full-control@ canned ACL.
-data ObjectOwnership = ObjectOwnership' (CI Text)
+-- ObjectWriter - The uploading account will own the object if the object
+-- is uploaded with the @bucket-owner-full-control@ canned ACL.
+newtype ObjectOwnership = ObjectOwnership'
+  { fromObjectOwnership ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BucketOwnerPreferred :: ObjectOwnership
-pattern BucketOwnerPreferred = ObjectOwnership' "BucketOwnerPreferred"
+pattern ObjectOwnershipBucketOwnerPreferred :: ObjectOwnership
+pattern ObjectOwnershipBucketOwnerPreferred = ObjectOwnership' "BucketOwnerPreferred"
 
-pattern ObjectWriter :: ObjectOwnership
-pattern ObjectWriter = ObjectOwnership' "ObjectWriter"
+pattern ObjectOwnershipObjectWriter :: ObjectOwnership
+pattern ObjectOwnershipObjectWriter = ObjectOwnership' "ObjectWriter"
 
 {-# COMPLETE
-  BucketOwnerPreferred,
-  ObjectWriter,
+  ObjectOwnershipBucketOwnerPreferred,
+  ObjectOwnershipObjectWriter,
   ObjectOwnership'
   #-}
 
-instance FromText ObjectOwnership where
-  parser = (ObjectOwnership' . mk) <$> takeText
+instance Prelude.FromText ObjectOwnership where
+  parser = ObjectOwnership' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectOwnership where
-  toText (ObjectOwnership' ci) = original ci
+instance Prelude.ToText ObjectOwnership where
+  toText (ObjectOwnership' x) = x
 
-instance Hashable ObjectOwnership
+instance Prelude.Hashable ObjectOwnership
 
-instance NFData ObjectOwnership
+instance Prelude.NFData ObjectOwnership
 
-instance ToByteString ObjectOwnership
+instance Prelude.ToByteString ObjectOwnership
 
-instance ToQuery ObjectOwnership
+instance Prelude.ToQuery ObjectOwnership
 
-instance ToHeader ObjectOwnership
+instance Prelude.ToHeader ObjectOwnership
 
-instance FromXML ObjectOwnership where
-  parseXML = parseXMLText "ObjectOwnership"
+instance Prelude.FromXML ObjectOwnership where
+  parseXML = Prelude.parseXMLText "ObjectOwnership"
 
-instance ToXML ObjectOwnership where
-  toXML = toXMLText
+instance Prelude.ToXML ObjectOwnership where
+  toXML = Prelude.toXMLText

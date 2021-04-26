@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.DeletedObject where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
 -- | Information about the deleted object.
 --
---
---
--- /See:/ 'deletedObject' smart constructor.
+-- /See:/ 'newDeletedObject' smart constructor.
 data DeletedObject = DeletedObject'
-  { _doKey ::
-      !(Maybe ObjectKey),
-    _doDeleteMarkerVersionId :: !(Maybe Text),
-    _doDeleteMarker :: !(Maybe Bool),
-    _doVersionId :: !(Maybe ObjectVersionId)
+  { -- | The name of the deleted object.
+    key :: Prelude.Maybe ObjectKey,
+    -- | The version ID of the delete marker created as a result of the DELETE
+    -- operation. If you delete a specific object version, the value returned
+    -- by this header is the version ID of the object version deleted.
+    deleteMarkerVersionId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether the versioned object that was permanently deleted was
+    -- (true) or was not (false) a delete marker. In a simple DELETE, this
+    -- header indicates whether (true) or not (false) a delete marker was
+    -- created.
+    deleteMarker :: Prelude.Maybe Prelude.Bool,
+    -- | The version ID of the deleted object.
+    versionId :: Prelude.Maybe ObjectVersionId
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeletedObject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeletedObject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'doKey' - The name of the deleted object.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'doDeleteMarkerVersionId' - The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object version, the value returned by this header is the version ID of the object version deleted.
+-- 'key', 'deletedObject_key' - The name of the deleted object.
 --
--- * 'doDeleteMarker' - Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
+-- 'deleteMarkerVersionId', 'deletedObject_deleteMarkerVersionId' - The version ID of the delete marker created as a result of the DELETE
+-- operation. If you delete a specific object version, the value returned
+-- by this header is the version ID of the object version deleted.
 --
--- * 'doVersionId' - The version ID of the deleted object.
-deletedObject ::
+-- 'deleteMarker', 'deletedObject_deleteMarker' - Specifies whether the versioned object that was permanently deleted was
+-- (true) or was not (false) a delete marker. In a simple DELETE, this
+-- header indicates whether (true) or not (false) a delete marker was
+-- created.
+--
+-- 'versionId', 'deletedObject_versionId' - The version ID of the deleted object.
+newDeletedObject ::
   DeletedObject
-deletedObject =
+newDeletedObject =
   DeletedObject'
-    { _doKey = Nothing,
-      _doDeleteMarkerVersionId = Nothing,
-      _doDeleteMarker = Nothing,
-      _doVersionId = Nothing
+    { key = Prelude.Nothing,
+      deleteMarkerVersionId = Prelude.Nothing,
+      deleteMarker = Prelude.Nothing,
+      versionId = Prelude.Nothing
     }
 
 -- | The name of the deleted object.
-doKey :: Lens' DeletedObject (Maybe ObjectKey)
-doKey = lens _doKey (\s a -> s {_doKey = a})
+deletedObject_key :: Lens.Lens' DeletedObject (Prelude.Maybe ObjectKey)
+deletedObject_key = Lens.lens (\DeletedObject' {key} -> key) (\s@DeletedObject' {} a -> s {key = a} :: DeletedObject)
 
--- | The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object version, the value returned by this header is the version ID of the object version deleted.
-doDeleteMarkerVersionId :: Lens' DeletedObject (Maybe Text)
-doDeleteMarkerVersionId = lens _doDeleteMarkerVersionId (\s a -> s {_doDeleteMarkerVersionId = a})
+-- | The version ID of the delete marker created as a result of the DELETE
+-- operation. If you delete a specific object version, the value returned
+-- by this header is the version ID of the object version deleted.
+deletedObject_deleteMarkerVersionId :: Lens.Lens' DeletedObject (Prelude.Maybe Prelude.Text)
+deletedObject_deleteMarkerVersionId = Lens.lens (\DeletedObject' {deleteMarkerVersionId} -> deleteMarkerVersionId) (\s@DeletedObject' {} a -> s {deleteMarkerVersionId = a} :: DeletedObject)
 
--- | Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.
-doDeleteMarker :: Lens' DeletedObject (Maybe Bool)
-doDeleteMarker = lens _doDeleteMarker (\s a -> s {_doDeleteMarker = a})
+-- | Specifies whether the versioned object that was permanently deleted was
+-- (true) or was not (false) a delete marker. In a simple DELETE, this
+-- header indicates whether (true) or not (false) a delete marker was
+-- created.
+deletedObject_deleteMarker :: Lens.Lens' DeletedObject (Prelude.Maybe Prelude.Bool)
+deletedObject_deleteMarker = Lens.lens (\DeletedObject' {deleteMarker} -> deleteMarker) (\s@DeletedObject' {} a -> s {deleteMarker = a} :: DeletedObject)
 
 -- | The version ID of the deleted object.
-doVersionId :: Lens' DeletedObject (Maybe ObjectVersionId)
-doVersionId = lens _doVersionId (\s a -> s {_doVersionId = a})
+deletedObject_versionId :: Lens.Lens' DeletedObject (Prelude.Maybe ObjectVersionId)
+deletedObject_versionId = Lens.lens (\DeletedObject' {versionId} -> versionId) (\s@DeletedObject' {} a -> s {versionId = a} :: DeletedObject)
 
-instance FromXML DeletedObject where
+instance Prelude.FromXML DeletedObject where
   parseXML x =
     DeletedObject'
-      <$> (x .@? "Key")
-      <*> (x .@? "DeleteMarkerVersionId")
-      <*> (x .@? "DeleteMarker")
-      <*> (x .@? "VersionId")
+      Prelude.<$> (x Prelude..@? "Key")
+      Prelude.<*> (x Prelude..@? "DeleteMarkerVersionId")
+      Prelude.<*> (x Prelude..@? "DeleteMarker")
+      Prelude.<*> (x Prelude..@? "VersionId")
 
-instance Hashable DeletedObject
+instance Prelude.Hashable DeletedObject
 
-instance NFData DeletedObject
+instance Prelude.NFData DeletedObject

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,177 +21,202 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns an inventory configuration (identified by the inventory configuration ID) from the bucket.
+-- Returns an inventory configuration (identified by the inventory
+-- configuration ID) from the bucket.
 --
+-- To use this operation, you must have permissions to perform the
+-- @s3:GetInventoryConfiguration@ action. The bucket owner has this
+-- permission by default and can grant this permission to others. For more
+-- information about permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources>.
 --
--- To use this operation, you must have permissions to perform the @s3:GetInventoryConfiguration@ action. The bucket owner has this permission by default and can grant this permission to others. For more information about permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations> and <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources> .
+-- For information about the Amazon S3 inventory feature, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html Amazon S3 Inventory>.
 --
--- For information about the Amazon S3 inventory feature, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html Amazon S3 Inventory> .
+-- The following operations are related to
+-- @GetBucketInventoryConfiguration@:
 --
--- The following operations are related to @GetBucketInventoryConfiguration@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketInventoryConfiguration.html DeleteBucketInventoryConfiguration>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketInventoryConfiguration.html DeleteBucketInventoryConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html ListBucketInventoryConfigurations>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBucketInventoryConfigurations.html ListBucketInventoryConfigurations>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html PutBucketInventoryConfiguration>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketInventoryConfiguration.html PutBucketInventoryConfiguration>
 module Network.AWS.S3.GetBucketInventoryConfiguration
   ( -- * Creating a Request
-    getBucketInventoryConfiguration,
-    GetBucketInventoryConfiguration,
+    GetBucketInventoryConfiguration (..),
+    newGetBucketInventoryConfiguration,
 
     -- * Request Lenses
-    gbicExpectedBucketOwner,
-    gbicBucket,
-    gbicId,
+    getBucketInventoryConfiguration_expectedBucketOwner,
+    getBucketInventoryConfiguration_bucket,
+    getBucketInventoryConfiguration_id,
 
     -- * Destructuring the Response
-    getBucketInventoryConfigurationResponse,
-    GetBucketInventoryConfigurationResponse,
+    GetBucketInventoryConfigurationResponse (..),
+    newGetBucketInventoryConfigurationResponse,
 
     -- * Response Lenses
-    gbicrrsInventoryConfiguration,
-    gbicrrsResponseStatus,
+    getBucketInventoryConfigurationResponse_inventoryConfiguration,
+    getBucketInventoryConfigurationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.InventoryConfiguration
 
--- | /See:/ 'getBucketInventoryConfiguration' smart constructor.
+-- | /See:/ 'newGetBucketInventoryConfiguration' smart constructor.
 data GetBucketInventoryConfiguration = GetBucketInventoryConfiguration'
-  { _gbicExpectedBucketOwner ::
-      !( Maybe
-           Text
-       ),
-    _gbicBucket ::
-      !BucketName,
-    _gbicId ::
-      !Text
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bucket containing the inventory configuration to
+    -- retrieve.
+    bucket :: BucketName,
+    -- | The ID used to identify the inventory configuration.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketInventoryConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketInventoryConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbicExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbicBucket' - The name of the bucket containing the inventory configuration to retrieve.
+-- 'expectedBucketOwner', 'getBucketInventoryConfiguration_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'gbicId' - The ID used to identify the inventory configuration.
-getBucketInventoryConfiguration ::
-  -- | 'gbicBucket'
+-- 'bucket', 'getBucketInventoryConfiguration_bucket' - The name of the bucket containing the inventory configuration to
+-- retrieve.
+--
+-- 'id', 'getBucketInventoryConfiguration_id' - The ID used to identify the inventory configuration.
+newGetBucketInventoryConfiguration ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'gbicId'
-  Text ->
+  -- | 'id'
+  Prelude.Text ->
   GetBucketInventoryConfiguration
-getBucketInventoryConfiguration pBucket_ pId_ =
+newGetBucketInventoryConfiguration pBucket_ pId_ =
   GetBucketInventoryConfiguration'
-    { _gbicExpectedBucketOwner =
-        Nothing,
-      _gbicBucket = pBucket_,
-      _gbicId = pId_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_,
+      id = pId_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-gbicExpectedBucketOwner :: Lens' GetBucketInventoryConfiguration (Maybe Text)
-gbicExpectedBucketOwner = lens _gbicExpectedBucketOwner (\s a -> s {_gbicExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+getBucketInventoryConfiguration_expectedBucketOwner :: Lens.Lens' GetBucketInventoryConfiguration (Prelude.Maybe Prelude.Text)
+getBucketInventoryConfiguration_expectedBucketOwner = Lens.lens (\GetBucketInventoryConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketInventoryConfiguration' {} a -> s {expectedBucketOwner = a} :: GetBucketInventoryConfiguration)
 
--- | The name of the bucket containing the inventory configuration to retrieve.
-gbicBucket :: Lens' GetBucketInventoryConfiguration BucketName
-gbicBucket = lens _gbicBucket (\s a -> s {_gbicBucket = a})
+-- | The name of the bucket containing the inventory configuration to
+-- retrieve.
+getBucketInventoryConfiguration_bucket :: Lens.Lens' GetBucketInventoryConfiguration BucketName
+getBucketInventoryConfiguration_bucket = Lens.lens (\GetBucketInventoryConfiguration' {bucket} -> bucket) (\s@GetBucketInventoryConfiguration' {} a -> s {bucket = a} :: GetBucketInventoryConfiguration)
 
 -- | The ID used to identify the inventory configuration.
-gbicId :: Lens' GetBucketInventoryConfiguration Text
-gbicId = lens _gbicId (\s a -> s {_gbicId = a})
+getBucketInventoryConfiguration_id :: Lens.Lens' GetBucketInventoryConfiguration Prelude.Text
+getBucketInventoryConfiguration_id = Lens.lens (\GetBucketInventoryConfiguration' {id} -> id) (\s@GetBucketInventoryConfiguration' {} a -> s {id = a} :: GetBucketInventoryConfiguration)
 
-instance AWSRequest GetBucketInventoryConfiguration where
+instance
+  Prelude.AWSRequest
+    GetBucketInventoryConfiguration
+  where
   type
     Rs GetBucketInventoryConfiguration =
       GetBucketInventoryConfigurationResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetBucketInventoryConfigurationResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBucketInventoryConfiguration
+instance
+  Prelude.Hashable
+    GetBucketInventoryConfiguration
 
-instance NFData GetBucketInventoryConfiguration
+instance
+  Prelude.NFData
+    GetBucketInventoryConfiguration
 
-instance ToHeaders GetBucketInventoryConfiguration where
+instance
+  Prelude.ToHeaders
+    GetBucketInventoryConfiguration
+  where
   toHeaders GetBucketInventoryConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _gbicExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath GetBucketInventoryConfiguration where
+instance
+  Prelude.ToPath
+    GetBucketInventoryConfiguration
+  where
   toPath GetBucketInventoryConfiguration' {..} =
-    mconcat ["/", toBS _gbicBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery GetBucketInventoryConfiguration where
+instance
+  Prelude.ToQuery
+    GetBucketInventoryConfiguration
+  where
   toQuery GetBucketInventoryConfiguration' {..} =
-    mconcat ["id" =: _gbicId, "inventory"]
+    Prelude.mconcat ["id" Prelude.=: id, "inventory"]
 
--- | /See:/ 'getBucketInventoryConfigurationResponse' smart constructor.
+-- | /See:/ 'newGetBucketInventoryConfigurationResponse' smart constructor.
 data GetBucketInventoryConfigurationResponse = GetBucketInventoryConfigurationResponse'
-  { _gbicrrsInventoryConfiguration ::
-      !( Maybe
-           InventoryConfiguration
-       ),
-    _gbicrrsResponseStatus ::
-      !Int
+  { -- | Specifies the inventory configuration.
+    inventoryConfiguration :: Prelude.Maybe InventoryConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketInventoryConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketInventoryConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbicrrsInventoryConfiguration' - Specifies the inventory configuration.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbicrrsResponseStatus' - -- | The response status code.
-getBucketInventoryConfigurationResponse ::
-  -- | 'gbicrrsResponseStatus'
-  Int ->
+-- 'inventoryConfiguration', 'getBucketInventoryConfigurationResponse_inventoryConfiguration' - Specifies the inventory configuration.
+--
+-- 'httpStatus', 'getBucketInventoryConfigurationResponse_httpStatus' - The response's http status code.
+newGetBucketInventoryConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBucketInventoryConfigurationResponse
-getBucketInventoryConfigurationResponse
-  pResponseStatus_ =
+newGetBucketInventoryConfigurationResponse
+  pHttpStatus_ =
     GetBucketInventoryConfigurationResponse'
-      { _gbicrrsInventoryConfiguration =
-          Nothing,
-        _gbicrrsResponseStatus =
-          pResponseStatus_
+      { inventoryConfiguration =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Specifies the inventory configuration.
-gbicrrsInventoryConfiguration :: Lens' GetBucketInventoryConfigurationResponse (Maybe InventoryConfiguration)
-gbicrrsInventoryConfiguration = lens _gbicrrsInventoryConfiguration (\s a -> s {_gbicrrsInventoryConfiguration = a})
+getBucketInventoryConfigurationResponse_inventoryConfiguration :: Lens.Lens' GetBucketInventoryConfigurationResponse (Prelude.Maybe InventoryConfiguration)
+getBucketInventoryConfigurationResponse_inventoryConfiguration = Lens.lens (\GetBucketInventoryConfigurationResponse' {inventoryConfiguration} -> inventoryConfiguration) (\s@GetBucketInventoryConfigurationResponse' {} a -> s {inventoryConfiguration = a} :: GetBucketInventoryConfigurationResponse)
 
--- | -- | The response status code.
-gbicrrsResponseStatus :: Lens' GetBucketInventoryConfigurationResponse Int
-gbicrrsResponseStatus = lens _gbicrrsResponseStatus (\s a -> s {_gbicrrsResponseStatus = a})
+-- | The response's http status code.
+getBucketInventoryConfigurationResponse_httpStatus :: Lens.Lens' GetBucketInventoryConfigurationResponse Prelude.Int
+getBucketInventoryConfigurationResponse_httpStatus = Lens.lens (\GetBucketInventoryConfigurationResponse' {httpStatus} -> httpStatus) (\s@GetBucketInventoryConfigurationResponse' {} a -> s {httpStatus = a} :: GetBucketInventoryConfigurationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     GetBucketInventoryConfigurationResponse

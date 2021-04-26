@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,57 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.ReplicaModifications where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.ReplicaModificationsStatus
 
--- | A filter that you can specify for selection for modifications on replicas. Amazon S3 doesn't replicate replica modifications by default. In the latest version of replication configuration (when @Filter@ is specified), you can specify this element and set the status to @Enabled@ to replicate modifications on replicas.
+-- | A filter that you can specify for selection for modifications on
+-- replicas. Amazon S3 doesn\'t replicate replica modifications by default.
+-- In the latest version of replication configuration (when @Filter@ is
+-- specified), you can specify this element and set the status to @Enabled@
+-- to replicate modifications on replicas.
 --
+-- If you don\'t specify the @Filter@ element, Amazon S3 assumes that the
+-- replication configuration is the earlier version, V1. In the earlier
+-- version, this element is not allowed.
 --
---
--- /See:/ 'replicaModifications' smart constructor.
-newtype ReplicaModifications = ReplicaModifications'
-  { _rmStatus ::
-      ReplicaModificationsStatus
+-- /See:/ 'newReplicaModifications' smart constructor.
+data ReplicaModifications = ReplicaModifications'
+  { -- | Specifies whether Amazon S3 replicates modifications on replicas.
+    status :: ReplicaModificationsStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReplicaModifications' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReplicaModifications' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rmStatus' - Specifies whether Amazon S3 replicates modifications on replicas.
-replicaModifications ::
-  -- | 'rmStatus'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'status', 'replicaModifications_status' - Specifies whether Amazon S3 replicates modifications on replicas.
+newReplicaModifications ::
+  -- | 'status'
   ReplicaModificationsStatus ->
   ReplicaModifications
-replicaModifications pStatus_ =
-  ReplicaModifications' {_rmStatus = pStatus_}
+newReplicaModifications pStatus_ =
+  ReplicaModifications' {status = pStatus_}
 
 -- | Specifies whether Amazon S3 replicates modifications on replicas.
-rmStatus :: Lens' ReplicaModifications ReplicaModificationsStatus
-rmStatus = lens _rmStatus (\s a -> s {_rmStatus = a})
+replicaModifications_status :: Lens.Lens' ReplicaModifications ReplicaModificationsStatus
+replicaModifications_status = Lens.lens (\ReplicaModifications' {status} -> status) (\s@ReplicaModifications' {} a -> s {status = a} :: ReplicaModifications)
 
-instance FromXML ReplicaModifications where
+instance Prelude.FromXML ReplicaModifications where
   parseXML x =
-    ReplicaModifications' <$> (x .@ "Status")
+    ReplicaModifications'
+      Prelude.<$> (x Prelude..@ "Status")
 
-instance Hashable ReplicaModifications
+instance Prelude.Hashable ReplicaModifications
 
-instance NFData ReplicaModifications
+instance Prelude.NFData ReplicaModifications
 
-instance ToXML ReplicaModifications where
+instance Prelude.ToXML ReplicaModifications where
   toXML ReplicaModifications' {..} =
-    mconcat ["Status" @= _rmStatus]
+    Prelude.mconcat ["Status" Prelude.@= status]

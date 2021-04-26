@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,45 +19,51 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.S3KeyFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.FilterRule
 
 -- | A container for object key name prefix and suffix filtering rules.
 --
---
---
--- /See:/ 's3KeyFilter' smart constructor.
-newtype S3KeyFilter = S3KeyFilter'
-  { _skfFilterRules ::
-      Maybe [FilterRule]
+-- /See:/ 'newS3KeyFilter' smart constructor.
+data S3KeyFilter = S3KeyFilter'
+  { filterRules :: Prelude.Maybe [FilterRule]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3KeyFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3KeyFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'skfFilterRules' - Undocumented member.
-s3KeyFilter ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'filterRules', 's3KeyFilter_filterRules' - Undocumented member.
+newS3KeyFilter ::
   S3KeyFilter
-s3KeyFilter = S3KeyFilter' {_skfFilterRules = Nothing}
+newS3KeyFilter =
+  S3KeyFilter' {filterRules = Prelude.Nothing}
 
 -- | Undocumented member.
-skfFilterRules :: Lens' S3KeyFilter [FilterRule]
-skfFilterRules = lens _skfFilterRules (\s a -> s {_skfFilterRules = a}) . _Default . _Coerce
+s3KeyFilter_filterRules :: Lens.Lens' S3KeyFilter (Prelude.Maybe [FilterRule])
+s3KeyFilter_filterRules = Lens.lens (\S3KeyFilter' {filterRules} -> filterRules) (\s@S3KeyFilter' {} a -> s {filterRules = a} :: S3KeyFilter) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromXML S3KeyFilter where
+instance Prelude.FromXML S3KeyFilter where
   parseXML x =
     S3KeyFilter'
-      <$> (may (parseXMLList "FilterRule") x)
+      Prelude.<$> (Prelude.may (Prelude.parseXMLList "FilterRule") x)
 
-instance Hashable S3KeyFilter
+instance Prelude.Hashable S3KeyFilter
 
-instance NFData S3KeyFilter
+instance Prelude.NFData S3KeyFilter
 
-instance ToXML S3KeyFilter where
+instance Prelude.ToXML S3KeyFilter where
   toXML S3KeyFilter' {..} =
-    mconcat
-      [toXML (toXMLList "FilterRule" <$> _skfFilterRules)]
+    Prelude.mconcat
+      [ Prelude.toXML
+          ( Prelude.toXMLList "FilterRule"
+              Prelude.<$> filterRules
+          )
+      ]

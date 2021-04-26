@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.S3.Types.RestoreRequestType
   ( RestoreRequestType
       ( ..,
-        Select
+        RestoreRequestTypeSELECT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data RestoreRequestType
-  = RestoreRequestType'
-      ( CI
-          Text
-      )
+newtype RestoreRequestType = RestoreRequestType'
+  { fromRestoreRequestType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Select :: RestoreRequestType
-pattern Select = RestoreRequestType' "SELECT"
+pattern RestoreRequestTypeSELECT :: RestoreRequestType
+pattern RestoreRequestTypeSELECT = RestoreRequestType' "SELECT"
 
 {-# COMPLETE
-  Select,
+  RestoreRequestTypeSELECT,
   RestoreRequestType'
   #-}
 
-instance FromText RestoreRequestType where
-  parser = (RestoreRequestType' . mk) <$> takeText
+instance Prelude.FromText RestoreRequestType where
+  parser = RestoreRequestType' Prelude.<$> Prelude.takeText
 
-instance ToText RestoreRequestType where
-  toText (RestoreRequestType' ci) = original ci
+instance Prelude.ToText RestoreRequestType where
+  toText (RestoreRequestType' x) = x
 
-instance Hashable RestoreRequestType
+instance Prelude.Hashable RestoreRequestType
 
-instance NFData RestoreRequestType
+instance Prelude.NFData RestoreRequestType
 
-instance ToByteString RestoreRequestType
+instance Prelude.ToByteString RestoreRequestType
 
-instance ToQuery RestoreRequestType
+instance Prelude.ToQuery RestoreRequestType
 
-instance ToHeader RestoreRequestType
+instance Prelude.ToHeader RestoreRequestType
 
-instance ToXML RestoreRequestType where
-  toXML = toXMLText
+instance Prelude.ToXML RestoreRequestType where
+  toXML = Prelude.toXMLText

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,158 +21,167 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the policy status for an Amazon S3 bucket, indicating whether the bucket is public. In order to use this operation, you must have the @s3:GetBucketPolicyStatus@ permission. For more information about Amazon S3 permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html Specifying Permissions in a Policy> .
+-- Retrieves the policy status for an Amazon S3 bucket, indicating whether
+-- the bucket is public. In order to use this operation, you must have the
+-- @s3:GetBucketPolicyStatus@ permission. For more information about Amazon
+-- S3 permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html Specifying Permissions in a Policy>.
 --
+-- For more information about when Amazon S3 considers a bucket public, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status The Meaning of \"Public\">.
 --
--- For more information about when Amazon S3 considers a bucket public, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status The Meaning of "Public"> .
+-- The following operations are related to @GetBucketPolicyStatus@:
 --
--- The following operations are related to @GetBucketPolicyStatus@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html Using Amazon S3 Block Public Access>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html Using Amazon S3 Block Public Access>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html GetPublicAccessBlock>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetPublicAccessBlock.html GetPublicAccessBlock>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutPublicAccessBlock.html PutPublicAccessBlock>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutPublicAccessBlock.html PutPublicAccessBlock>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html DeletePublicAccessBlock>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeletePublicAccessBlock.html DeletePublicAccessBlock>
 module Network.AWS.S3.GetBucketPolicyStatus
   ( -- * Creating a Request
-    getBucketPolicyStatus,
-    GetBucketPolicyStatus,
+    GetBucketPolicyStatus (..),
+    newGetBucketPolicyStatus,
 
     -- * Request Lenses
-    gbpsExpectedBucketOwner,
-    gbpsBucket,
+    getBucketPolicyStatus_expectedBucketOwner,
+    getBucketPolicyStatus_bucket,
 
     -- * Destructuring the Response
-    getBucketPolicyStatusResponse,
-    GetBucketPolicyStatusResponse,
+    GetBucketPolicyStatusResponse (..),
+    newGetBucketPolicyStatusResponse,
 
     -- * Response Lenses
-    gbpsrrsPolicyStatus,
-    gbpsrrsResponseStatus,
+    getBucketPolicyStatusResponse_policyStatus,
+    getBucketPolicyStatusResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.PolicyStatus
 
--- | /See:/ 'getBucketPolicyStatus' smart constructor.
+-- | /See:/ 'newGetBucketPolicyStatus' smart constructor.
 data GetBucketPolicyStatus = GetBucketPolicyStatus'
-  { _gbpsExpectedBucketOwner ::
-      !(Maybe Text),
-    _gbpsBucket :: !BucketName
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The name of the Amazon S3 bucket whose policy status you want to
+    -- retrieve.
+    bucket :: BucketName
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketPolicyStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketPolicyStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbpsExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbpsBucket' - The name of the Amazon S3 bucket whose policy status you want to retrieve.
-getBucketPolicyStatus ::
-  -- | 'gbpsBucket'
+-- 'expectedBucketOwner', 'getBucketPolicyStatus_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+--
+-- 'bucket', 'getBucketPolicyStatus_bucket' - The name of the Amazon S3 bucket whose policy status you want to
+-- retrieve.
+newGetBucketPolicyStatus ::
+  -- | 'bucket'
   BucketName ->
   GetBucketPolicyStatus
-getBucketPolicyStatus pBucket_ =
+newGetBucketPolicyStatus pBucket_ =
   GetBucketPolicyStatus'
-    { _gbpsExpectedBucketOwner =
-        Nothing,
-      _gbpsBucket = pBucket_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-gbpsExpectedBucketOwner :: Lens' GetBucketPolicyStatus (Maybe Text)
-gbpsExpectedBucketOwner = lens _gbpsExpectedBucketOwner (\s a -> s {_gbpsExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+getBucketPolicyStatus_expectedBucketOwner :: Lens.Lens' GetBucketPolicyStatus (Prelude.Maybe Prelude.Text)
+getBucketPolicyStatus_expectedBucketOwner = Lens.lens (\GetBucketPolicyStatus' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketPolicyStatus' {} a -> s {expectedBucketOwner = a} :: GetBucketPolicyStatus)
 
--- | The name of the Amazon S3 bucket whose policy status you want to retrieve.
-gbpsBucket :: Lens' GetBucketPolicyStatus BucketName
-gbpsBucket = lens _gbpsBucket (\s a -> s {_gbpsBucket = a})
+-- | The name of the Amazon S3 bucket whose policy status you want to
+-- retrieve.
+getBucketPolicyStatus_bucket :: Lens.Lens' GetBucketPolicyStatus BucketName
+getBucketPolicyStatus_bucket = Lens.lens (\GetBucketPolicyStatus' {bucket} -> bucket) (\s@GetBucketPolicyStatus' {} a -> s {bucket = a} :: GetBucketPolicyStatus)
 
-instance AWSRequest GetBucketPolicyStatus where
+instance Prelude.AWSRequest GetBucketPolicyStatus where
   type
     Rs GetBucketPolicyStatus =
       GetBucketPolicyStatusResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetBucketPolicyStatusResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBucketPolicyStatus
+instance Prelude.Hashable GetBucketPolicyStatus
 
-instance NFData GetBucketPolicyStatus
+instance Prelude.NFData GetBucketPolicyStatus
 
-instance ToHeaders GetBucketPolicyStatus where
+instance Prelude.ToHeaders GetBucketPolicyStatus where
   toHeaders GetBucketPolicyStatus' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _gbpsExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath GetBucketPolicyStatus where
+instance Prelude.ToPath GetBucketPolicyStatus where
   toPath GetBucketPolicyStatus' {..} =
-    mconcat ["/", toBS _gbpsBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery GetBucketPolicyStatus where
-  toQuery = const (mconcat ["policyStatus"])
+instance Prelude.ToQuery GetBucketPolicyStatus where
+  toQuery =
+    Prelude.const (Prelude.mconcat ["policyStatus"])
 
--- | /See:/ 'getBucketPolicyStatusResponse' smart constructor.
+-- | /See:/ 'newGetBucketPolicyStatusResponse' smart constructor.
 data GetBucketPolicyStatusResponse = GetBucketPolicyStatusResponse'
-  { _gbpsrrsPolicyStatus ::
-      !( Maybe
-           PolicyStatus
-       ),
-    _gbpsrrsResponseStatus ::
-      !Int
+  { -- | The policy status for the specified bucket.
+    policyStatus :: Prelude.Maybe PolicyStatus,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketPolicyStatusResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketPolicyStatusResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbpsrrsPolicyStatus' - The policy status for the specified bucket.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbpsrrsResponseStatus' - -- | The response status code.
-getBucketPolicyStatusResponse ::
-  -- | 'gbpsrrsResponseStatus'
-  Int ->
+-- 'policyStatus', 'getBucketPolicyStatusResponse_policyStatus' - The policy status for the specified bucket.
+--
+-- 'httpStatus', 'getBucketPolicyStatusResponse_httpStatus' - The response's http status code.
+newGetBucketPolicyStatusResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBucketPolicyStatusResponse
-getBucketPolicyStatusResponse pResponseStatus_ =
+newGetBucketPolicyStatusResponse pHttpStatus_ =
   GetBucketPolicyStatusResponse'
-    { _gbpsrrsPolicyStatus =
-        Nothing,
-      _gbpsrrsResponseStatus = pResponseStatus_
+    { policyStatus =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The policy status for the specified bucket.
-gbpsrrsPolicyStatus :: Lens' GetBucketPolicyStatusResponse (Maybe PolicyStatus)
-gbpsrrsPolicyStatus = lens _gbpsrrsPolicyStatus (\s a -> s {_gbpsrrsPolicyStatus = a})
+getBucketPolicyStatusResponse_policyStatus :: Lens.Lens' GetBucketPolicyStatusResponse (Prelude.Maybe PolicyStatus)
+getBucketPolicyStatusResponse_policyStatus = Lens.lens (\GetBucketPolicyStatusResponse' {policyStatus} -> policyStatus) (\s@GetBucketPolicyStatusResponse' {} a -> s {policyStatus = a} :: GetBucketPolicyStatusResponse)
 
--- | -- | The response status code.
-gbpsrrsResponseStatus :: Lens' GetBucketPolicyStatusResponse Int
-gbpsrrsResponseStatus = lens _gbpsrrsResponseStatus (\s a -> s {_gbpsrrsResponseStatus = a})
+-- | The response's http status code.
+getBucketPolicyStatusResponse_httpStatus :: Lens.Lens' GetBucketPolicyStatusResponse Prelude.Int
+getBucketPolicyStatusResponse_httpStatus = Lens.lens (\GetBucketPolicyStatusResponse' {httpStatus} -> httpStatus) (\s@GetBucketPolicyStatusResponse' {} a -> s {httpStatus = a} :: GetBucketPolicyStatusResponse)
 
-instance NFData GetBucketPolicyStatusResponse
+instance Prelude.NFData GetBucketPolicyStatusResponse

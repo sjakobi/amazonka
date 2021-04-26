@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.S3.Types.MFADeleteStatus
   ( MFADeleteStatus
       ( ..,
-        Disabled,
-        Enabled
+        MFADeleteStatusDisabled,
+        MFADeleteStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data MFADeleteStatus = MFADeleteStatus' (CI Text)
+newtype MFADeleteStatus = MFADeleteStatus'
+  { fromMFADeleteStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: MFADeleteStatus
-pattern Disabled = MFADeleteStatus' "Disabled"
+pattern MFADeleteStatusDisabled :: MFADeleteStatus
+pattern MFADeleteStatusDisabled = MFADeleteStatus' "Disabled"
 
-pattern Enabled :: MFADeleteStatus
-pattern Enabled = MFADeleteStatus' "Enabled"
+pattern MFADeleteStatusEnabled :: MFADeleteStatus
+pattern MFADeleteStatusEnabled = MFADeleteStatus' "Enabled"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  MFADeleteStatusDisabled,
+  MFADeleteStatusEnabled,
   MFADeleteStatus'
   #-}
 
-instance FromText MFADeleteStatus where
-  parser = (MFADeleteStatus' . mk) <$> takeText
+instance Prelude.FromText MFADeleteStatus where
+  parser = MFADeleteStatus' Prelude.<$> Prelude.takeText
 
-instance ToText MFADeleteStatus where
-  toText (MFADeleteStatus' ci) = original ci
+instance Prelude.ToText MFADeleteStatus where
+  toText (MFADeleteStatus' x) = x
 
-instance Hashable MFADeleteStatus
+instance Prelude.Hashable MFADeleteStatus
 
-instance NFData MFADeleteStatus
+instance Prelude.NFData MFADeleteStatus
 
-instance ToByteString MFADeleteStatus
+instance Prelude.ToByteString MFADeleteStatus
 
-instance ToQuery MFADeleteStatus
+instance Prelude.ToQuery MFADeleteStatus
 
-instance ToHeader MFADeleteStatus
+instance Prelude.ToHeader MFADeleteStatus
 
-instance FromXML MFADeleteStatus where
-  parseXML = parseXMLText "MFADeleteStatus"
+instance Prelude.FromXML MFADeleteStatus where
+  parseXML = Prelude.parseXMLText "MFADeleteStatus"

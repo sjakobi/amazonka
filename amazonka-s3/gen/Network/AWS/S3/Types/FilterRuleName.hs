@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,59 @@
 module Network.AWS.S3.Types.FilterRuleName
   ( FilterRuleName
       ( ..,
-        Prefix,
-        Suffix
+        FilterRuleNamePrefix,
+        FilterRuleNameSuffix
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data FilterRuleName = FilterRuleName' (CI Text)
+newtype FilterRuleName = FilterRuleName'
+  { fromFilterRuleName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Prefix :: FilterRuleName
-pattern Prefix = FilterRuleName' "prefix"
+pattern FilterRuleNamePrefix :: FilterRuleName
+pattern FilterRuleNamePrefix = FilterRuleName' "prefix"
 
-pattern Suffix :: FilterRuleName
-pattern Suffix = FilterRuleName' "suffix"
+pattern FilterRuleNameSuffix :: FilterRuleName
+pattern FilterRuleNameSuffix = FilterRuleName' "suffix"
 
 {-# COMPLETE
-  Prefix,
-  Suffix,
+  FilterRuleNamePrefix,
+  FilterRuleNameSuffix,
   FilterRuleName'
   #-}
 
-instance FromText FilterRuleName where
-  parser = (FilterRuleName' . mk) <$> takeText
+instance Prelude.FromText FilterRuleName where
+  parser = FilterRuleName' Prelude.<$> Prelude.takeText
 
-instance ToText FilterRuleName where
-  toText (FilterRuleName' ci) = original ci
+instance Prelude.ToText FilterRuleName where
+  toText (FilterRuleName' x) = x
 
-instance Hashable FilterRuleName
+instance Prelude.Hashable FilterRuleName
 
-instance NFData FilterRuleName
+instance Prelude.NFData FilterRuleName
 
-instance ToByteString FilterRuleName
+instance Prelude.ToByteString FilterRuleName
 
-instance ToQuery FilterRuleName
+instance Prelude.ToQuery FilterRuleName
 
-instance ToHeader FilterRuleName
+instance Prelude.ToHeader FilterRuleName
 
-instance FromXML FilterRuleName where
-  parseXML = parseXMLText "FilterRuleName"
+instance Prelude.FromXML FilterRuleName where
+  parseXML = Prelude.parseXMLText "FilterRuleName"
 
-instance ToXML FilterRuleName where
-  toXML = toXMLText
+instance Prelude.ToXML FilterRuleName where
+  toXML = Prelude.toXMLText

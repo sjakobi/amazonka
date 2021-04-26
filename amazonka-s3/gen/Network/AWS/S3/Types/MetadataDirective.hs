@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,54 +19,56 @@
 module Network.AWS.S3.Types.MetadataDirective
   ( MetadataDirective
       ( ..,
-        MDCopy,
-        MDReplace
+        MetadataDirectiveCOPY,
+        MetadataDirectiveREPLACE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data MetadataDirective = MetadataDirective' (CI Text)
+newtype MetadataDirective = MetadataDirective'
+  { fromMetadataDirective ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern MDCopy :: MetadataDirective
-pattern MDCopy = MetadataDirective' "COPY"
+pattern MetadataDirectiveCOPY :: MetadataDirective
+pattern MetadataDirectiveCOPY = MetadataDirective' "COPY"
 
-pattern MDReplace :: MetadataDirective
-pattern MDReplace = MetadataDirective' "REPLACE"
+pattern MetadataDirectiveREPLACE :: MetadataDirective
+pattern MetadataDirectiveREPLACE = MetadataDirective' "REPLACE"
 
 {-# COMPLETE
-  MDCopy,
-  MDReplace,
+  MetadataDirectiveCOPY,
+  MetadataDirectiveREPLACE,
   MetadataDirective'
   #-}
 
-instance FromText MetadataDirective where
-  parser = (MetadataDirective' . mk) <$> takeText
+instance Prelude.FromText MetadataDirective where
+  parser = MetadataDirective' Prelude.<$> Prelude.takeText
 
-instance ToText MetadataDirective where
-  toText (MetadataDirective' ci) = original ci
+instance Prelude.ToText MetadataDirective where
+  toText (MetadataDirective' x) = x
 
-instance Hashable MetadataDirective
+instance Prelude.Hashable MetadataDirective
 
-instance NFData MetadataDirective
+instance Prelude.NFData MetadataDirective
 
-instance ToByteString MetadataDirective
+instance Prelude.ToByteString MetadataDirective
 
-instance ToQuery MetadataDirective
+instance Prelude.ToQuery MetadataDirective
 
-instance ToHeader MetadataDirective
+instance Prelude.ToHeader MetadataDirective
 
-instance ToXML MetadataDirective where
-  toXML = toXMLText
+instance Prelude.ToXML MetadataDirective where
+  toXML = Prelude.toXMLText

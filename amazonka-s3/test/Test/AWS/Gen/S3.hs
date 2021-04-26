@@ -28,553 +28,553 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestPutBucketPolicy $
---             putBucketPolicy
+--             newPutBucketPolicy
 --
 --         , requestGetBucketEncryption $
---             getBucketEncryption
+--             newGetBucketEncryption
 --
 --         , requestDeleteBucket $
---             deleteBucket
+--             newDeleteBucket
 --
 --         , requestDeleteObjects $
---             deleteObjects
+--             newDeleteObjects
 --
 --         , requestPutBucketLogging $
---             putBucketLogging
+--             newPutBucketLogging
 --
 --         , requestDeleteBucketWebsite $
---             deleteBucketWebsite
+--             newDeleteBucketWebsite
 --
 --         , requestCompleteMultipartUpload $
---             completeMultipartUpload
+--             newCompleteMultipartUpload
 --
 --         , requestSelectObjectContent $
---             selectObjectContent
+--             newSelectObjectContent
 --
 --         , requestGetBucketPolicyStatus $
---             getBucketPolicyStatus
+--             newGetBucketPolicyStatus
 --
 --         , requestListObjects $
---             listObjects
+--             newListObjects
 --
 --         , requestDeleteObject $
---             deleteObject
+--             newDeleteObject
 --
 --         , requestDeleteBucketAnalyticsConfiguration $
---             deleteBucketAnalyticsConfiguration
+--             newDeleteBucketAnalyticsConfiguration
 --
 --         , requestDeleteObjectTagging $
---             deleteObjectTagging
+--             newDeleteObjectTagging
 --
---         , requestGetBucketACL $
---             getBucketACL
+--         , requestGetBucketAcl $
+--             newGetBucketAcl
 --
 --         , requestGetObjectTagging $
---             getObjectTagging
+--             newGetObjectTagging
 --
 --         , requestPutBucketReplication $
---             putBucketReplication
+--             newPutBucketReplication
 --
 --         , requestGetBucketWebsite $
---             getBucketWebsite
+--             newGetBucketWebsite
 --
 --         , requestGetObjectLockConfiguration $
---             getObjectLockConfiguration
+--             newGetObjectLockConfiguration
 --
 --         , requestDeleteBucketMetricsConfiguration $
---             deleteBucketMetricsConfiguration
+--             newDeleteBucketMetricsConfiguration
 --
 --         , requestGetBucketPolicy $
---             getBucketPolicy
+--             newGetBucketPolicy
 --
 --         , requestPutBucketEncryption $
---             putBucketEncryption
+--             newPutBucketEncryption
 --
 --         , requestListBucketMetricsConfigurations $
---             listBucketMetricsConfigurations
+--             newListBucketMetricsConfigurations
 --
 --         , requestPutBucketAccelerateConfiguration $
---             putBucketAccelerateConfiguration
+--             newPutBucketAccelerateConfiguration
 --
 --         , requestPutBucketOwnershipControls $
---             putBucketOwnershipControls
+--             newPutBucketOwnershipControls
 --
 --         , requestPutObjectRetention $
---             putObjectRetention
+--             newPutObjectRetention
 --
 --         , requestPutObjectLegalHold $
---             putObjectLegalHold
+--             newPutObjectLegalHold
 --
 --         , requestHeadObject $
---             headObject
+--             newHeadObject
 --
 --         , requestGetBucketTagging $
---             getBucketTagging
+--             newGetBucketTagging
 --
 --         , requestGetBucketLocation $
---             getBucketLocation
+--             newGetBucketLocation
 --
 --         , requestPutBucketInventoryConfiguration $
---             putBucketInventoryConfiguration
+--             newPutBucketInventoryConfiguration
 --
 --         , requestListBucketInventoryConfigurations $
---             listBucketInventoryConfigurations
+--             newListBucketInventoryConfigurations
 --
---         , requestGetObjectACL $
---             getObjectACL
+--         , requestGetObjectAcl $
+--             newGetObjectAcl
 --
 --         , requestDeletePublicAccessBlock $
---             deletePublicAccessBlock
+--             newDeletePublicAccessBlock
 --
 --         , requestDeleteBucketIntelligentTieringConfiguration $
---             deleteBucketIntelligentTieringConfiguration
+--             newDeleteBucketIntelligentTieringConfiguration
 --
 --         , requestGetBucketVersioning $
---             getBucketVersioning
+--             newGetBucketVersioning
 --
 --         , requestPutBucketTagging $
---             putBucketTagging
+--             newPutBucketTagging
 --
 --         , requestCreateBucket $
---             createBucket
+--             newCreateBucket
 --
---         , requestPutObjectACL $
---             putObjectACL
+--         , requestPutObjectAcl $
+--             newPutObjectAcl
 --
---         , requestPutBucketCORS $
---             putBucketCORS
+--         , requestPutBucketCors $
+--             newPutBucketCors
 --
 --         , requestGetObjectRetention $
---             getObjectRetention
+--             newGetObjectRetention
 --
 --         , requestGetObjectTorrent $
---             getObjectTorrent
+--             newGetObjectTorrent
 --
 --         , requestGetBucketOwnershipControls $
---             getBucketOwnershipControls
+--             newGetBucketOwnershipControls
 --
 --         , requestGetBucketMetricsConfiguration $
---             getBucketMetricsConfiguration
+--             newGetBucketMetricsConfiguration
 --
 --         , requestGetBucketAccelerateConfiguration $
---             getBucketAccelerateConfiguration
+--             newGetBucketAccelerateConfiguration
 --
 --         , requestGetObjectLegalHold $
---             getObjectLegalHold
+--             newGetObjectLegalHold
 --
 --         , requestListBuckets $
---             listBuckets
+--             newListBuckets
 --
 --         , requestDeleteBucketPolicy $
---             deleteBucketPolicy
+--             newDeleteBucketPolicy
 --
 --         , requestPutObjectLockConfiguration $
---             putObjectLockConfiguration
+--             newPutObjectLockConfiguration
 --
 --         , requestAbortMultipartUpload $
---             abortMultipartUpload
+--             newAbortMultipartUpload
 --
 --         , requestUploadPart $
---             uploadPart
+--             newUploadPart
 --
 --         , requestPutObject $
---             putObject
+--             newPutObject
 --
 --         , requestPutBucketRequestPayment $
---             putBucketRequestPayment
+--             newPutBucketRequestPayment
 --
 --         , requestListMultipartUploads $
---             listMultipartUploads
+--             newListMultipartUploads
 --
 --         , requestGetBucketReplication $
---             getBucketReplication
+--             newGetBucketReplication
 --
 --         , requestPutBucketWebsite $
---             putBucketWebsite
+--             newPutBucketWebsite
 --
 --         , requestPutBucketAnalyticsConfiguration $
---             putBucketAnalyticsConfiguration
+--             newPutBucketAnalyticsConfiguration
 --
 --         , requestPutObjectTagging $
---             putObjectTagging
+--             newPutObjectTagging
 --
 --         , requestUploadPartCopy $
---             uploadPartCopy
+--             newUploadPartCopy
 --
 --         , requestCreateMultipartUpload $
---             createMultipartUpload
+--             newCreateMultipartUpload
 --
 --         , requestPutBucketLifecycleConfiguration $
---             putBucketLifecycleConfiguration
+--             newPutBucketLifecycleConfiguration
 --
---         , requestPutBucketACL $
---             putBucketACL
+--         , requestPutBucketAcl $
+--             newPutBucketAcl
 --
 --         , requestDeleteBucketLifecycle $
---             deleteBucketLifecycle
+--             newDeleteBucketLifecycle
 --
 --         , requestListBucketAnalyticsConfigurations $
---             listBucketAnalyticsConfigurations
+--             newListBucketAnalyticsConfigurations
 --
 --         , requestGetBucketAnalyticsConfiguration $
---             getBucketAnalyticsConfiguration
+--             newGetBucketAnalyticsConfiguration
 --
 --         , requestHeadBucket $
---             headBucket
+--             newHeadBucket
 --
 --         , requestListObjectVersions $
---             listObjectVersions
+--             newListObjectVersions
 --
 --         , requestGetBucketLifecycleConfiguration $
---             getBucketLifecycleConfiguration
+--             newGetBucketLifecycleConfiguration
 --
 --         , requestListParts $
---             listParts
+--             newListParts
 --
 --         , requestGetBucketRequestPayment $
---             getBucketRequestPayment
+--             newGetBucketRequestPayment
 --
 --         , requestDeleteBucketReplication $
---             deleteBucketReplication
+--             newDeleteBucketReplication
 --
 --         , requestGetBucketLogging $
---             getBucketLogging
+--             newGetBucketLogging
 --
 --         , requestGetObject $
---             getObject
+--             newGetObject
 --
 --         , requestDeleteBucketOwnershipControls $
---             deleteBucketOwnershipControls
+--             newDeleteBucketOwnershipControls
 --
 --         , requestPutBucketMetricsConfiguration $
---             putBucketMetricsConfiguration
+--             newPutBucketMetricsConfiguration
 --
---         , requestListObjectsV2 $
---             listObjectsV2
+--         , requestListObjectsV $
+--             newListObjectsV
 --
 --         , requestCopyObject $
---             copyObject
+--             newCopyObject
 --
 --         , requestDeleteBucketEncryption $
---             deleteBucketEncryption
+--             newDeleteBucketEncryption
 --
 --         , requestPutBucketVersioning $
---             putBucketVersioning
+--             newPutBucketVersioning
 --
 --         , requestGetBucketNotificationConfiguration $
---             getBucketNotificationConfiguration
+--             newGetBucketNotificationConfiguration
 --
 --         , requestPutPublicAccessBlock $
---             putPublicAccessBlock
+--             newPutPublicAccessBlock
 --
 --         , requestDeleteBucketInventoryConfiguration $
---             deleteBucketInventoryConfiguration
+--             newDeleteBucketInventoryConfiguration
 --
 --         , requestGetBucketIntelligentTieringConfiguration $
---             getBucketIntelligentTieringConfiguration
+--             newGetBucketIntelligentTieringConfiguration
 --
 --         , requestRestoreObject $
---             restoreObject
+--             newRestoreObject
 --
---         , requestGetBucketCORS $
---             getBucketCORS
+--         , requestGetBucketCors $
+--             newGetBucketCors
 --
 --         , requestGetBucketInventoryConfiguration $
---             getBucketInventoryConfiguration
+--             newGetBucketInventoryConfiguration
 --
 --         , requestGetPublicAccessBlock $
---             getPublicAccessBlock
+--             newGetPublicAccessBlock
 --
---         , requestDeleteBucketCORS $
---             deleteBucketCORS
+--         , requestDeleteBucketCors $
+--             newDeleteBucketCors
 --
 --         , requestDeleteBucketTagging $
---             deleteBucketTagging
+--             newDeleteBucketTagging
 --
 --         , requestListBucketIntelligentTieringConfigurations $
---             listBucketIntelligentTieringConfigurations
+--             newListBucketIntelligentTieringConfigurations
 --
 --         , requestPutBucketNotificationConfiguration $
---             putBucketNotificationConfiguration
+--             newPutBucketNotificationConfiguration
 --
 --         , requestPutBucketIntelligentTieringConfiguration $
---             putBucketIntelligentTieringConfiguration
+--             newPutBucketIntelligentTieringConfiguration
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responsePutBucketPolicy $
---             putBucketPolicyResponse
+--             newPutBucketPolicyResponse
 --
 --         , responseGetBucketEncryption $
---             getBucketEncryptionResponse
+--             newGetBucketEncryptionResponse
 --
 --         , responseDeleteBucket $
---             deleteBucketResponse
+--             newDeleteBucketResponse
 --
 --         , responseDeleteObjects $
---             deleteObjectsResponse
+--             newDeleteObjectsResponse
 --
 --         , responsePutBucketLogging $
---             putBucketLoggingResponse
+--             newPutBucketLoggingResponse
 --
 --         , responseDeleteBucketWebsite $
---             deleteBucketWebsiteResponse
+--             newDeleteBucketWebsiteResponse
 --
 --         , responseCompleteMultipartUpload $
---             completeMultipartUploadResponse
+--             newCompleteMultipartUploadResponse
 --
 --         , responseSelectObjectContent $
---             selectObjectContentResponse
+--             newSelectObjectContentResponse
 --
 --         , responseGetBucketPolicyStatus $
---             getBucketPolicyStatusResponse
+--             newGetBucketPolicyStatusResponse
 --
 --         , responseListObjects $
---             listObjectsResponse
+--             newListObjectsResponse
 --
 --         , responseDeleteObject $
---             deleteObjectResponse
+--             newDeleteObjectResponse
 --
 --         , responseDeleteBucketAnalyticsConfiguration $
---             deleteBucketAnalyticsConfigurationResponse
+--             newDeleteBucketAnalyticsConfigurationResponse
 --
 --         , responseDeleteObjectTagging $
---             deleteObjectTaggingResponse
+--             newDeleteObjectTaggingResponse
 --
---         , responseGetBucketACL $
---             getBucketACLResponse
+--         , responseGetBucketAcl $
+--             newGetBucketAclResponse
 --
 --         , responseGetObjectTagging $
---             getObjectTaggingResponse
+--             newGetObjectTaggingResponse
 --
 --         , responsePutBucketReplication $
---             putBucketReplicationResponse
+--             newPutBucketReplicationResponse
 --
 --         , responseGetBucketWebsite $
---             getBucketWebsiteResponse
+--             newGetBucketWebsiteResponse
 --
 --         , responseGetObjectLockConfiguration $
---             getObjectLockConfigurationResponse
+--             newGetObjectLockConfigurationResponse
 --
 --         , responseDeleteBucketMetricsConfiguration $
---             deleteBucketMetricsConfigurationResponse
+--             newDeleteBucketMetricsConfigurationResponse
 --
 --         , responseGetBucketPolicy $
---             getBucketPolicyResponse
+--             newGetBucketPolicyResponse
 --
 --         , responsePutBucketEncryption $
---             putBucketEncryptionResponse
+--             newPutBucketEncryptionResponse
 --
 --         , responseListBucketMetricsConfigurations $
---             listBucketMetricsConfigurationsResponse
+--             newListBucketMetricsConfigurationsResponse
 --
 --         , responsePutBucketAccelerateConfiguration $
---             putBucketAccelerateConfigurationResponse
+--             newPutBucketAccelerateConfigurationResponse
 --
 --         , responsePutBucketOwnershipControls $
---             putBucketOwnershipControlsResponse
+--             newPutBucketOwnershipControlsResponse
 --
 --         , responsePutObjectRetention $
---             putObjectRetentionResponse
+--             newPutObjectRetentionResponse
 --
 --         , responsePutObjectLegalHold $
---             putObjectLegalHoldResponse
+--             newPutObjectLegalHoldResponse
 --
 --         , responseHeadObject $
---             headObjectResponse
+--             newHeadObjectResponse
 --
 --         , responseGetBucketTagging $
---             getBucketTaggingResponse
+--             newGetBucketTaggingResponse
 --
 --         , responseGetBucketLocation $
---             getBucketLocationResponse
+--             newGetBucketLocationResponse
 --
 --         , responsePutBucketInventoryConfiguration $
---             putBucketInventoryConfigurationResponse
+--             newPutBucketInventoryConfigurationResponse
 --
 --         , responseListBucketInventoryConfigurations $
---             listBucketInventoryConfigurationsResponse
+--             newListBucketInventoryConfigurationsResponse
 --
---         , responseGetObjectACL $
---             getObjectACLResponse
+--         , responseGetObjectAcl $
+--             newGetObjectAclResponse
 --
 --         , responseDeletePublicAccessBlock $
---             deletePublicAccessBlockResponse
+--             newDeletePublicAccessBlockResponse
 --
 --         , responseDeleteBucketIntelligentTieringConfiguration $
---             deleteBucketIntelligentTieringConfigurationResponse
+--             newDeleteBucketIntelligentTieringConfigurationResponse
 --
 --         , responseGetBucketVersioning $
---             getBucketVersioningResponse
+--             newGetBucketVersioningResponse
 --
 --         , responsePutBucketTagging $
---             putBucketTaggingResponse
+--             newPutBucketTaggingResponse
 --
 --         , responseCreateBucket $
---             createBucketResponse
+--             newCreateBucketResponse
 --
---         , responsePutObjectACL $
---             putObjectACLResponse
+--         , responsePutObjectAcl $
+--             newPutObjectAclResponse
 --
---         , responsePutBucketCORS $
---             putBucketCORSResponse
+--         , responsePutBucketCors $
+--             newPutBucketCorsResponse
 --
 --         , responseGetObjectRetention $
---             getObjectRetentionResponse
+--             newGetObjectRetentionResponse
 --
 --         , responseGetObjectTorrent $
---             getObjectTorrentResponse
+--             newGetObjectTorrentResponse
 --
 --         , responseGetBucketOwnershipControls $
---             getBucketOwnershipControlsResponse
+--             newGetBucketOwnershipControlsResponse
 --
 --         , responseGetBucketMetricsConfiguration $
---             getBucketMetricsConfigurationResponse
+--             newGetBucketMetricsConfigurationResponse
 --
 --         , responseGetBucketAccelerateConfiguration $
---             getBucketAccelerateConfigurationResponse
+--             newGetBucketAccelerateConfigurationResponse
 --
 --         , responseGetObjectLegalHold $
---             getObjectLegalHoldResponse
+--             newGetObjectLegalHoldResponse
 --
 --         , responseListBuckets $
---             listBucketsResponse
+--             newListBucketsResponse
 --
 --         , responseDeleteBucketPolicy $
---             deleteBucketPolicyResponse
+--             newDeleteBucketPolicyResponse
 --
 --         , responsePutObjectLockConfiguration $
---             putObjectLockConfigurationResponse
+--             newPutObjectLockConfigurationResponse
 --
 --         , responseAbortMultipartUpload $
---             abortMultipartUploadResponse
+--             newAbortMultipartUploadResponse
 --
 --         , responseUploadPart $
---             uploadPartResponse
+--             newUploadPartResponse
 --
 --         , responsePutObject $
---             putObjectResponse
+--             newPutObjectResponse
 --
 --         , responsePutBucketRequestPayment $
---             putBucketRequestPaymentResponse
+--             newPutBucketRequestPaymentResponse
 --
 --         , responseListMultipartUploads $
---             listMultipartUploadsResponse
+--             newListMultipartUploadsResponse
 --
 --         , responseGetBucketReplication $
---             getBucketReplicationResponse
+--             newGetBucketReplicationResponse
 --
 --         , responsePutBucketWebsite $
---             putBucketWebsiteResponse
+--             newPutBucketWebsiteResponse
 --
 --         , responsePutBucketAnalyticsConfiguration $
---             putBucketAnalyticsConfigurationResponse
+--             newPutBucketAnalyticsConfigurationResponse
 --
 --         , responsePutObjectTagging $
---             putObjectTaggingResponse
+--             newPutObjectTaggingResponse
 --
 --         , responseUploadPartCopy $
---             uploadPartCopyResponse
+--             newUploadPartCopyResponse
 --
 --         , responseCreateMultipartUpload $
---             createMultipartUploadResponse
+--             newCreateMultipartUploadResponse
 --
 --         , responsePutBucketLifecycleConfiguration $
---             putBucketLifecycleConfigurationResponse
+--             newPutBucketLifecycleConfigurationResponse
 --
---         , responsePutBucketACL $
---             putBucketACLResponse
+--         , responsePutBucketAcl $
+--             newPutBucketAclResponse
 --
 --         , responseDeleteBucketLifecycle $
---             deleteBucketLifecycleResponse
+--             newDeleteBucketLifecycleResponse
 --
 --         , responseListBucketAnalyticsConfigurations $
---             listBucketAnalyticsConfigurationsResponse
+--             newListBucketAnalyticsConfigurationsResponse
 --
 --         , responseGetBucketAnalyticsConfiguration $
---             getBucketAnalyticsConfigurationResponse
+--             newGetBucketAnalyticsConfigurationResponse
 --
 --         , responseHeadBucket $
---             headBucketResponse
+--             newHeadBucketResponse
 --
 --         , responseListObjectVersions $
---             listObjectVersionsResponse
+--             newListObjectVersionsResponse
 --
 --         , responseGetBucketLifecycleConfiguration $
---             getBucketLifecycleConfigurationResponse
+--             newGetBucketLifecycleConfigurationResponse
 --
 --         , responseListParts $
---             listPartsResponse
+--             newListPartsResponse
 --
 --         , responseGetBucketRequestPayment $
---             getBucketRequestPaymentResponse
+--             newGetBucketRequestPaymentResponse
 --
 --         , responseDeleteBucketReplication $
---             deleteBucketReplicationResponse
+--             newDeleteBucketReplicationResponse
 --
 --         , responseGetBucketLogging $
---             getBucketLoggingResponse
+--             newGetBucketLoggingResponse
 --
 --         , responseGetObject $
---             getObjectResponse
+--             newGetObjectResponse
 --
 --         , responseDeleteBucketOwnershipControls $
---             deleteBucketOwnershipControlsResponse
+--             newDeleteBucketOwnershipControlsResponse
 --
 --         , responsePutBucketMetricsConfiguration $
---             putBucketMetricsConfigurationResponse
+--             newPutBucketMetricsConfigurationResponse
 --
---         , responseListObjectsV2 $
---             listObjectsV2Response
+--         , responseListObjectsV $
+--             newListObjectsVResponse
 --
 --         , responseCopyObject $
---             copyObjectResponse
+--             newCopyObjectResponse
 --
 --         , responseDeleteBucketEncryption $
---             deleteBucketEncryptionResponse
+--             newDeleteBucketEncryptionResponse
 --
 --         , responsePutBucketVersioning $
---             putBucketVersioningResponse
+--             newPutBucketVersioningResponse
 --
 --         , responseGetBucketNotificationConfiguration $
---             notificationConfiguration
+--             newNotificationConfiguration
 --
 --         , responsePutPublicAccessBlock $
---             putPublicAccessBlockResponse
+--             newPutPublicAccessBlockResponse
 --
 --         , responseDeleteBucketInventoryConfiguration $
---             deleteBucketInventoryConfigurationResponse
+--             newDeleteBucketInventoryConfigurationResponse
 --
 --         , responseGetBucketIntelligentTieringConfiguration $
---             getBucketIntelligentTieringConfigurationResponse
+--             newGetBucketIntelligentTieringConfigurationResponse
 --
 --         , responseRestoreObject $
---             restoreObjectResponse
+--             newRestoreObjectResponse
 --
---         , responseGetBucketCORS $
---             getBucketCORSResponse
+--         , responseGetBucketCors $
+--             newGetBucketCorsResponse
 --
 --         , responseGetBucketInventoryConfiguration $
---             getBucketInventoryConfigurationResponse
+--             newGetBucketInventoryConfigurationResponse
 --
 --         , responseGetPublicAccessBlock $
---             getPublicAccessBlockResponse
+--             newGetPublicAccessBlockResponse
 --
---         , responseDeleteBucketCORS $
---             deleteBucketCORSResponse
+--         , responseDeleteBucketCors $
+--             newDeleteBucketCorsResponse
 --
 --         , responseDeleteBucketTagging $
---             deleteBucketTaggingResponse
+--             newDeleteBucketTaggingResponse
 --
 --         , responseListBucketIntelligentTieringConfigurations $
---             listBucketIntelligentTieringConfigurationsResponse
+--             newListBucketIntelligentTieringConfigurationsResponse
 --
 --         , responsePutBucketNotificationConfiguration $
---             putBucketNotificationConfigurationResponse
+--             newPutBucketNotificationConfigurationResponse
 --
 --         , responsePutBucketIntelligentTieringConfiguration $
---             putBucketIntelligentTieringConfigurationResponse
+--             newPutBucketIntelligentTieringConfigurationResponse
 --
 --           ]
 --     ]
@@ -659,11 +659,11 @@ requestDeleteObjectTagging =
     "DeleteObjectTagging"
     "fixture/DeleteObjectTagging.yaml"
 
-requestGetBucketACL :: GetBucketACL -> TestTree
-requestGetBucketACL =
+requestGetBucketAcl :: GetBucketAcl -> TestTree
+requestGetBucketAcl =
   req
-    "GetBucketACL"
-    "fixture/GetBucketACL.yaml"
+    "GetBucketAcl"
+    "fixture/GetBucketAcl.yaml"
 
 requestGetObjectTagging :: GetObjectTagging -> TestTree
 requestGetObjectTagging =
@@ -767,11 +767,11 @@ requestListBucketInventoryConfigurations =
     "ListBucketInventoryConfigurations"
     "fixture/ListBucketInventoryConfigurations.yaml"
 
-requestGetObjectACL :: GetObjectACL -> TestTree
-requestGetObjectACL =
+requestGetObjectAcl :: GetObjectAcl -> TestTree
+requestGetObjectAcl =
   req
-    "GetObjectACL"
-    "fixture/GetObjectACL.yaml"
+    "GetObjectAcl"
+    "fixture/GetObjectAcl.yaml"
 
 requestDeletePublicAccessBlock :: DeletePublicAccessBlock -> TestTree
 requestDeletePublicAccessBlock =
@@ -803,17 +803,17 @@ requestCreateBucket =
     "CreateBucket"
     "fixture/CreateBucket.yaml"
 
-requestPutObjectACL :: PutObjectACL -> TestTree
-requestPutObjectACL =
+requestPutObjectAcl :: PutObjectAcl -> TestTree
+requestPutObjectAcl =
   req
-    "PutObjectACL"
-    "fixture/PutObjectACL.yaml"
+    "PutObjectAcl"
+    "fixture/PutObjectAcl.yaml"
 
-requestPutBucketCORS :: PutBucketCORS -> TestTree
-requestPutBucketCORS =
+requestPutBucketCors :: PutBucketCors -> TestTree
+requestPutBucketCors =
   req
-    "PutBucketCORS"
-    "fixture/PutBucketCORS.yaml"
+    "PutBucketCors"
+    "fixture/PutBucketCors.yaml"
 
 requestGetObjectRetention :: GetObjectRetention -> TestTree
 requestGetObjectRetention =
@@ -929,11 +929,11 @@ requestPutBucketLifecycleConfiguration =
     "PutBucketLifecycleConfiguration"
     "fixture/PutBucketLifecycleConfiguration.yaml"
 
-requestPutBucketACL :: PutBucketACL -> TestTree
-requestPutBucketACL =
+requestPutBucketAcl :: PutBucketAcl -> TestTree
+requestPutBucketAcl =
   req
-    "PutBucketACL"
-    "fixture/PutBucketACL.yaml"
+    "PutBucketAcl"
+    "fixture/PutBucketAcl.yaml"
 
 requestDeleteBucketLifecycle :: DeleteBucketLifecycle -> TestTree
 requestDeleteBucketLifecycle =
@@ -1013,11 +1013,11 @@ requestPutBucketMetricsConfiguration =
     "PutBucketMetricsConfiguration"
     "fixture/PutBucketMetricsConfiguration.yaml"
 
-requestListObjectsV2 :: ListObjectsV2 -> TestTree
-requestListObjectsV2 =
+requestListObjectsV :: ListObjectsV -> TestTree
+requestListObjectsV =
   req
-    "ListObjectsV2"
-    "fixture/ListObjectsV2.yaml"
+    "ListObjectsV"
+    "fixture/ListObjectsV.yaml"
 
 requestCopyObject :: CopyObject -> TestTree
 requestCopyObject =
@@ -1067,11 +1067,11 @@ requestRestoreObject =
     "RestoreObject"
     "fixture/RestoreObject.yaml"
 
-requestGetBucketCORS :: GetBucketCORS -> TestTree
-requestGetBucketCORS =
+requestGetBucketCors :: GetBucketCors -> TestTree
+requestGetBucketCors =
   req
-    "GetBucketCORS"
-    "fixture/GetBucketCORS.yaml"
+    "GetBucketCors"
+    "fixture/GetBucketCors.yaml"
 
 requestGetBucketInventoryConfiguration :: GetBucketInventoryConfiguration -> TestTree
 requestGetBucketInventoryConfiguration =
@@ -1085,11 +1085,11 @@ requestGetPublicAccessBlock =
     "GetPublicAccessBlock"
     "fixture/GetPublicAccessBlock.yaml"
 
-requestDeleteBucketCORS :: DeleteBucketCORS -> TestTree
-requestDeleteBucketCORS =
+requestDeleteBucketCors :: DeleteBucketCors -> TestTree
+requestDeleteBucketCors =
   req
-    "DeleteBucketCORS"
-    "fixture/DeleteBucketCORS.yaml"
+    "DeleteBucketCors"
+    "fixture/DeleteBucketCors.yaml"
 
 requestDeleteBucketTagging :: DeleteBucketTagging -> TestTree
 requestDeleteBucketTagging =
@@ -1122,7 +1122,7 @@ responsePutBucketPolicy =
   res
     "PutBucketPolicyResponse"
     "fixture/PutBucketPolicyResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketPolicy)
 
 responseGetBucketEncryption :: GetBucketEncryptionResponse -> TestTree
@@ -1130,7 +1130,7 @@ responseGetBucketEncryption =
   res
     "GetBucketEncryptionResponse"
     "fixture/GetBucketEncryptionResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketEncryption)
 
 responseDeleteBucket :: DeleteBucketResponse -> TestTree
@@ -1138,7 +1138,7 @@ responseDeleteBucket =
   res
     "DeleteBucketResponse"
     "fixture/DeleteBucketResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucket)
 
 responseDeleteObjects :: DeleteObjectsResponse -> TestTree
@@ -1146,7 +1146,7 @@ responseDeleteObjects =
   res
     "DeleteObjectsResponse"
     "fixture/DeleteObjectsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteObjects)
 
 responsePutBucketLogging :: PutBucketLoggingResponse -> TestTree
@@ -1154,7 +1154,7 @@ responsePutBucketLogging =
   res
     "PutBucketLoggingResponse"
     "fixture/PutBucketLoggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketLogging)
 
 responseDeleteBucketWebsite :: DeleteBucketWebsiteResponse -> TestTree
@@ -1162,7 +1162,7 @@ responseDeleteBucketWebsite =
   res
     "DeleteBucketWebsiteResponse"
     "fixture/DeleteBucketWebsiteResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketWebsite)
 
 responseCompleteMultipartUpload :: CompleteMultipartUploadResponse -> TestTree
@@ -1170,7 +1170,7 @@ responseCompleteMultipartUpload =
   res
     "CompleteMultipartUploadResponse"
     "fixture/CompleteMultipartUploadResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy CompleteMultipartUpload)
 
 responseSelectObjectContent :: SelectObjectContentResponse -> TestTree
@@ -1178,7 +1178,7 @@ responseSelectObjectContent =
   res
     "SelectObjectContentResponse"
     "fixture/SelectObjectContentResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy SelectObjectContent)
 
 responseGetBucketPolicyStatus :: GetBucketPolicyStatusResponse -> TestTree
@@ -1186,7 +1186,7 @@ responseGetBucketPolicyStatus =
   res
     "GetBucketPolicyStatusResponse"
     "fixture/GetBucketPolicyStatusResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketPolicyStatus)
 
 responseListObjects :: ListObjectsResponse -> TestTree
@@ -1194,7 +1194,7 @@ responseListObjects =
   res
     "ListObjectsResponse"
     "fixture/ListObjectsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListObjects)
 
 responseDeleteObject :: DeleteObjectResponse -> TestTree
@@ -1202,7 +1202,7 @@ responseDeleteObject =
   res
     "DeleteObjectResponse"
     "fixture/DeleteObjectResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteObject)
 
 responseDeleteBucketAnalyticsConfiguration :: DeleteBucketAnalyticsConfigurationResponse -> TestTree
@@ -1210,7 +1210,7 @@ responseDeleteBucketAnalyticsConfiguration =
   res
     "DeleteBucketAnalyticsConfigurationResponse"
     "fixture/DeleteBucketAnalyticsConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketAnalyticsConfiguration)
 
 responseDeleteObjectTagging :: DeleteObjectTaggingResponse -> TestTree
@@ -1218,23 +1218,23 @@ responseDeleteObjectTagging =
   res
     "DeleteObjectTaggingResponse"
     "fixture/DeleteObjectTaggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteObjectTagging)
 
-responseGetBucketACL :: GetBucketACLResponse -> TestTree
-responseGetBucketACL =
+responseGetBucketAcl :: GetBucketAclResponse -> TestTree
+responseGetBucketAcl =
   res
-    "GetBucketACLResponse"
-    "fixture/GetBucketACLResponse.proto"
-    s3
-    (Proxy :: Proxy GetBucketACL)
+    "GetBucketAclResponse"
+    "fixture/GetBucketAclResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetBucketAcl)
 
 responseGetObjectTagging :: GetObjectTaggingResponse -> TestTree
 responseGetObjectTagging =
   res
     "GetObjectTaggingResponse"
     "fixture/GetObjectTaggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetObjectTagging)
 
 responsePutBucketReplication :: PutBucketReplicationResponse -> TestTree
@@ -1242,7 +1242,7 @@ responsePutBucketReplication =
   res
     "PutBucketReplicationResponse"
     "fixture/PutBucketReplicationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketReplication)
 
 responseGetBucketWebsite :: GetBucketWebsiteResponse -> TestTree
@@ -1250,7 +1250,7 @@ responseGetBucketWebsite =
   res
     "GetBucketWebsiteResponse"
     "fixture/GetBucketWebsiteResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketWebsite)
 
 responseGetObjectLockConfiguration :: GetObjectLockConfigurationResponse -> TestTree
@@ -1258,7 +1258,7 @@ responseGetObjectLockConfiguration =
   res
     "GetObjectLockConfigurationResponse"
     "fixture/GetObjectLockConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetObjectLockConfiguration)
 
 responseDeleteBucketMetricsConfiguration :: DeleteBucketMetricsConfigurationResponse -> TestTree
@@ -1266,7 +1266,7 @@ responseDeleteBucketMetricsConfiguration =
   res
     "DeleteBucketMetricsConfigurationResponse"
     "fixture/DeleteBucketMetricsConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketMetricsConfiguration)
 
 responseGetBucketPolicy :: GetBucketPolicyResponse -> TestTree
@@ -1274,7 +1274,7 @@ responseGetBucketPolicy =
   res
     "GetBucketPolicyResponse"
     "fixture/GetBucketPolicyResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketPolicy)
 
 responsePutBucketEncryption :: PutBucketEncryptionResponse -> TestTree
@@ -1282,7 +1282,7 @@ responsePutBucketEncryption =
   res
     "PutBucketEncryptionResponse"
     "fixture/PutBucketEncryptionResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketEncryption)
 
 responseListBucketMetricsConfigurations :: ListBucketMetricsConfigurationsResponse -> TestTree
@@ -1290,7 +1290,7 @@ responseListBucketMetricsConfigurations =
   res
     "ListBucketMetricsConfigurationsResponse"
     "fixture/ListBucketMetricsConfigurationsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListBucketMetricsConfigurations)
 
 responsePutBucketAccelerateConfiguration :: PutBucketAccelerateConfigurationResponse -> TestTree
@@ -1298,7 +1298,7 @@ responsePutBucketAccelerateConfiguration =
   res
     "PutBucketAccelerateConfigurationResponse"
     "fixture/PutBucketAccelerateConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketAccelerateConfiguration)
 
 responsePutBucketOwnershipControls :: PutBucketOwnershipControlsResponse -> TestTree
@@ -1306,7 +1306,7 @@ responsePutBucketOwnershipControls =
   res
     "PutBucketOwnershipControlsResponse"
     "fixture/PutBucketOwnershipControlsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketOwnershipControls)
 
 responsePutObjectRetention :: PutObjectRetentionResponse -> TestTree
@@ -1314,7 +1314,7 @@ responsePutObjectRetention =
   res
     "PutObjectRetentionResponse"
     "fixture/PutObjectRetentionResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutObjectRetention)
 
 responsePutObjectLegalHold :: PutObjectLegalHoldResponse -> TestTree
@@ -1322,7 +1322,7 @@ responsePutObjectLegalHold =
   res
     "PutObjectLegalHoldResponse"
     "fixture/PutObjectLegalHoldResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutObjectLegalHold)
 
 responseHeadObject :: HeadObjectResponse -> TestTree
@@ -1330,7 +1330,7 @@ responseHeadObject =
   res
     "HeadObjectResponse"
     "fixture/HeadObjectResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy HeadObject)
 
 responseGetBucketTagging :: GetBucketTaggingResponse -> TestTree
@@ -1338,7 +1338,7 @@ responseGetBucketTagging =
   res
     "GetBucketTaggingResponse"
     "fixture/GetBucketTaggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketTagging)
 
 responseGetBucketLocation :: GetBucketLocationResponse -> TestTree
@@ -1346,7 +1346,7 @@ responseGetBucketLocation =
   res
     "GetBucketLocationResponse"
     "fixture/GetBucketLocationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketLocation)
 
 responsePutBucketInventoryConfiguration :: PutBucketInventoryConfigurationResponse -> TestTree
@@ -1354,7 +1354,7 @@ responsePutBucketInventoryConfiguration =
   res
     "PutBucketInventoryConfigurationResponse"
     "fixture/PutBucketInventoryConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketInventoryConfiguration)
 
 responseListBucketInventoryConfigurations :: ListBucketInventoryConfigurationsResponse -> TestTree
@@ -1362,23 +1362,23 @@ responseListBucketInventoryConfigurations =
   res
     "ListBucketInventoryConfigurationsResponse"
     "fixture/ListBucketInventoryConfigurationsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListBucketInventoryConfigurations)
 
-responseGetObjectACL :: GetObjectACLResponse -> TestTree
-responseGetObjectACL =
+responseGetObjectAcl :: GetObjectAclResponse -> TestTree
+responseGetObjectAcl =
   res
-    "GetObjectACLResponse"
-    "fixture/GetObjectACLResponse.proto"
-    s3
-    (Proxy :: Proxy GetObjectACL)
+    "GetObjectAclResponse"
+    "fixture/GetObjectAclResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetObjectAcl)
 
 responseDeletePublicAccessBlock :: DeletePublicAccessBlockResponse -> TestTree
 responseDeletePublicAccessBlock =
   res
     "DeletePublicAccessBlockResponse"
     "fixture/DeletePublicAccessBlockResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeletePublicAccessBlock)
 
 responseDeleteBucketIntelligentTieringConfiguration :: DeleteBucketIntelligentTieringConfigurationResponse -> TestTree
@@ -1386,7 +1386,7 @@ responseDeleteBucketIntelligentTieringConfiguration =
   res
     "DeleteBucketIntelligentTieringConfigurationResponse"
     "fixture/DeleteBucketIntelligentTieringConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketIntelligentTieringConfiguration)
 
 responseGetBucketVersioning :: GetBucketVersioningResponse -> TestTree
@@ -1394,7 +1394,7 @@ responseGetBucketVersioning =
   res
     "GetBucketVersioningResponse"
     "fixture/GetBucketVersioningResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketVersioning)
 
 responsePutBucketTagging :: PutBucketTaggingResponse -> TestTree
@@ -1402,7 +1402,7 @@ responsePutBucketTagging =
   res
     "PutBucketTaggingResponse"
     "fixture/PutBucketTaggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketTagging)
 
 responseCreateBucket :: CreateBucketResponse -> TestTree
@@ -1410,31 +1410,31 @@ responseCreateBucket =
   res
     "CreateBucketResponse"
     "fixture/CreateBucketResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy CreateBucket)
 
-responsePutObjectACL :: PutObjectACLResponse -> TestTree
-responsePutObjectACL =
+responsePutObjectAcl :: PutObjectAclResponse -> TestTree
+responsePutObjectAcl =
   res
-    "PutObjectACLResponse"
-    "fixture/PutObjectACLResponse.proto"
-    s3
-    (Proxy :: Proxy PutObjectACL)
+    "PutObjectAclResponse"
+    "fixture/PutObjectAclResponse.proto"
+    defaultService
+    (Proxy :: Proxy PutObjectAcl)
 
-responsePutBucketCORS :: PutBucketCORSResponse -> TestTree
-responsePutBucketCORS =
+responsePutBucketCors :: PutBucketCorsResponse -> TestTree
+responsePutBucketCors =
   res
-    "PutBucketCORSResponse"
-    "fixture/PutBucketCORSResponse.proto"
-    s3
-    (Proxy :: Proxy PutBucketCORS)
+    "PutBucketCorsResponse"
+    "fixture/PutBucketCorsResponse.proto"
+    defaultService
+    (Proxy :: Proxy PutBucketCors)
 
 responseGetObjectRetention :: GetObjectRetentionResponse -> TestTree
 responseGetObjectRetention =
   res
     "GetObjectRetentionResponse"
     "fixture/GetObjectRetentionResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetObjectRetention)
 
 responseGetBucketOwnershipControls :: GetBucketOwnershipControlsResponse -> TestTree
@@ -1442,7 +1442,7 @@ responseGetBucketOwnershipControls =
   res
     "GetBucketOwnershipControlsResponse"
     "fixture/GetBucketOwnershipControlsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketOwnershipControls)
 
 responseGetBucketMetricsConfiguration :: GetBucketMetricsConfigurationResponse -> TestTree
@@ -1450,7 +1450,7 @@ responseGetBucketMetricsConfiguration =
   res
     "GetBucketMetricsConfigurationResponse"
     "fixture/GetBucketMetricsConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketMetricsConfiguration)
 
 responseGetBucketAccelerateConfiguration :: GetBucketAccelerateConfigurationResponse -> TestTree
@@ -1458,7 +1458,7 @@ responseGetBucketAccelerateConfiguration =
   res
     "GetBucketAccelerateConfigurationResponse"
     "fixture/GetBucketAccelerateConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketAccelerateConfiguration)
 
 responseGetObjectLegalHold :: GetObjectLegalHoldResponse -> TestTree
@@ -1466,7 +1466,7 @@ responseGetObjectLegalHold =
   res
     "GetObjectLegalHoldResponse"
     "fixture/GetObjectLegalHoldResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetObjectLegalHold)
 
 responseListBuckets :: ListBucketsResponse -> TestTree
@@ -1474,7 +1474,7 @@ responseListBuckets =
   res
     "ListBucketsResponse"
     "fixture/ListBucketsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListBuckets)
 
 responseDeleteBucketPolicy :: DeleteBucketPolicyResponse -> TestTree
@@ -1482,7 +1482,7 @@ responseDeleteBucketPolicy =
   res
     "DeleteBucketPolicyResponse"
     "fixture/DeleteBucketPolicyResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketPolicy)
 
 responsePutObjectLockConfiguration :: PutObjectLockConfigurationResponse -> TestTree
@@ -1490,7 +1490,7 @@ responsePutObjectLockConfiguration =
   res
     "PutObjectLockConfigurationResponse"
     "fixture/PutObjectLockConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutObjectLockConfiguration)
 
 responseAbortMultipartUpload :: AbortMultipartUploadResponse -> TestTree
@@ -1498,7 +1498,7 @@ responseAbortMultipartUpload =
   res
     "AbortMultipartUploadResponse"
     "fixture/AbortMultipartUploadResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy AbortMultipartUpload)
 
 responseUploadPart :: UploadPartResponse -> TestTree
@@ -1506,7 +1506,7 @@ responseUploadPart =
   res
     "UploadPartResponse"
     "fixture/UploadPartResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy UploadPart)
 
 responsePutObject :: PutObjectResponse -> TestTree
@@ -1514,7 +1514,7 @@ responsePutObject =
   res
     "PutObjectResponse"
     "fixture/PutObjectResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutObject)
 
 responsePutBucketRequestPayment :: PutBucketRequestPaymentResponse -> TestTree
@@ -1522,7 +1522,7 @@ responsePutBucketRequestPayment =
   res
     "PutBucketRequestPaymentResponse"
     "fixture/PutBucketRequestPaymentResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketRequestPayment)
 
 responseListMultipartUploads :: ListMultipartUploadsResponse -> TestTree
@@ -1530,7 +1530,7 @@ responseListMultipartUploads =
   res
     "ListMultipartUploadsResponse"
     "fixture/ListMultipartUploadsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListMultipartUploads)
 
 responseGetBucketReplication :: GetBucketReplicationResponse -> TestTree
@@ -1538,7 +1538,7 @@ responseGetBucketReplication =
   res
     "GetBucketReplicationResponse"
     "fixture/GetBucketReplicationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketReplication)
 
 responsePutBucketWebsite :: PutBucketWebsiteResponse -> TestTree
@@ -1546,7 +1546,7 @@ responsePutBucketWebsite =
   res
     "PutBucketWebsiteResponse"
     "fixture/PutBucketWebsiteResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketWebsite)
 
 responsePutBucketAnalyticsConfiguration :: PutBucketAnalyticsConfigurationResponse -> TestTree
@@ -1554,7 +1554,7 @@ responsePutBucketAnalyticsConfiguration =
   res
     "PutBucketAnalyticsConfigurationResponse"
     "fixture/PutBucketAnalyticsConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketAnalyticsConfiguration)
 
 responsePutObjectTagging :: PutObjectTaggingResponse -> TestTree
@@ -1562,7 +1562,7 @@ responsePutObjectTagging =
   res
     "PutObjectTaggingResponse"
     "fixture/PutObjectTaggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutObjectTagging)
 
 responseUploadPartCopy :: UploadPartCopyResponse -> TestTree
@@ -1570,7 +1570,7 @@ responseUploadPartCopy =
   res
     "UploadPartCopyResponse"
     "fixture/UploadPartCopyResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy UploadPartCopy)
 
 responseCreateMultipartUpload :: CreateMultipartUploadResponse -> TestTree
@@ -1578,7 +1578,7 @@ responseCreateMultipartUpload =
   res
     "CreateMultipartUploadResponse"
     "fixture/CreateMultipartUploadResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy CreateMultipartUpload)
 
 responsePutBucketLifecycleConfiguration :: PutBucketLifecycleConfigurationResponse -> TestTree
@@ -1586,23 +1586,23 @@ responsePutBucketLifecycleConfiguration =
   res
     "PutBucketLifecycleConfigurationResponse"
     "fixture/PutBucketLifecycleConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketLifecycleConfiguration)
 
-responsePutBucketACL :: PutBucketACLResponse -> TestTree
-responsePutBucketACL =
+responsePutBucketAcl :: PutBucketAclResponse -> TestTree
+responsePutBucketAcl =
   res
-    "PutBucketACLResponse"
-    "fixture/PutBucketACLResponse.proto"
-    s3
-    (Proxy :: Proxy PutBucketACL)
+    "PutBucketAclResponse"
+    "fixture/PutBucketAclResponse.proto"
+    defaultService
+    (Proxy :: Proxy PutBucketAcl)
 
 responseDeleteBucketLifecycle :: DeleteBucketLifecycleResponse -> TestTree
 responseDeleteBucketLifecycle =
   res
     "DeleteBucketLifecycleResponse"
     "fixture/DeleteBucketLifecycleResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketLifecycle)
 
 responseListBucketAnalyticsConfigurations :: ListBucketAnalyticsConfigurationsResponse -> TestTree
@@ -1610,7 +1610,7 @@ responseListBucketAnalyticsConfigurations =
   res
     "ListBucketAnalyticsConfigurationsResponse"
     "fixture/ListBucketAnalyticsConfigurationsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListBucketAnalyticsConfigurations)
 
 responseGetBucketAnalyticsConfiguration :: GetBucketAnalyticsConfigurationResponse -> TestTree
@@ -1618,7 +1618,7 @@ responseGetBucketAnalyticsConfiguration =
   res
     "GetBucketAnalyticsConfigurationResponse"
     "fixture/GetBucketAnalyticsConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketAnalyticsConfiguration)
 
 responseHeadBucket :: HeadBucketResponse -> TestTree
@@ -1626,7 +1626,7 @@ responseHeadBucket =
   res
     "HeadBucketResponse"
     "fixture/HeadBucketResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy HeadBucket)
 
 responseListObjectVersions :: ListObjectVersionsResponse -> TestTree
@@ -1634,7 +1634,7 @@ responseListObjectVersions =
   res
     "ListObjectVersionsResponse"
     "fixture/ListObjectVersionsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListObjectVersions)
 
 responseGetBucketLifecycleConfiguration :: GetBucketLifecycleConfigurationResponse -> TestTree
@@ -1642,7 +1642,7 @@ responseGetBucketLifecycleConfiguration =
   res
     "GetBucketLifecycleConfigurationResponse"
     "fixture/GetBucketLifecycleConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketLifecycleConfiguration)
 
 responseListParts :: ListPartsResponse -> TestTree
@@ -1650,7 +1650,7 @@ responseListParts =
   res
     "ListPartsResponse"
     "fixture/ListPartsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListParts)
 
 responseGetBucketRequestPayment :: GetBucketRequestPaymentResponse -> TestTree
@@ -1658,7 +1658,7 @@ responseGetBucketRequestPayment =
   res
     "GetBucketRequestPaymentResponse"
     "fixture/GetBucketRequestPaymentResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketRequestPayment)
 
 responseDeleteBucketReplication :: DeleteBucketReplicationResponse -> TestTree
@@ -1666,7 +1666,7 @@ responseDeleteBucketReplication =
   res
     "DeleteBucketReplicationResponse"
     "fixture/DeleteBucketReplicationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketReplication)
 
 responseGetBucketLogging :: GetBucketLoggingResponse -> TestTree
@@ -1674,7 +1674,7 @@ responseGetBucketLogging =
   res
     "GetBucketLoggingResponse"
     "fixture/GetBucketLoggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketLogging)
 
 responseDeleteBucketOwnershipControls :: DeleteBucketOwnershipControlsResponse -> TestTree
@@ -1682,7 +1682,7 @@ responseDeleteBucketOwnershipControls =
   res
     "DeleteBucketOwnershipControlsResponse"
     "fixture/DeleteBucketOwnershipControlsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketOwnershipControls)
 
 responsePutBucketMetricsConfiguration :: PutBucketMetricsConfigurationResponse -> TestTree
@@ -1690,23 +1690,23 @@ responsePutBucketMetricsConfiguration =
   res
     "PutBucketMetricsConfigurationResponse"
     "fixture/PutBucketMetricsConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketMetricsConfiguration)
 
-responseListObjectsV2 :: ListObjectsV2Response -> TestTree
-responseListObjectsV2 =
+responseListObjectsV :: ListObjectsVResponse -> TestTree
+responseListObjectsV =
   res
-    "ListObjectsV2Response"
-    "fixture/ListObjectsV2Response.proto"
-    s3
-    (Proxy :: Proxy ListObjectsV2)
+    "ListObjectsVResponse"
+    "fixture/ListObjectsVResponse.proto"
+    defaultService
+    (Proxy :: Proxy ListObjectsV)
 
 responseCopyObject :: CopyObjectResponse -> TestTree
 responseCopyObject =
   res
     "CopyObjectResponse"
     "fixture/CopyObjectResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy CopyObject)
 
 responseDeleteBucketEncryption :: DeleteBucketEncryptionResponse -> TestTree
@@ -1714,7 +1714,7 @@ responseDeleteBucketEncryption =
   res
     "DeleteBucketEncryptionResponse"
     "fixture/DeleteBucketEncryptionResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketEncryption)
 
 responsePutBucketVersioning :: PutBucketVersioningResponse -> TestTree
@@ -1722,7 +1722,7 @@ responsePutBucketVersioning =
   res
     "PutBucketVersioningResponse"
     "fixture/PutBucketVersioningResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketVersioning)
 
 responseGetBucketNotificationConfiguration :: NotificationConfiguration -> TestTree
@@ -1730,7 +1730,7 @@ responseGetBucketNotificationConfiguration =
   res
     "GetBucketNotificationConfigurationResponse"
     "fixture/GetBucketNotificationConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketNotificationConfiguration)
 
 responsePutPublicAccessBlock :: PutPublicAccessBlockResponse -> TestTree
@@ -1738,7 +1738,7 @@ responsePutPublicAccessBlock =
   res
     "PutPublicAccessBlockResponse"
     "fixture/PutPublicAccessBlockResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutPublicAccessBlock)
 
 responseDeleteBucketInventoryConfiguration :: DeleteBucketInventoryConfigurationResponse -> TestTree
@@ -1746,7 +1746,7 @@ responseDeleteBucketInventoryConfiguration =
   res
     "DeleteBucketInventoryConfigurationResponse"
     "fixture/DeleteBucketInventoryConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketInventoryConfiguration)
 
 responseGetBucketIntelligentTieringConfiguration :: GetBucketIntelligentTieringConfigurationResponse -> TestTree
@@ -1754,7 +1754,7 @@ responseGetBucketIntelligentTieringConfiguration =
   res
     "GetBucketIntelligentTieringConfigurationResponse"
     "fixture/GetBucketIntelligentTieringConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketIntelligentTieringConfiguration)
 
 responseRestoreObject :: RestoreObjectResponse -> TestTree
@@ -1762,23 +1762,23 @@ responseRestoreObject =
   res
     "RestoreObjectResponse"
     "fixture/RestoreObjectResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy RestoreObject)
 
-responseGetBucketCORS :: GetBucketCORSResponse -> TestTree
-responseGetBucketCORS =
+responseGetBucketCors :: GetBucketCorsResponse -> TestTree
+responseGetBucketCors =
   res
-    "GetBucketCORSResponse"
-    "fixture/GetBucketCORSResponse.proto"
-    s3
-    (Proxy :: Proxy GetBucketCORS)
+    "GetBucketCorsResponse"
+    "fixture/GetBucketCorsResponse.proto"
+    defaultService
+    (Proxy :: Proxy GetBucketCors)
 
 responseGetBucketInventoryConfiguration :: GetBucketInventoryConfigurationResponse -> TestTree
 responseGetBucketInventoryConfiguration =
   res
     "GetBucketInventoryConfigurationResponse"
     "fixture/GetBucketInventoryConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetBucketInventoryConfiguration)
 
 responseGetPublicAccessBlock :: GetPublicAccessBlockResponse -> TestTree
@@ -1786,23 +1786,23 @@ responseGetPublicAccessBlock =
   res
     "GetPublicAccessBlockResponse"
     "fixture/GetPublicAccessBlockResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy GetPublicAccessBlock)
 
-responseDeleteBucketCORS :: DeleteBucketCORSResponse -> TestTree
-responseDeleteBucketCORS =
+responseDeleteBucketCors :: DeleteBucketCorsResponse -> TestTree
+responseDeleteBucketCors =
   res
-    "DeleteBucketCORSResponse"
-    "fixture/DeleteBucketCORSResponse.proto"
-    s3
-    (Proxy :: Proxy DeleteBucketCORS)
+    "DeleteBucketCorsResponse"
+    "fixture/DeleteBucketCorsResponse.proto"
+    defaultService
+    (Proxy :: Proxy DeleteBucketCors)
 
 responseDeleteBucketTagging :: DeleteBucketTaggingResponse -> TestTree
 responseDeleteBucketTagging =
   res
     "DeleteBucketTaggingResponse"
     "fixture/DeleteBucketTaggingResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy DeleteBucketTagging)
 
 responseListBucketIntelligentTieringConfigurations :: ListBucketIntelligentTieringConfigurationsResponse -> TestTree
@@ -1810,7 +1810,7 @@ responseListBucketIntelligentTieringConfigurations =
   res
     "ListBucketIntelligentTieringConfigurationsResponse"
     "fixture/ListBucketIntelligentTieringConfigurationsResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy ListBucketIntelligentTieringConfigurations)
 
 responsePutBucketNotificationConfiguration :: PutBucketNotificationConfigurationResponse -> TestTree
@@ -1818,7 +1818,7 @@ responsePutBucketNotificationConfiguration =
   res
     "PutBucketNotificationConfigurationResponse"
     "fixture/PutBucketNotificationConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketNotificationConfiguration)
 
 responsePutBucketIntelligentTieringConfiguration :: PutBucketIntelligentTieringConfigurationResponse -> TestTree
@@ -1826,5 +1826,5 @@ responsePutBucketIntelligentTieringConfiguration =
   res
     "PutBucketIntelligentTieringConfigurationResponse"
     "fixture/PutBucketIntelligentTieringConfigurationResponse.proto"
-    s3
+    defaultService
     (Proxy :: Proxy PutBucketIntelligentTieringConfiguration)

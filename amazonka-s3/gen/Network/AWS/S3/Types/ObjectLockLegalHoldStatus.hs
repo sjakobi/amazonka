@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.ObjectLockLegalHoldStatus
   ( ObjectLockLegalHoldStatus
       ( ..,
-        ON,
-        Off
+        ObjectLockLegalHoldStatusOFF,
+        ObjectLockLegalHoldStatusON
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ObjectLockLegalHoldStatus
-  = ObjectLockLegalHoldStatus'
-      ( CI
-          Text
-      )
+newtype ObjectLockLegalHoldStatus = ObjectLockLegalHoldStatus'
+  { fromObjectLockLegalHoldStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ON :: ObjectLockLegalHoldStatus
-pattern ON = ObjectLockLegalHoldStatus' "ON"
+pattern ObjectLockLegalHoldStatusOFF :: ObjectLockLegalHoldStatus
+pattern ObjectLockLegalHoldStatusOFF = ObjectLockLegalHoldStatus' "OFF"
 
-pattern Off :: ObjectLockLegalHoldStatus
-pattern Off = ObjectLockLegalHoldStatus' "OFF"
+pattern ObjectLockLegalHoldStatusON :: ObjectLockLegalHoldStatus
+pattern ObjectLockLegalHoldStatusON = ObjectLockLegalHoldStatus' "ON"
 
 {-# COMPLETE
-  ON,
-  Off,
+  ObjectLockLegalHoldStatusOFF,
+  ObjectLockLegalHoldStatusON,
   ObjectLockLegalHoldStatus'
   #-}
 
-instance FromText ObjectLockLegalHoldStatus where
-  parser = (ObjectLockLegalHoldStatus' . mk) <$> takeText
+instance Prelude.FromText ObjectLockLegalHoldStatus where
+  parser = ObjectLockLegalHoldStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectLockLegalHoldStatus where
-  toText (ObjectLockLegalHoldStatus' ci) = original ci
+instance Prelude.ToText ObjectLockLegalHoldStatus where
+  toText (ObjectLockLegalHoldStatus' x) = x
 
-instance Hashable ObjectLockLegalHoldStatus
+instance Prelude.Hashable ObjectLockLegalHoldStatus
 
-instance NFData ObjectLockLegalHoldStatus
+instance Prelude.NFData ObjectLockLegalHoldStatus
 
-instance ToByteString ObjectLockLegalHoldStatus
+instance Prelude.ToByteString ObjectLockLegalHoldStatus
 
-instance ToQuery ObjectLockLegalHoldStatus
+instance Prelude.ToQuery ObjectLockLegalHoldStatus
 
-instance ToHeader ObjectLockLegalHoldStatus
+instance Prelude.ToHeader ObjectLockLegalHoldStatus
 
-instance FromXML ObjectLockLegalHoldStatus where
-  parseXML = parseXMLText "ObjectLockLegalHoldStatus"
+instance Prelude.FromXML ObjectLockLegalHoldStatus where
+  parseXML = Prelude.parseXMLText "ObjectLockLegalHoldStatus"
 
-instance ToXML ObjectLockLegalHoldStatus where
-  toXML = toXMLText
+instance Prelude.ToXML ObjectLockLegalHoldStatus where
+  toXML = Prelude.toXMLText

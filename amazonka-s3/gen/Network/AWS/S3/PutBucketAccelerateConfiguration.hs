@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,194 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the accelerate configuration of an existing bucket. Amazon S3 Transfer Acceleration is a bucket-level feature that enables you to perform faster data transfers to Amazon S3.
+-- Sets the accelerate configuration of an existing bucket. Amazon S3
+-- Transfer Acceleration is a bucket-level feature that enables you to
+-- perform faster data transfers to Amazon S3.
 --
+-- To use this operation, you must have permission to perform the
+-- s3:PutAccelerateConfiguration action. The bucket owner has this
+-- permission by default. The bucket owner can grant this permission to
+-- others. For more information about permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources>.
 --
--- To use this operation, you must have permission to perform the s3:PutAccelerateConfiguration action. The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more information about permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations> and <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources> .
+-- The Transfer Acceleration state of a bucket can be set to one of the
+-- following two values:
 --
--- The Transfer Acceleration state of a bucket can be set to one of the following two values:
+-- -   Enabled – Enables accelerated data transfers to the bucket.
 --
---     * Enabled – Enables accelerated data transfers to the bucket.
+-- -   Suspended – Disables accelerated data transfers to the bucket.
 --
---     * Suspended – Disables accelerated data transfers to the bucket.
+-- The
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAccelerateConfiguration.html GetBucketAccelerateConfiguration>
+-- operation returns the transfer acceleration state of a bucket.
 --
+-- After setting the Transfer Acceleration state of a bucket to Enabled, it
+-- might take up to thirty minutes before the data transfer rates to the
+-- bucket increase.
 --
+-- The name of the bucket used for Transfer Acceleration must be
+-- DNS-compliant and must not contain periods (\".\").
 --
--- The <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAccelerateConfiguration.html GetBucketAccelerateConfiguration> operation returns the transfer acceleration state of a bucket.
+-- For more information about transfer acceleration, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html Transfer Acceleration>.
 --
--- After setting the Transfer Acceleration state of a bucket to Enabled, it might take up to thirty minutes before the data transfer rates to the bucket increase.
+-- The following operations are related to
+-- @PutBucketAccelerateConfiguration@:
 --
--- The name of the bucket used for Transfer Acceleration must be DNS-compliant and must not contain periods (".").
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAccelerateConfiguration.html GetBucketAccelerateConfiguration>
 --
--- For more information about transfer acceleration, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html Transfer Acceleration> .
---
--- The following operations are related to @PutBucketAccelerateConfiguration@ :
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAccelerateConfiguration.html GetBucketAccelerateConfiguration>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html CreateBucket>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html CreateBucket>
 module Network.AWS.S3.PutBucketAccelerateConfiguration
   ( -- * Creating a Request
-    putBucketAccelerateConfiguration,
-    PutBucketAccelerateConfiguration,
+    PutBucketAccelerateConfiguration (..),
+    newPutBucketAccelerateConfiguration,
 
     -- * Request Lenses
-    pbacExpectedBucketOwner,
-    pbacBucket,
-    pbacAccelerateConfiguration,
+    putBucketAccelerateConfiguration_expectedBucketOwner,
+    putBucketAccelerateConfiguration_bucket,
+    putBucketAccelerateConfiguration_accelerateConfiguration,
 
     -- * Destructuring the Response
-    putBucketAccelerateConfigurationResponse,
-    PutBucketAccelerateConfigurationResponse,
+    PutBucketAccelerateConfigurationResponse (..),
+    newPutBucketAccelerateConfigurationResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
 
--- | /See:/ 'putBucketAccelerateConfiguration' smart constructor.
+-- | /See:/ 'newPutBucketAccelerateConfiguration' smart constructor.
 data PutBucketAccelerateConfiguration = PutBucketAccelerateConfiguration'
-  { _pbacExpectedBucketOwner ::
-      !( Maybe
-           Text
-       ),
-    _pbacBucket ::
-      !BucketName,
-    _pbacAccelerateConfiguration ::
-      !AccelerateConfiguration
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bucket for which the accelerate configuration is set.
+    bucket :: BucketName,
+    -- | Container for setting the transfer acceleration state.
+    accelerateConfiguration :: AccelerateConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutBucketAccelerateConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutBucketAccelerateConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pbacExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pbacBucket' - The name of the bucket for which the accelerate configuration is set.
+-- 'expectedBucketOwner', 'putBucketAccelerateConfiguration_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
 --
--- * 'pbacAccelerateConfiguration' - Container for setting the transfer acceleration state.
-putBucketAccelerateConfiguration ::
-  -- | 'pbacBucket'
+-- 'bucket', 'putBucketAccelerateConfiguration_bucket' - The name of the bucket for which the accelerate configuration is set.
+--
+-- 'accelerateConfiguration', 'putBucketAccelerateConfiguration_accelerateConfiguration' - Container for setting the transfer acceleration state.
+newPutBucketAccelerateConfiguration ::
+  -- | 'bucket'
   BucketName ->
-  -- | 'pbacAccelerateConfiguration'
+  -- | 'accelerateConfiguration'
   AccelerateConfiguration ->
   PutBucketAccelerateConfiguration
-putBucketAccelerateConfiguration
+newPutBucketAccelerateConfiguration
   pBucket_
   pAccelerateConfiguration_ =
     PutBucketAccelerateConfiguration'
-      { _pbacExpectedBucketOwner =
-          Nothing,
-        _pbacBucket = pBucket_,
-        _pbacAccelerateConfiguration =
+      { expectedBucketOwner =
+          Prelude.Nothing,
+        bucket = pBucket_,
+        accelerateConfiguration =
           pAccelerateConfiguration_
       }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-pbacExpectedBucketOwner :: Lens' PutBucketAccelerateConfiguration (Maybe Text)
-pbacExpectedBucketOwner = lens _pbacExpectedBucketOwner (\s a -> s {_pbacExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+putBucketAccelerateConfiguration_expectedBucketOwner :: Lens.Lens' PutBucketAccelerateConfiguration (Prelude.Maybe Prelude.Text)
+putBucketAccelerateConfiguration_expectedBucketOwner = Lens.lens (\PutBucketAccelerateConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketAccelerateConfiguration' {} a -> s {expectedBucketOwner = a} :: PutBucketAccelerateConfiguration)
 
 -- | The name of the bucket for which the accelerate configuration is set.
-pbacBucket :: Lens' PutBucketAccelerateConfiguration BucketName
-pbacBucket = lens _pbacBucket (\s a -> s {_pbacBucket = a})
+putBucketAccelerateConfiguration_bucket :: Lens.Lens' PutBucketAccelerateConfiguration BucketName
+putBucketAccelerateConfiguration_bucket = Lens.lens (\PutBucketAccelerateConfiguration' {bucket} -> bucket) (\s@PutBucketAccelerateConfiguration' {} a -> s {bucket = a} :: PutBucketAccelerateConfiguration)
 
 -- | Container for setting the transfer acceleration state.
-pbacAccelerateConfiguration :: Lens' PutBucketAccelerateConfiguration AccelerateConfiguration
-pbacAccelerateConfiguration = lens _pbacAccelerateConfiguration (\s a -> s {_pbacAccelerateConfiguration = a})
+putBucketAccelerateConfiguration_accelerateConfiguration :: Lens.Lens' PutBucketAccelerateConfiguration AccelerateConfiguration
+putBucketAccelerateConfiguration_accelerateConfiguration = Lens.lens (\PutBucketAccelerateConfiguration' {accelerateConfiguration} -> accelerateConfiguration) (\s@PutBucketAccelerateConfiguration' {} a -> s {accelerateConfiguration = a} :: PutBucketAccelerateConfiguration)
 
-instance AWSRequest PutBucketAccelerateConfiguration where
+instance
+  Prelude.AWSRequest
+    PutBucketAccelerateConfiguration
+  where
   type
     Rs PutBucketAccelerateConfiguration =
       PutBucketAccelerateConfigurationResponse
-  request = putXML s3
+  request = Request.putXML defaultService
   response =
-    receiveNull
+    Response.receiveNull
       PutBucketAccelerateConfigurationResponse'
 
-instance Hashable PutBucketAccelerateConfiguration
+instance
+  Prelude.Hashable
+    PutBucketAccelerateConfiguration
 
-instance NFData PutBucketAccelerateConfiguration
+instance
+  Prelude.NFData
+    PutBucketAccelerateConfiguration
 
-instance ToElement PutBucketAccelerateConfiguration where
-  toElement =
-    mkElement
+instance
+  Prelude.ToElement
+    PutBucketAccelerateConfiguration
+  where
+  toElement PutBucketAccelerateConfiguration' {..} =
+    Prelude.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}AccelerateConfiguration"
-      . _pbacAccelerateConfiguration
+      accelerateConfiguration
 
-instance ToHeaders PutBucketAccelerateConfiguration where
+instance
+  Prelude.ToHeaders
+    PutBucketAccelerateConfiguration
+  where
   toHeaders PutBucketAccelerateConfiguration' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _pbacExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath PutBucketAccelerateConfiguration where
+instance
+  Prelude.ToPath
+    PutBucketAccelerateConfiguration
+  where
   toPath PutBucketAccelerateConfiguration' {..} =
-    mconcat ["/", toBS _pbacBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery PutBucketAccelerateConfiguration where
-  toQuery = const (mconcat ["accelerate"])
+instance
+  Prelude.ToQuery
+    PutBucketAccelerateConfiguration
+  where
+  toQuery =
+    Prelude.const (Prelude.mconcat ["accelerate"])
 
--- | /See:/ 'putBucketAccelerateConfigurationResponse' smart constructor.
+-- | /See:/ 'newPutBucketAccelerateConfigurationResponse' smart constructor.
 data PutBucketAccelerateConfigurationResponse = PutBucketAccelerateConfigurationResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutBucketAccelerateConfigurationResponse' with the minimum fields required to make a request.
-putBucketAccelerateConfigurationResponse ::
+-- |
+-- Create a value of 'PutBucketAccelerateConfigurationResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newPutBucketAccelerateConfigurationResponse ::
   PutBucketAccelerateConfigurationResponse
-putBucketAccelerateConfigurationResponse =
+newPutBucketAccelerateConfigurationResponse =
   PutBucketAccelerateConfigurationResponse'
 
 instance
-  NFData
+  Prelude.NFData
     PutBucketAccelerateConfigurationResponse

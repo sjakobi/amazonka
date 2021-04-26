@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,169 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the default encryption configuration for an Amazon S3 bucket. If the bucket does not have a default encryption configuration, GetBucketEncryption returns @ServerSideEncryptionConfigurationNotFoundError@ .
+-- Returns the default encryption configuration for an Amazon S3 bucket. If
+-- the bucket does not have a default encryption configuration,
+-- GetBucketEncryption returns
+-- @ServerSideEncryptionConfigurationNotFoundError@.
 --
+-- For information about the Amazon S3 default encryption feature, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html Amazon S3 Default Bucket Encryption>.
 --
--- For information about the Amazon S3 default encryption feature, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html Amazon S3 Default Bucket Encryption> .
+-- To use this operation, you must have permission to perform the
+-- @s3:GetEncryptionConfiguration@ action. The bucket owner has this
+-- permission by default. The bucket owner can grant this permission to
+-- others. For more information about permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
+-- and
+-- <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources>.
 --
--- To use this operation, you must have permission to perform the @s3:GetEncryptionConfiguration@ action. The bucket owner has this permission by default. The bucket owner can grant this permission to others. For more information about permissions, see <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations> and <https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html Managing Access Permissions to Your Amazon S3 Resources> .
+-- The following operations are related to @GetBucketEncryption@:
 --
--- The following operations are related to @GetBucketEncryption@ :
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html PutBucketEncryption>
 --
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html PutBucketEncryption>
---
---     * <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html DeleteBucketEncryption>
+-- -   <https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html DeleteBucketEncryption>
 module Network.AWS.S3.GetBucketEncryption
   ( -- * Creating a Request
-    getBucketEncryption,
-    GetBucketEncryption,
+    GetBucketEncryption (..),
+    newGetBucketEncryption,
 
     -- * Request Lenses
-    gbeExpectedBucketOwner,
-    gbeBucket,
+    getBucketEncryption_expectedBucketOwner,
+    getBucketEncryption_bucket,
 
     -- * Destructuring the Response
-    getBucketEncryptionResponse,
-    GetBucketEncryptionResponse,
+    GetBucketEncryptionResponse (..),
+    newGetBucketEncryptionResponse,
 
     -- * Response Lenses
-    gberrsServerSideEncryptionConfiguration,
-    gberrsResponseStatus,
+    getBucketEncryptionResponse_serverSideEncryptionConfiguration,
+    getBucketEncryptionResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.S3.Types
+import Network.AWS.S3.Types.ServerSideEncryptionConfiguration
 
--- | /See:/ 'getBucketEncryption' smart constructor.
+-- | /See:/ 'newGetBucketEncryption' smart constructor.
 data GetBucketEncryption = GetBucketEncryption'
-  { _gbeExpectedBucketOwner ::
-      !(Maybe Text),
-    _gbeBucket :: !BucketName
+  { -- | The account id of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request will fail with an HTTP
+    -- @403 (Access Denied)@ error.
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The name of the bucket from which the server-side encryption
+    -- configuration is retrieved.
+    bucket :: BucketName
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gbeExpectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gbeBucket' - The name of the bucket from which the server-side encryption configuration is retrieved.
-getBucketEncryption ::
-  -- | 'gbeBucket'
+-- 'expectedBucketOwner', 'getBucketEncryption_expectedBucketOwner' - The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+--
+-- 'bucket', 'getBucketEncryption_bucket' - The name of the bucket from which the server-side encryption
+-- configuration is retrieved.
+newGetBucketEncryption ::
+  -- | 'bucket'
   BucketName ->
   GetBucketEncryption
-getBucketEncryption pBucket_ =
+newGetBucketEncryption pBucket_ =
   GetBucketEncryption'
-    { _gbeExpectedBucketOwner =
-        Nothing,
-      _gbeBucket = pBucket_
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      bucket = pBucket_
     }
 
--- | The account id of the expected bucket owner. If the bucket is owned by a different account, the request will fail with an HTTP @403 (Access Denied)@ error.
-gbeExpectedBucketOwner :: Lens' GetBucketEncryption (Maybe Text)
-gbeExpectedBucketOwner = lens _gbeExpectedBucketOwner (\s a -> s {_gbeExpectedBucketOwner = a})
+-- | The account id of the expected bucket owner. If the bucket is owned by a
+-- different account, the request will fail with an HTTP
+-- @403 (Access Denied)@ error.
+getBucketEncryption_expectedBucketOwner :: Lens.Lens' GetBucketEncryption (Prelude.Maybe Prelude.Text)
+getBucketEncryption_expectedBucketOwner = Lens.lens (\GetBucketEncryption' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketEncryption' {} a -> s {expectedBucketOwner = a} :: GetBucketEncryption)
 
--- | The name of the bucket from which the server-side encryption configuration is retrieved.
-gbeBucket :: Lens' GetBucketEncryption BucketName
-gbeBucket = lens _gbeBucket (\s a -> s {_gbeBucket = a})
+-- | The name of the bucket from which the server-side encryption
+-- configuration is retrieved.
+getBucketEncryption_bucket :: Lens.Lens' GetBucketEncryption BucketName
+getBucketEncryption_bucket = Lens.lens (\GetBucketEncryption' {bucket} -> bucket) (\s@GetBucketEncryption' {} a -> s {bucket = a} :: GetBucketEncryption)
 
-instance AWSRequest GetBucketEncryption where
+instance Prelude.AWSRequest GetBucketEncryption where
   type
     Rs GetBucketEncryption =
       GetBucketEncryptionResponse
-  request = get s3
+  request = Request.get defaultService
   response =
-    receiveXML
+    Response.receiveXML
       ( \s h x ->
           GetBucketEncryptionResponse'
-            <$> (parseXML x) <*> (pure (fromEnum s))
+            Prelude.<$> (Prelude.parseXML x)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetBucketEncryption
+instance Prelude.Hashable GetBucketEncryption
 
-instance NFData GetBucketEncryption
+instance Prelude.NFData GetBucketEncryption
 
-instance ToHeaders GetBucketEncryption where
+instance Prelude.ToHeaders GetBucketEncryption where
   toHeaders GetBucketEncryption' {..} =
-    mconcat
+    Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          =# _gbeExpectedBucketOwner
+          Prelude.=# expectedBucketOwner
       ]
 
-instance ToPath GetBucketEncryption where
+instance Prelude.ToPath GetBucketEncryption where
   toPath GetBucketEncryption' {..} =
-    mconcat ["/", toBS _gbeBucket]
+    Prelude.mconcat ["/", Prelude.toBS bucket]
 
-instance ToQuery GetBucketEncryption where
-  toQuery = const (mconcat ["encryption"])
+instance Prelude.ToQuery GetBucketEncryption where
+  toQuery =
+    Prelude.const (Prelude.mconcat ["encryption"])
 
--- | /See:/ 'getBucketEncryptionResponse' smart constructor.
+-- | /See:/ 'newGetBucketEncryptionResponse' smart constructor.
 data GetBucketEncryptionResponse = GetBucketEncryptionResponse'
-  { _gberrsServerSideEncryptionConfiguration ::
-      !( Maybe
-           ServerSideEncryptionConfiguration
-       ),
-    _gberrsResponseStatus ::
-      !Int
+  { serverSideEncryptionConfiguration :: Prelude.Maybe ServerSideEncryptionConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetBucketEncryptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetBucketEncryptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gberrsServerSideEncryptionConfiguration' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gberrsResponseStatus' - -- | The response status code.
-getBucketEncryptionResponse ::
-  -- | 'gberrsResponseStatus'
-  Int ->
+-- 'serverSideEncryptionConfiguration', 'getBucketEncryptionResponse_serverSideEncryptionConfiguration' - Undocumented member.
+--
+-- 'httpStatus', 'getBucketEncryptionResponse_httpStatus' - The response's http status code.
+newGetBucketEncryptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetBucketEncryptionResponse
-getBucketEncryptionResponse pResponseStatus_ =
+newGetBucketEncryptionResponse pHttpStatus_ =
   GetBucketEncryptionResponse'
-    { _gberrsServerSideEncryptionConfiguration =
-        Nothing,
-      _gberrsResponseStatus = pResponseStatus_
+    { serverSideEncryptionConfiguration =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-gberrsServerSideEncryptionConfiguration :: Lens' GetBucketEncryptionResponse (Maybe ServerSideEncryptionConfiguration)
-gberrsServerSideEncryptionConfiguration = lens _gberrsServerSideEncryptionConfiguration (\s a -> s {_gberrsServerSideEncryptionConfiguration = a})
+getBucketEncryptionResponse_serverSideEncryptionConfiguration :: Lens.Lens' GetBucketEncryptionResponse (Prelude.Maybe ServerSideEncryptionConfiguration)
+getBucketEncryptionResponse_serverSideEncryptionConfiguration = Lens.lens (\GetBucketEncryptionResponse' {serverSideEncryptionConfiguration} -> serverSideEncryptionConfiguration) (\s@GetBucketEncryptionResponse' {} a -> s {serverSideEncryptionConfiguration = a} :: GetBucketEncryptionResponse)
 
--- | -- | The response status code.
-gberrsResponseStatus :: Lens' GetBucketEncryptionResponse Int
-gberrsResponseStatus = lens _gberrsResponseStatus (\s a -> s {_gberrsResponseStatus = a})
+-- | The response's http status code.
+getBucketEncryptionResponse_httpStatus :: Lens.Lens' GetBucketEncryptionResponse Prelude.Int
+getBucketEncryptionResponse_httpStatus = Lens.lens (\GetBucketEncryptionResponse' {httpStatus} -> httpStatus) (\s@GetBucketEncryptionResponse' {} a -> s {httpStatus = a} :: GetBucketEncryptionResponse)
 
-instance NFData GetBucketEncryptionResponse
+instance Prelude.NFData GetBucketEncryptionResponse

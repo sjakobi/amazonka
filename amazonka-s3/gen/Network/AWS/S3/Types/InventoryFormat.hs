@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,64 @@
 module Network.AWS.S3.Types.InventoryFormat
   ( InventoryFormat
       ( ..,
-        IFCSV,
-        IFOrc,
-        IFParquet
+        InventoryFormatCSV,
+        InventoryFormatORC,
+        InventoryFormatParquet
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data InventoryFormat = InventoryFormat' (CI Text)
+newtype InventoryFormat = InventoryFormat'
+  { fromInventoryFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern IFCSV :: InventoryFormat
-pattern IFCSV = InventoryFormat' "CSV"
+pattern InventoryFormatCSV :: InventoryFormat
+pattern InventoryFormatCSV = InventoryFormat' "CSV"
 
-pattern IFOrc :: InventoryFormat
-pattern IFOrc = InventoryFormat' "ORC"
+pattern InventoryFormatORC :: InventoryFormat
+pattern InventoryFormatORC = InventoryFormat' "ORC"
 
-pattern IFParquet :: InventoryFormat
-pattern IFParquet = InventoryFormat' "Parquet"
+pattern InventoryFormatParquet :: InventoryFormat
+pattern InventoryFormatParquet = InventoryFormat' "Parquet"
 
 {-# COMPLETE
-  IFCSV,
-  IFOrc,
-  IFParquet,
+  InventoryFormatCSV,
+  InventoryFormatORC,
+  InventoryFormatParquet,
   InventoryFormat'
   #-}
 
-instance FromText InventoryFormat where
-  parser = (InventoryFormat' . mk) <$> takeText
+instance Prelude.FromText InventoryFormat where
+  parser = InventoryFormat' Prelude.<$> Prelude.takeText
 
-instance ToText InventoryFormat where
-  toText (InventoryFormat' ci) = original ci
+instance Prelude.ToText InventoryFormat where
+  toText (InventoryFormat' x) = x
 
-instance Hashable InventoryFormat
+instance Prelude.Hashable InventoryFormat
 
-instance NFData InventoryFormat
+instance Prelude.NFData InventoryFormat
 
-instance ToByteString InventoryFormat
+instance Prelude.ToByteString InventoryFormat
 
-instance ToQuery InventoryFormat
+instance Prelude.ToQuery InventoryFormat
 
-instance ToHeader InventoryFormat
+instance Prelude.ToHeader InventoryFormat
 
-instance FromXML InventoryFormat where
-  parseXML = parseXMLText "InventoryFormat"
+instance Prelude.FromXML InventoryFormat where
+  parseXML = Prelude.parseXMLText "InventoryFormat"
 
-instance ToXML InventoryFormat where
-  toXML = toXMLText
+instance Prelude.ToXML InventoryFormat where
+  toXML = Prelude.toXMLText

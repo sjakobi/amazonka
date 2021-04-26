@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,51 @@
 module Network.AWS.S3.Types.ObjectVersionStorageClass
   ( ObjectVersionStorageClass
       ( ..,
-        OVSCStandard
+        ObjectVersionStorageClassSTANDARD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ObjectVersionStorageClass
-  = ObjectVersionStorageClass'
-      ( CI
-          Text
-      )
+newtype ObjectVersionStorageClass = ObjectVersionStorageClass'
+  { fromObjectVersionStorageClass ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OVSCStandard :: ObjectVersionStorageClass
-pattern OVSCStandard = ObjectVersionStorageClass' "STANDARD"
+pattern ObjectVersionStorageClassSTANDARD :: ObjectVersionStorageClass
+pattern ObjectVersionStorageClassSTANDARD = ObjectVersionStorageClass' "STANDARD"
 
 {-# COMPLETE
-  OVSCStandard,
+  ObjectVersionStorageClassSTANDARD,
   ObjectVersionStorageClass'
   #-}
 
-instance FromText ObjectVersionStorageClass where
-  parser = (ObjectVersionStorageClass' . mk) <$> takeText
+instance Prelude.FromText ObjectVersionStorageClass where
+  parser = ObjectVersionStorageClass' Prelude.<$> Prelude.takeText
 
-instance ToText ObjectVersionStorageClass where
-  toText (ObjectVersionStorageClass' ci) = original ci
+instance Prelude.ToText ObjectVersionStorageClass where
+  toText (ObjectVersionStorageClass' x) = x
 
-instance Hashable ObjectVersionStorageClass
+instance Prelude.Hashable ObjectVersionStorageClass
 
-instance NFData ObjectVersionStorageClass
+instance Prelude.NFData ObjectVersionStorageClass
 
-instance ToByteString ObjectVersionStorageClass
+instance Prelude.ToByteString ObjectVersionStorageClass
 
-instance ToQuery ObjectVersionStorageClass
+instance Prelude.ToQuery ObjectVersionStorageClass
 
-instance ToHeader ObjectVersionStorageClass
+instance Prelude.ToHeader ObjectVersionStorageClass
 
-instance FromXML ObjectVersionStorageClass where
-  parseXML = parseXMLText "ObjectVersionStorageClass"
+instance Prelude.FromXML ObjectVersionStorageClass where
+  parseXML = Prelude.parseXMLText "ObjectVersionStorageClass"

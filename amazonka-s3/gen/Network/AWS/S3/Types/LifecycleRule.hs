@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,8 +19,8 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.S3.Types.LifecycleRule where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 import Network.AWS.S3.Types.AbortIncompleteMultipartUpload
 import Network.AWS.S3.Types.ExpirationStatus
@@ -28,132 +32,187 @@ import Network.AWS.S3.Types.Transition
 
 -- | A lifecycle rule for individual objects in an Amazon S3 bucket.
 --
---
---
--- /See:/ 'lifecycleRule' smart constructor.
+-- /See:/ 'newLifecycleRule' smart constructor.
 data LifecycleRule = LifecycleRule'
-  { _lrExpiration ::
-      !(Maybe LifecycleExpiration),
-    _lrPrefix :: !(Maybe Text),
-    _lrNoncurrentVersionTransitions ::
-      !(Maybe [NoncurrentVersionTransition]),
-    _lrId :: !(Maybe Text),
-    _lrNoncurrentVersionExpiration ::
-      !(Maybe NoncurrentVersionExpiration),
-    _lrTransitions :: !(Maybe [Transition]),
-    _lrAbortIncompleteMultipartUpload ::
-      !(Maybe AbortIncompleteMultipartUpload),
-    _lrFilter :: !(Maybe LifecycleRuleFilter),
-    _lrStatus :: !ExpirationStatus
+  { -- | Specifies the expiration for the lifecycle of the object in the form of
+    -- date, days and, whether the object has a delete marker.
+    expiration :: Prelude.Maybe LifecycleExpiration,
+    -- | Prefix identifying one or more objects to which the rule applies. This
+    -- is No longer used; use @Filter@ instead.
+    --
+    -- Replacement must be made for object keys containing special characters
+    -- (such as carriage returns) when using XML requests. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the transition rule for the lifecycle rule that describes when
+    -- noncurrent objects transition to a specific storage class. If your
+    -- bucket is versioning-enabled (or versioning is suspended), you can set
+    -- this action to request that Amazon S3 transition noncurrent object
+    -- versions to a specific storage class at a set period in the object\'s
+    -- lifetime.
+    noncurrentVersionTransitions :: Prelude.Maybe [NoncurrentVersionTransition],
+    -- | Unique identifier for the rule. The value cannot be longer than 255
+    -- characters.
+    iD :: Prelude.Maybe Prelude.Text,
+    noncurrentVersionExpiration :: Prelude.Maybe NoncurrentVersionExpiration,
+    -- | Specifies when an Amazon S3 object transitions to a specified storage
+    -- class.
+    transitions :: Prelude.Maybe [Transition],
+    abortIncompleteMultipartUpload :: Prelude.Maybe AbortIncompleteMultipartUpload,
+    filter' :: Prelude.Maybe LifecycleRuleFilter,
+    -- | If \'Enabled\', the rule is currently being applied. If \'Disabled\',
+    -- the rule is not currently being applied.
+    status :: ExpirationStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LifecycleRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LifecycleRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lrExpiration' - Specifies the expiration for the lifecycle of the object in the form of date, days and, whether the object has a delete marker.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lrPrefix' - Prefix identifying one or more objects to which the rule applies. This is No longer used; use @Filter@ instead. /Important:/ Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints> .
+-- 'expiration', 'lifecycleRule_expiration' - Specifies the expiration for the lifecycle of the object in the form of
+-- date, days and, whether the object has a delete marker.
 --
--- * 'lrNoncurrentVersionTransitions' - Specifies the transition rule for the lifecycle rule that describes when noncurrent objects transition to a specific storage class. If your bucket is versioning-enabled (or versioning is suspended), you can set this action to request that Amazon S3 transition noncurrent object versions to a specific storage class at a set period in the object's lifetime.
+-- 'prefix', 'lifecycleRule_prefix' - Prefix identifying one or more objects to which the rule applies. This
+-- is No longer used; use @Filter@ instead.
 --
--- * 'lrId' - Unique identifier for the rule. The value cannot be longer than 255 characters.
+-- Replacement must be made for object keys containing special characters
+-- (such as carriage returns) when using XML requests. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
 --
--- * 'lrNoncurrentVersionExpiration' - Undocumented member.
+-- 'noncurrentVersionTransitions', 'lifecycleRule_noncurrentVersionTransitions' - Specifies the transition rule for the lifecycle rule that describes when
+-- noncurrent objects transition to a specific storage class. If your
+-- bucket is versioning-enabled (or versioning is suspended), you can set
+-- this action to request that Amazon S3 transition noncurrent object
+-- versions to a specific storage class at a set period in the object\'s
+-- lifetime.
 --
--- * 'lrTransitions' - Specifies when an Amazon S3 object transitions to a specified storage class.
+-- 'iD', 'lifecycleRule_iD' - Unique identifier for the rule. The value cannot be longer than 255
+-- characters.
 --
--- * 'lrAbortIncompleteMultipartUpload' - Undocumented member.
+-- 'noncurrentVersionExpiration', 'lifecycleRule_noncurrentVersionExpiration' - Undocumented member.
 --
--- * 'lrFilter' - Undocumented member.
+-- 'transitions', 'lifecycleRule_transitions' - Specifies when an Amazon S3 object transitions to a specified storage
+-- class.
 --
--- * 'lrStatus' - If 'Enabled', the rule is currently being applied. If 'Disabled', the rule is not currently being applied.
-lifecycleRule ::
-  -- | 'lrStatus'
+-- 'abortIncompleteMultipartUpload', 'lifecycleRule_abortIncompleteMultipartUpload' - Undocumented member.
+--
+-- 'filter'', 'lifecycleRule_filter' - Undocumented member.
+--
+-- 'status', 'lifecycleRule_status' - If \'Enabled\', the rule is currently being applied. If \'Disabled\',
+-- the rule is not currently being applied.
+newLifecycleRule ::
+  -- | 'status'
   ExpirationStatus ->
   LifecycleRule
-lifecycleRule pStatus_ =
+newLifecycleRule pStatus_ =
   LifecycleRule'
-    { _lrExpiration = Nothing,
-      _lrPrefix = Nothing,
-      _lrNoncurrentVersionTransitions = Nothing,
-      _lrId = Nothing,
-      _lrNoncurrentVersionExpiration = Nothing,
-      _lrTransitions = Nothing,
-      _lrAbortIncompleteMultipartUpload = Nothing,
-      _lrFilter = Nothing,
-      _lrStatus = pStatus_
+    { expiration = Prelude.Nothing,
+      prefix = Prelude.Nothing,
+      noncurrentVersionTransitions = Prelude.Nothing,
+      iD = Prelude.Nothing,
+      noncurrentVersionExpiration = Prelude.Nothing,
+      transitions = Prelude.Nothing,
+      abortIncompleteMultipartUpload = Prelude.Nothing,
+      filter' = Prelude.Nothing,
+      status = pStatus_
     }
 
--- | Specifies the expiration for the lifecycle of the object in the form of date, days and, whether the object has a delete marker.
-lrExpiration :: Lens' LifecycleRule (Maybe LifecycleExpiration)
-lrExpiration = lens _lrExpiration (\s a -> s {_lrExpiration = a})
+-- | Specifies the expiration for the lifecycle of the object in the form of
+-- date, days and, whether the object has a delete marker.
+lifecycleRule_expiration :: Lens.Lens' LifecycleRule (Prelude.Maybe LifecycleExpiration)
+lifecycleRule_expiration = Lens.lens (\LifecycleRule' {expiration} -> expiration) (\s@LifecycleRule' {} a -> s {expiration = a} :: LifecycleRule)
 
--- | Prefix identifying one or more objects to which the rule applies. This is No longer used; use @Filter@ instead. /Important:/ Replacement must be made for object keys containing special characters (such as carriage returns) when using XML requests. For more information, see <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints> .
-lrPrefix :: Lens' LifecycleRule (Maybe Text)
-lrPrefix = lens _lrPrefix (\s a -> s {_lrPrefix = a})
+-- | Prefix identifying one or more objects to which the rule applies. This
+-- is No longer used; use @Filter@ instead.
+--
+-- Replacement must be made for object keys containing special characters
+-- (such as carriage returns) when using XML requests. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints XML related object key constraints>.
+lifecycleRule_prefix :: Lens.Lens' LifecycleRule (Prelude.Maybe Prelude.Text)
+lifecycleRule_prefix = Lens.lens (\LifecycleRule' {prefix} -> prefix) (\s@LifecycleRule' {} a -> s {prefix = a} :: LifecycleRule)
 
--- | Specifies the transition rule for the lifecycle rule that describes when noncurrent objects transition to a specific storage class. If your bucket is versioning-enabled (or versioning is suspended), you can set this action to request that Amazon S3 transition noncurrent object versions to a specific storage class at a set period in the object's lifetime.
-lrNoncurrentVersionTransitions :: Lens' LifecycleRule [NoncurrentVersionTransition]
-lrNoncurrentVersionTransitions = lens _lrNoncurrentVersionTransitions (\s a -> s {_lrNoncurrentVersionTransitions = a}) . _Default . _Coerce
+-- | Specifies the transition rule for the lifecycle rule that describes when
+-- noncurrent objects transition to a specific storage class. If your
+-- bucket is versioning-enabled (or versioning is suspended), you can set
+-- this action to request that Amazon S3 transition noncurrent object
+-- versions to a specific storage class at a set period in the object\'s
+-- lifetime.
+lifecycleRule_noncurrentVersionTransitions :: Lens.Lens' LifecycleRule (Prelude.Maybe [NoncurrentVersionTransition])
+lifecycleRule_noncurrentVersionTransitions = Lens.lens (\LifecycleRule' {noncurrentVersionTransitions} -> noncurrentVersionTransitions) (\s@LifecycleRule' {} a -> s {noncurrentVersionTransitions = a} :: LifecycleRule) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Unique identifier for the rule. The value cannot be longer than 255 characters.
-lrId :: Lens' LifecycleRule (Maybe Text)
-lrId = lens _lrId (\s a -> s {_lrId = a})
+-- | Unique identifier for the rule. The value cannot be longer than 255
+-- characters.
+lifecycleRule_iD :: Lens.Lens' LifecycleRule (Prelude.Maybe Prelude.Text)
+lifecycleRule_iD = Lens.lens (\LifecycleRule' {iD} -> iD) (\s@LifecycleRule' {} a -> s {iD = a} :: LifecycleRule)
 
 -- | Undocumented member.
-lrNoncurrentVersionExpiration :: Lens' LifecycleRule (Maybe NoncurrentVersionExpiration)
-lrNoncurrentVersionExpiration = lens _lrNoncurrentVersionExpiration (\s a -> s {_lrNoncurrentVersionExpiration = a})
+lifecycleRule_noncurrentVersionExpiration :: Lens.Lens' LifecycleRule (Prelude.Maybe NoncurrentVersionExpiration)
+lifecycleRule_noncurrentVersionExpiration = Lens.lens (\LifecycleRule' {noncurrentVersionExpiration} -> noncurrentVersionExpiration) (\s@LifecycleRule' {} a -> s {noncurrentVersionExpiration = a} :: LifecycleRule)
 
--- | Specifies when an Amazon S3 object transitions to a specified storage class.
-lrTransitions :: Lens' LifecycleRule [Transition]
-lrTransitions = lens _lrTransitions (\s a -> s {_lrTransitions = a}) . _Default . _Coerce
-
--- | Undocumented member.
-lrAbortIncompleteMultipartUpload :: Lens' LifecycleRule (Maybe AbortIncompleteMultipartUpload)
-lrAbortIncompleteMultipartUpload = lens _lrAbortIncompleteMultipartUpload (\s a -> s {_lrAbortIncompleteMultipartUpload = a})
+-- | Specifies when an Amazon S3 object transitions to a specified storage
+-- class.
+lifecycleRule_transitions :: Lens.Lens' LifecycleRule (Prelude.Maybe [Transition])
+lifecycleRule_transitions = Lens.lens (\LifecycleRule' {transitions} -> transitions) (\s@LifecycleRule' {} a -> s {transitions = a} :: LifecycleRule) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-lrFilter :: Lens' LifecycleRule (Maybe LifecycleRuleFilter)
-lrFilter = lens _lrFilter (\s a -> s {_lrFilter = a})
+lifecycleRule_abortIncompleteMultipartUpload :: Lens.Lens' LifecycleRule (Prelude.Maybe AbortIncompleteMultipartUpload)
+lifecycleRule_abortIncompleteMultipartUpload = Lens.lens (\LifecycleRule' {abortIncompleteMultipartUpload} -> abortIncompleteMultipartUpload) (\s@LifecycleRule' {} a -> s {abortIncompleteMultipartUpload = a} :: LifecycleRule)
 
--- | If 'Enabled', the rule is currently being applied. If 'Disabled', the rule is not currently being applied.
-lrStatus :: Lens' LifecycleRule ExpirationStatus
-lrStatus = lens _lrStatus (\s a -> s {_lrStatus = a})
+-- | Undocumented member.
+lifecycleRule_filter :: Lens.Lens' LifecycleRule (Prelude.Maybe LifecycleRuleFilter)
+lifecycleRule_filter = Lens.lens (\LifecycleRule' {filter'} -> filter') (\s@LifecycleRule' {} a -> s {filter' = a} :: LifecycleRule)
 
-instance FromXML LifecycleRule where
+-- | If \'Enabled\', the rule is currently being applied. If \'Disabled\',
+-- the rule is not currently being applied.
+lifecycleRule_status :: Lens.Lens' LifecycleRule ExpirationStatus
+lifecycleRule_status = Lens.lens (\LifecycleRule' {status} -> status) (\s@LifecycleRule' {} a -> s {status = a} :: LifecycleRule)
+
+instance Prelude.FromXML LifecycleRule where
   parseXML x =
     LifecycleRule'
-      <$> (x .@? "Expiration")
-      <*> (x .@? "Prefix")
-      <*> (may (parseXMLList "NoncurrentVersionTransition") x)
-      <*> (x .@? "ID")
-      <*> (x .@? "NoncurrentVersionExpiration")
-      <*> (may (parseXMLList "Transition") x)
-      <*> (x .@? "AbortIncompleteMultipartUpload")
-      <*> (x .@? "Filter")
-      <*> (x .@ "Status")
+      Prelude.<$> (x Prelude..@? "Expiration")
+      Prelude.<*> (x Prelude..@? "Prefix")
+      Prelude.<*> ( Prelude.may
+                      (Prelude.parseXMLList "NoncurrentVersionTransition")
+                      x
+                  )
+      Prelude.<*> (x Prelude..@? "ID")
+      Prelude.<*> (x Prelude..@? "NoncurrentVersionExpiration")
+      Prelude.<*> (Prelude.may (Prelude.parseXMLList "Transition") x)
+      Prelude.<*> (x Prelude..@? "AbortIncompleteMultipartUpload")
+      Prelude.<*> (x Prelude..@? "Filter")
+      Prelude.<*> (x Prelude..@ "Status")
 
-instance Hashable LifecycleRule
+instance Prelude.Hashable LifecycleRule
 
-instance NFData LifecycleRule
+instance Prelude.NFData LifecycleRule
 
-instance ToXML LifecycleRule where
+instance Prelude.ToXML LifecycleRule where
   toXML LifecycleRule' {..} =
-    mconcat
-      [ "Expiration" @= _lrExpiration,
-        "Prefix" @= _lrPrefix,
-        toXML
-          ( toXMLList "NoncurrentVersionTransition"
-              <$> _lrNoncurrentVersionTransitions
+    Prelude.mconcat
+      [ "Expiration" Prelude.@= expiration,
+        "Prefix" Prelude.@= prefix,
+        Prelude.toXML
+          ( Prelude.toXMLList "NoncurrentVersionTransition"
+              Prelude.<$> noncurrentVersionTransitions
           ),
-        "ID" @= _lrId,
+        "ID" Prelude.@= iD,
         "NoncurrentVersionExpiration"
-          @= _lrNoncurrentVersionExpiration,
-        toXML (toXMLList "Transition" <$> _lrTransitions),
+          Prelude.@= noncurrentVersionExpiration,
+        Prelude.toXML
+          ( Prelude.toXMLList "Transition"
+              Prelude.<$> transitions
+          ),
         "AbortIncompleteMultipartUpload"
-          @= _lrAbortIncompleteMultipartUpload,
-        "Filter" @= _lrFilter,
-        "Status" @= _lrStatus
+          Prelude.@= abortIncompleteMultipartUpload,
+        "Filter" Prelude.@= filter',
+        "Status" Prelude.@= status
       ]

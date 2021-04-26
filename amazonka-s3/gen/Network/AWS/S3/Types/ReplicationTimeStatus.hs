@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,59 @@
 module Network.AWS.S3.Types.ReplicationTimeStatus
   ( ReplicationTimeStatus
       ( ..,
-        RTSDisabled,
-        RTSEnabled
+        ReplicationTimeStatusDisabled,
+        ReplicationTimeStatusEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.S3.Internal
 
-data ReplicationTimeStatus
-  = ReplicationTimeStatus'
-      ( CI
-          Text
-      )
+newtype ReplicationTimeStatus = ReplicationTimeStatus'
+  { fromReplicationTimeStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RTSDisabled :: ReplicationTimeStatus
-pattern RTSDisabled = ReplicationTimeStatus' "Disabled"
+pattern ReplicationTimeStatusDisabled :: ReplicationTimeStatus
+pattern ReplicationTimeStatusDisabled = ReplicationTimeStatus' "Disabled"
 
-pattern RTSEnabled :: ReplicationTimeStatus
-pattern RTSEnabled = ReplicationTimeStatus' "Enabled"
+pattern ReplicationTimeStatusEnabled :: ReplicationTimeStatus
+pattern ReplicationTimeStatusEnabled = ReplicationTimeStatus' "Enabled"
 
 {-# COMPLETE
-  RTSDisabled,
-  RTSEnabled,
+  ReplicationTimeStatusDisabled,
+  ReplicationTimeStatusEnabled,
   ReplicationTimeStatus'
   #-}
 
-instance FromText ReplicationTimeStatus where
-  parser = (ReplicationTimeStatus' . mk) <$> takeText
+instance Prelude.FromText ReplicationTimeStatus where
+  parser = ReplicationTimeStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ReplicationTimeStatus where
-  toText (ReplicationTimeStatus' ci) = original ci
+instance Prelude.ToText ReplicationTimeStatus where
+  toText (ReplicationTimeStatus' x) = x
 
-instance Hashable ReplicationTimeStatus
+instance Prelude.Hashable ReplicationTimeStatus
 
-instance NFData ReplicationTimeStatus
+instance Prelude.NFData ReplicationTimeStatus
 
-instance ToByteString ReplicationTimeStatus
+instance Prelude.ToByteString ReplicationTimeStatus
 
-instance ToQuery ReplicationTimeStatus
+instance Prelude.ToQuery ReplicationTimeStatus
 
-instance ToHeader ReplicationTimeStatus
+instance Prelude.ToHeader ReplicationTimeStatus
 
-instance FromXML ReplicationTimeStatus where
-  parseXML = parseXMLText "ReplicationTimeStatus"
+instance Prelude.FromXML ReplicationTimeStatus where
+  parseXML = Prelude.parseXMLText "ReplicationTimeStatus"
 
-instance ToXML ReplicationTimeStatus where
-  toXML = toXMLText
+instance Prelude.ToXML ReplicationTimeStatus where
+  toXML = Prelude.toXMLText
