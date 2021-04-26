@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,166 +23,238 @@
 --
 -- Lists the existing activities.
 --
+-- If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
 --
--- If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
---
+-- This operation is eventually consistent. The results are best effort and
+-- may not reflect very recent updates and changes.
 --
 -- This operation returns paginated results.
 module Network.AWS.StepFunctions.ListActivities
   ( -- * Creating a Request
-    listActivities,
-    ListActivities,
+    ListActivities (..),
+    newListActivities,
 
     -- * Request Lenses
-    laNextToken,
-    laMaxResults,
+    listActivities_nextToken,
+    listActivities_maxResults,
 
     -- * Destructuring the Response
-    listActivitiesResponse,
-    ListActivitiesResponse,
+    ListActivitiesResponse (..),
+    newListActivitiesResponse,
 
     -- * Response Lenses
-    larrsNextToken,
-    larrsResponseStatus,
-    larrsActivities,
+    listActivitiesResponse_nextToken,
+    listActivitiesResponse_httpStatus,
+    listActivitiesResponse_activities,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.ActivityListItem
 
--- | /See:/ 'listActivities' smart constructor.
+-- | /See:/ 'newListActivities' smart constructor.
 data ListActivities = ListActivities'
-  { _laNextToken ::
-      !(Maybe Text),
-    _laMaxResults :: !(Maybe Nat)
+  { -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results that are returned per call. You can use
+    -- @nextToken@ to obtain further pages of results. The default is 100 and
+    -- the maximum allowed page size is 1000. A value of 0 uses the default.
+    --
+    -- This is only an upper limit. The actual number of results returned per
+    -- call might be fewer than the specified maximum.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListActivities' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListActivities' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'laNextToken' - If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'laMaxResults' - The maximum number of results that are returned per call. You can use @nextToken@ to obtain further pages of results. The default is 100 and the maximum allowed page size is 1000. A value of 0 uses the default. This is only an upper limit. The actual number of results returned per call might be fewer than the specified maximum.
-listActivities ::
+-- 'nextToken', 'listActivities_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+--
+-- 'maxResults', 'listActivities_maxResults' - The maximum number of results that are returned per call. You can use
+-- @nextToken@ to obtain further pages of results. The default is 100 and
+-- the maximum allowed page size is 1000. A value of 0 uses the default.
+--
+-- This is only an upper limit. The actual number of results returned per
+-- call might be fewer than the specified maximum.
+newListActivities ::
   ListActivities
-listActivities =
+newListActivities =
   ListActivities'
-    { _laNextToken = Nothing,
-      _laMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
-laNextToken :: Lens' ListActivities (Maybe Text)
-laNextToken = lens _laNextToken (\s a -> s {_laNextToken = a})
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+listActivities_nextToken :: Lens.Lens' ListActivities (Prelude.Maybe Prelude.Text)
+listActivities_nextToken = Lens.lens (\ListActivities' {nextToken} -> nextToken) (\s@ListActivities' {} a -> s {nextToken = a} :: ListActivities)
 
--- | The maximum number of results that are returned per call. You can use @nextToken@ to obtain further pages of results. The default is 100 and the maximum allowed page size is 1000. A value of 0 uses the default. This is only an upper limit. The actual number of results returned per call might be fewer than the specified maximum.
-laMaxResults :: Lens' ListActivities (Maybe Natural)
-laMaxResults = lens _laMaxResults (\s a -> s {_laMaxResults = a}) . mapping _Nat
+-- | The maximum number of results that are returned per call. You can use
+-- @nextToken@ to obtain further pages of results. The default is 100 and
+-- the maximum allowed page size is 1000. A value of 0 uses the default.
+--
+-- This is only an upper limit. The actual number of results returned per
+-- call might be fewer than the specified maximum.
+listActivities_maxResults :: Lens.Lens' ListActivities (Prelude.Maybe Prelude.Natural)
+listActivities_maxResults = Lens.lens (\ListActivities' {maxResults} -> maxResults) (\s@ListActivities' {} a -> s {maxResults = a} :: ListActivities) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListActivities where
+instance Pager.AWSPager ListActivities where
   page rq rs
-    | stop (rs ^. larrsNextToken) = Nothing
-    | stop (rs ^. larrsActivities) = Nothing
-    | otherwise =
-      Just $ rq & laNextToken .~ rs ^. larrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listActivitiesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listActivitiesResponse_activities) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listActivities_nextToken
+          Lens..~ rs
+          Lens.^? listActivitiesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListActivities where
+instance Prelude.AWSRequest ListActivities where
   type Rs ListActivities = ListActivitiesResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListActivitiesResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "activities" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "activities"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListActivities
+instance Prelude.Hashable ListActivities
 
-instance NFData ListActivities
+instance Prelude.NFData ListActivities
 
-instance ToHeaders ListActivities where
+instance Prelude.ToHeaders ListActivities where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSStepFunctions.ListActivities" :: ByteString),
+              Prelude.=# ( "AWSStepFunctions.ListActivities" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListActivities where
+instance Prelude.ToJSON ListActivities where
   toJSON ListActivities' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _laNextToken,
-            ("maxResults" .=) <$> _laMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListActivities where
-  toPath = const "/"
+instance Prelude.ToPath ListActivities where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListActivities where
-  toQuery = const mempty
+instance Prelude.ToQuery ListActivities where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listActivitiesResponse' smart constructor.
+-- | /See:/ 'newListActivitiesResponse' smart constructor.
 data ListActivitiesResponse = ListActivitiesResponse'
-  { _larrsNextToken ::
-      !(Maybe Text),
-    _larrsResponseStatus ::
-      !Int,
-    _larrsActivities ::
-      ![ActivityListItem]
+  { -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The list of activities.
+    activities :: [ActivityListItem]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListActivitiesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListActivitiesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'larrsNextToken' - If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'larrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listActivitiesResponse_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
 --
--- * 'larrsActivities' - The list of activities.
-listActivitiesResponse ::
-  -- | 'larrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listActivitiesResponse_httpStatus' - The response's http status code.
+--
+-- 'activities', 'listActivitiesResponse_activities' - The list of activities.
+newListActivitiesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListActivitiesResponse
-listActivitiesResponse pResponseStatus_ =
+newListActivitiesResponse pHttpStatus_ =
   ListActivitiesResponse'
-    { _larrsNextToken = Nothing,
-      _larrsResponseStatus = pResponseStatus_,
-      _larrsActivities = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      activities = Prelude.mempty
     }
 
--- | If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
-larrsNextToken :: Lens' ListActivitiesResponse (Maybe Text)
-larrsNextToken = lens _larrsNextToken (\s a -> s {_larrsNextToken = a})
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+listActivitiesResponse_nextToken :: Lens.Lens' ListActivitiesResponse (Prelude.Maybe Prelude.Text)
+listActivitiesResponse_nextToken = Lens.lens (\ListActivitiesResponse' {nextToken} -> nextToken) (\s@ListActivitiesResponse' {} a -> s {nextToken = a} :: ListActivitiesResponse)
 
--- | -- | The response status code.
-larrsResponseStatus :: Lens' ListActivitiesResponse Int
-larrsResponseStatus = lens _larrsResponseStatus (\s a -> s {_larrsResponseStatus = a})
+-- | The response's http status code.
+listActivitiesResponse_httpStatus :: Lens.Lens' ListActivitiesResponse Prelude.Int
+listActivitiesResponse_httpStatus = Lens.lens (\ListActivitiesResponse' {httpStatus} -> httpStatus) (\s@ListActivitiesResponse' {} a -> s {httpStatus = a} :: ListActivitiesResponse)
 
 -- | The list of activities.
-larrsActivities :: Lens' ListActivitiesResponse [ActivityListItem]
-larrsActivities = lens _larrsActivities (\s a -> s {_larrsActivities = a}) . _Coerce
+listActivitiesResponse_activities :: Lens.Lens' ListActivitiesResponse [ActivityListItem]
+listActivitiesResponse_activities = Lens.lens (\ListActivitiesResponse' {activities} -> activities) (\s@ListActivitiesResponse' {} a -> s {activities = a} :: ListActivitiesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListActivitiesResponse
+instance Prelude.NFData ListActivitiesResponse

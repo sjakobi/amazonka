@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,66 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.LambdaFunctionStartFailedEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains details about a lambda function that failed to start during an execution.
+-- | Contains details about a lambda function that failed to start during an
+-- execution.
 --
---
---
--- /See:/ 'lambdaFunctionStartFailedEventDetails' smart constructor.
+-- /See:/ 'newLambdaFunctionStartFailedEventDetails' smart constructor.
 data LambdaFunctionStartFailedEventDetails = LambdaFunctionStartFailedEventDetails'
-  { _lCause ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _lError ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       )
+  { -- | A more detailed explanation of the cause of the failure.
+    cause :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionStartFailedEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionStartFailedEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lCause' - A more detailed explanation of the cause of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lError' - The error code of the failure.
-lambdaFunctionStartFailedEventDetails ::
+-- 'cause', 'lambdaFunctionStartFailedEventDetails_cause' - A more detailed explanation of the cause of the failure.
+--
+-- 'error', 'lambdaFunctionStartFailedEventDetails_error' - The error code of the failure.
+newLambdaFunctionStartFailedEventDetails ::
   LambdaFunctionStartFailedEventDetails
-lambdaFunctionStartFailedEventDetails =
+newLambdaFunctionStartFailedEventDetails =
   LambdaFunctionStartFailedEventDetails'
-    { _lCause =
-        Nothing,
-      _lError = Nothing
+    { cause =
+        Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | A more detailed explanation of the cause of the failure.
-lCause :: Lens' LambdaFunctionStartFailedEventDetails (Maybe Text)
-lCause = lens _lCause (\s a -> s {_lCause = a}) . mapping _Sensitive
+lambdaFunctionStartFailedEventDetails_cause :: Lens.Lens' LambdaFunctionStartFailedEventDetails (Prelude.Maybe Prelude.Text)
+lambdaFunctionStartFailedEventDetails_cause = Lens.lens (\LambdaFunctionStartFailedEventDetails' {cause} -> cause) (\s@LambdaFunctionStartFailedEventDetails' {} a -> s {cause = a} :: LambdaFunctionStartFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The error code of the failure.
-lError :: Lens' LambdaFunctionStartFailedEventDetails (Maybe Text)
-lError = lens _lError (\s a -> s {_lError = a}) . mapping _Sensitive
+lambdaFunctionStartFailedEventDetails_error :: Lens.Lens' LambdaFunctionStartFailedEventDetails (Prelude.Maybe Prelude.Text)
+lambdaFunctionStartFailedEventDetails_error = Lens.lens (\LambdaFunctionStartFailedEventDetails' {error} -> error) (\s@LambdaFunctionStartFailedEventDetails' {} a -> s {error = a} :: LambdaFunctionStartFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 instance
-  FromJSON
+  Prelude.FromJSON
     LambdaFunctionStartFailedEventDetails
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaFunctionStartFailedEventDetails"
       ( \x ->
           LambdaFunctionStartFailedEventDetails'
-            <$> (x .:? "cause") <*> (x .:? "error")
+            Prelude.<$> (x Prelude..:? "cause")
+            Prelude.<*> (x Prelude..:? "error")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     LambdaFunctionStartFailedEventDetails
 
-instance NFData LambdaFunctionStartFailedEventDetails
+instance
+  Prelude.NFData
+    LambdaFunctionStartFailedEventDetails

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,108 +19,117 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.TaskScheduledEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains details about a task scheduled during an execution.
 --
---
---
--- /See:/ 'taskScheduledEventDetails' smart constructor.
+-- /See:/ 'newTaskScheduledEventDetails' smart constructor.
 data TaskScheduledEventDetails = TaskScheduledEventDetails'
-  { _tsedHeartbeatInSeconds ::
-      !(Maybe Integer),
-    _tsedTimeoutInSeconds ::
-      !(Maybe Integer),
-    _tsedResourceType ::
-      !Text,
-    _tsedResource ::
-      !Text,
-    _tsedRegion ::
-      !Text,
-    _tsedParameters ::
-      !(Sensitive Text)
+  { -- | The maximum allowed duration between two heartbeats for the task.
+    heartbeatInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The maximum allowed duration of the task.
+    timeoutInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | The action of the resource called by a task state.
+    resourceType :: Prelude.Text,
+    -- | The service name of the resource in a task state.
+    resource :: Prelude.Text,
+    -- | The region of the scheduled task
+    region :: Prelude.Text,
+    -- | The JSON data passed to the resource referenced in a task state. Length
+    -- constraints apply to the payload size, and are expressed as bytes in
+    -- UTF-8 encoding.
+    parameters :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskScheduledEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskScheduledEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsedHeartbeatInSeconds' - The maximum allowed duration between two heartbeats for the task.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsedTimeoutInSeconds' - The maximum allowed duration of the task.
+-- 'heartbeatInSeconds', 'taskScheduledEventDetails_heartbeatInSeconds' - The maximum allowed duration between two heartbeats for the task.
 --
--- * 'tsedResourceType' - The action of the resource called by a task state.
+-- 'timeoutInSeconds', 'taskScheduledEventDetails_timeoutInSeconds' - The maximum allowed duration of the task.
 --
--- * 'tsedResource' - The service name of the resource in a task state.
+-- 'resourceType', 'taskScheduledEventDetails_resourceType' - The action of the resource called by a task state.
 --
--- * 'tsedRegion' - The region of the scheduled task
+-- 'resource', 'taskScheduledEventDetails_resource' - The service name of the resource in a task state.
 --
--- * 'tsedParameters' - The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-taskScheduledEventDetails ::
-  -- | 'tsedResourceType'
-  Text ->
-  -- | 'tsedResource'
-  Text ->
-  -- | 'tsedRegion'
-  Text ->
-  -- | 'tsedParameters'
-  Text ->
+-- 'region', 'taskScheduledEventDetails_region' - The region of the scheduled task
+--
+-- 'parameters', 'taskScheduledEventDetails_parameters' - The JSON data passed to the resource referenced in a task state. Length
+-- constraints apply to the payload size, and are expressed as bytes in
+-- UTF-8 encoding.
+newTaskScheduledEventDetails ::
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'resource'
+  Prelude.Text ->
+  -- | 'region'
+  Prelude.Text ->
+  -- | 'parameters'
+  Prelude.Text ->
   TaskScheduledEventDetails
-taskScheduledEventDetails
+newTaskScheduledEventDetails
   pResourceType_
   pResource_
   pRegion_
   pParameters_ =
     TaskScheduledEventDetails'
-      { _tsedHeartbeatInSeconds =
-          Nothing,
-        _tsedTimeoutInSeconds = Nothing,
-        _tsedResourceType = pResourceType_,
-        _tsedResource = pResource_,
-        _tsedRegion = pRegion_,
-        _tsedParameters = _Sensitive # pParameters_
+      { heartbeatInSeconds =
+          Prelude.Nothing,
+        timeoutInSeconds = Prelude.Nothing,
+        resourceType = pResourceType_,
+        resource = pResource_,
+        region = pRegion_,
+        parameters =
+          Prelude._Sensitive Lens.# pParameters_
       }
 
 -- | The maximum allowed duration between two heartbeats for the task.
-tsedHeartbeatInSeconds :: Lens' TaskScheduledEventDetails (Maybe Integer)
-tsedHeartbeatInSeconds = lens _tsedHeartbeatInSeconds (\s a -> s {_tsedHeartbeatInSeconds = a})
+taskScheduledEventDetails_heartbeatInSeconds :: Lens.Lens' TaskScheduledEventDetails (Prelude.Maybe Prelude.Integer)
+taskScheduledEventDetails_heartbeatInSeconds = Lens.lens (\TaskScheduledEventDetails' {heartbeatInSeconds} -> heartbeatInSeconds) (\s@TaskScheduledEventDetails' {} a -> s {heartbeatInSeconds = a} :: TaskScheduledEventDetails)
 
 -- | The maximum allowed duration of the task.
-tsedTimeoutInSeconds :: Lens' TaskScheduledEventDetails (Maybe Integer)
-tsedTimeoutInSeconds = lens _tsedTimeoutInSeconds (\s a -> s {_tsedTimeoutInSeconds = a})
+taskScheduledEventDetails_timeoutInSeconds :: Lens.Lens' TaskScheduledEventDetails (Prelude.Maybe Prelude.Integer)
+taskScheduledEventDetails_timeoutInSeconds = Lens.lens (\TaskScheduledEventDetails' {timeoutInSeconds} -> timeoutInSeconds) (\s@TaskScheduledEventDetails' {} a -> s {timeoutInSeconds = a} :: TaskScheduledEventDetails)
 
 -- | The action of the resource called by a task state.
-tsedResourceType :: Lens' TaskScheduledEventDetails Text
-tsedResourceType = lens _tsedResourceType (\s a -> s {_tsedResourceType = a})
+taskScheduledEventDetails_resourceType :: Lens.Lens' TaskScheduledEventDetails Prelude.Text
+taskScheduledEventDetails_resourceType = Lens.lens (\TaskScheduledEventDetails' {resourceType} -> resourceType) (\s@TaskScheduledEventDetails' {} a -> s {resourceType = a} :: TaskScheduledEventDetails)
 
 -- | The service name of the resource in a task state.
-tsedResource :: Lens' TaskScheduledEventDetails Text
-tsedResource = lens _tsedResource (\s a -> s {_tsedResource = a})
+taskScheduledEventDetails_resource :: Lens.Lens' TaskScheduledEventDetails Prelude.Text
+taskScheduledEventDetails_resource = Lens.lens (\TaskScheduledEventDetails' {resource} -> resource) (\s@TaskScheduledEventDetails' {} a -> s {resource = a} :: TaskScheduledEventDetails)
 
 -- | The region of the scheduled task
-tsedRegion :: Lens' TaskScheduledEventDetails Text
-tsedRegion = lens _tsedRegion (\s a -> s {_tsedRegion = a})
+taskScheduledEventDetails_region :: Lens.Lens' TaskScheduledEventDetails Prelude.Text
+taskScheduledEventDetails_region = Lens.lens (\TaskScheduledEventDetails' {region} -> region) (\s@TaskScheduledEventDetails' {} a -> s {region = a} :: TaskScheduledEventDetails)
 
--- | The JSON data passed to the resource referenced in a task state. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-tsedParameters :: Lens' TaskScheduledEventDetails Text
-tsedParameters = lens _tsedParameters (\s a -> s {_tsedParameters = a}) . _Sensitive
+-- | The JSON data passed to the resource referenced in a task state. Length
+-- constraints apply to the payload size, and are expressed as bytes in
+-- UTF-8 encoding.
+taskScheduledEventDetails_parameters :: Lens.Lens' TaskScheduledEventDetails Prelude.Text
+taskScheduledEventDetails_parameters = Lens.lens (\TaskScheduledEventDetails' {parameters} -> parameters) (\s@TaskScheduledEventDetails' {} a -> s {parameters = a} :: TaskScheduledEventDetails) Prelude.. Prelude._Sensitive
 
-instance FromJSON TaskScheduledEventDetails where
+instance Prelude.FromJSON TaskScheduledEventDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaskScheduledEventDetails"
       ( \x ->
           TaskScheduledEventDetails'
-            <$> (x .:? "heartbeatInSeconds")
-            <*> (x .:? "timeoutInSeconds")
-            <*> (x .: "resourceType")
-            <*> (x .: "resource")
-            <*> (x .: "region")
-            <*> (x .: "parameters")
+            Prelude.<$> (x Prelude..:? "heartbeatInSeconds")
+            Prelude.<*> (x Prelude..:? "timeoutInSeconds")
+            Prelude.<*> (x Prelude..: "resourceType")
+            Prelude.<*> (x Prelude..: "resource")
+            Prelude.<*> (x Prelude..: "region")
+            Prelude.<*> (x Prelude..: "parameters")
       )
 
-instance Hashable TaskScheduledEventDetails
+instance Prelude.Hashable TaskScheduledEventDetails
 
-instance NFData TaskScheduledEventDetails
+instance Prelude.NFData TaskScheduledEventDetails

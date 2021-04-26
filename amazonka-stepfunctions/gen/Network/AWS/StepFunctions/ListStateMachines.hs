@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,238 @@
 --
 -- Lists the existing state machines.
 --
+-- If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
 --
--- If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
---
+-- This operation is eventually consistent. The results are best effort and
+-- may not reflect very recent updates and changes.
 --
 -- This operation returns paginated results.
 module Network.AWS.StepFunctions.ListStateMachines
   ( -- * Creating a Request
-    listStateMachines,
-    ListStateMachines,
+    ListStateMachines (..),
+    newListStateMachines,
 
     -- * Request Lenses
-    lsmNextToken,
-    lsmMaxResults,
+    listStateMachines_nextToken,
+    listStateMachines_maxResults,
 
     -- * Destructuring the Response
-    listStateMachinesResponse,
-    ListStateMachinesResponse,
+    ListStateMachinesResponse (..),
+    newListStateMachinesResponse,
 
     -- * Response Lenses
-    lsmrrsNextToken,
-    lsmrrsResponseStatus,
-    lsmrrsStateMachines,
+    listStateMachinesResponse_nextToken,
+    listStateMachinesResponse_httpStatus,
+    listStateMachinesResponse_stateMachines,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.StateMachineListItem
 
--- | /See:/ 'listStateMachines' smart constructor.
+-- | /See:/ 'newListStateMachines' smart constructor.
 data ListStateMachines = ListStateMachines'
-  { _lsmNextToken ::
-      !(Maybe Text),
-    _lsmMaxResults :: !(Maybe Nat)
+  { -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results that are returned per call. You can use
+    -- @nextToken@ to obtain further pages of results. The default is 100 and
+    -- the maximum allowed page size is 1000. A value of 0 uses the default.
+    --
+    -- This is only an upper limit. The actual number of results returned per
+    -- call might be fewer than the specified maximum.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStateMachines' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStateMachines' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsmNextToken' - If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsmMaxResults' - The maximum number of results that are returned per call. You can use @nextToken@ to obtain further pages of results. The default is 100 and the maximum allowed page size is 1000. A value of 0 uses the default. This is only an upper limit. The actual number of results returned per call might be fewer than the specified maximum.
-listStateMachines ::
+-- 'nextToken', 'listStateMachines_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+--
+-- 'maxResults', 'listStateMachines_maxResults' - The maximum number of results that are returned per call. You can use
+-- @nextToken@ to obtain further pages of results. The default is 100 and
+-- the maximum allowed page size is 1000. A value of 0 uses the default.
+--
+-- This is only an upper limit. The actual number of results returned per
+-- call might be fewer than the specified maximum.
+newListStateMachines ::
   ListStateMachines
-listStateMachines =
+newListStateMachines =
   ListStateMachines'
-    { _lsmNextToken = Nothing,
-      _lsmMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
-lsmNextToken :: Lens' ListStateMachines (Maybe Text)
-lsmNextToken = lens _lsmNextToken (\s a -> s {_lsmNextToken = a})
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+listStateMachines_nextToken :: Lens.Lens' ListStateMachines (Prelude.Maybe Prelude.Text)
+listStateMachines_nextToken = Lens.lens (\ListStateMachines' {nextToken} -> nextToken) (\s@ListStateMachines' {} a -> s {nextToken = a} :: ListStateMachines)
 
--- | The maximum number of results that are returned per call. You can use @nextToken@ to obtain further pages of results. The default is 100 and the maximum allowed page size is 1000. A value of 0 uses the default. This is only an upper limit. The actual number of results returned per call might be fewer than the specified maximum.
-lsmMaxResults :: Lens' ListStateMachines (Maybe Natural)
-lsmMaxResults = lens _lsmMaxResults (\s a -> s {_lsmMaxResults = a}) . mapping _Nat
+-- | The maximum number of results that are returned per call. You can use
+-- @nextToken@ to obtain further pages of results. The default is 100 and
+-- the maximum allowed page size is 1000. A value of 0 uses the default.
+--
+-- This is only an upper limit. The actual number of results returned per
+-- call might be fewer than the specified maximum.
+listStateMachines_maxResults :: Lens.Lens' ListStateMachines (Prelude.Maybe Prelude.Natural)
+listStateMachines_maxResults = Lens.lens (\ListStateMachines' {maxResults} -> maxResults) (\s@ListStateMachines' {} a -> s {maxResults = a} :: ListStateMachines) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListStateMachines where
+instance Pager.AWSPager ListStateMachines where
   page rq rs
-    | stop (rs ^. lsmrrsNextToken) = Nothing
-    | stop (rs ^. lsmrrsStateMachines) = Nothing
-    | otherwise =
-      Just $ rq & lsmNextToken .~ rs ^. lsmrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listStateMachinesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listStateMachinesResponse_stateMachines) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listStateMachines_nextToken
+          Lens..~ rs
+          Lens.^? listStateMachinesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListStateMachines where
+instance Prelude.AWSRequest ListStateMachines where
   type Rs ListStateMachines = ListStateMachinesResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListStateMachinesResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "stateMachines" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "stateMachines"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListStateMachines
+instance Prelude.Hashable ListStateMachines
 
-instance NFData ListStateMachines
+instance Prelude.NFData ListStateMachines
 
-instance ToHeaders ListStateMachines where
+instance Prelude.ToHeaders ListStateMachines where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSStepFunctions.ListStateMachines" :: ByteString),
+              Prelude.=# ( "AWSStepFunctions.ListStateMachines" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListStateMachines where
+instance Prelude.ToJSON ListStateMachines where
   toJSON ListStateMachines' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lsmNextToken,
-            ("maxResults" .=) <$> _lsmMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListStateMachines where
-  toPath = const "/"
+instance Prelude.ToPath ListStateMachines where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListStateMachines where
-  toQuery = const mempty
+instance Prelude.ToQuery ListStateMachines where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listStateMachinesResponse' smart constructor.
+-- | /See:/ 'newListStateMachinesResponse' smart constructor.
 data ListStateMachinesResponse = ListStateMachinesResponse'
-  { _lsmrrsNextToken ::
-      !(Maybe Text),
-    _lsmrrsResponseStatus ::
-      !Int,
-    _lsmrrsStateMachines ::
-      ![StateMachineListItem]
+  { -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    stateMachines :: [StateMachineListItem]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListStateMachinesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListStateMachinesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsmrrsNextToken' - If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsmrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listStateMachinesResponse_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
 --
--- * 'lsmrrsStateMachines' - Undocumented member.
-listStateMachinesResponse ::
-  -- | 'lsmrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listStateMachinesResponse_httpStatus' - The response's http status code.
+--
+-- 'stateMachines', 'listStateMachinesResponse_stateMachines' - Undocumented member.
+newListStateMachinesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListStateMachinesResponse
-listStateMachinesResponse pResponseStatus_ =
+newListStateMachinesResponse pHttpStatus_ =
   ListStateMachinesResponse'
-    { _lsmrrsNextToken =
-        Nothing,
-      _lsmrrsResponseStatus = pResponseStatus_,
-      _lsmrrsStateMachines = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      stateMachines = Prelude.mempty
     }
 
--- | If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
-lsmrrsNextToken :: Lens' ListStateMachinesResponse (Maybe Text)
-lsmrrsNextToken = lens _lsmrrsNextToken (\s a -> s {_lsmrrsNextToken = a})
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+listStateMachinesResponse_nextToken :: Lens.Lens' ListStateMachinesResponse (Prelude.Maybe Prelude.Text)
+listStateMachinesResponse_nextToken = Lens.lens (\ListStateMachinesResponse' {nextToken} -> nextToken) (\s@ListStateMachinesResponse' {} a -> s {nextToken = a} :: ListStateMachinesResponse)
 
--- | -- | The response status code.
-lsmrrsResponseStatus :: Lens' ListStateMachinesResponse Int
-lsmrrsResponseStatus = lens _lsmrrsResponseStatus (\s a -> s {_lsmrrsResponseStatus = a})
+-- | The response's http status code.
+listStateMachinesResponse_httpStatus :: Lens.Lens' ListStateMachinesResponse Prelude.Int
+listStateMachinesResponse_httpStatus = Lens.lens (\ListStateMachinesResponse' {httpStatus} -> httpStatus) (\s@ListStateMachinesResponse' {} a -> s {httpStatus = a} :: ListStateMachinesResponse)
 
 -- | Undocumented member.
-lsmrrsStateMachines :: Lens' ListStateMachinesResponse [StateMachineListItem]
-lsmrrsStateMachines = lens _lsmrrsStateMachines (\s a -> s {_lsmrrsStateMachines = a}) . _Coerce
+listStateMachinesResponse_stateMachines :: Lens.Lens' ListStateMachinesResponse [StateMachineListItem]
+listStateMachinesResponse_stateMachines = Lens.lens (\ListStateMachinesResponse' {stateMachines} -> stateMachines) (\s@ListStateMachinesResponse' {} a -> s {stateMachines = a} :: ListStateMachinesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListStateMachinesResponse
+instance Prelude.NFData ListStateMachinesResponse

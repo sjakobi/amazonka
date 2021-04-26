@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,96 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.TaskSubmitFailedEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains details about a task that failed to submit during an execution.
 --
---
---
--- /See:/ 'taskSubmitFailedEventDetails' smart constructor.
+-- /See:/ 'newTaskSubmitFailedEventDetails' smart constructor.
 data TaskSubmitFailedEventDetails = TaskSubmitFailedEventDetails'
-  { _tsfedCause ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _tsfedError ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _tsfedResourceType ::
-      !Text,
-    _tsfedResource ::
-      !Text
+  { -- | A more detailed explanation of the cause of the failure.
+    cause :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The action of the resource called by a task state.
+    resourceType :: Prelude.Text,
+    -- | The service name of the resource in a task state.
+    resource :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskSubmitFailedEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskSubmitFailedEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsfedCause' - A more detailed explanation of the cause of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsfedError' - The error code of the failure.
+-- 'cause', 'taskSubmitFailedEventDetails_cause' - A more detailed explanation of the cause of the failure.
 --
--- * 'tsfedResourceType' - The action of the resource called by a task state.
+-- 'error', 'taskSubmitFailedEventDetails_error' - The error code of the failure.
 --
--- * 'tsfedResource' - The service name of the resource in a task state.
-taskSubmitFailedEventDetails ::
-  -- | 'tsfedResourceType'
-  Text ->
-  -- | 'tsfedResource'
-  Text ->
+-- 'resourceType', 'taskSubmitFailedEventDetails_resourceType' - The action of the resource called by a task state.
+--
+-- 'resource', 'taskSubmitFailedEventDetails_resource' - The service name of the resource in a task state.
+newTaskSubmitFailedEventDetails ::
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'resource'
+  Prelude.Text ->
   TaskSubmitFailedEventDetails
-taskSubmitFailedEventDetails
+newTaskSubmitFailedEventDetails
   pResourceType_
   pResource_ =
     TaskSubmitFailedEventDetails'
-      { _tsfedCause =
-          Nothing,
-        _tsfedError = Nothing,
-        _tsfedResourceType = pResourceType_,
-        _tsfedResource = pResource_
+      { cause =
+          Prelude.Nothing,
+        error = Prelude.Nothing,
+        resourceType = pResourceType_,
+        resource = pResource_
       }
 
 -- | A more detailed explanation of the cause of the failure.
-tsfedCause :: Lens' TaskSubmitFailedEventDetails (Maybe Text)
-tsfedCause = lens _tsfedCause (\s a -> s {_tsfedCause = a}) . mapping _Sensitive
+taskSubmitFailedEventDetails_cause :: Lens.Lens' TaskSubmitFailedEventDetails (Prelude.Maybe Prelude.Text)
+taskSubmitFailedEventDetails_cause = Lens.lens (\TaskSubmitFailedEventDetails' {cause} -> cause) (\s@TaskSubmitFailedEventDetails' {} a -> s {cause = a} :: TaskSubmitFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The error code of the failure.
-tsfedError :: Lens' TaskSubmitFailedEventDetails (Maybe Text)
-tsfedError = lens _tsfedError (\s a -> s {_tsfedError = a}) . mapping _Sensitive
+taskSubmitFailedEventDetails_error :: Lens.Lens' TaskSubmitFailedEventDetails (Prelude.Maybe Prelude.Text)
+taskSubmitFailedEventDetails_error = Lens.lens (\TaskSubmitFailedEventDetails' {error} -> error) (\s@TaskSubmitFailedEventDetails' {} a -> s {error = a} :: TaskSubmitFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The action of the resource called by a task state.
-tsfedResourceType :: Lens' TaskSubmitFailedEventDetails Text
-tsfedResourceType = lens _tsfedResourceType (\s a -> s {_tsfedResourceType = a})
+taskSubmitFailedEventDetails_resourceType :: Lens.Lens' TaskSubmitFailedEventDetails Prelude.Text
+taskSubmitFailedEventDetails_resourceType = Lens.lens (\TaskSubmitFailedEventDetails' {resourceType} -> resourceType) (\s@TaskSubmitFailedEventDetails' {} a -> s {resourceType = a} :: TaskSubmitFailedEventDetails)
 
 -- | The service name of the resource in a task state.
-tsfedResource :: Lens' TaskSubmitFailedEventDetails Text
-tsfedResource = lens _tsfedResource (\s a -> s {_tsfedResource = a})
+taskSubmitFailedEventDetails_resource :: Lens.Lens' TaskSubmitFailedEventDetails Prelude.Text
+taskSubmitFailedEventDetails_resource = Lens.lens (\TaskSubmitFailedEventDetails' {resource} -> resource) (\s@TaskSubmitFailedEventDetails' {} a -> s {resource = a} :: TaskSubmitFailedEventDetails)
 
-instance FromJSON TaskSubmitFailedEventDetails where
+instance
+  Prelude.FromJSON
+    TaskSubmitFailedEventDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaskSubmitFailedEventDetails"
       ( \x ->
           TaskSubmitFailedEventDetails'
-            <$> (x .:? "cause")
-            <*> (x .:? "error")
-            <*> (x .: "resourceType")
-            <*> (x .: "resource")
+            Prelude.<$> (x Prelude..:? "cause")
+            Prelude.<*> (x Prelude..:? "error")
+            Prelude.<*> (x Prelude..: "resourceType")
+            Prelude.<*> (x Prelude..: "resource")
       )
 
-instance Hashable TaskSubmitFailedEventDetails
+instance
+  Prelude.Hashable
+    TaskSubmitFailedEventDetails
 
-instance NFData TaskSubmitFailedEventDetails
+instance Prelude.NFData TaskSubmitFailedEventDetails

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,338 +24,382 @@
 -- Starts a Synchronous Express state machine execution.
 module Network.AWS.StepFunctions.StartSyncExecution
   ( -- * Creating a Request
-    startSyncExecution,
-    StartSyncExecution,
+    StartSyncExecution (..),
+    newStartSyncExecution,
 
     -- * Request Lenses
-    sseInput,
-    sseName,
-    sseTraceHeader,
-    sseStateMachineARN,
+    startSyncExecution_input,
+    startSyncExecution_name,
+    startSyncExecution_traceHeader,
+    startSyncExecution_stateMachineArn,
 
     -- * Destructuring the Response
-    startSyncExecutionResponse,
-    StartSyncExecutionResponse,
+    StartSyncExecutionResponse (..),
+    newStartSyncExecutionResponse,
 
     -- * Response Lenses
-    sserrsStateMachineARN,
-    sserrsInputDetails,
-    sserrsInput,
-    sserrsName,
-    sserrsOutput,
-    sserrsCause,
-    sserrsBillingDetails,
-    sserrsTraceHeader,
-    sserrsError,
-    sserrsOutputDetails,
-    sserrsResponseStatus,
-    sserrsExecutionARN,
-    sserrsStartDate,
-    sserrsStopDate,
-    sserrsStatus,
+    startSyncExecutionResponse_stateMachineArn,
+    startSyncExecutionResponse_inputDetails,
+    startSyncExecutionResponse_input,
+    startSyncExecutionResponse_name,
+    startSyncExecutionResponse_output,
+    startSyncExecutionResponse_cause,
+    startSyncExecutionResponse_billingDetails,
+    startSyncExecutionResponse_traceHeader,
+    startSyncExecutionResponse_error,
+    startSyncExecutionResponse_outputDetails,
+    startSyncExecutionResponse_httpStatus,
+    startSyncExecutionResponse_executionArn,
+    startSyncExecutionResponse_startDate,
+    startSyncExecutionResponse_stopDate,
+    startSyncExecutionResponse_status,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.BillingDetails
+import Network.AWS.StepFunctions.Types.CloudWatchEventsExecutionDataDetails
+import Network.AWS.StepFunctions.Types.SyncExecutionStatus
 
--- | /See:/ 'startSyncExecution' smart constructor.
+-- | /See:/ 'newStartSyncExecution' smart constructor.
 data StartSyncExecution = StartSyncExecution'
-  { _sseInput ::
-      !(Maybe (Sensitive Text)),
-    _sseName :: !(Maybe Text),
-    _sseTraceHeader :: !(Maybe Text),
-    _sseStateMachineARN :: !Text
+  { -- | The string that contains the JSON input data for the execution, for
+    -- example:
+    --
+    -- @\"input\": \"{\\\"first_name\\\" : \\\"test\\\"}\"@
+    --
+    -- If you don\'t include any JSON input data, you still must include the
+    -- two braces, for example: @\"input\": \"{}\"@
+    --
+    -- Length constraints apply to the payload size, and are expressed as bytes
+    -- in UTF-8 encoding.
+    input :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the execution.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Passes the AWS X-Ray trace header. The trace header can also be passed
+    -- in the request payload.
+    traceHeader :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the state machine to execute.
+    stateMachineArn :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartSyncExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartSyncExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sseInput' - The string that contains the JSON input data for the execution, for example: @"input": "{\"first_name\" : \"test\"}"@  Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sseName' - The name of the execution.
+-- 'input', 'startSyncExecution_input' - The string that contains the JSON input data for the execution, for
+-- example:
 --
--- * 'sseTraceHeader' - Passes the AWS X-Ray trace header. The trace header can also be passed in the request payload.
+-- @\"input\": \"{\\\"first_name\\\" : \\\"test\\\"}\"@
 --
--- * 'sseStateMachineARN' - The Amazon Resource Name (ARN) of the state machine to execute.
-startSyncExecution ::
-  -- | 'sseStateMachineARN'
-  Text ->
+-- If you don\'t include any JSON input data, you still must include the
+-- two braces, for example: @\"input\": \"{}\"@
+--
+-- Length constraints apply to the payload size, and are expressed as bytes
+-- in UTF-8 encoding.
+--
+-- 'name', 'startSyncExecution_name' - The name of the execution.
+--
+-- 'traceHeader', 'startSyncExecution_traceHeader' - Passes the AWS X-Ray trace header. The trace header can also be passed
+-- in the request payload.
+--
+-- 'stateMachineArn', 'startSyncExecution_stateMachineArn' - The Amazon Resource Name (ARN) of the state machine to execute.
+newStartSyncExecution ::
+  -- | 'stateMachineArn'
+  Prelude.Text ->
   StartSyncExecution
-startSyncExecution pStateMachineARN_ =
+newStartSyncExecution pStateMachineArn_ =
   StartSyncExecution'
-    { _sseInput = Nothing,
-      _sseName = Nothing,
-      _sseTraceHeader = Nothing,
-      _sseStateMachineARN = pStateMachineARN_
+    { input = Prelude.Nothing,
+      name = Prelude.Nothing,
+      traceHeader = Prelude.Nothing,
+      stateMachineArn = pStateMachineArn_
     }
 
--- | The string that contains the JSON input data for the execution, for example: @"input": "{\"first_name\" : \"test\"}"@  Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-sseInput :: Lens' StartSyncExecution (Maybe Text)
-sseInput = lens _sseInput (\s a -> s {_sseInput = a}) . mapping _Sensitive
+-- | The string that contains the JSON input data for the execution, for
+-- example:
+--
+-- @\"input\": \"{\\\"first_name\\\" : \\\"test\\\"}\"@
+--
+-- If you don\'t include any JSON input data, you still must include the
+-- two braces, for example: @\"input\": \"{}\"@
+--
+-- Length constraints apply to the payload size, and are expressed as bytes
+-- in UTF-8 encoding.
+startSyncExecution_input :: Lens.Lens' StartSyncExecution (Prelude.Maybe Prelude.Text)
+startSyncExecution_input = Lens.lens (\StartSyncExecution' {input} -> input) (\s@StartSyncExecution' {} a -> s {input = a} :: StartSyncExecution) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The name of the execution.
-sseName :: Lens' StartSyncExecution (Maybe Text)
-sseName = lens _sseName (\s a -> s {_sseName = a})
+startSyncExecution_name :: Lens.Lens' StartSyncExecution (Prelude.Maybe Prelude.Text)
+startSyncExecution_name = Lens.lens (\StartSyncExecution' {name} -> name) (\s@StartSyncExecution' {} a -> s {name = a} :: StartSyncExecution)
 
--- | Passes the AWS X-Ray trace header. The trace header can also be passed in the request payload.
-sseTraceHeader :: Lens' StartSyncExecution (Maybe Text)
-sseTraceHeader = lens _sseTraceHeader (\s a -> s {_sseTraceHeader = a})
+-- | Passes the AWS X-Ray trace header. The trace header can also be passed
+-- in the request payload.
+startSyncExecution_traceHeader :: Lens.Lens' StartSyncExecution (Prelude.Maybe Prelude.Text)
+startSyncExecution_traceHeader = Lens.lens (\StartSyncExecution' {traceHeader} -> traceHeader) (\s@StartSyncExecution' {} a -> s {traceHeader = a} :: StartSyncExecution)
 
 -- | The Amazon Resource Name (ARN) of the state machine to execute.
-sseStateMachineARN :: Lens' StartSyncExecution Text
-sseStateMachineARN = lens _sseStateMachineARN (\s a -> s {_sseStateMachineARN = a})
+startSyncExecution_stateMachineArn :: Lens.Lens' StartSyncExecution Prelude.Text
+startSyncExecution_stateMachineArn = Lens.lens (\StartSyncExecution' {stateMachineArn} -> stateMachineArn) (\s@StartSyncExecution' {} a -> s {stateMachineArn = a} :: StartSyncExecution)
 
-instance AWSRequest StartSyncExecution where
+instance Prelude.AWSRequest StartSyncExecution where
   type
     Rs StartSyncExecution =
       StartSyncExecutionResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartSyncExecutionResponse'
-            <$> (x .?> "stateMachineArn")
-            <*> (x .?> "inputDetails")
-            <*> (x .?> "input")
-            <*> (x .?> "name")
-            <*> (x .?> "output")
-            <*> (x .?> "cause")
-            <*> (x .?> "billingDetails")
-            <*> (x .?> "traceHeader")
-            <*> (x .?> "error")
-            <*> (x .?> "outputDetails")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "executionArn")
-            <*> (x .:> "startDate")
-            <*> (x .:> "stopDate")
-            <*> (x .:> "status")
+            Prelude.<$> (x Prelude..?> "stateMachineArn")
+            Prelude.<*> (x Prelude..?> "inputDetails")
+            Prelude.<*> (x Prelude..?> "input")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "output")
+            Prelude.<*> (x Prelude..?> "cause")
+            Prelude.<*> (x Prelude..?> "billingDetails")
+            Prelude.<*> (x Prelude..?> "traceHeader")
+            Prelude.<*> (x Prelude..?> "error")
+            Prelude.<*> (x Prelude..?> "outputDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "executionArn")
+            Prelude.<*> (x Prelude..:> "startDate")
+            Prelude.<*> (x Prelude..:> "stopDate")
+            Prelude.<*> (x Prelude..:> "status")
       )
 
-instance Hashable StartSyncExecution
+instance Prelude.Hashable StartSyncExecution
 
-instance NFData StartSyncExecution
+instance Prelude.NFData StartSyncExecution
 
-instance ToHeaders StartSyncExecution where
+instance Prelude.ToHeaders StartSyncExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSStepFunctions.StartSyncExecution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSStepFunctions.StartSyncExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartSyncExecution where
+instance Prelude.ToJSON StartSyncExecution where
   toJSON StartSyncExecution' {..} =
-    object
-      ( catMaybes
-          [ ("input" .=) <$> _sseInput,
-            ("name" .=) <$> _sseName,
-            ("traceHeader" .=) <$> _sseTraceHeader,
-            Just ("stateMachineArn" .= _sseStateMachineARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("input" Prelude..=) Prelude.<$> input,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("traceHeader" Prelude..=) Prelude.<$> traceHeader,
+            Prelude.Just
+              ("stateMachineArn" Prelude..= stateMachineArn)
           ]
       )
 
-instance ToPath StartSyncExecution where
-  toPath = const "/"
+instance Prelude.ToPath StartSyncExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartSyncExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery StartSyncExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startSyncExecutionResponse' smart constructor.
+-- | /See:/ 'newStartSyncExecutionResponse' smart constructor.
 data StartSyncExecutionResponse = StartSyncExecutionResponse'
-  { _sserrsStateMachineARN ::
-      !(Maybe Text),
-    _sserrsInputDetails ::
-      !( Maybe
-           CloudWatchEventsExecutionDataDetails
-       ),
-    _sserrsInput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _sserrsName ::
-      !(Maybe Text),
-    _sserrsOutput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _sserrsCause ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _sserrsBillingDetails ::
-      !( Maybe
-           BillingDetails
-       ),
-    _sserrsTraceHeader ::
-      !(Maybe Text),
-    _sserrsError ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _sserrsOutputDetails ::
-      !( Maybe
-           CloudWatchEventsExecutionDataDetails
-       ),
-    _sserrsResponseStatus ::
-      !Int,
-    _sserrsExecutionARN ::
-      !Text,
-    _sserrsStartDate ::
-      !POSIX,
-    _sserrsStopDate ::
-      !POSIX,
-    _sserrsStatus ::
-      !SyncExecutionStatus
+  { -- | The Amazon Resource Name (ARN) that identifies the state machine.
+    stateMachineArn :: Prelude.Maybe Prelude.Text,
+    inputDetails :: Prelude.Maybe CloudWatchEventsExecutionDataDetails,
+    -- | The string that contains the JSON input data of the execution. Length
+    -- constraints apply to the payload size, and are expressed as bytes in
+    -- UTF-8 encoding.
+    input :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the execution.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The JSON output data of the execution. Length constraints apply to the
+    -- payload size, and are expressed as bytes in UTF-8 encoding.
+    --
+    -- This field is set only if the execution succeeds. If the execution
+    -- fails, this field is null.
+    output :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | A more detailed explanation of the cause of the failure.
+    cause :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | An object that describes workflow billing details, including billed
+    -- duration and memory use.
+    billingDetails :: Prelude.Maybe BillingDetails,
+    -- | The AWS X-Ray trace header that was passed to the execution.
+    traceHeader :: Prelude.Maybe Prelude.Text,
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    outputDetails :: Prelude.Maybe CloudWatchEventsExecutionDataDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) that identifies the execution.
+    executionArn :: Prelude.Text,
+    -- | The date the execution is started.
+    startDate :: Prelude.POSIX,
+    -- | If the execution has already ended, the date the execution stopped.
+    stopDate :: Prelude.POSIX,
+    -- | The current status of the execution.
+    status :: SyncExecutionStatus
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartSyncExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartSyncExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sserrsStateMachineARN' - The Amazon Resource Name (ARN) that identifies the state machine.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sserrsInputDetails' - Undocumented member.
+-- 'stateMachineArn', 'startSyncExecutionResponse_stateMachineArn' - The Amazon Resource Name (ARN) that identifies the state machine.
 --
--- * 'sserrsInput' - The string that contains the JSON input data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- 'inputDetails', 'startSyncExecutionResponse_inputDetails' - Undocumented member.
 --
--- * 'sserrsName' - The name of the execution.
+-- 'input', 'startSyncExecutionResponse_input' - The string that contains the JSON input data of the execution. Length
+-- constraints apply to the payload size, and are expressed as bytes in
+-- UTF-8 encoding.
 --
--- * 'sserrsOutput' - The JSON output data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- 'name', 'startSyncExecutionResponse_name' - The name of the execution.
 --
--- * 'sserrsCause' - A more detailed explanation of the cause of the failure.
+-- 'output', 'startSyncExecutionResponse_output' - The JSON output data of the execution. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
 --
--- * 'sserrsBillingDetails' - An object that describes workflow billing details, including billed duration and memory use.
+-- This field is set only if the execution succeeds. If the execution
+-- fails, this field is null.
 --
--- * 'sserrsTraceHeader' - The AWS X-Ray trace header that was passed to the execution.
+-- 'cause', 'startSyncExecutionResponse_cause' - A more detailed explanation of the cause of the failure.
 --
--- * 'sserrsError' - The error code of the failure.
+-- 'billingDetails', 'startSyncExecutionResponse_billingDetails' - An object that describes workflow billing details, including billed
+-- duration and memory use.
 --
--- * 'sserrsOutputDetails' - Undocumented member.
+-- 'traceHeader', 'startSyncExecutionResponse_traceHeader' - The AWS X-Ray trace header that was passed to the execution.
 --
--- * 'sserrsResponseStatus' - -- | The response status code.
+-- 'error', 'startSyncExecutionResponse_error' - The error code of the failure.
 --
--- * 'sserrsExecutionARN' - The Amazon Resource Name (ARN) that identifies the execution.
+-- 'outputDetails', 'startSyncExecutionResponse_outputDetails' - Undocumented member.
 --
--- * 'sserrsStartDate' - The date the execution is started.
+-- 'httpStatus', 'startSyncExecutionResponse_httpStatus' - The response's http status code.
 --
--- * 'sserrsStopDate' - If the execution has already ended, the date the execution stopped.
+-- 'executionArn', 'startSyncExecutionResponse_executionArn' - The Amazon Resource Name (ARN) that identifies the execution.
 --
--- * 'sserrsStatus' - The current status of the execution.
-startSyncExecutionResponse ::
-  -- | 'sserrsResponseStatus'
-  Int ->
-  -- | 'sserrsExecutionARN'
-  Text ->
-  -- | 'sserrsStartDate'
-  UTCTime ->
-  -- | 'sserrsStopDate'
-  UTCTime ->
-  -- | 'sserrsStatus'
+-- 'startDate', 'startSyncExecutionResponse_startDate' - The date the execution is started.
+--
+-- 'stopDate', 'startSyncExecutionResponse_stopDate' - If the execution has already ended, the date the execution stopped.
+--
+-- 'status', 'startSyncExecutionResponse_status' - The current status of the execution.
+newStartSyncExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'executionArn'
+  Prelude.Text ->
+  -- | 'startDate'
+  Prelude.UTCTime ->
+  -- | 'stopDate'
+  Prelude.UTCTime ->
+  -- | 'status'
   SyncExecutionStatus ->
   StartSyncExecutionResponse
-startSyncExecutionResponse
-  pResponseStatus_
-  pExecutionARN_
+newStartSyncExecutionResponse
+  pHttpStatus_
+  pExecutionArn_
   pStartDate_
   pStopDate_
   pStatus_ =
     StartSyncExecutionResponse'
-      { _sserrsStateMachineARN =
-          Nothing,
-        _sserrsInputDetails = Nothing,
-        _sserrsInput = Nothing,
-        _sserrsName = Nothing,
-        _sserrsOutput = Nothing,
-        _sserrsCause = Nothing,
-        _sserrsBillingDetails = Nothing,
-        _sserrsTraceHeader = Nothing,
-        _sserrsError = Nothing,
-        _sserrsOutputDetails = Nothing,
-        _sserrsResponseStatus = pResponseStatus_,
-        _sserrsExecutionARN = pExecutionARN_,
-        _sserrsStartDate = _Time # pStartDate_,
-        _sserrsStopDate = _Time # pStopDate_,
-        _sserrsStatus = pStatus_
+      { stateMachineArn =
+          Prelude.Nothing,
+        inputDetails = Prelude.Nothing,
+        input = Prelude.Nothing,
+        name = Prelude.Nothing,
+        output = Prelude.Nothing,
+        cause = Prelude.Nothing,
+        billingDetails = Prelude.Nothing,
+        traceHeader = Prelude.Nothing,
+        error = Prelude.Nothing,
+        outputDetails = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        executionArn = pExecutionArn_,
+        startDate = Prelude._Time Lens.# pStartDate_,
+        stopDate = Prelude._Time Lens.# pStopDate_,
+        status = pStatus_
       }
 
 -- | The Amazon Resource Name (ARN) that identifies the state machine.
-sserrsStateMachineARN :: Lens' StartSyncExecutionResponse (Maybe Text)
-sserrsStateMachineARN = lens _sserrsStateMachineARN (\s a -> s {_sserrsStateMachineARN = a})
+startSyncExecutionResponse_stateMachineArn :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe Prelude.Text)
+startSyncExecutionResponse_stateMachineArn = Lens.lens (\StartSyncExecutionResponse' {stateMachineArn} -> stateMachineArn) (\s@StartSyncExecutionResponse' {} a -> s {stateMachineArn = a} :: StartSyncExecutionResponse)
 
 -- | Undocumented member.
-sserrsInputDetails :: Lens' StartSyncExecutionResponse (Maybe CloudWatchEventsExecutionDataDetails)
-sserrsInputDetails = lens _sserrsInputDetails (\s a -> s {_sserrsInputDetails = a})
+startSyncExecutionResponse_inputDetails :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe CloudWatchEventsExecutionDataDetails)
+startSyncExecutionResponse_inputDetails = Lens.lens (\StartSyncExecutionResponse' {inputDetails} -> inputDetails) (\s@StartSyncExecutionResponse' {} a -> s {inputDetails = a} :: StartSyncExecutionResponse)
 
--- | The string that contains the JSON input data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-sserrsInput :: Lens' StartSyncExecutionResponse (Maybe Text)
-sserrsInput = lens _sserrsInput (\s a -> s {_sserrsInput = a}) . mapping _Sensitive
+-- | The string that contains the JSON input data of the execution. Length
+-- constraints apply to the payload size, and are expressed as bytes in
+-- UTF-8 encoding.
+startSyncExecutionResponse_input :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe Prelude.Text)
+startSyncExecutionResponse_input = Lens.lens (\StartSyncExecutionResponse' {input} -> input) (\s@StartSyncExecutionResponse' {} a -> s {input = a} :: StartSyncExecutionResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The name of the execution.
-sserrsName :: Lens' StartSyncExecutionResponse (Maybe Text)
-sserrsName = lens _sserrsName (\s a -> s {_sserrsName = a})
+startSyncExecutionResponse_name :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe Prelude.Text)
+startSyncExecutionResponse_name = Lens.lens (\StartSyncExecutionResponse' {name} -> name) (\s@StartSyncExecutionResponse' {} a -> s {name = a} :: StartSyncExecutionResponse)
 
--- | The JSON output data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-sserrsOutput :: Lens' StartSyncExecutionResponse (Maybe Text)
-sserrsOutput = lens _sserrsOutput (\s a -> s {_sserrsOutput = a}) . mapping _Sensitive
+-- | The JSON output data of the execution. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
+--
+-- This field is set only if the execution succeeds. If the execution
+-- fails, this field is null.
+startSyncExecutionResponse_output :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe Prelude.Text)
+startSyncExecutionResponse_output = Lens.lens (\StartSyncExecutionResponse' {output} -> output) (\s@StartSyncExecutionResponse' {} a -> s {output = a} :: StartSyncExecutionResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | A more detailed explanation of the cause of the failure.
-sserrsCause :: Lens' StartSyncExecutionResponse (Maybe Text)
-sserrsCause = lens _sserrsCause (\s a -> s {_sserrsCause = a}) . mapping _Sensitive
+startSyncExecutionResponse_cause :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe Prelude.Text)
+startSyncExecutionResponse_cause = Lens.lens (\StartSyncExecutionResponse' {cause} -> cause) (\s@StartSyncExecutionResponse' {} a -> s {cause = a} :: StartSyncExecutionResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | An object that describes workflow billing details, including billed duration and memory use.
-sserrsBillingDetails :: Lens' StartSyncExecutionResponse (Maybe BillingDetails)
-sserrsBillingDetails = lens _sserrsBillingDetails (\s a -> s {_sserrsBillingDetails = a})
+-- | An object that describes workflow billing details, including billed
+-- duration and memory use.
+startSyncExecutionResponse_billingDetails :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe BillingDetails)
+startSyncExecutionResponse_billingDetails = Lens.lens (\StartSyncExecutionResponse' {billingDetails} -> billingDetails) (\s@StartSyncExecutionResponse' {} a -> s {billingDetails = a} :: StartSyncExecutionResponse)
 
 -- | The AWS X-Ray trace header that was passed to the execution.
-sserrsTraceHeader :: Lens' StartSyncExecutionResponse (Maybe Text)
-sserrsTraceHeader = lens _sserrsTraceHeader (\s a -> s {_sserrsTraceHeader = a})
+startSyncExecutionResponse_traceHeader :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe Prelude.Text)
+startSyncExecutionResponse_traceHeader = Lens.lens (\StartSyncExecutionResponse' {traceHeader} -> traceHeader) (\s@StartSyncExecutionResponse' {} a -> s {traceHeader = a} :: StartSyncExecutionResponse)
 
 -- | The error code of the failure.
-sserrsError :: Lens' StartSyncExecutionResponse (Maybe Text)
-sserrsError = lens _sserrsError (\s a -> s {_sserrsError = a}) . mapping _Sensitive
+startSyncExecutionResponse_error :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe Prelude.Text)
+startSyncExecutionResponse_error = Lens.lens (\StartSyncExecutionResponse' {error} -> error) (\s@StartSyncExecutionResponse' {} a -> s {error = a} :: StartSyncExecutionResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | Undocumented member.
-sserrsOutputDetails :: Lens' StartSyncExecutionResponse (Maybe CloudWatchEventsExecutionDataDetails)
-sserrsOutputDetails = lens _sserrsOutputDetails (\s a -> s {_sserrsOutputDetails = a})
+startSyncExecutionResponse_outputDetails :: Lens.Lens' StartSyncExecutionResponse (Prelude.Maybe CloudWatchEventsExecutionDataDetails)
+startSyncExecutionResponse_outputDetails = Lens.lens (\StartSyncExecutionResponse' {outputDetails} -> outputDetails) (\s@StartSyncExecutionResponse' {} a -> s {outputDetails = a} :: StartSyncExecutionResponse)
 
--- | -- | The response status code.
-sserrsResponseStatus :: Lens' StartSyncExecutionResponse Int
-sserrsResponseStatus = lens _sserrsResponseStatus (\s a -> s {_sserrsResponseStatus = a})
+-- | The response's http status code.
+startSyncExecutionResponse_httpStatus :: Lens.Lens' StartSyncExecutionResponse Prelude.Int
+startSyncExecutionResponse_httpStatus = Lens.lens (\StartSyncExecutionResponse' {httpStatus} -> httpStatus) (\s@StartSyncExecutionResponse' {} a -> s {httpStatus = a} :: StartSyncExecutionResponse)
 
 -- | The Amazon Resource Name (ARN) that identifies the execution.
-sserrsExecutionARN :: Lens' StartSyncExecutionResponse Text
-sserrsExecutionARN = lens _sserrsExecutionARN (\s a -> s {_sserrsExecutionARN = a})
+startSyncExecutionResponse_executionArn :: Lens.Lens' StartSyncExecutionResponse Prelude.Text
+startSyncExecutionResponse_executionArn = Lens.lens (\StartSyncExecutionResponse' {executionArn} -> executionArn) (\s@StartSyncExecutionResponse' {} a -> s {executionArn = a} :: StartSyncExecutionResponse)
 
 -- | The date the execution is started.
-sserrsStartDate :: Lens' StartSyncExecutionResponse UTCTime
-sserrsStartDate = lens _sserrsStartDate (\s a -> s {_sserrsStartDate = a}) . _Time
+startSyncExecutionResponse_startDate :: Lens.Lens' StartSyncExecutionResponse Prelude.UTCTime
+startSyncExecutionResponse_startDate = Lens.lens (\StartSyncExecutionResponse' {startDate} -> startDate) (\s@StartSyncExecutionResponse' {} a -> s {startDate = a} :: StartSyncExecutionResponse) Prelude.. Prelude._Time
 
 -- | If the execution has already ended, the date the execution stopped.
-sserrsStopDate :: Lens' StartSyncExecutionResponse UTCTime
-sserrsStopDate = lens _sserrsStopDate (\s a -> s {_sserrsStopDate = a}) . _Time
+startSyncExecutionResponse_stopDate :: Lens.Lens' StartSyncExecutionResponse Prelude.UTCTime
+startSyncExecutionResponse_stopDate = Lens.lens (\StartSyncExecutionResponse' {stopDate} -> stopDate) (\s@StartSyncExecutionResponse' {} a -> s {stopDate = a} :: StartSyncExecutionResponse) Prelude.. Prelude._Time
 
 -- | The current status of the execution.
-sserrsStatus :: Lens' StartSyncExecutionResponse SyncExecutionStatus
-sserrsStatus = lens _sserrsStatus (\s a -> s {_sserrsStatus = a})
+startSyncExecutionResponse_status :: Lens.Lens' StartSyncExecutionResponse SyncExecutionStatus
+startSyncExecutionResponse_status = Lens.lens (\StartSyncExecutionResponse' {status} -> status) (\s@StartSyncExecutionResponse' {} a -> s {status = a} :: StartSyncExecutionResponse)
 
-instance NFData StartSyncExecutionResponse
+instance Prelude.NFData StartSyncExecutionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.ExecutionTimedOutEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains details about the execution timeout that occurred during the execution.
+-- | Contains details about the execution timeout that occurred during the
+-- execution.
 --
---
---
--- /See:/ 'executionTimedOutEventDetails' smart constructor.
+-- /See:/ 'newExecutionTimedOutEventDetails' smart constructor.
 data ExecutionTimedOutEventDetails = ExecutionTimedOutEventDetails'
-  { _etoedCause ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _etoedError ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       )
+  { -- | A more detailed explanation of the cause of the timeout.
+    cause :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecutionTimedOutEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecutionTimedOutEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'etoedCause' - A more detailed explanation of the cause of the timeout.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'etoedError' - The error code of the failure.
-executionTimedOutEventDetails ::
+-- 'cause', 'executionTimedOutEventDetails_cause' - A more detailed explanation of the cause of the timeout.
+--
+-- 'error', 'executionTimedOutEventDetails_error' - The error code of the failure.
+newExecutionTimedOutEventDetails ::
   ExecutionTimedOutEventDetails
-executionTimedOutEventDetails =
+newExecutionTimedOutEventDetails =
   ExecutionTimedOutEventDetails'
-    { _etoedCause =
-        Nothing,
-      _etoedError = Nothing
+    { cause =
+        Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | A more detailed explanation of the cause of the timeout.
-etoedCause :: Lens' ExecutionTimedOutEventDetails (Maybe Text)
-etoedCause = lens _etoedCause (\s a -> s {_etoedCause = a}) . mapping _Sensitive
+executionTimedOutEventDetails_cause :: Lens.Lens' ExecutionTimedOutEventDetails (Prelude.Maybe Prelude.Text)
+executionTimedOutEventDetails_cause = Lens.lens (\ExecutionTimedOutEventDetails' {cause} -> cause) (\s@ExecutionTimedOutEventDetails' {} a -> s {cause = a} :: ExecutionTimedOutEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The error code of the failure.
-etoedError :: Lens' ExecutionTimedOutEventDetails (Maybe Text)
-etoedError = lens _etoedError (\s a -> s {_etoedError = a}) . mapping _Sensitive
+executionTimedOutEventDetails_error :: Lens.Lens' ExecutionTimedOutEventDetails (Prelude.Maybe Prelude.Text)
+executionTimedOutEventDetails_error = Lens.lens (\ExecutionTimedOutEventDetails' {error} -> error) (\s@ExecutionTimedOutEventDetails' {} a -> s {error = a} :: ExecutionTimedOutEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON ExecutionTimedOutEventDetails where
+instance
+  Prelude.FromJSON
+    ExecutionTimedOutEventDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExecutionTimedOutEventDetails"
       ( \x ->
           ExecutionTimedOutEventDetails'
-            <$> (x .:? "cause") <*> (x .:? "error")
+            Prelude.<$> (x Prelude..:? "cause")
+            Prelude.<*> (x Prelude..:? "error")
       )
 
-instance Hashable ExecutionTimedOutEventDetails
+instance
+  Prelude.Hashable
+    ExecutionTimedOutEventDetails
 
-instance NFData ExecutionTimedOutEventDetails
+instance Prelude.NFData ExecutionTimedOutEventDetails

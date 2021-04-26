@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,242 +23,273 @@
 --
 -- Describes the state machine associated with a specific execution.
 --
+-- This operation is eventually consistent. The results are best effort and
+-- may not reflect very recent updates and changes.
 --
 -- This API action is not supported by @EXPRESS@ state machines.
 module Network.AWS.StepFunctions.DescribeStateMachineForExecution
   ( -- * Creating a Request
-    describeStateMachineForExecution,
-    DescribeStateMachineForExecution,
+    DescribeStateMachineForExecution (..),
+    newDescribeStateMachineForExecution,
 
     -- * Request Lenses
-    dsmfeExecutionARN,
+    describeStateMachineForExecution_executionArn,
 
     -- * Destructuring the Response
-    describeStateMachineForExecutionResponse,
-    DescribeStateMachineForExecutionResponse,
+    DescribeStateMachineForExecutionResponse (..),
+    newDescribeStateMachineForExecutionResponse,
 
     -- * Response Lenses
-    dsmferrsTracingConfiguration,
-    dsmferrsLoggingConfiguration,
-    dsmferrsResponseStatus,
-    dsmferrsStateMachineARN,
-    dsmferrsName,
-    dsmferrsDefinition,
-    dsmferrsRoleARN,
-    dsmferrsUpdateDate,
+    describeStateMachineForExecutionResponse_tracingConfiguration,
+    describeStateMachineForExecutionResponse_loggingConfiguration,
+    describeStateMachineForExecutionResponse_httpStatus,
+    describeStateMachineForExecutionResponse_stateMachineArn,
+    describeStateMachineForExecutionResponse_name,
+    describeStateMachineForExecutionResponse_definition,
+    describeStateMachineForExecutionResponse_roleArn,
+    describeStateMachineForExecutionResponse_updateDate,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.LoggingConfiguration
+import Network.AWS.StepFunctions.Types.TracingConfiguration
 
--- | /See:/ 'describeStateMachineForExecution' smart constructor.
-newtype DescribeStateMachineForExecution = DescribeStateMachineForExecution'
-  { _dsmfeExecutionARN ::
-      Text
+-- | /See:/ 'newDescribeStateMachineForExecution' smart constructor.
+data DescribeStateMachineForExecution = DescribeStateMachineForExecution'
+  { -- | The Amazon Resource Name (ARN) of the execution you want state machine
+    -- information for.
+    executionArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStateMachineForExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStateMachineForExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsmfeExecutionARN' - The Amazon Resource Name (ARN) of the execution you want state machine information for.
-describeStateMachineForExecution ::
-  -- | 'dsmfeExecutionARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'executionArn', 'describeStateMachineForExecution_executionArn' - The Amazon Resource Name (ARN) of the execution you want state machine
+-- information for.
+newDescribeStateMachineForExecution ::
+  -- | 'executionArn'
+  Prelude.Text ->
   DescribeStateMachineForExecution
-describeStateMachineForExecution pExecutionARN_ =
+newDescribeStateMachineForExecution pExecutionArn_ =
   DescribeStateMachineForExecution'
-    { _dsmfeExecutionARN =
-        pExecutionARN_
+    { executionArn =
+        pExecutionArn_
     }
 
--- | The Amazon Resource Name (ARN) of the execution you want state machine information for.
-dsmfeExecutionARN :: Lens' DescribeStateMachineForExecution Text
-dsmfeExecutionARN = lens _dsmfeExecutionARN (\s a -> s {_dsmfeExecutionARN = a})
+-- | The Amazon Resource Name (ARN) of the execution you want state machine
+-- information for.
+describeStateMachineForExecution_executionArn :: Lens.Lens' DescribeStateMachineForExecution Prelude.Text
+describeStateMachineForExecution_executionArn = Lens.lens (\DescribeStateMachineForExecution' {executionArn} -> executionArn) (\s@DescribeStateMachineForExecution' {} a -> s {executionArn = a} :: DescribeStateMachineForExecution)
 
-instance AWSRequest DescribeStateMachineForExecution where
+instance
+  Prelude.AWSRequest
+    DescribeStateMachineForExecution
+  where
   type
     Rs DescribeStateMachineForExecution =
       DescribeStateMachineForExecutionResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeStateMachineForExecutionResponse'
-            <$> (x .?> "tracingConfiguration")
-            <*> (x .?> "loggingConfiguration")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "stateMachineArn")
-            <*> (x .:> "name")
-            <*> (x .:> "definition")
-            <*> (x .:> "roleArn")
-            <*> (x .:> "updateDate")
+            Prelude.<$> (x Prelude..?> "tracingConfiguration")
+            Prelude.<*> (x Prelude..?> "loggingConfiguration")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "stateMachineArn")
+            Prelude.<*> (x Prelude..:> "name")
+            Prelude.<*> (x Prelude..:> "definition")
+            Prelude.<*> (x Prelude..:> "roleArn")
+            Prelude.<*> (x Prelude..:> "updateDate")
       )
 
-instance Hashable DescribeStateMachineForExecution
+instance
+  Prelude.Hashable
+    DescribeStateMachineForExecution
 
-instance NFData DescribeStateMachineForExecution
+instance
+  Prelude.NFData
+    DescribeStateMachineForExecution
 
-instance ToHeaders DescribeStateMachineForExecution where
+instance
+  Prelude.ToHeaders
+    DescribeStateMachineForExecution
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSStepFunctions.DescribeStateMachineForExecution" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSStepFunctions.DescribeStateMachineForExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeStateMachineForExecution where
+instance
+  Prelude.ToJSON
+    DescribeStateMachineForExecution
+  where
   toJSON DescribeStateMachineForExecution' {..} =
-    object
-      ( catMaybes
-          [Just ("executionArn" .= _dsmfeExecutionARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("executionArn" Prelude..= executionArn)
+          ]
       )
 
-instance ToPath DescribeStateMachineForExecution where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    DescribeStateMachineForExecution
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeStateMachineForExecution where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    DescribeStateMachineForExecution
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeStateMachineForExecutionResponse' smart constructor.
+-- | /See:/ 'newDescribeStateMachineForExecutionResponse' smart constructor.
 data DescribeStateMachineForExecutionResponse = DescribeStateMachineForExecutionResponse'
-  { _dsmferrsTracingConfiguration ::
-      !( Maybe
-           TracingConfiguration
-       ),
-    _dsmferrsLoggingConfiguration ::
-      !( Maybe
-           LoggingConfiguration
-       ),
-    _dsmferrsResponseStatus ::
-      !Int,
-    _dsmferrsStateMachineARN ::
-      !Text,
-    _dsmferrsName ::
-      !Text,
-    _dsmferrsDefinition ::
-      !( Sensitive
-           Text
-       ),
-    _dsmferrsRoleARN ::
-      !Text,
-    _dsmferrsUpdateDate ::
-      !POSIX
+  { -- | Selects whether AWS X-Ray tracing is enabled.
+    tracingConfiguration :: Prelude.Maybe TracingConfiguration,
+    loggingConfiguration :: Prelude.Maybe LoggingConfiguration,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the state machine associated with the
+    -- execution.
+    stateMachineArn :: Prelude.Text,
+    -- | The name of the state machine associated with the execution.
+    name :: Prelude.Text,
+    -- | The Amazon States Language definition of the state machine. See
+    -- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language>.
+    definition :: Prelude.Sensitive Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role of the State Machine for
+    -- the execution.
+    roleArn :: Prelude.Text,
+    -- | The date and time the state machine associated with an execution was
+    -- updated. For a newly created state machine, this is the creation date.
+    updateDate :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeStateMachineForExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeStateMachineForExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsmferrsTracingConfiguration' - Selects whether AWS X-Ray tracing is enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsmferrsLoggingConfiguration' - Undocumented member.
+-- 'tracingConfiguration', 'describeStateMachineForExecutionResponse_tracingConfiguration' - Selects whether AWS X-Ray tracing is enabled.
 --
--- * 'dsmferrsResponseStatus' - -- | The response status code.
+-- 'loggingConfiguration', 'describeStateMachineForExecutionResponse_loggingConfiguration' - Undocumented member.
 --
--- * 'dsmferrsStateMachineARN' - The Amazon Resource Name (ARN) of the state machine associated with the execution.
+-- 'httpStatus', 'describeStateMachineForExecutionResponse_httpStatus' - The response's http status code.
 --
--- * 'dsmferrsName' - The name of the state machine associated with the execution.
+-- 'stateMachineArn', 'describeStateMachineForExecutionResponse_stateMachineArn' - The Amazon Resource Name (ARN) of the state machine associated with the
+-- execution.
 --
--- * 'dsmferrsDefinition' - The Amazon States Language definition of the state machine. See <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language> .
+-- 'name', 'describeStateMachineForExecutionResponse_name' - The name of the state machine associated with the execution.
 --
--- * 'dsmferrsRoleARN' - The Amazon Resource Name (ARN) of the IAM role of the State Machine for the execution.
+-- 'definition', 'describeStateMachineForExecutionResponse_definition' - The Amazon States Language definition of the state machine. See
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language>.
 --
--- * 'dsmferrsUpdateDate' - The date and time the state machine associated with an execution was updated. For a newly created state machine, this is the creation date.
-describeStateMachineForExecutionResponse ::
-  -- | 'dsmferrsResponseStatus'
-  Int ->
-  -- | 'dsmferrsStateMachineARN'
-  Text ->
-  -- | 'dsmferrsName'
-  Text ->
-  -- | 'dsmferrsDefinition'
-  Text ->
-  -- | 'dsmferrsRoleARN'
-  Text ->
-  -- | 'dsmferrsUpdateDate'
-  UTCTime ->
+-- 'roleArn', 'describeStateMachineForExecutionResponse_roleArn' - The Amazon Resource Name (ARN) of the IAM role of the State Machine for
+-- the execution.
+--
+-- 'updateDate', 'describeStateMachineForExecutionResponse_updateDate' - The date and time the state machine associated with an execution was
+-- updated. For a newly created state machine, this is the creation date.
+newDescribeStateMachineForExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'stateMachineArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'definition'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
+  -- | 'updateDate'
+  Prelude.UTCTime ->
   DescribeStateMachineForExecutionResponse
-describeStateMachineForExecutionResponse
-  pResponseStatus_
-  pStateMachineARN_
+newDescribeStateMachineForExecutionResponse
+  pHttpStatus_
+  pStateMachineArn_
   pName_
   pDefinition_
-  pRoleARN_
+  pRoleArn_
   pUpdateDate_ =
     DescribeStateMachineForExecutionResponse'
-      { _dsmferrsTracingConfiguration =
-          Nothing,
-        _dsmferrsLoggingConfiguration =
-          Nothing,
-        _dsmferrsResponseStatus =
-          pResponseStatus_,
-        _dsmferrsStateMachineARN =
-          pStateMachineARN_,
-        _dsmferrsName = pName_,
-        _dsmferrsDefinition =
-          _Sensitive # pDefinition_,
-        _dsmferrsRoleARN = pRoleARN_,
-        _dsmferrsUpdateDate =
-          _Time # pUpdateDate_
+      { tracingConfiguration =
+          Prelude.Nothing,
+        loggingConfiguration =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        stateMachineArn =
+          pStateMachineArn_,
+        name = pName_,
+        definition =
+          Prelude._Sensitive
+            Lens.# pDefinition_,
+        roleArn = pRoleArn_,
+        updateDate =
+          Prelude._Time
+            Lens.# pUpdateDate_
       }
 
 -- | Selects whether AWS X-Ray tracing is enabled.
-dsmferrsTracingConfiguration :: Lens' DescribeStateMachineForExecutionResponse (Maybe TracingConfiguration)
-dsmferrsTracingConfiguration = lens _dsmferrsTracingConfiguration (\s a -> s {_dsmferrsTracingConfiguration = a})
+describeStateMachineForExecutionResponse_tracingConfiguration :: Lens.Lens' DescribeStateMachineForExecutionResponse (Prelude.Maybe TracingConfiguration)
+describeStateMachineForExecutionResponse_tracingConfiguration = Lens.lens (\DescribeStateMachineForExecutionResponse' {tracingConfiguration} -> tracingConfiguration) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {tracingConfiguration = a} :: DescribeStateMachineForExecutionResponse)
 
 -- | Undocumented member.
-dsmferrsLoggingConfiguration :: Lens' DescribeStateMachineForExecutionResponse (Maybe LoggingConfiguration)
-dsmferrsLoggingConfiguration = lens _dsmferrsLoggingConfiguration (\s a -> s {_dsmferrsLoggingConfiguration = a})
+describeStateMachineForExecutionResponse_loggingConfiguration :: Lens.Lens' DescribeStateMachineForExecutionResponse (Prelude.Maybe LoggingConfiguration)
+describeStateMachineForExecutionResponse_loggingConfiguration = Lens.lens (\DescribeStateMachineForExecutionResponse' {loggingConfiguration} -> loggingConfiguration) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {loggingConfiguration = a} :: DescribeStateMachineForExecutionResponse)
 
--- | -- | The response status code.
-dsmferrsResponseStatus :: Lens' DescribeStateMachineForExecutionResponse Int
-dsmferrsResponseStatus = lens _dsmferrsResponseStatus (\s a -> s {_dsmferrsResponseStatus = a})
+-- | The response's http status code.
+describeStateMachineForExecutionResponse_httpStatus :: Lens.Lens' DescribeStateMachineForExecutionResponse Prelude.Int
+describeStateMachineForExecutionResponse_httpStatus = Lens.lens (\DescribeStateMachineForExecutionResponse' {httpStatus} -> httpStatus) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {httpStatus = a} :: DescribeStateMachineForExecutionResponse)
 
--- | The Amazon Resource Name (ARN) of the state machine associated with the execution.
-dsmferrsStateMachineARN :: Lens' DescribeStateMachineForExecutionResponse Text
-dsmferrsStateMachineARN = lens _dsmferrsStateMachineARN (\s a -> s {_dsmferrsStateMachineARN = a})
+-- | The Amazon Resource Name (ARN) of the state machine associated with the
+-- execution.
+describeStateMachineForExecutionResponse_stateMachineArn :: Lens.Lens' DescribeStateMachineForExecutionResponse Prelude.Text
+describeStateMachineForExecutionResponse_stateMachineArn = Lens.lens (\DescribeStateMachineForExecutionResponse' {stateMachineArn} -> stateMachineArn) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {stateMachineArn = a} :: DescribeStateMachineForExecutionResponse)
 
 -- | The name of the state machine associated with the execution.
-dsmferrsName :: Lens' DescribeStateMachineForExecutionResponse Text
-dsmferrsName = lens _dsmferrsName (\s a -> s {_dsmferrsName = a})
+describeStateMachineForExecutionResponse_name :: Lens.Lens' DescribeStateMachineForExecutionResponse Prelude.Text
+describeStateMachineForExecutionResponse_name = Lens.lens (\DescribeStateMachineForExecutionResponse' {name} -> name) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {name = a} :: DescribeStateMachineForExecutionResponse)
 
--- | The Amazon States Language definition of the state machine. See <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language> .
-dsmferrsDefinition :: Lens' DescribeStateMachineForExecutionResponse Text
-dsmferrsDefinition = lens _dsmferrsDefinition (\s a -> s {_dsmferrsDefinition = a}) . _Sensitive
+-- | The Amazon States Language definition of the state machine. See
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language>.
+describeStateMachineForExecutionResponse_definition :: Lens.Lens' DescribeStateMachineForExecutionResponse Prelude.Text
+describeStateMachineForExecutionResponse_definition = Lens.lens (\DescribeStateMachineForExecutionResponse' {definition} -> definition) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {definition = a} :: DescribeStateMachineForExecutionResponse) Prelude.. Prelude._Sensitive
 
--- | The Amazon Resource Name (ARN) of the IAM role of the State Machine for the execution.
-dsmferrsRoleARN :: Lens' DescribeStateMachineForExecutionResponse Text
-dsmferrsRoleARN = lens _dsmferrsRoleARN (\s a -> s {_dsmferrsRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role of the State Machine for
+-- the execution.
+describeStateMachineForExecutionResponse_roleArn :: Lens.Lens' DescribeStateMachineForExecutionResponse Prelude.Text
+describeStateMachineForExecutionResponse_roleArn = Lens.lens (\DescribeStateMachineForExecutionResponse' {roleArn} -> roleArn) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {roleArn = a} :: DescribeStateMachineForExecutionResponse)
 
--- | The date and time the state machine associated with an execution was updated. For a newly created state machine, this is the creation date.
-dsmferrsUpdateDate :: Lens' DescribeStateMachineForExecutionResponse UTCTime
-dsmferrsUpdateDate = lens _dsmferrsUpdateDate (\s a -> s {_dsmferrsUpdateDate = a}) . _Time
+-- | The date and time the state machine associated with an execution was
+-- updated. For a newly created state machine, this is the creation date.
+describeStateMachineForExecutionResponse_updateDate :: Lens.Lens' DescribeStateMachineForExecutionResponse Prelude.UTCTime
+describeStateMachineForExecutionResponse_updateDate = Lens.lens (\DescribeStateMachineForExecutionResponse' {updateDate} -> updateDate) (\s@DescribeStateMachineForExecutionResponse' {} a -> s {updateDate = a} :: DescribeStateMachineForExecutionResponse) Prelude.. Prelude._Time
 
 instance
-  NFData
+  Prelude.NFData
     DescribeStateMachineForExecutionResponse

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.ActivityFailedEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains details about an activity that failed during an execution.
 --
---
---
--- /See:/ 'activityFailedEventDetails' smart constructor.
+-- /See:/ 'newActivityFailedEventDetails' smart constructor.
 data ActivityFailedEventDetails = ActivityFailedEventDetails'
-  { _afedCause ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _afedError ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       )
+  { -- | A more detailed explanation of the cause of the failure.
+    cause :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityFailedEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityFailedEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'afedCause' - A more detailed explanation of the cause of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'afedError' - The error code of the failure.
-activityFailedEventDetails ::
+-- 'cause', 'activityFailedEventDetails_cause' - A more detailed explanation of the cause of the failure.
+--
+-- 'error', 'activityFailedEventDetails_error' - The error code of the failure.
+newActivityFailedEventDetails ::
   ActivityFailedEventDetails
-activityFailedEventDetails =
+newActivityFailedEventDetails =
   ActivityFailedEventDetails'
-    { _afedCause = Nothing,
-      _afedError = Nothing
+    { cause =
+        Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | A more detailed explanation of the cause of the failure.
-afedCause :: Lens' ActivityFailedEventDetails (Maybe Text)
-afedCause = lens _afedCause (\s a -> s {_afedCause = a}) . mapping _Sensitive
+activityFailedEventDetails_cause :: Lens.Lens' ActivityFailedEventDetails (Prelude.Maybe Prelude.Text)
+activityFailedEventDetails_cause = Lens.lens (\ActivityFailedEventDetails' {cause} -> cause) (\s@ActivityFailedEventDetails' {} a -> s {cause = a} :: ActivityFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The error code of the failure.
-afedError :: Lens' ActivityFailedEventDetails (Maybe Text)
-afedError = lens _afedError (\s a -> s {_afedError = a}) . mapping _Sensitive
+activityFailedEventDetails_error :: Lens.Lens' ActivityFailedEventDetails (Prelude.Maybe Prelude.Text)
+activityFailedEventDetails_error = Lens.lens (\ActivityFailedEventDetails' {error} -> error) (\s@ActivityFailedEventDetails' {} a -> s {error = a} :: ActivityFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON ActivityFailedEventDetails where
+instance Prelude.FromJSON ActivityFailedEventDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityFailedEventDetails"
       ( \x ->
           ActivityFailedEventDetails'
-            <$> (x .:? "cause") <*> (x .:? "error")
+            Prelude.<$> (x Prelude..:? "cause")
+            Prelude.<*> (x Prelude..:? "error")
       )
 
-instance Hashable ActivityFailedEventDetails
+instance Prelude.Hashable ActivityFailedEventDetails
 
-instance NFData ActivityFailedEventDetails
+instance Prelude.NFData ActivityFailedEventDetails

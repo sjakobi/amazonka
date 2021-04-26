@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.StepFunctions.Types.ExecutionStatus
   ( ExecutionStatus
       ( ..,
-        Aborted,
-        Failed,
-        Running,
-        Succeeded,
-        TimedOut
+        ExecutionStatusABORTED,
+        ExecutionStatusFAILED,
+        ExecutionStatusRUNNING,
+        ExecutionStatusSUCCEEDED,
+        ExecutionStatusTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ExecutionStatus = ExecutionStatus' (CI Text)
+newtype ExecutionStatus = ExecutionStatus'
+  { fromExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Aborted :: ExecutionStatus
-pattern Aborted = ExecutionStatus' "ABORTED"
+pattern ExecutionStatusABORTED :: ExecutionStatus
+pattern ExecutionStatusABORTED = ExecutionStatus' "ABORTED"
 
-pattern Failed :: ExecutionStatus
-pattern Failed = ExecutionStatus' "FAILED"
+pattern ExecutionStatusFAILED :: ExecutionStatus
+pattern ExecutionStatusFAILED = ExecutionStatus' "FAILED"
 
-pattern Running :: ExecutionStatus
-pattern Running = ExecutionStatus' "RUNNING"
+pattern ExecutionStatusRUNNING :: ExecutionStatus
+pattern ExecutionStatusRUNNING = ExecutionStatus' "RUNNING"
 
-pattern Succeeded :: ExecutionStatus
-pattern Succeeded = ExecutionStatus' "SUCCEEDED"
+pattern ExecutionStatusSUCCEEDED :: ExecutionStatus
+pattern ExecutionStatusSUCCEEDED = ExecutionStatus' "SUCCEEDED"
 
-pattern TimedOut :: ExecutionStatus
-pattern TimedOut = ExecutionStatus' "TIMED_OUT"
+pattern ExecutionStatusTIMEDOUT :: ExecutionStatus
+pattern ExecutionStatusTIMEDOUT = ExecutionStatus' "TIMED_OUT"
 
 {-# COMPLETE
-  Aborted,
-  Failed,
-  Running,
-  Succeeded,
-  TimedOut,
+  ExecutionStatusABORTED,
+  ExecutionStatusFAILED,
+  ExecutionStatusRUNNING,
+  ExecutionStatusSUCCEEDED,
+  ExecutionStatusTIMEDOUT,
   ExecutionStatus'
   #-}
 
-instance FromText ExecutionStatus where
-  parser = (ExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText ExecutionStatus where
+  parser = ExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ExecutionStatus where
-  toText (ExecutionStatus' ci) = original ci
+instance Prelude.ToText ExecutionStatus where
+  toText (ExecutionStatus' x) = x
 
-instance Hashable ExecutionStatus
+instance Prelude.Hashable ExecutionStatus
 
-instance NFData ExecutionStatus
+instance Prelude.NFData ExecutionStatus
 
-instance ToByteString ExecutionStatus
+instance Prelude.ToByteString ExecutionStatus
 
-instance ToQuery ExecutionStatus
+instance Prelude.ToQuery ExecutionStatus
 
-instance ToHeader ExecutionStatus
+instance Prelude.ToHeader ExecutionStatus
 
-instance ToJSON ExecutionStatus where
-  toJSON = toJSONText
+instance Prelude.ToJSON ExecutionStatus where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ExecutionStatus where
-  parseJSON = parseJSONText "ExecutionStatus"
+instance Prelude.FromJSON ExecutionStatus where
+  parseJSON = Prelude.parseJSONText "ExecutionStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,265 +23,329 @@
 --
 -- Describes an execution.
 --
+-- This operation is eventually consistent. The results are best effort and
+-- may not reflect very recent updates and changes.
 --
 -- This API action is not supported by @EXPRESS@ state machines.
 module Network.AWS.StepFunctions.DescribeExecution
   ( -- * Creating a Request
-    describeExecution,
-    DescribeExecution,
+    DescribeExecution (..),
+    newDescribeExecution,
 
     -- * Request Lenses
-    deExecutionARN,
+    describeExecution_executionArn,
 
     -- * Destructuring the Response
-    describeExecutionResponse,
-    DescribeExecutionResponse,
+    DescribeExecutionResponse (..),
+    newDescribeExecutionResponse,
 
     -- * Response Lenses
-    derrsStopDate,
-    derrsInputDetails,
-    derrsInput,
-    derrsName,
-    derrsOutput,
-    derrsTraceHeader,
-    derrsOutputDetails,
-    derrsResponseStatus,
-    derrsExecutionARN,
-    derrsStateMachineARN,
-    derrsStatus,
-    derrsStartDate,
+    describeExecutionResponse_stopDate,
+    describeExecutionResponse_inputDetails,
+    describeExecutionResponse_input,
+    describeExecutionResponse_name,
+    describeExecutionResponse_output,
+    describeExecutionResponse_traceHeader,
+    describeExecutionResponse_outputDetails,
+    describeExecutionResponse_httpStatus,
+    describeExecutionResponse_executionArn,
+    describeExecutionResponse_stateMachineArn,
+    describeExecutionResponse_status,
+    describeExecutionResponse_startDate,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.CloudWatchEventsExecutionDataDetails
+import Network.AWS.StepFunctions.Types.ExecutionStatus
 
--- | /See:/ 'describeExecution' smart constructor.
-newtype DescribeExecution = DescribeExecution'
-  { _deExecutionARN ::
-      Text
+-- | /See:/ 'newDescribeExecution' smart constructor.
+data DescribeExecution = DescribeExecution'
+  { -- | The Amazon Resource Name (ARN) of the execution to describe.
+    executionArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deExecutionARN' - The Amazon Resource Name (ARN) of the execution to describe.
-describeExecution ::
-  -- | 'deExecutionARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'executionArn', 'describeExecution_executionArn' - The Amazon Resource Name (ARN) of the execution to describe.
+newDescribeExecution ::
+  -- | 'executionArn'
+  Prelude.Text ->
   DescribeExecution
-describeExecution pExecutionARN_ =
-  DescribeExecution'
-    { _deExecutionARN =
-        pExecutionARN_
-    }
+newDescribeExecution pExecutionArn_ =
+  DescribeExecution' {executionArn = pExecutionArn_}
 
 -- | The Amazon Resource Name (ARN) of the execution to describe.
-deExecutionARN :: Lens' DescribeExecution Text
-deExecutionARN = lens _deExecutionARN (\s a -> s {_deExecutionARN = a})
+describeExecution_executionArn :: Lens.Lens' DescribeExecution Prelude.Text
+describeExecution_executionArn = Lens.lens (\DescribeExecution' {executionArn} -> executionArn) (\s@DescribeExecution' {} a -> s {executionArn = a} :: DescribeExecution)
 
-instance AWSRequest DescribeExecution where
+instance Prelude.AWSRequest DescribeExecution where
   type Rs DescribeExecution = DescribeExecutionResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeExecutionResponse'
-            <$> (x .?> "stopDate")
-            <*> (x .?> "inputDetails")
-            <*> (x .?> "input")
-            <*> (x .?> "name")
-            <*> (x .?> "output")
-            <*> (x .?> "traceHeader")
-            <*> (x .?> "outputDetails")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "executionArn")
-            <*> (x .:> "stateMachineArn")
-            <*> (x .:> "status")
-            <*> (x .:> "startDate")
+            Prelude.<$> (x Prelude..?> "stopDate")
+            Prelude.<*> (x Prelude..?> "inputDetails")
+            Prelude.<*> (x Prelude..?> "input")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "output")
+            Prelude.<*> (x Prelude..?> "traceHeader")
+            Prelude.<*> (x Prelude..?> "outputDetails")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "executionArn")
+            Prelude.<*> (x Prelude..:> "stateMachineArn")
+            Prelude.<*> (x Prelude..:> "status")
+            Prelude.<*> (x Prelude..:> "startDate")
       )
 
-instance Hashable DescribeExecution
+instance Prelude.Hashable DescribeExecution
 
-instance NFData DescribeExecution
+instance Prelude.NFData DescribeExecution
 
-instance ToHeaders DescribeExecution where
+instance Prelude.ToHeaders DescribeExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSStepFunctions.DescribeExecution" :: ByteString),
+              Prelude.=# ( "AWSStepFunctions.DescribeExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeExecution where
+instance Prelude.ToJSON DescribeExecution where
   toJSON DescribeExecution' {..} =
-    object
-      ( catMaybes
-          [Just ("executionArn" .= _deExecutionARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("executionArn" Prelude..= executionArn)
+          ]
       )
 
-instance ToPath DescribeExecution where
-  toPath = const "/"
+instance Prelude.ToPath DescribeExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeExecutionResponse' smart constructor.
+-- | /See:/ 'newDescribeExecutionResponse' smart constructor.
 data DescribeExecutionResponse = DescribeExecutionResponse'
-  { _derrsStopDate ::
-      !(Maybe POSIX),
-    _derrsInputDetails ::
-      !( Maybe
-           CloudWatchEventsExecutionDataDetails
-       ),
-    _derrsInput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _derrsName ::
-      !(Maybe Text),
-    _derrsOutput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _derrsTraceHeader ::
-      !(Maybe Text),
-    _derrsOutputDetails ::
-      !( Maybe
-           CloudWatchEventsExecutionDataDetails
-       ),
-    _derrsResponseStatus ::
-      !Int,
-    _derrsExecutionARN ::
-      !Text,
-    _derrsStateMachineARN ::
-      !Text,
-    _derrsStatus ::
-      !ExecutionStatus,
-    _derrsStartDate ::
-      !POSIX
+  { -- | If the execution has already ended, the date the execution stopped.
+    stopDate :: Prelude.Maybe Prelude.POSIX,
+    inputDetails :: Prelude.Maybe CloudWatchEventsExecutionDataDetails,
+    -- | The string that contains the JSON input data of the execution. Length
+    -- constraints apply to the payload size, and are expressed as bytes in
+    -- UTF-8 encoding.
+    input :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the execution.
+    --
+    -- A name must /not/ contain:
+    --
+    -- -   white space
+    --
+    -- -   brackets @\< > { } [ ]@
+    --
+    -- -   wildcard characters @? *@
+    --
+    -- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+    --
+    -- -   control characters (@U+0000-001F@, @U+007F-009F@)
+    --
+    -- To enable logging with CloudWatch Logs, the name should only contain
+    -- 0-9, A-Z, a-z, - and _.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The JSON output data of the execution. Length constraints apply to the
+    -- payload size, and are expressed as bytes in UTF-8 encoding.
+    --
+    -- This field is set only if the execution succeeds. If the execution
+    -- fails, this field is null.
+    output :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The AWS X-Ray trace header that was passed to the execution.
+    traceHeader :: Prelude.Maybe Prelude.Text,
+    outputDetails :: Prelude.Maybe CloudWatchEventsExecutionDataDetails,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) that identifies the execution.
+    executionArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the executed stated machine.
+    stateMachineArn :: Prelude.Text,
+    -- | The current status of the execution.
+    status :: ExecutionStatus,
+    -- | The date the execution is started.
+    startDate :: Prelude.POSIX
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'derrsStopDate' - If the execution has already ended, the date the execution stopped.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'derrsInputDetails' - Undocumented member.
+-- 'stopDate', 'describeExecutionResponse_stopDate' - If the execution has already ended, the date the execution stopped.
 --
--- * 'derrsInput' - The string that contains the JSON input data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- 'inputDetails', 'describeExecutionResponse_inputDetails' - Undocumented member.
 --
--- * 'derrsName' - The name of the execution. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+-- 'input', 'describeExecutionResponse_input' - The string that contains the JSON input data of the execution. Length
+-- constraints apply to the payload size, and are expressed as bytes in
+-- UTF-8 encoding.
 --
--- * 'derrsOutput' - The JSON output data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- 'name', 'describeExecutionResponse_name' - The name of the execution.
 --
--- * 'derrsTraceHeader' - The AWS X-Ray trace header that was passed to the execution.
+-- A name must /not/ contain:
 --
--- * 'derrsOutputDetails' - Undocumented member.
+-- -   white space
 --
--- * 'derrsResponseStatus' - -- | The response status code.
+-- -   brackets @\< > { } [ ]@
 --
--- * 'derrsExecutionARN' - The Amazon Resource Name (ARN) that identifies the execution.
+-- -   wildcard characters @? *@
 --
--- * 'derrsStateMachineARN' - The Amazon Resource Name (ARN) of the executed stated machine.
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
 --
--- * 'derrsStatus' - The current status of the execution.
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
 --
--- * 'derrsStartDate' - The date the execution is started.
-describeExecutionResponse ::
-  -- | 'derrsResponseStatus'
-  Int ->
-  -- | 'derrsExecutionARN'
-  Text ->
-  -- | 'derrsStateMachineARN'
-  Text ->
-  -- | 'derrsStatus'
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+--
+-- 'output', 'describeExecutionResponse_output' - The JSON output data of the execution. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
+--
+-- This field is set only if the execution succeeds. If the execution
+-- fails, this field is null.
+--
+-- 'traceHeader', 'describeExecutionResponse_traceHeader' - The AWS X-Ray trace header that was passed to the execution.
+--
+-- 'outputDetails', 'describeExecutionResponse_outputDetails' - Undocumented member.
+--
+-- 'httpStatus', 'describeExecutionResponse_httpStatus' - The response's http status code.
+--
+-- 'executionArn', 'describeExecutionResponse_executionArn' - The Amazon Resource Name (ARN) that identifies the execution.
+--
+-- 'stateMachineArn', 'describeExecutionResponse_stateMachineArn' - The Amazon Resource Name (ARN) of the executed stated machine.
+--
+-- 'status', 'describeExecutionResponse_status' - The current status of the execution.
+--
+-- 'startDate', 'describeExecutionResponse_startDate' - The date the execution is started.
+newDescribeExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'executionArn'
+  Prelude.Text ->
+  -- | 'stateMachineArn'
+  Prelude.Text ->
+  -- | 'status'
   ExecutionStatus ->
-  -- | 'derrsStartDate'
-  UTCTime ->
+  -- | 'startDate'
+  Prelude.UTCTime ->
   DescribeExecutionResponse
-describeExecutionResponse
-  pResponseStatus_
-  pExecutionARN_
-  pStateMachineARN_
+newDescribeExecutionResponse
+  pHttpStatus_
+  pExecutionArn_
+  pStateMachineArn_
   pStatus_
   pStartDate_ =
     DescribeExecutionResponse'
-      { _derrsStopDate =
-          Nothing,
-        _derrsInputDetails = Nothing,
-        _derrsInput = Nothing,
-        _derrsName = Nothing,
-        _derrsOutput = Nothing,
-        _derrsTraceHeader = Nothing,
-        _derrsOutputDetails = Nothing,
-        _derrsResponseStatus = pResponseStatus_,
-        _derrsExecutionARN = pExecutionARN_,
-        _derrsStateMachineARN = pStateMachineARN_,
-        _derrsStatus = pStatus_,
-        _derrsStartDate = _Time # pStartDate_
+      { stopDate =
+          Prelude.Nothing,
+        inputDetails = Prelude.Nothing,
+        input = Prelude.Nothing,
+        name = Prelude.Nothing,
+        output = Prelude.Nothing,
+        traceHeader = Prelude.Nothing,
+        outputDetails = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        executionArn = pExecutionArn_,
+        stateMachineArn = pStateMachineArn_,
+        status = pStatus_,
+        startDate = Prelude._Time Lens.# pStartDate_
       }
 
 -- | If the execution has already ended, the date the execution stopped.
-derrsStopDate :: Lens' DescribeExecutionResponse (Maybe UTCTime)
-derrsStopDate = lens _derrsStopDate (\s a -> s {_derrsStopDate = a}) . mapping _Time
+describeExecutionResponse_stopDate :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.UTCTime)
+describeExecutionResponse_stopDate = Lens.lens (\DescribeExecutionResponse' {stopDate} -> stopDate) (\s@DescribeExecutionResponse' {} a -> s {stopDate = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | Undocumented member.
-derrsInputDetails :: Lens' DescribeExecutionResponse (Maybe CloudWatchEventsExecutionDataDetails)
-derrsInputDetails = lens _derrsInputDetails (\s a -> s {_derrsInputDetails = a})
+describeExecutionResponse_inputDetails :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe CloudWatchEventsExecutionDataDetails)
+describeExecutionResponse_inputDetails = Lens.lens (\DescribeExecutionResponse' {inputDetails} -> inputDetails) (\s@DescribeExecutionResponse' {} a -> s {inputDetails = a} :: DescribeExecutionResponse)
 
--- | The string that contains the JSON input data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-derrsInput :: Lens' DescribeExecutionResponse (Maybe Text)
-derrsInput = lens _derrsInput (\s a -> s {_derrsInput = a}) . mapping _Sensitive
+-- | The string that contains the JSON input data of the execution. Length
+-- constraints apply to the payload size, and are expressed as bytes in
+-- UTF-8 encoding.
+describeExecutionResponse_input :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
+describeExecutionResponse_input = Lens.lens (\DescribeExecutionResponse' {input} -> input) (\s@DescribeExecutionResponse' {} a -> s {input = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The name of the execution. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-derrsName :: Lens' DescribeExecutionResponse (Maybe Text)
-derrsName = lens _derrsName (\s a -> s {_derrsName = a})
+-- | The name of the execution.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+describeExecutionResponse_name :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
+describeExecutionResponse_name = Lens.lens (\DescribeExecutionResponse' {name} -> name) (\s@DescribeExecutionResponse' {} a -> s {name = a} :: DescribeExecutionResponse)
 
--- | The JSON output data of the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-derrsOutput :: Lens' DescribeExecutionResponse (Maybe Text)
-derrsOutput = lens _derrsOutput (\s a -> s {_derrsOutput = a}) . mapping _Sensitive
+-- | The JSON output data of the execution. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
+--
+-- This field is set only if the execution succeeds. If the execution
+-- fails, this field is null.
+describeExecutionResponse_output :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
+describeExecutionResponse_output = Lens.lens (\DescribeExecutionResponse' {output} -> output) (\s@DescribeExecutionResponse' {} a -> s {output = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The AWS X-Ray trace header that was passed to the execution.
-derrsTraceHeader :: Lens' DescribeExecutionResponse (Maybe Text)
-derrsTraceHeader = lens _derrsTraceHeader (\s a -> s {_derrsTraceHeader = a})
+describeExecutionResponse_traceHeader :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
+describeExecutionResponse_traceHeader = Lens.lens (\DescribeExecutionResponse' {traceHeader} -> traceHeader) (\s@DescribeExecutionResponse' {} a -> s {traceHeader = a} :: DescribeExecutionResponse)
 
 -- | Undocumented member.
-derrsOutputDetails :: Lens' DescribeExecutionResponse (Maybe CloudWatchEventsExecutionDataDetails)
-derrsOutputDetails = lens _derrsOutputDetails (\s a -> s {_derrsOutputDetails = a})
+describeExecutionResponse_outputDetails :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe CloudWatchEventsExecutionDataDetails)
+describeExecutionResponse_outputDetails = Lens.lens (\DescribeExecutionResponse' {outputDetails} -> outputDetails) (\s@DescribeExecutionResponse' {} a -> s {outputDetails = a} :: DescribeExecutionResponse)
 
--- | -- | The response status code.
-derrsResponseStatus :: Lens' DescribeExecutionResponse Int
-derrsResponseStatus = lens _derrsResponseStatus (\s a -> s {_derrsResponseStatus = a})
+-- | The response's http status code.
+describeExecutionResponse_httpStatus :: Lens.Lens' DescribeExecutionResponse Prelude.Int
+describeExecutionResponse_httpStatus = Lens.lens (\DescribeExecutionResponse' {httpStatus} -> httpStatus) (\s@DescribeExecutionResponse' {} a -> s {httpStatus = a} :: DescribeExecutionResponse)
 
 -- | The Amazon Resource Name (ARN) that identifies the execution.
-derrsExecutionARN :: Lens' DescribeExecutionResponse Text
-derrsExecutionARN = lens _derrsExecutionARN (\s a -> s {_derrsExecutionARN = a})
+describeExecutionResponse_executionArn :: Lens.Lens' DescribeExecutionResponse Prelude.Text
+describeExecutionResponse_executionArn = Lens.lens (\DescribeExecutionResponse' {executionArn} -> executionArn) (\s@DescribeExecutionResponse' {} a -> s {executionArn = a} :: DescribeExecutionResponse)
 
 -- | The Amazon Resource Name (ARN) of the executed stated machine.
-derrsStateMachineARN :: Lens' DescribeExecutionResponse Text
-derrsStateMachineARN = lens _derrsStateMachineARN (\s a -> s {_derrsStateMachineARN = a})
+describeExecutionResponse_stateMachineArn :: Lens.Lens' DescribeExecutionResponse Prelude.Text
+describeExecutionResponse_stateMachineArn = Lens.lens (\DescribeExecutionResponse' {stateMachineArn} -> stateMachineArn) (\s@DescribeExecutionResponse' {} a -> s {stateMachineArn = a} :: DescribeExecutionResponse)
 
 -- | The current status of the execution.
-derrsStatus :: Lens' DescribeExecutionResponse ExecutionStatus
-derrsStatus = lens _derrsStatus (\s a -> s {_derrsStatus = a})
+describeExecutionResponse_status :: Lens.Lens' DescribeExecutionResponse ExecutionStatus
+describeExecutionResponse_status = Lens.lens (\DescribeExecutionResponse' {status} -> status) (\s@DescribeExecutionResponse' {} a -> s {status = a} :: DescribeExecutionResponse)
 
 -- | The date the execution is started.
-derrsStartDate :: Lens' DescribeExecutionResponse UTCTime
-derrsStartDate = lens _derrsStartDate (\s a -> s {_derrsStartDate = a}) . _Time
+describeExecutionResponse_startDate :: Lens.Lens' DescribeExecutionResponse Prelude.UTCTime
+describeExecutionResponse_startDate = Lens.lens (\DescribeExecutionResponse' {startDate} -> startDate) (\s@DescribeExecutionResponse' {} a -> s {startDate = a} :: DescribeExecutionResponse) Prelude.. Prelude._Time
 
-instance NFData DescribeExecutionResponse
+instance Prelude.NFData DescribeExecutionResponse

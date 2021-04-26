@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,228 +21,352 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a state machine. A state machine consists of a collection of states that can do work (@Task@ states), determine to which states to transition next (@Choice@ states), stop an execution with an error (@Fail@ states), and so on. State machines are specified using a JSON-based, structured language. For more information, see <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language> in the AWS Step Functions User Guide.
+-- Creates a state machine. A state machine consists of a collection of
+-- states that can do work (@Task@ states), determine to which states to
+-- transition next (@Choice@ states), stop an execution with an error
+-- (@Fail@ states), and so on. State machines are specified using a
+-- JSON-based, structured language. For more information, see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language>
+-- in the AWS Step Functions User Guide.
+--
+-- This operation is eventually consistent. The results are best effort and
+-- may not reflect very recent updates and changes.
+--
+-- @CreateStateMachine@ is an idempotent API. Subsequent requests won’t
+-- create a duplicate resource if it was already created.
+-- @CreateStateMachine@\'s idempotency check is based on the state machine
+-- @name@, @definition@, @type@, @LoggingConfiguration@ and
+-- @TracingConfiguration@. If a following request has a different @roleArn@
+-- or @tags@, Step Functions will ignore these differences and treat it as
+-- an idempotent request of the previous. In this case, @roleArn@ and
+-- @tags@ will not be updated, even if they are different.
 module Network.AWS.StepFunctions.CreateStateMachine
   ( -- * Creating a Request
-    createStateMachine,
-    CreateStateMachine,
+    CreateStateMachine (..),
+    newCreateStateMachine,
 
     -- * Request Lenses
-    csmTracingConfiguration,
-    csmTags,
-    csmLoggingConfiguration,
-    csmType,
-    csmName,
-    csmDefinition,
-    csmRoleARN,
+    createStateMachine_tracingConfiguration,
+    createStateMachine_tags,
+    createStateMachine_loggingConfiguration,
+    createStateMachine_type,
+    createStateMachine_name,
+    createStateMachine_definition,
+    createStateMachine_roleArn,
 
     -- * Destructuring the Response
-    createStateMachineResponse,
-    CreateStateMachineResponse,
+    CreateStateMachineResponse (..),
+    newCreateStateMachineResponse,
 
     -- * Response Lenses
-    csmrrsResponseStatus,
-    csmrrsStateMachineARN,
-    csmrrsCreationDate,
+    createStateMachineResponse_httpStatus,
+    createStateMachineResponse_stateMachineArn,
+    createStateMachineResponse_creationDate,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
 
--- | /See:/ 'createStateMachine' smart constructor.
+-- | /See:/ 'newCreateStateMachine' smart constructor.
 data CreateStateMachine = CreateStateMachine'
-  { _csmTracingConfiguration ::
-      !(Maybe TracingConfiguration),
-    _csmTags :: !(Maybe [Tag]),
-    _csmLoggingConfiguration ::
-      !(Maybe LoggingConfiguration),
-    _csmType ::
-      !(Maybe StateMachineType),
-    _csmName :: !Text,
-    _csmDefinition ::
-      !(Sensitive Text),
-    _csmRoleARN :: !Text
+  { -- | Selects whether AWS X-Ray tracing is enabled.
+    tracingConfiguration :: Prelude.Maybe TracingConfiguration,
+    -- | Tags to be added when creating a state machine.
+    --
+    -- An array of key-value pairs. For more information, see
+    -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+    -- in the /AWS Billing and Cost Management User Guide/, and
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+    --
+    -- Tags may only contain Unicode letters, digits, white space, or these
+    -- symbols: @_ . : \/ = + - \@@.
+    tags :: Prelude.Maybe [Tag],
+    -- | Defines what execution history events are logged and where they are
+    -- logged.
+    --
+    -- By default, the @level@ is set to @OFF@. For more information see
+    -- <https://docs.aws.amazon.com/step-functions/latest/dg/cloudwatch-log-level.html Log Levels>
+    -- in the AWS Step Functions User Guide.
+    loggingConfiguration :: Prelude.Maybe LoggingConfiguration,
+    -- | Determines whether a Standard or Express state machine is created. The
+    -- default is @STANDARD@. You cannot update the @type@ of a state machine
+    -- once it has been created.
+    type' :: Prelude.Maybe StateMachineType,
+    -- | The name of the state machine.
+    --
+    -- A name must /not/ contain:
+    --
+    -- -   white space
+    --
+    -- -   brackets @\< > { } [ ]@
+    --
+    -- -   wildcard characters @? *@
+    --
+    -- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+    --
+    -- -   control characters (@U+0000-001F@, @U+007F-009F@)
+    --
+    -- To enable logging with CloudWatch Logs, the name should only contain
+    -- 0-9, A-Z, a-z, - and _.
+    name :: Prelude.Text,
+    -- | The Amazon States Language definition of the state machine. See
+    -- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language>.
+    definition :: Prelude.Sensitive Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role to use for this state
+    -- machine.
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStateMachine' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStateMachine' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csmTracingConfiguration' - Selects whether AWS X-Ray tracing is enabled.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csmTags' - Tags to be added when creating a state machine. An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ , and <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags> . Tags may only contain Unicode letters, digits, white space, or these symbols: @_ . : / = + - @@ .
+-- 'tracingConfiguration', 'createStateMachine_tracingConfiguration' - Selects whether AWS X-Ray tracing is enabled.
 --
--- * 'csmLoggingConfiguration' - Defines what execution history events are logged and where they are logged.
+-- 'tags', 'createStateMachine_tags' - Tags to be added when creating a state machine.
 --
--- * 'csmType' - Determines whether a Standard or Express state machine is created. The default is @STANDARD@ . You cannot update the @type@ of a state machine once it has been created.
+-- An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/, and
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
 --
--- * 'csmName' - The name of the state machine.  A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+-- Tags may only contain Unicode letters, digits, white space, or these
+-- symbols: @_ . : \/ = + - \@@.
 --
--- * 'csmDefinition' - The Amazon States Language definition of the state machine. See <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language> .
+-- 'loggingConfiguration', 'createStateMachine_loggingConfiguration' - Defines what execution history events are logged and where they are
+-- logged.
 --
--- * 'csmRoleARN' - The Amazon Resource Name (ARN) of the IAM role to use for this state machine.
-createStateMachine ::
-  -- | 'csmName'
-  Text ->
-  -- | 'csmDefinition'
-  Text ->
-  -- | 'csmRoleARN'
-  Text ->
+-- By default, the @level@ is set to @OFF@. For more information see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/cloudwatch-log-level.html Log Levels>
+-- in the AWS Step Functions User Guide.
+--
+-- 'type'', 'createStateMachine_type' - Determines whether a Standard or Express state machine is created. The
+-- default is @STANDARD@. You cannot update the @type@ of a state machine
+-- once it has been created.
+--
+-- 'name', 'createStateMachine_name' - The name of the state machine.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+--
+-- 'definition', 'createStateMachine_definition' - The Amazon States Language definition of the state machine. See
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language>.
+--
+-- 'roleArn', 'createStateMachine_roleArn' - The Amazon Resource Name (ARN) of the IAM role to use for this state
+-- machine.
+newCreateStateMachine ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'definition'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   CreateStateMachine
-createStateMachine pName_ pDefinition_ pRoleARN_ =
+newCreateStateMachine pName_ pDefinition_ pRoleArn_ =
   CreateStateMachine'
-    { _csmTracingConfiguration =
-        Nothing,
-      _csmTags = Nothing,
-      _csmLoggingConfiguration = Nothing,
-      _csmType = Nothing,
-      _csmName = pName_,
-      _csmDefinition = _Sensitive # pDefinition_,
-      _csmRoleARN = pRoleARN_
+    { tracingConfiguration =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
+      loggingConfiguration = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      name = pName_,
+      definition = Prelude._Sensitive Lens.# pDefinition_,
+      roleArn = pRoleArn_
     }
 
 -- | Selects whether AWS X-Ray tracing is enabled.
-csmTracingConfiguration :: Lens' CreateStateMachine (Maybe TracingConfiguration)
-csmTracingConfiguration = lens _csmTracingConfiguration (\s a -> s {_csmTracingConfiguration = a})
+createStateMachine_tracingConfiguration :: Lens.Lens' CreateStateMachine (Prelude.Maybe TracingConfiguration)
+createStateMachine_tracingConfiguration = Lens.lens (\CreateStateMachine' {tracingConfiguration} -> tracingConfiguration) (\s@CreateStateMachine' {} a -> s {tracingConfiguration = a} :: CreateStateMachine)
 
--- | Tags to be added when creating a state machine. An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ , and <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags> . Tags may only contain Unicode letters, digits, white space, or these symbols: @_ . : / = + - @@ .
-csmTags :: Lens' CreateStateMachine [Tag]
-csmTags = lens _csmTags (\s a -> s {_csmTags = a}) . _Default . _Coerce
+-- | Tags to be added when creating a state machine.
+--
+-- An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/, and
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+--
+-- Tags may only contain Unicode letters, digits, white space, or these
+-- symbols: @_ . : \/ = + - \@@.
+createStateMachine_tags :: Lens.Lens' CreateStateMachine (Prelude.Maybe [Tag])
+createStateMachine_tags = Lens.lens (\CreateStateMachine' {tags} -> tags) (\s@CreateStateMachine' {} a -> s {tags = a} :: CreateStateMachine) Prelude.. Lens.mapping Prelude._Coerce
 
--- | Defines what execution history events are logged and where they are logged.
-csmLoggingConfiguration :: Lens' CreateStateMachine (Maybe LoggingConfiguration)
-csmLoggingConfiguration = lens _csmLoggingConfiguration (\s a -> s {_csmLoggingConfiguration = a})
+-- | Defines what execution history events are logged and where they are
+-- logged.
+--
+-- By default, the @level@ is set to @OFF@. For more information see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/cloudwatch-log-level.html Log Levels>
+-- in the AWS Step Functions User Guide.
+createStateMachine_loggingConfiguration :: Lens.Lens' CreateStateMachine (Prelude.Maybe LoggingConfiguration)
+createStateMachine_loggingConfiguration = Lens.lens (\CreateStateMachine' {loggingConfiguration} -> loggingConfiguration) (\s@CreateStateMachine' {} a -> s {loggingConfiguration = a} :: CreateStateMachine)
 
--- | Determines whether a Standard or Express state machine is created. The default is @STANDARD@ . You cannot update the @type@ of a state machine once it has been created.
-csmType :: Lens' CreateStateMachine (Maybe StateMachineType)
-csmType = lens _csmType (\s a -> s {_csmType = a})
+-- | Determines whether a Standard or Express state machine is created. The
+-- default is @STANDARD@. You cannot update the @type@ of a state machine
+-- once it has been created.
+createStateMachine_type :: Lens.Lens' CreateStateMachine (Prelude.Maybe StateMachineType)
+createStateMachine_type = Lens.lens (\CreateStateMachine' {type'} -> type') (\s@CreateStateMachine' {} a -> s {type' = a} :: CreateStateMachine)
 
--- | The name of the state machine.  A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-csmName :: Lens' CreateStateMachine Text
-csmName = lens _csmName (\s a -> s {_csmName = a})
+-- | The name of the state machine.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+createStateMachine_name :: Lens.Lens' CreateStateMachine Prelude.Text
+createStateMachine_name = Lens.lens (\CreateStateMachine' {name} -> name) (\s@CreateStateMachine' {} a -> s {name = a} :: CreateStateMachine)
 
--- | The Amazon States Language definition of the state machine. See <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language> .
-csmDefinition :: Lens' CreateStateMachine Text
-csmDefinition = lens _csmDefinition (\s a -> s {_csmDefinition = a}) . _Sensitive
+-- | The Amazon States Language definition of the state machine. See
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html Amazon States Language>.
+createStateMachine_definition :: Lens.Lens' CreateStateMachine Prelude.Text
+createStateMachine_definition = Lens.lens (\CreateStateMachine' {definition} -> definition) (\s@CreateStateMachine' {} a -> s {definition = a} :: CreateStateMachine) Prelude.. Prelude._Sensitive
 
--- | The Amazon Resource Name (ARN) of the IAM role to use for this state machine.
-csmRoleARN :: Lens' CreateStateMachine Text
-csmRoleARN = lens _csmRoleARN (\s a -> s {_csmRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the IAM role to use for this state
+-- machine.
+createStateMachine_roleArn :: Lens.Lens' CreateStateMachine Prelude.Text
+createStateMachine_roleArn = Lens.lens (\CreateStateMachine' {roleArn} -> roleArn) (\s@CreateStateMachine' {} a -> s {roleArn = a} :: CreateStateMachine)
 
-instance AWSRequest CreateStateMachine where
+instance Prelude.AWSRequest CreateStateMachine where
   type
     Rs CreateStateMachine =
       CreateStateMachineResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateStateMachineResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "stateMachineArn")
-            <*> (x .:> "creationDate")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "stateMachineArn")
+            Prelude.<*> (x Prelude..:> "creationDate")
       )
 
-instance Hashable CreateStateMachine
+instance Prelude.Hashable CreateStateMachine
 
-instance NFData CreateStateMachine
+instance Prelude.NFData CreateStateMachine
 
-instance ToHeaders CreateStateMachine where
+instance Prelude.ToHeaders CreateStateMachine where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSStepFunctions.CreateStateMachine" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSStepFunctions.CreateStateMachine" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateStateMachine where
+instance Prelude.ToJSON CreateStateMachine where
   toJSON CreateStateMachine' {..} =
-    object
-      ( catMaybes
-          [ ("tracingConfiguration" .=)
-              <$> _csmTracingConfiguration,
-            ("tags" .=) <$> _csmTags,
-            ("loggingConfiguration" .=)
-              <$> _csmLoggingConfiguration,
-            ("type" .=) <$> _csmType,
-            Just ("name" .= _csmName),
-            Just ("definition" .= _csmDefinition),
-            Just ("roleArn" .= _csmRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tracingConfiguration" Prelude..=)
+              Prelude.<$> tracingConfiguration,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("loggingConfiguration" Prelude..=)
+              Prelude.<$> loggingConfiguration,
+            ("type" Prelude..=) Prelude.<$> type',
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("definition" Prelude..= definition),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )
 
-instance ToPath CreateStateMachine where
-  toPath = const "/"
+instance Prelude.ToPath CreateStateMachine where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateStateMachine where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateStateMachine where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createStateMachineResponse' smart constructor.
+-- | /See:/ 'newCreateStateMachineResponse' smart constructor.
 data CreateStateMachineResponse = CreateStateMachineResponse'
-  { _csmrrsResponseStatus ::
-      !Int,
-    _csmrrsStateMachineARN ::
-      !Text,
-    _csmrrsCreationDate ::
-      !POSIX
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) that identifies the created state
+    -- machine.
+    stateMachineArn :: Prelude.Text,
+    -- | The date the state machine is created.
+    creationDate :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateStateMachineResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateStateMachineResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'csmrrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'csmrrsStateMachineARN' - The Amazon Resource Name (ARN) that identifies the created state machine.
+-- 'httpStatus', 'createStateMachineResponse_httpStatus' - The response's http status code.
 --
--- * 'csmrrsCreationDate' - The date the state machine is created.
-createStateMachineResponse ::
-  -- | 'csmrrsResponseStatus'
-  Int ->
-  -- | 'csmrrsStateMachineARN'
-  Text ->
-  -- | 'csmrrsCreationDate'
-  UTCTime ->
+-- 'stateMachineArn', 'createStateMachineResponse_stateMachineArn' - The Amazon Resource Name (ARN) that identifies the created state
+-- machine.
+--
+-- 'creationDate', 'createStateMachineResponse_creationDate' - The date the state machine is created.
+newCreateStateMachineResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'stateMachineArn'
+  Prelude.Text ->
+  -- | 'creationDate'
+  Prelude.UTCTime ->
   CreateStateMachineResponse
-createStateMachineResponse
-  pResponseStatus_
-  pStateMachineARN_
+newCreateStateMachineResponse
+  pHttpStatus_
+  pStateMachineArn_
   pCreationDate_ =
     CreateStateMachineResponse'
-      { _csmrrsResponseStatus =
-          pResponseStatus_,
-        _csmrrsStateMachineARN = pStateMachineARN_,
-        _csmrrsCreationDate = _Time # pCreationDate_
+      { httpStatus =
+          pHttpStatus_,
+        stateMachineArn = pStateMachineArn_,
+        creationDate =
+          Prelude._Time Lens.# pCreationDate_
       }
 
--- | -- | The response status code.
-csmrrsResponseStatus :: Lens' CreateStateMachineResponse Int
-csmrrsResponseStatus = lens _csmrrsResponseStatus (\s a -> s {_csmrrsResponseStatus = a})
+-- | The response's http status code.
+createStateMachineResponse_httpStatus :: Lens.Lens' CreateStateMachineResponse Prelude.Int
+createStateMachineResponse_httpStatus = Lens.lens (\CreateStateMachineResponse' {httpStatus} -> httpStatus) (\s@CreateStateMachineResponse' {} a -> s {httpStatus = a} :: CreateStateMachineResponse)
 
--- | The Amazon Resource Name (ARN) that identifies the created state machine.
-csmrrsStateMachineARN :: Lens' CreateStateMachineResponse Text
-csmrrsStateMachineARN = lens _csmrrsStateMachineARN (\s a -> s {_csmrrsStateMachineARN = a})
+-- | The Amazon Resource Name (ARN) that identifies the created state
+-- machine.
+createStateMachineResponse_stateMachineArn :: Lens.Lens' CreateStateMachineResponse Prelude.Text
+createStateMachineResponse_stateMachineArn = Lens.lens (\CreateStateMachineResponse' {stateMachineArn} -> stateMachineArn) (\s@CreateStateMachineResponse' {} a -> s {stateMachineArn = a} :: CreateStateMachineResponse)
 
 -- | The date the state machine is created.
-csmrrsCreationDate :: Lens' CreateStateMachineResponse UTCTime
-csmrrsCreationDate = lens _csmrrsCreationDate (\s a -> s {_csmrrsCreationDate = a}) . _Time
+createStateMachineResponse_creationDate :: Lens.Lens' CreateStateMachineResponse Prelude.UTCTime
+createStateMachineResponse_creationDate = Lens.lens (\CreateStateMachineResponse' {creationDate} -> creationDate) (\s@CreateStateMachineResponse' {} a -> s {creationDate = a} :: CreateStateMachineResponse) Prelude.. Prelude._Time
 
-instance NFData CreateStateMachineResponse
+instance Prelude.NFData CreateStateMachineResponse

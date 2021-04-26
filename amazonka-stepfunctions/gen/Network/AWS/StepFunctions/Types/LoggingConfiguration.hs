@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.LoggingConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StepFunctions.Types.LogDestination
 import Network.AWS.StepFunctions.Types.LogLevel
 
--- | The @LoggingConfiguration@ data type is used to set CloudWatch Logs options.
+-- | The @LoggingConfiguration@ data type is used to set CloudWatch Logs
+-- options.
 --
---
---
--- /See:/ 'loggingConfiguration' smart constructor.
+-- /See:/ 'newLoggingConfiguration' smart constructor.
 data LoggingConfiguration = LoggingConfiguration'
-  { _lcDestinations ::
-      !(Maybe [LogDestination]),
-    _lcLevel :: !(Maybe LogLevel),
-    _lcIncludeExecutionData ::
-      !(Maybe Bool)
+  { -- | An array of objects that describes where your execution history events
+    -- will be logged. Limited to size 1. Required, if your log level is not
+    -- set to @OFF@.
+    destinations :: Prelude.Maybe [LogDestination],
+    -- | Defines which category of execution history events are logged.
+    level :: Prelude.Maybe LogLevel,
+    -- | Determines whether execution data is included in your log. When set to
+    -- @false@, data is excluded.
+    includeExecutionData :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LoggingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LoggingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcDestinations' - An array of objects that describes where your execution history events will be logged. Limited to size 1. Required, if your log level is not set to @OFF@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcLevel' - Defines which category of execution history events are logged.
+-- 'destinations', 'loggingConfiguration_destinations' - An array of objects that describes where your execution history events
+-- will be logged. Limited to size 1. Required, if your log level is not
+-- set to @OFF@.
 --
--- * 'lcIncludeExecutionData' - Determines whether execution data is included in your log. When set to @false@ , data is excluded.
-loggingConfiguration ::
+-- 'level', 'loggingConfiguration_level' - Defines which category of execution history events are logged.
+--
+-- 'includeExecutionData', 'loggingConfiguration_includeExecutionData' - Determines whether execution data is included in your log. When set to
+-- @false@, data is excluded.
+newLoggingConfiguration ::
   LoggingConfiguration
-loggingConfiguration =
+newLoggingConfiguration =
   LoggingConfiguration'
-    { _lcDestinations = Nothing,
-      _lcLevel = Nothing,
-      _lcIncludeExecutionData = Nothing
+    { destinations =
+        Prelude.Nothing,
+      level = Prelude.Nothing,
+      includeExecutionData = Prelude.Nothing
     }
 
--- | An array of objects that describes where your execution history events will be logged. Limited to size 1. Required, if your log level is not set to @OFF@ .
-lcDestinations :: Lens' LoggingConfiguration [LogDestination]
-lcDestinations = lens _lcDestinations (\s a -> s {_lcDestinations = a}) . _Default . _Coerce
+-- | An array of objects that describes where your execution history events
+-- will be logged. Limited to size 1. Required, if your log level is not
+-- set to @OFF@.
+loggingConfiguration_destinations :: Lens.Lens' LoggingConfiguration (Prelude.Maybe [LogDestination])
+loggingConfiguration_destinations = Lens.lens (\LoggingConfiguration' {destinations} -> destinations) (\s@LoggingConfiguration' {} a -> s {destinations = a} :: LoggingConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Defines which category of execution history events are logged.
-lcLevel :: Lens' LoggingConfiguration (Maybe LogLevel)
-lcLevel = lens _lcLevel (\s a -> s {_lcLevel = a})
+loggingConfiguration_level :: Lens.Lens' LoggingConfiguration (Prelude.Maybe LogLevel)
+loggingConfiguration_level = Lens.lens (\LoggingConfiguration' {level} -> level) (\s@LoggingConfiguration' {} a -> s {level = a} :: LoggingConfiguration)
 
--- | Determines whether execution data is included in your log. When set to @false@ , data is excluded.
-lcIncludeExecutionData :: Lens' LoggingConfiguration (Maybe Bool)
-lcIncludeExecutionData = lens _lcIncludeExecutionData (\s a -> s {_lcIncludeExecutionData = a})
+-- | Determines whether execution data is included in your log. When set to
+-- @false@, data is excluded.
+loggingConfiguration_includeExecutionData :: Lens.Lens' LoggingConfiguration (Prelude.Maybe Prelude.Bool)
+loggingConfiguration_includeExecutionData = Lens.lens (\LoggingConfiguration' {includeExecutionData} -> includeExecutionData) (\s@LoggingConfiguration' {} a -> s {includeExecutionData = a} :: LoggingConfiguration)
 
-instance FromJSON LoggingConfiguration where
+instance Prelude.FromJSON LoggingConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LoggingConfiguration"
       ( \x ->
           LoggingConfiguration'
-            <$> (x .:? "destinations" .!= mempty)
-            <*> (x .:? "level")
-            <*> (x .:? "includeExecutionData")
+            Prelude.<$> ( x Prelude..:? "destinations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "level")
+            Prelude.<*> (x Prelude..:? "includeExecutionData")
       )
 
-instance Hashable LoggingConfiguration
+instance Prelude.Hashable LoggingConfiguration
 
-instance NFData LoggingConfiguration
+instance Prelude.NFData LoggingConfiguration
 
-instance ToJSON LoggingConfiguration where
+instance Prelude.ToJSON LoggingConfiguration where
   toJSON LoggingConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("destinations" .=) <$> _lcDestinations,
-            ("level" .=) <$> _lcLevel,
-            ("includeExecutionData" .=)
-              <$> _lcIncludeExecutionData
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("destinations" Prelude..=)
+              Prelude.<$> destinations,
+            ("level" Prelude..=) Prelude.<$> level,
+            ("includeExecutionData" Prelude..=)
+              Prelude.<$> includeExecutionData
           ]
       )

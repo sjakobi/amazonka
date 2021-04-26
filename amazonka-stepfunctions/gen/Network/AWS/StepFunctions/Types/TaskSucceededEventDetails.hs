@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,86 +19,91 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.TaskSucceededEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StepFunctions.Types.HistoryEventExecutionDataDetails
 
 -- | Contains details about the successful completion of a task state.
 --
---
---
--- /See:/ 'taskSucceededEventDetails' smart constructor.
+-- /See:/ 'newTaskSucceededEventDetails' smart constructor.
 data TaskSucceededEventDetails = TaskSucceededEventDetails'
-  { _tsedsOutput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _tsedsOutputDetails ::
-      !( Maybe
-           HistoryEventExecutionDataDetails
-       ),
-    _tsedsResourceType ::
-      !Text,
-    _tsedsResource ::
-      !Text
+  { -- | The full JSON response from a resource when a task has succeeded. This
+    -- response becomes the output of the related task. Length constraints
+    -- apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+    output :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | Contains details about the output of an execution history event.
+    outputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails,
+    -- | The action of the resource called by a task state.
+    resourceType :: Prelude.Text,
+    -- | The service name of the resource in a task state.
+    resource :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskSucceededEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskSucceededEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tsedsOutput' - The full JSON response from a resource when a task has succeeded. This response becomes the output of the related task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tsedsOutputDetails' - Contains details about the output of an execution history event.
+-- 'output', 'taskSucceededEventDetails_output' - The full JSON response from a resource when a task has succeeded. This
+-- response becomes the output of the related task. Length constraints
+-- apply to the payload size, and are expressed as bytes in UTF-8 encoding.
 --
--- * 'tsedsResourceType' - The action of the resource called by a task state.
+-- 'outputDetails', 'taskSucceededEventDetails_outputDetails' - Contains details about the output of an execution history event.
 --
--- * 'tsedsResource' - The service name of the resource in a task state.
-taskSucceededEventDetails ::
-  -- | 'tsedsResourceType'
-  Text ->
-  -- | 'tsedsResource'
-  Text ->
+-- 'resourceType', 'taskSucceededEventDetails_resourceType' - The action of the resource called by a task state.
+--
+-- 'resource', 'taskSucceededEventDetails_resource' - The service name of the resource in a task state.
+newTaskSucceededEventDetails ::
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'resource'
+  Prelude.Text ->
   TaskSucceededEventDetails
-taskSucceededEventDetails pResourceType_ pResource_ =
-  TaskSucceededEventDetails'
-    { _tsedsOutput = Nothing,
-      _tsedsOutputDetails = Nothing,
-      _tsedsResourceType = pResourceType_,
-      _tsedsResource = pResource_
-    }
+newTaskSucceededEventDetails
+  pResourceType_
+  pResource_ =
+    TaskSucceededEventDetails'
+      { output =
+          Prelude.Nothing,
+        outputDetails = Prelude.Nothing,
+        resourceType = pResourceType_,
+        resource = pResource_
+      }
 
--- | The full JSON response from a resource when a task has succeeded. This response becomes the output of the related task. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-tsedsOutput :: Lens' TaskSucceededEventDetails (Maybe Text)
-tsedsOutput = lens _tsedsOutput (\s a -> s {_tsedsOutput = a}) . mapping _Sensitive
+-- | The full JSON response from a resource when a task has succeeded. This
+-- response becomes the output of the related task. Length constraints
+-- apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+taskSucceededEventDetails_output :: Lens.Lens' TaskSucceededEventDetails (Prelude.Maybe Prelude.Text)
+taskSucceededEventDetails_output = Lens.lens (\TaskSucceededEventDetails' {output} -> output) (\s@TaskSucceededEventDetails' {} a -> s {output = a} :: TaskSucceededEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | Contains details about the output of an execution history event.
-tsedsOutputDetails :: Lens' TaskSucceededEventDetails (Maybe HistoryEventExecutionDataDetails)
-tsedsOutputDetails = lens _tsedsOutputDetails (\s a -> s {_tsedsOutputDetails = a})
+taskSucceededEventDetails_outputDetails :: Lens.Lens' TaskSucceededEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
+taskSucceededEventDetails_outputDetails = Lens.lens (\TaskSucceededEventDetails' {outputDetails} -> outputDetails) (\s@TaskSucceededEventDetails' {} a -> s {outputDetails = a} :: TaskSucceededEventDetails)
 
 -- | The action of the resource called by a task state.
-tsedsResourceType :: Lens' TaskSucceededEventDetails Text
-tsedsResourceType = lens _tsedsResourceType (\s a -> s {_tsedsResourceType = a})
+taskSucceededEventDetails_resourceType :: Lens.Lens' TaskSucceededEventDetails Prelude.Text
+taskSucceededEventDetails_resourceType = Lens.lens (\TaskSucceededEventDetails' {resourceType} -> resourceType) (\s@TaskSucceededEventDetails' {} a -> s {resourceType = a} :: TaskSucceededEventDetails)
 
 -- | The service name of the resource in a task state.
-tsedsResource :: Lens' TaskSucceededEventDetails Text
-tsedsResource = lens _tsedsResource (\s a -> s {_tsedsResource = a})
+taskSucceededEventDetails_resource :: Lens.Lens' TaskSucceededEventDetails Prelude.Text
+taskSucceededEventDetails_resource = Lens.lens (\TaskSucceededEventDetails' {resource} -> resource) (\s@TaskSucceededEventDetails' {} a -> s {resource = a} :: TaskSucceededEventDetails)
 
-instance FromJSON TaskSucceededEventDetails where
+instance Prelude.FromJSON TaskSucceededEventDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaskSucceededEventDetails"
       ( \x ->
           TaskSucceededEventDetails'
-            <$> (x .:? "output")
-            <*> (x .:? "outputDetails")
-            <*> (x .: "resourceType")
-            <*> (x .: "resource")
+            Prelude.<$> (x Prelude..:? "output")
+            Prelude.<*> (x Prelude..:? "outputDetails")
+            Prelude.<*> (x Prelude..: "resourceType")
+            Prelude.<*> (x Prelude..: "resource")
       )
 
-instance Hashable TaskSucceededEventDetails
+instance Prelude.Hashable TaskSucceededEventDetails
 
-instance NFData TaskSucceededEventDetails
+instance Prelude.NFData TaskSucceededEventDetails

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,69 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.ActivityTimedOutEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains details about an activity timeout that occurred during an execution.
+-- | Contains details about an activity timeout that occurred during an
+-- execution.
 --
---
---
--- /See:/ 'activityTimedOutEventDetails' smart constructor.
+-- /See:/ 'newActivityTimedOutEventDetails' smart constructor.
 data ActivityTimedOutEventDetails = ActivityTimedOutEventDetails'
-  { _atoedCause ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _atoedError ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       )
+  { -- | A more detailed explanation of the cause of the timeout.
+    cause :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ActivityTimedOutEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ActivityTimedOutEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atoedCause' - A more detailed explanation of the cause of the timeout.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atoedError' - The error code of the failure.
-activityTimedOutEventDetails ::
+-- 'cause', 'activityTimedOutEventDetails_cause' - A more detailed explanation of the cause of the timeout.
+--
+-- 'error', 'activityTimedOutEventDetails_error' - The error code of the failure.
+newActivityTimedOutEventDetails ::
   ActivityTimedOutEventDetails
-activityTimedOutEventDetails =
+newActivityTimedOutEventDetails =
   ActivityTimedOutEventDetails'
-    { _atoedCause =
-        Nothing,
-      _atoedError = Nothing
+    { cause =
+        Prelude.Nothing,
+      error = Prelude.Nothing
     }
 
 -- | A more detailed explanation of the cause of the timeout.
-atoedCause :: Lens' ActivityTimedOutEventDetails (Maybe Text)
-atoedCause = lens _atoedCause (\s a -> s {_atoedCause = a}) . mapping _Sensitive
+activityTimedOutEventDetails_cause :: Lens.Lens' ActivityTimedOutEventDetails (Prelude.Maybe Prelude.Text)
+activityTimedOutEventDetails_cause = Lens.lens (\ActivityTimedOutEventDetails' {cause} -> cause) (\s@ActivityTimedOutEventDetails' {} a -> s {cause = a} :: ActivityTimedOutEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The error code of the failure.
-atoedError :: Lens' ActivityTimedOutEventDetails (Maybe Text)
-atoedError = lens _atoedError (\s a -> s {_atoedError = a}) . mapping _Sensitive
+activityTimedOutEventDetails_error :: Lens.Lens' ActivityTimedOutEventDetails (Prelude.Maybe Prelude.Text)
+activityTimedOutEventDetails_error = Lens.lens (\ActivityTimedOutEventDetails' {error} -> error) (\s@ActivityTimedOutEventDetails' {} a -> s {error = a} :: ActivityTimedOutEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON ActivityTimedOutEventDetails where
+instance
+  Prelude.FromJSON
+    ActivityTimedOutEventDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ActivityTimedOutEventDetails"
       ( \x ->
           ActivityTimedOutEventDetails'
-            <$> (x .:? "cause") <*> (x .:? "error")
+            Prelude.<$> (x Prelude..:? "cause")
+            Prelude.<*> (x Prelude..:? "error")
       )
 
-instance Hashable ActivityTimedOutEventDetails
+instance
+  Prelude.Hashable
+    ActivityTimedOutEventDetails
 
-instance NFData ActivityTimedOutEventDetails
+instance Prelude.NFData ActivityTimedOutEventDetails

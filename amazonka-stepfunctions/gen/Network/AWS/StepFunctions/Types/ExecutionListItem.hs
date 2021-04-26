@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,106 +19,158 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.ExecutionListItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StepFunctions.Types.ExecutionStatus
 
 -- | Contains details about an execution.
 --
---
---
--- /See:/ 'executionListItem' smart constructor.
+-- /See:/ 'newExecutionListItem' smart constructor.
 data ExecutionListItem = ExecutionListItem'
-  { _eliStopDate ::
-      !(Maybe POSIX),
-    _eliExecutionARN :: !Text,
-    _eliStateMachineARN :: !Text,
-    _eliName :: !Text,
-    _eliStatus :: !ExecutionStatus,
-    _eliStartDate :: !POSIX
+  { -- | If the execution already ended, the date the execution stopped.
+    stopDate :: Prelude.Maybe Prelude.POSIX,
+    -- | The Amazon Resource Name (ARN) that identifies the execution.
+    executionArn :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the executed state machine.
+    stateMachineArn :: Prelude.Text,
+    -- | The name of the execution.
+    --
+    -- A name must /not/ contain:
+    --
+    -- -   white space
+    --
+    -- -   brackets @\< > { } [ ]@
+    --
+    -- -   wildcard characters @? *@
+    --
+    -- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+    --
+    -- -   control characters (@U+0000-001F@, @U+007F-009F@)
+    --
+    -- To enable logging with CloudWatch Logs, the name should only contain
+    -- 0-9, A-Z, a-z, - and _.
+    name :: Prelude.Text,
+    -- | The current status of the execution.
+    status :: ExecutionStatus,
+    -- | The date the execution started.
+    startDate :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecutionListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecutionListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eliStopDate' - If the execution already ended, the date the execution stopped.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'eliExecutionARN' - The Amazon Resource Name (ARN) that identifies the execution.
+-- 'stopDate', 'executionListItem_stopDate' - If the execution already ended, the date the execution stopped.
 --
--- * 'eliStateMachineARN' - The Amazon Resource Name (ARN) of the executed state machine.
+-- 'executionArn', 'executionListItem_executionArn' - The Amazon Resource Name (ARN) that identifies the execution.
 --
--- * 'eliName' - The name of the execution. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+-- 'stateMachineArn', 'executionListItem_stateMachineArn' - The Amazon Resource Name (ARN) of the executed state machine.
 --
--- * 'eliStatus' - The current status of the execution.
+-- 'name', 'executionListItem_name' - The name of the execution.
 --
--- * 'eliStartDate' - The date the execution started.
-executionListItem ::
-  -- | 'eliExecutionARN'
-  Text ->
-  -- | 'eliStateMachineARN'
-  Text ->
-  -- | 'eliName'
-  Text ->
-  -- | 'eliStatus'
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+--
+-- 'status', 'executionListItem_status' - The current status of the execution.
+--
+-- 'startDate', 'executionListItem_startDate' - The date the execution started.
+newExecutionListItem ::
+  -- | 'executionArn'
+  Prelude.Text ->
+  -- | 'stateMachineArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'status'
   ExecutionStatus ->
-  -- | 'eliStartDate'
-  UTCTime ->
+  -- | 'startDate'
+  Prelude.UTCTime ->
   ExecutionListItem
-executionListItem
-  pExecutionARN_
-  pStateMachineARN_
+newExecutionListItem
+  pExecutionArn_
+  pStateMachineArn_
   pName_
   pStatus_
   pStartDate_ =
     ExecutionListItem'
-      { _eliStopDate = Nothing,
-        _eliExecutionARN = pExecutionARN_,
-        _eliStateMachineARN = pStateMachineARN_,
-        _eliName = pName_,
-        _eliStatus = pStatus_,
-        _eliStartDate = _Time # pStartDate_
+      { stopDate = Prelude.Nothing,
+        executionArn = pExecutionArn_,
+        stateMachineArn = pStateMachineArn_,
+        name = pName_,
+        status = pStatus_,
+        startDate = Prelude._Time Lens.# pStartDate_
       }
 
 -- | If the execution already ended, the date the execution stopped.
-eliStopDate :: Lens' ExecutionListItem (Maybe UTCTime)
-eliStopDate = lens _eliStopDate (\s a -> s {_eliStopDate = a}) . mapping _Time
+executionListItem_stopDate :: Lens.Lens' ExecutionListItem (Prelude.Maybe Prelude.UTCTime)
+executionListItem_stopDate = Lens.lens (\ExecutionListItem' {stopDate} -> stopDate) (\s@ExecutionListItem' {} a -> s {stopDate = a} :: ExecutionListItem) Prelude.. Lens.mapping Prelude._Time
 
 -- | The Amazon Resource Name (ARN) that identifies the execution.
-eliExecutionARN :: Lens' ExecutionListItem Text
-eliExecutionARN = lens _eliExecutionARN (\s a -> s {_eliExecutionARN = a})
+executionListItem_executionArn :: Lens.Lens' ExecutionListItem Prelude.Text
+executionListItem_executionArn = Lens.lens (\ExecutionListItem' {executionArn} -> executionArn) (\s@ExecutionListItem' {} a -> s {executionArn = a} :: ExecutionListItem)
 
 -- | The Amazon Resource Name (ARN) of the executed state machine.
-eliStateMachineARN :: Lens' ExecutionListItem Text
-eliStateMachineARN = lens _eliStateMachineARN (\s a -> s {_eliStateMachineARN = a})
+executionListItem_stateMachineArn :: Lens.Lens' ExecutionListItem Prelude.Text
+executionListItem_stateMachineArn = Lens.lens (\ExecutionListItem' {stateMachineArn} -> stateMachineArn) (\s@ExecutionListItem' {} a -> s {stateMachineArn = a} :: ExecutionListItem)
 
--- | The name of the execution. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-eliName :: Lens' ExecutionListItem Text
-eliName = lens _eliName (\s a -> s {_eliName = a})
+-- | The name of the execution.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+executionListItem_name :: Lens.Lens' ExecutionListItem Prelude.Text
+executionListItem_name = Lens.lens (\ExecutionListItem' {name} -> name) (\s@ExecutionListItem' {} a -> s {name = a} :: ExecutionListItem)
 
 -- | The current status of the execution.
-eliStatus :: Lens' ExecutionListItem ExecutionStatus
-eliStatus = lens _eliStatus (\s a -> s {_eliStatus = a})
+executionListItem_status :: Lens.Lens' ExecutionListItem ExecutionStatus
+executionListItem_status = Lens.lens (\ExecutionListItem' {status} -> status) (\s@ExecutionListItem' {} a -> s {status = a} :: ExecutionListItem)
 
 -- | The date the execution started.
-eliStartDate :: Lens' ExecutionListItem UTCTime
-eliStartDate = lens _eliStartDate (\s a -> s {_eliStartDate = a}) . _Time
+executionListItem_startDate :: Lens.Lens' ExecutionListItem Prelude.UTCTime
+executionListItem_startDate = Lens.lens (\ExecutionListItem' {startDate} -> startDate) (\s@ExecutionListItem' {} a -> s {startDate = a} :: ExecutionListItem) Prelude.. Prelude._Time
 
-instance FromJSON ExecutionListItem where
+instance Prelude.FromJSON ExecutionListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExecutionListItem"
       ( \x ->
           ExecutionListItem'
-            <$> (x .:? "stopDate")
-            <*> (x .: "executionArn")
-            <*> (x .: "stateMachineArn")
-            <*> (x .: "name")
-            <*> (x .: "status")
-            <*> (x .: "startDate")
+            Prelude.<$> (x Prelude..:? "stopDate")
+            Prelude.<*> (x Prelude..: "executionArn")
+            Prelude.<*> (x Prelude..: "stateMachineArn")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "status")
+            Prelude.<*> (x Prelude..: "startDate")
       )
 
-instance Hashable ExecutionListItem
+instance Prelude.Hashable ExecutionListItem
 
-instance NFData ExecutionListItem
+instance Prelude.NFData ExecutionListItem

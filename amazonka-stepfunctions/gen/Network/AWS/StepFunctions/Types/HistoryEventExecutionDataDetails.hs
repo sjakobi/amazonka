@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,54 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.HistoryEventExecutionDataDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides details about input or output in an execution history event.
 --
---
---
--- /See:/ 'historyEventExecutionDataDetails' smart constructor.
-newtype HistoryEventExecutionDataDetails = HistoryEventExecutionDataDetails'
-  { _heeddTruncated ::
-      Maybe
-        Bool
+-- /See:/ 'newHistoryEventExecutionDataDetails' smart constructor.
+data HistoryEventExecutionDataDetails = HistoryEventExecutionDataDetails'
+  { -- | Indicates whether input or output was truncated in the response. Always
+    -- @false@ for API calls.
+    truncated :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HistoryEventExecutionDataDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HistoryEventExecutionDataDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'heeddTruncated' - Indicates whether input or output was truncated in the response. Always @false@ for API calls.
-historyEventExecutionDataDetails ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'truncated', 'historyEventExecutionDataDetails_truncated' - Indicates whether input or output was truncated in the response. Always
+-- @false@ for API calls.
+newHistoryEventExecutionDataDetails ::
   HistoryEventExecutionDataDetails
-historyEventExecutionDataDetails =
+newHistoryEventExecutionDataDetails =
   HistoryEventExecutionDataDetails'
-    { _heeddTruncated =
-        Nothing
+    { truncated =
+        Prelude.Nothing
     }
 
--- | Indicates whether input or output was truncated in the response. Always @false@ for API calls.
-heeddTruncated :: Lens' HistoryEventExecutionDataDetails (Maybe Bool)
-heeddTruncated = lens _heeddTruncated (\s a -> s {_heeddTruncated = a})
+-- | Indicates whether input or output was truncated in the response. Always
+-- @false@ for API calls.
+historyEventExecutionDataDetails_truncated :: Lens.Lens' HistoryEventExecutionDataDetails (Prelude.Maybe Prelude.Bool)
+historyEventExecutionDataDetails_truncated = Lens.lens (\HistoryEventExecutionDataDetails' {truncated} -> truncated) (\s@HistoryEventExecutionDataDetails' {} a -> s {truncated = a} :: HistoryEventExecutionDataDetails)
 
-instance FromJSON HistoryEventExecutionDataDetails where
+instance
+  Prelude.FromJSON
+    HistoryEventExecutionDataDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HistoryEventExecutionDataDetails"
       ( \x ->
           HistoryEventExecutionDataDetails'
-            <$> (x .:? "truncated")
+            Prelude.<$> (x Prelude..:? "truncated")
       )
 
-instance Hashable HistoryEventExecutionDataDetails
+instance
+  Prelude.Hashable
+    HistoryEventExecutionDataDetails
 
-instance NFData HistoryEventExecutionDataDetails
+instance
+  Prelude.NFData
+    HistoryEventExecutionDataDetails

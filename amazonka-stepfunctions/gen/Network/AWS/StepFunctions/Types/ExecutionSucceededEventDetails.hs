@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,69 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.ExecutionSucceededEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StepFunctions.Types.HistoryEventExecutionDataDetails
 
 -- | Contains details about the successful termination of the execution.
 --
---
---
--- /See:/ 'executionSucceededEventDetails' smart constructor.
+-- /See:/ 'newExecutionSucceededEventDetails' smart constructor.
 data ExecutionSucceededEventDetails = ExecutionSucceededEventDetails'
-  { _esedOutput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _esedOutputDetails ::
-      !( Maybe
-           HistoryEventExecutionDataDetails
-       )
+  { -- | The JSON data output by the execution. Length constraints apply to the
+    -- payload size, and are expressed as bytes in UTF-8 encoding.
+    output :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | Contains details about the output of an execution history event.
+    outputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExecutionSucceededEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExecutionSucceededEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esedOutput' - The JSON data output by the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esedOutputDetails' - Contains details about the output of an execution history event.
-executionSucceededEventDetails ::
+-- 'output', 'executionSucceededEventDetails_output' - The JSON data output by the execution. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
+--
+-- 'outputDetails', 'executionSucceededEventDetails_outputDetails' - Contains details about the output of an execution history event.
+newExecutionSucceededEventDetails ::
   ExecutionSucceededEventDetails
-executionSucceededEventDetails =
+newExecutionSucceededEventDetails =
   ExecutionSucceededEventDetails'
-    { _esedOutput =
-        Nothing,
-      _esedOutputDetails = Nothing
+    { output =
+        Prelude.Nothing,
+      outputDetails = Prelude.Nothing
     }
 
--- | The JSON data output by the execution. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-esedOutput :: Lens' ExecutionSucceededEventDetails (Maybe Text)
-esedOutput = lens _esedOutput (\s a -> s {_esedOutput = a}) . mapping _Sensitive
+-- | The JSON data output by the execution. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
+executionSucceededEventDetails_output :: Lens.Lens' ExecutionSucceededEventDetails (Prelude.Maybe Prelude.Text)
+executionSucceededEventDetails_output = Lens.lens (\ExecutionSucceededEventDetails' {output} -> output) (\s@ExecutionSucceededEventDetails' {} a -> s {output = a} :: ExecutionSucceededEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | Contains details about the output of an execution history event.
-esedOutputDetails :: Lens' ExecutionSucceededEventDetails (Maybe HistoryEventExecutionDataDetails)
-esedOutputDetails = lens _esedOutputDetails (\s a -> s {_esedOutputDetails = a})
+executionSucceededEventDetails_outputDetails :: Lens.Lens' ExecutionSucceededEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
+executionSucceededEventDetails_outputDetails = Lens.lens (\ExecutionSucceededEventDetails' {outputDetails} -> outputDetails) (\s@ExecutionSucceededEventDetails' {} a -> s {outputDetails = a} :: ExecutionSucceededEventDetails)
 
-instance FromJSON ExecutionSucceededEventDetails where
+instance
+  Prelude.FromJSON
+    ExecutionSucceededEventDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExecutionSucceededEventDetails"
       ( \x ->
           ExecutionSucceededEventDetails'
-            <$> (x .:? "output") <*> (x .:? "outputDetails")
+            Prelude.<$> (x Prelude..:? "output")
+            Prelude.<*> (x Prelude..:? "outputDetails")
       )
 
-instance Hashable ExecutionSucceededEventDetails
+instance
+  Prelude.Hashable
+    ExecutionSucceededEventDetails
 
-instance NFData ExecutionSucceededEventDetails
+instance
+  Prelude.NFData
+    ExecutionSucceededEventDetails

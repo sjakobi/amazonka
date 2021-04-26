@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.StepFunctions.Types.StateMachineStatus
   ( StateMachineStatus
       ( ..,
-        Active,
-        Deleting
+        StateMachineStatusACTIVE,
+        StateMachineStatusDELETING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StateMachineStatus
-  = StateMachineStatus'
-      ( CI
-          Text
-      )
+newtype StateMachineStatus = StateMachineStatus'
+  { fromStateMachineStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: StateMachineStatus
-pattern Active = StateMachineStatus' "ACTIVE"
+pattern StateMachineStatusACTIVE :: StateMachineStatus
+pattern StateMachineStatusACTIVE = StateMachineStatus' "ACTIVE"
 
-pattern Deleting :: StateMachineStatus
-pattern Deleting = StateMachineStatus' "DELETING"
+pattern StateMachineStatusDELETING :: StateMachineStatus
+pattern StateMachineStatusDELETING = StateMachineStatus' "DELETING"
 
 {-# COMPLETE
-  Active,
-  Deleting,
+  StateMachineStatusACTIVE,
+  StateMachineStatusDELETING,
   StateMachineStatus'
   #-}
 
-instance FromText StateMachineStatus where
-  parser = (StateMachineStatus' . mk) <$> takeText
+instance Prelude.FromText StateMachineStatus where
+  parser = StateMachineStatus' Prelude.<$> Prelude.takeText
 
-instance ToText StateMachineStatus where
-  toText (StateMachineStatus' ci) = original ci
+instance Prelude.ToText StateMachineStatus where
+  toText (StateMachineStatus' x) = x
 
-instance Hashable StateMachineStatus
+instance Prelude.Hashable StateMachineStatus
 
-instance NFData StateMachineStatus
+instance Prelude.NFData StateMachineStatus
 
-instance ToByteString StateMachineStatus
+instance Prelude.ToByteString StateMachineStatus
 
-instance ToQuery StateMachineStatus
+instance Prelude.ToQuery StateMachineStatus
 
-instance ToHeader StateMachineStatus
+instance Prelude.ToHeader StateMachineStatus
 
-instance FromJSON StateMachineStatus where
-  parseJSON = parseJSONText "StateMachineStatus"
+instance Prelude.FromJSON StateMachineStatus where
+  parseJSON = Prelude.parseJSONText "StateMachineStatus"

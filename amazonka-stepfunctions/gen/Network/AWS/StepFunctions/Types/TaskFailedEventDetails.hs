@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,78 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.TaskFailedEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains details about a task failure event.
 --
---
---
--- /See:/ 'taskFailedEventDetails' smart constructor.
+-- /See:/ 'newTaskFailedEventDetails' smart constructor.
 data TaskFailedEventDetails = TaskFailedEventDetails'
-  { _tfedCause ::
-      !(Maybe (Sensitive Text)),
-    _tfedError ::
-      !(Maybe (Sensitive Text)),
-    _tfedResourceType ::
-      !Text,
-    _tfedResource :: !Text
+  { -- | A more detailed explanation of the cause of the failure.
+    cause :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The action of the resource called by a task state.
+    resourceType :: Prelude.Text,
+    -- | The service name of the resource in a task state.
+    resource :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TaskFailedEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TaskFailedEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tfedCause' - A more detailed explanation of the cause of the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tfedError' - The error code of the failure.
+-- 'cause', 'taskFailedEventDetails_cause' - A more detailed explanation of the cause of the failure.
 --
--- * 'tfedResourceType' - The action of the resource called by a task state.
+-- 'error', 'taskFailedEventDetails_error' - The error code of the failure.
 --
--- * 'tfedResource' - The service name of the resource in a task state.
-taskFailedEventDetails ::
-  -- | 'tfedResourceType'
-  Text ->
-  -- | 'tfedResource'
-  Text ->
+-- 'resourceType', 'taskFailedEventDetails_resourceType' - The action of the resource called by a task state.
+--
+-- 'resource', 'taskFailedEventDetails_resource' - The service name of the resource in a task state.
+newTaskFailedEventDetails ::
+  -- | 'resourceType'
+  Prelude.Text ->
+  -- | 'resource'
+  Prelude.Text ->
   TaskFailedEventDetails
-taskFailedEventDetails pResourceType_ pResource_ =
+newTaskFailedEventDetails pResourceType_ pResource_ =
   TaskFailedEventDetails'
-    { _tfedCause = Nothing,
-      _tfedError = Nothing,
-      _tfedResourceType = pResourceType_,
-      _tfedResource = pResource_
+    { cause = Prelude.Nothing,
+      error = Prelude.Nothing,
+      resourceType = pResourceType_,
+      resource = pResource_
     }
 
 -- | A more detailed explanation of the cause of the failure.
-tfedCause :: Lens' TaskFailedEventDetails (Maybe Text)
-tfedCause = lens _tfedCause (\s a -> s {_tfedCause = a}) . mapping _Sensitive
+taskFailedEventDetails_cause :: Lens.Lens' TaskFailedEventDetails (Prelude.Maybe Prelude.Text)
+taskFailedEventDetails_cause = Lens.lens (\TaskFailedEventDetails' {cause} -> cause) (\s@TaskFailedEventDetails' {} a -> s {cause = a} :: TaskFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The error code of the failure.
-tfedError :: Lens' TaskFailedEventDetails (Maybe Text)
-tfedError = lens _tfedError (\s a -> s {_tfedError = a}) . mapping _Sensitive
+taskFailedEventDetails_error :: Lens.Lens' TaskFailedEventDetails (Prelude.Maybe Prelude.Text)
+taskFailedEventDetails_error = Lens.lens (\TaskFailedEventDetails' {error} -> error) (\s@TaskFailedEventDetails' {} a -> s {error = a} :: TaskFailedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The action of the resource called by a task state.
-tfedResourceType :: Lens' TaskFailedEventDetails Text
-tfedResourceType = lens _tfedResourceType (\s a -> s {_tfedResourceType = a})
+taskFailedEventDetails_resourceType :: Lens.Lens' TaskFailedEventDetails Prelude.Text
+taskFailedEventDetails_resourceType = Lens.lens (\TaskFailedEventDetails' {resourceType} -> resourceType) (\s@TaskFailedEventDetails' {} a -> s {resourceType = a} :: TaskFailedEventDetails)
 
 -- | The service name of the resource in a task state.
-tfedResource :: Lens' TaskFailedEventDetails Text
-tfedResource = lens _tfedResource (\s a -> s {_tfedResource = a})
+taskFailedEventDetails_resource :: Lens.Lens' TaskFailedEventDetails Prelude.Text
+taskFailedEventDetails_resource = Lens.lens (\TaskFailedEventDetails' {resource} -> resource) (\s@TaskFailedEventDetails' {} a -> s {resource = a} :: TaskFailedEventDetails)
 
-instance FromJSON TaskFailedEventDetails where
+instance Prelude.FromJSON TaskFailedEventDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TaskFailedEventDetails"
       ( \x ->
           TaskFailedEventDetails'
-            <$> (x .:? "cause")
-            <*> (x .:? "error")
-            <*> (x .: "resourceType")
-            <*> (x .: "resource")
+            Prelude.<$> (x Prelude..:? "cause")
+            Prelude.<*> (x Prelude..:? "error")
+            Prelude.<*> (x Prelude..: "resourceType")
+            Prelude.<*> (x Prelude..: "resource")
       )
 
-instance Hashable TaskFailedEventDetails
+instance Prelude.Hashable TaskFailedEventDetails
 
-instance NFData TaskFailedEventDetails
+instance Prelude.NFData TaskFailedEventDetails

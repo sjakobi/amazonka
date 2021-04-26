@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.CloudWatchEventsExecutionDataDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Provides details about execution input or output.
 --
---
---
--- /See:/ 'cloudWatchEventsExecutionDataDetails' smart constructor.
-newtype CloudWatchEventsExecutionDataDetails = CloudWatchEventsExecutionDataDetails'
-  { _cweeddIncluded ::
-      Maybe
-        Bool
+-- /See:/ 'newCloudWatchEventsExecutionDataDetails' smart constructor.
+data CloudWatchEventsExecutionDataDetails = CloudWatchEventsExecutionDataDetails'
+  { -- | Indicates whether input or output was included in the response. Always
+    -- @true@ for API calls.
+    included :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudWatchEventsExecutionDataDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudWatchEventsExecutionDataDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cweeddIncluded' - Indicates whether input or output was included in the response. Always @true@ for API calls.
-cloudWatchEventsExecutionDataDetails ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'included', 'cloudWatchEventsExecutionDataDetails_included' - Indicates whether input or output was included in the response. Always
+-- @true@ for API calls.
+newCloudWatchEventsExecutionDataDetails ::
   CloudWatchEventsExecutionDataDetails
-cloudWatchEventsExecutionDataDetails =
+newCloudWatchEventsExecutionDataDetails =
   CloudWatchEventsExecutionDataDetails'
-    { _cweeddIncluded =
-        Nothing
+    { included =
+        Prelude.Nothing
     }
 
--- | Indicates whether input or output was included in the response. Always @true@ for API calls.
-cweeddIncluded :: Lens' CloudWatchEventsExecutionDataDetails (Maybe Bool)
-cweeddIncluded = lens _cweeddIncluded (\s a -> s {_cweeddIncluded = a})
+-- | Indicates whether input or output was included in the response. Always
+-- @true@ for API calls.
+cloudWatchEventsExecutionDataDetails_included :: Lens.Lens' CloudWatchEventsExecutionDataDetails (Prelude.Maybe Prelude.Bool)
+cloudWatchEventsExecutionDataDetails_included = Lens.lens (\CloudWatchEventsExecutionDataDetails' {included} -> included) (\s@CloudWatchEventsExecutionDataDetails' {} a -> s {included = a} :: CloudWatchEventsExecutionDataDetails)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     CloudWatchEventsExecutionDataDetails
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "CloudWatchEventsExecutionDataDetails"
       ( \x ->
           CloudWatchEventsExecutionDataDetails'
-            <$> (x .:? "included")
+            Prelude.<$> (x Prelude..:? "included")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CloudWatchEventsExecutionDataDetails
 
-instance NFData CloudWatchEventsExecutionDataDetails
+instance
+  Prelude.NFData
+    CloudWatchEventsExecutionDataDetails

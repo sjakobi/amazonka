@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -18,182 +22,284 @@
 -- Portability : non-portable (GHC extensions)
 --
 -- Starts a state machine execution.
+--
+-- @StartExecution@ is idempotent. If @StartExecution@ is called with the
+-- same name and input as a running execution, the call will succeed and
+-- return the same response as the original request. If the execution is
+-- closed or if the input is different, it will return a 400
+-- @ExecutionAlreadyExists@ error. Names can be reused after 90 days.
 module Network.AWS.StepFunctions.StartExecution
   ( -- * Creating a Request
-    startExecution,
-    StartExecution,
+    StartExecution (..),
+    newStartExecution,
 
     -- * Request Lenses
-    seInput,
-    seName,
-    seTraceHeader,
-    seStateMachineARN,
+    startExecution_input,
+    startExecution_name,
+    startExecution_traceHeader,
+    startExecution_stateMachineArn,
 
     -- * Destructuring the Response
-    startExecutionResponse,
-    StartExecutionResponse,
+    StartExecutionResponse (..),
+    newStartExecutionResponse,
 
     -- * Response Lenses
-    serrsResponseStatus,
-    serrsExecutionARN,
-    serrsStartDate,
+    startExecutionResponse_httpStatus,
+    startExecutionResponse_executionArn,
+    startExecutionResponse_startDate,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
 
--- | /See:/ 'startExecution' smart constructor.
+-- | /See:/ 'newStartExecution' smart constructor.
 data StartExecution = StartExecution'
-  { _seInput ::
-      !(Maybe (Sensitive Text)),
-    _seName :: !(Maybe Text),
-    _seTraceHeader :: !(Maybe Text),
-    _seStateMachineARN :: !Text
+  { -- | The string that contains the JSON input data for the execution, for
+    -- example:
+    --
+    -- @\"input\": \"{\\\"first_name\\\" : \\\"test\\\"}\"@
+    --
+    -- If you don\'t include any JSON input data, you still must include the
+    -- two braces, for example: @\"input\": \"{}\"@
+    --
+    -- Length constraints apply to the payload size, and are expressed as bytes
+    -- in UTF-8 encoding.
+    input :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the execution. This name must be unique for your AWS
+    -- account, region, and state machine for 90 days. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions>
+    -- in the /AWS Step Functions Developer Guide/.
+    --
+    -- A name must /not/ contain:
+    --
+    -- -   white space
+    --
+    -- -   brackets @\< > { } [ ]@
+    --
+    -- -   wildcard characters @? *@
+    --
+    -- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+    --
+    -- -   control characters (@U+0000-001F@, @U+007F-009F@)
+    --
+    -- To enable logging with CloudWatch Logs, the name should only contain
+    -- 0-9, A-Z, a-z, - and _.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Passes the AWS X-Ray trace header. The trace header can also be passed
+    -- in the request payload.
+    traceHeader :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the state machine to execute.
+    stateMachineArn :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartExecution' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartExecution' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seInput' - The string that contains the JSON input data for the execution, for example: @"input": "{\"first_name\" : \"test\"}"@  Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seName' - The name of the execution. This name must be unique for your AWS account, region, and state machine for 90 days. For more information, see <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions> in the /AWS Step Functions Developer Guide/ . A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+-- 'input', 'startExecution_input' - The string that contains the JSON input data for the execution, for
+-- example:
 --
--- * 'seTraceHeader' - Passes the AWS X-Ray trace header. The trace header can also be passed in the request payload.
+-- @\"input\": \"{\\\"first_name\\\" : \\\"test\\\"}\"@
 --
--- * 'seStateMachineARN' - The Amazon Resource Name (ARN) of the state machine to execute.
-startExecution ::
-  -- | 'seStateMachineARN'
-  Text ->
+-- If you don\'t include any JSON input data, you still must include the
+-- two braces, for example: @\"input\": \"{}\"@
+--
+-- Length constraints apply to the payload size, and are expressed as bytes
+-- in UTF-8 encoding.
+--
+-- 'name', 'startExecution_name' - The name of the execution. This name must be unique for your AWS
+-- account, region, and state machine for 90 days. For more information,
+-- see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions>
+-- in the /AWS Step Functions Developer Guide/.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+--
+-- 'traceHeader', 'startExecution_traceHeader' - Passes the AWS X-Ray trace header. The trace header can also be passed
+-- in the request payload.
+--
+-- 'stateMachineArn', 'startExecution_stateMachineArn' - The Amazon Resource Name (ARN) of the state machine to execute.
+newStartExecution ::
+  -- | 'stateMachineArn'
+  Prelude.Text ->
   StartExecution
-startExecution pStateMachineARN_ =
+newStartExecution pStateMachineArn_ =
   StartExecution'
-    { _seInput = Nothing,
-      _seName = Nothing,
-      _seTraceHeader = Nothing,
-      _seStateMachineARN = pStateMachineARN_
+    { input = Prelude.Nothing,
+      name = Prelude.Nothing,
+      traceHeader = Prelude.Nothing,
+      stateMachineArn = pStateMachineArn_
     }
 
--- | The string that contains the JSON input data for the execution, for example: @"input": "{\"first_name\" : \"test\"}"@  Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-seInput :: Lens' StartExecution (Maybe Text)
-seInput = lens _seInput (\s a -> s {_seInput = a}) . mapping _Sensitive
+-- | The string that contains the JSON input data for the execution, for
+-- example:
+--
+-- @\"input\": \"{\\\"first_name\\\" : \\\"test\\\"}\"@
+--
+-- If you don\'t include any JSON input data, you still must include the
+-- two braces, for example: @\"input\": \"{}\"@
+--
+-- Length constraints apply to the payload size, and are expressed as bytes
+-- in UTF-8 encoding.
+startExecution_input :: Lens.Lens' StartExecution (Prelude.Maybe Prelude.Text)
+startExecution_input = Lens.lens (\StartExecution' {input} -> input) (\s@StartExecution' {} a -> s {input = a} :: StartExecution) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The name of the execution. This name must be unique for your AWS account, region, and state machine for 90 days. For more information, see <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions> in the /AWS Step Functions Developer Guide/ . A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-seName :: Lens' StartExecution (Maybe Text)
-seName = lens _seName (\s a -> s {_seName = a})
+-- | The name of the execution. This name must be unique for your AWS
+-- account, region, and state machine for 90 days. For more information,
+-- see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions>
+-- in the /AWS Step Functions Developer Guide/.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+startExecution_name :: Lens.Lens' StartExecution (Prelude.Maybe Prelude.Text)
+startExecution_name = Lens.lens (\StartExecution' {name} -> name) (\s@StartExecution' {} a -> s {name = a} :: StartExecution)
 
--- | Passes the AWS X-Ray trace header. The trace header can also be passed in the request payload.
-seTraceHeader :: Lens' StartExecution (Maybe Text)
-seTraceHeader = lens _seTraceHeader (\s a -> s {_seTraceHeader = a})
+-- | Passes the AWS X-Ray trace header. The trace header can also be passed
+-- in the request payload.
+startExecution_traceHeader :: Lens.Lens' StartExecution (Prelude.Maybe Prelude.Text)
+startExecution_traceHeader = Lens.lens (\StartExecution' {traceHeader} -> traceHeader) (\s@StartExecution' {} a -> s {traceHeader = a} :: StartExecution)
 
 -- | The Amazon Resource Name (ARN) of the state machine to execute.
-seStateMachineARN :: Lens' StartExecution Text
-seStateMachineARN = lens _seStateMachineARN (\s a -> s {_seStateMachineARN = a})
+startExecution_stateMachineArn :: Lens.Lens' StartExecution Prelude.Text
+startExecution_stateMachineArn = Lens.lens (\StartExecution' {stateMachineArn} -> stateMachineArn) (\s@StartExecution' {} a -> s {stateMachineArn = a} :: StartExecution)
 
-instance AWSRequest StartExecution where
+instance Prelude.AWSRequest StartExecution where
   type Rs StartExecution = StartExecutionResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           StartExecutionResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "executionArn")
-            <*> (x .:> "startDate")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "executionArn")
+            Prelude.<*> (x Prelude..:> "startDate")
       )
 
-instance Hashable StartExecution
+instance Prelude.Hashable StartExecution
 
-instance NFData StartExecution
+instance Prelude.NFData StartExecution
 
-instance ToHeaders StartExecution where
+instance Prelude.ToHeaders StartExecution where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSStepFunctions.StartExecution" :: ByteString),
+              Prelude.=# ( "AWSStepFunctions.StartExecution" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartExecution where
+instance Prelude.ToJSON StartExecution where
   toJSON StartExecution' {..} =
-    object
-      ( catMaybes
-          [ ("input" .=) <$> _seInput,
-            ("name" .=) <$> _seName,
-            ("traceHeader" .=) <$> _seTraceHeader,
-            Just ("stateMachineArn" .= _seStateMachineARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("input" Prelude..=) Prelude.<$> input,
+            ("name" Prelude..=) Prelude.<$> name,
+            ("traceHeader" Prelude..=) Prelude.<$> traceHeader,
+            Prelude.Just
+              ("stateMachineArn" Prelude..= stateMachineArn)
           ]
       )
 
-instance ToPath StartExecution where
-  toPath = const "/"
+instance Prelude.ToPath StartExecution where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartExecution where
-  toQuery = const mempty
+instance Prelude.ToQuery StartExecution where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startExecutionResponse' smart constructor.
+-- | /See:/ 'newStartExecutionResponse' smart constructor.
 data StartExecutionResponse = StartExecutionResponse'
-  { _serrsResponseStatus ::
-      !Int,
-    _serrsExecutionARN ::
-      !Text,
-    _serrsStartDate :: !POSIX
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) that identifies the execution.
+    executionArn :: Prelude.Text,
+    -- | The date the execution is started.
+    startDate :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartExecutionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartExecutionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'serrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'serrsExecutionARN' - The Amazon Resource Name (ARN) that identifies the execution.
+-- 'httpStatus', 'startExecutionResponse_httpStatus' - The response's http status code.
 --
--- * 'serrsStartDate' - The date the execution is started.
-startExecutionResponse ::
-  -- | 'serrsResponseStatus'
-  Int ->
-  -- | 'serrsExecutionARN'
-  Text ->
-  -- | 'serrsStartDate'
-  UTCTime ->
+-- 'executionArn', 'startExecutionResponse_executionArn' - The Amazon Resource Name (ARN) that identifies the execution.
+--
+-- 'startDate', 'startExecutionResponse_startDate' - The date the execution is started.
+newStartExecutionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'executionArn'
+  Prelude.Text ->
+  -- | 'startDate'
+  Prelude.UTCTime ->
   StartExecutionResponse
-startExecutionResponse
-  pResponseStatus_
-  pExecutionARN_
+newStartExecutionResponse
+  pHttpStatus_
+  pExecutionArn_
   pStartDate_ =
     StartExecutionResponse'
-      { _serrsResponseStatus =
-          pResponseStatus_,
-        _serrsExecutionARN = pExecutionARN_,
-        _serrsStartDate = _Time # pStartDate_
+      { httpStatus = pHttpStatus_,
+        executionArn = pExecutionArn_,
+        startDate = Prelude._Time Lens.# pStartDate_
       }
 
--- | -- | The response status code.
-serrsResponseStatus :: Lens' StartExecutionResponse Int
-serrsResponseStatus = lens _serrsResponseStatus (\s a -> s {_serrsResponseStatus = a})
+-- | The response's http status code.
+startExecutionResponse_httpStatus :: Lens.Lens' StartExecutionResponse Prelude.Int
+startExecutionResponse_httpStatus = Lens.lens (\StartExecutionResponse' {httpStatus} -> httpStatus) (\s@StartExecutionResponse' {} a -> s {httpStatus = a} :: StartExecutionResponse)
 
 -- | The Amazon Resource Name (ARN) that identifies the execution.
-serrsExecutionARN :: Lens' StartExecutionResponse Text
-serrsExecutionARN = lens _serrsExecutionARN (\s a -> s {_serrsExecutionARN = a})
+startExecutionResponse_executionArn :: Lens.Lens' StartExecutionResponse Prelude.Text
+startExecutionResponse_executionArn = Lens.lens (\StartExecutionResponse' {executionArn} -> executionArn) (\s@StartExecutionResponse' {} a -> s {executionArn = a} :: StartExecutionResponse)
 
 -- | The date the execution is started.
-serrsStartDate :: Lens' StartExecutionResponse UTCTime
-serrsStartDate = lens _serrsStartDate (\s a -> s {_serrsStartDate = a}) . _Time
+startExecutionResponse_startDate :: Lens.Lens' StartExecutionResponse Prelude.UTCTime
+startExecutionResponse_startDate = Lens.lens (\StartExecutionResponse' {startDate} -> startDate) (\s@StartExecutionResponse' {} a -> s {startDate = a} :: StartExecutionResponse) Prelude.. Prelude._Time
 
-instance NFData StartExecutionResponse
+instance Prelude.NFData StartExecutionResponse

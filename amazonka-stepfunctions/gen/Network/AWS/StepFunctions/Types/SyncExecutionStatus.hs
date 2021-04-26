@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.StepFunctions.Types.SyncExecutionStatus
   ( SyncExecutionStatus
       ( ..,
-        SESFailed,
-        SESSucceeded,
-        SESTimedOut
+        SyncExecutionStatusFAILED,
+        SyncExecutionStatusSUCCEEDED,
+        SyncExecutionStatusTIMEDOUT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SyncExecutionStatus
-  = SyncExecutionStatus'
-      ( CI
-          Text
-      )
+newtype SyncExecutionStatus = SyncExecutionStatus'
+  { fromSyncExecutionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SESFailed :: SyncExecutionStatus
-pattern SESFailed = SyncExecutionStatus' "FAILED"
+pattern SyncExecutionStatusFAILED :: SyncExecutionStatus
+pattern SyncExecutionStatusFAILED = SyncExecutionStatus' "FAILED"
 
-pattern SESSucceeded :: SyncExecutionStatus
-pattern SESSucceeded = SyncExecutionStatus' "SUCCEEDED"
+pattern SyncExecutionStatusSUCCEEDED :: SyncExecutionStatus
+pattern SyncExecutionStatusSUCCEEDED = SyncExecutionStatus' "SUCCEEDED"
 
-pattern SESTimedOut :: SyncExecutionStatus
-pattern SESTimedOut = SyncExecutionStatus' "TIMED_OUT"
+pattern SyncExecutionStatusTIMEDOUT :: SyncExecutionStatus
+pattern SyncExecutionStatusTIMEDOUT = SyncExecutionStatus' "TIMED_OUT"
 
 {-# COMPLETE
-  SESFailed,
-  SESSucceeded,
-  SESTimedOut,
+  SyncExecutionStatusFAILED,
+  SyncExecutionStatusSUCCEEDED,
+  SyncExecutionStatusTIMEDOUT,
   SyncExecutionStatus'
   #-}
 
-instance FromText SyncExecutionStatus where
-  parser = (SyncExecutionStatus' . mk) <$> takeText
+instance Prelude.FromText SyncExecutionStatus where
+  parser = SyncExecutionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText SyncExecutionStatus where
-  toText (SyncExecutionStatus' ci) = original ci
+instance Prelude.ToText SyncExecutionStatus where
+  toText (SyncExecutionStatus' x) = x
 
-instance Hashable SyncExecutionStatus
+instance Prelude.Hashable SyncExecutionStatus
 
-instance NFData SyncExecutionStatus
+instance Prelude.NFData SyncExecutionStatus
 
-instance ToByteString SyncExecutionStatus
+instance Prelude.ToByteString SyncExecutionStatus
 
-instance ToQuery SyncExecutionStatus
+instance Prelude.ToQuery SyncExecutionStatus
 
-instance ToHeader SyncExecutionStatus
+instance Prelude.ToHeader SyncExecutionStatus
 
-instance FromJSON SyncExecutionStatus where
-  parseJSON = parseJSONText "SyncExecutionStatus"
+instance Prelude.FromJSON SyncExecutionStatus where
+  parseJSON = Prelude.parseJSONText "SyncExecutionStatus"

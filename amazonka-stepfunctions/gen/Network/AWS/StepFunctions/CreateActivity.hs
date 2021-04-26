@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,263 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an activity. An activity is a task that you write in any programming language and host on any machine that has access to AWS Step Functions. Activities must poll Step Functions using the @GetActivityTask@ API action and respond using @SendTask*@ API actions. This function lets Step Functions know the existence of your activity and returns an identifier for use in a state machine and when polling from the activity.
+-- Creates an activity. An activity is a task that you write in any
+-- programming language and host on any machine that has access to AWS Step
+-- Functions. Activities must poll Step Functions using the
+-- @GetActivityTask@ API action and respond using @SendTask*@ API actions.
+-- This function lets Step Functions know the existence of your activity
+-- and returns an identifier for use in a state machine and when polling
+-- from the activity.
+--
+-- This operation is eventually consistent. The results are best effort and
+-- may not reflect very recent updates and changes.
+--
+-- @CreateActivity@ is an idempotent API. Subsequent requests won’t create
+-- a duplicate resource if it was already created. @CreateActivity@\'s
+-- idempotency check is based on the activity @name@. If a following
+-- request has different @tags@ values, Step Functions will ignore these
+-- differences and treat it as an idempotent request of the previous. In
+-- this case, @tags@ will not be updated, even if they are different.
 module Network.AWS.StepFunctions.CreateActivity
   ( -- * Creating a Request
-    createActivity,
-    CreateActivity,
+    CreateActivity (..),
+    newCreateActivity,
 
     -- * Request Lenses
-    caTags,
-    caName,
+    createActivity_tags,
+    createActivity_name,
 
     -- * Destructuring the Response
-    createActivityResponse,
-    CreateActivityResponse,
+    CreateActivityResponse (..),
+    newCreateActivityResponse,
 
     -- * Response Lenses
-    carrsResponseStatus,
-    carrsActivityARN,
-    carrsCreationDate,
+    createActivityResponse_httpStatus,
+    createActivityResponse_activityArn,
+    createActivityResponse_creationDate,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
 
--- | /See:/ 'createActivity' smart constructor.
+-- | /See:/ 'newCreateActivity' smart constructor.
 data CreateActivity = CreateActivity'
-  { _caTags ::
-      !(Maybe [Tag]),
-    _caName :: !Text
+  { -- | The list of tags to add to a resource.
+    --
+    -- An array of key-value pairs. For more information, see
+    -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+    -- in the /AWS Billing and Cost Management User Guide/, and
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+    --
+    -- Tags may only contain Unicode letters, digits, white space, or these
+    -- symbols: @_ . : \/ = + - \@@.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name of the activity to create. This name must be unique for your
+    -- AWS account and region for 90 days. For more information, see
+    -- <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions>
+    -- in the /AWS Step Functions Developer Guide/.
+    --
+    -- A name must /not/ contain:
+    --
+    -- -   white space
+    --
+    -- -   brackets @\< > { } [ ]@
+    --
+    -- -   wildcard characters @? *@
+    --
+    -- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+    --
+    -- -   control characters (@U+0000-001F@, @U+007F-009F@)
+    --
+    -- To enable logging with CloudWatch Logs, the name should only contain
+    -- 0-9, A-Z, a-z, - and _.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateActivity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateActivity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'caTags' - The list of tags to add to a resource. An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ , and <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags> . Tags may only contain Unicode letters, digits, white space, or these symbols: @_ . : / = + - @@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'caName' - The name of the activity to create. This name must be unique for your AWS account and region for 90 days. For more information, see <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions> in the /AWS Step Functions Developer Guide/ . A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-createActivity ::
-  -- | 'caName'
-  Text ->
+-- 'tags', 'createActivity_tags' - The list of tags to add to a resource.
+--
+-- An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/, and
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+--
+-- Tags may only contain Unicode letters, digits, white space, or these
+-- symbols: @_ . : \/ = + - \@@.
+--
+-- 'name', 'createActivity_name' - The name of the activity to create. This name must be unique for your
+-- AWS account and region for 90 days. For more information, see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions>
+-- in the /AWS Step Functions Developer Guide/.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+newCreateActivity ::
+  -- | 'name'
+  Prelude.Text ->
   CreateActivity
-createActivity pName_ =
+newCreateActivity pName_ =
   CreateActivity'
-    { _caTags = Nothing,
-      _caName = pName_
+    { tags = Prelude.Nothing,
+      name = pName_
     }
 
--- | The list of tags to add to a resource. An array of key-value pairs. For more information, see <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags> in the /AWS Billing and Cost Management User Guide/ , and <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags> . Tags may only contain Unicode letters, digits, white space, or these symbols: @_ . : / = + - @@ .
-caTags :: Lens' CreateActivity [Tag]
-caTags = lens _caTags (\s a -> s {_caTags = a}) . _Default . _Coerce
+-- | The list of tags to add to a resource.
+--
+-- An array of key-value pairs. For more information, see
+-- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
+-- in the /AWS Billing and Cost Management User Guide/, and
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+--
+-- Tags may only contain Unicode letters, digits, white space, or these
+-- symbols: @_ . : \/ = + - \@@.
+createActivity_tags :: Lens.Lens' CreateActivity (Prelude.Maybe [Tag])
+createActivity_tags = Lens.lens (\CreateActivity' {tags} -> tags) (\s@CreateActivity' {} a -> s {tags = a} :: CreateActivity) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The name of the activity to create. This name must be unique for your AWS account and region for 90 days. For more information, see <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions> in the /AWS Step Functions Developer Guide/ . A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-caName :: Lens' CreateActivity Text
-caName = lens _caName (\s a -> s {_caName = a})
+-- | The name of the activity to create. This name must be unique for your
+-- AWS account and region for 90 days. For more information, see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions Limits Related to State Machine Executions>
+-- in the /AWS Step Functions Developer Guide/.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+createActivity_name :: Lens.Lens' CreateActivity Prelude.Text
+createActivity_name = Lens.lens (\CreateActivity' {name} -> name) (\s@CreateActivity' {} a -> s {name = a} :: CreateActivity)
 
-instance AWSRequest CreateActivity where
+instance Prelude.AWSRequest CreateActivity where
   type Rs CreateActivity = CreateActivityResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateActivityResponse'
-            <$> (pure (fromEnum s))
-            <*> (x .:> "activityArn")
-            <*> (x .:> "creationDate")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "activityArn")
+            Prelude.<*> (x Prelude..:> "creationDate")
       )
 
-instance Hashable CreateActivity
+instance Prelude.Hashable CreateActivity
 
-instance NFData CreateActivity
+instance Prelude.NFData CreateActivity
 
-instance ToHeaders CreateActivity where
+instance Prelude.ToHeaders CreateActivity where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AWSStepFunctions.CreateActivity" :: ByteString),
+              Prelude.=# ( "AWSStepFunctions.CreateActivity" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateActivity where
+instance Prelude.ToJSON CreateActivity where
   toJSON CreateActivity' {..} =
-    object
-      ( catMaybes
-          [("tags" .=) <$> _caTags, Just ("name" .= _caName)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("tags" Prelude..=) Prelude.<$> tags,
+            Prelude.Just ("name" Prelude..= name)
+          ]
       )
 
-instance ToPath CreateActivity where
-  toPath = const "/"
+instance Prelude.ToPath CreateActivity where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateActivity where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateActivity where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createActivityResponse' smart constructor.
+-- | /See:/ 'newCreateActivityResponse' smart constructor.
 data CreateActivityResponse = CreateActivityResponse'
-  { _carrsResponseStatus ::
-      !Int,
-    _carrsActivityARN ::
-      !Text,
-    _carrsCreationDate ::
-      !POSIX
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) that identifies the created activity.
+    activityArn :: Prelude.Text,
+    -- | The date the activity is created.
+    creationDate :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateActivityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateActivityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'carrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'carrsActivityARN' - The Amazon Resource Name (ARN) that identifies the created activity.
+-- 'httpStatus', 'createActivityResponse_httpStatus' - The response's http status code.
 --
--- * 'carrsCreationDate' - The date the activity is created.
-createActivityResponse ::
-  -- | 'carrsResponseStatus'
-  Int ->
-  -- | 'carrsActivityARN'
-  Text ->
-  -- | 'carrsCreationDate'
-  UTCTime ->
+-- 'activityArn', 'createActivityResponse_activityArn' - The Amazon Resource Name (ARN) that identifies the created activity.
+--
+-- 'creationDate', 'createActivityResponse_creationDate' - The date the activity is created.
+newCreateActivityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'activityArn'
+  Prelude.Text ->
+  -- | 'creationDate'
+  Prelude.UTCTime ->
   CreateActivityResponse
-createActivityResponse
-  pResponseStatus_
-  pActivityARN_
+newCreateActivityResponse
+  pHttpStatus_
+  pActivityArn_
   pCreationDate_ =
     CreateActivityResponse'
-      { _carrsResponseStatus =
-          pResponseStatus_,
-        _carrsActivityARN = pActivityARN_,
-        _carrsCreationDate = _Time # pCreationDate_
+      { httpStatus = pHttpStatus_,
+        activityArn = pActivityArn_,
+        creationDate = Prelude._Time Lens.# pCreationDate_
       }
 
--- | -- | The response status code.
-carrsResponseStatus :: Lens' CreateActivityResponse Int
-carrsResponseStatus = lens _carrsResponseStatus (\s a -> s {_carrsResponseStatus = a})
+-- | The response's http status code.
+createActivityResponse_httpStatus :: Lens.Lens' CreateActivityResponse Prelude.Int
+createActivityResponse_httpStatus = Lens.lens (\CreateActivityResponse' {httpStatus} -> httpStatus) (\s@CreateActivityResponse' {} a -> s {httpStatus = a} :: CreateActivityResponse)
 
 -- | The Amazon Resource Name (ARN) that identifies the created activity.
-carrsActivityARN :: Lens' CreateActivityResponse Text
-carrsActivityARN = lens _carrsActivityARN (\s a -> s {_carrsActivityARN = a})
+createActivityResponse_activityArn :: Lens.Lens' CreateActivityResponse Prelude.Text
+createActivityResponse_activityArn = Lens.lens (\CreateActivityResponse' {activityArn} -> activityArn) (\s@CreateActivityResponse' {} a -> s {activityArn = a} :: CreateActivityResponse)
 
 -- | The date the activity is created.
-carrsCreationDate :: Lens' CreateActivityResponse UTCTime
-carrsCreationDate = lens _carrsCreationDate (\s a -> s {_carrsCreationDate = a}) . _Time
+createActivityResponse_creationDate :: Lens.Lens' CreateActivityResponse Prelude.UTCTime
+createActivityResponse_creationDate = Lens.lens (\CreateActivityResponse' {creationDate} -> creationDate) (\s@CreateActivityResponse' {} a -> s {creationDate = a} :: CreateActivityResponse) Prelude.. Prelude._Time
 
-instance NFData CreateActivityResponse
+instance Prelude.NFData CreateActivityResponse

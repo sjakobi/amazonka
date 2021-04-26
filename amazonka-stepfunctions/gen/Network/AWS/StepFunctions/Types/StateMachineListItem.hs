@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,87 +19,135 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.StateMachineListItem where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StepFunctions.Types.StateMachineType
 
 -- | Contains details about the state machine.
 --
---
---
--- /See:/ 'stateMachineListItem' smart constructor.
+-- /See:/ 'newStateMachineListItem' smart constructor.
 data StateMachineListItem = StateMachineListItem'
-  { _smliStateMachineARN ::
-      !Text,
-    _smliName :: !Text,
-    _smliType ::
-      !StateMachineType,
-    _smliCreationDate :: !POSIX
+  { -- | The Amazon Resource Name (ARN) that identifies the state machine.
+    stateMachineArn :: Prelude.Text,
+    -- | The name of the state machine.
+    --
+    -- A name must /not/ contain:
+    --
+    -- -   white space
+    --
+    -- -   brackets @\< > { } [ ]@
+    --
+    -- -   wildcard characters @? *@
+    --
+    -- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+    --
+    -- -   control characters (@U+0000-001F@, @U+007F-009F@)
+    --
+    -- To enable logging with CloudWatch Logs, the name should only contain
+    -- 0-9, A-Z, a-z, - and _.
+    name :: Prelude.Text,
+    type' :: StateMachineType,
+    -- | The date the state machine is created.
+    creationDate :: Prelude.POSIX
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StateMachineListItem' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StateMachineListItem' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'smliStateMachineARN' - The Amazon Resource Name (ARN) that identifies the state machine.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'smliName' - The name of the state machine. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
+-- 'stateMachineArn', 'stateMachineListItem_stateMachineArn' - The Amazon Resource Name (ARN) that identifies the state machine.
 --
--- * 'smliType' -
+-- 'name', 'stateMachineListItem_name' - The name of the state machine.
 --
--- * 'smliCreationDate' - The date the state machine is created.
-stateMachineListItem ::
-  -- | 'smliStateMachineARN'
-  Text ->
-  -- | 'smliName'
-  Text ->
-  -- | 'smliType'
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+--
+-- 'type'', 'stateMachineListItem_type' -
+--
+-- 'creationDate', 'stateMachineListItem_creationDate' - The date the state machine is created.
+newStateMachineListItem ::
+  -- | 'stateMachineArn'
+  Prelude.Text ->
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
   StateMachineType ->
-  -- | 'smliCreationDate'
-  UTCTime ->
+  -- | 'creationDate'
+  Prelude.UTCTime ->
   StateMachineListItem
-stateMachineListItem
-  pStateMachineARN_
+newStateMachineListItem
+  pStateMachineArn_
   pName_
   pType_
   pCreationDate_ =
     StateMachineListItem'
-      { _smliStateMachineARN =
-          pStateMachineARN_,
-        _smliName = pName_,
-        _smliType = pType_,
-        _smliCreationDate = _Time # pCreationDate_
+      { stateMachineArn =
+          pStateMachineArn_,
+        name = pName_,
+        type' = pType_,
+        creationDate = Prelude._Time Lens.# pCreationDate_
       }
 
 -- | The Amazon Resource Name (ARN) that identifies the state machine.
-smliStateMachineARN :: Lens' StateMachineListItem Text
-smliStateMachineARN = lens _smliStateMachineARN (\s a -> s {_smliStateMachineARN = a})
+stateMachineListItem_stateMachineArn :: Lens.Lens' StateMachineListItem Prelude.Text
+stateMachineListItem_stateMachineArn = Lens.lens (\StateMachineListItem' {stateMachineArn} -> stateMachineArn) (\s@StateMachineListItem' {} a -> s {stateMachineArn = a} :: StateMachineListItem)
 
--- | The name of the state machine. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-smliName :: Lens' StateMachineListItem Text
-smliName = lens _smliName (\s a -> s {_smliName = a})
+-- | The name of the state machine.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+stateMachineListItem_name :: Lens.Lens' StateMachineListItem Prelude.Text
+stateMachineListItem_name = Lens.lens (\StateMachineListItem' {name} -> name) (\s@StateMachineListItem' {} a -> s {name = a} :: StateMachineListItem)
 
 -- |
-smliType :: Lens' StateMachineListItem StateMachineType
-smliType = lens _smliType (\s a -> s {_smliType = a})
+stateMachineListItem_type :: Lens.Lens' StateMachineListItem StateMachineType
+stateMachineListItem_type = Lens.lens (\StateMachineListItem' {type'} -> type') (\s@StateMachineListItem' {} a -> s {type' = a} :: StateMachineListItem)
 
 -- | The date the state machine is created.
-smliCreationDate :: Lens' StateMachineListItem UTCTime
-smliCreationDate = lens _smliCreationDate (\s a -> s {_smliCreationDate = a}) . _Time
+stateMachineListItem_creationDate :: Lens.Lens' StateMachineListItem Prelude.UTCTime
+stateMachineListItem_creationDate = Lens.lens (\StateMachineListItem' {creationDate} -> creationDate) (\s@StateMachineListItem' {} a -> s {creationDate = a} :: StateMachineListItem) Prelude.. Prelude._Time
 
-instance FromJSON StateMachineListItem where
+instance Prelude.FromJSON StateMachineListItem where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StateMachineListItem"
       ( \x ->
           StateMachineListItem'
-            <$> (x .: "stateMachineArn")
-            <*> (x .: "name")
-            <*> (x .: "type")
-            <*> (x .: "creationDate")
+            Prelude.<$> (x Prelude..: "stateMachineArn")
+            Prelude.<*> (x Prelude..: "name")
+            Prelude.<*> (x Prelude..: "type")
+            Prelude.<*> (x Prelude..: "creationDate")
       )
 
-instance Hashable StateMachineListItem
+instance Prelude.Hashable StateMachineListItem
 
-instance NFData StateMachineListItem
+instance Prelude.NFData StateMachineListItem

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,53 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.TracingConfiguration where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Selects whether or not the state machine's AWS X-Ray tracing is enabled. Default is @false@
+-- | Selects whether or not the state machine\'s AWS X-Ray tracing is
+-- enabled. Default is @false@
 --
---
---
--- /See:/ 'tracingConfiguration' smart constructor.
-newtype TracingConfiguration = TracingConfiguration'
-  { _tcEnabled ::
-      Maybe Bool
+-- /See:/ 'newTracingConfiguration' smart constructor.
+data TracingConfiguration = TracingConfiguration'
+  { -- | When set to @true@, AWS X-Ray tracing is enabled.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TracingConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TracingConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tcEnabled' - When set to @true@ , AWS X-Ray tracing is enabled.
-tracingConfiguration ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'enabled', 'tracingConfiguration_enabled' - When set to @true@, AWS X-Ray tracing is enabled.
+newTracingConfiguration ::
   TracingConfiguration
-tracingConfiguration =
-  TracingConfiguration' {_tcEnabled = Nothing}
+newTracingConfiguration =
+  TracingConfiguration' {enabled = Prelude.Nothing}
 
--- | When set to @true@ , AWS X-Ray tracing is enabled.
-tcEnabled :: Lens' TracingConfiguration (Maybe Bool)
-tcEnabled = lens _tcEnabled (\s a -> s {_tcEnabled = a})
+-- | When set to @true@, AWS X-Ray tracing is enabled.
+tracingConfiguration_enabled :: Lens.Lens' TracingConfiguration (Prelude.Maybe Prelude.Bool)
+tracingConfiguration_enabled = Lens.lens (\TracingConfiguration' {enabled} -> enabled) (\s@TracingConfiguration' {} a -> s {enabled = a} :: TracingConfiguration)
 
-instance FromJSON TracingConfiguration where
+instance Prelude.FromJSON TracingConfiguration where
   parseJSON =
-    withObject
+    Prelude.withObject
       "TracingConfiguration"
-      (\x -> TracingConfiguration' <$> (x .:? "enabled"))
+      ( \x ->
+          TracingConfiguration'
+            Prelude.<$> (x Prelude..:? "enabled")
+      )
 
-instance Hashable TracingConfiguration
+instance Prelude.Hashable TracingConfiguration
 
-instance NFData TracingConfiguration
+instance Prelude.NFData TracingConfiguration
 
-instance ToJSON TracingConfiguration where
+instance Prelude.ToJSON TracingConfiguration where
   toJSON TracingConfiguration' {..} =
-    object (catMaybes [("enabled" .=) <$> _tcEnabled])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("enabled" Prelude..=) Prelude.<$> enabled]
+      )

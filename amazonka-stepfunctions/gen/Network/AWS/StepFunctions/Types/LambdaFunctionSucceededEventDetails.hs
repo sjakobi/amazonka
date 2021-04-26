@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,68 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.LambdaFunctionSucceededEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StepFunctions.Types.HistoryEventExecutionDataDetails
 
--- | Contains details about a lambda function that successfully terminated during an execution.
+-- | Contains details about a lambda function that successfully terminated
+-- during an execution.
 --
---
---
--- /See:/ 'lambdaFunctionSucceededEventDetails' smart constructor.
+-- /See:/ 'newLambdaFunctionSucceededEventDetails' smart constructor.
 data LambdaFunctionSucceededEventDetails = LambdaFunctionSucceededEventDetails'
-  { _lfsedOutput ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _lfsedOutputDetails ::
-      !( Maybe
-           HistoryEventExecutionDataDetails
-       )
+  { -- | The JSON data output by the lambda function. Length constraints apply to
+    -- the payload size, and are expressed as bytes in UTF-8 encoding.
+    output :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | Contains details about the output of an execution history event.
+    outputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'LambdaFunctionSucceededEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'LambdaFunctionSucceededEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lfsedOutput' - The JSON data output by the lambda function. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lfsedOutputDetails' - Contains details about the output of an execution history event.
-lambdaFunctionSucceededEventDetails ::
+-- 'output', 'lambdaFunctionSucceededEventDetails_output' - The JSON data output by the lambda function. Length constraints apply to
+-- the payload size, and are expressed as bytes in UTF-8 encoding.
+--
+-- 'outputDetails', 'lambdaFunctionSucceededEventDetails_outputDetails' - Contains details about the output of an execution history event.
+newLambdaFunctionSucceededEventDetails ::
   LambdaFunctionSucceededEventDetails
-lambdaFunctionSucceededEventDetails =
+newLambdaFunctionSucceededEventDetails =
   LambdaFunctionSucceededEventDetails'
-    { _lfsedOutput =
-        Nothing,
-      _lfsedOutputDetails = Nothing
+    { output =
+        Prelude.Nothing,
+      outputDetails = Prelude.Nothing
     }
 
--- | The JSON data output by the lambda function. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-lfsedOutput :: Lens' LambdaFunctionSucceededEventDetails (Maybe Text)
-lfsedOutput = lens _lfsedOutput (\s a -> s {_lfsedOutput = a}) . mapping _Sensitive
+-- | The JSON data output by the lambda function. Length constraints apply to
+-- the payload size, and are expressed as bytes in UTF-8 encoding.
+lambdaFunctionSucceededEventDetails_output :: Lens.Lens' LambdaFunctionSucceededEventDetails (Prelude.Maybe Prelude.Text)
+lambdaFunctionSucceededEventDetails_output = Lens.lens (\LambdaFunctionSucceededEventDetails' {output} -> output) (\s@LambdaFunctionSucceededEventDetails' {} a -> s {output = a} :: LambdaFunctionSucceededEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | Contains details about the output of an execution history event.
-lfsedOutputDetails :: Lens' LambdaFunctionSucceededEventDetails (Maybe HistoryEventExecutionDataDetails)
-lfsedOutputDetails = lens _lfsedOutputDetails (\s a -> s {_lfsedOutputDetails = a})
+lambdaFunctionSucceededEventDetails_outputDetails :: Lens.Lens' LambdaFunctionSucceededEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
+lambdaFunctionSucceededEventDetails_outputDetails = Lens.lens (\LambdaFunctionSucceededEventDetails' {outputDetails} -> outputDetails) (\s@LambdaFunctionSucceededEventDetails' {} a -> s {outputDetails = a} :: LambdaFunctionSucceededEventDetails)
 
-instance FromJSON LambdaFunctionSucceededEventDetails where
+instance
+  Prelude.FromJSON
+    LambdaFunctionSucceededEventDetails
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "LambdaFunctionSucceededEventDetails"
       ( \x ->
           LambdaFunctionSucceededEventDetails'
-            <$> (x .:? "output") <*> (x .:? "outputDetails")
+            Prelude.<$> (x Prelude..:? "output")
+            Prelude.<*> (x Prelude..:? "outputDetails")
       )
 
-instance Hashable LambdaFunctionSucceededEventDetails
+instance
+  Prelude.Hashable
+    LambdaFunctionSucceededEventDetails
 
-instance NFData LambdaFunctionSucceededEventDetails
+instance
+  Prelude.NFData
+    LambdaFunctionSucceededEventDetails

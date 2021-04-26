@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,209 +21,283 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the history of the specified execution as a list of events. By default, the results are returned in ascending order of the @timeStamp@ of the events. Use the @reverseOrder@ parameter to get the latest events first.
+-- Returns the history of the specified execution as a list of events. By
+-- default, the results are returned in ascending order of the @timeStamp@
+-- of the events. Use the @reverseOrder@ parameter to get the latest events
+-- first.
 --
---
--- If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
+-- If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
 --
 -- This API action is not supported by @EXPRESS@ state machines.
---
 --
 -- This operation returns paginated results.
 module Network.AWS.StepFunctions.GetExecutionHistory
   ( -- * Creating a Request
-    getExecutionHistory,
-    GetExecutionHistory,
+    GetExecutionHistory (..),
+    newGetExecutionHistory,
 
     -- * Request Lenses
-    gehNextToken,
-    gehMaxResults,
-    gehReverseOrder,
-    gehIncludeExecutionData,
-    gehExecutionARN,
+    getExecutionHistory_nextToken,
+    getExecutionHistory_maxResults,
+    getExecutionHistory_reverseOrder,
+    getExecutionHistory_includeExecutionData,
+    getExecutionHistory_executionArn,
 
     -- * Destructuring the Response
-    getExecutionHistoryResponse,
-    GetExecutionHistoryResponse,
+    GetExecutionHistoryResponse (..),
+    newGetExecutionHistoryResponse,
 
     -- * Response Lenses
-    gehrrsNextToken,
-    gehrrsResponseStatus,
-    gehrrsEvents,
+    getExecutionHistoryResponse_nextToken,
+    getExecutionHistoryResponse_httpStatus,
+    getExecutionHistoryResponse_events,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.StepFunctions.Types
+import Network.AWS.StepFunctions.Types.HistoryEvent
 
--- | /See:/ 'getExecutionHistory' smart constructor.
+-- | /See:/ 'newGetExecutionHistory' smart constructor.
 data GetExecutionHistory = GetExecutionHistory'
-  { _gehNextToken ::
-      !(Maybe Text),
-    _gehMaxResults :: !(Maybe Nat),
-    _gehReverseOrder ::
-      !(Maybe Bool),
-    _gehIncludeExecutionData ::
-      !(Maybe Bool),
-    _gehExecutionARN :: !Text
+  { -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results that are returned per call. You can use
+    -- @nextToken@ to obtain further pages of results. The default is 100 and
+    -- the maximum allowed page size is 1000. A value of 0 uses the default.
+    --
+    -- This is only an upper limit. The actual number of results returned per
+    -- call might be fewer than the specified maximum.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | Lists events in descending order of their @timeStamp@.
+    reverseOrder :: Prelude.Maybe Prelude.Bool,
+    -- | You can select whether execution data (input or output of a history
+    -- event) is returned. The default is @true@.
+    includeExecutionData :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the execution.
+    executionArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetExecutionHistory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetExecutionHistory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gehNextToken' - If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gehMaxResults' - The maximum number of results that are returned per call. You can use @nextToken@ to obtain further pages of results. The default is 100 and the maximum allowed page size is 1000. A value of 0 uses the default. This is only an upper limit. The actual number of results returned per call might be fewer than the specified maximum.
+-- 'nextToken', 'getExecutionHistory_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
 --
--- * 'gehReverseOrder' - Lists events in descending order of their @timeStamp@ .
+-- 'maxResults', 'getExecutionHistory_maxResults' - The maximum number of results that are returned per call. You can use
+-- @nextToken@ to obtain further pages of results. The default is 100 and
+-- the maximum allowed page size is 1000. A value of 0 uses the default.
 --
--- * 'gehIncludeExecutionData' - You can select whether execution data (input or output of a history event) is returned. The default is @true@ .
+-- This is only an upper limit. The actual number of results returned per
+-- call might be fewer than the specified maximum.
 --
--- * 'gehExecutionARN' - The Amazon Resource Name (ARN) of the execution.
-getExecutionHistory ::
-  -- | 'gehExecutionARN'
-  Text ->
+-- 'reverseOrder', 'getExecutionHistory_reverseOrder' - Lists events in descending order of their @timeStamp@.
+--
+-- 'includeExecutionData', 'getExecutionHistory_includeExecutionData' - You can select whether execution data (input or output of a history
+-- event) is returned. The default is @true@.
+--
+-- 'executionArn', 'getExecutionHistory_executionArn' - The Amazon Resource Name (ARN) of the execution.
+newGetExecutionHistory ::
+  -- | 'executionArn'
+  Prelude.Text ->
   GetExecutionHistory
-getExecutionHistory pExecutionARN_ =
+newGetExecutionHistory pExecutionArn_ =
   GetExecutionHistory'
-    { _gehNextToken = Nothing,
-      _gehMaxResults = Nothing,
-      _gehReverseOrder = Nothing,
-      _gehIncludeExecutionData = Nothing,
-      _gehExecutionARN = pExecutionARN_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      reverseOrder = Prelude.Nothing,
+      includeExecutionData = Prelude.Nothing,
+      executionArn = pExecutionArn_
     }
 
--- | If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
-gehNextToken :: Lens' GetExecutionHistory (Maybe Text)
-gehNextToken = lens _gehNextToken (\s a -> s {_gehNextToken = a})
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+getExecutionHistory_nextToken :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Text)
+getExecutionHistory_nextToken = Lens.lens (\GetExecutionHistory' {nextToken} -> nextToken) (\s@GetExecutionHistory' {} a -> s {nextToken = a} :: GetExecutionHistory)
 
--- | The maximum number of results that are returned per call. You can use @nextToken@ to obtain further pages of results. The default is 100 and the maximum allowed page size is 1000. A value of 0 uses the default. This is only an upper limit. The actual number of results returned per call might be fewer than the specified maximum.
-gehMaxResults :: Lens' GetExecutionHistory (Maybe Natural)
-gehMaxResults = lens _gehMaxResults (\s a -> s {_gehMaxResults = a}) . mapping _Nat
+-- | The maximum number of results that are returned per call. You can use
+-- @nextToken@ to obtain further pages of results. The default is 100 and
+-- the maximum allowed page size is 1000. A value of 0 uses the default.
+--
+-- This is only an upper limit. The actual number of results returned per
+-- call might be fewer than the specified maximum.
+getExecutionHistory_maxResults :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Natural)
+getExecutionHistory_maxResults = Lens.lens (\GetExecutionHistory' {maxResults} -> maxResults) (\s@GetExecutionHistory' {} a -> s {maxResults = a} :: GetExecutionHistory) Prelude.. Lens.mapping Prelude._Nat
 
--- | Lists events in descending order of their @timeStamp@ .
-gehReverseOrder :: Lens' GetExecutionHistory (Maybe Bool)
-gehReverseOrder = lens _gehReverseOrder (\s a -> s {_gehReverseOrder = a})
+-- | Lists events in descending order of their @timeStamp@.
+getExecutionHistory_reverseOrder :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Bool)
+getExecutionHistory_reverseOrder = Lens.lens (\GetExecutionHistory' {reverseOrder} -> reverseOrder) (\s@GetExecutionHistory' {} a -> s {reverseOrder = a} :: GetExecutionHistory)
 
--- | You can select whether execution data (input or output of a history event) is returned. The default is @true@ .
-gehIncludeExecutionData :: Lens' GetExecutionHistory (Maybe Bool)
-gehIncludeExecutionData = lens _gehIncludeExecutionData (\s a -> s {_gehIncludeExecutionData = a})
+-- | You can select whether execution data (input or output of a history
+-- event) is returned. The default is @true@.
+getExecutionHistory_includeExecutionData :: Lens.Lens' GetExecutionHistory (Prelude.Maybe Prelude.Bool)
+getExecutionHistory_includeExecutionData = Lens.lens (\GetExecutionHistory' {includeExecutionData} -> includeExecutionData) (\s@GetExecutionHistory' {} a -> s {includeExecutionData = a} :: GetExecutionHistory)
 
 -- | The Amazon Resource Name (ARN) of the execution.
-gehExecutionARN :: Lens' GetExecutionHistory Text
-gehExecutionARN = lens _gehExecutionARN (\s a -> s {_gehExecutionARN = a})
+getExecutionHistory_executionArn :: Lens.Lens' GetExecutionHistory Prelude.Text
+getExecutionHistory_executionArn = Lens.lens (\GetExecutionHistory' {executionArn} -> executionArn) (\s@GetExecutionHistory' {} a -> s {executionArn = a} :: GetExecutionHistory)
 
-instance AWSPager GetExecutionHistory where
+instance Pager.AWSPager GetExecutionHistory where
   page rq rs
-    | stop (rs ^. gehrrsNextToken) = Nothing
-    | stop (rs ^. gehrrsEvents) = Nothing
-    | otherwise =
-      Just $ rq & gehNextToken .~ rs ^. gehrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? getExecutionHistoryResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. getExecutionHistoryResponse_events) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& getExecutionHistory_nextToken
+          Lens..~ rs
+          Lens.^? getExecutionHistoryResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest GetExecutionHistory where
+instance Prelude.AWSRequest GetExecutionHistory where
   type
     Rs GetExecutionHistory =
       GetExecutionHistoryResponse
-  request = postJSON stepFunctions
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetExecutionHistoryResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "events" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..?> "events" Prelude..!@ Prelude.mempty)
       )
 
-instance Hashable GetExecutionHistory
+instance Prelude.Hashable GetExecutionHistory
 
-instance NFData GetExecutionHistory
+instance Prelude.NFData GetExecutionHistory
 
-instance ToHeaders GetExecutionHistory where
+instance Prelude.ToHeaders GetExecutionHistory where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AWSStepFunctions.GetExecutionHistory" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AWSStepFunctions.GetExecutionHistory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.0" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.0" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetExecutionHistory where
+instance Prelude.ToJSON GetExecutionHistory where
   toJSON GetExecutionHistory' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _gehNextToken,
-            ("maxResults" .=) <$> _gehMaxResults,
-            ("reverseOrder" .=) <$> _gehReverseOrder,
-            ("includeExecutionData" .=)
-              <$> _gehIncludeExecutionData,
-            Just ("executionArn" .= _gehExecutionARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults,
+            ("reverseOrder" Prelude..=) Prelude.<$> reverseOrder,
+            ("includeExecutionData" Prelude..=)
+              Prelude.<$> includeExecutionData,
+            Prelude.Just
+              ("executionArn" Prelude..= executionArn)
           ]
       )
 
-instance ToPath GetExecutionHistory where
-  toPath = const "/"
+instance Prelude.ToPath GetExecutionHistory where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetExecutionHistory where
-  toQuery = const mempty
+instance Prelude.ToQuery GetExecutionHistory where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getExecutionHistoryResponse' smart constructor.
+-- | /See:/ 'newGetExecutionHistoryResponse' smart constructor.
 data GetExecutionHistoryResponse = GetExecutionHistoryResponse'
-  { _gehrrsNextToken ::
-      !(Maybe Text),
-    _gehrrsResponseStatus ::
-      !Int,
-    _gehrrsEvents ::
-      ![HistoryEvent]
+  { -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The list of events that occurred in the execution.
+    events :: [HistoryEvent]
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetExecutionHistoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetExecutionHistoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gehrrsNextToken' - If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gehrrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'getExecutionHistoryResponse_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
 --
--- * 'gehrrsEvents' - The list of events that occurred in the execution.
-getExecutionHistoryResponse ::
-  -- | 'gehrrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'getExecutionHistoryResponse_httpStatus' - The response's http status code.
+--
+-- 'events', 'getExecutionHistoryResponse_events' - The list of events that occurred in the execution.
+newGetExecutionHistoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetExecutionHistoryResponse
-getExecutionHistoryResponse pResponseStatus_ =
+newGetExecutionHistoryResponse pHttpStatus_ =
   GetExecutionHistoryResponse'
-    { _gehrrsNextToken =
-        Nothing,
-      _gehrrsResponseStatus = pResponseStatus_,
-      _gehrrsEvents = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      events = Prelude.mempty
     }
 
--- | If @nextToken@ is returned, there are more results available. The value of @nextToken@ is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an /HTTP 400 InvalidToken/ error.
-gehrrsNextToken :: Lens' GetExecutionHistoryResponse (Maybe Text)
-gehrrsNextToken = lens _gehrrsNextToken (\s a -> s {_gehrrsNextToken = a})
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+getExecutionHistoryResponse_nextToken :: Lens.Lens' GetExecutionHistoryResponse (Prelude.Maybe Prelude.Text)
+getExecutionHistoryResponse_nextToken = Lens.lens (\GetExecutionHistoryResponse' {nextToken} -> nextToken) (\s@GetExecutionHistoryResponse' {} a -> s {nextToken = a} :: GetExecutionHistoryResponse)
 
--- | -- | The response status code.
-gehrrsResponseStatus :: Lens' GetExecutionHistoryResponse Int
-gehrrsResponseStatus = lens _gehrrsResponseStatus (\s a -> s {_gehrrsResponseStatus = a})
+-- | The response's http status code.
+getExecutionHistoryResponse_httpStatus :: Lens.Lens' GetExecutionHistoryResponse Prelude.Int
+getExecutionHistoryResponse_httpStatus = Lens.lens (\GetExecutionHistoryResponse' {httpStatus} -> httpStatus) (\s@GetExecutionHistoryResponse' {} a -> s {httpStatus = a} :: GetExecutionHistoryResponse)
 
 -- | The list of events that occurred in the execution.
-gehrrsEvents :: Lens' GetExecutionHistoryResponse [HistoryEvent]
-gehrrsEvents = lens _gehrrsEvents (\s a -> s {_gehrrsEvents = a}) . _Coerce
+getExecutionHistoryResponse_events :: Lens.Lens' GetExecutionHistoryResponse [HistoryEvent]
+getExecutionHistoryResponse_events = Lens.lens (\GetExecutionHistoryResponse' {events} -> events) (\s@GetExecutionHistoryResponse' {} a -> s {events = a} :: GetExecutionHistoryResponse) Prelude.. Prelude._Coerce
 
-instance NFData GetExecutionHistoryResponse
+instance Prelude.NFData GetExecutionHistoryResponse

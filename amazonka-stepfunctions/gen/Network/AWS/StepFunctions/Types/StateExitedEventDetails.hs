@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,118 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.StepFunctions.Types.StateExitedEventDetails where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.StepFunctions.Types.HistoryEventExecutionDataDetails
 
 -- | Contains details about an exit from a state during an execution.
 --
---
---
--- /See:/ 'stateExitedEventDetails' smart constructor.
+-- /See:/ 'newStateExitedEventDetails' smart constructor.
 data StateExitedEventDetails = StateExitedEventDetails'
-  { _seedOutput ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _seedOutputDetails ::
-      !( Maybe
-           HistoryEventExecutionDataDetails
-       ),
-    _seedName :: !Text
+  { -- | The JSON output data of the state. Length constraints apply to the
+    -- payload size, and are expressed as bytes in UTF-8 encoding.
+    output :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | Contains details about the output of an execution history event.
+    outputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails,
+    -- | The name of the state.
+    --
+    -- A name must /not/ contain:
+    --
+    -- -   white space
+    --
+    -- -   brackets @\< > { } [ ]@
+    --
+    -- -   wildcard characters @? *@
+    --
+    -- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+    --
+    -- -   control characters (@U+0000-001F@, @U+007F-009F@)
+    --
+    -- To enable logging with CloudWatch Logs, the name should only contain
+    -- 0-9, A-Z, a-z, - and _.
+    name :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StateExitedEventDetails' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StateExitedEventDetails' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'seedOutput' - The JSON output data of the state. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'seedOutputDetails' - Contains details about the output of an execution history event.
+-- 'output', 'stateExitedEventDetails_output' - The JSON output data of the state. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
 --
--- * 'seedName' - The name of the state. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-stateExitedEventDetails ::
-  -- | 'seedName'
-  Text ->
+-- 'outputDetails', 'stateExitedEventDetails_outputDetails' - Contains details about the output of an execution history event.
+--
+-- 'name', 'stateExitedEventDetails_name' - The name of the state.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+newStateExitedEventDetails ::
+  -- | 'name'
+  Prelude.Text ->
   StateExitedEventDetails
-stateExitedEventDetails pName_ =
+newStateExitedEventDetails pName_ =
   StateExitedEventDetails'
-    { _seedOutput = Nothing,
-      _seedOutputDetails = Nothing,
-      _seedName = pName_
+    { output = Prelude.Nothing,
+      outputDetails = Prelude.Nothing,
+      name = pName_
     }
 
--- | The JSON output data of the state. Length constraints apply to the payload size, and are expressed as bytes in UTF-8 encoding.
-seedOutput :: Lens' StateExitedEventDetails (Maybe Text)
-seedOutput = lens _seedOutput (\s a -> s {_seedOutput = a}) . mapping _Sensitive
+-- | The JSON output data of the state. Length constraints apply to the
+-- payload size, and are expressed as bytes in UTF-8 encoding.
+stateExitedEventDetails_output :: Lens.Lens' StateExitedEventDetails (Prelude.Maybe Prelude.Text)
+stateExitedEventDetails_output = Lens.lens (\StateExitedEventDetails' {output} -> output) (\s@StateExitedEventDetails' {} a -> s {output = a} :: StateExitedEventDetails) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | Contains details about the output of an execution history event.
-seedOutputDetails :: Lens' StateExitedEventDetails (Maybe HistoryEventExecutionDataDetails)
-seedOutputDetails = lens _seedOutputDetails (\s a -> s {_seedOutputDetails = a})
+stateExitedEventDetails_outputDetails :: Lens.Lens' StateExitedEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
+stateExitedEventDetails_outputDetails = Lens.lens (\StateExitedEventDetails' {outputDetails} -> outputDetails) (\s@StateExitedEventDetails' {} a -> s {outputDetails = a} :: StateExitedEventDetails)
 
--- | The name of the state. A name must /not/ contain:     * white space     * brackets @< > { } [ ]@      * wildcard characters @? *@      * special characters @" # % \ ^ | ~ ` $ & , ; : /@      * control characters (@U+0000-001F@ , @U+007F-009F@ ) To enable logging with CloudWatch Logs, the name should only contain 0-9, A-Z, a-z, - and _.
-seedName :: Lens' StateExitedEventDetails Text
-seedName = lens _seedName (\s a -> s {_seedName = a})
+-- | The name of the state.
+--
+-- A name must /not/ contain:
+--
+-- -   white space
+--
+-- -   brackets @\< > { } [ ]@
+--
+-- -   wildcard characters @? *@
+--
+-- -   special characters @\" # % \\ ^ | ~ \` $ & , ; : \/@
+--
+-- -   control characters (@U+0000-001F@, @U+007F-009F@)
+--
+-- To enable logging with CloudWatch Logs, the name should only contain
+-- 0-9, A-Z, a-z, - and _.
+stateExitedEventDetails_name :: Lens.Lens' StateExitedEventDetails Prelude.Text
+stateExitedEventDetails_name = Lens.lens (\StateExitedEventDetails' {name} -> name) (\s@StateExitedEventDetails' {} a -> s {name = a} :: StateExitedEventDetails)
 
-instance FromJSON StateExitedEventDetails where
+instance Prelude.FromJSON StateExitedEventDetails where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StateExitedEventDetails"
       ( \x ->
           StateExitedEventDetails'
-            <$> (x .:? "output")
-            <*> (x .:? "outputDetails")
-            <*> (x .: "name")
+            Prelude.<$> (x Prelude..:? "output")
+            Prelude.<*> (x Prelude..:? "outputDetails")
+            Prelude.<*> (x Prelude..: "name")
       )
 
-instance Hashable StateExitedEventDetails
+instance Prelude.Hashable StateExitedEventDetails
 
-instance NFData StateExitedEventDetails
+instance Prelude.NFData StateExitedEventDetails
