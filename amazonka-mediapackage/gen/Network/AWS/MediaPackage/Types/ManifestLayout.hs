@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.MediaPackage.Types.ManifestLayout
   ( ManifestLayout
       ( ..,
-        Compact,
-        Full
+        ManifestLayoutCOMPACT,
+        ManifestLayoutFULL
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ManifestLayout = ManifestLayout' (CI Text)
+newtype ManifestLayout = ManifestLayout'
+  { fromManifestLayout ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Compact :: ManifestLayout
-pattern Compact = ManifestLayout' "COMPACT"
+pattern ManifestLayoutCOMPACT :: ManifestLayout
+pattern ManifestLayoutCOMPACT = ManifestLayout' "COMPACT"
 
-pattern Full :: ManifestLayout
-pattern Full = ManifestLayout' "FULL"
+pattern ManifestLayoutFULL :: ManifestLayout
+pattern ManifestLayoutFULL = ManifestLayout' "FULL"
 
 {-# COMPLETE
-  Compact,
-  Full,
+  ManifestLayoutCOMPACT,
+  ManifestLayoutFULL,
   ManifestLayout'
   #-}
 
-instance FromText ManifestLayout where
-  parser = (ManifestLayout' . mk) <$> takeText
+instance Prelude.FromText ManifestLayout where
+  parser = ManifestLayout' Prelude.<$> Prelude.takeText
 
-instance ToText ManifestLayout where
-  toText (ManifestLayout' ci) = original ci
+instance Prelude.ToText ManifestLayout where
+  toText (ManifestLayout' x) = x
 
-instance Hashable ManifestLayout
+instance Prelude.Hashable ManifestLayout
 
-instance NFData ManifestLayout
+instance Prelude.NFData ManifestLayout
 
-instance ToByteString ManifestLayout
+instance Prelude.ToByteString ManifestLayout
 
-instance ToQuery ManifestLayout
+instance Prelude.ToQuery ManifestLayout
 
-instance ToHeader ManifestLayout
+instance Prelude.ToHeader ManifestLayout
 
-instance ToJSON ManifestLayout where
-  toJSON = toJSONText
+instance Prelude.ToJSON ManifestLayout where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ManifestLayout where
-  parseJSON = parseJSONText "ManifestLayout"
+instance Prelude.FromJSON ManifestLayout where
+  parseJSON = Prelude.parseJSONText "ManifestLayout"

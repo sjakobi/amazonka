@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,79 +19,79 @@
 module Network.AWS.MediaPackage.Types.AdsOnDeliveryRestrictions
   ( AdsOnDeliveryRestrictions
       ( ..,
-        AODRBoth,
-        AODRNone,
-        AODRRestricted,
-        AODRUnrestricted
+        AdsOnDeliveryRestrictionsBOTH,
+        AdsOnDeliveryRestrictionsNONE,
+        AdsOnDeliveryRestrictionsRESTRICTED,
+        AdsOnDeliveryRestrictionsUNRESTRICTED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
--- | This setting allows the delivery restriction flags on SCTE-35 segmentation descriptors to
---
--- determine whether a message signals an ad.  Choosing "NONE" means no SCTE-35 messages become
--- ads.  Choosing "RESTRICTED" means SCTE-35 messages of the types specified in AdTriggers that
--- contain delivery restrictions will be treated as ads.  Choosing "UNRESTRICTED" means SCTE-35
--- messages of the types specified in AdTriggers that do not contain delivery restrictions will
--- be treated as ads.  Choosing "BOTH" means all SCTE-35 messages of the types specified in
--- AdTriggers will be treated as ads.  Note that Splice Insert messages do not have these flags
--- and are always treated as ads if specified in AdTriggers.
-data AdsOnDeliveryRestrictions
-  = AdsOnDeliveryRestrictions'
-      ( CI
-          Text
-      )
+-- | This setting allows the delivery restriction flags on SCTE-35
+-- segmentation descriptors to determine whether a message signals an ad.
+-- Choosing \"NONE\" means no SCTE-35 messages become ads. Choosing
+-- \"RESTRICTED\" means SCTE-35 messages of the types specified in
+-- AdTriggers that contain delivery restrictions will be treated as ads.
+-- Choosing \"UNRESTRICTED\" means SCTE-35 messages of the types specified
+-- in AdTriggers that do not contain delivery restrictions will be treated
+-- as ads. Choosing \"BOTH\" means all SCTE-35 messages of the types
+-- specified in AdTriggers will be treated as ads. Note that Splice Insert
+-- messages do not have these flags and are always treated as ads if
+-- specified in AdTriggers.
+newtype AdsOnDeliveryRestrictions = AdsOnDeliveryRestrictions'
+  { fromAdsOnDeliveryRestrictions ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AODRBoth :: AdsOnDeliveryRestrictions
-pattern AODRBoth = AdsOnDeliveryRestrictions' "BOTH"
+pattern AdsOnDeliveryRestrictionsBOTH :: AdsOnDeliveryRestrictions
+pattern AdsOnDeliveryRestrictionsBOTH = AdsOnDeliveryRestrictions' "BOTH"
 
-pattern AODRNone :: AdsOnDeliveryRestrictions
-pattern AODRNone = AdsOnDeliveryRestrictions' "NONE"
+pattern AdsOnDeliveryRestrictionsNONE :: AdsOnDeliveryRestrictions
+pattern AdsOnDeliveryRestrictionsNONE = AdsOnDeliveryRestrictions' "NONE"
 
-pattern AODRRestricted :: AdsOnDeliveryRestrictions
-pattern AODRRestricted = AdsOnDeliveryRestrictions' "RESTRICTED"
+pattern AdsOnDeliveryRestrictionsRESTRICTED :: AdsOnDeliveryRestrictions
+pattern AdsOnDeliveryRestrictionsRESTRICTED = AdsOnDeliveryRestrictions' "RESTRICTED"
 
-pattern AODRUnrestricted :: AdsOnDeliveryRestrictions
-pattern AODRUnrestricted = AdsOnDeliveryRestrictions' "UNRESTRICTED"
+pattern AdsOnDeliveryRestrictionsUNRESTRICTED :: AdsOnDeliveryRestrictions
+pattern AdsOnDeliveryRestrictionsUNRESTRICTED = AdsOnDeliveryRestrictions' "UNRESTRICTED"
 
 {-# COMPLETE
-  AODRBoth,
-  AODRNone,
-  AODRRestricted,
-  AODRUnrestricted,
+  AdsOnDeliveryRestrictionsBOTH,
+  AdsOnDeliveryRestrictionsNONE,
+  AdsOnDeliveryRestrictionsRESTRICTED,
+  AdsOnDeliveryRestrictionsUNRESTRICTED,
   AdsOnDeliveryRestrictions'
   #-}
 
-instance FromText AdsOnDeliveryRestrictions where
-  parser = (AdsOnDeliveryRestrictions' . mk) <$> takeText
+instance Prelude.FromText AdsOnDeliveryRestrictions where
+  parser = AdsOnDeliveryRestrictions' Prelude.<$> Prelude.takeText
 
-instance ToText AdsOnDeliveryRestrictions where
-  toText (AdsOnDeliveryRestrictions' ci) = original ci
+instance Prelude.ToText AdsOnDeliveryRestrictions where
+  toText (AdsOnDeliveryRestrictions' x) = x
 
-instance Hashable AdsOnDeliveryRestrictions
+instance Prelude.Hashable AdsOnDeliveryRestrictions
 
-instance NFData AdsOnDeliveryRestrictions
+instance Prelude.NFData AdsOnDeliveryRestrictions
 
-instance ToByteString AdsOnDeliveryRestrictions
+instance Prelude.ToByteString AdsOnDeliveryRestrictions
 
-instance ToQuery AdsOnDeliveryRestrictions
+instance Prelude.ToQuery AdsOnDeliveryRestrictions
 
-instance ToHeader AdsOnDeliveryRestrictions
+instance Prelude.ToHeader AdsOnDeliveryRestrictions
 
-instance ToJSON AdsOnDeliveryRestrictions where
-  toJSON = toJSONText
+instance Prelude.ToJSON AdsOnDeliveryRestrictions where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AdsOnDeliveryRestrictions where
-  parseJSON = parseJSONText "AdsOnDeliveryRestrictions"
+instance Prelude.FromJSON AdsOnDeliveryRestrictions where
+  parseJSON = Prelude.parseJSONText "AdsOnDeliveryRestrictions"

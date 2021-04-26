@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,248 +21,246 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Rotate the IngestEndpoint's username and password, as specified by the IngestEndpoint's id.
+-- Rotate the IngestEndpoint\'s username and password, as specified by the
+-- IngestEndpoint\'s id.
 module Network.AWS.MediaPackage.RotateIngestEndpointCredentials
   ( -- * Creating a Request
-    rotateIngestEndpointCredentials,
-    RotateIngestEndpointCredentials,
+    RotateIngestEndpointCredentials (..),
+    newRotateIngestEndpointCredentials,
 
     -- * Request Lenses
-    riecIngestEndpointId,
-    riecId,
+    rotateIngestEndpointCredentials_ingestEndpointId,
+    rotateIngestEndpointCredentials_id,
 
     -- * Destructuring the Response
-    rotateIngestEndpointCredentialsResponse,
-    RotateIngestEndpointCredentialsResponse,
+    RotateIngestEndpointCredentialsResponse (..),
+    newRotateIngestEndpointCredentialsResponse,
 
     -- * Response Lenses
-    riecrrsEgressAccessLogs,
-    riecrrsHlsIngest,
-    riecrrsARN,
-    riecrrsId,
-    riecrrsIngressAccessLogs,
-    riecrrsTags,
-    riecrrsDescription,
-    riecrrsResponseStatus,
+    rotateIngestEndpointCredentialsResponse_egressAccessLogs,
+    rotateIngestEndpointCredentialsResponse_hlsIngest,
+    rotateIngestEndpointCredentialsResponse_arn,
+    rotateIngestEndpointCredentialsResponse_id,
+    rotateIngestEndpointCredentialsResponse_ingressAccessLogs,
+    rotateIngestEndpointCredentialsResponse_tags,
+    rotateIngestEndpointCredentialsResponse_description,
+    rotateIngestEndpointCredentialsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaPackage.Types.EgressAccessLogs
+import Network.AWS.MediaPackage.Types.HlsIngest
+import Network.AWS.MediaPackage.Types.IngressAccessLogs
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rotateIngestEndpointCredentials' smart constructor.
+-- | /See:/ 'newRotateIngestEndpointCredentials' smart constructor.
 data RotateIngestEndpointCredentials = RotateIngestEndpointCredentials'
-  { _riecIngestEndpointId ::
-      !Text,
-    _riecId ::
-      !Text
+  { -- | The id of the IngestEndpoint whose credentials should be rotated
+    ingestEndpointId :: Prelude.Text,
+    -- | The ID of the channel the IngestEndpoint is on.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RotateIngestEndpointCredentials' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RotateIngestEndpointCredentials' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riecIngestEndpointId' - The id of the IngestEndpoint whose credentials should be rotated
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riecId' - The ID of the channel the IngestEndpoint is on.
-rotateIngestEndpointCredentials ::
-  -- | 'riecIngestEndpointId'
-  Text ->
-  -- | 'riecId'
-  Text ->
+-- 'ingestEndpointId', 'rotateIngestEndpointCredentials_ingestEndpointId' - The id of the IngestEndpoint whose credentials should be rotated
+--
+-- 'id', 'rotateIngestEndpointCredentials_id' - The ID of the channel the IngestEndpoint is on.
+newRotateIngestEndpointCredentials ::
+  -- | 'ingestEndpointId'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
   RotateIngestEndpointCredentials
-rotateIngestEndpointCredentials
+newRotateIngestEndpointCredentials
   pIngestEndpointId_
   pId_ =
     RotateIngestEndpointCredentials'
-      { _riecIngestEndpointId =
+      { ingestEndpointId =
           pIngestEndpointId_,
-        _riecId = pId_
+        id = pId_
       }
 
 -- | The id of the IngestEndpoint whose credentials should be rotated
-riecIngestEndpointId :: Lens' RotateIngestEndpointCredentials Text
-riecIngestEndpointId = lens _riecIngestEndpointId (\s a -> s {_riecIngestEndpointId = a})
+rotateIngestEndpointCredentials_ingestEndpointId :: Lens.Lens' RotateIngestEndpointCredentials Prelude.Text
+rotateIngestEndpointCredentials_ingestEndpointId = Lens.lens (\RotateIngestEndpointCredentials' {ingestEndpointId} -> ingestEndpointId) (\s@RotateIngestEndpointCredentials' {} a -> s {ingestEndpointId = a} :: RotateIngestEndpointCredentials)
 
 -- | The ID of the channel the IngestEndpoint is on.
-riecId :: Lens' RotateIngestEndpointCredentials Text
-riecId = lens _riecId (\s a -> s {_riecId = a})
+rotateIngestEndpointCredentials_id :: Lens.Lens' RotateIngestEndpointCredentials Prelude.Text
+rotateIngestEndpointCredentials_id = Lens.lens (\RotateIngestEndpointCredentials' {id} -> id) (\s@RotateIngestEndpointCredentials' {} a -> s {id = a} :: RotateIngestEndpointCredentials)
 
-instance AWSRequest RotateIngestEndpointCredentials where
+instance
+  Prelude.AWSRequest
+    RotateIngestEndpointCredentials
+  where
   type
     Rs RotateIngestEndpointCredentials =
       RotateIngestEndpointCredentialsResponse
-  request = putJSON mediaPackage
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           RotateIngestEndpointCredentialsResponse'
-            <$> (x .?> "egressAccessLogs")
-            <*> (x .?> "hlsIngest")
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "ingressAccessLogs")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "egressAccessLogs")
+            Prelude.<*> (x Prelude..?> "hlsIngest")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "ingressAccessLogs")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RotateIngestEndpointCredentials
+instance
+  Prelude.Hashable
+    RotateIngestEndpointCredentials
 
-instance NFData RotateIngestEndpointCredentials
+instance
+  Prelude.NFData
+    RotateIngestEndpointCredentials
 
-instance ToHeaders RotateIngestEndpointCredentials where
+instance
+  Prelude.ToHeaders
+    RotateIngestEndpointCredentials
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RotateIngestEndpointCredentials where
-  toJSON = const (Object mempty)
+instance
+  Prelude.ToJSON
+    RotateIngestEndpointCredentials
+  where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath RotateIngestEndpointCredentials where
+instance
+  Prelude.ToPath
+    RotateIngestEndpointCredentials
+  where
   toPath RotateIngestEndpointCredentials' {..} =
-    mconcat
+    Prelude.mconcat
       [ "/channels/",
-        toBS _riecId,
+        Prelude.toBS id,
         "/ingest_endpoints/",
-        toBS _riecIngestEndpointId,
+        Prelude.toBS ingestEndpointId,
         "/credentials"
       ]
 
-instance ToQuery RotateIngestEndpointCredentials where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    RotateIngestEndpointCredentials
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rotateIngestEndpointCredentialsResponse' smart constructor.
+-- | /See:/ 'newRotateIngestEndpointCredentialsResponse' smart constructor.
 data RotateIngestEndpointCredentialsResponse = RotateIngestEndpointCredentialsResponse'
-  { _riecrrsEgressAccessLogs ::
-      !( Maybe
-           EgressAccessLogs
-       ),
-    _riecrrsHlsIngest ::
-      !( Maybe
-           HlsIngest
-       ),
-    _riecrrsARN ::
-      !( Maybe
-           Text
-       ),
-    _riecrrsId ::
-      !( Maybe
-           Text
-       ),
-    _riecrrsIngressAccessLogs ::
-      !( Maybe
-           IngressAccessLogs
-       ),
-    _riecrrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _riecrrsDescription ::
-      !( Maybe
-           Text
-       ),
-    _riecrrsResponseStatus ::
-      !Int
+  { egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
+    hlsIngest :: Prelude.Maybe HlsIngest,
+    -- | The Amazon Resource Name (ARN) assigned to the Channel.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Channel.
+    id :: Prelude.Maybe Prelude.Text,
+    ingressAccessLogs :: Prelude.Maybe IngressAccessLogs,
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A short text description of the Channel.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RotateIngestEndpointCredentialsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RotateIngestEndpointCredentialsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'riecrrsEgressAccessLogs' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'riecrrsHlsIngest' - Undocumented member.
+-- 'egressAccessLogs', 'rotateIngestEndpointCredentialsResponse_egressAccessLogs' - Undocumented member.
 --
--- * 'riecrrsARN' - The Amazon Resource Name (ARN) assigned to the Channel.
+-- 'hlsIngest', 'rotateIngestEndpointCredentialsResponse_hlsIngest' - Undocumented member.
 --
--- * 'riecrrsId' - The ID of the Channel.
+-- 'arn', 'rotateIngestEndpointCredentialsResponse_arn' - The Amazon Resource Name (ARN) assigned to the Channel.
 --
--- * 'riecrrsIngressAccessLogs' - Undocumented member.
+-- 'id', 'rotateIngestEndpointCredentialsResponse_id' - The ID of the Channel.
 --
--- * 'riecrrsTags' - Undocumented member.
+-- 'ingressAccessLogs', 'rotateIngestEndpointCredentialsResponse_ingressAccessLogs' - Undocumented member.
 --
--- * 'riecrrsDescription' - A short text description of the Channel.
+-- 'tags', 'rotateIngestEndpointCredentialsResponse_tags' - Undocumented member.
 --
--- * 'riecrrsResponseStatus' - -- | The response status code.
-rotateIngestEndpointCredentialsResponse ::
-  -- | 'riecrrsResponseStatus'
-  Int ->
+-- 'description', 'rotateIngestEndpointCredentialsResponse_description' - A short text description of the Channel.
+--
+-- 'httpStatus', 'rotateIngestEndpointCredentialsResponse_httpStatus' - The response's http status code.
+newRotateIngestEndpointCredentialsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RotateIngestEndpointCredentialsResponse
-rotateIngestEndpointCredentialsResponse
-  pResponseStatus_ =
+newRotateIngestEndpointCredentialsResponse
+  pHttpStatus_ =
     RotateIngestEndpointCredentialsResponse'
-      { _riecrrsEgressAccessLogs =
-          Nothing,
-        _riecrrsHlsIngest = Nothing,
-        _riecrrsARN = Nothing,
-        _riecrrsId = Nothing,
-        _riecrrsIngressAccessLogs =
-          Nothing,
-        _riecrrsTags = Nothing,
-        _riecrrsDescription = Nothing,
-        _riecrrsResponseStatus =
-          pResponseStatus_
+      { egressAccessLogs =
+          Prelude.Nothing,
+        hlsIngest = Prelude.Nothing,
+        arn = Prelude.Nothing,
+        id = Prelude.Nothing,
+        ingressAccessLogs =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
+        description = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | Undocumented member.
-riecrrsEgressAccessLogs :: Lens' RotateIngestEndpointCredentialsResponse (Maybe EgressAccessLogs)
-riecrrsEgressAccessLogs = lens _riecrrsEgressAccessLogs (\s a -> s {_riecrrsEgressAccessLogs = a})
+rotateIngestEndpointCredentialsResponse_egressAccessLogs :: Lens.Lens' RotateIngestEndpointCredentialsResponse (Prelude.Maybe EgressAccessLogs)
+rotateIngestEndpointCredentialsResponse_egressAccessLogs = Lens.lens (\RotateIngestEndpointCredentialsResponse' {egressAccessLogs} -> egressAccessLogs) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {egressAccessLogs = a} :: RotateIngestEndpointCredentialsResponse)
 
 -- | Undocumented member.
-riecrrsHlsIngest :: Lens' RotateIngestEndpointCredentialsResponse (Maybe HlsIngest)
-riecrrsHlsIngest = lens _riecrrsHlsIngest (\s a -> s {_riecrrsHlsIngest = a})
+rotateIngestEndpointCredentialsResponse_hlsIngest :: Lens.Lens' RotateIngestEndpointCredentialsResponse (Prelude.Maybe HlsIngest)
+rotateIngestEndpointCredentialsResponse_hlsIngest = Lens.lens (\RotateIngestEndpointCredentialsResponse' {hlsIngest} -> hlsIngest) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {hlsIngest = a} :: RotateIngestEndpointCredentialsResponse)
 
 -- | The Amazon Resource Name (ARN) assigned to the Channel.
-riecrrsARN :: Lens' RotateIngestEndpointCredentialsResponse (Maybe Text)
-riecrrsARN = lens _riecrrsARN (\s a -> s {_riecrrsARN = a})
+rotateIngestEndpointCredentialsResponse_arn :: Lens.Lens' RotateIngestEndpointCredentialsResponse (Prelude.Maybe Prelude.Text)
+rotateIngestEndpointCredentialsResponse_arn = Lens.lens (\RotateIngestEndpointCredentialsResponse' {arn} -> arn) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {arn = a} :: RotateIngestEndpointCredentialsResponse)
 
 -- | The ID of the Channel.
-riecrrsId :: Lens' RotateIngestEndpointCredentialsResponse (Maybe Text)
-riecrrsId = lens _riecrrsId (\s a -> s {_riecrrsId = a})
+rotateIngestEndpointCredentialsResponse_id :: Lens.Lens' RotateIngestEndpointCredentialsResponse (Prelude.Maybe Prelude.Text)
+rotateIngestEndpointCredentialsResponse_id = Lens.lens (\RotateIngestEndpointCredentialsResponse' {id} -> id) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {id = a} :: RotateIngestEndpointCredentialsResponse)
 
 -- | Undocumented member.
-riecrrsIngressAccessLogs :: Lens' RotateIngestEndpointCredentialsResponse (Maybe IngressAccessLogs)
-riecrrsIngressAccessLogs = lens _riecrrsIngressAccessLogs (\s a -> s {_riecrrsIngressAccessLogs = a})
+rotateIngestEndpointCredentialsResponse_ingressAccessLogs :: Lens.Lens' RotateIngestEndpointCredentialsResponse (Prelude.Maybe IngressAccessLogs)
+rotateIngestEndpointCredentialsResponse_ingressAccessLogs = Lens.lens (\RotateIngestEndpointCredentialsResponse' {ingressAccessLogs} -> ingressAccessLogs) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {ingressAccessLogs = a} :: RotateIngestEndpointCredentialsResponse)
 
 -- | Undocumented member.
-riecrrsTags :: Lens' RotateIngestEndpointCredentialsResponse (HashMap Text Text)
-riecrrsTags = lens _riecrrsTags (\s a -> s {_riecrrsTags = a}) . _Default . _Map
+rotateIngestEndpointCredentialsResponse_tags :: Lens.Lens' RotateIngestEndpointCredentialsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+rotateIngestEndpointCredentialsResponse_tags = Lens.lens (\RotateIngestEndpointCredentialsResponse' {tags} -> tags) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {tags = a} :: RotateIngestEndpointCredentialsResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | A short text description of the Channel.
-riecrrsDescription :: Lens' RotateIngestEndpointCredentialsResponse (Maybe Text)
-riecrrsDescription = lens _riecrrsDescription (\s a -> s {_riecrrsDescription = a})
+rotateIngestEndpointCredentialsResponse_description :: Lens.Lens' RotateIngestEndpointCredentialsResponse (Prelude.Maybe Prelude.Text)
+rotateIngestEndpointCredentialsResponse_description = Lens.lens (\RotateIngestEndpointCredentialsResponse' {description} -> description) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {description = a} :: RotateIngestEndpointCredentialsResponse)
 
--- | -- | The response status code.
-riecrrsResponseStatus :: Lens' RotateIngestEndpointCredentialsResponse Int
-riecrrsResponseStatus = lens _riecrrsResponseStatus (\s a -> s {_riecrrsResponseStatus = a})
+-- | The response's http status code.
+rotateIngestEndpointCredentialsResponse_httpStatus :: Lens.Lens' RotateIngestEndpointCredentialsResponse Prelude.Int
+rotateIngestEndpointCredentialsResponse_httpStatus = Lens.lens (\RotateIngestEndpointCredentialsResponse' {httpStatus} -> httpStatus) (\s@RotateIngestEndpointCredentialsResponse' {} a -> s {httpStatus = a} :: RotateIngestEndpointCredentialsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     RotateIngestEndpointCredentialsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.MediaPackage.Types.AdMarkers
   ( AdMarkers
       ( ..,
-        Daterange,
-        None,
-        Passthrough,
-        SCTE35Enhanced
+        AdMarkersDATERANGE,
+        AdMarkersNONE,
+        AdMarkersPASSTHROUGH,
+        AdMarkersSCTE35ENHANCED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AdMarkers = AdMarkers' (CI Text)
+newtype AdMarkers = AdMarkers'
+  { fromAdMarkers ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Daterange :: AdMarkers
-pattern Daterange = AdMarkers' "DATERANGE"
+pattern AdMarkersDATERANGE :: AdMarkers
+pattern AdMarkersDATERANGE = AdMarkers' "DATERANGE"
 
-pattern None :: AdMarkers
-pattern None = AdMarkers' "NONE"
+pattern AdMarkersNONE :: AdMarkers
+pattern AdMarkersNONE = AdMarkers' "NONE"
 
-pattern Passthrough :: AdMarkers
-pattern Passthrough = AdMarkers' "PASSTHROUGH"
+pattern AdMarkersPASSTHROUGH :: AdMarkers
+pattern AdMarkersPASSTHROUGH = AdMarkers' "PASSTHROUGH"
 
-pattern SCTE35Enhanced :: AdMarkers
-pattern SCTE35Enhanced = AdMarkers' "SCTE35_ENHANCED"
+pattern AdMarkersSCTE35ENHANCED :: AdMarkers
+pattern AdMarkersSCTE35ENHANCED = AdMarkers' "SCTE35_ENHANCED"
 
 {-# COMPLETE
-  Daterange,
-  None,
-  Passthrough,
-  SCTE35Enhanced,
+  AdMarkersDATERANGE,
+  AdMarkersNONE,
+  AdMarkersPASSTHROUGH,
+  AdMarkersSCTE35ENHANCED,
   AdMarkers'
   #-}
 
-instance FromText AdMarkers where
-  parser = (AdMarkers' . mk) <$> takeText
+instance Prelude.FromText AdMarkers where
+  parser = AdMarkers' Prelude.<$> Prelude.takeText
 
-instance ToText AdMarkers where
-  toText (AdMarkers' ci) = original ci
+instance Prelude.ToText AdMarkers where
+  toText (AdMarkers' x) = x
 
-instance Hashable AdMarkers
+instance Prelude.Hashable AdMarkers
 
-instance NFData AdMarkers
+instance Prelude.NFData AdMarkers
 
-instance ToByteString AdMarkers
+instance Prelude.ToByteString AdMarkers
 
-instance ToQuery AdMarkers
+instance Prelude.ToQuery AdMarkers
 
-instance ToHeader AdMarkers
+instance Prelude.ToHeader AdMarkers
 
-instance ToJSON AdMarkers where
-  toJSON = toJSONText
+instance Prelude.ToJSON AdMarkers where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AdMarkers where
-  parseJSON = parseJSONText "AdMarkers"
+instance Prelude.FromJSON AdMarkers where
+  parseJSON = Prelude.parseJSONText "AdMarkers"

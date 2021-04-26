@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.MediaPackage.Types.AdTriggersElement
   ( AdTriggersElement
       ( ..,
-        Break,
-        DistributorAdvertisement,
-        DistributorOverlayPlacementOpportunity,
-        DistributorPlacementOpportunity,
-        ProviderAdvertisement,
-        ProviderOverlayPlacementOpportunity,
-        ProviderPlacementOpportunity,
-        SpliceInsert
+        AdTriggersElementBREAK,
+        AdTriggersElementDISTRIBUTORADVERTISEMENT,
+        AdTriggersElementDISTRIBUTOROVERLAYPLACEMENTOPPORTUNITY,
+        AdTriggersElementDISTRIBUTORPLACEMENTOPPORTUNITY,
+        AdTriggersElementPROVIDERADVERTISEMENT,
+        AdTriggersElementPROVIDEROVERLAYPLACEMENTOPPORTUNITY,
+        AdTriggersElementPROVIDERPLACEMENTOPPORTUNITY,
+        AdTriggersElementSPLICEINSERT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data AdTriggersElement = AdTriggersElement' (CI Text)
+newtype AdTriggersElement = AdTriggersElement'
+  { fromAdTriggersElement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Break :: AdTriggersElement
-pattern Break = AdTriggersElement' "BREAK"
+pattern AdTriggersElementBREAK :: AdTriggersElement
+pattern AdTriggersElementBREAK = AdTriggersElement' "BREAK"
 
-pattern DistributorAdvertisement :: AdTriggersElement
-pattern DistributorAdvertisement = AdTriggersElement' "DISTRIBUTOR_ADVERTISEMENT"
+pattern AdTriggersElementDISTRIBUTORADVERTISEMENT :: AdTriggersElement
+pattern AdTriggersElementDISTRIBUTORADVERTISEMENT = AdTriggersElement' "DISTRIBUTOR_ADVERTISEMENT"
 
-pattern DistributorOverlayPlacementOpportunity :: AdTriggersElement
-pattern DistributorOverlayPlacementOpportunity = AdTriggersElement' "DISTRIBUTOR_OVERLAY_PLACEMENT_OPPORTUNITY"
+pattern AdTriggersElementDISTRIBUTOROVERLAYPLACEMENTOPPORTUNITY :: AdTriggersElement
+pattern AdTriggersElementDISTRIBUTOROVERLAYPLACEMENTOPPORTUNITY = AdTriggersElement' "DISTRIBUTOR_OVERLAY_PLACEMENT_OPPORTUNITY"
 
-pattern DistributorPlacementOpportunity :: AdTriggersElement
-pattern DistributorPlacementOpportunity = AdTriggersElement' "DISTRIBUTOR_PLACEMENT_OPPORTUNITY"
+pattern AdTriggersElementDISTRIBUTORPLACEMENTOPPORTUNITY :: AdTriggersElement
+pattern AdTriggersElementDISTRIBUTORPLACEMENTOPPORTUNITY = AdTriggersElement' "DISTRIBUTOR_PLACEMENT_OPPORTUNITY"
 
-pattern ProviderAdvertisement :: AdTriggersElement
-pattern ProviderAdvertisement = AdTriggersElement' "PROVIDER_ADVERTISEMENT"
+pattern AdTriggersElementPROVIDERADVERTISEMENT :: AdTriggersElement
+pattern AdTriggersElementPROVIDERADVERTISEMENT = AdTriggersElement' "PROVIDER_ADVERTISEMENT"
 
-pattern ProviderOverlayPlacementOpportunity :: AdTriggersElement
-pattern ProviderOverlayPlacementOpportunity = AdTriggersElement' "PROVIDER_OVERLAY_PLACEMENT_OPPORTUNITY"
+pattern AdTriggersElementPROVIDEROVERLAYPLACEMENTOPPORTUNITY :: AdTriggersElement
+pattern AdTriggersElementPROVIDEROVERLAYPLACEMENTOPPORTUNITY = AdTriggersElement' "PROVIDER_OVERLAY_PLACEMENT_OPPORTUNITY"
 
-pattern ProviderPlacementOpportunity :: AdTriggersElement
-pattern ProviderPlacementOpportunity = AdTriggersElement' "PROVIDER_PLACEMENT_OPPORTUNITY"
+pattern AdTriggersElementPROVIDERPLACEMENTOPPORTUNITY :: AdTriggersElement
+pattern AdTriggersElementPROVIDERPLACEMENTOPPORTUNITY = AdTriggersElement' "PROVIDER_PLACEMENT_OPPORTUNITY"
 
-pattern SpliceInsert :: AdTriggersElement
-pattern SpliceInsert = AdTriggersElement' "SPLICE_INSERT"
+pattern AdTriggersElementSPLICEINSERT :: AdTriggersElement
+pattern AdTriggersElementSPLICEINSERT = AdTriggersElement' "SPLICE_INSERT"
 
 {-# COMPLETE
-  Break,
-  DistributorAdvertisement,
-  DistributorOverlayPlacementOpportunity,
-  DistributorPlacementOpportunity,
-  ProviderAdvertisement,
-  ProviderOverlayPlacementOpportunity,
-  ProviderPlacementOpportunity,
-  SpliceInsert,
+  AdTriggersElementBREAK,
+  AdTriggersElementDISTRIBUTORADVERTISEMENT,
+  AdTriggersElementDISTRIBUTOROVERLAYPLACEMENTOPPORTUNITY,
+  AdTriggersElementDISTRIBUTORPLACEMENTOPPORTUNITY,
+  AdTriggersElementPROVIDERADVERTISEMENT,
+  AdTriggersElementPROVIDEROVERLAYPLACEMENTOPPORTUNITY,
+  AdTriggersElementPROVIDERPLACEMENTOPPORTUNITY,
+  AdTriggersElementSPLICEINSERT,
   AdTriggersElement'
   #-}
 
-instance FromText AdTriggersElement where
-  parser = (AdTriggersElement' . mk) <$> takeText
+instance Prelude.FromText AdTriggersElement where
+  parser = AdTriggersElement' Prelude.<$> Prelude.takeText
 
-instance ToText AdTriggersElement where
-  toText (AdTriggersElement' ci) = original ci
+instance Prelude.ToText AdTriggersElement where
+  toText (AdTriggersElement' x) = x
 
-instance Hashable AdTriggersElement
+instance Prelude.Hashable AdTriggersElement
 
-instance NFData AdTriggersElement
+instance Prelude.NFData AdTriggersElement
 
-instance ToByteString AdTriggersElement
+instance Prelude.ToByteString AdTriggersElement
 
-instance ToQuery AdTriggersElement
+instance Prelude.ToQuery AdTriggersElement
 
-instance ToHeader AdTriggersElement
+instance Prelude.ToHeader AdTriggersElement
 
-instance ToJSON AdTriggersElement where
-  toJSON = toJSONText
+instance Prelude.ToJSON AdTriggersElement where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON AdTriggersElement where
-  parseJSON = parseJSONText "AdTriggersElement"
+instance Prelude.FromJSON AdTriggersElement where
+  parseJSON = Prelude.parseJSONText "AdTriggersElement"

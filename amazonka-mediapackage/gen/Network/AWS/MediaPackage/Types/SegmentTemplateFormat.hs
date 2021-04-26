@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.MediaPackage.Types.SegmentTemplateFormat
   ( SegmentTemplateFormat
       ( ..,
-        NumberWithDuration,
-        NumberWithTimeline,
-        TimeWithTimeline
+        SegmentTemplateFormatNUMBERWITHDURATION,
+        SegmentTemplateFormatNUMBERWITHTIMELINE,
+        SegmentTemplateFormatTIMEWITHTIMELINE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SegmentTemplateFormat
-  = SegmentTemplateFormat'
-      ( CI
-          Text
-      )
+newtype SegmentTemplateFormat = SegmentTemplateFormat'
+  { fromSegmentTemplateFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NumberWithDuration :: SegmentTemplateFormat
-pattern NumberWithDuration = SegmentTemplateFormat' "NUMBER_WITH_DURATION"
+pattern SegmentTemplateFormatNUMBERWITHDURATION :: SegmentTemplateFormat
+pattern SegmentTemplateFormatNUMBERWITHDURATION = SegmentTemplateFormat' "NUMBER_WITH_DURATION"
 
-pattern NumberWithTimeline :: SegmentTemplateFormat
-pattern NumberWithTimeline = SegmentTemplateFormat' "NUMBER_WITH_TIMELINE"
+pattern SegmentTemplateFormatNUMBERWITHTIMELINE :: SegmentTemplateFormat
+pattern SegmentTemplateFormatNUMBERWITHTIMELINE = SegmentTemplateFormat' "NUMBER_WITH_TIMELINE"
 
-pattern TimeWithTimeline :: SegmentTemplateFormat
-pattern TimeWithTimeline = SegmentTemplateFormat' "TIME_WITH_TIMELINE"
+pattern SegmentTemplateFormatTIMEWITHTIMELINE :: SegmentTemplateFormat
+pattern SegmentTemplateFormatTIMEWITHTIMELINE = SegmentTemplateFormat' "TIME_WITH_TIMELINE"
 
 {-# COMPLETE
-  NumberWithDuration,
-  NumberWithTimeline,
-  TimeWithTimeline,
+  SegmentTemplateFormatNUMBERWITHDURATION,
+  SegmentTemplateFormatNUMBERWITHTIMELINE,
+  SegmentTemplateFormatTIMEWITHTIMELINE,
   SegmentTemplateFormat'
   #-}
 
-instance FromText SegmentTemplateFormat where
-  parser = (SegmentTemplateFormat' . mk) <$> takeText
+instance Prelude.FromText SegmentTemplateFormat where
+  parser = SegmentTemplateFormat' Prelude.<$> Prelude.takeText
 
-instance ToText SegmentTemplateFormat where
-  toText (SegmentTemplateFormat' ci) = original ci
+instance Prelude.ToText SegmentTemplateFormat where
+  toText (SegmentTemplateFormat' x) = x
 
-instance Hashable SegmentTemplateFormat
+instance Prelude.Hashable SegmentTemplateFormat
 
-instance NFData SegmentTemplateFormat
+instance Prelude.NFData SegmentTemplateFormat
 
-instance ToByteString SegmentTemplateFormat
+instance Prelude.ToByteString SegmentTemplateFormat
 
-instance ToQuery SegmentTemplateFormat
+instance Prelude.ToQuery SegmentTemplateFormat
 
-instance ToHeader SegmentTemplateFormat
+instance Prelude.ToHeader SegmentTemplateFormat
 
-instance ToJSON SegmentTemplateFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON SegmentTemplateFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SegmentTemplateFormat where
-  parseJSON = parseJSONText "SegmentTemplateFormat"
+instance Prelude.FromJSON SegmentTemplateFormat where
+  parseJSON = Prelude.parseJSONText "SegmentTemplateFormat"

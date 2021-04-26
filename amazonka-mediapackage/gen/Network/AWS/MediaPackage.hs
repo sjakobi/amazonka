@@ -14,7 +14,7 @@
 -- AWS Elemental MediaPackage
 module Network.AWS.MediaPackage
   ( -- * Service Configuration
-    mediaPackage,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -44,58 +44,112 @@ module Network.AWS.MediaPackage
     -- $operations
 
     -- ** CreateChannel
-    module Network.AWS.MediaPackage.CreateChannel,
+    CreateChannel (CreateChannel'),
+    newCreateChannel,
+    CreateChannelResponse (CreateChannelResponse'),
+    newCreateChannelResponse,
 
     -- ** CreateHarvestJob
-    module Network.AWS.MediaPackage.CreateHarvestJob,
+    CreateHarvestJob (CreateHarvestJob'),
+    newCreateHarvestJob,
+    CreateHarvestJobResponse (CreateHarvestJobResponse'),
+    newCreateHarvestJobResponse,
 
     -- ** UpdateOriginEndpoint
-    module Network.AWS.MediaPackage.UpdateOriginEndpoint,
+    UpdateOriginEndpoint (UpdateOriginEndpoint'),
+    newUpdateOriginEndpoint,
+    UpdateOriginEndpointResponse (UpdateOriginEndpointResponse'),
+    newUpdateOriginEndpointResponse,
 
     -- ** DeleteOriginEndpoint
-    module Network.AWS.MediaPackage.DeleteOriginEndpoint,
+    DeleteOriginEndpoint (DeleteOriginEndpoint'),
+    newDeleteOriginEndpoint,
+    DeleteOriginEndpointResponse (DeleteOriginEndpointResponse'),
+    newDeleteOriginEndpointResponse,
 
     -- ** ListOriginEndpoints (Paginated)
-    module Network.AWS.MediaPackage.ListOriginEndpoints,
+    ListOriginEndpoints (ListOriginEndpoints'),
+    newListOriginEndpoints,
+    ListOriginEndpointsResponse (ListOriginEndpointsResponse'),
+    newListOriginEndpointsResponse,
 
     -- ** CreateOriginEndpoint
-    module Network.AWS.MediaPackage.CreateOriginEndpoint,
+    CreateOriginEndpoint (CreateOriginEndpoint'),
+    newCreateOriginEndpoint,
+    CreateOriginEndpointResponse (CreateOriginEndpointResponse'),
+    newCreateOriginEndpointResponse,
 
     -- ** UntagResource
-    module Network.AWS.MediaPackage.UntagResource,
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** TagResource
-    module Network.AWS.MediaPackage.TagResource,
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** DescribeOriginEndpoint
-    module Network.AWS.MediaPackage.DescribeOriginEndpoint,
+    DescribeOriginEndpoint (DescribeOriginEndpoint'),
+    newDescribeOriginEndpoint,
+    DescribeOriginEndpointResponse (DescribeOriginEndpointResponse'),
+    newDescribeOriginEndpointResponse,
 
     -- ** ListChannels (Paginated)
-    module Network.AWS.MediaPackage.ListChannels,
+    ListChannels (ListChannels'),
+    newListChannels,
+    ListChannelsResponse (ListChannelsResponse'),
+    newListChannelsResponse,
 
     -- ** ConfigureLogs
-    module Network.AWS.MediaPackage.ConfigureLogs,
+    ConfigureLogs (ConfigureLogs'),
+    newConfigureLogs,
+    ConfigureLogsResponse (ConfigureLogsResponse'),
+    newConfigureLogsResponse,
 
     -- ** ListHarvestJobs (Paginated)
-    module Network.AWS.MediaPackage.ListHarvestJobs,
+    ListHarvestJobs (ListHarvestJobs'),
+    newListHarvestJobs,
+    ListHarvestJobsResponse (ListHarvestJobsResponse'),
+    newListHarvestJobsResponse,
 
     -- ** DescribeChannel
-    module Network.AWS.MediaPackage.DescribeChannel,
+    DescribeChannel (DescribeChannel'),
+    newDescribeChannel,
+    DescribeChannelResponse (DescribeChannelResponse'),
+    newDescribeChannelResponse,
 
     -- ** RotateIngestEndpointCredentials
-    module Network.AWS.MediaPackage.RotateIngestEndpointCredentials,
+    RotateIngestEndpointCredentials (RotateIngestEndpointCredentials'),
+    newRotateIngestEndpointCredentials,
+    RotateIngestEndpointCredentialsResponse (RotateIngestEndpointCredentialsResponse'),
+    newRotateIngestEndpointCredentialsResponse,
 
     -- ** DescribeHarvestJob
-    module Network.AWS.MediaPackage.DescribeHarvestJob,
+    DescribeHarvestJob (DescribeHarvestJob'),
+    newDescribeHarvestJob,
+    DescribeHarvestJobResponse (DescribeHarvestJobResponse'),
+    newDescribeHarvestJobResponse,
 
     -- ** ListTagsForResource
-    module Network.AWS.MediaPackage.ListTagsForResource,
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** DeleteChannel
-    module Network.AWS.MediaPackage.DeleteChannel,
+    DeleteChannel (DeleteChannel'),
+    newDeleteChannel,
+    DeleteChannelResponse (DeleteChannelResponse'),
+    newDeleteChannelResponse,
 
     -- ** UpdateChannel
-    module Network.AWS.MediaPackage.UpdateChannel,
+    UpdateChannel (UpdateChannel'),
+    newUpdateChannel,
+    UpdateChannelResponse (UpdateChannelResponse'),
+    newUpdateChannelResponse,
 
     -- * Types
 
@@ -139,211 +193,92 @@ module Network.AWS.MediaPackage
     UtcTiming (..),
 
     -- ** Authorization
-    Authorization,
-    authorization,
-    aSecretsRoleARN,
-    aCdnIdentifierSecret,
+    Authorization (Authorization'),
+    newAuthorization,
 
     -- ** Channel
-    Channel,
-    channel,
-    cEgressAccessLogs,
-    cHlsIngest,
-    cARN,
-    cId,
-    cIngressAccessLogs,
-    cTags,
-    cDescription,
+    Channel (Channel'),
+    newChannel,
 
     -- ** CmafEncryption
-    CmafEncryption,
-    cmafEncryption,
-    ceKeyRotationIntervalSeconds,
-    ceSpekeKeyProvider,
+    CmafEncryption (CmafEncryption'),
+    newCmafEncryption,
 
     -- ** CmafPackage
-    CmafPackage,
-    cmafPackage,
-    cpStreamSelection,
-    cpHlsManifests,
-    cpSegmentPrefix,
-    cpEncryption,
-    cpSegmentDurationSeconds,
+    CmafPackage (CmafPackage'),
+    newCmafPackage,
 
     -- ** CmafPackageCreateOrUpdateParameters
-    CmafPackageCreateOrUpdateParameters,
-    cmafPackageCreateOrUpdateParameters,
-    cpcoupStreamSelection,
-    cpcoupHlsManifests,
-    cpcoupSegmentPrefix,
-    cpcoupEncryption,
-    cpcoupSegmentDurationSeconds,
+    CmafPackageCreateOrUpdateParameters (CmafPackageCreateOrUpdateParameters'),
+    newCmafPackageCreateOrUpdateParameters,
 
     -- ** DashEncryption
-    DashEncryption,
-    dashEncryption,
-    deKeyRotationIntervalSeconds,
-    deSpekeKeyProvider,
+    DashEncryption (DashEncryption'),
+    newDashEncryption,
 
     -- ** DashPackage
-    DashPackage,
-    dashPackage,
-    dpMinBufferTimeSeconds,
-    dpStreamSelection,
-    dpPeriodTriggers,
-    dpAdTriggers,
-    dpManifestWindowSeconds,
-    dpManifestLayout,
-    dpMinUpdatePeriodSeconds,
-    dpEncryption,
-    dpAdsOnDeliveryRestrictions,
-    dpUtcTimingURI,
-    dpSegmentDurationSeconds,
-    dpProfile,
-    dpSegmentTemplateFormat,
-    dpSuggestedPresentationDelaySeconds,
-    dpUtcTiming,
+    DashPackage (DashPackage'),
+    newDashPackage,
 
     -- ** EgressAccessLogs
-    EgressAccessLogs,
-    egressAccessLogs,
-    ealLogGroupName,
+    EgressAccessLogs (EgressAccessLogs'),
+    newEgressAccessLogs,
 
     -- ** HarvestJob
-    HarvestJob,
-    harvestJob,
-    hjStatus,
-    hjS3Destination,
-    hjChannelId,
-    hjStartTime,
-    hjARN,
-    hjId,
-    hjCreatedAt,
-    hjOriginEndpointId,
-    hjEndTime,
+    HarvestJob (HarvestJob'),
+    newHarvestJob,
 
     -- ** HlsEncryption
-    HlsEncryption,
-    hlsEncryption,
-    heRepeatExtXKey,
-    heEncryptionMethod,
-    heConstantInitializationVector,
-    heKeyRotationIntervalSeconds,
-    heSpekeKeyProvider,
+    HlsEncryption (HlsEncryption'),
+    newHlsEncryption,
 
     -- ** HlsIngest
-    HlsIngest,
-    hlsIngest,
-    hiIngestEndpoints,
+    HlsIngest (HlsIngest'),
+    newHlsIngest,
 
     -- ** HlsManifest
-    HlsManifest,
-    hlsManifest,
-    hmAdMarkers,
-    hmProgramDateTimeIntervalSeconds,
-    hmPlaylistWindowSeconds,
-    hmIncludeIframeOnlyStream,
-    hmManifestName,
-    hmPlaylistType,
-    hmURL,
-    hmId,
+    HlsManifest (HlsManifest'),
+    newHlsManifest,
 
     -- ** HlsManifestCreateOrUpdateParameters
-    HlsManifestCreateOrUpdateParameters,
-    hlsManifestCreateOrUpdateParameters,
-    hmcoupAdMarkers,
-    hmcoupProgramDateTimeIntervalSeconds,
-    hmcoupPlaylistWindowSeconds,
-    hmcoupAdTriggers,
-    hmcoupIncludeIframeOnlyStream,
-    hmcoupManifestName,
-    hmcoupAdsOnDeliveryRestrictions,
-    hmcoupPlaylistType,
-    hmcoupId,
+    HlsManifestCreateOrUpdateParameters (HlsManifestCreateOrUpdateParameters'),
+    newHlsManifestCreateOrUpdateParameters,
 
     -- ** HlsPackage
-    HlsPackage,
-    hlsPackage,
-    hpAdMarkers,
-    hpStreamSelection,
-    hpProgramDateTimeIntervalSeconds,
-    hpPlaylistWindowSeconds,
-    hpAdTriggers,
-    hpIncludeIframeOnlyStream,
-    hpUseAudioRenditionGroup,
-    hpEncryption,
-    hpAdsOnDeliveryRestrictions,
-    hpSegmentDurationSeconds,
-    hpPlaylistType,
+    HlsPackage (HlsPackage'),
+    newHlsPackage,
 
     -- ** IngestEndpoint
-    IngestEndpoint,
-    ingestEndpoint,
-    ieId,
-    iePassword,
-    ieUsername,
-    ieURL,
+    IngestEndpoint (IngestEndpoint'),
+    newIngestEndpoint,
 
     -- ** IngressAccessLogs
-    IngressAccessLogs,
-    ingressAccessLogs,
-    ialLogGroupName,
+    IngressAccessLogs (IngressAccessLogs'),
+    newIngressAccessLogs,
 
     -- ** MssEncryption
-    MssEncryption,
-    mssEncryption,
-    meSpekeKeyProvider,
+    MssEncryption (MssEncryption'),
+    newMssEncryption,
 
     -- ** MssPackage
-    MssPackage,
-    mssPackage,
-    mpStreamSelection,
-    mpManifestWindowSeconds,
-    mpEncryption,
-    mpSegmentDurationSeconds,
+    MssPackage (MssPackage'),
+    newMssPackage,
 
     -- ** OriginEndpoint
-    OriginEndpoint,
-    originEndpoint,
-    oeDashPackage,
-    oeStartoverWindowSeconds,
-    oeOrigination,
-    oeChannelId,
-    oeCmafPackage,
-    oeManifestName,
-    oeARN,
-    oeId,
-    oeWhitelist,
-    oeMssPackage,
-    oeTags,
-    oeDescription,
-    oeTimeDelaySeconds,
-    oeAuthorization,
-    oeURL,
-    oeHlsPackage,
+    OriginEndpoint (OriginEndpoint'),
+    newOriginEndpoint,
 
     -- ** S3Destination
-    S3Destination,
-    s3Destination,
-    sdManifestKey,
-    sdBucketName,
-    sdRoleARN,
+    S3Destination (S3Destination'),
+    newS3Destination,
 
     -- ** SpekeKeyProvider
-    SpekeKeyProvider,
-    spekeKeyProvider,
-    skpCertificateARN,
-    skpResourceId,
-    skpSystemIds,
-    skpURL,
-    skpRoleARN,
+    SpekeKeyProvider (SpekeKeyProvider'),
+    newSpekeKeyProvider,
 
     -- ** StreamSelection
-    StreamSelection,
-    streamSelection,
-    ssMinVideoBitsPerSecond,
-    ssMaxVideoBitsPerSecond,
-    ssStreamOrder,
+    StreamSelection (StreamSelection'),
+    newStreamSelection,
   )
 where
 
@@ -356,6 +291,7 @@ import Network.AWS.MediaPackage.DeleteOriginEndpoint
 import Network.AWS.MediaPackage.DescribeChannel
 import Network.AWS.MediaPackage.DescribeHarvestJob
 import Network.AWS.MediaPackage.DescribeOriginEndpoint
+import Network.AWS.MediaPackage.Lens
 import Network.AWS.MediaPackage.ListChannels
 import Network.AWS.MediaPackage.ListHarvestJobs
 import Network.AWS.MediaPackage.ListOriginEndpoints

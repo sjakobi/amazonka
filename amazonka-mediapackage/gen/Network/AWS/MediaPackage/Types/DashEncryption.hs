@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,66 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types.DashEncryption where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types.SpekeKeyProvider
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.
 --
--- /See:/ 'dashEncryption' smart constructor.
+-- /See:/ 'newDashEncryption' smart constructor.
 data DashEncryption = DashEncryption'
-  { _deKeyRotationIntervalSeconds ::
-      !(Maybe Int),
-    _deSpekeKeyProvider :: !SpekeKeyProvider
+  { -- | Time (in seconds) between each encryption key rotation.
+    keyRotationIntervalSeconds :: Prelude.Maybe Prelude.Int,
+    spekeKeyProvider :: SpekeKeyProvider
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DashEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DashEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deKeyRotationIntervalSeconds' - Time (in seconds) between each encryption key rotation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deSpekeKeyProvider' - Undocumented member.
-dashEncryption ::
-  -- | 'deSpekeKeyProvider'
+-- 'keyRotationIntervalSeconds', 'dashEncryption_keyRotationIntervalSeconds' - Time (in seconds) between each encryption key rotation.
+--
+-- 'spekeKeyProvider', 'dashEncryption_spekeKeyProvider' - Undocumented member.
+newDashEncryption ::
+  -- | 'spekeKeyProvider'
   SpekeKeyProvider ->
   DashEncryption
-dashEncryption pSpekeKeyProvider_ =
+newDashEncryption pSpekeKeyProvider_ =
   DashEncryption'
-    { _deKeyRotationIntervalSeconds =
-        Nothing,
-      _deSpekeKeyProvider = pSpekeKeyProvider_
+    { keyRotationIntervalSeconds =
+        Prelude.Nothing,
+      spekeKeyProvider = pSpekeKeyProvider_
     }
 
 -- | Time (in seconds) between each encryption key rotation.
-deKeyRotationIntervalSeconds :: Lens' DashEncryption (Maybe Int)
-deKeyRotationIntervalSeconds = lens _deKeyRotationIntervalSeconds (\s a -> s {_deKeyRotationIntervalSeconds = a})
+dashEncryption_keyRotationIntervalSeconds :: Lens.Lens' DashEncryption (Prelude.Maybe Prelude.Int)
+dashEncryption_keyRotationIntervalSeconds = Lens.lens (\DashEncryption' {keyRotationIntervalSeconds} -> keyRotationIntervalSeconds) (\s@DashEncryption' {} a -> s {keyRotationIntervalSeconds = a} :: DashEncryption)
 
 -- | Undocumented member.
-deSpekeKeyProvider :: Lens' DashEncryption SpekeKeyProvider
-deSpekeKeyProvider = lens _deSpekeKeyProvider (\s a -> s {_deSpekeKeyProvider = a})
+dashEncryption_spekeKeyProvider :: Lens.Lens' DashEncryption SpekeKeyProvider
+dashEncryption_spekeKeyProvider = Lens.lens (\DashEncryption' {spekeKeyProvider} -> spekeKeyProvider) (\s@DashEncryption' {} a -> s {spekeKeyProvider = a} :: DashEncryption)
 
-instance FromJSON DashEncryption where
+instance Prelude.FromJSON DashEncryption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DashEncryption"
       ( \x ->
           DashEncryption'
-            <$> (x .:? "keyRotationIntervalSeconds")
-            <*> (x .: "spekeKeyProvider")
+            Prelude.<$> (x Prelude..:? "keyRotationIntervalSeconds")
+            Prelude.<*> (x Prelude..: "spekeKeyProvider")
       )
 
-instance Hashable DashEncryption
+instance Prelude.Hashable DashEncryption
 
-instance NFData DashEncryption
+instance Prelude.NFData DashEncryption
 
-instance ToJSON DashEncryption where
+instance Prelude.ToJSON DashEncryption where
   toJSON DashEncryption' {..} =
-    object
-      ( catMaybes
-          [ ("keyRotationIntervalSeconds" .=)
-              <$> _deKeyRotationIntervalSeconds,
-            Just ("spekeKeyProvider" .= _deSpekeKeyProvider)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("keyRotationIntervalSeconds" Prelude..=)
+              Prelude.<$> keyRotationIntervalSeconds,
+            Prelude.Just
+              ("spekeKeyProvider" Prelude..= spekeKeyProvider)
           ]
       )

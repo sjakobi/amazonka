@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.MediaPackage.Types.EncryptionMethod
   ( EncryptionMethod
       ( ..,
-        AES128,
-        SampleAES
+        EncryptionMethodAES128,
+        EncryptionMethodSAMPLEAES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EncryptionMethod = EncryptionMethod' (CI Text)
+newtype EncryptionMethod = EncryptionMethod'
+  { fromEncryptionMethod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AES128 :: EncryptionMethod
-pattern AES128 = EncryptionMethod' "AES_128"
+pattern EncryptionMethodAES128 :: EncryptionMethod
+pattern EncryptionMethodAES128 = EncryptionMethod' "AES_128"
 
-pattern SampleAES :: EncryptionMethod
-pattern SampleAES = EncryptionMethod' "SAMPLE_AES"
+pattern EncryptionMethodSAMPLEAES :: EncryptionMethod
+pattern EncryptionMethodSAMPLEAES = EncryptionMethod' "SAMPLE_AES"
 
 {-# COMPLETE
-  AES128,
-  SampleAES,
+  EncryptionMethodAES128,
+  EncryptionMethodSAMPLEAES,
   EncryptionMethod'
   #-}
 
-instance FromText EncryptionMethod where
-  parser = (EncryptionMethod' . mk) <$> takeText
+instance Prelude.FromText EncryptionMethod where
+  parser = EncryptionMethod' Prelude.<$> Prelude.takeText
 
-instance ToText EncryptionMethod where
-  toText (EncryptionMethod' ci) = original ci
+instance Prelude.ToText EncryptionMethod where
+  toText (EncryptionMethod' x) = x
 
-instance Hashable EncryptionMethod
+instance Prelude.Hashable EncryptionMethod
 
-instance NFData EncryptionMethod
+instance Prelude.NFData EncryptionMethod
 
-instance ToByteString EncryptionMethod
+instance Prelude.ToByteString EncryptionMethod
 
-instance ToQuery EncryptionMethod
+instance Prelude.ToQuery EncryptionMethod
 
-instance ToHeader EncryptionMethod
+instance Prelude.ToHeader EncryptionMethod
 
-instance ToJSON EncryptionMethod where
-  toJSON = toJSONText
+instance Prelude.ToJSON EncryptionMethod where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON EncryptionMethod where
-  parseJSON = parseJSONText "EncryptionMethod"
+instance Prelude.FromJSON EncryptionMethod where
+  parseJSON = Prelude.parseJSONText "EncryptionMethod"

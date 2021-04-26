@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MediaPackage.Types.UtcTiming
   ( UtcTiming
       ( ..,
-        UTHTTPHead,
-        UTHTTPIso,
-        UTNone
+        UtcTimingHTTPHEAD,
+        UtcTimingHTTPISO,
+        UtcTimingNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data UtcTiming = UtcTiming' (CI Text)
+newtype UtcTiming = UtcTiming'
+  { fromUtcTiming ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern UTHTTPHead :: UtcTiming
-pattern UTHTTPHead = UtcTiming' "HTTP-HEAD"
+pattern UtcTimingHTTPHEAD :: UtcTiming
+pattern UtcTimingHTTPHEAD = UtcTiming' "HTTP-HEAD"
 
-pattern UTHTTPIso :: UtcTiming
-pattern UTHTTPIso = UtcTiming' "HTTP-ISO"
+pattern UtcTimingHTTPISO :: UtcTiming
+pattern UtcTimingHTTPISO = UtcTiming' "HTTP-ISO"
 
-pattern UTNone :: UtcTiming
-pattern UTNone = UtcTiming' "NONE"
+pattern UtcTimingNONE :: UtcTiming
+pattern UtcTimingNONE = UtcTiming' "NONE"
 
 {-# COMPLETE
-  UTHTTPHead,
-  UTHTTPIso,
-  UTNone,
+  UtcTimingHTTPHEAD,
+  UtcTimingHTTPISO,
+  UtcTimingNONE,
   UtcTiming'
   #-}
 
-instance FromText UtcTiming where
-  parser = (UtcTiming' . mk) <$> takeText
+instance Prelude.FromText UtcTiming where
+  parser = UtcTiming' Prelude.<$> Prelude.takeText
 
-instance ToText UtcTiming where
-  toText (UtcTiming' ci) = original ci
+instance Prelude.ToText UtcTiming where
+  toText (UtcTiming' x) = x
 
-instance Hashable UtcTiming
+instance Prelude.Hashable UtcTiming
 
-instance NFData UtcTiming
+instance Prelude.NFData UtcTiming
 
-instance ToByteString UtcTiming
+instance Prelude.ToByteString UtcTiming
 
-instance ToQuery UtcTiming
+instance Prelude.ToQuery UtcTiming
 
-instance ToHeader UtcTiming
+instance Prelude.ToHeader UtcTiming
 
-instance ToJSON UtcTiming where
-  toJSON = toJSONText
+instance Prelude.ToJSON UtcTiming where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON UtcTiming where
-  parseJSON = parseJSONText "UtcTiming"
+instance Prelude.FromJSON UtcTiming where
+  parseJSON = Prelude.parseJSONText "UtcTiming"

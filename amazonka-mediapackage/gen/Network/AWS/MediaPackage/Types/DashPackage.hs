@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,7 +19,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types.DashPackage where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types.AdTriggersElement
 import Network.AWS.MediaPackage.Types.AdsOnDeliveryRestrictions
 import Network.AWS.MediaPackage.Types.DashEncryption
@@ -25,201 +29,285 @@ import Network.AWS.MediaPackage.Types.Profile
 import Network.AWS.MediaPackage.Types.SegmentTemplateFormat
 import Network.AWS.MediaPackage.Types.StreamSelection
 import Network.AWS.MediaPackage.Types.UtcTiming
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
 --
--- /See:/ 'dashPackage' smart constructor.
+-- /See:/ 'newDashPackage' smart constructor.
 data DashPackage = DashPackage'
-  { _dpMinBufferTimeSeconds ::
-      !(Maybe Int),
-    _dpStreamSelection :: !(Maybe StreamSelection),
-    _dpPeriodTriggers ::
-      !(Maybe [PeriodTriggersElement]),
-    _dpAdTriggers :: !(Maybe [AdTriggersElement]),
-    _dpManifestWindowSeconds :: !(Maybe Int),
-    _dpManifestLayout :: !(Maybe ManifestLayout),
-    _dpMinUpdatePeriodSeconds :: !(Maybe Int),
-    _dpEncryption :: !(Maybe DashEncryption),
-    _dpAdsOnDeliveryRestrictions ::
-      !(Maybe AdsOnDeliveryRestrictions),
-    _dpUtcTimingURI :: !(Maybe Text),
-    _dpSegmentDurationSeconds :: !(Maybe Int),
-    _dpProfile :: !(Maybe Profile),
-    _dpSegmentTemplateFormat ::
-      !(Maybe SegmentTemplateFormat),
-    _dpSuggestedPresentationDelaySeconds ::
-      !(Maybe Int),
-    _dpUtcTiming :: !(Maybe UtcTiming)
+  { -- | Minimum duration (in seconds) that a player will buffer media before
+    -- starting the presentation.
+    minBufferTimeSeconds :: Prelude.Maybe Prelude.Int,
+    streamSelection :: Prelude.Maybe StreamSelection,
+    -- | A list of triggers that controls when the outgoing Dynamic Adaptive
+    -- Streaming over HTTP (DASH) Media Presentation Description (MPD) will be
+    -- partitioned into multiple periods. If empty, the content will not be
+    -- partitioned into more than one period. If the list contains \"ADS\", new
+    -- periods will be created where the Channel source contains SCTE-35 ad
+    -- markers.
+    periodTriggers :: Prelude.Maybe [PeriodTriggersElement],
+    adTriggers :: Prelude.Maybe [AdTriggersElement],
+    -- | Time window (in seconds) contained in each manifest.
+    manifestWindowSeconds :: Prelude.Maybe Prelude.Int,
+    -- | Determines the position of some tags in the Media Presentation
+    -- Description (MPD). When set to FULL, elements like SegmentTemplate and
+    -- ContentProtection are included in each Representation. When set to
+    -- COMPACT, duplicate elements are combined and presented at the
+    -- AdaptationSet level.
+    manifestLayout :: Prelude.Maybe ManifestLayout,
+    -- | Minimum duration (in seconds) between potential changes to the Dynamic
+    -- Adaptive Streaming over HTTP (DASH) Media Presentation Description
+    -- (MPD).
+    minUpdatePeriodSeconds :: Prelude.Maybe Prelude.Int,
+    encryption :: Prelude.Maybe DashEncryption,
+    adsOnDeliveryRestrictions :: Prelude.Maybe AdsOnDeliveryRestrictions,
+    -- | Specifies the value attribute of the UTCTiming field when utcTiming is
+    -- set to HTTP-ISO or HTTP-HEAD
+    utcTimingUri :: Prelude.Maybe Prelude.Text,
+    -- | Duration (in seconds) of each segment. Actual segments will be rounded
+    -- to the nearest multiple of the source segment duration.
+    segmentDurationSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set
+    -- to \"HBBTV_1_5\", HbbTV 1.5 compliant output is enabled.
+    profile :: Prelude.Maybe Profile,
+    -- | Determines the type of SegmentTemplate included in the Media
+    -- Presentation Description (MPD). When set to NUMBER_WITH_TIMELINE, a full
+    -- timeline is presented in each SegmentTemplate, with $Number$ media URLs.
+    -- When set to TIME_WITH_TIMELINE, a full timeline is presented in each
+    -- SegmentTemplate, with $Time$ media URLs. When set to
+    -- NUMBER_WITH_DURATION, only a duration is included in each
+    -- SegmentTemplate, with $Number$ media URLs.
+    segmentTemplateFormat :: Prelude.Maybe SegmentTemplateFormat,
+    -- | Duration (in seconds) to delay live content before presentation.
+    suggestedPresentationDelaySeconds :: Prelude.Maybe Prelude.Int,
+    -- | Determines the type of UTCTiming included in the Media Presentation
+    -- Description (MPD)
+    utcTiming :: Prelude.Maybe UtcTiming
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DashPackage' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DashPackage' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dpMinBufferTimeSeconds' - Minimum duration (in seconds) that a player will buffer media before starting the presentation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dpStreamSelection' - Undocumented member.
+-- 'minBufferTimeSeconds', 'dashPackage_minBufferTimeSeconds' - Minimum duration (in seconds) that a player will buffer media before
+-- starting the presentation.
 --
--- * 'dpPeriodTriggers' - A list of triggers that controls when the outgoing Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD) will be partitioned into multiple periods. If empty, the content will not be partitioned into more than one period. If the list contains "ADS", new periods will be created where the Channel source contains SCTE-35 ad markers.
+-- 'streamSelection', 'dashPackage_streamSelection' - Undocumented member.
 --
--- * 'dpAdTriggers' - Undocumented member.
+-- 'periodTriggers', 'dashPackage_periodTriggers' - A list of triggers that controls when the outgoing Dynamic Adaptive
+-- Streaming over HTTP (DASH) Media Presentation Description (MPD) will be
+-- partitioned into multiple periods. If empty, the content will not be
+-- partitioned into more than one period. If the list contains \"ADS\", new
+-- periods will be created where the Channel source contains SCTE-35 ad
+-- markers.
 --
--- * 'dpManifestWindowSeconds' - Time window (in seconds) contained in each manifest.
+-- 'adTriggers', 'dashPackage_adTriggers' - Undocumented member.
 --
--- * 'dpManifestLayout' - Determines the position of some tags in the Media Presentation Description (MPD).  When set to FULL, elements like SegmentTemplate and ContentProtection are included in each Representation.  When set to COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+-- 'manifestWindowSeconds', 'dashPackage_manifestWindowSeconds' - Time window (in seconds) contained in each manifest.
 --
--- * 'dpMinUpdatePeriodSeconds' - Minimum duration (in seconds) between potential changes to the Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD).
+-- 'manifestLayout', 'dashPackage_manifestLayout' - Determines the position of some tags in the Media Presentation
+-- Description (MPD). When set to FULL, elements like SegmentTemplate and
+-- ContentProtection are included in each Representation. When set to
+-- COMPACT, duplicate elements are combined and presented at the
+-- AdaptationSet level.
 --
--- * 'dpEncryption' - Undocumented member.
+-- 'minUpdatePeriodSeconds', 'dashPackage_minUpdatePeriodSeconds' - Minimum duration (in seconds) between potential changes to the Dynamic
+-- Adaptive Streaming over HTTP (DASH) Media Presentation Description
+-- (MPD).
 --
--- * 'dpAdsOnDeliveryRestrictions' - Undocumented member.
+-- 'encryption', 'dashPackage_encryption' - Undocumented member.
 --
--- * 'dpUtcTimingURI' - Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO or HTTP-HEAD
+-- 'adsOnDeliveryRestrictions', 'dashPackage_adsOnDeliveryRestrictions' - Undocumented member.
 --
--- * 'dpSegmentDurationSeconds' - Duration (in seconds) of each segment. Actual segments will be rounded to the nearest multiple of the source segment duration.
+-- 'utcTimingUri', 'dashPackage_utcTimingUri' - Specifies the value attribute of the UTCTiming field when utcTiming is
+-- set to HTTP-ISO or HTTP-HEAD
 --
--- * 'dpProfile' - The Dynamic Adaptive Streaming over HTTP (DASH) profile type.  When set to "HBBTV_1_5", HbbTV 1.5 compliant output is enabled.
+-- 'segmentDurationSeconds', 'dashPackage_segmentDurationSeconds' - Duration (in seconds) of each segment. Actual segments will be rounded
+-- to the nearest multiple of the source segment duration.
 --
--- * 'dpSegmentTemplateFormat' - Determines the type of SegmentTemplate included in the Media Presentation Description (MPD).  When set to NUMBER_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Number$ media URLs.  When set to TIME_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Time$ media URLs. When set to NUMBER_WITH_DURATION, only a duration is included in each SegmentTemplate, with $Number$ media URLs.
+-- 'profile', 'dashPackage_profile' - The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set
+-- to \"HBBTV_1_5\", HbbTV 1.5 compliant output is enabled.
 --
--- * 'dpSuggestedPresentationDelaySeconds' - Duration (in seconds) to delay live content before presentation.
+-- 'segmentTemplateFormat', 'dashPackage_segmentTemplateFormat' - Determines the type of SegmentTemplate included in the Media
+-- Presentation Description (MPD). When set to NUMBER_WITH_TIMELINE, a full
+-- timeline is presented in each SegmentTemplate, with $Number$ media URLs.
+-- When set to TIME_WITH_TIMELINE, a full timeline is presented in each
+-- SegmentTemplate, with $Time$ media URLs. When set to
+-- NUMBER_WITH_DURATION, only a duration is included in each
+-- SegmentTemplate, with $Number$ media URLs.
 --
--- * 'dpUtcTiming' - Determines the type of UTCTiming included in the Media Presentation Description (MPD)
-dashPackage ::
+-- 'suggestedPresentationDelaySeconds', 'dashPackage_suggestedPresentationDelaySeconds' - Duration (in seconds) to delay live content before presentation.
+--
+-- 'utcTiming', 'dashPackage_utcTiming' - Determines the type of UTCTiming included in the Media Presentation
+-- Description (MPD)
+newDashPackage ::
   DashPackage
-dashPackage =
+newDashPackage =
   DashPackage'
-    { _dpMinBufferTimeSeconds = Nothing,
-      _dpStreamSelection = Nothing,
-      _dpPeriodTriggers = Nothing,
-      _dpAdTriggers = Nothing,
-      _dpManifestWindowSeconds = Nothing,
-      _dpManifestLayout = Nothing,
-      _dpMinUpdatePeriodSeconds = Nothing,
-      _dpEncryption = Nothing,
-      _dpAdsOnDeliveryRestrictions = Nothing,
-      _dpUtcTimingURI = Nothing,
-      _dpSegmentDurationSeconds = Nothing,
-      _dpProfile = Nothing,
-      _dpSegmentTemplateFormat = Nothing,
-      _dpSuggestedPresentationDelaySeconds = Nothing,
-      _dpUtcTiming = Nothing
+    { minBufferTimeSeconds =
+        Prelude.Nothing,
+      streamSelection = Prelude.Nothing,
+      periodTriggers = Prelude.Nothing,
+      adTriggers = Prelude.Nothing,
+      manifestWindowSeconds = Prelude.Nothing,
+      manifestLayout = Prelude.Nothing,
+      minUpdatePeriodSeconds = Prelude.Nothing,
+      encryption = Prelude.Nothing,
+      adsOnDeliveryRestrictions = Prelude.Nothing,
+      utcTimingUri = Prelude.Nothing,
+      segmentDurationSeconds = Prelude.Nothing,
+      profile = Prelude.Nothing,
+      segmentTemplateFormat = Prelude.Nothing,
+      suggestedPresentationDelaySeconds = Prelude.Nothing,
+      utcTiming = Prelude.Nothing
     }
 
--- | Minimum duration (in seconds) that a player will buffer media before starting the presentation.
-dpMinBufferTimeSeconds :: Lens' DashPackage (Maybe Int)
-dpMinBufferTimeSeconds = lens _dpMinBufferTimeSeconds (\s a -> s {_dpMinBufferTimeSeconds = a})
+-- | Minimum duration (in seconds) that a player will buffer media before
+-- starting the presentation.
+dashPackage_minBufferTimeSeconds :: Lens.Lens' DashPackage (Prelude.Maybe Prelude.Int)
+dashPackage_minBufferTimeSeconds = Lens.lens (\DashPackage' {minBufferTimeSeconds} -> minBufferTimeSeconds) (\s@DashPackage' {} a -> s {minBufferTimeSeconds = a} :: DashPackage)
 
 -- | Undocumented member.
-dpStreamSelection :: Lens' DashPackage (Maybe StreamSelection)
-dpStreamSelection = lens _dpStreamSelection (\s a -> s {_dpStreamSelection = a})
+dashPackage_streamSelection :: Lens.Lens' DashPackage (Prelude.Maybe StreamSelection)
+dashPackage_streamSelection = Lens.lens (\DashPackage' {streamSelection} -> streamSelection) (\s@DashPackage' {} a -> s {streamSelection = a} :: DashPackage)
 
--- | A list of triggers that controls when the outgoing Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD) will be partitioned into multiple periods. If empty, the content will not be partitioned into more than one period. If the list contains "ADS", new periods will be created where the Channel source contains SCTE-35 ad markers.
-dpPeriodTriggers :: Lens' DashPackage [PeriodTriggersElement]
-dpPeriodTriggers = lens _dpPeriodTriggers (\s a -> s {_dpPeriodTriggers = a}) . _Default . _Coerce
+-- | A list of triggers that controls when the outgoing Dynamic Adaptive
+-- Streaming over HTTP (DASH) Media Presentation Description (MPD) will be
+-- partitioned into multiple periods. If empty, the content will not be
+-- partitioned into more than one period. If the list contains \"ADS\", new
+-- periods will be created where the Channel source contains SCTE-35 ad
+-- markers.
+dashPackage_periodTriggers :: Lens.Lens' DashPackage (Prelude.Maybe [PeriodTriggersElement])
+dashPackage_periodTriggers = Lens.lens (\DashPackage' {periodTriggers} -> periodTriggers) (\s@DashPackage' {} a -> s {periodTriggers = a} :: DashPackage) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-dpAdTriggers :: Lens' DashPackage [AdTriggersElement]
-dpAdTriggers = lens _dpAdTriggers (\s a -> s {_dpAdTriggers = a}) . _Default . _Coerce
+dashPackage_adTriggers :: Lens.Lens' DashPackage (Prelude.Maybe [AdTriggersElement])
+dashPackage_adTriggers = Lens.lens (\DashPackage' {adTriggers} -> adTriggers) (\s@DashPackage' {} a -> s {adTriggers = a} :: DashPackage) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Time window (in seconds) contained in each manifest.
-dpManifestWindowSeconds :: Lens' DashPackage (Maybe Int)
-dpManifestWindowSeconds = lens _dpManifestWindowSeconds (\s a -> s {_dpManifestWindowSeconds = a})
+dashPackage_manifestWindowSeconds :: Lens.Lens' DashPackage (Prelude.Maybe Prelude.Int)
+dashPackage_manifestWindowSeconds = Lens.lens (\DashPackage' {manifestWindowSeconds} -> manifestWindowSeconds) (\s@DashPackage' {} a -> s {manifestWindowSeconds = a} :: DashPackage)
 
--- | Determines the position of some tags in the Media Presentation Description (MPD).  When set to FULL, elements like SegmentTemplate and ContentProtection are included in each Representation.  When set to COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
-dpManifestLayout :: Lens' DashPackage (Maybe ManifestLayout)
-dpManifestLayout = lens _dpManifestLayout (\s a -> s {_dpManifestLayout = a})
+-- | Determines the position of some tags in the Media Presentation
+-- Description (MPD). When set to FULL, elements like SegmentTemplate and
+-- ContentProtection are included in each Representation. When set to
+-- COMPACT, duplicate elements are combined and presented at the
+-- AdaptationSet level.
+dashPackage_manifestLayout :: Lens.Lens' DashPackage (Prelude.Maybe ManifestLayout)
+dashPackage_manifestLayout = Lens.lens (\DashPackage' {manifestLayout} -> manifestLayout) (\s@DashPackage' {} a -> s {manifestLayout = a} :: DashPackage)
 
--- | Minimum duration (in seconds) between potential changes to the Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD).
-dpMinUpdatePeriodSeconds :: Lens' DashPackage (Maybe Int)
-dpMinUpdatePeriodSeconds = lens _dpMinUpdatePeriodSeconds (\s a -> s {_dpMinUpdatePeriodSeconds = a})
+-- | Minimum duration (in seconds) between potential changes to the Dynamic
+-- Adaptive Streaming over HTTP (DASH) Media Presentation Description
+-- (MPD).
+dashPackage_minUpdatePeriodSeconds :: Lens.Lens' DashPackage (Prelude.Maybe Prelude.Int)
+dashPackage_minUpdatePeriodSeconds = Lens.lens (\DashPackage' {minUpdatePeriodSeconds} -> minUpdatePeriodSeconds) (\s@DashPackage' {} a -> s {minUpdatePeriodSeconds = a} :: DashPackage)
 
 -- | Undocumented member.
-dpEncryption :: Lens' DashPackage (Maybe DashEncryption)
-dpEncryption = lens _dpEncryption (\s a -> s {_dpEncryption = a})
+dashPackage_encryption :: Lens.Lens' DashPackage (Prelude.Maybe DashEncryption)
+dashPackage_encryption = Lens.lens (\DashPackage' {encryption} -> encryption) (\s@DashPackage' {} a -> s {encryption = a} :: DashPackage)
 
 -- | Undocumented member.
-dpAdsOnDeliveryRestrictions :: Lens' DashPackage (Maybe AdsOnDeliveryRestrictions)
-dpAdsOnDeliveryRestrictions = lens _dpAdsOnDeliveryRestrictions (\s a -> s {_dpAdsOnDeliveryRestrictions = a})
+dashPackage_adsOnDeliveryRestrictions :: Lens.Lens' DashPackage (Prelude.Maybe AdsOnDeliveryRestrictions)
+dashPackage_adsOnDeliveryRestrictions = Lens.lens (\DashPackage' {adsOnDeliveryRestrictions} -> adsOnDeliveryRestrictions) (\s@DashPackage' {} a -> s {adsOnDeliveryRestrictions = a} :: DashPackage)
 
--- | Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO or HTTP-HEAD
-dpUtcTimingURI :: Lens' DashPackage (Maybe Text)
-dpUtcTimingURI = lens _dpUtcTimingURI (\s a -> s {_dpUtcTimingURI = a})
+-- | Specifies the value attribute of the UTCTiming field when utcTiming is
+-- set to HTTP-ISO or HTTP-HEAD
+dashPackage_utcTimingUri :: Lens.Lens' DashPackage (Prelude.Maybe Prelude.Text)
+dashPackage_utcTimingUri = Lens.lens (\DashPackage' {utcTimingUri} -> utcTimingUri) (\s@DashPackage' {} a -> s {utcTimingUri = a} :: DashPackage)
 
--- | Duration (in seconds) of each segment. Actual segments will be rounded to the nearest multiple of the source segment duration.
-dpSegmentDurationSeconds :: Lens' DashPackage (Maybe Int)
-dpSegmentDurationSeconds = lens _dpSegmentDurationSeconds (\s a -> s {_dpSegmentDurationSeconds = a})
+-- | Duration (in seconds) of each segment. Actual segments will be rounded
+-- to the nearest multiple of the source segment duration.
+dashPackage_segmentDurationSeconds :: Lens.Lens' DashPackage (Prelude.Maybe Prelude.Int)
+dashPackage_segmentDurationSeconds = Lens.lens (\DashPackage' {segmentDurationSeconds} -> segmentDurationSeconds) (\s@DashPackage' {} a -> s {segmentDurationSeconds = a} :: DashPackage)
 
--- | The Dynamic Adaptive Streaming over HTTP (DASH) profile type.  When set to "HBBTV_1_5", HbbTV 1.5 compliant output is enabled.
-dpProfile :: Lens' DashPackage (Maybe Profile)
-dpProfile = lens _dpProfile (\s a -> s {_dpProfile = a})
+-- | The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set
+-- to \"HBBTV_1_5\", HbbTV 1.5 compliant output is enabled.
+dashPackage_profile :: Lens.Lens' DashPackage (Prelude.Maybe Profile)
+dashPackage_profile = Lens.lens (\DashPackage' {profile} -> profile) (\s@DashPackage' {} a -> s {profile = a} :: DashPackage)
 
--- | Determines the type of SegmentTemplate included in the Media Presentation Description (MPD).  When set to NUMBER_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Number$ media URLs.  When set to TIME_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Time$ media URLs. When set to NUMBER_WITH_DURATION, only a duration is included in each SegmentTemplate, with $Number$ media URLs.
-dpSegmentTemplateFormat :: Lens' DashPackage (Maybe SegmentTemplateFormat)
-dpSegmentTemplateFormat = lens _dpSegmentTemplateFormat (\s a -> s {_dpSegmentTemplateFormat = a})
+-- | Determines the type of SegmentTemplate included in the Media
+-- Presentation Description (MPD). When set to NUMBER_WITH_TIMELINE, a full
+-- timeline is presented in each SegmentTemplate, with $Number$ media URLs.
+-- When set to TIME_WITH_TIMELINE, a full timeline is presented in each
+-- SegmentTemplate, with $Time$ media URLs. When set to
+-- NUMBER_WITH_DURATION, only a duration is included in each
+-- SegmentTemplate, with $Number$ media URLs.
+dashPackage_segmentTemplateFormat :: Lens.Lens' DashPackage (Prelude.Maybe SegmentTemplateFormat)
+dashPackage_segmentTemplateFormat = Lens.lens (\DashPackage' {segmentTemplateFormat} -> segmentTemplateFormat) (\s@DashPackage' {} a -> s {segmentTemplateFormat = a} :: DashPackage)
 
 -- | Duration (in seconds) to delay live content before presentation.
-dpSuggestedPresentationDelaySeconds :: Lens' DashPackage (Maybe Int)
-dpSuggestedPresentationDelaySeconds = lens _dpSuggestedPresentationDelaySeconds (\s a -> s {_dpSuggestedPresentationDelaySeconds = a})
+dashPackage_suggestedPresentationDelaySeconds :: Lens.Lens' DashPackage (Prelude.Maybe Prelude.Int)
+dashPackage_suggestedPresentationDelaySeconds = Lens.lens (\DashPackage' {suggestedPresentationDelaySeconds} -> suggestedPresentationDelaySeconds) (\s@DashPackage' {} a -> s {suggestedPresentationDelaySeconds = a} :: DashPackage)
 
--- | Determines the type of UTCTiming included in the Media Presentation Description (MPD)
-dpUtcTiming :: Lens' DashPackage (Maybe UtcTiming)
-dpUtcTiming = lens _dpUtcTiming (\s a -> s {_dpUtcTiming = a})
+-- | Determines the type of UTCTiming included in the Media Presentation
+-- Description (MPD)
+dashPackage_utcTiming :: Lens.Lens' DashPackage (Prelude.Maybe UtcTiming)
+dashPackage_utcTiming = Lens.lens (\DashPackage' {utcTiming} -> utcTiming) (\s@DashPackage' {} a -> s {utcTiming = a} :: DashPackage)
 
-instance FromJSON DashPackage where
+instance Prelude.FromJSON DashPackage where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DashPackage"
       ( \x ->
           DashPackage'
-            <$> (x .:? "minBufferTimeSeconds")
-            <*> (x .:? "streamSelection")
-            <*> (x .:? "periodTriggers" .!= mempty)
-            <*> (x .:? "adTriggers" .!= mempty)
-            <*> (x .:? "manifestWindowSeconds")
-            <*> (x .:? "manifestLayout")
-            <*> (x .:? "minUpdatePeriodSeconds")
-            <*> (x .:? "encryption")
-            <*> (x .:? "adsOnDeliveryRestrictions")
-            <*> (x .:? "utcTimingUri")
-            <*> (x .:? "segmentDurationSeconds")
-            <*> (x .:? "profile")
-            <*> (x .:? "segmentTemplateFormat")
-            <*> (x .:? "suggestedPresentationDelaySeconds")
-            <*> (x .:? "utcTiming")
+            Prelude.<$> (x Prelude..:? "minBufferTimeSeconds")
+            Prelude.<*> (x Prelude..:? "streamSelection")
+            Prelude.<*> ( x Prelude..:? "periodTriggers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> ( x Prelude..:? "adTriggers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "manifestWindowSeconds")
+            Prelude.<*> (x Prelude..:? "manifestLayout")
+            Prelude.<*> (x Prelude..:? "minUpdatePeriodSeconds")
+            Prelude.<*> (x Prelude..:? "encryption")
+            Prelude.<*> (x Prelude..:? "adsOnDeliveryRestrictions")
+            Prelude.<*> (x Prelude..:? "utcTimingUri")
+            Prelude.<*> (x Prelude..:? "segmentDurationSeconds")
+            Prelude.<*> (x Prelude..:? "profile")
+            Prelude.<*> (x Prelude..:? "segmentTemplateFormat")
+            Prelude.<*> (x Prelude..:? "suggestedPresentationDelaySeconds")
+            Prelude.<*> (x Prelude..:? "utcTiming")
       )
 
-instance Hashable DashPackage
+instance Prelude.Hashable DashPackage
 
-instance NFData DashPackage
+instance Prelude.NFData DashPackage
 
-instance ToJSON DashPackage where
+instance Prelude.ToJSON DashPackage where
   toJSON DashPackage' {..} =
-    object
-      ( catMaybes
-          [ ("minBufferTimeSeconds" .=)
-              <$> _dpMinBufferTimeSeconds,
-            ("streamSelection" .=) <$> _dpStreamSelection,
-            ("periodTriggers" .=) <$> _dpPeriodTriggers,
-            ("adTriggers" .=) <$> _dpAdTriggers,
-            ("manifestWindowSeconds" .=)
-              <$> _dpManifestWindowSeconds,
-            ("manifestLayout" .=) <$> _dpManifestLayout,
-            ("minUpdatePeriodSeconds" .=)
-              <$> _dpMinUpdatePeriodSeconds,
-            ("encryption" .=) <$> _dpEncryption,
-            ("adsOnDeliveryRestrictions" .=)
-              <$> _dpAdsOnDeliveryRestrictions,
-            ("utcTimingUri" .=) <$> _dpUtcTimingURI,
-            ("segmentDurationSeconds" .=)
-              <$> _dpSegmentDurationSeconds,
-            ("profile" .=) <$> _dpProfile,
-            ("segmentTemplateFormat" .=)
-              <$> _dpSegmentTemplateFormat,
-            ("suggestedPresentationDelaySeconds" .=)
-              <$> _dpSuggestedPresentationDelaySeconds,
-            ("utcTiming" .=) <$> _dpUtcTiming
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("minBufferTimeSeconds" Prelude..=)
+              Prelude.<$> minBufferTimeSeconds,
+            ("streamSelection" Prelude..=)
+              Prelude.<$> streamSelection,
+            ("periodTriggers" Prelude..=)
+              Prelude.<$> periodTriggers,
+            ("adTriggers" Prelude..=) Prelude.<$> adTriggers,
+            ("manifestWindowSeconds" Prelude..=)
+              Prelude.<$> manifestWindowSeconds,
+            ("manifestLayout" Prelude..=)
+              Prelude.<$> manifestLayout,
+            ("minUpdatePeriodSeconds" Prelude..=)
+              Prelude.<$> minUpdatePeriodSeconds,
+            ("encryption" Prelude..=) Prelude.<$> encryption,
+            ("adsOnDeliveryRestrictions" Prelude..=)
+              Prelude.<$> adsOnDeliveryRestrictions,
+            ("utcTimingUri" Prelude..=) Prelude.<$> utcTimingUri,
+            ("segmentDurationSeconds" Prelude..=)
+              Prelude.<$> segmentDurationSeconds,
+            ("profile" Prelude..=) Prelude.<$> profile,
+            ("segmentTemplateFormat" Prelude..=)
+              Prelude.<$> segmentTemplateFormat,
+            ("suggestedPresentationDelaySeconds" Prelude..=)
+              Prelude.<$> suggestedPresentationDelaySeconds,
+            ("utcTiming" Prelude..=) Prelude.<$> utcTiming
           ]
       )

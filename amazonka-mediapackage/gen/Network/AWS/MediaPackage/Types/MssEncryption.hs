@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,51 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types.MssEncryption where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types.SpekeKeyProvider
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A Microsoft Smooth Streaming (MSS) encryption configuration.
 --
--- /See:/ 'mssEncryption' smart constructor.
-newtype MssEncryption = MssEncryption'
-  { _meSpekeKeyProvider ::
-      SpekeKeyProvider
+-- /See:/ 'newMssEncryption' smart constructor.
+data MssEncryption = MssEncryption'
+  { spekeKeyProvider :: SpekeKeyProvider
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MssEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MssEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'meSpekeKeyProvider' - Undocumented member.
-mssEncryption ::
-  -- | 'meSpekeKeyProvider'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'spekeKeyProvider', 'mssEncryption_spekeKeyProvider' - Undocumented member.
+newMssEncryption ::
+  -- | 'spekeKeyProvider'
   SpekeKeyProvider ->
   MssEncryption
-mssEncryption pSpekeKeyProvider_ =
+newMssEncryption pSpekeKeyProvider_ =
   MssEncryption'
-    { _meSpekeKeyProvider =
+    { spekeKeyProvider =
         pSpekeKeyProvider_
     }
 
 -- | Undocumented member.
-meSpekeKeyProvider :: Lens' MssEncryption SpekeKeyProvider
-meSpekeKeyProvider = lens _meSpekeKeyProvider (\s a -> s {_meSpekeKeyProvider = a})
+mssEncryption_spekeKeyProvider :: Lens.Lens' MssEncryption SpekeKeyProvider
+mssEncryption_spekeKeyProvider = Lens.lens (\MssEncryption' {spekeKeyProvider} -> spekeKeyProvider) (\s@MssEncryption' {} a -> s {spekeKeyProvider = a} :: MssEncryption)
 
-instance FromJSON MssEncryption where
+instance Prelude.FromJSON MssEncryption where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MssEncryption"
-      (\x -> MssEncryption' <$> (x .: "spekeKeyProvider"))
+      ( \x ->
+          MssEncryption'
+            Prelude.<$> (x Prelude..: "spekeKeyProvider")
+      )
 
-instance Hashable MssEncryption
+instance Prelude.Hashable MssEncryption
 
-instance NFData MssEncryption
+instance Prelude.NFData MssEncryption
 
-instance ToJSON MssEncryption where
+instance Prelude.ToJSON MssEncryption where
   toJSON MssEncryption' {..} =
-    object
-      ( catMaybes
-          [Just ("spekeKeyProvider" .= _meSpekeKeyProvider)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("spekeKeyProvider" Prelude..= spekeKeyProvider)
+          ]
       )

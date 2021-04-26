@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,76 +19,81 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types.StreamSelection where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types.StreamOrder
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A StreamSelection configuration.
 --
--- /See:/ 'streamSelection' smart constructor.
+-- /See:/ 'newStreamSelection' smart constructor.
 data StreamSelection = StreamSelection'
-  { _ssMinVideoBitsPerSecond ::
-      !(Maybe Int),
-    _ssMaxVideoBitsPerSecond ::
-      !(Maybe Int),
-    _ssStreamOrder :: !(Maybe StreamOrder)
+  { -- | The minimum video bitrate (bps) to include in output.
+    minVideoBitsPerSecond :: Prelude.Maybe Prelude.Int,
+    -- | The maximum video bitrate (bps) to include in output.
+    maxVideoBitsPerSecond :: Prelude.Maybe Prelude.Int,
+    -- | A directive that determines the order of streams in the output.
+    streamOrder :: Prelude.Maybe StreamOrder
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StreamSelection' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StreamSelection' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssMinVideoBitsPerSecond' - The minimum video bitrate (bps) to include in output.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssMaxVideoBitsPerSecond' - The maximum video bitrate (bps) to include in output.
+-- 'minVideoBitsPerSecond', 'streamSelection_minVideoBitsPerSecond' - The minimum video bitrate (bps) to include in output.
 --
--- * 'ssStreamOrder' - A directive that determines the order of streams in the output.
-streamSelection ::
+-- 'maxVideoBitsPerSecond', 'streamSelection_maxVideoBitsPerSecond' - The maximum video bitrate (bps) to include in output.
+--
+-- 'streamOrder', 'streamSelection_streamOrder' - A directive that determines the order of streams in the output.
+newStreamSelection ::
   StreamSelection
-streamSelection =
+newStreamSelection =
   StreamSelection'
-    { _ssMinVideoBitsPerSecond =
-        Nothing,
-      _ssMaxVideoBitsPerSecond = Nothing,
-      _ssStreamOrder = Nothing
+    { minVideoBitsPerSecond =
+        Prelude.Nothing,
+      maxVideoBitsPerSecond = Prelude.Nothing,
+      streamOrder = Prelude.Nothing
     }
 
 -- | The minimum video bitrate (bps) to include in output.
-ssMinVideoBitsPerSecond :: Lens' StreamSelection (Maybe Int)
-ssMinVideoBitsPerSecond = lens _ssMinVideoBitsPerSecond (\s a -> s {_ssMinVideoBitsPerSecond = a})
+streamSelection_minVideoBitsPerSecond :: Lens.Lens' StreamSelection (Prelude.Maybe Prelude.Int)
+streamSelection_minVideoBitsPerSecond = Lens.lens (\StreamSelection' {minVideoBitsPerSecond} -> minVideoBitsPerSecond) (\s@StreamSelection' {} a -> s {minVideoBitsPerSecond = a} :: StreamSelection)
 
 -- | The maximum video bitrate (bps) to include in output.
-ssMaxVideoBitsPerSecond :: Lens' StreamSelection (Maybe Int)
-ssMaxVideoBitsPerSecond = lens _ssMaxVideoBitsPerSecond (\s a -> s {_ssMaxVideoBitsPerSecond = a})
+streamSelection_maxVideoBitsPerSecond :: Lens.Lens' StreamSelection (Prelude.Maybe Prelude.Int)
+streamSelection_maxVideoBitsPerSecond = Lens.lens (\StreamSelection' {maxVideoBitsPerSecond} -> maxVideoBitsPerSecond) (\s@StreamSelection' {} a -> s {maxVideoBitsPerSecond = a} :: StreamSelection)
 
 -- | A directive that determines the order of streams in the output.
-ssStreamOrder :: Lens' StreamSelection (Maybe StreamOrder)
-ssStreamOrder = lens _ssStreamOrder (\s a -> s {_ssStreamOrder = a})
+streamSelection_streamOrder :: Lens.Lens' StreamSelection (Prelude.Maybe StreamOrder)
+streamSelection_streamOrder = Lens.lens (\StreamSelection' {streamOrder} -> streamOrder) (\s@StreamSelection' {} a -> s {streamOrder = a} :: StreamSelection)
 
-instance FromJSON StreamSelection where
+instance Prelude.FromJSON StreamSelection where
   parseJSON =
-    withObject
+    Prelude.withObject
       "StreamSelection"
       ( \x ->
           StreamSelection'
-            <$> (x .:? "minVideoBitsPerSecond")
-            <*> (x .:? "maxVideoBitsPerSecond")
-            <*> (x .:? "streamOrder")
+            Prelude.<$> (x Prelude..:? "minVideoBitsPerSecond")
+            Prelude.<*> (x Prelude..:? "maxVideoBitsPerSecond")
+            Prelude.<*> (x Prelude..:? "streamOrder")
       )
 
-instance Hashable StreamSelection
+instance Prelude.Hashable StreamSelection
 
-instance NFData StreamSelection
+instance Prelude.NFData StreamSelection
 
-instance ToJSON StreamSelection where
+instance Prelude.ToJSON StreamSelection where
   toJSON StreamSelection' {..} =
-    object
-      ( catMaybes
-          [ ("minVideoBitsPerSecond" .=)
-              <$> _ssMinVideoBitsPerSecond,
-            ("maxVideoBitsPerSecond" .=)
-              <$> _ssMaxVideoBitsPerSecond,
-            ("streamOrder" .=) <$> _ssStreamOrder
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("minVideoBitsPerSecond" Prelude..=)
+              Prelude.<$> minVideoBitsPerSecond,
+            ("maxVideoBitsPerSecond" Prelude..=)
+              Prelude.<$> maxVideoBitsPerSecond,
+            ("streamOrder" Prelude..=) Prelude.<$> streamOrder
           ]
       )

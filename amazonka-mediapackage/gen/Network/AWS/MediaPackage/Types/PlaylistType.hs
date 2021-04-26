@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MediaPackage.Types.PlaylistType
   ( PlaylistType
       ( ..,
-        PTEvent,
-        PTNone,
-        PTVod
+        PlaylistTypeEVENT,
+        PlaylistTypeNONE,
+        PlaylistTypeVOD
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PlaylistType = PlaylistType' (CI Text)
+newtype PlaylistType = PlaylistType'
+  { fromPlaylistType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PTEvent :: PlaylistType
-pattern PTEvent = PlaylistType' "EVENT"
+pattern PlaylistTypeEVENT :: PlaylistType
+pattern PlaylistTypeEVENT = PlaylistType' "EVENT"
 
-pattern PTNone :: PlaylistType
-pattern PTNone = PlaylistType' "NONE"
+pattern PlaylistTypeNONE :: PlaylistType
+pattern PlaylistTypeNONE = PlaylistType' "NONE"
 
-pattern PTVod :: PlaylistType
-pattern PTVod = PlaylistType' "VOD"
+pattern PlaylistTypeVOD :: PlaylistType
+pattern PlaylistTypeVOD = PlaylistType' "VOD"
 
 {-# COMPLETE
-  PTEvent,
-  PTNone,
-  PTVod,
+  PlaylistTypeEVENT,
+  PlaylistTypeNONE,
+  PlaylistTypeVOD,
   PlaylistType'
   #-}
 
-instance FromText PlaylistType where
-  parser = (PlaylistType' . mk) <$> takeText
+instance Prelude.FromText PlaylistType where
+  parser = PlaylistType' Prelude.<$> Prelude.takeText
 
-instance ToText PlaylistType where
-  toText (PlaylistType' ci) = original ci
+instance Prelude.ToText PlaylistType where
+  toText (PlaylistType' x) = x
 
-instance Hashable PlaylistType
+instance Prelude.Hashable PlaylistType
 
-instance NFData PlaylistType
+instance Prelude.NFData PlaylistType
 
-instance ToByteString PlaylistType
+instance Prelude.ToByteString PlaylistType
 
-instance ToQuery PlaylistType
+instance Prelude.ToQuery PlaylistType
 
-instance ToHeader PlaylistType
+instance Prelude.ToHeader PlaylistType
 
-instance ToJSON PlaylistType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PlaylistType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PlaylistType where
-  parseJSON = parseJSONText "PlaylistType"
+instance Prelude.FromJSON PlaylistType where
+  parseJSON = Prelude.parseJSONText "PlaylistType"

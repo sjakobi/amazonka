@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,45 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types.EgressAccessLogs where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Configure egress access logging.
 --
--- /See:/ 'egressAccessLogs' smart constructor.
-newtype EgressAccessLogs = EgressAccessLogs'
-  { _ealLogGroupName ::
-      Maybe Text
+-- /See:/ 'newEgressAccessLogs' smart constructor.
+data EgressAccessLogs = EgressAccessLogs'
+  { -- | Customize the log group name.
+    logGroupName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'EgressAccessLogs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'EgressAccessLogs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ealLogGroupName' - Customize the log group name.
-egressAccessLogs ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'logGroupName', 'egressAccessLogs_logGroupName' - Customize the log group name.
+newEgressAccessLogs ::
   EgressAccessLogs
-egressAccessLogs =
-  EgressAccessLogs' {_ealLogGroupName = Nothing}
+newEgressAccessLogs =
+  EgressAccessLogs' {logGroupName = Prelude.Nothing}
 
 -- | Customize the log group name.
-ealLogGroupName :: Lens' EgressAccessLogs (Maybe Text)
-ealLogGroupName = lens _ealLogGroupName (\s a -> s {_ealLogGroupName = a})
+egressAccessLogs_logGroupName :: Lens.Lens' EgressAccessLogs (Prelude.Maybe Prelude.Text)
+egressAccessLogs_logGroupName = Lens.lens (\EgressAccessLogs' {logGroupName} -> logGroupName) (\s@EgressAccessLogs' {} a -> s {logGroupName = a} :: EgressAccessLogs)
 
-instance FromJSON EgressAccessLogs where
+instance Prelude.FromJSON EgressAccessLogs where
   parseJSON =
-    withObject
+    Prelude.withObject
       "EgressAccessLogs"
-      (\x -> EgressAccessLogs' <$> (x .:? "logGroupName"))
+      ( \x ->
+          EgressAccessLogs'
+            Prelude.<$> (x Prelude..:? "logGroupName")
+      )
 
-instance Hashable EgressAccessLogs
+instance Prelude.Hashable EgressAccessLogs
 
-instance NFData EgressAccessLogs
+instance Prelude.NFData EgressAccessLogs
 
-instance ToJSON EgressAccessLogs where
+instance Prelude.ToJSON EgressAccessLogs where
   toJSON EgressAccessLogs' {..} =
-    object
-      ( catMaybes
-          [("logGroupName" .=) <$> _ealLogGroupName]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("logGroupName" Prelude..=)
+              Prelude.<$> logGroupName
+          ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,57 @@
 module Network.AWS.MediaPackage.Types.Status
   ( Status
       ( ..,
-        Failed,
-        InProgress,
-        Succeeded
+        StatusFAILED,
+        StatusINPROGRESS,
+        StatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Status = Status' (CI Text)
+newtype Status = Status' {fromStatus :: Prelude.Text}
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: Status
-pattern Failed = Status' "FAILED"
+pattern StatusFAILED :: Status
+pattern StatusFAILED = Status' "FAILED"
 
-pattern InProgress :: Status
-pattern InProgress = Status' "IN_PROGRESS"
+pattern StatusINPROGRESS :: Status
+pattern StatusINPROGRESS = Status' "IN_PROGRESS"
 
-pattern Succeeded :: Status
-pattern Succeeded = Status' "SUCCEEDED"
+pattern StatusSUCCEEDED :: Status
+pattern StatusSUCCEEDED = Status' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  InProgress,
-  Succeeded,
+  StatusFAILED,
+  StatusINPROGRESS,
+  StatusSUCCEEDED,
   Status'
   #-}
 
-instance FromText Status where
-  parser = (Status' . mk) <$> takeText
+instance Prelude.FromText Status where
+  parser = Status' Prelude.<$> Prelude.takeText
 
-instance ToText Status where
-  toText (Status' ci) = original ci
+instance Prelude.ToText Status where
+  toText (Status' x) = x
 
-instance Hashable Status
+instance Prelude.Hashable Status
 
-instance NFData Status
+instance Prelude.NFData Status
 
-instance ToByteString Status
+instance Prelude.ToByteString Status
 
-instance ToQuery Status
+instance Prelude.ToQuery Status
 
-instance ToHeader Status
+instance Prelude.ToHeader Status
 
-instance FromJSON Status where
-  parseJSON = parseJSONText "Status"
+instance Prelude.FromJSON Status where
+  parseJSON = Prelude.parseJSONText "Status"

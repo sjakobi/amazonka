@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.MediaPackage.Types.StreamOrder
   ( StreamOrder
       ( ..,
-        Original,
-        VideoBitrateAscending,
-        VideoBitrateDescending
+        StreamOrderORIGINAL,
+        StreamOrderVIDEOBITRATEASCENDING,
+        StreamOrderVIDEOBITRATEDESCENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data StreamOrder = StreamOrder' (CI Text)
+newtype StreamOrder = StreamOrder'
+  { fromStreamOrder ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Original :: StreamOrder
-pattern Original = StreamOrder' "ORIGINAL"
+pattern StreamOrderORIGINAL :: StreamOrder
+pattern StreamOrderORIGINAL = StreamOrder' "ORIGINAL"
 
-pattern VideoBitrateAscending :: StreamOrder
-pattern VideoBitrateAscending = StreamOrder' "VIDEO_BITRATE_ASCENDING"
+pattern StreamOrderVIDEOBITRATEASCENDING :: StreamOrder
+pattern StreamOrderVIDEOBITRATEASCENDING = StreamOrder' "VIDEO_BITRATE_ASCENDING"
 
-pattern VideoBitrateDescending :: StreamOrder
-pattern VideoBitrateDescending = StreamOrder' "VIDEO_BITRATE_DESCENDING"
+pattern StreamOrderVIDEOBITRATEDESCENDING :: StreamOrder
+pattern StreamOrderVIDEOBITRATEDESCENDING = StreamOrder' "VIDEO_BITRATE_DESCENDING"
 
 {-# COMPLETE
-  Original,
-  VideoBitrateAscending,
-  VideoBitrateDescending,
+  StreamOrderORIGINAL,
+  StreamOrderVIDEOBITRATEASCENDING,
+  StreamOrderVIDEOBITRATEDESCENDING,
   StreamOrder'
   #-}
 
-instance FromText StreamOrder where
-  parser = (StreamOrder' . mk) <$> takeText
+instance Prelude.FromText StreamOrder where
+  parser = StreamOrder' Prelude.<$> Prelude.takeText
 
-instance ToText StreamOrder where
-  toText (StreamOrder' ci) = original ci
+instance Prelude.ToText StreamOrder where
+  toText (StreamOrder' x) = x
 
-instance Hashable StreamOrder
+instance Prelude.Hashable StreamOrder
 
-instance NFData StreamOrder
+instance Prelude.NFData StreamOrder
 
-instance ToByteString StreamOrder
+instance Prelude.ToByteString StreamOrder
 
-instance ToQuery StreamOrder
+instance Prelude.ToQuery StreamOrder
 
-instance ToHeader StreamOrder
+instance Prelude.ToHeader StreamOrder
 
-instance ToJSON StreamOrder where
-  toJSON = toJSONText
+instance Prelude.ToJSON StreamOrder where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON StreamOrder where
-  parseJSON = parseJSONText "StreamOrder"
+instance Prelude.FromJSON StreamOrder where
+  parseJSON = Prelude.parseJSONText "StreamOrder"

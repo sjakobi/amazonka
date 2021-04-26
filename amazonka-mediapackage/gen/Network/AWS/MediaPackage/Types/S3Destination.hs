@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,77 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types.S3Destination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configuration parameters for where in an S3 bucket to place the harvested content
+-- | Configuration parameters for where in an S3 bucket to place the
+-- harvested content
 --
--- /See:/ 's3Destination' smart constructor.
+-- /See:/ 'newS3Destination' smart constructor.
 data S3Destination = S3Destination'
-  { _sdManifestKey ::
-      !Text,
-    _sdBucketName :: !Text,
-    _sdRoleARN :: !Text
+  { -- | The key in the specified S3 bucket where the harvested top-level
+    -- manifest will be placed.
+    manifestKey :: Prelude.Text,
+    -- | The name of an S3 bucket within which harvested content will be exported
+    bucketName :: Prelude.Text,
+    -- | The IAM role used to write to the specified S3 bucket
+    roleArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'S3Destination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'S3Destination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdManifestKey' - The key in the specified S3 bucket where the harvested top-level manifest will be placed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdBucketName' - The name of an S3 bucket within which harvested content will be exported
+-- 'manifestKey', 's3Destination_manifestKey' - The key in the specified S3 bucket where the harvested top-level
+-- manifest will be placed.
 --
--- * 'sdRoleARN' - The IAM role used to write to the specified S3 bucket
-s3Destination ::
-  -- | 'sdManifestKey'
-  Text ->
-  -- | 'sdBucketName'
-  Text ->
-  -- | 'sdRoleARN'
-  Text ->
+-- 'bucketName', 's3Destination_bucketName' - The name of an S3 bucket within which harvested content will be exported
+--
+-- 'roleArn', 's3Destination_roleArn' - The IAM role used to write to the specified S3 bucket
+newS3Destination ::
+  -- | 'manifestKey'
+  Prelude.Text ->
+  -- | 'bucketName'
+  Prelude.Text ->
+  -- | 'roleArn'
+  Prelude.Text ->
   S3Destination
-s3Destination pManifestKey_ pBucketName_ pRoleARN_ =
+newS3Destination pManifestKey_ pBucketName_ pRoleArn_ =
   S3Destination'
-    { _sdManifestKey = pManifestKey_,
-      _sdBucketName = pBucketName_,
-      _sdRoleARN = pRoleARN_
+    { manifestKey = pManifestKey_,
+      bucketName = pBucketName_,
+      roleArn = pRoleArn_
     }
 
--- | The key in the specified S3 bucket where the harvested top-level manifest will be placed.
-sdManifestKey :: Lens' S3Destination Text
-sdManifestKey = lens _sdManifestKey (\s a -> s {_sdManifestKey = a})
+-- | The key in the specified S3 bucket where the harvested top-level
+-- manifest will be placed.
+s3Destination_manifestKey :: Lens.Lens' S3Destination Prelude.Text
+s3Destination_manifestKey = Lens.lens (\S3Destination' {manifestKey} -> manifestKey) (\s@S3Destination' {} a -> s {manifestKey = a} :: S3Destination)
 
 -- | The name of an S3 bucket within which harvested content will be exported
-sdBucketName :: Lens' S3Destination Text
-sdBucketName = lens _sdBucketName (\s a -> s {_sdBucketName = a})
+s3Destination_bucketName :: Lens.Lens' S3Destination Prelude.Text
+s3Destination_bucketName = Lens.lens (\S3Destination' {bucketName} -> bucketName) (\s@S3Destination' {} a -> s {bucketName = a} :: S3Destination)
 
 -- | The IAM role used to write to the specified S3 bucket
-sdRoleARN :: Lens' S3Destination Text
-sdRoleARN = lens _sdRoleARN (\s a -> s {_sdRoleARN = a})
+s3Destination_roleArn :: Lens.Lens' S3Destination Prelude.Text
+s3Destination_roleArn = Lens.lens (\S3Destination' {roleArn} -> roleArn) (\s@S3Destination' {} a -> s {roleArn = a} :: S3Destination)
 
-instance FromJSON S3Destination where
+instance Prelude.FromJSON S3Destination where
   parseJSON =
-    withObject
+    Prelude.withObject
       "S3Destination"
       ( \x ->
           S3Destination'
-            <$> (x .: "manifestKey")
-            <*> (x .: "bucketName")
-            <*> (x .: "roleArn")
+            Prelude.<$> (x Prelude..: "manifestKey")
+            Prelude.<*> (x Prelude..: "bucketName")
+            Prelude.<*> (x Prelude..: "roleArn")
       )
 
-instance Hashable S3Destination
+instance Prelude.Hashable S3Destination
 
-instance NFData S3Destination
+instance Prelude.NFData S3Destination
 
-instance ToJSON S3Destination where
+instance Prelude.ToJSON S3Destination where
   toJSON S3Destination' {..} =
-    object
-      ( catMaybes
-          [ Just ("manifestKey" .= _sdManifestKey),
-            Just ("bucketName" .= _sdBucketName),
-            Just ("roleArn" .= _sdRoleARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("manifestKey" Prelude..= manifestKey),
+            Prelude.Just ("bucketName" Prelude..= bucketName),
+            Prelude.Just ("roleArn" Prelude..= roleArn)
           ]
       )

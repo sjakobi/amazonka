@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,109 +24,110 @@
 -- Deletes an existing Channel.
 module Network.AWS.MediaPackage.DeleteChannel
   ( -- * Creating a Request
-    deleteChannel,
-    DeleteChannel,
+    DeleteChannel (..),
+    newDeleteChannel,
 
     -- * Request Lenses
-    delId,
+    deleteChannel_id,
 
     -- * Destructuring the Response
-    deleteChannelResponse,
-    DeleteChannelResponse,
+    DeleteChannelResponse (..),
+    newDeleteChannelResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteChannelResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteChannel' smart constructor.
-newtype DeleteChannel = DeleteChannel'
-  { _delId ::
-      Text
+-- | /See:/ 'newDeleteChannel' smart constructor.
+data DeleteChannel = DeleteChannel'
+  { -- | The ID of the Channel to delete.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteChannel' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteChannel' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delId' - The ID of the Channel to delete.
-deleteChannel ::
-  -- | 'delId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'deleteChannel_id' - The ID of the Channel to delete.
+newDeleteChannel ::
+  -- | 'id'
+  Prelude.Text ->
   DeleteChannel
-deleteChannel pId_ = DeleteChannel' {_delId = pId_}
+newDeleteChannel pId_ = DeleteChannel' {id = pId_}
 
 -- | The ID of the Channel to delete.
-delId :: Lens' DeleteChannel Text
-delId = lens _delId (\s a -> s {_delId = a})
+deleteChannel_id :: Lens.Lens' DeleteChannel Prelude.Text
+deleteChannel_id = Lens.lens (\DeleteChannel' {id} -> id) (\s@DeleteChannel' {} a -> s {id = a} :: DeleteChannel)
 
-instance AWSRequest DeleteChannel where
+instance Prelude.AWSRequest DeleteChannel where
   type Rs DeleteChannel = DeleteChannelResponse
-  request = delete mediaPackage
+  request = Request.delete defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteChannelResponse' <$> (pure (fromEnum s))
+          DeleteChannelResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteChannel
+instance Prelude.Hashable DeleteChannel
 
-instance NFData DeleteChannel
+instance Prelude.NFData DeleteChannel
 
-instance ToHeaders DeleteChannel where
+instance Prelude.ToHeaders DeleteChannel where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DeleteChannel where
+instance Prelude.ToPath DeleteChannel where
   toPath DeleteChannel' {..} =
-    mconcat ["/channels/", toBS _delId]
+    Prelude.mconcat ["/channels/", Prelude.toBS id]
 
-instance ToQuery DeleteChannel where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteChannel where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteChannelResponse' smart constructor.
-newtype DeleteChannelResponse = DeleteChannelResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteChannelResponse' smart constructor.
+data DeleteChannelResponse = DeleteChannelResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteChannelResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteChannelResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteChannelResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteChannelResponse_httpStatus' - The response's http status code.
+newDeleteChannelResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteChannelResponse
-deleteChannelResponse pResponseStatus_ =
-  DeleteChannelResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteChannelResponse pHttpStatus_ =
+  DeleteChannelResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteChannelResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteChannelResponse_httpStatus :: Lens.Lens' DeleteChannelResponse Prelude.Int
+deleteChannelResponse_httpStatus = Lens.lens (\DeleteChannelResponse' {httpStatus} -> httpStatus) (\s@DeleteChannelResponse' {} a -> s {httpStatus = a} :: DeleteChannelResponse)
 
-instance NFData DeleteChannelResponse
+instance Prelude.NFData DeleteChannelResponse

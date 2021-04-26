@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.MediaPackage.Types.PeriodTriggersElement
   ( PeriodTriggersElement
       ( ..,
-        Ads
+        PeriodTriggersElementADS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PeriodTriggersElement
-  = PeriodTriggersElement'
-      ( CI
-          Text
-      )
+newtype PeriodTriggersElement = PeriodTriggersElement'
+  { fromPeriodTriggersElement ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Ads :: PeriodTriggersElement
-pattern Ads = PeriodTriggersElement' "ADS"
+pattern PeriodTriggersElementADS :: PeriodTriggersElement
+pattern PeriodTriggersElementADS = PeriodTriggersElement' "ADS"
 
 {-# COMPLETE
-  Ads,
+  PeriodTriggersElementADS,
   PeriodTriggersElement'
   #-}
 
-instance FromText PeriodTriggersElement where
-  parser = (PeriodTriggersElement' . mk) <$> takeText
+instance Prelude.FromText PeriodTriggersElement where
+  parser = PeriodTriggersElement' Prelude.<$> Prelude.takeText
 
-instance ToText PeriodTriggersElement where
-  toText (PeriodTriggersElement' ci) = original ci
+instance Prelude.ToText PeriodTriggersElement where
+  toText (PeriodTriggersElement' x) = x
 
-instance Hashable PeriodTriggersElement
+instance Prelude.Hashable PeriodTriggersElement
 
-instance NFData PeriodTriggersElement
+instance Prelude.NFData PeriodTriggersElement
 
-instance ToByteString PeriodTriggersElement
+instance Prelude.ToByteString PeriodTriggersElement
 
-instance ToQuery PeriodTriggersElement
+instance Prelude.ToQuery PeriodTriggersElement
 
-instance ToHeader PeriodTriggersElement
+instance Prelude.ToHeader PeriodTriggersElement
 
-instance ToJSON PeriodTriggersElement where
-  toJSON = toJSONText
+instance Prelude.ToJSON PeriodTriggersElement where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PeriodTriggersElement where
-  parseJSON = parseJSONText "PeriodTriggersElement"
+instance Prelude.FromJSON PeriodTriggersElement where
+  parseJSON = Prelude.parseJSONText "PeriodTriggersElement"

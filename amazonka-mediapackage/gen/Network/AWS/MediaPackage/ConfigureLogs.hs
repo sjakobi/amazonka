@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,222 +21,227 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Changes the Channel's properities to configure log subscription
+-- Changes the Channel\'s properities to configure log subscription
 module Network.AWS.MediaPackage.ConfigureLogs
   ( -- * Creating a Request
-    configureLogs,
-    ConfigureLogs,
+    ConfigureLogs (..),
+    newConfigureLogs,
 
     -- * Request Lenses
-    clEgressAccessLogs,
-    clIngressAccessLogs,
-    clId,
+    configureLogs_egressAccessLogs,
+    configureLogs_ingressAccessLogs,
+    configureLogs_id,
 
     -- * Destructuring the Response
-    configureLogsResponse,
-    ConfigureLogsResponse,
+    ConfigureLogsResponse (..),
+    newConfigureLogsResponse,
 
     -- * Response Lenses
-    clrrsEgressAccessLogs,
-    clrrsHlsIngest,
-    clrrsARN,
-    clrrsId,
-    clrrsIngressAccessLogs,
-    clrrsTags,
-    clrrsDescription,
-    clrrsResponseStatus,
+    configureLogsResponse_egressAccessLogs,
+    configureLogsResponse_hlsIngest,
+    configureLogsResponse_arn,
+    configureLogsResponse_id,
+    configureLogsResponse_ingressAccessLogs,
+    configureLogsResponse_tags,
+    configureLogsResponse_description,
+    configureLogsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaPackage.Types.EgressAccessLogs
+import Network.AWS.MediaPackage.Types.HlsIngest
+import Network.AWS.MediaPackage.Types.IngressAccessLogs
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | the option to configure log subscription.
 --
--- /See:/ 'configureLogs' smart constructor.
+-- /See:/ 'newConfigureLogs' smart constructor.
 data ConfigureLogs = ConfigureLogs'
-  { _clEgressAccessLogs ::
-      !(Maybe EgressAccessLogs),
-    _clIngressAccessLogs ::
-      !(Maybe IngressAccessLogs),
-    _clId :: !Text
+  { egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
+    ingressAccessLogs :: Prelude.Maybe IngressAccessLogs,
+    -- | The ID of the channel to log subscription.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigureLogs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigureLogs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clEgressAccessLogs' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clIngressAccessLogs' - Undocumented member.
+-- 'egressAccessLogs', 'configureLogs_egressAccessLogs' - Undocumented member.
 --
--- * 'clId' - The ID of the channel to log subscription.
-configureLogs ::
-  -- | 'clId'
-  Text ->
+-- 'ingressAccessLogs', 'configureLogs_ingressAccessLogs' - Undocumented member.
+--
+-- 'id', 'configureLogs_id' - The ID of the channel to log subscription.
+newConfigureLogs ::
+  -- | 'id'
+  Prelude.Text ->
   ConfigureLogs
-configureLogs pId_ =
+newConfigureLogs pId_ =
   ConfigureLogs'
-    { _clEgressAccessLogs = Nothing,
-      _clIngressAccessLogs = Nothing,
-      _clId = pId_
+    { egressAccessLogs = Prelude.Nothing,
+      ingressAccessLogs = Prelude.Nothing,
+      id = pId_
     }
 
 -- | Undocumented member.
-clEgressAccessLogs :: Lens' ConfigureLogs (Maybe EgressAccessLogs)
-clEgressAccessLogs = lens _clEgressAccessLogs (\s a -> s {_clEgressAccessLogs = a})
+configureLogs_egressAccessLogs :: Lens.Lens' ConfigureLogs (Prelude.Maybe EgressAccessLogs)
+configureLogs_egressAccessLogs = Lens.lens (\ConfigureLogs' {egressAccessLogs} -> egressAccessLogs) (\s@ConfigureLogs' {} a -> s {egressAccessLogs = a} :: ConfigureLogs)
 
 -- | Undocumented member.
-clIngressAccessLogs :: Lens' ConfigureLogs (Maybe IngressAccessLogs)
-clIngressAccessLogs = lens _clIngressAccessLogs (\s a -> s {_clIngressAccessLogs = a})
+configureLogs_ingressAccessLogs :: Lens.Lens' ConfigureLogs (Prelude.Maybe IngressAccessLogs)
+configureLogs_ingressAccessLogs = Lens.lens (\ConfigureLogs' {ingressAccessLogs} -> ingressAccessLogs) (\s@ConfigureLogs' {} a -> s {ingressAccessLogs = a} :: ConfigureLogs)
 
 -- | The ID of the channel to log subscription.
-clId :: Lens' ConfigureLogs Text
-clId = lens _clId (\s a -> s {_clId = a})
+configureLogs_id :: Lens.Lens' ConfigureLogs Prelude.Text
+configureLogs_id = Lens.lens (\ConfigureLogs' {id} -> id) (\s@ConfigureLogs' {} a -> s {id = a} :: ConfigureLogs)
 
-instance AWSRequest ConfigureLogs where
+instance Prelude.AWSRequest ConfigureLogs where
   type Rs ConfigureLogs = ConfigureLogsResponse
-  request = putJSON mediaPackage
+  request = Request.putJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ConfigureLogsResponse'
-            <$> (x .?> "egressAccessLogs")
-            <*> (x .?> "hlsIngest")
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "ingressAccessLogs")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "description")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "egressAccessLogs")
+            Prelude.<*> (x Prelude..?> "hlsIngest")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "ingressAccessLogs")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ConfigureLogs
+instance Prelude.Hashable ConfigureLogs
 
-instance NFData ConfigureLogs
+instance Prelude.NFData ConfigureLogs
 
-instance ToHeaders ConfigureLogs where
+instance Prelude.ToHeaders ConfigureLogs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ConfigureLogs where
+instance Prelude.ToJSON ConfigureLogs where
   toJSON ConfigureLogs' {..} =
-    object
-      ( catMaybes
-          [ ("egressAccessLogs" .=) <$> _clEgressAccessLogs,
-            ("ingressAccessLogs" .=) <$> _clIngressAccessLogs
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("egressAccessLogs" Prelude..=)
+              Prelude.<$> egressAccessLogs,
+            ("ingressAccessLogs" Prelude..=)
+              Prelude.<$> ingressAccessLogs
           ]
       )
 
-instance ToPath ConfigureLogs where
+instance Prelude.ToPath ConfigureLogs where
   toPath ConfigureLogs' {..} =
-    mconcat
-      ["/channels/", toBS _clId, "/configure_logs"]
+    Prelude.mconcat
+      ["/channels/", Prelude.toBS id, "/configure_logs"]
 
-instance ToQuery ConfigureLogs where
-  toQuery = const mempty
+instance Prelude.ToQuery ConfigureLogs where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'configureLogsResponse' smart constructor.
+-- | /See:/ 'newConfigureLogsResponse' smart constructor.
 data ConfigureLogsResponse = ConfigureLogsResponse'
-  { _clrrsEgressAccessLogs ::
-      !(Maybe EgressAccessLogs),
-    _clrrsHlsIngest ::
-      !(Maybe HlsIngest),
-    _clrrsARN :: !(Maybe Text),
-    _clrrsId :: !(Maybe Text),
-    _clrrsIngressAccessLogs ::
-      !(Maybe IngressAccessLogs),
-    _clrrsTags ::
-      !(Maybe (Map Text Text)),
-    _clrrsDescription ::
-      !(Maybe Text),
-    _clrrsResponseStatus ::
-      !Int
+  { egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
+    hlsIngest :: Prelude.Maybe HlsIngest,
+    -- | The Amazon Resource Name (ARN) assigned to the Channel.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Channel.
+    id :: Prelude.Maybe Prelude.Text,
+    ingressAccessLogs :: Prelude.Maybe IngressAccessLogs,
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A short text description of the Channel.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConfigureLogsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConfigureLogsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'clrrsEgressAccessLogs' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'clrrsHlsIngest' - Undocumented member.
+-- 'egressAccessLogs', 'configureLogsResponse_egressAccessLogs' - Undocumented member.
 --
--- * 'clrrsARN' - The Amazon Resource Name (ARN) assigned to the Channel.
+-- 'hlsIngest', 'configureLogsResponse_hlsIngest' - Undocumented member.
 --
--- * 'clrrsId' - The ID of the Channel.
+-- 'arn', 'configureLogsResponse_arn' - The Amazon Resource Name (ARN) assigned to the Channel.
 --
--- * 'clrrsIngressAccessLogs' - Undocumented member.
+-- 'id', 'configureLogsResponse_id' - The ID of the Channel.
 --
--- * 'clrrsTags' - Undocumented member.
+-- 'ingressAccessLogs', 'configureLogsResponse_ingressAccessLogs' - Undocumented member.
 --
--- * 'clrrsDescription' - A short text description of the Channel.
+-- 'tags', 'configureLogsResponse_tags' - Undocumented member.
 --
--- * 'clrrsResponseStatus' - -- | The response status code.
-configureLogsResponse ::
-  -- | 'clrrsResponseStatus'
-  Int ->
+-- 'description', 'configureLogsResponse_description' - A short text description of the Channel.
+--
+-- 'httpStatus', 'configureLogsResponse_httpStatus' - The response's http status code.
+newConfigureLogsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ConfigureLogsResponse
-configureLogsResponse pResponseStatus_ =
+newConfigureLogsResponse pHttpStatus_ =
   ConfigureLogsResponse'
-    { _clrrsEgressAccessLogs =
-        Nothing,
-      _clrrsHlsIngest = Nothing,
-      _clrrsARN = Nothing,
-      _clrrsId = Nothing,
-      _clrrsIngressAccessLogs = Nothing,
-      _clrrsTags = Nothing,
-      _clrrsDescription = Nothing,
-      _clrrsResponseStatus = pResponseStatus_
+    { egressAccessLogs =
+        Prelude.Nothing,
+      hlsIngest = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      ingressAccessLogs = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-clrrsEgressAccessLogs :: Lens' ConfigureLogsResponse (Maybe EgressAccessLogs)
-clrrsEgressAccessLogs = lens _clrrsEgressAccessLogs (\s a -> s {_clrrsEgressAccessLogs = a})
+configureLogsResponse_egressAccessLogs :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe EgressAccessLogs)
+configureLogsResponse_egressAccessLogs = Lens.lens (\ConfigureLogsResponse' {egressAccessLogs} -> egressAccessLogs) (\s@ConfigureLogsResponse' {} a -> s {egressAccessLogs = a} :: ConfigureLogsResponse)
 
 -- | Undocumented member.
-clrrsHlsIngest :: Lens' ConfigureLogsResponse (Maybe HlsIngest)
-clrrsHlsIngest = lens _clrrsHlsIngest (\s a -> s {_clrrsHlsIngest = a})
+configureLogsResponse_hlsIngest :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe HlsIngest)
+configureLogsResponse_hlsIngest = Lens.lens (\ConfigureLogsResponse' {hlsIngest} -> hlsIngest) (\s@ConfigureLogsResponse' {} a -> s {hlsIngest = a} :: ConfigureLogsResponse)
 
 -- | The Amazon Resource Name (ARN) assigned to the Channel.
-clrrsARN :: Lens' ConfigureLogsResponse (Maybe Text)
-clrrsARN = lens _clrrsARN (\s a -> s {_clrrsARN = a})
+configureLogsResponse_arn :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe Prelude.Text)
+configureLogsResponse_arn = Lens.lens (\ConfigureLogsResponse' {arn} -> arn) (\s@ConfigureLogsResponse' {} a -> s {arn = a} :: ConfigureLogsResponse)
 
 -- | The ID of the Channel.
-clrrsId :: Lens' ConfigureLogsResponse (Maybe Text)
-clrrsId = lens _clrrsId (\s a -> s {_clrrsId = a})
+configureLogsResponse_id :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe Prelude.Text)
+configureLogsResponse_id = Lens.lens (\ConfigureLogsResponse' {id} -> id) (\s@ConfigureLogsResponse' {} a -> s {id = a} :: ConfigureLogsResponse)
 
 -- | Undocumented member.
-clrrsIngressAccessLogs :: Lens' ConfigureLogsResponse (Maybe IngressAccessLogs)
-clrrsIngressAccessLogs = lens _clrrsIngressAccessLogs (\s a -> s {_clrrsIngressAccessLogs = a})
+configureLogsResponse_ingressAccessLogs :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe IngressAccessLogs)
+configureLogsResponse_ingressAccessLogs = Lens.lens (\ConfigureLogsResponse' {ingressAccessLogs} -> ingressAccessLogs) (\s@ConfigureLogsResponse' {} a -> s {ingressAccessLogs = a} :: ConfigureLogsResponse)
 
 -- | Undocumented member.
-clrrsTags :: Lens' ConfigureLogsResponse (HashMap Text Text)
-clrrsTags = lens _clrrsTags (\s a -> s {_clrrsTags = a}) . _Default . _Map
+configureLogsResponse_tags :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+configureLogsResponse_tags = Lens.lens (\ConfigureLogsResponse' {tags} -> tags) (\s@ConfigureLogsResponse' {} a -> s {tags = a} :: ConfigureLogsResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | A short text description of the Channel.
-clrrsDescription :: Lens' ConfigureLogsResponse (Maybe Text)
-clrrsDescription = lens _clrrsDescription (\s a -> s {_clrrsDescription = a})
+configureLogsResponse_description :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe Prelude.Text)
+configureLogsResponse_description = Lens.lens (\ConfigureLogsResponse' {description} -> description) (\s@ConfigureLogsResponse' {} a -> s {description = a} :: ConfigureLogsResponse)
 
--- | -- | The response status code.
-clrrsResponseStatus :: Lens' ConfigureLogsResponse Int
-clrrsResponseStatus = lens _clrrsResponseStatus (\s a -> s {_clrrsResponseStatus = a})
+-- | The response's http status code.
+configureLogsResponse_httpStatus :: Lens.Lens' ConfigureLogsResponse Prelude.Int
+configureLogsResponse_httpStatus = Lens.lens (\ConfigureLogsResponse' {httpStatus} -> httpStatus) (\s@ConfigureLogsResponse' {} a -> s {httpStatus = a} :: ConfigureLogsResponse)
 
-instance NFData ConfigureLogsResponse
+instance Prelude.NFData ConfigureLogsResponse

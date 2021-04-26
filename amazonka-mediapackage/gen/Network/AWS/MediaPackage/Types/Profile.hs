@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.MediaPackage.Types.Profile
   ( Profile
       ( ..,
-        PHbbtv15,
-        PNone
+        ProfileHBBTV15,
+        ProfileNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Profile = Profile' (CI Text)
+newtype Profile = Profile'
+  { fromProfile ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PHbbtv15 :: Profile
-pattern PHbbtv15 = Profile' "HBBTV_1_5"
+pattern ProfileHBBTV15 :: Profile
+pattern ProfileHBBTV15 = Profile' "HBBTV_1_5"
 
-pattern PNone :: Profile
-pattern PNone = Profile' "NONE"
+pattern ProfileNONE :: Profile
+pattern ProfileNONE = Profile' "NONE"
 
 {-# COMPLETE
-  PHbbtv15,
-  PNone,
+  ProfileHBBTV15,
+  ProfileNONE,
   Profile'
   #-}
 
-instance FromText Profile where
-  parser = (Profile' . mk) <$> takeText
+instance Prelude.FromText Profile where
+  parser = Profile' Prelude.<$> Prelude.takeText
 
-instance ToText Profile where
-  toText (Profile' ci) = original ci
+instance Prelude.ToText Profile where
+  toText (Profile' x) = x
 
-instance Hashable Profile
+instance Prelude.Hashable Profile
 
-instance NFData Profile
+instance Prelude.NFData Profile
 
-instance ToByteString Profile
+instance Prelude.ToByteString Profile
 
-instance ToQuery Profile
+instance Prelude.ToQuery Profile
 
-instance ToHeader Profile
+instance Prelude.ToHeader Profile
 
-instance ToJSON Profile where
-  toJSON = toJSONText
+instance Prelude.ToJSON Profile where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Profile where
-  parseJSON = parseJSONText "Profile"
+instance Prelude.FromJSON Profile where
+  parseJSON = Prelude.parseJSONText "Profile"

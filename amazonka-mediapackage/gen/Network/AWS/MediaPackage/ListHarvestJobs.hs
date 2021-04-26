@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -22,173 +26,206 @@
 -- This operation returns paginated results.
 module Network.AWS.MediaPackage.ListHarvestJobs
   ( -- * Creating a Request
-    listHarvestJobs,
-    ListHarvestJobs,
+    ListHarvestJobs (..),
+    newListHarvestJobs,
 
     -- * Request Lenses
-    lhjNextToken,
-    lhjMaxResults,
-    lhjIncludeStatus,
-    lhjIncludeChannelId,
+    listHarvestJobs_nextToken,
+    listHarvestJobs_maxResults,
+    listHarvestJobs_includeStatus,
+    listHarvestJobs_includeChannelId,
 
     -- * Destructuring the Response
-    listHarvestJobsResponse,
-    ListHarvestJobsResponse,
+    ListHarvestJobsResponse (..),
+    newListHarvestJobsResponse,
 
     -- * Response Lenses
-    lhjrrsNextToken,
-    lhjrrsHarvestJobs,
-    lhjrrsResponseStatus,
+    listHarvestJobsResponse_nextToken,
+    listHarvestJobsResponse_harvestJobs,
+    listHarvestJobsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaPackage.Types.HarvestJob
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listHarvestJobs' smart constructor.
+-- | /See:/ 'newListHarvestJobs' smart constructor.
 data ListHarvestJobs = ListHarvestJobs'
-  { _lhjNextToken ::
-      !(Maybe Text),
-    _lhjMaxResults :: !(Maybe Nat),
-    _lhjIncludeStatus :: !(Maybe Text),
-    _lhjIncludeChannelId :: !(Maybe Text)
+  { -- | A token used to resume pagination from the end of a previous request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The upper bound on the number of records to return.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | When specified, the request will return only HarvestJobs in the given
+    -- status.
+    includeStatus :: Prelude.Maybe Prelude.Text,
+    -- | When specified, the request will return only HarvestJobs associated with
+    -- the given Channel ID.
+    includeChannelId :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHarvestJobs' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHarvestJobs' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhjNextToken' - A token used to resume pagination from the end of a previous request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhjMaxResults' - The upper bound on the number of records to return.
+-- 'nextToken', 'listHarvestJobs_nextToken' - A token used to resume pagination from the end of a previous request.
 --
--- * 'lhjIncludeStatus' - When specified, the request will return only HarvestJobs in the given status.
+-- 'maxResults', 'listHarvestJobs_maxResults' - The upper bound on the number of records to return.
 --
--- * 'lhjIncludeChannelId' - When specified, the request will return only HarvestJobs associated with the given Channel ID.
-listHarvestJobs ::
+-- 'includeStatus', 'listHarvestJobs_includeStatus' - When specified, the request will return only HarvestJobs in the given
+-- status.
+--
+-- 'includeChannelId', 'listHarvestJobs_includeChannelId' - When specified, the request will return only HarvestJobs associated with
+-- the given Channel ID.
+newListHarvestJobs ::
   ListHarvestJobs
-listHarvestJobs =
+newListHarvestJobs =
   ListHarvestJobs'
-    { _lhjNextToken = Nothing,
-      _lhjMaxResults = Nothing,
-      _lhjIncludeStatus = Nothing,
-      _lhjIncludeChannelId = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      includeStatus = Prelude.Nothing,
+      includeChannelId = Prelude.Nothing
     }
 
 -- | A token used to resume pagination from the end of a previous request.
-lhjNextToken :: Lens' ListHarvestJobs (Maybe Text)
-lhjNextToken = lens _lhjNextToken (\s a -> s {_lhjNextToken = a})
+listHarvestJobs_nextToken :: Lens.Lens' ListHarvestJobs (Prelude.Maybe Prelude.Text)
+listHarvestJobs_nextToken = Lens.lens (\ListHarvestJobs' {nextToken} -> nextToken) (\s@ListHarvestJobs' {} a -> s {nextToken = a} :: ListHarvestJobs)
 
 -- | The upper bound on the number of records to return.
-lhjMaxResults :: Lens' ListHarvestJobs (Maybe Natural)
-lhjMaxResults = lens _lhjMaxResults (\s a -> s {_lhjMaxResults = a}) . mapping _Nat
+listHarvestJobs_maxResults :: Lens.Lens' ListHarvestJobs (Prelude.Maybe Prelude.Natural)
+listHarvestJobs_maxResults = Lens.lens (\ListHarvestJobs' {maxResults} -> maxResults) (\s@ListHarvestJobs' {} a -> s {maxResults = a} :: ListHarvestJobs) Prelude.. Lens.mapping Prelude._Nat
 
--- | When specified, the request will return only HarvestJobs in the given status.
-lhjIncludeStatus :: Lens' ListHarvestJobs (Maybe Text)
-lhjIncludeStatus = lens _lhjIncludeStatus (\s a -> s {_lhjIncludeStatus = a})
+-- | When specified, the request will return only HarvestJobs in the given
+-- status.
+listHarvestJobs_includeStatus :: Lens.Lens' ListHarvestJobs (Prelude.Maybe Prelude.Text)
+listHarvestJobs_includeStatus = Lens.lens (\ListHarvestJobs' {includeStatus} -> includeStatus) (\s@ListHarvestJobs' {} a -> s {includeStatus = a} :: ListHarvestJobs)
 
--- | When specified, the request will return only HarvestJobs associated with the given Channel ID.
-lhjIncludeChannelId :: Lens' ListHarvestJobs (Maybe Text)
-lhjIncludeChannelId = lens _lhjIncludeChannelId (\s a -> s {_lhjIncludeChannelId = a})
+-- | When specified, the request will return only HarvestJobs associated with
+-- the given Channel ID.
+listHarvestJobs_includeChannelId :: Lens.Lens' ListHarvestJobs (Prelude.Maybe Prelude.Text)
+listHarvestJobs_includeChannelId = Lens.lens (\ListHarvestJobs' {includeChannelId} -> includeChannelId) (\s@ListHarvestJobs' {} a -> s {includeChannelId = a} :: ListHarvestJobs)
 
-instance AWSPager ListHarvestJobs where
+instance Pager.AWSPager ListHarvestJobs where
   page rq rs
-    | stop (rs ^. lhjrrsNextToken) = Nothing
-    | stop (rs ^. lhjrrsHarvestJobs) = Nothing
-    | otherwise =
-      Just $ rq & lhjNextToken .~ rs ^. lhjrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listHarvestJobsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listHarvestJobsResponse_harvestJobs
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listHarvestJobs_nextToken
+          Lens..~ rs
+          Lens.^? listHarvestJobsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListHarvestJobs where
+instance Prelude.AWSRequest ListHarvestJobs where
   type Rs ListHarvestJobs = ListHarvestJobsResponse
-  request = get mediaPackage
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListHarvestJobsResponse'
-            <$> (x .?> "nextToken")
-            <*> (x .?> "harvestJobs" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> ( x Prelude..?> "harvestJobs"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListHarvestJobs
+instance Prelude.Hashable ListHarvestJobs
 
-instance NFData ListHarvestJobs
+instance Prelude.NFData ListHarvestJobs
 
-instance ToHeaders ListHarvestJobs where
+instance Prelude.ToHeaders ListHarvestJobs where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath ListHarvestJobs where
-  toPath = const "/harvest_jobs"
+instance Prelude.ToPath ListHarvestJobs where
+  toPath = Prelude.const "/harvest_jobs"
 
-instance ToQuery ListHarvestJobs where
+instance Prelude.ToQuery ListHarvestJobs where
   toQuery ListHarvestJobs' {..} =
-    mconcat
-      [ "nextToken" =: _lhjNextToken,
-        "maxResults" =: _lhjMaxResults,
-        "includeStatus" =: _lhjIncludeStatus,
-        "includeChannelId" =: _lhjIncludeChannelId
+    Prelude.mconcat
+      [ "nextToken" Prelude.=: nextToken,
+        "maxResults" Prelude.=: maxResults,
+        "includeStatus" Prelude.=: includeStatus,
+        "includeChannelId" Prelude.=: includeChannelId
       ]
 
--- | /See:/ 'listHarvestJobsResponse' smart constructor.
+-- | /See:/ 'newListHarvestJobsResponse' smart constructor.
 data ListHarvestJobsResponse = ListHarvestJobsResponse'
-  { _lhjrrsNextToken ::
-      !(Maybe Text),
-    _lhjrrsHarvestJobs ::
-      !(Maybe [HarvestJob]),
-    _lhjrrsResponseStatus ::
-      !Int
+  { -- | A token that can be used to resume pagination from the end of the
+    -- collection.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of HarvestJob records.
+    harvestJobs :: Prelude.Maybe [HarvestJob],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListHarvestJobsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListHarvestJobsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lhjrrsNextToken' - A token that can be used to resume pagination from the end of the collection.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lhjrrsHarvestJobs' - A list of HarvestJob records.
+-- 'nextToken', 'listHarvestJobsResponse_nextToken' - A token that can be used to resume pagination from the end of the
+-- collection.
 --
--- * 'lhjrrsResponseStatus' - -- | The response status code.
-listHarvestJobsResponse ::
-  -- | 'lhjrrsResponseStatus'
-  Int ->
+-- 'harvestJobs', 'listHarvestJobsResponse_harvestJobs' - A list of HarvestJob records.
+--
+-- 'httpStatus', 'listHarvestJobsResponse_httpStatus' - The response's http status code.
+newListHarvestJobsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListHarvestJobsResponse
-listHarvestJobsResponse pResponseStatus_ =
+newListHarvestJobsResponse pHttpStatus_ =
   ListHarvestJobsResponse'
-    { _lhjrrsNextToken =
-        Nothing,
-      _lhjrrsHarvestJobs = Nothing,
-      _lhjrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      harvestJobs = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token that can be used to resume pagination from the end of the collection.
-lhjrrsNextToken :: Lens' ListHarvestJobsResponse (Maybe Text)
-lhjrrsNextToken = lens _lhjrrsNextToken (\s a -> s {_lhjrrsNextToken = a})
+-- | A token that can be used to resume pagination from the end of the
+-- collection.
+listHarvestJobsResponse_nextToken :: Lens.Lens' ListHarvestJobsResponse (Prelude.Maybe Prelude.Text)
+listHarvestJobsResponse_nextToken = Lens.lens (\ListHarvestJobsResponse' {nextToken} -> nextToken) (\s@ListHarvestJobsResponse' {} a -> s {nextToken = a} :: ListHarvestJobsResponse)
 
 -- | A list of HarvestJob records.
-lhjrrsHarvestJobs :: Lens' ListHarvestJobsResponse [HarvestJob]
-lhjrrsHarvestJobs = lens _lhjrrsHarvestJobs (\s a -> s {_lhjrrsHarvestJobs = a}) . _Default . _Coerce
+listHarvestJobsResponse_harvestJobs :: Lens.Lens' ListHarvestJobsResponse (Prelude.Maybe [HarvestJob])
+listHarvestJobsResponse_harvestJobs = Lens.lens (\ListHarvestJobsResponse' {harvestJobs} -> harvestJobs) (\s@ListHarvestJobsResponse' {} a -> s {harvestJobs = a} :: ListHarvestJobsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lhjrrsResponseStatus :: Lens' ListHarvestJobsResponse Int
-lhjrrsResponseStatus = lens _lhjrrsResponseStatus (\s a -> s {_lhjrrsResponseStatus = a})
+-- | The response's http status code.
+listHarvestJobsResponse_httpStatus :: Lens.Lens' ListHarvestJobsResponse Prelude.Int
+listHarvestJobsResponse_httpStatus = Lens.lens (\ListHarvestJobsResponse' {httpStatus} -> httpStatus) (\s@ListHarvestJobsResponse' {} a -> s {httpStatus = a} :: ListHarvestJobsResponse)
 
-instance NFData ListHarvestJobsResponse
+instance Prelude.NFData ListHarvestJobsResponse

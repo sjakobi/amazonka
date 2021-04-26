@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,465 +24,511 @@
 -- Creates a new OriginEndpoint record.
 module Network.AWS.MediaPackage.CreateOriginEndpoint
   ( -- * Creating a Request
-    createOriginEndpoint,
-    CreateOriginEndpoint,
+    CreateOriginEndpoint (..),
+    newCreateOriginEndpoint,
 
     -- * Request Lenses
-    coeDashPackage,
-    coeStartoverWindowSeconds,
-    coeOrigination,
-    coeCmafPackage,
-    coeManifestName,
-    coeWhitelist,
-    coeMssPackage,
-    coeTags,
-    coeDescription,
-    coeTimeDelaySeconds,
-    coeAuthorization,
-    coeHlsPackage,
-    coeChannelId,
-    coeId,
+    createOriginEndpoint_dashPackage,
+    createOriginEndpoint_startoverWindowSeconds,
+    createOriginEndpoint_origination,
+    createOriginEndpoint_cmafPackage,
+    createOriginEndpoint_manifestName,
+    createOriginEndpoint_whitelist,
+    createOriginEndpoint_mssPackage,
+    createOriginEndpoint_tags,
+    createOriginEndpoint_description,
+    createOriginEndpoint_timeDelaySeconds,
+    createOriginEndpoint_authorization,
+    createOriginEndpoint_hlsPackage,
+    createOriginEndpoint_channelId,
+    createOriginEndpoint_id,
 
     -- * Destructuring the Response
-    createOriginEndpointResponse,
-    CreateOriginEndpointResponse,
+    CreateOriginEndpointResponse (..),
+    newCreateOriginEndpointResponse,
 
     -- * Response Lenses
-    coerrsDashPackage,
-    coerrsStartoverWindowSeconds,
-    coerrsOrigination,
-    coerrsChannelId,
-    coerrsCmafPackage,
-    coerrsManifestName,
-    coerrsARN,
-    coerrsId,
-    coerrsWhitelist,
-    coerrsMssPackage,
-    coerrsTags,
-    coerrsDescription,
-    coerrsTimeDelaySeconds,
-    coerrsAuthorization,
-    coerrsURL,
-    coerrsHlsPackage,
-    coerrsResponseStatus,
+    createOriginEndpointResponse_dashPackage,
+    createOriginEndpointResponse_startoverWindowSeconds,
+    createOriginEndpointResponse_origination,
+    createOriginEndpointResponse_channelId,
+    createOriginEndpointResponse_cmafPackage,
+    createOriginEndpointResponse_manifestName,
+    createOriginEndpointResponse_arn,
+    createOriginEndpointResponse_id,
+    createOriginEndpointResponse_whitelist,
+    createOriginEndpointResponse_mssPackage,
+    createOriginEndpointResponse_tags,
+    createOriginEndpointResponse_description,
+    createOriginEndpointResponse_timeDelaySeconds,
+    createOriginEndpointResponse_authorization,
+    createOriginEndpointResponse_url,
+    createOriginEndpointResponse_hlsPackage,
+    createOriginEndpointResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaPackage.Types.Authorization
+import Network.AWS.MediaPackage.Types.CmafPackage
+import Network.AWS.MediaPackage.Types.DashPackage
+import Network.AWS.MediaPackage.Types.HlsPackage
+import Network.AWS.MediaPackage.Types.MssPackage
+import Network.AWS.MediaPackage.Types.Origination
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
 -- | Configuration parameters used to create a new OriginEndpoint.
 --
--- /See:/ 'createOriginEndpoint' smart constructor.
+-- /See:/ 'newCreateOriginEndpoint' smart constructor.
 data CreateOriginEndpoint = CreateOriginEndpoint'
-  { _coeDashPackage ::
-      !(Maybe DashPackage),
-    _coeStartoverWindowSeconds ::
-      !(Maybe Int),
-    _coeOrigination ::
-      !(Maybe Origination),
-    _coeCmafPackage ::
-      !( Maybe
-           CmafPackageCreateOrUpdateParameters
-       ),
-    _coeManifestName ::
-      !(Maybe Text),
-    _coeWhitelist ::
-      !(Maybe [Text]),
-    _coeMssPackage ::
-      !(Maybe MssPackage),
-    _coeTags ::
-      !(Maybe (Map Text Text)),
-    _coeDescription ::
-      !(Maybe Text),
-    _coeTimeDelaySeconds ::
-      !(Maybe Int),
-    _coeAuthorization ::
-      !(Maybe Authorization),
-    _coeHlsPackage ::
-      !(Maybe HlsPackage),
-    _coeChannelId :: !Text,
-    _coeId :: !Text
+  { dashPackage :: Prelude.Maybe DashPackage,
+    -- | Maximum duration (seconds) of content to retain for startover playback.
+    -- If not specified, startover playback will be disabled for the
+    -- OriginEndpoint.
+    startoverWindowSeconds :: Prelude.Maybe Prelude.Int,
+    -- | Control whether origination of video is allowed for this OriginEndpoint.
+    -- If set to ALLOW, the OriginEndpoint may by requested, pursuant to any
+    -- other form of access control. If set to DENY, the OriginEndpoint may not
+    -- be requested. This can be helpful for Live to VOD harvesting, or for
+    -- temporarily disabling origination
+    origination :: Prelude.Maybe Origination,
+    cmafPackage :: Prelude.Maybe CmafPackageCreateOrUpdateParameters,
+    -- | A short string that will be used as the filename of the OriginEndpoint
+    -- URL (defaults to \"index\").
+    manifestName :: Prelude.Maybe Prelude.Text,
+    -- | A list of source IP CIDR blocks that will be allowed to access the
+    -- OriginEndpoint.
+    whitelist :: Prelude.Maybe [Prelude.Text],
+    mssPackage :: Prelude.Maybe MssPackage,
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A short text description of the OriginEndpoint.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Amount of delay (seconds) to enforce on the playback of live content. If
+    -- not specified, there will be no time delay in effect for the
+    -- OriginEndpoint.
+    timeDelaySeconds :: Prelude.Maybe Prelude.Int,
+    authorization :: Prelude.Maybe Authorization,
+    hlsPackage :: Prelude.Maybe HlsPackage,
+    -- | The ID of the Channel that the OriginEndpoint will be associated with.
+    -- This cannot be changed after the OriginEndpoint is created.
+    channelId :: Prelude.Text,
+    -- | The ID of the OriginEndpoint. The ID must be unique within the region
+    -- and it cannot be changed after the OriginEndpoint is created.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOriginEndpoint' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOriginEndpoint' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'coeDashPackage' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'coeStartoverWindowSeconds' - Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
+-- 'dashPackage', 'createOriginEndpoint_dashPackage' - Undocumented member.
 --
--- * 'coeOrigination' - Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+-- 'startoverWindowSeconds', 'createOriginEndpoint_startoverWindowSeconds' - Maximum duration (seconds) of content to retain for startover playback.
+-- If not specified, startover playback will be disabled for the
+-- OriginEndpoint.
 --
--- * 'coeCmafPackage' - Undocumented member.
+-- 'origination', 'createOriginEndpoint_origination' - Control whether origination of video is allowed for this OriginEndpoint.
+-- If set to ALLOW, the OriginEndpoint may by requested, pursuant to any
+-- other form of access control. If set to DENY, the OriginEndpoint may not
+-- be requested. This can be helpful for Live to VOD harvesting, or for
+-- temporarily disabling origination
 --
--- * 'coeManifestName' - A short string that will be used as the filename of the OriginEndpoint URL (defaults to "index").
+-- 'cmafPackage', 'createOriginEndpoint_cmafPackage' - Undocumented member.
 --
--- * 'coeWhitelist' - A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
+-- 'manifestName', 'createOriginEndpoint_manifestName' - A short string that will be used as the filename of the OriginEndpoint
+-- URL (defaults to \"index\").
 --
--- * 'coeMssPackage' - Undocumented member.
+-- 'whitelist', 'createOriginEndpoint_whitelist' - A list of source IP CIDR blocks that will be allowed to access the
+-- OriginEndpoint.
 --
--- * 'coeTags' - Undocumented member.
+-- 'mssPackage', 'createOriginEndpoint_mssPackage' - Undocumented member.
 --
--- * 'coeDescription' - A short text description of the OriginEndpoint.
+-- 'tags', 'createOriginEndpoint_tags' - Undocumented member.
 --
--- * 'coeTimeDelaySeconds' - Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
+-- 'description', 'createOriginEndpoint_description' - A short text description of the OriginEndpoint.
 --
--- * 'coeAuthorization' - Undocumented member.
+-- 'timeDelaySeconds', 'createOriginEndpoint_timeDelaySeconds' - Amount of delay (seconds) to enforce on the playback of live content. If
+-- not specified, there will be no time delay in effect for the
+-- OriginEndpoint.
 --
--- * 'coeHlsPackage' - Undocumented member.
+-- 'authorization', 'createOriginEndpoint_authorization' - Undocumented member.
 --
--- * 'coeChannelId' - The ID of the Channel that the OriginEndpoint will be associated with. This cannot be changed after the OriginEndpoint is created.
+-- 'hlsPackage', 'createOriginEndpoint_hlsPackage' - Undocumented member.
 --
--- * 'coeId' - The ID of the OriginEndpoint.  The ID must be unique within the region and it cannot be changed after the OriginEndpoint is created.
-createOriginEndpoint ::
-  -- | 'coeChannelId'
-  Text ->
-  -- | 'coeId'
-  Text ->
+-- 'channelId', 'createOriginEndpoint_channelId' - The ID of the Channel that the OriginEndpoint will be associated with.
+-- This cannot be changed after the OriginEndpoint is created.
+--
+-- 'id', 'createOriginEndpoint_id' - The ID of the OriginEndpoint. The ID must be unique within the region
+-- and it cannot be changed after the OriginEndpoint is created.
+newCreateOriginEndpoint ::
+  -- | 'channelId'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
   CreateOriginEndpoint
-createOriginEndpoint pChannelId_ pId_ =
+newCreateOriginEndpoint pChannelId_ pId_ =
   CreateOriginEndpoint'
-    { _coeDashPackage = Nothing,
-      _coeStartoverWindowSeconds = Nothing,
-      _coeOrigination = Nothing,
-      _coeCmafPackage = Nothing,
-      _coeManifestName = Nothing,
-      _coeWhitelist = Nothing,
-      _coeMssPackage = Nothing,
-      _coeTags = Nothing,
-      _coeDescription = Nothing,
-      _coeTimeDelaySeconds = Nothing,
-      _coeAuthorization = Nothing,
-      _coeHlsPackage = Nothing,
-      _coeChannelId = pChannelId_,
-      _coeId = pId_
+    { dashPackage =
+        Prelude.Nothing,
+      startoverWindowSeconds = Prelude.Nothing,
+      origination = Prelude.Nothing,
+      cmafPackage = Prelude.Nothing,
+      manifestName = Prelude.Nothing,
+      whitelist = Prelude.Nothing,
+      mssPackage = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      timeDelaySeconds = Prelude.Nothing,
+      authorization = Prelude.Nothing,
+      hlsPackage = Prelude.Nothing,
+      channelId = pChannelId_,
+      id = pId_
     }
 
 -- | Undocumented member.
-coeDashPackage :: Lens' CreateOriginEndpoint (Maybe DashPackage)
-coeDashPackage = lens _coeDashPackage (\s a -> s {_coeDashPackage = a})
+createOriginEndpoint_dashPackage :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe DashPackage)
+createOriginEndpoint_dashPackage = Lens.lens (\CreateOriginEndpoint' {dashPackage} -> dashPackage) (\s@CreateOriginEndpoint' {} a -> s {dashPackage = a} :: CreateOriginEndpoint)
 
--- | Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
-coeStartoverWindowSeconds :: Lens' CreateOriginEndpoint (Maybe Int)
-coeStartoverWindowSeconds = lens _coeStartoverWindowSeconds (\s a -> s {_coeStartoverWindowSeconds = a})
+-- | Maximum duration (seconds) of content to retain for startover playback.
+-- If not specified, startover playback will be disabled for the
+-- OriginEndpoint.
+createOriginEndpoint_startoverWindowSeconds :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe Prelude.Int)
+createOriginEndpoint_startoverWindowSeconds = Lens.lens (\CreateOriginEndpoint' {startoverWindowSeconds} -> startoverWindowSeconds) (\s@CreateOriginEndpoint' {} a -> s {startoverWindowSeconds = a} :: CreateOriginEndpoint)
 
--- | Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
-coeOrigination :: Lens' CreateOriginEndpoint (Maybe Origination)
-coeOrigination = lens _coeOrigination (\s a -> s {_coeOrigination = a})
-
--- | Undocumented member.
-coeCmafPackage :: Lens' CreateOriginEndpoint (Maybe CmafPackageCreateOrUpdateParameters)
-coeCmafPackage = lens _coeCmafPackage (\s a -> s {_coeCmafPackage = a})
-
--- | A short string that will be used as the filename of the OriginEndpoint URL (defaults to "index").
-coeManifestName :: Lens' CreateOriginEndpoint (Maybe Text)
-coeManifestName = lens _coeManifestName (\s a -> s {_coeManifestName = a})
-
--- | A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
-coeWhitelist :: Lens' CreateOriginEndpoint [Text]
-coeWhitelist = lens _coeWhitelist (\s a -> s {_coeWhitelist = a}) . _Default . _Coerce
+-- | Control whether origination of video is allowed for this OriginEndpoint.
+-- If set to ALLOW, the OriginEndpoint may by requested, pursuant to any
+-- other form of access control. If set to DENY, the OriginEndpoint may not
+-- be requested. This can be helpful for Live to VOD harvesting, or for
+-- temporarily disabling origination
+createOriginEndpoint_origination :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe Origination)
+createOriginEndpoint_origination = Lens.lens (\CreateOriginEndpoint' {origination} -> origination) (\s@CreateOriginEndpoint' {} a -> s {origination = a} :: CreateOriginEndpoint)
 
 -- | Undocumented member.
-coeMssPackage :: Lens' CreateOriginEndpoint (Maybe MssPackage)
-coeMssPackage = lens _coeMssPackage (\s a -> s {_coeMssPackage = a})
+createOriginEndpoint_cmafPackage :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe CmafPackageCreateOrUpdateParameters)
+createOriginEndpoint_cmafPackage = Lens.lens (\CreateOriginEndpoint' {cmafPackage} -> cmafPackage) (\s@CreateOriginEndpoint' {} a -> s {cmafPackage = a} :: CreateOriginEndpoint)
+
+-- | A short string that will be used as the filename of the OriginEndpoint
+-- URL (defaults to \"index\").
+createOriginEndpoint_manifestName :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe Prelude.Text)
+createOriginEndpoint_manifestName = Lens.lens (\CreateOriginEndpoint' {manifestName} -> manifestName) (\s@CreateOriginEndpoint' {} a -> s {manifestName = a} :: CreateOriginEndpoint)
+
+-- | A list of source IP CIDR blocks that will be allowed to access the
+-- OriginEndpoint.
+createOriginEndpoint_whitelist :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe [Prelude.Text])
+createOriginEndpoint_whitelist = Lens.lens (\CreateOriginEndpoint' {whitelist} -> whitelist) (\s@CreateOriginEndpoint' {} a -> s {whitelist = a} :: CreateOriginEndpoint) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-coeTags :: Lens' CreateOriginEndpoint (HashMap Text Text)
-coeTags = lens _coeTags (\s a -> s {_coeTags = a}) . _Default . _Map
+createOriginEndpoint_mssPackage :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe MssPackage)
+createOriginEndpoint_mssPackage = Lens.lens (\CreateOriginEndpoint' {mssPackage} -> mssPackage) (\s@CreateOriginEndpoint' {} a -> s {mssPackage = a} :: CreateOriginEndpoint)
+
+-- | Undocumented member.
+createOriginEndpoint_tags :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createOriginEndpoint_tags = Lens.lens (\CreateOriginEndpoint' {tags} -> tags) (\s@CreateOriginEndpoint' {} a -> s {tags = a} :: CreateOriginEndpoint) Prelude.. Lens.mapping Prelude._Map
 
 -- | A short text description of the OriginEndpoint.
-coeDescription :: Lens' CreateOriginEndpoint (Maybe Text)
-coeDescription = lens _coeDescription (\s a -> s {_coeDescription = a})
+createOriginEndpoint_description :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe Prelude.Text)
+createOriginEndpoint_description = Lens.lens (\CreateOriginEndpoint' {description} -> description) (\s@CreateOriginEndpoint' {} a -> s {description = a} :: CreateOriginEndpoint)
 
--- | Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
-coeTimeDelaySeconds :: Lens' CreateOriginEndpoint (Maybe Int)
-coeTimeDelaySeconds = lens _coeTimeDelaySeconds (\s a -> s {_coeTimeDelaySeconds = a})
-
--- | Undocumented member.
-coeAuthorization :: Lens' CreateOriginEndpoint (Maybe Authorization)
-coeAuthorization = lens _coeAuthorization (\s a -> s {_coeAuthorization = a})
+-- | Amount of delay (seconds) to enforce on the playback of live content. If
+-- not specified, there will be no time delay in effect for the
+-- OriginEndpoint.
+createOriginEndpoint_timeDelaySeconds :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe Prelude.Int)
+createOriginEndpoint_timeDelaySeconds = Lens.lens (\CreateOriginEndpoint' {timeDelaySeconds} -> timeDelaySeconds) (\s@CreateOriginEndpoint' {} a -> s {timeDelaySeconds = a} :: CreateOriginEndpoint)
 
 -- | Undocumented member.
-coeHlsPackage :: Lens' CreateOriginEndpoint (Maybe HlsPackage)
-coeHlsPackage = lens _coeHlsPackage (\s a -> s {_coeHlsPackage = a})
+createOriginEndpoint_authorization :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe Authorization)
+createOriginEndpoint_authorization = Lens.lens (\CreateOriginEndpoint' {authorization} -> authorization) (\s@CreateOriginEndpoint' {} a -> s {authorization = a} :: CreateOriginEndpoint)
 
--- | The ID of the Channel that the OriginEndpoint will be associated with. This cannot be changed after the OriginEndpoint is created.
-coeChannelId :: Lens' CreateOriginEndpoint Text
-coeChannelId = lens _coeChannelId (\s a -> s {_coeChannelId = a})
+-- | Undocumented member.
+createOriginEndpoint_hlsPackage :: Lens.Lens' CreateOriginEndpoint (Prelude.Maybe HlsPackage)
+createOriginEndpoint_hlsPackage = Lens.lens (\CreateOriginEndpoint' {hlsPackage} -> hlsPackage) (\s@CreateOriginEndpoint' {} a -> s {hlsPackage = a} :: CreateOriginEndpoint)
 
--- | The ID of the OriginEndpoint.  The ID must be unique within the region and it cannot be changed after the OriginEndpoint is created.
-coeId :: Lens' CreateOriginEndpoint Text
-coeId = lens _coeId (\s a -> s {_coeId = a})
+-- | The ID of the Channel that the OriginEndpoint will be associated with.
+-- This cannot be changed after the OriginEndpoint is created.
+createOriginEndpoint_channelId :: Lens.Lens' CreateOriginEndpoint Prelude.Text
+createOriginEndpoint_channelId = Lens.lens (\CreateOriginEndpoint' {channelId} -> channelId) (\s@CreateOriginEndpoint' {} a -> s {channelId = a} :: CreateOriginEndpoint)
 
-instance AWSRequest CreateOriginEndpoint where
+-- | The ID of the OriginEndpoint. The ID must be unique within the region
+-- and it cannot be changed after the OriginEndpoint is created.
+createOriginEndpoint_id :: Lens.Lens' CreateOriginEndpoint Prelude.Text
+createOriginEndpoint_id = Lens.lens (\CreateOriginEndpoint' {id} -> id) (\s@CreateOriginEndpoint' {} a -> s {id = a} :: CreateOriginEndpoint)
+
+instance Prelude.AWSRequest CreateOriginEndpoint where
   type
     Rs CreateOriginEndpoint =
       CreateOriginEndpointResponse
-  request = postJSON mediaPackage
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateOriginEndpointResponse'
-            <$> (x .?> "dashPackage")
-            <*> (x .?> "startoverWindowSeconds")
-            <*> (x .?> "origination")
-            <*> (x .?> "channelId")
-            <*> (x .?> "cmafPackage")
-            <*> (x .?> "manifestName")
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "whitelist" .!@ mempty)
-            <*> (x .?> "mssPackage")
-            <*> (x .?> "tags" .!@ mempty)
-            <*> (x .?> "description")
-            <*> (x .?> "timeDelaySeconds")
-            <*> (x .?> "authorization")
-            <*> (x .?> "url")
-            <*> (x .?> "hlsPackage")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "dashPackage")
+            Prelude.<*> (x Prelude..?> "startoverWindowSeconds")
+            Prelude.<*> (x Prelude..?> "origination")
+            Prelude.<*> (x Prelude..?> "channelId")
+            Prelude.<*> (x Prelude..?> "cmafPackage")
+            Prelude.<*> (x Prelude..?> "manifestName")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> ( x Prelude..?> "whitelist"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "mssPackage")
+            Prelude.<*> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "timeDelaySeconds")
+            Prelude.<*> (x Prelude..?> "authorization")
+            Prelude.<*> (x Prelude..?> "url")
+            Prelude.<*> (x Prelude..?> "hlsPackage")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateOriginEndpoint
+instance Prelude.Hashable CreateOriginEndpoint
 
-instance NFData CreateOriginEndpoint
+instance Prelude.NFData CreateOriginEndpoint
 
-instance ToHeaders CreateOriginEndpoint where
+instance Prelude.ToHeaders CreateOriginEndpoint where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateOriginEndpoint where
+instance Prelude.ToJSON CreateOriginEndpoint where
   toJSON CreateOriginEndpoint' {..} =
-    object
-      ( catMaybes
-          [ ("dashPackage" .=) <$> _coeDashPackage,
-            ("startoverWindowSeconds" .=)
-              <$> _coeStartoverWindowSeconds,
-            ("origination" .=) <$> _coeOrigination,
-            ("cmafPackage" .=) <$> _coeCmafPackage,
-            ("manifestName" .=) <$> _coeManifestName,
-            ("whitelist" .=) <$> _coeWhitelist,
-            ("mssPackage" .=) <$> _coeMssPackage,
-            ("tags" .=) <$> _coeTags,
-            ("description" .=) <$> _coeDescription,
-            ("timeDelaySeconds" .=) <$> _coeTimeDelaySeconds,
-            ("authorization" .=) <$> _coeAuthorization,
-            ("hlsPackage" .=) <$> _coeHlsPackage,
-            Just ("channelId" .= _coeChannelId),
-            Just ("id" .= _coeId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("dashPackage" Prelude..=) Prelude.<$> dashPackage,
+            ("startoverWindowSeconds" Prelude..=)
+              Prelude.<$> startoverWindowSeconds,
+            ("origination" Prelude..=) Prelude.<$> origination,
+            ("cmafPackage" Prelude..=) Prelude.<$> cmafPackage,
+            ("manifestName" Prelude..=) Prelude.<$> manifestName,
+            ("whitelist" Prelude..=) Prelude.<$> whitelist,
+            ("mssPackage" Prelude..=) Prelude.<$> mssPackage,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("timeDelaySeconds" Prelude..=)
+              Prelude.<$> timeDelaySeconds,
+            ("authorization" Prelude..=)
+              Prelude.<$> authorization,
+            ("hlsPackage" Prelude..=) Prelude.<$> hlsPackage,
+            Prelude.Just ("channelId" Prelude..= channelId),
+            Prelude.Just ("id" Prelude..= id)
           ]
       )
 
-instance ToPath CreateOriginEndpoint where
-  toPath = const "/origin_endpoints"
+instance Prelude.ToPath CreateOriginEndpoint where
+  toPath = Prelude.const "/origin_endpoints"
 
-instance ToQuery CreateOriginEndpoint where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateOriginEndpoint where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createOriginEndpointResponse' smart constructor.
+-- | /See:/ 'newCreateOriginEndpointResponse' smart constructor.
 data CreateOriginEndpointResponse = CreateOriginEndpointResponse'
-  { _coerrsDashPackage ::
-      !( Maybe
-           DashPackage
-       ),
-    _coerrsStartoverWindowSeconds ::
-      !(Maybe Int),
-    _coerrsOrigination ::
-      !( Maybe
-           Origination
-       ),
-    _coerrsChannelId ::
-      !(Maybe Text),
-    _coerrsCmafPackage ::
-      !( Maybe
-           CmafPackage
-       ),
-    _coerrsManifestName ::
-      !(Maybe Text),
-    _coerrsARN ::
-      !(Maybe Text),
-    _coerrsId ::
-      !(Maybe Text),
-    _coerrsWhitelist ::
-      !( Maybe
-           [Text]
-       ),
-    _coerrsMssPackage ::
-      !( Maybe
-           MssPackage
-       ),
-    _coerrsTags ::
-      !( Maybe
-           ( Map
-               Text
-               Text
-           )
-       ),
-    _coerrsDescription ::
-      !(Maybe Text),
-    _coerrsTimeDelaySeconds ::
-      !(Maybe Int),
-    _coerrsAuthorization ::
-      !( Maybe
-           Authorization
-       ),
-    _coerrsURL ::
-      !(Maybe Text),
-    _coerrsHlsPackage ::
-      !( Maybe
-           HlsPackage
-       ),
-    _coerrsResponseStatus ::
-      !Int
+  { dashPackage :: Prelude.Maybe DashPackage,
+    -- | Maximum duration (seconds) of content to retain for startover playback.
+    -- If not specified, startover playback will be disabled for the
+    -- OriginEndpoint.
+    startoverWindowSeconds :: Prelude.Maybe Prelude.Int,
+    -- | Control whether origination of video is allowed for this OriginEndpoint.
+    -- If set to ALLOW, the OriginEndpoint may by requested, pursuant to any
+    -- other form of access control. If set to DENY, the OriginEndpoint may not
+    -- be requested. This can be helpful for Live to VOD harvesting, or for
+    -- temporarily disabling origination
+    origination :: Prelude.Maybe Origination,
+    -- | The ID of the Channel the OriginEndpoint is associated with.
+    channelId :: Prelude.Maybe Prelude.Text,
+    cmafPackage :: Prelude.Maybe CmafPackage,
+    -- | A short string appended to the end of the OriginEndpoint URL.
+    manifestName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the OriginEndpoint.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | A list of source IP CIDR blocks that will be allowed to access the
+    -- OriginEndpoint.
+    whitelist :: Prelude.Maybe [Prelude.Text],
+    mssPackage :: Prelude.Maybe MssPackage,
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | A short text description of the OriginEndpoint.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Amount of delay (seconds) to enforce on the playback of live content. If
+    -- not specified, there will be no time delay in effect for the
+    -- OriginEndpoint.
+    timeDelaySeconds :: Prelude.Maybe Prelude.Int,
+    authorization :: Prelude.Maybe Authorization,
+    -- | The URL of the packaged OriginEndpoint for consumption.
+    url :: Prelude.Maybe Prelude.Text,
+    hlsPackage :: Prelude.Maybe HlsPackage,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateOriginEndpointResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateOriginEndpointResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'coerrsDashPackage' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'coerrsStartoverWindowSeconds' - Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
+-- 'dashPackage', 'createOriginEndpointResponse_dashPackage' - Undocumented member.
 --
--- * 'coerrsOrigination' - Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
+-- 'startoverWindowSeconds', 'createOriginEndpointResponse_startoverWindowSeconds' - Maximum duration (seconds) of content to retain for startover playback.
+-- If not specified, startover playback will be disabled for the
+-- OriginEndpoint.
 --
--- * 'coerrsChannelId' - The ID of the Channel the OriginEndpoint is associated with.
+-- 'origination', 'createOriginEndpointResponse_origination' - Control whether origination of video is allowed for this OriginEndpoint.
+-- If set to ALLOW, the OriginEndpoint may by requested, pursuant to any
+-- other form of access control. If set to DENY, the OriginEndpoint may not
+-- be requested. This can be helpful for Live to VOD harvesting, or for
+-- temporarily disabling origination
 --
--- * 'coerrsCmafPackage' - Undocumented member.
+-- 'channelId', 'createOriginEndpointResponse_channelId' - The ID of the Channel the OriginEndpoint is associated with.
 --
--- * 'coerrsManifestName' - A short string appended to the end of the OriginEndpoint URL.
+-- 'cmafPackage', 'createOriginEndpointResponse_cmafPackage' - Undocumented member.
 --
--- * 'coerrsARN' - The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
+-- 'manifestName', 'createOriginEndpointResponse_manifestName' - A short string appended to the end of the OriginEndpoint URL.
 --
--- * 'coerrsId' - The ID of the OriginEndpoint.
+-- 'arn', 'createOriginEndpointResponse_arn' - The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
 --
--- * 'coerrsWhitelist' - A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
+-- 'id', 'createOriginEndpointResponse_id' - The ID of the OriginEndpoint.
 --
--- * 'coerrsMssPackage' - Undocumented member.
+-- 'whitelist', 'createOriginEndpointResponse_whitelist' - A list of source IP CIDR blocks that will be allowed to access the
+-- OriginEndpoint.
 --
--- * 'coerrsTags' - Undocumented member.
+-- 'mssPackage', 'createOriginEndpointResponse_mssPackage' - Undocumented member.
 --
--- * 'coerrsDescription' - A short text description of the OriginEndpoint.
+-- 'tags', 'createOriginEndpointResponse_tags' - Undocumented member.
 --
--- * 'coerrsTimeDelaySeconds' - Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
+-- 'description', 'createOriginEndpointResponse_description' - A short text description of the OriginEndpoint.
 --
--- * 'coerrsAuthorization' - Undocumented member.
+-- 'timeDelaySeconds', 'createOriginEndpointResponse_timeDelaySeconds' - Amount of delay (seconds) to enforce on the playback of live content. If
+-- not specified, there will be no time delay in effect for the
+-- OriginEndpoint.
 --
--- * 'coerrsURL' - The URL of the packaged OriginEndpoint for consumption.
+-- 'authorization', 'createOriginEndpointResponse_authorization' - Undocumented member.
 --
--- * 'coerrsHlsPackage' - Undocumented member.
+-- 'url', 'createOriginEndpointResponse_url' - The URL of the packaged OriginEndpoint for consumption.
 --
--- * 'coerrsResponseStatus' - -- | The response status code.
-createOriginEndpointResponse ::
-  -- | 'coerrsResponseStatus'
-  Int ->
+-- 'hlsPackage', 'createOriginEndpointResponse_hlsPackage' - Undocumented member.
+--
+-- 'httpStatus', 'createOriginEndpointResponse_httpStatus' - The response's http status code.
+newCreateOriginEndpointResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateOriginEndpointResponse
-createOriginEndpointResponse pResponseStatus_ =
+newCreateOriginEndpointResponse pHttpStatus_ =
   CreateOriginEndpointResponse'
-    { _coerrsDashPackage =
-        Nothing,
-      _coerrsStartoverWindowSeconds = Nothing,
-      _coerrsOrigination = Nothing,
-      _coerrsChannelId = Nothing,
-      _coerrsCmafPackage = Nothing,
-      _coerrsManifestName = Nothing,
-      _coerrsARN = Nothing,
-      _coerrsId = Nothing,
-      _coerrsWhitelist = Nothing,
-      _coerrsMssPackage = Nothing,
-      _coerrsTags = Nothing,
-      _coerrsDescription = Nothing,
-      _coerrsTimeDelaySeconds = Nothing,
-      _coerrsAuthorization = Nothing,
-      _coerrsURL = Nothing,
-      _coerrsHlsPackage = Nothing,
-      _coerrsResponseStatus = pResponseStatus_
+    { dashPackage =
+        Prelude.Nothing,
+      startoverWindowSeconds = Prelude.Nothing,
+      origination = Prelude.Nothing,
+      channelId = Prelude.Nothing,
+      cmafPackage = Prelude.Nothing,
+      manifestName = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      whitelist = Prelude.Nothing,
+      mssPackage = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      timeDelaySeconds = Prelude.Nothing,
+      authorization = Prelude.Nothing,
+      url = Prelude.Nothing,
+      hlsPackage = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-coerrsDashPackage :: Lens' CreateOriginEndpointResponse (Maybe DashPackage)
-coerrsDashPackage = lens _coerrsDashPackage (\s a -> s {_coerrsDashPackage = a})
+createOriginEndpointResponse_dashPackage :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe DashPackage)
+createOriginEndpointResponse_dashPackage = Lens.lens (\CreateOriginEndpointResponse' {dashPackage} -> dashPackage) (\s@CreateOriginEndpointResponse' {} a -> s {dashPackage = a} :: CreateOriginEndpointResponse)
 
--- | Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
-coerrsStartoverWindowSeconds :: Lens' CreateOriginEndpointResponse (Maybe Int)
-coerrsStartoverWindowSeconds = lens _coerrsStartoverWindowSeconds (\s a -> s {_coerrsStartoverWindowSeconds = a})
+-- | Maximum duration (seconds) of content to retain for startover playback.
+-- If not specified, startover playback will be disabled for the
+-- OriginEndpoint.
+createOriginEndpointResponse_startoverWindowSeconds :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Int)
+createOriginEndpointResponse_startoverWindowSeconds = Lens.lens (\CreateOriginEndpointResponse' {startoverWindowSeconds} -> startoverWindowSeconds) (\s@CreateOriginEndpointResponse' {} a -> s {startoverWindowSeconds = a} :: CreateOriginEndpointResponse)
 
--- | Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
-coerrsOrigination :: Lens' CreateOriginEndpointResponse (Maybe Origination)
-coerrsOrigination = lens _coerrsOrigination (\s a -> s {_coerrsOrigination = a})
+-- | Control whether origination of video is allowed for this OriginEndpoint.
+-- If set to ALLOW, the OriginEndpoint may by requested, pursuant to any
+-- other form of access control. If set to DENY, the OriginEndpoint may not
+-- be requested. This can be helpful for Live to VOD harvesting, or for
+-- temporarily disabling origination
+createOriginEndpointResponse_origination :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Origination)
+createOriginEndpointResponse_origination = Lens.lens (\CreateOriginEndpointResponse' {origination} -> origination) (\s@CreateOriginEndpointResponse' {} a -> s {origination = a} :: CreateOriginEndpointResponse)
 
 -- | The ID of the Channel the OriginEndpoint is associated with.
-coerrsChannelId :: Lens' CreateOriginEndpointResponse (Maybe Text)
-coerrsChannelId = lens _coerrsChannelId (\s a -> s {_coerrsChannelId = a})
+createOriginEndpointResponse_channelId :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Text)
+createOriginEndpointResponse_channelId = Lens.lens (\CreateOriginEndpointResponse' {channelId} -> channelId) (\s@CreateOriginEndpointResponse' {} a -> s {channelId = a} :: CreateOriginEndpointResponse)
 
 -- | Undocumented member.
-coerrsCmafPackage :: Lens' CreateOriginEndpointResponse (Maybe CmafPackage)
-coerrsCmafPackage = lens _coerrsCmafPackage (\s a -> s {_coerrsCmafPackage = a})
+createOriginEndpointResponse_cmafPackage :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe CmafPackage)
+createOriginEndpointResponse_cmafPackage = Lens.lens (\CreateOriginEndpointResponse' {cmafPackage} -> cmafPackage) (\s@CreateOriginEndpointResponse' {} a -> s {cmafPackage = a} :: CreateOriginEndpointResponse)
 
 -- | A short string appended to the end of the OriginEndpoint URL.
-coerrsManifestName :: Lens' CreateOriginEndpointResponse (Maybe Text)
-coerrsManifestName = lens _coerrsManifestName (\s a -> s {_coerrsManifestName = a})
+createOriginEndpointResponse_manifestName :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Text)
+createOriginEndpointResponse_manifestName = Lens.lens (\CreateOriginEndpointResponse' {manifestName} -> manifestName) (\s@CreateOriginEndpointResponse' {} a -> s {manifestName = a} :: CreateOriginEndpointResponse)
 
 -- | The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
-coerrsARN :: Lens' CreateOriginEndpointResponse (Maybe Text)
-coerrsARN = lens _coerrsARN (\s a -> s {_coerrsARN = a})
+createOriginEndpointResponse_arn :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Text)
+createOriginEndpointResponse_arn = Lens.lens (\CreateOriginEndpointResponse' {arn} -> arn) (\s@CreateOriginEndpointResponse' {} a -> s {arn = a} :: CreateOriginEndpointResponse)
 
 -- | The ID of the OriginEndpoint.
-coerrsId :: Lens' CreateOriginEndpointResponse (Maybe Text)
-coerrsId = lens _coerrsId (\s a -> s {_coerrsId = a})
+createOriginEndpointResponse_id :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Text)
+createOriginEndpointResponse_id = Lens.lens (\CreateOriginEndpointResponse' {id} -> id) (\s@CreateOriginEndpointResponse' {} a -> s {id = a} :: CreateOriginEndpointResponse)
 
--- | A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
-coerrsWhitelist :: Lens' CreateOriginEndpointResponse [Text]
-coerrsWhitelist = lens _coerrsWhitelist (\s a -> s {_coerrsWhitelist = a}) . _Default . _Coerce
-
--- | Undocumented member.
-coerrsMssPackage :: Lens' CreateOriginEndpointResponse (Maybe MssPackage)
-coerrsMssPackage = lens _coerrsMssPackage (\s a -> s {_coerrsMssPackage = a})
+-- | A list of source IP CIDR blocks that will be allowed to access the
+-- OriginEndpoint.
+createOriginEndpointResponse_whitelist :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe [Prelude.Text])
+createOriginEndpointResponse_whitelist = Lens.lens (\CreateOriginEndpointResponse' {whitelist} -> whitelist) (\s@CreateOriginEndpointResponse' {} a -> s {whitelist = a} :: CreateOriginEndpointResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Undocumented member.
-coerrsTags :: Lens' CreateOriginEndpointResponse (HashMap Text Text)
-coerrsTags = lens _coerrsTags (\s a -> s {_coerrsTags = a}) . _Default . _Map
+createOriginEndpointResponse_mssPackage :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe MssPackage)
+createOriginEndpointResponse_mssPackage = Lens.lens (\CreateOriginEndpointResponse' {mssPackage} -> mssPackage) (\s@CreateOriginEndpointResponse' {} a -> s {mssPackage = a} :: CreateOriginEndpointResponse)
+
+-- | Undocumented member.
+createOriginEndpointResponse_tags :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createOriginEndpointResponse_tags = Lens.lens (\CreateOriginEndpointResponse' {tags} -> tags) (\s@CreateOriginEndpointResponse' {} a -> s {tags = a} :: CreateOriginEndpointResponse) Prelude.. Lens.mapping Prelude._Map
 
 -- | A short text description of the OriginEndpoint.
-coerrsDescription :: Lens' CreateOriginEndpointResponse (Maybe Text)
-coerrsDescription = lens _coerrsDescription (\s a -> s {_coerrsDescription = a})
+createOriginEndpointResponse_description :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Text)
+createOriginEndpointResponse_description = Lens.lens (\CreateOriginEndpointResponse' {description} -> description) (\s@CreateOriginEndpointResponse' {} a -> s {description = a} :: CreateOriginEndpointResponse)
 
--- | Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
-coerrsTimeDelaySeconds :: Lens' CreateOriginEndpointResponse (Maybe Int)
-coerrsTimeDelaySeconds = lens _coerrsTimeDelaySeconds (\s a -> s {_coerrsTimeDelaySeconds = a})
+-- | Amount of delay (seconds) to enforce on the playback of live content. If
+-- not specified, there will be no time delay in effect for the
+-- OriginEndpoint.
+createOriginEndpointResponse_timeDelaySeconds :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Int)
+createOriginEndpointResponse_timeDelaySeconds = Lens.lens (\CreateOriginEndpointResponse' {timeDelaySeconds} -> timeDelaySeconds) (\s@CreateOriginEndpointResponse' {} a -> s {timeDelaySeconds = a} :: CreateOriginEndpointResponse)
 
 -- | Undocumented member.
-coerrsAuthorization :: Lens' CreateOriginEndpointResponse (Maybe Authorization)
-coerrsAuthorization = lens _coerrsAuthorization (\s a -> s {_coerrsAuthorization = a})
+createOriginEndpointResponse_authorization :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Authorization)
+createOriginEndpointResponse_authorization = Lens.lens (\CreateOriginEndpointResponse' {authorization} -> authorization) (\s@CreateOriginEndpointResponse' {} a -> s {authorization = a} :: CreateOriginEndpointResponse)
 
 -- | The URL of the packaged OriginEndpoint for consumption.
-coerrsURL :: Lens' CreateOriginEndpointResponse (Maybe Text)
-coerrsURL = lens _coerrsURL (\s a -> s {_coerrsURL = a})
+createOriginEndpointResponse_url :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe Prelude.Text)
+createOriginEndpointResponse_url = Lens.lens (\CreateOriginEndpointResponse' {url} -> url) (\s@CreateOriginEndpointResponse' {} a -> s {url = a} :: CreateOriginEndpointResponse)
 
 -- | Undocumented member.
-coerrsHlsPackage :: Lens' CreateOriginEndpointResponse (Maybe HlsPackage)
-coerrsHlsPackage = lens _coerrsHlsPackage (\s a -> s {_coerrsHlsPackage = a})
+createOriginEndpointResponse_hlsPackage :: Lens.Lens' CreateOriginEndpointResponse (Prelude.Maybe HlsPackage)
+createOriginEndpointResponse_hlsPackage = Lens.lens (\CreateOriginEndpointResponse' {hlsPackage} -> hlsPackage) (\s@CreateOriginEndpointResponse' {} a -> s {hlsPackage = a} :: CreateOriginEndpointResponse)
 
--- | -- | The response status code.
-coerrsResponseStatus :: Lens' CreateOriginEndpointResponse Int
-coerrsResponseStatus = lens _coerrsResponseStatus (\s a -> s {_coerrsResponseStatus = a})
+-- | The response's http status code.
+createOriginEndpointResponse_httpStatus :: Lens.Lens' CreateOriginEndpointResponse Prelude.Int
+createOriginEndpointResponse_httpStatus = Lens.lens (\CreateOriginEndpointResponse' {httpStatus} -> httpStatus) (\s@CreateOriginEndpointResponse' {} a -> s {httpStatus = a} :: CreateOriginEndpointResponse)
 
-instance NFData CreateOriginEndpointResponse
+instance Prelude.NFData CreateOriginEndpointResponse

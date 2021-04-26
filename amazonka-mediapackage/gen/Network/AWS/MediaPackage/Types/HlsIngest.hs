@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,40 +19,48 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types.HlsIngest where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types.IngestEndpoint
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
 -- | An HTTP Live Streaming (HLS) ingest resource configuration.
 --
--- /See:/ 'hlsIngest' smart constructor.
-newtype HlsIngest = HlsIngest'
-  { _hiIngestEndpoints ::
-      Maybe [IngestEndpoint]
+-- /See:/ 'newHlsIngest' smart constructor.
+data HlsIngest = HlsIngest'
+  { -- | A list of endpoints to which the source stream should be sent.
+    ingestEndpoints :: Prelude.Maybe [IngestEndpoint]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'HlsIngest' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'HlsIngest' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'hiIngestEndpoints' - A list of endpoints to which the source stream should be sent.
-hlsIngest ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ingestEndpoints', 'hlsIngest_ingestEndpoints' - A list of endpoints to which the source stream should be sent.
+newHlsIngest ::
   HlsIngest
-hlsIngest = HlsIngest' {_hiIngestEndpoints = Nothing}
+newHlsIngest =
+  HlsIngest' {ingestEndpoints = Prelude.Nothing}
 
 -- | A list of endpoints to which the source stream should be sent.
-hiIngestEndpoints :: Lens' HlsIngest [IngestEndpoint]
-hiIngestEndpoints = lens _hiIngestEndpoints (\s a -> s {_hiIngestEndpoints = a}) . _Default . _Coerce
+hlsIngest_ingestEndpoints :: Lens.Lens' HlsIngest (Prelude.Maybe [IngestEndpoint])
+hlsIngest_ingestEndpoints = Lens.lens (\HlsIngest' {ingestEndpoints} -> ingestEndpoints) (\s@HlsIngest' {} a -> s {ingestEndpoints = a} :: HlsIngest) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON HlsIngest where
+instance Prelude.FromJSON HlsIngest where
   parseJSON =
-    withObject
+    Prelude.withObject
       "HlsIngest"
       ( \x ->
-          HlsIngest' <$> (x .:? "ingestEndpoints" .!= mempty)
+          HlsIngest'
+            Prelude.<$> ( x Prelude..:? "ingestEndpoints"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable HlsIngest
+instance Prelude.Hashable HlsIngest
 
-instance NFData HlsIngest
+instance Prelude.NFData HlsIngest

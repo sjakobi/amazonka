@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,221 +24,231 @@
 -- Gets details about an existing HarvestJob.
 module Network.AWS.MediaPackage.DescribeHarvestJob
   ( -- * Creating a Request
-    describeHarvestJob,
-    DescribeHarvestJob,
+    DescribeHarvestJob (..),
+    newDescribeHarvestJob,
 
     -- * Request Lenses
-    dhjId,
+    describeHarvestJob_id,
 
     -- * Destructuring the Response
-    describeHarvestJobResponse,
-    DescribeHarvestJobResponse,
+    DescribeHarvestJobResponse (..),
+    newDescribeHarvestJobResponse,
 
     -- * Response Lenses
-    dhjrrsStatus,
-    dhjrrsS3Destination,
-    dhjrrsChannelId,
-    dhjrrsStartTime,
-    dhjrrsARN,
-    dhjrrsId,
-    dhjrrsCreatedAt,
-    dhjrrsOriginEndpointId,
-    dhjrrsEndTime,
-    dhjrrsResponseStatus,
+    describeHarvestJobResponse_status,
+    describeHarvestJobResponse_s3Destination,
+    describeHarvestJobResponse_channelId,
+    describeHarvestJobResponse_startTime,
+    describeHarvestJobResponse_arn,
+    describeHarvestJobResponse_id,
+    describeHarvestJobResponse_createdAt,
+    describeHarvestJobResponse_originEndpointId,
+    describeHarvestJobResponse_endTime,
+    describeHarvestJobResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.MediaPackage.Types.S3Destination
+import Network.AWS.MediaPackage.Types.Status
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeHarvestJob' smart constructor.
-newtype DescribeHarvestJob = DescribeHarvestJob'
-  { _dhjId ::
-      Text
+-- | /See:/ 'newDescribeHarvestJob' smart constructor.
+data DescribeHarvestJob = DescribeHarvestJob'
+  { -- | The ID of the HarvestJob.
+    id :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHarvestJob' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHarvestJob' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhjId' - The ID of the HarvestJob.
-describeHarvestJob ::
-  -- | 'dhjId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'describeHarvestJob_id' - The ID of the HarvestJob.
+newDescribeHarvestJob ::
+  -- | 'id'
+  Prelude.Text ->
   DescribeHarvestJob
-describeHarvestJob pId_ =
-  DescribeHarvestJob' {_dhjId = pId_}
+newDescribeHarvestJob pId_ =
+  DescribeHarvestJob' {id = pId_}
 
 -- | The ID of the HarvestJob.
-dhjId :: Lens' DescribeHarvestJob Text
-dhjId = lens _dhjId (\s a -> s {_dhjId = a})
+describeHarvestJob_id :: Lens.Lens' DescribeHarvestJob Prelude.Text
+describeHarvestJob_id = Lens.lens (\DescribeHarvestJob' {id} -> id) (\s@DescribeHarvestJob' {} a -> s {id = a} :: DescribeHarvestJob)
 
-instance AWSRequest DescribeHarvestJob where
+instance Prelude.AWSRequest DescribeHarvestJob where
   type
     Rs DescribeHarvestJob =
       DescribeHarvestJobResponse
-  request = get mediaPackage
+  request = Request.get defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeHarvestJobResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "s3Destination")
-            <*> (x .?> "channelId")
-            <*> (x .?> "startTime")
-            <*> (x .?> "arn")
-            <*> (x .?> "id")
-            <*> (x .?> "createdAt")
-            <*> (x .?> "originEndpointId")
-            <*> (x .?> "endTime")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "s3Destination")
+            Prelude.<*> (x Prelude..?> "channelId")
+            Prelude.<*> (x Prelude..?> "startTime")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "createdAt")
+            Prelude.<*> (x Prelude..?> "originEndpointId")
+            Prelude.<*> (x Prelude..?> "endTime")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeHarvestJob
+instance Prelude.Hashable DescribeHarvestJob
 
-instance NFData DescribeHarvestJob
+instance Prelude.NFData DescribeHarvestJob
 
-instance ToHeaders DescribeHarvestJob where
+instance Prelude.ToHeaders DescribeHarvestJob where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToPath DescribeHarvestJob where
+instance Prelude.ToPath DescribeHarvestJob where
   toPath DescribeHarvestJob' {..} =
-    mconcat ["/harvest_jobs/", toBS _dhjId]
+    Prelude.mconcat ["/harvest_jobs/", Prelude.toBS id]
 
-instance ToQuery DescribeHarvestJob where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeHarvestJob where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeHarvestJobResponse' smart constructor.
+-- | /See:/ 'newDescribeHarvestJobResponse' smart constructor.
 data DescribeHarvestJobResponse = DescribeHarvestJobResponse'
-  { _dhjrrsStatus ::
-      !(Maybe Status),
-    _dhjrrsS3Destination ::
-      !( Maybe
-           S3Destination
-       ),
-    _dhjrrsChannelId ::
-      !(Maybe Text),
-    _dhjrrsStartTime ::
-      !(Maybe Text),
-    _dhjrrsARN ::
-      !(Maybe Text),
-    _dhjrrsId ::
-      !(Maybe Text),
-    _dhjrrsCreatedAt ::
-      !(Maybe Text),
-    _dhjrrsOriginEndpointId ::
-      !(Maybe Text),
-    _dhjrrsEndTime ::
-      !(Maybe Text),
-    _dhjrrsResponseStatus ::
-      !Int
+  { -- | The current status of the HarvestJob. Consider setting up a CloudWatch
+    -- Event to listen for HarvestJobs as they succeed or fail. In the event of
+    -- failure, the CloudWatch Event will include an explanation of why the
+    -- HarvestJob failed.
+    status :: Prelude.Maybe Status,
+    s3Destination :: Prelude.Maybe S3Destination,
+    -- | The ID of the Channel that the HarvestJob will harvest from.
+    channelId :: Prelude.Maybe Prelude.Text,
+    -- | The start of the time-window which will be harvested.
+    startTime :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) assigned to the HarvestJob.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the HarvestJob. The ID must be unique within the region and it
+    -- cannot be changed after the HarvestJob is submitted.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The time the HarvestJob was submitted
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the OriginEndpoint that the HarvestJob will harvest from. This
+    -- cannot be changed after the HarvestJob is submitted.
+    originEndpointId :: Prelude.Maybe Prelude.Text,
+    -- | The end of the time-window which will be harvested.
+    endTime :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeHarvestJobResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeHarvestJobResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dhjrrsStatus' - The current status of the HarvestJob. Consider setting up a CloudWatch Event to listen for HarvestJobs as they succeed or fail. In the event of failure, the CloudWatch Event will include an explanation of why the HarvestJob failed.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dhjrrsS3Destination' - Undocumented member.
+-- 'status', 'describeHarvestJobResponse_status' - The current status of the HarvestJob. Consider setting up a CloudWatch
+-- Event to listen for HarvestJobs as they succeed or fail. In the event of
+-- failure, the CloudWatch Event will include an explanation of why the
+-- HarvestJob failed.
 --
--- * 'dhjrrsChannelId' - The ID of the Channel that the HarvestJob will harvest from.
+-- 's3Destination', 'describeHarvestJobResponse_s3Destination' - Undocumented member.
 --
--- * 'dhjrrsStartTime' - The start of the time-window which will be harvested.
+-- 'channelId', 'describeHarvestJobResponse_channelId' - The ID of the Channel that the HarvestJob will harvest from.
 --
--- * 'dhjrrsARN' - The Amazon Resource Name (ARN) assigned to the HarvestJob.
+-- 'startTime', 'describeHarvestJobResponse_startTime' - The start of the time-window which will be harvested.
 --
--- * 'dhjrrsId' - The ID of the HarvestJob. The ID must be unique within the region and it cannot be changed after the HarvestJob is submitted.
+-- 'arn', 'describeHarvestJobResponse_arn' - The Amazon Resource Name (ARN) assigned to the HarvestJob.
 --
--- * 'dhjrrsCreatedAt' - The time the HarvestJob was submitted
+-- 'id', 'describeHarvestJobResponse_id' - The ID of the HarvestJob. The ID must be unique within the region and it
+-- cannot be changed after the HarvestJob is submitted.
 --
--- * 'dhjrrsOriginEndpointId' - The ID of the OriginEndpoint that the HarvestJob will harvest from. This cannot be changed after the HarvestJob is submitted.
+-- 'createdAt', 'describeHarvestJobResponse_createdAt' - The time the HarvestJob was submitted
 --
--- * 'dhjrrsEndTime' - The end of the time-window which will be harvested.
+-- 'originEndpointId', 'describeHarvestJobResponse_originEndpointId' - The ID of the OriginEndpoint that the HarvestJob will harvest from. This
+-- cannot be changed after the HarvestJob is submitted.
 --
--- * 'dhjrrsResponseStatus' - -- | The response status code.
-describeHarvestJobResponse ::
-  -- | 'dhjrrsResponseStatus'
-  Int ->
+-- 'endTime', 'describeHarvestJobResponse_endTime' - The end of the time-window which will be harvested.
+--
+-- 'httpStatus', 'describeHarvestJobResponse_httpStatus' - The response's http status code.
+newDescribeHarvestJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeHarvestJobResponse
-describeHarvestJobResponse pResponseStatus_ =
+newDescribeHarvestJobResponse pHttpStatus_ =
   DescribeHarvestJobResponse'
-    { _dhjrrsStatus =
-        Nothing,
-      _dhjrrsS3Destination = Nothing,
-      _dhjrrsChannelId = Nothing,
-      _dhjrrsStartTime = Nothing,
-      _dhjrrsARN = Nothing,
-      _dhjrrsId = Nothing,
-      _dhjrrsCreatedAt = Nothing,
-      _dhjrrsOriginEndpointId = Nothing,
-      _dhjrrsEndTime = Nothing,
-      _dhjrrsResponseStatus = pResponseStatus_
+    { status =
+        Prelude.Nothing,
+      s3Destination = Prelude.Nothing,
+      channelId = Prelude.Nothing,
+      startTime = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      id = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      originEndpointId = Prelude.Nothing,
+      endTime = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The current status of the HarvestJob. Consider setting up a CloudWatch Event to listen for HarvestJobs as they succeed or fail. In the event of failure, the CloudWatch Event will include an explanation of why the HarvestJob failed.
-dhjrrsStatus :: Lens' DescribeHarvestJobResponse (Maybe Status)
-dhjrrsStatus = lens _dhjrrsStatus (\s a -> s {_dhjrrsStatus = a})
+-- | The current status of the HarvestJob. Consider setting up a CloudWatch
+-- Event to listen for HarvestJobs as they succeed or fail. In the event of
+-- failure, the CloudWatch Event will include an explanation of why the
+-- HarvestJob failed.
+describeHarvestJobResponse_status :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Status)
+describeHarvestJobResponse_status = Lens.lens (\DescribeHarvestJobResponse' {status} -> status) (\s@DescribeHarvestJobResponse' {} a -> s {status = a} :: DescribeHarvestJobResponse)
 
 -- | Undocumented member.
-dhjrrsS3Destination :: Lens' DescribeHarvestJobResponse (Maybe S3Destination)
-dhjrrsS3Destination = lens _dhjrrsS3Destination (\s a -> s {_dhjrrsS3Destination = a})
+describeHarvestJobResponse_s3Destination :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe S3Destination)
+describeHarvestJobResponse_s3Destination = Lens.lens (\DescribeHarvestJobResponse' {s3Destination} -> s3Destination) (\s@DescribeHarvestJobResponse' {} a -> s {s3Destination = a} :: DescribeHarvestJobResponse)
 
 -- | The ID of the Channel that the HarvestJob will harvest from.
-dhjrrsChannelId :: Lens' DescribeHarvestJobResponse (Maybe Text)
-dhjrrsChannelId = lens _dhjrrsChannelId (\s a -> s {_dhjrrsChannelId = a})
+describeHarvestJobResponse_channelId :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Prelude.Text)
+describeHarvestJobResponse_channelId = Lens.lens (\DescribeHarvestJobResponse' {channelId} -> channelId) (\s@DescribeHarvestJobResponse' {} a -> s {channelId = a} :: DescribeHarvestJobResponse)
 
 -- | The start of the time-window which will be harvested.
-dhjrrsStartTime :: Lens' DescribeHarvestJobResponse (Maybe Text)
-dhjrrsStartTime = lens _dhjrrsStartTime (\s a -> s {_dhjrrsStartTime = a})
+describeHarvestJobResponse_startTime :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Prelude.Text)
+describeHarvestJobResponse_startTime = Lens.lens (\DescribeHarvestJobResponse' {startTime} -> startTime) (\s@DescribeHarvestJobResponse' {} a -> s {startTime = a} :: DescribeHarvestJobResponse)
 
 -- | The Amazon Resource Name (ARN) assigned to the HarvestJob.
-dhjrrsARN :: Lens' DescribeHarvestJobResponse (Maybe Text)
-dhjrrsARN = lens _dhjrrsARN (\s a -> s {_dhjrrsARN = a})
+describeHarvestJobResponse_arn :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Prelude.Text)
+describeHarvestJobResponse_arn = Lens.lens (\DescribeHarvestJobResponse' {arn} -> arn) (\s@DescribeHarvestJobResponse' {} a -> s {arn = a} :: DescribeHarvestJobResponse)
 
--- | The ID of the HarvestJob. The ID must be unique within the region and it cannot be changed after the HarvestJob is submitted.
-dhjrrsId :: Lens' DescribeHarvestJobResponse (Maybe Text)
-dhjrrsId = lens _dhjrrsId (\s a -> s {_dhjrrsId = a})
+-- | The ID of the HarvestJob. The ID must be unique within the region and it
+-- cannot be changed after the HarvestJob is submitted.
+describeHarvestJobResponse_id :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Prelude.Text)
+describeHarvestJobResponse_id = Lens.lens (\DescribeHarvestJobResponse' {id} -> id) (\s@DescribeHarvestJobResponse' {} a -> s {id = a} :: DescribeHarvestJobResponse)
 
 -- | The time the HarvestJob was submitted
-dhjrrsCreatedAt :: Lens' DescribeHarvestJobResponse (Maybe Text)
-dhjrrsCreatedAt = lens _dhjrrsCreatedAt (\s a -> s {_dhjrrsCreatedAt = a})
+describeHarvestJobResponse_createdAt :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Prelude.Text)
+describeHarvestJobResponse_createdAt = Lens.lens (\DescribeHarvestJobResponse' {createdAt} -> createdAt) (\s@DescribeHarvestJobResponse' {} a -> s {createdAt = a} :: DescribeHarvestJobResponse)
 
--- | The ID of the OriginEndpoint that the HarvestJob will harvest from. This cannot be changed after the HarvestJob is submitted.
-dhjrrsOriginEndpointId :: Lens' DescribeHarvestJobResponse (Maybe Text)
-dhjrrsOriginEndpointId = lens _dhjrrsOriginEndpointId (\s a -> s {_dhjrrsOriginEndpointId = a})
+-- | The ID of the OriginEndpoint that the HarvestJob will harvest from. This
+-- cannot be changed after the HarvestJob is submitted.
+describeHarvestJobResponse_originEndpointId :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Prelude.Text)
+describeHarvestJobResponse_originEndpointId = Lens.lens (\DescribeHarvestJobResponse' {originEndpointId} -> originEndpointId) (\s@DescribeHarvestJobResponse' {} a -> s {originEndpointId = a} :: DescribeHarvestJobResponse)
 
 -- | The end of the time-window which will be harvested.
-dhjrrsEndTime :: Lens' DescribeHarvestJobResponse (Maybe Text)
-dhjrrsEndTime = lens _dhjrrsEndTime (\s a -> s {_dhjrrsEndTime = a})
+describeHarvestJobResponse_endTime :: Lens.Lens' DescribeHarvestJobResponse (Prelude.Maybe Prelude.Text)
+describeHarvestJobResponse_endTime = Lens.lens (\DescribeHarvestJobResponse' {endTime} -> endTime) (\s@DescribeHarvestJobResponse' {} a -> s {endTime = a} :: DescribeHarvestJobResponse)
 
--- | -- | The response status code.
-dhjrrsResponseStatus :: Lens' DescribeHarvestJobResponse Int
-dhjrrsResponseStatus = lens _dhjrrsResponseStatus (\s a -> s {_dhjrrsResponseStatus = a})
+-- | The response's http status code.
+describeHarvestJobResponse_httpStatus :: Lens.Lens' DescribeHarvestJobResponse Prelude.Int
+describeHarvestJobResponse_httpStatus = Lens.lens (\DescribeHarvestJobResponse' {httpStatus} -> httpStatus) (\s@DescribeHarvestJobResponse' {} a -> s {httpStatus = a} :: DescribeHarvestJobResponse)
 
-instance NFData DescribeHarvestJobResponse
+instance Prelude.NFData DescribeHarvestJobResponse

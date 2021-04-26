@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.MediaPackage.Types.Origination
   ( Origination
       ( ..,
-        Allow,
-        Deny
+        OriginationALLOW,
+        OriginationDENY
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Origination = Origination' (CI Text)
+newtype Origination = Origination'
+  { fromOrigination ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Allow :: Origination
-pattern Allow = Origination' "ALLOW"
+pattern OriginationALLOW :: Origination
+pattern OriginationALLOW = Origination' "ALLOW"
 
-pattern Deny :: Origination
-pattern Deny = Origination' "DENY"
+pattern OriginationDENY :: Origination
+pattern OriginationDENY = Origination' "DENY"
 
 {-# COMPLETE
-  Allow,
-  Deny,
+  OriginationALLOW,
+  OriginationDENY,
   Origination'
   #-}
 
-instance FromText Origination where
-  parser = (Origination' . mk) <$> takeText
+instance Prelude.FromText Origination where
+  parser = Origination' Prelude.<$> Prelude.takeText
 
-instance ToText Origination where
-  toText (Origination' ci) = original ci
+instance Prelude.ToText Origination where
+  toText (Origination' x) = x
 
-instance Hashable Origination
+instance Prelude.Hashable Origination
 
-instance NFData Origination
+instance Prelude.NFData Origination
 
-instance ToByteString Origination
+instance Prelude.ToByteString Origination
 
-instance ToQuery Origination
+instance Prelude.ToQuery Origination
 
-instance ToHeader Origination
+instance Prelude.ToHeader Origination
 
-instance ToJSON Origination where
-  toJSON = toJSONText
+instance Prelude.ToJSON Origination where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Origination where
-  parseJSON = parseJSONText "Origination"
+instance Prelude.FromJSON Origination where
+  parseJSON = Prelude.parseJSONText "Origination"

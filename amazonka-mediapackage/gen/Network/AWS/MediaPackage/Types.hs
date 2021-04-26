@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.MediaPackage.Types
   ( -- * Service Configuration
-    mediaPackage,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -62,214 +65,95 @@ module Network.AWS.MediaPackage.Types
 
     -- * Authorization
     Authorization (..),
-    authorization,
-    aSecretsRoleARN,
-    aCdnIdentifierSecret,
+    newAuthorization,
 
     -- * Channel
     Channel (..),
-    channel,
-    cEgressAccessLogs,
-    cHlsIngest,
-    cARN,
-    cId,
-    cIngressAccessLogs,
-    cTags,
-    cDescription,
+    newChannel,
 
     -- * CmafEncryption
     CmafEncryption (..),
-    cmafEncryption,
-    ceKeyRotationIntervalSeconds,
-    ceSpekeKeyProvider,
+    newCmafEncryption,
 
     -- * CmafPackage
     CmafPackage (..),
-    cmafPackage,
-    cpStreamSelection,
-    cpHlsManifests,
-    cpSegmentPrefix,
-    cpEncryption,
-    cpSegmentDurationSeconds,
+    newCmafPackage,
 
     -- * CmafPackageCreateOrUpdateParameters
     CmafPackageCreateOrUpdateParameters (..),
-    cmafPackageCreateOrUpdateParameters,
-    cpcoupStreamSelection,
-    cpcoupHlsManifests,
-    cpcoupSegmentPrefix,
-    cpcoupEncryption,
-    cpcoupSegmentDurationSeconds,
+    newCmafPackageCreateOrUpdateParameters,
 
     -- * DashEncryption
     DashEncryption (..),
-    dashEncryption,
-    deKeyRotationIntervalSeconds,
-    deSpekeKeyProvider,
+    newDashEncryption,
 
     -- * DashPackage
     DashPackage (..),
-    dashPackage,
-    dpMinBufferTimeSeconds,
-    dpStreamSelection,
-    dpPeriodTriggers,
-    dpAdTriggers,
-    dpManifestWindowSeconds,
-    dpManifestLayout,
-    dpMinUpdatePeriodSeconds,
-    dpEncryption,
-    dpAdsOnDeliveryRestrictions,
-    dpUtcTimingURI,
-    dpSegmentDurationSeconds,
-    dpProfile,
-    dpSegmentTemplateFormat,
-    dpSuggestedPresentationDelaySeconds,
-    dpUtcTiming,
+    newDashPackage,
 
     -- * EgressAccessLogs
     EgressAccessLogs (..),
-    egressAccessLogs,
-    ealLogGroupName,
+    newEgressAccessLogs,
 
     -- * HarvestJob
     HarvestJob (..),
-    harvestJob,
-    hjStatus,
-    hjS3Destination,
-    hjChannelId,
-    hjStartTime,
-    hjARN,
-    hjId,
-    hjCreatedAt,
-    hjOriginEndpointId,
-    hjEndTime,
+    newHarvestJob,
 
     -- * HlsEncryption
     HlsEncryption (..),
-    hlsEncryption,
-    heRepeatExtXKey,
-    heEncryptionMethod,
-    heConstantInitializationVector,
-    heKeyRotationIntervalSeconds,
-    heSpekeKeyProvider,
+    newHlsEncryption,
 
     -- * HlsIngest
     HlsIngest (..),
-    hlsIngest,
-    hiIngestEndpoints,
+    newHlsIngest,
 
     -- * HlsManifest
     HlsManifest (..),
-    hlsManifest,
-    hmAdMarkers,
-    hmProgramDateTimeIntervalSeconds,
-    hmPlaylistWindowSeconds,
-    hmIncludeIframeOnlyStream,
-    hmManifestName,
-    hmPlaylistType,
-    hmURL,
-    hmId,
+    newHlsManifest,
 
     -- * HlsManifestCreateOrUpdateParameters
     HlsManifestCreateOrUpdateParameters (..),
-    hlsManifestCreateOrUpdateParameters,
-    hmcoupAdMarkers,
-    hmcoupProgramDateTimeIntervalSeconds,
-    hmcoupPlaylistWindowSeconds,
-    hmcoupAdTriggers,
-    hmcoupIncludeIframeOnlyStream,
-    hmcoupManifestName,
-    hmcoupAdsOnDeliveryRestrictions,
-    hmcoupPlaylistType,
-    hmcoupId,
+    newHlsManifestCreateOrUpdateParameters,
 
     -- * HlsPackage
     HlsPackage (..),
-    hlsPackage,
-    hpAdMarkers,
-    hpStreamSelection,
-    hpProgramDateTimeIntervalSeconds,
-    hpPlaylistWindowSeconds,
-    hpAdTriggers,
-    hpIncludeIframeOnlyStream,
-    hpUseAudioRenditionGroup,
-    hpEncryption,
-    hpAdsOnDeliveryRestrictions,
-    hpSegmentDurationSeconds,
-    hpPlaylistType,
+    newHlsPackage,
 
     -- * IngestEndpoint
     IngestEndpoint (..),
-    ingestEndpoint,
-    ieId,
-    iePassword,
-    ieUsername,
-    ieURL,
+    newIngestEndpoint,
 
     -- * IngressAccessLogs
     IngressAccessLogs (..),
-    ingressAccessLogs,
-    ialLogGroupName,
+    newIngressAccessLogs,
 
     -- * MssEncryption
     MssEncryption (..),
-    mssEncryption,
-    meSpekeKeyProvider,
+    newMssEncryption,
 
     -- * MssPackage
     MssPackage (..),
-    mssPackage,
-    mpStreamSelection,
-    mpManifestWindowSeconds,
-    mpEncryption,
-    mpSegmentDurationSeconds,
+    newMssPackage,
 
     -- * OriginEndpoint
     OriginEndpoint (..),
-    originEndpoint,
-    oeDashPackage,
-    oeStartoverWindowSeconds,
-    oeOrigination,
-    oeChannelId,
-    oeCmafPackage,
-    oeManifestName,
-    oeARN,
-    oeId,
-    oeWhitelist,
-    oeMssPackage,
-    oeTags,
-    oeDescription,
-    oeTimeDelaySeconds,
-    oeAuthorization,
-    oeURL,
-    oeHlsPackage,
+    newOriginEndpoint,
 
     -- * S3Destination
     S3Destination (..),
-    s3Destination,
-    sdManifestKey,
-    sdBucketName,
-    sdRoleARN,
+    newS3Destination,
 
     -- * SpekeKeyProvider
     SpekeKeyProvider (..),
-    spekeKeyProvider,
-    skpCertificateARN,
-    skpResourceId,
-    skpSystemIds,
-    skpURL,
-    skpRoleARN,
+    newSpekeKeyProvider,
 
     -- * StreamSelection
     StreamSelection (..),
-    streamSelection,
-    ssMinVideoBitsPerSecond,
-    ssMaxVideoBitsPerSecond,
-    ssStreamOrder,
+    newStreamSelection,
   )
 where
 
-import Network.AWS.Lens
+import qualified Network.AWS.Lens as Lens
 import Network.AWS.MediaPackage.Types.AdMarkers
 import Network.AWS.MediaPackage.Types.AdTriggersElement
 import Network.AWS.MediaPackage.Types.AdsOnDeliveryRestrictions
@@ -305,102 +189,124 @@ import Network.AWS.MediaPackage.Types.Status
 import Network.AWS.MediaPackage.Types.StreamOrder
 import Network.AWS.MediaPackage.Types.StreamSelection
 import Network.AWS.MediaPackage.Types.UtcTiming
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-10-12@ of the Amazon Elemental MediaPackage SDK configuration.
-mediaPackage :: Service
-mediaPackage =
-  Service
-    { _svcAbbrev = "MediaPackage",
-      _svcSigner = v4,
-      _svcPrefix = "mediapackage",
-      _svcVersion = "2017-10-12",
-      _svcEndpoint = defaultEndpoint mediaPackage,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "MediaPackage",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "MediaPackage",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "mediapackage",
+      Prelude._svcVersion = "2017-10-12",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "MediaPackage",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The requested resource does not exist.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError mediaPackage "NotFoundException"
-    . hasStatus 404
+  Prelude._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Prelude.hasStatus 404
 
 -- | An unexpected error occurred.
-_ServiceUnavailableException :: AsError a => Getting (First ServiceError) a ServiceError
+_ServiceUnavailableException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ServiceUnavailableException =
-  _MatchServiceError
-    mediaPackage
+  Prelude._MatchServiceError
+    defaultService
     "ServiceUnavailableException"
-    . hasStatus 503
+    Prelude.. Prelude.hasStatus 503
 
 -- | An unexpected error occurred.
-_InternalServerErrorException :: AsError a => Getting (First ServiceError) a ServiceError
+_InternalServerErrorException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InternalServerErrorException =
-  _MatchServiceError
-    mediaPackage
+  Prelude._MatchServiceError
+    defaultService
     "InternalServerErrorException"
-    . hasStatus 500
+    Prelude.. Prelude.hasStatus 500
 
 -- | The client is not authorized to access the requested resource.
-_ForbiddenException :: AsError a => Getting (First ServiceError) a ServiceError
+_ForbiddenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ForbiddenException =
-  _MatchServiceError
-    mediaPackage
+  Prelude._MatchServiceError
+    defaultService
     "ForbiddenException"
-    . hasStatus 403
+    Prelude.. Prelude.hasStatus 403
 
 -- | The parameters sent in the request are not valid.
-_UnprocessableEntityException :: AsError a => Getting (First ServiceError) a ServiceError
+_UnprocessableEntityException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnprocessableEntityException =
-  _MatchServiceError
-    mediaPackage
+  Prelude._MatchServiceError
+    defaultService
     "UnprocessableEntityException"
-    . hasStatus 422
+    Prelude.. Prelude.hasStatus 422
 
 -- | The client has exceeded their resource or throttling limits.
-_TooManyRequestsException :: AsError a => Getting (First ServiceError) a ServiceError
+_TooManyRequestsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TooManyRequestsException =
-  _MatchServiceError
-    mediaPackage
+  Prelude._MatchServiceError
+    defaultService
     "TooManyRequestsException"
-    . hasStatus 429
+    Prelude.. Prelude.hasStatus 429
