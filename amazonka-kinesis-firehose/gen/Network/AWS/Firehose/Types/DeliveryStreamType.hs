@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Firehose.Types.DeliveryStreamType
   ( DeliveryStreamType
       ( ..,
-        DirectPut,
-        KinesisStreamAsSource
+        DeliveryStreamTypeDirectPut,
+        DeliveryStreamTypeKinesisStreamAsSource
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeliveryStreamType
-  = DeliveryStreamType'
-      ( CI
-          Text
-      )
+newtype DeliveryStreamType = DeliveryStreamType'
+  { fromDeliveryStreamType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DirectPut :: DeliveryStreamType
-pattern DirectPut = DeliveryStreamType' "DirectPut"
+pattern DeliveryStreamTypeDirectPut :: DeliveryStreamType
+pattern DeliveryStreamTypeDirectPut = DeliveryStreamType' "DirectPut"
 
-pattern KinesisStreamAsSource :: DeliveryStreamType
-pattern KinesisStreamAsSource = DeliveryStreamType' "KinesisStreamAsSource"
+pattern DeliveryStreamTypeKinesisStreamAsSource :: DeliveryStreamType
+pattern DeliveryStreamTypeKinesisStreamAsSource = DeliveryStreamType' "KinesisStreamAsSource"
 
 {-# COMPLETE
-  DirectPut,
-  KinesisStreamAsSource,
+  DeliveryStreamTypeDirectPut,
+  DeliveryStreamTypeKinesisStreamAsSource,
   DeliveryStreamType'
   #-}
 
-instance FromText DeliveryStreamType where
-  parser = (DeliveryStreamType' . mk) <$> takeText
+instance Prelude.FromText DeliveryStreamType where
+  parser = DeliveryStreamType' Prelude.<$> Prelude.takeText
 
-instance ToText DeliveryStreamType where
-  toText (DeliveryStreamType' ci) = original ci
+instance Prelude.ToText DeliveryStreamType where
+  toText (DeliveryStreamType' x) = x
 
-instance Hashable DeliveryStreamType
+instance Prelude.Hashable DeliveryStreamType
 
-instance NFData DeliveryStreamType
+instance Prelude.NFData DeliveryStreamType
 
-instance ToByteString DeliveryStreamType
+instance Prelude.ToByteString DeliveryStreamType
 
-instance ToQuery DeliveryStreamType
+instance Prelude.ToQuery DeliveryStreamType
 
-instance ToHeader DeliveryStreamType
+instance Prelude.ToHeader DeliveryStreamType
 
-instance ToJSON DeliveryStreamType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeliveryStreamType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeliveryStreamType where
-  parseJSON = parseJSONText "DeliveryStreamType"
+instance Prelude.FromJSON DeliveryStreamType where
+  parseJSON = Prelude.parseJSONText "DeliveryStreamType"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,146 +25,177 @@ import Network.AWS.Firehose.Types.ProcessingConfiguration
 import Network.AWS.Firehose.Types.S3DestinationUpdate
 import Network.AWS.Firehose.Types.SplunkRetryOptions
 import Network.AWS.Firehose.Types.SplunkS3BackupMode
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes an update for a destination in Splunk.
 --
---
---
--- /See:/ 'splunkDestinationUpdate' smart constructor.
+-- /See:/ 'newSplunkDestinationUpdate' smart constructor.
 data SplunkDestinationUpdate = SplunkDestinationUpdate'
-  { _splS3Update ::
-      !( Maybe
-           S3DestinationUpdate
-       ),
-    _splHECAcknowledgmentTimeoutInSeconds ::
-      !(Maybe Nat),
-    _splProcessingConfiguration ::
-      !( Maybe
-           ProcessingConfiguration
-       ),
-    _splCloudWatchLoggingOptions ::
-      !( Maybe
-           CloudWatchLoggingOptions
-       ),
-    _splHECEndpointType ::
-      !( Maybe
-           HECEndpointType
-       ),
-    _splRetryOptions ::
-      !( Maybe
-           SplunkRetryOptions
-       ),
-    _splS3BackupMode ::
-      !( Maybe
-           SplunkS3BackupMode
-       ),
-    _splHECEndpoint ::
-      !(Maybe Text),
-    _splHECToken ::
-      !(Maybe Text)
+  { -- | Your update to the configuration of the backup Amazon S3 location.
+    s3Update :: Prelude.Maybe S3DestinationUpdate,
+    -- | The amount of time that Kinesis Data Firehose waits to receive an
+    -- acknowledgment from Splunk after it sends data. At the end of the
+    -- timeout period, Kinesis Data Firehose either tries to send the data
+    -- again or considers it an error, based on your retry settings.
+    hECAcknowledgmentTimeoutInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The data processing configuration.
+    processingConfiguration :: Prelude.Maybe ProcessingConfiguration,
+    -- | The Amazon CloudWatch logging options for your delivery stream.
+    cloudWatchLoggingOptions :: Prelude.Maybe CloudWatchLoggingOptions,
+    -- | This type can be either \"Raw\" or \"Event.\"
+    hECEndpointType :: Prelude.Maybe HECEndpointType,
+    -- | The retry behavior in case Kinesis Data Firehose is unable to deliver
+    -- data to Splunk or if it doesn\'t receive an acknowledgment of receipt
+    -- from Splunk.
+    retryOptions :: Prelude.Maybe SplunkRetryOptions,
+    -- | Specifies how you want Kinesis Data Firehose to back up documents to
+    -- Amazon S3. When set to @FailedDocumentsOnly@, Kinesis Data Firehose
+    -- writes any data that could not be indexed to the configured Amazon S3
+    -- destination. When set to @AllEvents@, Kinesis Data Firehose delivers all
+    -- incoming records to Amazon S3, and also writes failed documents to
+    -- Amazon S3. The default value is @FailedEventsOnly@.
+    --
+    -- You can update this backup mode from @FailedEventsOnly@ to @AllEvents@.
+    -- You can\'t update it from @AllEvents@ to @FailedEventsOnly@.
+    s3BackupMode :: Prelude.Maybe SplunkS3BackupMode,
+    -- | The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
+    -- sends your data.
+    hECEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | A GUID that you obtain from your Splunk cluster when you create a new
+    -- HEC endpoint.
+    hECToken :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SplunkDestinationUpdate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SplunkDestinationUpdate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'splS3Update' - Your update to the configuration of the backup Amazon S3 location.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'splHECAcknowledgmentTimeoutInSeconds' - The amount of time that Kinesis Data Firehose waits to receive an acknowledgment from Splunk after it sends data. At the end of the timeout period, Kinesis Data Firehose either tries to send the data again or considers it an error, based on your retry settings.
+-- 's3Update', 'splunkDestinationUpdate_s3Update' - Your update to the configuration of the backup Amazon S3 location.
 --
--- * 'splProcessingConfiguration' - The data processing configuration.
+-- 'hECAcknowledgmentTimeoutInSeconds', 'splunkDestinationUpdate_hECAcknowledgmentTimeoutInSeconds' - The amount of time that Kinesis Data Firehose waits to receive an
+-- acknowledgment from Splunk after it sends data. At the end of the
+-- timeout period, Kinesis Data Firehose either tries to send the data
+-- again or considers it an error, based on your retry settings.
 --
--- * 'splCloudWatchLoggingOptions' - The Amazon CloudWatch logging options for your delivery stream.
+-- 'processingConfiguration', 'splunkDestinationUpdate_processingConfiguration' - The data processing configuration.
 --
--- * 'splHECEndpointType' - This type can be either "Raw" or "Event."
+-- 'cloudWatchLoggingOptions', 'splunkDestinationUpdate_cloudWatchLoggingOptions' - The Amazon CloudWatch logging options for your delivery stream.
 --
--- * 'splRetryOptions' - The retry behavior in case Kinesis Data Firehose is unable to deliver data to Splunk or if it doesn't receive an acknowledgment of receipt from Splunk.
+-- 'hECEndpointType', 'splunkDestinationUpdate_hECEndpointType' - This type can be either \"Raw\" or \"Event.\"
 --
--- * 'splS3BackupMode' - Specifies how you want Kinesis Data Firehose to back up documents to Amazon S3. When set to @FailedDocumentsOnly@ , Kinesis Data Firehose writes any data that could not be indexed to the configured Amazon S3 destination. When set to @AllEvents@ , Kinesis Data Firehose delivers all incoming records to Amazon S3, and also writes failed documents to Amazon S3. The default value is @FailedEventsOnly@ . You can update this backup mode from @FailedEventsOnly@ to @AllEvents@ . You can't update it from @AllEvents@ to @FailedEventsOnly@ .
+-- 'retryOptions', 'splunkDestinationUpdate_retryOptions' - The retry behavior in case Kinesis Data Firehose is unable to deliver
+-- data to Splunk or if it doesn\'t receive an acknowledgment of receipt
+-- from Splunk.
 --
--- * 'splHECEndpoint' - The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose sends your data.
+-- 's3BackupMode', 'splunkDestinationUpdate_s3BackupMode' - Specifies how you want Kinesis Data Firehose to back up documents to
+-- Amazon S3. When set to @FailedDocumentsOnly@, Kinesis Data Firehose
+-- writes any data that could not be indexed to the configured Amazon S3
+-- destination. When set to @AllEvents@, Kinesis Data Firehose delivers all
+-- incoming records to Amazon S3, and also writes failed documents to
+-- Amazon S3. The default value is @FailedEventsOnly@.
 --
--- * 'splHECToken' - A GUID that you obtain from your Splunk cluster when you create a new HEC endpoint.
-splunkDestinationUpdate ::
+-- You can update this backup mode from @FailedEventsOnly@ to @AllEvents@.
+-- You can\'t update it from @AllEvents@ to @FailedEventsOnly@.
+--
+-- 'hECEndpoint', 'splunkDestinationUpdate_hECEndpoint' - The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
+-- sends your data.
+--
+-- 'hECToken', 'splunkDestinationUpdate_hECToken' - A GUID that you obtain from your Splunk cluster when you create a new
+-- HEC endpoint.
+newSplunkDestinationUpdate ::
   SplunkDestinationUpdate
-splunkDestinationUpdate =
+newSplunkDestinationUpdate =
   SplunkDestinationUpdate'
-    { _splS3Update = Nothing,
-      _splHECAcknowledgmentTimeoutInSeconds = Nothing,
-      _splProcessingConfiguration = Nothing,
-      _splCloudWatchLoggingOptions = Nothing,
-      _splHECEndpointType = Nothing,
-      _splRetryOptions = Nothing,
-      _splS3BackupMode = Nothing,
-      _splHECEndpoint = Nothing,
-      _splHECToken = Nothing
+    { s3Update =
+        Prelude.Nothing,
+      hECAcknowledgmentTimeoutInSeconds =
+        Prelude.Nothing,
+      processingConfiguration = Prelude.Nothing,
+      cloudWatchLoggingOptions = Prelude.Nothing,
+      hECEndpointType = Prelude.Nothing,
+      retryOptions = Prelude.Nothing,
+      s3BackupMode = Prelude.Nothing,
+      hECEndpoint = Prelude.Nothing,
+      hECToken = Prelude.Nothing
     }
 
 -- | Your update to the configuration of the backup Amazon S3 location.
-splS3Update :: Lens' SplunkDestinationUpdate (Maybe S3DestinationUpdate)
-splS3Update = lens _splS3Update (\s a -> s {_splS3Update = a})
+splunkDestinationUpdate_s3Update :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe S3DestinationUpdate)
+splunkDestinationUpdate_s3Update = Lens.lens (\SplunkDestinationUpdate' {s3Update} -> s3Update) (\s@SplunkDestinationUpdate' {} a -> s {s3Update = a} :: SplunkDestinationUpdate)
 
--- | The amount of time that Kinesis Data Firehose waits to receive an acknowledgment from Splunk after it sends data. At the end of the timeout period, Kinesis Data Firehose either tries to send the data again or considers it an error, based on your retry settings.
-splHECAcknowledgmentTimeoutInSeconds :: Lens' SplunkDestinationUpdate (Maybe Natural)
-splHECAcknowledgmentTimeoutInSeconds = lens _splHECAcknowledgmentTimeoutInSeconds (\s a -> s {_splHECAcknowledgmentTimeoutInSeconds = a}) . mapping _Nat
+-- | The amount of time that Kinesis Data Firehose waits to receive an
+-- acknowledgment from Splunk after it sends data. At the end of the
+-- timeout period, Kinesis Data Firehose either tries to send the data
+-- again or considers it an error, based on your retry settings.
+splunkDestinationUpdate_hECAcknowledgmentTimeoutInSeconds :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe Prelude.Natural)
+splunkDestinationUpdate_hECAcknowledgmentTimeoutInSeconds = Lens.lens (\SplunkDestinationUpdate' {hECAcknowledgmentTimeoutInSeconds} -> hECAcknowledgmentTimeoutInSeconds) (\s@SplunkDestinationUpdate' {} a -> s {hECAcknowledgmentTimeoutInSeconds = a} :: SplunkDestinationUpdate) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The data processing configuration.
-splProcessingConfiguration :: Lens' SplunkDestinationUpdate (Maybe ProcessingConfiguration)
-splProcessingConfiguration = lens _splProcessingConfiguration (\s a -> s {_splProcessingConfiguration = a})
+splunkDestinationUpdate_processingConfiguration :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe ProcessingConfiguration)
+splunkDestinationUpdate_processingConfiguration = Lens.lens (\SplunkDestinationUpdate' {processingConfiguration} -> processingConfiguration) (\s@SplunkDestinationUpdate' {} a -> s {processingConfiguration = a} :: SplunkDestinationUpdate)
 
 -- | The Amazon CloudWatch logging options for your delivery stream.
-splCloudWatchLoggingOptions :: Lens' SplunkDestinationUpdate (Maybe CloudWatchLoggingOptions)
-splCloudWatchLoggingOptions = lens _splCloudWatchLoggingOptions (\s a -> s {_splCloudWatchLoggingOptions = a})
+splunkDestinationUpdate_cloudWatchLoggingOptions :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe CloudWatchLoggingOptions)
+splunkDestinationUpdate_cloudWatchLoggingOptions = Lens.lens (\SplunkDestinationUpdate' {cloudWatchLoggingOptions} -> cloudWatchLoggingOptions) (\s@SplunkDestinationUpdate' {} a -> s {cloudWatchLoggingOptions = a} :: SplunkDestinationUpdate)
 
--- | This type can be either "Raw" or "Event."
-splHECEndpointType :: Lens' SplunkDestinationUpdate (Maybe HECEndpointType)
-splHECEndpointType = lens _splHECEndpointType (\s a -> s {_splHECEndpointType = a})
+-- | This type can be either \"Raw\" or \"Event.\"
+splunkDestinationUpdate_hECEndpointType :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe HECEndpointType)
+splunkDestinationUpdate_hECEndpointType = Lens.lens (\SplunkDestinationUpdate' {hECEndpointType} -> hECEndpointType) (\s@SplunkDestinationUpdate' {} a -> s {hECEndpointType = a} :: SplunkDestinationUpdate)
 
--- | The retry behavior in case Kinesis Data Firehose is unable to deliver data to Splunk or if it doesn't receive an acknowledgment of receipt from Splunk.
-splRetryOptions :: Lens' SplunkDestinationUpdate (Maybe SplunkRetryOptions)
-splRetryOptions = lens _splRetryOptions (\s a -> s {_splRetryOptions = a})
+-- | The retry behavior in case Kinesis Data Firehose is unable to deliver
+-- data to Splunk or if it doesn\'t receive an acknowledgment of receipt
+-- from Splunk.
+splunkDestinationUpdate_retryOptions :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe SplunkRetryOptions)
+splunkDestinationUpdate_retryOptions = Lens.lens (\SplunkDestinationUpdate' {retryOptions} -> retryOptions) (\s@SplunkDestinationUpdate' {} a -> s {retryOptions = a} :: SplunkDestinationUpdate)
 
--- | Specifies how you want Kinesis Data Firehose to back up documents to Amazon S3. When set to @FailedDocumentsOnly@ , Kinesis Data Firehose writes any data that could not be indexed to the configured Amazon S3 destination. When set to @AllEvents@ , Kinesis Data Firehose delivers all incoming records to Amazon S3, and also writes failed documents to Amazon S3. The default value is @FailedEventsOnly@ . You can update this backup mode from @FailedEventsOnly@ to @AllEvents@ . You can't update it from @AllEvents@ to @FailedEventsOnly@ .
-splS3BackupMode :: Lens' SplunkDestinationUpdate (Maybe SplunkS3BackupMode)
-splS3BackupMode = lens _splS3BackupMode (\s a -> s {_splS3BackupMode = a})
+-- | Specifies how you want Kinesis Data Firehose to back up documents to
+-- Amazon S3. When set to @FailedDocumentsOnly@, Kinesis Data Firehose
+-- writes any data that could not be indexed to the configured Amazon S3
+-- destination. When set to @AllEvents@, Kinesis Data Firehose delivers all
+-- incoming records to Amazon S3, and also writes failed documents to
+-- Amazon S3. The default value is @FailedEventsOnly@.
+--
+-- You can update this backup mode from @FailedEventsOnly@ to @AllEvents@.
+-- You can\'t update it from @AllEvents@ to @FailedEventsOnly@.
+splunkDestinationUpdate_s3BackupMode :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe SplunkS3BackupMode)
+splunkDestinationUpdate_s3BackupMode = Lens.lens (\SplunkDestinationUpdate' {s3BackupMode} -> s3BackupMode) (\s@SplunkDestinationUpdate' {} a -> s {s3BackupMode = a} :: SplunkDestinationUpdate)
 
--- | The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose sends your data.
-splHECEndpoint :: Lens' SplunkDestinationUpdate (Maybe Text)
-splHECEndpoint = lens _splHECEndpoint (\s a -> s {_splHECEndpoint = a})
+-- | The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
+-- sends your data.
+splunkDestinationUpdate_hECEndpoint :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe Prelude.Text)
+splunkDestinationUpdate_hECEndpoint = Lens.lens (\SplunkDestinationUpdate' {hECEndpoint} -> hECEndpoint) (\s@SplunkDestinationUpdate' {} a -> s {hECEndpoint = a} :: SplunkDestinationUpdate)
 
--- | A GUID that you obtain from your Splunk cluster when you create a new HEC endpoint.
-splHECToken :: Lens' SplunkDestinationUpdate (Maybe Text)
-splHECToken = lens _splHECToken (\s a -> s {_splHECToken = a})
+-- | A GUID that you obtain from your Splunk cluster when you create a new
+-- HEC endpoint.
+splunkDestinationUpdate_hECToken :: Lens.Lens' SplunkDestinationUpdate (Prelude.Maybe Prelude.Text)
+splunkDestinationUpdate_hECToken = Lens.lens (\SplunkDestinationUpdate' {hECToken} -> hECToken) (\s@SplunkDestinationUpdate' {} a -> s {hECToken = a} :: SplunkDestinationUpdate)
 
-instance Hashable SplunkDestinationUpdate
+instance Prelude.Hashable SplunkDestinationUpdate
 
-instance NFData SplunkDestinationUpdate
+instance Prelude.NFData SplunkDestinationUpdate
 
-instance ToJSON SplunkDestinationUpdate where
+instance Prelude.ToJSON SplunkDestinationUpdate where
   toJSON SplunkDestinationUpdate' {..} =
-    object
-      ( catMaybes
-          [ ("S3Update" .=) <$> _splS3Update,
-            ("HECAcknowledgmentTimeoutInSeconds" .=)
-              <$> _splHECAcknowledgmentTimeoutInSeconds,
-            ("ProcessingConfiguration" .=)
-              <$> _splProcessingConfiguration,
-            ("CloudWatchLoggingOptions" .=)
-              <$> _splCloudWatchLoggingOptions,
-            ("HECEndpointType" .=) <$> _splHECEndpointType,
-            ("RetryOptions" .=) <$> _splRetryOptions,
-            ("S3BackupMode" .=) <$> _splS3BackupMode,
-            ("HECEndpoint" .=) <$> _splHECEndpoint,
-            ("HECToken" .=) <$> _splHECToken
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3Update" Prelude..=) Prelude.<$> s3Update,
+            ("HECAcknowledgmentTimeoutInSeconds" Prelude..=)
+              Prelude.<$> hECAcknowledgmentTimeoutInSeconds,
+            ("ProcessingConfiguration" Prelude..=)
+              Prelude.<$> processingConfiguration,
+            ("CloudWatchLoggingOptions" Prelude..=)
+              Prelude.<$> cloudWatchLoggingOptions,
+            ("HECEndpointType" Prelude..=)
+              Prelude.<$> hECEndpointType,
+            ("RetryOptions" Prelude..=) Prelude.<$> retryOptions,
+            ("S3BackupMode" Prelude..=) Prelude.<$> s3BackupMode,
+            ("HECEndpoint" Prelude..=) Prelude.<$> hECEndpoint,
+            ("HECToken" Prelude..=) Prelude.<$> hECToken
           ]
       )

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,90 +25,122 @@ import Network.AWS.Firehose.Types.DeliveryStreamType
 import Network.AWS.Firehose.Types.DestinationDescription
 import Network.AWS.Firehose.Types.FailureDescription
 import Network.AWS.Firehose.Types.SourceDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about a delivery stream.
 --
---
---
--- /See:/ 'deliveryStreamDescription' smart constructor.
+-- /See:/ 'newDeliveryStreamDescription' smart constructor.
 data DeliveryStreamDescription = DeliveryStreamDescription'
-  { _dsdDeliveryStreamEncryptionConfiguration ::
-      !( Maybe
-           DeliveryStreamEncryptionConfiguration
-       ),
-    _dsdSource ::
-      !( Maybe
-           SourceDescription
-       ),
-    _dsdCreateTimestamp ::
-      !(Maybe POSIX),
-    _dsdFailureDescription ::
-      !( Maybe
-           FailureDescription
-       ),
-    _dsdLastUpdateTimestamp ::
-      !(Maybe POSIX),
-    _dsdDeliveryStreamName ::
-      !Text,
-    _dsdDeliveryStreamARN ::
-      !Text,
-    _dsdDeliveryStreamStatus ::
-      !DeliveryStreamStatus,
-    _dsdDeliveryStreamType ::
-      !DeliveryStreamType,
-    _dsdVersionId ::
-      !Text,
-    _dsdDestinations ::
-      ![DestinationDescription],
-    _dsdHasMoreDestinations ::
-      !Bool
+  { -- | Indicates the server-side encryption (SSE) status for the delivery
+    -- stream.
+    deliveryStreamEncryptionConfiguration :: Prelude.Maybe DeliveryStreamEncryptionConfiguration,
+    -- | If the @DeliveryStreamType@ parameter is @KinesisStreamAsSource@, a
+    -- SourceDescription object describing the source Kinesis data stream.
+    source :: Prelude.Maybe SourceDescription,
+    -- | The date and time that the delivery stream was created.
+    createTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | Provides details in case one of the following operations fails due to an
+    -- error related to KMS: CreateDeliveryStream, DeleteDeliveryStream,
+    -- StartDeliveryStreamEncryption, StopDeliveryStreamEncryption.
+    failureDescription :: Prelude.Maybe FailureDescription,
+    -- | The date and time that the delivery stream was last updated.
+    lastUpdateTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The name of the delivery stream.
+    deliveryStreamName :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the delivery stream. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    deliveryStreamARN :: Prelude.Text,
+    -- | The status of the delivery stream. If the status of a delivery stream is
+    -- @CREATING_FAILED@, this status doesn\'t change, and you can\'t invoke
+    -- @CreateDeliveryStream@ again on it. However, you can invoke the
+    -- DeleteDeliveryStream operation to delete it.
+    deliveryStreamStatus :: DeliveryStreamStatus,
+    -- | The delivery stream type. This can be one of the following values:
+    --
+    -- -   @DirectPut@: Provider applications access the delivery stream
+    --     directly.
+    --
+    -- -   @KinesisStreamAsSource@: The delivery stream uses a Kinesis data
+    --     stream as a source.
+    deliveryStreamType :: DeliveryStreamType,
+    -- | Each time the destination is updated for a delivery stream, the version
+    -- ID is changed, and the current version ID is required when updating the
+    -- destination. This is so that the service knows it is applying the
+    -- changes to the correct version of the delivery stream.
+    versionId :: Prelude.Text,
+    -- | The destinations.
+    destinations :: [DestinationDescription],
+    -- | Indicates whether there are more destinations available to list.
+    hasMoreDestinations :: Prelude.Bool
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeliveryStreamDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeliveryStreamDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsdDeliveryStreamEncryptionConfiguration' - Indicates the server-side encryption (SSE) status for the delivery stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsdSource' - If the @DeliveryStreamType@ parameter is @KinesisStreamAsSource@ , a 'SourceDescription' object describing the source Kinesis data stream.
+-- 'deliveryStreamEncryptionConfiguration', 'deliveryStreamDescription_deliveryStreamEncryptionConfiguration' - Indicates the server-side encryption (SSE) status for the delivery
+-- stream.
 --
--- * 'dsdCreateTimestamp' - The date and time that the delivery stream was created.
+-- 'source', 'deliveryStreamDescription_source' - If the @DeliveryStreamType@ parameter is @KinesisStreamAsSource@, a
+-- SourceDescription object describing the source Kinesis data stream.
 --
--- * 'dsdFailureDescription' - Provides details in case one of the following operations fails due to an error related to KMS: 'CreateDeliveryStream' , 'DeleteDeliveryStream' , 'StartDeliveryStreamEncryption' , 'StopDeliveryStreamEncryption' .
+-- 'createTimestamp', 'deliveryStreamDescription_createTimestamp' - The date and time that the delivery stream was created.
 --
--- * 'dsdLastUpdateTimestamp' - The date and time that the delivery stream was last updated.
+-- 'failureDescription', 'deliveryStreamDescription_failureDescription' - Provides details in case one of the following operations fails due to an
+-- error related to KMS: CreateDeliveryStream, DeleteDeliveryStream,
+-- StartDeliveryStreamEncryption, StopDeliveryStreamEncryption.
 --
--- * 'dsdDeliveryStreamName' - The name of the delivery stream.
+-- 'lastUpdateTimestamp', 'deliveryStreamDescription_lastUpdateTimestamp' - The date and time that the delivery stream was last updated.
 --
--- * 'dsdDeliveryStreamARN' - The Amazon Resource Name (ARN) of the delivery stream. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
+-- 'deliveryStreamName', 'deliveryStreamDescription_deliveryStreamName' - The name of the delivery stream.
 --
--- * 'dsdDeliveryStreamStatus' - The status of the delivery stream. If the status of a delivery stream is @CREATING_FAILED@ , this status doesn't change, and you can't invoke @CreateDeliveryStream@ again on it. However, you can invoke the 'DeleteDeliveryStream' operation to delete it.
+-- 'deliveryStreamARN', 'deliveryStreamDescription_deliveryStreamARN' - The Amazon Resource Name (ARN) of the delivery stream. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
 --
--- * 'dsdDeliveryStreamType' - The delivery stream type. This can be one of the following values:     * @DirectPut@ : Provider applications access the delivery stream directly.     * @KinesisStreamAsSource@ : The delivery stream uses a Kinesis data stream as a source.
+-- 'deliveryStreamStatus', 'deliveryStreamDescription_deliveryStreamStatus' - The status of the delivery stream. If the status of a delivery stream is
+-- @CREATING_FAILED@, this status doesn\'t change, and you can\'t invoke
+-- @CreateDeliveryStream@ again on it. However, you can invoke the
+-- DeleteDeliveryStream operation to delete it.
 --
--- * 'dsdVersionId' - Each time the destination is updated for a delivery stream, the version ID is changed, and the current version ID is required when updating the destination. This is so that the service knows it is applying the changes to the correct version of the delivery stream.
+-- 'deliveryStreamType', 'deliveryStreamDescription_deliveryStreamType' - The delivery stream type. This can be one of the following values:
 --
--- * 'dsdDestinations' - The destinations.
+-- -   @DirectPut@: Provider applications access the delivery stream
+--     directly.
 --
--- * 'dsdHasMoreDestinations' - Indicates whether there are more destinations available to list.
-deliveryStreamDescription ::
-  -- | 'dsdDeliveryStreamName'
-  Text ->
-  -- | 'dsdDeliveryStreamARN'
-  Text ->
-  -- | 'dsdDeliveryStreamStatus'
+-- -   @KinesisStreamAsSource@: The delivery stream uses a Kinesis data
+--     stream as a source.
+--
+-- 'versionId', 'deliveryStreamDescription_versionId' - Each time the destination is updated for a delivery stream, the version
+-- ID is changed, and the current version ID is required when updating the
+-- destination. This is so that the service knows it is applying the
+-- changes to the correct version of the delivery stream.
+--
+-- 'destinations', 'deliveryStreamDescription_destinations' - The destinations.
+--
+-- 'hasMoreDestinations', 'deliveryStreamDescription_hasMoreDestinations' - Indicates whether there are more destinations available to list.
+newDeliveryStreamDescription ::
+  -- | 'deliveryStreamName'
+  Prelude.Text ->
+  -- | 'deliveryStreamARN'
+  Prelude.Text ->
+  -- | 'deliveryStreamStatus'
   DeliveryStreamStatus ->
-  -- | 'dsdDeliveryStreamType'
+  -- | 'deliveryStreamType'
   DeliveryStreamType ->
-  -- | 'dsdVersionId'
-  Text ->
-  -- | 'dsdHasMoreDestinations'
-  Bool ->
+  -- | 'versionId'
+  Prelude.Text ->
+  -- | 'hasMoreDestinations'
+  Prelude.Bool ->
   DeliveryStreamDescription
-deliveryStreamDescription
+newDeliveryStreamDescription
   pDeliveryStreamName_
   pDeliveryStreamARN_
   pDeliveryStreamStatus_
@@ -112,90 +148,111 @@ deliveryStreamDescription
   pVersionId_
   pHasMoreDestinations_ =
     DeliveryStreamDescription'
-      { _dsdDeliveryStreamEncryptionConfiguration =
-          Nothing,
-        _dsdSource = Nothing,
-        _dsdCreateTimestamp = Nothing,
-        _dsdFailureDescription = Nothing,
-        _dsdLastUpdateTimestamp = Nothing,
-        _dsdDeliveryStreamName = pDeliveryStreamName_,
-        _dsdDeliveryStreamARN = pDeliveryStreamARN_,
-        _dsdDeliveryStreamStatus =
-          pDeliveryStreamStatus_,
-        _dsdDeliveryStreamType = pDeliveryStreamType_,
-        _dsdVersionId = pVersionId_,
-        _dsdDestinations = mempty,
-        _dsdHasMoreDestinations = pHasMoreDestinations_
+      { deliveryStreamEncryptionConfiguration =
+          Prelude.Nothing,
+        source = Prelude.Nothing,
+        createTimestamp = Prelude.Nothing,
+        failureDescription = Prelude.Nothing,
+        lastUpdateTimestamp = Prelude.Nothing,
+        deliveryStreamName = pDeliveryStreamName_,
+        deliveryStreamARN = pDeliveryStreamARN_,
+        deliveryStreamStatus = pDeliveryStreamStatus_,
+        deliveryStreamType = pDeliveryStreamType_,
+        versionId = pVersionId_,
+        destinations = Prelude.mempty,
+        hasMoreDestinations = pHasMoreDestinations_
       }
 
--- | Indicates the server-side encryption (SSE) status for the delivery stream.
-dsdDeliveryStreamEncryptionConfiguration :: Lens' DeliveryStreamDescription (Maybe DeliveryStreamEncryptionConfiguration)
-dsdDeliveryStreamEncryptionConfiguration = lens _dsdDeliveryStreamEncryptionConfiguration (\s a -> s {_dsdDeliveryStreamEncryptionConfiguration = a})
+-- | Indicates the server-side encryption (SSE) status for the delivery
+-- stream.
+deliveryStreamDescription_deliveryStreamEncryptionConfiguration :: Lens.Lens' DeliveryStreamDescription (Prelude.Maybe DeliveryStreamEncryptionConfiguration)
+deliveryStreamDescription_deliveryStreamEncryptionConfiguration = Lens.lens (\DeliveryStreamDescription' {deliveryStreamEncryptionConfiguration} -> deliveryStreamEncryptionConfiguration) (\s@DeliveryStreamDescription' {} a -> s {deliveryStreamEncryptionConfiguration = a} :: DeliveryStreamDescription)
 
--- | If the @DeliveryStreamType@ parameter is @KinesisStreamAsSource@ , a 'SourceDescription' object describing the source Kinesis data stream.
-dsdSource :: Lens' DeliveryStreamDescription (Maybe SourceDescription)
-dsdSource = lens _dsdSource (\s a -> s {_dsdSource = a})
+-- | If the @DeliveryStreamType@ parameter is @KinesisStreamAsSource@, a
+-- SourceDescription object describing the source Kinesis data stream.
+deliveryStreamDescription_source :: Lens.Lens' DeliveryStreamDescription (Prelude.Maybe SourceDescription)
+deliveryStreamDescription_source = Lens.lens (\DeliveryStreamDescription' {source} -> source) (\s@DeliveryStreamDescription' {} a -> s {source = a} :: DeliveryStreamDescription)
 
 -- | The date and time that the delivery stream was created.
-dsdCreateTimestamp :: Lens' DeliveryStreamDescription (Maybe UTCTime)
-dsdCreateTimestamp = lens _dsdCreateTimestamp (\s a -> s {_dsdCreateTimestamp = a}) . mapping _Time
+deliveryStreamDescription_createTimestamp :: Lens.Lens' DeliveryStreamDescription (Prelude.Maybe Prelude.UTCTime)
+deliveryStreamDescription_createTimestamp = Lens.lens (\DeliveryStreamDescription' {createTimestamp} -> createTimestamp) (\s@DeliveryStreamDescription' {} a -> s {createTimestamp = a} :: DeliveryStreamDescription) Prelude.. Lens.mapping Prelude._Time
 
--- | Provides details in case one of the following operations fails due to an error related to KMS: 'CreateDeliveryStream' , 'DeleteDeliveryStream' , 'StartDeliveryStreamEncryption' , 'StopDeliveryStreamEncryption' .
-dsdFailureDescription :: Lens' DeliveryStreamDescription (Maybe FailureDescription)
-dsdFailureDescription = lens _dsdFailureDescription (\s a -> s {_dsdFailureDescription = a})
+-- | Provides details in case one of the following operations fails due to an
+-- error related to KMS: CreateDeliveryStream, DeleteDeliveryStream,
+-- StartDeliveryStreamEncryption, StopDeliveryStreamEncryption.
+deliveryStreamDescription_failureDescription :: Lens.Lens' DeliveryStreamDescription (Prelude.Maybe FailureDescription)
+deliveryStreamDescription_failureDescription = Lens.lens (\DeliveryStreamDescription' {failureDescription} -> failureDescription) (\s@DeliveryStreamDescription' {} a -> s {failureDescription = a} :: DeliveryStreamDescription)
 
 -- | The date and time that the delivery stream was last updated.
-dsdLastUpdateTimestamp :: Lens' DeliveryStreamDescription (Maybe UTCTime)
-dsdLastUpdateTimestamp = lens _dsdLastUpdateTimestamp (\s a -> s {_dsdLastUpdateTimestamp = a}) . mapping _Time
+deliveryStreamDescription_lastUpdateTimestamp :: Lens.Lens' DeliveryStreamDescription (Prelude.Maybe Prelude.UTCTime)
+deliveryStreamDescription_lastUpdateTimestamp = Lens.lens (\DeliveryStreamDescription' {lastUpdateTimestamp} -> lastUpdateTimestamp) (\s@DeliveryStreamDescription' {} a -> s {lastUpdateTimestamp = a} :: DeliveryStreamDescription) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the delivery stream.
-dsdDeliveryStreamName :: Lens' DeliveryStreamDescription Text
-dsdDeliveryStreamName = lens _dsdDeliveryStreamName (\s a -> s {_dsdDeliveryStreamName = a})
+deliveryStreamDescription_deliveryStreamName :: Lens.Lens' DeliveryStreamDescription Prelude.Text
+deliveryStreamDescription_deliveryStreamName = Lens.lens (\DeliveryStreamDescription' {deliveryStreamName} -> deliveryStreamName) (\s@DeliveryStreamDescription' {} a -> s {deliveryStreamName = a} :: DeliveryStreamDescription)
 
--- | The Amazon Resource Name (ARN) of the delivery stream. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
-dsdDeliveryStreamARN :: Lens' DeliveryStreamDescription Text
-dsdDeliveryStreamARN = lens _dsdDeliveryStreamARN (\s a -> s {_dsdDeliveryStreamARN = a})
+-- | The Amazon Resource Name (ARN) of the delivery stream. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+deliveryStreamDescription_deliveryStreamARN :: Lens.Lens' DeliveryStreamDescription Prelude.Text
+deliveryStreamDescription_deliveryStreamARN = Lens.lens (\DeliveryStreamDescription' {deliveryStreamARN} -> deliveryStreamARN) (\s@DeliveryStreamDescription' {} a -> s {deliveryStreamARN = a} :: DeliveryStreamDescription)
 
--- | The status of the delivery stream. If the status of a delivery stream is @CREATING_FAILED@ , this status doesn't change, and you can't invoke @CreateDeliveryStream@ again on it. However, you can invoke the 'DeleteDeliveryStream' operation to delete it.
-dsdDeliveryStreamStatus :: Lens' DeliveryStreamDescription DeliveryStreamStatus
-dsdDeliveryStreamStatus = lens _dsdDeliveryStreamStatus (\s a -> s {_dsdDeliveryStreamStatus = a})
+-- | The status of the delivery stream. If the status of a delivery stream is
+-- @CREATING_FAILED@, this status doesn\'t change, and you can\'t invoke
+-- @CreateDeliveryStream@ again on it. However, you can invoke the
+-- DeleteDeliveryStream operation to delete it.
+deliveryStreamDescription_deliveryStreamStatus :: Lens.Lens' DeliveryStreamDescription DeliveryStreamStatus
+deliveryStreamDescription_deliveryStreamStatus = Lens.lens (\DeliveryStreamDescription' {deliveryStreamStatus} -> deliveryStreamStatus) (\s@DeliveryStreamDescription' {} a -> s {deliveryStreamStatus = a} :: DeliveryStreamDescription)
 
--- | The delivery stream type. This can be one of the following values:     * @DirectPut@ : Provider applications access the delivery stream directly.     * @KinesisStreamAsSource@ : The delivery stream uses a Kinesis data stream as a source.
-dsdDeliveryStreamType :: Lens' DeliveryStreamDescription DeliveryStreamType
-dsdDeliveryStreamType = lens _dsdDeliveryStreamType (\s a -> s {_dsdDeliveryStreamType = a})
+-- | The delivery stream type. This can be one of the following values:
+--
+-- -   @DirectPut@: Provider applications access the delivery stream
+--     directly.
+--
+-- -   @KinesisStreamAsSource@: The delivery stream uses a Kinesis data
+--     stream as a source.
+deliveryStreamDescription_deliveryStreamType :: Lens.Lens' DeliveryStreamDescription DeliveryStreamType
+deliveryStreamDescription_deliveryStreamType = Lens.lens (\DeliveryStreamDescription' {deliveryStreamType} -> deliveryStreamType) (\s@DeliveryStreamDescription' {} a -> s {deliveryStreamType = a} :: DeliveryStreamDescription)
 
--- | Each time the destination is updated for a delivery stream, the version ID is changed, and the current version ID is required when updating the destination. This is so that the service knows it is applying the changes to the correct version of the delivery stream.
-dsdVersionId :: Lens' DeliveryStreamDescription Text
-dsdVersionId = lens _dsdVersionId (\s a -> s {_dsdVersionId = a})
+-- | Each time the destination is updated for a delivery stream, the version
+-- ID is changed, and the current version ID is required when updating the
+-- destination. This is so that the service knows it is applying the
+-- changes to the correct version of the delivery stream.
+deliveryStreamDescription_versionId :: Lens.Lens' DeliveryStreamDescription Prelude.Text
+deliveryStreamDescription_versionId = Lens.lens (\DeliveryStreamDescription' {versionId} -> versionId) (\s@DeliveryStreamDescription' {} a -> s {versionId = a} :: DeliveryStreamDescription)
 
 -- | The destinations.
-dsdDestinations :: Lens' DeliveryStreamDescription [DestinationDescription]
-dsdDestinations = lens _dsdDestinations (\s a -> s {_dsdDestinations = a}) . _Coerce
+deliveryStreamDescription_destinations :: Lens.Lens' DeliveryStreamDescription [DestinationDescription]
+deliveryStreamDescription_destinations = Lens.lens (\DeliveryStreamDescription' {destinations} -> destinations) (\s@DeliveryStreamDescription' {} a -> s {destinations = a} :: DeliveryStreamDescription) Prelude.. Prelude._Coerce
 
 -- | Indicates whether there are more destinations available to list.
-dsdHasMoreDestinations :: Lens' DeliveryStreamDescription Bool
-dsdHasMoreDestinations = lens _dsdHasMoreDestinations (\s a -> s {_dsdHasMoreDestinations = a})
+deliveryStreamDescription_hasMoreDestinations :: Lens.Lens' DeliveryStreamDescription Prelude.Bool
+deliveryStreamDescription_hasMoreDestinations = Lens.lens (\DeliveryStreamDescription' {hasMoreDestinations} -> hasMoreDestinations) (\s@DeliveryStreamDescription' {} a -> s {hasMoreDestinations = a} :: DeliveryStreamDescription)
 
-instance FromJSON DeliveryStreamDescription where
+instance Prelude.FromJSON DeliveryStreamDescription where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeliveryStreamDescription"
       ( \x ->
           DeliveryStreamDescription'
-            <$> (x .:? "DeliveryStreamEncryptionConfiguration")
-            <*> (x .:? "Source")
-            <*> (x .:? "CreateTimestamp")
-            <*> (x .:? "FailureDescription")
-            <*> (x .:? "LastUpdateTimestamp")
-            <*> (x .: "DeliveryStreamName")
-            <*> (x .: "DeliveryStreamARN")
-            <*> (x .: "DeliveryStreamStatus")
-            <*> (x .: "DeliveryStreamType")
-            <*> (x .: "VersionId")
-            <*> (x .:? "Destinations" .!= mempty)
-            <*> (x .: "HasMoreDestinations")
+            Prelude.<$> ( x
+                            Prelude..:? "DeliveryStreamEncryptionConfiguration"
+                        )
+            Prelude.<*> (x Prelude..:? "Source")
+            Prelude.<*> (x Prelude..:? "CreateTimestamp")
+            Prelude.<*> (x Prelude..:? "FailureDescription")
+            Prelude.<*> (x Prelude..:? "LastUpdateTimestamp")
+            Prelude.<*> (x Prelude..: "DeliveryStreamName")
+            Prelude.<*> (x Prelude..: "DeliveryStreamARN")
+            Prelude.<*> (x Prelude..: "DeliveryStreamStatus")
+            Prelude.<*> (x Prelude..: "DeliveryStreamType")
+            Prelude.<*> (x Prelude..: "VersionId")
+            Prelude.<*> ( x Prelude..:? "Destinations"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..: "HasMoreDestinations")
       )
 
-instance Hashable DeliveryStreamDescription
+instance Prelude.Hashable DeliveryStreamDescription
 
-instance NFData DeliveryStreamDescription
+instance Prelude.NFData DeliveryStreamDescription

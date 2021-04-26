@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.Firehose.Types.ElasticsearchIndexRotationPeriod
   ( ElasticsearchIndexRotationPeriod
       ( ..,
-        NoRotation,
-        OneDay,
-        OneHour,
-        OneMonth,
-        OneWeek
+        ElasticsearchIndexRotationPeriodNoRotation,
+        ElasticsearchIndexRotationPeriodOneDay,
+        ElasticsearchIndexRotationPeriodOneHour,
+        ElasticsearchIndexRotationPeriodOneMonth,
+        ElasticsearchIndexRotationPeriodOneWeek
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ElasticsearchIndexRotationPeriod
-  = ElasticsearchIndexRotationPeriod'
-      ( CI
-          Text
-      )
+newtype ElasticsearchIndexRotationPeriod = ElasticsearchIndexRotationPeriod'
+  { fromElasticsearchIndexRotationPeriod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NoRotation :: ElasticsearchIndexRotationPeriod
-pattern NoRotation = ElasticsearchIndexRotationPeriod' "NoRotation"
+pattern ElasticsearchIndexRotationPeriodNoRotation :: ElasticsearchIndexRotationPeriod
+pattern ElasticsearchIndexRotationPeriodNoRotation = ElasticsearchIndexRotationPeriod' "NoRotation"
 
-pattern OneDay :: ElasticsearchIndexRotationPeriod
-pattern OneDay = ElasticsearchIndexRotationPeriod' "OneDay"
+pattern ElasticsearchIndexRotationPeriodOneDay :: ElasticsearchIndexRotationPeriod
+pattern ElasticsearchIndexRotationPeriodOneDay = ElasticsearchIndexRotationPeriod' "OneDay"
 
-pattern OneHour :: ElasticsearchIndexRotationPeriod
-pattern OneHour = ElasticsearchIndexRotationPeriod' "OneHour"
+pattern ElasticsearchIndexRotationPeriodOneHour :: ElasticsearchIndexRotationPeriod
+pattern ElasticsearchIndexRotationPeriodOneHour = ElasticsearchIndexRotationPeriod' "OneHour"
 
-pattern OneMonth :: ElasticsearchIndexRotationPeriod
-pattern OneMonth = ElasticsearchIndexRotationPeriod' "OneMonth"
+pattern ElasticsearchIndexRotationPeriodOneMonth :: ElasticsearchIndexRotationPeriod
+pattern ElasticsearchIndexRotationPeriodOneMonth = ElasticsearchIndexRotationPeriod' "OneMonth"
 
-pattern OneWeek :: ElasticsearchIndexRotationPeriod
-pattern OneWeek = ElasticsearchIndexRotationPeriod' "OneWeek"
+pattern ElasticsearchIndexRotationPeriodOneWeek :: ElasticsearchIndexRotationPeriod
+pattern ElasticsearchIndexRotationPeriodOneWeek = ElasticsearchIndexRotationPeriod' "OneWeek"
 
 {-# COMPLETE
-  NoRotation,
-  OneDay,
-  OneHour,
-  OneMonth,
-  OneWeek,
+  ElasticsearchIndexRotationPeriodNoRotation,
+  ElasticsearchIndexRotationPeriodOneDay,
+  ElasticsearchIndexRotationPeriodOneHour,
+  ElasticsearchIndexRotationPeriodOneMonth,
+  ElasticsearchIndexRotationPeriodOneWeek,
   ElasticsearchIndexRotationPeriod'
   #-}
 
-instance FromText ElasticsearchIndexRotationPeriod where
-  parser = (ElasticsearchIndexRotationPeriod' . mk) <$> takeText
+instance Prelude.FromText ElasticsearchIndexRotationPeriod where
+  parser = ElasticsearchIndexRotationPeriod' Prelude.<$> Prelude.takeText
 
-instance ToText ElasticsearchIndexRotationPeriod where
-  toText (ElasticsearchIndexRotationPeriod' ci) = original ci
+instance Prelude.ToText ElasticsearchIndexRotationPeriod where
+  toText (ElasticsearchIndexRotationPeriod' x) = x
 
-instance Hashable ElasticsearchIndexRotationPeriod
+instance Prelude.Hashable ElasticsearchIndexRotationPeriod
 
-instance NFData ElasticsearchIndexRotationPeriod
+instance Prelude.NFData ElasticsearchIndexRotationPeriod
 
-instance ToByteString ElasticsearchIndexRotationPeriod
+instance Prelude.ToByteString ElasticsearchIndexRotationPeriod
 
-instance ToQuery ElasticsearchIndexRotationPeriod
+instance Prelude.ToQuery ElasticsearchIndexRotationPeriod
 
-instance ToHeader ElasticsearchIndexRotationPeriod
+instance Prelude.ToHeader ElasticsearchIndexRotationPeriod
 
-instance ToJSON ElasticsearchIndexRotationPeriod where
-  toJSON = toJSONText
+instance Prelude.ToJSON ElasticsearchIndexRotationPeriod where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ElasticsearchIndexRotationPeriod where
-  parseJSON = parseJSONText "ElasticsearchIndexRotationPeriod"
+instance Prelude.FromJSON ElasticsearchIndexRotationPeriod where
+  parseJSON = Prelude.parseJSONText "ElasticsearchIndexRotationPeriod"

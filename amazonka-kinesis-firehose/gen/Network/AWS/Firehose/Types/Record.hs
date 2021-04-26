@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,36 +19,56 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Firehose.Types.Record where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The unit of data in a delivery stream.
 --
---
---
--- /See:/ 'record' smart constructor.
-newtype Record = Record' {_rData :: Base64}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- /See:/ 'newRecord' smart constructor.
+data Record = Record'
+  { -- | The data blob, which is base64-encoded when the blob is serialized. The
+    -- maximum size of the data blob, before base64-encoding, is 1,000 KiB.
+    data' :: Prelude.Base64
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Record' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Record' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rData' - The data blob, which is base64-encoded when the blob is serialized. The maximum size of the data blob, before base64-encoding, is 1,000 KiB.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-record ::
-  -- | 'rData'
-  ByteString ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'data'', 'record_data' - The data blob, which is base64-encoded when the blob is serialized. The
+-- maximum size of the data blob, before base64-encoding, is 1,000 KiB.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+newRecord ::
+  -- | 'data''
+  Prelude.ByteString ->
   Record
-record pData_ = Record' {_rData = _Base64 # pData_}
+newRecord pData_ =
+  Record' {data' = Prelude._Base64 Lens.# pData_}
 
--- | The data blob, which is base64-encoded when the blob is serialized. The maximum size of the data blob, before base64-encoding, is 1,000 KiB.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
-rData :: Lens' Record ByteString
-rData = lens _rData (\s a -> s {_rData = a}) . _Base64
+-- | The data blob, which is base64-encoded when the blob is serialized. The
+-- maximum size of the data blob, before base64-encoding, is 1,000 KiB.--
+-- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
+-- -- The underlying isomorphism will encode to Base64 representation during
+-- -- serialisation, and decode from Base64 representation during deserialisation.
+-- -- This 'Lens' accepts and returns only raw unencoded data.
+record_data :: Lens.Lens' Record Prelude.ByteString
+record_data = Lens.lens (\Record' {data'} -> data') (\s@Record' {} a -> s {data' = a} :: Record) Prelude.. Prelude._Base64
 
-instance Hashable Record
+instance Prelude.Hashable Record
 
-instance NFData Record
+instance Prelude.NFData Record
 
-instance ToJSON Record where
+instance Prelude.ToJSON Record where
   toJSON Record' {..} =
-    object (catMaybes [Just ("Data" .= _rData)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("Data" Prelude..= data')]
+      )

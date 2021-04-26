@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,96 +22,125 @@ module Network.AWS.Firehose.Types.DeliveryStreamEncryptionConfiguration where
 import Network.AWS.Firehose.Types.DeliveryStreamEncryptionStatus
 import Network.AWS.Firehose.Types.FailureDescription
 import Network.AWS.Firehose.Types.KeyType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the server-side encryption (SSE) status for the delivery stream, the type customer master key (CMK) in use, if any, and the ARN of the CMK. You can get @DeliveryStreamEncryptionConfiguration@ by invoking the 'DescribeDeliveryStream' operation.
+-- | Contains information about the server-side encryption (SSE) status for
+-- the delivery stream, the type customer master key (CMK) in use, if any,
+-- and the ARN of the CMK. You can get
+-- @DeliveryStreamEncryptionConfiguration@ by invoking the
+-- DescribeDeliveryStream operation.
 --
---
---
--- /See:/ 'deliveryStreamEncryptionConfiguration' smart constructor.
+-- /See:/ 'newDeliveryStreamEncryptionConfiguration' smart constructor.
 data DeliveryStreamEncryptionConfiguration = DeliveryStreamEncryptionConfiguration'
-  { _dsecStatus ::
-      !( Maybe
-           DeliveryStreamEncryptionStatus
-       ),
-    _dsecKeyARN ::
-      !( Maybe
-           Text
-       ),
-    _dsecKeyType ::
-      !( Maybe
-           KeyType
-       ),
-    _dsecFailureDescription ::
-      !( Maybe
-           FailureDescription
-       )
+  { -- | This is the server-side encryption (SSE) status for the delivery stream.
+    -- For a full description of the different values of this status, see
+    -- StartDeliveryStreamEncryption and StopDeliveryStreamEncryption. If this
+    -- status is @ENABLING_FAILED@ or @DISABLING_FAILED@, it is the status of
+    -- the most recent attempt to enable or disable SSE, respectively.
+    status :: Prelude.Maybe DeliveryStreamEncryptionStatus,
+    -- | If @KeyType@ is @CUSTOMER_MANAGED_CMK@, this field contains the ARN of
+    -- the customer managed CMK. If @KeyType@ is @AWS_OWNED_CMK@,
+    -- @DeliveryStreamEncryptionConfiguration@ doesn\'t contain a value for
+    -- @KeyARN@.
+    keyARN :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the type of customer master key (CMK) that is used for
+    -- encryption. The default setting is @AWS_OWNED_CMK@. For more information
+    -- about CMKs, see
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys Customer Master Keys (CMKs)>.
+    keyType :: Prelude.Maybe KeyType,
+    -- | Provides details in case one of the following operations fails due to an
+    -- error related to KMS: CreateDeliveryStream, DeleteDeliveryStream,
+    -- StartDeliveryStreamEncryption, StopDeliveryStreamEncryption.
+    failureDescription :: Prelude.Maybe FailureDescription
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeliveryStreamEncryptionConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeliveryStreamEncryptionConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsecStatus' - This is the server-side encryption (SSE) status for the delivery stream. For a full description of the different values of this status, see 'StartDeliveryStreamEncryption' and 'StopDeliveryStreamEncryption' . If this status is @ENABLING_FAILED@ or @DISABLING_FAILED@ , it is the status of the most recent attempt to enable or disable SSE, respectively.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsecKeyARN' - If @KeyType@ is @CUSTOMER_MANAGED_CMK@ , this field contains the ARN of the customer managed CMK. If @KeyType@ is @AWS_OWNED_CMK@ , @DeliveryStreamEncryptionConfiguration@ doesn't contain a value for @KeyARN@ .
+-- 'status', 'deliveryStreamEncryptionConfiguration_status' - This is the server-side encryption (SSE) status for the delivery stream.
+-- For a full description of the different values of this status, see
+-- StartDeliveryStreamEncryption and StopDeliveryStreamEncryption. If this
+-- status is @ENABLING_FAILED@ or @DISABLING_FAILED@, it is the status of
+-- the most recent attempt to enable or disable SSE, respectively.
 --
--- * 'dsecKeyType' - Indicates the type of customer master key (CMK) that is used for encryption. The default setting is @AWS_OWNED_CMK@ . For more information about CMKs, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys Customer Master Keys (CMKs)> .
+-- 'keyARN', 'deliveryStreamEncryptionConfiguration_keyARN' - If @KeyType@ is @CUSTOMER_MANAGED_CMK@, this field contains the ARN of
+-- the customer managed CMK. If @KeyType@ is @AWS_OWNED_CMK@,
+-- @DeliveryStreamEncryptionConfiguration@ doesn\'t contain a value for
+-- @KeyARN@.
 --
--- * 'dsecFailureDescription' - Provides details in case one of the following operations fails due to an error related to KMS: 'CreateDeliveryStream' , 'DeleteDeliveryStream' , 'StartDeliveryStreamEncryption' , 'StopDeliveryStreamEncryption' .
-deliveryStreamEncryptionConfiguration ::
+-- 'keyType', 'deliveryStreamEncryptionConfiguration_keyType' - Indicates the type of customer master key (CMK) that is used for
+-- encryption. The default setting is @AWS_OWNED_CMK@. For more information
+-- about CMKs, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys Customer Master Keys (CMKs)>.
+--
+-- 'failureDescription', 'deliveryStreamEncryptionConfiguration_failureDescription' - Provides details in case one of the following operations fails due to an
+-- error related to KMS: CreateDeliveryStream, DeleteDeliveryStream,
+-- StartDeliveryStreamEncryption, StopDeliveryStreamEncryption.
+newDeliveryStreamEncryptionConfiguration ::
   DeliveryStreamEncryptionConfiguration
-deliveryStreamEncryptionConfiguration =
+newDeliveryStreamEncryptionConfiguration =
   DeliveryStreamEncryptionConfiguration'
-    { _dsecStatus =
-        Nothing,
-      _dsecKeyARN = Nothing,
-      _dsecKeyType = Nothing,
-      _dsecFailureDescription = Nothing
+    { status =
+        Prelude.Nothing,
+      keyARN = Prelude.Nothing,
+      keyType = Prelude.Nothing,
+      failureDescription = Prelude.Nothing
     }
 
--- | This is the server-side encryption (SSE) status for the delivery stream. For a full description of the different values of this status, see 'StartDeliveryStreamEncryption' and 'StopDeliveryStreamEncryption' . If this status is @ENABLING_FAILED@ or @DISABLING_FAILED@ , it is the status of the most recent attempt to enable or disable SSE, respectively.
-dsecStatus :: Lens' DeliveryStreamEncryptionConfiguration (Maybe DeliveryStreamEncryptionStatus)
-dsecStatus = lens _dsecStatus (\s a -> s {_dsecStatus = a})
+-- | This is the server-side encryption (SSE) status for the delivery stream.
+-- For a full description of the different values of this status, see
+-- StartDeliveryStreamEncryption and StopDeliveryStreamEncryption. If this
+-- status is @ENABLING_FAILED@ or @DISABLING_FAILED@, it is the status of
+-- the most recent attempt to enable or disable SSE, respectively.
+deliveryStreamEncryptionConfiguration_status :: Lens.Lens' DeliveryStreamEncryptionConfiguration (Prelude.Maybe DeliveryStreamEncryptionStatus)
+deliveryStreamEncryptionConfiguration_status = Lens.lens (\DeliveryStreamEncryptionConfiguration' {status} -> status) (\s@DeliveryStreamEncryptionConfiguration' {} a -> s {status = a} :: DeliveryStreamEncryptionConfiguration)
 
--- | If @KeyType@ is @CUSTOMER_MANAGED_CMK@ , this field contains the ARN of the customer managed CMK. If @KeyType@ is @AWS_OWNED_CMK@ , @DeliveryStreamEncryptionConfiguration@ doesn't contain a value for @KeyARN@ .
-dsecKeyARN :: Lens' DeliveryStreamEncryptionConfiguration (Maybe Text)
-dsecKeyARN = lens _dsecKeyARN (\s a -> s {_dsecKeyARN = a})
+-- | If @KeyType@ is @CUSTOMER_MANAGED_CMK@, this field contains the ARN of
+-- the customer managed CMK. If @KeyType@ is @AWS_OWNED_CMK@,
+-- @DeliveryStreamEncryptionConfiguration@ doesn\'t contain a value for
+-- @KeyARN@.
+deliveryStreamEncryptionConfiguration_keyARN :: Lens.Lens' DeliveryStreamEncryptionConfiguration (Prelude.Maybe Prelude.Text)
+deliveryStreamEncryptionConfiguration_keyARN = Lens.lens (\DeliveryStreamEncryptionConfiguration' {keyARN} -> keyARN) (\s@DeliveryStreamEncryptionConfiguration' {} a -> s {keyARN = a} :: DeliveryStreamEncryptionConfiguration)
 
--- | Indicates the type of customer master key (CMK) that is used for encryption. The default setting is @AWS_OWNED_CMK@ . For more information about CMKs, see <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys Customer Master Keys (CMKs)> .
-dsecKeyType :: Lens' DeliveryStreamEncryptionConfiguration (Maybe KeyType)
-dsecKeyType = lens _dsecKeyType (\s a -> s {_dsecKeyType = a})
+-- | Indicates the type of customer master key (CMK) that is used for
+-- encryption. The default setting is @AWS_OWNED_CMK@. For more information
+-- about CMKs, see
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys Customer Master Keys (CMKs)>.
+deliveryStreamEncryptionConfiguration_keyType :: Lens.Lens' DeliveryStreamEncryptionConfiguration (Prelude.Maybe KeyType)
+deliveryStreamEncryptionConfiguration_keyType = Lens.lens (\DeliveryStreamEncryptionConfiguration' {keyType} -> keyType) (\s@DeliveryStreamEncryptionConfiguration' {} a -> s {keyType = a} :: DeliveryStreamEncryptionConfiguration)
 
--- | Provides details in case one of the following operations fails due to an error related to KMS: 'CreateDeliveryStream' , 'DeleteDeliveryStream' , 'StartDeliveryStreamEncryption' , 'StopDeliveryStreamEncryption' .
-dsecFailureDescription :: Lens' DeliveryStreamEncryptionConfiguration (Maybe FailureDescription)
-dsecFailureDescription = lens _dsecFailureDescription (\s a -> s {_dsecFailureDescription = a})
+-- | Provides details in case one of the following operations fails due to an
+-- error related to KMS: CreateDeliveryStream, DeleteDeliveryStream,
+-- StartDeliveryStreamEncryption, StopDeliveryStreamEncryption.
+deliveryStreamEncryptionConfiguration_failureDescription :: Lens.Lens' DeliveryStreamEncryptionConfiguration (Prelude.Maybe FailureDescription)
+deliveryStreamEncryptionConfiguration_failureDescription = Lens.lens (\DeliveryStreamEncryptionConfiguration' {failureDescription} -> failureDescription) (\s@DeliveryStreamEncryptionConfiguration' {} a -> s {failureDescription = a} :: DeliveryStreamEncryptionConfiguration)
 
 instance
-  FromJSON
+  Prelude.FromJSON
     DeliveryStreamEncryptionConfiguration
   where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeliveryStreamEncryptionConfiguration"
       ( \x ->
           DeliveryStreamEncryptionConfiguration'
-            <$> (x .:? "Status")
-            <*> (x .:? "KeyARN")
-            <*> (x .:? "KeyType")
-            <*> (x .:? "FailureDescription")
+            Prelude.<$> (x Prelude..:? "Status")
+            Prelude.<*> (x Prelude..:? "KeyARN")
+            Prelude.<*> (x Prelude..:? "KeyType")
+            Prelude.<*> (x Prelude..:? "FailureDescription")
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DeliveryStreamEncryptionConfiguration
 
-instance NFData DeliveryStreamEncryptionConfiguration
+instance
+  Prelude.NFData
+    DeliveryStreamEncryptionConfiguration

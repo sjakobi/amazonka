@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,77 +19,75 @@
 module Network.AWS.Firehose.Types.DeliveryStreamEncryptionStatus
   ( DeliveryStreamEncryptionStatus
       ( ..,
-        DSESDisabled,
-        DSESDisabling,
-        DSESDisablingFailed,
-        DSESEnabled,
-        DSESEnabling,
-        DSESEnablingFailed
+        DeliveryStreamEncryptionStatusDISABLED,
+        DeliveryStreamEncryptionStatusDISABLING,
+        DeliveryStreamEncryptionStatusDISABLINGFAILED,
+        DeliveryStreamEncryptionStatusENABLED,
+        DeliveryStreamEncryptionStatusENABLING,
+        DeliveryStreamEncryptionStatusENABLINGFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeliveryStreamEncryptionStatus
-  = DeliveryStreamEncryptionStatus'
-      ( CI
-          Text
-      )
+newtype DeliveryStreamEncryptionStatus = DeliveryStreamEncryptionStatus'
+  { fromDeliveryStreamEncryptionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DSESDisabled :: DeliveryStreamEncryptionStatus
-pattern DSESDisabled = DeliveryStreamEncryptionStatus' "DISABLED"
+pattern DeliveryStreamEncryptionStatusDISABLED :: DeliveryStreamEncryptionStatus
+pattern DeliveryStreamEncryptionStatusDISABLED = DeliveryStreamEncryptionStatus' "DISABLED"
 
-pattern DSESDisabling :: DeliveryStreamEncryptionStatus
-pattern DSESDisabling = DeliveryStreamEncryptionStatus' "DISABLING"
+pattern DeliveryStreamEncryptionStatusDISABLING :: DeliveryStreamEncryptionStatus
+pattern DeliveryStreamEncryptionStatusDISABLING = DeliveryStreamEncryptionStatus' "DISABLING"
 
-pattern DSESDisablingFailed :: DeliveryStreamEncryptionStatus
-pattern DSESDisablingFailed = DeliveryStreamEncryptionStatus' "DISABLING_FAILED"
+pattern DeliveryStreamEncryptionStatusDISABLINGFAILED :: DeliveryStreamEncryptionStatus
+pattern DeliveryStreamEncryptionStatusDISABLINGFAILED = DeliveryStreamEncryptionStatus' "DISABLING_FAILED"
 
-pattern DSESEnabled :: DeliveryStreamEncryptionStatus
-pattern DSESEnabled = DeliveryStreamEncryptionStatus' "ENABLED"
+pattern DeliveryStreamEncryptionStatusENABLED :: DeliveryStreamEncryptionStatus
+pattern DeliveryStreamEncryptionStatusENABLED = DeliveryStreamEncryptionStatus' "ENABLED"
 
-pattern DSESEnabling :: DeliveryStreamEncryptionStatus
-pattern DSESEnabling = DeliveryStreamEncryptionStatus' "ENABLING"
+pattern DeliveryStreamEncryptionStatusENABLING :: DeliveryStreamEncryptionStatus
+pattern DeliveryStreamEncryptionStatusENABLING = DeliveryStreamEncryptionStatus' "ENABLING"
 
-pattern DSESEnablingFailed :: DeliveryStreamEncryptionStatus
-pattern DSESEnablingFailed = DeliveryStreamEncryptionStatus' "ENABLING_FAILED"
+pattern DeliveryStreamEncryptionStatusENABLINGFAILED :: DeliveryStreamEncryptionStatus
+pattern DeliveryStreamEncryptionStatusENABLINGFAILED = DeliveryStreamEncryptionStatus' "ENABLING_FAILED"
 
 {-# COMPLETE
-  DSESDisabled,
-  DSESDisabling,
-  DSESDisablingFailed,
-  DSESEnabled,
-  DSESEnabling,
-  DSESEnablingFailed,
+  DeliveryStreamEncryptionStatusDISABLED,
+  DeliveryStreamEncryptionStatusDISABLING,
+  DeliveryStreamEncryptionStatusDISABLINGFAILED,
+  DeliveryStreamEncryptionStatusENABLED,
+  DeliveryStreamEncryptionStatusENABLING,
+  DeliveryStreamEncryptionStatusENABLINGFAILED,
   DeliveryStreamEncryptionStatus'
   #-}
 
-instance FromText DeliveryStreamEncryptionStatus where
-  parser = (DeliveryStreamEncryptionStatus' . mk) <$> takeText
+instance Prelude.FromText DeliveryStreamEncryptionStatus where
+  parser = DeliveryStreamEncryptionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeliveryStreamEncryptionStatus where
-  toText (DeliveryStreamEncryptionStatus' ci) = original ci
+instance Prelude.ToText DeliveryStreamEncryptionStatus where
+  toText (DeliveryStreamEncryptionStatus' x) = x
 
-instance Hashable DeliveryStreamEncryptionStatus
+instance Prelude.Hashable DeliveryStreamEncryptionStatus
 
-instance NFData DeliveryStreamEncryptionStatus
+instance Prelude.NFData DeliveryStreamEncryptionStatus
 
-instance ToByteString DeliveryStreamEncryptionStatus
+instance Prelude.ToByteString DeliveryStreamEncryptionStatus
 
-instance ToQuery DeliveryStreamEncryptionStatus
+instance Prelude.ToQuery DeliveryStreamEncryptionStatus
 
-instance ToHeader DeliveryStreamEncryptionStatus
+instance Prelude.ToHeader DeliveryStreamEncryptionStatus
 
-instance FromJSON DeliveryStreamEncryptionStatus where
-  parseJSON = parseJSONText "DeliveryStreamEncryptionStatus"
+instance Prelude.FromJSON DeliveryStreamEncryptionStatus where
+  parseJSON = Prelude.parseJSONText "DeliveryStreamEncryptionStatus"

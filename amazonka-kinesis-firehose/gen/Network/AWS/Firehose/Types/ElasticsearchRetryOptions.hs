@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,70 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Firehose.Types.ElasticsearchRetryOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configures retry behavior in case Kinesis Data Firehose is unable to deliver documents to Amazon ES.
+-- | Configures retry behavior in case Kinesis Data Firehose is unable to
+-- deliver documents to Amazon ES.
 --
---
---
--- /See:/ 'elasticsearchRetryOptions' smart constructor.
-newtype ElasticsearchRetryOptions = ElasticsearchRetryOptions'
-  { _eroDurationInSeconds ::
-      Maybe Nat
+-- /See:/ 'newElasticsearchRetryOptions' smart constructor.
+data ElasticsearchRetryOptions = ElasticsearchRetryOptions'
+  { -- | After an initial failure to deliver to Amazon ES, the total amount of
+    -- time during which Kinesis Data Firehose retries delivery (including the
+    -- first attempt). After this time has elapsed, the failed documents are
+    -- written to Amazon S3. Default value is 300 seconds (5 minutes). A value
+    -- of 0 (zero) results in no retries.
+    durationInSeconds :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticsearchRetryOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticsearchRetryOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'eroDurationInSeconds' - After an initial failure to deliver to Amazon ES, the total amount of time during which Kinesis Data Firehose retries delivery (including the first attempt). After this time has elapsed, the failed documents are written to Amazon S3. Default value is 300 seconds (5 minutes). A value of 0 (zero) results in no retries.
-elasticsearchRetryOptions ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'durationInSeconds', 'elasticsearchRetryOptions_durationInSeconds' - After an initial failure to deliver to Amazon ES, the total amount of
+-- time during which Kinesis Data Firehose retries delivery (including the
+-- first attempt). After this time has elapsed, the failed documents are
+-- written to Amazon S3. Default value is 300 seconds (5 minutes). A value
+-- of 0 (zero) results in no retries.
+newElasticsearchRetryOptions ::
   ElasticsearchRetryOptions
-elasticsearchRetryOptions =
+newElasticsearchRetryOptions =
   ElasticsearchRetryOptions'
-    { _eroDurationInSeconds =
-        Nothing
+    { durationInSeconds =
+        Prelude.Nothing
     }
 
--- | After an initial failure to deliver to Amazon ES, the total amount of time during which Kinesis Data Firehose retries delivery (including the first attempt). After this time has elapsed, the failed documents are written to Amazon S3. Default value is 300 seconds (5 minutes). A value of 0 (zero) results in no retries.
-eroDurationInSeconds :: Lens' ElasticsearchRetryOptions (Maybe Natural)
-eroDurationInSeconds = lens _eroDurationInSeconds (\s a -> s {_eroDurationInSeconds = a}) . mapping _Nat
+-- | After an initial failure to deliver to Amazon ES, the total amount of
+-- time during which Kinesis Data Firehose retries delivery (including the
+-- first attempt). After this time has elapsed, the failed documents are
+-- written to Amazon S3. Default value is 300 seconds (5 minutes). A value
+-- of 0 (zero) results in no retries.
+elasticsearchRetryOptions_durationInSeconds :: Lens.Lens' ElasticsearchRetryOptions (Prelude.Maybe Prelude.Natural)
+elasticsearchRetryOptions_durationInSeconds = Lens.lens (\ElasticsearchRetryOptions' {durationInSeconds} -> durationInSeconds) (\s@ElasticsearchRetryOptions' {} a -> s {durationInSeconds = a} :: ElasticsearchRetryOptions) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ElasticsearchRetryOptions where
+instance Prelude.FromJSON ElasticsearchRetryOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ElasticsearchRetryOptions"
       ( \x ->
           ElasticsearchRetryOptions'
-            <$> (x .:? "DurationInSeconds")
+            Prelude.<$> (x Prelude..:? "DurationInSeconds")
       )
 
-instance Hashable ElasticsearchRetryOptions
+instance Prelude.Hashable ElasticsearchRetryOptions
 
-instance NFData ElasticsearchRetryOptions
+instance Prelude.NFData ElasticsearchRetryOptions
 
-instance ToJSON ElasticsearchRetryOptions where
+instance Prelude.ToJSON ElasticsearchRetryOptions where
   toJSON ElasticsearchRetryOptions' {..} =
-    object
-      ( catMaybes
-          [("DurationInSeconds" .=) <$> _eroDurationInSeconds]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DurationInSeconds" Prelude..=)
+              Prelude.<$> durationInSeconds
+          ]
       )

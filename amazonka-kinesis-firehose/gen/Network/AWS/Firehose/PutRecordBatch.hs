@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,202 +21,267 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Writes multiple data records into a delivery stream in a single call, which can achieve higher throughput per producer than when writing single records. To write single data records into a delivery stream, use 'PutRecord' . Applications using these operations are referred to as producers.
+-- Writes multiple data records into a delivery stream in a single call,
+-- which can achieve higher throughput per producer than when writing
+-- single records. To write single data records into a delivery stream, use
+-- PutRecord. Applications using these operations are referred to as
+-- producers.
 --
+-- For information about service quota, see
+-- <https://docs.aws.amazon.com/firehose/latest/dev/limits.html Amazon Kinesis Data Firehose Quota>.
 --
--- For information about service quota, see <https://docs.aws.amazon.com/firehose/latest/dev/limits.html Amazon Kinesis Data Firehose Quota> .
+-- Each PutRecordBatch request supports up to 500 records. Each record in
+-- the request can be as large as 1,000 KB (before 64-bit encoding), up to
+-- a limit of 4 MB for the entire request. These limits cannot be changed.
 --
--- Each 'PutRecordBatch' request supports up to 500 records. Each record in the request can be as large as 1,000 KB (before 64-bit encoding), up to a limit of 4 MB for the entire request. These limits cannot be changed.
+-- You must specify the name of the delivery stream and the data record
+-- when using PutRecord. The data record consists of a data blob that can
+-- be up to 1,000 KB in size, and any kind of data. For example, it could
+-- be a segment from a log file, geographic location data, website
+-- clickstream data, and so on.
 --
--- You must specify the name of the delivery stream and the data record when using 'PutRecord' . The data record consists of a data blob that can be up to 1,000 KB in size, and any kind of data. For example, it could be a segment from a log file, geographic location data, website clickstream data, and so on.
+-- Kinesis Data Firehose buffers records before delivering them to the
+-- destination. To disambiguate the data blobs at the destination, a common
+-- solution is to use delimiters in the data, such as a newline (@\\n@) or
+-- some other character unique within the data. This allows the consumer
+-- application to parse individual data items when reading the data from
+-- the destination.
 --
--- Kinesis Data Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the destination, a common solution is to use delimiters in the data, such as a newline (@\n@ ) or some other character unique within the data. This allows the consumer application to parse individual data items when reading the data from the destination.
+-- The PutRecordBatch response includes a count of failed records,
+-- @FailedPutCount@, and an array of responses, @RequestResponses@. Even if
+-- the PutRecordBatch call succeeds, the value of @FailedPutCount@ may be
+-- greater than 0, indicating that there are records for which the
+-- operation didn\'t succeed. Each entry in the @RequestResponses@ array
+-- provides additional information about the processed record. It directly
+-- correlates with a record in the request array using the same ordering,
+-- from the top to the bottom. The response array always includes the same
+-- number of records as the request array. @RequestResponses@ includes both
+-- successfully and unsuccessfully processed records. Kinesis Data Firehose
+-- tries to process all records in each PutRecordBatch request. A single
+-- record failure does not stop the processing of subsequent records.
 --
--- The 'PutRecordBatch' response includes a count of failed records, @FailedPutCount@ , and an array of responses, @RequestResponses@ . Even if the 'PutRecordBatch' call succeeds, the value of @FailedPutCount@ may be greater than 0, indicating that there are records for which the operation didn't succeed. Each entry in the @RequestResponses@ array provides additional information about the processed record. It directly correlates with a record in the request array using the same ordering, from the top to the bottom. The response array always includes the same number of records as the request array. @RequestResponses@ includes both successfully and unsuccessfully processed records. Kinesis Data Firehose tries to process all records in each 'PutRecordBatch' request. A single record failure does not stop the processing of subsequent records.
+-- A successfully processed record includes a @RecordId@ value, which is
+-- unique for the record. An unsuccessfully processed record includes
+-- @ErrorCode@ and @ErrorMessage@ values. @ErrorCode@ reflects the type of
+-- error, and is one of the following values: @ServiceUnavailableException@
+-- or @InternalFailure@. @ErrorMessage@ provides more detailed information
+-- about the error.
 --
--- A successfully processed record includes a @RecordId@ value, which is unique for the record. An unsuccessfully processed record includes @ErrorCode@ and @ErrorMessage@ values. @ErrorCode@ reflects the type of error, and is one of the following values: @ServiceUnavailableException@ or @InternalFailure@ . @ErrorMessage@ provides more detailed information about the error.
+-- If there is an internal server error or a timeout, the write might have
+-- completed or it might have failed. If @FailedPutCount@ is greater than
+-- 0, retry the request, resending only those records that might have
+-- failed processing. This minimizes the possible duplicate records and
+-- also reduces the total bytes sent (and corresponding charges). We
+-- recommend that you handle any duplicates at the destination.
 --
--- If there is an internal server error or a timeout, the write might have completed or it might have failed. If @FailedPutCount@ is greater than 0, retry the request, resending only those records that might have failed processing. This minimizes the possible duplicate records and also reduces the total bytes sent (and corresponding charges). We recommend that you handle any duplicates at the destination.
+-- If PutRecordBatch throws @ServiceUnavailableException@, back off and
+-- retry. If the exception persists, it is possible that the throughput
+-- limits have been exceeded for the delivery stream.
 --
--- If 'PutRecordBatch' throws @ServiceUnavailableException@ , back off and retry. If the exception persists, it is possible that the throughput limits have been exceeded for the delivery stream.
+-- Data records sent to Kinesis Data Firehose are stored for 24 hours from
+-- the time they are added to a delivery stream as it attempts to send the
+-- records to the destination. If the destination is unreachable for more
+-- than 24 hours, the data is no longer available.
 --
--- Data records sent to Kinesis Data Firehose are stored for 24 hours from the time they are added to a delivery stream as it attempts to send the records to the destination. If the destination is unreachable for more than 24 hours, the data is no longer available.
---
--- /Important:/ Don't concatenate two or more base64 strings to form the data fields of your records. Instead, concatenate the raw data, then perform base64 encoding.
+-- Don\'t concatenate two or more base64 strings to form the data fields of
+-- your records. Instead, concatenate the raw data, then perform base64
+-- encoding.
 module Network.AWS.Firehose.PutRecordBatch
   ( -- * Creating a Request
-    putRecordBatch,
-    PutRecordBatch,
+    PutRecordBatch (..),
+    newPutRecordBatch,
 
     -- * Request Lenses
-    prbDeliveryStreamName,
-    prbRecords,
+    putRecordBatch_deliveryStreamName,
+    putRecordBatch_records,
 
     -- * Destructuring the Response
-    putRecordBatchResponse,
-    PutRecordBatchResponse,
+    PutRecordBatchResponse (..),
+    newPutRecordBatchResponse,
 
     -- * Response Lenses
-    prbrrsEncrypted,
-    prbrrsResponseStatus,
-    prbrrsFailedPutCount,
-    prbrrsRequestResponses,
+    putRecordBatchResponse_encrypted,
+    putRecordBatchResponse_httpStatus,
+    putRecordBatchResponse_failedPutCount,
+    putRecordBatchResponse_requestResponses,
   )
 where
 
 import Network.AWS.Firehose.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.Firehose.Types.PutRecordBatchResponseEntry
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putRecordBatch' smart constructor.
+-- | /See:/ 'newPutRecordBatch' smart constructor.
 data PutRecordBatch = PutRecordBatch'
-  { _prbDeliveryStreamName ::
-      !Text,
-    _prbRecords :: !(List1 Record)
+  { -- | The name of the delivery stream.
+    deliveryStreamName :: Prelude.Text,
+    -- | One or more records.
+    records :: Prelude.List1 Record
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRecordBatch' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRecordBatch' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prbDeliveryStreamName' - The name of the delivery stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prbRecords' - One or more records.
-putRecordBatch ::
-  -- | 'prbDeliveryStreamName'
-  Text ->
-  -- | 'prbRecords'
-  NonEmpty Record ->
+-- 'deliveryStreamName', 'putRecordBatch_deliveryStreamName' - The name of the delivery stream.
+--
+-- 'records', 'putRecordBatch_records' - One or more records.
+newPutRecordBatch ::
+  -- | 'deliveryStreamName'
+  Prelude.Text ->
+  -- | 'records'
+  Prelude.NonEmpty Record ->
   PutRecordBatch
-putRecordBatch pDeliveryStreamName_ pRecords_ =
+newPutRecordBatch pDeliveryStreamName_ pRecords_ =
   PutRecordBatch'
-    { _prbDeliveryStreamName =
+    { deliveryStreamName =
         pDeliveryStreamName_,
-      _prbRecords = _List1 # pRecords_
+      records = Prelude._List1 Lens.# pRecords_
     }
 
 -- | The name of the delivery stream.
-prbDeliveryStreamName :: Lens' PutRecordBatch Text
-prbDeliveryStreamName = lens _prbDeliveryStreamName (\s a -> s {_prbDeliveryStreamName = a})
+putRecordBatch_deliveryStreamName :: Lens.Lens' PutRecordBatch Prelude.Text
+putRecordBatch_deliveryStreamName = Lens.lens (\PutRecordBatch' {deliveryStreamName} -> deliveryStreamName) (\s@PutRecordBatch' {} a -> s {deliveryStreamName = a} :: PutRecordBatch)
 
 -- | One or more records.
-prbRecords :: Lens' PutRecordBatch (NonEmpty Record)
-prbRecords = lens _prbRecords (\s a -> s {_prbRecords = a}) . _List1
+putRecordBatch_records :: Lens.Lens' PutRecordBatch (Prelude.NonEmpty Record)
+putRecordBatch_records = Lens.lens (\PutRecordBatch' {records} -> records) (\s@PutRecordBatch' {} a -> s {records = a} :: PutRecordBatch) Prelude.. Prelude._List1
 
-instance AWSRequest PutRecordBatch where
+instance Prelude.AWSRequest PutRecordBatch where
   type Rs PutRecordBatch = PutRecordBatchResponse
-  request = postJSON firehose
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutRecordBatchResponse'
-            <$> (x .?> "Encrypted")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "FailedPutCount")
-            <*> (x .:> "RequestResponses")
+            Prelude.<$> (x Prelude..?> "Encrypted")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "FailedPutCount")
+            Prelude.<*> (x Prelude..:> "RequestResponses")
       )
 
-instance Hashable PutRecordBatch
+instance Prelude.Hashable PutRecordBatch
 
-instance NFData PutRecordBatch
+instance Prelude.NFData PutRecordBatch
 
-instance ToHeaders PutRecordBatch where
+instance Prelude.ToHeaders PutRecordBatch where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Firehose_20150804.PutRecordBatch" :: ByteString),
+              Prelude.=# ( "Firehose_20150804.PutRecordBatch" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutRecordBatch where
+instance Prelude.ToJSON PutRecordBatch where
   toJSON PutRecordBatch' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("DeliveryStreamName" .= _prbDeliveryStreamName),
-            Just ("Records" .= _prbRecords)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DeliveryStreamName" Prelude..= deliveryStreamName),
+            Prelude.Just ("Records" Prelude..= records)
           ]
       )
 
-instance ToPath PutRecordBatch where
-  toPath = const "/"
+instance Prelude.ToPath PutRecordBatch where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutRecordBatch where
-  toQuery = const mempty
+instance Prelude.ToQuery PutRecordBatch where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putRecordBatchResponse' smart constructor.
+-- | /See:/ 'newPutRecordBatchResponse' smart constructor.
 data PutRecordBatchResponse = PutRecordBatchResponse'
-  { _prbrrsEncrypted ::
-      !(Maybe Bool),
-    _prbrrsResponseStatus ::
-      !Int,
-    _prbrrsFailedPutCount ::
-      !Nat,
-    _prbrrsRequestResponses ::
-      !( List1
-           PutRecordBatchResponseEntry
-       )
+  { -- | Indicates whether server-side encryption (SSE) was enabled during this
+    -- operation.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The number of records that might have failed processing. This number
+    -- might be greater than 0 even if the PutRecordBatch call succeeds. Check
+    -- @FailedPutCount@ to determine whether there are records that you need to
+    -- resend.
+    failedPutCount :: Prelude.Nat,
+    -- | The results array. For each record, the index of the response element is
+    -- the same as the index used in the request array.
+    requestResponses :: Prelude.List1 PutRecordBatchResponseEntry
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRecordBatchResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRecordBatchResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prbrrsEncrypted' - Indicates whether server-side encryption (SSE) was enabled during this operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prbrrsResponseStatus' - -- | The response status code.
+-- 'encrypted', 'putRecordBatchResponse_encrypted' - Indicates whether server-side encryption (SSE) was enabled during this
+-- operation.
 --
--- * 'prbrrsFailedPutCount' - The number of records that might have failed processing. This number might be greater than 0 even if the 'PutRecordBatch' call succeeds. Check @FailedPutCount@ to determine whether there are records that you need to resend.
+-- 'httpStatus', 'putRecordBatchResponse_httpStatus' - The response's http status code.
 --
--- * 'prbrrsRequestResponses' - The results array. For each record, the index of the response element is the same as the index used in the request array.
-putRecordBatchResponse ::
-  -- | 'prbrrsResponseStatus'
-  Int ->
-  -- | 'prbrrsFailedPutCount'
-  Natural ->
-  -- | 'prbrrsRequestResponses'
-  NonEmpty PutRecordBatchResponseEntry ->
+-- 'failedPutCount', 'putRecordBatchResponse_failedPutCount' - The number of records that might have failed processing. This number
+-- might be greater than 0 even if the PutRecordBatch call succeeds. Check
+-- @FailedPutCount@ to determine whether there are records that you need to
+-- resend.
+--
+-- 'requestResponses', 'putRecordBatchResponse_requestResponses' - The results array. For each record, the index of the response element is
+-- the same as the index used in the request array.
+newPutRecordBatchResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'failedPutCount'
+  Prelude.Natural ->
+  -- | 'requestResponses'
+  Prelude.NonEmpty PutRecordBatchResponseEntry ->
   PutRecordBatchResponse
-putRecordBatchResponse
-  pResponseStatus_
+newPutRecordBatchResponse
+  pHttpStatus_
   pFailedPutCount_
   pRequestResponses_ =
     PutRecordBatchResponse'
-      { _prbrrsEncrypted = Nothing,
-        _prbrrsResponseStatus = pResponseStatus_,
-        _prbrrsFailedPutCount = _Nat # pFailedPutCount_,
-        _prbrrsRequestResponses =
-          _List1 # pRequestResponses_
+      { encrypted =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        failedPutCount =
+          Prelude._Nat Lens.# pFailedPutCount_,
+        requestResponses =
+          Prelude._List1 Lens.# pRequestResponses_
       }
 
--- | Indicates whether server-side encryption (SSE) was enabled during this operation.
-prbrrsEncrypted :: Lens' PutRecordBatchResponse (Maybe Bool)
-prbrrsEncrypted = lens _prbrrsEncrypted (\s a -> s {_prbrrsEncrypted = a})
+-- | Indicates whether server-side encryption (SSE) was enabled during this
+-- operation.
+putRecordBatchResponse_encrypted :: Lens.Lens' PutRecordBatchResponse (Prelude.Maybe Prelude.Bool)
+putRecordBatchResponse_encrypted = Lens.lens (\PutRecordBatchResponse' {encrypted} -> encrypted) (\s@PutRecordBatchResponse' {} a -> s {encrypted = a} :: PutRecordBatchResponse)
 
--- | -- | The response status code.
-prbrrsResponseStatus :: Lens' PutRecordBatchResponse Int
-prbrrsResponseStatus = lens _prbrrsResponseStatus (\s a -> s {_prbrrsResponseStatus = a})
+-- | The response's http status code.
+putRecordBatchResponse_httpStatus :: Lens.Lens' PutRecordBatchResponse Prelude.Int
+putRecordBatchResponse_httpStatus = Lens.lens (\PutRecordBatchResponse' {httpStatus} -> httpStatus) (\s@PutRecordBatchResponse' {} a -> s {httpStatus = a} :: PutRecordBatchResponse)
 
--- | The number of records that might have failed processing. This number might be greater than 0 even if the 'PutRecordBatch' call succeeds. Check @FailedPutCount@ to determine whether there are records that you need to resend.
-prbrrsFailedPutCount :: Lens' PutRecordBatchResponse Natural
-prbrrsFailedPutCount = lens _prbrrsFailedPutCount (\s a -> s {_prbrrsFailedPutCount = a}) . _Nat
+-- | The number of records that might have failed processing. This number
+-- might be greater than 0 even if the PutRecordBatch call succeeds. Check
+-- @FailedPutCount@ to determine whether there are records that you need to
+-- resend.
+putRecordBatchResponse_failedPutCount :: Lens.Lens' PutRecordBatchResponse Prelude.Natural
+putRecordBatchResponse_failedPutCount = Lens.lens (\PutRecordBatchResponse' {failedPutCount} -> failedPutCount) (\s@PutRecordBatchResponse' {} a -> s {failedPutCount = a} :: PutRecordBatchResponse) Prelude.. Prelude._Nat
 
--- | The results array. For each record, the index of the response element is the same as the index used in the request array.
-prbrrsRequestResponses :: Lens' PutRecordBatchResponse (NonEmpty PutRecordBatchResponseEntry)
-prbrrsRequestResponses = lens _prbrrsRequestResponses (\s a -> s {_prbrrsRequestResponses = a}) . _List1
+-- | The results array. For each record, the index of the response element is
+-- the same as the index used in the request array.
+putRecordBatchResponse_requestResponses :: Lens.Lens' PutRecordBatchResponse (Prelude.NonEmpty PutRecordBatchResponseEntry)
+putRecordBatchResponse_requestResponses = Lens.lens (\PutRecordBatchResponse' {requestResponses} -> requestResponses) (\s@PutRecordBatchResponse' {} a -> s {requestResponses = a} :: PutRecordBatchResponse) Prelude.. Prelude._List1
 
-instance NFData PutRecordBatchResponse
+instance Prelude.NFData PutRecordBatchResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Firehose.Types.RedshiftS3BackupMode
   ( RedshiftS3BackupMode
       ( ..,
-        Disabled,
-        Enabled
+        RedshiftS3BackupModeDisabled,
+        RedshiftS3BackupModeEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RedshiftS3BackupMode
-  = RedshiftS3BackupMode'
-      ( CI
-          Text
-      )
+newtype RedshiftS3BackupMode = RedshiftS3BackupMode'
+  { fromRedshiftS3BackupMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Disabled :: RedshiftS3BackupMode
-pattern Disabled = RedshiftS3BackupMode' "Disabled"
+pattern RedshiftS3BackupModeDisabled :: RedshiftS3BackupMode
+pattern RedshiftS3BackupModeDisabled = RedshiftS3BackupMode' "Disabled"
 
-pattern Enabled :: RedshiftS3BackupMode
-pattern Enabled = RedshiftS3BackupMode' "Enabled"
+pattern RedshiftS3BackupModeEnabled :: RedshiftS3BackupMode
+pattern RedshiftS3BackupModeEnabled = RedshiftS3BackupMode' "Enabled"
 
 {-# COMPLETE
-  Disabled,
-  Enabled,
+  RedshiftS3BackupModeDisabled,
+  RedshiftS3BackupModeEnabled,
   RedshiftS3BackupMode'
   #-}
 
-instance FromText RedshiftS3BackupMode where
-  parser = (RedshiftS3BackupMode' . mk) <$> takeText
+instance Prelude.FromText RedshiftS3BackupMode where
+  parser = RedshiftS3BackupMode' Prelude.<$> Prelude.takeText
 
-instance ToText RedshiftS3BackupMode where
-  toText (RedshiftS3BackupMode' ci) = original ci
+instance Prelude.ToText RedshiftS3BackupMode where
+  toText (RedshiftS3BackupMode' x) = x
 
-instance Hashable RedshiftS3BackupMode
+instance Prelude.Hashable RedshiftS3BackupMode
 
-instance NFData RedshiftS3BackupMode
+instance Prelude.NFData RedshiftS3BackupMode
 
-instance ToByteString RedshiftS3BackupMode
+instance Prelude.ToByteString RedshiftS3BackupMode
 
-instance ToQuery RedshiftS3BackupMode
+instance Prelude.ToQuery RedshiftS3BackupMode
 
-instance ToHeader RedshiftS3BackupMode
+instance Prelude.ToHeader RedshiftS3BackupMode
 
-instance ToJSON RedshiftS3BackupMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON RedshiftS3BackupMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RedshiftS3BackupMode where
-  parseJSON = parseJSONText "RedshiftS3BackupMode"
+instance Prelude.FromJSON RedshiftS3BackupMode where
+  parseJSON = Prelude.parseJSONText "RedshiftS3BackupMode"

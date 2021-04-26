@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,67 +20,75 @@
 module Network.AWS.Firehose.Types.ProcessorParameter where
 
 import Network.AWS.Firehose.Types.ProcessorParameterName
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the processor parameter.
 --
---
---
--- /See:/ 'processorParameter' smart constructor.
+-- /See:/ 'newProcessorParameter' smart constructor.
 data ProcessorParameter = ProcessorParameter'
-  { _ppParameterName ::
-      !ProcessorParameterName,
-    _ppParameterValue :: !Text
+  { -- | The name of the parameter.
+    parameterName :: ProcessorParameterName,
+    -- | The parameter value.
+    parameterValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProcessorParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProcessorParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ppParameterName' - The name of the parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ppParameterValue' - The parameter value.
-processorParameter ::
-  -- | 'ppParameterName'
+-- 'parameterName', 'processorParameter_parameterName' - The name of the parameter.
+--
+-- 'parameterValue', 'processorParameter_parameterValue' - The parameter value.
+newProcessorParameter ::
+  -- | 'parameterName'
   ProcessorParameterName ->
-  -- | 'ppParameterValue'
-  Text ->
+  -- | 'parameterValue'
+  Prelude.Text ->
   ProcessorParameter
-processorParameter pParameterName_ pParameterValue_ =
-  ProcessorParameter'
-    { _ppParameterName =
-        pParameterName_,
-      _ppParameterValue = pParameterValue_
-    }
+newProcessorParameter
+  pParameterName_
+  pParameterValue_ =
+    ProcessorParameter'
+      { parameterName =
+          pParameterName_,
+        parameterValue = pParameterValue_
+      }
 
 -- | The name of the parameter.
-ppParameterName :: Lens' ProcessorParameter ProcessorParameterName
-ppParameterName = lens _ppParameterName (\s a -> s {_ppParameterName = a})
+processorParameter_parameterName :: Lens.Lens' ProcessorParameter ProcessorParameterName
+processorParameter_parameterName = Lens.lens (\ProcessorParameter' {parameterName} -> parameterName) (\s@ProcessorParameter' {} a -> s {parameterName = a} :: ProcessorParameter)
 
 -- | The parameter value.
-ppParameterValue :: Lens' ProcessorParameter Text
-ppParameterValue = lens _ppParameterValue (\s a -> s {_ppParameterValue = a})
+processorParameter_parameterValue :: Lens.Lens' ProcessorParameter Prelude.Text
+processorParameter_parameterValue = Lens.lens (\ProcessorParameter' {parameterValue} -> parameterValue) (\s@ProcessorParameter' {} a -> s {parameterValue = a} :: ProcessorParameter)
 
-instance FromJSON ProcessorParameter where
+instance Prelude.FromJSON ProcessorParameter where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProcessorParameter"
       ( \x ->
           ProcessorParameter'
-            <$> (x .: "ParameterName") <*> (x .: "ParameterValue")
+            Prelude.<$> (x Prelude..: "ParameterName")
+            Prelude.<*> (x Prelude..: "ParameterValue")
       )
 
-instance Hashable ProcessorParameter
+instance Prelude.Hashable ProcessorParameter
 
-instance NFData ProcessorParameter
+instance Prelude.NFData ProcessorParameter
 
-instance ToJSON ProcessorParameter where
+instance Prelude.ToJSON ProcessorParameter where
   toJSON ProcessorParameter' {..} =
-    object
-      ( catMaybes
-          [ Just ("ParameterName" .= _ppParameterName),
-            Just ("ParameterValue" .= _ppParameterValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("ParameterName" Prelude..= parameterName),
+            Prelude.Just
+              ("ParameterValue" Prelude..= parameterValue)
           ]
       )

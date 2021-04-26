@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -21,100 +25,106 @@ import Network.AWS.Firehose.Types.ProcessingConfiguration
 import Network.AWS.Firehose.Types.RedshiftRetryOptions
 import Network.AWS.Firehose.Types.RedshiftS3BackupMode
 import Network.AWS.Firehose.Types.S3DestinationConfiguration
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes the configuration of a destination in Amazon Redshift.
 --
---
---
--- /See:/ 'redshiftDestinationConfiguration' smart constructor.
+-- /See:/ 'newRedshiftDestinationConfiguration' smart constructor.
 data RedshiftDestinationConfiguration = RedshiftDestinationConfiguration'
-  { _rdcS3BackupConfiguration ::
-      !( Maybe
-           S3DestinationConfiguration
-       ),
-    _rdcProcessingConfiguration ::
-      !( Maybe
-           ProcessingConfiguration
-       ),
-    _rdcCloudWatchLoggingOptions ::
-      !( Maybe
-           CloudWatchLoggingOptions
-       ),
-    _rdcRetryOptions ::
-      !( Maybe
-           RedshiftRetryOptions
-       ),
-    _rdcS3BackupMode ::
-      !( Maybe
-           RedshiftS3BackupMode
-       ),
-    _rdcRoleARN ::
-      !Text,
-    _rdcClusterJDBCURL ::
-      !Text,
-    _rdcCopyCommand ::
-      !CopyCommand,
-    _rdcUsername ::
-      !( Sensitive
-           Text
-       ),
-    _rdcPassword ::
-      !( Sensitive
-           Text
-       ),
-    _rdcS3Configuration ::
-      !S3DestinationConfiguration
+  { -- | The configuration for backup in Amazon S3.
+    s3BackupConfiguration :: Prelude.Maybe S3DestinationConfiguration,
+    -- | The data processing configuration.
+    processingConfiguration :: Prelude.Maybe ProcessingConfiguration,
+    -- | The CloudWatch logging options for your delivery stream.
+    cloudWatchLoggingOptions :: Prelude.Maybe CloudWatchLoggingOptions,
+    -- | The retry behavior in case Kinesis Data Firehose is unable to deliver
+    -- documents to Amazon Redshift. Default value is 3600 (60 minutes).
+    retryOptions :: Prelude.Maybe RedshiftRetryOptions,
+    -- | The Amazon S3 backup mode. After you create a delivery stream, you can
+    -- update it to enable Amazon S3 backup if it is disabled. If backup is
+    -- enabled, you can\'t update the delivery stream to disable it.
+    s3BackupMode :: Prelude.Maybe RedshiftS3BackupMode,
+    -- | The Amazon Resource Name (ARN) of the AWS credentials. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    roleARN :: Prelude.Text,
+    -- | The database connection string.
+    clusterJDBCURL :: Prelude.Text,
+    -- | The @COPY@ command.
+    copyCommand :: CopyCommand,
+    -- | The name of the user.
+    username :: Prelude.Sensitive Prelude.Text,
+    -- | The user password.
+    password :: Prelude.Sensitive Prelude.Text,
+    -- | The configuration for the intermediate Amazon S3 location from which
+    -- Amazon Redshift obtains data. Restrictions are described in the topic
+    -- for CreateDeliveryStream.
+    --
+    -- The compression formats @SNAPPY@ or @ZIP@ cannot be specified in
+    -- @RedshiftDestinationConfiguration.S3Configuration@ because the Amazon
+    -- Redshift @COPY@ operation that reads from the S3 bucket doesn\'t support
+    -- these compression formats.
+    s3Configuration :: S3DestinationConfiguration
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RedshiftDestinationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RedshiftDestinationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rdcS3BackupConfiguration' - The configuration for backup in Amazon S3.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rdcProcessingConfiguration' - The data processing configuration.
+-- 's3BackupConfiguration', 'redshiftDestinationConfiguration_s3BackupConfiguration' - The configuration for backup in Amazon S3.
 --
--- * 'rdcCloudWatchLoggingOptions' - The CloudWatch logging options for your delivery stream.
+-- 'processingConfiguration', 'redshiftDestinationConfiguration_processingConfiguration' - The data processing configuration.
 --
--- * 'rdcRetryOptions' - The retry behavior in case Kinesis Data Firehose is unable to deliver documents to Amazon Redshift. Default value is 3600 (60 minutes).
+-- 'cloudWatchLoggingOptions', 'redshiftDestinationConfiguration_cloudWatchLoggingOptions' - The CloudWatch logging options for your delivery stream.
 --
--- * 'rdcS3BackupMode' - The Amazon S3 backup mode. After you create a delivery stream, you can update it to enable Amazon S3 backup if it is disabled. If backup is enabled, you can't update the delivery stream to disable it.
+-- 'retryOptions', 'redshiftDestinationConfiguration_retryOptions' - The retry behavior in case Kinesis Data Firehose is unable to deliver
+-- documents to Amazon Redshift. Default value is 3600 (60 minutes).
 --
--- * 'rdcRoleARN' - The Amazon Resource Name (ARN) of the AWS credentials. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
+-- 's3BackupMode', 'redshiftDestinationConfiguration_s3BackupMode' - The Amazon S3 backup mode. After you create a delivery stream, you can
+-- update it to enable Amazon S3 backup if it is disabled. If backup is
+-- enabled, you can\'t update the delivery stream to disable it.
 --
--- * 'rdcClusterJDBCURL' - The database connection string.
+-- 'roleARN', 'redshiftDestinationConfiguration_roleARN' - The Amazon Resource Name (ARN) of the AWS credentials. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
 --
--- * 'rdcCopyCommand' - The @COPY@ command.
+-- 'clusterJDBCURL', 'redshiftDestinationConfiguration_clusterJDBCURL' - The database connection string.
 --
--- * 'rdcUsername' - The name of the user.
+-- 'copyCommand', 'redshiftDestinationConfiguration_copyCommand' - The @COPY@ command.
 --
--- * 'rdcPassword' - The user password.
+-- 'username', 'redshiftDestinationConfiguration_username' - The name of the user.
 --
--- * 'rdcS3Configuration' - The configuration for the intermediate Amazon S3 location from which Amazon Redshift obtains data. Restrictions are described in the topic for 'CreateDeliveryStream' . The compression formats @SNAPPY@ or @ZIP@ cannot be specified in @RedshiftDestinationConfiguration.S3Configuration@ because the Amazon Redshift @COPY@ operation that reads from the S3 bucket doesn't support these compression formats.
-redshiftDestinationConfiguration ::
-  -- | 'rdcRoleARN'
-  Text ->
-  -- | 'rdcClusterJDBCURL'
-  Text ->
-  -- | 'rdcCopyCommand'
+-- 'password', 'redshiftDestinationConfiguration_password' - The user password.
+--
+-- 's3Configuration', 'redshiftDestinationConfiguration_s3Configuration' - The configuration for the intermediate Amazon S3 location from which
+-- Amazon Redshift obtains data. Restrictions are described in the topic
+-- for CreateDeliveryStream.
+--
+-- The compression formats @SNAPPY@ or @ZIP@ cannot be specified in
+-- @RedshiftDestinationConfiguration.S3Configuration@ because the Amazon
+-- Redshift @COPY@ operation that reads from the S3 bucket doesn\'t support
+-- these compression formats.
+newRedshiftDestinationConfiguration ::
+  -- | 'roleARN'
+  Prelude.Text ->
+  -- | 'clusterJDBCURL'
+  Prelude.Text ->
+  -- | 'copyCommand'
   CopyCommand ->
-  -- | 'rdcUsername'
-  Text ->
-  -- | 'rdcPassword'
-  Text ->
-  -- | 'rdcS3Configuration'
+  -- | 'username'
+  Prelude.Text ->
+  -- | 'password'
+  Prelude.Text ->
+  -- | 's3Configuration'
   S3DestinationConfiguration ->
   RedshiftDestinationConfiguration
-redshiftDestinationConfiguration
+newRedshiftDestinationConfiguration
   pRoleARN_
   pClusterJDBCURL_
   pCopyCommand_
@@ -122,85 +132,109 @@ redshiftDestinationConfiguration
   pPassword_
   pS3Configuration_ =
     RedshiftDestinationConfiguration'
-      { _rdcS3BackupConfiguration =
-          Nothing,
-        _rdcProcessingConfiguration = Nothing,
-        _rdcCloudWatchLoggingOptions = Nothing,
-        _rdcRetryOptions = Nothing,
-        _rdcS3BackupMode = Nothing,
-        _rdcRoleARN = pRoleARN_,
-        _rdcClusterJDBCURL = pClusterJDBCURL_,
-        _rdcCopyCommand = pCopyCommand_,
-        _rdcUsername = _Sensitive # pUsername_,
-        _rdcPassword = _Sensitive # pPassword_,
-        _rdcS3Configuration = pS3Configuration_
+      { s3BackupConfiguration =
+          Prelude.Nothing,
+        processingConfiguration = Prelude.Nothing,
+        cloudWatchLoggingOptions =
+          Prelude.Nothing,
+        retryOptions = Prelude.Nothing,
+        s3BackupMode = Prelude.Nothing,
+        roleARN = pRoleARN_,
+        clusterJDBCURL = pClusterJDBCURL_,
+        copyCommand = pCopyCommand_,
+        username =
+          Prelude._Sensitive Lens.# pUsername_,
+        password =
+          Prelude._Sensitive Lens.# pPassword_,
+        s3Configuration = pS3Configuration_
       }
 
 -- | The configuration for backup in Amazon S3.
-rdcS3BackupConfiguration :: Lens' RedshiftDestinationConfiguration (Maybe S3DestinationConfiguration)
-rdcS3BackupConfiguration = lens _rdcS3BackupConfiguration (\s a -> s {_rdcS3BackupConfiguration = a})
+redshiftDestinationConfiguration_s3BackupConfiguration :: Lens.Lens' RedshiftDestinationConfiguration (Prelude.Maybe S3DestinationConfiguration)
+redshiftDestinationConfiguration_s3BackupConfiguration = Lens.lens (\RedshiftDestinationConfiguration' {s3BackupConfiguration} -> s3BackupConfiguration) (\s@RedshiftDestinationConfiguration' {} a -> s {s3BackupConfiguration = a} :: RedshiftDestinationConfiguration)
 
 -- | The data processing configuration.
-rdcProcessingConfiguration :: Lens' RedshiftDestinationConfiguration (Maybe ProcessingConfiguration)
-rdcProcessingConfiguration = lens _rdcProcessingConfiguration (\s a -> s {_rdcProcessingConfiguration = a})
+redshiftDestinationConfiguration_processingConfiguration :: Lens.Lens' RedshiftDestinationConfiguration (Prelude.Maybe ProcessingConfiguration)
+redshiftDestinationConfiguration_processingConfiguration = Lens.lens (\RedshiftDestinationConfiguration' {processingConfiguration} -> processingConfiguration) (\s@RedshiftDestinationConfiguration' {} a -> s {processingConfiguration = a} :: RedshiftDestinationConfiguration)
 
 -- | The CloudWatch logging options for your delivery stream.
-rdcCloudWatchLoggingOptions :: Lens' RedshiftDestinationConfiguration (Maybe CloudWatchLoggingOptions)
-rdcCloudWatchLoggingOptions = lens _rdcCloudWatchLoggingOptions (\s a -> s {_rdcCloudWatchLoggingOptions = a})
+redshiftDestinationConfiguration_cloudWatchLoggingOptions :: Lens.Lens' RedshiftDestinationConfiguration (Prelude.Maybe CloudWatchLoggingOptions)
+redshiftDestinationConfiguration_cloudWatchLoggingOptions = Lens.lens (\RedshiftDestinationConfiguration' {cloudWatchLoggingOptions} -> cloudWatchLoggingOptions) (\s@RedshiftDestinationConfiguration' {} a -> s {cloudWatchLoggingOptions = a} :: RedshiftDestinationConfiguration)
 
--- | The retry behavior in case Kinesis Data Firehose is unable to deliver documents to Amazon Redshift. Default value is 3600 (60 minutes).
-rdcRetryOptions :: Lens' RedshiftDestinationConfiguration (Maybe RedshiftRetryOptions)
-rdcRetryOptions = lens _rdcRetryOptions (\s a -> s {_rdcRetryOptions = a})
+-- | The retry behavior in case Kinesis Data Firehose is unable to deliver
+-- documents to Amazon Redshift. Default value is 3600 (60 minutes).
+redshiftDestinationConfiguration_retryOptions :: Lens.Lens' RedshiftDestinationConfiguration (Prelude.Maybe RedshiftRetryOptions)
+redshiftDestinationConfiguration_retryOptions = Lens.lens (\RedshiftDestinationConfiguration' {retryOptions} -> retryOptions) (\s@RedshiftDestinationConfiguration' {} a -> s {retryOptions = a} :: RedshiftDestinationConfiguration)
 
--- | The Amazon S3 backup mode. After you create a delivery stream, you can update it to enable Amazon S3 backup if it is disabled. If backup is enabled, you can't update the delivery stream to disable it.
-rdcS3BackupMode :: Lens' RedshiftDestinationConfiguration (Maybe RedshiftS3BackupMode)
-rdcS3BackupMode = lens _rdcS3BackupMode (\s a -> s {_rdcS3BackupMode = a})
+-- | The Amazon S3 backup mode. After you create a delivery stream, you can
+-- update it to enable Amazon S3 backup if it is disabled. If backup is
+-- enabled, you can\'t update the delivery stream to disable it.
+redshiftDestinationConfiguration_s3BackupMode :: Lens.Lens' RedshiftDestinationConfiguration (Prelude.Maybe RedshiftS3BackupMode)
+redshiftDestinationConfiguration_s3BackupMode = Lens.lens (\RedshiftDestinationConfiguration' {s3BackupMode} -> s3BackupMode) (\s@RedshiftDestinationConfiguration' {} a -> s {s3BackupMode = a} :: RedshiftDestinationConfiguration)
 
--- | The Amazon Resource Name (ARN) of the AWS credentials. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
-rdcRoleARN :: Lens' RedshiftDestinationConfiguration Text
-rdcRoleARN = lens _rdcRoleARN (\s a -> s {_rdcRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS credentials. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+redshiftDestinationConfiguration_roleARN :: Lens.Lens' RedshiftDestinationConfiguration Prelude.Text
+redshiftDestinationConfiguration_roleARN = Lens.lens (\RedshiftDestinationConfiguration' {roleARN} -> roleARN) (\s@RedshiftDestinationConfiguration' {} a -> s {roleARN = a} :: RedshiftDestinationConfiguration)
 
 -- | The database connection string.
-rdcClusterJDBCURL :: Lens' RedshiftDestinationConfiguration Text
-rdcClusterJDBCURL = lens _rdcClusterJDBCURL (\s a -> s {_rdcClusterJDBCURL = a})
+redshiftDestinationConfiguration_clusterJDBCURL :: Lens.Lens' RedshiftDestinationConfiguration Prelude.Text
+redshiftDestinationConfiguration_clusterJDBCURL = Lens.lens (\RedshiftDestinationConfiguration' {clusterJDBCURL} -> clusterJDBCURL) (\s@RedshiftDestinationConfiguration' {} a -> s {clusterJDBCURL = a} :: RedshiftDestinationConfiguration)
 
 -- | The @COPY@ command.
-rdcCopyCommand :: Lens' RedshiftDestinationConfiguration CopyCommand
-rdcCopyCommand = lens _rdcCopyCommand (\s a -> s {_rdcCopyCommand = a})
+redshiftDestinationConfiguration_copyCommand :: Lens.Lens' RedshiftDestinationConfiguration CopyCommand
+redshiftDestinationConfiguration_copyCommand = Lens.lens (\RedshiftDestinationConfiguration' {copyCommand} -> copyCommand) (\s@RedshiftDestinationConfiguration' {} a -> s {copyCommand = a} :: RedshiftDestinationConfiguration)
 
 -- | The name of the user.
-rdcUsername :: Lens' RedshiftDestinationConfiguration Text
-rdcUsername = lens _rdcUsername (\s a -> s {_rdcUsername = a}) . _Sensitive
+redshiftDestinationConfiguration_username :: Lens.Lens' RedshiftDestinationConfiguration Prelude.Text
+redshiftDestinationConfiguration_username = Lens.lens (\RedshiftDestinationConfiguration' {username} -> username) (\s@RedshiftDestinationConfiguration' {} a -> s {username = a} :: RedshiftDestinationConfiguration) Prelude.. Prelude._Sensitive
 
 -- | The user password.
-rdcPassword :: Lens' RedshiftDestinationConfiguration Text
-rdcPassword = lens _rdcPassword (\s a -> s {_rdcPassword = a}) . _Sensitive
+redshiftDestinationConfiguration_password :: Lens.Lens' RedshiftDestinationConfiguration Prelude.Text
+redshiftDestinationConfiguration_password = Lens.lens (\RedshiftDestinationConfiguration' {password} -> password) (\s@RedshiftDestinationConfiguration' {} a -> s {password = a} :: RedshiftDestinationConfiguration) Prelude.. Prelude._Sensitive
 
--- | The configuration for the intermediate Amazon S3 location from which Amazon Redshift obtains data. Restrictions are described in the topic for 'CreateDeliveryStream' . The compression formats @SNAPPY@ or @ZIP@ cannot be specified in @RedshiftDestinationConfiguration.S3Configuration@ because the Amazon Redshift @COPY@ operation that reads from the S3 bucket doesn't support these compression formats.
-rdcS3Configuration :: Lens' RedshiftDestinationConfiguration S3DestinationConfiguration
-rdcS3Configuration = lens _rdcS3Configuration (\s a -> s {_rdcS3Configuration = a})
+-- | The configuration for the intermediate Amazon S3 location from which
+-- Amazon Redshift obtains data. Restrictions are described in the topic
+-- for CreateDeliveryStream.
+--
+-- The compression formats @SNAPPY@ or @ZIP@ cannot be specified in
+-- @RedshiftDestinationConfiguration.S3Configuration@ because the Amazon
+-- Redshift @COPY@ operation that reads from the S3 bucket doesn\'t support
+-- these compression formats.
+redshiftDestinationConfiguration_s3Configuration :: Lens.Lens' RedshiftDestinationConfiguration S3DestinationConfiguration
+redshiftDestinationConfiguration_s3Configuration = Lens.lens (\RedshiftDestinationConfiguration' {s3Configuration} -> s3Configuration) (\s@RedshiftDestinationConfiguration' {} a -> s {s3Configuration = a} :: RedshiftDestinationConfiguration)
 
-instance Hashable RedshiftDestinationConfiguration
+instance
+  Prelude.Hashable
+    RedshiftDestinationConfiguration
 
-instance NFData RedshiftDestinationConfiguration
+instance
+  Prelude.NFData
+    RedshiftDestinationConfiguration
 
-instance ToJSON RedshiftDestinationConfiguration where
+instance
+  Prelude.ToJSON
+    RedshiftDestinationConfiguration
+  where
   toJSON RedshiftDestinationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("S3BackupConfiguration" .=)
-              <$> _rdcS3BackupConfiguration,
-            ("ProcessingConfiguration" .=)
-              <$> _rdcProcessingConfiguration,
-            ("CloudWatchLoggingOptions" .=)
-              <$> _rdcCloudWatchLoggingOptions,
-            ("RetryOptions" .=) <$> _rdcRetryOptions,
-            ("S3BackupMode" .=) <$> _rdcS3BackupMode,
-            Just ("RoleARN" .= _rdcRoleARN),
-            Just ("ClusterJDBCURL" .= _rdcClusterJDBCURL),
-            Just ("CopyCommand" .= _rdcCopyCommand),
-            Just ("Username" .= _rdcUsername),
-            Just ("Password" .= _rdcPassword),
-            Just ("S3Configuration" .= _rdcS3Configuration)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3BackupConfiguration" Prelude..=)
+              Prelude.<$> s3BackupConfiguration,
+            ("ProcessingConfiguration" Prelude..=)
+              Prelude.<$> processingConfiguration,
+            ("CloudWatchLoggingOptions" Prelude..=)
+              Prelude.<$> cloudWatchLoggingOptions,
+            ("RetryOptions" Prelude..=) Prelude.<$> retryOptions,
+            ("S3BackupMode" Prelude..=) Prelude.<$> s3BackupMode,
+            Prelude.Just ("RoleARN" Prelude..= roleARN),
+            Prelude.Just
+              ("ClusterJDBCURL" Prelude..= clusterJDBCURL),
+            Prelude.Just ("CopyCommand" Prelude..= copyCommand),
+            Prelude.Just ("Username" Prelude..= username),
+            Prelude.Just ("Password" Prelude..= password),
+            Prelude.Just
+              ("S3Configuration" Prelude..= s3Configuration)
           ]
       )

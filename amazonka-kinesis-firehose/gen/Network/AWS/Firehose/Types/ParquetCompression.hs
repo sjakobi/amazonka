@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.Firehose.Types.ParquetCompression
   ( ParquetCompression
       ( ..,
-        PCGzip,
-        PCSnappy,
-        PCUncompressed
+        ParquetCompressionGZIP,
+        ParquetCompressionSNAPPY,
+        ParquetCompressionUNCOMPRESSED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParquetCompression
-  = ParquetCompression'
-      ( CI
-          Text
-      )
+newtype ParquetCompression = ParquetCompression'
+  { fromParquetCompression ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern PCGzip :: ParquetCompression
-pattern PCGzip = ParquetCompression' "GZIP"
+pattern ParquetCompressionGZIP :: ParquetCompression
+pattern ParquetCompressionGZIP = ParquetCompression' "GZIP"
 
-pattern PCSnappy :: ParquetCompression
-pattern PCSnappy = ParquetCompression' "SNAPPY"
+pattern ParquetCompressionSNAPPY :: ParquetCompression
+pattern ParquetCompressionSNAPPY = ParquetCompression' "SNAPPY"
 
-pattern PCUncompressed :: ParquetCompression
-pattern PCUncompressed = ParquetCompression' "UNCOMPRESSED"
+pattern ParquetCompressionUNCOMPRESSED :: ParquetCompression
+pattern ParquetCompressionUNCOMPRESSED = ParquetCompression' "UNCOMPRESSED"
 
 {-# COMPLETE
-  PCGzip,
-  PCSnappy,
-  PCUncompressed,
+  ParquetCompressionGZIP,
+  ParquetCompressionSNAPPY,
+  ParquetCompressionUNCOMPRESSED,
   ParquetCompression'
   #-}
 
-instance FromText ParquetCompression where
-  parser = (ParquetCompression' . mk) <$> takeText
+instance Prelude.FromText ParquetCompression where
+  parser = ParquetCompression' Prelude.<$> Prelude.takeText
 
-instance ToText ParquetCompression where
-  toText (ParquetCompression' ci) = original ci
+instance Prelude.ToText ParquetCompression where
+  toText (ParquetCompression' x) = x
 
-instance Hashable ParquetCompression
+instance Prelude.Hashable ParquetCompression
 
-instance NFData ParquetCompression
+instance Prelude.NFData ParquetCompression
 
-instance ToByteString ParquetCompression
+instance Prelude.ToByteString ParquetCompression
 
-instance ToQuery ParquetCompression
+instance Prelude.ToQuery ParquetCompression
 
-instance ToHeader ParquetCompression
+instance Prelude.ToHeader ParquetCompression
 
-instance ToJSON ParquetCompression where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParquetCompression where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ParquetCompression where
-  parseJSON = parseJSONText "ParquetCompression"
+instance Prelude.FromJSON ParquetCompression where
+  parseJSON = Prelude.parseJSONText "ParquetCompression"

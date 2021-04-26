@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,214 @@
 --
 -- Enables server-side encryption (SSE) for the delivery stream.
 --
+-- This operation is asynchronous. It returns immediately. When you invoke
+-- it, Kinesis Data Firehose first sets the encryption status of the stream
+-- to @ENABLING@, and then to @ENABLED@. The encryption status of a
+-- delivery stream is the @Status@ property in
+-- DeliveryStreamEncryptionConfiguration. If the operation fails, the
+-- encryption status changes to @ENABLING_FAILED@. You can continue to read
+-- and write data to your delivery stream while the encryption status is
+-- @ENABLING@, but the data is not encrypted. It can take up to 5 seconds
+-- after the encryption status changes to @ENABLED@ before all records
+-- written to the delivery stream are encrypted. To find out whether a
+-- record or a batch of records was encrypted, check the response elements
+-- PutRecordOutput$Encrypted and PutRecordBatchOutput$Encrypted,
+-- respectively.
 --
--- This operation is asynchronous. It returns immediately. When you invoke it, Kinesis Data Firehose first sets the encryption status of the stream to @ENABLING@ , and then to @ENABLED@ . The encryption status of a delivery stream is the @Status@ property in 'DeliveryStreamEncryptionConfiguration' . If the operation fails, the encryption status changes to @ENABLING_FAILED@ . You can continue to read and write data to your delivery stream while the encryption status is @ENABLING@ , but the data is not encrypted. It can take up to 5 seconds after the encryption status changes to @ENABLED@ before all records written to the delivery stream are encrypted. To find out whether a record or a batch of records was encrypted, check the response elements 'PutRecordOutput$Encrypted' and 'PutRecordBatchOutput$Encrypted' , respectively.
+-- To check the encryption status of a delivery stream, use
+-- DescribeDeliveryStream.
 --
--- To check the encryption status of a delivery stream, use 'DescribeDeliveryStream' .
+-- Even if encryption is currently enabled for a delivery stream, you can
+-- still invoke this operation on it to change the ARN of the CMK or both
+-- its type and ARN. If you invoke this method to change the CMK, and the
+-- old CMK is of type @CUSTOMER_MANAGED_CMK@, Kinesis Data Firehose
+-- schedules the grant it had on the old CMK for retirement. If the new CMK
+-- is of type @CUSTOMER_MANAGED_CMK@, Kinesis Data Firehose creates a grant
+-- that enables it to use the new CMK to encrypt and decrypt data and to
+-- manage the grant.
 --
--- Even if encryption is currently enabled for a delivery stream, you can still invoke this operation on it to change the ARN of the CMK or both its type and ARN. If you invoke this method to change the CMK, and the old CMK is of type @CUSTOMER_MANAGED_CMK@ , Kinesis Data Firehose schedules the grant it had on the old CMK for retirement. If the new CMK is of type @CUSTOMER_MANAGED_CMK@ , Kinesis Data Firehose creates a grant that enables it to use the new CMK to encrypt and decrypt data and to manage the grant.
+-- If a delivery stream already has encryption enabled and then you invoke
+-- this operation to change the ARN of the CMK or both its type and ARN and
+-- you get @ENABLING_FAILED@, this only means that the attempt to change
+-- the CMK failed. In this case, encryption remains enabled with the old
+-- CMK.
 --
--- If a delivery stream already has encryption enabled and then you invoke this operation to change the ARN of the CMK or both its type and ARN and you get @ENABLING_FAILED@ , this only means that the attempt to change the CMK failed. In this case, encryption remains enabled with the old CMK.
+-- If the encryption status of your delivery stream is @ENABLING_FAILED@,
+-- you can invoke this operation again with a valid CMK. The CMK must be
+-- enabled and the key policy mustn\'t explicitly deny the permission for
+-- Kinesis Data Firehose to invoke KMS encrypt and decrypt operations.
 --
--- If the encryption status of your delivery stream is @ENABLING_FAILED@ , you can invoke this operation again with a valid CMK. The CMK must be enabled and the key policy mustn't explicitly deny the permission for Kinesis Data Firehose to invoke KMS encrypt and decrypt operations.
+-- You can enable SSE for a delivery stream only if it\'s a delivery stream
+-- that uses @DirectPut@ as its source.
 --
--- You can enable SSE for a delivery stream only if it's a delivery stream that uses @DirectPut@ as its source.
---
--- The @StartDeliveryStreamEncryption@ and @StopDeliveryStreamEncryption@ operations have a combined limit of 25 calls per delivery stream per 24 hours. For example, you reach the limit if you call @StartDeliveryStreamEncryption@ 13 times and @StopDeliveryStreamEncryption@ 12 times for the same delivery stream in a 24-hour period.
+-- The @StartDeliveryStreamEncryption@ and @StopDeliveryStreamEncryption@
+-- operations have a combined limit of 25 calls per delivery stream per 24
+-- hours. For example, you reach the limit if you call
+-- @StartDeliveryStreamEncryption@ 13 times and
+-- @StopDeliveryStreamEncryption@ 12 times for the same delivery stream in
+-- a 24-hour period.
 module Network.AWS.Firehose.StartDeliveryStreamEncryption
   ( -- * Creating a Request
-    startDeliveryStreamEncryption,
-    StartDeliveryStreamEncryption,
+    StartDeliveryStreamEncryption (..),
+    newStartDeliveryStreamEncryption,
 
     -- * Request Lenses
-    sdseDeliveryStreamEncryptionConfigurationInput,
-    sdseDeliveryStreamName,
+    startDeliveryStreamEncryption_deliveryStreamEncryptionConfigurationInput,
+    startDeliveryStreamEncryption_deliveryStreamName,
 
     -- * Destructuring the Response
-    startDeliveryStreamEncryptionResponse,
-    StartDeliveryStreamEncryptionResponse,
+    StartDeliveryStreamEncryptionResponse (..),
+    newStartDeliveryStreamEncryptionResponse,
 
     -- * Response Lenses
-    sdserrsResponseStatus,
+    startDeliveryStreamEncryptionResponse_httpStatus,
   )
 where
 
 import Network.AWS.Firehose.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDeliveryStreamEncryption' smart constructor.
+-- | /See:/ 'newStartDeliveryStreamEncryption' smart constructor.
 data StartDeliveryStreamEncryption = StartDeliveryStreamEncryption'
-  { _sdseDeliveryStreamEncryptionConfigurationInput ::
-      !( Maybe
-           DeliveryStreamEncryptionConfigurationInput
-       ),
-    _sdseDeliveryStreamName ::
-      !Text
+  { -- | Used to specify the type and Amazon Resource Name (ARN) of the KMS key
+    -- needed for Server-Side Encryption (SSE).
+    deliveryStreamEncryptionConfigurationInput :: Prelude.Maybe DeliveryStreamEncryptionConfigurationInput,
+    -- | The name of the delivery stream for which you want to enable server-side
+    -- encryption (SSE).
+    deliveryStreamName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDeliveryStreamEncryption' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDeliveryStreamEncryption' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdseDeliveryStreamEncryptionConfigurationInput' - Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdseDeliveryStreamName' - The name of the delivery stream for which you want to enable server-side encryption (SSE).
-startDeliveryStreamEncryption ::
-  -- | 'sdseDeliveryStreamName'
-  Text ->
+-- 'deliveryStreamEncryptionConfigurationInput', 'startDeliveryStreamEncryption_deliveryStreamEncryptionConfigurationInput' - Used to specify the type and Amazon Resource Name (ARN) of the KMS key
+-- needed for Server-Side Encryption (SSE).
+--
+-- 'deliveryStreamName', 'startDeliveryStreamEncryption_deliveryStreamName' - The name of the delivery stream for which you want to enable server-side
+-- encryption (SSE).
+newStartDeliveryStreamEncryption ::
+  -- | 'deliveryStreamName'
+  Prelude.Text ->
   StartDeliveryStreamEncryption
-startDeliveryStreamEncryption pDeliveryStreamName_ =
+newStartDeliveryStreamEncryption pDeliveryStreamName_ =
   StartDeliveryStreamEncryption'
-    { _sdseDeliveryStreamEncryptionConfigurationInput =
-        Nothing,
-      _sdseDeliveryStreamName =
-        pDeliveryStreamName_
+    { deliveryStreamEncryptionConfigurationInput =
+        Prelude.Nothing,
+      deliveryStreamName = pDeliveryStreamName_
     }
 
--- | Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).
-sdseDeliveryStreamEncryptionConfigurationInput :: Lens' StartDeliveryStreamEncryption (Maybe DeliveryStreamEncryptionConfigurationInput)
-sdseDeliveryStreamEncryptionConfigurationInput = lens _sdseDeliveryStreamEncryptionConfigurationInput (\s a -> s {_sdseDeliveryStreamEncryptionConfigurationInput = a})
+-- | Used to specify the type and Amazon Resource Name (ARN) of the KMS key
+-- needed for Server-Side Encryption (SSE).
+startDeliveryStreamEncryption_deliveryStreamEncryptionConfigurationInput :: Lens.Lens' StartDeliveryStreamEncryption (Prelude.Maybe DeliveryStreamEncryptionConfigurationInput)
+startDeliveryStreamEncryption_deliveryStreamEncryptionConfigurationInput = Lens.lens (\StartDeliveryStreamEncryption' {deliveryStreamEncryptionConfigurationInput} -> deliveryStreamEncryptionConfigurationInput) (\s@StartDeliveryStreamEncryption' {} a -> s {deliveryStreamEncryptionConfigurationInput = a} :: StartDeliveryStreamEncryption)
 
--- | The name of the delivery stream for which you want to enable server-side encryption (SSE).
-sdseDeliveryStreamName :: Lens' StartDeliveryStreamEncryption Text
-sdseDeliveryStreamName = lens _sdseDeliveryStreamName (\s a -> s {_sdseDeliveryStreamName = a})
+-- | The name of the delivery stream for which you want to enable server-side
+-- encryption (SSE).
+startDeliveryStreamEncryption_deliveryStreamName :: Lens.Lens' StartDeliveryStreamEncryption Prelude.Text
+startDeliveryStreamEncryption_deliveryStreamName = Lens.lens (\StartDeliveryStreamEncryption' {deliveryStreamName} -> deliveryStreamName) (\s@StartDeliveryStreamEncryption' {} a -> s {deliveryStreamName = a} :: StartDeliveryStreamEncryption)
 
-instance AWSRequest StartDeliveryStreamEncryption where
+instance
+  Prelude.AWSRequest
+    StartDeliveryStreamEncryption
+  where
   type
     Rs StartDeliveryStreamEncryption =
       StartDeliveryStreamEncryptionResponse
-  request = postJSON firehose
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StartDeliveryStreamEncryptionResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartDeliveryStreamEncryption
+instance
+  Prelude.Hashable
+    StartDeliveryStreamEncryption
 
-instance NFData StartDeliveryStreamEncryption
+instance Prelude.NFData StartDeliveryStreamEncryption
 
-instance ToHeaders StartDeliveryStreamEncryption where
+instance
+  Prelude.ToHeaders
+    StartDeliveryStreamEncryption
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Firehose_20150804.StartDeliveryStreamEncryption" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Firehose_20150804.StartDeliveryStreamEncryption" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartDeliveryStreamEncryption where
+instance Prelude.ToJSON StartDeliveryStreamEncryption where
   toJSON StartDeliveryStreamEncryption' {..} =
-    object
-      ( catMaybes
-          [ ("DeliveryStreamEncryptionConfigurationInput" .=)
-              <$> _sdseDeliveryStreamEncryptionConfigurationInput,
-            Just
-              ("DeliveryStreamName" .= _sdseDeliveryStreamName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ( "DeliveryStreamEncryptionConfigurationInput"
+                Prelude..=
+            )
+              Prelude.<$> deliveryStreamEncryptionConfigurationInput,
+            Prelude.Just
+              ( "DeliveryStreamName"
+                  Prelude..= deliveryStreamName
+              )
           ]
       )
 
-instance ToPath StartDeliveryStreamEncryption where
-  toPath = const "/"
+instance Prelude.ToPath StartDeliveryStreamEncryption where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartDeliveryStreamEncryption where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    StartDeliveryStreamEncryption
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startDeliveryStreamEncryptionResponse' smart constructor.
-newtype StartDeliveryStreamEncryptionResponse = StartDeliveryStreamEncryptionResponse'
-  { _sdserrsResponseStatus ::
-      Int
+-- | /See:/ 'newStartDeliveryStreamEncryptionResponse' smart constructor.
+data StartDeliveryStreamEncryptionResponse = StartDeliveryStreamEncryptionResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDeliveryStreamEncryptionResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDeliveryStreamEncryptionResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdserrsResponseStatus' - -- | The response status code.
-startDeliveryStreamEncryptionResponse ::
-  -- | 'sdserrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startDeliveryStreamEncryptionResponse_httpStatus' - The response's http status code.
+newStartDeliveryStreamEncryptionResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartDeliveryStreamEncryptionResponse
-startDeliveryStreamEncryptionResponse
-  pResponseStatus_ =
-    StartDeliveryStreamEncryptionResponse'
-      { _sdserrsResponseStatus =
-          pResponseStatus_
-      }
+newStartDeliveryStreamEncryptionResponse pHttpStatus_ =
+  StartDeliveryStreamEncryptionResponse'
+    { httpStatus =
+        pHttpStatus_
+    }
 
--- | -- | The response status code.
-sdserrsResponseStatus :: Lens' StartDeliveryStreamEncryptionResponse Int
-sdserrsResponseStatus = lens _sdserrsResponseStatus (\s a -> s {_sdserrsResponseStatus = a})
+-- | The response's http status code.
+startDeliveryStreamEncryptionResponse_httpStatus :: Lens.Lens' StartDeliveryStreamEncryptionResponse Prelude.Int
+startDeliveryStreamEncryptionResponse_httpStatus = Lens.lens (\StartDeliveryStreamEncryptionResponse' {httpStatus} -> httpStatus) (\s@StartDeliveryStreamEncryptionResponse' {} a -> s {httpStatus = a} :: StartDeliveryStreamEncryptionResponse)
 
-instance NFData StartDeliveryStreamEncryptionResponse
+instance
+  Prelude.NFData
+    StartDeliveryStreamEncryptionResponse

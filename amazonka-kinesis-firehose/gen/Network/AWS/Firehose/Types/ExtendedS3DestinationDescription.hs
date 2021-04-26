@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -23,195 +27,219 @@ import Network.AWS.Firehose.Types.EncryptionConfiguration
 import Network.AWS.Firehose.Types.ProcessingConfiguration
 import Network.AWS.Firehose.Types.S3BackupMode
 import Network.AWS.Firehose.Types.S3DestinationDescription
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Describes a destination in Amazon S3.
 --
---
---
--- /See:/ 'extendedS3DestinationDescription' smart constructor.
+-- /See:/ 'newExtendedS3DestinationDescription' smart constructor.
 data ExtendedS3DestinationDescription = ExtendedS3DestinationDescription'
-  { _esddErrorOutputPrefix ::
-      !( Maybe
-           Text
-       ),
-    _esddProcessingConfiguration ::
-      !( Maybe
-           ProcessingConfiguration
-       ),
-    _esddDataFormatConversionConfiguration ::
-      !( Maybe
-           DataFormatConversionConfiguration
-       ),
-    _esddCloudWatchLoggingOptions ::
-      !( Maybe
-           CloudWatchLoggingOptions
-       ),
-    _esddPrefix ::
-      !( Maybe
-           Text
-       ),
-    _esddS3BackupDescription ::
-      !( Maybe
-           S3DestinationDescription
-       ),
-    _esddS3BackupMode ::
-      !( Maybe
-           S3BackupMode
-       ),
-    _esddRoleARN ::
-      !Text,
-    _esddBucketARN ::
-      !Text,
-    _esddBufferingHints ::
-      !BufferingHints,
-    _esddCompressionFormat ::
-      !CompressionFormat,
-    _esddEncryptionConfiguration ::
-      !EncryptionConfiguration
+  { -- | A prefix that Kinesis Data Firehose evaluates and adds to failed records
+    -- before writing them to S3. This prefix appears immediately following the
+    -- bucket name. For information about how to specify this prefix, see
+    -- <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects>.
+    errorOutputPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The data processing configuration.
+    processingConfiguration :: Prelude.Maybe ProcessingConfiguration,
+    -- | The serializer, deserializer, and schema for converting data from the
+    -- JSON format to the Parquet or ORC format before writing it to Amazon S3.
+    dataFormatConversionConfiguration :: Prelude.Maybe DataFormatConversionConfiguration,
+    -- | The Amazon CloudWatch logging options for your delivery stream.
+    cloudWatchLoggingOptions :: Prelude.Maybe CloudWatchLoggingOptions,
+    -- | The \"YYYY\/MM\/DD\/HH\" time format prefix is automatically used for
+    -- delivered Amazon S3 files. You can also specify a custom prefix, as
+    -- described in
+    -- <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects>.
+    prefix :: Prelude.Maybe Prelude.Text,
+    -- | The configuration for backup in Amazon S3.
+    s3BackupDescription :: Prelude.Maybe S3DestinationDescription,
+    -- | The Amazon S3 backup mode.
+    s3BackupMode :: Prelude.Maybe S3BackupMode,
+    -- | The Amazon Resource Name (ARN) of the AWS credentials. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    roleARN :: Prelude.Text,
+    -- | The ARN of the S3 bucket. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    bucketARN :: Prelude.Text,
+    -- | The buffering option.
+    bufferingHints :: BufferingHints,
+    -- | The compression format. If no value is specified, the default is
+    -- @UNCOMPRESSED@.
+    compressionFormat :: CompressionFormat,
+    -- | The encryption configuration. If no value is specified, the default is
+    -- no encryption.
+    encryptionConfiguration :: EncryptionConfiguration
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ExtendedS3DestinationDescription' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ExtendedS3DestinationDescription' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'esddErrorOutputPrefix' - A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'esddProcessingConfiguration' - The data processing configuration.
+-- 'errorOutputPrefix', 'extendedS3DestinationDescription_errorOutputPrefix' - A prefix that Kinesis Data Firehose evaluates and adds to failed records
+-- before writing them to S3. This prefix appears immediately following the
+-- bucket name. For information about how to specify this prefix, see
+-- <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects>.
 --
--- * 'esddDataFormatConversionConfiguration' - The serializer, deserializer, and schema for converting data from the JSON format to the Parquet or ORC format before writing it to Amazon S3.
+-- 'processingConfiguration', 'extendedS3DestinationDescription_processingConfiguration' - The data processing configuration.
 --
--- * 'esddCloudWatchLoggingOptions' - The Amazon CloudWatch logging options for your delivery stream.
+-- 'dataFormatConversionConfiguration', 'extendedS3DestinationDescription_dataFormatConversionConfiguration' - The serializer, deserializer, and schema for converting data from the
+-- JSON format to the Parquet or ORC format before writing it to Amazon S3.
 --
--- * 'esddPrefix' - The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects> .
+-- 'cloudWatchLoggingOptions', 'extendedS3DestinationDescription_cloudWatchLoggingOptions' - The Amazon CloudWatch logging options for your delivery stream.
 --
--- * 'esddS3BackupDescription' - The configuration for backup in Amazon S3.
+-- 'prefix', 'extendedS3DestinationDescription_prefix' - The \"YYYY\/MM\/DD\/HH\" time format prefix is automatically used for
+-- delivered Amazon S3 files. You can also specify a custom prefix, as
+-- described in
+-- <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects>.
 --
--- * 'esddS3BackupMode' - The Amazon S3 backup mode.
+-- 's3BackupDescription', 'extendedS3DestinationDescription_s3BackupDescription' - The configuration for backup in Amazon S3.
 --
--- * 'esddRoleARN' - The Amazon Resource Name (ARN) of the AWS credentials. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
+-- 's3BackupMode', 'extendedS3DestinationDescription_s3BackupMode' - The Amazon S3 backup mode.
 --
--- * 'esddBucketARN' - The ARN of the S3 bucket. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
+-- 'roleARN', 'extendedS3DestinationDescription_roleARN' - The Amazon Resource Name (ARN) of the AWS credentials. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
 --
--- * 'esddBufferingHints' - The buffering option.
+-- 'bucketARN', 'extendedS3DestinationDescription_bucketARN' - The ARN of the S3 bucket. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
 --
--- * 'esddCompressionFormat' - The compression format. If no value is specified, the default is @UNCOMPRESSED@ .
+-- 'bufferingHints', 'extendedS3DestinationDescription_bufferingHints' - The buffering option.
 --
--- * 'esddEncryptionConfiguration' - The encryption configuration. If no value is specified, the default is no encryption.
-extendedS3DestinationDescription ::
-  -- | 'esddRoleARN'
-  Text ->
-  -- | 'esddBucketARN'
-  Text ->
-  -- | 'esddBufferingHints'
+-- 'compressionFormat', 'extendedS3DestinationDescription_compressionFormat' - The compression format. If no value is specified, the default is
+-- @UNCOMPRESSED@.
+--
+-- 'encryptionConfiguration', 'extendedS3DestinationDescription_encryptionConfiguration' - The encryption configuration. If no value is specified, the default is
+-- no encryption.
+newExtendedS3DestinationDescription ::
+  -- | 'roleARN'
+  Prelude.Text ->
+  -- | 'bucketARN'
+  Prelude.Text ->
+  -- | 'bufferingHints'
   BufferingHints ->
-  -- | 'esddCompressionFormat'
+  -- | 'compressionFormat'
   CompressionFormat ->
-  -- | 'esddEncryptionConfiguration'
+  -- | 'encryptionConfiguration'
   EncryptionConfiguration ->
   ExtendedS3DestinationDescription
-extendedS3DestinationDescription
+newExtendedS3DestinationDescription
   pRoleARN_
   pBucketARN_
   pBufferingHints_
   pCompressionFormat_
   pEncryptionConfiguration_ =
     ExtendedS3DestinationDescription'
-      { _esddErrorOutputPrefix =
-          Nothing,
-        _esddProcessingConfiguration = Nothing,
-        _esddDataFormatConversionConfiguration =
-          Nothing,
-        _esddCloudWatchLoggingOptions = Nothing,
-        _esddPrefix = Nothing,
-        _esddS3BackupDescription = Nothing,
-        _esddS3BackupMode = Nothing,
-        _esddRoleARN = pRoleARN_,
-        _esddBucketARN = pBucketARN_,
-        _esddBufferingHints = pBufferingHints_,
-        _esddCompressionFormat =
-          pCompressionFormat_,
-        _esddEncryptionConfiguration =
+      { errorOutputPrefix =
+          Prelude.Nothing,
+        processingConfiguration = Prelude.Nothing,
+        dataFormatConversionConfiguration =
+          Prelude.Nothing,
+        cloudWatchLoggingOptions =
+          Prelude.Nothing,
+        prefix = Prelude.Nothing,
+        s3BackupDescription = Prelude.Nothing,
+        s3BackupMode = Prelude.Nothing,
+        roleARN = pRoleARN_,
+        bucketARN = pBucketARN_,
+        bufferingHints = pBufferingHints_,
+        compressionFormat = pCompressionFormat_,
+        encryptionConfiguration =
           pEncryptionConfiguration_
       }
 
--- | A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects> .
-esddErrorOutputPrefix :: Lens' ExtendedS3DestinationDescription (Maybe Text)
-esddErrorOutputPrefix = lens _esddErrorOutputPrefix (\s a -> s {_esddErrorOutputPrefix = a})
+-- | A prefix that Kinesis Data Firehose evaluates and adds to failed records
+-- before writing them to S3. This prefix appears immediately following the
+-- bucket name. For information about how to specify this prefix, see
+-- <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects>.
+extendedS3DestinationDescription_errorOutputPrefix :: Lens.Lens' ExtendedS3DestinationDescription (Prelude.Maybe Prelude.Text)
+extendedS3DestinationDescription_errorOutputPrefix = Lens.lens (\ExtendedS3DestinationDescription' {errorOutputPrefix} -> errorOutputPrefix) (\s@ExtendedS3DestinationDescription' {} a -> s {errorOutputPrefix = a} :: ExtendedS3DestinationDescription)
 
 -- | The data processing configuration.
-esddProcessingConfiguration :: Lens' ExtendedS3DestinationDescription (Maybe ProcessingConfiguration)
-esddProcessingConfiguration = lens _esddProcessingConfiguration (\s a -> s {_esddProcessingConfiguration = a})
+extendedS3DestinationDescription_processingConfiguration :: Lens.Lens' ExtendedS3DestinationDescription (Prelude.Maybe ProcessingConfiguration)
+extendedS3DestinationDescription_processingConfiguration = Lens.lens (\ExtendedS3DestinationDescription' {processingConfiguration} -> processingConfiguration) (\s@ExtendedS3DestinationDescription' {} a -> s {processingConfiguration = a} :: ExtendedS3DestinationDescription)
 
--- | The serializer, deserializer, and schema for converting data from the JSON format to the Parquet or ORC format before writing it to Amazon S3.
-esddDataFormatConversionConfiguration :: Lens' ExtendedS3DestinationDescription (Maybe DataFormatConversionConfiguration)
-esddDataFormatConversionConfiguration = lens _esddDataFormatConversionConfiguration (\s a -> s {_esddDataFormatConversionConfiguration = a})
+-- | The serializer, deserializer, and schema for converting data from the
+-- JSON format to the Parquet or ORC format before writing it to Amazon S3.
+extendedS3DestinationDescription_dataFormatConversionConfiguration :: Lens.Lens' ExtendedS3DestinationDescription (Prelude.Maybe DataFormatConversionConfiguration)
+extendedS3DestinationDescription_dataFormatConversionConfiguration = Lens.lens (\ExtendedS3DestinationDescription' {dataFormatConversionConfiguration} -> dataFormatConversionConfiguration) (\s@ExtendedS3DestinationDescription' {} a -> s {dataFormatConversionConfiguration = a} :: ExtendedS3DestinationDescription)
 
 -- | The Amazon CloudWatch logging options for your delivery stream.
-esddCloudWatchLoggingOptions :: Lens' ExtendedS3DestinationDescription (Maybe CloudWatchLoggingOptions)
-esddCloudWatchLoggingOptions = lens _esddCloudWatchLoggingOptions (\s a -> s {_esddCloudWatchLoggingOptions = a})
+extendedS3DestinationDescription_cloudWatchLoggingOptions :: Lens.Lens' ExtendedS3DestinationDescription (Prelude.Maybe CloudWatchLoggingOptions)
+extendedS3DestinationDescription_cloudWatchLoggingOptions = Lens.lens (\ExtendedS3DestinationDescription' {cloudWatchLoggingOptions} -> cloudWatchLoggingOptions) (\s@ExtendedS3DestinationDescription' {} a -> s {cloudWatchLoggingOptions = a} :: ExtendedS3DestinationDescription)
 
--- | The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects> .
-esddPrefix :: Lens' ExtendedS3DestinationDescription (Maybe Text)
-esddPrefix = lens _esddPrefix (\s a -> s {_esddPrefix = a})
+-- | The \"YYYY\/MM\/DD\/HH\" time format prefix is automatically used for
+-- delivered Amazon S3 files. You can also specify a custom prefix, as
+-- described in
+-- <https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html Custom Prefixes for Amazon S3 Objects>.
+extendedS3DestinationDescription_prefix :: Lens.Lens' ExtendedS3DestinationDescription (Prelude.Maybe Prelude.Text)
+extendedS3DestinationDescription_prefix = Lens.lens (\ExtendedS3DestinationDescription' {prefix} -> prefix) (\s@ExtendedS3DestinationDescription' {} a -> s {prefix = a} :: ExtendedS3DestinationDescription)
 
 -- | The configuration for backup in Amazon S3.
-esddS3BackupDescription :: Lens' ExtendedS3DestinationDescription (Maybe S3DestinationDescription)
-esddS3BackupDescription = lens _esddS3BackupDescription (\s a -> s {_esddS3BackupDescription = a})
+extendedS3DestinationDescription_s3BackupDescription :: Lens.Lens' ExtendedS3DestinationDescription (Prelude.Maybe S3DestinationDescription)
+extendedS3DestinationDescription_s3BackupDescription = Lens.lens (\ExtendedS3DestinationDescription' {s3BackupDescription} -> s3BackupDescription) (\s@ExtendedS3DestinationDescription' {} a -> s {s3BackupDescription = a} :: ExtendedS3DestinationDescription)
 
 -- | The Amazon S3 backup mode.
-esddS3BackupMode :: Lens' ExtendedS3DestinationDescription (Maybe S3BackupMode)
-esddS3BackupMode = lens _esddS3BackupMode (\s a -> s {_esddS3BackupMode = a})
+extendedS3DestinationDescription_s3BackupMode :: Lens.Lens' ExtendedS3DestinationDescription (Prelude.Maybe S3BackupMode)
+extendedS3DestinationDescription_s3BackupMode = Lens.lens (\ExtendedS3DestinationDescription' {s3BackupMode} -> s3BackupMode) (\s@ExtendedS3DestinationDescription' {} a -> s {s3BackupMode = a} :: ExtendedS3DestinationDescription)
 
--- | The Amazon Resource Name (ARN) of the AWS credentials. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
-esddRoleARN :: Lens' ExtendedS3DestinationDescription Text
-esddRoleARN = lens _esddRoleARN (\s a -> s {_esddRoleARN = a})
+-- | The Amazon Resource Name (ARN) of the AWS credentials. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+extendedS3DestinationDescription_roleARN :: Lens.Lens' ExtendedS3DestinationDescription Prelude.Text
+extendedS3DestinationDescription_roleARN = Lens.lens (\ExtendedS3DestinationDescription' {roleARN} -> roleARN) (\s@ExtendedS3DestinationDescription' {} a -> s {roleARN = a} :: ExtendedS3DestinationDescription)
 
--- | The ARN of the S3 bucket. For more information, see <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces> .
-esddBucketARN :: Lens' ExtendedS3DestinationDescription Text
-esddBucketARN = lens _esddBucketARN (\s a -> s {_esddBucketARN = a})
+-- | The ARN of the S3 bucket. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+extendedS3DestinationDescription_bucketARN :: Lens.Lens' ExtendedS3DestinationDescription Prelude.Text
+extendedS3DestinationDescription_bucketARN = Lens.lens (\ExtendedS3DestinationDescription' {bucketARN} -> bucketARN) (\s@ExtendedS3DestinationDescription' {} a -> s {bucketARN = a} :: ExtendedS3DestinationDescription)
 
 -- | The buffering option.
-esddBufferingHints :: Lens' ExtendedS3DestinationDescription BufferingHints
-esddBufferingHints = lens _esddBufferingHints (\s a -> s {_esddBufferingHints = a})
+extendedS3DestinationDescription_bufferingHints :: Lens.Lens' ExtendedS3DestinationDescription BufferingHints
+extendedS3DestinationDescription_bufferingHints = Lens.lens (\ExtendedS3DestinationDescription' {bufferingHints} -> bufferingHints) (\s@ExtendedS3DestinationDescription' {} a -> s {bufferingHints = a} :: ExtendedS3DestinationDescription)
 
--- | The compression format. If no value is specified, the default is @UNCOMPRESSED@ .
-esddCompressionFormat :: Lens' ExtendedS3DestinationDescription CompressionFormat
-esddCompressionFormat = lens _esddCompressionFormat (\s a -> s {_esddCompressionFormat = a})
+-- | The compression format. If no value is specified, the default is
+-- @UNCOMPRESSED@.
+extendedS3DestinationDescription_compressionFormat :: Lens.Lens' ExtendedS3DestinationDescription CompressionFormat
+extendedS3DestinationDescription_compressionFormat = Lens.lens (\ExtendedS3DestinationDescription' {compressionFormat} -> compressionFormat) (\s@ExtendedS3DestinationDescription' {} a -> s {compressionFormat = a} :: ExtendedS3DestinationDescription)
 
--- | The encryption configuration. If no value is specified, the default is no encryption.
-esddEncryptionConfiguration :: Lens' ExtendedS3DestinationDescription EncryptionConfiguration
-esddEncryptionConfiguration = lens _esddEncryptionConfiguration (\s a -> s {_esddEncryptionConfiguration = a})
+-- | The encryption configuration. If no value is specified, the default is
+-- no encryption.
+extendedS3DestinationDescription_encryptionConfiguration :: Lens.Lens' ExtendedS3DestinationDescription EncryptionConfiguration
+extendedS3DestinationDescription_encryptionConfiguration = Lens.lens (\ExtendedS3DestinationDescription' {encryptionConfiguration} -> encryptionConfiguration) (\s@ExtendedS3DestinationDescription' {} a -> s {encryptionConfiguration = a} :: ExtendedS3DestinationDescription)
 
-instance FromJSON ExtendedS3DestinationDescription where
+instance
+  Prelude.FromJSON
+    ExtendedS3DestinationDescription
+  where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ExtendedS3DestinationDescription"
       ( \x ->
           ExtendedS3DestinationDescription'
-            <$> (x .:? "ErrorOutputPrefix")
-            <*> (x .:? "ProcessingConfiguration")
-            <*> (x .:? "DataFormatConversionConfiguration")
-            <*> (x .:? "CloudWatchLoggingOptions")
-            <*> (x .:? "Prefix")
-            <*> (x .:? "S3BackupDescription")
-            <*> (x .:? "S3BackupMode")
-            <*> (x .: "RoleARN")
-            <*> (x .: "BucketARN")
-            <*> (x .: "BufferingHints")
-            <*> (x .: "CompressionFormat")
-            <*> (x .: "EncryptionConfiguration")
+            Prelude.<$> (x Prelude..:? "ErrorOutputPrefix")
+            Prelude.<*> (x Prelude..:? "ProcessingConfiguration")
+            Prelude.<*> (x Prelude..:? "DataFormatConversionConfiguration")
+            Prelude.<*> (x Prelude..:? "CloudWatchLoggingOptions")
+            Prelude.<*> (x Prelude..:? "Prefix")
+            Prelude.<*> (x Prelude..:? "S3BackupDescription")
+            Prelude.<*> (x Prelude..:? "S3BackupMode")
+            Prelude.<*> (x Prelude..: "RoleARN")
+            Prelude.<*> (x Prelude..: "BucketARN")
+            Prelude.<*> (x Prelude..: "BufferingHints")
+            Prelude.<*> (x Prelude..: "CompressionFormat")
+            Prelude.<*> (x Prelude..: "EncryptionConfiguration")
       )
 
-instance Hashable ExtendedS3DestinationDescription
+instance
+  Prelude.Hashable
+    ExtendedS3DestinationDescription
 
-instance NFData ExtendedS3DestinationDescription
+instance
+  Prelude.NFData
+    ExtendedS3DestinationDescription

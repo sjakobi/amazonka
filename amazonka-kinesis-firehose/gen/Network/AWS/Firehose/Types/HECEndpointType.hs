@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Firehose.Types.HECEndpointType
   ( HECEndpointType
       ( ..,
-        Event,
-        Raw
+        HECEndpointTypeEvent,
+        HECEndpointTypeRaw
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data HECEndpointType = HECEndpointType' (CI Text)
+newtype HECEndpointType = HECEndpointType'
+  { fromHECEndpointType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Event :: HECEndpointType
-pattern Event = HECEndpointType' "Event"
+pattern HECEndpointTypeEvent :: HECEndpointType
+pattern HECEndpointTypeEvent = HECEndpointType' "Event"
 
-pattern Raw :: HECEndpointType
-pattern Raw = HECEndpointType' "Raw"
+pattern HECEndpointTypeRaw :: HECEndpointType
+pattern HECEndpointTypeRaw = HECEndpointType' "Raw"
 
 {-# COMPLETE
-  Event,
-  Raw,
+  HECEndpointTypeEvent,
+  HECEndpointTypeRaw,
   HECEndpointType'
   #-}
 
-instance FromText HECEndpointType where
-  parser = (HECEndpointType' . mk) <$> takeText
+instance Prelude.FromText HECEndpointType where
+  parser = HECEndpointType' Prelude.<$> Prelude.takeText
 
-instance ToText HECEndpointType where
-  toText (HECEndpointType' ci) = original ci
+instance Prelude.ToText HECEndpointType where
+  toText (HECEndpointType' x) = x
 
-instance Hashable HECEndpointType
+instance Prelude.Hashable HECEndpointType
 
-instance NFData HECEndpointType
+instance Prelude.NFData HECEndpointType
 
-instance ToByteString HECEndpointType
+instance Prelude.ToByteString HECEndpointType
 
-instance ToQuery HECEndpointType
+instance Prelude.ToQuery HECEndpointType
 
-instance ToHeader HECEndpointType
+instance Prelude.ToHeader HECEndpointType
 
-instance ToJSON HECEndpointType where
-  toJSON = toJSONText
+instance Prelude.ToJSON HECEndpointType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON HECEndpointType where
-  parseJSON = parseJSONText "HECEndpointType"
+instance Prelude.FromJSON HECEndpointType where
+  parseJSON = Prelude.parseJSONText "HECEndpointType"

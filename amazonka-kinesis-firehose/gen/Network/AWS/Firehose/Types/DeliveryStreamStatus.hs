@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.Firehose.Types.DeliveryStreamStatus
   ( DeliveryStreamStatus
       ( ..,
-        Active,
-        Creating,
-        CreatingFailed,
-        Deleting,
-        DeletingFailed
+        DeliveryStreamStatusACTIVE,
+        DeliveryStreamStatusCREATING,
+        DeliveryStreamStatusCREATINGFAILED,
+        DeliveryStreamStatusDELETING,
+        DeliveryStreamStatusDELETINGFAILED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeliveryStreamStatus
-  = DeliveryStreamStatus'
-      ( CI
-          Text
-      )
+newtype DeliveryStreamStatus = DeliveryStreamStatus'
+  { fromDeliveryStreamStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Active :: DeliveryStreamStatus
-pattern Active = DeliveryStreamStatus' "ACTIVE"
+pattern DeliveryStreamStatusACTIVE :: DeliveryStreamStatus
+pattern DeliveryStreamStatusACTIVE = DeliveryStreamStatus' "ACTIVE"
 
-pattern Creating :: DeliveryStreamStatus
-pattern Creating = DeliveryStreamStatus' "CREATING"
+pattern DeliveryStreamStatusCREATING :: DeliveryStreamStatus
+pattern DeliveryStreamStatusCREATING = DeliveryStreamStatus' "CREATING"
 
-pattern CreatingFailed :: DeliveryStreamStatus
-pattern CreatingFailed = DeliveryStreamStatus' "CREATING_FAILED"
+pattern DeliveryStreamStatusCREATINGFAILED :: DeliveryStreamStatus
+pattern DeliveryStreamStatusCREATINGFAILED = DeliveryStreamStatus' "CREATING_FAILED"
 
-pattern Deleting :: DeliveryStreamStatus
-pattern Deleting = DeliveryStreamStatus' "DELETING"
+pattern DeliveryStreamStatusDELETING :: DeliveryStreamStatus
+pattern DeliveryStreamStatusDELETING = DeliveryStreamStatus' "DELETING"
 
-pattern DeletingFailed :: DeliveryStreamStatus
-pattern DeletingFailed = DeliveryStreamStatus' "DELETING_FAILED"
+pattern DeliveryStreamStatusDELETINGFAILED :: DeliveryStreamStatus
+pattern DeliveryStreamStatusDELETINGFAILED = DeliveryStreamStatus' "DELETING_FAILED"
 
 {-# COMPLETE
-  Active,
-  Creating,
-  CreatingFailed,
-  Deleting,
-  DeletingFailed,
+  DeliveryStreamStatusACTIVE,
+  DeliveryStreamStatusCREATING,
+  DeliveryStreamStatusCREATINGFAILED,
+  DeliveryStreamStatusDELETING,
+  DeliveryStreamStatusDELETINGFAILED,
   DeliveryStreamStatus'
   #-}
 
-instance FromText DeliveryStreamStatus where
-  parser = (DeliveryStreamStatus' . mk) <$> takeText
+instance Prelude.FromText DeliveryStreamStatus where
+  parser = DeliveryStreamStatus' Prelude.<$> Prelude.takeText
 
-instance ToText DeliveryStreamStatus where
-  toText (DeliveryStreamStatus' ci) = original ci
+instance Prelude.ToText DeliveryStreamStatus where
+  toText (DeliveryStreamStatus' x) = x
 
-instance Hashable DeliveryStreamStatus
+instance Prelude.Hashable DeliveryStreamStatus
 
-instance NFData DeliveryStreamStatus
+instance Prelude.NFData DeliveryStreamStatus
 
-instance ToByteString DeliveryStreamStatus
+instance Prelude.ToByteString DeliveryStreamStatus
 
-instance ToQuery DeliveryStreamStatus
+instance Prelude.ToQuery DeliveryStreamStatus
 
-instance ToHeader DeliveryStreamStatus
+instance Prelude.ToHeader DeliveryStreamStatus
 
-instance FromJSON DeliveryStreamStatus where
-  parseJSON = parseJSONText "DeliveryStreamStatus"
+instance Prelude.FromJSON DeliveryStreamStatus where
+  parseJSON = Prelude.parseJSONText "DeliveryStreamStatus"

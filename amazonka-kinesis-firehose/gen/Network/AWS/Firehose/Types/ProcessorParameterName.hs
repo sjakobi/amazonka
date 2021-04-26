@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.Firehose.Types.ProcessorParameterName
   ( ProcessorParameterName
       ( ..,
-        BufferIntervalInSeconds,
-        BufferSizeInMBs,
-        LambdaARN,
-        NumberOfRetries,
-        RoleARN
+        ProcessorParameterNameBufferIntervalInSeconds,
+        ProcessorParameterNameBufferSizeInMBs,
+        ProcessorParameterNameLambdaArn,
+        ProcessorParameterNameNumberOfRetries,
+        ProcessorParameterNameRoleArn
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessorParameterName
-  = ProcessorParameterName'
-      ( CI
-          Text
-      )
+newtype ProcessorParameterName = ProcessorParameterName'
+  { fromProcessorParameterName ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BufferIntervalInSeconds :: ProcessorParameterName
-pattern BufferIntervalInSeconds = ProcessorParameterName' "BufferIntervalInSeconds"
+pattern ProcessorParameterNameBufferIntervalInSeconds :: ProcessorParameterName
+pattern ProcessorParameterNameBufferIntervalInSeconds = ProcessorParameterName' "BufferIntervalInSeconds"
 
-pattern BufferSizeInMBs :: ProcessorParameterName
-pattern BufferSizeInMBs = ProcessorParameterName' "BufferSizeInMBs"
+pattern ProcessorParameterNameBufferSizeInMBs :: ProcessorParameterName
+pattern ProcessorParameterNameBufferSizeInMBs = ProcessorParameterName' "BufferSizeInMBs"
 
-pattern LambdaARN :: ProcessorParameterName
-pattern LambdaARN = ProcessorParameterName' "LambdaArn"
+pattern ProcessorParameterNameLambdaArn :: ProcessorParameterName
+pattern ProcessorParameterNameLambdaArn = ProcessorParameterName' "LambdaArn"
 
-pattern NumberOfRetries :: ProcessorParameterName
-pattern NumberOfRetries = ProcessorParameterName' "NumberOfRetries"
+pattern ProcessorParameterNameNumberOfRetries :: ProcessorParameterName
+pattern ProcessorParameterNameNumberOfRetries = ProcessorParameterName' "NumberOfRetries"
 
-pattern RoleARN :: ProcessorParameterName
-pattern RoleARN = ProcessorParameterName' "RoleArn"
+pattern ProcessorParameterNameRoleArn :: ProcessorParameterName
+pattern ProcessorParameterNameRoleArn = ProcessorParameterName' "RoleArn"
 
 {-# COMPLETE
-  BufferIntervalInSeconds,
-  BufferSizeInMBs,
-  LambdaARN,
-  NumberOfRetries,
-  RoleARN,
+  ProcessorParameterNameBufferIntervalInSeconds,
+  ProcessorParameterNameBufferSizeInMBs,
+  ProcessorParameterNameLambdaArn,
+  ProcessorParameterNameNumberOfRetries,
+  ProcessorParameterNameRoleArn,
   ProcessorParameterName'
   #-}
 
-instance FromText ProcessorParameterName where
-  parser = (ProcessorParameterName' . mk) <$> takeText
+instance Prelude.FromText ProcessorParameterName where
+  parser = ProcessorParameterName' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessorParameterName where
-  toText (ProcessorParameterName' ci) = original ci
+instance Prelude.ToText ProcessorParameterName where
+  toText (ProcessorParameterName' x) = x
 
-instance Hashable ProcessorParameterName
+instance Prelude.Hashable ProcessorParameterName
 
-instance NFData ProcessorParameterName
+instance Prelude.NFData ProcessorParameterName
 
-instance ToByteString ProcessorParameterName
+instance Prelude.ToByteString ProcessorParameterName
 
-instance ToQuery ProcessorParameterName
+instance Prelude.ToQuery ProcessorParameterName
 
-instance ToHeader ProcessorParameterName
+instance Prelude.ToHeader ProcessorParameterName
 
-instance ToJSON ProcessorParameterName where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessorParameterName where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProcessorParameterName where
-  parseJSON = parseJSONText "ProcessorParameterName"
+instance Prelude.FromJSON ProcessorParameterName where
+  parseJSON = Prelude.parseJSONText "ProcessorParameterName"

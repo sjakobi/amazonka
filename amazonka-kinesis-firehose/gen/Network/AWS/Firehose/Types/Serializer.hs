@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +21,84 @@ module Network.AWS.Firehose.Types.Serializer where
 
 import Network.AWS.Firehose.Types.OrcSerDe
 import Network.AWS.Firehose.Types.ParquetSerDe
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The serializer that you want Kinesis Data Firehose to use to convert data to the target format before writing it to Amazon S3. Kinesis Data Firehose supports two types of serializers: the <https://hive.apache.org/javadocs/r1.2.2/api/org/apache/hadoop/hive/ql/io/orc/OrcSerde.html ORC SerDe> and the <https://hive.apache.org/javadocs/r1.2.2/api/org/apache/hadoop/hive/ql/io/parquet/serde/ParquetHiveSerDe.html Parquet SerDe> .
+-- | The serializer that you want Kinesis Data Firehose to use to convert
+-- data to the target format before writing it to Amazon S3. Kinesis Data
+-- Firehose supports two types of serializers: the
+-- <https://hive.apache.org/javadocs/r1.2.2/api/org/apache/hadoop/hive/ql/io/orc/OrcSerde.html ORC SerDe>
+-- and the
+-- <https://hive.apache.org/javadocs/r1.2.2/api/org/apache/hadoop/hive/ql/io/parquet/serde/ParquetHiveSerDe.html Parquet SerDe>.
 --
---
---
--- /See:/ 'serializer' smart constructor.
+-- /See:/ 'newSerializer' smart constructor.
 data Serializer = Serializer'
-  { _sOrcSerDe ::
-      !(Maybe OrcSerDe),
-    _sParquetSerDe :: !(Maybe ParquetSerDe)
+  { -- | A serializer to use for converting data to the ORC format before storing
+    -- it in Amazon S3. For more information, see
+    -- <https://orc.apache.org/docs/ Apache ORC>.
+    orcSerDe :: Prelude.Maybe OrcSerDe,
+    -- | A serializer to use for converting data to the Parquet format before
+    -- storing it in Amazon S3. For more information, see
+    -- <https://parquet.apache.org/documentation/latest/ Apache Parquet>.
+    parquetSerDe :: Prelude.Maybe ParquetSerDe
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Serializer' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Serializer' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sOrcSerDe' - A serializer to use for converting data to the ORC format before storing it in Amazon S3. For more information, see <https://orc.apache.org/docs/ Apache ORC> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sParquetSerDe' - A serializer to use for converting data to the Parquet format before storing it in Amazon S3. For more information, see <https://parquet.apache.org/documentation/latest/ Apache Parquet> .
-serializer ::
+-- 'orcSerDe', 'serializer_orcSerDe' - A serializer to use for converting data to the ORC format before storing
+-- it in Amazon S3. For more information, see
+-- <https://orc.apache.org/docs/ Apache ORC>.
+--
+-- 'parquetSerDe', 'serializer_parquetSerDe' - A serializer to use for converting data to the Parquet format before
+-- storing it in Amazon S3. For more information, see
+-- <https://parquet.apache.org/documentation/latest/ Apache Parquet>.
+newSerializer ::
   Serializer
-serializer =
+newSerializer =
   Serializer'
-    { _sOrcSerDe = Nothing,
-      _sParquetSerDe = Nothing
+    { orcSerDe = Prelude.Nothing,
+      parquetSerDe = Prelude.Nothing
     }
 
--- | A serializer to use for converting data to the ORC format before storing it in Amazon S3. For more information, see <https://orc.apache.org/docs/ Apache ORC> .
-sOrcSerDe :: Lens' Serializer (Maybe OrcSerDe)
-sOrcSerDe = lens _sOrcSerDe (\s a -> s {_sOrcSerDe = a})
+-- | A serializer to use for converting data to the ORC format before storing
+-- it in Amazon S3. For more information, see
+-- <https://orc.apache.org/docs/ Apache ORC>.
+serializer_orcSerDe :: Lens.Lens' Serializer (Prelude.Maybe OrcSerDe)
+serializer_orcSerDe = Lens.lens (\Serializer' {orcSerDe} -> orcSerDe) (\s@Serializer' {} a -> s {orcSerDe = a} :: Serializer)
 
--- | A serializer to use for converting data to the Parquet format before storing it in Amazon S3. For more information, see <https://parquet.apache.org/documentation/latest/ Apache Parquet> .
-sParquetSerDe :: Lens' Serializer (Maybe ParquetSerDe)
-sParquetSerDe = lens _sParquetSerDe (\s a -> s {_sParquetSerDe = a})
+-- | A serializer to use for converting data to the Parquet format before
+-- storing it in Amazon S3. For more information, see
+-- <https://parquet.apache.org/documentation/latest/ Apache Parquet>.
+serializer_parquetSerDe :: Lens.Lens' Serializer (Prelude.Maybe ParquetSerDe)
+serializer_parquetSerDe = Lens.lens (\Serializer' {parquetSerDe} -> parquetSerDe) (\s@Serializer' {} a -> s {parquetSerDe = a} :: Serializer)
 
-instance FromJSON Serializer where
+instance Prelude.FromJSON Serializer where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Serializer"
       ( \x ->
           Serializer'
-            <$> (x .:? "OrcSerDe") <*> (x .:? "ParquetSerDe")
+            Prelude.<$> (x Prelude..:? "OrcSerDe")
+            Prelude.<*> (x Prelude..:? "ParquetSerDe")
       )
 
-instance Hashable Serializer
+instance Prelude.Hashable Serializer
 
-instance NFData Serializer
+instance Prelude.NFData Serializer
 
-instance ToJSON Serializer where
+instance Prelude.ToJSON Serializer where
   toJSON Serializer' {..} =
-    object
-      ( catMaybes
-          [ ("OrcSerDe" .=) <$> _sOrcSerDe,
-            ("ParquetSerDe" .=) <$> _sParquetSerDe
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("OrcSerDe" Prelude..=) Prelude.<$> orcSerDe,
+            ("ParquetSerDe" Prelude..=)
+              Prelude.<$> parquetSerDe
           ]
       )

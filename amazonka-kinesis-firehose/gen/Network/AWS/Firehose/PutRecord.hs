@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,168 +21,211 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Writes a single data record into an Amazon Kinesis Data Firehose delivery stream. To write multiple data records into a delivery stream, use 'PutRecordBatch' . Applications using these operations are referred to as producers.
+-- Writes a single data record into an Amazon Kinesis Data Firehose
+-- delivery stream. To write multiple data records into a delivery stream,
+-- use PutRecordBatch. Applications using these operations are referred to
+-- as producers.
 --
+-- By default, each delivery stream can take in up to 2,000 transactions
+-- per second, 5,000 records per second, or 5 MB per second. If you use
+-- PutRecord and PutRecordBatch, the limits are an aggregate across these
+-- two operations for each delivery stream. For more information about
+-- limits and how to request an increase, see
+-- <https://docs.aws.amazon.com/firehose/latest/dev/limits.html Amazon Kinesis Data Firehose Limits>.
 --
--- By default, each delivery stream can take in up to 2,000 transactions per second, 5,000 records per second, or 5 MB per second. If you use 'PutRecord' and 'PutRecordBatch' , the limits are an aggregate across these two operations for each delivery stream. For more information about limits and how to request an increase, see <https://docs.aws.amazon.com/firehose/latest/dev/limits.html Amazon Kinesis Data Firehose Limits> .
+-- You must specify the name of the delivery stream and the data record
+-- when using PutRecord. The data record consists of a data blob that can
+-- be up to 1,000 KB in size, and any kind of data. For example, it can be
+-- a segment from a log file, geographic location data, website clickstream
+-- data, and so on.
 --
--- You must specify the name of the delivery stream and the data record when using 'PutRecord' . The data record consists of a data blob that can be up to 1,000 KB in size, and any kind of data. For example, it can be a segment from a log file, geographic location data, website clickstream data, and so on.
+-- Kinesis Data Firehose buffers records before delivering them to the
+-- destination. To disambiguate the data blobs at the destination, a common
+-- solution is to use delimiters in the data, such as a newline (@\\n@) or
+-- some other character unique within the data. This allows the consumer
+-- application to parse individual data items when reading the data from
+-- the destination.
 --
--- Kinesis Data Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the destination, a common solution is to use delimiters in the data, such as a newline (@\n@ ) or some other character unique within the data. This allows the consumer application to parse individual data items when reading the data from the destination.
+-- The @PutRecord@ operation returns a @RecordId@, which is a unique string
+-- assigned to each record. Producer applications can use this ID for
+-- purposes such as auditability and investigation.
 --
--- The @PutRecord@ operation returns a @RecordId@ , which is a unique string assigned to each record. Producer applications can use this ID for purposes such as auditability and investigation.
+-- If the @PutRecord@ operation throws a @ServiceUnavailableException@,
+-- back off and retry. If the exception persists, it is possible that the
+-- throughput limits have been exceeded for the delivery stream.
 --
--- If the @PutRecord@ operation throws a @ServiceUnavailableException@ , back off and retry. If the exception persists, it is possible that the throughput limits have been exceeded for the delivery stream.
+-- Data records sent to Kinesis Data Firehose are stored for 24 hours from
+-- the time they are added to a delivery stream as it tries to send the
+-- records to the destination. If the destination is unreachable for more
+-- than 24 hours, the data is no longer available.
 --
--- Data records sent to Kinesis Data Firehose are stored for 24 hours from the time they are added to a delivery stream as it tries to send the records to the destination. If the destination is unreachable for more than 24 hours, the data is no longer available.
---
--- /Important:/ Don't concatenate two or more base64 strings to form the data fields of your records. Instead, concatenate the raw data, then perform base64 encoding.
+-- Don\'t concatenate two or more base64 strings to form the data fields of
+-- your records. Instead, concatenate the raw data, then perform base64
+-- encoding.
 module Network.AWS.Firehose.PutRecord
   ( -- * Creating a Request
-    putRecord,
-    PutRecord,
+    PutRecord (..),
+    newPutRecord,
 
     -- * Request Lenses
-    prDeliveryStreamName,
-    prRecord,
+    putRecord_deliveryStreamName,
+    putRecord_record,
 
     -- * Destructuring the Response
-    putRecordResponse,
-    PutRecordResponse,
+    PutRecordResponse (..),
+    newPutRecordResponse,
 
     -- * Response Lenses
-    prrrsEncrypted,
-    prrrsResponseStatus,
-    prrrsRecordId,
+    putRecordResponse_encrypted,
+    putRecordResponse_httpStatus,
+    putRecordResponse_recordId,
   )
 where
 
 import Network.AWS.Firehose.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putRecord' smart constructor.
+-- | /See:/ 'newPutRecord' smart constructor.
 data PutRecord = PutRecord'
-  { _prDeliveryStreamName ::
-      !Text,
-    _prRecord :: !Record
+  { -- | The name of the delivery stream.
+    deliveryStreamName :: Prelude.Text,
+    -- | The record.
+    record :: Record
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRecord' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRecord' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prDeliveryStreamName' - The name of the delivery stream.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prRecord' - The record.
-putRecord ::
-  -- | 'prDeliveryStreamName'
-  Text ->
-  -- | 'prRecord'
+-- 'deliveryStreamName', 'putRecord_deliveryStreamName' - The name of the delivery stream.
+--
+-- 'record', 'putRecord_record' - The record.
+newPutRecord ::
+  -- | 'deliveryStreamName'
+  Prelude.Text ->
+  -- | 'record'
   Record ->
   PutRecord
-putRecord pDeliveryStreamName_ pRecord_ =
+newPutRecord pDeliveryStreamName_ pRecord_ =
   PutRecord'
-    { _prDeliveryStreamName =
+    { deliveryStreamName =
         pDeliveryStreamName_,
-      _prRecord = pRecord_
+      record = pRecord_
     }
 
 -- | The name of the delivery stream.
-prDeliveryStreamName :: Lens' PutRecord Text
-prDeliveryStreamName = lens _prDeliveryStreamName (\s a -> s {_prDeliveryStreamName = a})
+putRecord_deliveryStreamName :: Lens.Lens' PutRecord Prelude.Text
+putRecord_deliveryStreamName = Lens.lens (\PutRecord' {deliveryStreamName} -> deliveryStreamName) (\s@PutRecord' {} a -> s {deliveryStreamName = a} :: PutRecord)
 
 -- | The record.
-prRecord :: Lens' PutRecord Record
-prRecord = lens _prRecord (\s a -> s {_prRecord = a})
+putRecord_record :: Lens.Lens' PutRecord Record
+putRecord_record = Lens.lens (\PutRecord' {record} -> record) (\s@PutRecord' {} a -> s {record = a} :: PutRecord)
 
-instance AWSRequest PutRecord where
+instance Prelude.AWSRequest PutRecord where
   type Rs PutRecord = PutRecordResponse
-  request = postJSON firehose
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           PutRecordResponse'
-            <$> (x .?> "Encrypted")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "RecordId")
+            Prelude.<$> (x Prelude..?> "Encrypted")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "RecordId")
       )
 
-instance Hashable PutRecord
+instance Prelude.Hashable PutRecord
 
-instance NFData PutRecord
+instance Prelude.NFData PutRecord
 
-instance ToHeaders PutRecord where
+instance Prelude.ToHeaders PutRecord where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("Firehose_20150804.PutRecord" :: ByteString),
+              Prelude.=# ( "Firehose_20150804.PutRecord" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutRecord where
+instance Prelude.ToJSON PutRecord where
   toJSON PutRecord' {..} =
-    object
-      ( catMaybes
-          [ Just
-              ("DeliveryStreamName" .= _prDeliveryStreamName),
-            Just ("Record" .= _prRecord)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DeliveryStreamName" Prelude..= deliveryStreamName),
+            Prelude.Just ("Record" Prelude..= record)
           ]
       )
 
-instance ToPath PutRecord where
-  toPath = const "/"
+instance Prelude.ToPath PutRecord where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutRecord where
-  toQuery = const mempty
+instance Prelude.ToQuery PutRecord where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putRecordResponse' smart constructor.
+-- | /See:/ 'newPutRecordResponse' smart constructor.
 data PutRecordResponse = PutRecordResponse'
-  { _prrrsEncrypted ::
-      !(Maybe Bool),
-    _prrrsResponseStatus :: !Int,
-    _prrrsRecordId :: !Text
+  { -- | Indicates whether server-side encryption (SSE) was enabled during this
+    -- operation.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the record.
+    recordId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRecordResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRecordResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prrrsEncrypted' - Indicates whether server-side encryption (SSE) was enabled during this operation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prrrsResponseStatus' - -- | The response status code.
+-- 'encrypted', 'putRecordResponse_encrypted' - Indicates whether server-side encryption (SSE) was enabled during this
+-- operation.
 --
--- * 'prrrsRecordId' - The ID of the record.
-putRecordResponse ::
-  -- | 'prrrsResponseStatus'
-  Int ->
-  -- | 'prrrsRecordId'
-  Text ->
+-- 'httpStatus', 'putRecordResponse_httpStatus' - The response's http status code.
+--
+-- 'recordId', 'putRecordResponse_recordId' - The ID of the record.
+newPutRecordResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'recordId'
+  Prelude.Text ->
   PutRecordResponse
-putRecordResponse pResponseStatus_ pRecordId_ =
+newPutRecordResponse pHttpStatus_ pRecordId_ =
   PutRecordResponse'
-    { _prrrsEncrypted = Nothing,
-      _prrrsResponseStatus = pResponseStatus_,
-      _prrrsRecordId = pRecordId_
+    { encrypted = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      recordId = pRecordId_
     }
 
--- | Indicates whether server-side encryption (SSE) was enabled during this operation.
-prrrsEncrypted :: Lens' PutRecordResponse (Maybe Bool)
-prrrsEncrypted = lens _prrrsEncrypted (\s a -> s {_prrrsEncrypted = a})
+-- | Indicates whether server-side encryption (SSE) was enabled during this
+-- operation.
+putRecordResponse_encrypted :: Lens.Lens' PutRecordResponse (Prelude.Maybe Prelude.Bool)
+putRecordResponse_encrypted = Lens.lens (\PutRecordResponse' {encrypted} -> encrypted) (\s@PutRecordResponse' {} a -> s {encrypted = a} :: PutRecordResponse)
 
--- | -- | The response status code.
-prrrsResponseStatus :: Lens' PutRecordResponse Int
-prrrsResponseStatus = lens _prrrsResponseStatus (\s a -> s {_prrrsResponseStatus = a})
+-- | The response's http status code.
+putRecordResponse_httpStatus :: Lens.Lens' PutRecordResponse Prelude.Int
+putRecordResponse_httpStatus = Lens.lens (\PutRecordResponse' {httpStatus} -> httpStatus) (\s@PutRecordResponse' {} a -> s {httpStatus = a} :: PutRecordResponse)
 
 -- | The ID of the record.
-prrrsRecordId :: Lens' PutRecordResponse Text
-prrrsRecordId = lens _prrrsRecordId (\s a -> s {_prrrsRecordId = a})
+putRecordResponse_recordId :: Lens.Lens' PutRecordResponse Prelude.Text
+putRecordResponse_recordId = Lens.lens (\PutRecordResponse' {recordId} -> recordId) (\s@PutRecordResponse' {} a -> s {recordId = a} :: PutRecordResponse)
 
-instance NFData PutRecordResponse
+instance Prelude.NFData PutRecordResponse

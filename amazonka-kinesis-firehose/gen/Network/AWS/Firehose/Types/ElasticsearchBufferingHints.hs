@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,71 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Firehose.Types.ElasticsearchBufferingHints where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Describes the buffering to perform before delivering data to the Amazon ES destination.
+-- | Describes the buffering to perform before delivering data to the Amazon
+-- ES destination.
 --
---
---
--- /See:/ 'elasticsearchBufferingHints' smart constructor.
+-- /See:/ 'newElasticsearchBufferingHints' smart constructor.
 data ElasticsearchBufferingHints = ElasticsearchBufferingHints'
-  { _ebhSizeInMBs ::
-      !(Maybe Nat),
-    _ebhIntervalInSeconds ::
-      !(Maybe Nat)
+  { -- | Buffer incoming data to the specified size, in MBs, before delivering it
+    -- to the destination. The default value is 5.
+    --
+    -- We recommend setting this parameter to a value greater than the amount
+    -- of data you typically ingest into the delivery stream in 10 seconds. For
+    -- example, if you typically ingest data at 1 MB\/sec, the value should be
+    -- 10 MB or higher.
+    sizeInMBs :: Prelude.Maybe Prelude.Nat,
+    -- | Buffer incoming data for the specified period of time, in seconds,
+    -- before delivering it to the destination. The default value is 300 (5
+    -- minutes).
+    intervalInSeconds :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ElasticsearchBufferingHints' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ElasticsearchBufferingHints' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ebhSizeInMBs' - Buffer incoming data to the specified size, in MBs, before delivering it to the destination. The default value is 5. We recommend setting this parameter to a value greater than the amount of data you typically ingest into the delivery stream in 10 seconds. For example, if you typically ingest data at 1 MB/sec, the value should be 10 MB or higher.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ebhIntervalInSeconds' - Buffer incoming data for the specified period of time, in seconds, before delivering it to the destination. The default value is 300 (5 minutes).
-elasticsearchBufferingHints ::
+-- 'sizeInMBs', 'elasticsearchBufferingHints_sizeInMBs' - Buffer incoming data to the specified size, in MBs, before delivering it
+-- to the destination. The default value is 5.
+--
+-- We recommend setting this parameter to a value greater than the amount
+-- of data you typically ingest into the delivery stream in 10 seconds. For
+-- example, if you typically ingest data at 1 MB\/sec, the value should be
+-- 10 MB or higher.
+--
+-- 'intervalInSeconds', 'elasticsearchBufferingHints_intervalInSeconds' - Buffer incoming data for the specified period of time, in seconds,
+-- before delivering it to the destination. The default value is 300 (5
+-- minutes).
+newElasticsearchBufferingHints ::
   ElasticsearchBufferingHints
-elasticsearchBufferingHints =
+newElasticsearchBufferingHints =
   ElasticsearchBufferingHints'
-    { _ebhSizeInMBs =
-        Nothing,
-      _ebhIntervalInSeconds = Nothing
+    { sizeInMBs =
+        Prelude.Nothing,
+      intervalInSeconds = Prelude.Nothing
     }
 
--- | Buffer incoming data to the specified size, in MBs, before delivering it to the destination. The default value is 5. We recommend setting this parameter to a value greater than the amount of data you typically ingest into the delivery stream in 10 seconds. For example, if you typically ingest data at 1 MB/sec, the value should be 10 MB or higher.
-ebhSizeInMBs :: Lens' ElasticsearchBufferingHints (Maybe Natural)
-ebhSizeInMBs = lens _ebhSizeInMBs (\s a -> s {_ebhSizeInMBs = a}) . mapping _Nat
+-- | Buffer incoming data to the specified size, in MBs, before delivering it
+-- to the destination. The default value is 5.
+--
+-- We recommend setting this parameter to a value greater than the amount
+-- of data you typically ingest into the delivery stream in 10 seconds. For
+-- example, if you typically ingest data at 1 MB\/sec, the value should be
+-- 10 MB or higher.
+elasticsearchBufferingHints_sizeInMBs :: Lens.Lens' ElasticsearchBufferingHints (Prelude.Maybe Prelude.Natural)
+elasticsearchBufferingHints_sizeInMBs = Lens.lens (\ElasticsearchBufferingHints' {sizeInMBs} -> sizeInMBs) (\s@ElasticsearchBufferingHints' {} a -> s {sizeInMBs = a} :: ElasticsearchBufferingHints) Prelude.. Lens.mapping Prelude._Nat
 
--- | Buffer incoming data for the specified period of time, in seconds, before delivering it to the destination. The default value is 300 (5 minutes).
-ebhIntervalInSeconds :: Lens' ElasticsearchBufferingHints (Maybe Natural)
-ebhIntervalInSeconds = lens _ebhIntervalInSeconds (\s a -> s {_ebhIntervalInSeconds = a}) . mapping _Nat
+-- | Buffer incoming data for the specified period of time, in seconds,
+-- before delivering it to the destination. The default value is 300 (5
+-- minutes).
+elasticsearchBufferingHints_intervalInSeconds :: Lens.Lens' ElasticsearchBufferingHints (Prelude.Maybe Prelude.Natural)
+elasticsearchBufferingHints_intervalInSeconds = Lens.lens (\ElasticsearchBufferingHints' {intervalInSeconds} -> intervalInSeconds) (\s@ElasticsearchBufferingHints' {} a -> s {intervalInSeconds = a} :: ElasticsearchBufferingHints) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON ElasticsearchBufferingHints where
+instance Prelude.FromJSON ElasticsearchBufferingHints where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ElasticsearchBufferingHints"
       ( \x ->
           ElasticsearchBufferingHints'
-            <$> (x .:? "SizeInMBs") <*> (x .:? "IntervalInSeconds")
+            Prelude.<$> (x Prelude..:? "SizeInMBs")
+            Prelude.<*> (x Prelude..:? "IntervalInSeconds")
       )
 
-instance Hashable ElasticsearchBufferingHints
+instance Prelude.Hashable ElasticsearchBufferingHints
 
-instance NFData ElasticsearchBufferingHints
+instance Prelude.NFData ElasticsearchBufferingHints
 
-instance ToJSON ElasticsearchBufferingHints where
+instance Prelude.ToJSON ElasticsearchBufferingHints where
   toJSON ElasticsearchBufferingHints' {..} =
-    object
-      ( catMaybes
-          [ ("SizeInMBs" .=) <$> _ebhSizeInMBs,
-            ("IntervalInSeconds" .=) <$> _ebhIntervalInSeconds
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SizeInMBs" Prelude..=) Prelude.<$> sizeInMBs,
+            ("IntervalInSeconds" Prelude..=)
+              Prelude.<$> intervalInSeconds
           ]
       )

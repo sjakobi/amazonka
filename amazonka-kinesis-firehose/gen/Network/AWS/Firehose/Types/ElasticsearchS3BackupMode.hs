@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Firehose.Types.ElasticsearchS3BackupMode
   ( ElasticsearchS3BackupMode
       ( ..,
-        AllDocuments,
-        FailedDocumentsOnly
+        ElasticsearchS3BackupModeAllDocuments,
+        ElasticsearchS3BackupModeFailedDocumentsOnly
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ElasticsearchS3BackupMode
-  = ElasticsearchS3BackupMode'
-      ( CI
-          Text
-      )
+newtype ElasticsearchS3BackupMode = ElasticsearchS3BackupMode'
+  { fromElasticsearchS3BackupMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AllDocuments :: ElasticsearchS3BackupMode
-pattern AllDocuments = ElasticsearchS3BackupMode' "AllDocuments"
+pattern ElasticsearchS3BackupModeAllDocuments :: ElasticsearchS3BackupMode
+pattern ElasticsearchS3BackupModeAllDocuments = ElasticsearchS3BackupMode' "AllDocuments"
 
-pattern FailedDocumentsOnly :: ElasticsearchS3BackupMode
-pattern FailedDocumentsOnly = ElasticsearchS3BackupMode' "FailedDocumentsOnly"
+pattern ElasticsearchS3BackupModeFailedDocumentsOnly :: ElasticsearchS3BackupMode
+pattern ElasticsearchS3BackupModeFailedDocumentsOnly = ElasticsearchS3BackupMode' "FailedDocumentsOnly"
 
 {-# COMPLETE
-  AllDocuments,
-  FailedDocumentsOnly,
+  ElasticsearchS3BackupModeAllDocuments,
+  ElasticsearchS3BackupModeFailedDocumentsOnly,
   ElasticsearchS3BackupMode'
   #-}
 
-instance FromText ElasticsearchS3BackupMode where
-  parser = (ElasticsearchS3BackupMode' . mk) <$> takeText
+instance Prelude.FromText ElasticsearchS3BackupMode where
+  parser = ElasticsearchS3BackupMode' Prelude.<$> Prelude.takeText
 
-instance ToText ElasticsearchS3BackupMode where
-  toText (ElasticsearchS3BackupMode' ci) = original ci
+instance Prelude.ToText ElasticsearchS3BackupMode where
+  toText (ElasticsearchS3BackupMode' x) = x
 
-instance Hashable ElasticsearchS3BackupMode
+instance Prelude.Hashable ElasticsearchS3BackupMode
 
-instance NFData ElasticsearchS3BackupMode
+instance Prelude.NFData ElasticsearchS3BackupMode
 
-instance ToByteString ElasticsearchS3BackupMode
+instance Prelude.ToByteString ElasticsearchS3BackupMode
 
-instance ToQuery ElasticsearchS3BackupMode
+instance Prelude.ToQuery ElasticsearchS3BackupMode
 
-instance ToHeader ElasticsearchS3BackupMode
+instance Prelude.ToHeader ElasticsearchS3BackupMode
 
-instance ToJSON ElasticsearchS3BackupMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON ElasticsearchS3BackupMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ElasticsearchS3BackupMode where
-  parseJSON = parseJSONText "ElasticsearchS3BackupMode"
+instance Prelude.FromJSON ElasticsearchS3BackupMode where
+  parseJSON = Prelude.parseJSONText "ElasticsearchS3BackupMode"

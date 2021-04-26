@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,71 +19,73 @@
 module Network.AWS.Firehose.Types.CompressionFormat
   ( CompressionFormat
       ( ..,
-        Gzip,
-        HadoopSnappy,
-        Snappy,
-        Uncompressed,
-        Zip
+        CompressionFormatGZIP,
+        CompressionFormatHADOOPSNAPPY,
+        CompressionFormatSnappy,
+        CompressionFormatUNCOMPRESSED,
+        CompressionFormatZIP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CompressionFormat = CompressionFormat' (CI Text)
+newtype CompressionFormat = CompressionFormat'
+  { fromCompressionFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Gzip :: CompressionFormat
-pattern Gzip = CompressionFormat' "GZIP"
+pattern CompressionFormatGZIP :: CompressionFormat
+pattern CompressionFormatGZIP = CompressionFormat' "GZIP"
 
-pattern HadoopSnappy :: CompressionFormat
-pattern HadoopSnappy = CompressionFormat' "HADOOP_SNAPPY"
+pattern CompressionFormatHADOOPSNAPPY :: CompressionFormat
+pattern CompressionFormatHADOOPSNAPPY = CompressionFormat' "HADOOP_SNAPPY"
 
-pattern Snappy :: CompressionFormat
-pattern Snappy = CompressionFormat' "Snappy"
+pattern CompressionFormatSnappy :: CompressionFormat
+pattern CompressionFormatSnappy = CompressionFormat' "Snappy"
 
-pattern Uncompressed :: CompressionFormat
-pattern Uncompressed = CompressionFormat' "UNCOMPRESSED"
+pattern CompressionFormatUNCOMPRESSED :: CompressionFormat
+pattern CompressionFormatUNCOMPRESSED = CompressionFormat' "UNCOMPRESSED"
 
-pattern Zip :: CompressionFormat
-pattern Zip = CompressionFormat' "ZIP"
+pattern CompressionFormatZIP :: CompressionFormat
+pattern CompressionFormatZIP = CompressionFormat' "ZIP"
 
 {-# COMPLETE
-  Gzip,
-  HadoopSnappy,
-  Snappy,
-  Uncompressed,
-  Zip,
+  CompressionFormatGZIP,
+  CompressionFormatHADOOPSNAPPY,
+  CompressionFormatSnappy,
+  CompressionFormatUNCOMPRESSED,
+  CompressionFormatZIP,
   CompressionFormat'
   #-}
 
-instance FromText CompressionFormat where
-  parser = (CompressionFormat' . mk) <$> takeText
+instance Prelude.FromText CompressionFormat where
+  parser = CompressionFormat' Prelude.<$> Prelude.takeText
 
-instance ToText CompressionFormat where
-  toText (CompressionFormat' ci) = original ci
+instance Prelude.ToText CompressionFormat where
+  toText (CompressionFormat' x) = x
 
-instance Hashable CompressionFormat
+instance Prelude.Hashable CompressionFormat
 
-instance NFData CompressionFormat
+instance Prelude.NFData CompressionFormat
 
-instance ToByteString CompressionFormat
+instance Prelude.ToByteString CompressionFormat
 
-instance ToQuery CompressionFormat
+instance Prelude.ToQuery CompressionFormat
 
-instance ToHeader CompressionFormat
+instance Prelude.ToHeader CompressionFormat
 
-instance ToJSON CompressionFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON CompressionFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CompressionFormat where
-  parseJSON = parseJSONText "CompressionFormat"
+instance Prelude.FromJSON CompressionFormat where
+  parseJSON = Prelude.parseJSONText "CompressionFormat"

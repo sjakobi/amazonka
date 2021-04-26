@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,73 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Firehose.Types.RedshiftRetryOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configures retry behavior in case Kinesis Data Firehose is unable to deliver documents to Amazon Redshift.
+-- | Configures retry behavior in case Kinesis Data Firehose is unable to
+-- deliver documents to Amazon Redshift.
 --
---
---
--- /See:/ 'redshiftRetryOptions' smart constructor.
-newtype RedshiftRetryOptions = RedshiftRetryOptions'
-  { _rroDurationInSeconds ::
-      Maybe Nat
+-- /See:/ 'newRedshiftRetryOptions' smart constructor.
+data RedshiftRetryOptions = RedshiftRetryOptions'
+  { -- | The length of time during which Kinesis Data Firehose retries delivery
+    -- after a failure, starting from the initial request and including the
+    -- first attempt. The default value is 3600 seconds (60 minutes). Kinesis
+    -- Data Firehose does not retry if the value of @DurationInSeconds@ is 0
+    -- (zero) or if the first delivery attempt takes longer than the current
+    -- value.
+    durationInSeconds :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RedshiftRetryOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RedshiftRetryOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rroDurationInSeconds' - The length of time during which Kinesis Data Firehose retries delivery after a failure, starting from the initial request and including the first attempt. The default value is 3600 seconds (60 minutes). Kinesis Data Firehose does not retry if the value of @DurationInSeconds@ is 0 (zero) or if the first delivery attempt takes longer than the current value.
-redshiftRetryOptions ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'durationInSeconds', 'redshiftRetryOptions_durationInSeconds' - The length of time during which Kinesis Data Firehose retries delivery
+-- after a failure, starting from the initial request and including the
+-- first attempt. The default value is 3600 seconds (60 minutes). Kinesis
+-- Data Firehose does not retry if the value of @DurationInSeconds@ is 0
+-- (zero) or if the first delivery attempt takes longer than the current
+-- value.
+newRedshiftRetryOptions ::
   RedshiftRetryOptions
-redshiftRetryOptions =
+newRedshiftRetryOptions =
   RedshiftRetryOptions'
-    { _rroDurationInSeconds =
-        Nothing
+    { durationInSeconds =
+        Prelude.Nothing
     }
 
--- | The length of time during which Kinesis Data Firehose retries delivery after a failure, starting from the initial request and including the first attempt. The default value is 3600 seconds (60 minutes). Kinesis Data Firehose does not retry if the value of @DurationInSeconds@ is 0 (zero) or if the first delivery attempt takes longer than the current value.
-rroDurationInSeconds :: Lens' RedshiftRetryOptions (Maybe Natural)
-rroDurationInSeconds = lens _rroDurationInSeconds (\s a -> s {_rroDurationInSeconds = a}) . mapping _Nat
+-- | The length of time during which Kinesis Data Firehose retries delivery
+-- after a failure, starting from the initial request and including the
+-- first attempt. The default value is 3600 seconds (60 minutes). Kinesis
+-- Data Firehose does not retry if the value of @DurationInSeconds@ is 0
+-- (zero) or if the first delivery attempt takes longer than the current
+-- value.
+redshiftRetryOptions_durationInSeconds :: Lens.Lens' RedshiftRetryOptions (Prelude.Maybe Prelude.Natural)
+redshiftRetryOptions_durationInSeconds = Lens.lens (\RedshiftRetryOptions' {durationInSeconds} -> durationInSeconds) (\s@RedshiftRetryOptions' {} a -> s {durationInSeconds = a} :: RedshiftRetryOptions) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON RedshiftRetryOptions where
+instance Prelude.FromJSON RedshiftRetryOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "RedshiftRetryOptions"
       ( \x ->
           RedshiftRetryOptions'
-            <$> (x .:? "DurationInSeconds")
+            Prelude.<$> (x Prelude..:? "DurationInSeconds")
       )
 
-instance Hashable RedshiftRetryOptions
+instance Prelude.Hashable RedshiftRetryOptions
 
-instance NFData RedshiftRetryOptions
+instance Prelude.NFData RedshiftRetryOptions
 
-instance ToJSON RedshiftRetryOptions where
+instance Prelude.ToJSON RedshiftRetryOptions where
   toJSON RedshiftRetryOptions' {..} =
-    object
-      ( catMaybes
-          [("DurationInSeconds" .=) <$> _rroDurationInSeconds]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DurationInSeconds" Prelude..=)
+              Prelude.<$> durationInSeconds
+          ]
       )

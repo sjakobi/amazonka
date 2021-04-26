@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,55 +19,53 @@
 module Network.AWS.Firehose.Types.NoEncryptionConfig
   ( NoEncryptionConfig
       ( ..,
-        NoEncryption
+        NoEncryptionConfigNoEncryption
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NoEncryptionConfig
-  = NoEncryptionConfig'
-      ( CI
-          Text
-      )
+newtype NoEncryptionConfig = NoEncryptionConfig'
+  { fromNoEncryptionConfig ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NoEncryption :: NoEncryptionConfig
-pattern NoEncryption = NoEncryptionConfig' "NoEncryption"
+pattern NoEncryptionConfigNoEncryption :: NoEncryptionConfig
+pattern NoEncryptionConfigNoEncryption = NoEncryptionConfig' "NoEncryption"
 
 {-# COMPLETE
-  NoEncryption,
+  NoEncryptionConfigNoEncryption,
   NoEncryptionConfig'
   #-}
 
-instance FromText NoEncryptionConfig where
-  parser = (NoEncryptionConfig' . mk) <$> takeText
+instance Prelude.FromText NoEncryptionConfig where
+  parser = NoEncryptionConfig' Prelude.<$> Prelude.takeText
 
-instance ToText NoEncryptionConfig where
-  toText (NoEncryptionConfig' ci) = original ci
+instance Prelude.ToText NoEncryptionConfig where
+  toText (NoEncryptionConfig' x) = x
 
-instance Hashable NoEncryptionConfig
+instance Prelude.Hashable NoEncryptionConfig
 
-instance NFData NoEncryptionConfig
+instance Prelude.NFData NoEncryptionConfig
 
-instance ToByteString NoEncryptionConfig
+instance Prelude.ToByteString NoEncryptionConfig
 
-instance ToQuery NoEncryptionConfig
+instance Prelude.ToQuery NoEncryptionConfig
 
-instance ToHeader NoEncryptionConfig
+instance Prelude.ToHeader NoEncryptionConfig
 
-instance ToJSON NoEncryptionConfig where
-  toJSON = toJSONText
+instance Prelude.ToJSON NoEncryptionConfig where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NoEncryptionConfig where
-  parseJSON = parseJSONText "NoEncryptionConfig"
+instance Prelude.FromJSON NoEncryptionConfig where
+  parseJSON = Prelude.parseJSONText "NoEncryptionConfig"

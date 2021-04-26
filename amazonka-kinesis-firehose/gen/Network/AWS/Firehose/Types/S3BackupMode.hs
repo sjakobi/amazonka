@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Firehose.Types.S3BackupMode
   ( S3BackupMode
       ( ..,
-        SBMDisabled,
-        SBMEnabled
+        S3BackupModeDisabled,
+        S3BackupModeEnabled
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data S3BackupMode = S3BackupMode' (CI Text)
+newtype S3BackupMode = S3BackupMode'
+  { fromS3BackupMode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern SBMDisabled :: S3BackupMode
-pattern SBMDisabled = S3BackupMode' "Disabled"
+pattern S3BackupModeDisabled :: S3BackupMode
+pattern S3BackupModeDisabled = S3BackupMode' "Disabled"
 
-pattern SBMEnabled :: S3BackupMode
-pattern SBMEnabled = S3BackupMode' "Enabled"
+pattern S3BackupModeEnabled :: S3BackupMode
+pattern S3BackupModeEnabled = S3BackupMode' "Enabled"
 
 {-# COMPLETE
-  SBMDisabled,
-  SBMEnabled,
+  S3BackupModeDisabled,
+  S3BackupModeEnabled,
   S3BackupMode'
   #-}
 
-instance FromText S3BackupMode where
-  parser = (S3BackupMode' . mk) <$> takeText
+instance Prelude.FromText S3BackupMode where
+  parser = S3BackupMode' Prelude.<$> Prelude.takeText
 
-instance ToText S3BackupMode where
-  toText (S3BackupMode' ci) = original ci
+instance Prelude.ToText S3BackupMode where
+  toText (S3BackupMode' x) = x
 
-instance Hashable S3BackupMode
+instance Prelude.Hashable S3BackupMode
 
-instance NFData S3BackupMode
+instance Prelude.NFData S3BackupMode
 
-instance ToByteString S3BackupMode
+instance Prelude.ToByteString S3BackupMode
 
-instance ToQuery S3BackupMode
+instance Prelude.ToQuery S3BackupMode
 
-instance ToHeader S3BackupMode
+instance Prelude.ToHeader S3BackupMode
 
-instance ToJSON S3BackupMode where
-  toJSON = toJSONText
+instance Prelude.ToJSON S3BackupMode where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON S3BackupMode where
-  parseJSON = parseJSONText "S3BackupMode"
+instance Prelude.FromJSON S3BackupMode where
+  parseJSON = Prelude.parseJSONText "S3BackupMode"

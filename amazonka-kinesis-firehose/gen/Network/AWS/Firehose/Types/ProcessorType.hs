@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.Firehose.Types.ProcessorType
   ( ProcessorType
       ( ..,
-        Lambda
+        ProcessorTypeLambda
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ProcessorType = ProcessorType' (CI Text)
+newtype ProcessorType = ProcessorType'
+  { fromProcessorType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Lambda :: ProcessorType
-pattern Lambda = ProcessorType' "Lambda"
+pattern ProcessorTypeLambda :: ProcessorType
+pattern ProcessorTypeLambda = ProcessorType' "Lambda"
 
 {-# COMPLETE
-  Lambda,
+  ProcessorTypeLambda,
   ProcessorType'
   #-}
 
-instance FromText ProcessorType where
-  parser = (ProcessorType' . mk) <$> takeText
+instance Prelude.FromText ProcessorType where
+  parser = ProcessorType' Prelude.<$> Prelude.takeText
 
-instance ToText ProcessorType where
-  toText (ProcessorType' ci) = original ci
+instance Prelude.ToText ProcessorType where
+  toText (ProcessorType' x) = x
 
-instance Hashable ProcessorType
+instance Prelude.Hashable ProcessorType
 
-instance NFData ProcessorType
+instance Prelude.NFData ProcessorType
 
-instance ToByteString ProcessorType
+instance Prelude.ToByteString ProcessorType
 
-instance ToQuery ProcessorType
+instance Prelude.ToQuery ProcessorType
 
-instance ToHeader ProcessorType
+instance Prelude.ToHeader ProcessorType
 
-instance ToJSON ProcessorType where
-  toJSON = toJSONText
+instance Prelude.ToJSON ProcessorType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ProcessorType where
-  parseJSON = parseJSONText "ProcessorType"
+instance Prelude.FromJSON ProcessorType where
+  parseJSON = Prelude.parseJSONText "ProcessorType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,122 +19,120 @@
 module Network.AWS.Firehose.Types.DeliveryStreamFailureType
   ( DeliveryStreamFailureType
       ( ..,
-        CreateEniFailed,
-        CreateKMSGrantFailed,
-        DeleteEniFailed,
-        DisabledKMSKey,
-        EniAccessDenied,
-        InvalidKMSKey,
-        KMSAccessDenied,
-        KMSKeyNotFound,
-        KMSOptInRequired,
-        RetireKMSGrantFailed,
-        SecurityGroupAccessDenied,
-        SecurityGroupNotFound,
-        SubnetAccessDenied,
-        SubnetNotFound,
-        UnknownError
+        DeliveryStreamFailureTypeCREATEENIFAILED,
+        DeliveryStreamFailureTypeCREATEKMSGRANTFAILED,
+        DeliveryStreamFailureTypeDELETEENIFAILED,
+        DeliveryStreamFailureTypeDISABLEDKMSKEY,
+        DeliveryStreamFailureTypeENIACCESSDENIED,
+        DeliveryStreamFailureTypeINVALIDKMSKEY,
+        DeliveryStreamFailureTypeKMSACCESSDENIED,
+        DeliveryStreamFailureTypeKMSKEYNOTFOUND,
+        DeliveryStreamFailureTypeKMSOPTINREQUIRED,
+        DeliveryStreamFailureTypeRETIREKMSGRANTFAILED,
+        DeliveryStreamFailureTypeSECURITYGROUPACCESSDENIED,
+        DeliveryStreamFailureTypeSECURITYGROUPNOTFOUND,
+        DeliveryStreamFailureTypeSUBNETACCESSDENIED,
+        DeliveryStreamFailureTypeSUBNETNOTFOUND,
+        DeliveryStreamFailureTypeUNKNOWNERROR
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeliveryStreamFailureType
-  = DeliveryStreamFailureType'
-      ( CI
-          Text
-      )
+newtype DeliveryStreamFailureType = DeliveryStreamFailureType'
+  { fromDeliveryStreamFailureType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CreateEniFailed :: DeliveryStreamFailureType
-pattern CreateEniFailed = DeliveryStreamFailureType' "CREATE_ENI_FAILED"
+pattern DeliveryStreamFailureTypeCREATEENIFAILED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeCREATEENIFAILED = DeliveryStreamFailureType' "CREATE_ENI_FAILED"
 
-pattern CreateKMSGrantFailed :: DeliveryStreamFailureType
-pattern CreateKMSGrantFailed = DeliveryStreamFailureType' "CREATE_KMS_GRANT_FAILED"
+pattern DeliveryStreamFailureTypeCREATEKMSGRANTFAILED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeCREATEKMSGRANTFAILED = DeliveryStreamFailureType' "CREATE_KMS_GRANT_FAILED"
 
-pattern DeleteEniFailed :: DeliveryStreamFailureType
-pattern DeleteEniFailed = DeliveryStreamFailureType' "DELETE_ENI_FAILED"
+pattern DeliveryStreamFailureTypeDELETEENIFAILED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeDELETEENIFAILED = DeliveryStreamFailureType' "DELETE_ENI_FAILED"
 
-pattern DisabledKMSKey :: DeliveryStreamFailureType
-pattern DisabledKMSKey = DeliveryStreamFailureType' "DISABLED_KMS_KEY"
+pattern DeliveryStreamFailureTypeDISABLEDKMSKEY :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeDISABLEDKMSKEY = DeliveryStreamFailureType' "DISABLED_KMS_KEY"
 
-pattern EniAccessDenied :: DeliveryStreamFailureType
-pattern EniAccessDenied = DeliveryStreamFailureType' "ENI_ACCESS_DENIED"
+pattern DeliveryStreamFailureTypeENIACCESSDENIED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeENIACCESSDENIED = DeliveryStreamFailureType' "ENI_ACCESS_DENIED"
 
-pattern InvalidKMSKey :: DeliveryStreamFailureType
-pattern InvalidKMSKey = DeliveryStreamFailureType' "INVALID_KMS_KEY"
+pattern DeliveryStreamFailureTypeINVALIDKMSKEY :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeINVALIDKMSKEY = DeliveryStreamFailureType' "INVALID_KMS_KEY"
 
-pattern KMSAccessDenied :: DeliveryStreamFailureType
-pattern KMSAccessDenied = DeliveryStreamFailureType' "KMS_ACCESS_DENIED"
+pattern DeliveryStreamFailureTypeKMSACCESSDENIED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeKMSACCESSDENIED = DeliveryStreamFailureType' "KMS_ACCESS_DENIED"
 
-pattern KMSKeyNotFound :: DeliveryStreamFailureType
-pattern KMSKeyNotFound = DeliveryStreamFailureType' "KMS_KEY_NOT_FOUND"
+pattern DeliveryStreamFailureTypeKMSKEYNOTFOUND :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeKMSKEYNOTFOUND = DeliveryStreamFailureType' "KMS_KEY_NOT_FOUND"
 
-pattern KMSOptInRequired :: DeliveryStreamFailureType
-pattern KMSOptInRequired = DeliveryStreamFailureType' "KMS_OPT_IN_REQUIRED"
+pattern DeliveryStreamFailureTypeKMSOPTINREQUIRED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeKMSOPTINREQUIRED = DeliveryStreamFailureType' "KMS_OPT_IN_REQUIRED"
 
-pattern RetireKMSGrantFailed :: DeliveryStreamFailureType
-pattern RetireKMSGrantFailed = DeliveryStreamFailureType' "RETIRE_KMS_GRANT_FAILED"
+pattern DeliveryStreamFailureTypeRETIREKMSGRANTFAILED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeRETIREKMSGRANTFAILED = DeliveryStreamFailureType' "RETIRE_KMS_GRANT_FAILED"
 
-pattern SecurityGroupAccessDenied :: DeliveryStreamFailureType
-pattern SecurityGroupAccessDenied = DeliveryStreamFailureType' "SECURITY_GROUP_ACCESS_DENIED"
+pattern DeliveryStreamFailureTypeSECURITYGROUPACCESSDENIED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeSECURITYGROUPACCESSDENIED = DeliveryStreamFailureType' "SECURITY_GROUP_ACCESS_DENIED"
 
-pattern SecurityGroupNotFound :: DeliveryStreamFailureType
-pattern SecurityGroupNotFound = DeliveryStreamFailureType' "SECURITY_GROUP_NOT_FOUND"
+pattern DeliveryStreamFailureTypeSECURITYGROUPNOTFOUND :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeSECURITYGROUPNOTFOUND = DeliveryStreamFailureType' "SECURITY_GROUP_NOT_FOUND"
 
-pattern SubnetAccessDenied :: DeliveryStreamFailureType
-pattern SubnetAccessDenied = DeliveryStreamFailureType' "SUBNET_ACCESS_DENIED"
+pattern DeliveryStreamFailureTypeSUBNETACCESSDENIED :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeSUBNETACCESSDENIED = DeliveryStreamFailureType' "SUBNET_ACCESS_DENIED"
 
-pattern SubnetNotFound :: DeliveryStreamFailureType
-pattern SubnetNotFound = DeliveryStreamFailureType' "SUBNET_NOT_FOUND"
+pattern DeliveryStreamFailureTypeSUBNETNOTFOUND :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeSUBNETNOTFOUND = DeliveryStreamFailureType' "SUBNET_NOT_FOUND"
 
-pattern UnknownError :: DeliveryStreamFailureType
-pattern UnknownError = DeliveryStreamFailureType' "UNKNOWN_ERROR"
+pattern DeliveryStreamFailureTypeUNKNOWNERROR :: DeliveryStreamFailureType
+pattern DeliveryStreamFailureTypeUNKNOWNERROR = DeliveryStreamFailureType' "UNKNOWN_ERROR"
 
 {-# COMPLETE
-  CreateEniFailed,
-  CreateKMSGrantFailed,
-  DeleteEniFailed,
-  DisabledKMSKey,
-  EniAccessDenied,
-  InvalidKMSKey,
-  KMSAccessDenied,
-  KMSKeyNotFound,
-  KMSOptInRequired,
-  RetireKMSGrantFailed,
-  SecurityGroupAccessDenied,
-  SecurityGroupNotFound,
-  SubnetAccessDenied,
-  SubnetNotFound,
-  UnknownError,
+  DeliveryStreamFailureTypeCREATEENIFAILED,
+  DeliveryStreamFailureTypeCREATEKMSGRANTFAILED,
+  DeliveryStreamFailureTypeDELETEENIFAILED,
+  DeliveryStreamFailureTypeDISABLEDKMSKEY,
+  DeliveryStreamFailureTypeENIACCESSDENIED,
+  DeliveryStreamFailureTypeINVALIDKMSKEY,
+  DeliveryStreamFailureTypeKMSACCESSDENIED,
+  DeliveryStreamFailureTypeKMSKEYNOTFOUND,
+  DeliveryStreamFailureTypeKMSOPTINREQUIRED,
+  DeliveryStreamFailureTypeRETIREKMSGRANTFAILED,
+  DeliveryStreamFailureTypeSECURITYGROUPACCESSDENIED,
+  DeliveryStreamFailureTypeSECURITYGROUPNOTFOUND,
+  DeliveryStreamFailureTypeSUBNETACCESSDENIED,
+  DeliveryStreamFailureTypeSUBNETNOTFOUND,
+  DeliveryStreamFailureTypeUNKNOWNERROR,
   DeliveryStreamFailureType'
   #-}
 
-instance FromText DeliveryStreamFailureType where
-  parser = (DeliveryStreamFailureType' . mk) <$> takeText
+instance Prelude.FromText DeliveryStreamFailureType where
+  parser = DeliveryStreamFailureType' Prelude.<$> Prelude.takeText
 
-instance ToText DeliveryStreamFailureType where
-  toText (DeliveryStreamFailureType' ci) = original ci
+instance Prelude.ToText DeliveryStreamFailureType where
+  toText (DeliveryStreamFailureType' x) = x
 
-instance Hashable DeliveryStreamFailureType
+instance Prelude.Hashable DeliveryStreamFailureType
 
-instance NFData DeliveryStreamFailureType
+instance Prelude.NFData DeliveryStreamFailureType
 
-instance ToByteString DeliveryStreamFailureType
+instance Prelude.ToByteString DeliveryStreamFailureType
 
-instance ToQuery DeliveryStreamFailureType
+instance Prelude.ToQuery DeliveryStreamFailureType
 
-instance ToHeader DeliveryStreamFailureType
+instance Prelude.ToHeader DeliveryStreamFailureType
 
-instance FromJSON DeliveryStreamFailureType where
-  parseJSON = parseJSONText "DeliveryStreamFailureType"
+instance Prelude.FromJSON DeliveryStreamFailureType where
+  parseJSON = Prelude.parseJSONText "DeliveryStreamFailureType"

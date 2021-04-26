@@ -28,79 +28,79 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestStartDeliveryStreamEncryption $
---             startDeliveryStreamEncryption
+--             newStartDeliveryStreamEncryption
 --
 --         , requestStopDeliveryStreamEncryption $
---             stopDeliveryStreamEncryption
+--             newStopDeliveryStreamEncryption
 --
 --         , requestListDeliveryStreams $
---             listDeliveryStreams
+--             newListDeliveryStreams
 --
 --         , requestPutRecordBatch $
---             putRecordBatch
+--             newPutRecordBatch
 --
 --         , requestListTagsForDeliveryStream $
---             listTagsForDeliveryStream
+--             newListTagsForDeliveryStream
 --
 --         , requestUpdateDestination $
---             updateDestination
+--             newUpdateDestination
 --
 --         , requestDescribeDeliveryStream $
---             describeDeliveryStream
+--             newDescribeDeliveryStream
 --
 --         , requestCreateDeliveryStream $
---             createDeliveryStream
+--             newCreateDeliveryStream
 --
 --         , requestPutRecord $
---             putRecord
+--             newPutRecord
 --
 --         , requestDeleteDeliveryStream $
---             deleteDeliveryStream
+--             newDeleteDeliveryStream
 --
 --         , requestUntagDeliveryStream $
---             untagDeliveryStream
+--             newUntagDeliveryStream
 --
 --         , requestTagDeliveryStream $
---             tagDeliveryStream
+--             newTagDeliveryStream
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseStartDeliveryStreamEncryption $
---             startDeliveryStreamEncryptionResponse
+--             newStartDeliveryStreamEncryptionResponse
 --
 --         , responseStopDeliveryStreamEncryption $
---             stopDeliveryStreamEncryptionResponse
+--             newStopDeliveryStreamEncryptionResponse
 --
 --         , responseListDeliveryStreams $
---             listDeliveryStreamsResponse
+--             newListDeliveryStreamsResponse
 --
 --         , responsePutRecordBatch $
---             putRecordBatchResponse
+--             newPutRecordBatchResponse
 --
 --         , responseListTagsForDeliveryStream $
---             listTagsForDeliveryStreamResponse
+--             newListTagsForDeliveryStreamResponse
 --
 --         , responseUpdateDestination $
---             updateDestinationResponse
+--             newUpdateDestinationResponse
 --
 --         , responseDescribeDeliveryStream $
---             describeDeliveryStreamResponse
+--             newDescribeDeliveryStreamResponse
 --
 --         , responseCreateDeliveryStream $
---             createDeliveryStreamResponse
+--             newCreateDeliveryStreamResponse
 --
 --         , responsePutRecord $
---             putRecordResponse
+--             newPutRecordResponse
 --
 --         , responseDeleteDeliveryStream $
---             deleteDeliveryStreamResponse
+--             newDeleteDeliveryStreamResponse
 --
 --         , responseUntagDeliveryStream $
---             untagDeliveryStreamResponse
+--             newUntagDeliveryStreamResponse
 --
 --         , responseTagDeliveryStream $
---             tagDeliveryStreamResponse
+--             newTagDeliveryStreamResponse
 --
 --           ]
 --     ]
@@ -186,7 +186,7 @@ responseStartDeliveryStreamEncryption =
   res
     "StartDeliveryStreamEncryptionResponse"
     "fixture/StartDeliveryStreamEncryptionResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy StartDeliveryStreamEncryption)
 
 responseStopDeliveryStreamEncryption :: StopDeliveryStreamEncryptionResponse -> TestTree
@@ -194,7 +194,7 @@ responseStopDeliveryStreamEncryption =
   res
     "StopDeliveryStreamEncryptionResponse"
     "fixture/StopDeliveryStreamEncryptionResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy StopDeliveryStreamEncryption)
 
 responseListDeliveryStreams :: ListDeliveryStreamsResponse -> TestTree
@@ -202,7 +202,7 @@ responseListDeliveryStreams =
   res
     "ListDeliveryStreamsResponse"
     "fixture/ListDeliveryStreamsResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy ListDeliveryStreams)
 
 responsePutRecordBatch :: PutRecordBatchResponse -> TestTree
@@ -210,7 +210,7 @@ responsePutRecordBatch =
   res
     "PutRecordBatchResponse"
     "fixture/PutRecordBatchResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy PutRecordBatch)
 
 responseListTagsForDeliveryStream :: ListTagsForDeliveryStreamResponse -> TestTree
@@ -218,7 +218,7 @@ responseListTagsForDeliveryStream =
   res
     "ListTagsForDeliveryStreamResponse"
     "fixture/ListTagsForDeliveryStreamResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy ListTagsForDeliveryStream)
 
 responseUpdateDestination :: UpdateDestinationResponse -> TestTree
@@ -226,7 +226,7 @@ responseUpdateDestination =
   res
     "UpdateDestinationResponse"
     "fixture/UpdateDestinationResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy UpdateDestination)
 
 responseDescribeDeliveryStream :: DescribeDeliveryStreamResponse -> TestTree
@@ -234,7 +234,7 @@ responseDescribeDeliveryStream =
   res
     "DescribeDeliveryStreamResponse"
     "fixture/DescribeDeliveryStreamResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy DescribeDeliveryStream)
 
 responseCreateDeliveryStream :: CreateDeliveryStreamResponse -> TestTree
@@ -242,7 +242,7 @@ responseCreateDeliveryStream =
   res
     "CreateDeliveryStreamResponse"
     "fixture/CreateDeliveryStreamResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy CreateDeliveryStream)
 
 responsePutRecord :: PutRecordResponse -> TestTree
@@ -250,7 +250,7 @@ responsePutRecord =
   res
     "PutRecordResponse"
     "fixture/PutRecordResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy PutRecord)
 
 responseDeleteDeliveryStream :: DeleteDeliveryStreamResponse -> TestTree
@@ -258,7 +258,7 @@ responseDeleteDeliveryStream =
   res
     "DeleteDeliveryStreamResponse"
     "fixture/DeleteDeliveryStreamResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy DeleteDeliveryStream)
 
 responseUntagDeliveryStream :: UntagDeliveryStreamResponse -> TestTree
@@ -266,7 +266,7 @@ responseUntagDeliveryStream =
   res
     "UntagDeliveryStreamResponse"
     "fixture/UntagDeliveryStreamResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy UntagDeliveryStream)
 
 responseTagDeliveryStream :: TagDeliveryStreamResponse -> TestTree
@@ -274,5 +274,5 @@ responseTagDeliveryStream =
   res
     "TagDeliveryStreamResponse"
     "fixture/TagDeliveryStreamResponse.proto"
-    firehose
+    defaultService
     (Proxy :: Proxy TagDeliveryStream)

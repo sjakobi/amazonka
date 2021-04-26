@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.Firehose.Types.ParquetWriterVersion
   ( ParquetWriterVersion
       ( ..,
-        V1,
-        V2
+        ParquetWriterVersionV1,
+        ParquetWriterVersionV2
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ParquetWriterVersion
-  = ParquetWriterVersion'
-      ( CI
-          Text
-      )
+newtype ParquetWriterVersion = ParquetWriterVersion'
+  { fromParquetWriterVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern V1 :: ParquetWriterVersion
-pattern V1 = ParquetWriterVersion' "V1"
+pattern ParquetWriterVersionV1 :: ParquetWriterVersion
+pattern ParquetWriterVersionV1 = ParquetWriterVersion' "V1"
 
-pattern V2 :: ParquetWriterVersion
-pattern V2 = ParquetWriterVersion' "V2"
+pattern ParquetWriterVersionV2 :: ParquetWriterVersion
+pattern ParquetWriterVersionV2 = ParquetWriterVersion' "V2"
 
 {-# COMPLETE
-  V1,
-  V2,
+  ParquetWriterVersionV1,
+  ParquetWriterVersionV2,
   ParquetWriterVersion'
   #-}
 
-instance FromText ParquetWriterVersion where
-  parser = (ParquetWriterVersion' . mk) <$> takeText
+instance Prelude.FromText ParquetWriterVersion where
+  parser = ParquetWriterVersion' Prelude.<$> Prelude.takeText
 
-instance ToText ParquetWriterVersion where
-  toText (ParquetWriterVersion' ci) = original ci
+instance Prelude.ToText ParquetWriterVersion where
+  toText (ParquetWriterVersion' x) = x
 
-instance Hashable ParquetWriterVersion
+instance Prelude.Hashable ParquetWriterVersion
 
-instance NFData ParquetWriterVersion
+instance Prelude.NFData ParquetWriterVersion
 
-instance ToByteString ParquetWriterVersion
+instance Prelude.ToByteString ParquetWriterVersion
 
-instance ToQuery ParquetWriterVersion
+instance Prelude.ToQuery ParquetWriterVersion
 
-instance ToHeader ParquetWriterVersion
+instance Prelude.ToHeader ParquetWriterVersion
 
-instance ToJSON ParquetWriterVersion where
-  toJSON = toJSONText
+instance Prelude.ToJSON ParquetWriterVersion where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ParquetWriterVersion where
-  parseJSON = parseJSONText "ParquetWriterVersion"
+instance Prelude.FromJSON ParquetWriterVersion where
+  parseJSON = Prelude.parseJSONText "ParquetWriterVersion"

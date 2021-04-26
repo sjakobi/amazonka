@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Firehose.Types.ContentEncoding
   ( ContentEncoding
       ( ..,
-        CEGzip,
-        CENone
+        ContentEncodingGZIP,
+        ContentEncodingNONE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ContentEncoding = ContentEncoding' (CI Text)
+newtype ContentEncoding = ContentEncoding'
+  { fromContentEncoding ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CEGzip :: ContentEncoding
-pattern CEGzip = ContentEncoding' "GZIP"
+pattern ContentEncodingGZIP :: ContentEncoding
+pattern ContentEncodingGZIP = ContentEncoding' "GZIP"
 
-pattern CENone :: ContentEncoding
-pattern CENone = ContentEncoding' "NONE"
+pattern ContentEncodingNONE :: ContentEncoding
+pattern ContentEncodingNONE = ContentEncoding' "NONE"
 
 {-# COMPLETE
-  CEGzip,
-  CENone,
+  ContentEncodingGZIP,
+  ContentEncodingNONE,
   ContentEncoding'
   #-}
 
-instance FromText ContentEncoding where
-  parser = (ContentEncoding' . mk) <$> takeText
+instance Prelude.FromText ContentEncoding where
+  parser = ContentEncoding' Prelude.<$> Prelude.takeText
 
-instance ToText ContentEncoding where
-  toText (ContentEncoding' ci) = original ci
+instance Prelude.ToText ContentEncoding where
+  toText (ContentEncoding' x) = x
 
-instance Hashable ContentEncoding
+instance Prelude.Hashable ContentEncoding
 
-instance NFData ContentEncoding
+instance Prelude.NFData ContentEncoding
 
-instance ToByteString ContentEncoding
+instance Prelude.ToByteString ContentEncoding
 
-instance ToQuery ContentEncoding
+instance Prelude.ToQuery ContentEncoding
 
-instance ToHeader ContentEncoding
+instance Prelude.ToHeader ContentEncoding
 
-instance ToJSON ContentEncoding where
-  toJSON = toJSONText
+instance Prelude.ToJSON ContentEncoding where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON ContentEncoding where
-  parseJSON = parseJSONText "ContentEncoding"
+instance Prelude.FromJSON ContentEncoding where
+  parseJSON = Prelude.parseJSONText "ContentEncoding"

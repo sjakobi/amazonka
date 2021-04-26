@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.Firehose.Types.OrcFormatVersion
   ( OrcFormatVersion
       ( ..,
-        V011,
-        V012
+        OrcFormatVersionV011,
+        OrcFormatVersionV012
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrcFormatVersion = OrcFormatVersion' (CI Text)
+newtype OrcFormatVersion = OrcFormatVersion'
+  { fromOrcFormatVersion ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern V011 :: OrcFormatVersion
-pattern V011 = OrcFormatVersion' "V0_11"
+pattern OrcFormatVersionV011 :: OrcFormatVersion
+pattern OrcFormatVersionV011 = OrcFormatVersion' "V0_11"
 
-pattern V012 :: OrcFormatVersion
-pattern V012 = OrcFormatVersion' "V0_12"
+pattern OrcFormatVersionV012 :: OrcFormatVersion
+pattern OrcFormatVersionV012 = OrcFormatVersion' "V0_12"
 
 {-# COMPLETE
-  V011,
-  V012,
+  OrcFormatVersionV011,
+  OrcFormatVersionV012,
   OrcFormatVersion'
   #-}
 
-instance FromText OrcFormatVersion where
-  parser = (OrcFormatVersion' . mk) <$> takeText
+instance Prelude.FromText OrcFormatVersion where
+  parser = OrcFormatVersion' Prelude.<$> Prelude.takeText
 
-instance ToText OrcFormatVersion where
-  toText (OrcFormatVersion' ci) = original ci
+instance Prelude.ToText OrcFormatVersion where
+  toText (OrcFormatVersion' x) = x
 
-instance Hashable OrcFormatVersion
+instance Prelude.Hashable OrcFormatVersion
 
-instance NFData OrcFormatVersion
+instance Prelude.NFData OrcFormatVersion
 
-instance ToByteString OrcFormatVersion
+instance Prelude.ToByteString OrcFormatVersion
 
-instance ToQuery OrcFormatVersion
+instance Prelude.ToQuery OrcFormatVersion
 
-instance ToHeader OrcFormatVersion
+instance Prelude.ToHeader OrcFormatVersion
 
-instance ToJSON OrcFormatVersion where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrcFormatVersion where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OrcFormatVersion where
-  parseJSON = parseJSONText "OrcFormatVersion"
+instance Prelude.FromJSON OrcFormatVersion where
+  parseJSON = Prelude.parseJSONText "OrcFormatVersion"

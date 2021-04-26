@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,142 +23,189 @@
 --
 -- Deletes a delivery stream and its data.
 --
+-- To check the state of a delivery stream, use DescribeDeliveryStream. You
+-- can delete a delivery stream only if it is in one of the following
+-- states: @ACTIVE@, @DELETING@, @CREATING_FAILED@, or @DELETING_FAILED@.
+-- You can\'t delete a delivery stream that is in the @CREATING@ state.
+-- While the deletion request is in process, the delivery stream is in the
+-- @DELETING@ state.
 --
--- To check the state of a delivery stream, use 'DescribeDeliveryStream' . You can delete a delivery stream only if it is in one of the following states: @ACTIVE@ , @DELETING@ , @CREATING_FAILED@ , or @DELETING_FAILED@ . You can't delete a delivery stream that is in the @CREATING@ state. While the deletion request is in process, the delivery stream is in the @DELETING@ state.
---
--- While the delivery stream is in the @DELETING@ state, the service might continue to accept records, but it doesn't make any guarantees with respect to delivering the data. Therefore, as a best practice, first stop any applications that are sending records before you delete a delivery stream.
+-- While the delivery stream is in the @DELETING@ state, the service might
+-- continue to accept records, but it doesn\'t make any guarantees with
+-- respect to delivering the data. Therefore, as a best practice, first
+-- stop any applications that are sending records before you delete a
+-- delivery stream.
 module Network.AWS.Firehose.DeleteDeliveryStream
   ( -- * Creating a Request
-    deleteDeliveryStream,
-    DeleteDeliveryStream,
+    DeleteDeliveryStream (..),
+    newDeleteDeliveryStream,
 
     -- * Request Lenses
-    dAllowForceDelete,
-    dDeliveryStreamName,
+    deleteDeliveryStream_allowForceDelete,
+    deleteDeliveryStream_deliveryStreamName,
 
     -- * Destructuring the Response
-    deleteDeliveryStreamResponse,
-    DeleteDeliveryStreamResponse,
+    DeleteDeliveryStreamResponse (..),
+    newDeleteDeliveryStreamResponse,
 
     -- * Response Lenses
-    drsResponseStatus,
+    deleteDeliveryStreamResponse_httpStatus,
   )
 where
 
 import Network.AWS.Firehose.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDeliveryStream' smart constructor.
+-- | /See:/ 'newDeleteDeliveryStream' smart constructor.
 data DeleteDeliveryStream = DeleteDeliveryStream'
-  { _dAllowForceDelete ::
-      !(Maybe Bool),
-    _dDeliveryStreamName :: !Text
+  { -- | Set this to true if you want to delete the delivery stream even if
+    -- Kinesis Data Firehose is unable to retire the grant for the CMK. Kinesis
+    -- Data Firehose might be unable to retire the grant due to a customer
+    -- error, such as when the CMK or the grant are in an invalid state. If you
+    -- force deletion, you can then use the
+    -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
+    -- operation to revoke the grant you gave to Kinesis Data Firehose. If a
+    -- failure to retire the grant happens due to an AWS KMS issue, Kinesis
+    -- Data Firehose keeps retrying the delete operation.
+    --
+    -- The default value is false.
+    allowForceDelete :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the delivery stream.
+    deliveryStreamName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDeliveryStream' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDeliveryStream' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dAllowForceDelete' - Set this to true if you want to delete the delivery stream even if Kinesis Data Firehose is unable to retire the grant for the CMK. Kinesis Data Firehose might be unable to retire the grant due to a customer error, such as when the CMK or the grant are in an invalid state. If you force deletion, you can then use the <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant> operation to revoke the grant you gave to Kinesis Data Firehose. If a failure to retire the grant happens due to an AWS KMS issue, Kinesis Data Firehose keeps retrying the delete operation. The default value is false.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dDeliveryStreamName' - The name of the delivery stream.
-deleteDeliveryStream ::
-  -- | 'dDeliveryStreamName'
-  Text ->
+-- 'allowForceDelete', 'deleteDeliveryStream_allowForceDelete' - Set this to true if you want to delete the delivery stream even if
+-- Kinesis Data Firehose is unable to retire the grant for the CMK. Kinesis
+-- Data Firehose might be unable to retire the grant due to a customer
+-- error, such as when the CMK or the grant are in an invalid state. If you
+-- force deletion, you can then use the
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
+-- operation to revoke the grant you gave to Kinesis Data Firehose. If a
+-- failure to retire the grant happens due to an AWS KMS issue, Kinesis
+-- Data Firehose keeps retrying the delete operation.
+--
+-- The default value is false.
+--
+-- 'deliveryStreamName', 'deleteDeliveryStream_deliveryStreamName' - The name of the delivery stream.
+newDeleteDeliveryStream ::
+  -- | 'deliveryStreamName'
+  Prelude.Text ->
   DeleteDeliveryStream
-deleteDeliveryStream pDeliveryStreamName_ =
+newDeleteDeliveryStream pDeliveryStreamName_ =
   DeleteDeliveryStream'
-    { _dAllowForceDelete = Nothing,
-      _dDeliveryStreamName = pDeliveryStreamName_
+    { allowForceDelete =
+        Prelude.Nothing,
+      deliveryStreamName = pDeliveryStreamName_
     }
 
--- | Set this to true if you want to delete the delivery stream even if Kinesis Data Firehose is unable to retire the grant for the CMK. Kinesis Data Firehose might be unable to retire the grant due to a customer error, such as when the CMK or the grant are in an invalid state. If you force deletion, you can then use the <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant> operation to revoke the grant you gave to Kinesis Data Firehose. If a failure to retire the grant happens due to an AWS KMS issue, Kinesis Data Firehose keeps retrying the delete operation. The default value is false.
-dAllowForceDelete :: Lens' DeleteDeliveryStream (Maybe Bool)
-dAllowForceDelete = lens _dAllowForceDelete (\s a -> s {_dAllowForceDelete = a})
+-- | Set this to true if you want to delete the delivery stream even if
+-- Kinesis Data Firehose is unable to retire the grant for the CMK. Kinesis
+-- Data Firehose might be unable to retire the grant due to a customer
+-- error, such as when the CMK or the grant are in an invalid state. If you
+-- force deletion, you can then use the
+-- <https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html RevokeGrant>
+-- operation to revoke the grant you gave to Kinesis Data Firehose. If a
+-- failure to retire the grant happens due to an AWS KMS issue, Kinesis
+-- Data Firehose keeps retrying the delete operation.
+--
+-- The default value is false.
+deleteDeliveryStream_allowForceDelete :: Lens.Lens' DeleteDeliveryStream (Prelude.Maybe Prelude.Bool)
+deleteDeliveryStream_allowForceDelete = Lens.lens (\DeleteDeliveryStream' {allowForceDelete} -> allowForceDelete) (\s@DeleteDeliveryStream' {} a -> s {allowForceDelete = a} :: DeleteDeliveryStream)
 
 -- | The name of the delivery stream.
-dDeliveryStreamName :: Lens' DeleteDeliveryStream Text
-dDeliveryStreamName = lens _dDeliveryStreamName (\s a -> s {_dDeliveryStreamName = a})
+deleteDeliveryStream_deliveryStreamName :: Lens.Lens' DeleteDeliveryStream Prelude.Text
+deleteDeliveryStream_deliveryStreamName = Lens.lens (\DeleteDeliveryStream' {deliveryStreamName} -> deliveryStreamName) (\s@DeleteDeliveryStream' {} a -> s {deliveryStreamName = a} :: DeleteDeliveryStream)
 
-instance AWSRequest DeleteDeliveryStream where
+instance Prelude.AWSRequest DeleteDeliveryStream where
   type
     Rs DeleteDeliveryStream =
       DeleteDeliveryStreamResponse
-  request = postJSON firehose
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteDeliveryStreamResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDeliveryStream
+instance Prelude.Hashable DeleteDeliveryStream
 
-instance NFData DeleteDeliveryStream
+instance Prelude.NFData DeleteDeliveryStream
 
-instance ToHeaders DeleteDeliveryStream where
+instance Prelude.ToHeaders DeleteDeliveryStream where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "Firehose_20150804.DeleteDeliveryStream" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "Firehose_20150804.DeleteDeliveryStream" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDeliveryStream where
+instance Prelude.ToJSON DeleteDeliveryStream where
   toJSON DeleteDeliveryStream' {..} =
-    object
-      ( catMaybes
-          [ ("AllowForceDelete" .=) <$> _dAllowForceDelete,
-            Just ("DeliveryStreamName" .= _dDeliveryStreamName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("AllowForceDelete" Prelude..=)
+              Prelude.<$> allowForceDelete,
+            Prelude.Just
+              ( "DeliveryStreamName"
+                  Prelude..= deliveryStreamName
+              )
           ]
       )
 
-instance ToPath DeleteDeliveryStream where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDeliveryStream where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDeliveryStream where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDeliveryStream where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDeliveryStreamResponse' smart constructor.
-newtype DeleteDeliveryStreamResponse = DeleteDeliveryStreamResponse'
-  { _drsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteDeliveryStreamResponse' smart constructor.
+data DeleteDeliveryStreamResponse = DeleteDeliveryStreamResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDeliveryStreamResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDeliveryStreamResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'drsResponseStatus' - -- | The response status code.
-deleteDeliveryStreamResponse ::
-  -- | 'drsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDeliveryStreamResponse_httpStatus' - The response's http status code.
+newDeleteDeliveryStreamResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDeliveryStreamResponse
-deleteDeliveryStreamResponse pResponseStatus_ =
+newDeleteDeliveryStreamResponse pHttpStatus_ =
   DeleteDeliveryStreamResponse'
-    { _drsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-drsResponseStatus :: Lens' DeleteDeliveryStreamResponse Int
-drsResponseStatus = lens _drsResponseStatus (\s a -> s {_drsResponseStatus = a})
+-- | The response's http status code.
+deleteDeliveryStreamResponse_httpStatus :: Lens.Lens' DeleteDeliveryStreamResponse Prelude.Int
+deleteDeliveryStreamResponse_httpStatus = Lens.lens (\DeleteDeliveryStreamResponse' {httpStatus} -> httpStatus) (\s@DeleteDeliveryStreamResponse' {} a -> s {httpStatus = a} :: DeleteDeliveryStreamResponse)
 
-instance NFData DeleteDeliveryStreamResponse
+instance Prelude.NFData DeleteDeliveryStreamResponse

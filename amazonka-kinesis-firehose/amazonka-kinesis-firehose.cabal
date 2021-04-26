@@ -18,20 +18,18 @@ extra-source-files:
   src/.gitkeep
 
 description:
-  The types from this library are intended to be used with
-  <http://hackage.haskell.org/package/amazonka amazonka>, which provides
-  mechanisms for specifying AuthN/AuthZ information, sending requests,
+  The types from this library are intended to be used with <http://hackage.haskell.org/package/amazonka amazonka>,
+  which provides mechanisms for specifying AuthN/AuthZ information, sending requests,
   and receiving responses.
   .
-  Lenses are used for constructing and manipulating types,
-  due to the depth of nesting of AWS types and transparency regarding
-  de/serialisation into more palatable Haskell values.
-  The provided lenses should be compatible with any of the major lens libraries
-  such as <http://hackage.haskell.org/package/lens lens> or
-  <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  It is recommended to use generic lenses or optics from packages such as <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify optional fields and deconstruct responses.
   .
-  See "Network.AWS.Firehose" or <https://aws.amazon.com/documentation/ the AWS documentation>
-  to get started.
+  Generated lenses for legacy behaviour can be found in "Network.AWS.Firehose.Lens"
+  and are suitable for use with a lens package such as <http://hackage.haskell.org/package/lens lens> or <http://hackage.haskell.org/package/lens-family-core lens-family-core>.
+  .
+  Additional types and functions from <https://hackage.haskell.org/package/amazonka-core amazonka-core> are re-exported by the "Network.AWS.Prelude" module in this package.
+  .
+  See "Network.AWS.Firehose" and the <https://aws.amazon.com/documentation/ AWS documentation> to get started.
 
 source-repository head
   type:     git
@@ -39,8 +37,8 @@ source-repository head
   subdir:   amazonka-kinesis-firehose
 
 library
-  default-language: Haskell2010
-  hs-source-dirs:   src gen
+  default-language:   Haskell2010
+  hs-source-dirs:     src gen
   ghc-options:
     -Wall -fwarn-incomplete-uni-patterns
     -fwarn-incomplete-record-updates -funbox-strict-fields
@@ -50,6 +48,7 @@ library
     Network.AWS.Firehose.CreateDeliveryStream
     Network.AWS.Firehose.DeleteDeliveryStream
     Network.AWS.Firehose.DescribeDeliveryStream
+    Network.AWS.Firehose.Lens
     Network.AWS.Firehose.ListDeliveryStreams
     Network.AWS.Firehose.ListTagsForDeliveryStream
     Network.AWS.Firehose.PutRecord
@@ -58,11 +57,6 @@ library
     Network.AWS.Firehose.StopDeliveryStreamEncryption
     Network.AWS.Firehose.TagDeliveryStream
     Network.AWS.Firehose.Types
-    Network.AWS.Firehose.UntagDeliveryStream
-    Network.AWS.Firehose.UpdateDestination
-    Network.AWS.Firehose.Waiters
-
-  other-modules:
     Network.AWS.Firehose.Types.BufferingHints
     Network.AWS.Firehose.Types.CloudWatchLoggingOptions
     Network.AWS.Firehose.Types.CompressionFormat
@@ -91,24 +85,24 @@ library
     Network.AWS.Firehose.Types.ExtendedS3DestinationUpdate
     Network.AWS.Firehose.Types.FailureDescription
     Network.AWS.Firehose.Types.HECEndpointType
-    Network.AWS.Firehose.Types.HiveJSONSerDe
-    Network.AWS.Firehose.Types.HTTPEndpointBufferingHints
-    Network.AWS.Firehose.Types.HTTPEndpointCommonAttribute
-    Network.AWS.Firehose.Types.HTTPEndpointConfiguration
-    Network.AWS.Firehose.Types.HTTPEndpointDescription
-    Network.AWS.Firehose.Types.HTTPEndpointDestinationConfiguration
-    Network.AWS.Firehose.Types.HTTPEndpointDestinationDescription
-    Network.AWS.Firehose.Types.HTTPEndpointDestinationUpdate
-    Network.AWS.Firehose.Types.HTTPEndpointRequestConfiguration
-    Network.AWS.Firehose.Types.HTTPEndpointRetryOptions
-    Network.AWS.Firehose.Types.HTTPEndpointS3BackupMode
+    Network.AWS.Firehose.Types.HiveJsonSerDe
+    Network.AWS.Firehose.Types.HttpEndpointBufferingHints
+    Network.AWS.Firehose.Types.HttpEndpointCommonAttribute
+    Network.AWS.Firehose.Types.HttpEndpointConfiguration
+    Network.AWS.Firehose.Types.HttpEndpointDescription
+    Network.AWS.Firehose.Types.HttpEndpointDestinationConfiguration
+    Network.AWS.Firehose.Types.HttpEndpointDestinationDescription
+    Network.AWS.Firehose.Types.HttpEndpointDestinationUpdate
+    Network.AWS.Firehose.Types.HttpEndpointRequestConfiguration
+    Network.AWS.Firehose.Types.HttpEndpointRetryOptions
+    Network.AWS.Firehose.Types.HttpEndpointS3BackupMode
     Network.AWS.Firehose.Types.InputFormatConfiguration
     Network.AWS.Firehose.Types.KeyType
     Network.AWS.Firehose.Types.KinesisStreamSourceConfiguration
     Network.AWS.Firehose.Types.KinesisStreamSourceDescription
     Network.AWS.Firehose.Types.KMSEncryptionConfig
     Network.AWS.Firehose.Types.NoEncryptionConfig
-    Network.AWS.Firehose.Types.OpenXJSONSerDe
+    Network.AWS.Firehose.Types.OpenXJsonSerDe
     Network.AWS.Firehose.Types.OrcCompression
     Network.AWS.Firehose.Types.OrcFormatVersion
     Network.AWS.Firehose.Types.OrcSerDe
@@ -141,13 +135,16 @@ library
     Network.AWS.Firehose.Types.SplunkRetryOptions
     Network.AWS.Firehose.Types.SplunkS3BackupMode
     Network.AWS.Firehose.Types.Tag
-    Network.AWS.Firehose.Types.VPCConfiguration
-    Network.AWS.Firehose.Types.VPCConfigurationDescription
+    Network.AWS.Firehose.Types.VpcConfiguration
+    Network.AWS.Firehose.Types.VpcConfigurationDescription
+    Network.AWS.Firehose.UntagDeliveryStream
+    Network.AWS.Firehose.UpdateDestination
+    Network.AWS.Firehose.Waiters
 
+  reexported-modules: Network.AWS.Prelude
   build-depends:
-      amazonka-core     >=1.6.1 && <1.6.2
-    , base              >=4.7   && <5
-    , case-insensitive
+      amazonka-core  >=1.6.1 && <1.6.2
+    , base           >=4.7   && <5
 
 test-suite amazonka-kinesis-firehose-test
   type:             exitcode-stdio-1.0

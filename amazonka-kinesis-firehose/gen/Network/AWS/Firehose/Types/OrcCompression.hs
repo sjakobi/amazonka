@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.Firehose.Types.OrcCompression
   ( OrcCompression
       ( ..,
-        OCNone,
-        OCSnappy,
-        OCZlib
+        OrcCompressionNONE,
+        OrcCompressionSNAPPY,
+        OrcCompressionZLIB
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data OrcCompression = OrcCompression' (CI Text)
+newtype OrcCompression = OrcCompression'
+  { fromOrcCompression ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OCNone :: OrcCompression
-pattern OCNone = OrcCompression' "NONE"
+pattern OrcCompressionNONE :: OrcCompression
+pattern OrcCompressionNONE = OrcCompression' "NONE"
 
-pattern OCSnappy :: OrcCompression
-pattern OCSnappy = OrcCompression' "SNAPPY"
+pattern OrcCompressionSNAPPY :: OrcCompression
+pattern OrcCompressionSNAPPY = OrcCompression' "SNAPPY"
 
-pattern OCZlib :: OrcCompression
-pattern OCZlib = OrcCompression' "ZLIB"
+pattern OrcCompressionZLIB :: OrcCompression
+pattern OrcCompressionZLIB = OrcCompression' "ZLIB"
 
 {-# COMPLETE
-  OCNone,
-  OCSnappy,
-  OCZlib,
+  OrcCompressionNONE,
+  OrcCompressionSNAPPY,
+  OrcCompressionZLIB,
   OrcCompression'
   #-}
 
-instance FromText OrcCompression where
-  parser = (OrcCompression' . mk) <$> takeText
+instance Prelude.FromText OrcCompression where
+  parser = OrcCompression' Prelude.<$> Prelude.takeText
 
-instance ToText OrcCompression where
-  toText (OrcCompression' ci) = original ci
+instance Prelude.ToText OrcCompression where
+  toText (OrcCompression' x) = x
 
-instance Hashable OrcCompression
+instance Prelude.Hashable OrcCompression
 
-instance NFData OrcCompression
+instance Prelude.NFData OrcCompression
 
-instance ToByteString OrcCompression
+instance Prelude.ToByteString OrcCompression
 
-instance ToQuery OrcCompression
+instance Prelude.ToQuery OrcCompression
 
-instance ToHeader OrcCompression
+instance Prelude.ToHeader OrcCompression
 
-instance ToJSON OrcCompression where
-  toJSON = toJSONText
+instance Prelude.ToJSON OrcCompression where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON OrcCompression where
-  parseJSON = parseJSONText "OrcCompression"
+instance Prelude.FromJSON OrcCompression where
+  parseJSON = Prelude.parseJSONText "OrcCompression"

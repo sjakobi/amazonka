@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.Firehose.Types.SplunkRetryOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Configures retry behavior in case Kinesis Data Firehose is unable to deliver documents to Splunk, or if it doesn't receive an acknowledgment from Splunk.
+-- | Configures retry behavior in case Kinesis Data Firehose is unable to
+-- deliver documents to Splunk, or if it doesn\'t receive an acknowledgment
+-- from Splunk.
 --
---
---
--- /See:/ 'splunkRetryOptions' smart constructor.
-newtype SplunkRetryOptions = SplunkRetryOptions'
-  { _sroDurationInSeconds ::
-      Maybe Nat
+-- /See:/ 'newSplunkRetryOptions' smart constructor.
+data SplunkRetryOptions = SplunkRetryOptions'
+  { -- | The total amount of time that Kinesis Data Firehose spends on retries.
+    -- This duration starts after the initial attempt to send data to Splunk
+    -- fails. It doesn\'t include the periods during which Kinesis Data
+    -- Firehose waits for acknowledgment from Splunk after each attempt.
+    durationInSeconds :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SplunkRetryOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SplunkRetryOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sroDurationInSeconds' - The total amount of time that Kinesis Data Firehose spends on retries. This duration starts after the initial attempt to send data to Splunk fails. It doesn't include the periods during which Kinesis Data Firehose waits for acknowledgment from Splunk after each attempt.
-splunkRetryOptions ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'durationInSeconds', 'splunkRetryOptions_durationInSeconds' - The total amount of time that Kinesis Data Firehose spends on retries.
+-- This duration starts after the initial attempt to send data to Splunk
+-- fails. It doesn\'t include the periods during which Kinesis Data
+-- Firehose waits for acknowledgment from Splunk after each attempt.
+newSplunkRetryOptions ::
   SplunkRetryOptions
-splunkRetryOptions =
+newSplunkRetryOptions =
   SplunkRetryOptions'
-    { _sroDurationInSeconds =
-        Nothing
+    { durationInSeconds =
+        Prelude.Nothing
     }
 
--- | The total amount of time that Kinesis Data Firehose spends on retries. This duration starts after the initial attempt to send data to Splunk fails. It doesn't include the periods during which Kinesis Data Firehose waits for acknowledgment from Splunk after each attempt.
-sroDurationInSeconds :: Lens' SplunkRetryOptions (Maybe Natural)
-sroDurationInSeconds = lens _sroDurationInSeconds (\s a -> s {_sroDurationInSeconds = a}) . mapping _Nat
+-- | The total amount of time that Kinesis Data Firehose spends on retries.
+-- This duration starts after the initial attempt to send data to Splunk
+-- fails. It doesn\'t include the periods during which Kinesis Data
+-- Firehose waits for acknowledgment from Splunk after each attempt.
+splunkRetryOptions_durationInSeconds :: Lens.Lens' SplunkRetryOptions (Prelude.Maybe Prelude.Natural)
+splunkRetryOptions_durationInSeconds = Lens.lens (\SplunkRetryOptions' {durationInSeconds} -> durationInSeconds) (\s@SplunkRetryOptions' {} a -> s {durationInSeconds = a} :: SplunkRetryOptions) Prelude.. Lens.mapping Prelude._Nat
 
-instance FromJSON SplunkRetryOptions where
+instance Prelude.FromJSON SplunkRetryOptions where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SplunkRetryOptions"
       ( \x ->
-          SplunkRetryOptions' <$> (x .:? "DurationInSeconds")
+          SplunkRetryOptions'
+            Prelude.<$> (x Prelude..:? "DurationInSeconds")
       )
 
-instance Hashable SplunkRetryOptions
+instance Prelude.Hashable SplunkRetryOptions
 
-instance NFData SplunkRetryOptions
+instance Prelude.NFData SplunkRetryOptions
 
-instance ToJSON SplunkRetryOptions where
+instance Prelude.ToJSON SplunkRetryOptions where
   toJSON SplunkRetryOptions' {..} =
-    object
-      ( catMaybes
-          [("DurationInSeconds" .=) <$> _sroDurationInSeconds]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DurationInSeconds" Prelude..=)
+              Prelude.<$> durationInSeconds
+          ]
       )
