@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,210 +24,228 @@
 -- Describes a project and its resources.
 module Network.AWS.CodeStar.DescribeProject
   ( -- * Creating a Request
-    describeProject,
-    DescribeProject,
+    DescribeProject (..),
+    newDescribeProject,
 
     -- * Request Lenses
-    dId,
+    describeProject_id,
 
     -- * Destructuring the Response
-    describeProjectResponse,
-    DescribeProjectResponse,
+    DescribeProjectResponse (..),
+    newDescribeProjectResponse,
 
     -- * Response Lenses
-    desrsStatus,
-    desrsCreatedTimeStamp,
-    desrsStackId,
-    desrsId,
-    desrsArn,
-    desrsName,
-    desrsDescription,
-    desrsClientRequestToken,
-    desrsProjectTemplateId,
-    desrsResponseStatus,
+    describeProjectResponse_status,
+    describeProjectResponse_createdTimeStamp,
+    describeProjectResponse_stackId,
+    describeProjectResponse_id,
+    describeProjectResponse_arn,
+    describeProjectResponse_name,
+    describeProjectResponse_description,
+    describeProjectResponse_clientRequestToken,
+    describeProjectResponse_projectTemplateId,
+    describeProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeStar.Types.ProjectStatus
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeProject' smart constructor.
-newtype DescribeProject = DescribeProject'
-  { _dId ::
-      Text
+-- | /See:/ 'newDescribeProject' smart constructor.
+data DescribeProject = DescribeProject'
+  { -- | The ID of the project.
+    id :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dId' - The ID of the project.
-describeProject ::
-  -- | 'dId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'id', 'describeProject_id' - The ID of the project.
+newDescribeProject ::
+  -- | 'id'
+  Prelude.Text ->
   DescribeProject
-describeProject pId_ = DescribeProject' {_dId = pId_}
+newDescribeProject pId_ = DescribeProject' {id = pId_}
 
 -- | The ID of the project.
-dId :: Lens' DescribeProject Text
-dId = lens _dId (\s a -> s {_dId = a})
+describeProject_id :: Lens.Lens' DescribeProject Prelude.Text
+describeProject_id = Lens.lens (\DescribeProject' {id} -> id) (\s@DescribeProject' {} a -> s {id = a} :: DescribeProject)
 
-instance AWSRequest DescribeProject where
+instance Prelude.AWSRequest DescribeProject where
   type Rs DescribeProject = DescribeProjectResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeProjectResponse'
-            <$> (x .?> "status")
-            <*> (x .?> "createdTimeStamp")
-            <*> (x .?> "stackId")
-            <*> (x .?> "id")
-            <*> (x .?> "arn")
-            <*> (x .?> "name")
-            <*> (x .?> "description")
-            <*> (x .?> "clientRequestToken")
-            <*> (x .?> "projectTemplateId")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "status")
+            Prelude.<*> (x Prelude..?> "createdTimeStamp")
+            Prelude.<*> (x Prelude..?> "stackId")
+            Prelude.<*> (x Prelude..?> "id")
+            Prelude.<*> (x Prelude..?> "arn")
+            Prelude.<*> (x Prelude..?> "name")
+            Prelude.<*> (x Prelude..?> "description")
+            Prelude.<*> (x Prelude..?> "clientRequestToken")
+            Prelude.<*> (x Prelude..?> "projectTemplateId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeProject
+instance Prelude.Hashable DescribeProject
 
-instance NFData DescribeProject
+instance Prelude.NFData DescribeProject
 
-instance ToHeaders DescribeProject where
+instance Prelude.ToHeaders DescribeProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeStar_20170419.DescribeProject" :: ByteString),
+              Prelude.=# ( "CodeStar_20170419.DescribeProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeProject where
+instance Prelude.ToJSON DescribeProject where
   toJSON DescribeProject' {..} =
-    object (catMaybes [Just ("id" .= _dId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("id" Prelude..= id)]
+      )
 
-instance ToPath DescribeProject where
-  toPath = const "/"
+instance Prelude.ToPath DescribeProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeProject where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeProjectResponse' smart constructor.
+-- | /See:/ 'newDescribeProjectResponse' smart constructor.
 data DescribeProjectResponse = DescribeProjectResponse'
-  { _desrsStatus ::
-      !(Maybe ProjectStatus),
-    _desrsCreatedTimeStamp ::
-      !(Maybe POSIX),
-    _desrsStackId ::
-      !(Maybe Text),
-    _desrsId ::
-      !(Maybe Text),
-    _desrsArn ::
-      !(Maybe Text),
-    _desrsName ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _desrsDescription ::
-      !( Maybe
-           (Sensitive Text)
-       ),
-    _desrsClientRequestToken ::
-      !(Maybe Text),
-    _desrsProjectTemplateId ::
-      !(Maybe Text),
-    _desrsResponseStatus ::
-      !Int
+  { -- | The project creation or deletion status.
+    status :: Prelude.Maybe ProjectStatus,
+    -- | The date and time the project was created, in timestamp format.
+    createdTimeStamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The ID of the primary stack in AWS CloudFormation used to generate
+    -- resources for the project.
+    stackId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the project.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the project.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The display name for the project.
+    name :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The description of the project, if any.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | A user- or system-generated token that identifies the entity that
+    -- requested project creation.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID for the AWS CodeStar project template used to create the project.
+    projectTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'desrsStatus' - The project creation or deletion status.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'desrsCreatedTimeStamp' - The date and time the project was created, in timestamp format.
+-- 'status', 'describeProjectResponse_status' - The project creation or deletion status.
 --
--- * 'desrsStackId' - The ID of the primary stack in AWS CloudFormation used to generate resources for the project.
+-- 'createdTimeStamp', 'describeProjectResponse_createdTimeStamp' - The date and time the project was created, in timestamp format.
 --
--- * 'desrsId' - The ID of the project.
+-- 'stackId', 'describeProjectResponse_stackId' - The ID of the primary stack in AWS CloudFormation used to generate
+-- resources for the project.
 --
--- * 'desrsArn' - The Amazon Resource Name (ARN) for the project.
+-- 'id', 'describeProjectResponse_id' - The ID of the project.
 --
--- * 'desrsName' - The display name for the project.
+-- 'arn', 'describeProjectResponse_arn' - The Amazon Resource Name (ARN) for the project.
 --
--- * 'desrsDescription' - The description of the project, if any.
+-- 'name', 'describeProjectResponse_name' - The display name for the project.
 --
--- * 'desrsClientRequestToken' - A user- or system-generated token that identifies the entity that requested project creation.
+-- 'description', 'describeProjectResponse_description' - The description of the project, if any.
 --
--- * 'desrsProjectTemplateId' - The ID for the AWS CodeStar project template used to create the project.
+-- 'clientRequestToken', 'describeProjectResponse_clientRequestToken' - A user- or system-generated token that identifies the entity that
+-- requested project creation.
 --
--- * 'desrsResponseStatus' - -- | The response status code.
-describeProjectResponse ::
-  -- | 'desrsResponseStatus'
-  Int ->
+-- 'projectTemplateId', 'describeProjectResponse_projectTemplateId' - The ID for the AWS CodeStar project template used to create the project.
+--
+-- 'httpStatus', 'describeProjectResponse_httpStatus' - The response's http status code.
+newDescribeProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeProjectResponse
-describeProjectResponse pResponseStatus_ =
+newDescribeProjectResponse pHttpStatus_ =
   DescribeProjectResponse'
-    { _desrsStatus = Nothing,
-      _desrsCreatedTimeStamp = Nothing,
-      _desrsStackId = Nothing,
-      _desrsId = Nothing,
-      _desrsArn = Nothing,
-      _desrsName = Nothing,
-      _desrsDescription = Nothing,
-      _desrsClientRequestToken = Nothing,
-      _desrsProjectTemplateId = Nothing,
-      _desrsResponseStatus = pResponseStatus_
+    { status = Prelude.Nothing,
+      createdTimeStamp = Prelude.Nothing,
+      stackId = Prelude.Nothing,
+      id = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      projectTemplateId = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The project creation or deletion status.
-desrsStatus :: Lens' DescribeProjectResponse (Maybe ProjectStatus)
-desrsStatus = lens _desrsStatus (\s a -> s {_desrsStatus = a})
+describeProjectResponse_status :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe ProjectStatus)
+describeProjectResponse_status = Lens.lens (\DescribeProjectResponse' {status} -> status) (\s@DescribeProjectResponse' {} a -> s {status = a} :: DescribeProjectResponse)
 
 -- | The date and time the project was created, in timestamp format.
-desrsCreatedTimeStamp :: Lens' DescribeProjectResponse (Maybe UTCTime)
-desrsCreatedTimeStamp = lens _desrsCreatedTimeStamp (\s a -> s {_desrsCreatedTimeStamp = a}) . mapping _Time
+describeProjectResponse_createdTimeStamp :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.UTCTime)
+describeProjectResponse_createdTimeStamp = Lens.lens (\DescribeProjectResponse' {createdTimeStamp} -> createdTimeStamp) (\s@DescribeProjectResponse' {} a -> s {createdTimeStamp = a} :: DescribeProjectResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The ID of the primary stack in AWS CloudFormation used to generate resources for the project.
-desrsStackId :: Lens' DescribeProjectResponse (Maybe Text)
-desrsStackId = lens _desrsStackId (\s a -> s {_desrsStackId = a})
+-- | The ID of the primary stack in AWS CloudFormation used to generate
+-- resources for the project.
+describeProjectResponse_stackId :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.Text)
+describeProjectResponse_stackId = Lens.lens (\DescribeProjectResponse' {stackId} -> stackId) (\s@DescribeProjectResponse' {} a -> s {stackId = a} :: DescribeProjectResponse)
 
 -- | The ID of the project.
-desrsId :: Lens' DescribeProjectResponse (Maybe Text)
-desrsId = lens _desrsId (\s a -> s {_desrsId = a})
+describeProjectResponse_id :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.Text)
+describeProjectResponse_id = Lens.lens (\DescribeProjectResponse' {id} -> id) (\s@DescribeProjectResponse' {} a -> s {id = a} :: DescribeProjectResponse)
 
 -- | The Amazon Resource Name (ARN) for the project.
-desrsArn :: Lens' DescribeProjectResponse (Maybe Text)
-desrsArn = lens _desrsArn (\s a -> s {_desrsArn = a})
+describeProjectResponse_arn :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.Text)
+describeProjectResponse_arn = Lens.lens (\DescribeProjectResponse' {arn} -> arn) (\s@DescribeProjectResponse' {} a -> s {arn = a} :: DescribeProjectResponse)
 
 -- | The display name for the project.
-desrsName :: Lens' DescribeProjectResponse (Maybe Text)
-desrsName = lens _desrsName (\s a -> s {_desrsName = a}) . mapping _Sensitive
+describeProjectResponse_name :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.Text)
+describeProjectResponse_name = Lens.lens (\DescribeProjectResponse' {name} -> name) (\s@DescribeProjectResponse' {} a -> s {name = a} :: DescribeProjectResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The description of the project, if any.
-desrsDescription :: Lens' DescribeProjectResponse (Maybe Text)
-desrsDescription = lens _desrsDescription (\s a -> s {_desrsDescription = a}) . mapping _Sensitive
+describeProjectResponse_description :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.Text)
+describeProjectResponse_description = Lens.lens (\DescribeProjectResponse' {description} -> description) (\s@DescribeProjectResponse' {} a -> s {description = a} :: DescribeProjectResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | A user- or system-generated token that identifies the entity that requested project creation.
-desrsClientRequestToken :: Lens' DescribeProjectResponse (Maybe Text)
-desrsClientRequestToken = lens _desrsClientRequestToken (\s a -> s {_desrsClientRequestToken = a})
+-- | A user- or system-generated token that identifies the entity that
+-- requested project creation.
+describeProjectResponse_clientRequestToken :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.Text)
+describeProjectResponse_clientRequestToken = Lens.lens (\DescribeProjectResponse' {clientRequestToken} -> clientRequestToken) (\s@DescribeProjectResponse' {} a -> s {clientRequestToken = a} :: DescribeProjectResponse)
 
 -- | The ID for the AWS CodeStar project template used to create the project.
-desrsProjectTemplateId :: Lens' DescribeProjectResponse (Maybe Text)
-desrsProjectTemplateId = lens _desrsProjectTemplateId (\s a -> s {_desrsProjectTemplateId = a})
+describeProjectResponse_projectTemplateId :: Lens.Lens' DescribeProjectResponse (Prelude.Maybe Prelude.Text)
+describeProjectResponse_projectTemplateId = Lens.lens (\DescribeProjectResponse' {projectTemplateId} -> projectTemplateId) (\s@DescribeProjectResponse' {} a -> s {projectTemplateId = a} :: DescribeProjectResponse)
 
--- | -- | The response status code.
-desrsResponseStatus :: Lens' DescribeProjectResponse Int
-desrsResponseStatus = lens _desrsResponseStatus (\s a -> s {_desrsResponseStatus = a})
+-- | The response's http status code.
+describeProjectResponse_httpStatus :: Lens.Lens' DescribeProjectResponse Prelude.Int
+describeProjectResponse_httpStatus = Lens.lens (\DescribeProjectResponse' {httpStatus} -> httpStatus) (\s@DescribeProjectResponse' {} a -> s {httpStatus = a} :: DescribeProjectResponse)
 
-instance NFData DescribeProjectResponse
+instance Prelude.NFData DescribeProjectResponse

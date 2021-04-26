@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,127 +24,145 @@
 -- Adds tags to a project.
 module Network.AWS.CodeStar.TagProject
   ( -- * Creating a Request
-    tagProject,
-    TagProject,
+    TagProject (..),
+    newTagProject,
 
     -- * Request Lenses
-    tpId,
-    tpTags,
+    tagProject_id,
+    tagProject_tags,
 
     -- * Destructuring the Response
-    tagProjectResponse,
-    TagProjectResponse,
+    TagProjectResponse (..),
+    newTagProjectResponse,
 
     -- * Response Lenses
-    tprrsTags,
-    tprrsResponseStatus,
+    tagProjectResponse_tags,
+    tagProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'tagProject' smart constructor.
+-- | /See:/ 'newTagProject' smart constructor.
 data TagProject = TagProject'
-  { _tpId :: !Text,
-    _tpTags :: !(Map Text Text)
+  { -- | The ID of the project you want to add a tag to.
+    id :: Prelude.Text,
+    -- | The tags you want to add to the project.
+    tags :: Prelude.Map Prelude.Text Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tpId' - The ID of the project you want to add a tag to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tpTags' - The tags you want to add to the project.
-tagProject ::
-  -- | 'tpId'
-  Text ->
+-- 'id', 'tagProject_id' - The ID of the project you want to add a tag to.
+--
+-- 'tags', 'tagProject_tags' - The tags you want to add to the project.
+newTagProject ::
+  -- | 'id'
+  Prelude.Text ->
   TagProject
-tagProject pId_ =
-  TagProject' {_tpId = pId_, _tpTags = mempty}
+newTagProject pId_ =
+  TagProject' {id = pId_, tags = Prelude.mempty}
 
 -- | The ID of the project you want to add a tag to.
-tpId :: Lens' TagProject Text
-tpId = lens _tpId (\s a -> s {_tpId = a})
+tagProject_id :: Lens.Lens' TagProject Prelude.Text
+tagProject_id = Lens.lens (\TagProject' {id} -> id) (\s@TagProject' {} a -> s {id = a} :: TagProject)
 
 -- | The tags you want to add to the project.
-tpTags :: Lens' TagProject (HashMap Text Text)
-tpTags = lens _tpTags (\s a -> s {_tpTags = a}) . _Map
+tagProject_tags :: Lens.Lens' TagProject (Prelude.HashMap Prelude.Text Prelude.Text)
+tagProject_tags = Lens.lens (\TagProject' {tags} -> tags) (\s@TagProject' {} a -> s {tags = a} :: TagProject) Prelude.. Prelude._Map
 
-instance AWSRequest TagProject where
+instance Prelude.AWSRequest TagProject where
   type Rs TagProject = TagProjectResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           TagProjectResponse'
-            <$> (x .?> "tags" .!@ mempty) <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TagProject
+instance Prelude.Hashable TagProject
 
-instance NFData TagProject
+instance Prelude.NFData TagProject
 
-instance ToHeaders TagProject where
+instance Prelude.ToHeaders TagProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeStar_20170419.TagProject" :: ByteString),
+              Prelude.=# ( "CodeStar_20170419.TagProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON TagProject where
+instance Prelude.ToJSON TagProject where
   toJSON TagProject' {..} =
-    object
-      ( catMaybes
-          [Just ("id" .= _tpId), Just ("tags" .= _tpTags)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("id" Prelude..= id),
+            Prelude.Just ("tags" Prelude..= tags)
+          ]
       )
 
-instance ToPath TagProject where
-  toPath = const "/"
+instance Prelude.ToPath TagProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery TagProject where
-  toQuery = const mempty
+instance Prelude.ToQuery TagProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'tagProjectResponse' smart constructor.
+-- | /See:/ 'newTagProjectResponse' smart constructor.
 data TagProjectResponse = TagProjectResponse'
-  { _tprrsTags ::
-      !(Maybe (Map Text Text)),
-    _tprrsResponseStatus :: !Int
+  { -- | The tags for the project.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TagProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TagProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tprrsTags' - The tags for the project.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tprrsResponseStatus' - -- | The response status code.
-tagProjectResponse ::
-  -- | 'tprrsResponseStatus'
-  Int ->
+-- 'tags', 'tagProjectResponse_tags' - The tags for the project.
+--
+-- 'httpStatus', 'tagProjectResponse_httpStatus' - The response's http status code.
+newTagProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TagProjectResponse
-tagProjectResponse pResponseStatus_ =
+newTagProjectResponse pHttpStatus_ =
   TagProjectResponse'
-    { _tprrsTags = Nothing,
-      _tprrsResponseStatus = pResponseStatus_
+    { tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The tags for the project.
-tprrsTags :: Lens' TagProjectResponse (HashMap Text Text)
-tprrsTags = lens _tprrsTags (\s a -> s {_tprrsTags = a}) . _Default . _Map
+tagProjectResponse_tags :: Lens.Lens' TagProjectResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+tagProjectResponse_tags = Lens.lens (\TagProjectResponse' {tags} -> tags) (\s@TagProjectResponse' {} a -> s {tags = a} :: TagProjectResponse) Prelude.. Lens.mapping Prelude._Map
 
--- | -- | The response status code.
-tprrsResponseStatus :: Lens' TagProjectResponse Int
-tprrsResponseStatus = lens _tprrsResponseStatus (\s a -> s {_tprrsResponseStatus = a})
+-- | The response's http status code.
+tagProjectResponse_httpStatus :: Lens.Lens' TagProjectResponse Prelude.Int
+tagProjectResponse_httpStatus = Lens.lens (\TagProjectResponse' {httpStatus} -> httpStatus) (\s@TagProjectResponse' {} a -> s {httpStatus = a} :: TagProjectResponse)
 
-instance NFData TagProjectResponse
+instance Prelude.NFData TagProjectResponse

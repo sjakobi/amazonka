@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,47 +19,47 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeStar.Types.CodeCommitCodeDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the AWS CodeCommit repository to be created in AWS CodeStar. This is where the source code files provided with the project request will be uploaded after project creation.
+-- | Information about the AWS CodeCommit repository to be created in AWS
+-- CodeStar. This is where the source code files provided with the project
+-- request will be uploaded after project creation.
 --
---
---
--- /See:/ 'codeCommitCodeDestination' smart constructor.
-newtype CodeCommitCodeDestination = CodeCommitCodeDestination'
-  { _cccdName ::
-      Text
+-- /See:/ 'newCodeCommitCodeDestination' smart constructor.
+data CodeCommitCodeDestination = CodeCommitCodeDestination'
+  { -- | The name of the AWS CodeCommit repository to be created in AWS CodeStar.
+    name :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CodeCommitCodeDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CodeCommitCodeDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cccdName' - The name of the AWS CodeCommit repository to be created in AWS CodeStar.
-codeCommitCodeDestination ::
-  -- | 'cccdName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'name', 'codeCommitCodeDestination_name' - The name of the AWS CodeCommit repository to be created in AWS CodeStar.
+newCodeCommitCodeDestination ::
+  -- | 'name'
+  Prelude.Text ->
   CodeCommitCodeDestination
-codeCommitCodeDestination pName_ =
-  CodeCommitCodeDestination' {_cccdName = pName_}
+newCodeCommitCodeDestination pName_ =
+  CodeCommitCodeDestination' {name = pName_}
 
 -- | The name of the AWS CodeCommit repository to be created in AWS CodeStar.
-cccdName :: Lens' CodeCommitCodeDestination Text
-cccdName = lens _cccdName (\s a -> s {_cccdName = a})
+codeCommitCodeDestination_name :: Lens.Lens' CodeCommitCodeDestination Prelude.Text
+codeCommitCodeDestination_name = Lens.lens (\CodeCommitCodeDestination' {name} -> name) (\s@CodeCommitCodeDestination' {} a -> s {name = a} :: CodeCommitCodeDestination)
 
-instance Hashable CodeCommitCodeDestination
+instance Prelude.Hashable CodeCommitCodeDestination
 
-instance NFData CodeCommitCodeDestination
+instance Prelude.NFData CodeCommitCodeDestination
 
-instance ToJSON CodeCommitCodeDestination where
+instance Prelude.ToJSON CodeCommitCodeDestination where
   toJSON CodeCommitCodeDestination' {..} =
-    object (catMaybes [Just ("name" .= _cccdName)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("name" Prelude..= name)]
+      )

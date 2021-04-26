@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeStar.Types
   ( -- * Service Configuration
-    codeStar,
+    defaultService,
 
     -- * Errors
     _ProjectAlreadyExistsException,
@@ -30,86 +33,55 @@ module Network.AWS.CodeStar.Types
 
     -- * Code
     Code (..),
-    code,
-    cSource,
-    cDestination,
+    newCode,
 
     -- * CodeCommitCodeDestination
     CodeCommitCodeDestination (..),
-    codeCommitCodeDestination,
-    cccdName,
+    newCodeCommitCodeDestination,
 
     -- * CodeDestination
     CodeDestination (..),
-    codeDestination,
-    cdCodeCommit,
-    cdGitHub,
+    newCodeDestination,
 
     -- * CodeSource
     CodeSource (..),
-    codeSource,
-    csS3,
+    newCodeSource,
 
     -- * GitHubCodeDestination
     GitHubCodeDestination (..),
-    gitHubCodeDestination,
-    ghcdDescription,
-    ghcdName,
-    ghcdType,
-    ghcdOwner,
-    ghcdPrivateRepository,
-    ghcdIssuesEnabled,
-    ghcdToken,
+    newGitHubCodeDestination,
 
     -- * ProjectStatus
     ProjectStatus (..),
-    projectStatus,
-    psReason,
-    psState,
+    newProjectStatus,
 
     -- * ProjectSummary
     ProjectSummary (..),
-    projectSummary,
-    psProjectId,
-    psProjectARN,
+    newProjectSummary,
 
     -- * Resource
     Resource (..),
-    resource,
-    rId,
+    newResource,
 
     -- * S3Location
     S3Location (..),
-    s3Location,
-    slBucketName,
-    slBucketKey,
+    newS3Location,
 
     -- * TeamMember
     TeamMember (..),
-    teamMember,
-    tmRemoteAccessAllowed,
-    tmUserARN,
-    tmProjectRole,
+    newTeamMember,
 
     -- * Toolchain
     Toolchain (..),
-    toolchain,
-    tStackParameters,
-    tRoleARN,
-    tSource,
+    newToolchain,
 
     -- * ToolchainSource
     ToolchainSource (..),
-    toolchainSource,
-    tsS3,
+    newToolchainSource,
 
     -- * UserProfileSummary
     UserProfileSummary (..),
-    userProfileSummary,
-    upsUserARN,
-    upsSshPublicKey,
-    upsDisplayName,
-    upsEmailAddress,
+    newUserProfileSummary,
   )
 where
 
@@ -126,146 +98,174 @@ import Network.AWS.CodeStar.Types.TeamMember
 import Network.AWS.CodeStar.Types.Toolchain
 import Network.AWS.CodeStar.Types.ToolchainSource
 import Network.AWS.CodeStar.Types.UserProfileSummary
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-04-19@ of the Amazon CodeStar SDK configuration.
-codeStar :: Service
-codeStar =
-  Service
-    { _svcAbbrev = "CodeStar",
-      _svcSigner = v4,
-      _svcPrefix = "codestar",
-      _svcVersion = "2017-04-19",
-      _svcEndpoint = defaultEndpoint codeStar,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "CodeStar",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev = "CodeStar",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "codestar",
+      Prelude._svcVersion = "2017-04-19",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "CodeStar",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
--- | An AWS CodeStar project with the same ID already exists in this region for the AWS account. AWS CodeStar project IDs must be unique within a region for the AWS account.
-_ProjectAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | An AWS CodeStar project with the same ID already exists in this region
+-- for the AWS account. AWS CodeStar project IDs must be unique within a
+-- region for the AWS account.
+_ProjectAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ProjectAlreadyExistsException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "ProjectAlreadyExistsException"
 
 -- | The team member is already associated with a role in this project.
-_TeamMemberAlreadyAssociatedException :: AsError a => Getting (First ServiceError) a ServiceError
+_TeamMemberAlreadyAssociatedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TeamMemberAlreadyAssociatedException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "TeamMemberAlreadyAssociatedException"
 
 -- | The specified AWS CodeStar project was not found.
-_ProjectNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_ProjectNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ProjectNotFoundException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "ProjectNotFoundException"
 
 -- | The user profile was not found.
-_UserProfileNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_UserProfileNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UserProfileNotFoundException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "UserProfileNotFoundException"
 
--- | The project creation request was valid, but a nonspecific exception or error occurred during project creation. The project could not be created in AWS CodeStar.
-_ProjectCreationFailedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The project creation request was valid, but a nonspecific exception or
+-- error occurred during project creation. The project could not be created
+-- in AWS CodeStar.
+_ProjectCreationFailedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ProjectCreationFailedException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "ProjectCreationFailedException"
 
--- | Another modification is being made. That modification must complete before you can make your change.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | Another modification is being made. That modification must complete
+-- before you can make your change.
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
 
 -- | The next token is not valid.
-_InvalidNextTokenException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidNextTokenException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidNextTokenException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "InvalidNextTokenException"
 
 -- | Project configuration information is required but not specified.
-_ProjectConfigurationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ProjectConfigurationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ProjectConfigurationException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "ProjectConfigurationException"
 
 -- | The service role is not valid.
-_InvalidServiceRoleException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidServiceRoleException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidServiceRoleException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "InvalidServiceRoleException"
 
 -- | The specified input is either not valid, or it could not be validated.
-_ValidationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ValidationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ValidationException =
-  _MatchServiceError codeStar "ValidationException"
+  Prelude._MatchServiceError
+    defaultService
+    "ValidationException"
 
 -- | A resource limit has been exceeded.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
 -- | The specified team member was not found.
-_TeamMemberNotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_TeamMemberNotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _TeamMemberNotFoundException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "TeamMemberNotFoundException"
 
--- | A user profile with that name already exists in this region for the AWS account. AWS CodeStar user profile names must be unique within a region for the AWS account.
-_UserProfileAlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | A user profile with that name already exists in this region for the AWS
+-- account. AWS CodeStar user profile names must be unique within a region
+-- for the AWS account.
+_UserProfileAlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UserProfileAlreadyExistsException =
-  _MatchServiceError
-    codeStar
+  Prelude._MatchServiceError
+    defaultService
     "UserProfileAlreadyExistsException"

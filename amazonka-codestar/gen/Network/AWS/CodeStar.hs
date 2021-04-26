@@ -11,58 +11,65 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- __AWS CodeStar__
+-- AWS CodeStar
 --
--- This is the API reference for AWS CodeStar. This reference provides descriptions of the operations and data types for the AWS CodeStar API along with usage examples.
+-- This is the API reference for AWS CodeStar. This reference provides
+-- descriptions of the operations and data types for the AWS CodeStar API
+-- along with usage examples.
 --
 -- You can use the AWS CodeStar API to work with:
 --
 -- Projects and their resources, by calling the following:
 --
---     * @DeleteProject@ , which deletes a project.
+-- -   @DeleteProject@, which deletes a project.
 --
---     * @DescribeProject@ , which lists the attributes of a project.
+-- -   @DescribeProject@, which lists the attributes of a project.
 --
---     * @ListProjects@ , which lists all projects associated with your AWS account.
+-- -   @ListProjects@, which lists all projects associated with your AWS
+--     account.
 --
---     * @ListResources@ , which lists the resources associated with a project.
+-- -   @ListResources@, which lists the resources associated with a
+--     project.
 --
---     * @ListTagsForProject@ , which lists the tags associated with a project.
+-- -   @ListTagsForProject@, which lists the tags associated with a
+--     project.
 --
---     * @TagProject@ , which adds tags to a project.
+-- -   @TagProject@, which adds tags to a project.
 --
---     * @UntagProject@ , which removes tags from a project.
+-- -   @UntagProject@, which removes tags from a project.
 --
---     * @UpdateProject@ , which updates the attributes of a project.
---
---
+-- -   @UpdateProject@, which updates the attributes of a project.
 --
 -- Teams and team members, by calling the following:
 --
---     * @AssociateTeamMember@ , which adds an IAM user to the team for a project.
+-- -   @AssociateTeamMember@, which adds an IAM user to the team for a
+--     project.
 --
---     * @DisassociateTeamMember@ , which removes an IAM user from the team for a project.
+-- -   @DisassociateTeamMember@, which removes an IAM user from the team
+--     for a project.
 --
---     * @ListTeamMembers@ , which lists all the IAM users in the team for a project, including their roles and attributes.
+-- -   @ListTeamMembers@, which lists all the IAM users in the team for a
+--     project, including their roles and attributes.
 --
---     * @UpdateTeamMember@ , which updates a team member's attributes in a project.
---
---
+-- -   @UpdateTeamMember@, which updates a team member\'s attributes in a
+--     project.
 --
 -- Users, by calling the following:
 --
---     * @CreateUserProfile@ , which creates a user profile that contains data associated with the user across all projects.
+-- -   @CreateUserProfile@, which creates a user profile that contains data
+--     associated with the user across all projects.
 --
---     * @DeleteUserProfile@ , which deletes all user profile information across all projects.
+-- -   @DeleteUserProfile@, which deletes all user profile information
+--     across all projects.
 --
---     * @DescribeUserProfile@ , which describes the profile of a user.
+-- -   @DescribeUserProfile@, which describes the profile of a user.
 --
---     * @ListUserProfiles@ , which lists all user profiles.
+-- -   @ListUserProfiles@, which lists all user profiles.
 --
---     * @UpdateUserProfile@ , which updates the profile for a user.
+-- -   @UpdateUserProfile@, which updates the profile for a user.
 module Network.AWS.CodeStar
   ( -- * Service Configuration
-    codeStar,
+    defaultService,
 
     -- * Errors
     -- $errors
@@ -113,143 +120,166 @@ module Network.AWS.CodeStar
     -- $operations
 
     -- ** DisassociateTeamMember
-    module Network.AWS.CodeStar.DisassociateTeamMember,
+    DisassociateTeamMember (DisassociateTeamMember'),
+    newDisassociateTeamMember,
+    DisassociateTeamMemberResponse (DisassociateTeamMemberResponse'),
+    newDisassociateTeamMemberResponse,
 
     -- ** DescribeUserProfile
-    module Network.AWS.CodeStar.DescribeUserProfile,
+    DescribeUserProfile (DescribeUserProfile'),
+    newDescribeUserProfile,
+    DescribeUserProfileResponse (DescribeUserProfileResponse'),
+    newDescribeUserProfileResponse,
 
     -- ** TagProject
-    module Network.AWS.CodeStar.TagProject,
+    TagProject (TagProject'),
+    newTagProject,
+    TagProjectResponse (TagProjectResponse'),
+    newTagProjectResponse,
 
     -- ** ListProjects (Paginated)
-    module Network.AWS.CodeStar.ListProjects,
+    ListProjects (ListProjects'),
+    newListProjects,
+    ListProjectsResponse (ListProjectsResponse'),
+    newListProjectsResponse,
 
     -- ** CreateProject
-    module Network.AWS.CodeStar.CreateProject,
+    CreateProject (CreateProject'),
+    newCreateProject,
+    CreateProjectResponse (CreateProjectResponse'),
+    newCreateProjectResponse,
 
     -- ** ListUserProfiles (Paginated)
-    module Network.AWS.CodeStar.ListUserProfiles,
+    ListUserProfiles (ListUserProfiles'),
+    newListUserProfiles,
+    ListUserProfilesResponse (ListUserProfilesResponse'),
+    newListUserProfilesResponse,
 
     -- ** UpdateUserProfile
-    module Network.AWS.CodeStar.UpdateUserProfile,
+    UpdateUserProfile (UpdateUserProfile'),
+    newUpdateUserProfile,
+    UpdateUserProfileResponse (UpdateUserProfileResponse'),
+    newUpdateUserProfileResponse,
 
     -- ** DeleteUserProfile
-    module Network.AWS.CodeStar.DeleteUserProfile,
+    DeleteUserProfile (DeleteUserProfile'),
+    newDeleteUserProfile,
+    DeleteUserProfileResponse (DeleteUserProfileResponse'),
+    newDeleteUserProfileResponse,
 
     -- ** ListTagsForProject
-    module Network.AWS.CodeStar.ListTagsForProject,
+    ListTagsForProject (ListTagsForProject'),
+    newListTagsForProject,
+    ListTagsForProjectResponse (ListTagsForProjectResponse'),
+    newListTagsForProjectResponse,
 
     -- ** UpdateTeamMember
-    module Network.AWS.CodeStar.UpdateTeamMember,
+    UpdateTeamMember (UpdateTeamMember'),
+    newUpdateTeamMember,
+    UpdateTeamMemberResponse (UpdateTeamMemberResponse'),
+    newUpdateTeamMemberResponse,
 
     -- ** UntagProject
-    module Network.AWS.CodeStar.UntagProject,
+    UntagProject (UntagProject'),
+    newUntagProject,
+    UntagProjectResponse (UntagProjectResponse'),
+    newUntagProjectResponse,
 
     -- ** ListTeamMembers (Paginated)
-    module Network.AWS.CodeStar.ListTeamMembers,
+    ListTeamMembers (ListTeamMembers'),
+    newListTeamMembers,
+    ListTeamMembersResponse (ListTeamMembersResponse'),
+    newListTeamMembersResponse,
 
     -- ** DeleteProject
-    module Network.AWS.CodeStar.DeleteProject,
+    DeleteProject (DeleteProject'),
+    newDeleteProject,
+    DeleteProjectResponse (DeleteProjectResponse'),
+    newDeleteProjectResponse,
 
     -- ** UpdateProject
-    module Network.AWS.CodeStar.UpdateProject,
+    UpdateProject (UpdateProject'),
+    newUpdateProject,
+    UpdateProjectResponse (UpdateProjectResponse'),
+    newUpdateProjectResponse,
 
     -- ** AssociateTeamMember
-    module Network.AWS.CodeStar.AssociateTeamMember,
+    AssociateTeamMember (AssociateTeamMember'),
+    newAssociateTeamMember,
+    AssociateTeamMemberResponse (AssociateTeamMemberResponse'),
+    newAssociateTeamMemberResponse,
 
     -- ** CreateUserProfile
-    module Network.AWS.CodeStar.CreateUserProfile,
+    CreateUserProfile (CreateUserProfile'),
+    newCreateUserProfile,
+    CreateUserProfileResponse (CreateUserProfileResponse'),
+    newCreateUserProfileResponse,
 
     -- ** ListResources (Paginated)
-    module Network.AWS.CodeStar.ListResources,
+    ListResources (ListResources'),
+    newListResources,
+    ListResourcesResponse (ListResourcesResponse'),
+    newListResourcesResponse,
 
     -- ** DescribeProject
-    module Network.AWS.CodeStar.DescribeProject,
+    DescribeProject (DescribeProject'),
+    newDescribeProject,
+    DescribeProjectResponse (DescribeProjectResponse'),
+    newDescribeProjectResponse,
 
     -- * Types
 
     -- ** Code
-    Code,
-    code,
-    cSource,
-    cDestination,
+    Code (Code'),
+    newCode,
 
     -- ** CodeCommitCodeDestination
-    CodeCommitCodeDestination,
-    codeCommitCodeDestination,
-    cccdName,
+    CodeCommitCodeDestination (CodeCommitCodeDestination'),
+    newCodeCommitCodeDestination,
 
     -- ** CodeDestination
-    CodeDestination,
-    codeDestination,
-    cdCodeCommit,
-    cdGitHub,
+    CodeDestination (CodeDestination'),
+    newCodeDestination,
 
     -- ** CodeSource
-    CodeSource,
-    codeSource,
-    csS3,
+    CodeSource (CodeSource'),
+    newCodeSource,
 
     -- ** GitHubCodeDestination
-    GitHubCodeDestination,
-    gitHubCodeDestination,
-    ghcdDescription,
-    ghcdName,
-    ghcdType,
-    ghcdOwner,
-    ghcdPrivateRepository,
-    ghcdIssuesEnabled,
-    ghcdToken,
+    GitHubCodeDestination (GitHubCodeDestination'),
+    newGitHubCodeDestination,
 
     -- ** ProjectStatus
-    ProjectStatus,
-    projectStatus,
-    psReason,
-    psState,
+    ProjectStatus (ProjectStatus'),
+    newProjectStatus,
 
     -- ** ProjectSummary
-    ProjectSummary,
-    projectSummary,
-    psProjectId,
-    psProjectARN,
+    ProjectSummary (ProjectSummary'),
+    newProjectSummary,
 
     -- ** Resource
-    Resource,
-    resource,
-    rId,
+    Resource (Resource'),
+    newResource,
 
     -- ** S3Location
-    S3Location,
-    s3Location,
-    slBucketName,
-    slBucketKey,
+    S3Location (S3Location'),
+    newS3Location,
 
     -- ** TeamMember
-    TeamMember,
-    teamMember,
-    tmRemoteAccessAllowed,
-    tmUserARN,
-    tmProjectRole,
+    TeamMember (TeamMember'),
+    newTeamMember,
 
     -- ** Toolchain
-    Toolchain,
-    toolchain,
-    tStackParameters,
-    tRoleARN,
-    tSource,
+    Toolchain (Toolchain'),
+    newToolchain,
 
     -- ** ToolchainSource
-    ToolchainSource,
-    toolchainSource,
-    tsS3,
+    ToolchainSource (ToolchainSource'),
+    newToolchainSource,
 
     -- ** UserProfileSummary
-    UserProfileSummary,
-    userProfileSummary,
-    upsUserARN,
-    upsSshPublicKey,
-    upsDisplayName,
-    upsEmailAddress,
+    UserProfileSummary (UserProfileSummary'),
+    newUserProfileSummary,
   )
 where
 
@@ -261,6 +291,7 @@ import Network.AWS.CodeStar.DeleteUserProfile
 import Network.AWS.CodeStar.DescribeProject
 import Network.AWS.CodeStar.DescribeUserProfile
 import Network.AWS.CodeStar.DisassociateTeamMember
+import Network.AWS.CodeStar.Lens
 import Network.AWS.CodeStar.ListProjects
 import Network.AWS.CodeStar.ListResources
 import Network.AWS.CodeStar.ListTagsForProject

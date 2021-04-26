@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,216 +21,253 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes a user in AWS CodeStar and the user attributes across all projects.
+-- Describes a user in AWS CodeStar and the user attributes across all
+-- projects.
 module Network.AWS.CodeStar.DescribeUserProfile
   ( -- * Creating a Request
-    describeUserProfile,
-    DescribeUserProfile,
+    DescribeUserProfile (..),
+    newDescribeUserProfile,
 
     -- * Request Lenses
-    dupUserARN,
+    describeUserProfile_userArn,
 
     -- * Destructuring the Response
-    describeUserProfileResponse,
-    DescribeUserProfileResponse,
+    DescribeUserProfileResponse (..),
+    newDescribeUserProfileResponse,
 
     -- * Response Lenses
-    duprrsSshPublicKey,
-    duprrsDisplayName,
-    duprrsEmailAddress,
-    duprrsResponseStatus,
-    duprrsUserARN,
-    duprrsCreatedTimestamp,
-    duprrsLastModifiedTimestamp,
+    describeUserProfileResponse_sshPublicKey,
+    describeUserProfileResponse_displayName,
+    describeUserProfileResponse_emailAddress,
+    describeUserProfileResponse_httpStatus,
+    describeUserProfileResponse_userArn,
+    describeUserProfileResponse_createdTimestamp,
+    describeUserProfileResponse_lastModifiedTimestamp,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'describeUserProfile' smart constructor.
-newtype DescribeUserProfile = DescribeUserProfile'
-  { _dupUserARN ::
-      Text
+-- | /See:/ 'newDescribeUserProfile' smart constructor.
+data DescribeUserProfile = DescribeUserProfile'
+  { -- | The Amazon Resource Name (ARN) of the user.
+    userArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dupUserARN' - The Amazon Resource Name (ARN) of the user.
-describeUserProfile ::
-  -- | 'dupUserARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'userArn', 'describeUserProfile_userArn' - The Amazon Resource Name (ARN) of the user.
+newDescribeUserProfile ::
+  -- | 'userArn'
+  Prelude.Text ->
   DescribeUserProfile
-describeUserProfile pUserARN_ =
-  DescribeUserProfile' {_dupUserARN = pUserARN_}
+newDescribeUserProfile pUserArn_ =
+  DescribeUserProfile' {userArn = pUserArn_}
 
 -- | The Amazon Resource Name (ARN) of the user.
-dupUserARN :: Lens' DescribeUserProfile Text
-dupUserARN = lens _dupUserARN (\s a -> s {_dupUserARN = a})
+describeUserProfile_userArn :: Lens.Lens' DescribeUserProfile Prelude.Text
+describeUserProfile_userArn = Lens.lens (\DescribeUserProfile' {userArn} -> userArn) (\s@DescribeUserProfile' {} a -> s {userArn = a} :: DescribeUserProfile)
 
-instance AWSRequest DescribeUserProfile where
+instance Prelude.AWSRequest DescribeUserProfile where
   type
     Rs DescribeUserProfile =
       DescribeUserProfileResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           DescribeUserProfileResponse'
-            <$> (x .?> "sshPublicKey")
-            <*> (x .?> "displayName")
-            <*> (x .?> "emailAddress")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "userArn")
-            <*> (x .:> "createdTimestamp")
-            <*> (x .:> "lastModifiedTimestamp")
+            Prelude.<$> (x Prelude..?> "sshPublicKey")
+            Prelude.<*> (x Prelude..?> "displayName")
+            Prelude.<*> (x Prelude..?> "emailAddress")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "userArn")
+            Prelude.<*> (x Prelude..:> "createdTimestamp")
+            Prelude.<*> (x Prelude..:> "lastModifiedTimestamp")
       )
 
-instance Hashable DescribeUserProfile
+instance Prelude.Hashable DescribeUserProfile
 
-instance NFData DescribeUserProfile
+instance Prelude.NFData DescribeUserProfile
 
-instance ToHeaders DescribeUserProfile where
+instance Prelude.ToHeaders DescribeUserProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeStar_20170419.DescribeUserProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeStar_20170419.DescribeUserProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DescribeUserProfile where
+instance Prelude.ToJSON DescribeUserProfile where
   toJSON DescribeUserProfile' {..} =
-    object
-      (catMaybes [Just ("userArn" .= _dupUserARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("userArn" Prelude..= userArn)]
+      )
 
-instance ToPath DescribeUserProfile where
-  toPath = const "/"
+instance Prelude.ToPath DescribeUserProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeUserProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery DescribeUserProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'describeUserProfileResponse' smart constructor.
+-- | /See:/ 'newDescribeUserProfileResponse' smart constructor.
 data DescribeUserProfileResponse = DescribeUserProfileResponse'
-  { _duprrsSshPublicKey ::
-      !(Maybe Text),
-    _duprrsDisplayName ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _duprrsEmailAddress ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _duprrsResponseStatus ::
-      !Int,
-    _duprrsUserARN ::
-      !Text,
-    _duprrsCreatedTimestamp ::
-      !POSIX,
-    _duprrsLastModifiedTimestamp ::
-      !POSIX
+  { -- | The SSH public key associated with the user. This SSH public key is
+    -- associated with the user profile, and can be used in conjunction with
+    -- the associated private key for access to project resources, such as
+    -- Amazon EC2 instances, if a project owner grants remote access to those
+    -- resources.
+    sshPublicKey :: Prelude.Maybe Prelude.Text,
+    -- | The display name shown for the user in AWS CodeStar projects. For
+    -- example, this could be set to both first and last name (\"Mary Major\")
+    -- or a single name (\"Mary\"). The display name is also used to generate
+    -- the initial icon associated with the user in AWS CodeStar projects. If
+    -- spaces are included in the display name, the first character that
+    -- appears after the space will be used as the second character in the user
+    -- initial icon. The initial icon displays a maximum of two characters, so
+    -- a display name with more than one space (for example \"Mary Jane
+    -- Major\") would generate an initial icon using the first character and
+    -- the first character after the space (\"MJ\", not \"MM\").
+    displayName :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The email address for the user. Optional.
+    emailAddress :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the user.
+    userArn :: Prelude.Text,
+    -- | The date and time when the user profile was created in AWS CodeStar, in
+    -- timestamp format.
+    createdTimestamp :: Prelude.POSIX,
+    -- | The date and time when the user profile was last modified, in timestamp
+    -- format.
+    lastModifiedTimestamp :: Prelude.POSIX
   }
-  deriving
-    ( Eq,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeUserProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeUserProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'duprrsSshPublicKey' - The SSH public key associated with the user. This SSH public key is associated with the user profile, and can be used in conjunction with the associated private key for access to project resources, such as Amazon EC2 instances, if a project owner grants remote access to those resources.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'duprrsDisplayName' - The display name shown for the user in AWS CodeStar projects. For example, this could be set to both first and last name ("Mary Major") or a single name ("Mary"). The display name is also used to generate the initial icon associated with the user in AWS CodeStar projects. If spaces are included in the display name, the first character that appears after the space will be used as the second character in the user initial icon. The initial icon displays a maximum of two characters, so a display name with more than one space (for example "Mary Jane Major") would generate an initial icon using the first character and the first character after the space ("MJ", not "MM").
+-- 'sshPublicKey', 'describeUserProfileResponse_sshPublicKey' - The SSH public key associated with the user. This SSH public key is
+-- associated with the user profile, and can be used in conjunction with
+-- the associated private key for access to project resources, such as
+-- Amazon EC2 instances, if a project owner grants remote access to those
+-- resources.
 --
--- * 'duprrsEmailAddress' - The email address for the user. Optional.
+-- 'displayName', 'describeUserProfileResponse_displayName' - The display name shown for the user in AWS CodeStar projects. For
+-- example, this could be set to both first and last name (\"Mary Major\")
+-- or a single name (\"Mary\"). The display name is also used to generate
+-- the initial icon associated with the user in AWS CodeStar projects. If
+-- spaces are included in the display name, the first character that
+-- appears after the space will be used as the second character in the user
+-- initial icon. The initial icon displays a maximum of two characters, so
+-- a display name with more than one space (for example \"Mary Jane
+-- Major\") would generate an initial icon using the first character and
+-- the first character after the space (\"MJ\", not \"MM\").
 --
--- * 'duprrsResponseStatus' - -- | The response status code.
+-- 'emailAddress', 'describeUserProfileResponse_emailAddress' - The email address for the user. Optional.
 --
--- * 'duprrsUserARN' - The Amazon Resource Name (ARN) of the user.
+-- 'httpStatus', 'describeUserProfileResponse_httpStatus' - The response's http status code.
 --
--- * 'duprrsCreatedTimestamp' - The date and time when the user profile was created in AWS CodeStar, in timestamp format.
+-- 'userArn', 'describeUserProfileResponse_userArn' - The Amazon Resource Name (ARN) of the user.
 --
--- * 'duprrsLastModifiedTimestamp' - The date and time when the user profile was last modified, in timestamp format.
-describeUserProfileResponse ::
-  -- | 'duprrsResponseStatus'
-  Int ->
-  -- | 'duprrsUserARN'
-  Text ->
-  -- | 'duprrsCreatedTimestamp'
-  UTCTime ->
-  -- | 'duprrsLastModifiedTimestamp'
-  UTCTime ->
+-- 'createdTimestamp', 'describeUserProfileResponse_createdTimestamp' - The date and time when the user profile was created in AWS CodeStar, in
+-- timestamp format.
+--
+-- 'lastModifiedTimestamp', 'describeUserProfileResponse_lastModifiedTimestamp' - The date and time when the user profile was last modified, in timestamp
+-- format.
+newDescribeUserProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'userArn'
+  Prelude.Text ->
+  -- | 'createdTimestamp'
+  Prelude.UTCTime ->
+  -- | 'lastModifiedTimestamp'
+  Prelude.UTCTime ->
   DescribeUserProfileResponse
-describeUserProfileResponse
-  pResponseStatus_
-  pUserARN_
+newDescribeUserProfileResponse
+  pHttpStatus_
+  pUserArn_
   pCreatedTimestamp_
   pLastModifiedTimestamp_ =
     DescribeUserProfileResponse'
-      { _duprrsSshPublicKey =
-          Nothing,
-        _duprrsDisplayName = Nothing,
-        _duprrsEmailAddress = Nothing,
-        _duprrsResponseStatus = pResponseStatus_,
-        _duprrsUserARN = pUserARN_,
-        _duprrsCreatedTimestamp =
-          _Time # pCreatedTimestamp_,
-        _duprrsLastModifiedTimestamp =
-          _Time # pLastModifiedTimestamp_
+      { sshPublicKey =
+          Prelude.Nothing,
+        displayName = Prelude.Nothing,
+        emailAddress = Prelude.Nothing,
+        httpStatus = pHttpStatus_,
+        userArn = pUserArn_,
+        createdTimestamp =
+          Prelude._Time Lens.# pCreatedTimestamp_,
+        lastModifiedTimestamp =
+          Prelude._Time Lens.# pLastModifiedTimestamp_
       }
 
--- | The SSH public key associated with the user. This SSH public key is associated with the user profile, and can be used in conjunction with the associated private key for access to project resources, such as Amazon EC2 instances, if a project owner grants remote access to those resources.
-duprrsSshPublicKey :: Lens' DescribeUserProfileResponse (Maybe Text)
-duprrsSshPublicKey = lens _duprrsSshPublicKey (\s a -> s {_duprrsSshPublicKey = a})
+-- | The SSH public key associated with the user. This SSH public key is
+-- associated with the user profile, and can be used in conjunction with
+-- the associated private key for access to project resources, such as
+-- Amazon EC2 instances, if a project owner grants remote access to those
+-- resources.
+describeUserProfileResponse_sshPublicKey :: Lens.Lens' DescribeUserProfileResponse (Prelude.Maybe Prelude.Text)
+describeUserProfileResponse_sshPublicKey = Lens.lens (\DescribeUserProfileResponse' {sshPublicKey} -> sshPublicKey) (\s@DescribeUserProfileResponse' {} a -> s {sshPublicKey = a} :: DescribeUserProfileResponse)
 
--- | The display name shown for the user in AWS CodeStar projects. For example, this could be set to both first and last name ("Mary Major") or a single name ("Mary"). The display name is also used to generate the initial icon associated with the user in AWS CodeStar projects. If spaces are included in the display name, the first character that appears after the space will be used as the second character in the user initial icon. The initial icon displays a maximum of two characters, so a display name with more than one space (for example "Mary Jane Major") would generate an initial icon using the first character and the first character after the space ("MJ", not "MM").
-duprrsDisplayName :: Lens' DescribeUserProfileResponse (Maybe Text)
-duprrsDisplayName = lens _duprrsDisplayName (\s a -> s {_duprrsDisplayName = a}) . mapping _Sensitive
+-- | The display name shown for the user in AWS CodeStar projects. For
+-- example, this could be set to both first and last name (\"Mary Major\")
+-- or a single name (\"Mary\"). The display name is also used to generate
+-- the initial icon associated with the user in AWS CodeStar projects. If
+-- spaces are included in the display name, the first character that
+-- appears after the space will be used as the second character in the user
+-- initial icon. The initial icon displays a maximum of two characters, so
+-- a display name with more than one space (for example \"Mary Jane
+-- Major\") would generate an initial icon using the first character and
+-- the first character after the space (\"MJ\", not \"MM\").
+describeUserProfileResponse_displayName :: Lens.Lens' DescribeUserProfileResponse (Prelude.Maybe Prelude.Text)
+describeUserProfileResponse_displayName = Lens.lens (\DescribeUserProfileResponse' {displayName} -> displayName) (\s@DescribeUserProfileResponse' {} a -> s {displayName = a} :: DescribeUserProfileResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The email address for the user. Optional.
-duprrsEmailAddress :: Lens' DescribeUserProfileResponse (Maybe Text)
-duprrsEmailAddress = lens _duprrsEmailAddress (\s a -> s {_duprrsEmailAddress = a}) . mapping _Sensitive
+describeUserProfileResponse_emailAddress :: Lens.Lens' DescribeUserProfileResponse (Prelude.Maybe Prelude.Text)
+describeUserProfileResponse_emailAddress = Lens.lens (\DescribeUserProfileResponse' {emailAddress} -> emailAddress) (\s@DescribeUserProfileResponse' {} a -> s {emailAddress = a} :: DescribeUserProfileResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | -- | The response status code.
-duprrsResponseStatus :: Lens' DescribeUserProfileResponse Int
-duprrsResponseStatus = lens _duprrsResponseStatus (\s a -> s {_duprrsResponseStatus = a})
+-- | The response's http status code.
+describeUserProfileResponse_httpStatus :: Lens.Lens' DescribeUserProfileResponse Prelude.Int
+describeUserProfileResponse_httpStatus = Lens.lens (\DescribeUserProfileResponse' {httpStatus} -> httpStatus) (\s@DescribeUserProfileResponse' {} a -> s {httpStatus = a} :: DescribeUserProfileResponse)
 
 -- | The Amazon Resource Name (ARN) of the user.
-duprrsUserARN :: Lens' DescribeUserProfileResponse Text
-duprrsUserARN = lens _duprrsUserARN (\s a -> s {_duprrsUserARN = a})
+describeUserProfileResponse_userArn :: Lens.Lens' DescribeUserProfileResponse Prelude.Text
+describeUserProfileResponse_userArn = Lens.lens (\DescribeUserProfileResponse' {userArn} -> userArn) (\s@DescribeUserProfileResponse' {} a -> s {userArn = a} :: DescribeUserProfileResponse)
 
--- | The date and time when the user profile was created in AWS CodeStar, in timestamp format.
-duprrsCreatedTimestamp :: Lens' DescribeUserProfileResponse UTCTime
-duprrsCreatedTimestamp = lens _duprrsCreatedTimestamp (\s a -> s {_duprrsCreatedTimestamp = a}) . _Time
+-- | The date and time when the user profile was created in AWS CodeStar, in
+-- timestamp format.
+describeUserProfileResponse_createdTimestamp :: Lens.Lens' DescribeUserProfileResponse Prelude.UTCTime
+describeUserProfileResponse_createdTimestamp = Lens.lens (\DescribeUserProfileResponse' {createdTimestamp} -> createdTimestamp) (\s@DescribeUserProfileResponse' {} a -> s {createdTimestamp = a} :: DescribeUserProfileResponse) Prelude.. Prelude._Time
 
--- | The date and time when the user profile was last modified, in timestamp format.
-duprrsLastModifiedTimestamp :: Lens' DescribeUserProfileResponse UTCTime
-duprrsLastModifiedTimestamp = lens _duprrsLastModifiedTimestamp (\s a -> s {_duprrsLastModifiedTimestamp = a}) . _Time
+-- | The date and time when the user profile was last modified, in timestamp
+-- format.
+describeUserProfileResponse_lastModifiedTimestamp :: Lens.Lens' DescribeUserProfileResponse Prelude.UTCTime
+describeUserProfileResponse_lastModifiedTimestamp = Lens.lens (\DescribeUserProfileResponse' {lastModifiedTimestamp} -> lastModifiedTimestamp) (\s@DescribeUserProfileResponse' {} a -> s {lastModifiedTimestamp = a} :: DescribeUserProfileResponse) Prelude.. Prelude._Time
 
-instance NFData DescribeUserProfileResponse
+instance Prelude.NFData DescribeUserProfileResponse

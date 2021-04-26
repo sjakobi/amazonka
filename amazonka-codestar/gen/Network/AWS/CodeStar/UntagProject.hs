@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,125 +24,132 @@
 -- Removes tags from a project.
 module Network.AWS.CodeStar.UntagProject
   ( -- * Creating a Request
-    untagProject,
-    UntagProject,
+    UntagProject (..),
+    newUntagProject,
 
     -- * Request Lenses
-    upId,
-    upTags,
+    untagProject_id,
+    untagProject_tags,
 
     -- * Destructuring the Response
-    untagProjectResponse,
-    UntagProjectResponse,
+    UntagProjectResponse (..),
+    newUntagProjectResponse,
 
     -- * Response Lenses
-    uprrsResponseStatus,
+    untagProjectResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'untagProject' smart constructor.
+-- | /See:/ 'newUntagProject' smart constructor.
 data UntagProject = UntagProject'
-  { _upId :: !Text,
-    _upTags :: ![Text]
+  { -- | The ID of the project to remove tags from.
+    id :: Prelude.Text,
+    -- | The tags to remove from the project.
+    tags :: [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upId' - The ID of the project to remove tags from.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upTags' - The tags to remove from the project.
-untagProject ::
-  -- | 'upId'
-  Text ->
+-- 'id', 'untagProject_id' - The ID of the project to remove tags from.
+--
+-- 'tags', 'untagProject_tags' - The tags to remove from the project.
+newUntagProject ::
+  -- | 'id'
+  Prelude.Text ->
   UntagProject
-untagProject pId_ =
-  UntagProject' {_upId = pId_, _upTags = mempty}
+newUntagProject pId_ =
+  UntagProject' {id = pId_, tags = Prelude.mempty}
 
 -- | The ID of the project to remove tags from.
-upId :: Lens' UntagProject Text
-upId = lens _upId (\s a -> s {_upId = a})
+untagProject_id :: Lens.Lens' UntagProject Prelude.Text
+untagProject_id = Lens.lens (\UntagProject' {id} -> id) (\s@UntagProject' {} a -> s {id = a} :: UntagProject)
 
 -- | The tags to remove from the project.
-upTags :: Lens' UntagProject [Text]
-upTags = lens _upTags (\s a -> s {_upTags = a}) . _Coerce
+untagProject_tags :: Lens.Lens' UntagProject [Prelude.Text]
+untagProject_tags = Lens.lens (\UntagProject' {tags} -> tags) (\s@UntagProject' {} a -> s {tags = a} :: UntagProject) Prelude.. Prelude._Coerce
 
-instance AWSRequest UntagProject where
+instance Prelude.AWSRequest UntagProject where
   type Rs UntagProject = UntagProjectResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UntagProjectResponse' <$> (pure (fromEnum s))
+          UntagProjectResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UntagProject
+instance Prelude.Hashable UntagProject
 
-instance NFData UntagProject
+instance Prelude.NFData UntagProject
 
-instance ToHeaders UntagProject where
+instance Prelude.ToHeaders UntagProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeStar_20170419.UntagProject" :: ByteString),
+              Prelude.=# ( "CodeStar_20170419.UntagProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UntagProject where
+instance Prelude.ToJSON UntagProject where
   toJSON UntagProject' {..} =
-    object
-      ( catMaybes
-          [Just ("id" .= _upId), Just ("tags" .= _upTags)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("id" Prelude..= id),
+            Prelude.Just ("tags" Prelude..= tags)
+          ]
       )
 
-instance ToPath UntagProject where
-  toPath = const "/"
+instance Prelude.ToPath UntagProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery UntagProject where
-  toQuery = const mempty
+instance Prelude.ToQuery UntagProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'untagProjectResponse' smart constructor.
-newtype UntagProjectResponse = UntagProjectResponse'
-  { _uprrsResponseStatus ::
-      Int
+-- | /See:/ 'newUntagProjectResponse' smart constructor.
+data UntagProjectResponse = UntagProjectResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UntagProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UntagProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uprrsResponseStatus' - -- | The response status code.
-untagProjectResponse ::
-  -- | 'uprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'untagProjectResponse_httpStatus' - The response's http status code.
+newUntagProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UntagProjectResponse
-untagProjectResponse pResponseStatus_ =
-  UntagProjectResponse'
-    { _uprrsResponseStatus =
-        pResponseStatus_
-    }
+newUntagProjectResponse pHttpStatus_ =
+  UntagProjectResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-uprrsResponseStatus :: Lens' UntagProjectResponse Int
-uprrsResponseStatus = lens _uprrsResponseStatus (\s a -> s {_uprrsResponseStatus = a})
+-- | The response's http status code.
+untagProjectResponse_httpStatus :: Lens.Lens' UntagProjectResponse Prelude.Int
+untagProjectResponse_httpStatus = Lens.lens (\UntagProjectResponse' {httpStatus} -> httpStatus) (\s@UntagProjectResponse' {} a -> s {httpStatus = a} :: UntagProjectResponse)
 
-instance NFData UntagProjectResponse
+instance Prelude.NFData UntagProjectResponse

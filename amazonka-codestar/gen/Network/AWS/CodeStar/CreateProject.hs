@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,233 +21,271 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a project, including project resources. This action creates a project based on a submitted project request. A set of source code files and a toolchain template file can be included with the project request. If these are not provided, an empty project is created.
+-- Creates a project, including project resources. This action creates a
+-- project based on a submitted project request. A set of source code files
+-- and a toolchain template file can be included with the project request.
+-- If these are not provided, an empty project is created.
 module Network.AWS.CodeStar.CreateProject
   ( -- * Creating a Request
-    createProject,
-    CreateProject,
+    CreateProject (..),
+    newCreateProject,
 
     -- * Request Lenses
-    cpSourceCode,
-    cpTags,
-    cpDescription,
-    cpClientRequestToken,
-    cpToolchain,
-    cpName,
-    cpId,
+    createProject_sourceCode,
+    createProject_tags,
+    createProject_description,
+    createProject_clientRequestToken,
+    createProject_toolchain,
+    createProject_name,
+    createProject_id,
 
     -- * Destructuring the Response
-    createProjectResponse,
-    CreateProjectResponse,
+    CreateProjectResponse (..),
+    newCreateProjectResponse,
 
     -- * Response Lenses
-    cprrsClientRequestToken,
-    cprrsProjectTemplateId,
-    cprrsResponseStatus,
-    cprrsId,
-    cprrsArn,
+    createProjectResponse_clientRequestToken,
+    createProjectResponse_projectTemplateId,
+    createProjectResponse_httpStatus,
+    createProjectResponse_id,
+    createProjectResponse_arn,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createProject' smart constructor.
+-- | /See:/ 'newCreateProject' smart constructor.
 data CreateProject = CreateProject'
-  { _cpSourceCode ::
-      !(Maybe [Code]),
-    _cpTags :: !(Maybe (Map Text Text)),
-    _cpDescription :: !(Maybe (Sensitive Text)),
-    _cpClientRequestToken :: !(Maybe Text),
-    _cpToolchain :: !(Maybe Toolchain),
-    _cpName :: !(Sensitive Text),
-    _cpId :: !Text
+  { -- | A list of the Code objects submitted with the project request. If this
+    -- parameter is specified, the request must also include the toolchain
+    -- parameter.
+    sourceCode :: Prelude.Maybe [Code],
+    -- | The tags created for the project.
+    tags :: Prelude.Maybe (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The description of the project, if any.
+    description :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | A user- or system-generated token that identifies the entity that
+    -- requested project creation. This token can be used to repeat the
+    -- request.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the toolchain template file submitted with the project
+    -- request. If this parameter is specified, the request must also include
+    -- the sourceCode parameter.
+    toolchain :: Prelude.Maybe Toolchain,
+    -- | The display name for the project to be created in AWS CodeStar.
+    name :: Prelude.Sensitive Prelude.Text,
+    -- | The ID of the project to be created in AWS CodeStar.
+    id :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProject' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProject' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpSourceCode' - A list of the Code objects submitted with the project request. If this parameter is specified, the request must also include the toolchain parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpTags' - The tags created for the project.
+-- 'sourceCode', 'createProject_sourceCode' - A list of the Code objects submitted with the project request. If this
+-- parameter is specified, the request must also include the toolchain
+-- parameter.
 --
--- * 'cpDescription' - The description of the project, if any.
+-- 'tags', 'createProject_tags' - The tags created for the project.
 --
--- * 'cpClientRequestToken' - A user- or system-generated token that identifies the entity that requested project creation. This token can be used to repeat the request.
+-- 'description', 'createProject_description' - The description of the project, if any.
 --
--- * 'cpToolchain' - The name of the toolchain template file submitted with the project request. If this parameter is specified, the request must also include the sourceCode parameter.
+-- 'clientRequestToken', 'createProject_clientRequestToken' - A user- or system-generated token that identifies the entity that
+-- requested project creation. This token can be used to repeat the
+-- request.
 --
--- * 'cpName' - The display name for the project to be created in AWS CodeStar.
+-- 'toolchain', 'createProject_toolchain' - The name of the toolchain template file submitted with the project
+-- request. If this parameter is specified, the request must also include
+-- the sourceCode parameter.
 --
--- * 'cpId' - The ID of the project to be created in AWS CodeStar.
-createProject ::
-  -- | 'cpName'
-  Text ->
-  -- | 'cpId'
-  Text ->
+-- 'name', 'createProject_name' - The display name for the project to be created in AWS CodeStar.
+--
+-- 'id', 'createProject_id' - The ID of the project to be created in AWS CodeStar.
+newCreateProject ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'id'
+  Prelude.Text ->
   CreateProject
-createProject pName_ pId_ =
+newCreateProject pName_ pId_ =
   CreateProject'
-    { _cpSourceCode = Nothing,
-      _cpTags = Nothing,
-      _cpDescription = Nothing,
-      _cpClientRequestToken = Nothing,
-      _cpToolchain = Nothing,
-      _cpName = _Sensitive # pName_,
-      _cpId = pId_
+    { sourceCode = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      toolchain = Prelude.Nothing,
+      name = Prelude._Sensitive Lens.# pName_,
+      id = pId_
     }
 
--- | A list of the Code objects submitted with the project request. If this parameter is specified, the request must also include the toolchain parameter.
-cpSourceCode :: Lens' CreateProject [Code]
-cpSourceCode = lens _cpSourceCode (\s a -> s {_cpSourceCode = a}) . _Default . _Coerce
+-- | A list of the Code objects submitted with the project request. If this
+-- parameter is specified, the request must also include the toolchain
+-- parameter.
+createProject_sourceCode :: Lens.Lens' CreateProject (Prelude.Maybe [Code])
+createProject_sourceCode = Lens.lens (\CreateProject' {sourceCode} -> sourceCode) (\s@CreateProject' {} a -> s {sourceCode = a} :: CreateProject) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tags created for the project.
-cpTags :: Lens' CreateProject (HashMap Text Text)
-cpTags = lens _cpTags (\s a -> s {_cpTags = a}) . _Default . _Map
+createProject_tags :: Lens.Lens' CreateProject (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createProject_tags = Lens.lens (\CreateProject' {tags} -> tags) (\s@CreateProject' {} a -> s {tags = a} :: CreateProject) Prelude.. Lens.mapping Prelude._Map
 
 -- | The description of the project, if any.
-cpDescription :: Lens' CreateProject (Maybe Text)
-cpDescription = lens _cpDescription (\s a -> s {_cpDescription = a}) . mapping _Sensitive
+createProject_description :: Lens.Lens' CreateProject (Prelude.Maybe Prelude.Text)
+createProject_description = Lens.lens (\CreateProject' {description} -> description) (\s@CreateProject' {} a -> s {description = a} :: CreateProject) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | A user- or system-generated token that identifies the entity that requested project creation. This token can be used to repeat the request.
-cpClientRequestToken :: Lens' CreateProject (Maybe Text)
-cpClientRequestToken = lens _cpClientRequestToken (\s a -> s {_cpClientRequestToken = a})
+-- | A user- or system-generated token that identifies the entity that
+-- requested project creation. This token can be used to repeat the
+-- request.
+createProject_clientRequestToken :: Lens.Lens' CreateProject (Prelude.Maybe Prelude.Text)
+createProject_clientRequestToken = Lens.lens (\CreateProject' {clientRequestToken} -> clientRequestToken) (\s@CreateProject' {} a -> s {clientRequestToken = a} :: CreateProject)
 
--- | The name of the toolchain template file submitted with the project request. If this parameter is specified, the request must also include the sourceCode parameter.
-cpToolchain :: Lens' CreateProject (Maybe Toolchain)
-cpToolchain = lens _cpToolchain (\s a -> s {_cpToolchain = a})
+-- | The name of the toolchain template file submitted with the project
+-- request. If this parameter is specified, the request must also include
+-- the sourceCode parameter.
+createProject_toolchain :: Lens.Lens' CreateProject (Prelude.Maybe Toolchain)
+createProject_toolchain = Lens.lens (\CreateProject' {toolchain} -> toolchain) (\s@CreateProject' {} a -> s {toolchain = a} :: CreateProject)
 
 -- | The display name for the project to be created in AWS CodeStar.
-cpName :: Lens' CreateProject Text
-cpName = lens _cpName (\s a -> s {_cpName = a}) . _Sensitive
+createProject_name :: Lens.Lens' CreateProject Prelude.Text
+createProject_name = Lens.lens (\CreateProject' {name} -> name) (\s@CreateProject' {} a -> s {name = a} :: CreateProject) Prelude.. Prelude._Sensitive
 
 -- | The ID of the project to be created in AWS CodeStar.
-cpId :: Lens' CreateProject Text
-cpId = lens _cpId (\s a -> s {_cpId = a})
+createProject_id :: Lens.Lens' CreateProject Prelude.Text
+createProject_id = Lens.lens (\CreateProject' {id} -> id) (\s@CreateProject' {} a -> s {id = a} :: CreateProject)
 
-instance AWSRequest CreateProject where
+instance Prelude.AWSRequest CreateProject where
   type Rs CreateProject = CreateProjectResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
-            <$> (x .?> "clientRequestToken")
-            <*> (x .?> "projectTemplateId")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "id")
-            <*> (x .:> "arn")
+            Prelude.<$> (x Prelude..?> "clientRequestToken")
+            Prelude.<*> (x Prelude..?> "projectTemplateId")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "id")
+            Prelude.<*> (x Prelude..:> "arn")
       )
 
-instance Hashable CreateProject
+instance Prelude.Hashable CreateProject
 
-instance NFData CreateProject
+instance Prelude.NFData CreateProject
 
-instance ToHeaders CreateProject where
+instance Prelude.ToHeaders CreateProject where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeStar_20170419.CreateProject" :: ByteString),
+              Prelude.=# ( "CodeStar_20170419.CreateProject" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateProject where
+instance Prelude.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    object
-      ( catMaybes
-          [ ("sourceCode" .=) <$> _cpSourceCode,
-            ("tags" .=) <$> _cpTags,
-            ("description" .=) <$> _cpDescription,
-            ("clientRequestToken" .=) <$> _cpClientRequestToken,
-            ("toolchain" .=) <$> _cpToolchain,
-            Just ("name" .= _cpName),
-            Just ("id" .= _cpId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("sourceCode" Prelude..=) Prelude.<$> sourceCode,
+            ("tags" Prelude..=) Prelude.<$> tags,
+            ("description" Prelude..=) Prelude.<$> description,
+            ("clientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            ("toolchain" Prelude..=) Prelude.<$> toolchain,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("id" Prelude..= id)
           ]
       )
 
-instance ToPath CreateProject where
-  toPath = const "/"
+instance Prelude.ToPath CreateProject where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateProject where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateProject where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createProjectResponse' smart constructor.
+-- | /See:/ 'newCreateProjectResponse' smart constructor.
 data CreateProjectResponse = CreateProjectResponse'
-  { _cprrsClientRequestToken ::
-      !(Maybe Text),
-    _cprrsProjectTemplateId ::
-      !(Maybe Text),
-    _cprrsResponseStatus ::
-      !Int,
-    _cprrsId :: !Text,
-    _cprrsArn :: !Text
+  { -- | A user- or system-generated token that identifies the entity that
+    -- requested project creation.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | Reserved for future use.
+    projectTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The ID of the project.
+    id :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the created project.
+    arn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateProjectResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateProjectResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cprrsClientRequestToken' - A user- or system-generated token that identifies the entity that requested project creation.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cprrsProjectTemplateId' - Reserved for future use.
+-- 'clientRequestToken', 'createProjectResponse_clientRequestToken' - A user- or system-generated token that identifies the entity that
+-- requested project creation.
 --
--- * 'cprrsResponseStatus' - -- | The response status code.
+-- 'projectTemplateId', 'createProjectResponse_projectTemplateId' - Reserved for future use.
 --
--- * 'cprrsId' - The ID of the project.
+-- 'httpStatus', 'createProjectResponse_httpStatus' - The response's http status code.
 --
--- * 'cprrsArn' - The Amazon Resource Name (ARN) of the created project.
-createProjectResponse ::
-  -- | 'cprrsResponseStatus'
-  Int ->
-  -- | 'cprrsId'
-  Text ->
-  -- | 'cprrsArn'
-  Text ->
+-- 'id', 'createProjectResponse_id' - The ID of the project.
+--
+-- 'arn', 'createProjectResponse_arn' - The Amazon Resource Name (ARN) of the created project.
+newCreateProjectResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'arn'
+  Prelude.Text ->
   CreateProjectResponse
-createProjectResponse pResponseStatus_ pId_ pArn_ =
+newCreateProjectResponse pHttpStatus_ pId_ pArn_ =
   CreateProjectResponse'
-    { _cprrsClientRequestToken =
-        Nothing,
-      _cprrsProjectTemplateId = Nothing,
-      _cprrsResponseStatus = pResponseStatus_,
-      _cprrsId = pId_,
-      _cprrsArn = pArn_
+    { clientRequestToken =
+        Prelude.Nothing,
+      projectTemplateId = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      id = pId_,
+      arn = pArn_
     }
 
--- | A user- or system-generated token that identifies the entity that requested project creation.
-cprrsClientRequestToken :: Lens' CreateProjectResponse (Maybe Text)
-cprrsClientRequestToken = lens _cprrsClientRequestToken (\s a -> s {_cprrsClientRequestToken = a})
+-- | A user- or system-generated token that identifies the entity that
+-- requested project creation.
+createProjectResponse_clientRequestToken :: Lens.Lens' CreateProjectResponse (Prelude.Maybe Prelude.Text)
+createProjectResponse_clientRequestToken = Lens.lens (\CreateProjectResponse' {clientRequestToken} -> clientRequestToken) (\s@CreateProjectResponse' {} a -> s {clientRequestToken = a} :: CreateProjectResponse)
 
 -- | Reserved for future use.
-cprrsProjectTemplateId :: Lens' CreateProjectResponse (Maybe Text)
-cprrsProjectTemplateId = lens _cprrsProjectTemplateId (\s a -> s {_cprrsProjectTemplateId = a})
+createProjectResponse_projectTemplateId :: Lens.Lens' CreateProjectResponse (Prelude.Maybe Prelude.Text)
+createProjectResponse_projectTemplateId = Lens.lens (\CreateProjectResponse' {projectTemplateId} -> projectTemplateId) (\s@CreateProjectResponse' {} a -> s {projectTemplateId = a} :: CreateProjectResponse)
 
--- | -- | The response status code.
-cprrsResponseStatus :: Lens' CreateProjectResponse Int
-cprrsResponseStatus = lens _cprrsResponseStatus (\s a -> s {_cprrsResponseStatus = a})
+-- | The response's http status code.
+createProjectResponse_httpStatus :: Lens.Lens' CreateProjectResponse Prelude.Int
+createProjectResponse_httpStatus = Lens.lens (\CreateProjectResponse' {httpStatus} -> httpStatus) (\s@CreateProjectResponse' {} a -> s {httpStatus = a} :: CreateProjectResponse)
 
 -- | The ID of the project.
-cprrsId :: Lens' CreateProjectResponse Text
-cprrsId = lens _cprrsId (\s a -> s {_cprrsId = a})
+createProjectResponse_id :: Lens.Lens' CreateProjectResponse Prelude.Text
+createProjectResponse_id = Lens.lens (\CreateProjectResponse' {id} -> id) (\s@CreateProjectResponse' {} a -> s {id = a} :: CreateProjectResponse)
 
 -- | The Amazon Resource Name (ARN) of the created project.
-cprrsArn :: Lens' CreateProjectResponse Text
-cprrsArn = lens _cprrsArn (\s a -> s {_cprrsArn = a})
+createProjectResponse_arn :: Lens.Lens' CreateProjectResponse Prelude.Text
+createProjectResponse_arn = Lens.lens (\CreateProjectResponse' {arn} -> arn) (\s@CreateProjectResponse' {} a -> s {arn = a} :: CreateProjectResponse)
 
-instance NFData CreateProjectResponse
+instance Prelude.NFData CreateProjectResponse

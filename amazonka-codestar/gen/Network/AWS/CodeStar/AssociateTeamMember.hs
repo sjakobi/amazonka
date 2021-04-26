@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,186 +24,215 @@
 -- Adds an IAM user to the team for an AWS CodeStar project.
 module Network.AWS.CodeStar.AssociateTeamMember
   ( -- * Creating a Request
-    associateTeamMember,
-    AssociateTeamMember,
+    AssociateTeamMember (..),
+    newAssociateTeamMember,
 
     -- * Request Lenses
-    atmRemoteAccessAllowed,
-    atmClientRequestToken,
-    atmProjectId,
-    atmUserARN,
-    atmProjectRole,
+    associateTeamMember_remoteAccessAllowed,
+    associateTeamMember_clientRequestToken,
+    associateTeamMember_projectId,
+    associateTeamMember_userArn,
+    associateTeamMember_projectRole,
 
     -- * Destructuring the Response
-    associateTeamMemberResponse,
-    AssociateTeamMemberResponse,
+    AssociateTeamMemberResponse (..),
+    newAssociateTeamMemberResponse,
 
     -- * Response Lenses
-    atmrrsClientRequestToken,
-    atmrrsResponseStatus,
+    associateTeamMemberResponse_clientRequestToken,
+    associateTeamMemberResponse_httpStatus,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateTeamMember' smart constructor.
+-- | /See:/ 'newAssociateTeamMember' smart constructor.
 data AssociateTeamMember = AssociateTeamMember'
-  { _atmRemoteAccessAllowed ::
-      !(Maybe Bool),
-    _atmClientRequestToken ::
-      !(Maybe Text),
-    _atmProjectId :: !Text,
-    _atmUserARN :: !Text,
-    _atmProjectRole :: !Text
+  { -- | Whether the team member is allowed to use an SSH public\/private key
+    -- pair to remotely access project resources, for example Amazon EC2
+    -- instances.
+    remoteAccessAllowed :: Prelude.Maybe Prelude.Bool,
+    -- | A user- or system-generated token that identifies the entity that
+    -- requested the team member association to the project. This token can be
+    -- used to repeat the request.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the project to which you will add the IAM user.
+    projectId :: Prelude.Text,
+    -- | The Amazon Resource Name (ARN) for the IAM user you want to add to the
+    -- AWS CodeStar project.
+    userArn :: Prelude.Text,
+    -- | The AWS CodeStar project role that will apply to this user. This role
+    -- determines what actions a user can take in an AWS CodeStar project.
+    projectRole :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateTeamMember' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateTeamMember' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atmRemoteAccessAllowed' - Whether the team member is allowed to use an SSH public/private key pair to remotely access project resources, for example Amazon EC2 instances.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atmClientRequestToken' - A user- or system-generated token that identifies the entity that requested the team member association to the project. This token can be used to repeat the request.
+-- 'remoteAccessAllowed', 'associateTeamMember_remoteAccessAllowed' - Whether the team member is allowed to use an SSH public\/private key
+-- pair to remotely access project resources, for example Amazon EC2
+-- instances.
 --
--- * 'atmProjectId' - The ID of the project to which you will add the IAM user.
+-- 'clientRequestToken', 'associateTeamMember_clientRequestToken' - A user- or system-generated token that identifies the entity that
+-- requested the team member association to the project. This token can be
+-- used to repeat the request.
 --
--- * 'atmUserARN' - The Amazon Resource Name (ARN) for the IAM user you want to add to the AWS CodeStar project.
+-- 'projectId', 'associateTeamMember_projectId' - The ID of the project to which you will add the IAM user.
 --
--- * 'atmProjectRole' - The AWS CodeStar project role that will apply to this user. This role determines what actions a user can take in an AWS CodeStar project.
-associateTeamMember ::
-  -- | 'atmProjectId'
-  Text ->
-  -- | 'atmUserARN'
-  Text ->
-  -- | 'atmProjectRole'
-  Text ->
+-- 'userArn', 'associateTeamMember_userArn' - The Amazon Resource Name (ARN) for the IAM user you want to add to the
+-- AWS CodeStar project.
+--
+-- 'projectRole', 'associateTeamMember_projectRole' - The AWS CodeStar project role that will apply to this user. This role
+-- determines what actions a user can take in an AWS CodeStar project.
+newAssociateTeamMember ::
+  -- | 'projectId'
+  Prelude.Text ->
+  -- | 'userArn'
+  Prelude.Text ->
+  -- | 'projectRole'
+  Prelude.Text ->
   AssociateTeamMember
-associateTeamMember
+newAssociateTeamMember
   pProjectId_
-  pUserARN_
+  pUserArn_
   pProjectRole_ =
     AssociateTeamMember'
-      { _atmRemoteAccessAllowed =
-          Nothing,
-        _atmClientRequestToken = Nothing,
-        _atmProjectId = pProjectId_,
-        _atmUserARN = pUserARN_,
-        _atmProjectRole = pProjectRole_
+      { remoteAccessAllowed =
+          Prelude.Nothing,
+        clientRequestToken = Prelude.Nothing,
+        projectId = pProjectId_,
+        userArn = pUserArn_,
+        projectRole = pProjectRole_
       }
 
--- | Whether the team member is allowed to use an SSH public/private key pair to remotely access project resources, for example Amazon EC2 instances.
-atmRemoteAccessAllowed :: Lens' AssociateTeamMember (Maybe Bool)
-atmRemoteAccessAllowed = lens _atmRemoteAccessAllowed (\s a -> s {_atmRemoteAccessAllowed = a})
+-- | Whether the team member is allowed to use an SSH public\/private key
+-- pair to remotely access project resources, for example Amazon EC2
+-- instances.
+associateTeamMember_remoteAccessAllowed :: Lens.Lens' AssociateTeamMember (Prelude.Maybe Prelude.Bool)
+associateTeamMember_remoteAccessAllowed = Lens.lens (\AssociateTeamMember' {remoteAccessAllowed} -> remoteAccessAllowed) (\s@AssociateTeamMember' {} a -> s {remoteAccessAllowed = a} :: AssociateTeamMember)
 
--- | A user- or system-generated token that identifies the entity that requested the team member association to the project. This token can be used to repeat the request.
-atmClientRequestToken :: Lens' AssociateTeamMember (Maybe Text)
-atmClientRequestToken = lens _atmClientRequestToken (\s a -> s {_atmClientRequestToken = a})
+-- | A user- or system-generated token that identifies the entity that
+-- requested the team member association to the project. This token can be
+-- used to repeat the request.
+associateTeamMember_clientRequestToken :: Lens.Lens' AssociateTeamMember (Prelude.Maybe Prelude.Text)
+associateTeamMember_clientRequestToken = Lens.lens (\AssociateTeamMember' {clientRequestToken} -> clientRequestToken) (\s@AssociateTeamMember' {} a -> s {clientRequestToken = a} :: AssociateTeamMember)
 
 -- | The ID of the project to which you will add the IAM user.
-atmProjectId :: Lens' AssociateTeamMember Text
-atmProjectId = lens _atmProjectId (\s a -> s {_atmProjectId = a})
+associateTeamMember_projectId :: Lens.Lens' AssociateTeamMember Prelude.Text
+associateTeamMember_projectId = Lens.lens (\AssociateTeamMember' {projectId} -> projectId) (\s@AssociateTeamMember' {} a -> s {projectId = a} :: AssociateTeamMember)
 
--- | The Amazon Resource Name (ARN) for the IAM user you want to add to the AWS CodeStar project.
-atmUserARN :: Lens' AssociateTeamMember Text
-atmUserARN = lens _atmUserARN (\s a -> s {_atmUserARN = a})
+-- | The Amazon Resource Name (ARN) for the IAM user you want to add to the
+-- AWS CodeStar project.
+associateTeamMember_userArn :: Lens.Lens' AssociateTeamMember Prelude.Text
+associateTeamMember_userArn = Lens.lens (\AssociateTeamMember' {userArn} -> userArn) (\s@AssociateTeamMember' {} a -> s {userArn = a} :: AssociateTeamMember)
 
--- | The AWS CodeStar project role that will apply to this user. This role determines what actions a user can take in an AWS CodeStar project.
-atmProjectRole :: Lens' AssociateTeamMember Text
-atmProjectRole = lens _atmProjectRole (\s a -> s {_atmProjectRole = a})
+-- | The AWS CodeStar project role that will apply to this user. This role
+-- determines what actions a user can take in an AWS CodeStar project.
+associateTeamMember_projectRole :: Lens.Lens' AssociateTeamMember Prelude.Text
+associateTeamMember_projectRole = Lens.lens (\AssociateTeamMember' {projectRole} -> projectRole) (\s@AssociateTeamMember' {} a -> s {projectRole = a} :: AssociateTeamMember)
 
-instance AWSRequest AssociateTeamMember where
+instance Prelude.AWSRequest AssociateTeamMember where
   type
     Rs AssociateTeamMember =
       AssociateTeamMemberResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           AssociateTeamMemberResponse'
-            <$> (x .?> "clientRequestToken") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "clientRequestToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateTeamMember
+instance Prelude.Hashable AssociateTeamMember
 
-instance NFData AssociateTeamMember
+instance Prelude.NFData AssociateTeamMember
 
-instance ToHeaders AssociateTeamMember where
+instance Prelude.ToHeaders AssociateTeamMember where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeStar_20170419.AssociateTeamMember" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeStar_20170419.AssociateTeamMember" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateTeamMember where
+instance Prelude.ToJSON AssociateTeamMember where
   toJSON AssociateTeamMember' {..} =
-    object
-      ( catMaybes
-          [ ("remoteAccessAllowed" .=)
-              <$> _atmRemoteAccessAllowed,
-            ("clientRequestToken" .=) <$> _atmClientRequestToken,
-            Just ("projectId" .= _atmProjectId),
-            Just ("userArn" .= _atmUserARN),
-            Just ("projectRole" .= _atmProjectRole)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("remoteAccessAllowed" Prelude..=)
+              Prelude.<$> remoteAccessAllowed,
+            ("clientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            Prelude.Just ("projectId" Prelude..= projectId),
+            Prelude.Just ("userArn" Prelude..= userArn),
+            Prelude.Just ("projectRole" Prelude..= projectRole)
           ]
       )
 
-instance ToPath AssociateTeamMember where
-  toPath = const "/"
+instance Prelude.ToPath AssociateTeamMember where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateTeamMember where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateTeamMember where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateTeamMemberResponse' smart constructor.
+-- | /See:/ 'newAssociateTeamMemberResponse' smart constructor.
 data AssociateTeamMemberResponse = AssociateTeamMemberResponse'
-  { _atmrrsClientRequestToken ::
-      !(Maybe Text),
-    _atmrrsResponseStatus ::
-      !Int
+  { -- | The user- or system-generated token from the initial request that can be
+    -- used to repeat the request.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateTeamMemberResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateTeamMemberResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'atmrrsClientRequestToken' - The user- or system-generated token from the initial request that can be used to repeat the request.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'atmrrsResponseStatus' - -- | The response status code.
-associateTeamMemberResponse ::
-  -- | 'atmrrsResponseStatus'
-  Int ->
+-- 'clientRequestToken', 'associateTeamMemberResponse_clientRequestToken' - The user- or system-generated token from the initial request that can be
+-- used to repeat the request.
+--
+-- 'httpStatus', 'associateTeamMemberResponse_httpStatus' - The response's http status code.
+newAssociateTeamMemberResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateTeamMemberResponse
-associateTeamMemberResponse pResponseStatus_ =
+newAssociateTeamMemberResponse pHttpStatus_ =
   AssociateTeamMemberResponse'
-    { _atmrrsClientRequestToken =
-        Nothing,
-      _atmrrsResponseStatus = pResponseStatus_
+    { clientRequestToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The user- or system-generated token from the initial request that can be used to repeat the request.
-atmrrsClientRequestToken :: Lens' AssociateTeamMemberResponse (Maybe Text)
-atmrrsClientRequestToken = lens _atmrrsClientRequestToken (\s a -> s {_atmrrsClientRequestToken = a})
+-- | The user- or system-generated token from the initial request that can be
+-- used to repeat the request.
+associateTeamMemberResponse_clientRequestToken :: Lens.Lens' AssociateTeamMemberResponse (Prelude.Maybe Prelude.Text)
+associateTeamMemberResponse_clientRequestToken = Lens.lens (\AssociateTeamMemberResponse' {clientRequestToken} -> clientRequestToken) (\s@AssociateTeamMemberResponse' {} a -> s {clientRequestToken = a} :: AssociateTeamMemberResponse)
 
--- | -- | The response status code.
-atmrrsResponseStatus :: Lens' AssociateTeamMemberResponse Int
-atmrrsResponseStatus = lens _atmrrsResponseStatus (\s a -> s {_atmrrsResponseStatus = a})
+-- | The response's http status code.
+associateTeamMemberResponse_httpStatus :: Lens.Lens' AssociateTeamMemberResponse Prelude.Int
+associateTeamMemberResponse_httpStatus = Lens.lens (\AssociateTeamMemberResponse' {httpStatus} -> httpStatus) (\s@AssociateTeamMemberResponse' {} a -> s {httpStatus = a} :: AssociateTeamMemberResponse)
 
-instance NFData AssociateTeamMemberResponse
+instance Prelude.NFData AssociateTeamMemberResponse

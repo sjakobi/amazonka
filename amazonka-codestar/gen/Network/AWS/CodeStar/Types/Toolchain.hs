@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,64 +20,83 @@
 module Network.AWS.CodeStar.Types.Toolchain where
 
 import Network.AWS.CodeStar.Types.ToolchainSource
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The toolchain template file provided with the project request. AWS CodeStar uses the template to provision the toolchain stack in AWS CloudFormation.
+-- | The toolchain template file provided with the project request. AWS
+-- CodeStar uses the template to provision the toolchain stack in AWS
+-- CloudFormation.
 --
---
---
--- /See:/ 'toolchain' smart constructor.
+-- /See:/ 'newToolchain' smart constructor.
 data Toolchain = Toolchain'
-  { _tStackParameters ::
-      !(Maybe (Map Text (Sensitive Text))),
-    _tRoleARN :: !(Maybe Text),
-    _tSource :: !ToolchainSource
+  { -- | The list of parameter overrides to be passed into the toolchain template
+    -- during stack provisioning, if any.
+    stackParameters :: Prelude.Maybe (Prelude.Map Prelude.Text (Prelude.Sensitive Prelude.Text)),
+    -- | The service role ARN for AWS CodeStar to use for the toolchain template
+    -- during stack provisioning.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 location where the toolchain template file provided with
+    -- the project request is stored. AWS CodeStar retrieves the file during
+    -- project creation.
+    source :: ToolchainSource
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Toolchain' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Toolchain' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tStackParameters' - The list of parameter overrides to be passed into the toolchain template during stack provisioning, if any.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tRoleARN' - The service role ARN for AWS CodeStar to use for the toolchain template during stack provisioning.
+-- 'stackParameters', 'toolchain_stackParameters' - The list of parameter overrides to be passed into the toolchain template
+-- during stack provisioning, if any.
 --
--- * 'tSource' - The Amazon S3 location where the toolchain template file provided with the project request is stored. AWS CodeStar retrieves the file during project creation.
-toolchain ::
-  -- | 'tSource'
+-- 'roleArn', 'toolchain_roleArn' - The service role ARN for AWS CodeStar to use for the toolchain template
+-- during stack provisioning.
+--
+-- 'source', 'toolchain_source' - The Amazon S3 location where the toolchain template file provided with
+-- the project request is stored. AWS CodeStar retrieves the file during
+-- project creation.
+newToolchain ::
+  -- | 'source'
   ToolchainSource ->
   Toolchain
-toolchain pSource_ =
+newToolchain pSource_ =
   Toolchain'
-    { _tStackParameters = Nothing,
-      _tRoleARN = Nothing,
-      _tSource = pSource_
+    { stackParameters = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      source = pSource_
     }
 
--- | The list of parameter overrides to be passed into the toolchain template during stack provisioning, if any.
-tStackParameters :: Lens' Toolchain (HashMap Text Text)
-tStackParameters = lens _tStackParameters (\s a -> s {_tStackParameters = a}) . _Default . _Map
+-- | The list of parameter overrides to be passed into the toolchain template
+-- during stack provisioning, if any.
+toolchain_stackParameters :: Lens.Lens' Toolchain (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+toolchain_stackParameters = Lens.lens (\Toolchain' {stackParameters} -> stackParameters) (\s@Toolchain' {} a -> s {stackParameters = a} :: Toolchain) Prelude.. Lens.mapping Prelude._Map
 
--- | The service role ARN for AWS CodeStar to use for the toolchain template during stack provisioning.
-tRoleARN :: Lens' Toolchain (Maybe Text)
-tRoleARN = lens _tRoleARN (\s a -> s {_tRoleARN = a})
+-- | The service role ARN for AWS CodeStar to use for the toolchain template
+-- during stack provisioning.
+toolchain_roleArn :: Lens.Lens' Toolchain (Prelude.Maybe Prelude.Text)
+toolchain_roleArn = Lens.lens (\Toolchain' {roleArn} -> roleArn) (\s@Toolchain' {} a -> s {roleArn = a} :: Toolchain)
 
--- | The Amazon S3 location where the toolchain template file provided with the project request is stored. AWS CodeStar retrieves the file during project creation.
-tSource :: Lens' Toolchain ToolchainSource
-tSource = lens _tSource (\s a -> s {_tSource = a})
+-- | The Amazon S3 location where the toolchain template file provided with
+-- the project request is stored. AWS CodeStar retrieves the file during
+-- project creation.
+toolchain_source :: Lens.Lens' Toolchain ToolchainSource
+toolchain_source = Lens.lens (\Toolchain' {source} -> source) (\s@Toolchain' {} a -> s {source = a} :: Toolchain)
 
-instance Hashable Toolchain
+instance Prelude.Hashable Toolchain
 
-instance NFData Toolchain
+instance Prelude.NFData Toolchain
 
-instance ToJSON Toolchain where
+instance Prelude.ToJSON Toolchain where
   toJSON Toolchain' {..} =
-    object
-      ( catMaybes
-          [ ("stackParameters" .=) <$> _tStackParameters,
-            ("roleArn" .=) <$> _tRoleARN,
-            Just ("source" .= _tSource)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("stackParameters" Prelude..=)
+              Prelude.<$> stackParameters,
+            ("roleArn" Prelude..=) Prelude.<$> roleArn,
+            Prelude.Just ("source" Prelude..= source)
           ]
       )

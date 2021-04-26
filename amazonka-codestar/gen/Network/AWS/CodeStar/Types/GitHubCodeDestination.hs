@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,76 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeStar.Types.GitHubCodeDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about the GitHub repository to be created in AWS CodeStar. This is where the source code files provided with the project request will be uploaded after project creation.
+-- | Information about the GitHub repository to be created in AWS CodeStar.
+-- This is where the source code files provided with the project request
+-- will be uploaded after project creation.
 --
---
---
--- /See:/ 'gitHubCodeDestination' smart constructor.
+-- /See:/ 'newGitHubCodeDestination' smart constructor.
 data GitHubCodeDestination = GitHubCodeDestination'
-  { _ghcdDescription ::
-      !(Maybe Text),
-    _ghcdName :: !Text,
-    _ghcdType :: !Text,
-    _ghcdOwner :: !Text,
-    _ghcdPrivateRepository ::
-      !Bool,
-    _ghcdIssuesEnabled :: !Bool,
-    _ghcdToken ::
-      !(Sensitive Text)
+  { -- | Description for the GitHub repository to be created in AWS CodeStar.
+    -- This description displays in GitHub after the repository is created.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Name of the GitHub repository to be created in AWS CodeStar.
+    name :: Prelude.Text,
+    -- | The type of GitHub repository to be created in AWS CodeStar. Valid
+    -- values are User or Organization.
+    type' :: Prelude.Text,
+    -- | The GitHub username for the owner of the GitHub repository to be created
+    -- in AWS CodeStar. If this repository should be owned by a GitHub
+    -- organization, provide its name.
+    owner :: Prelude.Text,
+    -- | Whether the GitHub repository is to be a private repository.
+    privateRepository :: Prelude.Bool,
+    -- | Whether to enable issues for the GitHub repository.
+    issuesEnabled :: Prelude.Bool,
+    -- | The GitHub user\'s personal access token for the GitHub repository.
+    token :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GitHubCodeDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GitHubCodeDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ghcdDescription' - Description for the GitHub repository to be created in AWS CodeStar. This description displays in GitHub after the repository is created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ghcdName' - Name of the GitHub repository to be created in AWS CodeStar.
+-- 'description', 'gitHubCodeDestination_description' - Description for the GitHub repository to be created in AWS CodeStar.
+-- This description displays in GitHub after the repository is created.
 --
--- * 'ghcdType' - The type of GitHub repository to be created in AWS CodeStar. Valid values are User or Organization.
+-- 'name', 'gitHubCodeDestination_name' - Name of the GitHub repository to be created in AWS CodeStar.
 --
--- * 'ghcdOwner' - The GitHub username for the owner of the GitHub repository to be created in AWS CodeStar. If this repository should be owned by a GitHub organization, provide its name.
+-- 'type'', 'gitHubCodeDestination_type' - The type of GitHub repository to be created in AWS CodeStar. Valid
+-- values are User or Organization.
 --
--- * 'ghcdPrivateRepository' - Whether the GitHub repository is to be a private repository.
+-- 'owner', 'gitHubCodeDestination_owner' - The GitHub username for the owner of the GitHub repository to be created
+-- in AWS CodeStar. If this repository should be owned by a GitHub
+-- organization, provide its name.
 --
--- * 'ghcdIssuesEnabled' - Whether to enable issues for the GitHub repository.
+-- 'privateRepository', 'gitHubCodeDestination_privateRepository' - Whether the GitHub repository is to be a private repository.
 --
--- * 'ghcdToken' - The GitHub user's personal access token for the GitHub repository.
-gitHubCodeDestination ::
-  -- | 'ghcdName'
-  Text ->
-  -- | 'ghcdType'
-  Text ->
-  -- | 'ghcdOwner'
-  Text ->
-  -- | 'ghcdPrivateRepository'
-  Bool ->
-  -- | 'ghcdIssuesEnabled'
-  Bool ->
-  -- | 'ghcdToken'
-  Text ->
+-- 'issuesEnabled', 'gitHubCodeDestination_issuesEnabled' - Whether to enable issues for the GitHub repository.
+--
+-- 'token', 'gitHubCodeDestination_token' - The GitHub user\'s personal access token for the GitHub repository.
+newGitHubCodeDestination ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'type''
+  Prelude.Text ->
+  -- | 'owner'
+  Prelude.Text ->
+  -- | 'privateRepository'
+  Prelude.Bool ->
+  -- | 'issuesEnabled'
+  Prelude.Bool ->
+  -- | 'token'
+  Prelude.Text ->
   GitHubCodeDestination
-gitHubCodeDestination
+newGitHubCodeDestination
   pName_
   pType_
   pOwner_
@@ -76,57 +96,64 @@ gitHubCodeDestination
   pIssuesEnabled_
   pToken_ =
     GitHubCodeDestination'
-      { _ghcdDescription = Nothing,
-        _ghcdName = pName_,
-        _ghcdType = pType_,
-        _ghcdOwner = pOwner_,
-        _ghcdPrivateRepository = pPrivateRepository_,
-        _ghcdIssuesEnabled = pIssuesEnabled_,
-        _ghcdToken = _Sensitive # pToken_
+      { description =
+          Prelude.Nothing,
+        name = pName_,
+        type' = pType_,
+        owner = pOwner_,
+        privateRepository = pPrivateRepository_,
+        issuesEnabled = pIssuesEnabled_,
+        token = Prelude._Sensitive Lens.# pToken_
       }
 
--- | Description for the GitHub repository to be created in AWS CodeStar. This description displays in GitHub after the repository is created.
-ghcdDescription :: Lens' GitHubCodeDestination (Maybe Text)
-ghcdDescription = lens _ghcdDescription (\s a -> s {_ghcdDescription = a})
+-- | Description for the GitHub repository to be created in AWS CodeStar.
+-- This description displays in GitHub after the repository is created.
+gitHubCodeDestination_description :: Lens.Lens' GitHubCodeDestination (Prelude.Maybe Prelude.Text)
+gitHubCodeDestination_description = Lens.lens (\GitHubCodeDestination' {description} -> description) (\s@GitHubCodeDestination' {} a -> s {description = a} :: GitHubCodeDestination)
 
 -- | Name of the GitHub repository to be created in AWS CodeStar.
-ghcdName :: Lens' GitHubCodeDestination Text
-ghcdName = lens _ghcdName (\s a -> s {_ghcdName = a})
+gitHubCodeDestination_name :: Lens.Lens' GitHubCodeDestination Prelude.Text
+gitHubCodeDestination_name = Lens.lens (\GitHubCodeDestination' {name} -> name) (\s@GitHubCodeDestination' {} a -> s {name = a} :: GitHubCodeDestination)
 
--- | The type of GitHub repository to be created in AWS CodeStar. Valid values are User or Organization.
-ghcdType :: Lens' GitHubCodeDestination Text
-ghcdType = lens _ghcdType (\s a -> s {_ghcdType = a})
+-- | The type of GitHub repository to be created in AWS CodeStar. Valid
+-- values are User or Organization.
+gitHubCodeDestination_type :: Lens.Lens' GitHubCodeDestination Prelude.Text
+gitHubCodeDestination_type = Lens.lens (\GitHubCodeDestination' {type'} -> type') (\s@GitHubCodeDestination' {} a -> s {type' = a} :: GitHubCodeDestination)
 
--- | The GitHub username for the owner of the GitHub repository to be created in AWS CodeStar. If this repository should be owned by a GitHub organization, provide its name.
-ghcdOwner :: Lens' GitHubCodeDestination Text
-ghcdOwner = lens _ghcdOwner (\s a -> s {_ghcdOwner = a})
+-- | The GitHub username for the owner of the GitHub repository to be created
+-- in AWS CodeStar. If this repository should be owned by a GitHub
+-- organization, provide its name.
+gitHubCodeDestination_owner :: Lens.Lens' GitHubCodeDestination Prelude.Text
+gitHubCodeDestination_owner = Lens.lens (\GitHubCodeDestination' {owner} -> owner) (\s@GitHubCodeDestination' {} a -> s {owner = a} :: GitHubCodeDestination)
 
 -- | Whether the GitHub repository is to be a private repository.
-ghcdPrivateRepository :: Lens' GitHubCodeDestination Bool
-ghcdPrivateRepository = lens _ghcdPrivateRepository (\s a -> s {_ghcdPrivateRepository = a})
+gitHubCodeDestination_privateRepository :: Lens.Lens' GitHubCodeDestination Prelude.Bool
+gitHubCodeDestination_privateRepository = Lens.lens (\GitHubCodeDestination' {privateRepository} -> privateRepository) (\s@GitHubCodeDestination' {} a -> s {privateRepository = a} :: GitHubCodeDestination)
 
 -- | Whether to enable issues for the GitHub repository.
-ghcdIssuesEnabled :: Lens' GitHubCodeDestination Bool
-ghcdIssuesEnabled = lens _ghcdIssuesEnabled (\s a -> s {_ghcdIssuesEnabled = a})
+gitHubCodeDestination_issuesEnabled :: Lens.Lens' GitHubCodeDestination Prelude.Bool
+gitHubCodeDestination_issuesEnabled = Lens.lens (\GitHubCodeDestination' {issuesEnabled} -> issuesEnabled) (\s@GitHubCodeDestination' {} a -> s {issuesEnabled = a} :: GitHubCodeDestination)
 
--- | The GitHub user's personal access token for the GitHub repository.
-ghcdToken :: Lens' GitHubCodeDestination Text
-ghcdToken = lens _ghcdToken (\s a -> s {_ghcdToken = a}) . _Sensitive
+-- | The GitHub user\'s personal access token for the GitHub repository.
+gitHubCodeDestination_token :: Lens.Lens' GitHubCodeDestination Prelude.Text
+gitHubCodeDestination_token = Lens.lens (\GitHubCodeDestination' {token} -> token) (\s@GitHubCodeDestination' {} a -> s {token = a} :: GitHubCodeDestination) Prelude.. Prelude._Sensitive
 
-instance Hashable GitHubCodeDestination
+instance Prelude.Hashable GitHubCodeDestination
 
-instance NFData GitHubCodeDestination
+instance Prelude.NFData GitHubCodeDestination
 
-instance ToJSON GitHubCodeDestination where
+instance Prelude.ToJSON GitHubCodeDestination where
   toJSON GitHubCodeDestination' {..} =
-    object
-      ( catMaybes
-          [ ("description" .=) <$> _ghcdDescription,
-            Just ("name" .= _ghcdName),
-            Just ("type" .= _ghcdType),
-            Just ("owner" .= _ghcdOwner),
-            Just ("privateRepository" .= _ghcdPrivateRepository),
-            Just ("issuesEnabled" .= _ghcdIssuesEnabled),
-            Just ("token" .= _ghcdToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("name" Prelude..= name),
+            Prelude.Just ("type" Prelude..= type'),
+            Prelude.Just ("owner" Prelude..= owner),
+            Prelude.Just
+              ("privateRepository" Prelude..= privateRepository),
+            Prelude.Just
+              ("issuesEnabled" Prelude..= issuesEnabled),
+            Prelude.Just ("token" Prelude..= token)
           ]
       )

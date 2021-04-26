@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,55 +19,63 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeStar.Types.ProjectStatus where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An indication of whether a project creation or deletion is failed or successful.
+-- | An indication of whether a project creation or deletion is failed or
+-- successful.
 --
---
---
--- /See:/ 'projectStatus' smart constructor.
+-- /See:/ 'newProjectStatus' smart constructor.
 data ProjectStatus = ProjectStatus'
-  { _psReason ::
-      !(Maybe Text),
-    _psState :: !Text
+  { -- | In the case of a project creation or deletion failure, a reason for the
+    -- failure.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The phase of completion for a project creation or deletion.
+    state :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProjectStatus' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProjectStatus' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psReason' - In the case of a project creation or deletion failure, a reason for the failure.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psState' - The phase of completion for a project creation or deletion.
-projectStatus ::
-  -- | 'psState'
-  Text ->
+-- 'reason', 'projectStatus_reason' - In the case of a project creation or deletion failure, a reason for the
+-- failure.
+--
+-- 'state', 'projectStatus_state' - The phase of completion for a project creation or deletion.
+newProjectStatus ::
+  -- | 'state'
+  Prelude.Text ->
   ProjectStatus
-projectStatus pState_ =
+newProjectStatus pState_ =
   ProjectStatus'
-    { _psReason = Nothing,
-      _psState = pState_
+    { reason = Prelude.Nothing,
+      state = pState_
     }
 
--- | In the case of a project creation or deletion failure, a reason for the failure.
-psReason :: Lens' ProjectStatus (Maybe Text)
-psReason = lens _psReason (\s a -> s {_psReason = a})
+-- | In the case of a project creation or deletion failure, a reason for the
+-- failure.
+projectStatus_reason :: Lens.Lens' ProjectStatus (Prelude.Maybe Prelude.Text)
+projectStatus_reason = Lens.lens (\ProjectStatus' {reason} -> reason) (\s@ProjectStatus' {} a -> s {reason = a} :: ProjectStatus)
 
 -- | The phase of completion for a project creation or deletion.
-psState :: Lens' ProjectStatus Text
-psState = lens _psState (\s a -> s {_psState = a})
+projectStatus_state :: Lens.Lens' ProjectStatus Prelude.Text
+projectStatus_state = Lens.lens (\ProjectStatus' {state} -> state) (\s@ProjectStatus' {} a -> s {state = a} :: ProjectStatus)
 
-instance FromJSON ProjectStatus where
+instance Prelude.FromJSON ProjectStatus where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProjectStatus"
       ( \x ->
           ProjectStatus'
-            <$> (x .:? "reason") <*> (x .: "state")
+            Prelude.<$> (x Prelude..:? "reason")
+            Prelude.<*> (x Prelude..: "state")
       )
 
-instance Hashable ProjectStatus
+instance Prelude.Hashable ProjectStatus
 
-instance NFData ProjectStatus
+instance Prelude.NFData ProjectStatus

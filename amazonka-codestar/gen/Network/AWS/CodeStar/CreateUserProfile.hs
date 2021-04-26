@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,235 +21,276 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a profile for a user that includes user preferences, such as the display name and email address assocciated with the user, in AWS CodeStar. The user profile is not project-specific. Information in the user profile is displayed wherever the user's information appears to other users in AWS CodeStar.
+-- Creates a profile for a user that includes user preferences, such as the
+-- display name and email address assocciated with the user, in AWS
+-- CodeStar. The user profile is not project-specific. Information in the
+-- user profile is displayed wherever the user\'s information appears to
+-- other users in AWS CodeStar.
 module Network.AWS.CodeStar.CreateUserProfile
   ( -- * Creating a Request
-    createUserProfile,
-    CreateUserProfile,
+    CreateUserProfile (..),
+    newCreateUserProfile,
 
     -- * Request Lenses
-    cupSshPublicKey,
-    cupUserARN,
-    cupDisplayName,
-    cupEmailAddress,
+    createUserProfile_sshPublicKey,
+    createUserProfile_userArn,
+    createUserProfile_displayName,
+    createUserProfile_emailAddress,
 
     -- * Destructuring the Response
-    createUserProfileResponse,
-    CreateUserProfileResponse,
+    CreateUserProfileResponse (..),
+    newCreateUserProfileResponse,
 
     -- * Response Lenses
-    cuprrsCreatedTimestamp,
-    cuprrsLastModifiedTimestamp,
-    cuprrsSshPublicKey,
-    cuprrsDisplayName,
-    cuprrsEmailAddress,
-    cuprrsResponseStatus,
-    cuprrsUserARN,
+    createUserProfileResponse_createdTimestamp,
+    createUserProfileResponse_lastModifiedTimestamp,
+    createUserProfileResponse_sshPublicKey,
+    createUserProfileResponse_displayName,
+    createUserProfileResponse_emailAddress,
+    createUserProfileResponse_httpStatus,
+    createUserProfileResponse_userArn,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createUserProfile' smart constructor.
+-- | /See:/ 'newCreateUserProfile' smart constructor.
 data CreateUserProfile = CreateUserProfile'
-  { _cupSshPublicKey ::
-      !(Maybe Text),
-    _cupUserARN :: !Text,
-    _cupDisplayName ::
-      !(Sensitive Text),
-    _cupEmailAddress ::
-      !(Sensitive Text)
+  { -- | The SSH public key associated with the user in AWS CodeStar. If a
+    -- project owner allows the user remote access to project resources, this
+    -- public key will be used along with the user\'s private key for SSH
+    -- access.
+    sshPublicKey :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the user in IAM.
+    userArn :: Prelude.Text,
+    -- | The name that will be displayed as the friendly name for the user in AWS
+    -- CodeStar.
+    displayName :: Prelude.Sensitive Prelude.Text,
+    -- | The email address that will be displayed as part of the user\'s profile
+    -- in AWS CodeStar.
+    emailAddress :: Prelude.Sensitive Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cupSshPublicKey' - The SSH public key associated with the user in AWS CodeStar. If a project owner allows the user remote access to project resources, this public key will be used along with the user's private key for SSH access.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cupUserARN' - The Amazon Resource Name (ARN) of the user in IAM.
+-- 'sshPublicKey', 'createUserProfile_sshPublicKey' - The SSH public key associated with the user in AWS CodeStar. If a
+-- project owner allows the user remote access to project resources, this
+-- public key will be used along with the user\'s private key for SSH
+-- access.
 --
--- * 'cupDisplayName' - The name that will be displayed as the friendly name for the user in AWS CodeStar.
+-- 'userArn', 'createUserProfile_userArn' - The Amazon Resource Name (ARN) of the user in IAM.
 --
--- * 'cupEmailAddress' - The email address that will be displayed as part of the user's profile in AWS CodeStar.
-createUserProfile ::
-  -- | 'cupUserARN'
-  Text ->
-  -- | 'cupDisplayName'
-  Text ->
-  -- | 'cupEmailAddress'
-  Text ->
+-- 'displayName', 'createUserProfile_displayName' - The name that will be displayed as the friendly name for the user in AWS
+-- CodeStar.
+--
+-- 'emailAddress', 'createUserProfile_emailAddress' - The email address that will be displayed as part of the user\'s profile
+-- in AWS CodeStar.
+newCreateUserProfile ::
+  -- | 'userArn'
+  Prelude.Text ->
+  -- | 'displayName'
+  Prelude.Text ->
+  -- | 'emailAddress'
+  Prelude.Text ->
   CreateUserProfile
-createUserProfile
-  pUserARN_
+newCreateUserProfile
+  pUserArn_
   pDisplayName_
   pEmailAddress_ =
     CreateUserProfile'
-      { _cupSshPublicKey = Nothing,
-        _cupUserARN = pUserARN_,
-        _cupDisplayName = _Sensitive # pDisplayName_,
-        _cupEmailAddress = _Sensitive # pEmailAddress_
+      { sshPublicKey = Prelude.Nothing,
+        userArn = pUserArn_,
+        displayName =
+          Prelude._Sensitive Lens.# pDisplayName_,
+        emailAddress =
+          Prelude._Sensitive Lens.# pEmailAddress_
       }
 
--- | The SSH public key associated with the user in AWS CodeStar. If a project owner allows the user remote access to project resources, this public key will be used along with the user's private key for SSH access.
-cupSshPublicKey :: Lens' CreateUserProfile (Maybe Text)
-cupSshPublicKey = lens _cupSshPublicKey (\s a -> s {_cupSshPublicKey = a})
+-- | The SSH public key associated with the user in AWS CodeStar. If a
+-- project owner allows the user remote access to project resources, this
+-- public key will be used along with the user\'s private key for SSH
+-- access.
+createUserProfile_sshPublicKey :: Lens.Lens' CreateUserProfile (Prelude.Maybe Prelude.Text)
+createUserProfile_sshPublicKey = Lens.lens (\CreateUserProfile' {sshPublicKey} -> sshPublicKey) (\s@CreateUserProfile' {} a -> s {sshPublicKey = a} :: CreateUserProfile)
 
 -- | The Amazon Resource Name (ARN) of the user in IAM.
-cupUserARN :: Lens' CreateUserProfile Text
-cupUserARN = lens _cupUserARN (\s a -> s {_cupUserARN = a})
+createUserProfile_userArn :: Lens.Lens' CreateUserProfile Prelude.Text
+createUserProfile_userArn = Lens.lens (\CreateUserProfile' {userArn} -> userArn) (\s@CreateUserProfile' {} a -> s {userArn = a} :: CreateUserProfile)
 
--- | The name that will be displayed as the friendly name for the user in AWS CodeStar.
-cupDisplayName :: Lens' CreateUserProfile Text
-cupDisplayName = lens _cupDisplayName (\s a -> s {_cupDisplayName = a}) . _Sensitive
+-- | The name that will be displayed as the friendly name for the user in AWS
+-- CodeStar.
+createUserProfile_displayName :: Lens.Lens' CreateUserProfile Prelude.Text
+createUserProfile_displayName = Lens.lens (\CreateUserProfile' {displayName} -> displayName) (\s@CreateUserProfile' {} a -> s {displayName = a} :: CreateUserProfile) Prelude.. Prelude._Sensitive
 
--- | The email address that will be displayed as part of the user's profile in AWS CodeStar.
-cupEmailAddress :: Lens' CreateUserProfile Text
-cupEmailAddress = lens _cupEmailAddress (\s a -> s {_cupEmailAddress = a}) . _Sensitive
+-- | The email address that will be displayed as part of the user\'s profile
+-- in AWS CodeStar.
+createUserProfile_emailAddress :: Lens.Lens' CreateUserProfile Prelude.Text
+createUserProfile_emailAddress = Lens.lens (\CreateUserProfile' {emailAddress} -> emailAddress) (\s@CreateUserProfile' {} a -> s {emailAddress = a} :: CreateUserProfile) Prelude.. Prelude._Sensitive
 
-instance AWSRequest CreateUserProfile where
+instance Prelude.AWSRequest CreateUserProfile where
   type Rs CreateUserProfile = CreateUserProfileResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateUserProfileResponse'
-            <$> (x .?> "createdTimestamp")
-            <*> (x .?> "lastModifiedTimestamp")
-            <*> (x .?> "sshPublicKey")
-            <*> (x .?> "displayName")
-            <*> (x .?> "emailAddress")
-            <*> (pure (fromEnum s))
-            <*> (x .:> "userArn")
+            Prelude.<$> (x Prelude..?> "createdTimestamp")
+            Prelude.<*> (x Prelude..?> "lastModifiedTimestamp")
+            Prelude.<*> (x Prelude..?> "sshPublicKey")
+            Prelude.<*> (x Prelude..?> "displayName")
+            Prelude.<*> (x Prelude..?> "emailAddress")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..:> "userArn")
       )
 
-instance Hashable CreateUserProfile
+instance Prelude.Hashable CreateUserProfile
 
-instance NFData CreateUserProfile
+instance Prelude.NFData CreateUserProfile
 
-instance ToHeaders CreateUserProfile where
+instance Prelude.ToHeaders CreateUserProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "CodeStar_20170419.CreateUserProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "CodeStar_20170419.CreateUserProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateUserProfile where
+instance Prelude.ToJSON CreateUserProfile where
   toJSON CreateUserProfile' {..} =
-    object
-      ( catMaybes
-          [ ("sshPublicKey" .=) <$> _cupSshPublicKey,
-            Just ("userArn" .= _cupUserARN),
-            Just ("displayName" .= _cupDisplayName),
-            Just ("emailAddress" .= _cupEmailAddress)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("sshPublicKey" Prelude..=)
+              Prelude.<$> sshPublicKey,
+            Prelude.Just ("userArn" Prelude..= userArn),
+            Prelude.Just ("displayName" Prelude..= displayName),
+            Prelude.Just
+              ("emailAddress" Prelude..= emailAddress)
           ]
       )
 
-instance ToPath CreateUserProfile where
-  toPath = const "/"
+instance Prelude.ToPath CreateUserProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateUserProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateUserProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createUserProfileResponse' smart constructor.
+-- | /See:/ 'newCreateUserProfileResponse' smart constructor.
 data CreateUserProfileResponse = CreateUserProfileResponse'
-  { _cuprrsCreatedTimestamp ::
-      !(Maybe POSIX),
-    _cuprrsLastModifiedTimestamp ::
-      !(Maybe POSIX),
-    _cuprrsSshPublicKey ::
-      !(Maybe Text),
-    _cuprrsDisplayName ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _cuprrsEmailAddress ::
-      !( Maybe
-           ( Sensitive
-               Text
-           )
-       ),
-    _cuprrsResponseStatus ::
-      !Int,
-    _cuprrsUserARN ::
-      !Text
+  { -- | The date the user profile was created, in timestamp format.
+    createdTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The date the user profile was last modified, in timestamp format.
+    lastModifiedTimestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The SSH public key associated with the user in AWS CodeStar. This is the
+    -- public portion of the public\/private keypair the user can use to access
+    -- project resources if a project owner allows the user remote access to
+    -- those resources.
+    sshPublicKey :: Prelude.Maybe Prelude.Text,
+    -- | The name that is displayed as the friendly name for the user in AWS
+    -- CodeStar.
+    displayName :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The email address that is displayed as part of the user\'s profile in
+    -- AWS CodeStar.
+    emailAddress :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | The Amazon Resource Name (ARN) of the user in IAM.
+    userArn :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateUserProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateUserProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cuprrsCreatedTimestamp' - The date the user profile was created, in timestamp format.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cuprrsLastModifiedTimestamp' - The date the user profile was last modified, in timestamp format.
+-- 'createdTimestamp', 'createUserProfileResponse_createdTimestamp' - The date the user profile was created, in timestamp format.
 --
--- * 'cuprrsSshPublicKey' - The SSH public key associated with the user in AWS CodeStar. This is the public portion of the public/private keypair the user can use to access project resources if a project owner allows the user remote access to those resources.
+-- 'lastModifiedTimestamp', 'createUserProfileResponse_lastModifiedTimestamp' - The date the user profile was last modified, in timestamp format.
 --
--- * 'cuprrsDisplayName' - The name that is displayed as the friendly name for the user in AWS CodeStar.
+-- 'sshPublicKey', 'createUserProfileResponse_sshPublicKey' - The SSH public key associated with the user in AWS CodeStar. This is the
+-- public portion of the public\/private keypair the user can use to access
+-- project resources if a project owner allows the user remote access to
+-- those resources.
 --
--- * 'cuprrsEmailAddress' - The email address that is displayed as part of the user's profile in AWS CodeStar.
+-- 'displayName', 'createUserProfileResponse_displayName' - The name that is displayed as the friendly name for the user in AWS
+-- CodeStar.
 --
--- * 'cuprrsResponseStatus' - -- | The response status code.
+-- 'emailAddress', 'createUserProfileResponse_emailAddress' - The email address that is displayed as part of the user\'s profile in
+-- AWS CodeStar.
 --
--- * 'cuprrsUserARN' - The Amazon Resource Name (ARN) of the user in IAM.
-createUserProfileResponse ::
-  -- | 'cuprrsResponseStatus'
-  Int ->
-  -- | 'cuprrsUserARN'
-  Text ->
+-- 'httpStatus', 'createUserProfileResponse_httpStatus' - The response's http status code.
+--
+-- 'userArn', 'createUserProfileResponse_userArn' - The Amazon Resource Name (ARN) of the user in IAM.
+newCreateUserProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'userArn'
+  Prelude.Text ->
   CreateUserProfileResponse
-createUserProfileResponse pResponseStatus_ pUserARN_ =
+newCreateUserProfileResponse pHttpStatus_ pUserArn_ =
   CreateUserProfileResponse'
-    { _cuprrsCreatedTimestamp =
-        Nothing,
-      _cuprrsLastModifiedTimestamp = Nothing,
-      _cuprrsSshPublicKey = Nothing,
-      _cuprrsDisplayName = Nothing,
-      _cuprrsEmailAddress = Nothing,
-      _cuprrsResponseStatus = pResponseStatus_,
-      _cuprrsUserARN = pUserARN_
+    { createdTimestamp =
+        Prelude.Nothing,
+      lastModifiedTimestamp = Prelude.Nothing,
+      sshPublicKey = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      emailAddress = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      userArn = pUserArn_
     }
 
 -- | The date the user profile was created, in timestamp format.
-cuprrsCreatedTimestamp :: Lens' CreateUserProfileResponse (Maybe UTCTime)
-cuprrsCreatedTimestamp = lens _cuprrsCreatedTimestamp (\s a -> s {_cuprrsCreatedTimestamp = a}) . mapping _Time
+createUserProfileResponse_createdTimestamp :: Lens.Lens' CreateUserProfileResponse (Prelude.Maybe Prelude.UTCTime)
+createUserProfileResponse_createdTimestamp = Lens.lens (\CreateUserProfileResponse' {createdTimestamp} -> createdTimestamp) (\s@CreateUserProfileResponse' {} a -> s {createdTimestamp = a} :: CreateUserProfileResponse) Prelude.. Lens.mapping Prelude._Time
 
 -- | The date the user profile was last modified, in timestamp format.
-cuprrsLastModifiedTimestamp :: Lens' CreateUserProfileResponse (Maybe UTCTime)
-cuprrsLastModifiedTimestamp = lens _cuprrsLastModifiedTimestamp (\s a -> s {_cuprrsLastModifiedTimestamp = a}) . mapping _Time
+createUserProfileResponse_lastModifiedTimestamp :: Lens.Lens' CreateUserProfileResponse (Prelude.Maybe Prelude.UTCTime)
+createUserProfileResponse_lastModifiedTimestamp = Lens.lens (\CreateUserProfileResponse' {lastModifiedTimestamp} -> lastModifiedTimestamp) (\s@CreateUserProfileResponse' {} a -> s {lastModifiedTimestamp = a} :: CreateUserProfileResponse) Prelude.. Lens.mapping Prelude._Time
 
--- | The SSH public key associated with the user in AWS CodeStar. This is the public portion of the public/private keypair the user can use to access project resources if a project owner allows the user remote access to those resources.
-cuprrsSshPublicKey :: Lens' CreateUserProfileResponse (Maybe Text)
-cuprrsSshPublicKey = lens _cuprrsSshPublicKey (\s a -> s {_cuprrsSshPublicKey = a})
+-- | The SSH public key associated with the user in AWS CodeStar. This is the
+-- public portion of the public\/private keypair the user can use to access
+-- project resources if a project owner allows the user remote access to
+-- those resources.
+createUserProfileResponse_sshPublicKey :: Lens.Lens' CreateUserProfileResponse (Prelude.Maybe Prelude.Text)
+createUserProfileResponse_sshPublicKey = Lens.lens (\CreateUserProfileResponse' {sshPublicKey} -> sshPublicKey) (\s@CreateUserProfileResponse' {} a -> s {sshPublicKey = a} :: CreateUserProfileResponse)
 
--- | The name that is displayed as the friendly name for the user in AWS CodeStar.
-cuprrsDisplayName :: Lens' CreateUserProfileResponse (Maybe Text)
-cuprrsDisplayName = lens _cuprrsDisplayName (\s a -> s {_cuprrsDisplayName = a}) . mapping _Sensitive
+-- | The name that is displayed as the friendly name for the user in AWS
+-- CodeStar.
+createUserProfileResponse_displayName :: Lens.Lens' CreateUserProfileResponse (Prelude.Maybe Prelude.Text)
+createUserProfileResponse_displayName = Lens.lens (\CreateUserProfileResponse' {displayName} -> displayName) (\s@CreateUserProfileResponse' {} a -> s {displayName = a} :: CreateUserProfileResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | The email address that is displayed as part of the user's profile in AWS CodeStar.
-cuprrsEmailAddress :: Lens' CreateUserProfileResponse (Maybe Text)
-cuprrsEmailAddress = lens _cuprrsEmailAddress (\s a -> s {_cuprrsEmailAddress = a}) . mapping _Sensitive
+-- | The email address that is displayed as part of the user\'s profile in
+-- AWS CodeStar.
+createUserProfileResponse_emailAddress :: Lens.Lens' CreateUserProfileResponse (Prelude.Maybe Prelude.Text)
+createUserProfileResponse_emailAddress = Lens.lens (\CreateUserProfileResponse' {emailAddress} -> emailAddress) (\s@CreateUserProfileResponse' {} a -> s {emailAddress = a} :: CreateUserProfileResponse) Prelude.. Lens.mapping Prelude._Sensitive
 
--- | -- | The response status code.
-cuprrsResponseStatus :: Lens' CreateUserProfileResponse Int
-cuprrsResponseStatus = lens _cuprrsResponseStatus (\s a -> s {_cuprrsResponseStatus = a})
+-- | The response's http status code.
+createUserProfileResponse_httpStatus :: Lens.Lens' CreateUserProfileResponse Prelude.Int
+createUserProfileResponse_httpStatus = Lens.lens (\CreateUserProfileResponse' {httpStatus} -> httpStatus) (\s@CreateUserProfileResponse' {} a -> s {httpStatus = a} :: CreateUserProfileResponse)
 
 -- | The Amazon Resource Name (ARN) of the user in IAM.
-cuprrsUserARN :: Lens' CreateUserProfileResponse Text
-cuprrsUserARN = lens _cuprrsUserARN (\s a -> s {_cuprrsUserARN = a})
+createUserProfileResponse_userArn :: Lens.Lens' CreateUserProfileResponse Prelude.Text
+createUserProfileResponse_userArn = Lens.lens (\CreateUserProfileResponse' {userArn} -> userArn) (\s@CreateUserProfileResponse' {} a -> s {userArn = a} :: CreateUserProfileResponse)
 
-instance NFData CreateUserProfileResponse
+instance Prelude.NFData CreateUserProfileResponse

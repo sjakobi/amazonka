@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,193 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the user profiles configured for your AWS account in AWS CodeStar.
---
---
+-- Lists all the user profiles configured for your AWS account in AWS
+-- CodeStar.
 --
 -- This operation returns paginated results.
 module Network.AWS.CodeStar.ListUserProfiles
   ( -- * Creating a Request
-    listUserProfiles,
-    ListUserProfiles,
+    ListUserProfiles (..),
+    newListUserProfiles,
 
     -- * Request Lenses
-    lupNextToken,
-    lupMaxResults,
+    listUserProfiles_nextToken,
+    listUserProfiles_maxResults,
 
     -- * Destructuring the Response
-    listUserProfilesResponse,
-    ListUserProfilesResponse,
+    ListUserProfilesResponse (..),
+    newListUserProfilesResponse,
 
     -- * Response Lenses
-    luprrsNextToken,
-    luprrsResponseStatus,
-    luprrsUserProfiles,
+    listUserProfilesResponse_nextToken,
+    listUserProfilesResponse_httpStatus,
+    listUserProfilesResponse_userProfiles,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeStar.Types.UserProfileSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listUserProfiles' smart constructor.
+-- | /See:/ 'newListUserProfiles' smart constructor.
 data ListUserProfiles = ListUserProfiles'
-  { _lupNextToken ::
-      !(Maybe Text),
-    _lupMaxResults :: !(Maybe Nat)
+  { -- | The continuation token for the next set of results, if the results
+    -- cannot be returned in one response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in a response.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserProfiles' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserProfiles' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lupNextToken' - The continuation token for the next set of results, if the results cannot be returned in one response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lupMaxResults' - The maximum number of results to return in a response.
-listUserProfiles ::
+-- 'nextToken', 'listUserProfiles_nextToken' - The continuation token for the next set of results, if the results
+-- cannot be returned in one response.
+--
+-- 'maxResults', 'listUserProfiles_maxResults' - The maximum number of results to return in a response.
+newListUserProfiles ::
   ListUserProfiles
-listUserProfiles =
+newListUserProfiles =
   ListUserProfiles'
-    { _lupNextToken = Nothing,
-      _lupMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The continuation token for the next set of results, if the results cannot be returned in one response.
-lupNextToken :: Lens' ListUserProfiles (Maybe Text)
-lupNextToken = lens _lupNextToken (\s a -> s {_lupNextToken = a})
+-- | The continuation token for the next set of results, if the results
+-- cannot be returned in one response.
+listUserProfiles_nextToken :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Text)
+listUserProfiles_nextToken = Lens.lens (\ListUserProfiles' {nextToken} -> nextToken) (\s@ListUserProfiles' {} a -> s {nextToken = a} :: ListUserProfiles)
 
 -- | The maximum number of results to return in a response.
-lupMaxResults :: Lens' ListUserProfiles (Maybe Natural)
-lupMaxResults = lens _lupMaxResults (\s a -> s {_lupMaxResults = a}) . mapping _Nat
+listUserProfiles_maxResults :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Natural)
+listUserProfiles_maxResults = Lens.lens (\ListUserProfiles' {maxResults} -> maxResults) (\s@ListUserProfiles' {} a -> s {maxResults = a} :: ListUserProfiles) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListUserProfiles where
+instance Pager.AWSPager ListUserProfiles where
   page rq rs
-    | stop (rs ^. luprrsNextToken) = Nothing
-    | stop (rs ^. luprrsUserProfiles) = Nothing
-    | otherwise =
-      Just $ rq & lupNextToken .~ rs ^. luprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listUserProfilesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listUserProfilesResponse_userProfiles) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listUserProfiles_nextToken
+          Lens..~ rs
+          Lens.^? listUserProfilesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListUserProfiles where
+instance Prelude.AWSRequest ListUserProfiles where
   type Rs ListUserProfiles = ListUserProfilesResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListUserProfilesResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "userProfiles" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "userProfiles"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListUserProfiles
+instance Prelude.Hashable ListUserProfiles
 
-instance NFData ListUserProfiles
+instance Prelude.NFData ListUserProfiles
 
-instance ToHeaders ListUserProfiles where
+instance Prelude.ToHeaders ListUserProfiles where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeStar_20170419.ListUserProfiles" :: ByteString),
+              Prelude.=# ( "CodeStar_20170419.ListUserProfiles" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListUserProfiles where
+instance Prelude.ToJSON ListUserProfiles where
   toJSON ListUserProfiles' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lupNextToken,
-            ("maxResults" .=) <$> _lupMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListUserProfiles where
-  toPath = const "/"
+instance Prelude.ToPath ListUserProfiles where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListUserProfiles where
-  toQuery = const mempty
+instance Prelude.ToQuery ListUserProfiles where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listUserProfilesResponse' smart constructor.
+-- | /See:/ 'newListUserProfilesResponse' smart constructor.
 data ListUserProfilesResponse = ListUserProfilesResponse'
-  { _luprrsNextToken ::
-      !(Maybe Text),
-    _luprrsResponseStatus ::
-      !Int,
-    _luprrsUserProfiles ::
-      ![UserProfileSummary]
+  { -- | The continuation token to use when requesting the next set of results,
+    -- if there are more results to be returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | All the user profiles configured in AWS CodeStar for an AWS account.
+    userProfiles :: [UserProfileSummary]
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListUserProfilesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListUserProfilesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'luprrsNextToken' - The continuation token to use when requesting the next set of results, if there are more results to be returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'luprrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listUserProfilesResponse_nextToken' - The continuation token to use when requesting the next set of results,
+-- if there are more results to be returned.
 --
--- * 'luprrsUserProfiles' - All the user profiles configured in AWS CodeStar for an AWS account.
-listUserProfilesResponse ::
-  -- | 'luprrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listUserProfilesResponse_httpStatus' - The response's http status code.
+--
+-- 'userProfiles', 'listUserProfilesResponse_userProfiles' - All the user profiles configured in AWS CodeStar for an AWS account.
+newListUserProfilesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListUserProfilesResponse
-listUserProfilesResponse pResponseStatus_ =
+newListUserProfilesResponse pHttpStatus_ =
   ListUserProfilesResponse'
-    { _luprrsNextToken =
-        Nothing,
-      _luprrsResponseStatus = pResponseStatus_,
-      _luprrsUserProfiles = mempty
+    { nextToken =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      userProfiles = Prelude.mempty
     }
 
--- | The continuation token to use when requesting the next set of results, if there are more results to be returned.
-luprrsNextToken :: Lens' ListUserProfilesResponse (Maybe Text)
-luprrsNextToken = lens _luprrsNextToken (\s a -> s {_luprrsNextToken = a})
+-- | The continuation token to use when requesting the next set of results,
+-- if there are more results to be returned.
+listUserProfilesResponse_nextToken :: Lens.Lens' ListUserProfilesResponse (Prelude.Maybe Prelude.Text)
+listUserProfilesResponse_nextToken = Lens.lens (\ListUserProfilesResponse' {nextToken} -> nextToken) (\s@ListUserProfilesResponse' {} a -> s {nextToken = a} :: ListUserProfilesResponse)
 
--- | -- | The response status code.
-luprrsResponseStatus :: Lens' ListUserProfilesResponse Int
-luprrsResponseStatus = lens _luprrsResponseStatus (\s a -> s {_luprrsResponseStatus = a})
+-- | The response's http status code.
+listUserProfilesResponse_httpStatus :: Lens.Lens' ListUserProfilesResponse Prelude.Int
+listUserProfilesResponse_httpStatus = Lens.lens (\ListUserProfilesResponse' {httpStatus} -> httpStatus) (\s@ListUserProfilesResponse' {} a -> s {httpStatus = a} :: ListUserProfilesResponse)
 
 -- | All the user profiles configured in AWS CodeStar for an AWS account.
-luprrsUserProfiles :: Lens' ListUserProfilesResponse [UserProfileSummary]
-luprrsUserProfiles = lens _luprrsUserProfiles (\s a -> s {_luprrsUserProfiles = a}) . _Coerce
+listUserProfilesResponse_userProfiles :: Lens.Lens' ListUserProfilesResponse [UserProfileSummary]
+listUserProfilesResponse_userProfiles = Lens.lens (\ListUserProfilesResponse' {userProfiles} -> userProfiles) (\s@ListUserProfilesResponse' {} a -> s {userProfiles = a} :: ListUserProfilesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListUserProfilesResponse
+instance Prelude.NFData ListUserProfilesResponse

@@ -28,115 +28,115 @@ import Test.Tasty
 -- fixtures =
 --     [ testGroup "request"
 --         [ requestDisassociateTeamMember $
---             disassociateTeamMember
+--             newDisassociateTeamMember
 --
 --         , requestDescribeUserProfile $
---             describeUserProfile
+--             newDescribeUserProfile
 --
 --         , requestTagProject $
---             tagProject
+--             newTagProject
 --
 --         , requestListProjects $
---             listProjects
+--             newListProjects
 --
 --         , requestCreateProject $
---             createProject
+--             newCreateProject
 --
 --         , requestListUserProfiles $
---             listUserProfiles
+--             newListUserProfiles
 --
 --         , requestUpdateUserProfile $
---             updateUserProfile
+--             newUpdateUserProfile
 --
 --         , requestDeleteUserProfile $
---             deleteUserProfile
+--             newDeleteUserProfile
 --
 --         , requestListTagsForProject $
---             listTagsForProject
+--             newListTagsForProject
 --
 --         , requestUpdateTeamMember $
---             updateTeamMember
+--             newUpdateTeamMember
 --
 --         , requestUntagProject $
---             untagProject
+--             newUntagProject
 --
 --         , requestListTeamMembers $
---             listTeamMembers
+--             newListTeamMembers
 --
 --         , requestDeleteProject $
---             deleteProject
+--             newDeleteProject
 --
 --         , requestUpdateProject $
---             updateProject
+--             newUpdateProject
 --
 --         , requestAssociateTeamMember $
---             associateTeamMember
+--             newAssociateTeamMember
 --
 --         , requestCreateUserProfile $
---             createUserProfile
+--             newCreateUserProfile
 --
 --         , requestListResources $
---             listResources
+--             newListResources
 --
 --         , requestDescribeProject $
---             describeProject
+--             newDescribeProject
 --
 --           ]
 
 --     , testGroup "response"
 --         [ responseDisassociateTeamMember $
---             disassociateTeamMemberResponse
+--             newDisassociateTeamMemberResponse
 --
 --         , responseDescribeUserProfile $
---             describeUserProfileResponse
+--             newDescribeUserProfileResponse
 --
 --         , responseTagProject $
---             tagProjectResponse
+--             newTagProjectResponse
 --
 --         , responseListProjects $
---             listProjectsResponse
+--             newListProjectsResponse
 --
 --         , responseCreateProject $
---             createProjectResponse
+--             newCreateProjectResponse
 --
 --         , responseListUserProfiles $
---             listUserProfilesResponse
+--             newListUserProfilesResponse
 --
 --         , responseUpdateUserProfile $
---             updateUserProfileResponse
+--             newUpdateUserProfileResponse
 --
 --         , responseDeleteUserProfile $
---             deleteUserProfileResponse
+--             newDeleteUserProfileResponse
 --
 --         , responseListTagsForProject $
---             listTagsForProjectResponse
+--             newListTagsForProjectResponse
 --
 --         , responseUpdateTeamMember $
---             updateTeamMemberResponse
+--             newUpdateTeamMemberResponse
 --
 --         , responseUntagProject $
---             untagProjectResponse
+--             newUntagProjectResponse
 --
 --         , responseListTeamMembers $
---             listTeamMembersResponse
+--             newListTeamMembersResponse
 --
 --         , responseDeleteProject $
---             deleteProjectResponse
+--             newDeleteProjectResponse
 --
 --         , responseUpdateProject $
---             updateProjectResponse
+--             newUpdateProjectResponse
 --
 --         , responseAssociateTeamMember $
---             associateTeamMemberResponse
+--             newAssociateTeamMemberResponse
 --
 --         , responseCreateUserProfile $
---             createUserProfileResponse
+--             newCreateUserProfileResponse
 --
 --         , responseListResources $
---             listResourcesResponse
+--             newListResourcesResponse
 --
 --         , responseDescribeProject $
---             describeProjectResponse
+--             newDescribeProjectResponse
 --
 --           ]
 --     ]
@@ -258,7 +258,7 @@ responseDisassociateTeamMember =
   res
     "DisassociateTeamMemberResponse"
     "fixture/DisassociateTeamMemberResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy DisassociateTeamMember)
 
 responseDescribeUserProfile :: DescribeUserProfileResponse -> TestTree
@@ -266,7 +266,7 @@ responseDescribeUserProfile =
   res
     "DescribeUserProfileResponse"
     "fixture/DescribeUserProfileResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy DescribeUserProfile)
 
 responseTagProject :: TagProjectResponse -> TestTree
@@ -274,7 +274,7 @@ responseTagProject =
   res
     "TagProjectResponse"
     "fixture/TagProjectResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy TagProject)
 
 responseListProjects :: ListProjectsResponse -> TestTree
@@ -282,7 +282,7 @@ responseListProjects =
   res
     "ListProjectsResponse"
     "fixture/ListProjectsResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy ListProjects)
 
 responseCreateProject :: CreateProjectResponse -> TestTree
@@ -290,7 +290,7 @@ responseCreateProject =
   res
     "CreateProjectResponse"
     "fixture/CreateProjectResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy CreateProject)
 
 responseListUserProfiles :: ListUserProfilesResponse -> TestTree
@@ -298,7 +298,7 @@ responseListUserProfiles =
   res
     "ListUserProfilesResponse"
     "fixture/ListUserProfilesResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy ListUserProfiles)
 
 responseUpdateUserProfile :: UpdateUserProfileResponse -> TestTree
@@ -306,7 +306,7 @@ responseUpdateUserProfile =
   res
     "UpdateUserProfileResponse"
     "fixture/UpdateUserProfileResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy UpdateUserProfile)
 
 responseDeleteUserProfile :: DeleteUserProfileResponse -> TestTree
@@ -314,7 +314,7 @@ responseDeleteUserProfile =
   res
     "DeleteUserProfileResponse"
     "fixture/DeleteUserProfileResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy DeleteUserProfile)
 
 responseListTagsForProject :: ListTagsForProjectResponse -> TestTree
@@ -322,7 +322,7 @@ responseListTagsForProject =
   res
     "ListTagsForProjectResponse"
     "fixture/ListTagsForProjectResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy ListTagsForProject)
 
 responseUpdateTeamMember :: UpdateTeamMemberResponse -> TestTree
@@ -330,7 +330,7 @@ responseUpdateTeamMember =
   res
     "UpdateTeamMemberResponse"
     "fixture/UpdateTeamMemberResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy UpdateTeamMember)
 
 responseUntagProject :: UntagProjectResponse -> TestTree
@@ -338,7 +338,7 @@ responseUntagProject =
   res
     "UntagProjectResponse"
     "fixture/UntagProjectResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy UntagProject)
 
 responseListTeamMembers :: ListTeamMembersResponse -> TestTree
@@ -346,7 +346,7 @@ responseListTeamMembers =
   res
     "ListTeamMembersResponse"
     "fixture/ListTeamMembersResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy ListTeamMembers)
 
 responseDeleteProject :: DeleteProjectResponse -> TestTree
@@ -354,7 +354,7 @@ responseDeleteProject =
   res
     "DeleteProjectResponse"
     "fixture/DeleteProjectResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy DeleteProject)
 
 responseUpdateProject :: UpdateProjectResponse -> TestTree
@@ -362,7 +362,7 @@ responseUpdateProject =
   res
     "UpdateProjectResponse"
     "fixture/UpdateProjectResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy UpdateProject)
 
 responseAssociateTeamMember :: AssociateTeamMemberResponse -> TestTree
@@ -370,7 +370,7 @@ responseAssociateTeamMember =
   res
     "AssociateTeamMemberResponse"
     "fixture/AssociateTeamMemberResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy AssociateTeamMember)
 
 responseCreateUserProfile :: CreateUserProfileResponse -> TestTree
@@ -378,7 +378,7 @@ responseCreateUserProfile =
   res
     "CreateUserProfileResponse"
     "fixture/CreateUserProfileResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy CreateUserProfile)
 
 responseListResources :: ListResourcesResponse -> TestTree
@@ -386,7 +386,7 @@ responseListResources =
   res
     "ListResourcesResponse"
     "fixture/ListResourcesResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy ListResources)
 
 responseDescribeProject :: DescribeProjectResponse -> TestTree
@@ -394,5 +394,5 @@ responseDescribeProject =
   res
     "DescribeProjectResponse"
     "fixture/DescribeProjectResponse.proto"
-    codeStar
+    defaultService
     (Proxy :: Proxy DescribeProject)

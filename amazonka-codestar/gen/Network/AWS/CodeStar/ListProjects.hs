@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,156 +23,190 @@
 --
 -- Lists all projects in AWS CodeStar associated with your AWS account.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.CodeStar.ListProjects
   ( -- * Creating a Request
-    listProjects,
-    ListProjects,
+    ListProjects (..),
+    newListProjects,
 
     -- * Request Lenses
-    lpNextToken,
-    lpMaxResults,
+    listProjects_nextToken,
+    listProjects_maxResults,
 
     -- * Destructuring the Response
-    listProjectsResponse,
-    ListProjectsResponse,
+    ListProjectsResponse (..),
+    newListProjectsResponse,
 
     -- * Response Lenses
-    lprrsNextToken,
-    lprrsResponseStatus,
-    lprrsProjects,
+    listProjectsResponse_nextToken,
+    listProjectsResponse_httpStatus,
+    listProjectsResponse_projects,
   )
 where
 
 import Network.AWS.CodeStar.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.CodeStar.Types.ProjectSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listProjects' smart constructor.
+-- | /See:/ 'newListProjects' smart constructor.
 data ListProjects = ListProjects'
-  { _lpNextToken ::
-      !(Maybe Text),
-    _lpMaxResults :: !(Maybe Nat)
+  { -- | The continuation token to be used to return the next set of results, if
+    -- the results cannot be returned in one response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum amount of data that can be contained in a single set of
+    -- results.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProjects' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProjects' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lpNextToken' - The continuation token to be used to return the next set of results, if the results cannot be returned in one response.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lpMaxResults' - The maximum amount of data that can be contained in a single set of results.
-listProjects ::
+-- 'nextToken', 'listProjects_nextToken' - The continuation token to be used to return the next set of results, if
+-- the results cannot be returned in one response.
+--
+-- 'maxResults', 'listProjects_maxResults' - The maximum amount of data that can be contained in a single set of
+-- results.
+newListProjects ::
   ListProjects
-listProjects =
+newListProjects =
   ListProjects'
-    { _lpNextToken = Nothing,
-      _lpMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The continuation token to be used to return the next set of results, if the results cannot be returned in one response.
-lpNextToken :: Lens' ListProjects (Maybe Text)
-lpNextToken = lens _lpNextToken (\s a -> s {_lpNextToken = a})
+-- | The continuation token to be used to return the next set of results, if
+-- the results cannot be returned in one response.
+listProjects_nextToken :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Text)
+listProjects_nextToken = Lens.lens (\ListProjects' {nextToken} -> nextToken) (\s@ListProjects' {} a -> s {nextToken = a} :: ListProjects)
 
--- | The maximum amount of data that can be contained in a single set of results.
-lpMaxResults :: Lens' ListProjects (Maybe Natural)
-lpMaxResults = lens _lpMaxResults (\s a -> s {_lpMaxResults = a}) . mapping _Nat
+-- | The maximum amount of data that can be contained in a single set of
+-- results.
+listProjects_maxResults :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Natural)
+listProjects_maxResults = Lens.lens (\ListProjects' {maxResults} -> maxResults) (\s@ListProjects' {} a -> s {maxResults = a} :: ListProjects) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSPager ListProjects where
+instance Pager.AWSPager ListProjects where
   page rq rs
-    | stop (rs ^. lprrsNextToken) = Nothing
-    | stop (rs ^. lprrsProjects) = Nothing
-    | otherwise =
-      Just $ rq & lpNextToken .~ rs ^. lprrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listProjectsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        (rs Lens.^. listProjectsResponse_projects) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listProjects_nextToken
+          Lens..~ rs
+          Lens.^? listProjectsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListProjects where
+instance Prelude.AWSRequest ListProjects where
   type Rs ListProjects = ListProjectsResponse
-  request = postJSON codeStar
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListProjectsResponse'
-            <$> (x .?> "nextToken")
-            <*> (pure (fromEnum s))
-            <*> (x .?> "projects" .!@ mempty)
+            Prelude.<$> (x Prelude..?> "nextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..?> "projects"
+                            Prelude..!@ Prelude.mempty
+                        )
       )
 
-instance Hashable ListProjects
+instance Prelude.Hashable ListProjects
 
-instance NFData ListProjects
+instance Prelude.NFData ListProjects
 
-instance ToHeaders ListProjects where
+instance Prelude.ToHeaders ListProjects where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("CodeStar_20170419.ListProjects" :: ByteString),
+              Prelude.=# ( "CodeStar_20170419.ListProjects" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListProjects where
+instance Prelude.ToJSON ListProjects where
   toJSON ListProjects' {..} =
-    object
-      ( catMaybes
-          [ ("nextToken" .=) <$> _lpNextToken,
-            ("maxResults" .=) <$> _lpMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("nextToken" Prelude..=) Prelude.<$> nextToken,
+            ("maxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListProjects where
-  toPath = const "/"
+instance Prelude.ToPath ListProjects where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListProjects where
-  toQuery = const mempty
+instance Prelude.ToQuery ListProjects where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listProjectsResponse' smart constructor.
+-- | /See:/ 'newListProjectsResponse' smart constructor.
 data ListProjectsResponse = ListProjectsResponse'
-  { _lprrsNextToken ::
-      !(Maybe Text),
-    _lprrsResponseStatus :: !Int,
-    _lprrsProjects ::
-      ![ProjectSummary]
+  { -- | The continuation token to use when requesting the next set of results,
+    -- if there are more results to be returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of projects.
+    projects :: [ProjectSummary]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListProjectsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListProjectsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lprrsNextToken' - The continuation token to use when requesting the next set of results, if there are more results to be returned.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lprrsResponseStatus' - -- | The response status code.
+-- 'nextToken', 'listProjectsResponse_nextToken' - The continuation token to use when requesting the next set of results,
+-- if there are more results to be returned.
 --
--- * 'lprrsProjects' - A list of projects.
-listProjectsResponse ::
-  -- | 'lprrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listProjectsResponse_httpStatus' - The response's http status code.
+--
+-- 'projects', 'listProjectsResponse_projects' - A list of projects.
+newListProjectsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListProjectsResponse
-listProjectsResponse pResponseStatus_ =
+newListProjectsResponse pHttpStatus_ =
   ListProjectsResponse'
-    { _lprrsNextToken = Nothing,
-      _lprrsResponseStatus = pResponseStatus_,
-      _lprrsProjects = mempty
+    { nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      projects = Prelude.mempty
     }
 
--- | The continuation token to use when requesting the next set of results, if there are more results to be returned.
-lprrsNextToken :: Lens' ListProjectsResponse (Maybe Text)
-lprrsNextToken = lens _lprrsNextToken (\s a -> s {_lprrsNextToken = a})
+-- | The continuation token to use when requesting the next set of results,
+-- if there are more results to be returned.
+listProjectsResponse_nextToken :: Lens.Lens' ListProjectsResponse (Prelude.Maybe Prelude.Text)
+listProjectsResponse_nextToken = Lens.lens (\ListProjectsResponse' {nextToken} -> nextToken) (\s@ListProjectsResponse' {} a -> s {nextToken = a} :: ListProjectsResponse)
 
--- | -- | The response status code.
-lprrsResponseStatus :: Lens' ListProjectsResponse Int
-lprrsResponseStatus = lens _lprrsResponseStatus (\s a -> s {_lprrsResponseStatus = a})
+-- | The response's http status code.
+listProjectsResponse_httpStatus :: Lens.Lens' ListProjectsResponse Prelude.Int
+listProjectsResponse_httpStatus = Lens.lens (\ListProjectsResponse' {httpStatus} -> httpStatus) (\s@ListProjectsResponse' {} a -> s {httpStatus = a} :: ListProjectsResponse)
 
 -- | A list of projects.
-lprrsProjects :: Lens' ListProjectsResponse [ProjectSummary]
-lprrsProjects = lens _lprrsProjects (\s a -> s {_lprrsProjects = a}) . _Coerce
+listProjectsResponse_projects :: Lens.Lens' ListProjectsResponse [ProjectSummary]
+listProjectsResponse_projects = Lens.lens (\ListProjectsResponse' {projects} -> projects) (\s@ListProjectsResponse' {} a -> s {projects = a} :: ListProjectsResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListProjectsResponse
+instance Prelude.NFData ListProjectsResponse

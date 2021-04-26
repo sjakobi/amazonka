@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,74 +19,113 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.CodeStar.Types.UserProfileSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Information about a user's profile in AWS CodeStar.
+-- | Information about a user\'s profile in AWS CodeStar.
 --
---
---
--- /See:/ 'userProfileSummary' smart constructor.
+-- /See:/ 'newUserProfileSummary' smart constructor.
 data UserProfileSummary = UserProfileSummary'
-  { _upsUserARN ::
-      !(Maybe Text),
-    _upsSshPublicKey :: !(Maybe Text),
-    _upsDisplayName ::
-      !(Maybe (Sensitive Text)),
-    _upsEmailAddress ::
-      !(Maybe (Sensitive Text))
+  { -- | The Amazon Resource Name (ARN) of the user in IAM.
+    userArn :: Prelude.Maybe Prelude.Text,
+    -- | The SSH public key associated with the user in AWS CodeStar. If a
+    -- project owner allows the user remote access to project resources, this
+    -- public key will be used along with the user\'s private key for SSH
+    -- access.
+    sshPublicKey :: Prelude.Maybe Prelude.Text,
+    -- | The display name of a user in AWS CodeStar. For example, this could be
+    -- set to both first and last name (\"Mary Major\") or a single name
+    -- (\"Mary\"). The display name is also used to generate the initial icon
+    -- associated with the user in AWS CodeStar projects. If spaces are
+    -- included in the display name, the first character that appears after the
+    -- space will be used as the second character in the user initial icon. The
+    -- initial icon displays a maximum of two characters, so a display name
+    -- with more than one space (for example \"Mary Jane Major\") would
+    -- generate an initial icon using the first character and the first
+    -- character after the space (\"MJ\", not \"MM\").
+    displayName :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The email address associated with the user.
+    emailAddress :: Prelude.Maybe (Prelude.Sensitive Prelude.Text)
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserProfileSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserProfileSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'upsUserARN' - The Amazon Resource Name (ARN) of the user in IAM.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'upsSshPublicKey' - The SSH public key associated with the user in AWS CodeStar. If a project owner allows the user remote access to project resources, this public key will be used along with the user's private key for SSH access.
+-- 'userArn', 'userProfileSummary_userArn' - The Amazon Resource Name (ARN) of the user in IAM.
 --
--- * 'upsDisplayName' - The display name of a user in AWS CodeStar. For example, this could be set to both first and last name ("Mary Major") or a single name ("Mary"). The display name is also used to generate the initial icon associated with the user in AWS CodeStar projects. If spaces are included in the display name, the first character that appears after the space will be used as the second character in the user initial icon. The initial icon displays a maximum of two characters, so a display name with more than one space (for example "Mary Jane Major") would generate an initial icon using the first character and the first character after the space ("MJ", not "MM").
+-- 'sshPublicKey', 'userProfileSummary_sshPublicKey' - The SSH public key associated with the user in AWS CodeStar. If a
+-- project owner allows the user remote access to project resources, this
+-- public key will be used along with the user\'s private key for SSH
+-- access.
 --
--- * 'upsEmailAddress' - The email address associated with the user.
-userProfileSummary ::
+-- 'displayName', 'userProfileSummary_displayName' - The display name of a user in AWS CodeStar. For example, this could be
+-- set to both first and last name (\"Mary Major\") or a single name
+-- (\"Mary\"). The display name is also used to generate the initial icon
+-- associated with the user in AWS CodeStar projects. If spaces are
+-- included in the display name, the first character that appears after the
+-- space will be used as the second character in the user initial icon. The
+-- initial icon displays a maximum of two characters, so a display name
+-- with more than one space (for example \"Mary Jane Major\") would
+-- generate an initial icon using the first character and the first
+-- character after the space (\"MJ\", not \"MM\").
+--
+-- 'emailAddress', 'userProfileSummary_emailAddress' - The email address associated with the user.
+newUserProfileSummary ::
   UserProfileSummary
-userProfileSummary =
+newUserProfileSummary =
   UserProfileSummary'
-    { _upsUserARN = Nothing,
-      _upsSshPublicKey = Nothing,
-      _upsDisplayName = Nothing,
-      _upsEmailAddress = Nothing
+    { userArn = Prelude.Nothing,
+      sshPublicKey = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      emailAddress = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the user in IAM.
-upsUserARN :: Lens' UserProfileSummary (Maybe Text)
-upsUserARN = lens _upsUserARN (\s a -> s {_upsUserARN = a})
+userProfileSummary_userArn :: Lens.Lens' UserProfileSummary (Prelude.Maybe Prelude.Text)
+userProfileSummary_userArn = Lens.lens (\UserProfileSummary' {userArn} -> userArn) (\s@UserProfileSummary' {} a -> s {userArn = a} :: UserProfileSummary)
 
--- | The SSH public key associated with the user in AWS CodeStar. If a project owner allows the user remote access to project resources, this public key will be used along with the user's private key for SSH access.
-upsSshPublicKey :: Lens' UserProfileSummary (Maybe Text)
-upsSshPublicKey = lens _upsSshPublicKey (\s a -> s {_upsSshPublicKey = a})
+-- | The SSH public key associated with the user in AWS CodeStar. If a
+-- project owner allows the user remote access to project resources, this
+-- public key will be used along with the user\'s private key for SSH
+-- access.
+userProfileSummary_sshPublicKey :: Lens.Lens' UserProfileSummary (Prelude.Maybe Prelude.Text)
+userProfileSummary_sshPublicKey = Lens.lens (\UserProfileSummary' {sshPublicKey} -> sshPublicKey) (\s@UserProfileSummary' {} a -> s {sshPublicKey = a} :: UserProfileSummary)
 
--- | The display name of a user in AWS CodeStar. For example, this could be set to both first and last name ("Mary Major") or a single name ("Mary"). The display name is also used to generate the initial icon associated with the user in AWS CodeStar projects. If spaces are included in the display name, the first character that appears after the space will be used as the second character in the user initial icon. The initial icon displays a maximum of two characters, so a display name with more than one space (for example "Mary Jane Major") would generate an initial icon using the first character and the first character after the space ("MJ", not "MM").
-upsDisplayName :: Lens' UserProfileSummary (Maybe Text)
-upsDisplayName = lens _upsDisplayName (\s a -> s {_upsDisplayName = a}) . mapping _Sensitive
+-- | The display name of a user in AWS CodeStar. For example, this could be
+-- set to both first and last name (\"Mary Major\") or a single name
+-- (\"Mary\"). The display name is also used to generate the initial icon
+-- associated with the user in AWS CodeStar projects. If spaces are
+-- included in the display name, the first character that appears after the
+-- space will be used as the second character in the user initial icon. The
+-- initial icon displays a maximum of two characters, so a display name
+-- with more than one space (for example \"Mary Jane Major\") would
+-- generate an initial icon using the first character and the first
+-- character after the space (\"MJ\", not \"MM\").
+userProfileSummary_displayName :: Lens.Lens' UserProfileSummary (Prelude.Maybe Prelude.Text)
+userProfileSummary_displayName = Lens.lens (\UserProfileSummary' {displayName} -> displayName) (\s@UserProfileSummary' {} a -> s {displayName = a} :: UserProfileSummary) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The email address associated with the user.
-upsEmailAddress :: Lens' UserProfileSummary (Maybe Text)
-upsEmailAddress = lens _upsEmailAddress (\s a -> s {_upsEmailAddress = a}) . mapping _Sensitive
+userProfileSummary_emailAddress :: Lens.Lens' UserProfileSummary (Prelude.Maybe Prelude.Text)
+userProfileSummary_emailAddress = Lens.lens (\UserProfileSummary' {emailAddress} -> emailAddress) (\s@UserProfileSummary' {} a -> s {emailAddress = a} :: UserProfileSummary) Prelude.. Lens.mapping Prelude._Sensitive
 
-instance FromJSON UserProfileSummary where
+instance Prelude.FromJSON UserProfileSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserProfileSummary"
       ( \x ->
           UserProfileSummary'
-            <$> (x .:? "userArn")
-            <*> (x .:? "sshPublicKey")
-            <*> (x .:? "displayName")
-            <*> (x .:? "emailAddress")
+            Prelude.<$> (x Prelude..:? "userArn")
+            Prelude.<*> (x Prelude..:? "sshPublicKey")
+            Prelude.<*> (x Prelude..:? "displayName")
+            Prelude.<*> (x Prelude..:? "emailAddress")
       )
 
-instance Hashable UserProfileSummary
+instance Prelude.Hashable UserProfileSummary
 
-instance NFData UserProfileSummary
+instance Prelude.NFData UserProfileSummary
