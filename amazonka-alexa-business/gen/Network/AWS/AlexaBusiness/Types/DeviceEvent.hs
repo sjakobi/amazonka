@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,63 +20,67 @@
 module Network.AWS.AlexaBusiness.Types.DeviceEvent where
 
 import Network.AWS.AlexaBusiness.Types.DeviceEventType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The list of device events.
 --
---
---
--- /See:/ 'deviceEvent' smart constructor.
+-- /See:/ 'newDeviceEvent' smart constructor.
 data DeviceEvent = DeviceEvent'
-  { _deTimestamp ::
-      !(Maybe POSIX),
-    _deValue :: !(Maybe Text),
-    _deType :: !(Maybe DeviceEventType)
+  { -- | The time (in epoch) when the event occurred.
+    timestamp :: Prelude.Maybe Prelude.POSIX,
+    -- | The value of the event.
+    value :: Prelude.Maybe Prelude.Text,
+    -- | The type of device event.
+    type' :: Prelude.Maybe DeviceEventType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceEvent' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceEvent' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'deTimestamp' - The time (in epoch) when the event occurred.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'deValue' - The value of the event.
+-- 'timestamp', 'deviceEvent_timestamp' - The time (in epoch) when the event occurred.
 --
--- * 'deType' - The type of device event.
-deviceEvent ::
+-- 'value', 'deviceEvent_value' - The value of the event.
+--
+-- 'type'', 'deviceEvent_type' - The type of device event.
+newDeviceEvent ::
   DeviceEvent
-deviceEvent =
+newDeviceEvent =
   DeviceEvent'
-    { _deTimestamp = Nothing,
-      _deValue = Nothing,
-      _deType = Nothing
+    { timestamp = Prelude.Nothing,
+      value = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The time (in epoch) when the event occurred.
-deTimestamp :: Lens' DeviceEvent (Maybe UTCTime)
-deTimestamp = lens _deTimestamp (\s a -> s {_deTimestamp = a}) . mapping _Time
+deviceEvent_timestamp :: Lens.Lens' DeviceEvent (Prelude.Maybe Prelude.UTCTime)
+deviceEvent_timestamp = Lens.lens (\DeviceEvent' {timestamp} -> timestamp) (\s@DeviceEvent' {} a -> s {timestamp = a} :: DeviceEvent) Prelude.. Lens.mapping Prelude._Time
 
 -- | The value of the event.
-deValue :: Lens' DeviceEvent (Maybe Text)
-deValue = lens _deValue (\s a -> s {_deValue = a})
+deviceEvent_value :: Lens.Lens' DeviceEvent (Prelude.Maybe Prelude.Text)
+deviceEvent_value = Lens.lens (\DeviceEvent' {value} -> value) (\s@DeviceEvent' {} a -> s {value = a} :: DeviceEvent)
 
 -- | The type of device event.
-deType :: Lens' DeviceEvent (Maybe DeviceEventType)
-deType = lens _deType (\s a -> s {_deType = a})
+deviceEvent_type :: Lens.Lens' DeviceEvent (Prelude.Maybe DeviceEventType)
+deviceEvent_type = Lens.lens (\DeviceEvent' {type'} -> type') (\s@DeviceEvent' {} a -> s {type' = a} :: DeviceEvent)
 
-instance FromJSON DeviceEvent where
+instance Prelude.FromJSON DeviceEvent where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceEvent"
       ( \x ->
           DeviceEvent'
-            <$> (x .:? "Timestamp")
-            <*> (x .:? "Value")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "Timestamp")
+            Prelude.<*> (x Prelude..:? "Value")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable DeviceEvent
+instance Prelude.Hashable DeviceEvent
 
-instance NFData DeviceEvent
+instance Prelude.NFData DeviceEvent

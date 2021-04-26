@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +19,68 @@
 module Network.AWS.AlexaBusiness.Types.WakeWord
   ( WakeWord
       ( ..,
-        Alexa,
-        Amazon,
-        Computer,
-        Echo
+        WakeWordALEXA,
+        WakeWordAMAZON,
+        WakeWordCOMPUTER,
+        WakeWordECHO
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data WakeWord = WakeWord' (CI Text)
+newtype WakeWord = WakeWord'
+  { fromWakeWord ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Alexa :: WakeWord
-pattern Alexa = WakeWord' "ALEXA"
+pattern WakeWordALEXA :: WakeWord
+pattern WakeWordALEXA = WakeWord' "ALEXA"
 
-pattern Amazon :: WakeWord
-pattern Amazon = WakeWord' "AMAZON"
+pattern WakeWordAMAZON :: WakeWord
+pattern WakeWordAMAZON = WakeWord' "AMAZON"
 
-pattern Computer :: WakeWord
-pattern Computer = WakeWord' "COMPUTER"
+pattern WakeWordCOMPUTER :: WakeWord
+pattern WakeWordCOMPUTER = WakeWord' "COMPUTER"
 
-pattern Echo :: WakeWord
-pattern Echo = WakeWord' "ECHO"
+pattern WakeWordECHO :: WakeWord
+pattern WakeWordECHO = WakeWord' "ECHO"
 
 {-# COMPLETE
-  Alexa,
-  Amazon,
-  Computer,
-  Echo,
+  WakeWordALEXA,
+  WakeWordAMAZON,
+  WakeWordCOMPUTER,
+  WakeWordECHO,
   WakeWord'
   #-}
 
-instance FromText WakeWord where
-  parser = (WakeWord' . mk) <$> takeText
+instance Prelude.FromText WakeWord where
+  parser = WakeWord' Prelude.<$> Prelude.takeText
 
-instance ToText WakeWord where
-  toText (WakeWord' ci) = original ci
+instance Prelude.ToText WakeWord where
+  toText (WakeWord' x) = x
 
-instance Hashable WakeWord
+instance Prelude.Hashable WakeWord
 
-instance NFData WakeWord
+instance Prelude.NFData WakeWord
 
-instance ToByteString WakeWord
+instance Prelude.ToByteString WakeWord
 
-instance ToQuery WakeWord
+instance Prelude.ToQuery WakeWord
 
-instance ToHeader WakeWord
+instance Prelude.ToHeader WakeWord
 
-instance ToJSON WakeWord where
-  toJSON = toJSONText
+instance Prelude.ToJSON WakeWord where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON WakeWord where
-  parseJSON = parseJSONText "WakeWord"
+instance Prelude.FromJSON WakeWord where
+  parseJSON = Prelude.parseJSONText "WakeWord"

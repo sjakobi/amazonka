@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,192 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the device event history, including device connection status, for up to 30 days.
---
---
+-- Lists the device event history, including device connection status, for
+-- up to 30 days.
 --
 -- This operation returns paginated results.
 module Network.AWS.AlexaBusiness.ListDeviceEvents
   ( -- * Creating a Request
-    listDeviceEvents,
-    ListDeviceEvents,
+    ListDeviceEvents (..),
+    newListDeviceEvents,
 
     -- * Request Lenses
-    ldeNextToken,
-    ldeEventType,
-    ldeMaxResults,
-    ldeDeviceARN,
+    listDeviceEvents_nextToken,
+    listDeviceEvents_eventType,
+    listDeviceEvents_maxResults,
+    listDeviceEvents_deviceArn,
 
     -- * Destructuring the Response
-    listDeviceEventsResponse,
-    ListDeviceEventsResponse,
+    ListDeviceEventsResponse (..),
+    newListDeviceEventsResponse,
 
     -- * Response Lenses
-    lderrsNextToken,
-    lderrsDeviceEvents,
-    lderrsResponseStatus,
+    listDeviceEventsResponse_nextToken,
+    listDeviceEventsResponse_deviceEvents,
+    listDeviceEventsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.DeviceEvent
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listDeviceEvents' smart constructor.
+-- | /See:/ 'newListDeviceEvents' smart constructor.
 data ListDeviceEvents = ListDeviceEvents'
-  { _ldeNextToken ::
-      !(Maybe Text),
-    _ldeEventType ::
-      !(Maybe DeviceEventType),
-    _ldeMaxResults :: !(Maybe Nat),
-    _ldeDeviceARN :: !Text
+  { -- | An optional token returned from a prior request. Use this token for
+    -- pagination of results from this action. If this parameter is specified,
+    -- the response only includes results beyond the token, up to the value
+    -- specified by MaxResults. When the end of results is reached, the
+    -- response has a value of null.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The event type to filter device events. If EventType isn\'t specified,
+    -- this returns a list of all device events in reverse chronological order.
+    -- If EventType is specified, this returns a list of device events for that
+    -- EventType in reverse chronological order.
+    eventType :: Prelude.Maybe DeviceEventType,
+    -- | The maximum number of results to include in the response. The default
+    -- value is 50. If more results exist than the specified MaxResults value,
+    -- a token is included in the response so that the remaining results can be
+    -- retrieved.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of a device.
+    deviceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDeviceEvents' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDeviceEvents' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ldeNextToken' - An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response only includes results beyond the token, up to the value specified by MaxResults. When the end of results is reached, the response has a value of null.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ldeEventType' - The event type to filter device events. If EventType isn't specified, this returns a list of all device events in reverse chronological order. If EventType is specified, this returns a list of device events for that EventType in reverse chronological order.
+-- 'nextToken', 'listDeviceEvents_nextToken' - An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response only includes results beyond the token, up to the value
+-- specified by MaxResults. When the end of results is reached, the
+-- response has a value of null.
 --
--- * 'ldeMaxResults' - The maximum number of results to include in the response. The default value is 50. If more results exist than the specified MaxResults value, a token is included in the response so that the remaining results can be retrieved.
+-- 'eventType', 'listDeviceEvents_eventType' - The event type to filter device events. If EventType isn\'t specified,
+-- this returns a list of all device events in reverse chronological order.
+-- If EventType is specified, this returns a list of device events for that
+-- EventType in reverse chronological order.
 --
--- * 'ldeDeviceARN' - The ARN of a device.
-listDeviceEvents ::
-  -- | 'ldeDeviceARN'
-  Text ->
+-- 'maxResults', 'listDeviceEvents_maxResults' - The maximum number of results to include in the response. The default
+-- value is 50. If more results exist than the specified MaxResults value,
+-- a token is included in the response so that the remaining results can be
+-- retrieved.
+--
+-- 'deviceArn', 'listDeviceEvents_deviceArn' - The ARN of a device.
+newListDeviceEvents ::
+  -- | 'deviceArn'
+  Prelude.Text ->
   ListDeviceEvents
-listDeviceEvents pDeviceARN_ =
+newListDeviceEvents pDeviceArn_ =
   ListDeviceEvents'
-    { _ldeNextToken = Nothing,
-      _ldeEventType = Nothing,
-      _ldeMaxResults = Nothing,
-      _ldeDeviceARN = pDeviceARN_
+    { nextToken = Prelude.Nothing,
+      eventType = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      deviceArn = pDeviceArn_
     }
 
--- | An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response only includes results beyond the token, up to the value specified by MaxResults. When the end of results is reached, the response has a value of null.
-ldeNextToken :: Lens' ListDeviceEvents (Maybe Text)
-ldeNextToken = lens _ldeNextToken (\s a -> s {_ldeNextToken = a})
+-- | An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response only includes results beyond the token, up to the value
+-- specified by MaxResults. When the end of results is reached, the
+-- response has a value of null.
+listDeviceEvents_nextToken :: Lens.Lens' ListDeviceEvents (Prelude.Maybe Prelude.Text)
+listDeviceEvents_nextToken = Lens.lens (\ListDeviceEvents' {nextToken} -> nextToken) (\s@ListDeviceEvents' {} a -> s {nextToken = a} :: ListDeviceEvents)
 
--- | The event type to filter device events. If EventType isn't specified, this returns a list of all device events in reverse chronological order. If EventType is specified, this returns a list of device events for that EventType in reverse chronological order.
-ldeEventType :: Lens' ListDeviceEvents (Maybe DeviceEventType)
-ldeEventType = lens _ldeEventType (\s a -> s {_ldeEventType = a})
+-- | The event type to filter device events. If EventType isn\'t specified,
+-- this returns a list of all device events in reverse chronological order.
+-- If EventType is specified, this returns a list of device events for that
+-- EventType in reverse chronological order.
+listDeviceEvents_eventType :: Lens.Lens' ListDeviceEvents (Prelude.Maybe DeviceEventType)
+listDeviceEvents_eventType = Lens.lens (\ListDeviceEvents' {eventType} -> eventType) (\s@ListDeviceEvents' {} a -> s {eventType = a} :: ListDeviceEvents)
 
--- | The maximum number of results to include in the response. The default value is 50. If more results exist than the specified MaxResults value, a token is included in the response so that the remaining results can be retrieved.
-ldeMaxResults :: Lens' ListDeviceEvents (Maybe Natural)
-ldeMaxResults = lens _ldeMaxResults (\s a -> s {_ldeMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to include in the response. The default
+-- value is 50. If more results exist than the specified MaxResults value,
+-- a token is included in the response so that the remaining results can be
+-- retrieved.
+listDeviceEvents_maxResults :: Lens.Lens' ListDeviceEvents (Prelude.Maybe Prelude.Natural)
+listDeviceEvents_maxResults = Lens.lens (\ListDeviceEvents' {maxResults} -> maxResults) (\s@ListDeviceEvents' {} a -> s {maxResults = a} :: ListDeviceEvents) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ARN of a device.
-ldeDeviceARN :: Lens' ListDeviceEvents Text
-ldeDeviceARN = lens _ldeDeviceARN (\s a -> s {_ldeDeviceARN = a})
+listDeviceEvents_deviceArn :: Lens.Lens' ListDeviceEvents Prelude.Text
+listDeviceEvents_deviceArn = Lens.lens (\ListDeviceEvents' {deviceArn} -> deviceArn) (\s@ListDeviceEvents' {} a -> s {deviceArn = a} :: ListDeviceEvents)
 
-instance AWSPager ListDeviceEvents where
+instance Pager.AWSPager ListDeviceEvents where
   page rq rs
-    | stop (rs ^. lderrsNextToken) = Nothing
-    | stop (rs ^. lderrsDeviceEvents) = Nothing
-    | otherwise =
-      Just $ rq & ldeNextToken .~ rs ^. lderrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listDeviceEventsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listDeviceEventsResponse_deviceEvents
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listDeviceEvents_nextToken
+          Lens..~ rs
+          Lens.^? listDeviceEventsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListDeviceEvents where
+instance Prelude.AWSRequest ListDeviceEvents where
   type Rs ListDeviceEvents = ListDeviceEventsResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListDeviceEventsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "DeviceEvents" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "DeviceEvents"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListDeviceEvents
+instance Prelude.Hashable ListDeviceEvents
 
-instance NFData ListDeviceEvents
+instance Prelude.NFData ListDeviceEvents
 
-instance ToHeaders ListDeviceEvents where
+instance Prelude.ToHeaders ListDeviceEvents where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.ListDeviceEvents" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.ListDeviceEvents" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListDeviceEvents where
+instance Prelude.ToJSON ListDeviceEvents where
   toJSON ListDeviceEvents' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ldeNextToken,
-            ("EventType" .=) <$> _ldeEventType,
-            ("MaxResults" .=) <$> _ldeMaxResults,
-            Just ("DeviceArn" .= _ldeDeviceARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("EventType" Prelude..=) Prelude.<$> eventType,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("DeviceArn" Prelude..= deviceArn)
           ]
       )
 
-instance ToPath ListDeviceEvents where
-  toPath = const "/"
+instance Prelude.ToPath ListDeviceEvents where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListDeviceEvents where
-  toQuery = const mempty
+instance Prelude.ToQuery ListDeviceEvents where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listDeviceEventsResponse' smart constructor.
+-- | /See:/ 'newListDeviceEventsResponse' smart constructor.
 data ListDeviceEventsResponse = ListDeviceEventsResponse'
-  { _lderrsNextToken ::
-      !(Maybe Text),
-    _lderrsDeviceEvents ::
-      !( Maybe
-           [DeviceEvent]
-       ),
-    _lderrsResponseStatus ::
-      !Int
+  { -- | The token returned to indicate that there is more data available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The device events requested for the device ARN.
+    deviceEvents :: Prelude.Maybe [DeviceEvent],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListDeviceEventsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListDeviceEventsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lderrsNextToken' - The token returned to indicate that there is more data available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lderrsDeviceEvents' - The device events requested for the device ARN.
+-- 'nextToken', 'listDeviceEventsResponse_nextToken' - The token returned to indicate that there is more data available.
 --
--- * 'lderrsResponseStatus' - -- | The response status code.
-listDeviceEventsResponse ::
-  -- | 'lderrsResponseStatus'
-  Int ->
+-- 'deviceEvents', 'listDeviceEventsResponse_deviceEvents' - The device events requested for the device ARN.
+--
+-- 'httpStatus', 'listDeviceEventsResponse_httpStatus' - The response's http status code.
+newListDeviceEventsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListDeviceEventsResponse
-listDeviceEventsResponse pResponseStatus_ =
+newListDeviceEventsResponse pHttpStatus_ =
   ListDeviceEventsResponse'
-    { _lderrsNextToken =
-        Nothing,
-      _lderrsDeviceEvents = Nothing,
-      _lderrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      deviceEvents = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token returned to indicate that there is more data available.
-lderrsNextToken :: Lens' ListDeviceEventsResponse (Maybe Text)
-lderrsNextToken = lens _lderrsNextToken (\s a -> s {_lderrsNextToken = a})
+listDeviceEventsResponse_nextToken :: Lens.Lens' ListDeviceEventsResponse (Prelude.Maybe Prelude.Text)
+listDeviceEventsResponse_nextToken = Lens.lens (\ListDeviceEventsResponse' {nextToken} -> nextToken) (\s@ListDeviceEventsResponse' {} a -> s {nextToken = a} :: ListDeviceEventsResponse)
 
 -- | The device events requested for the device ARN.
-lderrsDeviceEvents :: Lens' ListDeviceEventsResponse [DeviceEvent]
-lderrsDeviceEvents = lens _lderrsDeviceEvents (\s a -> s {_lderrsDeviceEvents = a}) . _Default . _Coerce
+listDeviceEventsResponse_deviceEvents :: Lens.Lens' ListDeviceEventsResponse (Prelude.Maybe [DeviceEvent])
+listDeviceEventsResponse_deviceEvents = Lens.lens (\ListDeviceEventsResponse' {deviceEvents} -> deviceEvents) (\s@ListDeviceEventsResponse' {} a -> s {deviceEvents = a} :: ListDeviceEventsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lderrsResponseStatus :: Lens' ListDeviceEventsResponse Int
-lderrsResponseStatus = lens _lderrsResponseStatus (\s a -> s {_lderrsResponseStatus = a})
+-- | The response's http status code.
+listDeviceEventsResponse_httpStatus :: Lens.Lens' ListDeviceEventsResponse Prelude.Int
+listDeviceEventsResponse_httpStatus = Lens.lens (\ListDeviceEventsResponse' {httpStatus} -> httpStatus) (\s@ListDeviceEventsResponse' {} a -> s {httpStatus = a} :: ListDeviceEventsResponse)
 
-instance NFData ListDeviceEventsResponse
+instance Prelude.NFData ListDeviceEventsResponse

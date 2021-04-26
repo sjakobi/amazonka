@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,131 +21,132 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Makes a private skill available for enrolled users to enable on their devices.
+-- Makes a private skill available for enrolled users to enable on their
+-- devices.
 module Network.AWS.AlexaBusiness.AssociateSkillWithUsers
   ( -- * Creating a Request
-    associateSkillWithUsers,
-    AssociateSkillWithUsers,
+    AssociateSkillWithUsers (..),
+    newAssociateSkillWithUsers,
 
     -- * Request Lenses
-    aswuSkillId,
+    associateSkillWithUsers_skillId,
 
     -- * Destructuring the Response
-    associateSkillWithUsersResponse,
-    AssociateSkillWithUsersResponse,
+    AssociateSkillWithUsersResponse (..),
+    newAssociateSkillWithUsersResponse,
 
     -- * Response Lenses
-    aswurrsResponseStatus,
+    associateSkillWithUsersResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateSkillWithUsers' smart constructor.
-newtype AssociateSkillWithUsers = AssociateSkillWithUsers'
-  { _aswuSkillId ::
-      Text
+-- | /See:/ 'newAssociateSkillWithUsers' smart constructor.
+data AssociateSkillWithUsers = AssociateSkillWithUsers'
+  { -- | The private skill ID you want to make available to enrolled users.
+    skillId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateSkillWithUsers' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateSkillWithUsers' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aswuSkillId' - The private skill ID you want to make available to enrolled users.
-associateSkillWithUsers ::
-  -- | 'aswuSkillId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'skillId', 'associateSkillWithUsers_skillId' - The private skill ID you want to make available to enrolled users.
+newAssociateSkillWithUsers ::
+  -- | 'skillId'
+  Prelude.Text ->
   AssociateSkillWithUsers
-associateSkillWithUsers pSkillId_ =
-  AssociateSkillWithUsers' {_aswuSkillId = pSkillId_}
+newAssociateSkillWithUsers pSkillId_ =
+  AssociateSkillWithUsers' {skillId = pSkillId_}
 
 -- | The private skill ID you want to make available to enrolled users.
-aswuSkillId :: Lens' AssociateSkillWithUsers Text
-aswuSkillId = lens _aswuSkillId (\s a -> s {_aswuSkillId = a})
+associateSkillWithUsers_skillId :: Lens.Lens' AssociateSkillWithUsers Prelude.Text
+associateSkillWithUsers_skillId = Lens.lens (\AssociateSkillWithUsers' {skillId} -> skillId) (\s@AssociateSkillWithUsers' {} a -> s {skillId = a} :: AssociateSkillWithUsers)
 
-instance AWSRequest AssociateSkillWithUsers where
+instance Prelude.AWSRequest AssociateSkillWithUsers where
   type
     Rs AssociateSkillWithUsers =
       AssociateSkillWithUsersResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateSkillWithUsersResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateSkillWithUsers
+instance Prelude.Hashable AssociateSkillWithUsers
 
-instance NFData AssociateSkillWithUsers
+instance Prelude.NFData AssociateSkillWithUsers
 
-instance ToHeaders AssociateSkillWithUsers where
+instance Prelude.ToHeaders AssociateSkillWithUsers where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.AssociateSkillWithUsers" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.AssociateSkillWithUsers" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateSkillWithUsers where
+instance Prelude.ToJSON AssociateSkillWithUsers where
   toJSON AssociateSkillWithUsers' {..} =
-    object
-      (catMaybes [Just ("SkillId" .= _aswuSkillId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SkillId" Prelude..= skillId)]
+      )
 
-instance ToPath AssociateSkillWithUsers where
-  toPath = const "/"
+instance Prelude.ToPath AssociateSkillWithUsers where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateSkillWithUsers where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateSkillWithUsers where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateSkillWithUsersResponse' smart constructor.
-newtype AssociateSkillWithUsersResponse = AssociateSkillWithUsersResponse'
-  { _aswurrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateSkillWithUsersResponse' smart constructor.
+data AssociateSkillWithUsersResponse = AssociateSkillWithUsersResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateSkillWithUsersResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateSkillWithUsersResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aswurrsResponseStatus' - -- | The response status code.
-associateSkillWithUsersResponse ::
-  -- | 'aswurrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateSkillWithUsersResponse_httpStatus' - The response's http status code.
+newAssociateSkillWithUsersResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateSkillWithUsersResponse
-associateSkillWithUsersResponse pResponseStatus_ =
+newAssociateSkillWithUsersResponse pHttpStatus_ =
   AssociateSkillWithUsersResponse'
-    { _aswurrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-aswurrsResponseStatus :: Lens' AssociateSkillWithUsersResponse Int
-aswurrsResponseStatus = lens _aswurrsResponseStatus (\s a -> s {_aswurrsResponseStatus = a})
+-- | The response's http status code.
+associateSkillWithUsersResponse_httpStatus :: Lens.Lens' AssociateSkillWithUsersResponse Prelude.Int
+associateSkillWithUsersResponse_httpStatus = Lens.lens (\AssociateSkillWithUsersResponse' {httpStatus} -> httpStatus) (\s@AssociateSkillWithUsersResponse' {} a -> s {httpStatus = a} :: AssociateSkillWithUsersResponse)
 
-instance NFData AssociateSkillWithUsersResponse
+instance
+  Prelude.NFData
+    AssociateSkillWithUsersResponse

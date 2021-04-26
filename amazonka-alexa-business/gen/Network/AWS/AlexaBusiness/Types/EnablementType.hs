@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.AlexaBusiness.Types.EnablementType
   ( EnablementType
       ( ..,
-        Enabled,
-        Pending
+        EnablementTypeENABLED,
+        EnablementTypePENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnablementType = EnablementType' (CI Text)
+newtype EnablementType = EnablementType'
+  { fromEnablementType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Enabled :: EnablementType
-pattern Enabled = EnablementType' "ENABLED"
+pattern EnablementTypeENABLED :: EnablementType
+pattern EnablementTypeENABLED = EnablementType' "ENABLED"
 
-pattern Pending :: EnablementType
-pattern Pending = EnablementType' "PENDING"
+pattern EnablementTypePENDING :: EnablementType
+pattern EnablementTypePENDING = EnablementType' "PENDING"
 
 {-# COMPLETE
-  Enabled,
-  Pending,
+  EnablementTypeENABLED,
+  EnablementTypePENDING,
   EnablementType'
   #-}
 
-instance FromText EnablementType where
-  parser = (EnablementType' . mk) <$> takeText
+instance Prelude.FromText EnablementType where
+  parser = EnablementType' Prelude.<$> Prelude.takeText
 
-instance ToText EnablementType where
-  toText (EnablementType' ci) = original ci
+instance Prelude.ToText EnablementType where
+  toText (EnablementType' x) = x
 
-instance Hashable EnablementType
+instance Prelude.Hashable EnablementType
 
-instance NFData EnablementType
+instance Prelude.NFData EnablementType
 
-instance ToByteString EnablementType
+instance Prelude.ToByteString EnablementType
 
-instance ToQuery EnablementType
+instance Prelude.ToQuery EnablementType
 
-instance ToHeader EnablementType
+instance Prelude.ToHeader EnablementType
 
-instance FromJSON EnablementType where
-  parseJSON = parseJSONText "EnablementType"
+instance Prelude.FromJSON EnablementType where
+  parseJSON = Prelude.parseJSONText "EnablementType"

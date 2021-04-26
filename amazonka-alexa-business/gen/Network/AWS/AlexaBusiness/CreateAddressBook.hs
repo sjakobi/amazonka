@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,163 +24,178 @@
 -- Creates an address book with the specified details.
 module Network.AWS.AlexaBusiness.CreateAddressBook
   ( -- * Creating a Request
-    createAddressBook,
-    CreateAddressBook,
+    CreateAddressBook (..),
+    newCreateAddressBook,
 
     -- * Request Lenses
-    cabTags,
-    cabDescription,
-    cabClientRequestToken,
-    cabName,
+    createAddressBook_tags,
+    createAddressBook_description,
+    createAddressBook_clientRequestToken,
+    createAddressBook_name,
 
     -- * Destructuring the Response
-    createAddressBookResponse,
-    CreateAddressBookResponse,
+    CreateAddressBookResponse (..),
+    newCreateAddressBookResponse,
 
     -- * Response Lenses
-    cabrrsAddressBookARN,
-    cabrrsResponseStatus,
+    createAddressBookResponse_addressBookArn,
+    createAddressBookResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createAddressBook' smart constructor.
+-- | /See:/ 'newCreateAddressBook' smart constructor.
 data CreateAddressBook = CreateAddressBook'
-  { _cabTags ::
-      !(Maybe [Tag]),
-    _cabDescription :: !(Maybe Text),
-    _cabClientRequestToken ::
-      !(Maybe Text),
-    _cabName :: !Text
+  { -- | The tags to be added to the specified resource. Do not provide system
+    -- tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The description of the address book.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | A unique, user-specified identifier for the request that ensures
+    -- idempotency.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the address book.
+    name :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAddressBook' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAddressBook' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cabTags' - The tags to be added to the specified resource. Do not provide system tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cabDescription' - The description of the address book.
+-- 'tags', 'createAddressBook_tags' - The tags to be added to the specified resource. Do not provide system
+-- tags.
 --
--- * 'cabClientRequestToken' - A unique, user-specified identifier for the request that ensures idempotency.
+-- 'description', 'createAddressBook_description' - The description of the address book.
 --
--- * 'cabName' - The name of the address book.
-createAddressBook ::
-  -- | 'cabName'
-  Text ->
+-- 'clientRequestToken', 'createAddressBook_clientRequestToken' - A unique, user-specified identifier for the request that ensures
+-- idempotency.
+--
+-- 'name', 'createAddressBook_name' - The name of the address book.
+newCreateAddressBook ::
+  -- | 'name'
+  Prelude.Text ->
   CreateAddressBook
-createAddressBook pName_ =
+newCreateAddressBook pName_ =
   CreateAddressBook'
-    { _cabTags = Nothing,
-      _cabDescription = Nothing,
-      _cabClientRequestToken = Nothing,
-      _cabName = pName_
+    { tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      name = pName_
     }
 
--- | The tags to be added to the specified resource. Do not provide system tags.
-cabTags :: Lens' CreateAddressBook [Tag]
-cabTags = lens _cabTags (\s a -> s {_cabTags = a}) . _Default . _Coerce
+-- | The tags to be added to the specified resource. Do not provide system
+-- tags.
+createAddressBook_tags :: Lens.Lens' CreateAddressBook (Prelude.Maybe [Tag])
+createAddressBook_tags = Lens.lens (\CreateAddressBook' {tags} -> tags) (\s@CreateAddressBook' {} a -> s {tags = a} :: CreateAddressBook) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the address book.
-cabDescription :: Lens' CreateAddressBook (Maybe Text)
-cabDescription = lens _cabDescription (\s a -> s {_cabDescription = a})
+createAddressBook_description :: Lens.Lens' CreateAddressBook (Prelude.Maybe Prelude.Text)
+createAddressBook_description = Lens.lens (\CreateAddressBook' {description} -> description) (\s@CreateAddressBook' {} a -> s {description = a} :: CreateAddressBook)
 
--- | A unique, user-specified identifier for the request that ensures idempotency.
-cabClientRequestToken :: Lens' CreateAddressBook (Maybe Text)
-cabClientRequestToken = lens _cabClientRequestToken (\s a -> s {_cabClientRequestToken = a})
+-- | A unique, user-specified identifier for the request that ensures
+-- idempotency.
+createAddressBook_clientRequestToken :: Lens.Lens' CreateAddressBook (Prelude.Maybe Prelude.Text)
+createAddressBook_clientRequestToken = Lens.lens (\CreateAddressBook' {clientRequestToken} -> clientRequestToken) (\s@CreateAddressBook' {} a -> s {clientRequestToken = a} :: CreateAddressBook)
 
 -- | The name of the address book.
-cabName :: Lens' CreateAddressBook Text
-cabName = lens _cabName (\s a -> s {_cabName = a})
+createAddressBook_name :: Lens.Lens' CreateAddressBook Prelude.Text
+createAddressBook_name = Lens.lens (\CreateAddressBook' {name} -> name) (\s@CreateAddressBook' {} a -> s {name = a} :: CreateAddressBook)
 
-instance AWSRequest CreateAddressBook where
+instance Prelude.AWSRequest CreateAddressBook where
   type Rs CreateAddressBook = CreateAddressBookResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateAddressBookResponse'
-            <$> (x .?> "AddressBookArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AddressBookArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateAddressBook
+instance Prelude.Hashable CreateAddressBook
 
-instance NFData CreateAddressBook
+instance Prelude.NFData CreateAddressBook
 
-instance ToHeaders CreateAddressBook where
+instance Prelude.ToHeaders CreateAddressBook where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.CreateAddressBook" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.CreateAddressBook" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateAddressBook where
+instance Prelude.ToJSON CreateAddressBook where
   toJSON CreateAddressBook' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _cabTags,
-            ("Description" .=) <$> _cabDescription,
-            ("ClientRequestToken" .=) <$> _cabClientRequestToken,
-            Just ("Name" .= _cabName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            Prelude.Just ("Name" Prelude..= name)
           ]
       )
 
-instance ToPath CreateAddressBook where
-  toPath = const "/"
+instance Prelude.ToPath CreateAddressBook where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateAddressBook where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateAddressBook where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createAddressBookResponse' smart constructor.
+-- | /See:/ 'newCreateAddressBookResponse' smart constructor.
 data CreateAddressBookResponse = CreateAddressBookResponse'
-  { _cabrrsAddressBookARN ::
-      !(Maybe Text),
-    _cabrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the newly created address book.
+    addressBookArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateAddressBookResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateAddressBookResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cabrrsAddressBookARN' - The ARN of the newly created address book.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cabrrsResponseStatus' - -- | The response status code.
-createAddressBookResponse ::
-  -- | 'cabrrsResponseStatus'
-  Int ->
+-- 'addressBookArn', 'createAddressBookResponse_addressBookArn' - The ARN of the newly created address book.
+--
+-- 'httpStatus', 'createAddressBookResponse_httpStatus' - The response's http status code.
+newCreateAddressBookResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateAddressBookResponse
-createAddressBookResponse pResponseStatus_ =
+newCreateAddressBookResponse pHttpStatus_ =
   CreateAddressBookResponse'
-    { _cabrrsAddressBookARN =
-        Nothing,
-      _cabrrsResponseStatus = pResponseStatus_
+    { addressBookArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the newly created address book.
-cabrrsAddressBookARN :: Lens' CreateAddressBookResponse (Maybe Text)
-cabrrsAddressBookARN = lens _cabrrsAddressBookARN (\s a -> s {_cabrrsAddressBookARN = a})
+createAddressBookResponse_addressBookArn :: Lens.Lens' CreateAddressBookResponse (Prelude.Maybe Prelude.Text)
+createAddressBookResponse_addressBookArn = Lens.lens (\CreateAddressBookResponse' {addressBookArn} -> addressBookArn) (\s@CreateAddressBookResponse' {} a -> s {addressBookArn = a} :: CreateAddressBookResponse)
 
--- | -- | The response status code.
-cabrrsResponseStatus :: Lens' CreateAddressBookResponse Int
-cabrrsResponseStatus = lens _cabrrsResponseStatus (\s a -> s {_cabrrsResponseStatus = a})
+-- | The response's http status code.
+createAddressBookResponse_httpStatus :: Lens.Lens' CreateAddressBookResponse Prelude.Int
+createAddressBookResponse_httpStatus = Lens.lens (\CreateAddressBookResponse' {httpStatus} -> httpStatus) (\s@CreateAddressBookResponse' {} a -> s {httpStatus = a} :: CreateAddressBookResponse)
 
-instance NFData CreateAddressBookResponse
+instance Prelude.NFData CreateAddressBookResponse

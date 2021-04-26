@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,68 +19,70 @@
 module Network.AWS.AlexaBusiness.Types.EnrollmentStatus
   ( EnrollmentStatus
       ( ..,
-        ESDeregistering,
-        ESDisassociating,
-        ESInitialized,
-        ESPending,
-        ESRegistered
+        EnrollmentStatusDEREGISTERING,
+        EnrollmentStatusDISASSOCIATING,
+        EnrollmentStatusINITIALIZED,
+        EnrollmentStatusPENDING,
+        EnrollmentStatusREGISTERED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnrollmentStatus = EnrollmentStatus' (CI Text)
+newtype EnrollmentStatus = EnrollmentStatus'
+  { fromEnrollmentStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ESDeregistering :: EnrollmentStatus
-pattern ESDeregistering = EnrollmentStatus' "DEREGISTERING"
+pattern EnrollmentStatusDEREGISTERING :: EnrollmentStatus
+pattern EnrollmentStatusDEREGISTERING = EnrollmentStatus' "DEREGISTERING"
 
-pattern ESDisassociating :: EnrollmentStatus
-pattern ESDisassociating = EnrollmentStatus' "DISASSOCIATING"
+pattern EnrollmentStatusDISASSOCIATING :: EnrollmentStatus
+pattern EnrollmentStatusDISASSOCIATING = EnrollmentStatus' "DISASSOCIATING"
 
-pattern ESInitialized :: EnrollmentStatus
-pattern ESInitialized = EnrollmentStatus' "INITIALIZED"
+pattern EnrollmentStatusINITIALIZED :: EnrollmentStatus
+pattern EnrollmentStatusINITIALIZED = EnrollmentStatus' "INITIALIZED"
 
-pattern ESPending :: EnrollmentStatus
-pattern ESPending = EnrollmentStatus' "PENDING"
+pattern EnrollmentStatusPENDING :: EnrollmentStatus
+pattern EnrollmentStatusPENDING = EnrollmentStatus' "PENDING"
 
-pattern ESRegistered :: EnrollmentStatus
-pattern ESRegistered = EnrollmentStatus' "REGISTERED"
+pattern EnrollmentStatusREGISTERED :: EnrollmentStatus
+pattern EnrollmentStatusREGISTERED = EnrollmentStatus' "REGISTERED"
 
 {-# COMPLETE
-  ESDeregistering,
-  ESDisassociating,
-  ESInitialized,
-  ESPending,
-  ESRegistered,
+  EnrollmentStatusDEREGISTERING,
+  EnrollmentStatusDISASSOCIATING,
+  EnrollmentStatusINITIALIZED,
+  EnrollmentStatusPENDING,
+  EnrollmentStatusREGISTERED,
   EnrollmentStatus'
   #-}
 
-instance FromText EnrollmentStatus where
-  parser = (EnrollmentStatus' . mk) <$> takeText
+instance Prelude.FromText EnrollmentStatus where
+  parser = EnrollmentStatus' Prelude.<$> Prelude.takeText
 
-instance ToText EnrollmentStatus where
-  toText (EnrollmentStatus' ci) = original ci
+instance Prelude.ToText EnrollmentStatus where
+  toText (EnrollmentStatus' x) = x
 
-instance Hashable EnrollmentStatus
+instance Prelude.Hashable EnrollmentStatus
 
-instance NFData EnrollmentStatus
+instance Prelude.NFData EnrollmentStatus
 
-instance ToByteString EnrollmentStatus
+instance Prelude.ToByteString EnrollmentStatus
 
-instance ToQuery EnrollmentStatus
+instance Prelude.ToQuery EnrollmentStatus
 
-instance ToHeader EnrollmentStatus
+instance Prelude.ToHeader EnrollmentStatus
 
-instance FromJSON EnrollmentStatus where
-  parseJSON = parseJSONText "EnrollmentStatus"
+instance Prelude.FromJSON EnrollmentStatus where
+  parseJSON = Prelude.parseJSONText "EnrollmentStatus"

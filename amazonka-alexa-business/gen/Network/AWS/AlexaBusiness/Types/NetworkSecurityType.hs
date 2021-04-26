@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,75 +19,73 @@
 module Network.AWS.AlexaBusiness.Types.NetworkSecurityType
   ( NetworkSecurityType
       ( ..,
-        Open,
-        WPA2Enterprise,
-        WPA2Psk,
-        Wep,
-        WpaPsk
+        NetworkSecurityTypeOPEN,
+        NetworkSecurityTypeWEP,
+        NetworkSecurityTypeWPA2ENTERPRISE,
+        NetworkSecurityTypeWPA2PSK,
+        NetworkSecurityTypeWPAPSK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkSecurityType
-  = NetworkSecurityType'
-      ( CI
-          Text
-      )
+newtype NetworkSecurityType = NetworkSecurityType'
+  { fromNetworkSecurityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Open :: NetworkSecurityType
-pattern Open = NetworkSecurityType' "OPEN"
+pattern NetworkSecurityTypeOPEN :: NetworkSecurityType
+pattern NetworkSecurityTypeOPEN = NetworkSecurityType' "OPEN"
 
-pattern WPA2Enterprise :: NetworkSecurityType
-pattern WPA2Enterprise = NetworkSecurityType' "WPA2_ENTERPRISE"
+pattern NetworkSecurityTypeWEP :: NetworkSecurityType
+pattern NetworkSecurityTypeWEP = NetworkSecurityType' "WEP"
 
-pattern WPA2Psk :: NetworkSecurityType
-pattern WPA2Psk = NetworkSecurityType' "WPA2_PSK"
+pattern NetworkSecurityTypeWPA2ENTERPRISE :: NetworkSecurityType
+pattern NetworkSecurityTypeWPA2ENTERPRISE = NetworkSecurityType' "WPA2_ENTERPRISE"
 
-pattern Wep :: NetworkSecurityType
-pattern Wep = NetworkSecurityType' "WEP"
+pattern NetworkSecurityTypeWPA2PSK :: NetworkSecurityType
+pattern NetworkSecurityTypeWPA2PSK = NetworkSecurityType' "WPA2_PSK"
 
-pattern WpaPsk :: NetworkSecurityType
-pattern WpaPsk = NetworkSecurityType' "WPA_PSK"
+pattern NetworkSecurityTypeWPAPSK :: NetworkSecurityType
+pattern NetworkSecurityTypeWPAPSK = NetworkSecurityType' "WPA_PSK"
 
 {-# COMPLETE
-  Open,
-  WPA2Enterprise,
-  WPA2Psk,
-  Wep,
-  WpaPsk,
+  NetworkSecurityTypeOPEN,
+  NetworkSecurityTypeWEP,
+  NetworkSecurityTypeWPA2ENTERPRISE,
+  NetworkSecurityTypeWPA2PSK,
+  NetworkSecurityTypeWPAPSK,
   NetworkSecurityType'
   #-}
 
-instance FromText NetworkSecurityType where
-  parser = (NetworkSecurityType' . mk) <$> takeText
+instance Prelude.FromText NetworkSecurityType where
+  parser = NetworkSecurityType' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkSecurityType where
-  toText (NetworkSecurityType' ci) = original ci
+instance Prelude.ToText NetworkSecurityType where
+  toText (NetworkSecurityType' x) = x
 
-instance Hashable NetworkSecurityType
+instance Prelude.Hashable NetworkSecurityType
 
-instance NFData NetworkSecurityType
+instance Prelude.NFData NetworkSecurityType
 
-instance ToByteString NetworkSecurityType
+instance Prelude.ToByteString NetworkSecurityType
 
-instance ToQuery NetworkSecurityType
+instance Prelude.ToQuery NetworkSecurityType
 
-instance ToHeader NetworkSecurityType
+instance Prelude.ToHeader NetworkSecurityType
 
-instance ToJSON NetworkSecurityType where
-  toJSON = toJSONText
+instance Prelude.ToJSON NetworkSecurityType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NetworkSecurityType where
-  parseJSON = parseJSONText "NetworkSecurityType"
+instance Prelude.FromJSON NetworkSecurityType where
+  parseJSON = Prelude.parseJSONText "NetworkSecurityType"

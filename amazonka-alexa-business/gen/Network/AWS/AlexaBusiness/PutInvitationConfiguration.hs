@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,159 +21,170 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures the email template for the user enrollment invitation with the specified attributes.
+-- Configures the email template for the user enrollment invitation with
+-- the specified attributes.
 module Network.AWS.AlexaBusiness.PutInvitationConfiguration
   ( -- * Creating a Request
-    putInvitationConfiguration,
-    PutInvitationConfiguration,
+    PutInvitationConfiguration (..),
+    newPutInvitationConfiguration,
 
     -- * Request Lenses
-    picContactEmail,
-    picPrivateSkillIds,
-    picOrganizationName,
+    putInvitationConfiguration_contactEmail,
+    putInvitationConfiguration_privateSkillIds,
+    putInvitationConfiguration_organizationName,
 
     -- * Destructuring the Response
-    putInvitationConfigurationResponse,
-    PutInvitationConfigurationResponse,
+    PutInvitationConfigurationResponse (..),
+    newPutInvitationConfigurationResponse,
 
     -- * Response Lenses
-    picrrsResponseStatus,
+    putInvitationConfigurationResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putInvitationConfiguration' smart constructor.
+-- | /See:/ 'newPutInvitationConfiguration' smart constructor.
 data PutInvitationConfiguration = PutInvitationConfiguration'
-  { _picContactEmail ::
-      !(Maybe Text),
-    _picPrivateSkillIds ::
-      !(Maybe [Text]),
-    _picOrganizationName ::
-      !Text
+  { -- | The email ID of the organization or individual contact that the enrolled
+    -- user can use.
+    contactEmail :: Prelude.Maybe Prelude.Text,
+    -- | The list of private skill IDs that you want to recommend to the user to
+    -- enable in the invitation.
+    privateSkillIds :: Prelude.Maybe [Prelude.Text],
+    -- | The name of the organization sending the enrollment invite to a user.
+    organizationName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutInvitationConfiguration' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutInvitationConfiguration' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'picContactEmail' - The email ID of the organization or individual contact that the enrolled user can use.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'picPrivateSkillIds' - The list of private skill IDs that you want to recommend to the user to enable in the invitation.
+-- 'contactEmail', 'putInvitationConfiguration_contactEmail' - The email ID of the organization or individual contact that the enrolled
+-- user can use.
 --
--- * 'picOrganizationName' - The name of the organization sending the enrollment invite to a user.
-putInvitationConfiguration ::
-  -- | 'picOrganizationName'
-  Text ->
+-- 'privateSkillIds', 'putInvitationConfiguration_privateSkillIds' - The list of private skill IDs that you want to recommend to the user to
+-- enable in the invitation.
+--
+-- 'organizationName', 'putInvitationConfiguration_organizationName' - The name of the organization sending the enrollment invite to a user.
+newPutInvitationConfiguration ::
+  -- | 'organizationName'
+  Prelude.Text ->
   PutInvitationConfiguration
-putInvitationConfiguration pOrganizationName_ =
+newPutInvitationConfiguration pOrganizationName_ =
   PutInvitationConfiguration'
-    { _picContactEmail =
-        Nothing,
-      _picPrivateSkillIds = Nothing,
-      _picOrganizationName = pOrganizationName_
+    { contactEmail =
+        Prelude.Nothing,
+      privateSkillIds = Prelude.Nothing,
+      organizationName = pOrganizationName_
     }
 
--- | The email ID of the organization or individual contact that the enrolled user can use.
-picContactEmail :: Lens' PutInvitationConfiguration (Maybe Text)
-picContactEmail = lens _picContactEmail (\s a -> s {_picContactEmail = a})
+-- | The email ID of the organization or individual contact that the enrolled
+-- user can use.
+putInvitationConfiguration_contactEmail :: Lens.Lens' PutInvitationConfiguration (Prelude.Maybe Prelude.Text)
+putInvitationConfiguration_contactEmail = Lens.lens (\PutInvitationConfiguration' {contactEmail} -> contactEmail) (\s@PutInvitationConfiguration' {} a -> s {contactEmail = a} :: PutInvitationConfiguration)
 
--- | The list of private skill IDs that you want to recommend to the user to enable in the invitation.
-picPrivateSkillIds :: Lens' PutInvitationConfiguration [Text]
-picPrivateSkillIds = lens _picPrivateSkillIds (\s a -> s {_picPrivateSkillIds = a}) . _Default . _Coerce
+-- | The list of private skill IDs that you want to recommend to the user to
+-- enable in the invitation.
+putInvitationConfiguration_privateSkillIds :: Lens.Lens' PutInvitationConfiguration (Prelude.Maybe [Prelude.Text])
+putInvitationConfiguration_privateSkillIds = Lens.lens (\PutInvitationConfiguration' {privateSkillIds} -> privateSkillIds) (\s@PutInvitationConfiguration' {} a -> s {privateSkillIds = a} :: PutInvitationConfiguration) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the organization sending the enrollment invite to a user.
-picOrganizationName :: Lens' PutInvitationConfiguration Text
-picOrganizationName = lens _picOrganizationName (\s a -> s {_picOrganizationName = a})
+putInvitationConfiguration_organizationName :: Lens.Lens' PutInvitationConfiguration Prelude.Text
+putInvitationConfiguration_organizationName = Lens.lens (\PutInvitationConfiguration' {organizationName} -> organizationName) (\s@PutInvitationConfiguration' {} a -> s {organizationName = a} :: PutInvitationConfiguration)
 
-instance AWSRequest PutInvitationConfiguration where
+instance
+  Prelude.AWSRequest
+    PutInvitationConfiguration
+  where
   type
     Rs PutInvitationConfiguration =
       PutInvitationConfigurationResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutInvitationConfigurationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutInvitationConfiguration
+instance Prelude.Hashable PutInvitationConfiguration
 
-instance NFData PutInvitationConfiguration
+instance Prelude.NFData PutInvitationConfiguration
 
-instance ToHeaders PutInvitationConfiguration where
+instance Prelude.ToHeaders PutInvitationConfiguration where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.PutInvitationConfiguration" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.PutInvitationConfiguration" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutInvitationConfiguration where
+instance Prelude.ToJSON PutInvitationConfiguration where
   toJSON PutInvitationConfiguration' {..} =
-    object
-      ( catMaybes
-          [ ("ContactEmail" .=) <$> _picContactEmail,
-            ("PrivateSkillIds" .=) <$> _picPrivateSkillIds,
-            Just ("OrganizationName" .= _picOrganizationName)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("ContactEmail" Prelude..=)
+              Prelude.<$> contactEmail,
+            ("PrivateSkillIds" Prelude..=)
+              Prelude.<$> privateSkillIds,
+            Prelude.Just
+              ("OrganizationName" Prelude..= organizationName)
           ]
       )
 
-instance ToPath PutInvitationConfiguration where
-  toPath = const "/"
+instance Prelude.ToPath PutInvitationConfiguration where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutInvitationConfiguration where
-  toQuery = const mempty
+instance Prelude.ToQuery PutInvitationConfiguration where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putInvitationConfigurationResponse' smart constructor.
-newtype PutInvitationConfigurationResponse = PutInvitationConfigurationResponse'
-  { _picrrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutInvitationConfigurationResponse' smart constructor.
+data PutInvitationConfigurationResponse = PutInvitationConfigurationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutInvitationConfigurationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutInvitationConfigurationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'picrrsResponseStatus' - -- | The response status code.
-putInvitationConfigurationResponse ::
-  -- | 'picrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putInvitationConfigurationResponse_httpStatus' - The response's http status code.
+newPutInvitationConfigurationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutInvitationConfigurationResponse
-putInvitationConfigurationResponse pResponseStatus_ =
+newPutInvitationConfigurationResponse pHttpStatus_ =
   PutInvitationConfigurationResponse'
-    { _picrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-picrrsResponseStatus :: Lens' PutInvitationConfigurationResponse Int
-picrrsResponseStatus = lens _picrrsResponseStatus (\s a -> s {_picrrsResponseStatus = a})
+-- | The response's http status code.
+putInvitationConfigurationResponse_httpStatus :: Lens.Lens' PutInvitationConfigurationResponse Prelude.Int
+putInvitationConfigurationResponse_httpStatus = Lens.lens (\PutInvitationConfigurationResponse' {httpStatus} -> httpStatus) (\s@PutInvitationConfigurationResponse' {} a -> s {httpStatus = a} :: PutInvitationConfigurationResponse)
 
-instance NFData PutInvitationConfigurationResponse
+instance
+  Prelude.NFData
+    PutInvitationConfigurationResponse

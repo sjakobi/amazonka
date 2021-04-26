@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,193 +23,205 @@
 --
 -- Lists all of the smart home appliances associated with a room.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.AlexaBusiness.ListSmartHomeAppliances
   ( -- * Creating a Request
-    listSmartHomeAppliances,
-    ListSmartHomeAppliances,
+    ListSmartHomeAppliances (..),
+    newListSmartHomeAppliances,
 
     -- * Request Lenses
-    lshaNextToken,
-    lshaMaxResults,
-    lshaRoomARN,
+    listSmartHomeAppliances_nextToken,
+    listSmartHomeAppliances_maxResults,
+    listSmartHomeAppliances_roomArn,
 
     -- * Destructuring the Response
-    listSmartHomeAppliancesResponse,
-    ListSmartHomeAppliancesResponse,
+    ListSmartHomeAppliancesResponse (..),
+    newListSmartHomeAppliancesResponse,
 
     -- * Response Lenses
-    lsharrsNextToken,
-    lsharrsSmartHomeAppliances,
-    lsharrsResponseStatus,
+    listSmartHomeAppliancesResponse_nextToken,
+    listSmartHomeAppliancesResponse_smartHomeAppliances,
+    listSmartHomeAppliancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.SmartHomeAppliance
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSmartHomeAppliances' smart constructor.
+-- | /See:/ 'newListSmartHomeAppliances' smart constructor.
 data ListSmartHomeAppliances = ListSmartHomeAppliances'
-  { _lshaNextToken ::
-      !(Maybe Text),
-    _lshaMaxResults ::
-      !(Maybe Nat),
-    _lshaRoomARN :: !Text
+  { -- | The tokens used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of appliances to be returned, per paginated calls.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The room that the appliances are associated with.
+    roomArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSmartHomeAppliances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSmartHomeAppliances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lshaNextToken' - The tokens used for pagination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lshaMaxResults' - The maximum number of appliances to be returned, per paginated calls.
+-- 'nextToken', 'listSmartHomeAppliances_nextToken' - The tokens used for pagination.
 --
--- * 'lshaRoomARN' - The room that the appliances are associated with.
-listSmartHomeAppliances ::
-  -- | 'lshaRoomARN'
-  Text ->
+-- 'maxResults', 'listSmartHomeAppliances_maxResults' - The maximum number of appliances to be returned, per paginated calls.
+--
+-- 'roomArn', 'listSmartHomeAppliances_roomArn' - The room that the appliances are associated with.
+newListSmartHomeAppliances ::
+  -- | 'roomArn'
+  Prelude.Text ->
   ListSmartHomeAppliances
-listSmartHomeAppliances pRoomARN_ =
+newListSmartHomeAppliances pRoomArn_ =
   ListSmartHomeAppliances'
-    { _lshaNextToken = Nothing,
-      _lshaMaxResults = Nothing,
-      _lshaRoomARN = pRoomARN_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      roomArn = pRoomArn_
     }
 
 -- | The tokens used for pagination.
-lshaNextToken :: Lens' ListSmartHomeAppliances (Maybe Text)
-lshaNextToken = lens _lshaNextToken (\s a -> s {_lshaNextToken = a})
+listSmartHomeAppliances_nextToken :: Lens.Lens' ListSmartHomeAppliances (Prelude.Maybe Prelude.Text)
+listSmartHomeAppliances_nextToken = Lens.lens (\ListSmartHomeAppliances' {nextToken} -> nextToken) (\s@ListSmartHomeAppliances' {} a -> s {nextToken = a} :: ListSmartHomeAppliances)
 
 -- | The maximum number of appliances to be returned, per paginated calls.
-lshaMaxResults :: Lens' ListSmartHomeAppliances (Maybe Natural)
-lshaMaxResults = lens _lshaMaxResults (\s a -> s {_lshaMaxResults = a}) . mapping _Nat
+listSmartHomeAppliances_maxResults :: Lens.Lens' ListSmartHomeAppliances (Prelude.Maybe Prelude.Natural)
+listSmartHomeAppliances_maxResults = Lens.lens (\ListSmartHomeAppliances' {maxResults} -> maxResults) (\s@ListSmartHomeAppliances' {} a -> s {maxResults = a} :: ListSmartHomeAppliances) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The room that the appliances are associated with.
-lshaRoomARN :: Lens' ListSmartHomeAppliances Text
-lshaRoomARN = lens _lshaRoomARN (\s a -> s {_lshaRoomARN = a})
+listSmartHomeAppliances_roomArn :: Lens.Lens' ListSmartHomeAppliances Prelude.Text
+listSmartHomeAppliances_roomArn = Lens.lens (\ListSmartHomeAppliances' {roomArn} -> roomArn) (\s@ListSmartHomeAppliances' {} a -> s {roomArn = a} :: ListSmartHomeAppliances)
 
-instance AWSPager ListSmartHomeAppliances where
+instance Pager.AWSPager ListSmartHomeAppliances where
   page rq rs
-    | stop (rs ^. lsharrsNextToken) = Nothing
-    | stop (rs ^. lsharrsSmartHomeAppliances) = Nothing
-    | otherwise =
-      Just $ rq & lshaNextToken .~ rs ^. lsharrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listSmartHomeAppliancesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSmartHomeAppliancesResponse_smartHomeAppliances
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listSmartHomeAppliances_nextToken
+          Lens..~ rs
+          Lens.^? listSmartHomeAppliancesResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSmartHomeAppliances where
+instance Prelude.AWSRequest ListSmartHomeAppliances where
   type
     Rs ListSmartHomeAppliances =
       ListSmartHomeAppliancesResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSmartHomeAppliancesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "SmartHomeAppliances" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "SmartHomeAppliances"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSmartHomeAppliances
+instance Prelude.Hashable ListSmartHomeAppliances
 
-instance NFData ListSmartHomeAppliances
+instance Prelude.NFData ListSmartHomeAppliances
 
-instance ToHeaders ListSmartHomeAppliances where
+instance Prelude.ToHeaders ListSmartHomeAppliances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.ListSmartHomeAppliances" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.ListSmartHomeAppliances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSmartHomeAppliances where
+instance Prelude.ToJSON ListSmartHomeAppliances where
   toJSON ListSmartHomeAppliances' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lshaNextToken,
-            ("MaxResults" .=) <$> _lshaMaxResults,
-            Just ("RoomArn" .= _lshaRoomARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("RoomArn" Prelude..= roomArn)
           ]
       )
 
-instance ToPath ListSmartHomeAppliances where
-  toPath = const "/"
+instance Prelude.ToPath ListSmartHomeAppliances where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSmartHomeAppliances where
-  toQuery = const mempty
+instance Prelude.ToQuery ListSmartHomeAppliances where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSmartHomeAppliancesResponse' smart constructor.
+-- | /See:/ 'newListSmartHomeAppliancesResponse' smart constructor.
 data ListSmartHomeAppliancesResponse = ListSmartHomeAppliancesResponse'
-  { _lsharrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lsharrsSmartHomeAppliances ::
-      !( Maybe
-           [SmartHomeAppliance]
-       ),
-    _lsharrsResponseStatus ::
-      !Int
+  { -- | The tokens used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The smart home appliances.
+    smartHomeAppliances :: Prelude.Maybe [SmartHomeAppliance],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSmartHomeAppliancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSmartHomeAppliancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsharrsNextToken' - The tokens used for pagination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsharrsSmartHomeAppliances' - The smart home appliances.
+-- 'nextToken', 'listSmartHomeAppliancesResponse_nextToken' - The tokens used for pagination.
 --
--- * 'lsharrsResponseStatus' - -- | The response status code.
-listSmartHomeAppliancesResponse ::
-  -- | 'lsharrsResponseStatus'
-  Int ->
+-- 'smartHomeAppliances', 'listSmartHomeAppliancesResponse_smartHomeAppliances' - The smart home appliances.
+--
+-- 'httpStatus', 'listSmartHomeAppliancesResponse_httpStatus' - The response's http status code.
+newListSmartHomeAppliancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSmartHomeAppliancesResponse
-listSmartHomeAppliancesResponse pResponseStatus_ =
+newListSmartHomeAppliancesResponse pHttpStatus_ =
   ListSmartHomeAppliancesResponse'
-    { _lsharrsNextToken =
-        Nothing,
-      _lsharrsSmartHomeAppliances = Nothing,
-      _lsharrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      smartHomeAppliances = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The tokens used for pagination.
-lsharrsNextToken :: Lens' ListSmartHomeAppliancesResponse (Maybe Text)
-lsharrsNextToken = lens _lsharrsNextToken (\s a -> s {_lsharrsNextToken = a})
+listSmartHomeAppliancesResponse_nextToken :: Lens.Lens' ListSmartHomeAppliancesResponse (Prelude.Maybe Prelude.Text)
+listSmartHomeAppliancesResponse_nextToken = Lens.lens (\ListSmartHomeAppliancesResponse' {nextToken} -> nextToken) (\s@ListSmartHomeAppliancesResponse' {} a -> s {nextToken = a} :: ListSmartHomeAppliancesResponse)
 
 -- | The smart home appliances.
-lsharrsSmartHomeAppliances :: Lens' ListSmartHomeAppliancesResponse [SmartHomeAppliance]
-lsharrsSmartHomeAppliances = lens _lsharrsSmartHomeAppliances (\s a -> s {_lsharrsSmartHomeAppliances = a}) . _Default . _Coerce
+listSmartHomeAppliancesResponse_smartHomeAppliances :: Lens.Lens' ListSmartHomeAppliancesResponse (Prelude.Maybe [SmartHomeAppliance])
+listSmartHomeAppliancesResponse_smartHomeAppliances = Lens.lens (\ListSmartHomeAppliancesResponse' {smartHomeAppliances} -> smartHomeAppliances) (\s@ListSmartHomeAppliancesResponse' {} a -> s {smartHomeAppliances = a} :: ListSmartHomeAppliancesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lsharrsResponseStatus :: Lens' ListSmartHomeAppliancesResponse Int
-lsharrsResponseStatus = lens _lsharrsResponseStatus (\s a -> s {_lsharrsResponseStatus = a})
+-- | The response's http status code.
+listSmartHomeAppliancesResponse_httpStatus :: Lens.Lens' ListSmartHomeAppliancesResponse Prelude.Int
+listSmartHomeAppliancesResponse_httpStatus = Lens.lens (\ListSmartHomeAppliancesResponse' {httpStatus} -> httpStatus) (\s@ListSmartHomeAppliancesResponse' {} a -> s {httpStatus = a} :: ListSmartHomeAppliancesResponse)
 
-instance NFData ListSmartHomeAppliancesResponse
+instance
+  Prelude.NFData
+    ListSmartHomeAppliancesResponse

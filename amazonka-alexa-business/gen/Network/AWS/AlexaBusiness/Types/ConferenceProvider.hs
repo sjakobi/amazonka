@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -19,92 +23,101 @@ import Network.AWS.AlexaBusiness.Types.ConferenceProviderType
 import Network.AWS.AlexaBusiness.Types.IPDialIn
 import Network.AWS.AlexaBusiness.Types.MeetingSetting
 import Network.AWS.AlexaBusiness.Types.PSTNDialIn
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | An entity that provides a conferencing solution. Alexa for Business acts as the voice interface and mediator that connects users to their preferred conference provider. Examples of conference providers include Amazon Chime, Zoom, Cisco, and Polycom.
+-- | An entity that provides a conferencing solution. Alexa for Business acts
+-- as the voice interface and mediator that connects users to their
+-- preferred conference provider. Examples of conference providers include
+-- Amazon Chime, Zoom, Cisco, and Polycom.
 --
---
---
--- /See:/ 'conferenceProvider' smart constructor.
+-- /See:/ 'newConferenceProvider' smart constructor.
 data ConferenceProvider = ConferenceProvider'
-  { _cpMeetingSetting ::
-      !(Maybe MeetingSetting),
-    _cpIPDialIn :: !(Maybe IPDialIn),
-    _cpARN :: !(Maybe Text),
-    _cpName :: !(Maybe Text),
-    _cpPSTNDialIn ::
-      !(Maybe PSTNDialIn),
-    _cpType ::
-      !(Maybe ConferenceProviderType)
+  { -- | The meeting settings for the conference provider.
+    meetingSetting :: Prelude.Maybe MeetingSetting,
+    -- | The IP endpoint and protocol for calling.
+    iPDialIn :: Prelude.Maybe IPDialIn,
+    -- | The ARN of the newly created conference provider.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the conference provider.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The information for PSTN conferencing.
+    pSTNDialIn :: Prelude.Maybe PSTNDialIn,
+    -- | The type of conference providers.
+    type' :: Prelude.Maybe ConferenceProviderType
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConferenceProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConferenceProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpMeetingSetting' - The meeting settings for the conference provider.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cpIPDialIn' - The IP endpoint and protocol for calling.
+-- 'meetingSetting', 'conferenceProvider_meetingSetting' - The meeting settings for the conference provider.
 --
--- * 'cpARN' - The ARN of the newly created conference provider.
+-- 'iPDialIn', 'conferenceProvider_iPDialIn' - The IP endpoint and protocol for calling.
 --
--- * 'cpName' - The name of the conference provider.
+-- 'arn', 'conferenceProvider_arn' - The ARN of the newly created conference provider.
 --
--- * 'cpPSTNDialIn' - The information for PSTN conferencing.
+-- 'name', 'conferenceProvider_name' - The name of the conference provider.
 --
--- * 'cpType' - The type of conference providers.
-conferenceProvider ::
+-- 'pSTNDialIn', 'conferenceProvider_pSTNDialIn' - The information for PSTN conferencing.
+--
+-- 'type'', 'conferenceProvider_type' - The type of conference providers.
+newConferenceProvider ::
   ConferenceProvider
-conferenceProvider =
+newConferenceProvider =
   ConferenceProvider'
-    { _cpMeetingSetting = Nothing,
-      _cpIPDialIn = Nothing,
-      _cpARN = Nothing,
-      _cpName = Nothing,
-      _cpPSTNDialIn = Nothing,
-      _cpType = Nothing
+    { meetingSetting =
+        Prelude.Nothing,
+      iPDialIn = Prelude.Nothing,
+      arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      pSTNDialIn = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The meeting settings for the conference provider.
-cpMeetingSetting :: Lens' ConferenceProvider (Maybe MeetingSetting)
-cpMeetingSetting = lens _cpMeetingSetting (\s a -> s {_cpMeetingSetting = a})
+conferenceProvider_meetingSetting :: Lens.Lens' ConferenceProvider (Prelude.Maybe MeetingSetting)
+conferenceProvider_meetingSetting = Lens.lens (\ConferenceProvider' {meetingSetting} -> meetingSetting) (\s@ConferenceProvider' {} a -> s {meetingSetting = a} :: ConferenceProvider)
 
 -- | The IP endpoint and protocol for calling.
-cpIPDialIn :: Lens' ConferenceProvider (Maybe IPDialIn)
-cpIPDialIn = lens _cpIPDialIn (\s a -> s {_cpIPDialIn = a})
+conferenceProvider_iPDialIn :: Lens.Lens' ConferenceProvider (Prelude.Maybe IPDialIn)
+conferenceProvider_iPDialIn = Lens.lens (\ConferenceProvider' {iPDialIn} -> iPDialIn) (\s@ConferenceProvider' {} a -> s {iPDialIn = a} :: ConferenceProvider)
 
 -- | The ARN of the newly created conference provider.
-cpARN :: Lens' ConferenceProvider (Maybe Text)
-cpARN = lens _cpARN (\s a -> s {_cpARN = a})
+conferenceProvider_arn :: Lens.Lens' ConferenceProvider (Prelude.Maybe Prelude.Text)
+conferenceProvider_arn = Lens.lens (\ConferenceProvider' {arn} -> arn) (\s@ConferenceProvider' {} a -> s {arn = a} :: ConferenceProvider)
 
 -- | The name of the conference provider.
-cpName :: Lens' ConferenceProvider (Maybe Text)
-cpName = lens _cpName (\s a -> s {_cpName = a})
+conferenceProvider_name :: Lens.Lens' ConferenceProvider (Prelude.Maybe Prelude.Text)
+conferenceProvider_name = Lens.lens (\ConferenceProvider' {name} -> name) (\s@ConferenceProvider' {} a -> s {name = a} :: ConferenceProvider)
 
 -- | The information for PSTN conferencing.
-cpPSTNDialIn :: Lens' ConferenceProvider (Maybe PSTNDialIn)
-cpPSTNDialIn = lens _cpPSTNDialIn (\s a -> s {_cpPSTNDialIn = a})
+conferenceProvider_pSTNDialIn :: Lens.Lens' ConferenceProvider (Prelude.Maybe PSTNDialIn)
+conferenceProvider_pSTNDialIn = Lens.lens (\ConferenceProvider' {pSTNDialIn} -> pSTNDialIn) (\s@ConferenceProvider' {} a -> s {pSTNDialIn = a} :: ConferenceProvider)
 
 -- | The type of conference providers.
-cpType :: Lens' ConferenceProvider (Maybe ConferenceProviderType)
-cpType = lens _cpType (\s a -> s {_cpType = a})
+conferenceProvider_type :: Lens.Lens' ConferenceProvider (Prelude.Maybe ConferenceProviderType)
+conferenceProvider_type = Lens.lens (\ConferenceProvider' {type'} -> type') (\s@ConferenceProvider' {} a -> s {type' = a} :: ConferenceProvider)
 
-instance FromJSON ConferenceProvider where
+instance Prelude.FromJSON ConferenceProvider where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConferenceProvider"
       ( \x ->
           ConferenceProvider'
-            <$> (x .:? "MeetingSetting")
-            <*> (x .:? "IPDialIn")
-            <*> (x .:? "Arn")
-            <*> (x .:? "Name")
-            <*> (x .:? "PSTNDialIn")
-            <*> (x .:? "Type")
+            Prelude.<$> (x Prelude..:? "MeetingSetting")
+            Prelude.<*> (x Prelude..:? "IPDialIn")
+            Prelude.<*> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "PSTNDialIn")
+            Prelude.<*> (x Prelude..:? "Type")
       )
 
-instance Hashable ConferenceProvider
+instance Prelude.Hashable ConferenceProvider
 
-instance NFData ConferenceProvider
+instance Prelude.NFData ConferenceProvider

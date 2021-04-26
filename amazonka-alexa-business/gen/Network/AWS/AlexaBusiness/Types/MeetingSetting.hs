@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,55 +20,62 @@
 module Network.AWS.AlexaBusiness.Types.MeetingSetting where
 
 import Network.AWS.AlexaBusiness.Types.RequirePin
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The values that indicate whether a pin is always required (YES), never required (NO), or OPTIONAL.
+-- | The values that indicate whether a pin is always required (YES), never
+-- required (NO), or OPTIONAL.
 --
+-- -   If YES, Alexa will always ask for a meeting pin.
 --
---     * If YES, Alexa will always ask for a meeting pin.
+-- -   If NO, Alexa will never ask for a meeting pin.
 --
---     * If NO, Alexa will never ask for a meeting pin.
+-- -   If OPTIONAL, Alexa will ask if you have a meeting pin and if the
+--     customer responds with yes, it will ask for the meeting pin.
 --
---     * If OPTIONAL, Alexa will ask if you have a meeting pin and if the customer responds with yes, it will ask for the meeting pin.
---
---
---
---
--- /See:/ 'meetingSetting' smart constructor.
-newtype MeetingSetting = MeetingSetting'
-  { _msRequirePin ::
-      RequirePin
+-- /See:/ 'newMeetingSetting' smart constructor.
+data MeetingSetting = MeetingSetting'
+  { -- | The values that indicate whether the pin is always required.
+    requirePin :: RequirePin
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'MeetingSetting' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'MeetingSetting' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'msRequirePin' - The values that indicate whether the pin is always required.
-meetingSetting ::
-  -- | 'msRequirePin'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'requirePin', 'meetingSetting_requirePin' - The values that indicate whether the pin is always required.
+newMeetingSetting ::
+  -- | 'requirePin'
   RequirePin ->
   MeetingSetting
-meetingSetting pRequirePin_ =
-  MeetingSetting' {_msRequirePin = pRequirePin_}
+newMeetingSetting pRequirePin_ =
+  MeetingSetting' {requirePin = pRequirePin_}
 
 -- | The values that indicate whether the pin is always required.
-msRequirePin :: Lens' MeetingSetting RequirePin
-msRequirePin = lens _msRequirePin (\s a -> s {_msRequirePin = a})
+meetingSetting_requirePin :: Lens.Lens' MeetingSetting RequirePin
+meetingSetting_requirePin = Lens.lens (\MeetingSetting' {requirePin} -> requirePin) (\s@MeetingSetting' {} a -> s {requirePin = a} :: MeetingSetting)
 
-instance FromJSON MeetingSetting where
+instance Prelude.FromJSON MeetingSetting where
   parseJSON =
-    withObject
+    Prelude.withObject
       "MeetingSetting"
-      (\x -> MeetingSetting' <$> (x .: "RequirePin"))
+      ( \x ->
+          MeetingSetting'
+            Prelude.<$> (x Prelude..: "RequirePin")
+      )
 
-instance Hashable MeetingSetting
+instance Prelude.Hashable MeetingSetting
 
-instance NFData MeetingSetting
+instance Prelude.NFData MeetingSetting
 
-instance ToJSON MeetingSetting where
+instance Prelude.ToJSON MeetingSetting where
   toJSON MeetingSetting' {..} =
-    object
-      (catMaybes [Just ("RequirePin" .= _msRequirePin)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("RequirePin" Prelude..= requirePin)]
+      )

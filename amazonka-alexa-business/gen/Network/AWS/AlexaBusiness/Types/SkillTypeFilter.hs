@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,58 +19,60 @@
 module Network.AWS.AlexaBusiness.Types.SkillTypeFilter
   ( SkillTypeFilter
       ( ..,
-        STFAll,
-        STFPrivate,
-        STFPublic
+        SkillTypeFilterALL,
+        SkillTypeFilterPRIVATE,
+        SkillTypeFilterPUBLIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SkillTypeFilter = SkillTypeFilter' (CI Text)
+newtype SkillTypeFilter = SkillTypeFilter'
+  { fromSkillTypeFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern STFAll :: SkillTypeFilter
-pattern STFAll = SkillTypeFilter' "ALL"
+pattern SkillTypeFilterALL :: SkillTypeFilter
+pattern SkillTypeFilterALL = SkillTypeFilter' "ALL"
 
-pattern STFPrivate :: SkillTypeFilter
-pattern STFPrivate = SkillTypeFilter' "PRIVATE"
+pattern SkillTypeFilterPRIVATE :: SkillTypeFilter
+pattern SkillTypeFilterPRIVATE = SkillTypeFilter' "PRIVATE"
 
-pattern STFPublic :: SkillTypeFilter
-pattern STFPublic = SkillTypeFilter' "PUBLIC"
+pattern SkillTypeFilterPUBLIC :: SkillTypeFilter
+pattern SkillTypeFilterPUBLIC = SkillTypeFilter' "PUBLIC"
 
 {-# COMPLETE
-  STFAll,
-  STFPrivate,
-  STFPublic,
+  SkillTypeFilterALL,
+  SkillTypeFilterPRIVATE,
+  SkillTypeFilterPUBLIC,
   SkillTypeFilter'
   #-}
 
-instance FromText SkillTypeFilter where
-  parser = (SkillTypeFilter' . mk) <$> takeText
+instance Prelude.FromText SkillTypeFilter where
+  parser = SkillTypeFilter' Prelude.<$> Prelude.takeText
 
-instance ToText SkillTypeFilter where
-  toText (SkillTypeFilter' ci) = original ci
+instance Prelude.ToText SkillTypeFilter where
+  toText (SkillTypeFilter' x) = x
 
-instance Hashable SkillTypeFilter
+instance Prelude.Hashable SkillTypeFilter
 
-instance NFData SkillTypeFilter
+instance Prelude.NFData SkillTypeFilter
 
-instance ToByteString SkillTypeFilter
+instance Prelude.ToByteString SkillTypeFilter
 
-instance ToQuery SkillTypeFilter
+instance Prelude.ToQuery SkillTypeFilter
 
-instance ToHeader SkillTypeFilter
+instance Prelude.ToHeader SkillTypeFilter
 
-instance ToJSON SkillTypeFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON SkillTypeFilter where
+  toJSON = Prelude.toJSONText

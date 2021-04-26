@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,71 @@
 module Network.AWS.AlexaBusiness.Types.IPDialIn where
 
 import Network.AWS.AlexaBusiness.Types.CommsProtocol
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The IP endpoint and protocol for calling.
 --
---
---
--- /See:/ 'ipDialIn' smart constructor.
+-- /See:/ 'newIPDialIn' smart constructor.
 data IPDialIn = IPDialIn'
-  { _idiEndpoint :: !Text,
-    _idiCommsProtocol :: !CommsProtocol
+  { -- | The IP address.
+    endpoint :: Prelude.Text,
+    -- | The protocol, including SIP, SIPS, and H323.
+    commsProtocol :: CommsProtocol
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IPDialIn' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IPDialIn' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'idiEndpoint' - The IP address.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'idiCommsProtocol' - The protocol, including SIP, SIPS, and H323.
-ipDialIn ::
-  -- | 'idiEndpoint'
-  Text ->
-  -- | 'idiCommsProtocol'
+-- 'endpoint', 'iPDialIn_endpoint' - The IP address.
+--
+-- 'commsProtocol', 'iPDialIn_commsProtocol' - The protocol, including SIP, SIPS, and H323.
+newIPDialIn ::
+  -- | 'endpoint'
+  Prelude.Text ->
+  -- | 'commsProtocol'
   CommsProtocol ->
   IPDialIn
-ipDialIn pEndpoint_ pCommsProtocol_ =
+newIPDialIn pEndpoint_ pCommsProtocol_ =
   IPDialIn'
-    { _idiEndpoint = pEndpoint_,
-      _idiCommsProtocol = pCommsProtocol_
+    { endpoint = pEndpoint_,
+      commsProtocol = pCommsProtocol_
     }
 
 -- | The IP address.
-idiEndpoint :: Lens' IPDialIn Text
-idiEndpoint = lens _idiEndpoint (\s a -> s {_idiEndpoint = a})
+iPDialIn_endpoint :: Lens.Lens' IPDialIn Prelude.Text
+iPDialIn_endpoint = Lens.lens (\IPDialIn' {endpoint} -> endpoint) (\s@IPDialIn' {} a -> s {endpoint = a} :: IPDialIn)
 
 -- | The protocol, including SIP, SIPS, and H323.
-idiCommsProtocol :: Lens' IPDialIn CommsProtocol
-idiCommsProtocol = lens _idiCommsProtocol (\s a -> s {_idiCommsProtocol = a})
+iPDialIn_commsProtocol :: Lens.Lens' IPDialIn CommsProtocol
+iPDialIn_commsProtocol = Lens.lens (\IPDialIn' {commsProtocol} -> commsProtocol) (\s@IPDialIn' {} a -> s {commsProtocol = a} :: IPDialIn)
 
-instance FromJSON IPDialIn where
+instance Prelude.FromJSON IPDialIn where
   parseJSON =
-    withObject
+    Prelude.withObject
       "IPDialIn"
       ( \x ->
           IPDialIn'
-            <$> (x .: "Endpoint") <*> (x .: "CommsProtocol")
+            Prelude.<$> (x Prelude..: "Endpoint")
+            Prelude.<*> (x Prelude..: "CommsProtocol")
       )
 
-instance Hashable IPDialIn
+instance Prelude.Hashable IPDialIn
 
-instance NFData IPDialIn
+instance Prelude.NFData IPDialIn
 
-instance ToJSON IPDialIn where
+instance Prelude.ToJSON IPDialIn where
   toJSON IPDialIn' {..} =
-    object
-      ( catMaybes
-          [ Just ("Endpoint" .= _idiEndpoint),
-            Just ("CommsProtocol" .= _idiCommsProtocol)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Endpoint" Prelude..= endpoint),
+            Prelude.Just
+              ("CommsProtocol" Prelude..= commsProtocol)
           ]
       )

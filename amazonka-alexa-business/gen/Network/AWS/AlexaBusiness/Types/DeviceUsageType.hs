@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,48 +19,50 @@
 module Network.AWS.AlexaBusiness.Types.DeviceUsageType
   ( DeviceUsageType
       ( ..,
-        Voice
+        DeviceUsageTypeVOICE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceUsageType = DeviceUsageType' (CI Text)
+newtype DeviceUsageType = DeviceUsageType'
+  { fromDeviceUsageType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Voice :: DeviceUsageType
-pattern Voice = DeviceUsageType' "VOICE"
+pattern DeviceUsageTypeVOICE :: DeviceUsageType
+pattern DeviceUsageTypeVOICE = DeviceUsageType' "VOICE"
 
 {-# COMPLETE
-  Voice,
+  DeviceUsageTypeVOICE,
   DeviceUsageType'
   #-}
 
-instance FromText DeviceUsageType where
-  parser = (DeviceUsageType' . mk) <$> takeText
+instance Prelude.FromText DeviceUsageType where
+  parser = DeviceUsageType' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceUsageType where
-  toText (DeviceUsageType' ci) = original ci
+instance Prelude.ToText DeviceUsageType where
+  toText (DeviceUsageType' x) = x
 
-instance Hashable DeviceUsageType
+instance Prelude.Hashable DeviceUsageType
 
-instance NFData DeviceUsageType
+instance Prelude.NFData DeviceUsageType
 
-instance ToByteString DeviceUsageType
+instance Prelude.ToByteString DeviceUsageType
 
-instance ToQuery DeviceUsageType
+instance Prelude.ToQuery DeviceUsageType
 
-instance ToHeader DeviceUsageType
+instance Prelude.ToHeader DeviceUsageType
 
-instance ToJSON DeviceUsageType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeviceUsageType where
+  toJSON = Prelude.toJSONText

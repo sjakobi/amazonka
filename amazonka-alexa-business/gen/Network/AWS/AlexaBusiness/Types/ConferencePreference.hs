@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.ConferencePreference where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The default conference provider that is used if no other scheduled meetings are detected.
+-- | The default conference provider that is used if no other scheduled
+-- meetings are detected.
 --
---
---
--- /See:/ 'conferencePreference' smart constructor.
-newtype ConferencePreference = ConferencePreference'
-  { _cpDefaultConferenceProviderARN ::
-      Maybe Text
+-- /See:/ 'newConferencePreference' smart constructor.
+data ConferencePreference = ConferencePreference'
+  { -- | The ARN of the default conference provider.
+    defaultConferenceProviderArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ConferencePreference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ConferencePreference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cpDefaultConferenceProviderARN' - The ARN of the default conference provider.
-conferencePreference ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'defaultConferenceProviderArn', 'conferencePreference_defaultConferenceProviderArn' - The ARN of the default conference provider.
+newConferencePreference ::
   ConferencePreference
-conferencePreference =
+newConferencePreference =
   ConferencePreference'
-    { _cpDefaultConferenceProviderARN =
-        Nothing
+    { defaultConferenceProviderArn =
+        Prelude.Nothing
     }
 
 -- | The ARN of the default conference provider.
-cpDefaultConferenceProviderARN :: Lens' ConferencePreference (Maybe Text)
-cpDefaultConferenceProviderARN = lens _cpDefaultConferenceProviderARN (\s a -> s {_cpDefaultConferenceProviderARN = a})
+conferencePreference_defaultConferenceProviderArn :: Lens.Lens' ConferencePreference (Prelude.Maybe Prelude.Text)
+conferencePreference_defaultConferenceProviderArn = Lens.lens (\ConferencePreference' {defaultConferenceProviderArn} -> defaultConferenceProviderArn) (\s@ConferencePreference' {} a -> s {defaultConferenceProviderArn = a} :: ConferencePreference)
 
-instance FromJSON ConferencePreference where
+instance Prelude.FromJSON ConferencePreference where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ConferencePreference"
       ( \x ->
           ConferencePreference'
-            <$> (x .:? "DefaultConferenceProviderArn")
+            Prelude.<$> (x Prelude..:? "DefaultConferenceProviderArn")
       )
 
-instance Hashable ConferencePreference
+instance Prelude.Hashable ConferencePreference
 
-instance NFData ConferencePreference
+instance Prelude.NFData ConferencePreference
 
-instance ToJSON ConferencePreference where
+instance Prelude.ToJSON ConferencePreference where
   toJSON ConferencePreference' {..} =
-    object
-      ( catMaybes
-          [ ("DefaultConferenceProviderArn" .=)
-              <$> _cpDefaultConferenceProviderARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DefaultConferenceProviderArn" Prelude..=)
+              Prelude.<$> defaultConferenceProviderArn
           ]
       )

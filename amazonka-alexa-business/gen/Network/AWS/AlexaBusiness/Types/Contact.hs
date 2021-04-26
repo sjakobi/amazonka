@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,99 +21,120 @@ module Network.AWS.AlexaBusiness.Types.Contact where
 
 import Network.AWS.AlexaBusiness.Types.PhoneNumber
 import Network.AWS.AlexaBusiness.Types.SipAddress
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A contact with attributes.
 --
---
---
--- /See:/ 'contact' smart constructor.
+-- /See:/ 'newContact' smart constructor.
 data Contact = Contact'
-  { _cPhoneNumber ::
-      !(Maybe (Sensitive Text)),
-    _cPhoneNumbers :: !(Maybe [PhoneNumber]),
-    _cDisplayName :: !(Maybe Text),
-    _cContactARN :: !(Maybe Text),
-    _cFirstName :: !(Maybe Text),
-    _cLastName :: !(Maybe Text),
-    _cSipAddresses :: !(Maybe [SipAddress])
+  { -- | The phone number of the contact. The phone number type defaults to WORK.
+    -- You can either specify PhoneNumber or PhoneNumbers. We recommend that
+    -- you use PhoneNumbers, which lets you specify the phone number type and
+    -- multiple numbers.
+    phoneNumber :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The list of phone numbers for the contact.
+    phoneNumbers :: Prelude.Maybe [PhoneNumber],
+    -- | The name of the contact to display on the console.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the contact.
+    contactArn :: Prelude.Maybe Prelude.Text,
+    -- | The first name of the contact, used to call the contact on the device.
+    firstName :: Prelude.Maybe Prelude.Text,
+    -- | The last name of the contact, used to call the contact on the device.
+    lastName :: Prelude.Maybe Prelude.Text,
+    -- | The list of SIP addresses for the contact.
+    sipAddresses :: Prelude.Maybe [SipAddress]
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Contact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Contact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cPhoneNumber' - The phone number of the contact. The phone number type defaults to WORK. You can either specify PhoneNumber or PhoneNumbers. We recommend that you use PhoneNumbers, which lets you specify the phone number type and multiple numbers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cPhoneNumbers' - The list of phone numbers for the contact.
+-- 'phoneNumber', 'contact_phoneNumber' - The phone number of the contact. The phone number type defaults to WORK.
+-- You can either specify PhoneNumber or PhoneNumbers. We recommend that
+-- you use PhoneNumbers, which lets you specify the phone number type and
+-- multiple numbers.
 --
--- * 'cDisplayName' - The name of the contact to display on the console.
+-- 'phoneNumbers', 'contact_phoneNumbers' - The list of phone numbers for the contact.
 --
--- * 'cContactARN' - The ARN of the contact.
+-- 'displayName', 'contact_displayName' - The name of the contact to display on the console.
 --
--- * 'cFirstName' - The first name of the contact, used to call the contact on the device.
+-- 'contactArn', 'contact_contactArn' - The ARN of the contact.
 --
--- * 'cLastName' - The last name of the contact, used to call the contact on the device.
+-- 'firstName', 'contact_firstName' - The first name of the contact, used to call the contact on the device.
 --
--- * 'cSipAddresses' - The list of SIP addresses for the contact.
-contact ::
+-- 'lastName', 'contact_lastName' - The last name of the contact, used to call the contact on the device.
+--
+-- 'sipAddresses', 'contact_sipAddresses' - The list of SIP addresses for the contact.
+newContact ::
   Contact
-contact =
+newContact =
   Contact'
-    { _cPhoneNumber = Nothing,
-      _cPhoneNumbers = Nothing,
-      _cDisplayName = Nothing,
-      _cContactARN = Nothing,
-      _cFirstName = Nothing,
-      _cLastName = Nothing,
-      _cSipAddresses = Nothing
+    { phoneNumber = Prelude.Nothing,
+      phoneNumbers = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      contactArn = Prelude.Nothing,
+      firstName = Prelude.Nothing,
+      lastName = Prelude.Nothing,
+      sipAddresses = Prelude.Nothing
     }
 
--- | The phone number of the contact. The phone number type defaults to WORK. You can either specify PhoneNumber or PhoneNumbers. We recommend that you use PhoneNumbers, which lets you specify the phone number type and multiple numbers.
-cPhoneNumber :: Lens' Contact (Maybe Text)
-cPhoneNumber = lens _cPhoneNumber (\s a -> s {_cPhoneNumber = a}) . mapping _Sensitive
+-- | The phone number of the contact. The phone number type defaults to WORK.
+-- You can either specify PhoneNumber or PhoneNumbers. We recommend that
+-- you use PhoneNumbers, which lets you specify the phone number type and
+-- multiple numbers.
+contact_phoneNumber :: Lens.Lens' Contact (Prelude.Maybe Prelude.Text)
+contact_phoneNumber = Lens.lens (\Contact' {phoneNumber} -> phoneNumber) (\s@Contact' {} a -> s {phoneNumber = a} :: Contact) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The list of phone numbers for the contact.
-cPhoneNumbers :: Lens' Contact [PhoneNumber]
-cPhoneNumbers = lens _cPhoneNumbers (\s a -> s {_cPhoneNumbers = a}) . _Default . _Coerce
+contact_phoneNumbers :: Lens.Lens' Contact (Prelude.Maybe [PhoneNumber])
+contact_phoneNumbers = Lens.lens (\Contact' {phoneNumbers} -> phoneNumbers) (\s@Contact' {} a -> s {phoneNumbers = a} :: Contact) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the contact to display on the console.
-cDisplayName :: Lens' Contact (Maybe Text)
-cDisplayName = lens _cDisplayName (\s a -> s {_cDisplayName = a})
+contact_displayName :: Lens.Lens' Contact (Prelude.Maybe Prelude.Text)
+contact_displayName = Lens.lens (\Contact' {displayName} -> displayName) (\s@Contact' {} a -> s {displayName = a} :: Contact)
 
 -- | The ARN of the contact.
-cContactARN :: Lens' Contact (Maybe Text)
-cContactARN = lens _cContactARN (\s a -> s {_cContactARN = a})
+contact_contactArn :: Lens.Lens' Contact (Prelude.Maybe Prelude.Text)
+contact_contactArn = Lens.lens (\Contact' {contactArn} -> contactArn) (\s@Contact' {} a -> s {contactArn = a} :: Contact)
 
 -- | The first name of the contact, used to call the contact on the device.
-cFirstName :: Lens' Contact (Maybe Text)
-cFirstName = lens _cFirstName (\s a -> s {_cFirstName = a})
+contact_firstName :: Lens.Lens' Contact (Prelude.Maybe Prelude.Text)
+contact_firstName = Lens.lens (\Contact' {firstName} -> firstName) (\s@Contact' {} a -> s {firstName = a} :: Contact)
 
 -- | The last name of the contact, used to call the contact on the device.
-cLastName :: Lens' Contact (Maybe Text)
-cLastName = lens _cLastName (\s a -> s {_cLastName = a})
+contact_lastName :: Lens.Lens' Contact (Prelude.Maybe Prelude.Text)
+contact_lastName = Lens.lens (\Contact' {lastName} -> lastName) (\s@Contact' {} a -> s {lastName = a} :: Contact)
 
 -- | The list of SIP addresses for the contact.
-cSipAddresses :: Lens' Contact [SipAddress]
-cSipAddresses = lens _cSipAddresses (\s a -> s {_cSipAddresses = a}) . _Default . _Coerce
+contact_sipAddresses :: Lens.Lens' Contact (Prelude.Maybe [SipAddress])
+contact_sipAddresses = Lens.lens (\Contact' {sipAddresses} -> sipAddresses) (\s@Contact' {} a -> s {sipAddresses = a} :: Contact) Prelude.. Lens.mapping Prelude._Coerce
 
-instance FromJSON Contact where
+instance Prelude.FromJSON Contact where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Contact"
       ( \x ->
           Contact'
-            <$> (x .:? "PhoneNumber")
-            <*> (x .:? "PhoneNumbers" .!= mempty)
-            <*> (x .:? "DisplayName")
-            <*> (x .:? "ContactArn")
-            <*> (x .:? "FirstName")
-            <*> (x .:? "LastName")
-            <*> (x .:? "SipAddresses" .!= mempty)
+            Prelude.<$> (x Prelude..:? "PhoneNumber")
+            Prelude.<*> ( x Prelude..:? "PhoneNumbers"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "DisplayName")
+            Prelude.<*> (x Prelude..:? "ContactArn")
+            Prelude.<*> (x Prelude..:? "FirstName")
+            Prelude.<*> (x Prelude..:? "LastName")
+            Prelude.<*> ( x Prelude..:? "SipAddresses"
+                            Prelude..!= Prelude.mempty
+                        )
       )
 
-instance Hashable Contact
+instance Prelude.Hashable Contact
 
-instance NFData Contact
+instance Prelude.NFData Contact

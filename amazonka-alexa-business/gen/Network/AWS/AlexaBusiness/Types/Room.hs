@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,87 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.Room where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | A room with attributes.
 --
---
---
--- /See:/ 'room' smart constructor.
+-- /See:/ 'newRoom' smart constructor.
 data Room = Room'
-  { _rRoomARN :: !(Maybe Text),
-    _rProviderCalendarId :: !(Maybe Text),
-    _rProfileARN :: !(Maybe Text),
-    _rDescription :: !(Maybe Text),
-    _rRoomName :: !(Maybe Text)
+  { -- | The ARN of a room.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The provider calendar ARN of a room.
+    providerCalendarId :: Prelude.Maybe Prelude.Text,
+    -- | The profile ARN of a room.
+    profileArn :: Prelude.Maybe Prelude.Text,
+    -- | The description of a room.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of a room.
+    roomName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Room' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Room' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rRoomARN' - The ARN of a room.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rProviderCalendarId' - The provider calendar ARN of a room.
+-- 'roomArn', 'room_roomArn' - The ARN of a room.
 --
--- * 'rProfileARN' - The profile ARN of a room.
+-- 'providerCalendarId', 'room_providerCalendarId' - The provider calendar ARN of a room.
 --
--- * 'rDescription' - The description of a room.
+-- 'profileArn', 'room_profileArn' - The profile ARN of a room.
 --
--- * 'rRoomName' - The name of a room.
-room ::
+-- 'description', 'room_description' - The description of a room.
+--
+-- 'roomName', 'room_roomName' - The name of a room.
+newRoom ::
   Room
-room =
+newRoom =
   Room'
-    { _rRoomARN = Nothing,
-      _rProviderCalendarId = Nothing,
-      _rProfileARN = Nothing,
-      _rDescription = Nothing,
-      _rRoomName = Nothing
+    { roomArn = Prelude.Nothing,
+      providerCalendarId = Prelude.Nothing,
+      profileArn = Prelude.Nothing,
+      description = Prelude.Nothing,
+      roomName = Prelude.Nothing
     }
 
 -- | The ARN of a room.
-rRoomARN :: Lens' Room (Maybe Text)
-rRoomARN = lens _rRoomARN (\s a -> s {_rRoomARN = a})
+room_roomArn :: Lens.Lens' Room (Prelude.Maybe Prelude.Text)
+room_roomArn = Lens.lens (\Room' {roomArn} -> roomArn) (\s@Room' {} a -> s {roomArn = a} :: Room)
 
 -- | The provider calendar ARN of a room.
-rProviderCalendarId :: Lens' Room (Maybe Text)
-rProviderCalendarId = lens _rProviderCalendarId (\s a -> s {_rProviderCalendarId = a})
+room_providerCalendarId :: Lens.Lens' Room (Prelude.Maybe Prelude.Text)
+room_providerCalendarId = Lens.lens (\Room' {providerCalendarId} -> providerCalendarId) (\s@Room' {} a -> s {providerCalendarId = a} :: Room)
 
 -- | The profile ARN of a room.
-rProfileARN :: Lens' Room (Maybe Text)
-rProfileARN = lens _rProfileARN (\s a -> s {_rProfileARN = a})
+room_profileArn :: Lens.Lens' Room (Prelude.Maybe Prelude.Text)
+room_profileArn = Lens.lens (\Room' {profileArn} -> profileArn) (\s@Room' {} a -> s {profileArn = a} :: Room)
 
 -- | The description of a room.
-rDescription :: Lens' Room (Maybe Text)
-rDescription = lens _rDescription (\s a -> s {_rDescription = a})
+room_description :: Lens.Lens' Room (Prelude.Maybe Prelude.Text)
+room_description = Lens.lens (\Room' {description} -> description) (\s@Room' {} a -> s {description = a} :: Room)
 
 -- | The name of a room.
-rRoomName :: Lens' Room (Maybe Text)
-rRoomName = lens _rRoomName (\s a -> s {_rRoomName = a})
+room_roomName :: Lens.Lens' Room (Prelude.Maybe Prelude.Text)
+room_roomName = Lens.lens (\Room' {roomName} -> roomName) (\s@Room' {} a -> s {roomName = a} :: Room)
 
-instance FromJSON Room where
+instance Prelude.FromJSON Room where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Room"
       ( \x ->
           Room'
-            <$> (x .:? "RoomArn")
-            <*> (x .:? "ProviderCalendarId")
-            <*> (x .:? "ProfileArn")
-            <*> (x .:? "Description")
-            <*> (x .:? "RoomName")
+            Prelude.<$> (x Prelude..:? "RoomArn")
+            Prelude.<*> (x Prelude..:? "ProviderCalendarId")
+            Prelude.<*> (x Prelude..:? "ProfileArn")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "RoomName")
       )
 
-instance Hashable Room
+instance Prelude.Hashable Room
 
-instance NFData Room
+instance Prelude.NFData Room

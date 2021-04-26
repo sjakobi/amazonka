@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,132 +24,140 @@
 -- Retrieves the details of a gateway group.
 module Network.AWS.AlexaBusiness.GetGatewayGroup
   ( -- * Creating a Request
-    getGatewayGroup,
-    GetGatewayGroup,
+    GetGatewayGroup (..),
+    newGetGatewayGroup,
 
     -- * Request Lenses
-    gggGatewayGroupARN,
+    getGatewayGroup_gatewayGroupArn,
 
     -- * Destructuring the Response
-    getGatewayGroupResponse,
-    GetGatewayGroupResponse,
+    GetGatewayGroupResponse (..),
+    newGetGatewayGroupResponse,
 
     -- * Response Lenses
-    gggrrsGatewayGroup,
-    gggrrsResponseStatus,
+    getGatewayGroupResponse_gatewayGroup,
+    getGatewayGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.GatewayGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGatewayGroup' smart constructor.
-newtype GetGatewayGroup = GetGatewayGroup'
-  { _gggGatewayGroupARN ::
-      Text
+-- | /See:/ 'newGetGatewayGroup' smart constructor.
+data GetGatewayGroup = GetGatewayGroup'
+  { -- | The ARN of the gateway group to get.
+    gatewayGroupArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGatewayGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGatewayGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gggGatewayGroupARN' - The ARN of the gateway group to get.
-getGatewayGroup ::
-  -- | 'gggGatewayGroupARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayGroupArn', 'getGatewayGroup_gatewayGroupArn' - The ARN of the gateway group to get.
+newGetGatewayGroup ::
+  -- | 'gatewayGroupArn'
+  Prelude.Text ->
   GetGatewayGroup
-getGatewayGroup pGatewayGroupARN_ =
+newGetGatewayGroup pGatewayGroupArn_ =
   GetGatewayGroup'
-    { _gggGatewayGroupARN =
-        pGatewayGroupARN_
+    { gatewayGroupArn =
+        pGatewayGroupArn_
     }
 
 -- | The ARN of the gateway group to get.
-gggGatewayGroupARN :: Lens' GetGatewayGroup Text
-gggGatewayGroupARN = lens _gggGatewayGroupARN (\s a -> s {_gggGatewayGroupARN = a})
+getGatewayGroup_gatewayGroupArn :: Lens.Lens' GetGatewayGroup Prelude.Text
+getGatewayGroup_gatewayGroupArn = Lens.lens (\GetGatewayGroup' {gatewayGroupArn} -> gatewayGroupArn) (\s@GetGatewayGroup' {} a -> s {gatewayGroupArn = a} :: GetGatewayGroup)
 
-instance AWSRequest GetGatewayGroup where
+instance Prelude.AWSRequest GetGatewayGroup where
   type Rs GetGatewayGroup = GetGatewayGroupResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGatewayGroupResponse'
-            <$> (x .?> "GatewayGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGatewayGroup
+instance Prelude.Hashable GetGatewayGroup
 
-instance NFData GetGatewayGroup
+instance Prelude.NFData GetGatewayGroup
 
-instance ToHeaders GetGatewayGroup where
+instance Prelude.ToHeaders GetGatewayGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.GetGatewayGroup" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.GetGatewayGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetGatewayGroup where
+instance Prelude.ToJSON GetGatewayGroup where
   toJSON GetGatewayGroup' {..} =
-    object
-      ( catMaybes
-          [Just ("GatewayGroupArn" .= _gggGatewayGroupARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("GatewayGroupArn" Prelude..= gatewayGroupArn)
+          ]
       )
 
-instance ToPath GetGatewayGroup where
-  toPath = const "/"
+instance Prelude.ToPath GetGatewayGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetGatewayGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGatewayGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGatewayGroupResponse' smart constructor.
+-- | /See:/ 'newGetGatewayGroupResponse' smart constructor.
 data GetGatewayGroupResponse = GetGatewayGroupResponse'
-  { _gggrrsGatewayGroup ::
-      !(Maybe GatewayGroup),
-    _gggrrsResponseStatus ::
-      !Int
+  { gatewayGroup :: Prelude.Maybe GatewayGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGatewayGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGatewayGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gggrrsGatewayGroup' - Undocumented member.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gggrrsResponseStatus' - -- | The response status code.
-getGatewayGroupResponse ::
-  -- | 'gggrrsResponseStatus'
-  Int ->
+-- 'gatewayGroup', 'getGatewayGroupResponse_gatewayGroup' - Undocumented member.
+--
+-- 'httpStatus', 'getGatewayGroupResponse_httpStatus' - The response's http status code.
+newGetGatewayGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGatewayGroupResponse
-getGatewayGroupResponse pResponseStatus_ =
+newGetGatewayGroupResponse pHttpStatus_ =
   GetGatewayGroupResponse'
-    { _gggrrsGatewayGroup =
-        Nothing,
-      _gggrrsResponseStatus = pResponseStatus_
+    { gatewayGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-gggrrsGatewayGroup :: Lens' GetGatewayGroupResponse (Maybe GatewayGroup)
-gggrrsGatewayGroup = lens _gggrrsGatewayGroup (\s a -> s {_gggrrsGatewayGroup = a})
+getGatewayGroupResponse_gatewayGroup :: Lens.Lens' GetGatewayGroupResponse (Prelude.Maybe GatewayGroup)
+getGatewayGroupResponse_gatewayGroup = Lens.lens (\GetGatewayGroupResponse' {gatewayGroup} -> gatewayGroup) (\s@GetGatewayGroupResponse' {} a -> s {gatewayGroup = a} :: GetGatewayGroupResponse)
 
--- | -- | The response status code.
-gggrrsResponseStatus :: Lens' GetGatewayGroupResponse Int
-gggrrsResponseStatus = lens _gggrrsResponseStatus (\s a -> s {_gggrrsResponseStatus = a})
+-- | The response's http status code.
+getGatewayGroupResponse_httpStatus :: Lens.Lens' GetGatewayGroupResponse Prelude.Int
+getGatewayGroupResponse_httpStatus = Lens.lens (\GetGatewayGroupResponse' {httpStatus} -> httpStatus) (\s@GetGatewayGroupResponse' {} a -> s {httpStatus = a} :: GetGatewayGroupResponse)
 
-instance NFData GetGatewayGroupResponse
+instance Prelude.NFData GetGatewayGroupResponse

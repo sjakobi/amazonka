@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.AlexaBusiness.Types.ConnectionStatus
   ( ConnectionStatus
       ( ..,
-        Offline,
-        Online
+        ConnectionStatusOFFLINE,
+        ConnectionStatusONLINE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConnectionStatus = ConnectionStatus' (CI Text)
+newtype ConnectionStatus = ConnectionStatus'
+  { fromConnectionStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Offline :: ConnectionStatus
-pattern Offline = ConnectionStatus' "OFFLINE"
+pattern ConnectionStatusOFFLINE :: ConnectionStatus
+pattern ConnectionStatusOFFLINE = ConnectionStatus' "OFFLINE"
 
-pattern Online :: ConnectionStatus
-pattern Online = ConnectionStatus' "ONLINE"
+pattern ConnectionStatusONLINE :: ConnectionStatus
+pattern ConnectionStatusONLINE = ConnectionStatus' "ONLINE"
 
 {-# COMPLETE
-  Offline,
-  Online,
+  ConnectionStatusOFFLINE,
+  ConnectionStatusONLINE,
   ConnectionStatus'
   #-}
 
-instance FromText ConnectionStatus where
-  parser = (ConnectionStatus' . mk) <$> takeText
+instance Prelude.FromText ConnectionStatus where
+  parser = ConnectionStatus' Prelude.<$> Prelude.takeText
 
-instance ToText ConnectionStatus where
-  toText (ConnectionStatus' ci) = original ci
+instance Prelude.ToText ConnectionStatus where
+  toText (ConnectionStatus' x) = x
 
-instance Hashable ConnectionStatus
+instance Prelude.Hashable ConnectionStatus
 
-instance NFData ConnectionStatus
+instance Prelude.NFData ConnectionStatus
 
-instance ToByteString ConnectionStatus
+instance Prelude.ToByteString ConnectionStatus
 
-instance ToQuery ConnectionStatus
+instance Prelude.ToQuery ConnectionStatus
 
-instance ToHeader ConnectionStatus
+instance Prelude.ToHeader ConnectionStatus
 
-instance FromJSON ConnectionStatus where
-  parseJSON = parseJSONText "ConnectionStatus"
+instance Prelude.FromJSON ConnectionStatus where
+  parseJSON = Prelude.parseJSONText "ConnectionStatus"

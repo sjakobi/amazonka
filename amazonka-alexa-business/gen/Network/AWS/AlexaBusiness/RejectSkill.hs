@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,118 +21,127 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates a skill from the organization under a user's AWS account. If the skill is a private skill, it moves to an AcceptStatus of PENDING. Any private or public skill that is rejected can be added later by calling the ApproveSkill API.
+-- Disassociates a skill from the organization under a user\'s AWS account.
+-- If the skill is a private skill, it moves to an AcceptStatus of PENDING.
+-- Any private or public skill that is rejected can be added later by
+-- calling the ApproveSkill API.
 module Network.AWS.AlexaBusiness.RejectSkill
   ( -- * Creating a Request
-    rejectSkill,
-    RejectSkill,
+    RejectSkill (..),
+    newRejectSkill,
 
     -- * Request Lenses
-    rsSkillId,
+    rejectSkill_skillId,
 
     -- * Destructuring the Response
-    rejectSkillResponse,
-    RejectSkillResponse,
+    RejectSkillResponse (..),
+    newRejectSkillResponse,
 
     -- * Response Lenses
-    rsrrsResponseStatus,
+    rejectSkillResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'rejectSkill' smart constructor.
-newtype RejectSkill = RejectSkill'
-  { _rsSkillId ::
-      Text
+-- | /See:/ 'newRejectSkill' smart constructor.
+data RejectSkill = RejectSkill'
+  { -- | The unique identifier of the skill.
+    skillId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectSkill' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectSkill' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsSkillId' - The unique identifier of the skill.
-rejectSkill ::
-  -- | 'rsSkillId'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'skillId', 'rejectSkill_skillId' - The unique identifier of the skill.
+newRejectSkill ::
+  -- | 'skillId'
+  Prelude.Text ->
   RejectSkill
-rejectSkill pSkillId_ =
-  RejectSkill' {_rsSkillId = pSkillId_}
+newRejectSkill pSkillId_ =
+  RejectSkill' {skillId = pSkillId_}
 
 -- | The unique identifier of the skill.
-rsSkillId :: Lens' RejectSkill Text
-rsSkillId = lens _rsSkillId (\s a -> s {_rsSkillId = a})
+rejectSkill_skillId :: Lens.Lens' RejectSkill Prelude.Text
+rejectSkill_skillId = Lens.lens (\RejectSkill' {skillId} -> skillId) (\s@RejectSkill' {} a -> s {skillId = a} :: RejectSkill)
 
-instance AWSRequest RejectSkill where
+instance Prelude.AWSRequest RejectSkill where
   type Rs RejectSkill = RejectSkillResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          RejectSkillResponse' <$> (pure (fromEnum s))
+          RejectSkillResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable RejectSkill
+instance Prelude.Hashable RejectSkill
 
-instance NFData RejectSkill
+instance Prelude.NFData RejectSkill
 
-instance ToHeaders RejectSkill where
+instance Prelude.ToHeaders RejectSkill where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.RejectSkill" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.RejectSkill" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON RejectSkill where
+instance Prelude.ToJSON RejectSkill where
   toJSON RejectSkill' {..} =
-    object (catMaybes [Just ("SkillId" .= _rsSkillId)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("SkillId" Prelude..= skillId)]
+      )
 
-instance ToPath RejectSkill where
-  toPath = const "/"
+instance Prelude.ToPath RejectSkill where
+  toPath = Prelude.const "/"
 
-instance ToQuery RejectSkill where
-  toQuery = const mempty
+instance Prelude.ToQuery RejectSkill where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'rejectSkillResponse' smart constructor.
-newtype RejectSkillResponse = RejectSkillResponse'
-  { _rsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newRejectSkillResponse' smart constructor.
+data RejectSkillResponse = RejectSkillResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'RejectSkillResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'RejectSkillResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rsrrsResponseStatus' - -- | The response status code.
-rejectSkillResponse ::
-  -- | 'rsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'rejectSkillResponse_httpStatus' - The response's http status code.
+newRejectSkillResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   RejectSkillResponse
-rejectSkillResponse pResponseStatus_ =
-  RejectSkillResponse'
-    { _rsrrsResponseStatus =
-        pResponseStatus_
-    }
+newRejectSkillResponse pHttpStatus_ =
+  RejectSkillResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-rsrrsResponseStatus :: Lens' RejectSkillResponse Int
-rsrrsResponseStatus = lens _rsrrsResponseStatus (\s a -> s {_rsrrsResponseStatus = a})
+-- | The response's http status code.
+rejectSkillResponse_httpStatus :: Lens.Lens' RejectSkillResponse Prelude.Int
+rejectSkillResponse_httpStatus = Lens.lens (\RejectSkillResponse' {httpStatus} -> httpStatus) (\s@RejectSkillResponse' {} a -> s {httpStatus = a} :: RejectSkillResponse)
 
-instance NFData RejectSkillResponse
+instance Prelude.NFData RejectSkillResponse

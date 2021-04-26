@@ -194,11 +194,12 @@ instance ToJSON Library where
           ]
 
 -- FIXME: Remove explicit construction of getters, just use functions.
-libraryNS, typesNS, waitersNS, fixturesNS :: Getter Library NS
+libraryNS, typesNS, waitersNS, fixturesNS, lensNS :: Getter Library NS
 libraryNS = serviceAbbrev . to (mappend "Network.AWS" . mkNS)
 typesNS = libraryNS . to (<> "Types")
 waitersNS = libraryNS . to (<> "Waiters")
 fixturesNS = serviceAbbrev . to (mappend "Test.AWS.Gen" . mkNS)
+lensNS = libraryNS . to (<> "Lens")
 
 otherModules :: Getter Library [NS]
 otherModules = to f
@@ -217,6 +218,7 @@ exposedModules = to f
     f x =
       let ns = x ^. libraryNS
        in x ^. typesNS :
+          x ^. lensNS :
           x ^. waitersNS :
           x ^.. operations . each . to (operationNS ns . view opName)
 
@@ -227,6 +229,7 @@ data Templates = Templates
     readmeTemplate :: !Template,
     operationTemplate :: !Template,
     typesTemplate :: !Template,
+    lensTemplate :: !Template,
     sumTemplate :: !Template,
     productTemplate :: !Template,
     testMainTemplate :: !Template,

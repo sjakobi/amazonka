@@ -1,4 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# OPTIONS_GHC -fno-warn-unused-matches #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
@@ -11,7 +14,7 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types
   ( -- * Service Configuration
-    alexaBusiness,
+    defaultService,
 
     -- * Errors
     _NotFoundException,
@@ -116,496 +119,247 @@ module Network.AWS.AlexaBusiness.Types
 
     -- * AddressBook
     AddressBook (..),
-    addressBook,
-    abAddressBookARN,
-    abName,
-    abDescription,
+    newAddressBook,
 
     -- * AddressBookData
     AddressBookData (..),
-    addressBookData,
-    abdAddressBookARN,
-    abdName,
-    abdDescription,
+    newAddressBookData,
 
     -- * Audio
     Audio (..),
-    audio,
-    aLocale,
-    aLocation,
+    newAudio,
 
     -- * BusinessReport
     BusinessReport (..),
-    businessReport,
-    brDownloadURL,
-    brStatus,
-    brDeliveryTime,
-    brFailureCode,
-    brS3Location,
+    newBusinessReport,
 
     -- * BusinessReportContentRange
     BusinessReportContentRange (..),
-    businessReportContentRange,
-    brcrInterval,
+    newBusinessReportContentRange,
 
     -- * BusinessReportRecurrence
     BusinessReportRecurrence (..),
-    businessReportRecurrence,
-    brrStartDate,
+    newBusinessReportRecurrence,
 
     -- * BusinessReportS3Location
     BusinessReportS3Location (..),
-    businessReportS3Location,
-    brslBucketName,
-    brslPath,
+    newBusinessReportS3Location,
 
     -- * BusinessReportSchedule
     BusinessReportSchedule (..),
-    businessReportSchedule,
-    brsContentRange,
-    brsFormat,
-    brsScheduleARN,
-    brsLastBusinessReport,
-    brsS3KeyPrefix,
-    brsRecurrence,
-    brsS3BucketName,
-    brsScheduleName,
+    newBusinessReportSchedule,
 
     -- * Category
     Category (..),
-    category,
-    cCategoryId,
-    cCategoryName,
+    newCategory,
 
     -- * ConferencePreference
     ConferencePreference (..),
-    conferencePreference,
-    cpDefaultConferenceProviderARN,
+    newConferencePreference,
 
     -- * ConferenceProvider
     ConferenceProvider (..),
-    conferenceProvider,
-    cpMeetingSetting,
-    cpIPDialIn,
-    cpARN,
-    cpName,
-    cpPSTNDialIn,
-    cpType,
+    newConferenceProvider,
 
     -- * Contact
     Contact (..),
-    contact,
-    cPhoneNumber,
-    cPhoneNumbers,
-    cDisplayName,
-    cContactARN,
-    cFirstName,
-    cLastName,
-    cSipAddresses,
+    newContact,
 
     -- * ContactData
     ContactData (..),
-    contactData,
-    cdPhoneNumber,
-    cdPhoneNumbers,
-    cdDisplayName,
-    cdContactARN,
-    cdFirstName,
-    cdLastName,
-    cdSipAddresses,
+    newContactData,
 
     -- * Content
     Content (..),
-    content,
-    cTextList,
-    cSsmlList,
-    cAudioList,
+    newContent,
 
     -- * CreateEndOfMeetingReminder
     CreateEndOfMeetingReminder (..),
-    createEndOfMeetingReminder,
-    ceomrReminderAtMinutes,
-    ceomrReminderType,
-    ceomrEnabled,
+    newCreateEndOfMeetingReminder,
 
     -- * CreateInstantBooking
     CreateInstantBooking (..),
-    createInstantBooking,
-    cibDurationInMinutes,
-    cibEnabled,
+    newCreateInstantBooking,
 
     -- * CreateMeetingRoomConfiguration
     CreateMeetingRoomConfiguration (..),
-    createMeetingRoomConfiguration,
-    cmrcRoomUtilizationMetricsEnabled,
-    cmrcEndOfMeetingReminder,
-    cmrcInstantBooking,
-    cmrcRequireCheckIn,
+    newCreateMeetingRoomConfiguration,
 
     -- * CreateRequireCheckIn
     CreateRequireCheckIn (..),
-    createRequireCheckIn,
-    crciReleaseAfterMinutes,
-    crciEnabled,
+    newCreateRequireCheckIn,
 
     -- * DeveloperInfo
     DeveloperInfo (..),
-    developerInfo,
-    diDeveloperName,
-    diEmail,
-    diPrivacyPolicy,
-    diURL,
+    newDeveloperInfo,
 
     -- * Device
     Device (..),
-    device,
-    dDeviceStatus,
-    dMACAddress,
-    dDeviceARN,
-    dRoomARN,
-    dDeviceStatusInfo,
-    dDeviceName,
-    dNetworkProfileInfo,
-    dDeviceSerialNumber,
-    dDeviceType,
-    dSoftwareVersion,
+    newDevice,
 
     -- * DeviceData
     DeviceData (..),
-    deviceData,
-    ddDeviceStatus,
-    ddMACAddress,
-    ddCreatedTime,
-    ddDeviceARN,
-    ddRoomARN,
-    ddNetworkProfileName,
-    ddDeviceStatusInfo,
-    ddDeviceName,
-    ddDeviceSerialNumber,
-    ddRoomName,
-    ddDeviceType,
-    ddNetworkProfileARN,
-    ddSoftwareVersion,
+    newDeviceData,
 
     -- * DeviceEvent
     DeviceEvent (..),
-    deviceEvent,
-    deTimestamp,
-    deValue,
-    deType,
+    newDeviceEvent,
 
     -- * DeviceNetworkProfileInfo
     DeviceNetworkProfileInfo (..),
-    deviceNetworkProfileInfo,
-    dnpiCertificateExpirationTime,
-    dnpiCertificateARN,
-    dnpiNetworkProfileARN,
+    newDeviceNetworkProfileInfo,
 
     -- * DeviceStatusDetail
     DeviceStatusDetail (..),
-    deviceStatusDetail,
-    dsdCode,
-    dsdFeature,
+    newDeviceStatusDetail,
 
     -- * DeviceStatusInfo
     DeviceStatusInfo (..),
-    deviceStatusInfo,
-    dsiDeviceStatusDetails,
-    dsiConnectionStatusUpdatedTime,
-    dsiConnectionStatus,
+    newDeviceStatusInfo,
 
     -- * EndOfMeetingReminder
     EndOfMeetingReminder (..),
-    endOfMeetingReminder,
-    eomrReminderType,
-    eomrReminderAtMinutes,
-    eomrEnabled,
+    newEndOfMeetingReminder,
 
     -- * Filter
     Filter (..),
-    filter',
-    fKey,
-    fValues,
+    newFilter,
 
     -- * Gateway
     Gateway (..),
-    gateway,
-    gARN,
-    gGatewayGroupARN,
-    gName,
-    gDescription,
-    gSoftwareVersion,
+    newGateway,
 
     -- * GatewayGroup
     GatewayGroup (..),
-    gatewayGroup,
-    ggARN,
-    ggName,
-    ggDescription,
+    newGatewayGroup,
 
     -- * GatewayGroupSummary
     GatewayGroupSummary (..),
-    gatewayGroupSummary,
-    ggsARN,
-    ggsName,
-    ggsDescription,
+    newGatewayGroupSummary,
 
     -- * GatewaySummary
     GatewaySummary (..),
-    gatewaySummary,
-    gsARN,
-    gsGatewayGroupARN,
-    gsName,
-    gsDescription,
-    gsSoftwareVersion,
+    newGatewaySummary,
 
     -- * IPDialIn
     IPDialIn (..),
-    ipDialIn,
-    idiEndpoint,
-    idiCommsProtocol,
+    newIPDialIn,
 
     -- * InstantBooking
     InstantBooking (..),
-    instantBooking,
-    ibDurationInMinutes,
-    ibEnabled,
+    newInstantBooking,
 
     -- * MeetingRoomConfiguration
     MeetingRoomConfiguration (..),
-    meetingRoomConfiguration,
-    mrcRoomUtilizationMetricsEnabled,
-    mrcEndOfMeetingReminder,
-    mrcInstantBooking,
-    mrcRequireCheckIn,
+    newMeetingRoomConfiguration,
 
     -- * MeetingSetting
     MeetingSetting (..),
-    meetingSetting,
-    msRequirePin,
+    newMeetingSetting,
 
     -- * NetworkProfile
     NetworkProfile (..),
-    networkProfile,
-    npCertificateAuthorityARN,
-    npTrustAnchors,
-    npCurrentPassword,
-    npEapMethod,
-    npNetworkProfileName,
-    npSecurityType,
-    npDescription,
-    npNextPassword,
-    npNetworkProfileARN,
-    npSsid,
+    newNetworkProfile,
 
     -- * NetworkProfileData
     NetworkProfileData (..),
-    networkProfileData,
-    npdCertificateAuthorityARN,
-    npdEapMethod,
-    npdNetworkProfileName,
-    npdSecurityType,
-    npdDescription,
-    npdNetworkProfileARN,
-    npdSsid,
+    newNetworkProfileData,
 
     -- * PSTNDialIn
     PSTNDialIn (..),
-    pSTNDialIn,
-    pstndiCountryCode,
-    pstndiPhoneNumber,
-    pstndiOneClickIdDelay,
-    pstndiOneClickPinDelay,
+    newPSTNDialIn,
 
     -- * PhoneNumber
     PhoneNumber (..),
-    phoneNumber,
-    pnNumber,
-    pnType,
+    newPhoneNumber,
 
     -- * Profile
     Profile (..),
-    profile,
-    pProfileName,
-    pIsDefault,
-    pAddress,
-    pLocale,
-    pTemperatureUnit,
-    pAddressBookARN,
-    pSetupModeDisabled,
-    pPSTNEnabled,
-    pMaxVolumeLimit,
-    pMeetingRoomConfiguration,
-    pWakeWord,
-    pProfileARN,
-    pTimezone,
-    pDistanceUnit,
+    newProfile,
 
     -- * ProfileData
     ProfileData (..),
-    profileData,
-    pdProfileName,
-    pdIsDefault,
-    pdAddress,
-    pdLocale,
-    pdTemperatureUnit,
-    pdWakeWord,
-    pdProfileARN,
-    pdTimezone,
-    pdDistanceUnit,
+    newProfileData,
 
     -- * RequireCheckIn
     RequireCheckIn (..),
-    requireCheckIn,
-    rciReleaseAfterMinutes,
-    rciEnabled,
+    newRequireCheckIn,
 
     -- * Room
     Room (..),
-    room,
-    rRoomARN,
-    rProviderCalendarId,
-    rProfileARN,
-    rDescription,
-    rRoomName,
+    newRoom,
 
     -- * RoomData
     RoomData (..),
-    roomData,
-    rdProfileName,
-    rdRoomARN,
-    rdProviderCalendarId,
-    rdProfileARN,
-    rdDescription,
-    rdRoomName,
+    newRoomData,
 
     -- * RoomSkillParameter
     RoomSkillParameter (..),
-    roomSkillParameter,
-    rspParameterKey,
-    rspParameterValue,
+    newRoomSkillParameter,
 
     -- * SipAddress
     SipAddress (..),
-    sipAddress,
-    saURI,
-    saType,
+    newSipAddress,
 
     -- * SkillDetails
     SkillDetails (..),
-    skillDetails,
-    sdNewInThisVersionBulletPoints,
-    sdSkillTypes,
-    sdReviews,
-    sdBulletPoints,
-    sdGenericKeywords,
-    sdEndUserLicenseAgreement,
-    sdDeveloperInfo,
-    sdProductDescription,
-    sdInvocationPhrase,
-    sdReleaseDate,
+    newSkillDetails,
 
     -- * SkillGroup
     SkillGroup (..),
-    skillGroup,
-    sgSkillGroupName,
-    sgDescription,
-    sgSkillGroupARN,
+    newSkillGroup,
 
     -- * SkillGroupData
     SkillGroupData (..),
-    skillGroupData,
-    sgdSkillGroupName,
-    sgdDescription,
-    sgdSkillGroupARN,
+    newSkillGroupData,
 
     -- * SkillSummary
     SkillSummary (..),
-    skillSummary,
-    ssSkillId,
-    ssSupportsLinking,
-    ssSkillType,
-    ssSkillName,
-    ssEnablementType,
+    newSkillSummary,
 
     -- * SkillsStoreSkill
     SkillsStoreSkill (..),
-    skillsStoreSkill,
-    sssIconURL,
-    sssSkillId,
-    sssShortDescription,
-    sssSupportsLinking,
-    sssSkillName,
-    sssSampleUtterances,
-    sssSkillDetails,
+    newSkillsStoreSkill,
 
     -- * SmartHomeAppliance
     SmartHomeAppliance (..),
-    smartHomeAppliance,
-    shaFriendlyName,
-    shaDescription,
-    shaManufacturerName,
+    newSmartHomeAppliance,
 
     -- * Sort
     Sort (..),
-    sort,
-    sorKey,
-    sorValue,
+    newSort,
 
     -- * Ssml
     Ssml (..),
-    ssml,
-    sLocale,
-    sValue,
+    newSsml,
 
     -- * Tag
     Tag (..),
-    tag,
-    tagKey,
-    tagValue,
+    newTag,
 
     -- * TextMessage
     TextMessage (..),
-    textMessage,
-    tmLocale,
-    tmValue,
+    newTextMessage,
 
     -- * UpdateEndOfMeetingReminder
     UpdateEndOfMeetingReminder (..),
-    updateEndOfMeetingReminder,
-    ueomrReminderType,
-    ueomrReminderAtMinutes,
-    ueomrEnabled,
+    newUpdateEndOfMeetingReminder,
 
     -- * UpdateInstantBooking
     UpdateInstantBooking (..),
-    updateInstantBooking,
-    uibDurationInMinutes,
-    uibEnabled,
+    newUpdateInstantBooking,
 
     -- * UpdateMeetingRoomConfiguration
     UpdateMeetingRoomConfiguration (..),
-    updateMeetingRoomConfiguration,
-    umrcRoomUtilizationMetricsEnabled,
-    umrcEndOfMeetingReminder,
-    umrcInstantBooking,
-    umrcRequireCheckIn,
+    newUpdateMeetingRoomConfiguration,
 
     -- * UpdateRequireCheckIn
     UpdateRequireCheckIn (..),
-    updateRequireCheckIn,
-    urciReleaseAfterMinutes,
-    urciEnabled,
+    newUpdateRequireCheckIn,
 
     -- * UserData
     UserData (..),
-    userData,
-    udUserARN,
-    udEnrollmentId,
-    udEmail,
-    udEnrollmentStatus,
-    udFirstName,
-    udLastName,
+    newUserData,
   )
 where
 
@@ -698,162 +452,186 @@ import Network.AWS.AlexaBusiness.Types.UpdateMeetingRoomConfiguration
 import Network.AWS.AlexaBusiness.Types.UpdateRequireCheckIn
 import Network.AWS.AlexaBusiness.Types.UserData
 import Network.AWS.AlexaBusiness.Types.WakeWord
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Sign.V4
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Sign.V4 as Sign
 
 -- | API version @2017-11-09@ of the Amazon Alexa For Business SDK configuration.
-alexaBusiness :: Service
-alexaBusiness =
-  Service
-    { _svcAbbrev = "AlexaBusiness",
-      _svcSigner = v4,
-      _svcPrefix = "a4b",
-      _svcVersion = "2017-11-09",
-      _svcEndpoint = defaultEndpoint alexaBusiness,
-      _svcTimeout = Just 70,
-      _svcCheck = statusSuccess,
-      _svcError = parseJSONError "AlexaBusiness",
-      _svcRetry = retry
+defaultService :: Prelude.Service
+defaultService =
+  Prelude.Service
+    { Prelude._svcAbbrev =
+        "AlexaBusiness",
+      Prelude._svcSigner = Sign.v4,
+      Prelude._svcPrefix = "a4b",
+      Prelude._svcVersion = "2017-11-09",
+      Prelude._svcEndpoint =
+        Prelude.defaultEndpoint defaultService,
+      Prelude._svcTimeout = Prelude.Just 70,
+      Prelude._svcCheck = Prelude.statusSuccess,
+      Prelude._svcError =
+        Prelude.parseJSONError "AlexaBusiness",
+      Prelude._svcRetry = retry
     }
   where
     retry =
-      Exponential
-        { _retryBase = 5.0e-2,
-          _retryGrowth = 2,
-          _retryAttempts = 5,
-          _retryCheck = check
+      Prelude.Exponential
+        { Prelude._retryBase = 5.0e-2,
+          Prelude._retryGrowth = 2,
+          Prelude._retryAttempts = 5,
+          Prelude._retryCheck = check
         }
     check e
-      | has (hasStatus 504) e = Just "gateway_timeout"
-      | has
-          ( hasCode "ProvisionedThroughputExceededException"
-              . hasStatus 400
+      | Lens.has (Prelude.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has
+          ( Prelude.hasCode
+              "ProvisionedThroughputExceededException"
+              Prelude.. Prelude.hasStatus 400
           )
           e =
-        Just "throughput_exceeded"
-      | has (hasStatus 503) e = Just "service_unavailable"
-      | has (hasStatus 502) e = Just "bad_gateway"
-      | has (hasStatus 429) e = Just "too_many_requests"
-      | has
-          (hasCode "RequestThrottledException" . hasStatus 400)
+        Prelude.Just "throughput_exceeded"
+      | Lens.has (Prelude.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
+      | Lens.has (Prelude.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Prelude.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
+      | Lens.has
+          ( Prelude.hasCode "RequestThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "request_throttled_exception"
-      | has
-          (hasCode "ThrottledException" . hasStatus 400)
+        Prelude.Just "request_throttled_exception"
+      | Lens.has
+          ( Prelude.hasCode "ThrottledException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttled_exception"
-      | has (hasStatus 509) e = Just "limit_exceeded"
-      | has (hasStatus 500) e = Just "general_server_error"
-      | has
-          (hasCode "ThrottlingException" . hasStatus 400)
+        Prelude.Just "throttled_exception"
+      | Lens.has (Prelude.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has (Prelude.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has
+          ( Prelude.hasCode "ThrottlingException"
+              Prelude.. Prelude.hasStatus 400
+          )
           e =
-        Just "throttling_exception"
-      | has (hasCode "Throttling" . hasStatus 400) e =
-        Just "throttling"
-      | otherwise = Nothing
+        Prelude.Just "throttling_exception"
+      | Lens.has
+          ( Prelude.hasCode "Throttling"
+              Prelude.. Prelude.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling"
+      | Prelude.otherwise = Prelude.Nothing
 
 -- | The resource is not found.
-_NotFoundException :: AsError a => Getting (First ServiceError) a ServiceError
+_NotFoundException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NotFoundException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "NotFoundException"
 
 -- | The service linked role is locked for deletion.
-_InvalidServiceLinkedRoleStateException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidServiceLinkedRoleStateException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidServiceLinkedRoleStateException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "InvalidServiceLinkedRoleStateException"
 
--- | The caller has no permissions to operate on the resource involved in the API call.
-_UnauthorizedException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The caller has no permissions to operate on the resource involved in the
+-- API call.
+_UnauthorizedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _UnauthorizedException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "UnauthorizedException"
 
--- | The attempt to update a user is invalid due to the user's current status.
-_InvalidUserStatusException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The attempt to update a user is invalid due to the user\'s current
+-- status.
+_InvalidUserStatusException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidUserStatusException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "InvalidUserStatusException"
 
 -- | Another resource is associated with the resource in the request.
-_ResourceAssociatedException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceAssociatedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceAssociatedException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "ResourceAssociatedException"
 
 -- | There is a concurrent modification of resources.
-_ConcurrentModificationException :: AsError a => Getting (First ServiceError) a ServiceError
+_ConcurrentModificationException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ConcurrentModificationException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "ConcurrentModificationException"
 
--- | The request failed because this device is no longer registered and therefore no longer managed by this account.
-_DeviceNotRegisteredException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The request failed because this device is no longer registered and
+-- therefore no longer managed by this account.
+_DeviceNotRegisteredException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _DeviceNotRegisteredException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "DeviceNotRegisteredException"
 
--- | The Certificate Authority can't issue or revoke a certificate.
-_InvalidCertificateAuthorityException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | The Certificate Authority can\'t issue or revoke a certificate.
+_InvalidCertificateAuthorityException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidCertificateAuthorityException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "InvalidCertificateAuthorityException"
 
 -- | The name sent in the request is already in use.
-_NameInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+_NameInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _NameInUseException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "NameInUseException"
 
 -- | The resource in the request is already in use.
-_ResourceInUseException :: AsError a => Getting (First ServiceError) a ServiceError
+_ResourceInUseException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _ResourceInUseException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "ResourceInUseException"
 
--- | You are performing an action that would put you beyond your account's limits.
-_LimitExceededException :: AsError a => Getting (First ServiceError) a ServiceError
+-- | You are performing an action that would put you beyond your account\'s
+-- limits.
+_LimitExceededException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _LimitExceededException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "LimitExceededException"
 
 -- | The resource being created already exists.
-_AlreadyExistsException :: AsError a => Getting (First ServiceError) a ServiceError
+_AlreadyExistsException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _AlreadyExistsException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "AlreadyExistsException"
 
 -- | The device is in an invalid state.
-_InvalidDeviceException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidDeviceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidDeviceException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "InvalidDeviceException"
 
 -- | The skill must be linked to a third-party account.
-_SkillNotLinkedException :: AsError a => Getting (First ServiceError) a ServiceError
+_SkillNotLinkedException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _SkillNotLinkedException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "SkillNotLinkedException"
 
 -- | A password in SecretsManager is in an invalid state.
-_InvalidSecretsManagerResourceException :: AsError a => Getting (First ServiceError) a ServiceError
+_InvalidSecretsManagerResourceException :: Prelude.AsError a => Lens.Getting (Prelude.First Prelude.ServiceError) a Prelude.ServiceError
 _InvalidSecretsManagerResourceException =
-  _MatchServiceError
-    alexaBusiness
+  Prelude._MatchServiceError
+    defaultService
     "InvalidSecretsManagerResourceException"

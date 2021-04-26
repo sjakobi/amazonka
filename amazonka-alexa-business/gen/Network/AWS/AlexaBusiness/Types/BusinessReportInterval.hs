@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,63 @@
 module Network.AWS.AlexaBusiness.Types.BusinessReportInterval
   ( BusinessReportInterval
       ( ..,
-        OneDay,
-        OneWeek,
-        ThirtyDays
+        BusinessReportIntervalONEDAY,
+        BusinessReportIntervalONEWEEK,
+        BusinessReportIntervalTHIRTYDAYS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BusinessReportInterval
-  = BusinessReportInterval'
-      ( CI
-          Text
-      )
+newtype BusinessReportInterval = BusinessReportInterval'
+  { fromBusinessReportInterval ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern OneDay :: BusinessReportInterval
-pattern OneDay = BusinessReportInterval' "ONE_DAY"
+pattern BusinessReportIntervalONEDAY :: BusinessReportInterval
+pattern BusinessReportIntervalONEDAY = BusinessReportInterval' "ONE_DAY"
 
-pattern OneWeek :: BusinessReportInterval
-pattern OneWeek = BusinessReportInterval' "ONE_WEEK"
+pattern BusinessReportIntervalONEWEEK :: BusinessReportInterval
+pattern BusinessReportIntervalONEWEEK = BusinessReportInterval' "ONE_WEEK"
 
-pattern ThirtyDays :: BusinessReportInterval
-pattern ThirtyDays = BusinessReportInterval' "THIRTY_DAYS"
+pattern BusinessReportIntervalTHIRTYDAYS :: BusinessReportInterval
+pattern BusinessReportIntervalTHIRTYDAYS = BusinessReportInterval' "THIRTY_DAYS"
 
 {-# COMPLETE
-  OneDay,
-  OneWeek,
-  ThirtyDays,
+  BusinessReportIntervalONEDAY,
+  BusinessReportIntervalONEWEEK,
+  BusinessReportIntervalTHIRTYDAYS,
   BusinessReportInterval'
   #-}
 
-instance FromText BusinessReportInterval where
-  parser = (BusinessReportInterval' . mk) <$> takeText
+instance Prelude.FromText BusinessReportInterval where
+  parser = BusinessReportInterval' Prelude.<$> Prelude.takeText
 
-instance ToText BusinessReportInterval where
-  toText (BusinessReportInterval' ci) = original ci
+instance Prelude.ToText BusinessReportInterval where
+  toText (BusinessReportInterval' x) = x
 
-instance Hashable BusinessReportInterval
+instance Prelude.Hashable BusinessReportInterval
 
-instance NFData BusinessReportInterval
+instance Prelude.NFData BusinessReportInterval
 
-instance ToByteString BusinessReportInterval
+instance Prelude.ToByteString BusinessReportInterval
 
-instance ToQuery BusinessReportInterval
+instance Prelude.ToQuery BusinessReportInterval
 
-instance ToHeader BusinessReportInterval
+instance Prelude.ToHeader BusinessReportInterval
 
-instance ToJSON BusinessReportInterval where
-  toJSON = toJSONText
+instance Prelude.ToJSON BusinessReportInterval where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BusinessReportInterval where
-  parseJSON = parseJSONText "BusinessReportInterval"
+instance Prelude.FromJSON BusinessReportInterval where
+  parseJSON = Prelude.parseJSONText "BusinessReportInterval"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,62 +22,67 @@ module Network.AWS.AlexaBusiness.Types.Content where
 import Network.AWS.AlexaBusiness.Types.Audio
 import Network.AWS.AlexaBusiness.Types.Ssml
 import Network.AWS.AlexaBusiness.Types.TextMessage
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The content definition. This can contain only one text, SSML, or audio list object.
+-- | The content definition. This can contain only one text, SSML, or audio
+-- list object.
 --
---
---
--- /See:/ 'content' smart constructor.
+-- /See:/ 'newContent' smart constructor.
 data Content = Content'
-  { _cTextList ::
-      !(Maybe [TextMessage]),
-    _cSsmlList :: !(Maybe [Ssml]),
-    _cAudioList :: !(Maybe [Audio])
+  { -- | The list of text messages.
+    textList :: Prelude.Maybe [TextMessage],
+    -- | The list of SSML messages.
+    ssmlList :: Prelude.Maybe [Ssml],
+    -- | The list of audio messages.
+    audioList :: Prelude.Maybe [Audio]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Content' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Content' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cTextList' - The list of text messages.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cSsmlList' - The list of SSML messages.
+-- 'textList', 'content_textList' - The list of text messages.
 --
--- * 'cAudioList' - The list of audio messages.
-content ::
+-- 'ssmlList', 'content_ssmlList' - The list of SSML messages.
+--
+-- 'audioList', 'content_audioList' - The list of audio messages.
+newContent ::
   Content
-content =
+newContent =
   Content'
-    { _cTextList = Nothing,
-      _cSsmlList = Nothing,
-      _cAudioList = Nothing
+    { textList = Prelude.Nothing,
+      ssmlList = Prelude.Nothing,
+      audioList = Prelude.Nothing
     }
 
 -- | The list of text messages.
-cTextList :: Lens' Content [TextMessage]
-cTextList = lens _cTextList (\s a -> s {_cTextList = a}) . _Default . _Coerce
+content_textList :: Lens.Lens' Content (Prelude.Maybe [TextMessage])
+content_textList = Lens.lens (\Content' {textList} -> textList) (\s@Content' {} a -> s {textList = a} :: Content) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The list of SSML messages.
-cSsmlList :: Lens' Content [Ssml]
-cSsmlList = lens _cSsmlList (\s a -> s {_cSsmlList = a}) . _Default . _Coerce
+content_ssmlList :: Lens.Lens' Content (Prelude.Maybe [Ssml])
+content_ssmlList = Lens.lens (\Content' {ssmlList} -> ssmlList) (\s@Content' {} a -> s {ssmlList = a} :: Content) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The list of audio messages.
-cAudioList :: Lens' Content [Audio]
-cAudioList = lens _cAudioList (\s a -> s {_cAudioList = a}) . _Default . _Coerce
+content_audioList :: Lens.Lens' Content (Prelude.Maybe [Audio])
+content_audioList = Lens.lens (\Content' {audioList} -> audioList) (\s@Content' {} a -> s {audioList = a} :: Content) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable Content
+instance Prelude.Hashable Content
 
-instance NFData Content
+instance Prelude.NFData Content
 
-instance ToJSON Content where
+instance Prelude.ToJSON Content where
   toJSON Content' {..} =
-    object
-      ( catMaybes
-          [ ("TextList" .=) <$> _cTextList,
-            ("SsmlList" .=) <$> _cSsmlList,
-            ("AudioList" .=) <$> _cAudioList
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TextList" Prelude..=) Prelude.<$> textList,
+            ("SsmlList" Prelude..=) Prelude.<$> ssmlList,
+            ("AudioList" Prelude..=) Prelude.<$> audioList
           ]
       )

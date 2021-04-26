@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,53 +20,61 @@
 module Network.AWS.AlexaBusiness.Types.Ssml where
 
 import Network.AWS.AlexaBusiness.Types.Locale
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The SSML message. For more information, see <https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html SSML Reference> .
+-- | The SSML message. For more information, see
+-- <https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html SSML Reference>.
 --
---
---
--- /See:/ 'ssml' smart constructor.
+-- /See:/ 'newSsml' smart constructor.
 data Ssml = Ssml'
-  { _sLocale :: !Locale,
-    _sValue :: !Text
+  { -- | The locale of the SSML message. Currently, en-US is supported.
+    locale :: Locale,
+    -- | The value of the SSML message in the correct SSML format. The audio tag
+    -- is not supported.
+    value :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Ssml' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Ssml' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sLocale' - The locale of the SSML message. Currently, en-US is supported.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sValue' - The value of the SSML message in the correct SSML format. The audio tag is not supported.
-ssml ::
-  -- | 'sLocale'
+-- 'locale', 'ssml_locale' - The locale of the SSML message. Currently, en-US is supported.
+--
+-- 'value', 'ssml_value' - The value of the SSML message in the correct SSML format. The audio tag
+-- is not supported.
+newSsml ::
+  -- | 'locale'
   Locale ->
-  -- | 'sValue'
-  Text ->
+  -- | 'value'
+  Prelude.Text ->
   Ssml
-ssml pLocale_ pValue_ =
-  Ssml' {_sLocale = pLocale_, _sValue = pValue_}
+newSsml pLocale_ pValue_ =
+  Ssml' {locale = pLocale_, value = pValue_}
 
 -- | The locale of the SSML message. Currently, en-US is supported.
-sLocale :: Lens' Ssml Locale
-sLocale = lens _sLocale (\s a -> s {_sLocale = a})
+ssml_locale :: Lens.Lens' Ssml Locale
+ssml_locale = Lens.lens (\Ssml' {locale} -> locale) (\s@Ssml' {} a -> s {locale = a} :: Ssml)
 
--- | The value of the SSML message in the correct SSML format. The audio tag is not supported.
-sValue :: Lens' Ssml Text
-sValue = lens _sValue (\s a -> s {_sValue = a})
+-- | The value of the SSML message in the correct SSML format. The audio tag
+-- is not supported.
+ssml_value :: Lens.Lens' Ssml Prelude.Text
+ssml_value = Lens.lens (\Ssml' {value} -> value) (\s@Ssml' {} a -> s {value = a} :: Ssml)
 
-instance Hashable Ssml
+instance Prelude.Hashable Ssml
 
-instance NFData Ssml
+instance Prelude.NFData Ssml
 
-instance ToJSON Ssml where
+instance Prelude.ToJSON Ssml where
   toJSON Ssml' {..} =
-    object
-      ( catMaybes
-          [ Just ("Locale" .= _sLocale),
-            Just ("Value" .= _sValue)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Locale" Prelude..= locale),
+            Prelude.Just ("Value" Prelude..= value)
           ]
       )

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.AlexaBusiness.Types.EnablementTypeFilter
   ( EnablementTypeFilter
       ( ..,
-        ETFEnabled,
-        ETFPending
+        EnablementTypeFilterENABLED,
+        EnablementTypeFilterPENDING
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EnablementTypeFilter
-  = EnablementTypeFilter'
-      ( CI
-          Text
-      )
+newtype EnablementTypeFilter = EnablementTypeFilter'
+  { fromEnablementTypeFilter ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ETFEnabled :: EnablementTypeFilter
-pattern ETFEnabled = EnablementTypeFilter' "ENABLED"
+pattern EnablementTypeFilterENABLED :: EnablementTypeFilter
+pattern EnablementTypeFilterENABLED = EnablementTypeFilter' "ENABLED"
 
-pattern ETFPending :: EnablementTypeFilter
-pattern ETFPending = EnablementTypeFilter' "PENDING"
+pattern EnablementTypeFilterPENDING :: EnablementTypeFilter
+pattern EnablementTypeFilterPENDING = EnablementTypeFilter' "PENDING"
 
 {-# COMPLETE
-  ETFEnabled,
-  ETFPending,
+  EnablementTypeFilterENABLED,
+  EnablementTypeFilterPENDING,
   EnablementTypeFilter'
   #-}
 
-instance FromText EnablementTypeFilter where
-  parser = (EnablementTypeFilter' . mk) <$> takeText
+instance Prelude.FromText EnablementTypeFilter where
+  parser = EnablementTypeFilter' Prelude.<$> Prelude.takeText
 
-instance ToText EnablementTypeFilter where
-  toText (EnablementTypeFilter' ci) = original ci
+instance Prelude.ToText EnablementTypeFilter where
+  toText (EnablementTypeFilter' x) = x
 
-instance Hashable EnablementTypeFilter
+instance Prelude.Hashable EnablementTypeFilter
 
-instance NFData EnablementTypeFilter
+instance Prelude.NFData EnablementTypeFilter
 
-instance ToByteString EnablementTypeFilter
+instance Prelude.ToByteString EnablementTypeFilter
 
-instance ToQuery EnablementTypeFilter
+instance Prelude.ToQuery EnablementTypeFilter
 
-instance ToHeader EnablementTypeFilter
+instance Prelude.ToHeader EnablementTypeFilter
 
-instance ToJSON EnablementTypeFilter where
-  toJSON = toJSONText
+instance Prelude.ToJSON EnablementTypeFilter where
+  toJSON = Prelude.toJSONText

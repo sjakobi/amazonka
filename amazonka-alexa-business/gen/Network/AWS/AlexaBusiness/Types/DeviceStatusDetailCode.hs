@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,132 +19,130 @@
 module Network.AWS.AlexaBusiness.Types.DeviceStatusDetailCode
   ( DeviceStatusDetailCode
       ( ..,
-        AssociationRejection,
-        AuthenticationFailure,
-        CertificateAuthorityAccessDenied,
-        CertificateIssuingLimitExceeded,
-        CredentialsAccessFailure,
-        DHCPFailure,
-        DNSFailure,
-        DeviceSoftwareUpdateNeeded,
-        DeviceWasOffline,
-        InternetUnavailable,
-        InvalidCertificateAuthority,
-        InvalidPasswordState,
-        NetworkProfileNotFound,
-        PasswordManagerAccessDenied,
-        PasswordNotFound,
-        TLSVersionMismatch,
-        UnknownFailure
+        DeviceStatusDetailCodeASSOCIATIONREJECTION,
+        DeviceStatusDetailCodeAUTHENTICATIONFAILURE,
+        DeviceStatusDetailCodeCERTIFICATEAUTHORITYACCESSDENIED,
+        DeviceStatusDetailCodeCERTIFICATEISSUINGLIMITEXCEEDED,
+        DeviceStatusDetailCodeCREDENTIALSACCESSFAILURE,
+        DeviceStatusDetailCodeDEVICESOFTWAREUPDATENEEDED,
+        DeviceStatusDetailCodeDEVICEWASOFFLINE,
+        DeviceStatusDetailCodeDHCPFAILURE,
+        DeviceStatusDetailCodeDNSFAILURE,
+        DeviceStatusDetailCodeINTERNETUNAVAILABLE,
+        DeviceStatusDetailCodeINVALIDCERTIFICATEAUTHORITY,
+        DeviceStatusDetailCodeINVALIDPASSWORDSTATE,
+        DeviceStatusDetailCodeNETWORKPROFILENOTFOUND,
+        DeviceStatusDetailCodePASSWORDMANAGERACCESSDENIED,
+        DeviceStatusDetailCodePASSWORDNOTFOUND,
+        DeviceStatusDetailCodeTLSVERSIONMISMATCH,
+        DeviceStatusDetailCodeUNKNOWNFAILURE
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceStatusDetailCode
-  = DeviceStatusDetailCode'
-      ( CI
-          Text
-      )
+newtype DeviceStatusDetailCode = DeviceStatusDetailCode'
+  { fromDeviceStatusDetailCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AssociationRejection :: DeviceStatusDetailCode
-pattern AssociationRejection = DeviceStatusDetailCode' "ASSOCIATION_REJECTION"
+pattern DeviceStatusDetailCodeASSOCIATIONREJECTION :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeASSOCIATIONREJECTION = DeviceStatusDetailCode' "ASSOCIATION_REJECTION"
 
-pattern AuthenticationFailure :: DeviceStatusDetailCode
-pattern AuthenticationFailure = DeviceStatusDetailCode' "AUTHENTICATION_FAILURE"
+pattern DeviceStatusDetailCodeAUTHENTICATIONFAILURE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeAUTHENTICATIONFAILURE = DeviceStatusDetailCode' "AUTHENTICATION_FAILURE"
 
-pattern CertificateAuthorityAccessDenied :: DeviceStatusDetailCode
-pattern CertificateAuthorityAccessDenied = DeviceStatusDetailCode' "CERTIFICATE_AUTHORITY_ACCESS_DENIED"
+pattern DeviceStatusDetailCodeCERTIFICATEAUTHORITYACCESSDENIED :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeCERTIFICATEAUTHORITYACCESSDENIED = DeviceStatusDetailCode' "CERTIFICATE_AUTHORITY_ACCESS_DENIED"
 
-pattern CertificateIssuingLimitExceeded :: DeviceStatusDetailCode
-pattern CertificateIssuingLimitExceeded = DeviceStatusDetailCode' "CERTIFICATE_ISSUING_LIMIT_EXCEEDED"
+pattern DeviceStatusDetailCodeCERTIFICATEISSUINGLIMITEXCEEDED :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeCERTIFICATEISSUINGLIMITEXCEEDED = DeviceStatusDetailCode' "CERTIFICATE_ISSUING_LIMIT_EXCEEDED"
 
-pattern CredentialsAccessFailure :: DeviceStatusDetailCode
-pattern CredentialsAccessFailure = DeviceStatusDetailCode' "CREDENTIALS_ACCESS_FAILURE"
+pattern DeviceStatusDetailCodeCREDENTIALSACCESSFAILURE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeCREDENTIALSACCESSFAILURE = DeviceStatusDetailCode' "CREDENTIALS_ACCESS_FAILURE"
 
-pattern DHCPFailure :: DeviceStatusDetailCode
-pattern DHCPFailure = DeviceStatusDetailCode' "DHCP_FAILURE"
+pattern DeviceStatusDetailCodeDEVICESOFTWAREUPDATENEEDED :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeDEVICESOFTWAREUPDATENEEDED = DeviceStatusDetailCode' "DEVICE_SOFTWARE_UPDATE_NEEDED"
 
-pattern DNSFailure :: DeviceStatusDetailCode
-pattern DNSFailure = DeviceStatusDetailCode' "DNS_FAILURE"
+pattern DeviceStatusDetailCodeDEVICEWASOFFLINE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeDEVICEWASOFFLINE = DeviceStatusDetailCode' "DEVICE_WAS_OFFLINE"
 
-pattern DeviceSoftwareUpdateNeeded :: DeviceStatusDetailCode
-pattern DeviceSoftwareUpdateNeeded = DeviceStatusDetailCode' "DEVICE_SOFTWARE_UPDATE_NEEDED"
+pattern DeviceStatusDetailCodeDHCPFAILURE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeDHCPFAILURE = DeviceStatusDetailCode' "DHCP_FAILURE"
 
-pattern DeviceWasOffline :: DeviceStatusDetailCode
-pattern DeviceWasOffline = DeviceStatusDetailCode' "DEVICE_WAS_OFFLINE"
+pattern DeviceStatusDetailCodeDNSFAILURE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeDNSFAILURE = DeviceStatusDetailCode' "DNS_FAILURE"
 
-pattern InternetUnavailable :: DeviceStatusDetailCode
-pattern InternetUnavailable = DeviceStatusDetailCode' "INTERNET_UNAVAILABLE"
+pattern DeviceStatusDetailCodeINTERNETUNAVAILABLE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeINTERNETUNAVAILABLE = DeviceStatusDetailCode' "INTERNET_UNAVAILABLE"
 
-pattern InvalidCertificateAuthority :: DeviceStatusDetailCode
-pattern InvalidCertificateAuthority = DeviceStatusDetailCode' "INVALID_CERTIFICATE_AUTHORITY"
+pattern DeviceStatusDetailCodeINVALIDCERTIFICATEAUTHORITY :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeINVALIDCERTIFICATEAUTHORITY = DeviceStatusDetailCode' "INVALID_CERTIFICATE_AUTHORITY"
 
-pattern InvalidPasswordState :: DeviceStatusDetailCode
-pattern InvalidPasswordState = DeviceStatusDetailCode' "INVALID_PASSWORD_STATE"
+pattern DeviceStatusDetailCodeINVALIDPASSWORDSTATE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeINVALIDPASSWORDSTATE = DeviceStatusDetailCode' "INVALID_PASSWORD_STATE"
 
-pattern NetworkProfileNotFound :: DeviceStatusDetailCode
-pattern NetworkProfileNotFound = DeviceStatusDetailCode' "NETWORK_PROFILE_NOT_FOUND"
+pattern DeviceStatusDetailCodeNETWORKPROFILENOTFOUND :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeNETWORKPROFILENOTFOUND = DeviceStatusDetailCode' "NETWORK_PROFILE_NOT_FOUND"
 
-pattern PasswordManagerAccessDenied :: DeviceStatusDetailCode
-pattern PasswordManagerAccessDenied = DeviceStatusDetailCode' "PASSWORD_MANAGER_ACCESS_DENIED"
+pattern DeviceStatusDetailCodePASSWORDMANAGERACCESSDENIED :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodePASSWORDMANAGERACCESSDENIED = DeviceStatusDetailCode' "PASSWORD_MANAGER_ACCESS_DENIED"
 
-pattern PasswordNotFound :: DeviceStatusDetailCode
-pattern PasswordNotFound = DeviceStatusDetailCode' "PASSWORD_NOT_FOUND"
+pattern DeviceStatusDetailCodePASSWORDNOTFOUND :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodePASSWORDNOTFOUND = DeviceStatusDetailCode' "PASSWORD_NOT_FOUND"
 
-pattern TLSVersionMismatch :: DeviceStatusDetailCode
-pattern TLSVersionMismatch = DeviceStatusDetailCode' "TLS_VERSION_MISMATCH"
+pattern DeviceStatusDetailCodeTLSVERSIONMISMATCH :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeTLSVERSIONMISMATCH = DeviceStatusDetailCode' "TLS_VERSION_MISMATCH"
 
-pattern UnknownFailure :: DeviceStatusDetailCode
-pattern UnknownFailure = DeviceStatusDetailCode' "UNKNOWN_FAILURE"
+pattern DeviceStatusDetailCodeUNKNOWNFAILURE :: DeviceStatusDetailCode
+pattern DeviceStatusDetailCodeUNKNOWNFAILURE = DeviceStatusDetailCode' "UNKNOWN_FAILURE"
 
 {-# COMPLETE
-  AssociationRejection,
-  AuthenticationFailure,
-  CertificateAuthorityAccessDenied,
-  CertificateIssuingLimitExceeded,
-  CredentialsAccessFailure,
-  DHCPFailure,
-  DNSFailure,
-  DeviceSoftwareUpdateNeeded,
-  DeviceWasOffline,
-  InternetUnavailable,
-  InvalidCertificateAuthority,
-  InvalidPasswordState,
-  NetworkProfileNotFound,
-  PasswordManagerAccessDenied,
-  PasswordNotFound,
-  TLSVersionMismatch,
-  UnknownFailure,
+  DeviceStatusDetailCodeASSOCIATIONREJECTION,
+  DeviceStatusDetailCodeAUTHENTICATIONFAILURE,
+  DeviceStatusDetailCodeCERTIFICATEAUTHORITYACCESSDENIED,
+  DeviceStatusDetailCodeCERTIFICATEISSUINGLIMITEXCEEDED,
+  DeviceStatusDetailCodeCREDENTIALSACCESSFAILURE,
+  DeviceStatusDetailCodeDEVICESOFTWAREUPDATENEEDED,
+  DeviceStatusDetailCodeDEVICEWASOFFLINE,
+  DeviceStatusDetailCodeDHCPFAILURE,
+  DeviceStatusDetailCodeDNSFAILURE,
+  DeviceStatusDetailCodeINTERNETUNAVAILABLE,
+  DeviceStatusDetailCodeINVALIDCERTIFICATEAUTHORITY,
+  DeviceStatusDetailCodeINVALIDPASSWORDSTATE,
+  DeviceStatusDetailCodeNETWORKPROFILENOTFOUND,
+  DeviceStatusDetailCodePASSWORDMANAGERACCESSDENIED,
+  DeviceStatusDetailCodePASSWORDNOTFOUND,
+  DeviceStatusDetailCodeTLSVERSIONMISMATCH,
+  DeviceStatusDetailCodeUNKNOWNFAILURE,
   DeviceStatusDetailCode'
   #-}
 
-instance FromText DeviceStatusDetailCode where
-  parser = (DeviceStatusDetailCode' . mk) <$> takeText
+instance Prelude.FromText DeviceStatusDetailCode where
+  parser = DeviceStatusDetailCode' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceStatusDetailCode where
-  toText (DeviceStatusDetailCode' ci) = original ci
+instance Prelude.ToText DeviceStatusDetailCode where
+  toText (DeviceStatusDetailCode' x) = x
 
-instance Hashable DeviceStatusDetailCode
+instance Prelude.Hashable DeviceStatusDetailCode
 
-instance NFData DeviceStatusDetailCode
+instance Prelude.NFData DeviceStatusDetailCode
 
-instance ToByteString DeviceStatusDetailCode
+instance Prelude.ToByteString DeviceStatusDetailCode
 
-instance ToQuery DeviceStatusDetailCode
+instance Prelude.ToQuery DeviceStatusDetailCode
 
-instance ToHeader DeviceStatusDetailCode
+instance Prelude.ToHeader DeviceStatusDetailCode
 
-instance FromJSON DeviceStatusDetailCode where
-  parseJSON = parseJSONText "DeviceStatusDetailCode"
+instance Prelude.FromJSON DeviceStatusDetailCode where
+  parseJSON = Prelude.parseJSONText "DeviceStatusDetailCode"

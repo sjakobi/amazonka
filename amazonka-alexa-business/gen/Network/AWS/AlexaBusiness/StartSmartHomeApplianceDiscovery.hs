@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,137 +21,155 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates the discovery of any smart home appliances associated with the room.
+-- Initiates the discovery of any smart home appliances associated with the
+-- room.
 module Network.AWS.AlexaBusiness.StartSmartHomeApplianceDiscovery
   ( -- * Creating a Request
-    startSmartHomeApplianceDiscovery,
-    StartSmartHomeApplianceDiscovery,
+    StartSmartHomeApplianceDiscovery (..),
+    newStartSmartHomeApplianceDiscovery,
 
     -- * Request Lenses
-    sshadRoomARN,
+    startSmartHomeApplianceDiscovery_roomArn,
 
     -- * Destructuring the Response
-    startSmartHomeApplianceDiscoveryResponse,
-    StartSmartHomeApplianceDiscoveryResponse,
+    StartSmartHomeApplianceDiscoveryResponse (..),
+    newStartSmartHomeApplianceDiscoveryResponse,
 
     -- * Response Lenses
-    sshadrrsResponseStatus,
+    startSmartHomeApplianceDiscoveryResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startSmartHomeApplianceDiscovery' smart constructor.
-newtype StartSmartHomeApplianceDiscovery = StartSmartHomeApplianceDiscovery'
-  { _sshadRoomARN ::
-      Text
+-- | /See:/ 'newStartSmartHomeApplianceDiscovery' smart constructor.
+data StartSmartHomeApplianceDiscovery = StartSmartHomeApplianceDiscovery'
+  { -- | The room where smart home appliance discovery was initiated.
+    roomArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartSmartHomeApplianceDiscovery' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartSmartHomeApplianceDiscovery' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sshadRoomARN' - The room where smart home appliance discovery was initiated.
-startSmartHomeApplianceDiscovery ::
-  -- | 'sshadRoomARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roomArn', 'startSmartHomeApplianceDiscovery_roomArn' - The room where smart home appliance discovery was initiated.
+newStartSmartHomeApplianceDiscovery ::
+  -- | 'roomArn'
+  Prelude.Text ->
   StartSmartHomeApplianceDiscovery
-startSmartHomeApplianceDiscovery pRoomARN_ =
+newStartSmartHomeApplianceDiscovery pRoomArn_ =
   StartSmartHomeApplianceDiscovery'
-    { _sshadRoomARN =
-        pRoomARN_
+    { roomArn =
+        pRoomArn_
     }
 
 -- | The room where smart home appliance discovery was initiated.
-sshadRoomARN :: Lens' StartSmartHomeApplianceDiscovery Text
-sshadRoomARN = lens _sshadRoomARN (\s a -> s {_sshadRoomARN = a})
+startSmartHomeApplianceDiscovery_roomArn :: Lens.Lens' StartSmartHomeApplianceDiscovery Prelude.Text
+startSmartHomeApplianceDiscovery_roomArn = Lens.lens (\StartSmartHomeApplianceDiscovery' {roomArn} -> roomArn) (\s@StartSmartHomeApplianceDiscovery' {} a -> s {roomArn = a} :: StartSmartHomeApplianceDiscovery)
 
-instance AWSRequest StartSmartHomeApplianceDiscovery where
+instance
+  Prelude.AWSRequest
+    StartSmartHomeApplianceDiscovery
+  where
   type
     Rs StartSmartHomeApplianceDiscovery =
       StartSmartHomeApplianceDiscoveryResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           StartSmartHomeApplianceDiscoveryResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartSmartHomeApplianceDiscovery
+instance
+  Prelude.Hashable
+    StartSmartHomeApplianceDiscovery
 
-instance NFData StartSmartHomeApplianceDiscovery
+instance
+  Prelude.NFData
+    StartSmartHomeApplianceDiscovery
 
-instance ToHeaders StartSmartHomeApplianceDiscovery where
+instance
+  Prelude.ToHeaders
+    StartSmartHomeApplianceDiscovery
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.StartSmartHomeApplianceDiscovery" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.StartSmartHomeApplianceDiscovery" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartSmartHomeApplianceDiscovery where
+instance
+  Prelude.ToJSON
+    StartSmartHomeApplianceDiscovery
+  where
   toJSON StartSmartHomeApplianceDiscovery' {..} =
-    object
-      (catMaybes [Just ("RoomArn" .= _sshadRoomARN)])
-
-instance ToPath StartSmartHomeApplianceDiscovery where
-  toPath = const "/"
-
-instance ToQuery StartSmartHomeApplianceDiscovery where
-  toQuery = const mempty
-
--- | /See:/ 'startSmartHomeApplianceDiscoveryResponse' smart constructor.
-newtype StartSmartHomeApplianceDiscoveryResponse = StartSmartHomeApplianceDiscoveryResponse'
-  { _sshadrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'StartSmartHomeApplianceDiscoveryResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'sshadrrsResponseStatus' - -- | The response status code.
-startSmartHomeApplianceDiscoveryResponse ::
-  -- | 'sshadrrsResponseStatus'
-  Int ->
-  StartSmartHomeApplianceDiscoveryResponse
-startSmartHomeApplianceDiscoveryResponse
-  pResponseStatus_ =
-    StartSmartHomeApplianceDiscoveryResponse'
-      { _sshadrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-sshadrrsResponseStatus :: Lens' StartSmartHomeApplianceDiscoveryResponse Int
-sshadrrsResponseStatus = lens _sshadrrsResponseStatus (\s a -> s {_sshadrrsResponseStatus = a})
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("RoomArn" Prelude..= roomArn)]
+      )
 
 instance
-  NFData
+  Prelude.ToPath
+    StartSmartHomeApplianceDiscovery
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    StartSmartHomeApplianceDiscovery
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newStartSmartHomeApplianceDiscoveryResponse' smart constructor.
+data StartSmartHomeApplianceDiscoveryResponse = StartSmartHomeApplianceDiscoveryResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'StartSmartHomeApplianceDiscoveryResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startSmartHomeApplianceDiscoveryResponse_httpStatus' - The response's http status code.
+newStartSmartHomeApplianceDiscoveryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  StartSmartHomeApplianceDiscoveryResponse
+newStartSmartHomeApplianceDiscoveryResponse
+  pHttpStatus_ =
+    StartSmartHomeApplianceDiscoveryResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+startSmartHomeApplianceDiscoveryResponse_httpStatus :: Lens.Lens' StartSmartHomeApplianceDiscoveryResponse Prelude.Int
+startSmartHomeApplianceDiscoveryResponse_httpStatus = Lens.lens (\StartSmartHomeApplianceDiscoveryResponse' {httpStatus} -> httpStatus) (\s@StartSmartHomeApplianceDiscoveryResponse' {} a -> s {httpStatus = a} :: StartSmartHomeApplianceDiscoveryResponse)
+
+instance
+  Prelude.NFData
     StartSmartHomeApplianceDiscoveryResponse

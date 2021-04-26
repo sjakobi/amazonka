@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,81 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.GatewaySummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The summary of a gateway.
 --
---
---
--- /See:/ 'gatewaySummary' smart constructor.
+-- /See:/ 'newGatewaySummary' smart constructor.
 data GatewaySummary = GatewaySummary'
-  { _gsARN ::
-      !(Maybe Text),
-    _gsGatewayGroupARN :: !(Maybe Text),
-    _gsName :: !(Maybe Text),
-    _gsDescription :: !(Maybe Text),
-    _gsSoftwareVersion :: !(Maybe Text)
+  { -- | The ARN of the gateway.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the gateway group that the gateway is associated to.
+    gatewayGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the gateway.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the gateway.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The software version of the gateway. The gateway automatically updates
+    -- its software version during normal operation.
+    softwareVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GatewaySummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GatewaySummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsARN' - The ARN of the gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsGatewayGroupARN' - The ARN of the gateway group that the gateway is associated to.
+-- 'arn', 'gatewaySummary_arn' - The ARN of the gateway.
 --
--- * 'gsName' - The name of the gateway.
+-- 'gatewayGroupArn', 'gatewaySummary_gatewayGroupArn' - The ARN of the gateway group that the gateway is associated to.
 --
--- * 'gsDescription' - The description of the gateway.
+-- 'name', 'gatewaySummary_name' - The name of the gateway.
 --
--- * 'gsSoftwareVersion' - The software version of the gateway. The gateway automatically updates its software version during normal operation.
-gatewaySummary ::
+-- 'description', 'gatewaySummary_description' - The description of the gateway.
+--
+-- 'softwareVersion', 'gatewaySummary_softwareVersion' - The software version of the gateway. The gateway automatically updates
+-- its software version during normal operation.
+newGatewaySummary ::
   GatewaySummary
-gatewaySummary =
+newGatewaySummary =
   GatewaySummary'
-    { _gsARN = Nothing,
-      _gsGatewayGroupARN = Nothing,
-      _gsName = Nothing,
-      _gsDescription = Nothing,
-      _gsSoftwareVersion = Nothing
+    { arn = Prelude.Nothing,
+      gatewayGroupArn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      softwareVersion = Prelude.Nothing
     }
 
 -- | The ARN of the gateway.
-gsARN :: Lens' GatewaySummary (Maybe Text)
-gsARN = lens _gsARN (\s a -> s {_gsARN = a})
+gatewaySummary_arn :: Lens.Lens' GatewaySummary (Prelude.Maybe Prelude.Text)
+gatewaySummary_arn = Lens.lens (\GatewaySummary' {arn} -> arn) (\s@GatewaySummary' {} a -> s {arn = a} :: GatewaySummary)
 
 -- | The ARN of the gateway group that the gateway is associated to.
-gsGatewayGroupARN :: Lens' GatewaySummary (Maybe Text)
-gsGatewayGroupARN = lens _gsGatewayGroupARN (\s a -> s {_gsGatewayGroupARN = a})
+gatewaySummary_gatewayGroupArn :: Lens.Lens' GatewaySummary (Prelude.Maybe Prelude.Text)
+gatewaySummary_gatewayGroupArn = Lens.lens (\GatewaySummary' {gatewayGroupArn} -> gatewayGroupArn) (\s@GatewaySummary' {} a -> s {gatewayGroupArn = a} :: GatewaySummary)
 
 -- | The name of the gateway.
-gsName :: Lens' GatewaySummary (Maybe Text)
-gsName = lens _gsName (\s a -> s {_gsName = a})
+gatewaySummary_name :: Lens.Lens' GatewaySummary (Prelude.Maybe Prelude.Text)
+gatewaySummary_name = Lens.lens (\GatewaySummary' {name} -> name) (\s@GatewaySummary' {} a -> s {name = a} :: GatewaySummary)
 
 -- | The description of the gateway.
-gsDescription :: Lens' GatewaySummary (Maybe Text)
-gsDescription = lens _gsDescription (\s a -> s {_gsDescription = a})
+gatewaySummary_description :: Lens.Lens' GatewaySummary (Prelude.Maybe Prelude.Text)
+gatewaySummary_description = Lens.lens (\GatewaySummary' {description} -> description) (\s@GatewaySummary' {} a -> s {description = a} :: GatewaySummary)
 
--- | The software version of the gateway. The gateway automatically updates its software version during normal operation.
-gsSoftwareVersion :: Lens' GatewaySummary (Maybe Text)
-gsSoftwareVersion = lens _gsSoftwareVersion (\s a -> s {_gsSoftwareVersion = a})
+-- | The software version of the gateway. The gateway automatically updates
+-- its software version during normal operation.
+gatewaySummary_softwareVersion :: Lens.Lens' GatewaySummary (Prelude.Maybe Prelude.Text)
+gatewaySummary_softwareVersion = Lens.lens (\GatewaySummary' {softwareVersion} -> softwareVersion) (\s@GatewaySummary' {} a -> s {softwareVersion = a} :: GatewaySummary)
 
-instance FromJSON GatewaySummary where
+instance Prelude.FromJSON GatewaySummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GatewaySummary"
       ( \x ->
           GatewaySummary'
-            <$> (x .:? "Arn")
-            <*> (x .:? "GatewayGroupArn")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "SoftwareVersion")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "GatewayGroupArn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "SoftwareVersion")
       )
 
-instance Hashable GatewaySummary
+instance Prelude.Hashable GatewaySummary
 
-instance NFData GatewaySummary
+instance Prelude.NFData GatewaySummary

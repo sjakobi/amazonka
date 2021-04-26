@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -18,117 +22,130 @@ module Network.AWS.AlexaBusiness.Types.ProfileData where
 import Network.AWS.AlexaBusiness.Types.DistanceUnit
 import Network.AWS.AlexaBusiness.Types.TemperatureUnit
 import Network.AWS.AlexaBusiness.Types.WakeWord
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The data of a room profile.
 --
---
---
--- /See:/ 'profileData' smart constructor.
+-- /See:/ 'newProfileData' smart constructor.
 data ProfileData = ProfileData'
-  { _pdProfileName ::
-      !(Maybe Text),
-    _pdIsDefault :: !(Maybe Bool),
-    _pdAddress :: !(Maybe Text),
-    _pdLocale :: !(Maybe Text),
-    _pdTemperatureUnit :: !(Maybe TemperatureUnit),
-    _pdWakeWord :: !(Maybe WakeWord),
-    _pdProfileARN :: !(Maybe Text),
-    _pdTimezone :: !(Maybe Text),
-    _pdDistanceUnit :: !(Maybe DistanceUnit)
+  { -- | The name of a room profile.
+    profileName :: Prelude.Maybe Prelude.Text,
+    -- | Retrieves if the profile data is default or not.
+    isDefault :: Prelude.Maybe Prelude.Bool,
+    -- | The address of a room profile.
+    address :: Prelude.Maybe Prelude.Text,
+    -- | The locale of a room profile. (This is currently available only to a
+    -- limited preview audience.)
+    locale :: Prelude.Maybe Prelude.Text,
+    -- | The temperature unit of a room profile.
+    temperatureUnit :: Prelude.Maybe TemperatureUnit,
+    -- | The wake word of a room profile.
+    wakeWord :: Prelude.Maybe WakeWord,
+    -- | The ARN of a room profile.
+    profileArn :: Prelude.Maybe Prelude.Text,
+    -- | The time zone of a room profile.
+    timezone :: Prelude.Maybe Prelude.Text,
+    -- | The distance unit of a room profile.
+    distanceUnit :: Prelude.Maybe DistanceUnit
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ProfileData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ProfileData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pdProfileName' - The name of a room profile.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pdIsDefault' - Retrieves if the profile data is default or not.
+-- 'profileName', 'profileData_profileName' - The name of a room profile.
 --
--- * 'pdAddress' - The address of a room profile.
+-- 'isDefault', 'profileData_isDefault' - Retrieves if the profile data is default or not.
 --
--- * 'pdLocale' - The locale of a room profile. (This is currently available only to a limited preview audience.)
+-- 'address', 'profileData_address' - The address of a room profile.
 --
--- * 'pdTemperatureUnit' - The temperature unit of a room profile.
+-- 'locale', 'profileData_locale' - The locale of a room profile. (This is currently available only to a
+-- limited preview audience.)
 --
--- * 'pdWakeWord' - The wake word of a room profile.
+-- 'temperatureUnit', 'profileData_temperatureUnit' - The temperature unit of a room profile.
 --
--- * 'pdProfileARN' - The ARN of a room profile.
+-- 'wakeWord', 'profileData_wakeWord' - The wake word of a room profile.
 --
--- * 'pdTimezone' - The time zone of a room profile.
+-- 'profileArn', 'profileData_profileArn' - The ARN of a room profile.
 --
--- * 'pdDistanceUnit' - The distance unit of a room profile.
-profileData ::
+-- 'timezone', 'profileData_timezone' - The time zone of a room profile.
+--
+-- 'distanceUnit', 'profileData_distanceUnit' - The distance unit of a room profile.
+newProfileData ::
   ProfileData
-profileData =
+newProfileData =
   ProfileData'
-    { _pdProfileName = Nothing,
-      _pdIsDefault = Nothing,
-      _pdAddress = Nothing,
-      _pdLocale = Nothing,
-      _pdTemperatureUnit = Nothing,
-      _pdWakeWord = Nothing,
-      _pdProfileARN = Nothing,
-      _pdTimezone = Nothing,
-      _pdDistanceUnit = Nothing
+    { profileName = Prelude.Nothing,
+      isDefault = Prelude.Nothing,
+      address = Prelude.Nothing,
+      locale = Prelude.Nothing,
+      temperatureUnit = Prelude.Nothing,
+      wakeWord = Prelude.Nothing,
+      profileArn = Prelude.Nothing,
+      timezone = Prelude.Nothing,
+      distanceUnit = Prelude.Nothing
     }
 
 -- | The name of a room profile.
-pdProfileName :: Lens' ProfileData (Maybe Text)
-pdProfileName = lens _pdProfileName (\s a -> s {_pdProfileName = a})
+profileData_profileName :: Lens.Lens' ProfileData (Prelude.Maybe Prelude.Text)
+profileData_profileName = Lens.lens (\ProfileData' {profileName} -> profileName) (\s@ProfileData' {} a -> s {profileName = a} :: ProfileData)
 
 -- | Retrieves if the profile data is default or not.
-pdIsDefault :: Lens' ProfileData (Maybe Bool)
-pdIsDefault = lens _pdIsDefault (\s a -> s {_pdIsDefault = a})
+profileData_isDefault :: Lens.Lens' ProfileData (Prelude.Maybe Prelude.Bool)
+profileData_isDefault = Lens.lens (\ProfileData' {isDefault} -> isDefault) (\s@ProfileData' {} a -> s {isDefault = a} :: ProfileData)
 
 -- | The address of a room profile.
-pdAddress :: Lens' ProfileData (Maybe Text)
-pdAddress = lens _pdAddress (\s a -> s {_pdAddress = a})
+profileData_address :: Lens.Lens' ProfileData (Prelude.Maybe Prelude.Text)
+profileData_address = Lens.lens (\ProfileData' {address} -> address) (\s@ProfileData' {} a -> s {address = a} :: ProfileData)
 
--- | The locale of a room profile. (This is currently available only to a limited preview audience.)
-pdLocale :: Lens' ProfileData (Maybe Text)
-pdLocale = lens _pdLocale (\s a -> s {_pdLocale = a})
+-- | The locale of a room profile. (This is currently available only to a
+-- limited preview audience.)
+profileData_locale :: Lens.Lens' ProfileData (Prelude.Maybe Prelude.Text)
+profileData_locale = Lens.lens (\ProfileData' {locale} -> locale) (\s@ProfileData' {} a -> s {locale = a} :: ProfileData)
 
 -- | The temperature unit of a room profile.
-pdTemperatureUnit :: Lens' ProfileData (Maybe TemperatureUnit)
-pdTemperatureUnit = lens _pdTemperatureUnit (\s a -> s {_pdTemperatureUnit = a})
+profileData_temperatureUnit :: Lens.Lens' ProfileData (Prelude.Maybe TemperatureUnit)
+profileData_temperatureUnit = Lens.lens (\ProfileData' {temperatureUnit} -> temperatureUnit) (\s@ProfileData' {} a -> s {temperatureUnit = a} :: ProfileData)
 
 -- | The wake word of a room profile.
-pdWakeWord :: Lens' ProfileData (Maybe WakeWord)
-pdWakeWord = lens _pdWakeWord (\s a -> s {_pdWakeWord = a})
+profileData_wakeWord :: Lens.Lens' ProfileData (Prelude.Maybe WakeWord)
+profileData_wakeWord = Lens.lens (\ProfileData' {wakeWord} -> wakeWord) (\s@ProfileData' {} a -> s {wakeWord = a} :: ProfileData)
 
 -- | The ARN of a room profile.
-pdProfileARN :: Lens' ProfileData (Maybe Text)
-pdProfileARN = lens _pdProfileARN (\s a -> s {_pdProfileARN = a})
+profileData_profileArn :: Lens.Lens' ProfileData (Prelude.Maybe Prelude.Text)
+profileData_profileArn = Lens.lens (\ProfileData' {profileArn} -> profileArn) (\s@ProfileData' {} a -> s {profileArn = a} :: ProfileData)
 
 -- | The time zone of a room profile.
-pdTimezone :: Lens' ProfileData (Maybe Text)
-pdTimezone = lens _pdTimezone (\s a -> s {_pdTimezone = a})
+profileData_timezone :: Lens.Lens' ProfileData (Prelude.Maybe Prelude.Text)
+profileData_timezone = Lens.lens (\ProfileData' {timezone} -> timezone) (\s@ProfileData' {} a -> s {timezone = a} :: ProfileData)
 
 -- | The distance unit of a room profile.
-pdDistanceUnit :: Lens' ProfileData (Maybe DistanceUnit)
-pdDistanceUnit = lens _pdDistanceUnit (\s a -> s {_pdDistanceUnit = a})
+profileData_distanceUnit :: Lens.Lens' ProfileData (Prelude.Maybe DistanceUnit)
+profileData_distanceUnit = Lens.lens (\ProfileData' {distanceUnit} -> distanceUnit) (\s@ProfileData' {} a -> s {distanceUnit = a} :: ProfileData)
 
-instance FromJSON ProfileData where
+instance Prelude.FromJSON ProfileData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "ProfileData"
       ( \x ->
           ProfileData'
-            <$> (x .:? "ProfileName")
-            <*> (x .:? "IsDefault")
-            <*> (x .:? "Address")
-            <*> (x .:? "Locale")
-            <*> (x .:? "TemperatureUnit")
-            <*> (x .:? "WakeWord")
-            <*> (x .:? "ProfileArn")
-            <*> (x .:? "Timezone")
-            <*> (x .:? "DistanceUnit")
+            Prelude.<$> (x Prelude..:? "ProfileName")
+            Prelude.<*> (x Prelude..:? "IsDefault")
+            Prelude.<*> (x Prelude..:? "Address")
+            Prelude.<*> (x Prelude..:? "Locale")
+            Prelude.<*> (x Prelude..:? "TemperatureUnit")
+            Prelude.<*> (x Prelude..:? "WakeWord")
+            Prelude.<*> (x Prelude..:? "ProfileArn")
+            Prelude.<*> (x Prelude..:? "Timezone")
+            Prelude.<*> (x Prelude..:? "DistanceUnit")
       )
 
-instance Hashable ProfileData
+instance Prelude.Hashable ProfileData
 
-instance NFData ProfileData
+instance Prelude.NFData ProfileData

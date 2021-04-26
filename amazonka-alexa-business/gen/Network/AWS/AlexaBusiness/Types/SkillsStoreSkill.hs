@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,101 +20,109 @@
 module Network.AWS.AlexaBusiness.Types.SkillsStoreSkill where
 
 import Network.AWS.AlexaBusiness.Types.SkillDetails
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The detailed information about an Alexa skill.
 --
---
---
--- /See:/ 'skillsStoreSkill' smart constructor.
+-- /See:/ 'newSkillsStoreSkill' smart constructor.
 data SkillsStoreSkill = SkillsStoreSkill'
-  { _sssIconURL ::
-      !(Maybe Text),
-    _sssSkillId :: !(Maybe Text),
-    _sssShortDescription :: !(Maybe Text),
-    _sssSupportsLinking :: !(Maybe Bool),
-    _sssSkillName :: !(Maybe Text),
-    _sssSampleUtterances ::
-      !(Maybe [Text]),
-    _sssSkillDetails ::
-      !(Maybe SkillDetails)
+  { -- | The URL where the skill icon resides.
+    iconUrl :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the skill.
+    skillId :: Prelude.Maybe Prelude.Text,
+    -- | Short description about the skill.
+    shortDescription :: Prelude.Maybe Prelude.Text,
+    -- | Linking support for a skill.
+    supportsLinking :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the skill.
+    skillName :: Prelude.Maybe Prelude.Text,
+    -- | Sample utterances that interact with the skill.
+    sampleUtterances :: Prelude.Maybe [Prelude.Text],
+    -- | Information about the skill.
+    skillDetails :: Prelude.Maybe SkillDetails
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SkillsStoreSkill' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SkillsStoreSkill' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sssIconURL' - The URL where the skill icon resides.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sssSkillId' - The ARN of the skill.
+-- 'iconUrl', 'skillsStoreSkill_iconUrl' - The URL where the skill icon resides.
 --
--- * 'sssShortDescription' - Short description about the skill.
+-- 'skillId', 'skillsStoreSkill_skillId' - The ARN of the skill.
 --
--- * 'sssSupportsLinking' - Linking support for a skill.
+-- 'shortDescription', 'skillsStoreSkill_shortDescription' - Short description about the skill.
 --
--- * 'sssSkillName' - The name of the skill.
+-- 'supportsLinking', 'skillsStoreSkill_supportsLinking' - Linking support for a skill.
 --
--- * 'sssSampleUtterances' - Sample utterances that interact with the skill.
+-- 'skillName', 'skillsStoreSkill_skillName' - The name of the skill.
 --
--- * 'sssSkillDetails' - Information about the skill.
-skillsStoreSkill ::
+-- 'sampleUtterances', 'skillsStoreSkill_sampleUtterances' - Sample utterances that interact with the skill.
+--
+-- 'skillDetails', 'skillsStoreSkill_skillDetails' - Information about the skill.
+newSkillsStoreSkill ::
   SkillsStoreSkill
-skillsStoreSkill =
+newSkillsStoreSkill =
   SkillsStoreSkill'
-    { _sssIconURL = Nothing,
-      _sssSkillId = Nothing,
-      _sssShortDescription = Nothing,
-      _sssSupportsLinking = Nothing,
-      _sssSkillName = Nothing,
-      _sssSampleUtterances = Nothing,
-      _sssSkillDetails = Nothing
+    { iconUrl = Prelude.Nothing,
+      skillId = Prelude.Nothing,
+      shortDescription = Prelude.Nothing,
+      supportsLinking = Prelude.Nothing,
+      skillName = Prelude.Nothing,
+      sampleUtterances = Prelude.Nothing,
+      skillDetails = Prelude.Nothing
     }
 
 -- | The URL where the skill icon resides.
-sssIconURL :: Lens' SkillsStoreSkill (Maybe Text)
-sssIconURL = lens _sssIconURL (\s a -> s {_sssIconURL = a})
+skillsStoreSkill_iconUrl :: Lens.Lens' SkillsStoreSkill (Prelude.Maybe Prelude.Text)
+skillsStoreSkill_iconUrl = Lens.lens (\SkillsStoreSkill' {iconUrl} -> iconUrl) (\s@SkillsStoreSkill' {} a -> s {iconUrl = a} :: SkillsStoreSkill)
 
 -- | The ARN of the skill.
-sssSkillId :: Lens' SkillsStoreSkill (Maybe Text)
-sssSkillId = lens _sssSkillId (\s a -> s {_sssSkillId = a})
+skillsStoreSkill_skillId :: Lens.Lens' SkillsStoreSkill (Prelude.Maybe Prelude.Text)
+skillsStoreSkill_skillId = Lens.lens (\SkillsStoreSkill' {skillId} -> skillId) (\s@SkillsStoreSkill' {} a -> s {skillId = a} :: SkillsStoreSkill)
 
 -- | Short description about the skill.
-sssShortDescription :: Lens' SkillsStoreSkill (Maybe Text)
-sssShortDescription = lens _sssShortDescription (\s a -> s {_sssShortDescription = a})
+skillsStoreSkill_shortDescription :: Lens.Lens' SkillsStoreSkill (Prelude.Maybe Prelude.Text)
+skillsStoreSkill_shortDescription = Lens.lens (\SkillsStoreSkill' {shortDescription} -> shortDescription) (\s@SkillsStoreSkill' {} a -> s {shortDescription = a} :: SkillsStoreSkill)
 
 -- | Linking support for a skill.
-sssSupportsLinking :: Lens' SkillsStoreSkill (Maybe Bool)
-sssSupportsLinking = lens _sssSupportsLinking (\s a -> s {_sssSupportsLinking = a})
+skillsStoreSkill_supportsLinking :: Lens.Lens' SkillsStoreSkill (Prelude.Maybe Prelude.Bool)
+skillsStoreSkill_supportsLinking = Lens.lens (\SkillsStoreSkill' {supportsLinking} -> supportsLinking) (\s@SkillsStoreSkill' {} a -> s {supportsLinking = a} :: SkillsStoreSkill)
 
 -- | The name of the skill.
-sssSkillName :: Lens' SkillsStoreSkill (Maybe Text)
-sssSkillName = lens _sssSkillName (\s a -> s {_sssSkillName = a})
+skillsStoreSkill_skillName :: Lens.Lens' SkillsStoreSkill (Prelude.Maybe Prelude.Text)
+skillsStoreSkill_skillName = Lens.lens (\SkillsStoreSkill' {skillName} -> skillName) (\s@SkillsStoreSkill' {} a -> s {skillName = a} :: SkillsStoreSkill)
 
 -- | Sample utterances that interact with the skill.
-sssSampleUtterances :: Lens' SkillsStoreSkill [Text]
-sssSampleUtterances = lens _sssSampleUtterances (\s a -> s {_sssSampleUtterances = a}) . _Default . _Coerce
+skillsStoreSkill_sampleUtterances :: Lens.Lens' SkillsStoreSkill (Prelude.Maybe [Prelude.Text])
+skillsStoreSkill_sampleUtterances = Lens.lens (\SkillsStoreSkill' {sampleUtterances} -> sampleUtterances) (\s@SkillsStoreSkill' {} a -> s {sampleUtterances = a} :: SkillsStoreSkill) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | Information about the skill.
-sssSkillDetails :: Lens' SkillsStoreSkill (Maybe SkillDetails)
-sssSkillDetails = lens _sssSkillDetails (\s a -> s {_sssSkillDetails = a})
+skillsStoreSkill_skillDetails :: Lens.Lens' SkillsStoreSkill (Prelude.Maybe SkillDetails)
+skillsStoreSkill_skillDetails = Lens.lens (\SkillsStoreSkill' {skillDetails} -> skillDetails) (\s@SkillsStoreSkill' {} a -> s {skillDetails = a} :: SkillsStoreSkill)
 
-instance FromJSON SkillsStoreSkill where
+instance Prelude.FromJSON SkillsStoreSkill where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SkillsStoreSkill"
       ( \x ->
           SkillsStoreSkill'
-            <$> (x .:? "IconUrl")
-            <*> (x .:? "SkillId")
-            <*> (x .:? "ShortDescription")
-            <*> (x .:? "SupportsLinking")
-            <*> (x .:? "SkillName")
-            <*> (x .:? "SampleUtterances" .!= mempty)
-            <*> (x .:? "SkillDetails")
+            Prelude.<$> (x Prelude..:? "IconUrl")
+            Prelude.<*> (x Prelude..:? "SkillId")
+            Prelude.<*> (x Prelude..:? "ShortDescription")
+            Prelude.<*> (x Prelude..:? "SupportsLinking")
+            Prelude.<*> (x Prelude..:? "SkillName")
+            Prelude.<*> ( x Prelude..:? "SampleUtterances"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "SkillDetails")
       )
 
-instance Hashable SkillsStoreSkill
+instance Prelude.Hashable SkillsStoreSkill
 
-instance NFData SkillsStoreSkill
+instance Prelude.NFData SkillsStoreSkill

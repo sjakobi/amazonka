@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,169 +24,184 @@
 -- Creates a gateway group with the specified details.
 module Network.AWS.AlexaBusiness.CreateGatewayGroup
   ( -- * Creating a Request
-    createGatewayGroup,
-    CreateGatewayGroup,
+    CreateGatewayGroup (..),
+    newCreateGatewayGroup,
 
     -- * Request Lenses
-    cggTags,
-    cggDescription,
-    cggName,
-    cggClientRequestToken,
+    createGatewayGroup_tags,
+    createGatewayGroup_description,
+    createGatewayGroup_name,
+    createGatewayGroup_clientRequestToken,
 
     -- * Destructuring the Response
-    createGatewayGroupResponse,
-    CreateGatewayGroupResponse,
+    CreateGatewayGroupResponse (..),
+    newCreateGatewayGroupResponse,
 
     -- * Response Lenses
-    cggrrsGatewayGroupARN,
-    cggrrsResponseStatus,
+    createGatewayGroupResponse_gatewayGroupArn,
+    createGatewayGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createGatewayGroup' smart constructor.
+-- | /See:/ 'newCreateGatewayGroup' smart constructor.
 data CreateGatewayGroup = CreateGatewayGroup'
-  { _cggTags ::
-      !(Maybe [Tag]),
-    _cggDescription :: !(Maybe Text),
-    _cggName :: !Text,
-    _cggClientRequestToken :: !Text
+  { -- | The tags to be added to the specified resource. Do not provide system
+    -- tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The description of the gateway group.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the gateway group.
+    name :: Prelude.Text,
+    -- | A unique, user-specified identifier for the request that ensures
+    -- idempotency.
+    clientRequestToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGatewayGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGatewayGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cggTags' - The tags to be added to the specified resource. Do not provide system tags.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cggDescription' - The description of the gateway group.
+-- 'tags', 'createGatewayGroup_tags' - The tags to be added to the specified resource. Do not provide system
+-- tags.
 --
--- * 'cggName' - The name of the gateway group.
+-- 'description', 'createGatewayGroup_description' - The description of the gateway group.
 --
--- * 'cggClientRequestToken' - A unique, user-specified identifier for the request that ensures idempotency.
-createGatewayGroup ::
-  -- | 'cggName'
-  Text ->
-  -- | 'cggClientRequestToken'
-  Text ->
+-- 'name', 'createGatewayGroup_name' - The name of the gateway group.
+--
+-- 'clientRequestToken', 'createGatewayGroup_clientRequestToken' - A unique, user-specified identifier for the request that ensures
+-- idempotency.
+newCreateGatewayGroup ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
   CreateGatewayGroup
-createGatewayGroup pName_ pClientRequestToken_ =
+newCreateGatewayGroup pName_ pClientRequestToken_ =
   CreateGatewayGroup'
-    { _cggTags = Nothing,
-      _cggDescription = Nothing,
-      _cggName = pName_,
-      _cggClientRequestToken = pClientRequestToken_
+    { tags = Prelude.Nothing,
+      description = Prelude.Nothing,
+      name = pName_,
+      clientRequestToken = pClientRequestToken_
     }
 
--- | The tags to be added to the specified resource. Do not provide system tags.
-cggTags :: Lens' CreateGatewayGroup [Tag]
-cggTags = lens _cggTags (\s a -> s {_cggTags = a}) . _Default . _Coerce
+-- | The tags to be added to the specified resource. Do not provide system
+-- tags.
+createGatewayGroup_tags :: Lens.Lens' CreateGatewayGroup (Prelude.Maybe [Tag])
+createGatewayGroup_tags = Lens.lens (\CreateGatewayGroup' {tags} -> tags) (\s@CreateGatewayGroup' {} a -> s {tags = a} :: CreateGatewayGroup) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The description of the gateway group.
-cggDescription :: Lens' CreateGatewayGroup (Maybe Text)
-cggDescription = lens _cggDescription (\s a -> s {_cggDescription = a})
+createGatewayGroup_description :: Lens.Lens' CreateGatewayGroup (Prelude.Maybe Prelude.Text)
+createGatewayGroup_description = Lens.lens (\CreateGatewayGroup' {description} -> description) (\s@CreateGatewayGroup' {} a -> s {description = a} :: CreateGatewayGroup)
 
 -- | The name of the gateway group.
-cggName :: Lens' CreateGatewayGroup Text
-cggName = lens _cggName (\s a -> s {_cggName = a})
+createGatewayGroup_name :: Lens.Lens' CreateGatewayGroup Prelude.Text
+createGatewayGroup_name = Lens.lens (\CreateGatewayGroup' {name} -> name) (\s@CreateGatewayGroup' {} a -> s {name = a} :: CreateGatewayGroup)
 
--- | A unique, user-specified identifier for the request that ensures idempotency.
-cggClientRequestToken :: Lens' CreateGatewayGroup Text
-cggClientRequestToken = lens _cggClientRequestToken (\s a -> s {_cggClientRequestToken = a})
+-- | A unique, user-specified identifier for the request that ensures
+-- idempotency.
+createGatewayGroup_clientRequestToken :: Lens.Lens' CreateGatewayGroup Prelude.Text
+createGatewayGroup_clientRequestToken = Lens.lens (\CreateGatewayGroup' {clientRequestToken} -> clientRequestToken) (\s@CreateGatewayGroup' {} a -> s {clientRequestToken = a} :: CreateGatewayGroup)
 
-instance AWSRequest CreateGatewayGroup where
+instance Prelude.AWSRequest CreateGatewayGroup where
   type
     Rs CreateGatewayGroup =
       CreateGatewayGroupResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateGatewayGroupResponse'
-            <$> (x .?> "GatewayGroupArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "GatewayGroupArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateGatewayGroup
+instance Prelude.Hashable CreateGatewayGroup
 
-instance NFData CreateGatewayGroup
+instance Prelude.NFData CreateGatewayGroup
 
-instance ToHeaders CreateGatewayGroup where
+instance Prelude.ToHeaders CreateGatewayGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.CreateGatewayGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.CreateGatewayGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateGatewayGroup where
+instance Prelude.ToJSON CreateGatewayGroup where
   toJSON CreateGatewayGroup' {..} =
-    object
-      ( catMaybes
-          [ ("Tags" .=) <$> _cggTags,
-            ("Description" .=) <$> _cggDescription,
-            Just ("Name" .= _cggName),
-            Just
-              ("ClientRequestToken" .= _cggClientRequestToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Tags" Prelude..=) Prelude.<$> tags,
+            ("Description" Prelude..=) Prelude.<$> description,
+            Prelude.Just ("Name" Prelude..= name),
+            Prelude.Just
+              ( "ClientRequestToken"
+                  Prelude..= clientRequestToken
+              )
           ]
       )
 
-instance ToPath CreateGatewayGroup where
-  toPath = const "/"
+instance Prelude.ToPath CreateGatewayGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateGatewayGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateGatewayGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createGatewayGroupResponse' smart constructor.
+-- | /See:/ 'newCreateGatewayGroupResponse' smart constructor.
 data CreateGatewayGroupResponse = CreateGatewayGroupResponse'
-  { _cggrrsGatewayGroupARN ::
-      !(Maybe Text),
-    _cggrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the created gateway group.
+    gatewayGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateGatewayGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateGatewayGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cggrrsGatewayGroupARN' - The ARN of the created gateway group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cggrrsResponseStatus' - -- | The response status code.
-createGatewayGroupResponse ::
-  -- | 'cggrrsResponseStatus'
-  Int ->
+-- 'gatewayGroupArn', 'createGatewayGroupResponse_gatewayGroupArn' - The ARN of the created gateway group.
+--
+-- 'httpStatus', 'createGatewayGroupResponse_httpStatus' - The response's http status code.
+newCreateGatewayGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateGatewayGroupResponse
-createGatewayGroupResponse pResponseStatus_ =
+newCreateGatewayGroupResponse pHttpStatus_ =
   CreateGatewayGroupResponse'
-    { _cggrrsGatewayGroupARN =
-        Nothing,
-      _cggrrsResponseStatus = pResponseStatus_
+    { gatewayGroupArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the created gateway group.
-cggrrsGatewayGroupARN :: Lens' CreateGatewayGroupResponse (Maybe Text)
-cggrrsGatewayGroupARN = lens _cggrrsGatewayGroupARN (\s a -> s {_cggrrsGatewayGroupARN = a})
+createGatewayGroupResponse_gatewayGroupArn :: Lens.Lens' CreateGatewayGroupResponse (Prelude.Maybe Prelude.Text)
+createGatewayGroupResponse_gatewayGroupArn = Lens.lens (\CreateGatewayGroupResponse' {gatewayGroupArn} -> gatewayGroupArn) (\s@CreateGatewayGroupResponse' {} a -> s {gatewayGroupArn = a} :: CreateGatewayGroupResponse)
 
--- | -- | The response status code.
-cggrrsResponseStatus :: Lens' CreateGatewayGroupResponse Int
-cggrrsResponseStatus = lens _cggrrsResponseStatus (\s a -> s {_cggrrsResponseStatus = a})
+-- | The response's http status code.
+createGatewayGroupResponse_httpStatus :: Lens.Lens' CreateGatewayGroupResponse Prelude.Int
+createGatewayGroupResponse_httpStatus = Lens.lens (\CreateGatewayGroupResponse' {httpStatus} -> httpStatus) (\s@CreateGatewayGroupResponse' {} a -> s {httpStatus = a} :: CreateGatewayGroupResponse)
 
-instance NFData CreateGatewayGroupResponse
+instance Prelude.NFData CreateGatewayGroupResponse

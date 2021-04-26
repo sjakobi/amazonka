@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.GatewayGroup where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of the gateway group.
 --
---
---
--- /See:/ 'gatewayGroup' smart constructor.
+-- /See:/ 'newGatewayGroup' smart constructor.
 data GatewayGroup = GatewayGroup'
-  { _ggARN ::
-      !(Maybe Text),
-    _ggName :: !(Maybe Text),
-    _ggDescription :: !(Maybe Text)
+  { -- | The ARN of the gateway group.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the gateway group.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the gateway group.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GatewayGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GatewayGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggARN' - The ARN of the gateway group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggName' - The name of the gateway group.
+-- 'arn', 'gatewayGroup_arn' - The ARN of the gateway group.
 --
--- * 'ggDescription' - The description of the gateway group.
-gatewayGroup ::
+-- 'name', 'gatewayGroup_name' - The name of the gateway group.
+--
+-- 'description', 'gatewayGroup_description' - The description of the gateway group.
+newGatewayGroup ::
   GatewayGroup
-gatewayGroup =
+newGatewayGroup =
   GatewayGroup'
-    { _ggARN = Nothing,
-      _ggName = Nothing,
-      _ggDescription = Nothing
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The ARN of the gateway group.
-ggARN :: Lens' GatewayGroup (Maybe Text)
-ggARN = lens _ggARN (\s a -> s {_ggARN = a})
+gatewayGroup_arn :: Lens.Lens' GatewayGroup (Prelude.Maybe Prelude.Text)
+gatewayGroup_arn = Lens.lens (\GatewayGroup' {arn} -> arn) (\s@GatewayGroup' {} a -> s {arn = a} :: GatewayGroup)
 
 -- | The name of the gateway group.
-ggName :: Lens' GatewayGroup (Maybe Text)
-ggName = lens _ggName (\s a -> s {_ggName = a})
+gatewayGroup_name :: Lens.Lens' GatewayGroup (Prelude.Maybe Prelude.Text)
+gatewayGroup_name = Lens.lens (\GatewayGroup' {name} -> name) (\s@GatewayGroup' {} a -> s {name = a} :: GatewayGroup)
 
 -- | The description of the gateway group.
-ggDescription :: Lens' GatewayGroup (Maybe Text)
-ggDescription = lens _ggDescription (\s a -> s {_ggDescription = a})
+gatewayGroup_description :: Lens.Lens' GatewayGroup (Prelude.Maybe Prelude.Text)
+gatewayGroup_description = Lens.lens (\GatewayGroup' {description} -> description) (\s@GatewayGroup' {} a -> s {description = a} :: GatewayGroup)
 
-instance FromJSON GatewayGroup where
+instance Prelude.FromJSON GatewayGroup where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GatewayGroup"
       ( \x ->
           GatewayGroup'
-            <$> (x .:? "Arn")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable GatewayGroup
+instance Prelude.Hashable GatewayGroup
 
-instance NFData GatewayGroup
+instance Prelude.NFData GatewayGroup

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.GatewayGroupSummary where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The summary of a gateway group.
 --
---
---
--- /See:/ 'gatewayGroupSummary' smart constructor.
+-- /See:/ 'newGatewayGroupSummary' smart constructor.
 data GatewayGroupSummary = GatewayGroupSummary'
-  { _ggsARN ::
-      !(Maybe Text),
-    _ggsName :: !(Maybe Text),
-    _ggsDescription ::
-      !(Maybe Text)
+  { -- | The ARN of the gateway group.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the gateway group.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the gateway group.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GatewayGroupSummary' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GatewayGroupSummary' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggsARN' - The ARN of the gateway group.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggsName' - The name of the gateway group.
+-- 'arn', 'gatewayGroupSummary_arn' - The ARN of the gateway group.
 --
--- * 'ggsDescription' - The description of the gateway group.
-gatewayGroupSummary ::
+-- 'name', 'gatewayGroupSummary_name' - The name of the gateway group.
+--
+-- 'description', 'gatewayGroupSummary_description' - The description of the gateway group.
+newGatewayGroupSummary ::
   GatewayGroupSummary
-gatewayGroupSummary =
+newGatewayGroupSummary =
   GatewayGroupSummary'
-    { _ggsARN = Nothing,
-      _ggsName = Nothing,
-      _ggsDescription = Nothing
+    { arn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The ARN of the gateway group.
-ggsARN :: Lens' GatewayGroupSummary (Maybe Text)
-ggsARN = lens _ggsARN (\s a -> s {_ggsARN = a})
+gatewayGroupSummary_arn :: Lens.Lens' GatewayGroupSummary (Prelude.Maybe Prelude.Text)
+gatewayGroupSummary_arn = Lens.lens (\GatewayGroupSummary' {arn} -> arn) (\s@GatewayGroupSummary' {} a -> s {arn = a} :: GatewayGroupSummary)
 
 -- | The name of the gateway group.
-ggsName :: Lens' GatewayGroupSummary (Maybe Text)
-ggsName = lens _ggsName (\s a -> s {_ggsName = a})
+gatewayGroupSummary_name :: Lens.Lens' GatewayGroupSummary (Prelude.Maybe Prelude.Text)
+gatewayGroupSummary_name = Lens.lens (\GatewayGroupSummary' {name} -> name) (\s@GatewayGroupSummary' {} a -> s {name = a} :: GatewayGroupSummary)
 
 -- | The description of the gateway group.
-ggsDescription :: Lens' GatewayGroupSummary (Maybe Text)
-ggsDescription = lens _ggsDescription (\s a -> s {_ggsDescription = a})
+gatewayGroupSummary_description :: Lens.Lens' GatewayGroupSummary (Prelude.Maybe Prelude.Text)
+gatewayGroupSummary_description = Lens.lens (\GatewayGroupSummary' {description} -> description) (\s@GatewayGroupSummary' {} a -> s {description = a} :: GatewayGroupSummary)
 
-instance FromJSON GatewayGroupSummary where
+instance Prelude.FromJSON GatewayGroupSummary where
   parseJSON =
-    withObject
+    Prelude.withObject
       "GatewayGroupSummary"
       ( \x ->
           GatewayGroupSummary'
-            <$> (x .:? "Arn")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable GatewayGroupSummary
+instance Prelude.Hashable GatewayGroupSummary
 
-instance NFData GatewayGroupSummary
+instance Prelude.NFData GatewayGroupSummary

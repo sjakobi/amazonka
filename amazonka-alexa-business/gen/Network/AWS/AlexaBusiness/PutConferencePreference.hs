@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,140 +21,139 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the conference preferences on a specific conference provider at the account level.
+-- Sets the conference preferences on a specific conference provider at the
+-- account level.
 module Network.AWS.AlexaBusiness.PutConferencePreference
   ( -- * Creating a Request
-    putConferencePreference,
-    PutConferencePreference,
+    PutConferencePreference (..),
+    newPutConferencePreference,
 
     -- * Request Lenses
-    pcpConferencePreference,
+    putConferencePreference_conferencePreference,
 
     -- * Destructuring the Response
-    putConferencePreferenceResponse,
-    PutConferencePreferenceResponse,
+    PutConferencePreferenceResponse (..),
+    newPutConferencePreferenceResponse,
 
     -- * Response Lenses
-    pcprrsResponseStatus,
+    putConferencePreferenceResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putConferencePreference' smart constructor.
-newtype PutConferencePreference = PutConferencePreference'
-  { _pcpConferencePreference ::
-      ConferencePreference
+-- | /See:/ 'newPutConferencePreference' smart constructor.
+data PutConferencePreference = PutConferencePreference'
+  { -- | The conference preference of a specific conference provider.
+    conferencePreference :: ConferencePreference
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutConferencePreference' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutConferencePreference' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcpConferencePreference' - The conference preference of a specific conference provider.
-putConferencePreference ::
-  -- | 'pcpConferencePreference'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'conferencePreference', 'putConferencePreference_conferencePreference' - The conference preference of a specific conference provider.
+newPutConferencePreference ::
+  -- | 'conferencePreference'
   ConferencePreference ->
   PutConferencePreference
-putConferencePreference pConferencePreference_ =
+newPutConferencePreference pConferencePreference_ =
   PutConferencePreference'
-    { _pcpConferencePreference =
+    { conferencePreference =
         pConferencePreference_
     }
 
 -- | The conference preference of a specific conference provider.
-pcpConferencePreference :: Lens' PutConferencePreference ConferencePreference
-pcpConferencePreference = lens _pcpConferencePreference (\s a -> s {_pcpConferencePreference = a})
+putConferencePreference_conferencePreference :: Lens.Lens' PutConferencePreference ConferencePreference
+putConferencePreference_conferencePreference = Lens.lens (\PutConferencePreference' {conferencePreference} -> conferencePreference) (\s@PutConferencePreference' {} a -> s {conferencePreference = a} :: PutConferencePreference)
 
-instance AWSRequest PutConferencePreference where
+instance Prelude.AWSRequest PutConferencePreference where
   type
     Rs PutConferencePreference =
       PutConferencePreferenceResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutConferencePreferenceResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutConferencePreference
+instance Prelude.Hashable PutConferencePreference
 
-instance NFData PutConferencePreference
+instance Prelude.NFData PutConferencePreference
 
-instance ToHeaders PutConferencePreference where
+instance Prelude.ToHeaders PutConferencePreference where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.PutConferencePreference" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.PutConferencePreference" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutConferencePreference where
+instance Prelude.ToJSON PutConferencePreference where
   toJSON PutConferencePreference' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ConferencePreference"
-                  .= _pcpConferencePreference
+                  Prelude..= conferencePreference
               )
           ]
       )
 
-instance ToPath PutConferencePreference where
-  toPath = const "/"
+instance Prelude.ToPath PutConferencePreference where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutConferencePreference where
-  toQuery = const mempty
+instance Prelude.ToQuery PutConferencePreference where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putConferencePreferenceResponse' smart constructor.
-newtype PutConferencePreferenceResponse = PutConferencePreferenceResponse'
-  { _pcprrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutConferencePreferenceResponse' smart constructor.
+data PutConferencePreferenceResponse = PutConferencePreferenceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutConferencePreferenceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutConferencePreferenceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcprrsResponseStatus' - -- | The response status code.
-putConferencePreferenceResponse ::
-  -- | 'pcprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putConferencePreferenceResponse_httpStatus' - The response's http status code.
+newPutConferencePreferenceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutConferencePreferenceResponse
-putConferencePreferenceResponse pResponseStatus_ =
+newPutConferencePreferenceResponse pHttpStatus_ =
   PutConferencePreferenceResponse'
-    { _pcprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-pcprrsResponseStatus :: Lens' PutConferencePreferenceResponse Int
-pcprrsResponseStatus = lens _pcprrsResponseStatus (\s a -> s {_pcprrsResponseStatus = a})
+-- | The response's http status code.
+putConferencePreferenceResponse_httpStatus :: Lens.Lens' PutConferencePreferenceResponse Prelude.Int
+putConferencePreferenceResponse_httpStatus = Lens.lens (\PutConferencePreferenceResponse' {httpStatus} -> httpStatus) (\s@PutConferencePreferenceResponse' {} a -> s {httpStatus = a} :: PutConferencePreferenceResponse)
 
-instance NFData PutConferencePreferenceResponse
+instance
+  Prelude.NFData
+    PutConferencePreferenceResponse

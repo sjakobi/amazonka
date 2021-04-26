@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Links a user's account to a third-party skill provider. If this API operation is called by an assumed IAM role, the skill being linked must be a private skill. Also, the skill must be owned by the AWS account that assumed the IAM role.
+-- Links a user\'s account to a third-party skill provider. If this API
+-- operation is called by an assumed IAM role, the skill being linked must
+-- be a private skill. Also, the skill must be owned by the AWS account
+-- that assumed the IAM role.
 module Network.AWS.AlexaBusiness.PutSkillAuthorization
   ( -- * Creating a Request
-    putSkillAuthorization,
-    PutSkillAuthorization,
+    PutSkillAuthorization (..),
+    newPutSkillAuthorization,
 
     -- * Request Lenses
-    psaRoomARN,
-    psaAuthorizationResult,
-    psaSkillId,
+    putSkillAuthorization_roomArn,
+    putSkillAuthorization_authorizationResult,
+    putSkillAuthorization_skillId,
 
     -- * Destructuring the Response
-    putSkillAuthorizationResponse,
-    PutSkillAuthorizationResponse,
+    PutSkillAuthorizationResponse (..),
+    newPutSkillAuthorizationResponse,
 
     -- * Response Lenses
-    psarrsResponseStatus,
+    putSkillAuthorizationResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putSkillAuthorization' smart constructor.
+-- | /See:/ 'newPutSkillAuthorization' smart constructor.
 data PutSkillAuthorization = PutSkillAuthorization'
-  { _psaRoomARN ::
-      !(Maybe Text),
-    _psaAuthorizationResult ::
-      !( Sensitive
-           (Map Text Text)
-       ),
-    _psaSkillId :: !Text
+  { -- | The room that the skill is authorized for.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The authorization result specific to OAUTH code grant output. \"Code”
+    -- must be populated in the AuthorizationResult map to establish the
+    -- authorization.
+    authorizationResult :: Prelude.Sensitive (Prelude.Map Prelude.Text Prelude.Text),
+    -- | The unique identifier of a skill.
+    skillId :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutSkillAuthorization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutSkillAuthorization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psaRoomARN' - The room that the skill is authorized for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'psaAuthorizationResult' - The authorization result specific to OAUTH code grant output. "Code” must be populated in the AuthorizationResult map to establish the authorization.
+-- 'roomArn', 'putSkillAuthorization_roomArn' - The room that the skill is authorized for.
 --
--- * 'psaSkillId' - The unique identifier of a skill.
-putSkillAuthorization ::
-  -- | 'psaSkillId'
-  Text ->
+-- 'authorizationResult', 'putSkillAuthorization_authorizationResult' - The authorization result specific to OAUTH code grant output. \"Code”
+-- must be populated in the AuthorizationResult map to establish the
+-- authorization.
+--
+-- 'skillId', 'putSkillAuthorization_skillId' - The unique identifier of a skill.
+newPutSkillAuthorization ::
+  -- | 'skillId'
+  Prelude.Text ->
   PutSkillAuthorization
-putSkillAuthorization pSkillId_ =
+newPutSkillAuthorization pSkillId_ =
   PutSkillAuthorization'
-    { _psaRoomARN = Nothing,
-      _psaAuthorizationResult = mempty,
-      _psaSkillId = pSkillId_
+    { roomArn = Prelude.Nothing,
+      authorizationResult = Prelude.mempty,
+      skillId = pSkillId_
     }
 
 -- | The room that the skill is authorized for.
-psaRoomARN :: Lens' PutSkillAuthorization (Maybe Text)
-psaRoomARN = lens _psaRoomARN (\s a -> s {_psaRoomARN = a})
+putSkillAuthorization_roomArn :: Lens.Lens' PutSkillAuthorization (Prelude.Maybe Prelude.Text)
+putSkillAuthorization_roomArn = Lens.lens (\PutSkillAuthorization' {roomArn} -> roomArn) (\s@PutSkillAuthorization' {} a -> s {roomArn = a} :: PutSkillAuthorization)
 
--- | The authorization result specific to OAUTH code grant output. "Code” must be populated in the AuthorizationResult map to establish the authorization.
-psaAuthorizationResult :: Lens' PutSkillAuthorization (HashMap Text Text)
-psaAuthorizationResult = lens _psaAuthorizationResult (\s a -> s {_psaAuthorizationResult = a}) . _Sensitive . _Map
+-- | The authorization result specific to OAUTH code grant output. \"Code”
+-- must be populated in the AuthorizationResult map to establish the
+-- authorization.
+putSkillAuthorization_authorizationResult :: Lens.Lens' PutSkillAuthorization (Prelude.HashMap Prelude.Text Prelude.Text)
+putSkillAuthorization_authorizationResult = Lens.lens (\PutSkillAuthorization' {authorizationResult} -> authorizationResult) (\s@PutSkillAuthorization' {} a -> s {authorizationResult = a} :: PutSkillAuthorization) Prelude.. Prelude._Sensitive Prelude.. Prelude._Map
 
 -- | The unique identifier of a skill.
-psaSkillId :: Lens' PutSkillAuthorization Text
-psaSkillId = lens _psaSkillId (\s a -> s {_psaSkillId = a})
+putSkillAuthorization_skillId :: Lens.Lens' PutSkillAuthorization Prelude.Text
+putSkillAuthorization_skillId = Lens.lens (\PutSkillAuthorization' {skillId} -> skillId) (\s@PutSkillAuthorization' {} a -> s {skillId = a} :: PutSkillAuthorization)
 
-instance AWSRequest PutSkillAuthorization where
+instance Prelude.AWSRequest PutSkillAuthorization where
   type
     Rs PutSkillAuthorization =
       PutSkillAuthorizationResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutSkillAuthorizationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutSkillAuthorization
+instance Prelude.Hashable PutSkillAuthorization
 
-instance NFData PutSkillAuthorization
+instance Prelude.NFData PutSkillAuthorization
 
-instance ToHeaders PutSkillAuthorization where
+instance Prelude.ToHeaders PutSkillAuthorization where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.PutSkillAuthorization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.PutSkillAuthorization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutSkillAuthorization where
+instance Prelude.ToJSON PutSkillAuthorization where
   toJSON PutSkillAuthorization' {..} =
-    object
-      ( catMaybes
-          [ ("RoomArn" .=) <$> _psaRoomARN,
-            Just
-              ("AuthorizationResult" .= _psaAuthorizationResult),
-            Just ("SkillId" .= _psaSkillId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoomArn" Prelude..=) Prelude.<$> roomArn,
+            Prelude.Just
+              ( "AuthorizationResult"
+                  Prelude..= authorizationResult
+              ),
+            Prelude.Just ("SkillId" Prelude..= skillId)
           ]
       )
 
-instance ToPath PutSkillAuthorization where
-  toPath = const "/"
+instance Prelude.ToPath PutSkillAuthorization where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutSkillAuthorization where
-  toQuery = const mempty
+instance Prelude.ToQuery PutSkillAuthorization where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putSkillAuthorizationResponse' smart constructor.
-newtype PutSkillAuthorizationResponse = PutSkillAuthorizationResponse'
-  { _psarrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutSkillAuthorizationResponse' smart constructor.
+data PutSkillAuthorizationResponse = PutSkillAuthorizationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutSkillAuthorizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutSkillAuthorizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'psarrsResponseStatus' - -- | The response status code.
-putSkillAuthorizationResponse ::
-  -- | 'psarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putSkillAuthorizationResponse_httpStatus' - The response's http status code.
+newPutSkillAuthorizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutSkillAuthorizationResponse
-putSkillAuthorizationResponse pResponseStatus_ =
+newPutSkillAuthorizationResponse pHttpStatus_ =
   PutSkillAuthorizationResponse'
-    { _psarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-psarrsResponseStatus :: Lens' PutSkillAuthorizationResponse Int
-psarrsResponseStatus = lens _psarrsResponseStatus (\s a -> s {_psarrsResponseStatus = a})
+-- | The response's http status code.
+putSkillAuthorizationResponse_httpStatus :: Lens.Lens' PutSkillAuthorizationResponse Prelude.Int
+putSkillAuthorizationResponse_httpStatus = Lens.lens (\PutSkillAuthorizationResponse' {httpStatus} -> httpStatus) (\s@PutSkillAuthorizationResponse' {} a -> s {httpStatus = a} :: PutSkillAuthorizationResponse)
 
-instance NFData PutSkillAuthorizationResponse
+instance Prelude.NFData PutSkillAuthorizationResponse

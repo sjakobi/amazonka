@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.AlexaBusiness.Types.CommsProtocol
   ( CommsProtocol
       ( ..,
-        H323,
-        Sip,
-        Sips
+        CommsProtocolH323,
+        CommsProtocolSIP,
+        CommsProtocolSIPS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CommsProtocol = CommsProtocol' (CI Text)
+newtype CommsProtocol = CommsProtocol'
+  { fromCommsProtocol ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern H323 :: CommsProtocol
-pattern H323 = CommsProtocol' "H323"
+pattern CommsProtocolH323 :: CommsProtocol
+pattern CommsProtocolH323 = CommsProtocol' "H323"
 
-pattern Sip :: CommsProtocol
-pattern Sip = CommsProtocol' "SIP"
+pattern CommsProtocolSIP :: CommsProtocol
+pattern CommsProtocolSIP = CommsProtocol' "SIP"
 
-pattern Sips :: CommsProtocol
-pattern Sips = CommsProtocol' "SIPS"
+pattern CommsProtocolSIPS :: CommsProtocol
+pattern CommsProtocolSIPS = CommsProtocol' "SIPS"
 
 {-# COMPLETE
-  H323,
-  Sip,
-  Sips,
+  CommsProtocolH323,
+  CommsProtocolSIP,
+  CommsProtocolSIPS,
   CommsProtocol'
   #-}
 
-instance FromText CommsProtocol where
-  parser = (CommsProtocol' . mk) <$> takeText
+instance Prelude.FromText CommsProtocol where
+  parser = CommsProtocol' Prelude.<$> Prelude.takeText
 
-instance ToText CommsProtocol where
-  toText (CommsProtocol' ci) = original ci
+instance Prelude.ToText CommsProtocol where
+  toText (CommsProtocol' x) = x
 
-instance Hashable CommsProtocol
+instance Prelude.Hashable CommsProtocol
 
-instance NFData CommsProtocol
+instance Prelude.NFData CommsProtocol
 
-instance ToByteString CommsProtocol
+instance Prelude.ToByteString CommsProtocol
 
-instance ToQuery CommsProtocol
+instance Prelude.ToQuery CommsProtocol
 
-instance ToHeader CommsProtocol
+instance Prelude.ToHeader CommsProtocol
 
-instance ToJSON CommsProtocol where
-  toJSON = toJSONText
+instance Prelude.ToJSON CommsProtocol where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON CommsProtocol where
-  parseJSON = parseJSONText "CommsProtocol"
+instance Prelude.FromJSON CommsProtocol where
+  parseJSON = Prelude.parseJSONText "CommsProtocol"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,58 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.CreateInstantBooking where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Creates settings for the instant booking feature that are applied to a room profile. When users start their meeting with Alexa, Alexa automatically books the room for the configured duration if the room is available.
+-- | Creates settings for the instant booking feature that are applied to a
+-- room profile. When users start their meeting with Alexa, Alexa
+-- automatically books the room for the configured duration if the room is
+-- available.
 --
---
---
--- /See:/ 'createInstantBooking' smart constructor.
+-- /See:/ 'newCreateInstantBooking' smart constructor.
 data CreateInstantBooking = CreateInstantBooking'
-  { _cibDurationInMinutes ::
-      !Int,
-    _cibEnabled :: !Bool
+  { -- | Duration between 15 and 240 minutes at increments of 15 that determines
+    -- how long to book an available room when a meeting is started with Alexa.
+    durationInMinutes :: Prelude.Int,
+    -- | Whether instant booking is enabled or not.
+    enabled :: Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateInstantBooking' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateInstantBooking' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cibDurationInMinutes' - Duration between 15 and 240 minutes at increments of 15 that determines how long to book an available room when a meeting is started with Alexa.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cibEnabled' - Whether instant booking is enabled or not.
-createInstantBooking ::
-  -- | 'cibDurationInMinutes'
-  Int ->
-  -- | 'cibEnabled'
-  Bool ->
+-- 'durationInMinutes', 'createInstantBooking_durationInMinutes' - Duration between 15 and 240 minutes at increments of 15 that determines
+-- how long to book an available room when a meeting is started with Alexa.
+--
+-- 'enabled', 'createInstantBooking_enabled' - Whether instant booking is enabled or not.
+newCreateInstantBooking ::
+  -- | 'durationInMinutes'
+  Prelude.Int ->
+  -- | 'enabled'
+  Prelude.Bool ->
   CreateInstantBooking
-createInstantBooking pDurationInMinutes_ pEnabled_ =
+newCreateInstantBooking pDurationInMinutes_ pEnabled_ =
   CreateInstantBooking'
-    { _cibDurationInMinutes =
+    { durationInMinutes =
         pDurationInMinutes_,
-      _cibEnabled = pEnabled_
+      enabled = pEnabled_
     }
 
--- | Duration between 15 and 240 minutes at increments of 15 that determines how long to book an available room when a meeting is started with Alexa.
-cibDurationInMinutes :: Lens' CreateInstantBooking Int
-cibDurationInMinutes = lens _cibDurationInMinutes (\s a -> s {_cibDurationInMinutes = a})
+-- | Duration between 15 and 240 minutes at increments of 15 that determines
+-- how long to book an available room when a meeting is started with Alexa.
+createInstantBooking_durationInMinutes :: Lens.Lens' CreateInstantBooking Prelude.Int
+createInstantBooking_durationInMinutes = Lens.lens (\CreateInstantBooking' {durationInMinutes} -> durationInMinutes) (\s@CreateInstantBooking' {} a -> s {durationInMinutes = a} :: CreateInstantBooking)
 
 -- | Whether instant booking is enabled or not.
-cibEnabled :: Lens' CreateInstantBooking Bool
-cibEnabled = lens _cibEnabled (\s a -> s {_cibEnabled = a})
+createInstantBooking_enabled :: Lens.Lens' CreateInstantBooking Prelude.Bool
+createInstantBooking_enabled = Lens.lens (\CreateInstantBooking' {enabled} -> enabled) (\s@CreateInstantBooking' {} a -> s {enabled = a} :: CreateInstantBooking)
 
-instance Hashable CreateInstantBooking
+instance Prelude.Hashable CreateInstantBooking
 
-instance NFData CreateInstantBooking
+instance Prelude.NFData CreateInstantBooking
 
-instance ToJSON CreateInstantBooking where
+instance Prelude.ToJSON CreateInstantBooking where
   toJSON CreateInstantBooking' {..} =
-    object
-      ( catMaybes
-          [ Just ("DurationInMinutes" .= _cibDurationInMinutes),
-            Just ("Enabled" .= _cibEnabled)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("DurationInMinutes" Prelude..= durationInMinutes),
+            Prelude.Just ("Enabled" Prelude..= enabled)
           ]
       )

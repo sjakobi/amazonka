@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,167 +23,207 @@
 --
 -- Lists all tags for the specified resource.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.AlexaBusiness.ListTags
   ( -- * Creating a Request
-    listTags,
-    ListTags,
+    ListTags (..),
+    newListTags,
 
     -- * Request Lenses
-    ltNextToken,
-    ltMaxResults,
-    ltARN,
+    listTags_nextToken,
+    listTags_maxResults,
+    listTags_arn,
 
     -- * Destructuring the Response
-    listTagsResponse,
-    ListTagsResponse,
+    ListTagsResponse (..),
+    newListTagsResponse,
 
     -- * Response Lenses
-    ltrrsNextToken,
-    ltrrsTags,
-    ltrrsResponseStatus,
+    listTagsResponse_nextToken,
+    listTagsResponse_tags,
+    listTagsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.Tag
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listTags' smart constructor.
+-- | /See:/ 'newListTags' smart constructor.
 data ListTags = ListTags'
-  { _ltNextToken ::
-      !(Maybe Text),
-    _ltMaxResults :: !(Maybe Nat),
-    _ltARN :: !Text
+  { -- | An optional token returned from a prior request. Use this token for
+    -- pagination of results from this action. If this parameter is specified,
+    -- the response includes only results beyond the token, up to the value
+    -- specified by @MaxResults@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to include in the response. If more
+    -- results exist than the specified @MaxResults@ value, a token is included
+    -- in the response so that the remaining results can be retrieved.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The ARN of the specified resource for which to list tags.
+    arn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTags' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTags' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltNextToken' - An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltMaxResults' - The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved.
+-- 'nextToken', 'listTags_nextToken' - An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
 --
--- * 'ltARN' - The ARN of the specified resource for which to list tags.
-listTags ::
-  -- | 'ltARN'
-  Text ->
+-- 'maxResults', 'listTags_maxResults' - The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+--
+-- 'arn', 'listTags_arn' - The ARN of the specified resource for which to list tags.
+newListTags ::
+  -- | 'arn'
+  Prelude.Text ->
   ListTags
-listTags pARN_ =
+newListTags pArn_ =
   ListTags'
-    { _ltNextToken = Nothing,
-      _ltMaxResults = Nothing,
-      _ltARN = pARN_
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      arn = pArn_
     }
 
--- | An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ .
-ltNextToken :: Lens' ListTags (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+-- | An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
+listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
+listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
 
--- | The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved.
-ltMaxResults :: Lens' ListTags (Maybe Natural)
-ltMaxResults = lens _ltMaxResults (\s a -> s {_ltMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+listTags_maxResults :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Natural)
+listTags_maxResults = Lens.lens (\ListTags' {maxResults} -> maxResults) (\s@ListTags' {} a -> s {maxResults = a} :: ListTags) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The ARN of the specified resource for which to list tags.
-ltARN :: Lens' ListTags Text
-ltARN = lens _ltARN (\s a -> s {_ltARN = a})
+listTags_arn :: Lens.Lens' ListTags Prelude.Text
+listTags_arn = Lens.lens (\ListTags' {arn} -> arn) (\s@ListTags' {} a -> s {arn = a} :: ListTags)
 
-instance AWSPager ListTags where
+instance Pager.AWSPager ListTags where
   page rq rs
-    | stop (rs ^. ltrrsNextToken) = Nothing
-    | stop (rs ^. ltrrsTags) = Nothing
-    | otherwise =
-      Just $ rq & ltNextToken .~ rs ^. ltrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTagsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTagsResponse_tags Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTags_nextToken
+          Lens..~ rs
+          Lens.^? listTagsResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListTags where
+instance Prelude.AWSRequest ListTags where
   type Rs ListTags = ListTagsResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Tags" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Tags" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTags
+instance Prelude.Hashable ListTags
 
-instance NFData ListTags
+instance Prelude.NFData ListTags
 
-instance ToHeaders ListTags where
+instance Prelude.ToHeaders ListTags where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.ListTags" :: ByteString),
+              Prelude.=# ("AlexaForBusiness.ListTags" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListTags where
+instance Prelude.ToJSON ListTags where
   toJSON ListTags' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ltNextToken,
-            ("MaxResults" .=) <$> _ltMaxResults,
-            Just ("Arn" .= _ltARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("Arn" Prelude..= arn)
           ]
       )
 
-instance ToPath ListTags where
-  toPath = const "/"
+instance Prelude.ToPath ListTags where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTags where
-  toQuery = const mempty
+instance Prelude.ToQuery ListTags where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listTagsResponse' smart constructor.
+-- | /See:/ 'newListTagsResponse' smart constructor.
 data ListTagsResponse = ListTagsResponse'
-  { _ltrrsNextToken ::
-      !(Maybe Text),
-    _ltrrsTags :: !(Maybe [Tag]),
-    _ltrrsResponseStatus :: !Int
+  { -- | The token returned to indicate that there is more data available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The tags requested for the specified resource.
+    tags :: Prelude.Maybe [Tag],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTagsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTagsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsNextToken' - The token returned to indicate that there is more data available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsTags' - The tags requested for the specified resource.
+-- 'nextToken', 'listTagsResponse_nextToken' - The token returned to indicate that there is more data available.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTagsResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'tags', 'listTagsResponse_tags' - The tags requested for the specified resource.
+--
+-- 'httpStatus', 'listTagsResponse_httpStatus' - The response's http status code.
+newListTagsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTagsResponse
-listTagsResponse pResponseStatus_ =
+newListTagsResponse pHttpStatus_ =
   ListTagsResponse'
-    { _ltrrsNextToken = Nothing,
-      _ltrrsTags = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token returned to indicate that there is more data available.
-ltrrsNextToken :: Lens' ListTagsResponse (Maybe Text)
-ltrrsNextToken = lens _ltrrsNextToken (\s a -> s {_ltrrsNextToken = a})
+listTagsResponse_nextToken :: Lens.Lens' ListTagsResponse (Prelude.Maybe Prelude.Text)
+listTagsResponse_nextToken = Lens.lens (\ListTagsResponse' {nextToken} -> nextToken) (\s@ListTagsResponse' {} a -> s {nextToken = a} :: ListTagsResponse)
 
 -- | The tags requested for the specified resource.
-ltrrsTags :: Lens' ListTagsResponse [Tag]
-ltrrsTags = lens _ltrrsTags (\s a -> s {_ltrrsTags = a}) . _Default . _Coerce
+listTagsResponse_tags :: Lens.Lens' ListTagsResponse (Prelude.Maybe [Tag])
+listTagsResponse_tags = Lens.lens (\ListTagsResponse' {tags} -> tags) (\s@ListTagsResponse' {} a -> s {tags = a} :: ListTagsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTagsResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTagsResponse_httpStatus :: Lens.Lens' ListTagsResponse Prelude.Int
+listTagsResponse_httpStatus = Lens.lens (\ListTagsResponse' {httpStatus} -> httpStatus) (\s@ListTagsResponse' {} a -> s {httpStatus = a} :: ListTagsResponse)
 
-instance NFData ListTagsResponse
+instance Prelude.NFData ListTagsResponse

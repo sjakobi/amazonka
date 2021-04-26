@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.AlexaBusiness.Types.BusinessReportFailureCode
   ( BusinessReportFailureCode
       ( ..,
-        AccessDenied,
-        InternalFailure,
-        NoSuchBucket
+        BusinessReportFailureCodeACCESSDENIED,
+        BusinessReportFailureCodeINTERNALFAILURE,
+        BusinessReportFailureCodeNOSUCHBUCKET
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BusinessReportFailureCode
-  = BusinessReportFailureCode'
-      ( CI
-          Text
-      )
+newtype BusinessReportFailureCode = BusinessReportFailureCode'
+  { fromBusinessReportFailureCode ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern AccessDenied :: BusinessReportFailureCode
-pattern AccessDenied = BusinessReportFailureCode' "ACCESS_DENIED"
+pattern BusinessReportFailureCodeACCESSDENIED :: BusinessReportFailureCode
+pattern BusinessReportFailureCodeACCESSDENIED = BusinessReportFailureCode' "ACCESS_DENIED"
 
-pattern InternalFailure :: BusinessReportFailureCode
-pattern InternalFailure = BusinessReportFailureCode' "INTERNAL_FAILURE"
+pattern BusinessReportFailureCodeINTERNALFAILURE :: BusinessReportFailureCode
+pattern BusinessReportFailureCodeINTERNALFAILURE = BusinessReportFailureCode' "INTERNAL_FAILURE"
 
-pattern NoSuchBucket :: BusinessReportFailureCode
-pattern NoSuchBucket = BusinessReportFailureCode' "NO_SUCH_BUCKET"
+pattern BusinessReportFailureCodeNOSUCHBUCKET :: BusinessReportFailureCode
+pattern BusinessReportFailureCodeNOSUCHBUCKET = BusinessReportFailureCode' "NO_SUCH_BUCKET"
 
 {-# COMPLETE
-  AccessDenied,
-  InternalFailure,
-  NoSuchBucket,
+  BusinessReportFailureCodeACCESSDENIED,
+  BusinessReportFailureCodeINTERNALFAILURE,
+  BusinessReportFailureCodeNOSUCHBUCKET,
   BusinessReportFailureCode'
   #-}
 
-instance FromText BusinessReportFailureCode where
-  parser = (BusinessReportFailureCode' . mk) <$> takeText
+instance Prelude.FromText BusinessReportFailureCode where
+  parser = BusinessReportFailureCode' Prelude.<$> Prelude.takeText
 
-instance ToText BusinessReportFailureCode where
-  toText (BusinessReportFailureCode' ci) = original ci
+instance Prelude.ToText BusinessReportFailureCode where
+  toText (BusinessReportFailureCode' x) = x
 
-instance Hashable BusinessReportFailureCode
+instance Prelude.Hashable BusinessReportFailureCode
 
-instance NFData BusinessReportFailureCode
+instance Prelude.NFData BusinessReportFailureCode
 
-instance ToByteString BusinessReportFailureCode
+instance Prelude.ToByteString BusinessReportFailureCode
 
-instance ToQuery BusinessReportFailureCode
+instance Prelude.ToQuery BusinessReportFailureCode
 
-instance ToHeader BusinessReportFailureCode
+instance Prelude.ToHeader BusinessReportFailureCode
 
-instance FromJSON BusinessReportFailureCode where
-  parseJSON = parseJSONText "BusinessReportFailureCode"
+instance Prelude.FromJSON BusinessReportFailureCode where
+  parseJSON = Prelude.parseJSONText "BusinessReportFailureCode"

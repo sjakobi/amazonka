@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,162 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates room skill parameter details by room, skill, and parameter key ID. Not all skills have a room skill parameter.
+-- Updates room skill parameter details by room, skill, and parameter key
+-- ID. Not all skills have a room skill parameter.
 module Network.AWS.AlexaBusiness.PutRoomSkillParameter
   ( -- * Creating a Request
-    putRoomSkillParameter,
-    PutRoomSkillParameter,
+    PutRoomSkillParameter (..),
+    newPutRoomSkillParameter,
 
     -- * Request Lenses
-    prspRoomARN,
-    prspSkillId,
-    prspRoomSkillParameter,
+    putRoomSkillParameter_roomArn,
+    putRoomSkillParameter_skillId,
+    putRoomSkillParameter_roomSkillParameter,
 
     -- * Destructuring the Response
-    putRoomSkillParameterResponse,
-    PutRoomSkillParameterResponse,
+    PutRoomSkillParameterResponse (..),
+    newPutRoomSkillParameterResponse,
 
     -- * Response Lenses
-    prsprrsResponseStatus,
+    putRoomSkillParameterResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'putRoomSkillParameter' smart constructor.
+-- | /See:/ 'newPutRoomSkillParameter' smart constructor.
 data PutRoomSkillParameter = PutRoomSkillParameter'
-  { _prspRoomARN ::
-      !(Maybe Text),
-    _prspSkillId :: !Text,
-    _prspRoomSkillParameter ::
-      !RoomSkillParameter
+  { -- | The ARN of the room associated with the room skill parameter. Required.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the skill associated with the room skill parameter. Required.
+    skillId :: Prelude.Text,
+    -- | The updated room skill parameter. Required.
+    roomSkillParameter :: RoomSkillParameter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRoomSkillParameter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRoomSkillParameter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prspRoomARN' - The ARN of the room associated with the room skill parameter. Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'prspSkillId' - The ARN of the skill associated with the room skill parameter. Required.
+-- 'roomArn', 'putRoomSkillParameter_roomArn' - The ARN of the room associated with the room skill parameter. Required.
 --
--- * 'prspRoomSkillParameter' - The updated room skill parameter. Required.
-putRoomSkillParameter ::
-  -- | 'prspSkillId'
-  Text ->
-  -- | 'prspRoomSkillParameter'
+-- 'skillId', 'putRoomSkillParameter_skillId' - The ARN of the skill associated with the room skill parameter. Required.
+--
+-- 'roomSkillParameter', 'putRoomSkillParameter_roomSkillParameter' - The updated room skill parameter. Required.
+newPutRoomSkillParameter ::
+  -- | 'skillId'
+  Prelude.Text ->
+  -- | 'roomSkillParameter'
   RoomSkillParameter ->
   PutRoomSkillParameter
-putRoomSkillParameter pSkillId_ pRoomSkillParameter_ =
-  PutRoomSkillParameter'
-    { _prspRoomARN = Nothing,
-      _prspSkillId = pSkillId_,
-      _prspRoomSkillParameter = pRoomSkillParameter_
-    }
+newPutRoomSkillParameter
+  pSkillId_
+  pRoomSkillParameter_ =
+    PutRoomSkillParameter'
+      { roomArn = Prelude.Nothing,
+        skillId = pSkillId_,
+        roomSkillParameter = pRoomSkillParameter_
+      }
 
 -- | The ARN of the room associated with the room skill parameter. Required.
-prspRoomARN :: Lens' PutRoomSkillParameter (Maybe Text)
-prspRoomARN = lens _prspRoomARN (\s a -> s {_prspRoomARN = a})
+putRoomSkillParameter_roomArn :: Lens.Lens' PutRoomSkillParameter (Prelude.Maybe Prelude.Text)
+putRoomSkillParameter_roomArn = Lens.lens (\PutRoomSkillParameter' {roomArn} -> roomArn) (\s@PutRoomSkillParameter' {} a -> s {roomArn = a} :: PutRoomSkillParameter)
 
 -- | The ARN of the skill associated with the room skill parameter. Required.
-prspSkillId :: Lens' PutRoomSkillParameter Text
-prspSkillId = lens _prspSkillId (\s a -> s {_prspSkillId = a})
+putRoomSkillParameter_skillId :: Lens.Lens' PutRoomSkillParameter Prelude.Text
+putRoomSkillParameter_skillId = Lens.lens (\PutRoomSkillParameter' {skillId} -> skillId) (\s@PutRoomSkillParameter' {} a -> s {skillId = a} :: PutRoomSkillParameter)
 
 -- | The updated room skill parameter. Required.
-prspRoomSkillParameter :: Lens' PutRoomSkillParameter RoomSkillParameter
-prspRoomSkillParameter = lens _prspRoomSkillParameter (\s a -> s {_prspRoomSkillParameter = a})
+putRoomSkillParameter_roomSkillParameter :: Lens.Lens' PutRoomSkillParameter RoomSkillParameter
+putRoomSkillParameter_roomSkillParameter = Lens.lens (\PutRoomSkillParameter' {roomSkillParameter} -> roomSkillParameter) (\s@PutRoomSkillParameter' {} a -> s {roomSkillParameter = a} :: PutRoomSkillParameter)
 
-instance AWSRequest PutRoomSkillParameter where
+instance Prelude.AWSRequest PutRoomSkillParameter where
   type
     Rs PutRoomSkillParameter =
       PutRoomSkillParameterResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           PutRoomSkillParameterResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutRoomSkillParameter
+instance Prelude.Hashable PutRoomSkillParameter
 
-instance NFData PutRoomSkillParameter
+instance Prelude.NFData PutRoomSkillParameter
 
-instance ToHeaders PutRoomSkillParameter where
+instance Prelude.ToHeaders PutRoomSkillParameter where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.PutRoomSkillParameter" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.PutRoomSkillParameter" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON PutRoomSkillParameter where
+instance Prelude.ToJSON PutRoomSkillParameter where
   toJSON PutRoomSkillParameter' {..} =
-    object
-      ( catMaybes
-          [ ("RoomArn" .=) <$> _prspRoomARN,
-            Just ("SkillId" .= _prspSkillId),
-            Just
-              ("RoomSkillParameter" .= _prspRoomSkillParameter)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoomArn" Prelude..=) Prelude.<$> roomArn,
+            Prelude.Just ("SkillId" Prelude..= skillId),
+            Prelude.Just
+              ( "RoomSkillParameter"
+                  Prelude..= roomSkillParameter
+              )
           ]
       )
 
-instance ToPath PutRoomSkillParameter where
-  toPath = const "/"
+instance Prelude.ToPath PutRoomSkillParameter where
+  toPath = Prelude.const "/"
 
-instance ToQuery PutRoomSkillParameter where
-  toQuery = const mempty
+instance Prelude.ToQuery PutRoomSkillParameter where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'putRoomSkillParameterResponse' smart constructor.
-newtype PutRoomSkillParameterResponse = PutRoomSkillParameterResponse'
-  { _prsprrsResponseStatus ::
-      Int
+-- | /See:/ 'newPutRoomSkillParameterResponse' smart constructor.
+data PutRoomSkillParameterResponse = PutRoomSkillParameterResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutRoomSkillParameterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutRoomSkillParameterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'prsprrsResponseStatus' - -- | The response status code.
-putRoomSkillParameterResponse ::
-  -- | 'prsprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putRoomSkillParameterResponse_httpStatus' - The response's http status code.
+newPutRoomSkillParameterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   PutRoomSkillParameterResponse
-putRoomSkillParameterResponse pResponseStatus_ =
+newPutRoomSkillParameterResponse pHttpStatus_ =
   PutRoomSkillParameterResponse'
-    { _prsprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-prsprrsResponseStatus :: Lens' PutRoomSkillParameterResponse Int
-prsprrsResponseStatus = lens _prsprrsResponseStatus (\s a -> s {_prsprrsResponseStatus = a})
+-- | The response's http status code.
+putRoomSkillParameterResponse_httpStatus :: Lens.Lens' PutRoomSkillParameterResponse Prelude.Int
+putRoomSkillParameterResponse_httpStatus = Lens.lens (\PutRoomSkillParameterResponse' {httpStatus} -> httpStatus) (\s@PutRoomSkillParameterResponse' {} a -> s {httpStatus = a} :: PutRoomSkillParameterResponse)
 
-instance NFData PutRoomSkillParameterResponse
+instance Prelude.NFData PutRoomSkillParameterResponse

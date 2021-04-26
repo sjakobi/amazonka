@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,143 +24,143 @@
 -- Unlinks a third-party account from a skill.
 module Network.AWS.AlexaBusiness.DeleteSkillAuthorization
   ( -- * Creating a Request
-    deleteSkillAuthorization,
-    DeleteSkillAuthorization,
+    DeleteSkillAuthorization (..),
+    newDeleteSkillAuthorization,
 
     -- * Request Lenses
-    dsaRoomARN,
-    dsaSkillId,
+    deleteSkillAuthorization_roomArn,
+    deleteSkillAuthorization_skillId,
 
     -- * Destructuring the Response
-    deleteSkillAuthorizationResponse,
-    DeleteSkillAuthorizationResponse,
+    DeleteSkillAuthorizationResponse (..),
+    newDeleteSkillAuthorizationResponse,
 
     -- * Response Lenses
-    dsarrsResponseStatus,
+    deleteSkillAuthorizationResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteSkillAuthorization' smart constructor.
+-- | /See:/ 'newDeleteSkillAuthorization' smart constructor.
 data DeleteSkillAuthorization = DeleteSkillAuthorization'
-  { _dsaRoomARN ::
-      !(Maybe Text),
-    _dsaSkillId :: !Text
+  { -- | The room that the skill is authorized for.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of a skill.
+    skillId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSkillAuthorization' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSkillAuthorization' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsaRoomARN' - The room that the skill is authorized for.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsaSkillId' - The unique identifier of a skill.
-deleteSkillAuthorization ::
-  -- | 'dsaSkillId'
-  Text ->
+-- 'roomArn', 'deleteSkillAuthorization_roomArn' - The room that the skill is authorized for.
+--
+-- 'skillId', 'deleteSkillAuthorization_skillId' - The unique identifier of a skill.
+newDeleteSkillAuthorization ::
+  -- | 'skillId'
+  Prelude.Text ->
   DeleteSkillAuthorization
-deleteSkillAuthorization pSkillId_ =
+newDeleteSkillAuthorization pSkillId_ =
   DeleteSkillAuthorization'
-    { _dsaRoomARN = Nothing,
-      _dsaSkillId = pSkillId_
+    { roomArn =
+        Prelude.Nothing,
+      skillId = pSkillId_
     }
 
 -- | The room that the skill is authorized for.
-dsaRoomARN :: Lens' DeleteSkillAuthorization (Maybe Text)
-dsaRoomARN = lens _dsaRoomARN (\s a -> s {_dsaRoomARN = a})
+deleteSkillAuthorization_roomArn :: Lens.Lens' DeleteSkillAuthorization (Prelude.Maybe Prelude.Text)
+deleteSkillAuthorization_roomArn = Lens.lens (\DeleteSkillAuthorization' {roomArn} -> roomArn) (\s@DeleteSkillAuthorization' {} a -> s {roomArn = a} :: DeleteSkillAuthorization)
 
 -- | The unique identifier of a skill.
-dsaSkillId :: Lens' DeleteSkillAuthorization Text
-dsaSkillId = lens _dsaSkillId (\s a -> s {_dsaSkillId = a})
+deleteSkillAuthorization_skillId :: Lens.Lens' DeleteSkillAuthorization Prelude.Text
+deleteSkillAuthorization_skillId = Lens.lens (\DeleteSkillAuthorization' {skillId} -> skillId) (\s@DeleteSkillAuthorization' {} a -> s {skillId = a} :: DeleteSkillAuthorization)
 
-instance AWSRequest DeleteSkillAuthorization where
+instance Prelude.AWSRequest DeleteSkillAuthorization where
   type
     Rs DeleteSkillAuthorization =
       DeleteSkillAuthorizationResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteSkillAuthorizationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteSkillAuthorization
+instance Prelude.Hashable DeleteSkillAuthorization
 
-instance NFData DeleteSkillAuthorization
+instance Prelude.NFData DeleteSkillAuthorization
 
-instance ToHeaders DeleteSkillAuthorization where
+instance Prelude.ToHeaders DeleteSkillAuthorization where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.DeleteSkillAuthorization" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.DeleteSkillAuthorization" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteSkillAuthorization where
+instance Prelude.ToJSON DeleteSkillAuthorization where
   toJSON DeleteSkillAuthorization' {..} =
-    object
-      ( catMaybes
-          [ ("RoomArn" .=) <$> _dsaRoomARN,
-            Just ("SkillId" .= _dsaSkillId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoomArn" Prelude..=) Prelude.<$> roomArn,
+            Prelude.Just ("SkillId" Prelude..= skillId)
           ]
       )
 
-instance ToPath DeleteSkillAuthorization where
-  toPath = const "/"
+instance Prelude.ToPath DeleteSkillAuthorization where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteSkillAuthorization where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteSkillAuthorization where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteSkillAuthorizationResponse' smart constructor.
-newtype DeleteSkillAuthorizationResponse = DeleteSkillAuthorizationResponse'
-  { _dsarrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteSkillAuthorizationResponse' smart constructor.
+data DeleteSkillAuthorizationResponse = DeleteSkillAuthorizationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteSkillAuthorizationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteSkillAuthorizationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsarrsResponseStatus' - -- | The response status code.
-deleteSkillAuthorizationResponse ::
-  -- | 'dsarrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteSkillAuthorizationResponse_httpStatus' - The response's http status code.
+newDeleteSkillAuthorizationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteSkillAuthorizationResponse
-deleteSkillAuthorizationResponse pResponseStatus_ =
+newDeleteSkillAuthorizationResponse pHttpStatus_ =
   DeleteSkillAuthorizationResponse'
-    { _dsarrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dsarrsResponseStatus :: Lens' DeleteSkillAuthorizationResponse Int
-dsarrsResponseStatus = lens _dsarrsResponseStatus (\s a -> s {_dsarrsResponseStatus = a})
+-- | The response's http status code.
+deleteSkillAuthorizationResponse_httpStatus :: Lens.Lens' DeleteSkillAuthorizationResponse Prelude.Int
+deleteSkillAuthorizationResponse_httpStatus = Lens.lens (\DeleteSkillAuthorizationResponse' {httpStatus} -> httpStatus) (\s@DeleteSkillAuthorizationResponse' {} a -> s {httpStatus = a} :: DeleteSkillAuthorizationResponse)
 
-instance NFData DeleteSkillAuthorizationResponse
+instance
+  Prelude.NFData
+    DeleteSkillAuthorizationResponse

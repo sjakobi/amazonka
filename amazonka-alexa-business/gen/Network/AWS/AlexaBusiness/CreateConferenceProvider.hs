@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,230 +21,230 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a new conference provider under the user's AWS account.
+-- Adds a new conference provider under the user\'s AWS account.
 module Network.AWS.AlexaBusiness.CreateConferenceProvider
   ( -- * Creating a Request
-    createConferenceProvider,
-    CreateConferenceProvider,
+    CreateConferenceProvider (..),
+    newCreateConferenceProvider,
 
     -- * Request Lenses
-    ccpIPDialIn,
-    ccpTags,
-    ccpPSTNDialIn,
-    ccpClientRequestToken,
-    ccpConferenceProviderName,
-    ccpConferenceProviderType,
-    ccpMeetingSetting,
+    createConferenceProvider_iPDialIn,
+    createConferenceProvider_tags,
+    createConferenceProvider_pSTNDialIn,
+    createConferenceProvider_clientRequestToken,
+    createConferenceProvider_conferenceProviderName,
+    createConferenceProvider_conferenceProviderType,
+    createConferenceProvider_meetingSetting,
 
     -- * Destructuring the Response
-    createConferenceProviderResponse,
-    CreateConferenceProviderResponse,
+    CreateConferenceProviderResponse (..),
+    newCreateConferenceProviderResponse,
 
     -- * Response Lenses
-    ccprrsConferenceProviderARN,
-    ccprrsResponseStatus,
+    createConferenceProviderResponse_conferenceProviderArn,
+    createConferenceProviderResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createConferenceProvider' smart constructor.
+-- | /See:/ 'newCreateConferenceProvider' smart constructor.
 data CreateConferenceProvider = CreateConferenceProvider'
-  { _ccpIPDialIn ::
-      !(Maybe IPDialIn),
-    _ccpTags ::
-      !(Maybe [Tag]),
-    _ccpPSTNDialIn ::
-      !(Maybe PSTNDialIn),
-    _ccpClientRequestToken ::
-      !(Maybe Text),
-    _ccpConferenceProviderName ::
-      !Text,
-    _ccpConferenceProviderType ::
-      !ConferenceProviderType,
-    _ccpMeetingSetting ::
-      !MeetingSetting
+  { -- | The IP endpoint and protocol for calling.
+    iPDialIn :: Prelude.Maybe IPDialIn,
+    -- | The tags to be added to the specified resource. Do not provide system
+    -- tags.
+    tags :: Prelude.Maybe [Tag],
+    -- | The information for PSTN conferencing.
+    pSTNDialIn :: Prelude.Maybe PSTNDialIn,
+    -- | The request token of the client.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the conference provider.
+    conferenceProviderName :: Prelude.Text,
+    -- | Represents a type within a list of predefined types.
+    conferenceProviderType :: ConferenceProviderType,
+    -- | The meeting settings for the conference provider.
+    meetingSetting :: MeetingSetting
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConferenceProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConferenceProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccpIPDialIn' - The IP endpoint and protocol for calling.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccpTags' - The tags to be added to the specified resource. Do not provide system tags.
+-- 'iPDialIn', 'createConferenceProvider_iPDialIn' - The IP endpoint and protocol for calling.
 --
--- * 'ccpPSTNDialIn' - The information for PSTN conferencing.
+-- 'tags', 'createConferenceProvider_tags' - The tags to be added to the specified resource. Do not provide system
+-- tags.
 --
--- * 'ccpClientRequestToken' - The request token of the client.
+-- 'pSTNDialIn', 'createConferenceProvider_pSTNDialIn' - The information for PSTN conferencing.
 --
--- * 'ccpConferenceProviderName' - The name of the conference provider.
+-- 'clientRequestToken', 'createConferenceProvider_clientRequestToken' - The request token of the client.
 --
--- * 'ccpConferenceProviderType' - Represents a type within a list of predefined types.
+-- 'conferenceProviderName', 'createConferenceProvider_conferenceProviderName' - The name of the conference provider.
 --
--- * 'ccpMeetingSetting' - The meeting settings for the conference provider.
-createConferenceProvider ::
-  -- | 'ccpConferenceProviderName'
-  Text ->
-  -- | 'ccpConferenceProviderType'
+-- 'conferenceProviderType', 'createConferenceProvider_conferenceProviderType' - Represents a type within a list of predefined types.
+--
+-- 'meetingSetting', 'createConferenceProvider_meetingSetting' - The meeting settings for the conference provider.
+newCreateConferenceProvider ::
+  -- | 'conferenceProviderName'
+  Prelude.Text ->
+  -- | 'conferenceProviderType'
   ConferenceProviderType ->
-  -- | 'ccpMeetingSetting'
+  -- | 'meetingSetting'
   MeetingSetting ->
   CreateConferenceProvider
-createConferenceProvider
+newCreateConferenceProvider
   pConferenceProviderName_
   pConferenceProviderType_
   pMeetingSetting_ =
     CreateConferenceProvider'
-      { _ccpIPDialIn = Nothing,
-        _ccpTags = Nothing,
-        _ccpPSTNDialIn = Nothing,
-        _ccpClientRequestToken = Nothing,
-        _ccpConferenceProviderName =
-          pConferenceProviderName_,
-        _ccpConferenceProviderType =
-          pConferenceProviderType_,
-        _ccpMeetingSetting = pMeetingSetting_
+      { iPDialIn =
+          Prelude.Nothing,
+        tags = Prelude.Nothing,
+        pSTNDialIn = Prelude.Nothing,
+        clientRequestToken = Prelude.Nothing,
+        conferenceProviderName = pConferenceProviderName_,
+        conferenceProviderType = pConferenceProviderType_,
+        meetingSetting = pMeetingSetting_
       }
 
 -- | The IP endpoint and protocol for calling.
-ccpIPDialIn :: Lens' CreateConferenceProvider (Maybe IPDialIn)
-ccpIPDialIn = lens _ccpIPDialIn (\s a -> s {_ccpIPDialIn = a})
+createConferenceProvider_iPDialIn :: Lens.Lens' CreateConferenceProvider (Prelude.Maybe IPDialIn)
+createConferenceProvider_iPDialIn = Lens.lens (\CreateConferenceProvider' {iPDialIn} -> iPDialIn) (\s@CreateConferenceProvider' {} a -> s {iPDialIn = a} :: CreateConferenceProvider)
 
--- | The tags to be added to the specified resource. Do not provide system tags.
-ccpTags :: Lens' CreateConferenceProvider [Tag]
-ccpTags = lens _ccpTags (\s a -> s {_ccpTags = a}) . _Default . _Coerce
+-- | The tags to be added to the specified resource. Do not provide system
+-- tags.
+createConferenceProvider_tags :: Lens.Lens' CreateConferenceProvider (Prelude.Maybe [Tag])
+createConferenceProvider_tags = Lens.lens (\CreateConferenceProvider' {tags} -> tags) (\s@CreateConferenceProvider' {} a -> s {tags = a} :: CreateConferenceProvider) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The information for PSTN conferencing.
-ccpPSTNDialIn :: Lens' CreateConferenceProvider (Maybe PSTNDialIn)
-ccpPSTNDialIn = lens _ccpPSTNDialIn (\s a -> s {_ccpPSTNDialIn = a})
+createConferenceProvider_pSTNDialIn :: Lens.Lens' CreateConferenceProvider (Prelude.Maybe PSTNDialIn)
+createConferenceProvider_pSTNDialIn = Lens.lens (\CreateConferenceProvider' {pSTNDialIn} -> pSTNDialIn) (\s@CreateConferenceProvider' {} a -> s {pSTNDialIn = a} :: CreateConferenceProvider)
 
 -- | The request token of the client.
-ccpClientRequestToken :: Lens' CreateConferenceProvider (Maybe Text)
-ccpClientRequestToken = lens _ccpClientRequestToken (\s a -> s {_ccpClientRequestToken = a})
+createConferenceProvider_clientRequestToken :: Lens.Lens' CreateConferenceProvider (Prelude.Maybe Prelude.Text)
+createConferenceProvider_clientRequestToken = Lens.lens (\CreateConferenceProvider' {clientRequestToken} -> clientRequestToken) (\s@CreateConferenceProvider' {} a -> s {clientRequestToken = a} :: CreateConferenceProvider)
 
 -- | The name of the conference provider.
-ccpConferenceProviderName :: Lens' CreateConferenceProvider Text
-ccpConferenceProviderName = lens _ccpConferenceProviderName (\s a -> s {_ccpConferenceProviderName = a})
+createConferenceProvider_conferenceProviderName :: Lens.Lens' CreateConferenceProvider Prelude.Text
+createConferenceProvider_conferenceProviderName = Lens.lens (\CreateConferenceProvider' {conferenceProviderName} -> conferenceProviderName) (\s@CreateConferenceProvider' {} a -> s {conferenceProviderName = a} :: CreateConferenceProvider)
 
 -- | Represents a type within a list of predefined types.
-ccpConferenceProviderType :: Lens' CreateConferenceProvider ConferenceProviderType
-ccpConferenceProviderType = lens _ccpConferenceProviderType (\s a -> s {_ccpConferenceProviderType = a})
+createConferenceProvider_conferenceProviderType :: Lens.Lens' CreateConferenceProvider ConferenceProviderType
+createConferenceProvider_conferenceProviderType = Lens.lens (\CreateConferenceProvider' {conferenceProviderType} -> conferenceProviderType) (\s@CreateConferenceProvider' {} a -> s {conferenceProviderType = a} :: CreateConferenceProvider)
 
 -- | The meeting settings for the conference provider.
-ccpMeetingSetting :: Lens' CreateConferenceProvider MeetingSetting
-ccpMeetingSetting = lens _ccpMeetingSetting (\s a -> s {_ccpMeetingSetting = a})
+createConferenceProvider_meetingSetting :: Lens.Lens' CreateConferenceProvider MeetingSetting
+createConferenceProvider_meetingSetting = Lens.lens (\CreateConferenceProvider' {meetingSetting} -> meetingSetting) (\s@CreateConferenceProvider' {} a -> s {meetingSetting = a} :: CreateConferenceProvider)
 
-instance AWSRequest CreateConferenceProvider where
+instance Prelude.AWSRequest CreateConferenceProvider where
   type
     Rs CreateConferenceProvider =
       CreateConferenceProviderResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateConferenceProviderResponse'
-            <$> (x .?> "ConferenceProviderArn")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ConferenceProviderArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateConferenceProvider
+instance Prelude.Hashable CreateConferenceProvider
 
-instance NFData CreateConferenceProvider
+instance Prelude.NFData CreateConferenceProvider
 
-instance ToHeaders CreateConferenceProvider where
+instance Prelude.ToHeaders CreateConferenceProvider where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.CreateConferenceProvider" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.CreateConferenceProvider" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateConferenceProvider where
+instance Prelude.ToJSON CreateConferenceProvider where
   toJSON CreateConferenceProvider' {..} =
-    object
-      ( catMaybes
-          [ ("IPDialIn" .=) <$> _ccpIPDialIn,
-            ("Tags" .=) <$> _ccpTags,
-            ("PSTNDialIn" .=) <$> _ccpPSTNDialIn,
-            ("ClientRequestToken" .=) <$> _ccpClientRequestToken,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IPDialIn" Prelude..=) Prelude.<$> iPDialIn,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("PSTNDialIn" Prelude..=) Prelude.<$> pSTNDialIn,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            Prelude.Just
               ( "ConferenceProviderName"
-                  .= _ccpConferenceProviderName
+                  Prelude..= conferenceProviderName
               ),
-            Just
+            Prelude.Just
               ( "ConferenceProviderType"
-                  .= _ccpConferenceProviderType
+                  Prelude..= conferenceProviderType
               ),
-            Just ("MeetingSetting" .= _ccpMeetingSetting)
+            Prelude.Just
+              ("MeetingSetting" Prelude..= meetingSetting)
           ]
       )
 
-instance ToPath CreateConferenceProvider where
-  toPath = const "/"
+instance Prelude.ToPath CreateConferenceProvider where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateConferenceProvider where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateConferenceProvider where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createConferenceProviderResponse' smart constructor.
+-- | /See:/ 'newCreateConferenceProviderResponse' smart constructor.
 data CreateConferenceProviderResponse = CreateConferenceProviderResponse'
-  { _ccprrsConferenceProviderARN ::
-      !( Maybe
-           Text
-       ),
-    _ccprrsResponseStatus ::
-      !Int
+  { -- | The ARN of the newly-created conference provider.
+    conferenceProviderArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConferenceProviderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConferenceProviderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccprrsConferenceProviderARN' - The ARN of the newly-created conference provider.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccprrsResponseStatus' - -- | The response status code.
-createConferenceProviderResponse ::
-  -- | 'ccprrsResponseStatus'
-  Int ->
+-- 'conferenceProviderArn', 'createConferenceProviderResponse_conferenceProviderArn' - The ARN of the newly-created conference provider.
+--
+-- 'httpStatus', 'createConferenceProviderResponse_httpStatus' - The response's http status code.
+newCreateConferenceProviderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateConferenceProviderResponse
-createConferenceProviderResponse pResponseStatus_ =
+newCreateConferenceProviderResponse pHttpStatus_ =
   CreateConferenceProviderResponse'
-    { _ccprrsConferenceProviderARN =
-        Nothing,
-      _ccprrsResponseStatus = pResponseStatus_
+    { conferenceProviderArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the newly-created conference provider.
-ccprrsConferenceProviderARN :: Lens' CreateConferenceProviderResponse (Maybe Text)
-ccprrsConferenceProviderARN = lens _ccprrsConferenceProviderARN (\s a -> s {_ccprrsConferenceProviderARN = a})
+createConferenceProviderResponse_conferenceProviderArn :: Lens.Lens' CreateConferenceProviderResponse (Prelude.Maybe Prelude.Text)
+createConferenceProviderResponse_conferenceProviderArn = Lens.lens (\CreateConferenceProviderResponse' {conferenceProviderArn} -> conferenceProviderArn) (\s@CreateConferenceProviderResponse' {} a -> s {conferenceProviderArn = a} :: CreateConferenceProviderResponse)
 
--- | -- | The response status code.
-ccprrsResponseStatus :: Lens' CreateConferenceProviderResponse Int
-ccprrsResponseStatus = lens _ccprrsResponseStatus (\s a -> s {_ccprrsResponseStatus = a})
+-- | The response's http status code.
+createConferenceProviderResponse_httpStatus :: Lens.Lens' CreateConferenceProviderResponse Prelude.Int
+createConferenceProviderResponse_httpStatus = Lens.lens (\CreateConferenceProviderResponse' {httpStatus} -> httpStatus) (\s@CreateConferenceProviderResponse' {} a -> s {httpStatus = a} :: CreateConferenceProviderResponse)
 
-instance NFData CreateConferenceProviderResponse
+instance
+  Prelude.NFData
+    CreateConferenceProviderResponse

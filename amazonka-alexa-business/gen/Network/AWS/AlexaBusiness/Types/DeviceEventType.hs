@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.AlexaBusiness.Types.DeviceEventType
   ( DeviceEventType
       ( ..,
-        ConnectionStatus,
-        DeviceStatus
+        DeviceEventTypeCONNECTIONSTATUS,
+        DeviceEventTypeDEVICESTATUS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DeviceEventType = DeviceEventType' (CI Text)
+newtype DeviceEventType = DeviceEventType'
+  { fromDeviceEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern ConnectionStatus :: DeviceEventType
-pattern ConnectionStatus = DeviceEventType' "CONNECTION_STATUS"
+pattern DeviceEventTypeCONNECTIONSTATUS :: DeviceEventType
+pattern DeviceEventTypeCONNECTIONSTATUS = DeviceEventType' "CONNECTION_STATUS"
 
-pattern DeviceStatus :: DeviceEventType
-pattern DeviceStatus = DeviceEventType' "DEVICE_STATUS"
+pattern DeviceEventTypeDEVICESTATUS :: DeviceEventType
+pattern DeviceEventTypeDEVICESTATUS = DeviceEventType' "DEVICE_STATUS"
 
 {-# COMPLETE
-  ConnectionStatus,
-  DeviceStatus,
+  DeviceEventTypeCONNECTIONSTATUS,
+  DeviceEventTypeDEVICESTATUS,
   DeviceEventType'
   #-}
 
-instance FromText DeviceEventType where
-  parser = (DeviceEventType' . mk) <$> takeText
+instance Prelude.FromText DeviceEventType where
+  parser = DeviceEventType' Prelude.<$> Prelude.takeText
 
-instance ToText DeviceEventType where
-  toText (DeviceEventType' ci) = original ci
+instance Prelude.ToText DeviceEventType where
+  toText (DeviceEventType' x) = x
 
-instance Hashable DeviceEventType
+instance Prelude.Hashable DeviceEventType
 
-instance NFData DeviceEventType
+instance Prelude.NFData DeviceEventType
 
-instance ToByteString DeviceEventType
+instance Prelude.ToByteString DeviceEventType
 
-instance ToQuery DeviceEventType
+instance Prelude.ToQuery DeviceEventType
 
-instance ToHeader DeviceEventType
+instance Prelude.ToHeader DeviceEventType
 
-instance ToJSON DeviceEventType where
-  toJSON = toJSONText
+instance Prelude.ToJSON DeviceEventType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON DeviceEventType where
-  parseJSON = parseJSONText "DeviceEventType"
+instance Prelude.FromJSON DeviceEventType where
+  parseJSON = Prelude.parseJSONText "DeviceEventType"

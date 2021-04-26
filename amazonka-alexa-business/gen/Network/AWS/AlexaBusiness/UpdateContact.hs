@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,181 +24,199 @@
 -- Updates the contact details by the contact ARN.
 module Network.AWS.AlexaBusiness.UpdateContact
   ( -- * Creating a Request
-    updateContact,
-    UpdateContact,
+    UpdateContact (..),
+    newUpdateContact,
 
     -- * Request Lenses
-    ucPhoneNumber,
-    ucPhoneNumbers,
-    ucDisplayName,
-    ucFirstName,
-    ucLastName,
-    ucSipAddresses,
-    ucContactARN,
+    updateContact_phoneNumber,
+    updateContact_phoneNumbers,
+    updateContact_displayName,
+    updateContact_firstName,
+    updateContact_lastName,
+    updateContact_sipAddresses,
+    updateContact_contactArn,
 
     -- * Destructuring the Response
-    updateContactResponse,
-    UpdateContactResponse,
+    UpdateContactResponse (..),
+    newUpdateContactResponse,
 
     -- * Response Lenses
-    ucrrsResponseStatus,
+    updateContactResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateContact' smart constructor.
+-- | /See:/ 'newUpdateContact' smart constructor.
 data UpdateContact = UpdateContact'
-  { _ucPhoneNumber ::
-      !(Maybe (Sensitive Text)),
-    _ucPhoneNumbers :: !(Maybe [PhoneNumber]),
-    _ucDisplayName :: !(Maybe Text),
-    _ucFirstName :: !(Maybe Text),
-    _ucLastName :: !(Maybe Text),
-    _ucSipAddresses :: !(Maybe [SipAddress]),
-    _ucContactARN :: !Text
+  { -- | The updated phone number of the contact. The phone number type defaults
+    -- to WORK. You can either specify PhoneNumber or PhoneNumbers. We
+    -- recommend that you use PhoneNumbers, which lets you specify the phone
+    -- number type and multiple numbers.
+    phoneNumber :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The list of phone numbers for the contact.
+    phoneNumbers :: Prelude.Maybe [PhoneNumber],
+    -- | The updated display name of the contact.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | The updated first name of the contact.
+    firstName :: Prelude.Maybe Prelude.Text,
+    -- | The updated last name of the contact.
+    lastName :: Prelude.Maybe Prelude.Text,
+    -- | The list of SIP addresses for the contact.
+    sipAddresses :: Prelude.Maybe [SipAddress],
+    -- | The ARN of the contact to update.
+    contactArn :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateContact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateContact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucPhoneNumber' - The updated phone number of the contact. The phone number type defaults to WORK. You can either specify PhoneNumber or PhoneNumbers. We recommend that you use PhoneNumbers, which lets you specify the phone number type and multiple numbers.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucPhoneNumbers' - The list of phone numbers for the contact.
+-- 'phoneNumber', 'updateContact_phoneNumber' - The updated phone number of the contact. The phone number type defaults
+-- to WORK. You can either specify PhoneNumber or PhoneNumbers. We
+-- recommend that you use PhoneNumbers, which lets you specify the phone
+-- number type and multiple numbers.
 --
--- * 'ucDisplayName' - The updated display name of the contact.
+-- 'phoneNumbers', 'updateContact_phoneNumbers' - The list of phone numbers for the contact.
 --
--- * 'ucFirstName' - The updated first name of the contact.
+-- 'displayName', 'updateContact_displayName' - The updated display name of the contact.
 --
--- * 'ucLastName' - The updated last name of the contact.
+-- 'firstName', 'updateContact_firstName' - The updated first name of the contact.
 --
--- * 'ucSipAddresses' - The list of SIP addresses for the contact.
+-- 'lastName', 'updateContact_lastName' - The updated last name of the contact.
 --
--- * 'ucContactARN' - The ARN of the contact to update.
-updateContact ::
-  -- | 'ucContactARN'
-  Text ->
+-- 'sipAddresses', 'updateContact_sipAddresses' - The list of SIP addresses for the contact.
+--
+-- 'contactArn', 'updateContact_contactArn' - The ARN of the contact to update.
+newUpdateContact ::
+  -- | 'contactArn'
+  Prelude.Text ->
   UpdateContact
-updateContact pContactARN_ =
+newUpdateContact pContactArn_ =
   UpdateContact'
-    { _ucPhoneNumber = Nothing,
-      _ucPhoneNumbers = Nothing,
-      _ucDisplayName = Nothing,
-      _ucFirstName = Nothing,
-      _ucLastName = Nothing,
-      _ucSipAddresses = Nothing,
-      _ucContactARN = pContactARN_
+    { phoneNumber = Prelude.Nothing,
+      phoneNumbers = Prelude.Nothing,
+      displayName = Prelude.Nothing,
+      firstName = Prelude.Nothing,
+      lastName = Prelude.Nothing,
+      sipAddresses = Prelude.Nothing,
+      contactArn = pContactArn_
     }
 
--- | The updated phone number of the contact. The phone number type defaults to WORK. You can either specify PhoneNumber or PhoneNumbers. We recommend that you use PhoneNumbers, which lets you specify the phone number type and multiple numbers.
-ucPhoneNumber :: Lens' UpdateContact (Maybe Text)
-ucPhoneNumber = lens _ucPhoneNumber (\s a -> s {_ucPhoneNumber = a}) . mapping _Sensitive
+-- | The updated phone number of the contact. The phone number type defaults
+-- to WORK. You can either specify PhoneNumber or PhoneNumbers. We
+-- recommend that you use PhoneNumbers, which lets you specify the phone
+-- number type and multiple numbers.
+updateContact_phoneNumber :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Text)
+updateContact_phoneNumber = Lens.lens (\UpdateContact' {phoneNumber} -> phoneNumber) (\s@UpdateContact' {} a -> s {phoneNumber = a} :: UpdateContact) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The list of phone numbers for the contact.
-ucPhoneNumbers :: Lens' UpdateContact [PhoneNumber]
-ucPhoneNumbers = lens _ucPhoneNumbers (\s a -> s {_ucPhoneNumbers = a}) . _Default . _Coerce
+updateContact_phoneNumbers :: Lens.Lens' UpdateContact (Prelude.Maybe [PhoneNumber])
+updateContact_phoneNumbers = Lens.lens (\UpdateContact' {phoneNumbers} -> phoneNumbers) (\s@UpdateContact' {} a -> s {phoneNumbers = a} :: UpdateContact) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The updated display name of the contact.
-ucDisplayName :: Lens' UpdateContact (Maybe Text)
-ucDisplayName = lens _ucDisplayName (\s a -> s {_ucDisplayName = a})
+updateContact_displayName :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Text)
+updateContact_displayName = Lens.lens (\UpdateContact' {displayName} -> displayName) (\s@UpdateContact' {} a -> s {displayName = a} :: UpdateContact)
 
 -- | The updated first name of the contact.
-ucFirstName :: Lens' UpdateContact (Maybe Text)
-ucFirstName = lens _ucFirstName (\s a -> s {_ucFirstName = a})
+updateContact_firstName :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Text)
+updateContact_firstName = Lens.lens (\UpdateContact' {firstName} -> firstName) (\s@UpdateContact' {} a -> s {firstName = a} :: UpdateContact)
 
 -- | The updated last name of the contact.
-ucLastName :: Lens' UpdateContact (Maybe Text)
-ucLastName = lens _ucLastName (\s a -> s {_ucLastName = a})
+updateContact_lastName :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Text)
+updateContact_lastName = Lens.lens (\UpdateContact' {lastName} -> lastName) (\s@UpdateContact' {} a -> s {lastName = a} :: UpdateContact)
 
 -- | The list of SIP addresses for the contact.
-ucSipAddresses :: Lens' UpdateContact [SipAddress]
-ucSipAddresses = lens _ucSipAddresses (\s a -> s {_ucSipAddresses = a}) . _Default . _Coerce
+updateContact_sipAddresses :: Lens.Lens' UpdateContact (Prelude.Maybe [SipAddress])
+updateContact_sipAddresses = Lens.lens (\UpdateContact' {sipAddresses} -> sipAddresses) (\s@UpdateContact' {} a -> s {sipAddresses = a} :: UpdateContact) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the contact to update.
-ucContactARN :: Lens' UpdateContact Text
-ucContactARN = lens _ucContactARN (\s a -> s {_ucContactARN = a})
+updateContact_contactArn :: Lens.Lens' UpdateContact Prelude.Text
+updateContact_contactArn = Lens.lens (\UpdateContact' {contactArn} -> contactArn) (\s@UpdateContact' {} a -> s {contactArn = a} :: UpdateContact)
 
-instance AWSRequest UpdateContact where
+instance Prelude.AWSRequest UpdateContact where
   type Rs UpdateContact = UpdateContactResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateContactResponse' <$> (pure (fromEnum s))
+          UpdateContactResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateContact
+instance Prelude.Hashable UpdateContact
 
-instance NFData UpdateContact
+instance Prelude.NFData UpdateContact
 
-instance ToHeaders UpdateContact where
+instance Prelude.ToHeaders UpdateContact where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.UpdateContact" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.UpdateContact" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateContact where
+instance Prelude.ToJSON UpdateContact where
   toJSON UpdateContact' {..} =
-    object
-      ( catMaybes
-          [ ("PhoneNumber" .=) <$> _ucPhoneNumber,
-            ("PhoneNumbers" .=) <$> _ucPhoneNumbers,
-            ("DisplayName" .=) <$> _ucDisplayName,
-            ("FirstName" .=) <$> _ucFirstName,
-            ("LastName" .=) <$> _ucLastName,
-            ("SipAddresses" .=) <$> _ucSipAddresses,
-            Just ("ContactArn" .= _ucContactARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("PhoneNumber" Prelude..=) Prelude.<$> phoneNumber,
+            ("PhoneNumbers" Prelude..=) Prelude.<$> phoneNumbers,
+            ("DisplayName" Prelude..=) Prelude.<$> displayName,
+            ("FirstName" Prelude..=) Prelude.<$> firstName,
+            ("LastName" Prelude..=) Prelude.<$> lastName,
+            ("SipAddresses" Prelude..=) Prelude.<$> sipAddresses,
+            Prelude.Just ("ContactArn" Prelude..= contactArn)
           ]
       )
 
-instance ToPath UpdateContact where
-  toPath = const "/"
+instance Prelude.ToPath UpdateContact where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateContact where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateContact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateContactResponse' smart constructor.
-newtype UpdateContactResponse = UpdateContactResponse'
-  { _ucrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateContactResponse' smart constructor.
+data UpdateContactResponse = UpdateContactResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateContactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateContactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucrrsResponseStatus' - -- | The response status code.
-updateContactResponse ::
-  -- | 'ucrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateContactResponse_httpStatus' - The response's http status code.
+newUpdateContactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateContactResponse
-updateContactResponse pResponseStatus_ =
-  UpdateContactResponse'
-    { _ucrrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateContactResponse pHttpStatus_ =
+  UpdateContactResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ucrrsResponseStatus :: Lens' UpdateContactResponse Int
-ucrrsResponseStatus = lens _ucrrsResponseStatus (\s a -> s {_ucrrsResponseStatus = a})
+-- | The response's http status code.
+updateContactResponse_httpStatus :: Lens.Lens' UpdateContactResponse Prelude.Int
+updateContactResponse_httpStatus = Lens.lens (\UpdateContactResponse' {httpStatus} -> httpStatus) (\s@UpdateContactResponse' {} a -> s {httpStatus = a} :: UpdateContactResponse)
 
-instance NFData UpdateContactResponse
+instance Prelude.NFData UpdateContactResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,60 +19,58 @@
 module Network.AWS.AlexaBusiness.Types.BusinessReportFormat
   ( BusinessReportFormat
       ( ..,
-        CSV,
-        CSVZip
+        BusinessReportFormatCSV,
+        BusinessReportFormatCSVZIP
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BusinessReportFormat
-  = BusinessReportFormat'
-      ( CI
-          Text
-      )
+newtype BusinessReportFormat = BusinessReportFormat'
+  { fromBusinessReportFormat ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CSV :: BusinessReportFormat
-pattern CSV = BusinessReportFormat' "CSV"
+pattern BusinessReportFormatCSV :: BusinessReportFormat
+pattern BusinessReportFormatCSV = BusinessReportFormat' "CSV"
 
-pattern CSVZip :: BusinessReportFormat
-pattern CSVZip = BusinessReportFormat' "CSV_ZIP"
+pattern BusinessReportFormatCSVZIP :: BusinessReportFormat
+pattern BusinessReportFormatCSVZIP = BusinessReportFormat' "CSV_ZIP"
 
 {-# COMPLETE
-  CSV,
-  CSVZip,
+  BusinessReportFormatCSV,
+  BusinessReportFormatCSVZIP,
   BusinessReportFormat'
   #-}
 
-instance FromText BusinessReportFormat where
-  parser = (BusinessReportFormat' . mk) <$> takeText
+instance Prelude.FromText BusinessReportFormat where
+  parser = BusinessReportFormat' Prelude.<$> Prelude.takeText
 
-instance ToText BusinessReportFormat where
-  toText (BusinessReportFormat' ci) = original ci
+instance Prelude.ToText BusinessReportFormat where
+  toText (BusinessReportFormat' x) = x
 
-instance Hashable BusinessReportFormat
+instance Prelude.Hashable BusinessReportFormat
 
-instance NFData BusinessReportFormat
+instance Prelude.NFData BusinessReportFormat
 
-instance ToByteString BusinessReportFormat
+instance Prelude.ToByteString BusinessReportFormat
 
-instance ToQuery BusinessReportFormat
+instance Prelude.ToQuery BusinessReportFormat
 
-instance ToHeader BusinessReportFormat
+instance Prelude.ToHeader BusinessReportFormat
 
-instance ToJSON BusinessReportFormat where
-  toJSON = toJSONText
+instance Prelude.ToJSON BusinessReportFormat where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON BusinessReportFormat where
-  parseJSON = parseJSONText "BusinessReportFormat"
+instance Prelude.FromJSON BusinessReportFormat where
+  parseJSON = Prelude.parseJSONText "BusinessReportFormat"

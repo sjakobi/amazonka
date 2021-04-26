@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,58 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.BusinessReportS3Location where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The S3 location of the output reports.
 --
---
---
--- /See:/ 'businessReportS3Location' smart constructor.
+-- /See:/ 'newBusinessReportS3Location' smart constructor.
 data BusinessReportS3Location = BusinessReportS3Location'
-  { _brslBucketName ::
-      !(Maybe Text),
-    _brslPath ::
-      !(Maybe Text)
+  { -- | The S3 bucket name of the output reports.
+    bucketName :: Prelude.Maybe Prelude.Text,
+    -- | The path of the business report.
+    path :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BusinessReportS3Location' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BusinessReportS3Location' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'brslBucketName' - The S3 bucket name of the output reports.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'brslPath' - The path of the business report.
-businessReportS3Location ::
+-- 'bucketName', 'businessReportS3Location_bucketName' - The S3 bucket name of the output reports.
+--
+-- 'path', 'businessReportS3Location_path' - The path of the business report.
+newBusinessReportS3Location ::
   BusinessReportS3Location
-businessReportS3Location =
+newBusinessReportS3Location =
   BusinessReportS3Location'
-    { _brslBucketName =
-        Nothing,
-      _brslPath = Nothing
+    { bucketName =
+        Prelude.Nothing,
+      path = Prelude.Nothing
     }
 
 -- | The S3 bucket name of the output reports.
-brslBucketName :: Lens' BusinessReportS3Location (Maybe Text)
-brslBucketName = lens _brslBucketName (\s a -> s {_brslBucketName = a})
+businessReportS3Location_bucketName :: Lens.Lens' BusinessReportS3Location (Prelude.Maybe Prelude.Text)
+businessReportS3Location_bucketName = Lens.lens (\BusinessReportS3Location' {bucketName} -> bucketName) (\s@BusinessReportS3Location' {} a -> s {bucketName = a} :: BusinessReportS3Location)
 
 -- | The path of the business report.
-brslPath :: Lens' BusinessReportS3Location (Maybe Text)
-brslPath = lens _brslPath (\s a -> s {_brslPath = a})
+businessReportS3Location_path :: Lens.Lens' BusinessReportS3Location (Prelude.Maybe Prelude.Text)
+businessReportS3Location_path = Lens.lens (\BusinessReportS3Location' {path} -> path) (\s@BusinessReportS3Location' {} a -> s {path = a} :: BusinessReportS3Location)
 
-instance FromJSON BusinessReportS3Location where
+instance Prelude.FromJSON BusinessReportS3Location where
   parseJSON =
-    withObject
+    Prelude.withObject
       "BusinessReportS3Location"
       ( \x ->
           BusinessReportS3Location'
-            <$> (x .:? "BucketName") <*> (x .:? "Path")
+            Prelude.<$> (x Prelude..:? "BucketName")
+            Prelude.<*> (x Prelude..:? "Path")
       )
 
-instance Hashable BusinessReportS3Location
+instance Prelude.Hashable BusinessReportS3Location
 
-instance NFData BusinessReportS3Location
+instance Prelude.NFData BusinessReportS3Location

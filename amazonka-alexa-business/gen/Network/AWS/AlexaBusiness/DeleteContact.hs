@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,116 +24,121 @@
 -- Deletes a contact by the contact ARN.
 module Network.AWS.AlexaBusiness.DeleteContact
   ( -- * Creating a Request
-    deleteContact,
-    DeleteContact,
+    DeleteContact (..),
+    newDeleteContact,
 
     -- * Request Lenses
-    dcContactARN,
+    deleteContact_contactArn,
 
     -- * Destructuring the Response
-    deleteContactResponse,
-    DeleteContactResponse,
+    DeleteContactResponse (..),
+    newDeleteContactResponse,
 
     -- * Response Lenses
-    dcrrsResponseStatus,
+    deleteContactResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteContact' smart constructor.
-newtype DeleteContact = DeleteContact'
-  { _dcContactARN ::
-      Text
+-- | /See:/ 'newDeleteContact' smart constructor.
+data DeleteContact = DeleteContact'
+  { -- | The ARN of the contact to delete.
+    contactArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteContact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteContact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcContactARN' - The ARN of the contact to delete.
-deleteContact ::
-  -- | 'dcContactARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'contactArn', 'deleteContact_contactArn' - The ARN of the contact to delete.
+newDeleteContact ::
+  -- | 'contactArn'
+  Prelude.Text ->
   DeleteContact
-deleteContact pContactARN_ =
-  DeleteContact' {_dcContactARN = pContactARN_}
+newDeleteContact pContactArn_ =
+  DeleteContact' {contactArn = pContactArn_}
 
 -- | The ARN of the contact to delete.
-dcContactARN :: Lens' DeleteContact Text
-dcContactARN = lens _dcContactARN (\s a -> s {_dcContactARN = a})
+deleteContact_contactArn :: Lens.Lens' DeleteContact Prelude.Text
+deleteContact_contactArn = Lens.lens (\DeleteContact' {contactArn} -> contactArn) (\s@DeleteContact' {} a -> s {contactArn = a} :: DeleteContact)
 
-instance AWSRequest DeleteContact where
+instance Prelude.AWSRequest DeleteContact where
   type Rs DeleteContact = DeleteContactResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteContactResponse' <$> (pure (fromEnum s))
+          DeleteContactResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteContact
+instance Prelude.Hashable DeleteContact
 
-instance NFData DeleteContact
+instance Prelude.NFData DeleteContact
 
-instance ToHeaders DeleteContact where
+instance Prelude.ToHeaders DeleteContact where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.DeleteContact" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.DeleteContact" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteContact where
+instance Prelude.ToJSON DeleteContact where
   toJSON DeleteContact' {..} =
-    object
-      (catMaybes [Just ("ContactArn" .= _dcContactARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ContactArn" Prelude..= contactArn)]
+      )
 
-instance ToPath DeleteContact where
-  toPath = const "/"
+instance Prelude.ToPath DeleteContact where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteContact where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteContact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteContactResponse' smart constructor.
-newtype DeleteContactResponse = DeleteContactResponse'
-  { _dcrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteContactResponse' smart constructor.
+data DeleteContactResponse = DeleteContactResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteContactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteContactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcrrsResponseStatus' - -- | The response status code.
-deleteContactResponse ::
-  -- | 'dcrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteContactResponse_httpStatus' - The response's http status code.
+newDeleteContactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteContactResponse
-deleteContactResponse pResponseStatus_ =
-  DeleteContactResponse'
-    { _dcrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteContactResponse pHttpStatus_ =
+  DeleteContactResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-dcrrsResponseStatus :: Lens' DeleteContactResponse Int
-dcrrsResponseStatus = lens _dcrrsResponseStatus (\s a -> s {_dcrrsResponseStatus = a})
+-- | The response's http status code.
+deleteContactResponse_httpStatus :: Lens.Lens' DeleteContactResponse Prelude.Int
+deleteContactResponse_httpStatus = Lens.lens (\DeleteContactResponse' {httpStatus} -> httpStatus) (\s@DeleteContactResponse' {} a -> s {httpStatus = a} :: DeleteContactResponse)
 
-instance NFData DeleteContactResponse
+instance Prelude.NFData DeleteContactResponse

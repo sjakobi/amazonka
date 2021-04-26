@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,51 +19,53 @@
 module Network.AWS.AlexaBusiness.Types.NetworkEapMethod
   ( NetworkEapMethod
       ( ..,
-        EapTLS
+        NetworkEapMethodEAPTLS
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data NetworkEapMethod = NetworkEapMethod' (CI Text)
+newtype NetworkEapMethod = NetworkEapMethod'
+  { fromNetworkEapMethod ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EapTLS :: NetworkEapMethod
-pattern EapTLS = NetworkEapMethod' "EAP_TLS"
+pattern NetworkEapMethodEAPTLS :: NetworkEapMethod
+pattern NetworkEapMethodEAPTLS = NetworkEapMethod' "EAP_TLS"
 
 {-# COMPLETE
-  EapTLS,
+  NetworkEapMethodEAPTLS,
   NetworkEapMethod'
   #-}
 
-instance FromText NetworkEapMethod where
-  parser = (NetworkEapMethod' . mk) <$> takeText
+instance Prelude.FromText NetworkEapMethod where
+  parser = NetworkEapMethod' Prelude.<$> Prelude.takeText
 
-instance ToText NetworkEapMethod where
-  toText (NetworkEapMethod' ci) = original ci
+instance Prelude.ToText NetworkEapMethod where
+  toText (NetworkEapMethod' x) = x
 
-instance Hashable NetworkEapMethod
+instance Prelude.Hashable NetworkEapMethod
 
-instance NFData NetworkEapMethod
+instance Prelude.NFData NetworkEapMethod
 
-instance ToByteString NetworkEapMethod
+instance Prelude.ToByteString NetworkEapMethod
 
-instance ToQuery NetworkEapMethod
+instance Prelude.ToQuery NetworkEapMethod
 
-instance ToHeader NetworkEapMethod
+instance Prelude.ToHeader NetworkEapMethod
 
-instance ToJSON NetworkEapMethod where
-  toJSON = toJSONText
+instance Prelude.ToJSON NetworkEapMethod where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON NetworkEapMethod where
-  parseJSON = parseJSONText "NetworkEapMethod"
+instance Prelude.FromJSON NetworkEapMethod where
+  parseJSON = Prelude.parseJSONText "NetworkEapMethod"

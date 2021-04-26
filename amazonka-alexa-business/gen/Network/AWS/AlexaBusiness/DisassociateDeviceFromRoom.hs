@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,132 +21,137 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates a device from its current room. The device continues to be connected to the Wi-Fi network and is still registered to the account. The device settings and skills are removed from the room.
+-- Disassociates a device from its current room. The device continues to be
+-- connected to the Wi-Fi network and is still registered to the account.
+-- The device settings and skills are removed from the room.
 module Network.AWS.AlexaBusiness.DisassociateDeviceFromRoom
   ( -- * Creating a Request
-    disassociateDeviceFromRoom,
-    DisassociateDeviceFromRoom,
+    DisassociateDeviceFromRoom (..),
+    newDisassociateDeviceFromRoom,
 
     -- * Request Lenses
-    ddfrDeviceARN,
+    disassociateDeviceFromRoom_deviceArn,
 
     -- * Destructuring the Response
-    disassociateDeviceFromRoomResponse,
-    DisassociateDeviceFromRoomResponse,
+    DisassociateDeviceFromRoomResponse (..),
+    newDisassociateDeviceFromRoomResponse,
 
     -- * Response Lenses
-    ddfrrrsResponseStatus,
+    disassociateDeviceFromRoomResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'disassociateDeviceFromRoom' smart constructor.
-newtype DisassociateDeviceFromRoom = DisassociateDeviceFromRoom'
-  { _ddfrDeviceARN ::
-      Maybe Text
+-- | /See:/ 'newDisassociateDeviceFromRoom' smart constructor.
+data DisassociateDeviceFromRoom = DisassociateDeviceFromRoom'
+  { -- | The ARN of the device to disassociate from a room. Required.
+    deviceArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateDeviceFromRoom' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateDeviceFromRoom' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddfrDeviceARN' - The ARN of the device to disassociate from a room. Required.
-disassociateDeviceFromRoom ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deviceArn', 'disassociateDeviceFromRoom_deviceArn' - The ARN of the device to disassociate from a room. Required.
+newDisassociateDeviceFromRoom ::
   DisassociateDeviceFromRoom
-disassociateDeviceFromRoom =
+newDisassociateDeviceFromRoom =
   DisassociateDeviceFromRoom'
-    { _ddfrDeviceARN =
-        Nothing
+    { deviceArn =
+        Prelude.Nothing
     }
 
 -- | The ARN of the device to disassociate from a room. Required.
-ddfrDeviceARN :: Lens' DisassociateDeviceFromRoom (Maybe Text)
-ddfrDeviceARN = lens _ddfrDeviceARN (\s a -> s {_ddfrDeviceARN = a})
+disassociateDeviceFromRoom_deviceArn :: Lens.Lens' DisassociateDeviceFromRoom (Prelude.Maybe Prelude.Text)
+disassociateDeviceFromRoom_deviceArn = Lens.lens (\DisassociateDeviceFromRoom' {deviceArn} -> deviceArn) (\s@DisassociateDeviceFromRoom' {} a -> s {deviceArn = a} :: DisassociateDeviceFromRoom)
 
-instance AWSRequest DisassociateDeviceFromRoom where
+instance
+  Prelude.AWSRequest
+    DisassociateDeviceFromRoom
+  where
   type
     Rs DisassociateDeviceFromRoom =
       DisassociateDeviceFromRoomResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DisassociateDeviceFromRoomResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DisassociateDeviceFromRoom
+instance Prelude.Hashable DisassociateDeviceFromRoom
 
-instance NFData DisassociateDeviceFromRoom
+instance Prelude.NFData DisassociateDeviceFromRoom
 
-instance ToHeaders DisassociateDeviceFromRoom where
+instance Prelude.ToHeaders DisassociateDeviceFromRoom where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.DisassociateDeviceFromRoom" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.DisassociateDeviceFromRoom" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DisassociateDeviceFromRoom where
+instance Prelude.ToJSON DisassociateDeviceFromRoom where
   toJSON DisassociateDeviceFromRoom' {..} =
-    object
-      (catMaybes [("DeviceArn" .=) <$> _ddfrDeviceARN])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("DeviceArn" Prelude..=) Prelude.<$> deviceArn]
+      )
 
-instance ToPath DisassociateDeviceFromRoom where
-  toPath = const "/"
+instance Prelude.ToPath DisassociateDeviceFromRoom where
+  toPath = Prelude.const "/"
 
-instance ToQuery DisassociateDeviceFromRoom where
-  toQuery = const mempty
+instance Prelude.ToQuery DisassociateDeviceFromRoom where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'disassociateDeviceFromRoomResponse' smart constructor.
-newtype DisassociateDeviceFromRoomResponse = DisassociateDeviceFromRoomResponse'
-  { _ddfrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDisassociateDeviceFromRoomResponse' smart constructor.
+data DisassociateDeviceFromRoomResponse = DisassociateDeviceFromRoomResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DisassociateDeviceFromRoomResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DisassociateDeviceFromRoomResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddfrrrsResponseStatus' - -- | The response status code.
-disassociateDeviceFromRoomResponse ::
-  -- | 'ddfrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'disassociateDeviceFromRoomResponse_httpStatus' - The response's http status code.
+newDisassociateDeviceFromRoomResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DisassociateDeviceFromRoomResponse
-disassociateDeviceFromRoomResponse pResponseStatus_ =
+newDisassociateDeviceFromRoomResponse pHttpStatus_ =
   DisassociateDeviceFromRoomResponse'
-    { _ddfrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ddfrrrsResponseStatus :: Lens' DisassociateDeviceFromRoomResponse Int
-ddfrrrsResponseStatus = lens _ddfrrrsResponseStatus (\s a -> s {_ddfrrrsResponseStatus = a})
+-- | The response's http status code.
+disassociateDeviceFromRoomResponse_httpStatus :: Lens.Lens' DisassociateDeviceFromRoomResponse Prelude.Int
+disassociateDeviceFromRoomResponse_httpStatus = Lens.lens (\DisassociateDeviceFromRoomResponse' {httpStatus} -> httpStatus) (\s@DisassociateDeviceFromRoomResponse' {} a -> s {httpStatus = a} :: DisassociateDeviceFromRoomResponse)
 
-instance NFData DisassociateDeviceFromRoomResponse
+instance
+  Prelude.NFData
+    DisassociateDeviceFromRoomResponse

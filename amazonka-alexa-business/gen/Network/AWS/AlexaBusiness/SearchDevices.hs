@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,195 +23,253 @@
 --
 -- Searches devices and lists the ones that meet a set of filter criteria.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.AlexaBusiness.SearchDevices
   ( -- * Creating a Request
-    searchDevices,
-    SearchDevices,
+    SearchDevices (..),
+    newSearchDevices,
 
     -- * Request Lenses
-    sdNextToken,
-    sdSortCriteria,
-    sdMaxResults,
-    sdFilters,
+    searchDevices_nextToken,
+    searchDevices_sortCriteria,
+    searchDevices_maxResults,
+    searchDevices_filters,
 
     -- * Destructuring the Response
-    searchDevicesResponse,
-    SearchDevicesResponse,
+    SearchDevicesResponse (..),
+    newSearchDevicesResponse,
 
     -- * Response Lenses
-    sdrrsNextToken,
-    sdrrsDevices,
-    sdrrsTotalCount,
-    sdrrsResponseStatus,
+    searchDevicesResponse_nextToken,
+    searchDevicesResponse_devices,
+    searchDevicesResponse_totalCount,
+    searchDevicesResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.DeviceData
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'searchDevices' smart constructor.
+-- | /See:/ 'newSearchDevices' smart constructor.
 data SearchDevices = SearchDevices'
-  { _sdNextToken ::
-      !(Maybe Text),
-    _sdSortCriteria :: !(Maybe [Sort]),
-    _sdMaxResults :: !(Maybe Nat),
-    _sdFilters :: !(Maybe [Filter])
+  { -- | An optional token returned from a prior request. Use this token for
+    -- pagination of results from this action. If this parameter is specified,
+    -- the response includes only results beyond the token, up to the value
+    -- specified by @MaxResults@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The sort order to use in listing the specified set of devices. Supported
+    -- sort keys are DeviceName, DeviceStatus, RoomName, DeviceType,
+    -- DeviceSerialNumber, ConnectionStatus, NetworkProfileName,
+    -- NetworkProfileArn, Feature, and FailureCode.
+    sortCriteria :: Prelude.Maybe [Sort],
+    -- | The maximum number of results to include in the response. If more
+    -- results exist than the specified @MaxResults@ value, a token is included
+    -- in the response so that the remaining results can be retrieved.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The filters to use to list a specified set of devices. Supported filter
+    -- keys are DeviceName, DeviceStatus, DeviceStatusDetailCode, RoomName,
+    -- DeviceType, DeviceSerialNumber, UnassociatedOnly, ConnectionStatus
+    -- (ONLINE and OFFLINE), NetworkProfileName, NetworkProfileArn, Feature,
+    -- and FailureCode.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchDevices' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchDevices' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdNextToken' - An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdSortCriteria' - The sort order to use in listing the specified set of devices. Supported sort keys are DeviceName, DeviceStatus, RoomName, DeviceType, DeviceSerialNumber, ConnectionStatus, NetworkProfileName, NetworkProfileArn, Feature, and FailureCode.
+-- 'nextToken', 'searchDevices_nextToken' - An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
 --
--- * 'sdMaxResults' - The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved.
+-- 'sortCriteria', 'searchDevices_sortCriteria' - The sort order to use in listing the specified set of devices. Supported
+-- sort keys are DeviceName, DeviceStatus, RoomName, DeviceType,
+-- DeviceSerialNumber, ConnectionStatus, NetworkProfileName,
+-- NetworkProfileArn, Feature, and FailureCode.
 --
--- * 'sdFilters' - The filters to use to list a specified set of devices. Supported filter keys are DeviceName, DeviceStatus, DeviceStatusDetailCode, RoomName, DeviceType, DeviceSerialNumber, UnassociatedOnly, ConnectionStatus (ONLINE and OFFLINE), NetworkProfileName, NetworkProfileArn, Feature, and FailureCode.
-searchDevices ::
+-- 'maxResults', 'searchDevices_maxResults' - The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+--
+-- 'filters', 'searchDevices_filters' - The filters to use to list a specified set of devices. Supported filter
+-- keys are DeviceName, DeviceStatus, DeviceStatusDetailCode, RoomName,
+-- DeviceType, DeviceSerialNumber, UnassociatedOnly, ConnectionStatus
+-- (ONLINE and OFFLINE), NetworkProfileName, NetworkProfileArn, Feature,
+-- and FailureCode.
+newSearchDevices ::
   SearchDevices
-searchDevices =
+newSearchDevices =
   SearchDevices'
-    { _sdNextToken = Nothing,
-      _sdSortCriteria = Nothing,
-      _sdMaxResults = Nothing,
-      _sdFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      sortCriteria = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ .
-sdNextToken :: Lens' SearchDevices (Maybe Text)
-sdNextToken = lens _sdNextToken (\s a -> s {_sdNextToken = a})
+-- | An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@.
+searchDevices_nextToken :: Lens.Lens' SearchDevices (Prelude.Maybe Prelude.Text)
+searchDevices_nextToken = Lens.lens (\SearchDevices' {nextToken} -> nextToken) (\s@SearchDevices' {} a -> s {nextToken = a} :: SearchDevices)
 
--- | The sort order to use in listing the specified set of devices. Supported sort keys are DeviceName, DeviceStatus, RoomName, DeviceType, DeviceSerialNumber, ConnectionStatus, NetworkProfileName, NetworkProfileArn, Feature, and FailureCode.
-sdSortCriteria :: Lens' SearchDevices [Sort]
-sdSortCriteria = lens _sdSortCriteria (\s a -> s {_sdSortCriteria = a}) . _Default . _Coerce
+-- | The sort order to use in listing the specified set of devices. Supported
+-- sort keys are DeviceName, DeviceStatus, RoomName, DeviceType,
+-- DeviceSerialNumber, ConnectionStatus, NetworkProfileName,
+-- NetworkProfileArn, Feature, and FailureCode.
+searchDevices_sortCriteria :: Lens.Lens' SearchDevices (Prelude.Maybe [Sort])
+searchDevices_sortCriteria = Lens.lens (\SearchDevices' {sortCriteria} -> sortCriteria) (\s@SearchDevices' {} a -> s {sortCriteria = a} :: SearchDevices) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved.
-sdMaxResults :: Lens' SearchDevices (Maybe Natural)
-sdMaxResults = lens _sdMaxResults (\s a -> s {_sdMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+searchDevices_maxResults :: Lens.Lens' SearchDevices (Prelude.Maybe Prelude.Natural)
+searchDevices_maxResults = Lens.lens (\SearchDevices' {maxResults} -> maxResults) (\s@SearchDevices' {} a -> s {maxResults = a} :: SearchDevices) Prelude.. Lens.mapping Prelude._Nat
 
--- | The filters to use to list a specified set of devices. Supported filter keys are DeviceName, DeviceStatus, DeviceStatusDetailCode, RoomName, DeviceType, DeviceSerialNumber, UnassociatedOnly, ConnectionStatus (ONLINE and OFFLINE), NetworkProfileName, NetworkProfileArn, Feature, and FailureCode.
-sdFilters :: Lens' SearchDevices [Filter]
-sdFilters = lens _sdFilters (\s a -> s {_sdFilters = a}) . _Default . _Coerce
+-- | The filters to use to list a specified set of devices. Supported filter
+-- keys are DeviceName, DeviceStatus, DeviceStatusDetailCode, RoomName,
+-- DeviceType, DeviceSerialNumber, UnassociatedOnly, ConnectionStatus
+-- (ONLINE and OFFLINE), NetworkProfileName, NetworkProfileArn, Feature,
+-- and FailureCode.
+searchDevices_filters :: Lens.Lens' SearchDevices (Prelude.Maybe [Filter])
+searchDevices_filters = Lens.lens (\SearchDevices' {filters} -> filters) (\s@SearchDevices' {} a -> s {filters = a} :: SearchDevices) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager SearchDevices where
+instance Pager.AWSPager SearchDevices where
   page rq rs
-    | stop (rs ^. sdrrsNextToken) = Nothing
-    | stop (rs ^. sdrrsDevices) = Nothing
-    | otherwise =
-      Just $ rq & sdNextToken .~ rs ^. sdrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? searchDevicesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? searchDevicesResponse_devices Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& searchDevices_nextToken
+          Lens..~ rs
+          Lens.^? searchDevicesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest SearchDevices where
+instance Prelude.AWSRequest SearchDevices where
   type Rs SearchDevices = SearchDevicesResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SearchDevicesResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "Devices" .!@ mempty)
-            <*> (x .?> "TotalCount")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "Devices" Prelude..!@ Prelude.mempty)
+            Prelude.<*> (x Prelude..?> "TotalCount")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchDevices
+instance Prelude.Hashable SearchDevices
 
-instance NFData SearchDevices
+instance Prelude.NFData SearchDevices
 
-instance ToHeaders SearchDevices where
+instance Prelude.ToHeaders SearchDevices where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.SearchDevices" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.SearchDevices" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SearchDevices where
+instance Prelude.ToJSON SearchDevices where
   toJSON SearchDevices' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _sdNextToken,
-            ("SortCriteria" .=) <$> _sdSortCriteria,
-            ("MaxResults" .=) <$> _sdMaxResults,
-            ("Filters" .=) <$> _sdFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("SortCriteria" Prelude..=) Prelude.<$> sortCriteria,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath SearchDevices where
-  toPath = const "/"
+instance Prelude.ToPath SearchDevices where
+  toPath = Prelude.const "/"
 
-instance ToQuery SearchDevices where
-  toQuery = const mempty
+instance Prelude.ToQuery SearchDevices where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'searchDevicesResponse' smart constructor.
+-- | /See:/ 'newSearchDevicesResponse' smart constructor.
 data SearchDevicesResponse = SearchDevicesResponse'
-  { _sdrrsNextToken ::
-      !(Maybe Text),
-    _sdrrsDevices ::
-      !(Maybe [DeviceData]),
-    _sdrrsTotalCount ::
-      !(Maybe Int),
-    _sdrrsResponseStatus ::
-      !Int
+  { -- | The token returned to indicate that there is more data available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The devices that meet the specified set of filter criteria, in sort
+    -- order.
+    devices :: Prelude.Maybe [DeviceData],
+    -- | The total number of devices returned.
+    totalCount :: Prelude.Maybe Prelude.Int,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchDevicesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchDevicesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdrrsNextToken' - The token returned to indicate that there is more data available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdrrsDevices' - The devices that meet the specified set of filter criteria, in sort order.
+-- 'nextToken', 'searchDevicesResponse_nextToken' - The token returned to indicate that there is more data available.
 --
--- * 'sdrrsTotalCount' - The total number of devices returned.
+-- 'devices', 'searchDevicesResponse_devices' - The devices that meet the specified set of filter criteria, in sort
+-- order.
 --
--- * 'sdrrsResponseStatus' - -- | The response status code.
-searchDevicesResponse ::
-  -- | 'sdrrsResponseStatus'
-  Int ->
+-- 'totalCount', 'searchDevicesResponse_totalCount' - The total number of devices returned.
+--
+-- 'httpStatus', 'searchDevicesResponse_httpStatus' - The response's http status code.
+newSearchDevicesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SearchDevicesResponse
-searchDevicesResponse pResponseStatus_ =
+newSearchDevicesResponse pHttpStatus_ =
   SearchDevicesResponse'
-    { _sdrrsNextToken = Nothing,
-      _sdrrsDevices = Nothing,
-      _sdrrsTotalCount = Nothing,
-      _sdrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      devices = Prelude.Nothing,
+      totalCount = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token returned to indicate that there is more data available.
-sdrrsNextToken :: Lens' SearchDevicesResponse (Maybe Text)
-sdrrsNextToken = lens _sdrrsNextToken (\s a -> s {_sdrrsNextToken = a})
+searchDevicesResponse_nextToken :: Lens.Lens' SearchDevicesResponse (Prelude.Maybe Prelude.Text)
+searchDevicesResponse_nextToken = Lens.lens (\SearchDevicesResponse' {nextToken} -> nextToken) (\s@SearchDevicesResponse' {} a -> s {nextToken = a} :: SearchDevicesResponse)
 
--- | The devices that meet the specified set of filter criteria, in sort order.
-sdrrsDevices :: Lens' SearchDevicesResponse [DeviceData]
-sdrrsDevices = lens _sdrrsDevices (\s a -> s {_sdrrsDevices = a}) . _Default . _Coerce
+-- | The devices that meet the specified set of filter criteria, in sort
+-- order.
+searchDevicesResponse_devices :: Lens.Lens' SearchDevicesResponse (Prelude.Maybe [DeviceData])
+searchDevicesResponse_devices = Lens.lens (\SearchDevicesResponse' {devices} -> devices) (\s@SearchDevicesResponse' {} a -> s {devices = a} :: SearchDevicesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The total number of devices returned.
-sdrrsTotalCount :: Lens' SearchDevicesResponse (Maybe Int)
-sdrrsTotalCount = lens _sdrrsTotalCount (\s a -> s {_sdrrsTotalCount = a})
+searchDevicesResponse_totalCount :: Lens.Lens' SearchDevicesResponse (Prelude.Maybe Prelude.Int)
+searchDevicesResponse_totalCount = Lens.lens (\SearchDevicesResponse' {totalCount} -> totalCount) (\s@SearchDevicesResponse' {} a -> s {totalCount = a} :: SearchDevicesResponse)
 
--- | -- | The response status code.
-sdrrsResponseStatus :: Lens' SearchDevicesResponse Int
-sdrrsResponseStatus = lens _sdrrsResponseStatus (\s a -> s {_sdrrsResponseStatus = a})
+-- | The response's http status code.
+searchDevicesResponse_httpStatus :: Lens.Lens' SearchDevicesResponse Prelude.Int
+searchDevicesResponse_httpStatus = Lens.lens (\SearchDevicesResponse' {httpStatus} -> httpStatus) (\s@SearchDevicesResponse' {} a -> s {httpStatus = a} :: SearchDevicesResponse)
 
-instance NFData SearchDevicesResponse
+instance Prelude.NFData SearchDevicesResponse

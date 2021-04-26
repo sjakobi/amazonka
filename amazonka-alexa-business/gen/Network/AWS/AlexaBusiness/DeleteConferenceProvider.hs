@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,137 +24,135 @@
 -- Deletes a conference provider.
 module Network.AWS.AlexaBusiness.DeleteConferenceProvider
   ( -- * Creating a Request
-    deleteConferenceProvider,
-    DeleteConferenceProvider,
+    DeleteConferenceProvider (..),
+    newDeleteConferenceProvider,
 
     -- * Request Lenses
-    dcpConferenceProviderARN,
+    deleteConferenceProvider_conferenceProviderArn,
 
     -- * Destructuring the Response
-    deleteConferenceProviderResponse,
-    DeleteConferenceProviderResponse,
+    DeleteConferenceProviderResponse (..),
+    newDeleteConferenceProviderResponse,
 
     -- * Response Lenses
-    dcprrsResponseStatus,
+    deleteConferenceProviderResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteConferenceProvider' smart constructor.
-newtype DeleteConferenceProvider = DeleteConferenceProvider'
-  { _dcpConferenceProviderARN ::
-      Text
+-- | /See:/ 'newDeleteConferenceProvider' smart constructor.
+data DeleteConferenceProvider = DeleteConferenceProvider'
+  { -- | The ARN of the conference provider.
+    conferenceProviderArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConferenceProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConferenceProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcpConferenceProviderARN' - The ARN of the conference provider.
-deleteConferenceProvider ::
-  -- | 'dcpConferenceProviderARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'conferenceProviderArn', 'deleteConferenceProvider_conferenceProviderArn' - The ARN of the conference provider.
+newDeleteConferenceProvider ::
+  -- | 'conferenceProviderArn'
+  Prelude.Text ->
   DeleteConferenceProvider
-deleteConferenceProvider pConferenceProviderARN_ =
+newDeleteConferenceProvider pConferenceProviderArn_ =
   DeleteConferenceProvider'
-    { _dcpConferenceProviderARN =
-        pConferenceProviderARN_
+    { conferenceProviderArn =
+        pConferenceProviderArn_
     }
 
 -- | The ARN of the conference provider.
-dcpConferenceProviderARN :: Lens' DeleteConferenceProvider Text
-dcpConferenceProviderARN = lens _dcpConferenceProviderARN (\s a -> s {_dcpConferenceProviderARN = a})
+deleteConferenceProvider_conferenceProviderArn :: Lens.Lens' DeleteConferenceProvider Prelude.Text
+deleteConferenceProvider_conferenceProviderArn = Lens.lens (\DeleteConferenceProvider' {conferenceProviderArn} -> conferenceProviderArn) (\s@DeleteConferenceProvider' {} a -> s {conferenceProviderArn = a} :: DeleteConferenceProvider)
 
-instance AWSRequest DeleteConferenceProvider where
+instance Prelude.AWSRequest DeleteConferenceProvider where
   type
     Rs DeleteConferenceProvider =
       DeleteConferenceProviderResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           DeleteConferenceProviderResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteConferenceProvider
+instance Prelude.Hashable DeleteConferenceProvider
 
-instance NFData DeleteConferenceProvider
+instance Prelude.NFData DeleteConferenceProvider
 
-instance ToHeaders DeleteConferenceProvider where
+instance Prelude.ToHeaders DeleteConferenceProvider where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.DeleteConferenceProvider" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.DeleteConferenceProvider" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteConferenceProvider where
+instance Prelude.ToJSON DeleteConferenceProvider where
   toJSON DeleteConferenceProvider' {..} =
-    object
-      ( catMaybes
-          [ Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
               ( "ConferenceProviderArn"
-                  .= _dcpConferenceProviderARN
+                  Prelude..= conferenceProviderArn
               )
           ]
       )
 
-instance ToPath DeleteConferenceProvider where
-  toPath = const "/"
+instance Prelude.ToPath DeleteConferenceProvider where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteConferenceProvider where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteConferenceProvider where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteConferenceProviderResponse' smart constructor.
-newtype DeleteConferenceProviderResponse = DeleteConferenceProviderResponse'
-  { _dcprrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteConferenceProviderResponse' smart constructor.
+data DeleteConferenceProviderResponse = DeleteConferenceProviderResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConferenceProviderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConferenceProviderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcprrsResponseStatus' - -- | The response status code.
-deleteConferenceProviderResponse ::
-  -- | 'dcprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteConferenceProviderResponse_httpStatus' - The response's http status code.
+newDeleteConferenceProviderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteConferenceProviderResponse
-deleteConferenceProviderResponse pResponseStatus_ =
+newDeleteConferenceProviderResponse pHttpStatus_ =
   DeleteConferenceProviderResponse'
-    { _dcprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dcprrsResponseStatus :: Lens' DeleteConferenceProviderResponse Int
-dcprrsResponseStatus = lens _dcprrsResponseStatus (\s a -> s {_dcprrsResponseStatus = a})
+-- | The response's http status code.
+deleteConferenceProviderResponse_httpStatus :: Lens.Lens' DeleteConferenceProviderResponse Prelude.Int
+deleteConferenceProviderResponse_httpStatus = Lens.lens (\DeleteConferenceProviderResponse' {httpStatus} -> httpStatus) (\s@DeleteConferenceProviderResponse' {} a -> s {httpStatus = a} :: DeleteConferenceProviderResponse)
 
-instance NFData DeleteConferenceProviderResponse
+instance
+  Prelude.NFData
+    DeleteConferenceProviderResponse

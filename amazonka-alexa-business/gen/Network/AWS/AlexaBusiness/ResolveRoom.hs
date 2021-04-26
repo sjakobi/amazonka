@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,162 +21,188 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Determines the details for the room from which a skill request was invoked. This operation is used by skill developers.
+-- Determines the details for the room from which a skill request was
+-- invoked. This operation is used by skill developers.
 --
---
--- To query ResolveRoom from an Alexa skill, the skill ID needs to be authorized. When the skill is using an AWS Lambda function, the skill is automatically authorized when you publish your skill as a private skill to your AWS account. Skills that are hosted using a custom web service must be manually authorized. To get your skill authorized, contact AWS Support with your AWS account ID that queries the ResolveRoom API and skill ID.
+-- To query ResolveRoom from an Alexa skill, the skill ID needs to be
+-- authorized. When the skill is using an AWS Lambda function, the skill is
+-- automatically authorized when you publish your skill as a private skill
+-- to your AWS account. Skills that are hosted using a custom web service
+-- must be manually authorized. To get your skill authorized, contact AWS
+-- Support with your AWS account ID that queries the ResolveRoom API and
+-- skill ID.
 module Network.AWS.AlexaBusiness.ResolveRoom
   ( -- * Creating a Request
-    resolveRoom,
-    ResolveRoom,
+    ResolveRoom (..),
+    newResolveRoom,
 
     -- * Request Lenses
-    rrUserId,
-    rrSkillId,
+    resolveRoom_userId,
+    resolveRoom_skillId,
 
     -- * Destructuring the Response
-    resolveRoomResponse,
-    ResolveRoomResponse,
+    ResolveRoomResponse (..),
+    newResolveRoomResponse,
 
     -- * Response Lenses
-    rrrrsRoomSkillParameters,
-    rrrrsRoomARN,
-    rrrrsRoomName,
-    rrrrsResponseStatus,
+    resolveRoomResponse_roomSkillParameters,
+    resolveRoomResponse_roomArn,
+    resolveRoomResponse_roomName,
+    resolveRoomResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.RoomSkillParameter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'resolveRoom' smart constructor.
+-- | /See:/ 'newResolveRoom' smart constructor.
 data ResolveRoom = ResolveRoom'
-  { _rrUserId :: !Text,
-    _rrSkillId :: !Text
+  { -- | The ARN of the user. Required.
+    userId :: Prelude.Text,
+    -- | The ARN of the skill that was requested. Required.
+    skillId :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResolveRoom' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResolveRoom' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrUserId' - The ARN of the user. Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrSkillId' - The ARN of the skill that was requested. Required.
-resolveRoom ::
-  -- | 'rrUserId'
-  Text ->
-  -- | 'rrSkillId'
-  Text ->
+-- 'userId', 'resolveRoom_userId' - The ARN of the user. Required.
+--
+-- 'skillId', 'resolveRoom_skillId' - The ARN of the skill that was requested. Required.
+newResolveRoom ::
+  -- | 'userId'
+  Prelude.Text ->
+  -- | 'skillId'
+  Prelude.Text ->
   ResolveRoom
-resolveRoom pUserId_ pSkillId_ =
+newResolveRoom pUserId_ pSkillId_ =
   ResolveRoom'
-    { _rrUserId = pUserId_,
-      _rrSkillId = pSkillId_
+    { userId = pUserId_,
+      skillId = pSkillId_
     }
 
 -- | The ARN of the user. Required.
-rrUserId :: Lens' ResolveRoom Text
-rrUserId = lens _rrUserId (\s a -> s {_rrUserId = a})
+resolveRoom_userId :: Lens.Lens' ResolveRoom Prelude.Text
+resolveRoom_userId = Lens.lens (\ResolveRoom' {userId} -> userId) (\s@ResolveRoom' {} a -> s {userId = a} :: ResolveRoom)
 
 -- | The ARN of the skill that was requested. Required.
-rrSkillId :: Lens' ResolveRoom Text
-rrSkillId = lens _rrSkillId (\s a -> s {_rrSkillId = a})
+resolveRoom_skillId :: Lens.Lens' ResolveRoom Prelude.Text
+resolveRoom_skillId = Lens.lens (\ResolveRoom' {skillId} -> skillId) (\s@ResolveRoom' {} a -> s {skillId = a} :: ResolveRoom)
 
-instance AWSRequest ResolveRoom where
+instance Prelude.AWSRequest ResolveRoom where
   type Rs ResolveRoom = ResolveRoomResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ResolveRoomResponse'
-            <$> (x .?> "RoomSkillParameters" .!@ mempty)
-            <*> (x .?> "RoomArn")
-            <*> (x .?> "RoomName")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "RoomSkillParameters"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "RoomArn")
+            Prelude.<*> (x Prelude..?> "RoomName")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ResolveRoom
+instance Prelude.Hashable ResolveRoom
 
-instance NFData ResolveRoom
+instance Prelude.NFData ResolveRoom
 
-instance ToHeaders ResolveRoom where
+instance Prelude.ToHeaders ResolveRoom where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.ResolveRoom" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.ResolveRoom" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ResolveRoom where
+instance Prelude.ToJSON ResolveRoom where
   toJSON ResolveRoom' {..} =
-    object
-      ( catMaybes
-          [ Just ("UserId" .= _rrUserId),
-            Just ("SkillId" .= _rrSkillId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("UserId" Prelude..= userId),
+            Prelude.Just ("SkillId" Prelude..= skillId)
           ]
       )
 
-instance ToPath ResolveRoom where
-  toPath = const "/"
+instance Prelude.ToPath ResolveRoom where
+  toPath = Prelude.const "/"
 
-instance ToQuery ResolveRoom where
-  toQuery = const mempty
+instance Prelude.ToQuery ResolveRoom where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'resolveRoomResponse' smart constructor.
+-- | /See:/ 'newResolveRoomResponse' smart constructor.
 data ResolveRoomResponse = ResolveRoomResponse'
-  { _rrrrsRoomSkillParameters ::
-      !(Maybe [RoomSkillParameter]),
-    _rrrrsRoomARN :: !(Maybe Text),
-    _rrrrsRoomName :: !(Maybe Text),
-    _rrrrsResponseStatus :: !Int
+  { -- | Response to get the room profile request. Required.
+    roomSkillParameters :: Prelude.Maybe [RoomSkillParameter],
+    -- | The ARN of the room from which the skill request was invoked.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the room from which the skill request was invoked.
+    roomName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ResolveRoomResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ResolveRoomResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrrrsRoomSkillParameters' - Response to get the room profile request. Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrrrsRoomARN' - The ARN of the room from which the skill request was invoked.
+-- 'roomSkillParameters', 'resolveRoomResponse_roomSkillParameters' - Response to get the room profile request. Required.
 --
--- * 'rrrrsRoomName' - The name of the room from which the skill request was invoked.
+-- 'roomArn', 'resolveRoomResponse_roomArn' - The ARN of the room from which the skill request was invoked.
 --
--- * 'rrrrsResponseStatus' - -- | The response status code.
-resolveRoomResponse ::
-  -- | 'rrrrsResponseStatus'
-  Int ->
+-- 'roomName', 'resolveRoomResponse_roomName' - The name of the room from which the skill request was invoked.
+--
+-- 'httpStatus', 'resolveRoomResponse_httpStatus' - The response's http status code.
+newResolveRoomResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ResolveRoomResponse
-resolveRoomResponse pResponseStatus_ =
+newResolveRoomResponse pHttpStatus_ =
   ResolveRoomResponse'
-    { _rrrrsRoomSkillParameters =
-        Nothing,
-      _rrrrsRoomARN = Nothing,
-      _rrrrsRoomName = Nothing,
-      _rrrrsResponseStatus = pResponseStatus_
+    { roomSkillParameters =
+        Prelude.Nothing,
+      roomArn = Prelude.Nothing,
+      roomName = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | Response to get the room profile request. Required.
-rrrrsRoomSkillParameters :: Lens' ResolveRoomResponse [RoomSkillParameter]
-rrrrsRoomSkillParameters = lens _rrrrsRoomSkillParameters (\s a -> s {_rrrrsRoomSkillParameters = a}) . _Default . _Coerce
+resolveRoomResponse_roomSkillParameters :: Lens.Lens' ResolveRoomResponse (Prelude.Maybe [RoomSkillParameter])
+resolveRoomResponse_roomSkillParameters = Lens.lens (\ResolveRoomResponse' {roomSkillParameters} -> roomSkillParameters) (\s@ResolveRoomResponse' {} a -> s {roomSkillParameters = a} :: ResolveRoomResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The ARN of the room from which the skill request was invoked.
-rrrrsRoomARN :: Lens' ResolveRoomResponse (Maybe Text)
-rrrrsRoomARN = lens _rrrrsRoomARN (\s a -> s {_rrrrsRoomARN = a})
+resolveRoomResponse_roomArn :: Lens.Lens' ResolveRoomResponse (Prelude.Maybe Prelude.Text)
+resolveRoomResponse_roomArn = Lens.lens (\ResolveRoomResponse' {roomArn} -> roomArn) (\s@ResolveRoomResponse' {} a -> s {roomArn = a} :: ResolveRoomResponse)
 
 -- | The name of the room from which the skill request was invoked.
-rrrrsRoomName :: Lens' ResolveRoomResponse (Maybe Text)
-rrrrsRoomName = lens _rrrrsRoomName (\s a -> s {_rrrrsRoomName = a})
+resolveRoomResponse_roomName :: Lens.Lens' ResolveRoomResponse (Prelude.Maybe Prelude.Text)
+resolveRoomResponse_roomName = Lens.lens (\ResolveRoomResponse' {roomName} -> roomName) (\s@ResolveRoomResponse' {} a -> s {roomName = a} :: ResolveRoomResponse)
 
--- | -- | The response status code.
-rrrrsResponseStatus :: Lens' ResolveRoomResponse Int
-rrrrsResponseStatus = lens _rrrrsResponseStatus (\s a -> s {_rrrrsResponseStatus = a})
+-- | The response's http status code.
+resolveRoomResponse_httpStatus :: Lens.Lens' ResolveRoomResponse Prelude.Int
+resolveRoomResponse_httpStatus = Lens.lens (\ResolveRoomResponse' {httpStatus} -> httpStatus) (\s@ResolveRoomResponse' {} a -> s {httpStatus = a} :: ResolveRoomResponse)
 
-instance NFData ResolveRoomResponse
+instance Prelude.NFData ResolveRoomResponse

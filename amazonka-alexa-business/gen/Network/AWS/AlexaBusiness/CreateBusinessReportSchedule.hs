@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,234 +21,250 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a recurring schedule for usage reports to deliver to the specified S3 location with a specified daily or weekly interval.
+-- Creates a recurring schedule for usage reports to deliver to the
+-- specified S3 location with a specified daily or weekly interval.
 module Network.AWS.AlexaBusiness.CreateBusinessReportSchedule
   ( -- * Creating a Request
-    createBusinessReportSchedule,
-    CreateBusinessReportSchedule,
+    CreateBusinessReportSchedule (..),
+    newCreateBusinessReportSchedule,
 
     -- * Request Lenses
-    cbrsS3KeyPrefix,
-    cbrsRecurrence,
-    cbrsTags,
-    cbrsS3BucketName,
-    cbrsClientRequestToken,
-    cbrsScheduleName,
-    cbrsFormat,
-    cbrsContentRange,
+    createBusinessReportSchedule_s3KeyPrefix,
+    createBusinessReportSchedule_recurrence,
+    createBusinessReportSchedule_tags,
+    createBusinessReportSchedule_s3BucketName,
+    createBusinessReportSchedule_clientRequestToken,
+    createBusinessReportSchedule_scheduleName,
+    createBusinessReportSchedule_format,
+    createBusinessReportSchedule_contentRange,
 
     -- * Destructuring the Response
-    createBusinessReportScheduleResponse,
-    CreateBusinessReportScheduleResponse,
+    CreateBusinessReportScheduleResponse (..),
+    newCreateBusinessReportScheduleResponse,
 
     -- * Response Lenses
-    cbrsrrsScheduleARN,
-    cbrsrrsResponseStatus,
+    createBusinessReportScheduleResponse_scheduleArn,
+    createBusinessReportScheduleResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'createBusinessReportSchedule' smart constructor.
+-- | /See:/ 'newCreateBusinessReportSchedule' smart constructor.
 data CreateBusinessReportSchedule = CreateBusinessReportSchedule'
-  { _cbrsS3KeyPrefix ::
-      !(Maybe Text),
-    _cbrsRecurrence ::
-      !( Maybe
-           BusinessReportRecurrence
-       ),
-    _cbrsTags ::
-      !( Maybe
-           [Tag]
-       ),
-    _cbrsS3BucketName ::
-      !(Maybe Text),
-    _cbrsClientRequestToken ::
-      !(Maybe Text),
-    _cbrsScheduleName ::
-      !(Maybe Text),
-    _cbrsFormat ::
-      !BusinessReportFormat,
-    _cbrsContentRange ::
-      !BusinessReportContentRange
+  { -- | The S3 key where the report is delivered.
+    s3KeyPrefix :: Prelude.Maybe Prelude.Text,
+    -- | The recurrence of the reports. If this isn\'t specified, the report will
+    -- only be delivered one time when the API is called.
+    recurrence :: Prelude.Maybe BusinessReportRecurrence,
+    -- | The tags for the business report schedule.
+    tags :: Prelude.Maybe [Tag],
+    -- | The S3 bucket name of the output reports. If this isn\'t specified, the
+    -- report can be retrieved from a download link by calling
+    -- ListBusinessReportSchedule.
+    s3BucketName :: Prelude.Maybe Prelude.Text,
+    -- | The client request token.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The name identifier of the schedule.
+    scheduleName :: Prelude.Maybe Prelude.Text,
+    -- | The format of the generated report (individual CSV files or zipped files
+    -- of individual files).
+    format :: BusinessReportFormat,
+    -- | The content range of the reports.
+    contentRange :: BusinessReportContentRange
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBusinessReportSchedule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBusinessReportSchedule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbrsS3KeyPrefix' - The S3 key where the report is delivered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbrsRecurrence' - The recurrence of the reports. If this isn't specified, the report will only be delivered one time when the API is called.
+-- 's3KeyPrefix', 'createBusinessReportSchedule_s3KeyPrefix' - The S3 key where the report is delivered.
 --
--- * 'cbrsTags' - The tags for the business report schedule.
+-- 'recurrence', 'createBusinessReportSchedule_recurrence' - The recurrence of the reports. If this isn\'t specified, the report will
+-- only be delivered one time when the API is called.
 --
--- * 'cbrsS3BucketName' - The S3 bucket name of the output reports. If this isn't specified, the report can be retrieved from a download link by calling ListBusinessReportSchedule.
+-- 'tags', 'createBusinessReportSchedule_tags' - The tags for the business report schedule.
 --
--- * 'cbrsClientRequestToken' - The client request token.
+-- 's3BucketName', 'createBusinessReportSchedule_s3BucketName' - The S3 bucket name of the output reports. If this isn\'t specified, the
+-- report can be retrieved from a download link by calling
+-- ListBusinessReportSchedule.
 --
--- * 'cbrsScheduleName' - The name identifier of the schedule.
+-- 'clientRequestToken', 'createBusinessReportSchedule_clientRequestToken' - The client request token.
 --
--- * 'cbrsFormat' - The format of the generated report (individual CSV files or zipped files of individual files).
+-- 'scheduleName', 'createBusinessReportSchedule_scheduleName' - The name identifier of the schedule.
 --
--- * 'cbrsContentRange' - The content range of the reports.
-createBusinessReportSchedule ::
-  -- | 'cbrsFormat'
+-- 'format', 'createBusinessReportSchedule_format' - The format of the generated report (individual CSV files or zipped files
+-- of individual files).
+--
+-- 'contentRange', 'createBusinessReportSchedule_contentRange' - The content range of the reports.
+newCreateBusinessReportSchedule ::
+  -- | 'format'
   BusinessReportFormat ->
-  -- | 'cbrsContentRange'
+  -- | 'contentRange'
   BusinessReportContentRange ->
   CreateBusinessReportSchedule
-createBusinessReportSchedule pFormat_ pContentRange_ =
-  CreateBusinessReportSchedule'
-    { _cbrsS3KeyPrefix =
-        Nothing,
-      _cbrsRecurrence = Nothing,
-      _cbrsTags = Nothing,
-      _cbrsS3BucketName = Nothing,
-      _cbrsClientRequestToken = Nothing,
-      _cbrsScheduleName = Nothing,
-      _cbrsFormat = pFormat_,
-      _cbrsContentRange = pContentRange_
-    }
+newCreateBusinessReportSchedule
+  pFormat_
+  pContentRange_ =
+    CreateBusinessReportSchedule'
+      { s3KeyPrefix =
+          Prelude.Nothing,
+        recurrence = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        s3BucketName = Prelude.Nothing,
+        clientRequestToken = Prelude.Nothing,
+        scheduleName = Prelude.Nothing,
+        format = pFormat_,
+        contentRange = pContentRange_
+      }
 
 -- | The S3 key where the report is delivered.
-cbrsS3KeyPrefix :: Lens' CreateBusinessReportSchedule (Maybe Text)
-cbrsS3KeyPrefix = lens _cbrsS3KeyPrefix (\s a -> s {_cbrsS3KeyPrefix = a})
+createBusinessReportSchedule_s3KeyPrefix :: Lens.Lens' CreateBusinessReportSchedule (Prelude.Maybe Prelude.Text)
+createBusinessReportSchedule_s3KeyPrefix = Lens.lens (\CreateBusinessReportSchedule' {s3KeyPrefix} -> s3KeyPrefix) (\s@CreateBusinessReportSchedule' {} a -> s {s3KeyPrefix = a} :: CreateBusinessReportSchedule)
 
--- | The recurrence of the reports. If this isn't specified, the report will only be delivered one time when the API is called.
-cbrsRecurrence :: Lens' CreateBusinessReportSchedule (Maybe BusinessReportRecurrence)
-cbrsRecurrence = lens _cbrsRecurrence (\s a -> s {_cbrsRecurrence = a})
+-- | The recurrence of the reports. If this isn\'t specified, the report will
+-- only be delivered one time when the API is called.
+createBusinessReportSchedule_recurrence :: Lens.Lens' CreateBusinessReportSchedule (Prelude.Maybe BusinessReportRecurrence)
+createBusinessReportSchedule_recurrence = Lens.lens (\CreateBusinessReportSchedule' {recurrence} -> recurrence) (\s@CreateBusinessReportSchedule' {} a -> s {recurrence = a} :: CreateBusinessReportSchedule)
 
 -- | The tags for the business report schedule.
-cbrsTags :: Lens' CreateBusinessReportSchedule [Tag]
-cbrsTags = lens _cbrsTags (\s a -> s {_cbrsTags = a}) . _Default . _Coerce
+createBusinessReportSchedule_tags :: Lens.Lens' CreateBusinessReportSchedule (Prelude.Maybe [Tag])
+createBusinessReportSchedule_tags = Lens.lens (\CreateBusinessReportSchedule' {tags} -> tags) (\s@CreateBusinessReportSchedule' {} a -> s {tags = a} :: CreateBusinessReportSchedule) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The S3 bucket name of the output reports. If this isn't specified, the report can be retrieved from a download link by calling ListBusinessReportSchedule.
-cbrsS3BucketName :: Lens' CreateBusinessReportSchedule (Maybe Text)
-cbrsS3BucketName = lens _cbrsS3BucketName (\s a -> s {_cbrsS3BucketName = a})
+-- | The S3 bucket name of the output reports. If this isn\'t specified, the
+-- report can be retrieved from a download link by calling
+-- ListBusinessReportSchedule.
+createBusinessReportSchedule_s3BucketName :: Lens.Lens' CreateBusinessReportSchedule (Prelude.Maybe Prelude.Text)
+createBusinessReportSchedule_s3BucketName = Lens.lens (\CreateBusinessReportSchedule' {s3BucketName} -> s3BucketName) (\s@CreateBusinessReportSchedule' {} a -> s {s3BucketName = a} :: CreateBusinessReportSchedule)
 
 -- | The client request token.
-cbrsClientRequestToken :: Lens' CreateBusinessReportSchedule (Maybe Text)
-cbrsClientRequestToken = lens _cbrsClientRequestToken (\s a -> s {_cbrsClientRequestToken = a})
+createBusinessReportSchedule_clientRequestToken :: Lens.Lens' CreateBusinessReportSchedule (Prelude.Maybe Prelude.Text)
+createBusinessReportSchedule_clientRequestToken = Lens.lens (\CreateBusinessReportSchedule' {clientRequestToken} -> clientRequestToken) (\s@CreateBusinessReportSchedule' {} a -> s {clientRequestToken = a} :: CreateBusinessReportSchedule)
 
 -- | The name identifier of the schedule.
-cbrsScheduleName :: Lens' CreateBusinessReportSchedule (Maybe Text)
-cbrsScheduleName = lens _cbrsScheduleName (\s a -> s {_cbrsScheduleName = a})
+createBusinessReportSchedule_scheduleName :: Lens.Lens' CreateBusinessReportSchedule (Prelude.Maybe Prelude.Text)
+createBusinessReportSchedule_scheduleName = Lens.lens (\CreateBusinessReportSchedule' {scheduleName} -> scheduleName) (\s@CreateBusinessReportSchedule' {} a -> s {scheduleName = a} :: CreateBusinessReportSchedule)
 
--- | The format of the generated report (individual CSV files or zipped files of individual files).
-cbrsFormat :: Lens' CreateBusinessReportSchedule BusinessReportFormat
-cbrsFormat = lens _cbrsFormat (\s a -> s {_cbrsFormat = a})
+-- | The format of the generated report (individual CSV files or zipped files
+-- of individual files).
+createBusinessReportSchedule_format :: Lens.Lens' CreateBusinessReportSchedule BusinessReportFormat
+createBusinessReportSchedule_format = Lens.lens (\CreateBusinessReportSchedule' {format} -> format) (\s@CreateBusinessReportSchedule' {} a -> s {format = a} :: CreateBusinessReportSchedule)
 
 -- | The content range of the reports.
-cbrsContentRange :: Lens' CreateBusinessReportSchedule BusinessReportContentRange
-cbrsContentRange = lens _cbrsContentRange (\s a -> s {_cbrsContentRange = a})
+createBusinessReportSchedule_contentRange :: Lens.Lens' CreateBusinessReportSchedule BusinessReportContentRange
+createBusinessReportSchedule_contentRange = Lens.lens (\CreateBusinessReportSchedule' {contentRange} -> contentRange) (\s@CreateBusinessReportSchedule' {} a -> s {contentRange = a} :: CreateBusinessReportSchedule)
 
-instance AWSRequest CreateBusinessReportSchedule where
+instance
+  Prelude.AWSRequest
+    CreateBusinessReportSchedule
+  where
   type
     Rs CreateBusinessReportSchedule =
       CreateBusinessReportScheduleResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           CreateBusinessReportScheduleResponse'
-            <$> (x .?> "ScheduleArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "ScheduleArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateBusinessReportSchedule
+instance
+  Prelude.Hashable
+    CreateBusinessReportSchedule
 
-instance NFData CreateBusinessReportSchedule
+instance Prelude.NFData CreateBusinessReportSchedule
 
-instance ToHeaders CreateBusinessReportSchedule where
+instance
+  Prelude.ToHeaders
+    CreateBusinessReportSchedule
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.CreateBusinessReportSchedule" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.CreateBusinessReportSchedule" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON CreateBusinessReportSchedule where
+instance Prelude.ToJSON CreateBusinessReportSchedule where
   toJSON CreateBusinessReportSchedule' {..} =
-    object
-      ( catMaybes
-          [ ("S3KeyPrefix" .=) <$> _cbrsS3KeyPrefix,
-            ("Recurrence" .=) <$> _cbrsRecurrence,
-            ("Tags" .=) <$> _cbrsTags,
-            ("S3BucketName" .=) <$> _cbrsS3BucketName,
-            ("ClientRequestToken" .=)
-              <$> _cbrsClientRequestToken,
-            ("ScheduleName" .=) <$> _cbrsScheduleName,
-            Just ("Format" .= _cbrsFormat),
-            Just ("ContentRange" .= _cbrsContentRange)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("S3KeyPrefix" Prelude..=) Prelude.<$> s3KeyPrefix,
+            ("Recurrence" Prelude..=) Prelude.<$> recurrence,
+            ("Tags" Prelude..=) Prelude.<$> tags,
+            ("S3BucketName" Prelude..=) Prelude.<$> s3BucketName,
+            ("ClientRequestToken" Prelude..=)
+              Prelude.<$> clientRequestToken,
+            ("ScheduleName" Prelude..=) Prelude.<$> scheduleName,
+            Prelude.Just ("Format" Prelude..= format),
+            Prelude.Just
+              ("ContentRange" Prelude..= contentRange)
           ]
       )
 
-instance ToPath CreateBusinessReportSchedule where
-  toPath = const "/"
+instance Prelude.ToPath CreateBusinessReportSchedule where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateBusinessReportSchedule where
-  toQuery = const mempty
+instance Prelude.ToQuery CreateBusinessReportSchedule where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'createBusinessReportScheduleResponse' smart constructor.
+-- | /See:/ 'newCreateBusinessReportScheduleResponse' smart constructor.
 data CreateBusinessReportScheduleResponse = CreateBusinessReportScheduleResponse'
-  { _cbrsrrsScheduleARN ::
-      !( Maybe
-           Text
-       ),
-    _cbrsrrsResponseStatus ::
-      !Int
+  { -- | The ARN of the business report schedule.
+    scheduleArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateBusinessReportScheduleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateBusinessReportScheduleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cbrsrrsScheduleARN' - The ARN of the business report schedule.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cbrsrrsResponseStatus' - -- | The response status code.
-createBusinessReportScheduleResponse ::
-  -- | 'cbrsrrsResponseStatus'
-  Int ->
+-- 'scheduleArn', 'createBusinessReportScheduleResponse_scheduleArn' - The ARN of the business report schedule.
+--
+-- 'httpStatus', 'createBusinessReportScheduleResponse_httpStatus' - The response's http status code.
+newCreateBusinessReportScheduleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateBusinessReportScheduleResponse
-createBusinessReportScheduleResponse pResponseStatus_ =
+newCreateBusinessReportScheduleResponse pHttpStatus_ =
   CreateBusinessReportScheduleResponse'
-    { _cbrsrrsScheduleARN =
-        Nothing,
-      _cbrsrrsResponseStatus =
-        pResponseStatus_
+    { scheduleArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The ARN of the business report schedule.
-cbrsrrsScheduleARN :: Lens' CreateBusinessReportScheduleResponse (Maybe Text)
-cbrsrrsScheduleARN = lens _cbrsrrsScheduleARN (\s a -> s {_cbrsrrsScheduleARN = a})
+createBusinessReportScheduleResponse_scheduleArn :: Lens.Lens' CreateBusinessReportScheduleResponse (Prelude.Maybe Prelude.Text)
+createBusinessReportScheduleResponse_scheduleArn = Lens.lens (\CreateBusinessReportScheduleResponse' {scheduleArn} -> scheduleArn) (\s@CreateBusinessReportScheduleResponse' {} a -> s {scheduleArn = a} :: CreateBusinessReportScheduleResponse)
 
--- | -- | The response status code.
-cbrsrrsResponseStatus :: Lens' CreateBusinessReportScheduleResponse Int
-cbrsrrsResponseStatus = lens _cbrsrrsResponseStatus (\s a -> s {_cbrsrrsResponseStatus = a})
+-- | The response's http status code.
+createBusinessReportScheduleResponse_httpStatus :: Lens.Lens' CreateBusinessReportScheduleResponse Prelude.Int
+createBusinessReportScheduleResponse_httpStatus = Lens.lens (\CreateBusinessReportScheduleResponse' {httpStatus} -> httpStatus) (\s@CreateBusinessReportScheduleResponse' {} a -> s {httpStatus = a} :: CreateBusinessReportScheduleResponse)
 
-instance NFData CreateBusinessReportScheduleResponse
+instance
+  Prelude.NFData
+    CreateBusinessReportScheduleResponse

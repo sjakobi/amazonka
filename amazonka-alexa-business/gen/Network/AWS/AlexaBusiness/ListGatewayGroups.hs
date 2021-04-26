@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,157 +21,174 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of gateway group summaries. Use GetGatewayGroup to retrieve details of a specific gateway group.
+-- Retrieves a list of gateway group summaries. Use GetGatewayGroup to
+-- retrieve details of a specific gateway group.
 module Network.AWS.AlexaBusiness.ListGatewayGroups
   ( -- * Creating a Request
-    listGatewayGroups,
-    ListGatewayGroups,
+    ListGatewayGroups (..),
+    newListGatewayGroups,
 
     -- * Request Lenses
-    lggNextToken,
-    lggMaxResults,
+    listGatewayGroups_nextToken,
+    listGatewayGroups_maxResults,
 
     -- * Destructuring the Response
-    listGatewayGroupsResponse,
-    ListGatewayGroupsResponse,
+    ListGatewayGroupsResponse (..),
+    newListGatewayGroupsResponse,
 
     -- * Response Lenses
-    lggrrsNextToken,
-    lggrrsGatewayGroups,
-    lggrrsResponseStatus,
+    listGatewayGroupsResponse_nextToken,
+    listGatewayGroupsResponse_gatewayGroups,
+    listGatewayGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.GatewayGroupSummary
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listGatewayGroups' smart constructor.
+-- | /See:/ 'newListGatewayGroups' smart constructor.
 data ListGatewayGroups = ListGatewayGroups'
-  { _lggNextToken ::
-      !(Maybe Text),
-    _lggMaxResults :: !(Maybe Nat)
+  { -- | The token used to paginate though multiple pages of gateway group
+    -- summaries.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of gateway group summaries to return. The default is
+    -- 50.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGatewayGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGatewayGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lggNextToken' - The token used to paginate though multiple pages of gateway group summaries.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lggMaxResults' - The maximum number of gateway group summaries to return. The default is 50.
-listGatewayGroups ::
+-- 'nextToken', 'listGatewayGroups_nextToken' - The token used to paginate though multiple pages of gateway group
+-- summaries.
+--
+-- 'maxResults', 'listGatewayGroups_maxResults' - The maximum number of gateway group summaries to return. The default is
+-- 50.
+newListGatewayGroups ::
   ListGatewayGroups
-listGatewayGroups =
+newListGatewayGroups =
   ListGatewayGroups'
-    { _lggNextToken = Nothing,
-      _lggMaxResults = Nothing
+    { nextToken = Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | The token used to paginate though multiple pages of gateway group summaries.
-lggNextToken :: Lens' ListGatewayGroups (Maybe Text)
-lggNextToken = lens _lggNextToken (\s a -> s {_lggNextToken = a})
+-- | The token used to paginate though multiple pages of gateway group
+-- summaries.
+listGatewayGroups_nextToken :: Lens.Lens' ListGatewayGroups (Prelude.Maybe Prelude.Text)
+listGatewayGroups_nextToken = Lens.lens (\ListGatewayGroups' {nextToken} -> nextToken) (\s@ListGatewayGroups' {} a -> s {nextToken = a} :: ListGatewayGroups)
 
--- | The maximum number of gateway group summaries to return. The default is 50.
-lggMaxResults :: Lens' ListGatewayGroups (Maybe Natural)
-lggMaxResults = lens _lggMaxResults (\s a -> s {_lggMaxResults = a}) . mapping _Nat
+-- | The maximum number of gateway group summaries to return. The default is
+-- 50.
+listGatewayGroups_maxResults :: Lens.Lens' ListGatewayGroups (Prelude.Maybe Prelude.Natural)
+listGatewayGroups_maxResults = Lens.lens (\ListGatewayGroups' {maxResults} -> maxResults) (\s@ListGatewayGroups' {} a -> s {maxResults = a} :: ListGatewayGroups) Prelude.. Lens.mapping Prelude._Nat
 
-instance AWSRequest ListGatewayGroups where
+instance Prelude.AWSRequest ListGatewayGroups where
   type Rs ListGatewayGroups = ListGatewayGroupsResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListGatewayGroupsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "GatewayGroups" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> ( x Prelude..?> "GatewayGroups"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListGatewayGroups
+instance Prelude.Hashable ListGatewayGroups
 
-instance NFData ListGatewayGroups
+instance Prelude.NFData ListGatewayGroups
 
-instance ToHeaders ListGatewayGroups where
+instance Prelude.ToHeaders ListGatewayGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.ListGatewayGroups" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.ListGatewayGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListGatewayGroups where
+instance Prelude.ToJSON ListGatewayGroups where
   toJSON ListGatewayGroups' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lggNextToken,
-            ("MaxResults" .=) <$> _lggMaxResults
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults
           ]
       )
 
-instance ToPath ListGatewayGroups where
-  toPath = const "/"
+instance Prelude.ToPath ListGatewayGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListGatewayGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery ListGatewayGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listGatewayGroupsResponse' smart constructor.
+-- | /See:/ 'newListGatewayGroupsResponse' smart constructor.
 data ListGatewayGroupsResponse = ListGatewayGroupsResponse'
-  { _lggrrsNextToken ::
-      !(Maybe Text),
-    _lggrrsGatewayGroups ::
-      !( Maybe
-           [GatewayGroupSummary]
-       ),
-    _lggrrsResponseStatus ::
-      !Int
+  { -- | The token used to paginate though multiple pages of gateway group
+    -- summaries.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The gateway groups in the list.
+    gatewayGroups :: Prelude.Maybe [GatewayGroupSummary],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListGatewayGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListGatewayGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lggrrsNextToken' - The token used to paginate though multiple pages of gateway group summaries.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lggrrsGatewayGroups' - The gateway groups in the list.
+-- 'nextToken', 'listGatewayGroupsResponse_nextToken' - The token used to paginate though multiple pages of gateway group
+-- summaries.
 --
--- * 'lggrrsResponseStatus' - -- | The response status code.
-listGatewayGroupsResponse ::
-  -- | 'lggrrsResponseStatus'
-  Int ->
+-- 'gatewayGroups', 'listGatewayGroupsResponse_gatewayGroups' - The gateway groups in the list.
+--
+-- 'httpStatus', 'listGatewayGroupsResponse_httpStatus' - The response's http status code.
+newListGatewayGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListGatewayGroupsResponse
-listGatewayGroupsResponse pResponseStatus_ =
+newListGatewayGroupsResponse pHttpStatus_ =
   ListGatewayGroupsResponse'
-    { _lggrrsNextToken =
-        Nothing,
-      _lggrrsGatewayGroups = Nothing,
-      _lggrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      gatewayGroups = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The token used to paginate though multiple pages of gateway group summaries.
-lggrrsNextToken :: Lens' ListGatewayGroupsResponse (Maybe Text)
-lggrrsNextToken = lens _lggrrsNextToken (\s a -> s {_lggrrsNextToken = a})
+-- | The token used to paginate though multiple pages of gateway group
+-- summaries.
+listGatewayGroupsResponse_nextToken :: Lens.Lens' ListGatewayGroupsResponse (Prelude.Maybe Prelude.Text)
+listGatewayGroupsResponse_nextToken = Lens.lens (\ListGatewayGroupsResponse' {nextToken} -> nextToken) (\s@ListGatewayGroupsResponse' {} a -> s {nextToken = a} :: ListGatewayGroupsResponse)
 
 -- | The gateway groups in the list.
-lggrrsGatewayGroups :: Lens' ListGatewayGroupsResponse [GatewayGroupSummary]
-lggrrsGatewayGroups = lens _lggrrsGatewayGroups (\s a -> s {_lggrrsGatewayGroups = a}) . _Default . _Coerce
+listGatewayGroupsResponse_gatewayGroups :: Lens.Lens' ListGatewayGroupsResponse (Prelude.Maybe [GatewayGroupSummary])
+listGatewayGroupsResponse_gatewayGroups = Lens.lens (\ListGatewayGroupsResponse' {gatewayGroups} -> gatewayGroups) (\s@ListGatewayGroupsResponse' {} a -> s {gatewayGroups = a} :: ListGatewayGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lggrrsResponseStatus :: Lens' ListGatewayGroupsResponse Int
-lggrrsResponseStatus = lens _lggrrsResponseStatus (\s a -> s {_lggrrsResponseStatus = a})
+-- | The response's http status code.
+listGatewayGroupsResponse_httpStatus :: Lens.Lens' ListGatewayGroupsResponse Prelude.Int
+listGatewayGroupsResponse_httpStatus = Lens.lens (\ListGatewayGroupsResponse' {httpStatus} -> httpStatus) (\s@ListGatewayGroupsResponse' {} a -> s {httpStatus = a} :: ListGatewayGroupsResponse)
 
-instance NFData ListGatewayGroupsResponse
+instance Prelude.NFData ListGatewayGroupsResponse

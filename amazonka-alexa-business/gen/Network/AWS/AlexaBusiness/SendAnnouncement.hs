@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,197 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Triggers an asynchronous flow to send text, SSML, or audio announcements to rooms that are identified by a search or filter.
+-- Triggers an asynchronous flow to send text, SSML, or audio announcements
+-- to rooms that are identified by a search or filter.
 module Network.AWS.AlexaBusiness.SendAnnouncement
   ( -- * Creating a Request
-    sendAnnouncement,
-    SendAnnouncement,
+    SendAnnouncement (..),
+    newSendAnnouncement,
 
     -- * Request Lenses
-    saTimeToLiveInSeconds,
-    saRoomFilters,
-    saContent,
-    saClientRequestToken,
+    sendAnnouncement_timeToLiveInSeconds,
+    sendAnnouncement_roomFilters,
+    sendAnnouncement_content,
+    sendAnnouncement_clientRequestToken,
 
     -- * Destructuring the Response
-    sendAnnouncementResponse,
-    SendAnnouncementResponse,
+    SendAnnouncementResponse (..),
+    newSendAnnouncementResponse,
 
     -- * Response Lenses
-    sarrsAnnouncementARN,
-    sarrsResponseStatus,
+    sendAnnouncementResponse_announcementArn,
+    sendAnnouncementResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'sendAnnouncement' smart constructor.
+-- | /See:/ 'newSendAnnouncement' smart constructor.
 data SendAnnouncement = SendAnnouncement'
-  { _saTimeToLiveInSeconds ::
-      !(Maybe Nat),
-    _saRoomFilters :: ![Filter],
-    _saContent :: !Content,
-    _saClientRequestToken :: !Text
+  { -- | The time to live for an announcement. Default is 300. If delivery
+    -- doesn\'t occur within this time, the announcement is not delivered.
+    timeToLiveInSeconds :: Prelude.Maybe Prelude.Nat,
+    -- | The filters to use to send an announcement to a specified list of rooms.
+    -- The supported filter keys are RoomName, ProfileName, RoomArn, and
+    -- ProfileArn. To send to all rooms, specify an empty RoomFilters list.
+    roomFilters :: [Filter],
+    -- | The announcement content. This can contain only one of the three
+    -- possible announcement types (text, SSML or audio).
+    content :: Content,
+    -- | The unique, user-specified identifier for the request that ensures
+    -- idempotency.
+    clientRequestToken :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendAnnouncement' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendAnnouncement' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saTimeToLiveInSeconds' - The time to live for an announcement. Default is 300. If delivery doesn't occur within this time, the announcement is not delivered.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saRoomFilters' - The filters to use to send an announcement to a specified list of rooms. The supported filter keys are RoomName, ProfileName, RoomArn, and ProfileArn. To send to all rooms, specify an empty RoomFilters list.
+-- 'timeToLiveInSeconds', 'sendAnnouncement_timeToLiveInSeconds' - The time to live for an announcement. Default is 300. If delivery
+-- doesn\'t occur within this time, the announcement is not delivered.
 --
--- * 'saContent' - The announcement content. This can contain only one of the three possible announcement types (text, SSML or audio).
+-- 'roomFilters', 'sendAnnouncement_roomFilters' - The filters to use to send an announcement to a specified list of rooms.
+-- The supported filter keys are RoomName, ProfileName, RoomArn, and
+-- ProfileArn. To send to all rooms, specify an empty RoomFilters list.
 --
--- * 'saClientRequestToken' - The unique, user-specified identifier for the request that ensures idempotency.
-sendAnnouncement ::
-  -- | 'saContent'
+-- 'content', 'sendAnnouncement_content' - The announcement content. This can contain only one of the three
+-- possible announcement types (text, SSML or audio).
+--
+-- 'clientRequestToken', 'sendAnnouncement_clientRequestToken' - The unique, user-specified identifier for the request that ensures
+-- idempotency.
+newSendAnnouncement ::
+  -- | 'content'
   Content ->
-  -- | 'saClientRequestToken'
-  Text ->
+  -- | 'clientRequestToken'
+  Prelude.Text ->
   SendAnnouncement
-sendAnnouncement pContent_ pClientRequestToken_ =
+newSendAnnouncement pContent_ pClientRequestToken_ =
   SendAnnouncement'
-    { _saTimeToLiveInSeconds = Nothing,
-      _saRoomFilters = mempty,
-      _saContent = pContent_,
-      _saClientRequestToken = pClientRequestToken_
+    { timeToLiveInSeconds =
+        Prelude.Nothing,
+      roomFilters = Prelude.mempty,
+      content = pContent_,
+      clientRequestToken = pClientRequestToken_
     }
 
--- | The time to live for an announcement. Default is 300. If delivery doesn't occur within this time, the announcement is not delivered.
-saTimeToLiveInSeconds :: Lens' SendAnnouncement (Maybe Natural)
-saTimeToLiveInSeconds = lens _saTimeToLiveInSeconds (\s a -> s {_saTimeToLiveInSeconds = a}) . mapping _Nat
+-- | The time to live for an announcement. Default is 300. If delivery
+-- doesn\'t occur within this time, the announcement is not delivered.
+sendAnnouncement_timeToLiveInSeconds :: Lens.Lens' SendAnnouncement (Prelude.Maybe Prelude.Natural)
+sendAnnouncement_timeToLiveInSeconds = Lens.lens (\SendAnnouncement' {timeToLiveInSeconds} -> timeToLiveInSeconds) (\s@SendAnnouncement' {} a -> s {timeToLiveInSeconds = a} :: SendAnnouncement) Prelude.. Lens.mapping Prelude._Nat
 
--- | The filters to use to send an announcement to a specified list of rooms. The supported filter keys are RoomName, ProfileName, RoomArn, and ProfileArn. To send to all rooms, specify an empty RoomFilters list.
-saRoomFilters :: Lens' SendAnnouncement [Filter]
-saRoomFilters = lens _saRoomFilters (\s a -> s {_saRoomFilters = a}) . _Coerce
+-- | The filters to use to send an announcement to a specified list of rooms.
+-- The supported filter keys are RoomName, ProfileName, RoomArn, and
+-- ProfileArn. To send to all rooms, specify an empty RoomFilters list.
+sendAnnouncement_roomFilters :: Lens.Lens' SendAnnouncement [Filter]
+sendAnnouncement_roomFilters = Lens.lens (\SendAnnouncement' {roomFilters} -> roomFilters) (\s@SendAnnouncement' {} a -> s {roomFilters = a} :: SendAnnouncement) Prelude.. Prelude._Coerce
 
--- | The announcement content. This can contain only one of the three possible announcement types (text, SSML or audio).
-saContent :: Lens' SendAnnouncement Content
-saContent = lens _saContent (\s a -> s {_saContent = a})
+-- | The announcement content. This can contain only one of the three
+-- possible announcement types (text, SSML or audio).
+sendAnnouncement_content :: Lens.Lens' SendAnnouncement Content
+sendAnnouncement_content = Lens.lens (\SendAnnouncement' {content} -> content) (\s@SendAnnouncement' {} a -> s {content = a} :: SendAnnouncement)
 
--- | The unique, user-specified identifier for the request that ensures idempotency.
-saClientRequestToken :: Lens' SendAnnouncement Text
-saClientRequestToken = lens _saClientRequestToken (\s a -> s {_saClientRequestToken = a})
+-- | The unique, user-specified identifier for the request that ensures
+-- idempotency.
+sendAnnouncement_clientRequestToken :: Lens.Lens' SendAnnouncement Prelude.Text
+sendAnnouncement_clientRequestToken = Lens.lens (\SendAnnouncement' {clientRequestToken} -> clientRequestToken) (\s@SendAnnouncement' {} a -> s {clientRequestToken = a} :: SendAnnouncement)
 
-instance AWSRequest SendAnnouncement where
+instance Prelude.AWSRequest SendAnnouncement where
   type Rs SendAnnouncement = SendAnnouncementResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SendAnnouncementResponse'
-            <$> (x .?> "AnnouncementArn") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "AnnouncementArn")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SendAnnouncement
+instance Prelude.Hashable SendAnnouncement
 
-instance NFData SendAnnouncement
+instance Prelude.NFData SendAnnouncement
 
-instance ToHeaders SendAnnouncement where
+instance Prelude.ToHeaders SendAnnouncement where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.SendAnnouncement" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.SendAnnouncement" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SendAnnouncement where
+instance Prelude.ToJSON SendAnnouncement where
   toJSON SendAnnouncement' {..} =
-    object
-      ( catMaybes
-          [ ("TimeToLiveInSeconds" .=)
-              <$> _saTimeToLiveInSeconds,
-            Just ("RoomFilters" .= _saRoomFilters),
-            Just ("Content" .= _saContent),
-            Just
-              ("ClientRequestToken" .= _saClientRequestToken)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("TimeToLiveInSeconds" Prelude..=)
+              Prelude.<$> timeToLiveInSeconds,
+            Prelude.Just ("RoomFilters" Prelude..= roomFilters),
+            Prelude.Just ("Content" Prelude..= content),
+            Prelude.Just
+              ( "ClientRequestToken"
+                  Prelude..= clientRequestToken
+              )
           ]
       )
 
-instance ToPath SendAnnouncement where
-  toPath = const "/"
+instance Prelude.ToPath SendAnnouncement where
+  toPath = Prelude.const "/"
 
-instance ToQuery SendAnnouncement where
-  toQuery = const mempty
+instance Prelude.ToQuery SendAnnouncement where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'sendAnnouncementResponse' smart constructor.
+-- | /See:/ 'newSendAnnouncementResponse' smart constructor.
 data SendAnnouncementResponse = SendAnnouncementResponse'
-  { _sarrsAnnouncementARN ::
-      !(Maybe Text),
-    _sarrsResponseStatus ::
-      !Int
+  { -- | The identifier of the announcement.
+    announcementArn :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SendAnnouncementResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SendAnnouncementResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarrsAnnouncementARN' - The identifier of the announcement.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sarrsResponseStatus' - -- | The response status code.
-sendAnnouncementResponse ::
-  -- | 'sarrsResponseStatus'
-  Int ->
+-- 'announcementArn', 'sendAnnouncementResponse_announcementArn' - The identifier of the announcement.
+--
+-- 'httpStatus', 'sendAnnouncementResponse_httpStatus' - The response's http status code.
+newSendAnnouncementResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SendAnnouncementResponse
-sendAnnouncementResponse pResponseStatus_ =
+newSendAnnouncementResponse pHttpStatus_ =
   SendAnnouncementResponse'
-    { _sarrsAnnouncementARN =
-        Nothing,
-      _sarrsResponseStatus = pResponseStatus_
+    { announcementArn =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The identifier of the announcement.
-sarrsAnnouncementARN :: Lens' SendAnnouncementResponse (Maybe Text)
-sarrsAnnouncementARN = lens _sarrsAnnouncementARN (\s a -> s {_sarrsAnnouncementARN = a})
+sendAnnouncementResponse_announcementArn :: Lens.Lens' SendAnnouncementResponse (Prelude.Maybe Prelude.Text)
+sendAnnouncementResponse_announcementArn = Lens.lens (\SendAnnouncementResponse' {announcementArn} -> announcementArn) (\s@SendAnnouncementResponse' {} a -> s {announcementArn = a} :: SendAnnouncementResponse)
 
--- | -- | The response status code.
-sarrsResponseStatus :: Lens' SendAnnouncementResponse Int
-sarrsResponseStatus = lens _sarrsResponseStatus (\s a -> s {_sarrsResponseStatus = a})
+-- | The response's http status code.
+sendAnnouncementResponse_httpStatus :: Lens.Lens' SendAnnouncementResponse Prelude.Int
+sendAnnouncementResponse_httpStatus = Lens.lens (\SendAnnouncementResponse' {httpStatus} -> httpStatus) (\s@SendAnnouncementResponse' {} a -> s {httpStatus = a} :: SendAnnouncementResponse)
 
-instance NFData SendAnnouncementResponse
+instance Prelude.NFData SendAnnouncementResponse

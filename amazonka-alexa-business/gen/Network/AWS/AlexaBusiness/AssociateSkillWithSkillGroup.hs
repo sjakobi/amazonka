@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,145 +24,152 @@
 -- Associates a skill with a skill group.
 module Network.AWS.AlexaBusiness.AssociateSkillWithSkillGroup
   ( -- * Creating a Request
-    associateSkillWithSkillGroup,
-    AssociateSkillWithSkillGroup,
+    AssociateSkillWithSkillGroup (..),
+    newAssociateSkillWithSkillGroup,
 
     -- * Request Lenses
-    aswsgSkillGroupARN,
-    aswsgSkillId,
+    associateSkillWithSkillGroup_skillGroupArn,
+    associateSkillWithSkillGroup_skillId,
 
     -- * Destructuring the Response
-    associateSkillWithSkillGroupResponse,
-    AssociateSkillWithSkillGroupResponse,
+    AssociateSkillWithSkillGroupResponse (..),
+    newAssociateSkillWithSkillGroupResponse,
 
     -- * Response Lenses
-    aswsgrrsResponseStatus,
+    associateSkillWithSkillGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateSkillWithSkillGroup' smart constructor.
+-- | /See:/ 'newAssociateSkillWithSkillGroup' smart constructor.
 data AssociateSkillWithSkillGroup = AssociateSkillWithSkillGroup'
-  { _aswsgSkillGroupARN ::
-      !(Maybe Text),
-    _aswsgSkillId ::
-      !Text
+  { -- | The ARN of the skill group to associate the skill to. Required.
+    skillGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the skill.
+    skillId :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateSkillWithSkillGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateSkillWithSkillGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aswsgSkillGroupARN' - The ARN of the skill group to associate the skill to. Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'aswsgSkillId' - The unique identifier of the skill.
-associateSkillWithSkillGroup ::
-  -- | 'aswsgSkillId'
-  Text ->
+-- 'skillGroupArn', 'associateSkillWithSkillGroup_skillGroupArn' - The ARN of the skill group to associate the skill to. Required.
+--
+-- 'skillId', 'associateSkillWithSkillGroup_skillId' - The unique identifier of the skill.
+newAssociateSkillWithSkillGroup ::
+  -- | 'skillId'
+  Prelude.Text ->
   AssociateSkillWithSkillGroup
-associateSkillWithSkillGroup pSkillId_ =
+newAssociateSkillWithSkillGroup pSkillId_ =
   AssociateSkillWithSkillGroup'
-    { _aswsgSkillGroupARN =
-        Nothing,
-      _aswsgSkillId = pSkillId_
+    { skillGroupArn =
+        Prelude.Nothing,
+      skillId = pSkillId_
     }
 
 -- | The ARN of the skill group to associate the skill to. Required.
-aswsgSkillGroupARN :: Lens' AssociateSkillWithSkillGroup (Maybe Text)
-aswsgSkillGroupARN = lens _aswsgSkillGroupARN (\s a -> s {_aswsgSkillGroupARN = a})
+associateSkillWithSkillGroup_skillGroupArn :: Lens.Lens' AssociateSkillWithSkillGroup (Prelude.Maybe Prelude.Text)
+associateSkillWithSkillGroup_skillGroupArn = Lens.lens (\AssociateSkillWithSkillGroup' {skillGroupArn} -> skillGroupArn) (\s@AssociateSkillWithSkillGroup' {} a -> s {skillGroupArn = a} :: AssociateSkillWithSkillGroup)
 
 -- | The unique identifier of the skill.
-aswsgSkillId :: Lens' AssociateSkillWithSkillGroup Text
-aswsgSkillId = lens _aswsgSkillId (\s a -> s {_aswsgSkillId = a})
+associateSkillWithSkillGroup_skillId :: Lens.Lens' AssociateSkillWithSkillGroup Prelude.Text
+associateSkillWithSkillGroup_skillId = Lens.lens (\AssociateSkillWithSkillGroup' {skillId} -> skillId) (\s@AssociateSkillWithSkillGroup' {} a -> s {skillId = a} :: AssociateSkillWithSkillGroup)
 
-instance AWSRequest AssociateSkillWithSkillGroup where
+instance
+  Prelude.AWSRequest
+    AssociateSkillWithSkillGroup
+  where
   type
     Rs AssociateSkillWithSkillGroup =
       AssociateSkillWithSkillGroupResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateSkillWithSkillGroupResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateSkillWithSkillGroup
+instance
+  Prelude.Hashable
+    AssociateSkillWithSkillGroup
 
-instance NFData AssociateSkillWithSkillGroup
+instance Prelude.NFData AssociateSkillWithSkillGroup
 
-instance ToHeaders AssociateSkillWithSkillGroup where
+instance
+  Prelude.ToHeaders
+    AssociateSkillWithSkillGroup
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.AssociateSkillWithSkillGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.AssociateSkillWithSkillGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateSkillWithSkillGroup where
+instance Prelude.ToJSON AssociateSkillWithSkillGroup where
   toJSON AssociateSkillWithSkillGroup' {..} =
-    object
-      ( catMaybes
-          [ ("SkillGroupArn" .=) <$> _aswsgSkillGroupARN,
-            Just ("SkillId" .= _aswsgSkillId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SkillGroupArn" Prelude..=)
+              Prelude.<$> skillGroupArn,
+            Prelude.Just ("SkillId" Prelude..= skillId)
           ]
       )
 
-instance ToPath AssociateSkillWithSkillGroup where
-  toPath = const "/"
+instance Prelude.ToPath AssociateSkillWithSkillGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateSkillWithSkillGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateSkillWithSkillGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateSkillWithSkillGroupResponse' smart constructor.
-newtype AssociateSkillWithSkillGroupResponse = AssociateSkillWithSkillGroupResponse'
-  { _aswsgrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateSkillWithSkillGroupResponse' smart constructor.
+data AssociateSkillWithSkillGroupResponse = AssociateSkillWithSkillGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateSkillWithSkillGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateSkillWithSkillGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'aswsgrrsResponseStatus' - -- | The response status code.
-associateSkillWithSkillGroupResponse ::
-  -- | 'aswsgrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateSkillWithSkillGroupResponse_httpStatus' - The response's http status code.
+newAssociateSkillWithSkillGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateSkillWithSkillGroupResponse
-associateSkillWithSkillGroupResponse pResponseStatus_ =
+newAssociateSkillWithSkillGroupResponse pHttpStatus_ =
   AssociateSkillWithSkillGroupResponse'
-    { _aswsgrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-aswsgrrsResponseStatus :: Lens' AssociateSkillWithSkillGroupResponse Int
-aswsgrrsResponseStatus = lens _aswsgrrsResponseStatus (\s a -> s {_aswsgrrsResponseStatus = a})
+-- | The response's http status code.
+associateSkillWithSkillGroupResponse_httpStatus :: Lens.Lens' AssociateSkillWithSkillGroupResponse Prelude.Int
+associateSkillWithSkillGroupResponse_httpStatus = Lens.lens (\AssociateSkillWithSkillGroupResponse' {httpStatus} -> httpStatus) (\s@AssociateSkillWithSkillGroupResponse' {} a -> s {httpStatus = a} :: AssociateSkillWithSkillGroupResponse)
 
-instance NFData AssociateSkillWithSkillGroupResponse
+instance
+  Prelude.NFData
+    AssociateSkillWithSkillGroupResponse

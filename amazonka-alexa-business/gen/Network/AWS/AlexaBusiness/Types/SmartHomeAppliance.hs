@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,64 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.SmartHomeAppliance where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | A smart home appliance that can connect to a central system. Any domestic device can be a smart appliance.
+-- | A smart home appliance that can connect to a central system. Any
+-- domestic device can be a smart appliance.
 --
---
---
--- /See:/ 'smartHomeAppliance' smart constructor.
+-- /See:/ 'newSmartHomeAppliance' smart constructor.
 data SmartHomeAppliance = SmartHomeAppliance'
-  { _shaFriendlyName ::
-      !(Maybe Text),
-    _shaDescription :: !(Maybe Text),
-    _shaManufacturerName ::
-      !(Maybe Text)
+  { -- | The friendly name of the smart home appliance.
+    friendlyName :: Prelude.Maybe Prelude.Text,
+    -- | The description of the smart home appliance.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the manufacturer of the smart home appliance.
+    manufacturerName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SmartHomeAppliance' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SmartHomeAppliance' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'shaFriendlyName' - The friendly name of the smart home appliance.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'shaDescription' - The description of the smart home appliance.
+-- 'friendlyName', 'smartHomeAppliance_friendlyName' - The friendly name of the smart home appliance.
 --
--- * 'shaManufacturerName' - The name of the manufacturer of the smart home appliance.
-smartHomeAppliance ::
+-- 'description', 'smartHomeAppliance_description' - The description of the smart home appliance.
+--
+-- 'manufacturerName', 'smartHomeAppliance_manufacturerName' - The name of the manufacturer of the smart home appliance.
+newSmartHomeAppliance ::
   SmartHomeAppliance
-smartHomeAppliance =
+newSmartHomeAppliance =
   SmartHomeAppliance'
-    { _shaFriendlyName = Nothing,
-      _shaDescription = Nothing,
-      _shaManufacturerName = Nothing
+    { friendlyName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      manufacturerName = Prelude.Nothing
     }
 
 -- | The friendly name of the smart home appliance.
-shaFriendlyName :: Lens' SmartHomeAppliance (Maybe Text)
-shaFriendlyName = lens _shaFriendlyName (\s a -> s {_shaFriendlyName = a})
+smartHomeAppliance_friendlyName :: Lens.Lens' SmartHomeAppliance (Prelude.Maybe Prelude.Text)
+smartHomeAppliance_friendlyName = Lens.lens (\SmartHomeAppliance' {friendlyName} -> friendlyName) (\s@SmartHomeAppliance' {} a -> s {friendlyName = a} :: SmartHomeAppliance)
 
 -- | The description of the smart home appliance.
-shaDescription :: Lens' SmartHomeAppliance (Maybe Text)
-shaDescription = lens _shaDescription (\s a -> s {_shaDescription = a})
+smartHomeAppliance_description :: Lens.Lens' SmartHomeAppliance (Prelude.Maybe Prelude.Text)
+smartHomeAppliance_description = Lens.lens (\SmartHomeAppliance' {description} -> description) (\s@SmartHomeAppliance' {} a -> s {description = a} :: SmartHomeAppliance)
 
 -- | The name of the manufacturer of the smart home appliance.
-shaManufacturerName :: Lens' SmartHomeAppliance (Maybe Text)
-shaManufacturerName = lens _shaManufacturerName (\s a -> s {_shaManufacturerName = a})
+smartHomeAppliance_manufacturerName :: Lens.Lens' SmartHomeAppliance (Prelude.Maybe Prelude.Text)
+smartHomeAppliance_manufacturerName = Lens.lens (\SmartHomeAppliance' {manufacturerName} -> manufacturerName) (\s@SmartHomeAppliance' {} a -> s {manufacturerName = a} :: SmartHomeAppliance)
 
-instance FromJSON SmartHomeAppliance where
+instance Prelude.FromJSON SmartHomeAppliance where
   parseJSON =
-    withObject
+    Prelude.withObject
       "SmartHomeAppliance"
       ( \x ->
           SmartHomeAppliance'
-            <$> (x .:? "FriendlyName")
-            <*> (x .:? "Description")
-            <*> (x .:? "ManufacturerName")
+            Prelude.<$> (x Prelude..:? "FriendlyName")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "ManufacturerName")
       )
 
-instance Hashable SmartHomeAppliance
+instance Prelude.Hashable SmartHomeAppliance
 
-instance NFData SmartHomeAppliance
+instance Prelude.NFData SmartHomeAppliance

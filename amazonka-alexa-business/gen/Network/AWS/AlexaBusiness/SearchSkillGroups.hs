@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,200 +21,244 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Searches skill groups and lists the ones that meet a set of filter and sort criteria.
---
---
+-- Searches skill groups and lists the ones that meet a set of filter and
+-- sort criteria.
 --
 -- This operation returns paginated results.
 module Network.AWS.AlexaBusiness.SearchSkillGroups
   ( -- * Creating a Request
-    searchSkillGroups,
-    SearchSkillGroups,
+    SearchSkillGroups (..),
+    newSearchSkillGroups,
 
     -- * Request Lenses
-    ssgNextToken,
-    ssgSortCriteria,
-    ssgMaxResults,
-    ssgFilters,
+    searchSkillGroups_nextToken,
+    searchSkillGroups_sortCriteria,
+    searchSkillGroups_maxResults,
+    searchSkillGroups_filters,
 
     -- * Destructuring the Response
-    searchSkillGroupsResponse,
-    SearchSkillGroupsResponse,
+    SearchSkillGroupsResponse (..),
+    newSearchSkillGroupsResponse,
 
     -- * Response Lenses
-    ssgrrsNextToken,
-    ssgrrsTotalCount,
-    ssgrrsSkillGroups,
-    ssgrrsResponseStatus,
+    searchSkillGroupsResponse_nextToken,
+    searchSkillGroupsResponse_totalCount,
+    searchSkillGroupsResponse_skillGroups,
+    searchSkillGroupsResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.SkillGroupData
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'searchSkillGroups' smart constructor.
+-- | /See:/ 'newSearchSkillGroups' smart constructor.
 data SearchSkillGroups = SearchSkillGroups'
-  { _ssgNextToken ::
-      !(Maybe Text),
-    _ssgSortCriteria :: !(Maybe [Sort]),
-    _ssgMaxResults :: !(Maybe Nat),
-    _ssgFilters :: !(Maybe [Filter])
+  { -- | An optional token returned from a prior request. Use this token for
+    -- pagination of results from this action. If this parameter is specified,
+    -- the response includes only results beyond the token, up to the value
+    -- specified by @MaxResults@. Required.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The sort order to use in listing the specified set of skill groups. The
+    -- supported sort key is SkillGroupName.
+    sortCriteria :: Prelude.Maybe [Sort],
+    -- | The maximum number of results to include in the response. If more
+    -- results exist than the specified @MaxResults@ value, a token is included
+    -- in the response so that the remaining results can be retrieved.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The filters to use to list a specified set of skill groups. The
+    -- supported filter key is SkillGroupName.
+    filters :: Prelude.Maybe [Filter]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchSkillGroups' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchSkillGroups' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssgNextToken' - An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ . Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssgSortCriteria' - The sort order to use in listing the specified set of skill groups. The supported sort key is SkillGroupName.
+-- 'nextToken', 'searchSkillGroups_nextToken' - An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@. Required.
 --
--- * 'ssgMaxResults' - The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved.
+-- 'sortCriteria', 'searchSkillGroups_sortCriteria' - The sort order to use in listing the specified set of skill groups. The
+-- supported sort key is SkillGroupName.
 --
--- * 'ssgFilters' - The filters to use to list a specified set of skill groups. The supported filter key is SkillGroupName.
-searchSkillGroups ::
+-- 'maxResults', 'searchSkillGroups_maxResults' - The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+--
+-- 'filters', 'searchSkillGroups_filters' - The filters to use to list a specified set of skill groups. The
+-- supported filter key is SkillGroupName.
+newSearchSkillGroups ::
   SearchSkillGroups
-searchSkillGroups =
+newSearchSkillGroups =
   SearchSkillGroups'
-    { _ssgNextToken = Nothing,
-      _ssgSortCriteria = Nothing,
-      _ssgMaxResults = Nothing,
-      _ssgFilters = Nothing
+    { nextToken = Prelude.Nothing,
+      sortCriteria = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      filters = Prelude.Nothing
     }
 
--- | An optional token returned from a prior request. Use this token for pagination of results from this action. If this parameter is specified, the response includes only results beyond the token, up to the value specified by @MaxResults@ . Required.
-ssgNextToken :: Lens' SearchSkillGroups (Maybe Text)
-ssgNextToken = lens _ssgNextToken (\s a -> s {_ssgNextToken = a})
+-- | An optional token returned from a prior request. Use this token for
+-- pagination of results from this action. If this parameter is specified,
+-- the response includes only results beyond the token, up to the value
+-- specified by @MaxResults@. Required.
+searchSkillGroups_nextToken :: Lens.Lens' SearchSkillGroups (Prelude.Maybe Prelude.Text)
+searchSkillGroups_nextToken = Lens.lens (\SearchSkillGroups' {nextToken} -> nextToken) (\s@SearchSkillGroups' {} a -> s {nextToken = a} :: SearchSkillGroups)
 
--- | The sort order to use in listing the specified set of skill groups. The supported sort key is SkillGroupName.
-ssgSortCriteria :: Lens' SearchSkillGroups [Sort]
-ssgSortCriteria = lens _ssgSortCriteria (\s a -> s {_ssgSortCriteria = a}) . _Default . _Coerce
+-- | The sort order to use in listing the specified set of skill groups. The
+-- supported sort key is SkillGroupName.
+searchSkillGroups_sortCriteria :: Lens.Lens' SearchSkillGroups (Prelude.Maybe [Sort])
+searchSkillGroups_sortCriteria = Lens.lens (\SearchSkillGroups' {sortCriteria} -> sortCriteria) (\s@SearchSkillGroups' {} a -> s {sortCriteria = a} :: SearchSkillGroups) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The maximum number of results to include in the response. If more results exist than the specified @MaxResults@ value, a token is included in the response so that the remaining results can be retrieved.
-ssgMaxResults :: Lens' SearchSkillGroups (Maybe Natural)
-ssgMaxResults = lens _ssgMaxResults (\s a -> s {_ssgMaxResults = a}) . mapping _Nat
+-- | The maximum number of results to include in the response. If more
+-- results exist than the specified @MaxResults@ value, a token is included
+-- in the response so that the remaining results can be retrieved.
+searchSkillGroups_maxResults :: Lens.Lens' SearchSkillGroups (Prelude.Maybe Prelude.Natural)
+searchSkillGroups_maxResults = Lens.lens (\SearchSkillGroups' {maxResults} -> maxResults) (\s@SearchSkillGroups' {} a -> s {maxResults = a} :: SearchSkillGroups) Prelude.. Lens.mapping Prelude._Nat
 
--- | The filters to use to list a specified set of skill groups. The supported filter key is SkillGroupName.
-ssgFilters :: Lens' SearchSkillGroups [Filter]
-ssgFilters = lens _ssgFilters (\s a -> s {_ssgFilters = a}) . _Default . _Coerce
+-- | The filters to use to list a specified set of skill groups. The
+-- supported filter key is SkillGroupName.
+searchSkillGroups_filters :: Lens.Lens' SearchSkillGroups (Prelude.Maybe [Filter])
+searchSkillGroups_filters = Lens.lens (\SearchSkillGroups' {filters} -> filters) (\s@SearchSkillGroups' {} a -> s {filters = a} :: SearchSkillGroups) Prelude.. Lens.mapping Prelude._Coerce
 
-instance AWSPager SearchSkillGroups where
+instance Pager.AWSPager SearchSkillGroups where
   page rq rs
-    | stop (rs ^. ssgrrsNextToken) = Nothing
-    | stop (rs ^. ssgrrsSkillGroups) = Nothing
-    | otherwise =
-      Just $ rq & ssgNextToken .~ rs ^. ssgrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? searchSkillGroupsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? searchSkillGroupsResponse_skillGroups
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& searchSkillGroups_nextToken
+          Lens..~ rs
+          Lens.^? searchSkillGroupsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest SearchSkillGroups where
+instance Prelude.AWSRequest SearchSkillGroups where
   type Rs SearchSkillGroups = SearchSkillGroupsResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           SearchSkillGroupsResponse'
-            <$> (x .?> "NextToken")
-            <*> (x .?> "TotalCount")
-            <*> (x .?> "SkillGroups" .!@ mempty)
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "NextToken")
+            Prelude.<*> (x Prelude..?> "TotalCount")
+            Prelude.<*> ( x Prelude..?> "SkillGroups"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SearchSkillGroups
+instance Prelude.Hashable SearchSkillGroups
 
-instance NFData SearchSkillGroups
+instance Prelude.NFData SearchSkillGroups
 
-instance ToHeaders SearchSkillGroups where
+instance Prelude.ToHeaders SearchSkillGroups where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.SearchSkillGroups" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.SearchSkillGroups" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON SearchSkillGroups where
+instance Prelude.ToJSON SearchSkillGroups where
   toJSON SearchSkillGroups' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _ssgNextToken,
-            ("SortCriteria" .=) <$> _ssgSortCriteria,
-            ("MaxResults" .=) <$> _ssgMaxResults,
-            ("Filters" .=) <$> _ssgFilters
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("SortCriteria" Prelude..=) Prelude.<$> sortCriteria,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            ("Filters" Prelude..=) Prelude.<$> filters
           ]
       )
 
-instance ToPath SearchSkillGroups where
-  toPath = const "/"
+instance Prelude.ToPath SearchSkillGroups where
+  toPath = Prelude.const "/"
 
-instance ToQuery SearchSkillGroups where
-  toQuery = const mempty
+instance Prelude.ToQuery SearchSkillGroups where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'searchSkillGroupsResponse' smart constructor.
+-- | /See:/ 'newSearchSkillGroupsResponse' smart constructor.
 data SearchSkillGroupsResponse = SearchSkillGroupsResponse'
-  { _ssgrrsNextToken ::
-      !(Maybe Text),
-    _ssgrrsTotalCount ::
-      !(Maybe Int),
-    _ssgrrsSkillGroups ::
-      !( Maybe
-           [SkillGroupData]
-       ),
-    _ssgrrsResponseStatus ::
-      !Int
+  { -- | The token returned to indicate that there is more data available.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The total number of skill groups returned.
+    totalCount :: Prelude.Maybe Prelude.Int,
+    -- | The skill groups that meet the filter criteria, in sort order.
+    skillGroups :: Prelude.Maybe [SkillGroupData],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SearchSkillGroupsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SearchSkillGroupsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ssgrrsNextToken' - The token returned to indicate that there is more data available.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ssgrrsTotalCount' - The total number of skill groups returned.
+-- 'nextToken', 'searchSkillGroupsResponse_nextToken' - The token returned to indicate that there is more data available.
 --
--- * 'ssgrrsSkillGroups' - The skill groups that meet the filter criteria, in sort order.
+-- 'totalCount', 'searchSkillGroupsResponse_totalCount' - The total number of skill groups returned.
 --
--- * 'ssgrrsResponseStatus' - -- | The response status code.
-searchSkillGroupsResponse ::
-  -- | 'ssgrrsResponseStatus'
-  Int ->
+-- 'skillGroups', 'searchSkillGroupsResponse_skillGroups' - The skill groups that meet the filter criteria, in sort order.
+--
+-- 'httpStatus', 'searchSkillGroupsResponse_httpStatus' - The response's http status code.
+newSearchSkillGroupsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SearchSkillGroupsResponse
-searchSkillGroupsResponse pResponseStatus_ =
+newSearchSkillGroupsResponse pHttpStatus_ =
   SearchSkillGroupsResponse'
-    { _ssgrrsNextToken =
-        Nothing,
-      _ssgrrsTotalCount = Nothing,
-      _ssgrrsSkillGroups = Nothing,
-      _ssgrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      totalCount = Prelude.Nothing,
+      skillGroups = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The token returned to indicate that there is more data available.
-ssgrrsNextToken :: Lens' SearchSkillGroupsResponse (Maybe Text)
-ssgrrsNextToken = lens _ssgrrsNextToken (\s a -> s {_ssgrrsNextToken = a})
+searchSkillGroupsResponse_nextToken :: Lens.Lens' SearchSkillGroupsResponse (Prelude.Maybe Prelude.Text)
+searchSkillGroupsResponse_nextToken = Lens.lens (\SearchSkillGroupsResponse' {nextToken} -> nextToken) (\s@SearchSkillGroupsResponse' {} a -> s {nextToken = a} :: SearchSkillGroupsResponse)
 
 -- | The total number of skill groups returned.
-ssgrrsTotalCount :: Lens' SearchSkillGroupsResponse (Maybe Int)
-ssgrrsTotalCount = lens _ssgrrsTotalCount (\s a -> s {_ssgrrsTotalCount = a})
+searchSkillGroupsResponse_totalCount :: Lens.Lens' SearchSkillGroupsResponse (Prelude.Maybe Prelude.Int)
+searchSkillGroupsResponse_totalCount = Lens.lens (\SearchSkillGroupsResponse' {totalCount} -> totalCount) (\s@SearchSkillGroupsResponse' {} a -> s {totalCount = a} :: SearchSkillGroupsResponse)
 
 -- | The skill groups that meet the filter criteria, in sort order.
-ssgrrsSkillGroups :: Lens' SearchSkillGroupsResponse [SkillGroupData]
-ssgrrsSkillGroups = lens _ssgrrsSkillGroups (\s a -> s {_ssgrrsSkillGroups = a}) . _Default . _Coerce
+searchSkillGroupsResponse_skillGroups :: Lens.Lens' SearchSkillGroupsResponse (Prelude.Maybe [SkillGroupData])
+searchSkillGroupsResponse_skillGroups = Lens.lens (\SearchSkillGroupsResponse' {skillGroups} -> skillGroups) (\s@SearchSkillGroupsResponse' {} a -> s {skillGroups = a} :: SearchSkillGroupsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ssgrrsResponseStatus :: Lens' SearchSkillGroupsResponse Int
-ssgrrsResponseStatus = lens _ssgrrsResponseStatus (\s a -> s {_ssgrrsResponseStatus = a})
+-- | The response's http status code.
+searchSkillGroupsResponse_httpStatus :: Lens.Lens' SearchSkillGroupsResponse Prelude.Int
+searchSkillGroupsResponse_httpStatus = Lens.lens (\SearchSkillGroupsResponse' {httpStatus} -> httpStatus) (\s@SearchSkillGroupsResponse' {} a -> s {httpStatus = a} :: SearchSkillGroupsResponse)
 
-instance NFData SearchSkillGroupsResponse
+instance Prelude.NFData SearchSkillGroupsResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,62 @@
 module Network.AWS.AlexaBusiness.Types.PhoneNumberType
   ( PhoneNumberType
       ( ..,
-        Home,
-        Mobile,
-        Work
+        PhoneNumberTypeHOME,
+        PhoneNumberTypeMOBILE,
+        PhoneNumberTypeWORK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data PhoneNumberType = PhoneNumberType' (CI Text)
-  deriving (Eq, Ord, Show, Data, Typeable, Generic)
+newtype PhoneNumberType = PhoneNumberType'
+  { fromPhoneNumberType ::
+      Prelude.Text
+  }
+  deriving
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
+    )
 
-pattern Home :: PhoneNumberType
-pattern Home = PhoneNumberType' "HOME"
+pattern PhoneNumberTypeHOME :: PhoneNumberType
+pattern PhoneNumberTypeHOME = PhoneNumberType' "HOME"
 
-pattern Mobile :: PhoneNumberType
-pattern Mobile = PhoneNumberType' "MOBILE"
+pattern PhoneNumberTypeMOBILE :: PhoneNumberType
+pattern PhoneNumberTypeMOBILE = PhoneNumberType' "MOBILE"
 
-pattern Work :: PhoneNumberType
-pattern Work = PhoneNumberType' "WORK"
+pattern PhoneNumberTypeWORK :: PhoneNumberType
+pattern PhoneNumberTypeWORK = PhoneNumberType' "WORK"
 
 {-# COMPLETE
-  Home,
-  Mobile,
-  Work,
+  PhoneNumberTypeHOME,
+  PhoneNumberTypeMOBILE,
+  PhoneNumberTypeWORK,
   PhoneNumberType'
   #-}
 
-instance FromText PhoneNumberType where
-  parser = (PhoneNumberType' . mk) <$> takeText
+instance Prelude.FromText PhoneNumberType where
+  parser = PhoneNumberType' Prelude.<$> Prelude.takeText
 
-instance ToText PhoneNumberType where
-  toText (PhoneNumberType' ci) = original ci
+instance Prelude.ToText PhoneNumberType where
+  toText (PhoneNumberType' x) = x
 
-instance Hashable PhoneNumberType
+instance Prelude.Hashable PhoneNumberType
 
-instance NFData PhoneNumberType
+instance Prelude.NFData PhoneNumberType
 
-instance ToByteString PhoneNumberType
+instance Prelude.ToByteString PhoneNumberType
 
-instance ToQuery PhoneNumberType
+instance Prelude.ToQuery PhoneNumberType
 
-instance ToHeader PhoneNumberType
+instance Prelude.ToHeader PhoneNumberType
 
-instance ToJSON PhoneNumberType where
-  toJSON = toJSONText
+instance Prelude.ToJSON PhoneNumberType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON PhoneNumberType where
-  parseJSON = parseJSONText "PhoneNumberType"
+instance Prelude.FromJSON PhoneNumberType where
+  parseJSON = Prelude.parseJSONText "PhoneNumberType"

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.AlexaBusiness.Types.SkillType
   ( SkillType
       ( ..,
-        Private,
-        Public
+        SkillTypePRIVATE,
+        SkillTypePUBLIC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SkillType = SkillType' (CI Text)
+newtype SkillType = SkillType'
+  { fromSkillType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Private :: SkillType
-pattern Private = SkillType' "PRIVATE"
+pattern SkillTypePRIVATE :: SkillType
+pattern SkillTypePRIVATE = SkillType' "PRIVATE"
 
-pattern Public :: SkillType
-pattern Public = SkillType' "PUBLIC"
+pattern SkillTypePUBLIC :: SkillType
+pattern SkillTypePUBLIC = SkillType' "PUBLIC"
 
 {-# COMPLETE
-  Private,
-  Public,
+  SkillTypePRIVATE,
+  SkillTypePUBLIC,
   SkillType'
   #-}
 
-instance FromText SkillType where
-  parser = (SkillType' . mk) <$> takeText
+instance Prelude.FromText SkillType where
+  parser = SkillType' Prelude.<$> Prelude.takeText
 
-instance ToText SkillType where
-  toText (SkillType' ci) = original ci
+instance Prelude.ToText SkillType where
+  toText (SkillType' x) = x
 
-instance Hashable SkillType
+instance Prelude.Hashable SkillType
 
-instance NFData SkillType
+instance Prelude.NFData SkillType
 
-instance ToByteString SkillType
+instance Prelude.ToByteString SkillType
 
-instance ToQuery SkillType
+instance Prelude.ToQuery SkillType
 
-instance ToHeader SkillType
+instance Prelude.ToHeader SkillType
 
-instance FromJSON SkillType where
-  parseJSON = parseJSONText "SkillType"
+instance Prelude.FromJSON SkillType where
+  parseJSON = Prelude.parseJSONText "SkillType"

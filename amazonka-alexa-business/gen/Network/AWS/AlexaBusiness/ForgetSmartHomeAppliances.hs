@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,131 +24,128 @@
 -- Forgets smart home appliances associated to a room.
 module Network.AWS.AlexaBusiness.ForgetSmartHomeAppliances
   ( -- * Creating a Request
-    forgetSmartHomeAppliances,
-    ForgetSmartHomeAppliances,
+    ForgetSmartHomeAppliances (..),
+    newForgetSmartHomeAppliances,
 
     -- * Request Lenses
-    fshaRoomARN,
+    forgetSmartHomeAppliances_roomArn,
 
     -- * Destructuring the Response
-    forgetSmartHomeAppliancesResponse,
-    ForgetSmartHomeAppliancesResponse,
+    ForgetSmartHomeAppliancesResponse (..),
+    newForgetSmartHomeAppliancesResponse,
 
     -- * Response Lenses
-    fsharrsResponseStatus,
+    forgetSmartHomeAppliancesResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'forgetSmartHomeAppliances' smart constructor.
-newtype ForgetSmartHomeAppliances = ForgetSmartHomeAppliances'
-  { _fshaRoomARN ::
-      Text
+-- | /See:/ 'newForgetSmartHomeAppliances' smart constructor.
+data ForgetSmartHomeAppliances = ForgetSmartHomeAppliances'
+  { -- | The room that the appliances are associated with.
+    roomArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ForgetSmartHomeAppliances' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ForgetSmartHomeAppliances' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fshaRoomARN' - The room that the appliances are associated with.
-forgetSmartHomeAppliances ::
-  -- | 'fshaRoomARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roomArn', 'forgetSmartHomeAppliances_roomArn' - The room that the appliances are associated with.
+newForgetSmartHomeAppliances ::
+  -- | 'roomArn'
+  Prelude.Text ->
   ForgetSmartHomeAppliances
-forgetSmartHomeAppliances pRoomARN_ =
-  ForgetSmartHomeAppliances'
-    { _fshaRoomARN =
-        pRoomARN_
-    }
+newForgetSmartHomeAppliances pRoomArn_ =
+  ForgetSmartHomeAppliances' {roomArn = pRoomArn_}
 
 -- | The room that the appliances are associated with.
-fshaRoomARN :: Lens' ForgetSmartHomeAppliances Text
-fshaRoomARN = lens _fshaRoomARN (\s a -> s {_fshaRoomARN = a})
+forgetSmartHomeAppliances_roomArn :: Lens.Lens' ForgetSmartHomeAppliances Prelude.Text
+forgetSmartHomeAppliances_roomArn = Lens.lens (\ForgetSmartHomeAppliances' {roomArn} -> roomArn) (\s@ForgetSmartHomeAppliances' {} a -> s {roomArn = a} :: ForgetSmartHomeAppliances)
 
-instance AWSRequest ForgetSmartHomeAppliances where
+instance Prelude.AWSRequest ForgetSmartHomeAppliances where
   type
     Rs ForgetSmartHomeAppliances =
       ForgetSmartHomeAppliancesResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           ForgetSmartHomeAppliancesResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ForgetSmartHomeAppliances
+instance Prelude.Hashable ForgetSmartHomeAppliances
 
-instance NFData ForgetSmartHomeAppliances
+instance Prelude.NFData ForgetSmartHomeAppliances
 
-instance ToHeaders ForgetSmartHomeAppliances where
+instance Prelude.ToHeaders ForgetSmartHomeAppliances where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.ForgetSmartHomeAppliances" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.ForgetSmartHomeAppliances" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ForgetSmartHomeAppliances where
+instance Prelude.ToJSON ForgetSmartHomeAppliances where
   toJSON ForgetSmartHomeAppliances' {..} =
-    object
-      (catMaybes [Just ("RoomArn" .= _fshaRoomARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("RoomArn" Prelude..= roomArn)]
+      )
 
-instance ToPath ForgetSmartHomeAppliances where
-  toPath = const "/"
+instance Prelude.ToPath ForgetSmartHomeAppliances where
+  toPath = Prelude.const "/"
 
-instance ToQuery ForgetSmartHomeAppliances where
-  toQuery = const mempty
+instance Prelude.ToQuery ForgetSmartHomeAppliances where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'forgetSmartHomeAppliancesResponse' smart constructor.
-newtype ForgetSmartHomeAppliancesResponse = ForgetSmartHomeAppliancesResponse'
-  { _fsharrsResponseStatus ::
-      Int
+-- | /See:/ 'newForgetSmartHomeAppliancesResponse' smart constructor.
+data ForgetSmartHomeAppliancesResponse = ForgetSmartHomeAppliancesResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ForgetSmartHomeAppliancesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ForgetSmartHomeAppliancesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'fsharrsResponseStatus' - -- | The response status code.
-forgetSmartHomeAppliancesResponse ::
-  -- | 'fsharrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'forgetSmartHomeAppliancesResponse_httpStatus' - The response's http status code.
+newForgetSmartHomeAppliancesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ForgetSmartHomeAppliancesResponse
-forgetSmartHomeAppliancesResponse pResponseStatus_ =
+newForgetSmartHomeAppliancesResponse pHttpStatus_ =
   ForgetSmartHomeAppliancesResponse'
-    { _fsharrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-fsharrsResponseStatus :: Lens' ForgetSmartHomeAppliancesResponse Int
-fsharrsResponseStatus = lens _fsharrsResponseStatus (\s a -> s {_fsharrsResponseStatus = a})
+-- | The response's http status code.
+forgetSmartHomeAppliancesResponse_httpStatus :: Lens.Lens' ForgetSmartHomeAppliancesResponse Prelude.Int
+forgetSmartHomeAppliancesResponse_httpStatus = Lens.lens (\ForgetSmartHomeAppliancesResponse' {httpStatus} -> httpStatus) (\s@ForgetSmartHomeAppliancesResponse' {} a -> s {httpStatus = a} :: ForgetSmartHomeAppliancesResponse)
 
-instance NFData ForgetSmartHomeAppliancesResponse
+instance
+  Prelude.NFData
+    ForgetSmartHomeAppliancesResponse

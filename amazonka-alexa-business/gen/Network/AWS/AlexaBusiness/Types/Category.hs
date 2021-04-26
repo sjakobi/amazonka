@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,53 +19,59 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.Category where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The skill store category that is shown. Alexa skills are assigned a specific skill category during creation, such as News, Social, and Sports.
+-- | The skill store category that is shown. Alexa skills are assigned a
+-- specific skill category during creation, such as News, Social, and
+-- Sports.
 --
---
---
--- /See:/ 'category' smart constructor.
+-- /See:/ 'newCategory' smart constructor.
 data Category = Category'
-  { _cCategoryId ::
-      !(Maybe Nat),
-    _cCategoryName :: !(Maybe Text)
+  { -- | The ID of the skill store category.
+    categoryId :: Prelude.Maybe Prelude.Nat,
+    -- | The name of the skill store category.
+    categoryName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Category' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Category' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cCategoryId' - The ID of the skill store category.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'cCategoryName' - The name of the skill store category.
-category ::
+-- 'categoryId', 'category_categoryId' - The ID of the skill store category.
+--
+-- 'categoryName', 'category_categoryName' - The name of the skill store category.
+newCategory ::
   Category
-category =
+newCategory =
   Category'
-    { _cCategoryId = Nothing,
-      _cCategoryName = Nothing
+    { categoryId = Prelude.Nothing,
+      categoryName = Prelude.Nothing
     }
 
 -- | The ID of the skill store category.
-cCategoryId :: Lens' Category (Maybe Natural)
-cCategoryId = lens _cCategoryId (\s a -> s {_cCategoryId = a}) . mapping _Nat
+category_categoryId :: Lens.Lens' Category (Prelude.Maybe Prelude.Natural)
+category_categoryId = Lens.lens (\Category' {categoryId} -> categoryId) (\s@Category' {} a -> s {categoryId = a} :: Category) Prelude.. Lens.mapping Prelude._Nat
 
 -- | The name of the skill store category.
-cCategoryName :: Lens' Category (Maybe Text)
-cCategoryName = lens _cCategoryName (\s a -> s {_cCategoryName = a})
+category_categoryName :: Lens.Lens' Category (Prelude.Maybe Prelude.Text)
+category_categoryName = Lens.lens (\Category' {categoryName} -> categoryName) (\s@Category' {} a -> s {categoryName = a} :: Category)
 
-instance FromJSON Category where
+instance Prelude.FromJSON Category where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Category"
       ( \x ->
           Category'
-            <$> (x .:? "CategoryId") <*> (x .:? "CategoryName")
+            Prelude.<$> (x Prelude..:? "CategoryId")
+            Prelude.<*> (x Prelude..:? "CategoryName")
       )
 
-instance Hashable Category
+instance Prelude.Hashable Category
 
-instance NFData Category
+instance Prelude.NFData Category

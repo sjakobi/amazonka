@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,205 +23,232 @@
 --
 -- Lists all skills in the Alexa skill store by category.
 --
---
---
 -- This operation returns paginated results.
 module Network.AWS.AlexaBusiness.ListSkillsStoreSkillsByCategory
   ( -- * Creating a Request
-    listSkillsStoreSkillsByCategory,
-    ListSkillsStoreSkillsByCategory,
+    ListSkillsStoreSkillsByCategory (..),
+    newListSkillsStoreSkillsByCategory,
 
     -- * Request Lenses
-    lsssbcNextToken,
-    lsssbcMaxResults,
-    lsssbcCategoryId,
+    listSkillsStoreSkillsByCategory_nextToken,
+    listSkillsStoreSkillsByCategory_maxResults,
+    listSkillsStoreSkillsByCategory_categoryId,
 
     -- * Destructuring the Response
-    listSkillsStoreSkillsByCategoryResponse,
-    ListSkillsStoreSkillsByCategoryResponse,
+    ListSkillsStoreSkillsByCategoryResponse (..),
+    newListSkillsStoreSkillsByCategoryResponse,
 
     -- * Response Lenses
-    lsssbcrrsSkillsStoreSkills,
-    lsssbcrrsNextToken,
-    lsssbcrrsResponseStatus,
+    listSkillsStoreSkillsByCategoryResponse_skillsStoreSkills,
+    listSkillsStoreSkillsByCategoryResponse_nextToken,
+    listSkillsStoreSkillsByCategoryResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.SkillsStoreSkill
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'listSkillsStoreSkillsByCategory' smart constructor.
+-- | /See:/ 'newListSkillsStoreSkillsByCategory' smart constructor.
 data ListSkillsStoreSkillsByCategory = ListSkillsStoreSkillsByCategory'
-  { _lsssbcNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lsssbcMaxResults ::
-      !( Maybe
-           Nat
-       ),
-    _lsssbcCategoryId ::
-      !Nat
+  { -- | The tokens used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of skills returned per paginated calls.
+    maxResults :: Prelude.Maybe Prelude.Nat,
+    -- | The category ID for which the skills are being retrieved from the skill
+    -- store.
+    categoryId :: Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSkillsStoreSkillsByCategory' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSkillsStoreSkillsByCategory' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsssbcNextToken' - The tokens used for pagination.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsssbcMaxResults' - The maximum number of skills returned per paginated calls.
+-- 'nextToken', 'listSkillsStoreSkillsByCategory_nextToken' - The tokens used for pagination.
 --
--- * 'lsssbcCategoryId' - The category ID for which the skills are being retrieved from the skill store.
-listSkillsStoreSkillsByCategory ::
-  -- | 'lsssbcCategoryId'
-  Natural ->
+-- 'maxResults', 'listSkillsStoreSkillsByCategory_maxResults' - The maximum number of skills returned per paginated calls.
+--
+-- 'categoryId', 'listSkillsStoreSkillsByCategory_categoryId' - The category ID for which the skills are being retrieved from the skill
+-- store.
+newListSkillsStoreSkillsByCategory ::
+  -- | 'categoryId'
+  Prelude.Natural ->
   ListSkillsStoreSkillsByCategory
-listSkillsStoreSkillsByCategory pCategoryId_ =
+newListSkillsStoreSkillsByCategory pCategoryId_ =
   ListSkillsStoreSkillsByCategory'
-    { _lsssbcNextToken =
-        Nothing,
-      _lsssbcMaxResults = Nothing,
-      _lsssbcCategoryId = _Nat # pCategoryId_
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      categoryId =
+        Prelude._Nat Lens.# pCategoryId_
     }
 
 -- | The tokens used for pagination.
-lsssbcNextToken :: Lens' ListSkillsStoreSkillsByCategory (Maybe Text)
-lsssbcNextToken = lens _lsssbcNextToken (\s a -> s {_lsssbcNextToken = a})
+listSkillsStoreSkillsByCategory_nextToken :: Lens.Lens' ListSkillsStoreSkillsByCategory (Prelude.Maybe Prelude.Text)
+listSkillsStoreSkillsByCategory_nextToken = Lens.lens (\ListSkillsStoreSkillsByCategory' {nextToken} -> nextToken) (\s@ListSkillsStoreSkillsByCategory' {} a -> s {nextToken = a} :: ListSkillsStoreSkillsByCategory)
 
 -- | The maximum number of skills returned per paginated calls.
-lsssbcMaxResults :: Lens' ListSkillsStoreSkillsByCategory (Maybe Natural)
-lsssbcMaxResults = lens _lsssbcMaxResults (\s a -> s {_lsssbcMaxResults = a}) . mapping _Nat
+listSkillsStoreSkillsByCategory_maxResults :: Lens.Lens' ListSkillsStoreSkillsByCategory (Prelude.Maybe Prelude.Natural)
+listSkillsStoreSkillsByCategory_maxResults = Lens.lens (\ListSkillsStoreSkillsByCategory' {maxResults} -> maxResults) (\s@ListSkillsStoreSkillsByCategory' {} a -> s {maxResults = a} :: ListSkillsStoreSkillsByCategory) Prelude.. Lens.mapping Prelude._Nat
 
--- | The category ID for which the skills are being retrieved from the skill store.
-lsssbcCategoryId :: Lens' ListSkillsStoreSkillsByCategory Natural
-lsssbcCategoryId = lens _lsssbcCategoryId (\s a -> s {_lsssbcCategoryId = a}) . _Nat
+-- | The category ID for which the skills are being retrieved from the skill
+-- store.
+listSkillsStoreSkillsByCategory_categoryId :: Lens.Lens' ListSkillsStoreSkillsByCategory Prelude.Natural
+listSkillsStoreSkillsByCategory_categoryId = Lens.lens (\ListSkillsStoreSkillsByCategory' {categoryId} -> categoryId) (\s@ListSkillsStoreSkillsByCategory' {} a -> s {categoryId = a} :: ListSkillsStoreSkillsByCategory) Prelude.. Prelude._Nat
 
-instance AWSPager ListSkillsStoreSkillsByCategory where
+instance
+  Pager.AWSPager
+    ListSkillsStoreSkillsByCategory
+  where
   page rq rs
-    | stop (rs ^. lsssbcrrsNextToken) = Nothing
-    | stop (rs ^. lsssbcrrsSkillsStoreSkills) = Nothing
-    | otherwise =
-      Just $
+    | Pager.stop
+        ( rs
+            Lens.^? listSkillsStoreSkillsByCategoryResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listSkillsStoreSkillsByCategoryResponse_skillsStoreSkills
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
         rq
-          & lsssbcNextToken .~ rs ^. lsssbcrrsNextToken
+          Lens.& listSkillsStoreSkillsByCategory_nextToken
+          Lens..~ rs
+          Lens.^? listSkillsStoreSkillsByCategoryResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListSkillsStoreSkillsByCategory where
+instance
+  Prelude.AWSRequest
+    ListSkillsStoreSkillsByCategory
+  where
   type
     Rs ListSkillsStoreSkillsByCategory =
       ListSkillsStoreSkillsByCategoryResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           ListSkillsStoreSkillsByCategoryResponse'
-            <$> (x .?> "SkillsStoreSkills" .!@ mempty)
-            <*> (x .?> "NextToken")
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..?> "SkillsStoreSkills"
+                            Prelude..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..?> "NextToken")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListSkillsStoreSkillsByCategory
+instance
+  Prelude.Hashable
+    ListSkillsStoreSkillsByCategory
 
-instance NFData ListSkillsStoreSkillsByCategory
+instance
+  Prelude.NFData
+    ListSkillsStoreSkillsByCategory
 
-instance ToHeaders ListSkillsStoreSkillsByCategory where
+instance
+  Prelude.ToHeaders
+    ListSkillsStoreSkillsByCategory
+  where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.ListSkillsStoreSkillsByCategory" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.ListSkillsStoreSkillsByCategory" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON ListSkillsStoreSkillsByCategory where
+instance
+  Prelude.ToJSON
+    ListSkillsStoreSkillsByCategory
+  where
   toJSON ListSkillsStoreSkillsByCategory' {..} =
-    object
-      ( catMaybes
-          [ ("NextToken" .=) <$> _lsssbcNextToken,
-            ("MaxResults" .=) <$> _lsssbcMaxResults,
-            Just ("CategoryId" .= _lsssbcCategoryId)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("NextToken" Prelude..=) Prelude.<$> nextToken,
+            ("MaxResults" Prelude..=) Prelude.<$> maxResults,
+            Prelude.Just ("CategoryId" Prelude..= categoryId)
           ]
       )
 
-instance ToPath ListSkillsStoreSkillsByCategory where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    ListSkillsStoreSkillsByCategory
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListSkillsStoreSkillsByCategory where
-  toQuery = const mempty
+instance
+  Prelude.ToQuery
+    ListSkillsStoreSkillsByCategory
+  where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'listSkillsStoreSkillsByCategoryResponse' smart constructor.
+-- | /See:/ 'newListSkillsStoreSkillsByCategoryResponse' smart constructor.
 data ListSkillsStoreSkillsByCategoryResponse = ListSkillsStoreSkillsByCategoryResponse'
-  { _lsssbcrrsSkillsStoreSkills ::
-      !( Maybe
-           [SkillsStoreSkill]
-       ),
-    _lsssbcrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lsssbcrrsResponseStatus ::
-      !Int
+  { -- | The skill store skills.
+    skillsStoreSkills :: Prelude.Maybe [SkillsStoreSkill],
+    -- | The tokens used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListSkillsStoreSkillsByCategoryResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListSkillsStoreSkillsByCategoryResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lsssbcrrsSkillsStoreSkills' - The skill store skills.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lsssbcrrsNextToken' - The tokens used for pagination.
+-- 'skillsStoreSkills', 'listSkillsStoreSkillsByCategoryResponse_skillsStoreSkills' - The skill store skills.
 --
--- * 'lsssbcrrsResponseStatus' - -- | The response status code.
-listSkillsStoreSkillsByCategoryResponse ::
-  -- | 'lsssbcrrsResponseStatus'
-  Int ->
+-- 'nextToken', 'listSkillsStoreSkillsByCategoryResponse_nextToken' - The tokens used for pagination.
+--
+-- 'httpStatus', 'listSkillsStoreSkillsByCategoryResponse_httpStatus' - The response's http status code.
+newListSkillsStoreSkillsByCategoryResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListSkillsStoreSkillsByCategoryResponse
-listSkillsStoreSkillsByCategoryResponse
-  pResponseStatus_ =
+newListSkillsStoreSkillsByCategoryResponse
+  pHttpStatus_ =
     ListSkillsStoreSkillsByCategoryResponse'
-      { _lsssbcrrsSkillsStoreSkills =
-          Nothing,
-        _lsssbcrrsNextToken = Nothing,
-        _lsssbcrrsResponseStatus =
-          pResponseStatus_
+      { skillsStoreSkills =
+          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
 -- | The skill store skills.
-lsssbcrrsSkillsStoreSkills :: Lens' ListSkillsStoreSkillsByCategoryResponse [SkillsStoreSkill]
-lsssbcrrsSkillsStoreSkills = lens _lsssbcrrsSkillsStoreSkills (\s a -> s {_lsssbcrrsSkillsStoreSkills = a}) . _Default . _Coerce
+listSkillsStoreSkillsByCategoryResponse_skillsStoreSkills :: Lens.Lens' ListSkillsStoreSkillsByCategoryResponse (Prelude.Maybe [SkillsStoreSkill])
+listSkillsStoreSkillsByCategoryResponse_skillsStoreSkills = Lens.lens (\ListSkillsStoreSkillsByCategoryResponse' {skillsStoreSkills} -> skillsStoreSkills) (\s@ListSkillsStoreSkillsByCategoryResponse' {} a -> s {skillsStoreSkills = a} :: ListSkillsStoreSkillsByCategoryResponse) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The tokens used for pagination.
-lsssbcrrsNextToken :: Lens' ListSkillsStoreSkillsByCategoryResponse (Maybe Text)
-lsssbcrrsNextToken = lens _lsssbcrrsNextToken (\s a -> s {_lsssbcrrsNextToken = a})
+listSkillsStoreSkillsByCategoryResponse_nextToken :: Lens.Lens' ListSkillsStoreSkillsByCategoryResponse (Prelude.Maybe Prelude.Text)
+listSkillsStoreSkillsByCategoryResponse_nextToken = Lens.lens (\ListSkillsStoreSkillsByCategoryResponse' {nextToken} -> nextToken) (\s@ListSkillsStoreSkillsByCategoryResponse' {} a -> s {nextToken = a} :: ListSkillsStoreSkillsByCategoryResponse)
 
--- | -- | The response status code.
-lsssbcrrsResponseStatus :: Lens' ListSkillsStoreSkillsByCategoryResponse Int
-lsssbcrrsResponseStatus = lens _lsssbcrrsResponseStatus (\s a -> s {_lsssbcrrsResponseStatus = a})
+-- | The response's http status code.
+listSkillsStoreSkillsByCategoryResponse_httpStatus :: Lens.Lens' ListSkillsStoreSkillsByCategoryResponse Prelude.Int
+listSkillsStoreSkillsByCategoryResponse_httpStatus = Lens.lens (\ListSkillsStoreSkillsByCategoryResponse' {httpStatus} -> httpStatus) (\s@ListSkillsStoreSkillsByCategoryResponse' {} a -> s {httpStatus = a} :: ListSkillsStoreSkillsByCategoryResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListSkillsStoreSkillsByCategoryResponse

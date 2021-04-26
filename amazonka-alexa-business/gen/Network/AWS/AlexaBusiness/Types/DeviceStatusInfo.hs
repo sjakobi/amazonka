@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,66 +21,73 @@ module Network.AWS.AlexaBusiness.Types.DeviceStatusInfo where
 
 import Network.AWS.AlexaBusiness.Types.ConnectionStatus
 import Network.AWS.AlexaBusiness.Types.DeviceStatusDetail
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Detailed information about a device's status.
+-- | Detailed information about a device\'s status.
 --
---
---
--- /See:/ 'deviceStatusInfo' smart constructor.
+-- /See:/ 'newDeviceStatusInfo' smart constructor.
 data DeviceStatusInfo = DeviceStatusInfo'
-  { _dsiDeviceStatusDetails ::
-      !(Maybe [DeviceStatusDetail]),
-    _dsiConnectionStatusUpdatedTime ::
-      !(Maybe POSIX),
-    _dsiConnectionStatus ::
-      !(Maybe ConnectionStatus)
+  { -- | One or more device status detail descriptions.
+    deviceStatusDetails :: Prelude.Maybe [DeviceStatusDetail],
+    -- | The time (in epoch) when the device connection status changed.
+    connectionStatusUpdatedTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The latest available information about the connection status of a
+    -- device.
+    connectionStatus :: Prelude.Maybe ConnectionStatus
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceStatusInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceStatusInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dsiDeviceStatusDetails' - One or more device status detail descriptions.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dsiConnectionStatusUpdatedTime' - The time (in epoch) when the device connection status changed.
+-- 'deviceStatusDetails', 'deviceStatusInfo_deviceStatusDetails' - One or more device status detail descriptions.
 --
--- * 'dsiConnectionStatus' - The latest available information about the connection status of a device.
-deviceStatusInfo ::
+-- 'connectionStatusUpdatedTime', 'deviceStatusInfo_connectionStatusUpdatedTime' - The time (in epoch) when the device connection status changed.
+--
+-- 'connectionStatus', 'deviceStatusInfo_connectionStatus' - The latest available information about the connection status of a
+-- device.
+newDeviceStatusInfo ::
   DeviceStatusInfo
-deviceStatusInfo =
+newDeviceStatusInfo =
   DeviceStatusInfo'
-    { _dsiDeviceStatusDetails =
-        Nothing,
-      _dsiConnectionStatusUpdatedTime = Nothing,
-      _dsiConnectionStatus = Nothing
+    { deviceStatusDetails =
+        Prelude.Nothing,
+      connectionStatusUpdatedTime = Prelude.Nothing,
+      connectionStatus = Prelude.Nothing
     }
 
 -- | One or more device status detail descriptions.
-dsiDeviceStatusDetails :: Lens' DeviceStatusInfo [DeviceStatusDetail]
-dsiDeviceStatusDetails = lens _dsiDeviceStatusDetails (\s a -> s {_dsiDeviceStatusDetails = a}) . _Default . _Coerce
+deviceStatusInfo_deviceStatusDetails :: Lens.Lens' DeviceStatusInfo (Prelude.Maybe [DeviceStatusDetail])
+deviceStatusInfo_deviceStatusDetails = Lens.lens (\DeviceStatusInfo' {deviceStatusDetails} -> deviceStatusDetails) (\s@DeviceStatusInfo' {} a -> s {deviceStatusDetails = a} :: DeviceStatusInfo) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The time (in epoch) when the device connection status changed.
-dsiConnectionStatusUpdatedTime :: Lens' DeviceStatusInfo (Maybe UTCTime)
-dsiConnectionStatusUpdatedTime = lens _dsiConnectionStatusUpdatedTime (\s a -> s {_dsiConnectionStatusUpdatedTime = a}) . mapping _Time
+deviceStatusInfo_connectionStatusUpdatedTime :: Lens.Lens' DeviceStatusInfo (Prelude.Maybe Prelude.UTCTime)
+deviceStatusInfo_connectionStatusUpdatedTime = Lens.lens (\DeviceStatusInfo' {connectionStatusUpdatedTime} -> connectionStatusUpdatedTime) (\s@DeviceStatusInfo' {} a -> s {connectionStatusUpdatedTime = a} :: DeviceStatusInfo) Prelude.. Lens.mapping Prelude._Time
 
--- | The latest available information about the connection status of a device.
-dsiConnectionStatus :: Lens' DeviceStatusInfo (Maybe ConnectionStatus)
-dsiConnectionStatus = lens _dsiConnectionStatus (\s a -> s {_dsiConnectionStatus = a})
+-- | The latest available information about the connection status of a
+-- device.
+deviceStatusInfo_connectionStatus :: Lens.Lens' DeviceStatusInfo (Prelude.Maybe ConnectionStatus)
+deviceStatusInfo_connectionStatus = Lens.lens (\DeviceStatusInfo' {connectionStatus} -> connectionStatus) (\s@DeviceStatusInfo' {} a -> s {connectionStatus = a} :: DeviceStatusInfo)
 
-instance FromJSON DeviceStatusInfo where
+instance Prelude.FromJSON DeviceStatusInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceStatusInfo"
       ( \x ->
           DeviceStatusInfo'
-            <$> (x .:? "DeviceStatusDetails" .!= mempty)
-            <*> (x .:? "ConnectionStatusUpdatedTime")
-            <*> (x .:? "ConnectionStatus")
+            Prelude.<$> ( x Prelude..:? "DeviceStatusDetails"
+                            Prelude..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Prelude..:? "ConnectionStatusUpdatedTime")
+            Prelude.<*> (x Prelude..:? "ConnectionStatus")
       )
 
-instance Hashable DeviceStatusInfo
+instance Prelude.Hashable DeviceStatusInfo
 
-instance NFData DeviceStatusInfo
+instance Prelude.NFData DeviceStatusInfo

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.AlexaBusiness.Types.SortValue
   ( SortValue
       ( ..,
-        Asc,
-        Desc
+        SortValueASC,
+        SortValueDESC
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SortValue = SortValue' (CI Text)
+newtype SortValue = SortValue'
+  { fromSortValue ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Asc :: SortValue
-pattern Asc = SortValue' "ASC"
+pattern SortValueASC :: SortValue
+pattern SortValueASC = SortValue' "ASC"
 
-pattern Desc :: SortValue
-pattern Desc = SortValue' "DESC"
+pattern SortValueDESC :: SortValue
+pattern SortValueDESC = SortValue' "DESC"
 
 {-# COMPLETE
-  Asc,
-  Desc,
+  SortValueASC,
+  SortValueDESC,
   SortValue'
   #-}
 
-instance FromText SortValue where
-  parser = (SortValue' . mk) <$> takeText
+instance Prelude.FromText SortValue where
+  parser = SortValue' Prelude.<$> Prelude.takeText
 
-instance ToText SortValue where
-  toText (SortValue' ci) = original ci
+instance Prelude.ToText SortValue where
+  toText (SortValue' x) = x
 
-instance Hashable SortValue
+instance Prelude.Hashable SortValue
 
-instance NFData SortValue
+instance Prelude.NFData SortValue
 
-instance ToByteString SortValue
+instance Prelude.ToByteString SortValue
 
-instance ToQuery SortValue
+instance Prelude.ToQuery SortValue
 
-instance ToHeader SortValue
+instance Prelude.ToHeader SortValue
 
-instance ToJSON SortValue where
-  toJSON = toJSONText
+instance Prelude.ToJSON SortValue where
+  toJSON = Prelude.toJSONText

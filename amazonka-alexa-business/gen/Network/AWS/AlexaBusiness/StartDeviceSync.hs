@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,153 +21,166 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Resets a device and its account to the known default settings. This clears all information and settings set by previous users in the following ways:
+-- Resets a device and its account to the known default settings. This
+-- clears all information and settings set by previous users in the
+-- following ways:
 --
+-- -   Bluetooth - This unpairs all bluetooth devices paired with your echo
+--     device.
 --
---     * Bluetooth - This unpairs all bluetooth devices paired with your echo device.
+-- -   Volume - This resets the echo device\'s volume to the default value.
 --
---     * Volume - This resets the echo device's volume to the default value.
+-- -   Notifications - This clears all notifications from your echo device.
 --
---     * Notifications - This clears all notifications from your echo device.
+-- -   Lists - This clears all to-do items from your echo device.
 --
---     * Lists - This clears all to-do items from your echo device.
---
---     * Settings - This internally syncs the room's profile (if the device is assigned to a room), contacts, address books, delegation access for account linking, and communications (if enabled on the room profile).
+-- -   Settings - This internally syncs the room\'s profile (if the device
+--     is assigned to a room), contacts, address books, delegation access
+--     for account linking, and communications (if enabled on the room
+--     profile).
 module Network.AWS.AlexaBusiness.StartDeviceSync
   ( -- * Creating a Request
-    startDeviceSync,
-    StartDeviceSync,
+    StartDeviceSync (..),
+    newStartDeviceSync,
 
     -- * Request Lenses
-    sdsDeviceARN,
-    sdsRoomARN,
-    sdsFeatures,
+    startDeviceSync_deviceArn,
+    startDeviceSync_roomArn,
+    startDeviceSync_features,
 
     -- * Destructuring the Response
-    startDeviceSyncResponse,
-    StartDeviceSyncResponse,
+    StartDeviceSyncResponse (..),
+    newStartDeviceSyncResponse,
 
     -- * Response Lenses
-    sdsrrsResponseStatus,
+    startDeviceSyncResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'startDeviceSync' smart constructor.
+-- | /See:/ 'newStartDeviceSync' smart constructor.
 data StartDeviceSync = StartDeviceSync'
-  { _sdsDeviceARN ::
-      !(Maybe Text),
-    _sdsRoomARN :: !(Maybe Text),
-    _sdsFeatures :: ![Feature]
+  { -- | The ARN of the device to sync. Required.
+    deviceArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the room with which the device to sync is associated.
+    -- Required.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | Request structure to start the device sync. Required.
+    features :: [Feature]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDeviceSync' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDeviceSync' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdsDeviceARN' - The ARN of the device to sync. Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sdsRoomARN' - The ARN of the room with which the device to sync is associated. Required.
+-- 'deviceArn', 'startDeviceSync_deviceArn' - The ARN of the device to sync. Required.
 --
--- * 'sdsFeatures' - Request structure to start the device sync. Required.
-startDeviceSync ::
+-- 'roomArn', 'startDeviceSync_roomArn' - The ARN of the room with which the device to sync is associated.
+-- Required.
+--
+-- 'features', 'startDeviceSync_features' - Request structure to start the device sync. Required.
+newStartDeviceSync ::
   StartDeviceSync
-startDeviceSync =
+newStartDeviceSync =
   StartDeviceSync'
-    { _sdsDeviceARN = Nothing,
-      _sdsRoomARN = Nothing,
-      _sdsFeatures = mempty
+    { deviceArn = Prelude.Nothing,
+      roomArn = Prelude.Nothing,
+      features = Prelude.mempty
     }
 
 -- | The ARN of the device to sync. Required.
-sdsDeviceARN :: Lens' StartDeviceSync (Maybe Text)
-sdsDeviceARN = lens _sdsDeviceARN (\s a -> s {_sdsDeviceARN = a})
+startDeviceSync_deviceArn :: Lens.Lens' StartDeviceSync (Prelude.Maybe Prelude.Text)
+startDeviceSync_deviceArn = Lens.lens (\StartDeviceSync' {deviceArn} -> deviceArn) (\s@StartDeviceSync' {} a -> s {deviceArn = a} :: StartDeviceSync)
 
--- | The ARN of the room with which the device to sync is associated. Required.
-sdsRoomARN :: Lens' StartDeviceSync (Maybe Text)
-sdsRoomARN = lens _sdsRoomARN (\s a -> s {_sdsRoomARN = a})
+-- | The ARN of the room with which the device to sync is associated.
+-- Required.
+startDeviceSync_roomArn :: Lens.Lens' StartDeviceSync (Prelude.Maybe Prelude.Text)
+startDeviceSync_roomArn = Lens.lens (\StartDeviceSync' {roomArn} -> roomArn) (\s@StartDeviceSync' {} a -> s {roomArn = a} :: StartDeviceSync)
 
 -- | Request structure to start the device sync. Required.
-sdsFeatures :: Lens' StartDeviceSync [Feature]
-sdsFeatures = lens _sdsFeatures (\s a -> s {_sdsFeatures = a}) . _Coerce
+startDeviceSync_features :: Lens.Lens' StartDeviceSync [Feature]
+startDeviceSync_features = Lens.lens (\StartDeviceSync' {features} -> features) (\s@StartDeviceSync' {} a -> s {features = a} :: StartDeviceSync) Prelude.. Prelude._Coerce
 
-instance AWSRequest StartDeviceSync where
+instance Prelude.AWSRequest StartDeviceSync where
   type Rs StartDeviceSync = StartDeviceSyncResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          StartDeviceSyncResponse' <$> (pure (fromEnum s))
+          StartDeviceSyncResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable StartDeviceSync
+instance Prelude.Hashable StartDeviceSync
 
-instance NFData StartDeviceSync
+instance Prelude.NFData StartDeviceSync
 
-instance ToHeaders StartDeviceSync where
+instance Prelude.ToHeaders StartDeviceSync where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.StartDeviceSync" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.StartDeviceSync" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON StartDeviceSync where
+instance Prelude.ToJSON StartDeviceSync where
   toJSON StartDeviceSync' {..} =
-    object
-      ( catMaybes
-          [ ("DeviceArn" .=) <$> _sdsDeviceARN,
-            ("RoomArn" .=) <$> _sdsRoomARN,
-            Just ("Features" .= _sdsFeatures)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeviceArn" Prelude..=) Prelude.<$> deviceArn,
+            ("RoomArn" Prelude..=) Prelude.<$> roomArn,
+            Prelude.Just ("Features" Prelude..= features)
           ]
       )
 
-instance ToPath StartDeviceSync where
-  toPath = const "/"
+instance Prelude.ToPath StartDeviceSync where
+  toPath = Prelude.const "/"
 
-instance ToQuery StartDeviceSync where
-  toQuery = const mempty
+instance Prelude.ToQuery StartDeviceSync where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'startDeviceSyncResponse' smart constructor.
-newtype StartDeviceSyncResponse = StartDeviceSyncResponse'
-  { _sdsrrsResponseStatus ::
-      Int
+-- | /See:/ 'newStartDeviceSyncResponse' smart constructor.
+data StartDeviceSyncResponse = StartDeviceSyncResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StartDeviceSyncResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StartDeviceSyncResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sdsrrsResponseStatus' - -- | The response status code.
-startDeviceSyncResponse ::
-  -- | 'sdsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'startDeviceSyncResponse_httpStatus' - The response's http status code.
+newStartDeviceSyncResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   StartDeviceSyncResponse
-startDeviceSyncResponse pResponseStatus_ =
-  StartDeviceSyncResponse'
-    { _sdsrrsResponseStatus =
-        pResponseStatus_
-    }
+newStartDeviceSyncResponse pHttpStatus_ =
+  StartDeviceSyncResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-sdsrrsResponseStatus :: Lens' StartDeviceSyncResponse Int
-sdsrrsResponseStatus = lens _sdsrrsResponseStatus (\s a -> s {_sdsrrsResponseStatus = a})
+-- | The response's http status code.
+startDeviceSyncResponse_httpStatus :: Lens.Lens' StartDeviceSyncResponse Prelude.Int
+startDeviceSyncResponse_httpStatus = Lens.lens (\StartDeviceSyncResponse' {httpStatus} -> httpStatus) (\s@StartDeviceSyncResponse' {} a -> s {httpStatus = a} :: StartDeviceSyncResponse)
 
-instance NFData StartDeviceSyncResponse
+instance Prelude.NFData StartDeviceSyncResponse

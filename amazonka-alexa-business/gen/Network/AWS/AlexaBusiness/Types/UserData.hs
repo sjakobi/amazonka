@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,90 +20,97 @@
 module Network.AWS.AlexaBusiness.Types.UserData where
 
 import Network.AWS.AlexaBusiness.Types.EnrollmentStatus
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information related to a user.
 --
---
---
--- /See:/ 'userData' smart constructor.
+-- /See:/ 'newUserData' smart constructor.
 data UserData = UserData'
-  { _udUserARN ::
-      !(Maybe Text),
-    _udEnrollmentId :: !(Maybe Text),
-    _udEmail :: !(Maybe Text),
-    _udEnrollmentStatus :: !(Maybe EnrollmentStatus),
-    _udFirstName :: !(Maybe Text),
-    _udLastName :: !(Maybe Text)
+  { -- | The ARN of a user.
+    userArn :: Prelude.Maybe Prelude.Text,
+    -- | The enrollment ARN of a user.
+    enrollmentId :: Prelude.Maybe Prelude.Text,
+    -- | The email of a user.
+    email :: Prelude.Maybe Prelude.Text,
+    -- | The enrollment status of a user.
+    enrollmentStatus :: Prelude.Maybe EnrollmentStatus,
+    -- | The first name of a user.
+    firstName :: Prelude.Maybe Prelude.Text,
+    -- | The last name of a user.
+    lastName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UserData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UserData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'udUserARN' - The ARN of a user.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'udEnrollmentId' - The enrollment ARN of a user.
+-- 'userArn', 'userData_userArn' - The ARN of a user.
 --
--- * 'udEmail' - The email of a user.
+-- 'enrollmentId', 'userData_enrollmentId' - The enrollment ARN of a user.
 --
--- * 'udEnrollmentStatus' - The enrollment status of a user.
+-- 'email', 'userData_email' - The email of a user.
 --
--- * 'udFirstName' - The first name of a user.
+-- 'enrollmentStatus', 'userData_enrollmentStatus' - The enrollment status of a user.
 --
--- * 'udLastName' - The last name of a user.
-userData ::
+-- 'firstName', 'userData_firstName' - The first name of a user.
+--
+-- 'lastName', 'userData_lastName' - The last name of a user.
+newUserData ::
   UserData
-userData =
+newUserData =
   UserData'
-    { _udUserARN = Nothing,
-      _udEnrollmentId = Nothing,
-      _udEmail = Nothing,
-      _udEnrollmentStatus = Nothing,
-      _udFirstName = Nothing,
-      _udLastName = Nothing
+    { userArn = Prelude.Nothing,
+      enrollmentId = Prelude.Nothing,
+      email = Prelude.Nothing,
+      enrollmentStatus = Prelude.Nothing,
+      firstName = Prelude.Nothing,
+      lastName = Prelude.Nothing
     }
 
 -- | The ARN of a user.
-udUserARN :: Lens' UserData (Maybe Text)
-udUserARN = lens _udUserARN (\s a -> s {_udUserARN = a})
+userData_userArn :: Lens.Lens' UserData (Prelude.Maybe Prelude.Text)
+userData_userArn = Lens.lens (\UserData' {userArn} -> userArn) (\s@UserData' {} a -> s {userArn = a} :: UserData)
 
 -- | The enrollment ARN of a user.
-udEnrollmentId :: Lens' UserData (Maybe Text)
-udEnrollmentId = lens _udEnrollmentId (\s a -> s {_udEnrollmentId = a})
+userData_enrollmentId :: Lens.Lens' UserData (Prelude.Maybe Prelude.Text)
+userData_enrollmentId = Lens.lens (\UserData' {enrollmentId} -> enrollmentId) (\s@UserData' {} a -> s {enrollmentId = a} :: UserData)
 
 -- | The email of a user.
-udEmail :: Lens' UserData (Maybe Text)
-udEmail = lens _udEmail (\s a -> s {_udEmail = a})
+userData_email :: Lens.Lens' UserData (Prelude.Maybe Prelude.Text)
+userData_email = Lens.lens (\UserData' {email} -> email) (\s@UserData' {} a -> s {email = a} :: UserData)
 
 -- | The enrollment status of a user.
-udEnrollmentStatus :: Lens' UserData (Maybe EnrollmentStatus)
-udEnrollmentStatus = lens _udEnrollmentStatus (\s a -> s {_udEnrollmentStatus = a})
+userData_enrollmentStatus :: Lens.Lens' UserData (Prelude.Maybe EnrollmentStatus)
+userData_enrollmentStatus = Lens.lens (\UserData' {enrollmentStatus} -> enrollmentStatus) (\s@UserData' {} a -> s {enrollmentStatus = a} :: UserData)
 
 -- | The first name of a user.
-udFirstName :: Lens' UserData (Maybe Text)
-udFirstName = lens _udFirstName (\s a -> s {_udFirstName = a})
+userData_firstName :: Lens.Lens' UserData (Prelude.Maybe Prelude.Text)
+userData_firstName = Lens.lens (\UserData' {firstName} -> firstName) (\s@UserData' {} a -> s {firstName = a} :: UserData)
 
 -- | The last name of a user.
-udLastName :: Lens' UserData (Maybe Text)
-udLastName = lens _udLastName (\s a -> s {_udLastName = a})
+userData_lastName :: Lens.Lens' UserData (Prelude.Maybe Prelude.Text)
+userData_lastName = Lens.lens (\UserData' {lastName} -> lastName) (\s@UserData' {} a -> s {lastName = a} :: UserData)
 
-instance FromJSON UserData where
+instance Prelude.FromJSON UserData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "UserData"
       ( \x ->
           UserData'
-            <$> (x .:? "UserArn")
-            <*> (x .:? "EnrollmentId")
-            <*> (x .:? "Email")
-            <*> (x .:? "EnrollmentStatus")
-            <*> (x .:? "FirstName")
-            <*> (x .:? "LastName")
+            Prelude.<$> (x Prelude..:? "UserArn")
+            Prelude.<*> (x Prelude..:? "EnrollmentId")
+            Prelude.<*> (x Prelude..:? "Email")
+            Prelude.<*> (x Prelude..:? "EnrollmentStatus")
+            Prelude.<*> (x Prelude..:? "FirstName")
+            Prelude.<*> (x Prelude..:? "LastName")
       )
 
-instance Hashable UserData
+instance Prelude.Hashable UserData
 
-instance NFData UserData
+instance Prelude.NFData UserData

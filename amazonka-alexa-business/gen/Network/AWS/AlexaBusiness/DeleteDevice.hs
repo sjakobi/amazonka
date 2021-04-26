@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,116 +24,121 @@
 -- Removes a device from Alexa For Business.
 module Network.AWS.AlexaBusiness.DeleteDevice
   ( -- * Creating a Request
-    deleteDevice,
-    DeleteDevice,
+    DeleteDevice (..),
+    newDeleteDevice,
 
     -- * Request Lenses
-    delDeviceARN,
+    deleteDevice_deviceArn,
 
     -- * Destructuring the Response
-    deleteDeviceResponse,
-    DeleteDeviceResponse,
+    DeleteDeviceResponse (..),
+    newDeleteDeviceResponse,
 
     -- * Response Lenses
-    ddrrsResponseStatus,
+    deleteDeviceResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteDevice' smart constructor.
-newtype DeleteDevice = DeleteDevice'
-  { _delDeviceARN ::
-      Text
+-- | /See:/ 'newDeleteDevice' smart constructor.
+data DeleteDevice = DeleteDevice'
+  { -- | The ARN of the device for which to request details.
+    deviceArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDevice' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDevice' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'delDeviceARN' - The ARN of the device for which to request details.
-deleteDevice ::
-  -- | 'delDeviceARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'deviceArn', 'deleteDevice_deviceArn' - The ARN of the device for which to request details.
+newDeleteDevice ::
+  -- | 'deviceArn'
+  Prelude.Text ->
   DeleteDevice
-deleteDevice pDeviceARN_ =
-  DeleteDevice' {_delDeviceARN = pDeviceARN_}
+newDeleteDevice pDeviceArn_ =
+  DeleteDevice' {deviceArn = pDeviceArn_}
 
 -- | The ARN of the device for which to request details.
-delDeviceARN :: Lens' DeleteDevice Text
-delDeviceARN = lens _delDeviceARN (\s a -> s {_delDeviceARN = a})
+deleteDevice_deviceArn :: Lens.Lens' DeleteDevice Prelude.Text
+deleteDevice_deviceArn = Lens.lens (\DeleteDevice' {deviceArn} -> deviceArn) (\s@DeleteDevice' {} a -> s {deviceArn = a} :: DeleteDevice)
 
-instance AWSRequest DeleteDevice where
+instance Prelude.AWSRequest DeleteDevice where
   type Rs DeleteDevice = DeleteDeviceResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteDeviceResponse' <$> (pure (fromEnum s))
+          DeleteDeviceResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteDevice
+instance Prelude.Hashable DeleteDevice
 
-instance NFData DeleteDevice
+instance Prelude.NFData DeleteDevice
 
-instance ToHeaders DeleteDevice where
+instance Prelude.ToHeaders DeleteDevice where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.DeleteDevice" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.DeleteDevice" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteDevice where
+instance Prelude.ToJSON DeleteDevice where
   toJSON DeleteDevice' {..} =
-    object
-      (catMaybes [Just ("DeviceArn" .= _delDeviceARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("DeviceArn" Prelude..= deviceArn)]
+      )
 
-instance ToPath DeleteDevice where
-  toPath = const "/"
+instance Prelude.ToPath DeleteDevice where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteDevice where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteDevice where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteDeviceResponse' smart constructor.
-newtype DeleteDeviceResponse = DeleteDeviceResponse'
-  { _ddrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteDeviceResponse' smart constructor.
+data DeleteDeviceResponse = DeleteDeviceResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteDeviceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteDeviceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddrrsResponseStatus' - -- | The response status code.
-deleteDeviceResponse ::
-  -- | 'ddrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteDeviceResponse_httpStatus' - The response's http status code.
+newDeleteDeviceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteDeviceResponse
-deleteDeviceResponse pResponseStatus_ =
-  DeleteDeviceResponse'
-    { _ddrrsResponseStatus =
-        pResponseStatus_
-    }
+newDeleteDeviceResponse pHttpStatus_ =
+  DeleteDeviceResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ddrrsResponseStatus :: Lens' DeleteDeviceResponse Int
-ddrrsResponseStatus = lens _ddrrsResponseStatus (\s a -> s {_ddrrsResponseStatus = a})
+-- | The response's http status code.
+deleteDeviceResponse_httpStatus :: Lens.Lens' DeleteDeviceResponse Prelude.Int
+deleteDeviceResponse_httpStatus = Lens.lens (\DeleteDeviceResponse' {httpStatus} -> httpStatus) (\s@DeleteDeviceResponse' {} a -> s {httpStatus = a} :: DeleteDeviceResponse)
 
-instance NFData DeleteDeviceResponse
+instance Prelude.NFData DeleteDeviceResponse

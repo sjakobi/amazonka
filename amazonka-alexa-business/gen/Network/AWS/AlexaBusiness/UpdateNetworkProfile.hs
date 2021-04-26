@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,194 +24,218 @@
 -- Updates a network profile by the network profile ARN.
 module Network.AWS.AlexaBusiness.UpdateNetworkProfile
   ( -- * Creating a Request
-    updateNetworkProfile,
-    UpdateNetworkProfile,
+    UpdateNetworkProfile (..),
+    newUpdateNetworkProfile,
 
     -- * Request Lenses
-    unpCertificateAuthorityARN,
-    unpTrustAnchors,
-    unpCurrentPassword,
-    unpNetworkProfileName,
-    unpDescription,
-    unpNextPassword,
-    unpNetworkProfileARN,
+    updateNetworkProfile_certificateAuthorityArn,
+    updateNetworkProfile_trustAnchors,
+    updateNetworkProfile_currentPassword,
+    updateNetworkProfile_networkProfileName,
+    updateNetworkProfile_description,
+    updateNetworkProfile_nextPassword,
+    updateNetworkProfile_networkProfileArn,
 
     -- * Destructuring the Response
-    updateNetworkProfileResponse,
-    UpdateNetworkProfileResponse,
+    UpdateNetworkProfileResponse (..),
+    newUpdateNetworkProfileResponse,
 
     -- * Response Lenses
-    unprrsResponseStatus,
+    updateNetworkProfileResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateNetworkProfile' smart constructor.
+-- | /See:/ 'newUpdateNetworkProfile' smart constructor.
 data UpdateNetworkProfile = UpdateNetworkProfile'
-  { _unpCertificateAuthorityARN ::
-      !(Maybe Text),
-    _unpTrustAnchors ::
-      !(Maybe (List1 Text)),
-    _unpCurrentPassword ::
-      !(Maybe (Sensitive Text)),
-    _unpNetworkProfileName ::
-      !(Maybe Text),
-    _unpDescription ::
-      !(Maybe Text),
-    _unpNextPassword ::
-      !(Maybe (Sensitive Text)),
-    _unpNetworkProfileARN ::
-      !Text
+  { -- | The ARN of the Private Certificate Authority (PCA) created in AWS
+    -- Certificate Manager (ACM). This is used to issue certificates to the
+    -- devices.
+    certificateAuthorityArn :: Prelude.Maybe Prelude.Text,
+    -- | The root certificate(s) of your authentication server that will be
+    -- installed on your devices and used to trust your authentication server
+    -- during EAP negotiation.
+    trustAnchors :: Prelude.Maybe (Prelude.List1 Prelude.Text),
+    -- | The current password of the Wi-Fi network.
+    currentPassword :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The name of the network profile associated with a device.
+    networkProfileName :: Prelude.Maybe Prelude.Text,
+    -- | Detailed information about a device\'s network profile.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The next, or subsequent, password of the Wi-Fi network. This password is
+    -- asynchronously transmitted to the device and is used when the password
+    -- of the network changes to NextPassword.
+    nextPassword :: Prelude.Maybe (Prelude.Sensitive Prelude.Text),
+    -- | The ARN of the network profile associated with a device.
+    networkProfileArn :: Prelude.Text
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateNetworkProfile' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateNetworkProfile' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'unpCertificateAuthorityARN' - The ARN of the Private Certificate Authority (PCA) created in AWS Certificate Manager (ACM). This is used to issue certificates to the devices.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'unpTrustAnchors' - The root certificate(s) of your authentication server that will be installed on your devices and used to trust your authentication server during EAP negotiation.
+-- 'certificateAuthorityArn', 'updateNetworkProfile_certificateAuthorityArn' - The ARN of the Private Certificate Authority (PCA) created in AWS
+-- Certificate Manager (ACM). This is used to issue certificates to the
+-- devices.
 --
--- * 'unpCurrentPassword' - The current password of the Wi-Fi network.
+-- 'trustAnchors', 'updateNetworkProfile_trustAnchors' - The root certificate(s) of your authentication server that will be
+-- installed on your devices and used to trust your authentication server
+-- during EAP negotiation.
 --
--- * 'unpNetworkProfileName' - The name of the network profile associated with a device.
+-- 'currentPassword', 'updateNetworkProfile_currentPassword' - The current password of the Wi-Fi network.
 --
--- * 'unpDescription' - Detailed information about a device's network profile.
+-- 'networkProfileName', 'updateNetworkProfile_networkProfileName' - The name of the network profile associated with a device.
 --
--- * 'unpNextPassword' - The next, or subsequent, password of the Wi-Fi network. This password is asynchronously transmitted to the device and is used when the password of the network changes to NextPassword.
+-- 'description', 'updateNetworkProfile_description' - Detailed information about a device\'s network profile.
 --
--- * 'unpNetworkProfileARN' - The ARN of the network profile associated with a device.
-updateNetworkProfile ::
-  -- | 'unpNetworkProfileARN'
-  Text ->
+-- 'nextPassword', 'updateNetworkProfile_nextPassword' - The next, or subsequent, password of the Wi-Fi network. This password is
+-- asynchronously transmitted to the device and is used when the password
+-- of the network changes to NextPassword.
+--
+-- 'networkProfileArn', 'updateNetworkProfile_networkProfileArn' - The ARN of the network profile associated with a device.
+newUpdateNetworkProfile ::
+  -- | 'networkProfileArn'
+  Prelude.Text ->
   UpdateNetworkProfile
-updateNetworkProfile pNetworkProfileARN_ =
+newUpdateNetworkProfile pNetworkProfileArn_ =
   UpdateNetworkProfile'
-    { _unpCertificateAuthorityARN =
-        Nothing,
-      _unpTrustAnchors = Nothing,
-      _unpCurrentPassword = Nothing,
-      _unpNetworkProfileName = Nothing,
-      _unpDescription = Nothing,
-      _unpNextPassword = Nothing,
-      _unpNetworkProfileARN = pNetworkProfileARN_
+    { certificateAuthorityArn =
+        Prelude.Nothing,
+      trustAnchors = Prelude.Nothing,
+      currentPassword = Prelude.Nothing,
+      networkProfileName = Prelude.Nothing,
+      description = Prelude.Nothing,
+      nextPassword = Prelude.Nothing,
+      networkProfileArn = pNetworkProfileArn_
     }
 
--- | The ARN of the Private Certificate Authority (PCA) created in AWS Certificate Manager (ACM). This is used to issue certificates to the devices.
-unpCertificateAuthorityARN :: Lens' UpdateNetworkProfile (Maybe Text)
-unpCertificateAuthorityARN = lens _unpCertificateAuthorityARN (\s a -> s {_unpCertificateAuthorityARN = a})
+-- | The ARN of the Private Certificate Authority (PCA) created in AWS
+-- Certificate Manager (ACM). This is used to issue certificates to the
+-- devices.
+updateNetworkProfile_certificateAuthorityArn :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Text)
+updateNetworkProfile_certificateAuthorityArn = Lens.lens (\UpdateNetworkProfile' {certificateAuthorityArn} -> certificateAuthorityArn) (\s@UpdateNetworkProfile' {} a -> s {certificateAuthorityArn = a} :: UpdateNetworkProfile)
 
--- | The root certificate(s) of your authentication server that will be installed on your devices and used to trust your authentication server during EAP negotiation.
-unpTrustAnchors :: Lens' UpdateNetworkProfile (Maybe (NonEmpty Text))
-unpTrustAnchors = lens _unpTrustAnchors (\s a -> s {_unpTrustAnchors = a}) . mapping _List1
+-- | The root certificate(s) of your authentication server that will be
+-- installed on your devices and used to trust your authentication server
+-- during EAP negotiation.
+updateNetworkProfile_trustAnchors :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+updateNetworkProfile_trustAnchors = Lens.lens (\UpdateNetworkProfile' {trustAnchors} -> trustAnchors) (\s@UpdateNetworkProfile' {} a -> s {trustAnchors = a} :: UpdateNetworkProfile) Prelude.. Lens.mapping Prelude._List1
 
 -- | The current password of the Wi-Fi network.
-unpCurrentPassword :: Lens' UpdateNetworkProfile (Maybe Text)
-unpCurrentPassword = lens _unpCurrentPassword (\s a -> s {_unpCurrentPassword = a}) . mapping _Sensitive
+updateNetworkProfile_currentPassword :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Text)
+updateNetworkProfile_currentPassword = Lens.lens (\UpdateNetworkProfile' {currentPassword} -> currentPassword) (\s@UpdateNetworkProfile' {} a -> s {currentPassword = a} :: UpdateNetworkProfile) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The name of the network profile associated with a device.
-unpNetworkProfileName :: Lens' UpdateNetworkProfile (Maybe Text)
-unpNetworkProfileName = lens _unpNetworkProfileName (\s a -> s {_unpNetworkProfileName = a})
+updateNetworkProfile_networkProfileName :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Text)
+updateNetworkProfile_networkProfileName = Lens.lens (\UpdateNetworkProfile' {networkProfileName} -> networkProfileName) (\s@UpdateNetworkProfile' {} a -> s {networkProfileName = a} :: UpdateNetworkProfile)
 
--- | Detailed information about a device's network profile.
-unpDescription :: Lens' UpdateNetworkProfile (Maybe Text)
-unpDescription = lens _unpDescription (\s a -> s {_unpDescription = a})
+-- | Detailed information about a device\'s network profile.
+updateNetworkProfile_description :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Text)
+updateNetworkProfile_description = Lens.lens (\UpdateNetworkProfile' {description} -> description) (\s@UpdateNetworkProfile' {} a -> s {description = a} :: UpdateNetworkProfile)
 
--- | The next, or subsequent, password of the Wi-Fi network. This password is asynchronously transmitted to the device and is used when the password of the network changes to NextPassword.
-unpNextPassword :: Lens' UpdateNetworkProfile (Maybe Text)
-unpNextPassword = lens _unpNextPassword (\s a -> s {_unpNextPassword = a}) . mapping _Sensitive
+-- | The next, or subsequent, password of the Wi-Fi network. This password is
+-- asynchronously transmitted to the device and is used when the password
+-- of the network changes to NextPassword.
+updateNetworkProfile_nextPassword :: Lens.Lens' UpdateNetworkProfile (Prelude.Maybe Prelude.Text)
+updateNetworkProfile_nextPassword = Lens.lens (\UpdateNetworkProfile' {nextPassword} -> nextPassword) (\s@UpdateNetworkProfile' {} a -> s {nextPassword = a} :: UpdateNetworkProfile) Prelude.. Lens.mapping Prelude._Sensitive
 
 -- | The ARN of the network profile associated with a device.
-unpNetworkProfileARN :: Lens' UpdateNetworkProfile Text
-unpNetworkProfileARN = lens _unpNetworkProfileARN (\s a -> s {_unpNetworkProfileARN = a})
+updateNetworkProfile_networkProfileArn :: Lens.Lens' UpdateNetworkProfile Prelude.Text
+updateNetworkProfile_networkProfileArn = Lens.lens (\UpdateNetworkProfile' {networkProfileArn} -> networkProfileArn) (\s@UpdateNetworkProfile' {} a -> s {networkProfileArn = a} :: UpdateNetworkProfile)
 
-instance AWSRequest UpdateNetworkProfile where
+instance Prelude.AWSRequest UpdateNetworkProfile where
   type
     Rs UpdateNetworkProfile =
       UpdateNetworkProfileResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateNetworkProfileResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateNetworkProfile
+instance Prelude.Hashable UpdateNetworkProfile
 
-instance NFData UpdateNetworkProfile
+instance Prelude.NFData UpdateNetworkProfile
 
-instance ToHeaders UpdateNetworkProfile where
+instance Prelude.ToHeaders UpdateNetworkProfile where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.UpdateNetworkProfile" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.UpdateNetworkProfile" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateNetworkProfile where
+instance Prelude.ToJSON UpdateNetworkProfile where
   toJSON UpdateNetworkProfile' {..} =
-    object
-      ( catMaybes
-          [ ("CertificateAuthorityArn" .=)
-              <$> _unpCertificateAuthorityARN,
-            ("TrustAnchors" .=) <$> _unpTrustAnchors,
-            ("CurrentPassword" .=) <$> _unpCurrentPassword,
-            ("NetworkProfileName" .=) <$> _unpNetworkProfileName,
-            ("Description" .=) <$> _unpDescription,
-            ("NextPassword" .=) <$> _unpNextPassword,
-            Just ("NetworkProfileArn" .= _unpNetworkProfileARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("CertificateAuthorityArn" Prelude..=)
+              Prelude.<$> certificateAuthorityArn,
+            ("TrustAnchors" Prelude..=) Prelude.<$> trustAnchors,
+            ("CurrentPassword" Prelude..=)
+              Prelude.<$> currentPassword,
+            ("NetworkProfileName" Prelude..=)
+              Prelude.<$> networkProfileName,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("NextPassword" Prelude..=) Prelude.<$> nextPassword,
+            Prelude.Just
+              ("NetworkProfileArn" Prelude..= networkProfileArn)
           ]
       )
 
-instance ToPath UpdateNetworkProfile where
-  toPath = const "/"
+instance Prelude.ToPath UpdateNetworkProfile where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateNetworkProfile where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateNetworkProfile where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateNetworkProfileResponse' smart constructor.
-newtype UpdateNetworkProfileResponse = UpdateNetworkProfileResponse'
-  { _unprrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateNetworkProfileResponse' smart constructor.
+data UpdateNetworkProfileResponse = UpdateNetworkProfileResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateNetworkProfileResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateNetworkProfileResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'unprrsResponseStatus' - -- | The response status code.
-updateNetworkProfileResponse ::
-  -- | 'unprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateNetworkProfileResponse_httpStatus' - The response's http status code.
+newUpdateNetworkProfileResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateNetworkProfileResponse
-updateNetworkProfileResponse pResponseStatus_ =
+newUpdateNetworkProfileResponse pHttpStatus_ =
   UpdateNetworkProfileResponse'
-    { _unprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-unprrsResponseStatus :: Lens' UpdateNetworkProfileResponse Int
-unprrsResponseStatus = lens _unprrsResponseStatus (\s a -> s {_unprrsResponseStatus = a})
+-- | The response's http status code.
+updateNetworkProfileResponse_httpStatus :: Lens.Lens' UpdateNetworkProfileResponse Prelude.Int
+updateNetworkProfileResponse_httpStatus = Lens.lens (\UpdateNetworkProfileResponse' {httpStatus} -> httpStatus) (\s@UpdateNetworkProfileResponse' {} a -> s {httpStatus = a} :: UpdateNetworkProfileResponse)
 
-instance NFData UpdateNetworkProfileResponse
+instance Prelude.NFData UpdateNetworkProfileResponse

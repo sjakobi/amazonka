@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -16,65 +20,72 @@
 module Network.AWS.AlexaBusiness.Types.PhoneNumber where
 
 import Network.AWS.AlexaBusiness.Types.PhoneNumberType
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The phone number for the contact containing the raw number and phone number type.
+-- | The phone number for the contact containing the raw number and phone
+-- number type.
 --
---
---
--- /See:/ 'phoneNumber' smart constructor.
+-- /See:/ 'newPhoneNumber' smart constructor.
 data PhoneNumber = PhoneNumber'
-  { _pnNumber ::
-      !(Sensitive Text),
-    _pnType :: !(Sensitive PhoneNumberType)
+  { -- | The raw value of the phone number.
+    number :: Prelude.Sensitive Prelude.Text,
+    -- | The type of the phone number.
+    type' :: Prelude.Sensitive PhoneNumberType
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PhoneNumber' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PhoneNumber' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pnNumber' - The raw value of the phone number.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pnType' - The type of the phone number.
-phoneNumber ::
-  -- | 'pnNumber'
-  Text ->
-  -- | 'pnType'
+-- 'number', 'phoneNumber_number' - The raw value of the phone number.
+--
+-- 'type'', 'phoneNumber_type' - The type of the phone number.
+newPhoneNumber ::
+  -- | 'number'
+  Prelude.Text ->
+  -- | 'type''
   PhoneNumberType ->
   PhoneNumber
-phoneNumber pNumber_ pType_ =
+newPhoneNumber pNumber_ pType_ =
   PhoneNumber'
-    { _pnNumber = _Sensitive # pNumber_,
-      _pnType = _Sensitive # pType_
+    { number =
+        Prelude._Sensitive Lens.# pNumber_,
+      type' = Prelude._Sensitive Lens.# pType_
     }
 
 -- | The raw value of the phone number.
-pnNumber :: Lens' PhoneNumber Text
-pnNumber = lens _pnNumber (\s a -> s {_pnNumber = a}) . _Sensitive
+phoneNumber_number :: Lens.Lens' PhoneNumber Prelude.Text
+phoneNumber_number = Lens.lens (\PhoneNumber' {number} -> number) (\s@PhoneNumber' {} a -> s {number = a} :: PhoneNumber) Prelude.. Prelude._Sensitive
 
 -- | The type of the phone number.
-pnType :: Lens' PhoneNumber PhoneNumberType
-pnType = lens _pnType (\s a -> s {_pnType = a}) . _Sensitive
+phoneNumber_type :: Lens.Lens' PhoneNumber PhoneNumberType
+phoneNumber_type = Lens.lens (\PhoneNumber' {type'} -> type') (\s@PhoneNumber' {} a -> s {type' = a} :: PhoneNumber) Prelude.. Prelude._Sensitive
 
-instance FromJSON PhoneNumber where
+instance Prelude.FromJSON PhoneNumber where
   parseJSON =
-    withObject
+    Prelude.withObject
       "PhoneNumber"
       ( \x ->
-          PhoneNumber' <$> (x .: "Number") <*> (x .: "Type")
+          PhoneNumber'
+            Prelude.<$> (x Prelude..: "Number")
+            Prelude.<*> (x Prelude..: "Type")
       )
 
-instance Hashable PhoneNumber
+instance Prelude.Hashable PhoneNumber
 
-instance NFData PhoneNumber
+instance Prelude.NFData PhoneNumber
 
-instance ToJSON PhoneNumber where
+instance Prelude.ToJSON PhoneNumber where
   toJSON PhoneNumber' {..} =
-    object
-      ( catMaybes
-          [ Just ("Number" .= _pnNumber),
-            Just ("Type" .= _pnType)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("Number" Prelude..= number),
+            Prelude.Just ("Type" Prelude..= type')
           ]
       )

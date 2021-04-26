@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,61 +19,63 @@
 module Network.AWS.AlexaBusiness.Types.RequirePin
   ( RequirePin
       ( ..,
-        NO,
-        Optional,
-        Yes
+        RequirePinNO,
+        RequirePinOPTIONAL,
+        RequirePinYES
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data RequirePin = RequirePin' (CI Text)
+newtype RequirePin = RequirePin'
+  { fromRequirePin ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern NO :: RequirePin
-pattern NO = RequirePin' "NO"
+pattern RequirePinNO :: RequirePin
+pattern RequirePinNO = RequirePin' "NO"
 
-pattern Optional :: RequirePin
-pattern Optional = RequirePin' "OPTIONAL"
+pattern RequirePinOPTIONAL :: RequirePin
+pattern RequirePinOPTIONAL = RequirePin' "OPTIONAL"
 
-pattern Yes :: RequirePin
-pattern Yes = RequirePin' "YES"
+pattern RequirePinYES :: RequirePin
+pattern RequirePinYES = RequirePin' "YES"
 
 {-# COMPLETE
-  NO,
-  Optional,
-  Yes,
+  RequirePinNO,
+  RequirePinOPTIONAL,
+  RequirePinYES,
   RequirePin'
   #-}
 
-instance FromText RequirePin where
-  parser = (RequirePin' . mk) <$> takeText
+instance Prelude.FromText RequirePin where
+  parser = RequirePin' Prelude.<$> Prelude.takeText
 
-instance ToText RequirePin where
-  toText (RequirePin' ci) = original ci
+instance Prelude.ToText RequirePin where
+  toText (RequirePin' x) = x
 
-instance Hashable RequirePin
+instance Prelude.Hashable RequirePin
 
-instance NFData RequirePin
+instance Prelude.NFData RequirePin
 
-instance ToByteString RequirePin
+instance Prelude.ToByteString RequirePin
 
-instance ToQuery RequirePin
+instance Prelude.ToQuery RequirePin
 
-instance ToHeader RequirePin
+instance Prelude.ToHeader RequirePin
 
-instance ToJSON RequirePin where
-  toJSON = toJSONText
+instance Prelude.ToJSON RequirePin where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON RequirePin where
-  parseJSON = parseJSONText "RequirePin"
+instance Prelude.FromJSON RequirePin where
+  parseJSON = Prelude.parseJSONText "RequirePin"

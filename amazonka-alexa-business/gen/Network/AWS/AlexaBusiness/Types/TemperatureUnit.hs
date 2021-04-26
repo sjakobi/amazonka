@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,56 +19,58 @@
 module Network.AWS.AlexaBusiness.Types.TemperatureUnit
   ( TemperatureUnit
       ( ..,
-        Celsius,
-        Fahrenheit
+        TemperatureUnitCELSIUS,
+        TemperatureUnitFAHRENHEIT
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data TemperatureUnit = TemperatureUnit' (CI Text)
+newtype TemperatureUnit = TemperatureUnit'
+  { fromTemperatureUnit ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Celsius :: TemperatureUnit
-pattern Celsius = TemperatureUnit' "CELSIUS"
+pattern TemperatureUnitCELSIUS :: TemperatureUnit
+pattern TemperatureUnitCELSIUS = TemperatureUnit' "CELSIUS"
 
-pattern Fahrenheit :: TemperatureUnit
-pattern Fahrenheit = TemperatureUnit' "FAHRENHEIT"
+pattern TemperatureUnitFAHRENHEIT :: TemperatureUnit
+pattern TemperatureUnitFAHRENHEIT = TemperatureUnit' "FAHRENHEIT"
 
 {-# COMPLETE
-  Celsius,
-  Fahrenheit,
+  TemperatureUnitCELSIUS,
+  TemperatureUnitFAHRENHEIT,
   TemperatureUnit'
   #-}
 
-instance FromText TemperatureUnit where
-  parser = (TemperatureUnit' . mk) <$> takeText
+instance Prelude.FromText TemperatureUnit where
+  parser = TemperatureUnit' Prelude.<$> Prelude.takeText
 
-instance ToText TemperatureUnit where
-  toText (TemperatureUnit' ci) = original ci
+instance Prelude.ToText TemperatureUnit where
+  toText (TemperatureUnit' x) = x
 
-instance Hashable TemperatureUnit
+instance Prelude.Hashable TemperatureUnit
 
-instance NFData TemperatureUnit
+instance Prelude.NFData TemperatureUnit
 
-instance ToByteString TemperatureUnit
+instance Prelude.ToByteString TemperatureUnit
 
-instance ToQuery TemperatureUnit
+instance Prelude.ToQuery TemperatureUnit
 
-instance ToHeader TemperatureUnit
+instance Prelude.ToHeader TemperatureUnit
 
-instance ToJSON TemperatureUnit where
-  toJSON = toJSONText
+instance Prelude.ToJSON TemperatureUnit where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON TemperatureUnit where
-  parseJSON = parseJSONText "TemperatureUnit"
+instance Prelude.FromJSON TemperatureUnit where
+  parseJSON = Prelude.parseJSONText "TemperatureUnit"

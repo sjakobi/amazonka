@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,111 +24,130 @@
 -- Gets room details by room ARN.
 module Network.AWS.AlexaBusiness.GetRoom
   ( -- * Creating a Request
-    getRoom,
-    GetRoom,
+    GetRoom (..),
+    newGetRoom,
 
     -- * Request Lenses
-    grRoomARN,
+    getRoom_roomArn,
 
     -- * Destructuring the Response
-    getRoomResponse,
-    GetRoomResponse,
+    GetRoomResponse (..),
+    newGetRoomResponse,
 
     -- * Response Lenses
-    grrrsRoom,
-    grrrsResponseStatus,
+    getRoomResponse_room,
+    getRoomResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.Room
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getRoom' smart constructor.
-newtype GetRoom = GetRoom' {_grRoomARN :: Maybe Text}
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+-- | /See:/ 'newGetRoom' smart constructor.
+data GetRoom = GetRoom'
+  { -- | The ARN of the room for which to request details. Required.
+    roomArn :: Prelude.Maybe Prelude.Text
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRoom' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRoom' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grRoomARN' - The ARN of the room for which to request details. Required.
-getRoom ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'roomArn', 'getRoom_roomArn' - The ARN of the room for which to request details. Required.
+newGetRoom ::
   GetRoom
-getRoom = GetRoom' {_grRoomARN = Nothing}
+newGetRoom = GetRoom' {roomArn = Prelude.Nothing}
 
 -- | The ARN of the room for which to request details. Required.
-grRoomARN :: Lens' GetRoom (Maybe Text)
-grRoomARN = lens _grRoomARN (\s a -> s {_grRoomARN = a})
+getRoom_roomArn :: Lens.Lens' GetRoom (Prelude.Maybe Prelude.Text)
+getRoom_roomArn = Lens.lens (\GetRoom' {roomArn} -> roomArn) (\s@GetRoom' {} a -> s {roomArn = a} :: GetRoom)
 
-instance AWSRequest GetRoom where
+instance Prelude.AWSRequest GetRoom where
   type Rs GetRoom = GetRoomResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetRoomResponse'
-            <$> (x .?> "Room") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Room")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetRoom
+instance Prelude.Hashable GetRoom
 
-instance NFData GetRoom
+instance Prelude.NFData GetRoom
 
-instance ToHeaders GetRoom where
+instance Prelude.ToHeaders GetRoom where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.GetRoom" :: ByteString),
+              Prelude.=# ("AlexaForBusiness.GetRoom" :: Prelude.ByteString),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetRoom where
+instance Prelude.ToJSON GetRoom where
   toJSON GetRoom' {..} =
-    object (catMaybes [("RoomArn" .=) <$> _grRoomARN])
+    Prelude.object
+      ( Prelude.catMaybes
+          [("RoomArn" Prelude..=) Prelude.<$> roomArn]
+      )
 
-instance ToPath GetRoom where
-  toPath = const "/"
+instance Prelude.ToPath GetRoom where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetRoom where
-  toQuery = const mempty
+instance Prelude.ToQuery GetRoom where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getRoomResponse' smart constructor.
+-- | /See:/ 'newGetRoomResponse' smart constructor.
 data GetRoomResponse = GetRoomResponse'
-  { _grrrsRoom ::
-      !(Maybe Room),
-    _grrrsResponseStatus :: !Int
+  { -- | The details of the room requested.
+    room :: Prelude.Maybe Room,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetRoomResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetRoomResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grrrsRoom' - The details of the room requested.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grrrsResponseStatus' - -- | The response status code.
-getRoomResponse ::
-  -- | 'grrrsResponseStatus'
-  Int ->
+-- 'room', 'getRoomResponse_room' - The details of the room requested.
+--
+-- 'httpStatus', 'getRoomResponse_httpStatus' - The response's http status code.
+newGetRoomResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetRoomResponse
-getRoomResponse pResponseStatus_ =
+newGetRoomResponse pHttpStatus_ =
   GetRoomResponse'
-    { _grrrsRoom = Nothing,
-      _grrrsResponseStatus = pResponseStatus_
+    { room = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The details of the room requested.
-grrrsRoom :: Lens' GetRoomResponse (Maybe Room)
-grrrsRoom = lens _grrrsRoom (\s a -> s {_grrrsRoom = a})
+getRoomResponse_room :: Lens.Lens' GetRoomResponse (Prelude.Maybe Room)
+getRoomResponse_room = Lens.lens (\GetRoomResponse' {room} -> room) (\s@GetRoomResponse' {} a -> s {room = a} :: GetRoomResponse)
 
--- | -- | The response status code.
-grrrsResponseStatus :: Lens' GetRoomResponse Int
-grrrsResponseStatus = lens _grrrsResponseStatus (\s a -> s {_grrrsResponseStatus = a})
+-- | The response's http status code.
+getRoomResponse_httpStatus :: Lens.Lens' GetRoomResponse Prelude.Int
+getRoomResponse_httpStatus = Lens.lens (\GetRoomResponse' {httpStatus} -> httpStatus) (\s@GetRoomResponse' {} a -> s {httpStatus = a} :: GetRoomResponse)
 
-instance NFData GetRoomResponse
+instance Prelude.NFData GetRoomResponse

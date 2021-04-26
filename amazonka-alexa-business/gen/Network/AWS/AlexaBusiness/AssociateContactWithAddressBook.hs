@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,152 +24,168 @@
 -- Associates a contact with a given address book.
 module Network.AWS.AlexaBusiness.AssociateContactWithAddressBook
   ( -- * Creating a Request
-    associateContactWithAddressBook,
-    AssociateContactWithAddressBook,
+    AssociateContactWithAddressBook (..),
+    newAssociateContactWithAddressBook,
 
     -- * Request Lenses
-    acwabContactARN,
-    acwabAddressBookARN,
+    associateContactWithAddressBook_contactArn,
+    associateContactWithAddressBook_addressBookArn,
 
     -- * Destructuring the Response
-    associateContactWithAddressBookResponse,
-    AssociateContactWithAddressBookResponse,
+    AssociateContactWithAddressBookResponse (..),
+    newAssociateContactWithAddressBookResponse,
 
     -- * Response Lenses
-    acwabrrsResponseStatus,
+    associateContactWithAddressBookResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateContactWithAddressBook' smart constructor.
+-- | /See:/ 'newAssociateContactWithAddressBook' smart constructor.
 data AssociateContactWithAddressBook = AssociateContactWithAddressBook'
-  { _acwabContactARN ::
-      !Text,
-    _acwabAddressBookARN ::
-      !Text
+  { -- | The ARN of the contact to associate with an address book.
+    contactArn :: Prelude.Text,
+    -- | The ARN of the address book with which to associate the contact.
+    addressBookArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateContactWithAddressBook' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateContactWithAddressBook' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'acwabContactARN' - The ARN of the contact to associate with an address book.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'acwabAddressBookARN' - The ARN of the address book with which to associate the contact.
-associateContactWithAddressBook ::
-  -- | 'acwabContactARN'
-  Text ->
-  -- | 'acwabAddressBookARN'
-  Text ->
+-- 'contactArn', 'associateContactWithAddressBook_contactArn' - The ARN of the contact to associate with an address book.
+--
+-- 'addressBookArn', 'associateContactWithAddressBook_addressBookArn' - The ARN of the address book with which to associate the contact.
+newAssociateContactWithAddressBook ::
+  -- | 'contactArn'
+  Prelude.Text ->
+  -- | 'addressBookArn'
+  Prelude.Text ->
   AssociateContactWithAddressBook
-associateContactWithAddressBook
-  pContactARN_
-  pAddressBookARN_ =
+newAssociateContactWithAddressBook
+  pContactArn_
+  pAddressBookArn_ =
     AssociateContactWithAddressBook'
-      { _acwabContactARN =
-          pContactARN_,
-        _acwabAddressBookARN = pAddressBookARN_
+      { contactArn =
+          pContactArn_,
+        addressBookArn = pAddressBookArn_
       }
 
 -- | The ARN of the contact to associate with an address book.
-acwabContactARN :: Lens' AssociateContactWithAddressBook Text
-acwabContactARN = lens _acwabContactARN (\s a -> s {_acwabContactARN = a})
+associateContactWithAddressBook_contactArn :: Lens.Lens' AssociateContactWithAddressBook Prelude.Text
+associateContactWithAddressBook_contactArn = Lens.lens (\AssociateContactWithAddressBook' {contactArn} -> contactArn) (\s@AssociateContactWithAddressBook' {} a -> s {contactArn = a} :: AssociateContactWithAddressBook)
 
 -- | The ARN of the address book with which to associate the contact.
-acwabAddressBookARN :: Lens' AssociateContactWithAddressBook Text
-acwabAddressBookARN = lens _acwabAddressBookARN (\s a -> s {_acwabAddressBookARN = a})
+associateContactWithAddressBook_addressBookArn :: Lens.Lens' AssociateContactWithAddressBook Prelude.Text
+associateContactWithAddressBook_addressBookArn = Lens.lens (\AssociateContactWithAddressBook' {addressBookArn} -> addressBookArn) (\s@AssociateContactWithAddressBook' {} a -> s {addressBookArn = a} :: AssociateContactWithAddressBook)
 
-instance AWSRequest AssociateContactWithAddressBook where
+instance
+  Prelude.AWSRequest
+    AssociateContactWithAddressBook
+  where
   type
     Rs AssociateContactWithAddressBook =
       AssociateContactWithAddressBookResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateContactWithAddressBookResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
-
-instance Hashable AssociateContactWithAddressBook
-
-instance NFData AssociateContactWithAddressBook
-
-instance ToHeaders AssociateContactWithAddressBook where
-  toHeaders =
-    const
-      ( mconcat
-          [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.AssociateContactWithAddressBook" ::
-                     ByteString
-                 ),
-            "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
-          ]
-      )
-
-instance ToJSON AssociateContactWithAddressBook where
-  toJSON AssociateContactWithAddressBook' {..} =
-    object
-      ( catMaybes
-          [ Just ("ContactArn" .= _acwabContactARN),
-            Just ("AddressBookArn" .= _acwabAddressBookARN)
-          ]
-      )
-
-instance ToPath AssociateContactWithAddressBook where
-  toPath = const "/"
-
-instance ToQuery AssociateContactWithAddressBook where
-  toQuery = const mempty
-
--- | /See:/ 'associateContactWithAddressBookResponse' smart constructor.
-newtype AssociateContactWithAddressBookResponse = AssociateContactWithAddressBookResponse'
-  { _acwabrrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'AssociateContactWithAddressBookResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'acwabrrsResponseStatus' - -- | The response status code.
-associateContactWithAddressBookResponse ::
-  -- | 'acwabrrsResponseStatus'
-  Int ->
-  AssociateContactWithAddressBookResponse
-associateContactWithAddressBookResponse
-  pResponseStatus_ =
-    AssociateContactWithAddressBookResponse'
-      { _acwabrrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-acwabrrsResponseStatus :: Lens' AssociateContactWithAddressBookResponse Int
-acwabrrsResponseStatus = lens _acwabrrsResponseStatus (\s a -> s {_acwabrrsResponseStatus = a})
 
 instance
-  NFData
+  Prelude.Hashable
+    AssociateContactWithAddressBook
+
+instance
+  Prelude.NFData
+    AssociateContactWithAddressBook
+
+instance
+  Prelude.ToHeaders
+    AssociateContactWithAddressBook
+  where
+  toHeaders =
+    Prelude.const
+      ( Prelude.mconcat
+          [ "X-Amz-Target"
+              Prelude.=# ( "AlexaForBusiness.AssociateContactWithAddressBook" ::
+                             Prelude.ByteString
+                         ),
+            "Content-Type"
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
+          ]
+      )
+
+instance
+  Prelude.ToJSON
+    AssociateContactWithAddressBook
+  where
+  toJSON AssociateContactWithAddressBook' {..} =
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just ("ContactArn" Prelude..= contactArn),
+            Prelude.Just
+              ("AddressBookArn" Prelude..= addressBookArn)
+          ]
+      )
+
+instance
+  Prelude.ToPath
+    AssociateContactWithAddressBook
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    AssociateContactWithAddressBook
+  where
+  toQuery = Prelude.const Prelude.mempty
+
+-- | /See:/ 'newAssociateContactWithAddressBookResponse' smart constructor.
+data AssociateContactWithAddressBookResponse = AssociateContactWithAddressBookResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'AssociateContactWithAddressBookResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateContactWithAddressBookResponse_httpStatus' - The response's http status code.
+newAssociateContactWithAddressBookResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  AssociateContactWithAddressBookResponse
+newAssociateContactWithAddressBookResponse
+  pHttpStatus_ =
+    AssociateContactWithAddressBookResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+associateContactWithAddressBookResponse_httpStatus :: Lens.Lens' AssociateContactWithAddressBookResponse Prelude.Int
+associateContactWithAddressBookResponse_httpStatus = Lens.lens (\AssociateContactWithAddressBookResponse' {httpStatus} -> httpStatus) (\s@AssociateContactWithAddressBookResponse' {} a -> s {httpStatus = a} :: AssociateContactWithAddressBookResponse)
+
+instance
+  Prelude.NFData
     AssociateContactWithAddressBookResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,121 +24,121 @@
 -- Retrieves the existing conference preferences.
 module Network.AWS.AlexaBusiness.GetConferencePreference
   ( -- * Creating a Request
-    getConferencePreference,
-    GetConferencePreference,
+    GetConferencePreference (..),
+    newGetConferencePreference,
 
     -- * Destructuring the Response
-    getConferencePreferenceResponse,
-    GetConferencePreferenceResponse,
+    GetConferencePreferenceResponse (..),
+    newGetConferencePreferenceResponse,
 
     -- * Response Lenses
-    grsPreference,
-    grsResponseStatus,
+    getConferencePreferenceResponse_preference,
+    getConferencePreferenceResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.ConferencePreference
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getConferencePreference' smart constructor.
+-- | /See:/ 'newGetConferencePreference' smart constructor.
 data GetConferencePreference = GetConferencePreference'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConferencePreference' with the minimum fields required to make a request.
-getConferencePreference ::
+-- |
+-- Create a value of 'GetConferencePreference' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetConferencePreference ::
   GetConferencePreference
-getConferencePreference = GetConferencePreference'
+newGetConferencePreference = GetConferencePreference'
 
-instance AWSRequest GetConferencePreference where
+instance Prelude.AWSRequest GetConferencePreference where
   type
     Rs GetConferencePreference =
       GetConferencePreferenceResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetConferencePreferenceResponse'
-            <$> (x .?> "Preference") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Preference")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetConferencePreference
+instance Prelude.Hashable GetConferencePreference
 
-instance NFData GetConferencePreference
+instance Prelude.NFData GetConferencePreference
 
-instance ToHeaders GetConferencePreference where
+instance Prelude.ToHeaders GetConferencePreference where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.GetConferencePreference" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.GetConferencePreference" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetConferencePreference where
-  toJSON = const (Object mempty)
+instance Prelude.ToJSON GetConferencePreference where
+  toJSON =
+    Prelude.const (Prelude.Object Prelude.mempty)
 
-instance ToPath GetConferencePreference where
-  toPath = const "/"
+instance Prelude.ToPath GetConferencePreference where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetConferencePreference where
-  toQuery = const mempty
+instance Prelude.ToQuery GetConferencePreference where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getConferencePreferenceResponse' smart constructor.
+-- | /See:/ 'newGetConferencePreferenceResponse' smart constructor.
 data GetConferencePreferenceResponse = GetConferencePreferenceResponse'
-  { _grsPreference ::
-      !( Maybe
-           ConferencePreference
-       ),
-    _grsResponseStatus ::
-      !Int
+  { -- | The conference preference.
+    preference :: Prelude.Maybe ConferencePreference,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetConferencePreferenceResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetConferencePreferenceResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'grsPreference' - The conference preference.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'grsResponseStatus' - -- | The response status code.
-getConferencePreferenceResponse ::
-  -- | 'grsResponseStatus'
-  Int ->
+-- 'preference', 'getConferencePreferenceResponse_preference' - The conference preference.
+--
+-- 'httpStatus', 'getConferencePreferenceResponse_httpStatus' - The response's http status code.
+newGetConferencePreferenceResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetConferencePreferenceResponse
-getConferencePreferenceResponse pResponseStatus_ =
+newGetConferencePreferenceResponse pHttpStatus_ =
   GetConferencePreferenceResponse'
-    { _grsPreference =
-        Nothing,
-      _grsResponseStatus = pResponseStatus_
+    { preference =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The conference preference.
-grsPreference :: Lens' GetConferencePreferenceResponse (Maybe ConferencePreference)
-grsPreference = lens _grsPreference (\s a -> s {_grsPreference = a})
+getConferencePreferenceResponse_preference :: Lens.Lens' GetConferencePreferenceResponse (Prelude.Maybe ConferencePreference)
+getConferencePreferenceResponse_preference = Lens.lens (\GetConferencePreferenceResponse' {preference} -> preference) (\s@GetConferencePreferenceResponse' {} a -> s {preference = a} :: GetConferencePreferenceResponse)
 
--- | -- | The response status code.
-grsResponseStatus :: Lens' GetConferencePreferenceResponse Int
-grsResponseStatus = lens _grsResponseStatus (\s a -> s {_grsResponseStatus = a})
+-- | The response's http status code.
+getConferencePreferenceResponse_httpStatus :: Lens.Lens' GetConferencePreferenceResponse Prelude.Int
+getConferencePreferenceResponse_httpStatus = Lens.lens (\GetConferencePreferenceResponse' {httpStatus} -> httpStatus) (\s@GetConferencePreferenceResponse' {} a -> s {httpStatus = a} :: GetConferencePreferenceResponse)
 
-instance NFData GetConferencePreferenceResponse
+instance
+  Prelude.NFData
+    GetConferencePreferenceResponse

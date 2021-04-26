@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,195 +21,193 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an existing conference provider's settings.
+-- Updates an existing conference provider\'s settings.
 module Network.AWS.AlexaBusiness.UpdateConferenceProvider
   ( -- * Creating a Request
-    updateConferenceProvider,
-    UpdateConferenceProvider,
+    UpdateConferenceProvider (..),
+    newUpdateConferenceProvider,
 
     -- * Request Lenses
-    ucpIPDialIn,
-    ucpPSTNDialIn,
-    ucpConferenceProviderARN,
-    ucpConferenceProviderType,
-    ucpMeetingSetting,
+    updateConferenceProvider_iPDialIn,
+    updateConferenceProvider_pSTNDialIn,
+    updateConferenceProvider_conferenceProviderArn,
+    updateConferenceProvider_conferenceProviderType,
+    updateConferenceProvider_meetingSetting,
 
     -- * Destructuring the Response
-    updateConferenceProviderResponse,
-    UpdateConferenceProviderResponse,
+    UpdateConferenceProviderResponse (..),
+    newUpdateConferenceProviderResponse,
 
     -- * Response Lenses
-    ucprrsResponseStatus,
+    updateConferenceProviderResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateConferenceProvider' smart constructor.
+-- | /See:/ 'newUpdateConferenceProvider' smart constructor.
 data UpdateConferenceProvider = UpdateConferenceProvider'
-  { _ucpIPDialIn ::
-      !(Maybe IPDialIn),
-    _ucpPSTNDialIn ::
-      !(Maybe PSTNDialIn),
-    _ucpConferenceProviderARN ::
-      !Text,
-    _ucpConferenceProviderType ::
-      !ConferenceProviderType,
-    _ucpMeetingSetting ::
-      !MeetingSetting
+  { -- | The IP endpoint and protocol for calling.
+    iPDialIn :: Prelude.Maybe IPDialIn,
+    -- | The information for PSTN conferencing.
+    pSTNDialIn :: Prelude.Maybe PSTNDialIn,
+    -- | The ARN of the conference provider.
+    conferenceProviderArn :: Prelude.Text,
+    -- | The type of the conference provider.
+    conferenceProviderType :: ConferenceProviderType,
+    -- | The meeting settings for the conference provider.
+    meetingSetting :: MeetingSetting
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConferenceProvider' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConferenceProvider' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucpIPDialIn' - The IP endpoint and protocol for calling.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucpPSTNDialIn' - The information for PSTN conferencing.
+-- 'iPDialIn', 'updateConferenceProvider_iPDialIn' - The IP endpoint and protocol for calling.
 --
--- * 'ucpConferenceProviderARN' - The ARN of the conference provider.
+-- 'pSTNDialIn', 'updateConferenceProvider_pSTNDialIn' - The information for PSTN conferencing.
 --
--- * 'ucpConferenceProviderType' - The type of the conference provider.
+-- 'conferenceProviderArn', 'updateConferenceProvider_conferenceProviderArn' - The ARN of the conference provider.
 --
--- * 'ucpMeetingSetting' - The meeting settings for the conference provider.
-updateConferenceProvider ::
-  -- | 'ucpConferenceProviderARN'
-  Text ->
-  -- | 'ucpConferenceProviderType'
+-- 'conferenceProviderType', 'updateConferenceProvider_conferenceProviderType' - The type of the conference provider.
+--
+-- 'meetingSetting', 'updateConferenceProvider_meetingSetting' - The meeting settings for the conference provider.
+newUpdateConferenceProvider ::
+  -- | 'conferenceProviderArn'
+  Prelude.Text ->
+  -- | 'conferenceProviderType'
   ConferenceProviderType ->
-  -- | 'ucpMeetingSetting'
+  -- | 'meetingSetting'
   MeetingSetting ->
   UpdateConferenceProvider
-updateConferenceProvider
-  pConferenceProviderARN_
+newUpdateConferenceProvider
+  pConferenceProviderArn_
   pConferenceProviderType_
   pMeetingSetting_ =
     UpdateConferenceProvider'
-      { _ucpIPDialIn = Nothing,
-        _ucpPSTNDialIn = Nothing,
-        _ucpConferenceProviderARN =
-          pConferenceProviderARN_,
-        _ucpConferenceProviderType =
-          pConferenceProviderType_,
-        _ucpMeetingSetting = pMeetingSetting_
+      { iPDialIn =
+          Prelude.Nothing,
+        pSTNDialIn = Prelude.Nothing,
+        conferenceProviderArn = pConferenceProviderArn_,
+        conferenceProviderType = pConferenceProviderType_,
+        meetingSetting = pMeetingSetting_
       }
 
 -- | The IP endpoint and protocol for calling.
-ucpIPDialIn :: Lens' UpdateConferenceProvider (Maybe IPDialIn)
-ucpIPDialIn = lens _ucpIPDialIn (\s a -> s {_ucpIPDialIn = a})
+updateConferenceProvider_iPDialIn :: Lens.Lens' UpdateConferenceProvider (Prelude.Maybe IPDialIn)
+updateConferenceProvider_iPDialIn = Lens.lens (\UpdateConferenceProvider' {iPDialIn} -> iPDialIn) (\s@UpdateConferenceProvider' {} a -> s {iPDialIn = a} :: UpdateConferenceProvider)
 
 -- | The information for PSTN conferencing.
-ucpPSTNDialIn :: Lens' UpdateConferenceProvider (Maybe PSTNDialIn)
-ucpPSTNDialIn = lens _ucpPSTNDialIn (\s a -> s {_ucpPSTNDialIn = a})
+updateConferenceProvider_pSTNDialIn :: Lens.Lens' UpdateConferenceProvider (Prelude.Maybe PSTNDialIn)
+updateConferenceProvider_pSTNDialIn = Lens.lens (\UpdateConferenceProvider' {pSTNDialIn} -> pSTNDialIn) (\s@UpdateConferenceProvider' {} a -> s {pSTNDialIn = a} :: UpdateConferenceProvider)
 
 -- | The ARN of the conference provider.
-ucpConferenceProviderARN :: Lens' UpdateConferenceProvider Text
-ucpConferenceProviderARN = lens _ucpConferenceProviderARN (\s a -> s {_ucpConferenceProviderARN = a})
+updateConferenceProvider_conferenceProviderArn :: Lens.Lens' UpdateConferenceProvider Prelude.Text
+updateConferenceProvider_conferenceProviderArn = Lens.lens (\UpdateConferenceProvider' {conferenceProviderArn} -> conferenceProviderArn) (\s@UpdateConferenceProvider' {} a -> s {conferenceProviderArn = a} :: UpdateConferenceProvider)
 
 -- | The type of the conference provider.
-ucpConferenceProviderType :: Lens' UpdateConferenceProvider ConferenceProviderType
-ucpConferenceProviderType = lens _ucpConferenceProviderType (\s a -> s {_ucpConferenceProviderType = a})
+updateConferenceProvider_conferenceProviderType :: Lens.Lens' UpdateConferenceProvider ConferenceProviderType
+updateConferenceProvider_conferenceProviderType = Lens.lens (\UpdateConferenceProvider' {conferenceProviderType} -> conferenceProviderType) (\s@UpdateConferenceProvider' {} a -> s {conferenceProviderType = a} :: UpdateConferenceProvider)
 
 -- | The meeting settings for the conference provider.
-ucpMeetingSetting :: Lens' UpdateConferenceProvider MeetingSetting
-ucpMeetingSetting = lens _ucpMeetingSetting (\s a -> s {_ucpMeetingSetting = a})
+updateConferenceProvider_meetingSetting :: Lens.Lens' UpdateConferenceProvider MeetingSetting
+updateConferenceProvider_meetingSetting = Lens.lens (\UpdateConferenceProvider' {meetingSetting} -> meetingSetting) (\s@UpdateConferenceProvider' {} a -> s {meetingSetting = a} :: UpdateConferenceProvider)
 
-instance AWSRequest UpdateConferenceProvider where
+instance Prelude.AWSRequest UpdateConferenceProvider where
   type
     Rs UpdateConferenceProvider =
       UpdateConferenceProviderResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           UpdateConferenceProviderResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateConferenceProvider
+instance Prelude.Hashable UpdateConferenceProvider
 
-instance NFData UpdateConferenceProvider
+instance Prelude.NFData UpdateConferenceProvider
 
-instance ToHeaders UpdateConferenceProvider where
+instance Prelude.ToHeaders UpdateConferenceProvider where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.UpdateConferenceProvider" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.UpdateConferenceProvider" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateConferenceProvider where
+instance Prelude.ToJSON UpdateConferenceProvider where
   toJSON UpdateConferenceProvider' {..} =
-    object
-      ( catMaybes
-          [ ("IPDialIn" .=) <$> _ucpIPDialIn,
-            ("PSTNDialIn" .=) <$> _ucpPSTNDialIn,
-            Just
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("IPDialIn" Prelude..=) Prelude.<$> iPDialIn,
+            ("PSTNDialIn" Prelude..=) Prelude.<$> pSTNDialIn,
+            Prelude.Just
               ( "ConferenceProviderArn"
-                  .= _ucpConferenceProviderARN
+                  Prelude..= conferenceProviderArn
               ),
-            Just
+            Prelude.Just
               ( "ConferenceProviderType"
-                  .= _ucpConferenceProviderType
+                  Prelude..= conferenceProviderType
               ),
-            Just ("MeetingSetting" .= _ucpMeetingSetting)
+            Prelude.Just
+              ("MeetingSetting" Prelude..= meetingSetting)
           ]
       )
 
-instance ToPath UpdateConferenceProvider where
-  toPath = const "/"
+instance Prelude.ToPath UpdateConferenceProvider where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateConferenceProvider where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateConferenceProvider where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateConferenceProviderResponse' smart constructor.
-newtype UpdateConferenceProviderResponse = UpdateConferenceProviderResponse'
-  { _ucprrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateConferenceProviderResponse' smart constructor.
+data UpdateConferenceProviderResponse = UpdateConferenceProviderResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConferenceProviderResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConferenceProviderResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucprrsResponseStatus' - -- | The response status code.
-updateConferenceProviderResponse ::
-  -- | 'ucprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateConferenceProviderResponse_httpStatus' - The response's http status code.
+newUpdateConferenceProviderResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateConferenceProviderResponse
-updateConferenceProviderResponse pResponseStatus_ =
+newUpdateConferenceProviderResponse pHttpStatus_ =
   UpdateConferenceProviderResponse'
-    { _ucprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-ucprrsResponseStatus :: Lens' UpdateConferenceProviderResponse Int
-ucprrsResponseStatus = lens _ucprrsResponseStatus (\s a -> s {_ucprrsResponseStatus = a})
+-- | The response's http status code.
+updateConferenceProviderResponse_httpStatus :: Lens.Lens' UpdateConferenceProviderResponse Prelude.Int
+updateConferenceProviderResponse_httpStatus = Lens.lens (\UpdateConferenceProviderResponse' {httpStatus} -> httpStatus) (\s@UpdateConferenceProviderResponse' {} a -> s {httpStatus = a} :: UpdateConferenceProviderResponse)
 
-instance NFData UpdateConferenceProviderResponse
+instance
+  Prelude.NFData
+    UpdateConferenceProviderResponse

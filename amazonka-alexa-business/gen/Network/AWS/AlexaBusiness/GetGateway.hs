@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,135 @@
 -- Retrieves the details of a gateway.
 module Network.AWS.AlexaBusiness.GetGateway
   ( -- * Creating a Request
-    getGateway,
-    GetGateway,
+    GetGateway (..),
+    newGetGateway,
 
     -- * Request Lenses
-    ggGatewayARN,
+    getGateway_gatewayArn,
 
     -- * Destructuring the Response
-    getGatewayResponse,
-    GetGatewayResponse,
+    GetGatewayResponse (..),
+    newGetGatewayResponse,
 
     -- * Response Lenses
-    ggrrsGateway,
-    ggrrsResponseStatus,
+    getGatewayResponse_gateway,
+    getGatewayResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.Gateway
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getGateway' smart constructor.
-newtype GetGateway = GetGateway'
-  { _ggGatewayARN ::
-      Text
+-- | /See:/ 'newGetGateway' smart constructor.
+data GetGateway = GetGateway'
+  { -- | The ARN of the gateway to get.
+    gatewayArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggGatewayARN' - The ARN of the gateway to get.
-getGateway ::
-  -- | 'ggGatewayARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayArn', 'getGateway_gatewayArn' - The ARN of the gateway to get.
+newGetGateway ::
+  -- | 'gatewayArn'
+  Prelude.Text ->
   GetGateway
-getGateway pGatewayARN_ =
-  GetGateway' {_ggGatewayARN = pGatewayARN_}
+newGetGateway pGatewayArn_ =
+  GetGateway' {gatewayArn = pGatewayArn_}
 
 -- | The ARN of the gateway to get.
-ggGatewayARN :: Lens' GetGateway Text
-ggGatewayARN = lens _ggGatewayARN (\s a -> s {_ggGatewayARN = a})
+getGateway_gatewayArn :: Lens.Lens' GetGateway Prelude.Text
+getGateway_gatewayArn = Lens.lens (\GetGateway' {gatewayArn} -> gatewayArn) (\s@GetGateway' {} a -> s {gatewayArn = a} :: GetGateway)
 
-instance AWSRequest GetGateway where
+instance Prelude.AWSRequest GetGateway where
   type Rs GetGateway = GetGatewayResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetGatewayResponse'
-            <$> (x .?> "Gateway") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Gateway")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetGateway
+instance Prelude.Hashable GetGateway
 
-instance NFData GetGateway
+instance Prelude.NFData GetGateway
 
-instance ToHeaders GetGateway where
+instance Prelude.ToHeaders GetGateway where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.GetGateway" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.GetGateway" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetGateway where
+instance Prelude.ToJSON GetGateway where
   toJSON GetGateway' {..} =
-    object
-      (catMaybes [Just ("GatewayArn" .= _ggGatewayARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("GatewayArn" Prelude..= gatewayArn)]
+      )
 
-instance ToPath GetGateway where
-  toPath = const "/"
+instance Prelude.ToPath GetGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetGateway where
-  toQuery = const mempty
+instance Prelude.ToQuery GetGateway where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getGatewayResponse' smart constructor.
+-- | /See:/ 'newGetGatewayResponse' smart constructor.
 data GetGatewayResponse = GetGatewayResponse'
-  { _ggrrsGateway ::
-      !(Maybe Gateway),
-    _ggrrsResponseStatus :: !Int
+  { -- | The details of the gateway.
+    gateway :: Prelude.Maybe Gateway,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ggrrsGateway' - The details of the gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ggrrsResponseStatus' - -- | The response status code.
-getGatewayResponse ::
-  -- | 'ggrrsResponseStatus'
-  Int ->
+-- 'gateway', 'getGatewayResponse_gateway' - The details of the gateway.
+--
+-- 'httpStatus', 'getGatewayResponse_httpStatus' - The response's http status code.
+newGetGatewayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetGatewayResponse
-getGatewayResponse pResponseStatus_ =
+newGetGatewayResponse pHttpStatus_ =
   GetGatewayResponse'
-    { _ggrrsGateway = Nothing,
-      _ggrrsResponseStatus = pResponseStatus_
+    { gateway = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The details of the gateway.
-ggrrsGateway :: Lens' GetGatewayResponse (Maybe Gateway)
-ggrrsGateway = lens _ggrrsGateway (\s a -> s {_ggrrsGateway = a})
+getGatewayResponse_gateway :: Lens.Lens' GetGatewayResponse (Prelude.Maybe Gateway)
+getGatewayResponse_gateway = Lens.lens (\GetGatewayResponse' {gateway} -> gateway) (\s@GetGatewayResponse' {} a -> s {gateway = a} :: GetGatewayResponse)
 
--- | -- | The response status code.
-ggrrsResponseStatus :: Lens' GetGatewayResponse Int
-ggrrsResponseStatus = lens _ggrrsResponseStatus (\s a -> s {_ggrrsResponseStatus = a})
+-- | The response's http status code.
+getGatewayResponse_httpStatus :: Lens.Lens' GetGatewayResponse Prelude.Int
+getGatewayResponse_httpStatus = Lens.lens (\GetGatewayResponse' {httpStatus} -> httpStatus) (\s@GetGatewayResponse' {} a -> s {httpStatus = a} :: GetGatewayResponse)
 
-instance NFData GetGatewayResponse
+instance Prelude.NFData GetGatewayResponse

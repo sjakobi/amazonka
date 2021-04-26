@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,145 +21,147 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a device with a given room. This applies all the settings from the room profile to the device, and all the skills in any skill groups added to that room. This operation requires the device to be online, or else a manual sync is required.
+-- Associates a device with a given room. This applies all the settings
+-- from the room profile to the device, and all the skills in any skill
+-- groups added to that room. This operation requires the device to be
+-- online, or else a manual sync is required.
 module Network.AWS.AlexaBusiness.AssociateDeviceWithRoom
   ( -- * Creating a Request
-    associateDeviceWithRoom,
-    AssociateDeviceWithRoom,
+    AssociateDeviceWithRoom (..),
+    newAssociateDeviceWithRoom,
 
     -- * Request Lenses
-    adwrDeviceARN,
-    adwrRoomARN,
+    associateDeviceWithRoom_deviceArn,
+    associateDeviceWithRoom_roomArn,
 
     -- * Destructuring the Response
-    associateDeviceWithRoomResponse,
-    AssociateDeviceWithRoomResponse,
+    AssociateDeviceWithRoomResponse (..),
+    newAssociateDeviceWithRoomResponse,
 
     -- * Response Lenses
-    adwrrrsResponseStatus,
+    associateDeviceWithRoomResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'associateDeviceWithRoom' smart constructor.
+-- | /See:/ 'newAssociateDeviceWithRoom' smart constructor.
 data AssociateDeviceWithRoom = AssociateDeviceWithRoom'
-  { _adwrDeviceARN ::
-      !(Maybe Text),
-    _adwrRoomARN ::
-      !(Maybe Text)
+  { -- | The ARN of the device to associate to a room. Required.
+    deviceArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the room with which to associate the device. Required.
+    roomArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDeviceWithRoom' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDeviceWithRoom' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adwrDeviceARN' - The ARN of the device to associate to a room. Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'adwrRoomARN' - The ARN of the room with which to associate the device. Required.
-associateDeviceWithRoom ::
+-- 'deviceArn', 'associateDeviceWithRoom_deviceArn' - The ARN of the device to associate to a room. Required.
+--
+-- 'roomArn', 'associateDeviceWithRoom_roomArn' - The ARN of the room with which to associate the device. Required.
+newAssociateDeviceWithRoom ::
   AssociateDeviceWithRoom
-associateDeviceWithRoom =
+newAssociateDeviceWithRoom =
   AssociateDeviceWithRoom'
-    { _adwrDeviceARN = Nothing,
-      _adwrRoomARN = Nothing
+    { deviceArn =
+        Prelude.Nothing,
+      roomArn = Prelude.Nothing
     }
 
 -- | The ARN of the device to associate to a room. Required.
-adwrDeviceARN :: Lens' AssociateDeviceWithRoom (Maybe Text)
-adwrDeviceARN = lens _adwrDeviceARN (\s a -> s {_adwrDeviceARN = a})
+associateDeviceWithRoom_deviceArn :: Lens.Lens' AssociateDeviceWithRoom (Prelude.Maybe Prelude.Text)
+associateDeviceWithRoom_deviceArn = Lens.lens (\AssociateDeviceWithRoom' {deviceArn} -> deviceArn) (\s@AssociateDeviceWithRoom' {} a -> s {deviceArn = a} :: AssociateDeviceWithRoom)
 
 -- | The ARN of the room with which to associate the device. Required.
-adwrRoomARN :: Lens' AssociateDeviceWithRoom (Maybe Text)
-adwrRoomARN = lens _adwrRoomARN (\s a -> s {_adwrRoomARN = a})
+associateDeviceWithRoom_roomArn :: Lens.Lens' AssociateDeviceWithRoom (Prelude.Maybe Prelude.Text)
+associateDeviceWithRoom_roomArn = Lens.lens (\AssociateDeviceWithRoom' {roomArn} -> roomArn) (\s@AssociateDeviceWithRoom' {} a -> s {roomArn = a} :: AssociateDeviceWithRoom)
 
-instance AWSRequest AssociateDeviceWithRoom where
+instance Prelude.AWSRequest AssociateDeviceWithRoom where
   type
     Rs AssociateDeviceWithRoom =
       AssociateDeviceWithRoomResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
           AssociateDeviceWithRoomResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable AssociateDeviceWithRoom
+instance Prelude.Hashable AssociateDeviceWithRoom
 
-instance NFData AssociateDeviceWithRoom
+instance Prelude.NFData AssociateDeviceWithRoom
 
-instance ToHeaders AssociateDeviceWithRoom where
+instance Prelude.ToHeaders AssociateDeviceWithRoom where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.AssociateDeviceWithRoom" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.AssociateDeviceWithRoom" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON AssociateDeviceWithRoom where
+instance Prelude.ToJSON AssociateDeviceWithRoom where
   toJSON AssociateDeviceWithRoom' {..} =
-    object
-      ( catMaybes
-          [ ("DeviceArn" .=) <$> _adwrDeviceARN,
-            ("RoomArn" .=) <$> _adwrRoomARN
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("DeviceArn" Prelude..=) Prelude.<$> deviceArn,
+            ("RoomArn" Prelude..=) Prelude.<$> roomArn
           ]
       )
 
-instance ToPath AssociateDeviceWithRoom where
-  toPath = const "/"
+instance Prelude.ToPath AssociateDeviceWithRoom where
+  toPath = Prelude.const "/"
 
-instance ToQuery AssociateDeviceWithRoom where
-  toQuery = const mempty
+instance Prelude.ToQuery AssociateDeviceWithRoom where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'associateDeviceWithRoomResponse' smart constructor.
-newtype AssociateDeviceWithRoomResponse = AssociateDeviceWithRoomResponse'
-  { _adwrrrsResponseStatus ::
-      Int
+-- | /See:/ 'newAssociateDeviceWithRoomResponse' smart constructor.
+data AssociateDeviceWithRoomResponse = AssociateDeviceWithRoomResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AssociateDeviceWithRoomResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AssociateDeviceWithRoomResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'adwrrrsResponseStatus' - -- | The response status code.
-associateDeviceWithRoomResponse ::
-  -- | 'adwrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'associateDeviceWithRoomResponse_httpStatus' - The response's http status code.
+newAssociateDeviceWithRoomResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   AssociateDeviceWithRoomResponse
-associateDeviceWithRoomResponse pResponseStatus_ =
+newAssociateDeviceWithRoomResponse pHttpStatus_ =
   AssociateDeviceWithRoomResponse'
-    { _adwrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-adwrrrsResponseStatus :: Lens' AssociateDeviceWithRoomResponse Int
-adwrrrsResponseStatus = lens _adwrrrsResponseStatus (\s a -> s {_adwrrrsResponseStatus = a})
+-- | The response's http status code.
+associateDeviceWithRoomResponse_httpStatus :: Lens.Lens' AssociateDeviceWithRoomResponse Prelude.Int
+associateDeviceWithRoomResponse_httpStatus = Lens.lens (\AssociateDeviceWithRoomResponse' {httpStatus} -> httpStatus) (\s@AssociateDeviceWithRoomResponse' {} a -> s {httpStatus = a} :: AssociateDeviceWithRoomResponse)
 
-instance NFData AssociateDeviceWithRoomResponse
+instance
+  Prelude.NFData
+    AssociateDeviceWithRoomResponse

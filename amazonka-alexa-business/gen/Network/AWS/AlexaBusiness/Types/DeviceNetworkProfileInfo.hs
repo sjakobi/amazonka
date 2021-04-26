@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,73 +19,68 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.DeviceNetworkProfileInfo where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Detailed information about a device's network profile.
+-- | Detailed information about a device\'s network profile.
 --
---
---
--- /See:/ 'deviceNetworkProfileInfo' smart constructor.
+-- /See:/ 'newDeviceNetworkProfileInfo' smart constructor.
 data DeviceNetworkProfileInfo = DeviceNetworkProfileInfo'
-  { _dnpiCertificateExpirationTime ::
-      !(Maybe POSIX),
-    _dnpiCertificateARN ::
-      !(Maybe Text),
-    _dnpiNetworkProfileARN ::
-      !(Maybe Text)
+  { -- | The time (in epoch) when the certificate expires.
+    certificateExpirationTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of the certificate associated with a device.
+    certificateArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the network profile associated with a device.
+    networkProfileArn :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceNetworkProfileInfo' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceNetworkProfileInfo' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dnpiCertificateExpirationTime' - The time (in epoch) when the certificate expires.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dnpiCertificateARN' - The ARN of the certificate associated with a device.
+-- 'certificateExpirationTime', 'deviceNetworkProfileInfo_certificateExpirationTime' - The time (in epoch) when the certificate expires.
 --
--- * 'dnpiNetworkProfileARN' - The ARN of the network profile associated with a device.
-deviceNetworkProfileInfo ::
+-- 'certificateArn', 'deviceNetworkProfileInfo_certificateArn' - The ARN of the certificate associated with a device.
+--
+-- 'networkProfileArn', 'deviceNetworkProfileInfo_networkProfileArn' - The ARN of the network profile associated with a device.
+newDeviceNetworkProfileInfo ::
   DeviceNetworkProfileInfo
-deviceNetworkProfileInfo =
+newDeviceNetworkProfileInfo =
   DeviceNetworkProfileInfo'
-    { _dnpiCertificateExpirationTime =
-        Nothing,
-      _dnpiCertificateARN = Nothing,
-      _dnpiNetworkProfileARN = Nothing
+    { certificateExpirationTime =
+        Prelude.Nothing,
+      certificateArn = Prelude.Nothing,
+      networkProfileArn = Prelude.Nothing
     }
 
 -- | The time (in epoch) when the certificate expires.
-dnpiCertificateExpirationTime :: Lens' DeviceNetworkProfileInfo (Maybe UTCTime)
-dnpiCertificateExpirationTime = lens _dnpiCertificateExpirationTime (\s a -> s {_dnpiCertificateExpirationTime = a}) . mapping _Time
+deviceNetworkProfileInfo_certificateExpirationTime :: Lens.Lens' DeviceNetworkProfileInfo (Prelude.Maybe Prelude.UTCTime)
+deviceNetworkProfileInfo_certificateExpirationTime = Lens.lens (\DeviceNetworkProfileInfo' {certificateExpirationTime} -> certificateExpirationTime) (\s@DeviceNetworkProfileInfo' {} a -> s {certificateExpirationTime = a} :: DeviceNetworkProfileInfo) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ARN of the certificate associated with a device.
-dnpiCertificateARN :: Lens' DeviceNetworkProfileInfo (Maybe Text)
-dnpiCertificateARN = lens _dnpiCertificateARN (\s a -> s {_dnpiCertificateARN = a})
+deviceNetworkProfileInfo_certificateArn :: Lens.Lens' DeviceNetworkProfileInfo (Prelude.Maybe Prelude.Text)
+deviceNetworkProfileInfo_certificateArn = Lens.lens (\DeviceNetworkProfileInfo' {certificateArn} -> certificateArn) (\s@DeviceNetworkProfileInfo' {} a -> s {certificateArn = a} :: DeviceNetworkProfileInfo)
 
 -- | The ARN of the network profile associated with a device.
-dnpiNetworkProfileARN :: Lens' DeviceNetworkProfileInfo (Maybe Text)
-dnpiNetworkProfileARN = lens _dnpiNetworkProfileARN (\s a -> s {_dnpiNetworkProfileARN = a})
+deviceNetworkProfileInfo_networkProfileArn :: Lens.Lens' DeviceNetworkProfileInfo (Prelude.Maybe Prelude.Text)
+deviceNetworkProfileInfo_networkProfileArn = Lens.lens (\DeviceNetworkProfileInfo' {networkProfileArn} -> networkProfileArn) (\s@DeviceNetworkProfileInfo' {} a -> s {networkProfileArn = a} :: DeviceNetworkProfileInfo)
 
-instance FromJSON DeviceNetworkProfileInfo where
+instance Prelude.FromJSON DeviceNetworkProfileInfo where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceNetworkProfileInfo"
       ( \x ->
           DeviceNetworkProfileInfo'
-            <$> (x .:? "CertificateExpirationTime")
-            <*> (x .:? "CertificateArn")
-            <*> (x .:? "NetworkProfileArn")
+            Prelude.<$> (x Prelude..:? "CertificateExpirationTime")
+            Prelude.<*> (x Prelude..:? "CertificateArn")
+            Prelude.<*> (x Prelude..:? "NetworkProfileArn")
       )
 
-instance Hashable DeviceNetworkProfileInfo
+instance Prelude.Hashable DeviceNetworkProfileInfo
 
-instance NFData DeviceNetworkProfileInfo
+instance Prelude.NFData DeviceNetworkProfileInfo

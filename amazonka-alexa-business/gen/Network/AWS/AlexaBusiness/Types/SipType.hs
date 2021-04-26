@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,43 +19,52 @@
 module Network.AWS.AlexaBusiness.Types.SipType
   ( SipType
       ( ..,
-        STWork
+        SipTypeWORK
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SipType = SipType' (CI Text)
-  deriving (Eq, Ord, Show, Data, Typeable, Generic)
+newtype SipType = SipType'
+  { fromSipType ::
+      Prelude.Text
+  }
+  deriving
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
+    )
 
-pattern STWork :: SipType
-pattern STWork = SipType' "WORK"
+pattern SipTypeWORK :: SipType
+pattern SipTypeWORK = SipType' "WORK"
 
 {-# COMPLETE
-  STWork,
+  SipTypeWORK,
   SipType'
   #-}
 
-instance FromText SipType where
-  parser = (SipType' . mk) <$> takeText
+instance Prelude.FromText SipType where
+  parser = SipType' Prelude.<$> Prelude.takeText
 
-instance ToText SipType where
-  toText (SipType' ci) = original ci
+instance Prelude.ToText SipType where
+  toText (SipType' x) = x
 
-instance Hashable SipType
+instance Prelude.Hashable SipType
 
-instance NFData SipType
+instance Prelude.NFData SipType
 
-instance ToByteString SipType
+instance Prelude.ToByteString SipType
 
-instance ToQuery SipType
+instance Prelude.ToQuery SipType
 
-instance ToHeader SipType
+instance Prelude.ToHeader SipType
 
-instance ToJSON SipType where
-  toJSON = toJSONText
+instance Prelude.ToJSON SipType where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON SipType where
-  parseJSON = parseJSONText "SipType"
+instance Prelude.FromJSON SipType where
+  parseJSON = Prelude.parseJSONText "SipType"

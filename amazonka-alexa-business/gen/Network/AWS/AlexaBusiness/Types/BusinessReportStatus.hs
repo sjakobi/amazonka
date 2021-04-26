@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.AlexaBusiness.Types.BusinessReportStatus
   ( BusinessReportStatus
       ( ..,
-        Failed,
-        Running,
-        Succeeded
+        BusinessReportStatusFAILED,
+        BusinessReportStatusRUNNING,
+        BusinessReportStatusSUCCEEDED
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BusinessReportStatus
-  = BusinessReportStatus'
-      ( CI
-          Text
-      )
+newtype BusinessReportStatus = BusinessReportStatus'
+  { fromBusinessReportStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: BusinessReportStatus
-pattern Failed = BusinessReportStatus' "FAILED"
+pattern BusinessReportStatusFAILED :: BusinessReportStatus
+pattern BusinessReportStatusFAILED = BusinessReportStatus' "FAILED"
 
-pattern Running :: BusinessReportStatus
-pattern Running = BusinessReportStatus' "RUNNING"
+pattern BusinessReportStatusRUNNING :: BusinessReportStatus
+pattern BusinessReportStatusRUNNING = BusinessReportStatus' "RUNNING"
 
-pattern Succeeded :: BusinessReportStatus
-pattern Succeeded = BusinessReportStatus' "SUCCEEDED"
+pattern BusinessReportStatusSUCCEEDED :: BusinessReportStatus
+pattern BusinessReportStatusSUCCEEDED = BusinessReportStatus' "SUCCEEDED"
 
 {-# COMPLETE
-  Failed,
-  Running,
-  Succeeded,
+  BusinessReportStatusFAILED,
+  BusinessReportStatusRUNNING,
+  BusinessReportStatusSUCCEEDED,
   BusinessReportStatus'
   #-}
 
-instance FromText BusinessReportStatus where
-  parser = (BusinessReportStatus' . mk) <$> takeText
+instance Prelude.FromText BusinessReportStatus where
+  parser = BusinessReportStatus' Prelude.<$> Prelude.takeText
 
-instance ToText BusinessReportStatus where
-  toText (BusinessReportStatus' ci) = original ci
+instance Prelude.ToText BusinessReportStatus where
+  toText (BusinessReportStatus' x) = x
 
-instance Hashable BusinessReportStatus
+instance Prelude.Hashable BusinessReportStatus
 
-instance NFData BusinessReportStatus
+instance Prelude.NFData BusinessReportStatus
 
-instance ToByteString BusinessReportStatus
+instance Prelude.ToByteString BusinessReportStatus
 
-instance ToQuery BusinessReportStatus
+instance Prelude.ToQuery BusinessReportStatus
 
-instance ToHeader BusinessReportStatus
+instance Prelude.ToHeader BusinessReportStatus
 
-instance FromJSON BusinessReportStatus where
-  parseJSON = parseJSONText "BusinessReportStatus"
+instance Prelude.FromJSON BusinessReportStatus where
+  parseJSON = Prelude.parseJSONText "BusinessReportStatus"

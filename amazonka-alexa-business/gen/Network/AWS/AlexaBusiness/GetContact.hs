@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,118 +24,135 @@
 -- Gets the contact details by the contact ARN.
 module Network.AWS.AlexaBusiness.GetContact
   ( -- * Creating a Request
-    getContact,
-    GetContact,
+    GetContact (..),
+    newGetContact,
 
     -- * Request Lenses
-    gcContactARN,
+    getContact_contactArn,
 
     -- * Destructuring the Response
-    getContactResponse,
-    GetContactResponse,
+    GetContactResponse (..),
+    newGetContactResponse,
 
     -- * Response Lenses
-    gcrrsContact,
-    gcrrsResponseStatus,
+    getContactResponse_contact,
+    getContactResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.Contact
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getContact' smart constructor.
-newtype GetContact = GetContact'
-  { _gcContactARN ::
-      Text
+-- | /See:/ 'newGetContact' smart constructor.
+data GetContact = GetContact'
+  { -- | The ARN of the contact for which to request details.
+    contactArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContact' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContact' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcContactARN' - The ARN of the contact for which to request details.
-getContact ::
-  -- | 'gcContactARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'contactArn', 'getContact_contactArn' - The ARN of the contact for which to request details.
+newGetContact ::
+  -- | 'contactArn'
+  Prelude.Text ->
   GetContact
-getContact pContactARN_ =
-  GetContact' {_gcContactARN = pContactARN_}
+newGetContact pContactArn_ =
+  GetContact' {contactArn = pContactArn_}
 
 -- | The ARN of the contact for which to request details.
-gcContactARN :: Lens' GetContact Text
-gcContactARN = lens _gcContactARN (\s a -> s {_gcContactARN = a})
+getContact_contactArn :: Lens.Lens' GetContact Prelude.Text
+getContact_contactArn = Lens.lens (\GetContact' {contactArn} -> contactArn) (\s@GetContact' {} a -> s {contactArn = a} :: GetContact)
 
-instance AWSRequest GetContact where
+instance Prelude.AWSRequest GetContact where
   type Rs GetContact = GetContactResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetContactResponse'
-            <$> (x .?> "Contact") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "Contact")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetContact
+instance Prelude.Hashable GetContact
 
-instance NFData GetContact
+instance Prelude.NFData GetContact
 
-instance ToHeaders GetContact where
+instance Prelude.ToHeaders GetContact where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.GetContact" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.GetContact" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetContact where
+instance Prelude.ToJSON GetContact where
   toJSON GetContact' {..} =
-    object
-      (catMaybes [Just ("ContactArn" .= _gcContactARN)])
+    Prelude.object
+      ( Prelude.catMaybes
+          [Prelude.Just ("ContactArn" Prelude..= contactArn)]
+      )
 
-instance ToPath GetContact where
-  toPath = const "/"
+instance Prelude.ToPath GetContact where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetContact where
-  toQuery = const mempty
+instance Prelude.ToQuery GetContact where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getContactResponse' smart constructor.
+-- | /See:/ 'newGetContactResponse' smart constructor.
 data GetContactResponse = GetContactResponse'
-  { _gcrrsContact ::
-      !(Maybe Contact),
-    _gcrrsResponseStatus :: !Int
+  { -- | The details of the requested contact.
+    contact :: Prelude.Maybe Contact,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetContactResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetContactResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gcrrsContact' - The details of the requested contact.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gcrrsResponseStatus' - -- | The response status code.
-getContactResponse ::
-  -- | 'gcrrsResponseStatus'
-  Int ->
+-- 'contact', 'getContactResponse_contact' - The details of the requested contact.
+--
+-- 'httpStatus', 'getContactResponse_httpStatus' - The response's http status code.
+newGetContactResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetContactResponse
-getContactResponse pResponseStatus_ =
+newGetContactResponse pHttpStatus_ =
   GetContactResponse'
-    { _gcrrsContact = Nothing,
-      _gcrrsResponseStatus = pResponseStatus_
+    { contact = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The details of the requested contact.
-gcrrsContact :: Lens' GetContactResponse (Maybe Contact)
-gcrrsContact = lens _gcrrsContact (\s a -> s {_gcrrsContact = a})
+getContactResponse_contact :: Lens.Lens' GetContactResponse (Prelude.Maybe Contact)
+getContactResponse_contact = Lens.lens (\GetContactResponse' {contact} -> contact) (\s@GetContactResponse' {} a -> s {contact = a} :: GetContactResponse)
 
--- | -- | The response status code.
-gcrrsResponseStatus :: Lens' GetContactResponse Int
-gcrrsResponseStatus = lens _gcrrsResponseStatus (\s a -> s {_gcrrsResponseStatus = a})
+-- | The response's http status code.
+getContactResponse_httpStatus :: Lens.Lens' GetContactResponse Prelude.Int
+getContactResponse_httpStatus = Lens.lens (\GetContactResponse' {httpStatus} -> httpStatus) (\s@GetContactResponse' {} a -> s {httpStatus = a} :: GetContactResponse)
 
-instance NFData GetContactResponse
+instance Prelude.NFData GetContactResponse

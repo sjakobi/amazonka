@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,165 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the details of a gateway. If any optional field is not provided, the existing corresponding value is left unmodified.
+-- Updates the details of a gateway. If any optional field is not provided,
+-- the existing corresponding value is left unmodified.
 module Network.AWS.AlexaBusiness.UpdateGateway
   ( -- * Creating a Request
-    updateGateway,
-    UpdateGateway,
+    UpdateGateway (..),
+    newUpdateGateway,
 
     -- * Request Lenses
-    ugName,
-    ugDescription,
-    ugSoftwareVersion,
-    ugGatewayARN,
+    updateGateway_name,
+    updateGateway_description,
+    updateGateway_softwareVersion,
+    updateGateway_gatewayArn,
 
     -- * Destructuring the Response
-    updateGatewayResponse,
-    UpdateGatewayResponse,
+    UpdateGatewayResponse (..),
+    newUpdateGatewayResponse,
 
     -- * Response Lenses
-    ugrrsResponseStatus,
+    updateGatewayResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateGateway' smart constructor.
+-- | /See:/ 'newUpdateGateway' smart constructor.
 data UpdateGateway = UpdateGateway'
-  { _ugName ::
-      !(Maybe Text),
-    _ugDescription :: !(Maybe Text),
-    _ugSoftwareVersion :: !(Maybe Text),
-    _ugGatewayARN :: !Text
+  { -- | The updated name of the gateway.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The updated description of the gateway.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The updated software version of the gateway. The gateway automatically
+    -- updates its software version during normal operation.
+    softwareVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the gateway to update.
+    gatewayArn :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugName' - The updated name of the gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ugDescription' - The updated description of the gateway.
+-- 'name', 'updateGateway_name' - The updated name of the gateway.
 --
--- * 'ugSoftwareVersion' - The updated software version of the gateway. The gateway automatically updates its software version during normal operation.
+-- 'description', 'updateGateway_description' - The updated description of the gateway.
 --
--- * 'ugGatewayARN' - The ARN of the gateway to update.
-updateGateway ::
-  -- | 'ugGatewayARN'
-  Text ->
+-- 'softwareVersion', 'updateGateway_softwareVersion' - The updated software version of the gateway. The gateway automatically
+-- updates its software version during normal operation.
+--
+-- 'gatewayArn', 'updateGateway_gatewayArn' - The ARN of the gateway to update.
+newUpdateGateway ::
+  -- | 'gatewayArn'
+  Prelude.Text ->
   UpdateGateway
-updateGateway pGatewayARN_ =
+newUpdateGateway pGatewayArn_ =
   UpdateGateway'
-    { _ugName = Nothing,
-      _ugDescription = Nothing,
-      _ugSoftwareVersion = Nothing,
-      _ugGatewayARN = pGatewayARN_
+    { name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      softwareVersion = Prelude.Nothing,
+      gatewayArn = pGatewayArn_
     }
 
 -- | The updated name of the gateway.
-ugName :: Lens' UpdateGateway (Maybe Text)
-ugName = lens _ugName (\s a -> s {_ugName = a})
+updateGateway_name :: Lens.Lens' UpdateGateway (Prelude.Maybe Prelude.Text)
+updateGateway_name = Lens.lens (\UpdateGateway' {name} -> name) (\s@UpdateGateway' {} a -> s {name = a} :: UpdateGateway)
 
 -- | The updated description of the gateway.
-ugDescription :: Lens' UpdateGateway (Maybe Text)
-ugDescription = lens _ugDescription (\s a -> s {_ugDescription = a})
+updateGateway_description :: Lens.Lens' UpdateGateway (Prelude.Maybe Prelude.Text)
+updateGateway_description = Lens.lens (\UpdateGateway' {description} -> description) (\s@UpdateGateway' {} a -> s {description = a} :: UpdateGateway)
 
--- | The updated software version of the gateway. The gateway automatically updates its software version during normal operation.
-ugSoftwareVersion :: Lens' UpdateGateway (Maybe Text)
-ugSoftwareVersion = lens _ugSoftwareVersion (\s a -> s {_ugSoftwareVersion = a})
+-- | The updated software version of the gateway. The gateway automatically
+-- updates its software version during normal operation.
+updateGateway_softwareVersion :: Lens.Lens' UpdateGateway (Prelude.Maybe Prelude.Text)
+updateGateway_softwareVersion = Lens.lens (\UpdateGateway' {softwareVersion} -> softwareVersion) (\s@UpdateGateway' {} a -> s {softwareVersion = a} :: UpdateGateway)
 
 -- | The ARN of the gateway to update.
-ugGatewayARN :: Lens' UpdateGateway Text
-ugGatewayARN = lens _ugGatewayARN (\s a -> s {_ugGatewayARN = a})
+updateGateway_gatewayArn :: Lens.Lens' UpdateGateway Prelude.Text
+updateGateway_gatewayArn = Lens.lens (\UpdateGateway' {gatewayArn} -> gatewayArn) (\s@UpdateGateway' {} a -> s {gatewayArn = a} :: UpdateGateway)
 
-instance AWSRequest UpdateGateway where
+instance Prelude.AWSRequest UpdateGateway where
   type Rs UpdateGateway = UpdateGatewayResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateGatewayResponse' <$> (pure (fromEnum s))
+          UpdateGatewayResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateGateway
+instance Prelude.Hashable UpdateGateway
 
-instance NFData UpdateGateway
+instance Prelude.NFData UpdateGateway
 
-instance ToHeaders UpdateGateway where
+instance Prelude.ToHeaders UpdateGateway where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.UpdateGateway" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.UpdateGateway" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateGateway where
+instance Prelude.ToJSON UpdateGateway where
   toJSON UpdateGateway' {..} =
-    object
-      ( catMaybes
-          [ ("Name" .=) <$> _ugName,
-            ("Description" .=) <$> _ugDescription,
-            ("SoftwareVersion" .=) <$> _ugSoftwareVersion,
-            Just ("GatewayArn" .= _ugGatewayARN)
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("Name" Prelude..=) Prelude.<$> name,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("SoftwareVersion" Prelude..=)
+              Prelude.<$> softwareVersion,
+            Prelude.Just ("GatewayArn" Prelude..= gatewayArn)
           ]
       )
 
-instance ToPath UpdateGateway where
-  toPath = const "/"
+instance Prelude.ToPath UpdateGateway where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateGateway where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateGateway where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateGatewayResponse' smart constructor.
-newtype UpdateGatewayResponse = UpdateGatewayResponse'
-  { _ugrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateGatewayResponse' smart constructor.
+data UpdateGatewayResponse = UpdateGatewayResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateGatewayResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateGatewayResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ugrrsResponseStatus' - -- | The response status code.
-updateGatewayResponse ::
-  -- | 'ugrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateGatewayResponse_httpStatus' - The response's http status code.
+newUpdateGatewayResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateGatewayResponse
-updateGatewayResponse pResponseStatus_ =
-  UpdateGatewayResponse'
-    { _ugrrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateGatewayResponse pHttpStatus_ =
+  UpdateGatewayResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ugrrsResponseStatus :: Lens' UpdateGatewayResponse Int
-ugrrsResponseStatus = lens _ugrrsResponseStatus (\s a -> s {_ugrrsResponseStatus = a})
+-- | The response's http status code.
+updateGatewayResponse_httpStatus :: Lens.Lens' UpdateGatewayResponse Prelude.Int
+updateGatewayResponse_httpStatus = Lens.lens (\UpdateGatewayResponse' {httpStatus} -> httpStatus) (\s@UpdateGatewayResponse' {} a -> s {httpStatus = a} :: UpdateGatewayResponse)
 
-instance NFData UpdateGatewayResponse
+instance Prelude.NFData UpdateGatewayResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,159 +24,167 @@
 -- Updates room details by room ARN.
 module Network.AWS.AlexaBusiness.UpdateRoom
   ( -- * Creating a Request
-    updateRoom,
-    UpdateRoom,
+    UpdateRoom (..),
+    newUpdateRoom,
 
     -- * Request Lenses
-    urRoomARN,
-    urProviderCalendarId,
-    urProfileARN,
-    urDescription,
-    urRoomName,
+    updateRoom_roomArn,
+    updateRoom_providerCalendarId,
+    updateRoom_profileArn,
+    updateRoom_description,
+    updateRoom_roomName,
 
     -- * Destructuring the Response
-    updateRoomResponse,
-    UpdateRoomResponse,
+    UpdateRoomResponse (..),
+    newUpdateRoomResponse,
 
     -- * Response Lenses
-    ursResponseStatus,
+    updateRoomResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'updateRoom' smart constructor.
+-- | /See:/ 'newUpdateRoom' smart constructor.
 data UpdateRoom = UpdateRoom'
-  { _urRoomARN ::
-      !(Maybe Text),
-    _urProviderCalendarId :: !(Maybe Text),
-    _urProfileARN :: !(Maybe Text),
-    _urDescription :: !(Maybe Text),
-    _urRoomName :: !(Maybe Text)
+  { -- | The ARN of the room to update.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The updated provider calendar ARN for the room.
+    providerCalendarId :: Prelude.Maybe Prelude.Text,
+    -- | The updated profile ARN for the room.
+    profileArn :: Prelude.Maybe Prelude.Text,
+    -- | The updated description for the room.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The updated name for the room.
+    roomName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoom' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoom' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urRoomARN' - The ARN of the room to update.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urProviderCalendarId' - The updated provider calendar ARN for the room.
+-- 'roomArn', 'updateRoom_roomArn' - The ARN of the room to update.
 --
--- * 'urProfileARN' - The updated profile ARN for the room.
+-- 'providerCalendarId', 'updateRoom_providerCalendarId' - The updated provider calendar ARN for the room.
 --
--- * 'urDescription' - The updated description for the room.
+-- 'profileArn', 'updateRoom_profileArn' - The updated profile ARN for the room.
 --
--- * 'urRoomName' - The updated name for the room.
-updateRoom ::
+-- 'description', 'updateRoom_description' - The updated description for the room.
+--
+-- 'roomName', 'updateRoom_roomName' - The updated name for the room.
+newUpdateRoom ::
   UpdateRoom
-updateRoom =
+newUpdateRoom =
   UpdateRoom'
-    { _urRoomARN = Nothing,
-      _urProviderCalendarId = Nothing,
-      _urProfileARN = Nothing,
-      _urDescription = Nothing,
-      _urRoomName = Nothing
+    { roomArn = Prelude.Nothing,
+      providerCalendarId = Prelude.Nothing,
+      profileArn = Prelude.Nothing,
+      description = Prelude.Nothing,
+      roomName = Prelude.Nothing
     }
 
 -- | The ARN of the room to update.
-urRoomARN :: Lens' UpdateRoom (Maybe Text)
-urRoomARN = lens _urRoomARN (\s a -> s {_urRoomARN = a})
+updateRoom_roomArn :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
+updateRoom_roomArn = Lens.lens (\UpdateRoom' {roomArn} -> roomArn) (\s@UpdateRoom' {} a -> s {roomArn = a} :: UpdateRoom)
 
 -- | The updated provider calendar ARN for the room.
-urProviderCalendarId :: Lens' UpdateRoom (Maybe Text)
-urProviderCalendarId = lens _urProviderCalendarId (\s a -> s {_urProviderCalendarId = a})
+updateRoom_providerCalendarId :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
+updateRoom_providerCalendarId = Lens.lens (\UpdateRoom' {providerCalendarId} -> providerCalendarId) (\s@UpdateRoom' {} a -> s {providerCalendarId = a} :: UpdateRoom)
 
 -- | The updated profile ARN for the room.
-urProfileARN :: Lens' UpdateRoom (Maybe Text)
-urProfileARN = lens _urProfileARN (\s a -> s {_urProfileARN = a})
+updateRoom_profileArn :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
+updateRoom_profileArn = Lens.lens (\UpdateRoom' {profileArn} -> profileArn) (\s@UpdateRoom' {} a -> s {profileArn = a} :: UpdateRoom)
 
 -- | The updated description for the room.
-urDescription :: Lens' UpdateRoom (Maybe Text)
-urDescription = lens _urDescription (\s a -> s {_urDescription = a})
+updateRoom_description :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
+updateRoom_description = Lens.lens (\UpdateRoom' {description} -> description) (\s@UpdateRoom' {} a -> s {description = a} :: UpdateRoom)
 
 -- | The updated name for the room.
-urRoomName :: Lens' UpdateRoom (Maybe Text)
-urRoomName = lens _urRoomName (\s a -> s {_urRoomName = a})
+updateRoom_roomName :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
+updateRoom_roomName = Lens.lens (\UpdateRoom' {roomName} -> roomName) (\s@UpdateRoom' {} a -> s {roomName = a} :: UpdateRoom)
 
-instance AWSRequest UpdateRoom where
+instance Prelude.AWSRequest UpdateRoom where
   type Rs UpdateRoom = UpdateRoomResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          UpdateRoomResponse' <$> (pure (fromEnum s))
+          UpdateRoomResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateRoom
+instance Prelude.Hashable UpdateRoom
 
-instance NFData UpdateRoom
+instance Prelude.NFData UpdateRoom
 
-instance ToHeaders UpdateRoom where
+instance Prelude.ToHeaders UpdateRoom where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.UpdateRoom" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.UpdateRoom" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON UpdateRoom where
+instance Prelude.ToJSON UpdateRoom where
   toJSON UpdateRoom' {..} =
-    object
-      ( catMaybes
-          [ ("RoomArn" .=) <$> _urRoomARN,
-            ("ProviderCalendarId" .=) <$> _urProviderCalendarId,
-            ("ProfileArn" .=) <$> _urProfileARN,
-            ("Description" .=) <$> _urDescription,
-            ("RoomName" .=) <$> _urRoomName
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("RoomArn" Prelude..=) Prelude.<$> roomArn,
+            ("ProviderCalendarId" Prelude..=)
+              Prelude.<$> providerCalendarId,
+            ("ProfileArn" Prelude..=) Prelude.<$> profileArn,
+            ("Description" Prelude..=) Prelude.<$> description,
+            ("RoomName" Prelude..=) Prelude.<$> roomName
           ]
       )
 
-instance ToPath UpdateRoom where
-  toPath = const "/"
+instance Prelude.ToPath UpdateRoom where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateRoom where
-  toQuery = const mempty
+instance Prelude.ToQuery UpdateRoom where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'updateRoomResponse' smart constructor.
-newtype UpdateRoomResponse = UpdateRoomResponse'
-  { _ursResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateRoomResponse' smart constructor.
+data UpdateRoomResponse = UpdateRoomResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateRoomResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateRoomResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ursResponseStatus' - -- | The response status code.
-updateRoomResponse ::
-  -- | 'ursResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateRoomResponse_httpStatus' - The response's http status code.
+newUpdateRoomResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateRoomResponse
-updateRoomResponse pResponseStatus_ =
-  UpdateRoomResponse'
-    { _ursResponseStatus =
-        pResponseStatus_
-    }
+newUpdateRoomResponse pHttpStatus_ =
+  UpdateRoomResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-ursResponseStatus :: Lens' UpdateRoomResponse Int
-ursResponseStatus = lens _ursResponseStatus (\s a -> s {_ursResponseStatus = a})
+-- | The response's http status code.
+updateRoomResponse_httpStatus :: Lens.Lens' UpdateRoomResponse Prelude.Int
+updateRoomResponse_httpStatus = Lens.lens (\UpdateRoomResponse' {httpStatus} -> httpStatus) (\s@UpdateRoomResponse' {} a -> s {httpStatus = a} :: UpdateRoomResponse)
 
-instance NFData UpdateRoomResponse
+instance Prelude.NFData UpdateRoomResponse

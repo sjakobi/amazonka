@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,153 +21,167 @@ module Network.AWS.AlexaBusiness.Types.DeviceData where
 
 import Network.AWS.AlexaBusiness.Types.DeviceStatus
 import Network.AWS.AlexaBusiness.Types.DeviceStatusInfo
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Device attributes.
 --
---
---
--- /See:/ 'deviceData' smart constructor.
+-- /See:/ 'newDeviceData' smart constructor.
 data DeviceData = DeviceData'
-  { _ddDeviceStatus ::
-      !(Maybe DeviceStatus),
-    _ddMACAddress :: !(Maybe Text),
-    _ddCreatedTime :: !(Maybe POSIX),
-    _ddDeviceARN :: !(Maybe Text),
-    _ddRoomARN :: !(Maybe Text),
-    _ddNetworkProfileName :: !(Maybe Text),
-    _ddDeviceStatusInfo :: !(Maybe DeviceStatusInfo),
-    _ddDeviceName :: !(Maybe Text),
-    _ddDeviceSerialNumber :: !(Maybe Text),
-    _ddRoomName :: !(Maybe Text),
-    _ddDeviceType :: !(Maybe Text),
-    _ddNetworkProfileARN :: !(Maybe Text),
-    _ddSoftwareVersion :: !(Maybe Text)
+  { -- | The status of a device.
+    deviceStatus :: Prelude.Maybe DeviceStatus,
+    -- | The MAC address of a device.
+    macAddress :: Prelude.Maybe Prelude.Text,
+    -- | The time (in epoch) when the device data was created.
+    createdTime :: Prelude.Maybe Prelude.POSIX,
+    -- | The ARN of a device.
+    deviceArn :: Prelude.Maybe Prelude.Text,
+    -- | The room ARN associated with a device.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the network profile associated with a device.
+    networkProfileName :: Prelude.Maybe Prelude.Text,
+    -- | Detailed information about a device\'s status.
+    deviceStatusInfo :: Prelude.Maybe DeviceStatusInfo,
+    -- | The name of a device.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The serial number of a device.
+    deviceSerialNumber :: Prelude.Maybe Prelude.Text,
+    -- | The name of the room associated with a device.
+    roomName :: Prelude.Maybe Prelude.Text,
+    -- | The type of a device.
+    deviceType :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the network profile associated with a device.
+    networkProfileArn :: Prelude.Maybe Prelude.Text,
+    -- | The software version of a device.
+    softwareVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeviceData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeviceData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ddDeviceStatus' - The status of a device.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ddMACAddress' - The MAC address of a device.
+-- 'deviceStatus', 'deviceData_deviceStatus' - The status of a device.
 --
--- * 'ddCreatedTime' - The time (in epoch) when the device data was created.
+-- 'macAddress', 'deviceData_macAddress' - The MAC address of a device.
 --
--- * 'ddDeviceARN' - The ARN of a device.
+-- 'createdTime', 'deviceData_createdTime' - The time (in epoch) when the device data was created.
 --
--- * 'ddRoomARN' - The room ARN associated with a device.
+-- 'deviceArn', 'deviceData_deviceArn' - The ARN of a device.
 --
--- * 'ddNetworkProfileName' - The name of the network profile associated with a device.
+-- 'roomArn', 'deviceData_roomArn' - The room ARN associated with a device.
 --
--- * 'ddDeviceStatusInfo' - Detailed information about a device's status.
+-- 'networkProfileName', 'deviceData_networkProfileName' - The name of the network profile associated with a device.
 --
--- * 'ddDeviceName' - The name of a device.
+-- 'deviceStatusInfo', 'deviceData_deviceStatusInfo' - Detailed information about a device\'s status.
 --
--- * 'ddDeviceSerialNumber' - The serial number of a device.
+-- 'deviceName', 'deviceData_deviceName' - The name of a device.
 --
--- * 'ddRoomName' - The name of the room associated with a device.
+-- 'deviceSerialNumber', 'deviceData_deviceSerialNumber' - The serial number of a device.
 --
--- * 'ddDeviceType' - The type of a device.
+-- 'roomName', 'deviceData_roomName' - The name of the room associated with a device.
 --
--- * 'ddNetworkProfileARN' - The ARN of the network profile associated with a device.
+-- 'deviceType', 'deviceData_deviceType' - The type of a device.
 --
--- * 'ddSoftwareVersion' - The software version of a device.
-deviceData ::
+-- 'networkProfileArn', 'deviceData_networkProfileArn' - The ARN of the network profile associated with a device.
+--
+-- 'softwareVersion', 'deviceData_softwareVersion' - The software version of a device.
+newDeviceData ::
   DeviceData
-deviceData =
+newDeviceData =
   DeviceData'
-    { _ddDeviceStatus = Nothing,
-      _ddMACAddress = Nothing,
-      _ddCreatedTime = Nothing,
-      _ddDeviceARN = Nothing,
-      _ddRoomARN = Nothing,
-      _ddNetworkProfileName = Nothing,
-      _ddDeviceStatusInfo = Nothing,
-      _ddDeviceName = Nothing,
-      _ddDeviceSerialNumber = Nothing,
-      _ddRoomName = Nothing,
-      _ddDeviceType = Nothing,
-      _ddNetworkProfileARN = Nothing,
-      _ddSoftwareVersion = Nothing
+    { deviceStatus = Prelude.Nothing,
+      macAddress = Prelude.Nothing,
+      createdTime = Prelude.Nothing,
+      deviceArn = Prelude.Nothing,
+      roomArn = Prelude.Nothing,
+      networkProfileName = Prelude.Nothing,
+      deviceStatusInfo = Prelude.Nothing,
+      deviceName = Prelude.Nothing,
+      deviceSerialNumber = Prelude.Nothing,
+      roomName = Prelude.Nothing,
+      deviceType = Prelude.Nothing,
+      networkProfileArn = Prelude.Nothing,
+      softwareVersion = Prelude.Nothing
     }
 
 -- | The status of a device.
-ddDeviceStatus :: Lens' DeviceData (Maybe DeviceStatus)
-ddDeviceStatus = lens _ddDeviceStatus (\s a -> s {_ddDeviceStatus = a})
+deviceData_deviceStatus :: Lens.Lens' DeviceData (Prelude.Maybe DeviceStatus)
+deviceData_deviceStatus = Lens.lens (\DeviceData' {deviceStatus} -> deviceStatus) (\s@DeviceData' {} a -> s {deviceStatus = a} :: DeviceData)
 
 -- | The MAC address of a device.
-ddMACAddress :: Lens' DeviceData (Maybe Text)
-ddMACAddress = lens _ddMACAddress (\s a -> s {_ddMACAddress = a})
+deviceData_macAddress :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_macAddress = Lens.lens (\DeviceData' {macAddress} -> macAddress) (\s@DeviceData' {} a -> s {macAddress = a} :: DeviceData)
 
 -- | The time (in epoch) when the device data was created.
-ddCreatedTime :: Lens' DeviceData (Maybe UTCTime)
-ddCreatedTime = lens _ddCreatedTime (\s a -> s {_ddCreatedTime = a}) . mapping _Time
+deviceData_createdTime :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.UTCTime)
+deviceData_createdTime = Lens.lens (\DeviceData' {createdTime} -> createdTime) (\s@DeviceData' {} a -> s {createdTime = a} :: DeviceData) Prelude.. Lens.mapping Prelude._Time
 
 -- | The ARN of a device.
-ddDeviceARN :: Lens' DeviceData (Maybe Text)
-ddDeviceARN = lens _ddDeviceARN (\s a -> s {_ddDeviceARN = a})
+deviceData_deviceArn :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_deviceArn = Lens.lens (\DeviceData' {deviceArn} -> deviceArn) (\s@DeviceData' {} a -> s {deviceArn = a} :: DeviceData)
 
 -- | The room ARN associated with a device.
-ddRoomARN :: Lens' DeviceData (Maybe Text)
-ddRoomARN = lens _ddRoomARN (\s a -> s {_ddRoomARN = a})
+deviceData_roomArn :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_roomArn = Lens.lens (\DeviceData' {roomArn} -> roomArn) (\s@DeviceData' {} a -> s {roomArn = a} :: DeviceData)
 
 -- | The name of the network profile associated with a device.
-ddNetworkProfileName :: Lens' DeviceData (Maybe Text)
-ddNetworkProfileName = lens _ddNetworkProfileName (\s a -> s {_ddNetworkProfileName = a})
+deviceData_networkProfileName :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_networkProfileName = Lens.lens (\DeviceData' {networkProfileName} -> networkProfileName) (\s@DeviceData' {} a -> s {networkProfileName = a} :: DeviceData)
 
--- | Detailed information about a device's status.
-ddDeviceStatusInfo :: Lens' DeviceData (Maybe DeviceStatusInfo)
-ddDeviceStatusInfo = lens _ddDeviceStatusInfo (\s a -> s {_ddDeviceStatusInfo = a})
+-- | Detailed information about a device\'s status.
+deviceData_deviceStatusInfo :: Lens.Lens' DeviceData (Prelude.Maybe DeviceStatusInfo)
+deviceData_deviceStatusInfo = Lens.lens (\DeviceData' {deviceStatusInfo} -> deviceStatusInfo) (\s@DeviceData' {} a -> s {deviceStatusInfo = a} :: DeviceData)
 
 -- | The name of a device.
-ddDeviceName :: Lens' DeviceData (Maybe Text)
-ddDeviceName = lens _ddDeviceName (\s a -> s {_ddDeviceName = a})
+deviceData_deviceName :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_deviceName = Lens.lens (\DeviceData' {deviceName} -> deviceName) (\s@DeviceData' {} a -> s {deviceName = a} :: DeviceData)
 
 -- | The serial number of a device.
-ddDeviceSerialNumber :: Lens' DeviceData (Maybe Text)
-ddDeviceSerialNumber = lens _ddDeviceSerialNumber (\s a -> s {_ddDeviceSerialNumber = a})
+deviceData_deviceSerialNumber :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_deviceSerialNumber = Lens.lens (\DeviceData' {deviceSerialNumber} -> deviceSerialNumber) (\s@DeviceData' {} a -> s {deviceSerialNumber = a} :: DeviceData)
 
 -- | The name of the room associated with a device.
-ddRoomName :: Lens' DeviceData (Maybe Text)
-ddRoomName = lens _ddRoomName (\s a -> s {_ddRoomName = a})
+deviceData_roomName :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_roomName = Lens.lens (\DeviceData' {roomName} -> roomName) (\s@DeviceData' {} a -> s {roomName = a} :: DeviceData)
 
 -- | The type of a device.
-ddDeviceType :: Lens' DeviceData (Maybe Text)
-ddDeviceType = lens _ddDeviceType (\s a -> s {_ddDeviceType = a})
+deviceData_deviceType :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_deviceType = Lens.lens (\DeviceData' {deviceType} -> deviceType) (\s@DeviceData' {} a -> s {deviceType = a} :: DeviceData)
 
 -- | The ARN of the network profile associated with a device.
-ddNetworkProfileARN :: Lens' DeviceData (Maybe Text)
-ddNetworkProfileARN = lens _ddNetworkProfileARN (\s a -> s {_ddNetworkProfileARN = a})
+deviceData_networkProfileArn :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_networkProfileArn = Lens.lens (\DeviceData' {networkProfileArn} -> networkProfileArn) (\s@DeviceData' {} a -> s {networkProfileArn = a} :: DeviceData)
 
 -- | The software version of a device.
-ddSoftwareVersion :: Lens' DeviceData (Maybe Text)
-ddSoftwareVersion = lens _ddSoftwareVersion (\s a -> s {_ddSoftwareVersion = a})
+deviceData_softwareVersion :: Lens.Lens' DeviceData (Prelude.Maybe Prelude.Text)
+deviceData_softwareVersion = Lens.lens (\DeviceData' {softwareVersion} -> softwareVersion) (\s@DeviceData' {} a -> s {softwareVersion = a} :: DeviceData)
 
-instance FromJSON DeviceData where
+instance Prelude.FromJSON DeviceData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "DeviceData"
       ( \x ->
           DeviceData'
-            <$> (x .:? "DeviceStatus")
-            <*> (x .:? "MacAddress")
-            <*> (x .:? "CreatedTime")
-            <*> (x .:? "DeviceArn")
-            <*> (x .:? "RoomArn")
-            <*> (x .:? "NetworkProfileName")
-            <*> (x .:? "DeviceStatusInfo")
-            <*> (x .:? "DeviceName")
-            <*> (x .:? "DeviceSerialNumber")
-            <*> (x .:? "RoomName")
-            <*> (x .:? "DeviceType")
-            <*> (x .:? "NetworkProfileArn")
-            <*> (x .:? "SoftwareVersion")
+            Prelude.<$> (x Prelude..:? "DeviceStatus")
+            Prelude.<*> (x Prelude..:? "MacAddress")
+            Prelude.<*> (x Prelude..:? "CreatedTime")
+            Prelude.<*> (x Prelude..:? "DeviceArn")
+            Prelude.<*> (x Prelude..:? "RoomArn")
+            Prelude.<*> (x Prelude..:? "NetworkProfileName")
+            Prelude.<*> (x Prelude..:? "DeviceStatusInfo")
+            Prelude.<*> (x Prelude..:? "DeviceName")
+            Prelude.<*> (x Prelude..:? "DeviceSerialNumber")
+            Prelude.<*> (x Prelude..:? "RoomName")
+            Prelude.<*> (x Prelude..:? "DeviceType")
+            Prelude.<*> (x Prelude..:? "NetworkProfileArn")
+            Prelude.<*> (x Prelude..:? "SoftwareVersion")
       )
 
-instance Hashable DeviceData
+instance Prelude.Hashable DeviceData
 
-instance NFData DeviceData
+instance Prelude.NFData DeviceData

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,86 +19,88 @@
 module Network.AWS.AlexaBusiness.Types.Feature
   ( Feature
       ( ..,
-        All,
-        Bluetooth,
-        Lists,
-        NetworkProfile,
-        Notifications,
-        Settings,
-        Skills,
-        Volume
+        FeatureALL,
+        FeatureBLUETOOTH,
+        FeatureLISTS,
+        FeatureNETWORKPROFILE,
+        FeatureNOTIFICATIONS,
+        FeatureSETTINGS,
+        FeatureSKILLS,
+        FeatureVOLUME
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data Feature = Feature' (CI Text)
+newtype Feature = Feature'
+  { fromFeature ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern All :: Feature
-pattern All = Feature' "ALL"
+pattern FeatureALL :: Feature
+pattern FeatureALL = Feature' "ALL"
 
-pattern Bluetooth :: Feature
-pattern Bluetooth = Feature' "BLUETOOTH"
+pattern FeatureBLUETOOTH :: Feature
+pattern FeatureBLUETOOTH = Feature' "BLUETOOTH"
 
-pattern Lists :: Feature
-pattern Lists = Feature' "LISTS"
+pattern FeatureLISTS :: Feature
+pattern FeatureLISTS = Feature' "LISTS"
 
-pattern NetworkProfile :: Feature
-pattern NetworkProfile = Feature' "NETWORK_PROFILE"
+pattern FeatureNETWORKPROFILE :: Feature
+pattern FeatureNETWORKPROFILE = Feature' "NETWORK_PROFILE"
 
-pattern Notifications :: Feature
-pattern Notifications = Feature' "NOTIFICATIONS"
+pattern FeatureNOTIFICATIONS :: Feature
+pattern FeatureNOTIFICATIONS = Feature' "NOTIFICATIONS"
 
-pattern Settings :: Feature
-pattern Settings = Feature' "SETTINGS"
+pattern FeatureSETTINGS :: Feature
+pattern FeatureSETTINGS = Feature' "SETTINGS"
 
-pattern Skills :: Feature
-pattern Skills = Feature' "SKILLS"
+pattern FeatureSKILLS :: Feature
+pattern FeatureSKILLS = Feature' "SKILLS"
 
-pattern Volume :: Feature
-pattern Volume = Feature' "VOLUME"
+pattern FeatureVOLUME :: Feature
+pattern FeatureVOLUME = Feature' "VOLUME"
 
 {-# COMPLETE
-  All,
-  Bluetooth,
-  Lists,
-  NetworkProfile,
-  Notifications,
-  Settings,
-  Skills,
-  Volume,
+  FeatureALL,
+  FeatureBLUETOOTH,
+  FeatureLISTS,
+  FeatureNETWORKPROFILE,
+  FeatureNOTIFICATIONS,
+  FeatureSETTINGS,
+  FeatureSKILLS,
+  FeatureVOLUME,
   Feature'
   #-}
 
-instance FromText Feature where
-  parser = (Feature' . mk) <$> takeText
+instance Prelude.FromText Feature where
+  parser = Feature' Prelude.<$> Prelude.takeText
 
-instance ToText Feature where
-  toText (Feature' ci) = original ci
+instance Prelude.ToText Feature where
+  toText (Feature' x) = x
 
-instance Hashable Feature
+instance Prelude.Hashable Feature
 
-instance NFData Feature
+instance Prelude.NFData Feature
 
-instance ToByteString Feature
+instance Prelude.ToByteString Feature
 
-instance ToQuery Feature
+instance Prelude.ToQuery Feature
 
-instance ToHeader Feature
+instance Prelude.ToHeader Feature
 
-instance ToJSON Feature where
-  toJSON = toJSONText
+instance Prelude.ToJSON Feature where
+  toJSON = Prelude.toJSONText
 
-instance FromJSON Feature where
-  parseJSON = parseJSONText "Feature"
+instance Prelude.FromJSON Feature where
+  parseJSON = Prelude.parseJSONText "Feature"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.AddressBookData where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information related to an address book.
 --
---
---
--- /See:/ 'addressBookData' smart constructor.
+-- /See:/ 'newAddressBookData' smart constructor.
 data AddressBookData = AddressBookData'
-  { _abdAddressBookARN ::
-      !(Maybe Text),
-    _abdName :: !(Maybe Text),
-    _abdDescription :: !(Maybe Text)
+  { -- | The ARN of the address book.
+    addressBookArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the address book.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the address book.
+    description :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddressBookData' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddressBookData' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'abdAddressBookARN' - The ARN of the address book.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'abdName' - The name of the address book.
+-- 'addressBookArn', 'addressBookData_addressBookArn' - The ARN of the address book.
 --
--- * 'abdDescription' - The description of the address book.
-addressBookData ::
+-- 'name', 'addressBookData_name' - The name of the address book.
+--
+-- 'description', 'addressBookData_description' - The description of the address book.
+newAddressBookData ::
   AddressBookData
-addressBookData =
+newAddressBookData =
   AddressBookData'
-    { _abdAddressBookARN = Nothing,
-      _abdName = Nothing,
-      _abdDescription = Nothing
+    { addressBookArn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing
     }
 
 -- | The ARN of the address book.
-abdAddressBookARN :: Lens' AddressBookData (Maybe Text)
-abdAddressBookARN = lens _abdAddressBookARN (\s a -> s {_abdAddressBookARN = a})
+addressBookData_addressBookArn :: Lens.Lens' AddressBookData (Prelude.Maybe Prelude.Text)
+addressBookData_addressBookArn = Lens.lens (\AddressBookData' {addressBookArn} -> addressBookArn) (\s@AddressBookData' {} a -> s {addressBookArn = a} :: AddressBookData)
 
 -- | The name of the address book.
-abdName :: Lens' AddressBookData (Maybe Text)
-abdName = lens _abdName (\s a -> s {_abdName = a})
+addressBookData_name :: Lens.Lens' AddressBookData (Prelude.Maybe Prelude.Text)
+addressBookData_name = Lens.lens (\AddressBookData' {name} -> name) (\s@AddressBookData' {} a -> s {name = a} :: AddressBookData)
 
 -- | The description of the address book.
-abdDescription :: Lens' AddressBookData (Maybe Text)
-abdDescription = lens _abdDescription (\s a -> s {_abdDescription = a})
+addressBookData_description :: Lens.Lens' AddressBookData (Prelude.Maybe Prelude.Text)
+addressBookData_description = Lens.lens (\AddressBookData' {description} -> description) (\s@AddressBookData' {} a -> s {description = a} :: AddressBookData)
 
-instance FromJSON AddressBookData where
+instance Prelude.FromJSON AddressBookData where
   parseJSON =
-    withObject
+    Prelude.withObject
       "AddressBookData"
       ( \x ->
           AddressBookData'
-            <$> (x .:? "AddressBookArn")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
+            Prelude.<$> (x Prelude..:? "AddressBookArn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
       )
 
-instance Hashable AddressBookData
+instance Prelude.Hashable AddressBookData
 
-instance NFData AddressBookData
+instance Prelude.NFData AddressBookData

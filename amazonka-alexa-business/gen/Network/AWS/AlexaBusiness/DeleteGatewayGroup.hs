@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,132 +24,131 @@
 -- Deletes a gateway group.
 module Network.AWS.AlexaBusiness.DeleteGatewayGroup
   ( -- * Creating a Request
-    deleteGatewayGroup,
-    DeleteGatewayGroup,
+    DeleteGatewayGroup (..),
+    newDeleteGatewayGroup,
 
     -- * Request Lenses
-    dggGatewayGroupARN,
+    deleteGatewayGroup_gatewayGroupArn,
 
     -- * Destructuring the Response
-    deleteGatewayGroupResponse,
-    DeleteGatewayGroupResponse,
+    DeleteGatewayGroupResponse (..),
+    newDeleteGatewayGroupResponse,
 
     -- * Response Lenses
-    dggrrsResponseStatus,
+    deleteGatewayGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'deleteGatewayGroup' smart constructor.
-newtype DeleteGatewayGroup = DeleteGatewayGroup'
-  { _dggGatewayGroupARN ::
-      Text
+-- | /See:/ 'newDeleteGatewayGroup' smart constructor.
+data DeleteGatewayGroup = DeleteGatewayGroup'
+  { -- | The ARN of the gateway group to delete.
+    gatewayGroupArn :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGatewayGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGatewayGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dggGatewayGroupARN' - The ARN of the gateway group to delete.
-deleteGatewayGroup ::
-  -- | 'dggGatewayGroupARN'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'gatewayGroupArn', 'deleteGatewayGroup_gatewayGroupArn' - The ARN of the gateway group to delete.
+newDeleteGatewayGroup ::
+  -- | 'gatewayGroupArn'
+  Prelude.Text ->
   DeleteGatewayGroup
-deleteGatewayGroup pGatewayGroupARN_ =
+newDeleteGatewayGroup pGatewayGroupArn_ =
   DeleteGatewayGroup'
-    { _dggGatewayGroupARN =
-        pGatewayGroupARN_
+    { gatewayGroupArn =
+        pGatewayGroupArn_
     }
 
 -- | The ARN of the gateway group to delete.
-dggGatewayGroupARN :: Lens' DeleteGatewayGroup Text
-dggGatewayGroupARN = lens _dggGatewayGroupARN (\s a -> s {_dggGatewayGroupARN = a})
+deleteGatewayGroup_gatewayGroupArn :: Lens.Lens' DeleteGatewayGroup Prelude.Text
+deleteGatewayGroup_gatewayGroupArn = Lens.lens (\DeleteGatewayGroup' {gatewayGroupArn} -> gatewayGroupArn) (\s@DeleteGatewayGroup' {} a -> s {gatewayGroupArn = a} :: DeleteGatewayGroup)
 
-instance AWSRequest DeleteGatewayGroup where
+instance Prelude.AWSRequest DeleteGatewayGroup where
   type
     Rs DeleteGatewayGroup =
       DeleteGatewayGroupResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveEmpty
+    Response.receiveEmpty
       ( \s h x ->
-          DeleteGatewayGroupResponse' <$> (pure (fromEnum s))
+          DeleteGatewayGroupResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteGatewayGroup
+instance Prelude.Hashable DeleteGatewayGroup
 
-instance NFData DeleteGatewayGroup
+instance Prelude.NFData DeleteGatewayGroup
 
-instance ToHeaders DeleteGatewayGroup where
+instance Prelude.ToHeaders DeleteGatewayGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ( "AlexaForBusiness.DeleteGatewayGroup" ::
-                     ByteString
-                 ),
+              Prelude.=# ( "AlexaForBusiness.DeleteGatewayGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON DeleteGatewayGroup where
+instance Prelude.ToJSON DeleteGatewayGroup where
   toJSON DeleteGatewayGroup' {..} =
-    object
-      ( catMaybes
-          [Just ("GatewayGroupArn" .= _dggGatewayGroupARN)]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ Prelude.Just
+              ("GatewayGroupArn" Prelude..= gatewayGroupArn)
+          ]
       )
 
-instance ToPath DeleteGatewayGroup where
-  toPath = const "/"
+instance Prelude.ToPath DeleteGatewayGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteGatewayGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery DeleteGatewayGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'deleteGatewayGroupResponse' smart constructor.
-newtype DeleteGatewayGroupResponse = DeleteGatewayGroupResponse'
-  { _dggrrsResponseStatus ::
-      Int
+-- | /See:/ 'newDeleteGatewayGroupResponse' smart constructor.
+data DeleteGatewayGroupResponse = DeleteGatewayGroupResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteGatewayGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteGatewayGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dggrrsResponseStatus' - -- | The response status code.
-deleteGatewayGroupResponse ::
-  -- | 'dggrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteGatewayGroupResponse_httpStatus' - The response's http status code.
+newDeleteGatewayGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteGatewayGroupResponse
-deleteGatewayGroupResponse pResponseStatus_ =
+newDeleteGatewayGroupResponse pHttpStatus_ =
   DeleteGatewayGroupResponse'
-    { _dggrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-dggrrsResponseStatus :: Lens' DeleteGatewayGroupResponse Int
-dggrrsResponseStatus = lens _dggrrsResponseStatus (\s a -> s {_dggrrsResponseStatus = a})
+-- | The response's http status code.
+deleteGatewayGroupResponse_httpStatus :: Lens.Lens' DeleteGatewayGroupResponse Prelude.Int
+deleteGatewayGroupResponse_httpStatus = Lens.lens (\DeleteGatewayGroupResponse' {httpStatus} -> httpStatus) (\s@DeleteGatewayGroupResponse' {} a -> s {httpStatus = a} :: DeleteGatewayGroupResponse)
 
-instance NFData DeleteGatewayGroupResponse
+instance Prelude.NFData DeleteGatewayGroupResponse

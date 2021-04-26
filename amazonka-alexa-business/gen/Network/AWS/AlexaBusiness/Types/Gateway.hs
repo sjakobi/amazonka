@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,80 +19,90 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.AlexaBusiness.Types.Gateway where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | The details of the gateway.
 --
---
---
--- /See:/ 'gateway' smart constructor.
+-- /See:/ 'newGateway' smart constructor.
 data Gateway = Gateway'
-  { _gARN :: !(Maybe Text),
-    _gGatewayGroupARN :: !(Maybe Text),
-    _gName :: !(Maybe Text),
-    _gDescription :: !(Maybe Text),
-    _gSoftwareVersion :: !(Maybe Text)
+  { -- | The ARN of the gateway.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the gateway group that the gateway is associated to.
+    gatewayGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the gateway.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The description of the gateway.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The software version of the gateway. The gateway automatically updates
+    -- its software version during normal operation.
+    softwareVersion :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Gateway' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Gateway' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gARN' - The ARN of the gateway.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gGatewayGroupARN' - The ARN of the gateway group that the gateway is associated to.
+-- 'arn', 'gateway_arn' - The ARN of the gateway.
 --
--- * 'gName' - The name of the gateway.
+-- 'gatewayGroupArn', 'gateway_gatewayGroupArn' - The ARN of the gateway group that the gateway is associated to.
 --
--- * 'gDescription' - The description of the gateway.
+-- 'name', 'gateway_name' - The name of the gateway.
 --
--- * 'gSoftwareVersion' - The software version of the gateway. The gateway automatically updates its software version during normal operation.
-gateway ::
+-- 'description', 'gateway_description' - The description of the gateway.
+--
+-- 'softwareVersion', 'gateway_softwareVersion' - The software version of the gateway. The gateway automatically updates
+-- its software version during normal operation.
+newGateway ::
   Gateway
-gateway =
+newGateway =
   Gateway'
-    { _gARN = Nothing,
-      _gGatewayGroupARN = Nothing,
-      _gName = Nothing,
-      _gDescription = Nothing,
-      _gSoftwareVersion = Nothing
+    { arn = Prelude.Nothing,
+      gatewayGroupArn = Prelude.Nothing,
+      name = Prelude.Nothing,
+      description = Prelude.Nothing,
+      softwareVersion = Prelude.Nothing
     }
 
 -- | The ARN of the gateway.
-gARN :: Lens' Gateway (Maybe Text)
-gARN = lens _gARN (\s a -> s {_gARN = a})
+gateway_arn :: Lens.Lens' Gateway (Prelude.Maybe Prelude.Text)
+gateway_arn = Lens.lens (\Gateway' {arn} -> arn) (\s@Gateway' {} a -> s {arn = a} :: Gateway)
 
 -- | The ARN of the gateway group that the gateway is associated to.
-gGatewayGroupARN :: Lens' Gateway (Maybe Text)
-gGatewayGroupARN = lens _gGatewayGroupARN (\s a -> s {_gGatewayGroupARN = a})
+gateway_gatewayGroupArn :: Lens.Lens' Gateway (Prelude.Maybe Prelude.Text)
+gateway_gatewayGroupArn = Lens.lens (\Gateway' {gatewayGroupArn} -> gatewayGroupArn) (\s@Gateway' {} a -> s {gatewayGroupArn = a} :: Gateway)
 
 -- | The name of the gateway.
-gName :: Lens' Gateway (Maybe Text)
-gName = lens _gName (\s a -> s {_gName = a})
+gateway_name :: Lens.Lens' Gateway (Prelude.Maybe Prelude.Text)
+gateway_name = Lens.lens (\Gateway' {name} -> name) (\s@Gateway' {} a -> s {name = a} :: Gateway)
 
 -- | The description of the gateway.
-gDescription :: Lens' Gateway (Maybe Text)
-gDescription = lens _gDescription (\s a -> s {_gDescription = a})
+gateway_description :: Lens.Lens' Gateway (Prelude.Maybe Prelude.Text)
+gateway_description = Lens.lens (\Gateway' {description} -> description) (\s@Gateway' {} a -> s {description = a} :: Gateway)
 
--- | The software version of the gateway. The gateway automatically updates its software version during normal operation.
-gSoftwareVersion :: Lens' Gateway (Maybe Text)
-gSoftwareVersion = lens _gSoftwareVersion (\s a -> s {_gSoftwareVersion = a})
+-- | The software version of the gateway. The gateway automatically updates
+-- its software version during normal operation.
+gateway_softwareVersion :: Lens.Lens' Gateway (Prelude.Maybe Prelude.Text)
+gateway_softwareVersion = Lens.lens (\Gateway' {softwareVersion} -> softwareVersion) (\s@Gateway' {} a -> s {softwareVersion = a} :: Gateway)
 
-instance FromJSON Gateway where
+instance Prelude.FromJSON Gateway where
   parseJSON =
-    withObject
+    Prelude.withObject
       "Gateway"
       ( \x ->
           Gateway'
-            <$> (x .:? "Arn")
-            <*> (x .:? "GatewayGroupArn")
-            <*> (x .:? "Name")
-            <*> (x .:? "Description")
-            <*> (x .:? "SoftwareVersion")
+            Prelude.<$> (x Prelude..:? "Arn")
+            Prelude.<*> (x Prelude..:? "GatewayGroupArn")
+            Prelude.<*> (x Prelude..:? "Name")
+            Prelude.<*> (x Prelude..:? "Description")
+            Prelude.<*> (x Prelude..:? "SoftwareVersion")
       )
 
-instance Hashable Gateway
+instance Prelude.Hashable Gateway
 
-instance NFData Gateway
+instance Prelude.NFData Gateway

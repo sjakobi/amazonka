@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,126 +24,136 @@
 -- Gets skill group details by skill group ARN.
 module Network.AWS.AlexaBusiness.GetSkillGroup
   ( -- * Creating a Request
-    getSkillGroup,
-    GetSkillGroup,
+    GetSkillGroup (..),
+    newGetSkillGroup,
 
     -- * Request Lenses
-    gsgSkillGroupARN,
+    getSkillGroup_skillGroupArn,
 
     -- * Destructuring the Response
-    getSkillGroupResponse,
-    GetSkillGroupResponse,
+    GetSkillGroupResponse (..),
+    newGetSkillGroupResponse,
 
     -- * Response Lenses
-    gsgrrsSkillGroup,
-    gsgrrsResponseStatus,
+    getSkillGroupResponse_skillGroup,
+    getSkillGroupResponse_httpStatus,
   )
 where
 
 import Network.AWS.AlexaBusiness.Types
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import Network.AWS.AlexaBusiness.Types.SkillGroup
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 
--- | /See:/ 'getSkillGroup' smart constructor.
-newtype GetSkillGroup = GetSkillGroup'
-  { _gsgSkillGroupARN ::
-      Maybe Text
+-- | /See:/ 'newGetSkillGroup' smart constructor.
+data GetSkillGroup = GetSkillGroup'
+  { -- | The ARN of the skill group for which to get details. Required.
+    skillGroupArn :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSkillGroup' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSkillGroup' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsgSkillGroupARN' - The ARN of the skill group for which to get details. Required.
-getSkillGroup ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'skillGroupArn', 'getSkillGroup_skillGroupArn' - The ARN of the skill group for which to get details. Required.
+newGetSkillGroup ::
   GetSkillGroup
-getSkillGroup =
-  GetSkillGroup' {_gsgSkillGroupARN = Nothing}
+newGetSkillGroup =
+  GetSkillGroup' {skillGroupArn = Prelude.Nothing}
 
 -- | The ARN of the skill group for which to get details. Required.
-gsgSkillGroupARN :: Lens' GetSkillGroup (Maybe Text)
-gsgSkillGroupARN = lens _gsgSkillGroupARN (\s a -> s {_gsgSkillGroupARN = a})
+getSkillGroup_skillGroupArn :: Lens.Lens' GetSkillGroup (Prelude.Maybe Prelude.Text)
+getSkillGroup_skillGroupArn = Lens.lens (\GetSkillGroup' {skillGroupArn} -> skillGroupArn) (\s@GetSkillGroup' {} a -> s {skillGroupArn = a} :: GetSkillGroup)
 
-instance AWSRequest GetSkillGroup where
+instance Prelude.AWSRequest GetSkillGroup where
   type Rs GetSkillGroup = GetSkillGroupResponse
-  request = postJSON alexaBusiness
+  request = Request.postJSON defaultService
   response =
-    receiveJSON
+    Response.receiveJSON
       ( \s h x ->
           GetSkillGroupResponse'
-            <$> (x .?> "SkillGroup") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..?> "SkillGroup")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSkillGroup
+instance Prelude.Hashable GetSkillGroup
 
-instance NFData GetSkillGroup
+instance Prelude.NFData GetSkillGroup
 
-instance ToHeaders GetSkillGroup where
+instance Prelude.ToHeaders GetSkillGroup where
   toHeaders =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "X-Amz-Target"
-              =# ("AlexaForBusiness.GetSkillGroup" :: ByteString),
+              Prelude.=# ( "AlexaForBusiness.GetSkillGroup" ::
+                             Prelude.ByteString
+                         ),
             "Content-Type"
-              =# ("application/x-amz-json-1.1" :: ByteString)
+              Prelude.=# ( "application/x-amz-json-1.1" ::
+                             Prelude.ByteString
+                         )
           ]
       )
 
-instance ToJSON GetSkillGroup where
+instance Prelude.ToJSON GetSkillGroup where
   toJSON GetSkillGroup' {..} =
-    object
-      ( catMaybes
-          [("SkillGroupArn" .=) <$> _gsgSkillGroupARN]
+    Prelude.object
+      ( Prelude.catMaybes
+          [ ("SkillGroupArn" Prelude..=)
+              Prelude.<$> skillGroupArn
+          ]
       )
 
-instance ToPath GetSkillGroup where
-  toPath = const "/"
+instance Prelude.ToPath GetSkillGroup where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSkillGroup where
-  toQuery = const mempty
+instance Prelude.ToQuery GetSkillGroup where
+  toQuery = Prelude.const Prelude.mempty
 
--- | /See:/ 'getSkillGroupResponse' smart constructor.
+-- | /See:/ 'newGetSkillGroupResponse' smart constructor.
 data GetSkillGroupResponse = GetSkillGroupResponse'
-  { _gsgrrsSkillGroup ::
-      !(Maybe SkillGroup),
-    _gsgrrsResponseStatus ::
-      !Int
+  { -- | The details of the skill group requested. Required.
+    skillGroup :: Prelude.Maybe SkillGroup,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSkillGroupResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSkillGroupResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsgrrsSkillGroup' - The details of the skill group requested. Required.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsgrrsResponseStatus' - -- | The response status code.
-getSkillGroupResponse ::
-  -- | 'gsgrrsResponseStatus'
-  Int ->
+-- 'skillGroup', 'getSkillGroupResponse_skillGroup' - The details of the skill group requested. Required.
+--
+-- 'httpStatus', 'getSkillGroupResponse_httpStatus' - The response's http status code.
+newGetSkillGroupResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSkillGroupResponse
-getSkillGroupResponse pResponseStatus_ =
+newGetSkillGroupResponse pHttpStatus_ =
   GetSkillGroupResponse'
-    { _gsgrrsSkillGroup = Nothing,
-      _gsgrrsResponseStatus = pResponseStatus_
+    { skillGroup =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | The details of the skill group requested. Required.
-gsgrrsSkillGroup :: Lens' GetSkillGroupResponse (Maybe SkillGroup)
-gsgrrsSkillGroup = lens _gsgrrsSkillGroup (\s a -> s {_gsgrrsSkillGroup = a})
+getSkillGroupResponse_skillGroup :: Lens.Lens' GetSkillGroupResponse (Prelude.Maybe SkillGroup)
+getSkillGroupResponse_skillGroup = Lens.lens (\GetSkillGroupResponse' {skillGroup} -> skillGroup) (\s@GetSkillGroupResponse' {} a -> s {skillGroup = a} :: GetSkillGroupResponse)
 
--- | -- | The response status code.
-gsgrrsResponseStatus :: Lens' GetSkillGroupResponse Int
-gsgrrsResponseStatus = lens _gsgrrsResponseStatus (\s a -> s {_gsgrrsResponseStatus = a})
+-- | The response's http status code.
+getSkillGroupResponse_httpStatus :: Lens.Lens' GetSkillGroupResponse Prelude.Int
+getSkillGroupResponse_httpStatus = Lens.lens (\GetSkillGroupResponse' {httpStatus} -> httpStatus) (\s@GetSkillGroupResponse' {} a -> s {httpStatus = a} :: GetSkillGroupResponse)
 
-instance NFData GetSkillGroupResponse
+instance Prelude.NFData GetSkillGroupResponse
