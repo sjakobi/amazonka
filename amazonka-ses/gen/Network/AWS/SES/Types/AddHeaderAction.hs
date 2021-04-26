@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,77 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.AddHeaderAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | When included in a receipt rule, this action adds a header to the received email.
+-- | When included in a receipt rule, this action adds a header to the
+-- received email.
 --
+-- For information about adding a header using a receipt rule, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-add-header.html Amazon SES Developer Guide>.
 --
--- For information about adding a header using a receipt rule, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-add-header.html Amazon SES Developer Guide> .
---
---
--- /See:/ 'addHeaderAction' smart constructor.
+-- /See:/ 'newAddHeaderAction' smart constructor.
 data AddHeaderAction = AddHeaderAction'
-  { _ahaHeaderName ::
-      !Text,
-    _ahaHeaderValue :: !Text
+  { -- | The name of the header to add. Must be between 1 and 50 characters,
+    -- inclusive, and consist of alphanumeric (a-z, A-Z, 0-9) characters and
+    -- dashes only.
+    headerName :: Prelude.Text,
+    -- | Must be less than 2048 characters, and must not contain newline
+    -- characters (\"\\r\" or \"\\n\").
+    headerValue :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'AddHeaderAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'AddHeaderAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ahaHeaderName' - The name of the header to add. Must be between 1 and 50 characters, inclusive, and consist of alphanumeric (a-z, A-Z, 0-9) characters and dashes only.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ahaHeaderValue' - Must be less than 2048 characters, and must not contain newline characters ("\r" or "\n").
-addHeaderAction ::
-  -- | 'ahaHeaderName'
-  Text ->
-  -- | 'ahaHeaderValue'
-  Text ->
+-- 'headerName', 'addHeaderAction_headerName' - The name of the header to add. Must be between 1 and 50 characters,
+-- inclusive, and consist of alphanumeric (a-z, A-Z, 0-9) characters and
+-- dashes only.
+--
+-- 'headerValue', 'addHeaderAction_headerValue' - Must be less than 2048 characters, and must not contain newline
+-- characters (\"\\r\" or \"\\n\").
+newAddHeaderAction ::
+  -- | 'headerName'
+  Prelude.Text ->
+  -- | 'headerValue'
+  Prelude.Text ->
   AddHeaderAction
-addHeaderAction pHeaderName_ pHeaderValue_ =
+newAddHeaderAction pHeaderName_ pHeaderValue_ =
   AddHeaderAction'
-    { _ahaHeaderName = pHeaderName_,
-      _ahaHeaderValue = pHeaderValue_
+    { headerName = pHeaderName_,
+      headerValue = pHeaderValue_
     }
 
--- | The name of the header to add. Must be between 1 and 50 characters, inclusive, and consist of alphanumeric (a-z, A-Z, 0-9) characters and dashes only.
-ahaHeaderName :: Lens' AddHeaderAction Text
-ahaHeaderName = lens _ahaHeaderName (\s a -> s {_ahaHeaderName = a})
+-- | The name of the header to add. Must be between 1 and 50 characters,
+-- inclusive, and consist of alphanumeric (a-z, A-Z, 0-9) characters and
+-- dashes only.
+addHeaderAction_headerName :: Lens.Lens' AddHeaderAction Prelude.Text
+addHeaderAction_headerName = Lens.lens (\AddHeaderAction' {headerName} -> headerName) (\s@AddHeaderAction' {} a -> s {headerName = a} :: AddHeaderAction)
 
--- | Must be less than 2048 characters, and must not contain newline characters ("\r" or "\n").
-ahaHeaderValue :: Lens' AddHeaderAction Text
-ahaHeaderValue = lens _ahaHeaderValue (\s a -> s {_ahaHeaderValue = a})
+-- | Must be less than 2048 characters, and must not contain newline
+-- characters (\"\\r\" or \"\\n\").
+addHeaderAction_headerValue :: Lens.Lens' AddHeaderAction Prelude.Text
+addHeaderAction_headerValue = Lens.lens (\AddHeaderAction' {headerValue} -> headerValue) (\s@AddHeaderAction' {} a -> s {headerValue = a} :: AddHeaderAction)
 
-instance FromXML AddHeaderAction where
+instance Prelude.FromXML AddHeaderAction where
   parseXML x =
     AddHeaderAction'
-      <$> (x .@ "HeaderName") <*> (x .@ "HeaderValue")
+      Prelude.<$> (x Prelude..@ "HeaderName")
+      Prelude.<*> (x Prelude..@ "HeaderValue")
 
-instance Hashable AddHeaderAction
+instance Prelude.Hashable AddHeaderAction
 
-instance NFData AddHeaderAction
+instance Prelude.NFData AddHeaderAction
 
-instance ToQuery AddHeaderAction where
+instance Prelude.ToQuery AddHeaderAction where
   toQuery AddHeaderAction' {..} =
-    mconcat
-      [ "HeaderName" =: _ahaHeaderName,
-        "HeaderValue" =: _ahaHeaderValue
+    Prelude.mconcat
+      [ "HeaderName" Prelude.=: headerName,
+        "HeaderValue" Prelude.=: headerValue
       ]

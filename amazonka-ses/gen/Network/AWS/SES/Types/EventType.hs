@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,83 +19,85 @@
 module Network.AWS.SES.Types.EventType
   ( EventType
       ( ..,
-        Bounce,
-        Click,
-        Complaint,
-        Delivery,
-        Open,
-        Reject,
-        RenderingFailure,
-        Send
+        EventTypeBounce,
+        EventTypeClick,
+        EventTypeComplaint,
+        EventTypeDelivery,
+        EventTypeOpen,
+        EventTypeReject,
+        EventTypeRenderingFailure,
+        EventTypeSend
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data EventType = EventType' (CI Text)
+newtype EventType = EventType'
+  { fromEventType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Bounce :: EventType
-pattern Bounce = EventType' "bounce"
+pattern EventTypeBounce :: EventType
+pattern EventTypeBounce = EventType' "bounce"
 
-pattern Click :: EventType
-pattern Click = EventType' "click"
+pattern EventTypeClick :: EventType
+pattern EventTypeClick = EventType' "click"
 
-pattern Complaint :: EventType
-pattern Complaint = EventType' "complaint"
+pattern EventTypeComplaint :: EventType
+pattern EventTypeComplaint = EventType' "complaint"
 
-pattern Delivery :: EventType
-pattern Delivery = EventType' "delivery"
+pattern EventTypeDelivery :: EventType
+pattern EventTypeDelivery = EventType' "delivery"
 
-pattern Open :: EventType
-pattern Open = EventType' "open"
+pattern EventTypeOpen :: EventType
+pattern EventTypeOpen = EventType' "open"
 
-pattern Reject :: EventType
-pattern Reject = EventType' "reject"
+pattern EventTypeReject :: EventType
+pattern EventTypeReject = EventType' "reject"
 
-pattern RenderingFailure :: EventType
-pattern RenderingFailure = EventType' "renderingFailure"
+pattern EventTypeRenderingFailure :: EventType
+pattern EventTypeRenderingFailure = EventType' "renderingFailure"
 
-pattern Send :: EventType
-pattern Send = EventType' "send"
+pattern EventTypeSend :: EventType
+pattern EventTypeSend = EventType' "send"
 
 {-# COMPLETE
-  Bounce,
-  Click,
-  Complaint,
-  Delivery,
-  Open,
-  Reject,
-  RenderingFailure,
-  Send,
+  EventTypeBounce,
+  EventTypeClick,
+  EventTypeComplaint,
+  EventTypeDelivery,
+  EventTypeOpen,
+  EventTypeReject,
+  EventTypeRenderingFailure,
+  EventTypeSend,
   EventType'
   #-}
 
-instance FromText EventType where
-  parser = (EventType' . mk) <$> takeText
+instance Prelude.FromText EventType where
+  parser = EventType' Prelude.<$> Prelude.takeText
 
-instance ToText EventType where
-  toText (EventType' ci) = original ci
+instance Prelude.ToText EventType where
+  toText (EventType' x) = x
 
-instance Hashable EventType
+instance Prelude.Hashable EventType
 
-instance NFData EventType
+instance Prelude.NFData EventType
 
-instance ToByteString EventType
+instance Prelude.ToByteString EventType
 
-instance ToQuery EventType
+instance Prelude.ToQuery EventType
 
-instance ToHeader EventType
+instance Prelude.ToHeader EventType
 
-instance FromXML EventType where
-  parseXML = parseXMLText "EventType"
+instance Prelude.FromXML EventType where
+  parseXML = Prelude.parseXMLText "EventType"

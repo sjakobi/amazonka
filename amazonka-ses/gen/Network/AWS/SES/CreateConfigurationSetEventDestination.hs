@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,174 +23,184 @@
 --
 -- Creates a configuration set event destination.
 --
+-- When you create or update an event destination, you must provide one,
+-- and only one, destination. The destination can be CloudWatch, Amazon
+-- Kinesis Firehose, or Amazon Simple Notification Service (Amazon SNS).
 --
--- An event destination is the AWS service to which Amazon SES publishes the email sending events associated with a configuration set. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
+-- An event destination is the AWS service to which Amazon SES publishes
+-- the email sending events associated with a configuration set. For
+-- information about using configuration sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.CreateConfigurationSetEventDestination
   ( -- * Creating a Request
-    createConfigurationSetEventDestination,
-    CreateConfigurationSetEventDestination,
+    CreateConfigurationSetEventDestination (..),
+    newCreateConfigurationSetEventDestination,
 
     -- * Request Lenses
-    ccsedConfigurationSetName,
-    ccsedEventDestination,
+    createConfigurationSetEventDestination_configurationSetName,
+    createConfigurationSetEventDestination_eventDestination,
 
     -- * Destructuring the Response
-    createConfigurationSetEventDestinationResponse,
-    CreateConfigurationSetEventDestinationResponse,
+    CreateConfigurationSetEventDestinationResponse (..),
+    newCreateConfigurationSetEventDestinationResponse,
 
     -- * Response Lenses
-    ccsedrrsResponseStatus,
+    createConfigurationSetEventDestinationResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to create a configuration set event destination. A configuration set event destination, which can be either Amazon CloudWatch or Amazon Kinesis Firehose, describes an AWS service in which Amazon SES publishes the email sending events associated with a configuration set. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
+-- | Represents a request to create a configuration set event destination. A
+-- configuration set event destination, which can be either Amazon
+-- CloudWatch or Amazon Kinesis Firehose, describes an AWS service in which
+-- Amazon SES publishes the email sending events associated with a
+-- configuration set. For information about using configuration sets, see
+-- the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'createConfigurationSetEventDestination' smart constructor.
+-- /See:/ 'newCreateConfigurationSetEventDestination' smart constructor.
 data CreateConfigurationSetEventDestination = CreateConfigurationSetEventDestination'
-  { _ccsedConfigurationSetName ::
-      !Text,
-    _ccsedEventDestination ::
-      !EventDestination
+  { -- | The name of the configuration set that the event destination should be
+    -- associated with.
+    configurationSetName :: Prelude.Text,
+    -- | An object that describes the AWS service that email sending event
+    -- information will be published to.
+    eventDestination :: EventDestination
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConfigurationSetEventDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConfigurationSetEventDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccsedConfigurationSetName' - The name of the configuration set that the event destination should be associated with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccsedEventDestination' - An object that describes the AWS service that email sending event information will be published to.
-createConfigurationSetEventDestination ::
-  -- | 'ccsedConfigurationSetName'
-  Text ->
-  -- | 'ccsedEventDestination'
+-- 'configurationSetName', 'createConfigurationSetEventDestination_configurationSetName' - The name of the configuration set that the event destination should be
+-- associated with.
+--
+-- 'eventDestination', 'createConfigurationSetEventDestination_eventDestination' - An object that describes the AWS service that email sending event
+-- information will be published to.
+newCreateConfigurationSetEventDestination ::
+  -- | 'configurationSetName'
+  Prelude.Text ->
+  -- | 'eventDestination'
   EventDestination ->
   CreateConfigurationSetEventDestination
-createConfigurationSetEventDestination
+newCreateConfigurationSetEventDestination
   pConfigurationSetName_
   pEventDestination_ =
     CreateConfigurationSetEventDestination'
-      { _ccsedConfigurationSetName =
+      { configurationSetName =
           pConfigurationSetName_,
-        _ccsedEventDestination =
+        eventDestination =
           pEventDestination_
       }
 
--- | The name of the configuration set that the event destination should be associated with.
-ccsedConfigurationSetName :: Lens' CreateConfigurationSetEventDestination Text
-ccsedConfigurationSetName = lens _ccsedConfigurationSetName (\s a -> s {_ccsedConfigurationSetName = a})
+-- | The name of the configuration set that the event destination should be
+-- associated with.
+createConfigurationSetEventDestination_configurationSetName :: Lens.Lens' CreateConfigurationSetEventDestination Prelude.Text
+createConfigurationSetEventDestination_configurationSetName = Lens.lens (\CreateConfigurationSetEventDestination' {configurationSetName} -> configurationSetName) (\s@CreateConfigurationSetEventDestination' {} a -> s {configurationSetName = a} :: CreateConfigurationSetEventDestination)
 
--- | An object that describes the AWS service that email sending event information will be published to.
-ccsedEventDestination :: Lens' CreateConfigurationSetEventDestination EventDestination
-ccsedEventDestination = lens _ccsedEventDestination (\s a -> s {_ccsedEventDestination = a})
+-- | An object that describes the AWS service that email sending event
+-- information will be published to.
+createConfigurationSetEventDestination_eventDestination :: Lens.Lens' CreateConfigurationSetEventDestination EventDestination
+createConfigurationSetEventDestination_eventDestination = Lens.lens (\CreateConfigurationSetEventDestination' {eventDestination} -> eventDestination) (\s@CreateConfigurationSetEventDestination' {} a -> s {eventDestination = a} :: CreateConfigurationSetEventDestination)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateConfigurationSetEventDestination
   where
   type
     Rs CreateConfigurationSetEventDestination =
       CreateConfigurationSetEventDestinationResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateConfigurationSetEventDestinationResult"
       ( \s h x ->
           CreateConfigurationSetEventDestinationResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateConfigurationSetEventDestination
 
 instance
-  NFData
+  Prelude.NFData
     CreateConfigurationSetEventDestination
 
 instance
-  ToHeaders
-    CreateConfigurationSetEventDestination
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     CreateConfigurationSetEventDestination
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    CreateConfigurationSetEventDestination
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     CreateConfigurationSetEventDestination
   where
   toQuery CreateConfigurationSetEventDestination' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "CreateConfigurationSetEventDestination" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "ConfigurationSetName" =: _ccsedConfigurationSetName,
-        "EventDestination" =: _ccsedEventDestination
+          Prelude.=: ( "CreateConfigurationSetEventDestination" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName"
+          Prelude.=: configurationSetName,
+        "EventDestination" Prelude.=: eventDestination
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'createConfigurationSetEventDestinationResponse' smart constructor.
-newtype CreateConfigurationSetEventDestinationResponse = CreateConfigurationSetEventDestinationResponse'
-  { _ccsedrrsResponseStatus ::
-      Int
+-- /See:/ 'newCreateConfigurationSetEventDestinationResponse' smart constructor.
+data CreateConfigurationSetEventDestinationResponse = CreateConfigurationSetEventDestinationResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConfigurationSetEventDestinationResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConfigurationSetEventDestinationResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccsedrrsResponseStatus' - -- | The response status code.
-createConfigurationSetEventDestinationResponse ::
-  -- | 'ccsedrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createConfigurationSetEventDestinationResponse_httpStatus' - The response's http status code.
+newCreateConfigurationSetEventDestinationResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateConfigurationSetEventDestinationResponse
-createConfigurationSetEventDestinationResponse
-  pResponseStatus_ =
+newCreateConfigurationSetEventDestinationResponse
+  pHttpStatus_ =
     CreateConfigurationSetEventDestinationResponse'
-      { _ccsedrrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-ccsedrrsResponseStatus :: Lens' CreateConfigurationSetEventDestinationResponse Int
-ccsedrrsResponseStatus = lens _ccsedrrsResponseStatus (\s a -> s {_ccsedrrsResponseStatus = a})
+-- | The response's http status code.
+createConfigurationSetEventDestinationResponse_httpStatus :: Lens.Lens' CreateConfigurationSetEventDestinationResponse Prelude.Int
+createConfigurationSetEventDestinationResponse_httpStatus = Lens.lens (\CreateConfigurationSetEventDestinationResponse' {httpStatus} -> httpStatus) (\s@CreateConfigurationSetEventDestinationResponse' {} a -> s {httpStatus = a} :: CreateConfigurationSetEventDestinationResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateConfigurationSetEventDestinationResponse

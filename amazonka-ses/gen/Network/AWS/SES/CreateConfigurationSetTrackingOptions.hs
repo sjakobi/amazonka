@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an association between a configuration set and a custom domain for open and click event tracking.
+-- Creates an association between a configuration set and a custom domain
+-- for open and click event tracking.
 --
---
--- By default, images and links used for tracking open and click events are hosted on domains operated by Amazon SES. You can configure a subdomain of your own to handle these events. For information about using custom domains, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/configure-custom-open-click-domains.html Amazon SES Developer Guide> .
+-- By default, images and links used for tracking open and click events are
+-- hosted on domains operated by Amazon SES. You can configure a subdomain
+-- of your own to handle these events. For information about using custom
+-- domains, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/configure-custom-open-click-domains.html Amazon SES Developer Guide>.
 module Network.AWS.SES.CreateConfigurationSetTrackingOptions
   ( -- * Creating a Request
-    createConfigurationSetTrackingOptions,
-    CreateConfigurationSetTrackingOptions,
+    CreateConfigurationSetTrackingOptions (..),
+    newCreateConfigurationSetTrackingOptions,
 
     -- * Request Lenses
-    ccstoConfigurationSetName,
-    ccstoTrackingOptions,
+    createConfigurationSetTrackingOptions_configurationSetName,
+    createConfigurationSetTrackingOptions_trackingOptions,
 
     -- * Destructuring the Response
-    createConfigurationSetTrackingOptionsResponse,
-    CreateConfigurationSetTrackingOptionsResponse,
+    CreateConfigurationSetTrackingOptionsResponse (..),
+    newCreateConfigurationSetTrackingOptionsResponse,
 
     -- * Response Lenses
-    ccstorrsResponseStatus,
+    createConfigurationSetTrackingOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to create an open and click tracking option object in a configuration set.
+-- | Represents a request to create an open and click tracking option object
+-- in a configuration set.
 --
---
---
--- /See:/ 'createConfigurationSetTrackingOptions' smart constructor.
+-- /See:/ 'newCreateConfigurationSetTrackingOptions' smart constructor.
 data CreateConfigurationSetTrackingOptions = CreateConfigurationSetTrackingOptions'
-  { _ccstoConfigurationSetName ::
-      !Text,
-    _ccstoTrackingOptions ::
-      !TrackingOptions
+  { -- | The name of the configuration set that the tracking options should be
+    -- associated with.
+    configurationSetName :: Prelude.Text,
+    trackingOptions :: TrackingOptions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConfigurationSetTrackingOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConfigurationSetTrackingOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccstoConfigurationSetName' - The name of the configuration set that the tracking options should be associated with.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccstoTrackingOptions' - Undocumented member.
-createConfigurationSetTrackingOptions ::
-  -- | 'ccstoConfigurationSetName'
-  Text ->
-  -- | 'ccstoTrackingOptions'
+-- 'configurationSetName', 'createConfigurationSetTrackingOptions_configurationSetName' - The name of the configuration set that the tracking options should be
+-- associated with.
+--
+-- 'trackingOptions', 'createConfigurationSetTrackingOptions_trackingOptions' - Undocumented member.
+newCreateConfigurationSetTrackingOptions ::
+  -- | 'configurationSetName'
+  Prelude.Text ->
+  -- | 'trackingOptions'
   TrackingOptions ->
   CreateConfigurationSetTrackingOptions
-createConfigurationSetTrackingOptions
+newCreateConfigurationSetTrackingOptions
   pConfigurationSetName_
   pTrackingOptions_ =
     CreateConfigurationSetTrackingOptions'
-      { _ccstoConfigurationSetName =
+      { configurationSetName =
           pConfigurationSetName_,
-        _ccstoTrackingOptions =
-          pTrackingOptions_
+        trackingOptions = pTrackingOptions_
       }
 
--- | The name of the configuration set that the tracking options should be associated with.
-ccstoConfigurationSetName :: Lens' CreateConfigurationSetTrackingOptions Text
-ccstoConfigurationSetName = lens _ccstoConfigurationSetName (\s a -> s {_ccstoConfigurationSetName = a})
+-- | The name of the configuration set that the tracking options should be
+-- associated with.
+createConfigurationSetTrackingOptions_configurationSetName :: Lens.Lens' CreateConfigurationSetTrackingOptions Prelude.Text
+createConfigurationSetTrackingOptions_configurationSetName = Lens.lens (\CreateConfigurationSetTrackingOptions' {configurationSetName} -> configurationSetName) (\s@CreateConfigurationSetTrackingOptions' {} a -> s {configurationSetName = a} :: CreateConfigurationSetTrackingOptions)
 
 -- | Undocumented member.
-ccstoTrackingOptions :: Lens' CreateConfigurationSetTrackingOptions TrackingOptions
-ccstoTrackingOptions = lens _ccstoTrackingOptions (\s a -> s {_ccstoTrackingOptions = a})
+createConfigurationSetTrackingOptions_trackingOptions :: Lens.Lens' CreateConfigurationSetTrackingOptions TrackingOptions
+createConfigurationSetTrackingOptions_trackingOptions = Lens.lens (\CreateConfigurationSetTrackingOptions' {trackingOptions} -> trackingOptions) (\s@CreateConfigurationSetTrackingOptions' {} a -> s {trackingOptions = a} :: CreateConfigurationSetTrackingOptions)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateConfigurationSetTrackingOptions
   where
   type
     Rs CreateConfigurationSetTrackingOptions =
       CreateConfigurationSetTrackingOptionsResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateConfigurationSetTrackingOptionsResult"
       ( \s h x ->
           CreateConfigurationSetTrackingOptionsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateConfigurationSetTrackingOptions
 
-instance NFData CreateConfigurationSetTrackingOptions
+instance
+  Prelude.NFData
+    CreateConfigurationSetTrackingOptions
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     CreateConfigurationSetTrackingOptions
   where
-  toHeaders = const mempty
-
-instance ToPath CreateConfigurationSetTrackingOptions where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    CreateConfigurationSetTrackingOptions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     CreateConfigurationSetTrackingOptions
   where
   toQuery CreateConfigurationSetTrackingOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "CreateConfigurationSetTrackingOptions" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "ConfigurationSetName" =: _ccstoConfigurationSetName,
-        "TrackingOptions" =: _ccstoTrackingOptions
+          Prelude.=: ( "CreateConfigurationSetTrackingOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName"
+          Prelude.=: configurationSetName,
+        "TrackingOptions" Prelude.=: trackingOptions
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'createConfigurationSetTrackingOptionsResponse' smart constructor.
-newtype CreateConfigurationSetTrackingOptionsResponse = CreateConfigurationSetTrackingOptionsResponse'
-  { _ccstorrsResponseStatus ::
-      Int
+-- /See:/ 'newCreateConfigurationSetTrackingOptionsResponse' smart constructor.
+data CreateConfigurationSetTrackingOptionsResponse = CreateConfigurationSetTrackingOptionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateConfigurationSetTrackingOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateConfigurationSetTrackingOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccstorrsResponseStatus' - -- | The response status code.
-createConfigurationSetTrackingOptionsResponse ::
-  -- | 'ccstorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createConfigurationSetTrackingOptionsResponse_httpStatus' - The response's http status code.
+newCreateConfigurationSetTrackingOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateConfigurationSetTrackingOptionsResponse
-createConfigurationSetTrackingOptionsResponse
-  pResponseStatus_ =
+newCreateConfigurationSetTrackingOptionsResponse
+  pHttpStatus_ =
     CreateConfigurationSetTrackingOptionsResponse'
-      { _ccstorrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-ccstorrsResponseStatus :: Lens' CreateConfigurationSetTrackingOptionsResponse Int
-ccstorrsResponseStatus = lens _ccstorrsResponseStatus (\s a -> s {_ccstorrsResponseStatus = a})
+-- | The response's http status code.
+createConfigurationSetTrackingOptionsResponse_httpStatus :: Lens.Lens' CreateConfigurationSetTrackingOptionsResponse Prelude.Int
+createConfigurationSetTrackingOptionsResponse_httpStatus = Lens.lens (\CreateConfigurationSetTrackingOptionsResponse' {httpStatus} -> httpStatus) (\s@CreateConfigurationSetTrackingOptionsResponse' {} a -> s {httpStatus = a} :: CreateConfigurationSetTrackingOptionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     CreateConfigurationSetTrackingOptionsResponse

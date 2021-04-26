@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,67 +19,65 @@
 module Network.AWS.SES.Types.CustomMailFromStatus
   ( CustomMailFromStatus
       ( ..,
-        CMFSFailed,
-        CMFSPending,
-        CMFSSuccess,
-        CMFSTemporaryFailure
+        CustomMailFromStatusFailed,
+        CustomMailFromStatusPending,
+        CustomMailFromStatusSuccess,
+        CustomMailFromStatusTemporaryFailure
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data CustomMailFromStatus
-  = CustomMailFromStatus'
-      ( CI
-          Text
-      )
+newtype CustomMailFromStatus = CustomMailFromStatus'
+  { fromCustomMailFromStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern CMFSFailed :: CustomMailFromStatus
-pattern CMFSFailed = CustomMailFromStatus' "Failed"
+pattern CustomMailFromStatusFailed :: CustomMailFromStatus
+pattern CustomMailFromStatusFailed = CustomMailFromStatus' "Failed"
 
-pattern CMFSPending :: CustomMailFromStatus
-pattern CMFSPending = CustomMailFromStatus' "Pending"
+pattern CustomMailFromStatusPending :: CustomMailFromStatus
+pattern CustomMailFromStatusPending = CustomMailFromStatus' "Pending"
 
-pattern CMFSSuccess :: CustomMailFromStatus
-pattern CMFSSuccess = CustomMailFromStatus' "Success"
+pattern CustomMailFromStatusSuccess :: CustomMailFromStatus
+pattern CustomMailFromStatusSuccess = CustomMailFromStatus' "Success"
 
-pattern CMFSTemporaryFailure :: CustomMailFromStatus
-pattern CMFSTemporaryFailure = CustomMailFromStatus' "TemporaryFailure"
+pattern CustomMailFromStatusTemporaryFailure :: CustomMailFromStatus
+pattern CustomMailFromStatusTemporaryFailure = CustomMailFromStatus' "TemporaryFailure"
 
 {-# COMPLETE
-  CMFSFailed,
-  CMFSPending,
-  CMFSSuccess,
-  CMFSTemporaryFailure,
+  CustomMailFromStatusFailed,
+  CustomMailFromStatusPending,
+  CustomMailFromStatusSuccess,
+  CustomMailFromStatusTemporaryFailure,
   CustomMailFromStatus'
   #-}
 
-instance FromText CustomMailFromStatus where
-  parser = (CustomMailFromStatus' . mk) <$> takeText
+instance Prelude.FromText CustomMailFromStatus where
+  parser = CustomMailFromStatus' Prelude.<$> Prelude.takeText
 
-instance ToText CustomMailFromStatus where
-  toText (CustomMailFromStatus' ci) = original ci
+instance Prelude.ToText CustomMailFromStatus where
+  toText (CustomMailFromStatus' x) = x
 
-instance Hashable CustomMailFromStatus
+instance Prelude.Hashable CustomMailFromStatus
 
-instance NFData CustomMailFromStatus
+instance Prelude.NFData CustomMailFromStatus
 
-instance ToByteString CustomMailFromStatus
+instance Prelude.ToByteString CustomMailFromStatus
 
-instance ToQuery CustomMailFromStatus
+instance Prelude.ToQuery CustomMailFromStatus
 
-instance ToHeader CustomMailFromStatus
+instance Prelude.ToHeader CustomMailFromStatus
 
-instance FromXML CustomMailFromStatus where
-  parseXML = parseXMLText "CustomMailFromStatus"
+instance Prelude.FromXML CustomMailFromStatus where
+  parseXML = Prelude.parseXMLText "CustomMailFromStatus"

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,126 +21,126 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the email sending status of the Amazon SES account for the current region.
---
+-- Returns the email sending status of the Amazon SES account for the
+-- current region.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.GetAccountSendingEnabled
   ( -- * Creating a Request
-    getAccountSendingEnabled,
-    GetAccountSendingEnabled,
+    GetAccountSendingEnabled (..),
+    newGetAccountSendingEnabled,
 
     -- * Destructuring the Response
-    getAccountSendingEnabledResponse,
-    GetAccountSendingEnabledResponse,
+    GetAccountSendingEnabledResponse (..),
+    newGetAccountSendingEnabledResponse,
 
     -- * Response Lenses
-    gaserrsEnabled,
-    gaserrsResponseStatus,
+    getAccountSendingEnabledResponse_enabled,
+    getAccountSendingEnabledResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | /See:/ 'getAccountSendingEnabled' smart constructor.
+-- | /See:/ 'newGetAccountSendingEnabled' smart constructor.
 data GetAccountSendingEnabled = GetAccountSendingEnabled'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountSendingEnabled' with the minimum fields required to make a request.
-getAccountSendingEnabled ::
+-- |
+-- Create a value of 'GetAccountSendingEnabled' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetAccountSendingEnabled ::
   GetAccountSendingEnabled
-getAccountSendingEnabled = GetAccountSendingEnabled'
+newGetAccountSendingEnabled =
+  GetAccountSendingEnabled'
 
-instance AWSRequest GetAccountSendingEnabled where
+instance Prelude.AWSRequest GetAccountSendingEnabled where
   type
     Rs GetAccountSendingEnabled =
       GetAccountSendingEnabledResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetAccountSendingEnabledResult"
       ( \s h x ->
           GetAccountSendingEnabledResponse'
-            <$> (x .@? "Enabled") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Enabled")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetAccountSendingEnabled
+instance Prelude.Hashable GetAccountSendingEnabled
 
-instance NFData GetAccountSendingEnabled
+instance Prelude.NFData GetAccountSendingEnabled
 
-instance ToHeaders GetAccountSendingEnabled where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetAccountSendingEnabled where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetAccountSendingEnabled where
-  toPath = const "/"
+instance Prelude.ToPath GetAccountSendingEnabled where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetAccountSendingEnabled where
+instance Prelude.ToQuery GetAccountSendingEnabled where
   toQuery =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Action"
-              =: ("GetAccountSendingEnabled" :: ByteString),
-            "Version" =: ("2010-12-01" :: ByteString)
+              Prelude.=: ("GetAccountSendingEnabled" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-12-01" :: Prelude.ByteString)
           ]
       )
 
--- | Represents a request to return the email sending status for your Amazon SES account in the current AWS Region.
+-- | Represents a request to return the email sending status for your Amazon
+-- SES account in the current AWS Region.
 --
---
---
--- /See:/ 'getAccountSendingEnabledResponse' smart constructor.
+-- /See:/ 'newGetAccountSendingEnabledResponse' smart constructor.
 data GetAccountSendingEnabledResponse = GetAccountSendingEnabledResponse'
-  { _gaserrsEnabled ::
-      !( Maybe
-           Bool
-       ),
-    _gaserrsResponseStatus ::
-      !Int
+  { -- | Describes whether email sending is enabled or disabled for your Amazon
+    -- SES account in the current AWS Region.
+    enabled :: Prelude.Maybe Prelude.Bool,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetAccountSendingEnabledResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetAccountSendingEnabledResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gaserrsEnabled' - Describes whether email sending is enabled or disabled for your Amazon SES account in the current AWS Region.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gaserrsResponseStatus' - -- | The response status code.
-getAccountSendingEnabledResponse ::
-  -- | 'gaserrsResponseStatus'
-  Int ->
+-- 'enabled', 'getAccountSendingEnabledResponse_enabled' - Describes whether email sending is enabled or disabled for your Amazon
+-- SES account in the current AWS Region.
+--
+-- 'httpStatus', 'getAccountSendingEnabledResponse_httpStatus' - The response's http status code.
+newGetAccountSendingEnabledResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetAccountSendingEnabledResponse
-getAccountSendingEnabledResponse pResponseStatus_ =
+newGetAccountSendingEnabledResponse pHttpStatus_ =
   GetAccountSendingEnabledResponse'
-    { _gaserrsEnabled =
-        Nothing,
-      _gaserrsResponseStatus = pResponseStatus_
+    { enabled =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | Describes whether email sending is enabled or disabled for your Amazon SES account in the current AWS Region.
-gaserrsEnabled :: Lens' GetAccountSendingEnabledResponse (Maybe Bool)
-gaserrsEnabled = lens _gaserrsEnabled (\s a -> s {_gaserrsEnabled = a})
+-- | Describes whether email sending is enabled or disabled for your Amazon
+-- SES account in the current AWS Region.
+getAccountSendingEnabledResponse_enabled :: Lens.Lens' GetAccountSendingEnabledResponse (Prelude.Maybe Prelude.Bool)
+getAccountSendingEnabledResponse_enabled = Lens.lens (\GetAccountSendingEnabledResponse' {enabled} -> enabled) (\s@GetAccountSendingEnabledResponse' {} a -> s {enabled = a} :: GetAccountSendingEnabledResponse)
 
--- | -- | The response status code.
-gaserrsResponseStatus :: Lens' GetAccountSendingEnabledResponse Int
-gaserrsResponseStatus = lens _gaserrsResponseStatus (\s a -> s {_gaserrsResponseStatus = a})
+-- | The response's http status code.
+getAccountSendingEnabledResponse_httpStatus :: Lens.Lens' GetAccountSendingEnabledResponse Prelude.Int
+getAccountSendingEnabledResponse_httpStatus = Lens.lens (\GetAccountSendingEnabledResponse' {httpStatus} -> httpStatus) (\s@GetAccountSendingEnabledResponse' {} a -> s {httpStatus = a} :: GetAccountSendingEnabledResponse)
 
-instance NFData GetAccountSendingEnabledResponse
+instance
+  Prelude.NFData
+    GetAccountSendingEnabledResponse

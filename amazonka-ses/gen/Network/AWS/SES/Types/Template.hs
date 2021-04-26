@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,79 +19,94 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.Template where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | The content of the email, composed of a subject line, an HTML part, and a text-only part.
+-- | The content of the email, composed of a subject line, an HTML part, and
+-- a text-only part.
 --
---
---
--- /See:/ 'template' smart constructor.
+-- /See:/ 'newTemplate' smart constructor.
 data Template = Template'
-  { _tTextPart ::
-      !(Maybe Text),
-    _tSubjectPart :: !(Maybe Text),
-    _tHTMLPart :: !(Maybe Text),
-    _tTemplateName :: !Text
+  { -- | The email body that will be visible to recipients whose email clients do
+    -- not display HTML.
+    textPart :: Prelude.Maybe Prelude.Text,
+    -- | The subject line of the email.
+    subjectPart :: Prelude.Maybe Prelude.Text,
+    -- | The HTML body of the email.
+    htmlPart :: Prelude.Maybe Prelude.Text,
+    -- | The name of the template. You will refer to this name when you send
+    -- email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@
+    -- operations.
+    templateName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Template' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Template' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tTextPart' - The email body that will be visible to recipients whose email clients do not display HTML.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tSubjectPart' - The subject line of the email.
+-- 'textPart', 'template_textPart' - The email body that will be visible to recipients whose email clients do
+-- not display HTML.
 --
--- * 'tHTMLPart' - The HTML body of the email.
+-- 'subjectPart', 'template_subjectPart' - The subject line of the email.
 --
--- * 'tTemplateName' - The name of the template. You will refer to this name when you send email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@ operations.
-template ::
-  -- | 'tTemplateName'
-  Text ->
+-- 'htmlPart', 'template_htmlPart' - The HTML body of the email.
+--
+-- 'templateName', 'template_templateName' - The name of the template. You will refer to this name when you send
+-- email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@
+-- operations.
+newTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
   Template
-template pTemplateName_ =
+newTemplate pTemplateName_ =
   Template'
-    { _tTextPart = Nothing,
-      _tSubjectPart = Nothing,
-      _tHTMLPart = Nothing,
-      _tTemplateName = pTemplateName_
+    { textPart = Prelude.Nothing,
+      subjectPart = Prelude.Nothing,
+      htmlPart = Prelude.Nothing,
+      templateName = pTemplateName_
     }
 
--- | The email body that will be visible to recipients whose email clients do not display HTML.
-tTextPart :: Lens' Template (Maybe Text)
-tTextPart = lens _tTextPart (\s a -> s {_tTextPart = a})
+-- | The email body that will be visible to recipients whose email clients do
+-- not display HTML.
+template_textPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
+template_textPart = Lens.lens (\Template' {textPart} -> textPart) (\s@Template' {} a -> s {textPart = a} :: Template)
 
 -- | The subject line of the email.
-tSubjectPart :: Lens' Template (Maybe Text)
-tSubjectPart = lens _tSubjectPart (\s a -> s {_tSubjectPart = a})
+template_subjectPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
+template_subjectPart = Lens.lens (\Template' {subjectPart} -> subjectPart) (\s@Template' {} a -> s {subjectPart = a} :: Template)
 
 -- | The HTML body of the email.
-tHTMLPart :: Lens' Template (Maybe Text)
-tHTMLPart = lens _tHTMLPart (\s a -> s {_tHTMLPart = a})
+template_htmlPart :: Lens.Lens' Template (Prelude.Maybe Prelude.Text)
+template_htmlPart = Lens.lens (\Template' {htmlPart} -> htmlPart) (\s@Template' {} a -> s {htmlPart = a} :: Template)
 
--- | The name of the template. You will refer to this name when you send email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@ operations.
-tTemplateName :: Lens' Template Text
-tTemplateName = lens _tTemplateName (\s a -> s {_tTemplateName = a})
+-- | The name of the template. You will refer to this name when you send
+-- email using the @SendTemplatedEmail@ or @SendBulkTemplatedEmail@
+-- operations.
+template_templateName :: Lens.Lens' Template Prelude.Text
+template_templateName = Lens.lens (\Template' {templateName} -> templateName) (\s@Template' {} a -> s {templateName = a} :: Template)
 
-instance FromXML Template where
+instance Prelude.FromXML Template where
   parseXML x =
     Template'
-      <$> (x .@? "TextPart")
-      <*> (x .@? "SubjectPart")
-      <*> (x .@? "HtmlPart")
-      <*> (x .@ "TemplateName")
+      Prelude.<$> (x Prelude..@? "TextPart")
+      Prelude.<*> (x Prelude..@? "SubjectPart")
+      Prelude.<*> (x Prelude..@? "HtmlPart")
+      Prelude.<*> (x Prelude..@ "TemplateName")
 
-instance Hashable Template
+instance Prelude.Hashable Template
 
-instance NFData Template
+instance Prelude.NFData Template
 
-instance ToQuery Template where
+instance Prelude.ToQuery Template where
   toQuery Template' {..} =
-    mconcat
-      [ "TextPart" =: _tTextPart,
-        "SubjectPart" =: _tSubjectPart,
-        "HtmlPart" =: _tHTMLPart,
-        "TemplateName" =: _tTemplateName
+    Prelude.mconcat
+      [ "TextPart" Prelude.=: textPart,
+        "SubjectPart" Prelude.=: subjectPart,
+        "HtmlPart" Prelude.=: htmlPart,
+        "TemplateName" Prelude.=: templateName
       ]

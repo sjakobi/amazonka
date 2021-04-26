@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,44 +19,67 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.Body where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SES.Types.Content
 
--- | Represents the body of the message. You can specify text, HTML, or both. If you use both, then the message should display correctly in the widest variety of email clients.
+-- | Represents the body of the message. You can specify text, HTML, or both.
+-- If you use both, then the message should display correctly in the widest
+-- variety of email clients.
 --
---
---
--- /See:/ 'body' smart constructor.
+-- /See:/ 'newBody' smart constructor.
 data Body = Body'
-  { _bHTML :: !(Maybe Content),
-    _bText :: !(Maybe Content)
+  { -- | The content of the message, in HTML format. Use this for email clients
+    -- that can process HTML. You can include clickable links, formatted text,
+    -- and much more in an HTML message.
+    html :: Prelude.Maybe Content,
+    -- | The content of the message, in text format. Use this for text-based
+    -- email clients, or clients on high-latency networks (such as mobile
+    -- devices).
+    text :: Prelude.Maybe Content
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Body' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Body' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bHTML' - The content of the message, in HTML format. Use this for email clients that can process HTML. You can include clickable links, formatted text, and much more in an HTML message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bText' - The content of the message, in text format. Use this for text-based email clients, or clients on high-latency networks (such as mobile devices).
-body ::
+-- 'html', 'body_html' - The content of the message, in HTML format. Use this for email clients
+-- that can process HTML. You can include clickable links, formatted text,
+-- and much more in an HTML message.
+--
+-- 'text', 'body_text' - The content of the message, in text format. Use this for text-based
+-- email clients, or clients on high-latency networks (such as mobile
+-- devices).
+newBody ::
   Body
-body = Body' {_bHTML = Nothing, _bText = Nothing}
+newBody =
+  Body'
+    { html = Prelude.Nothing,
+      text = Prelude.Nothing
+    }
 
--- | The content of the message, in HTML format. Use this for email clients that can process HTML. You can include clickable links, formatted text, and much more in an HTML message.
-bHTML :: Lens' Body (Maybe Content)
-bHTML = lens _bHTML (\s a -> s {_bHTML = a})
+-- | The content of the message, in HTML format. Use this for email clients
+-- that can process HTML. You can include clickable links, formatted text,
+-- and much more in an HTML message.
+body_html :: Lens.Lens' Body (Prelude.Maybe Content)
+body_html = Lens.lens (\Body' {html} -> html) (\s@Body' {} a -> s {html = a} :: Body)
 
--- | The content of the message, in text format. Use this for text-based email clients, or clients on high-latency networks (such as mobile devices).
-bText :: Lens' Body (Maybe Content)
-bText = lens _bText (\s a -> s {_bText = a})
+-- | The content of the message, in text format. Use this for text-based
+-- email clients, or clients on high-latency networks (such as mobile
+-- devices).
+body_text :: Lens.Lens' Body (Prelude.Maybe Content)
+body_text = Lens.lens (\Body' {text} -> text) (\s@Body' {} a -> s {text = a} :: Body)
 
-instance Hashable Body
+instance Prelude.Hashable Body
 
-instance NFData Body
+instance Prelude.NFData Body
 
-instance ToQuery Body where
+instance Prelude.ToQuery Body where
   toQuery Body' {..} =
-    mconcat ["Html" =: _bHTML, "Text" =: _bText]
+    Prelude.mconcat
+      ["Html" Prelude.=: html, "Text" Prelude.=: text]

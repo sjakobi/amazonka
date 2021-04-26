@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,72 +19,70 @@
 module Network.AWS.SES.Types.VerificationStatus
   ( VerificationStatus
       ( ..,
-        Failed,
-        NotStarted,
-        Pending,
-        Success,
-        TemporaryFailure
+        VerificationStatusFailed,
+        VerificationStatusNotStarted,
+        VerificationStatusPending,
+        VerificationStatusSuccess,
+        VerificationStatusTemporaryFailure
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data VerificationStatus
-  = VerificationStatus'
-      ( CI
-          Text
-      )
+newtype VerificationStatus = VerificationStatus'
+  { fromVerificationStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Failed :: VerificationStatus
-pattern Failed = VerificationStatus' "Failed"
+pattern VerificationStatusFailed :: VerificationStatus
+pattern VerificationStatusFailed = VerificationStatus' "Failed"
 
-pattern NotStarted :: VerificationStatus
-pattern NotStarted = VerificationStatus' "NotStarted"
+pattern VerificationStatusNotStarted :: VerificationStatus
+pattern VerificationStatusNotStarted = VerificationStatus' "NotStarted"
 
-pattern Pending :: VerificationStatus
-pattern Pending = VerificationStatus' "Pending"
+pattern VerificationStatusPending :: VerificationStatus
+pattern VerificationStatusPending = VerificationStatus' "Pending"
 
-pattern Success :: VerificationStatus
-pattern Success = VerificationStatus' "Success"
+pattern VerificationStatusSuccess :: VerificationStatus
+pattern VerificationStatusSuccess = VerificationStatus' "Success"
 
-pattern TemporaryFailure :: VerificationStatus
-pattern TemporaryFailure = VerificationStatus' "TemporaryFailure"
+pattern VerificationStatusTemporaryFailure :: VerificationStatus
+pattern VerificationStatusTemporaryFailure = VerificationStatus' "TemporaryFailure"
 
 {-# COMPLETE
-  Failed,
-  NotStarted,
-  Pending,
-  Success,
-  TemporaryFailure,
+  VerificationStatusFailed,
+  VerificationStatusNotStarted,
+  VerificationStatusPending,
+  VerificationStatusSuccess,
+  VerificationStatusTemporaryFailure,
   VerificationStatus'
   #-}
 
-instance FromText VerificationStatus where
-  parser = (VerificationStatus' . mk) <$> takeText
+instance Prelude.FromText VerificationStatus where
+  parser = VerificationStatus' Prelude.<$> Prelude.takeText
 
-instance ToText VerificationStatus where
-  toText (VerificationStatus' ci) = original ci
+instance Prelude.ToText VerificationStatus where
+  toText (VerificationStatus' x) = x
 
-instance Hashable VerificationStatus
+instance Prelude.Hashable VerificationStatus
 
-instance NFData VerificationStatus
+instance Prelude.NFData VerificationStatus
 
-instance ToByteString VerificationStatus
+instance Prelude.ToByteString VerificationStatus
 
-instance ToQuery VerificationStatus
+instance Prelude.ToQuery VerificationStatus
 
-instance ToHeader VerificationStatus
+instance Prelude.ToHeader VerificationStatus
 
-instance FromXML VerificationStatus where
-  parseXML = parseXMLText "VerificationStatus"
+instance Prelude.FromXML VerificationStatus where
+  parseXML = Prelude.parseXMLText "VerificationStatus"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,128 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.ReputationOptions where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Contains information about the reputation settings for a configuration set.
+-- | Contains information about the reputation settings for a configuration
+-- set.
 --
---
---
--- /See:/ 'reputationOptions' smart constructor.
+-- /See:/ 'newReputationOptions' smart constructor.
 data ReputationOptions = ReputationOptions'
-  { _roReputationMetricsEnabled ::
-      !(Maybe Bool),
-    _roLastFreshStart ::
-      !(Maybe ISO8601),
-    _roSendingEnabled :: !(Maybe Bool)
+  { -- | Describes whether or not Amazon SES publishes reputation metrics for the
+    -- configuration set, such as bounce and complaint rates, to Amazon
+    -- CloudWatch.
+    --
+    -- If the value is @true@, reputation metrics are published. If the value
+    -- is @false@, reputation metrics are not published. The default value is
+    -- @false@.
+    reputationMetricsEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The date and time at which the reputation metrics for the configuration
+    -- set were last reset. Resetting these metrics is known as a /fresh
+    -- start/.
+    --
+    -- When you disable email sending for a configuration set using
+    -- UpdateConfigurationSetSendingEnabled and later re-enable it, the
+    -- reputation metrics for the configuration set (but not for the entire
+    -- Amazon SES account) are reset.
+    --
+    -- If email sending for the configuration set has never been disabled and
+    -- later re-enabled, the value of this attribute is @null@.
+    lastFreshStart :: Prelude.Maybe Prelude.ISO8601,
+    -- | Describes whether email sending is enabled or disabled for the
+    -- configuration set. If the value is @true@, then Amazon SES will send
+    -- emails that use the configuration set. If the value is @false@, Amazon
+    -- SES will not send emails that use the configuration set. The default
+    -- value is @true@. You can change this setting using
+    -- UpdateConfigurationSetSendingEnabled.
+    sendingEnabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReputationOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReputationOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'roReputationMetricsEnabled' - Describes whether or not Amazon SES publishes reputation metrics for the configuration set, such as bounce and complaint rates, to Amazon CloudWatch. If the value is @true@ , reputation metrics are published. If the value is @false@ , reputation metrics are not published. The default value is @false@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'roLastFreshStart' - The date and time at which the reputation metrics for the configuration set were last reset. Resetting these metrics is known as a /fresh start/ . When you disable email sending for a configuration set using 'UpdateConfigurationSetSendingEnabled' and later re-enable it, the reputation metrics for the configuration set (but not for the entire Amazon SES account) are reset. If email sending for the configuration set has never been disabled and later re-enabled, the value of this attribute is @null@ .
+-- 'reputationMetricsEnabled', 'reputationOptions_reputationMetricsEnabled' - Describes whether or not Amazon SES publishes reputation metrics for the
+-- configuration set, such as bounce and complaint rates, to Amazon
+-- CloudWatch.
 --
--- * 'roSendingEnabled' - Describes whether email sending is enabled or disabled for the configuration set. If the value is @true@ , then Amazon SES will send emails that use the configuration set. If the value is @false@ , Amazon SES will not send emails that use the configuration set. The default value is @true@ . You can change this setting using 'UpdateConfigurationSetSendingEnabled' .
-reputationOptions ::
+-- If the value is @true@, reputation metrics are published. If the value
+-- is @false@, reputation metrics are not published. The default value is
+-- @false@.
+--
+-- 'lastFreshStart', 'reputationOptions_lastFreshStart' - The date and time at which the reputation metrics for the configuration
+-- set were last reset. Resetting these metrics is known as a /fresh
+-- start/.
+--
+-- When you disable email sending for a configuration set using
+-- UpdateConfigurationSetSendingEnabled and later re-enable it, the
+-- reputation metrics for the configuration set (but not for the entire
+-- Amazon SES account) are reset.
+--
+-- If email sending for the configuration set has never been disabled and
+-- later re-enabled, the value of this attribute is @null@.
+--
+-- 'sendingEnabled', 'reputationOptions_sendingEnabled' - Describes whether email sending is enabled or disabled for the
+-- configuration set. If the value is @true@, then Amazon SES will send
+-- emails that use the configuration set. If the value is @false@, Amazon
+-- SES will not send emails that use the configuration set. The default
+-- value is @true@. You can change this setting using
+-- UpdateConfigurationSetSendingEnabled.
+newReputationOptions ::
   ReputationOptions
-reputationOptions =
+newReputationOptions =
   ReputationOptions'
-    { _roReputationMetricsEnabled =
-        Nothing,
-      _roLastFreshStart = Nothing,
-      _roSendingEnabled = Nothing
+    { reputationMetricsEnabled =
+        Prelude.Nothing,
+      lastFreshStart = Prelude.Nothing,
+      sendingEnabled = Prelude.Nothing
     }
 
--- | Describes whether or not Amazon SES publishes reputation metrics for the configuration set, such as bounce and complaint rates, to Amazon CloudWatch. If the value is @true@ , reputation metrics are published. If the value is @false@ , reputation metrics are not published. The default value is @false@ .
-roReputationMetricsEnabled :: Lens' ReputationOptions (Maybe Bool)
-roReputationMetricsEnabled = lens _roReputationMetricsEnabled (\s a -> s {_roReputationMetricsEnabled = a})
+-- | Describes whether or not Amazon SES publishes reputation metrics for the
+-- configuration set, such as bounce and complaint rates, to Amazon
+-- CloudWatch.
+--
+-- If the value is @true@, reputation metrics are published. If the value
+-- is @false@, reputation metrics are not published. The default value is
+-- @false@.
+reputationOptions_reputationMetricsEnabled :: Lens.Lens' ReputationOptions (Prelude.Maybe Prelude.Bool)
+reputationOptions_reputationMetricsEnabled = Lens.lens (\ReputationOptions' {reputationMetricsEnabled} -> reputationMetricsEnabled) (\s@ReputationOptions' {} a -> s {reputationMetricsEnabled = a} :: ReputationOptions)
 
--- | The date and time at which the reputation metrics for the configuration set were last reset. Resetting these metrics is known as a /fresh start/ . When you disable email sending for a configuration set using 'UpdateConfigurationSetSendingEnabled' and later re-enable it, the reputation metrics for the configuration set (but not for the entire Amazon SES account) are reset. If email sending for the configuration set has never been disabled and later re-enabled, the value of this attribute is @null@ .
-roLastFreshStart :: Lens' ReputationOptions (Maybe UTCTime)
-roLastFreshStart = lens _roLastFreshStart (\s a -> s {_roLastFreshStart = a}) . mapping _Time
+-- | The date and time at which the reputation metrics for the configuration
+-- set were last reset. Resetting these metrics is known as a /fresh
+-- start/.
+--
+-- When you disable email sending for a configuration set using
+-- UpdateConfigurationSetSendingEnabled and later re-enable it, the
+-- reputation metrics for the configuration set (but not for the entire
+-- Amazon SES account) are reset.
+--
+-- If email sending for the configuration set has never been disabled and
+-- later re-enabled, the value of this attribute is @null@.
+reputationOptions_lastFreshStart :: Lens.Lens' ReputationOptions (Prelude.Maybe Prelude.UTCTime)
+reputationOptions_lastFreshStart = Lens.lens (\ReputationOptions' {lastFreshStart} -> lastFreshStart) (\s@ReputationOptions' {} a -> s {lastFreshStart = a} :: ReputationOptions) Prelude.. Lens.mapping Prelude._Time
 
--- | Describes whether email sending is enabled or disabled for the configuration set. If the value is @true@ , then Amazon SES will send emails that use the configuration set. If the value is @false@ , Amazon SES will not send emails that use the configuration set. The default value is @true@ . You can change this setting using 'UpdateConfigurationSetSendingEnabled' .
-roSendingEnabled :: Lens' ReputationOptions (Maybe Bool)
-roSendingEnabled = lens _roSendingEnabled (\s a -> s {_roSendingEnabled = a})
+-- | Describes whether email sending is enabled or disabled for the
+-- configuration set. If the value is @true@, then Amazon SES will send
+-- emails that use the configuration set. If the value is @false@, Amazon
+-- SES will not send emails that use the configuration set. The default
+-- value is @true@. You can change this setting using
+-- UpdateConfigurationSetSendingEnabled.
+reputationOptions_sendingEnabled :: Lens.Lens' ReputationOptions (Prelude.Maybe Prelude.Bool)
+reputationOptions_sendingEnabled = Lens.lens (\ReputationOptions' {sendingEnabled} -> sendingEnabled) (\s@ReputationOptions' {} a -> s {sendingEnabled = a} :: ReputationOptions)
 
-instance FromXML ReputationOptions where
+instance Prelude.FromXML ReputationOptions where
   parseXML x =
     ReputationOptions'
-      <$> (x .@? "ReputationMetricsEnabled")
-      <*> (x .@? "LastFreshStart")
-      <*> (x .@? "SendingEnabled")
+      Prelude.<$> (x Prelude..@? "ReputationMetricsEnabled")
+      Prelude.<*> (x Prelude..@? "LastFreshStart")
+      Prelude.<*> (x Prelude..@? "SendingEnabled")
 
-instance Hashable ReputationOptions
+instance Prelude.Hashable ReputationOptions
 
-instance NFData ReputationOptions
+instance Prelude.NFData ReputationOptions

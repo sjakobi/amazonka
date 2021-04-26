@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,160 +21,199 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the email templates present in your Amazon SES account in the current AWS Region.
---
+-- Lists the email templates present in your Amazon SES account in the
+-- current AWS Region.
 --
 -- You can execute this operation no more than once per second.
---
 --
 -- This operation returns paginated results.
 module Network.AWS.SES.ListTemplates
   ( -- * Creating a Request
-    listTemplates,
-    ListTemplates,
+    ListTemplates (..),
+    newListTemplates,
 
     -- * Request Lenses
-    ltNextToken,
-    ltMaxItems,
+    listTemplates_nextToken,
+    listTemplates_maxItems,
 
     -- * Destructuring the Response
-    listTemplatesResponse,
-    ListTemplatesResponse,
+    ListTemplatesResponse (..),
+    newListTemplatesResponse,
 
     -- * Response Lenses
-    ltrrsNextToken,
-    ltrrsTemplatesMetadata,
-    ltrrsResponseStatus,
+    listTemplatesResponse_nextToken,
+    listTemplatesResponse_templatesMetadata,
+    listTemplatesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
+import Network.AWS.SES.Types.TemplateMetadata
 
--- | /See:/ 'listTemplates' smart constructor.
+-- | /See:/ 'newListTemplates' smart constructor.
 data ListTemplates = ListTemplates'
-  { _ltNextToken ::
-      !(Maybe Text),
-    _ltMaxItems :: !(Maybe Int)
+  { -- | A token returned from a previous call to @ListTemplates@ to indicate the
+    -- position in the list of email templates.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of templates to return. This value must be at least 1
+    -- and less than or equal to 10. If you do not specify a value, or if you
+    -- specify a value less than 1 or greater than 10, the operation will
+    -- return up to 10 results.
+    maxItems :: Prelude.Maybe Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTemplates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTemplates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltNextToken' - A token returned from a previous call to @ListTemplates@ to indicate the position in the list of email templates.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltMaxItems' - The maximum number of templates to return. This value must be at least 1 and less than or equal to 10. If you do not specify a value, or if you specify a value less than 1 or greater than 10, the operation will return up to 10 results.
-listTemplates ::
+-- 'nextToken', 'listTemplates_nextToken' - A token returned from a previous call to @ListTemplates@ to indicate the
+-- position in the list of email templates.
+--
+-- 'maxItems', 'listTemplates_maxItems' - The maximum number of templates to return. This value must be at least 1
+-- and less than or equal to 10. If you do not specify a value, or if you
+-- specify a value less than 1 or greater than 10, the operation will
+-- return up to 10 results.
+newListTemplates ::
   ListTemplates
-listTemplates =
+newListTemplates =
   ListTemplates'
-    { _ltNextToken = Nothing,
-      _ltMaxItems = Nothing
+    { nextToken = Prelude.Nothing,
+      maxItems = Prelude.Nothing
     }
 
--- | A token returned from a previous call to @ListTemplates@ to indicate the position in the list of email templates.
-ltNextToken :: Lens' ListTemplates (Maybe Text)
-ltNextToken = lens _ltNextToken (\s a -> s {_ltNextToken = a})
+-- | A token returned from a previous call to @ListTemplates@ to indicate the
+-- position in the list of email templates.
+listTemplates_nextToken :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Text)
+listTemplates_nextToken = Lens.lens (\ListTemplates' {nextToken} -> nextToken) (\s@ListTemplates' {} a -> s {nextToken = a} :: ListTemplates)
 
--- | The maximum number of templates to return. This value must be at least 1 and less than or equal to 10. If you do not specify a value, or if you specify a value less than 1 or greater than 10, the operation will return up to 10 results.
-ltMaxItems :: Lens' ListTemplates (Maybe Int)
-ltMaxItems = lens _ltMaxItems (\s a -> s {_ltMaxItems = a})
+-- | The maximum number of templates to return. This value must be at least 1
+-- and less than or equal to 10. If you do not specify a value, or if you
+-- specify a value less than 1 or greater than 10, the operation will
+-- return up to 10 results.
+listTemplates_maxItems :: Lens.Lens' ListTemplates (Prelude.Maybe Prelude.Int)
+listTemplates_maxItems = Lens.lens (\ListTemplates' {maxItems} -> maxItems) (\s@ListTemplates' {} a -> s {maxItems = a} :: ListTemplates)
 
-instance AWSPager ListTemplates where
+instance Pager.AWSPager ListTemplates where
   page rq rs
-    | stop (rs ^. ltrrsNextToken) = Nothing
-    | stop (rs ^. ltrrsTemplatesMetadata) = Nothing
-    | otherwise =
-      Just $ rq & ltNextToken .~ rs ^. ltrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listTemplatesResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listTemplatesResponse_templatesMetadata
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listTemplates_nextToken
+          Lens..~ rs
+          Lens.^? listTemplatesResponse_nextToken Prelude.. Lens._Just
 
-instance AWSRequest ListTemplates where
+instance Prelude.AWSRequest ListTemplates where
   type Rs ListTemplates = ListTemplatesResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListTemplatesResult"
       ( \s h x ->
           ListTemplatesResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "TemplatesMetadata" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "TemplatesMetadata"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListTemplates
+instance Prelude.Hashable ListTemplates
 
-instance NFData ListTemplates
+instance Prelude.NFData ListTemplates
 
-instance ToHeaders ListTemplates where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListTemplates where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListTemplates where
-  toPath = const "/"
+instance Prelude.ToPath ListTemplates where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListTemplates where
+instance Prelude.ToQuery ListTemplates where
   toQuery ListTemplates' {..} =
-    mconcat
-      [ "Action" =: ("ListTemplates" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "NextToken" =: _ltNextToken,
-        "MaxItems" =: _ltMaxItems
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListTemplates" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MaxItems" Prelude.=: maxItems
       ]
 
--- | /See:/ 'listTemplatesResponse' smart constructor.
+-- | /See:/ 'newListTemplatesResponse' smart constructor.
 data ListTemplatesResponse = ListTemplatesResponse'
-  { _ltrrsNextToken ::
-      !(Maybe Text),
-    _ltrrsTemplatesMetadata ::
-      !(Maybe [TemplateMetadata]),
-    _ltrrsResponseStatus ::
-      !Int
+  { -- | A token indicating that there are additional email templates available
+    -- to be listed. Pass this token to a subsequent call to @ListTemplates@ to
+    -- retrieve the next 50 email templates.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array the contains the name and creation time stamp for each template
+    -- in your Amazon SES account.
+    templatesMetadata :: Prelude.Maybe [TemplateMetadata],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListTemplatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListTemplatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ltrrsNextToken' - A token indicating that there are additional email templates available to be listed. Pass this token to a subsequent call to @ListTemplates@ to retrieve the next 50 email templates.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ltrrsTemplatesMetadata' - An array the contains the name and creation time stamp for each template in your Amazon SES account.
+-- 'nextToken', 'listTemplatesResponse_nextToken' - A token indicating that there are additional email templates available
+-- to be listed. Pass this token to a subsequent call to @ListTemplates@ to
+-- retrieve the next 50 email templates.
 --
--- * 'ltrrsResponseStatus' - -- | The response status code.
-listTemplatesResponse ::
-  -- | 'ltrrsResponseStatus'
-  Int ->
+-- 'templatesMetadata', 'listTemplatesResponse_templatesMetadata' - An array the contains the name and creation time stamp for each template
+-- in your Amazon SES account.
+--
+-- 'httpStatus', 'listTemplatesResponse_httpStatus' - The response's http status code.
+newListTemplatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListTemplatesResponse
-listTemplatesResponse pResponseStatus_ =
+newListTemplatesResponse pHttpStatus_ =
   ListTemplatesResponse'
-    { _ltrrsNextToken = Nothing,
-      _ltrrsTemplatesMetadata = Nothing,
-      _ltrrsResponseStatus = pResponseStatus_
+    { nextToken = Prelude.Nothing,
+      templatesMetadata = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token indicating that there are additional email templates available to be listed. Pass this token to a subsequent call to @ListTemplates@ to retrieve the next 50 email templates.
-ltrrsNextToken :: Lens' ListTemplatesResponse (Maybe Text)
-ltrrsNextToken = lens _ltrrsNextToken (\s a -> s {_ltrrsNextToken = a})
+-- | A token indicating that there are additional email templates available
+-- to be listed. Pass this token to a subsequent call to @ListTemplates@ to
+-- retrieve the next 50 email templates.
+listTemplatesResponse_nextToken :: Lens.Lens' ListTemplatesResponse (Prelude.Maybe Prelude.Text)
+listTemplatesResponse_nextToken = Lens.lens (\ListTemplatesResponse' {nextToken} -> nextToken) (\s@ListTemplatesResponse' {} a -> s {nextToken = a} :: ListTemplatesResponse)
 
--- | An array the contains the name and creation time stamp for each template in your Amazon SES account.
-ltrrsTemplatesMetadata :: Lens' ListTemplatesResponse [TemplateMetadata]
-ltrrsTemplatesMetadata = lens _ltrrsTemplatesMetadata (\s a -> s {_ltrrsTemplatesMetadata = a}) . _Default . _Coerce
+-- | An array the contains the name and creation time stamp for each template
+-- in your Amazon SES account.
+listTemplatesResponse_templatesMetadata :: Lens.Lens' ListTemplatesResponse (Prelude.Maybe [TemplateMetadata])
+listTemplatesResponse_templatesMetadata = Lens.lens (\ListTemplatesResponse' {templatesMetadata} -> templatesMetadata) (\s@ListTemplatesResponse' {} a -> s {templatesMetadata = a} :: ListTemplatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-ltrrsResponseStatus :: Lens' ListTemplatesResponse Int
-ltrrsResponseStatus = lens _ltrrsResponseStatus (\s a -> s {_ltrrsResponseStatus = a})
+-- | The response's http status code.
+listTemplatesResponse_httpStatus :: Lens.Lens' ListTemplatesResponse Prelude.Int
+listTemplatesResponse_httpStatus = Lens.lens (\ListTemplatesResponse' {httpStatus} -> httpStatus) (\s@ListTemplatesResponse' {} a -> s {httpStatus = a} :: ListTemplatesResponse)
 
-instance NFData ListTemplatesResponse
+instance Prelude.NFData ListTemplatesResponse

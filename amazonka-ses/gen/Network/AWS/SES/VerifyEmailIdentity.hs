@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,135 +21,129 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds an email address to the list of identities for your Amazon SES account in the current AWS region and attempts to verify it. As a result of executing this operation, a verification email is sent to the specified address.
---
+-- Adds an email address to the list of identities for your Amazon SES
+-- account in the current AWS region and attempts to verify it. As a result
+-- of executing this operation, a verification email is sent to the
+-- specified address.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.VerifyEmailIdentity
   ( -- * Creating a Request
-    verifyEmailIdentity,
-    VerifyEmailIdentity,
+    VerifyEmailIdentity (..),
+    newVerifyEmailIdentity,
 
     -- * Request Lenses
-    veiEmailAddress,
+    verifyEmailIdentity_emailAddress,
 
     -- * Destructuring the Response
-    verifyEmailIdentityResponse,
-    VerifyEmailIdentityResponse,
+    VerifyEmailIdentityResponse (..),
+    newVerifyEmailIdentityResponse,
 
     -- * Response Lenses
-    veirrsResponseStatus,
+    verifyEmailIdentityResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to begin email address verification with Amazon SES. For information about email address verification, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html Amazon SES Developer Guide> .
+-- | Represents a request to begin email address verification with Amazon
+-- SES. For information about email address verification, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'verifyEmailIdentity' smart constructor.
-newtype VerifyEmailIdentity = VerifyEmailIdentity'
-  { _veiEmailAddress ::
-      Text
+-- /See:/ 'newVerifyEmailIdentity' smart constructor.
+data VerifyEmailIdentity = VerifyEmailIdentity'
+  { -- | The email address to be verified.
+    emailAddress :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyEmailIdentity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyEmailIdentity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'veiEmailAddress' - The email address to be verified.
-verifyEmailIdentity ::
-  -- | 'veiEmailAddress'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'emailAddress', 'verifyEmailIdentity_emailAddress' - The email address to be verified.
+newVerifyEmailIdentity ::
+  -- | 'emailAddress'
+  Prelude.Text ->
   VerifyEmailIdentity
-verifyEmailIdentity pEmailAddress_ =
-  VerifyEmailIdentity'
-    { _veiEmailAddress =
-        pEmailAddress_
-    }
+newVerifyEmailIdentity pEmailAddress_ =
+  VerifyEmailIdentity' {emailAddress = pEmailAddress_}
 
 -- | The email address to be verified.
-veiEmailAddress :: Lens' VerifyEmailIdentity Text
-veiEmailAddress = lens _veiEmailAddress (\s a -> s {_veiEmailAddress = a})
+verifyEmailIdentity_emailAddress :: Lens.Lens' VerifyEmailIdentity Prelude.Text
+verifyEmailIdentity_emailAddress = Lens.lens (\VerifyEmailIdentity' {emailAddress} -> emailAddress) (\s@VerifyEmailIdentity' {} a -> s {emailAddress = a} :: VerifyEmailIdentity)
 
-instance AWSRequest VerifyEmailIdentity where
+instance Prelude.AWSRequest VerifyEmailIdentity where
   type
     Rs VerifyEmailIdentity =
       VerifyEmailIdentityResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "VerifyEmailIdentityResult"
       ( \s h x ->
-          VerifyEmailIdentityResponse' <$> (pure (fromEnum s))
+          VerifyEmailIdentityResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable VerifyEmailIdentity
+instance Prelude.Hashable VerifyEmailIdentity
 
-instance NFData VerifyEmailIdentity
+instance Prelude.NFData VerifyEmailIdentity
 
-instance ToHeaders VerifyEmailIdentity where
-  toHeaders = const mempty
+instance Prelude.ToHeaders VerifyEmailIdentity where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath VerifyEmailIdentity where
-  toPath = const "/"
+instance Prelude.ToPath VerifyEmailIdentity where
+  toPath = Prelude.const "/"
 
-instance ToQuery VerifyEmailIdentity where
+instance Prelude.ToQuery VerifyEmailIdentity where
   toQuery VerifyEmailIdentity' {..} =
-    mconcat
-      [ "Action" =: ("VerifyEmailIdentity" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "EmailAddress" =: _veiEmailAddress
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("VerifyEmailIdentity" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "EmailAddress" Prelude.=: emailAddress
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'verifyEmailIdentityResponse' smart constructor.
-newtype VerifyEmailIdentityResponse = VerifyEmailIdentityResponse'
-  { _veirrsResponseStatus ::
-      Int
+-- /See:/ 'newVerifyEmailIdentityResponse' smart constructor.
+data VerifyEmailIdentityResponse = VerifyEmailIdentityResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyEmailIdentityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyEmailIdentityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'veirrsResponseStatus' - -- | The response status code.
-verifyEmailIdentityResponse ::
-  -- | 'veirrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'verifyEmailIdentityResponse_httpStatus' - The response's http status code.
+newVerifyEmailIdentityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   VerifyEmailIdentityResponse
-verifyEmailIdentityResponse pResponseStatus_ =
+newVerifyEmailIdentityResponse pHttpStatus_ =
   VerifyEmailIdentityResponse'
-    { _veirrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-veirrsResponseStatus :: Lens' VerifyEmailIdentityResponse Int
-veirrsResponseStatus = lens _veirrsResponseStatus (\s a -> s {_veirrsResponseStatus = a})
+-- | The response's http status code.
+verifyEmailIdentityResponse_httpStatus :: Lens.Lens' VerifyEmailIdentityResponse Prelude.Int
+verifyEmailIdentityResponse_httpStatus = Lens.lens (\VerifyEmailIdentityResponse' {httpStatus} -> httpStatus) (\s@VerifyEmailIdentityResponse' {} a -> s {httpStatus = a} :: VerifyEmailIdentityResponse)
 
-instance NFData VerifyEmailIdentityResponse
+instance Prelude.NFData VerifyEmailIdentityResponse

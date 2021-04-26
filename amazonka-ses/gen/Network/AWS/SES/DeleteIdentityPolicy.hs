@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,142 +21,168 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified sending authorization policy for the given identity (an email address or a domain). This API returns successfully even if a policy with the specified name does not exist.
+-- Deletes the specified sending authorization policy for the given
+-- identity (an email address or a domain). This API returns successfully
+-- even if a policy with the specified name does not exist.
 --
+-- This API is for the identity owner only. If you have not verified the
+-- identity, this API will return an error.
 --
--- Sending authorization is a feature that enables an identity owner to authorize other senders to use its identities. For information about using sending authorization, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide> .
+-- Sending authorization is a feature that enables an identity owner to
+-- authorize other senders to use its identities. For information about
+-- using sending authorization, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.DeleteIdentityPolicy
   ( -- * Creating a Request
-    deleteIdentityPolicy,
-    DeleteIdentityPolicy,
+    DeleteIdentityPolicy (..),
+    newDeleteIdentityPolicy,
 
     -- * Request Lenses
-    dipIdentity,
-    dipPolicyName,
+    deleteIdentityPolicy_identity,
+    deleteIdentityPolicy_policyName,
 
     -- * Destructuring the Response
-    deleteIdentityPolicyResponse,
-    DeleteIdentityPolicyResponse,
+    DeleteIdentityPolicyResponse (..),
+    newDeleteIdentityPolicyResponse,
 
     -- * Response Lenses
-    diprrsResponseStatus,
+    deleteIdentityPolicyResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to delete a sending authorization policy for an identity. Sending authorization is an Amazon SES feature that enables you to authorize other senders to use your identities. For information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide> .
+-- | Represents a request to delete a sending authorization policy for an
+-- identity. Sending authorization is an Amazon SES feature that enables
+-- you to authorize other senders to use your identities. For information,
+-- see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'deleteIdentityPolicy' smart constructor.
+-- /See:/ 'newDeleteIdentityPolicy' smart constructor.
 data DeleteIdentityPolicy = DeleteIdentityPolicy'
-  { _dipIdentity ::
-      !Text,
-    _dipPolicyName :: !Text
+  { -- | The identity that is associated with the policy that you want to delete.
+    -- You can specify the identity by using its name or by using its Amazon
+    -- Resource Name (ARN). Examples: @user\@example.com@, @example.com@,
+    -- @arn:aws:ses:us-east-1:123456789012:identity\/example.com@.
+    --
+    -- To successfully call this API, you must own the identity.
+    identity :: Prelude.Text,
+    -- | The name of the policy to be deleted.
+    policyName :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIdentityPolicy' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIdentityPolicy' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dipIdentity' - The identity that is associated with the policy that you want to delete. You can specify the identity by using its name or by using its Amazon Resource Name (ARN). Examples: @user@example.com@ , @example.com@ , @arn:aws:ses:us-east-1:123456789012:identity/example.com@ . To successfully call this API, you must own the identity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dipPolicyName' - The name of the policy to be deleted.
-deleteIdentityPolicy ::
-  -- | 'dipIdentity'
-  Text ->
-  -- | 'dipPolicyName'
-  Text ->
+-- 'identity', 'deleteIdentityPolicy_identity' - The identity that is associated with the policy that you want to delete.
+-- You can specify the identity by using its name or by using its Amazon
+-- Resource Name (ARN). Examples: @user\@example.com@, @example.com@,
+-- @arn:aws:ses:us-east-1:123456789012:identity\/example.com@.
+--
+-- To successfully call this API, you must own the identity.
+--
+-- 'policyName', 'deleteIdentityPolicy_policyName' - The name of the policy to be deleted.
+newDeleteIdentityPolicy ::
+  -- | 'identity'
+  Prelude.Text ->
+  -- | 'policyName'
+  Prelude.Text ->
   DeleteIdentityPolicy
-deleteIdentityPolicy pIdentity_ pPolicyName_ =
+newDeleteIdentityPolicy pIdentity_ pPolicyName_ =
   DeleteIdentityPolicy'
-    { _dipIdentity = pIdentity_,
-      _dipPolicyName = pPolicyName_
+    { identity = pIdentity_,
+      policyName = pPolicyName_
     }
 
--- | The identity that is associated with the policy that you want to delete. You can specify the identity by using its name or by using its Amazon Resource Name (ARN). Examples: @user@example.com@ , @example.com@ , @arn:aws:ses:us-east-1:123456789012:identity/example.com@ . To successfully call this API, you must own the identity.
-dipIdentity :: Lens' DeleteIdentityPolicy Text
-dipIdentity = lens _dipIdentity (\s a -> s {_dipIdentity = a})
+-- | The identity that is associated with the policy that you want to delete.
+-- You can specify the identity by using its name or by using its Amazon
+-- Resource Name (ARN). Examples: @user\@example.com@, @example.com@,
+-- @arn:aws:ses:us-east-1:123456789012:identity\/example.com@.
+--
+-- To successfully call this API, you must own the identity.
+deleteIdentityPolicy_identity :: Lens.Lens' DeleteIdentityPolicy Prelude.Text
+deleteIdentityPolicy_identity = Lens.lens (\DeleteIdentityPolicy' {identity} -> identity) (\s@DeleteIdentityPolicy' {} a -> s {identity = a} :: DeleteIdentityPolicy)
 
 -- | The name of the policy to be deleted.
-dipPolicyName :: Lens' DeleteIdentityPolicy Text
-dipPolicyName = lens _dipPolicyName (\s a -> s {_dipPolicyName = a})
+deleteIdentityPolicy_policyName :: Lens.Lens' DeleteIdentityPolicy Prelude.Text
+deleteIdentityPolicy_policyName = Lens.lens (\DeleteIdentityPolicy' {policyName} -> policyName) (\s@DeleteIdentityPolicy' {} a -> s {policyName = a} :: DeleteIdentityPolicy)
 
-instance AWSRequest DeleteIdentityPolicy where
+instance Prelude.AWSRequest DeleteIdentityPolicy where
   type
     Rs DeleteIdentityPolicy =
       DeleteIdentityPolicyResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteIdentityPolicyResult"
       ( \s h x ->
           DeleteIdentityPolicyResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DeleteIdentityPolicy
+instance Prelude.Hashable DeleteIdentityPolicy
 
-instance NFData DeleteIdentityPolicy
+instance Prelude.NFData DeleteIdentityPolicy
 
-instance ToHeaders DeleteIdentityPolicy where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteIdentityPolicy where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteIdentityPolicy where
-  toPath = const "/"
+instance Prelude.ToPath DeleteIdentityPolicy where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteIdentityPolicy where
+instance Prelude.ToQuery DeleteIdentityPolicy where
   toQuery DeleteIdentityPolicy' {..} =
-    mconcat
-      [ "Action" =: ("DeleteIdentityPolicy" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Identity" =: _dipIdentity,
-        "PolicyName" =: _dipPolicyName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("DeleteIdentityPolicy" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Identity" Prelude.=: identity,
+        "PolicyName" Prelude.=: policyName
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'deleteIdentityPolicyResponse' smart constructor.
-newtype DeleteIdentityPolicyResponse = DeleteIdentityPolicyResponse'
-  { _diprrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteIdentityPolicyResponse' smart constructor.
+data DeleteIdentityPolicyResponse = DeleteIdentityPolicyResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteIdentityPolicyResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteIdentityPolicyResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'diprrsResponseStatus' - -- | The response status code.
-deleteIdentityPolicyResponse ::
-  -- | 'diprrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteIdentityPolicyResponse_httpStatus' - The response's http status code.
+newDeleteIdentityPolicyResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteIdentityPolicyResponse
-deleteIdentityPolicyResponse pResponseStatus_ =
+newDeleteIdentityPolicyResponse pHttpStatus_ =
   DeleteIdentityPolicyResponse'
-    { _diprrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-diprrsResponseStatus :: Lens' DeleteIdentityPolicyResponse Int
-diprrsResponseStatus = lens _diprrsResponseStatus (\s a -> s {_diprrsResponseStatus = a})
+-- | The response's http status code.
+deleteIdentityPolicyResponse_httpStatus :: Lens.Lens' DeleteIdentityPolicyResponse Prelude.Int
+deleteIdentityPolicyResponse_httpStatus = Lens.lens (\DeleteIdentityPolicyResponse' {httpStatus} -> httpStatus) (\s@DeleteIdentityPolicyResponse' {} a -> s {httpStatus = a} :: DeleteIdentityPolicyResponse)
 
-instance NFData DeleteIdentityPolicyResponse
+instance Prelude.NFData DeleteIdentityPolicyResponse

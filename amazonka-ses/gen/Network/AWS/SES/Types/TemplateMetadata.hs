@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,49 +19,54 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.TemplateMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Contains information about an email template.
 --
---
---
--- /See:/ 'templateMetadata' smart constructor.
+-- /See:/ 'newTemplateMetadata' smart constructor.
 data TemplateMetadata = TemplateMetadata'
-  { _tmCreatedTimestamp ::
-      !(Maybe ISO8601),
-    _tmName :: !(Maybe Text)
+  { -- | The time and date the template was created.
+    createdTimestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the template.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TemplateMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TemplateMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'tmCreatedTimestamp' - The time and date the template was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'tmName' - The name of the template.
-templateMetadata ::
+-- 'createdTimestamp', 'templateMetadata_createdTimestamp' - The time and date the template was created.
+--
+-- 'name', 'templateMetadata_name' - The name of the template.
+newTemplateMetadata ::
   TemplateMetadata
-templateMetadata =
+newTemplateMetadata =
   TemplateMetadata'
-    { _tmCreatedTimestamp = Nothing,
-      _tmName = Nothing
+    { createdTimestamp =
+        Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The time and date the template was created.
-tmCreatedTimestamp :: Lens' TemplateMetadata (Maybe UTCTime)
-tmCreatedTimestamp = lens _tmCreatedTimestamp (\s a -> s {_tmCreatedTimestamp = a}) . mapping _Time
+templateMetadata_createdTimestamp :: Lens.Lens' TemplateMetadata (Prelude.Maybe Prelude.UTCTime)
+templateMetadata_createdTimestamp = Lens.lens (\TemplateMetadata' {createdTimestamp} -> createdTimestamp) (\s@TemplateMetadata' {} a -> s {createdTimestamp = a} :: TemplateMetadata) Prelude.. Lens.mapping Prelude._Time
 
 -- | The name of the template.
-tmName :: Lens' TemplateMetadata (Maybe Text)
-tmName = lens _tmName (\s a -> s {_tmName = a})
+templateMetadata_name :: Lens.Lens' TemplateMetadata (Prelude.Maybe Prelude.Text)
+templateMetadata_name = Lens.lens (\TemplateMetadata' {name} -> name) (\s@TemplateMetadata' {} a -> s {name = a} :: TemplateMetadata)
 
-instance FromXML TemplateMetadata where
+instance Prelude.FromXML TemplateMetadata where
   parseXML x =
     TemplateMetadata'
-      <$> (x .@? "CreatedTimestamp") <*> (x .@? "Name")
+      Prelude.<$> (x Prelude..@? "CreatedTimestamp")
+      Prelude.<*> (x Prelude..@? "Name")
 
-instance Hashable TemplateMetadata
+instance Prelude.Hashable TemplateMetadata
 
-instance NFData TemplateMetadata
+instance Prelude.NFData TemplateMetadata

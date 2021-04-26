@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,93 +23,101 @@
 --
 -- Creates a new custom verification email template.
 --
---
--- For more information about custom verification email templates, see <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html Using Custom Verification Email Templates> in the /Amazon SES Developer Guide/ .
+-- For more information about custom verification email templates, see
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html Using Custom Verification Email Templates>
+-- in the /Amazon SES Developer Guide/.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.CreateCustomVerificationEmailTemplate
   ( -- * Creating a Request
-    createCustomVerificationEmailTemplate,
-    CreateCustomVerificationEmailTemplate,
+    CreateCustomVerificationEmailTemplate (..),
+    newCreateCustomVerificationEmailTemplate,
 
     -- * Request Lenses
-    ccvetTemplateName,
-    ccvetFromEmailAddress,
-    ccvetTemplateSubject,
-    ccvetTemplateContent,
-    ccvetSuccessRedirectionURL,
-    ccvetFailureRedirectionURL,
+    createCustomVerificationEmailTemplate_templateName,
+    createCustomVerificationEmailTemplate_fromEmailAddress,
+    createCustomVerificationEmailTemplate_templateSubject,
+    createCustomVerificationEmailTemplate_templateContent,
+    createCustomVerificationEmailTemplate_successRedirectionURL,
+    createCustomVerificationEmailTemplate_failureRedirectionURL,
 
     -- * Destructuring the Response
-    createCustomVerificationEmailTemplateResponse,
-    CreateCustomVerificationEmailTemplateResponse,
+    CreateCustomVerificationEmailTemplateResponse (..),
+    newCreateCustomVerificationEmailTemplateResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
 -- | Represents a request to create a custom verification email template.
 --
---
---
--- /See:/ 'createCustomVerificationEmailTemplate' smart constructor.
+-- /See:/ 'newCreateCustomVerificationEmailTemplate' smart constructor.
 data CreateCustomVerificationEmailTemplate = CreateCustomVerificationEmailTemplate'
-  { _ccvetTemplateName ::
-      !Text,
-    _ccvetFromEmailAddress ::
-      !Text,
-    _ccvetTemplateSubject ::
-      !Text,
-    _ccvetTemplateContent ::
-      !Text,
-    _ccvetSuccessRedirectionURL ::
-      !Text,
-    _ccvetFailureRedirectionURL ::
-      !Text
+  { -- | The name of the custom verification email template.
+    templateName :: Prelude.Text,
+    -- | The email address that the custom verification email is sent from.
+    fromEmailAddress :: Prelude.Text,
+    -- | The subject line of the custom verification email.
+    templateSubject :: Prelude.Text,
+    -- | The content of the custom verification email. The total size of the
+    -- email must be less than 10 MB. The message body may contain HTML, with
+    -- some limitations. For more information, see
+    -- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+    -- in the /Amazon SES Developer Guide/.
+    templateContent :: Prelude.Text,
+    -- | The URL that the recipient of the verification email is sent to if his
+    -- or her address is successfully verified.
+    successRedirectionURL :: Prelude.Text,
+    -- | The URL that the recipient of the verification email is sent to if his
+    -- or her address is not successfully verified.
+    failureRedirectionURL :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCustomVerificationEmailTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateCustomVerificationEmailTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ccvetTemplateName' - The name of the custom verification email template.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ccvetFromEmailAddress' - The email address that the custom verification email is sent from.
+-- 'templateName', 'createCustomVerificationEmailTemplate_templateName' - The name of the custom verification email template.
 --
--- * 'ccvetTemplateSubject' - The subject line of the custom verification email.
+-- 'fromEmailAddress', 'createCustomVerificationEmailTemplate_fromEmailAddress' - The email address that the custom verification email is sent from.
 --
--- * 'ccvetTemplateContent' - The content of the custom verification email. The total size of the email must be less than 10 MB. The message body may contain HTML, with some limitations. For more information, see <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions> in the /Amazon SES Developer Guide/ .
+-- 'templateSubject', 'createCustomVerificationEmailTemplate_templateSubject' - The subject line of the custom verification email.
 --
--- * 'ccvetSuccessRedirectionURL' - The URL that the recipient of the verification email is sent to if his or her address is successfully verified.
+-- 'templateContent', 'createCustomVerificationEmailTemplate_templateContent' - The content of the custom verification email. The total size of the
+-- email must be less than 10 MB. The message body may contain HTML, with
+-- some limitations. For more information, see
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+-- in the /Amazon SES Developer Guide/.
 --
--- * 'ccvetFailureRedirectionURL' - The URL that the recipient of the verification email is sent to if his or her address is not successfully verified.
-createCustomVerificationEmailTemplate ::
-  -- | 'ccvetTemplateName'
-  Text ->
-  -- | 'ccvetFromEmailAddress'
-  Text ->
-  -- | 'ccvetTemplateSubject'
-  Text ->
-  -- | 'ccvetTemplateContent'
-  Text ->
-  -- | 'ccvetSuccessRedirectionURL'
-  Text ->
-  -- | 'ccvetFailureRedirectionURL'
-  Text ->
+-- 'successRedirectionURL', 'createCustomVerificationEmailTemplate_successRedirectionURL' - The URL that the recipient of the verification email is sent to if his
+-- or her address is successfully verified.
+--
+-- 'failureRedirectionURL', 'createCustomVerificationEmailTemplate_failureRedirectionURL' - The URL that the recipient of the verification email is sent to if his
+-- or her address is not successfully verified.
+newCreateCustomVerificationEmailTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'fromEmailAddress'
+  Prelude.Text ->
+  -- | 'templateSubject'
+  Prelude.Text ->
+  -- | 'templateContent'
+  Prelude.Text ->
+  -- | 'successRedirectionURL'
+  Prelude.Text ->
+  -- | 'failureRedirectionURL'
+  Prelude.Text ->
   CreateCustomVerificationEmailTemplate
-createCustomVerificationEmailTemplate
+newCreateCustomVerificationEmailTemplate
   pTemplateName_
   pFromEmailAddress_
   pTemplateSubject_
@@ -113,109 +125,117 @@ createCustomVerificationEmailTemplate
   pSuccessRedirectionURL_
   pFailureRedirectionURL_ =
     CreateCustomVerificationEmailTemplate'
-      { _ccvetTemplateName =
+      { templateName =
           pTemplateName_,
-        _ccvetFromEmailAddress =
+        fromEmailAddress =
           pFromEmailAddress_,
-        _ccvetTemplateSubject =
-          pTemplateSubject_,
-        _ccvetTemplateContent =
-          pTemplateContent_,
-        _ccvetSuccessRedirectionURL =
+        templateSubject = pTemplateSubject_,
+        templateContent = pTemplateContent_,
+        successRedirectionURL =
           pSuccessRedirectionURL_,
-        _ccvetFailureRedirectionURL =
+        failureRedirectionURL =
           pFailureRedirectionURL_
       }
 
 -- | The name of the custom verification email template.
-ccvetTemplateName :: Lens' CreateCustomVerificationEmailTemplate Text
-ccvetTemplateName = lens _ccvetTemplateName (\s a -> s {_ccvetTemplateName = a})
+createCustomVerificationEmailTemplate_templateName :: Lens.Lens' CreateCustomVerificationEmailTemplate Prelude.Text
+createCustomVerificationEmailTemplate_templateName = Lens.lens (\CreateCustomVerificationEmailTemplate' {templateName} -> templateName) (\s@CreateCustomVerificationEmailTemplate' {} a -> s {templateName = a} :: CreateCustomVerificationEmailTemplate)
 
 -- | The email address that the custom verification email is sent from.
-ccvetFromEmailAddress :: Lens' CreateCustomVerificationEmailTemplate Text
-ccvetFromEmailAddress = lens _ccvetFromEmailAddress (\s a -> s {_ccvetFromEmailAddress = a})
+createCustomVerificationEmailTemplate_fromEmailAddress :: Lens.Lens' CreateCustomVerificationEmailTemplate Prelude.Text
+createCustomVerificationEmailTemplate_fromEmailAddress = Lens.lens (\CreateCustomVerificationEmailTemplate' {fromEmailAddress} -> fromEmailAddress) (\s@CreateCustomVerificationEmailTemplate' {} a -> s {fromEmailAddress = a} :: CreateCustomVerificationEmailTemplate)
 
 -- | The subject line of the custom verification email.
-ccvetTemplateSubject :: Lens' CreateCustomVerificationEmailTemplate Text
-ccvetTemplateSubject = lens _ccvetTemplateSubject (\s a -> s {_ccvetTemplateSubject = a})
+createCustomVerificationEmailTemplate_templateSubject :: Lens.Lens' CreateCustomVerificationEmailTemplate Prelude.Text
+createCustomVerificationEmailTemplate_templateSubject = Lens.lens (\CreateCustomVerificationEmailTemplate' {templateSubject} -> templateSubject) (\s@CreateCustomVerificationEmailTemplate' {} a -> s {templateSubject = a} :: CreateCustomVerificationEmailTemplate)
 
--- | The content of the custom verification email. The total size of the email must be less than 10 MB. The message body may contain HTML, with some limitations. For more information, see <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions> in the /Amazon SES Developer Guide/ .
-ccvetTemplateContent :: Lens' CreateCustomVerificationEmailTemplate Text
-ccvetTemplateContent = lens _ccvetTemplateContent (\s a -> s {_ccvetTemplateContent = a})
+-- | The content of the custom verification email. The total size of the
+-- email must be less than 10 MB. The message body may contain HTML, with
+-- some limitations. For more information, see
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+-- in the /Amazon SES Developer Guide/.
+createCustomVerificationEmailTemplate_templateContent :: Lens.Lens' CreateCustomVerificationEmailTemplate Prelude.Text
+createCustomVerificationEmailTemplate_templateContent = Lens.lens (\CreateCustomVerificationEmailTemplate' {templateContent} -> templateContent) (\s@CreateCustomVerificationEmailTemplate' {} a -> s {templateContent = a} :: CreateCustomVerificationEmailTemplate)
 
--- | The URL that the recipient of the verification email is sent to if his or her address is successfully verified.
-ccvetSuccessRedirectionURL :: Lens' CreateCustomVerificationEmailTemplate Text
-ccvetSuccessRedirectionURL = lens _ccvetSuccessRedirectionURL (\s a -> s {_ccvetSuccessRedirectionURL = a})
+-- | The URL that the recipient of the verification email is sent to if his
+-- or her address is successfully verified.
+createCustomVerificationEmailTemplate_successRedirectionURL :: Lens.Lens' CreateCustomVerificationEmailTemplate Prelude.Text
+createCustomVerificationEmailTemplate_successRedirectionURL = Lens.lens (\CreateCustomVerificationEmailTemplate' {successRedirectionURL} -> successRedirectionURL) (\s@CreateCustomVerificationEmailTemplate' {} a -> s {successRedirectionURL = a} :: CreateCustomVerificationEmailTemplate)
 
--- | The URL that the recipient of the verification email is sent to if his or her address is not successfully verified.
-ccvetFailureRedirectionURL :: Lens' CreateCustomVerificationEmailTemplate Text
-ccvetFailureRedirectionURL = lens _ccvetFailureRedirectionURL (\s a -> s {_ccvetFailureRedirectionURL = a})
+-- | The URL that the recipient of the verification email is sent to if his
+-- or her address is not successfully verified.
+createCustomVerificationEmailTemplate_failureRedirectionURL :: Lens.Lens' CreateCustomVerificationEmailTemplate Prelude.Text
+createCustomVerificationEmailTemplate_failureRedirectionURL = Lens.lens (\CreateCustomVerificationEmailTemplate' {failureRedirectionURL} -> failureRedirectionURL) (\s@CreateCustomVerificationEmailTemplate' {} a -> s {failureRedirectionURL = a} :: CreateCustomVerificationEmailTemplate)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     CreateCustomVerificationEmailTemplate
   where
   type
     Rs CreateCustomVerificationEmailTemplate =
       CreateCustomVerificationEmailTemplateResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveNull
+    Response.receiveNull
       CreateCustomVerificationEmailTemplateResponse'
 
 instance
-  Hashable
+  Prelude.Hashable
     CreateCustomVerificationEmailTemplate
 
-instance NFData CreateCustomVerificationEmailTemplate
+instance
+  Prelude.NFData
+    CreateCustomVerificationEmailTemplate
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     CreateCustomVerificationEmailTemplate
   where
-  toHeaders = const mempty
-
-instance ToPath CreateCustomVerificationEmailTemplate where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    CreateCustomVerificationEmailTemplate
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     CreateCustomVerificationEmailTemplate
   where
   toQuery CreateCustomVerificationEmailTemplate' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "CreateCustomVerificationEmailTemplate" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "TemplateName" =: _ccvetTemplateName,
-        "FromEmailAddress" =: _ccvetFromEmailAddress,
-        "TemplateSubject" =: _ccvetTemplateSubject,
-        "TemplateContent" =: _ccvetTemplateContent,
+          Prelude.=: ( "CreateCustomVerificationEmailTemplate" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "TemplateName" Prelude.=: templateName,
+        "FromEmailAddress" Prelude.=: fromEmailAddress,
+        "TemplateSubject" Prelude.=: templateSubject,
+        "TemplateContent" Prelude.=: templateContent,
         "SuccessRedirectionURL"
-          =: _ccvetSuccessRedirectionURL,
+          Prelude.=: successRedirectionURL,
         "FailureRedirectionURL"
-          =: _ccvetFailureRedirectionURL
+          Prelude.=: failureRedirectionURL
       ]
 
--- | /See:/ 'createCustomVerificationEmailTemplateResponse' smart constructor.
+-- | /See:/ 'newCreateCustomVerificationEmailTemplateResponse' smart constructor.
 data CreateCustomVerificationEmailTemplateResponse = CreateCustomVerificationEmailTemplateResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateCustomVerificationEmailTemplateResponse' with the minimum fields required to make a request.
-createCustomVerificationEmailTemplateResponse ::
+-- |
+-- Create a value of 'CreateCustomVerificationEmailTemplateResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newCreateCustomVerificationEmailTemplateResponse ::
   CreateCustomVerificationEmailTemplateResponse
-createCustomVerificationEmailTemplateResponse =
+newCreateCustomVerificationEmailTemplateResponse =
   CreateCustomVerificationEmailTemplateResponse'
 
 instance
-  NFData
+  Prelude.NFData
     CreateCustomVerificationEmailTemplateResponse

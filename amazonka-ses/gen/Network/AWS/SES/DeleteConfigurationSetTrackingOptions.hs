@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,154 +21,163 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an association between a configuration set and a custom domain for open and click event tracking.
+-- Deletes an association between a configuration set and a custom domain
+-- for open and click event tracking.
 --
+-- By default, images and links used for tracking open and click events are
+-- hosted on domains operated by Amazon SES. You can configure a subdomain
+-- of your own to handle these events. For information about using custom
+-- domains, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/configure-custom-open-click-domains.html Amazon SES Developer Guide>.
 --
--- By default, images and links used for tracking open and click events are hosted on domains operated by Amazon SES. You can configure a subdomain of your own to handle these events. For information about using custom domains, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/configure-custom-open-click-domains.html Amazon SES Developer Guide> .
+-- Deleting this kind of association will result in emails sent using the
+-- specified configuration set to capture open and click events using the
+-- standard, Amazon SES-operated domains.
 module Network.AWS.SES.DeleteConfigurationSetTrackingOptions
   ( -- * Creating a Request
-    deleteConfigurationSetTrackingOptions,
-    DeleteConfigurationSetTrackingOptions,
+    DeleteConfigurationSetTrackingOptions (..),
+    newDeleteConfigurationSetTrackingOptions,
 
     -- * Request Lenses
-    dcstoConfigurationSetName,
+    deleteConfigurationSetTrackingOptions_configurationSetName,
 
     -- * Destructuring the Response
-    deleteConfigurationSetTrackingOptionsResponse,
-    DeleteConfigurationSetTrackingOptionsResponse,
+    DeleteConfigurationSetTrackingOptionsResponse (..),
+    newDeleteConfigurationSetTrackingOptionsResponse,
 
     -- * Response Lenses
-    dcstorrsResponseStatus,
+    deleteConfigurationSetTrackingOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to delete open and click tracking options in a configuration set.
+-- | Represents a request to delete open and click tracking options in a
+-- configuration set.
 --
---
---
--- /See:/ 'deleteConfigurationSetTrackingOptions' smart constructor.
-newtype DeleteConfigurationSetTrackingOptions = DeleteConfigurationSetTrackingOptions'
-  { _dcstoConfigurationSetName ::
-      Text
+-- /See:/ 'newDeleteConfigurationSetTrackingOptions' smart constructor.
+data DeleteConfigurationSetTrackingOptions = DeleteConfigurationSetTrackingOptions'
+  { -- | The name of the configuration set from which you want to delete the
+    -- tracking options.
+    configurationSetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConfigurationSetTrackingOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConfigurationSetTrackingOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcstoConfigurationSetName' - The name of the configuration set from which you want to delete the tracking options.
-deleteConfigurationSetTrackingOptions ::
-  -- | 'dcstoConfigurationSetName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'configurationSetName', 'deleteConfigurationSetTrackingOptions_configurationSetName' - The name of the configuration set from which you want to delete the
+-- tracking options.
+newDeleteConfigurationSetTrackingOptions ::
+  -- | 'configurationSetName'
+  Prelude.Text ->
   DeleteConfigurationSetTrackingOptions
-deleteConfigurationSetTrackingOptions
+newDeleteConfigurationSetTrackingOptions
   pConfigurationSetName_ =
     DeleteConfigurationSetTrackingOptions'
-      { _dcstoConfigurationSetName =
+      { configurationSetName =
           pConfigurationSetName_
       }
 
--- | The name of the configuration set from which you want to delete the tracking options.
-dcstoConfigurationSetName :: Lens' DeleteConfigurationSetTrackingOptions Text
-dcstoConfigurationSetName = lens _dcstoConfigurationSetName (\s a -> s {_dcstoConfigurationSetName = a})
+-- | The name of the configuration set from which you want to delete the
+-- tracking options.
+deleteConfigurationSetTrackingOptions_configurationSetName :: Lens.Lens' DeleteConfigurationSetTrackingOptions Prelude.Text
+deleteConfigurationSetTrackingOptions_configurationSetName = Lens.lens (\DeleteConfigurationSetTrackingOptions' {configurationSetName} -> configurationSetName) (\s@DeleteConfigurationSetTrackingOptions' {} a -> s {configurationSetName = a} :: DeleteConfigurationSetTrackingOptions)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     DeleteConfigurationSetTrackingOptions
   where
   type
     Rs DeleteConfigurationSetTrackingOptions =
       DeleteConfigurationSetTrackingOptionsResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DeleteConfigurationSetTrackingOptionsResult"
       ( \s h x ->
           DeleteConfigurationSetTrackingOptionsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     DeleteConfigurationSetTrackingOptions
 
-instance NFData DeleteConfigurationSetTrackingOptions
+instance
+  Prelude.NFData
+    DeleteConfigurationSetTrackingOptions
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     DeleteConfigurationSetTrackingOptions
   where
-  toHeaders = const mempty
-
-instance ToPath DeleteConfigurationSetTrackingOptions where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    DeleteConfigurationSetTrackingOptions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     DeleteConfigurationSetTrackingOptions
   where
   toQuery DeleteConfigurationSetTrackingOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "DeleteConfigurationSetTrackingOptions" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "ConfigurationSetName" =: _dcstoConfigurationSetName
+          Prelude.=: ( "DeleteConfigurationSetTrackingOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName"
+          Prelude.=: configurationSetName
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'deleteConfigurationSetTrackingOptionsResponse' smart constructor.
-newtype DeleteConfigurationSetTrackingOptionsResponse = DeleteConfigurationSetTrackingOptionsResponse'
-  { _dcstorrsResponseStatus ::
-      Int
+-- /See:/ 'newDeleteConfigurationSetTrackingOptionsResponse' smart constructor.
+data DeleteConfigurationSetTrackingOptionsResponse = DeleteConfigurationSetTrackingOptionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteConfigurationSetTrackingOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteConfigurationSetTrackingOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcstorrsResponseStatus' - -- | The response status code.
-deleteConfigurationSetTrackingOptionsResponse ::
-  -- | 'dcstorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'deleteConfigurationSetTrackingOptionsResponse_httpStatus' - The response's http status code.
+newDeleteConfigurationSetTrackingOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DeleteConfigurationSetTrackingOptionsResponse
-deleteConfigurationSetTrackingOptionsResponse
-  pResponseStatus_ =
+newDeleteConfigurationSetTrackingOptionsResponse
+  pHttpStatus_ =
     DeleteConfigurationSetTrackingOptionsResponse'
-      { _dcstorrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-dcstorrsResponseStatus :: Lens' DeleteConfigurationSetTrackingOptionsResponse Int
-dcstorrsResponseStatus = lens _dcstorrsResponseStatus (\s a -> s {_dcstorrsResponseStatus = a})
+-- | The response's http status code.
+deleteConfigurationSetTrackingOptionsResponse_httpStatus :: Lens.Lens' DeleteConfigurationSetTrackingOptionsResponse Prelude.Int
+deleteConfigurationSetTrackingOptionsResponse_httpStatus = Lens.lens (\DeleteConfigurationSetTrackingOptionsResponse' {httpStatus} -> httpStatus) (\s@DeleteConfigurationSetTrackingOptionsResponse' {} a -> s {httpStatus = a} :: DeleteConfigurationSetTrackingOptionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     DeleteConfigurationSetTrackingOptionsResponse

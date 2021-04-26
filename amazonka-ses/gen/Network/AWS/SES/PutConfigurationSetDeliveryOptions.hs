@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -20,152 +24,164 @@
 -- Adds or updates the delivery options for a configuration set.
 module Network.AWS.SES.PutConfigurationSetDeliveryOptions
   ( -- * Creating a Request
-    putConfigurationSetDeliveryOptions,
-    PutConfigurationSetDeliveryOptions,
+    PutConfigurationSetDeliveryOptions (..),
+    newPutConfigurationSetDeliveryOptions,
 
     -- * Request Lenses
-    pcsdoDeliveryOptions,
-    pcsdoConfigurationSetName,
+    putConfigurationSetDeliveryOptions_deliveryOptions,
+    putConfigurationSetDeliveryOptions_configurationSetName,
 
     -- * Destructuring the Response
-    putConfigurationSetDeliveryOptionsResponse,
-    PutConfigurationSetDeliveryOptionsResponse,
+    PutConfigurationSetDeliveryOptionsResponse (..),
+    newPutConfigurationSetDeliveryOptionsResponse,
 
     -- * Response Lenses
-    pcsdorrsResponseStatus,
+    putConfigurationSetDeliveryOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
 -- | A request to modify the delivery options for a configuration set.
 --
---
---
--- /See:/ 'putConfigurationSetDeliveryOptions' smart constructor.
+-- /See:/ 'newPutConfigurationSetDeliveryOptions' smart constructor.
 data PutConfigurationSetDeliveryOptions = PutConfigurationSetDeliveryOptions'
-  { _pcsdoDeliveryOptions ::
-      !( Maybe
-           DeliveryOptions
-       ),
-    _pcsdoConfigurationSetName ::
-      !Text
+  { -- | Specifies whether messages that use the configuration set are required
+    -- to use Transport Layer Security (TLS).
+    deliveryOptions :: Prelude.Maybe DeliveryOptions,
+    -- | The name of the configuration set that you want to specify the delivery
+    -- options for.
+    configurationSetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'PutConfigurationSetDeliveryOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'PutConfigurationSetDeliveryOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'pcsdoDeliveryOptions' - Specifies whether messages that use the configuration set are required to use Transport Layer Security (TLS).
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'pcsdoConfigurationSetName' - The name of the configuration set that you want to specify the delivery options for.
-putConfigurationSetDeliveryOptions ::
-  -- | 'pcsdoConfigurationSetName'
-  Text ->
+-- 'deliveryOptions', 'putConfigurationSetDeliveryOptions_deliveryOptions' - Specifies whether messages that use the configuration set are required
+-- to use Transport Layer Security (TLS).
+--
+-- 'configurationSetName', 'putConfigurationSetDeliveryOptions_configurationSetName' - The name of the configuration set that you want to specify the delivery
+-- options for.
+newPutConfigurationSetDeliveryOptions ::
+  -- | 'configurationSetName'
+  Prelude.Text ->
   PutConfigurationSetDeliveryOptions
-putConfigurationSetDeliveryOptions
+newPutConfigurationSetDeliveryOptions
   pConfigurationSetName_ =
     PutConfigurationSetDeliveryOptions'
-      { _pcsdoDeliveryOptions =
-          Nothing,
-        _pcsdoConfigurationSetName =
+      { deliveryOptions =
+          Prelude.Nothing,
+        configurationSetName =
           pConfigurationSetName_
       }
 
--- | Specifies whether messages that use the configuration set are required to use Transport Layer Security (TLS).
-pcsdoDeliveryOptions :: Lens' PutConfigurationSetDeliveryOptions (Maybe DeliveryOptions)
-pcsdoDeliveryOptions = lens _pcsdoDeliveryOptions (\s a -> s {_pcsdoDeliveryOptions = a})
+-- | Specifies whether messages that use the configuration set are required
+-- to use Transport Layer Security (TLS).
+putConfigurationSetDeliveryOptions_deliveryOptions :: Lens.Lens' PutConfigurationSetDeliveryOptions (Prelude.Maybe DeliveryOptions)
+putConfigurationSetDeliveryOptions_deliveryOptions = Lens.lens (\PutConfigurationSetDeliveryOptions' {deliveryOptions} -> deliveryOptions) (\s@PutConfigurationSetDeliveryOptions' {} a -> s {deliveryOptions = a} :: PutConfigurationSetDeliveryOptions)
 
--- | The name of the configuration set that you want to specify the delivery options for.
-pcsdoConfigurationSetName :: Lens' PutConfigurationSetDeliveryOptions Text
-pcsdoConfigurationSetName = lens _pcsdoConfigurationSetName (\s a -> s {_pcsdoConfigurationSetName = a})
+-- | The name of the configuration set that you want to specify the delivery
+-- options for.
+putConfigurationSetDeliveryOptions_configurationSetName :: Lens.Lens' PutConfigurationSetDeliveryOptions Prelude.Text
+putConfigurationSetDeliveryOptions_configurationSetName = Lens.lens (\PutConfigurationSetDeliveryOptions' {configurationSetName} -> configurationSetName) (\s@PutConfigurationSetDeliveryOptions' {} a -> s {configurationSetName = a} :: PutConfigurationSetDeliveryOptions)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     PutConfigurationSetDeliveryOptions
   where
   type
     Rs PutConfigurationSetDeliveryOptions =
       PutConfigurationSetDeliveryOptionsResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "PutConfigurationSetDeliveryOptionsResult"
       ( \s h x ->
           PutConfigurationSetDeliveryOptionsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable PutConfigurationSetDeliveryOptions
-
-instance NFData PutConfigurationSetDeliveryOptions
-
-instance ToHeaders PutConfigurationSetDeliveryOptions where
-  toHeaders = const mempty
-
-instance ToPath PutConfigurationSetDeliveryOptions where
-  toPath = const "/"
-
-instance ToQuery PutConfigurationSetDeliveryOptions where
-  toQuery PutConfigurationSetDeliveryOptions' {..} =
-    mconcat
-      [ "Action"
-          =: ("PutConfigurationSetDeliveryOptions" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "DeliveryOptions" =: _pcsdoDeliveryOptions,
-        "ConfigurationSetName" =: _pcsdoConfigurationSetName
-      ]
-
--- | An HTTP 200 response if the request succeeds, or an error message if the request fails.
---
---
---
--- /See:/ 'putConfigurationSetDeliveryOptionsResponse' smart constructor.
-newtype PutConfigurationSetDeliveryOptionsResponse = PutConfigurationSetDeliveryOptionsResponse'
-  { _pcsdorrsResponseStatus ::
-      Int
-  }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
-
--- | Creates a value of 'PutConfigurationSetDeliveryOptionsResponse' with the minimum fields required to make a request.
---
--- Use one of the following lenses to modify other fields as desired:
---
--- * 'pcsdorrsResponseStatus' - -- | The response status code.
-putConfigurationSetDeliveryOptionsResponse ::
-  -- | 'pcsdorrsResponseStatus'
-  Int ->
-  PutConfigurationSetDeliveryOptionsResponse
-putConfigurationSetDeliveryOptionsResponse
-  pResponseStatus_ =
-    PutConfigurationSetDeliveryOptionsResponse'
-      { _pcsdorrsResponseStatus =
-          pResponseStatus_
-      }
-
--- | -- | The response status code.
-pcsdorrsResponseStatus :: Lens' PutConfigurationSetDeliveryOptionsResponse Int
-pcsdorrsResponseStatus = lens _pcsdorrsResponseStatus (\s a -> s {_pcsdorrsResponseStatus = a})
+instance
+  Prelude.Hashable
+    PutConfigurationSetDeliveryOptions
 
 instance
-  NFData
+  Prelude.NFData
+    PutConfigurationSetDeliveryOptions
+
+instance
+  Prelude.ToHeaders
+    PutConfigurationSetDeliveryOptions
+  where
+  toHeaders = Prelude.const Prelude.mempty
+
+instance
+  Prelude.ToPath
+    PutConfigurationSetDeliveryOptions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
+    PutConfigurationSetDeliveryOptions
+  where
+  toQuery PutConfigurationSetDeliveryOptions' {..} =
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ( "PutConfigurationSetDeliveryOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "DeliveryOptions" Prelude.=: deliveryOptions,
+        "ConfigurationSetName"
+          Prelude.=: configurationSetName
+      ]
+
+-- | An HTTP 200 response if the request succeeds, or an error message if the
+-- request fails.
+--
+-- /See:/ 'newPutConfigurationSetDeliveryOptionsResponse' smart constructor.
+data PutConfigurationSetDeliveryOptionsResponse = PutConfigurationSetDeliveryOptionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
+
+-- |
+-- Create a value of 'PutConfigurationSetDeliveryOptionsResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+--
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'putConfigurationSetDeliveryOptionsResponse_httpStatus' - The response's http status code.
+newPutConfigurationSetDeliveryOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  PutConfigurationSetDeliveryOptionsResponse
+newPutConfigurationSetDeliveryOptionsResponse
+  pHttpStatus_ =
+    PutConfigurationSetDeliveryOptionsResponse'
+      { httpStatus =
+          pHttpStatus_
+      }
+
+-- | The response's http status code.
+putConfigurationSetDeliveryOptionsResponse_httpStatus :: Lens.Lens' PutConfigurationSetDeliveryOptionsResponse Prelude.Int
+putConfigurationSetDeliveryOptionsResponse_httpStatus = Lens.lens (\PutConfigurationSetDeliveryOptionsResponse' {httpStatus} -> httpStatus) (\s@PutConfigurationSetDeliveryOptionsResponse' {} a -> s {httpStatus = a} :: PutConfigurationSetDeliveryOptionsResponse)
+
+instance
+  Prelude.NFData
     PutConfigurationSetDeliveryOptionsResponse

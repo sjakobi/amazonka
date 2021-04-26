@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,59 +19,80 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.StopAction where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SES.Types.StopScope
 
--- | When included in a receipt rule, this action terminates the evaluation of the receipt rule set and, optionally, publishes a notification to Amazon Simple Notification Service (Amazon SNS).
+-- | When included in a receipt rule, this action terminates the evaluation
+-- of the receipt rule set and, optionally, publishes a notification to
+-- Amazon Simple Notification Service (Amazon SNS).
 --
+-- For information about setting a stop action in a receipt rule, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-stop.html Amazon SES Developer Guide>.
 --
--- For information about setting a stop action in a receipt rule, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-action-stop.html Amazon SES Developer Guide> .
---
---
--- /See:/ 'stopAction' smart constructor.
+-- /See:/ 'newStopAction' smart constructor.
 data StopAction = StopAction'
-  { _saTopicARN ::
-      !(Maybe Text),
-    _saScope :: !StopScope
+  { -- | The Amazon Resource Name (ARN) of the Amazon SNS topic to notify when
+    -- the stop action is taken. An example of an Amazon SNS topic ARN is
+    -- @arn:aws:sns:us-west-2:123456789012:MyTopic@. For more information about
+    -- Amazon SNS topics, see the
+    -- <https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html Amazon SNS Developer Guide>.
+    topicArn :: Prelude.Maybe Prelude.Text,
+    -- | The scope of the StopAction. The only acceptable value is @RuleSet@.
+    scope :: StopScope
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'StopAction' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'StopAction' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'saTopicARN' - The Amazon Resource Name (ARN) of the Amazon SNS topic to notify when the stop action is taken. An example of an Amazon SNS topic ARN is @arn:aws:sns:us-west-2:123456789012:MyTopic@ . For more information about Amazon SNS topics, see the <https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html Amazon SNS Developer Guide> .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'saScope' - The scope of the StopAction. The only acceptable value is @RuleSet@ .
-stopAction ::
-  -- | 'saScope'
+-- 'topicArn', 'stopAction_topicArn' - The Amazon Resource Name (ARN) of the Amazon SNS topic to notify when
+-- the stop action is taken. An example of an Amazon SNS topic ARN is
+-- @arn:aws:sns:us-west-2:123456789012:MyTopic@. For more information about
+-- Amazon SNS topics, see the
+-- <https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html Amazon SNS Developer Guide>.
+--
+-- 'scope', 'stopAction_scope' - The scope of the StopAction. The only acceptable value is @RuleSet@.
+newStopAction ::
+  -- | 'scope'
   StopScope ->
   StopAction
-stopAction pScope_ =
+newStopAction pScope_ =
   StopAction'
-    { _saTopicARN = Nothing,
-      _saScope = pScope_
+    { topicArn = Prelude.Nothing,
+      scope = pScope_
     }
 
--- | The Amazon Resource Name (ARN) of the Amazon SNS topic to notify when the stop action is taken. An example of an Amazon SNS topic ARN is @arn:aws:sns:us-west-2:123456789012:MyTopic@ . For more information about Amazon SNS topics, see the <https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html Amazon SNS Developer Guide> .
-saTopicARN :: Lens' StopAction (Maybe Text)
-saTopicARN = lens _saTopicARN (\s a -> s {_saTopicARN = a})
+-- | The Amazon Resource Name (ARN) of the Amazon SNS topic to notify when
+-- the stop action is taken. An example of an Amazon SNS topic ARN is
+-- @arn:aws:sns:us-west-2:123456789012:MyTopic@. For more information about
+-- Amazon SNS topics, see the
+-- <https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html Amazon SNS Developer Guide>.
+stopAction_topicArn :: Lens.Lens' StopAction (Prelude.Maybe Prelude.Text)
+stopAction_topicArn = Lens.lens (\StopAction' {topicArn} -> topicArn) (\s@StopAction' {} a -> s {topicArn = a} :: StopAction)
 
--- | The scope of the StopAction. The only acceptable value is @RuleSet@ .
-saScope :: Lens' StopAction StopScope
-saScope = lens _saScope (\s a -> s {_saScope = a})
+-- | The scope of the StopAction. The only acceptable value is @RuleSet@.
+stopAction_scope :: Lens.Lens' StopAction StopScope
+stopAction_scope = Lens.lens (\StopAction' {scope} -> scope) (\s@StopAction' {} a -> s {scope = a} :: StopAction)
 
-instance FromXML StopAction where
+instance Prelude.FromXML StopAction where
   parseXML x =
     StopAction'
-      <$> (x .@? "TopicArn") <*> (x .@ "Scope")
+      Prelude.<$> (x Prelude..@? "TopicArn")
+      Prelude.<*> (x Prelude..@ "Scope")
 
-instance Hashable StopAction
+instance Prelude.Hashable StopAction
 
-instance NFData StopAction
+instance Prelude.NFData StopAction
 
-instance ToQuery StopAction where
+instance Prelude.ToQuery StopAction where
   toQuery StopAction' {..} =
-    mconcat
-      ["TopicArn" =: _saTopicARN, "Scope" =: _saScope]
+    Prelude.mconcat
+      [ "TopicArn" Prelude.=: topicArn,
+        "Scope" Prelude.=: scope
+      ]

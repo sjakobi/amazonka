@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,119 +21,124 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides sending statistics for the current AWS Region. The result is a list of data points, representing the last two weeks of sending activity. Each data point in the list contains statistics for a 15-minute period of time.
---
+-- Provides sending statistics for the current AWS Region. The result is a
+-- list of data points, representing the last two weeks of sending
+-- activity. Each data point in the list contains statistics for a
+-- 15-minute period of time.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.GetSendStatistics
   ( -- * Creating a Request
-    getSendStatistics,
-    GetSendStatistics,
+    GetSendStatistics (..),
+    newGetSendStatistics,
 
     -- * Destructuring the Response
-    getSendStatisticsResponse,
-    GetSendStatisticsResponse,
+    GetSendStatisticsResponse (..),
+    newGetSendStatisticsResponse,
 
     -- * Response Lenses
-    gssrrsSendDataPoints,
-    gssrrsResponseStatus,
+    getSendStatisticsResponse_sendDataPoints,
+    getSendStatisticsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
+import Network.AWS.SES.Types.SendDataPoint
 
--- | /See:/ 'getSendStatistics' smart constructor.
+-- | /See:/ 'newGetSendStatistics' smart constructor.
 data GetSendStatistics = GetSendStatistics'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSendStatistics' with the minimum fields required to make a request.
-getSendStatistics ::
+-- |
+-- Create a value of 'GetSendStatistics' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetSendStatistics ::
   GetSendStatistics
-getSendStatistics = GetSendStatistics'
+newGetSendStatistics = GetSendStatistics'
 
-instance AWSRequest GetSendStatistics where
+instance Prelude.AWSRequest GetSendStatistics where
   type Rs GetSendStatistics = GetSendStatisticsResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetSendStatisticsResult"
       ( \s h x ->
           GetSendStatisticsResponse'
-            <$> ( x .@? "SendDataPoints" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "SendDataPoints"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSendStatistics
+instance Prelude.Hashable GetSendStatistics
 
-instance NFData GetSendStatistics
+instance Prelude.NFData GetSendStatistics
 
-instance ToHeaders GetSendStatistics where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetSendStatistics where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetSendStatistics where
-  toPath = const "/"
+instance Prelude.ToPath GetSendStatistics where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSendStatistics where
+instance Prelude.ToQuery GetSendStatistics where
   toQuery =
-    const
-      ( mconcat
-          [ "Action" =: ("GetSendStatistics" :: ByteString),
-            "Version" =: ("2010-12-01" :: ByteString)
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Action"
+              Prelude.=: ("GetSendStatistics" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-12-01" :: Prelude.ByteString)
           ]
       )
 
--- | Represents a list of data points. This list contains aggregated data from the previous two weeks of your sending activity with Amazon SES.
+-- | Represents a list of data points. This list contains aggregated data
+-- from the previous two weeks of your sending activity with Amazon SES.
 --
---
---
--- /See:/ 'getSendStatisticsResponse' smart constructor.
+-- /See:/ 'newGetSendStatisticsResponse' smart constructor.
 data GetSendStatisticsResponse = GetSendStatisticsResponse'
-  { _gssrrsSendDataPoints ::
-      !( Maybe
-           [SendDataPoint]
-       ),
-    _gssrrsResponseStatus ::
-      !Int
+  { -- | A list of data points, each of which represents 15 minutes of activity.
+    sendDataPoints :: Prelude.Maybe [SendDataPoint],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSendStatisticsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSendStatisticsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gssrrsSendDataPoints' - A list of data points, each of which represents 15 minutes of activity.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gssrrsResponseStatus' - -- | The response status code.
-getSendStatisticsResponse ::
-  -- | 'gssrrsResponseStatus'
-  Int ->
+-- 'sendDataPoints', 'getSendStatisticsResponse_sendDataPoints' - A list of data points, each of which represents 15 minutes of activity.
+--
+-- 'httpStatus', 'getSendStatisticsResponse_httpStatus' - The response's http status code.
+newGetSendStatisticsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSendStatisticsResponse
-getSendStatisticsResponse pResponseStatus_ =
+newGetSendStatisticsResponse pHttpStatus_ =
   GetSendStatisticsResponse'
-    { _gssrrsSendDataPoints =
-        Nothing,
-      _gssrrsResponseStatus = pResponseStatus_
+    { sendDataPoints =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of data points, each of which represents 15 minutes of activity.
-gssrrsSendDataPoints :: Lens' GetSendStatisticsResponse [SendDataPoint]
-gssrrsSendDataPoints = lens _gssrrsSendDataPoints (\s a -> s {_gssrrsSendDataPoints = a}) . _Default . _Coerce
+getSendStatisticsResponse_sendDataPoints :: Lens.Lens' GetSendStatisticsResponse (Prelude.Maybe [SendDataPoint])
+getSendStatisticsResponse_sendDataPoints = Lens.lens (\GetSendStatisticsResponse' {sendDataPoints} -> sendDataPoints) (\s@GetSendStatisticsResponse' {} a -> s {sendDataPoints = a} :: GetSendStatisticsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-gssrrsResponseStatus :: Lens' GetSendStatisticsResponse Int
-gssrrsResponseStatus = lens _gssrrsResponseStatus (\s a -> s {_gssrrsResponseStatus = a})
+-- | The response's http status code.
+getSendStatisticsResponse_httpStatus :: Lens.Lens' GetSendStatisticsResponse Prelude.Int
+getSendStatisticsResponse_httpStatus = Lens.lens (\GetSendStatisticsResponse' {httpStatus} -> httpStatus) (\s@GetSendStatisticsResponse' {} a -> s {httpStatus = a} :: GetSendStatisticsResponse)
 
-instance NFData GetSendStatisticsResponse
+instance Prelude.NFData GetSendStatisticsResponse

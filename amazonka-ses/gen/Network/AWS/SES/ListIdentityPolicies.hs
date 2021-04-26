@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of sending authorization policies that are attached to the given identity (an email address or a domain). This API returns only a list. If you want the actual policy content, you can use @GetIdentityPolicies@ .
+-- Returns a list of sending authorization policies that are attached to
+-- the given identity (an email address or a domain). This API returns only
+-- a list. If you want the actual policy content, you can use
+-- @GetIdentityPolicies@.
 --
+-- This API is for the identity owner only. If you have not verified the
+-- identity, this API will return an error.
 --
--- Sending authorization is a feature that enables an identity owner to authorize other senders to use its identities. For information about using sending authorization, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide> .
+-- Sending authorization is a feature that enables an identity owner to
+-- authorize other senders to use its identities. For information about
+-- using sending authorization, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.ListIdentityPolicies
   ( -- * Creating a Request
-    listIdentityPolicies,
-    ListIdentityPolicies,
+    ListIdentityPolicies (..),
+    newListIdentityPolicies,
 
     -- * Request Lenses
-    lipIdentity,
+    listIdentityPolicies_identity,
 
     -- * Destructuring the Response
-    listIdentityPoliciesResponse,
-    ListIdentityPoliciesResponse,
+    ListIdentityPoliciesResponse (..),
+    newListIdentityPoliciesResponse,
 
     -- * Response Lenses
-    liprrsResponseStatus,
-    liprrsPolicyNames,
+    listIdentityPoliciesResponse_httpStatus,
+    listIdentityPoliciesResponse_policyNames,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to return a list of sending authorization policies that are attached to an identity. Sending authorization is an Amazon SES feature that enables you to authorize other senders to use your identities. For information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide> .
+-- | Represents a request to return a list of sending authorization policies
+-- that are attached to an identity. Sending authorization is an Amazon SES
+-- feature that enables you to authorize other senders to use your
+-- identities. For information, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'listIdentityPolicies' smart constructor.
-newtype ListIdentityPolicies = ListIdentityPolicies'
-  { _lipIdentity ::
-      Text
+-- /See:/ 'newListIdentityPolicies' smart constructor.
+data ListIdentityPolicies = ListIdentityPolicies'
+  { -- | The identity that is associated with the policy for which the policies
+    -- will be listed. You can specify an identity by using its name or by
+    -- using its Amazon Resource Name (ARN). Examples: @user\@example.com@,
+    -- @example.com@,
+    -- @arn:aws:ses:us-east-1:123456789012:identity\/example.com@.
+    --
+    -- To successfully call this API, you must own the identity.
+    identity :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListIdentityPolicies' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListIdentityPolicies' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lipIdentity' - The identity that is associated with the policy for which the policies will be listed. You can specify an identity by using its name or by using its Amazon Resource Name (ARN). Examples: @user@example.com@ , @example.com@ , @arn:aws:ses:us-east-1:123456789012:identity/example.com@ . To successfully call this API, you must own the identity.
-listIdentityPolicies ::
-  -- | 'lipIdentity'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'identity', 'listIdentityPolicies_identity' - The identity that is associated with the policy for which the policies
+-- will be listed. You can specify an identity by using its name or by
+-- using its Amazon Resource Name (ARN). Examples: @user\@example.com@,
+-- @example.com@,
+-- @arn:aws:ses:us-east-1:123456789012:identity\/example.com@.
+--
+-- To successfully call this API, you must own the identity.
+newListIdentityPolicies ::
+  -- | 'identity'
+  Prelude.Text ->
   ListIdentityPolicies
-listIdentityPolicies pIdentity_ =
-  ListIdentityPolicies' {_lipIdentity = pIdentity_}
+newListIdentityPolicies pIdentity_ =
+  ListIdentityPolicies' {identity = pIdentity_}
 
--- | The identity that is associated with the policy for which the policies will be listed. You can specify an identity by using its name or by using its Amazon Resource Name (ARN). Examples: @user@example.com@ , @example.com@ , @arn:aws:ses:us-east-1:123456789012:identity/example.com@ . To successfully call this API, you must own the identity.
-lipIdentity :: Lens' ListIdentityPolicies Text
-lipIdentity = lens _lipIdentity (\s a -> s {_lipIdentity = a})
+-- | The identity that is associated with the policy for which the policies
+-- will be listed. You can specify an identity by using its name or by
+-- using its Amazon Resource Name (ARN). Examples: @user\@example.com@,
+-- @example.com@,
+-- @arn:aws:ses:us-east-1:123456789012:identity\/example.com@.
+--
+-- To successfully call this API, you must own the identity.
+listIdentityPolicies_identity :: Lens.Lens' ListIdentityPolicies Prelude.Text
+listIdentityPolicies_identity = Lens.lens (\ListIdentityPolicies' {identity} -> identity) (\s@ListIdentityPolicies' {} a -> s {identity = a} :: ListIdentityPolicies)
 
-instance AWSRequest ListIdentityPolicies where
+instance Prelude.AWSRequest ListIdentityPolicies where
   type
     Rs ListIdentityPolicies =
       ListIdentityPoliciesResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListIdentityPoliciesResult"
       ( \s h x ->
           ListIdentityPoliciesResponse'
-            <$> (pure (fromEnum s))
-            <*> ( x .@? "PolicyNames" .!@ mempty
-                    >>= parseXMLList "member"
-                )
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Prelude..@? "PolicyNames"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.parseXMLList "member"
+                        )
       )
 
-instance Hashable ListIdentityPolicies
+instance Prelude.Hashable ListIdentityPolicies
 
-instance NFData ListIdentityPolicies
+instance Prelude.NFData ListIdentityPolicies
 
-instance ToHeaders ListIdentityPolicies where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListIdentityPolicies where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListIdentityPolicies where
-  toPath = const "/"
+instance Prelude.ToPath ListIdentityPolicies where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListIdentityPolicies where
+instance Prelude.ToQuery ListIdentityPolicies where
   toQuery ListIdentityPolicies' {..} =
-    mconcat
-      [ "Action" =: ("ListIdentityPolicies" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Identity" =: _lipIdentity
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListIdentityPolicies" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Identity" Prelude.=: identity
       ]
 
--- | A list of names of sending authorization policies that apply to an identity.
+-- | A list of names of sending authorization policies that apply to an
+-- identity.
 --
---
---
--- /See:/ 'listIdentityPoliciesResponse' smart constructor.
+-- /See:/ 'newListIdentityPoliciesResponse' smart constructor.
 data ListIdentityPoliciesResponse = ListIdentityPoliciesResponse'
-  { _liprrsResponseStatus ::
-      !Int,
-    _liprrsPolicyNames ::
-      ![Text]
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A list of names of policies that apply to the specified identity.
+    policyNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListIdentityPoliciesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListIdentityPoliciesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'liprrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'liprrsPolicyNames' - A list of names of policies that apply to the specified identity.
-listIdentityPoliciesResponse ::
-  -- | 'liprrsResponseStatus'
-  Int ->
+-- 'httpStatus', 'listIdentityPoliciesResponse_httpStatus' - The response's http status code.
+--
+-- 'policyNames', 'listIdentityPoliciesResponse_policyNames' - A list of names of policies that apply to the specified identity.
+newListIdentityPoliciesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListIdentityPoliciesResponse
-listIdentityPoliciesResponse pResponseStatus_ =
+newListIdentityPoliciesResponse pHttpStatus_ =
   ListIdentityPoliciesResponse'
-    { _liprrsResponseStatus =
-        pResponseStatus_,
-      _liprrsPolicyNames = mempty
+    { httpStatus =
+        pHttpStatus_,
+      policyNames = Prelude.mempty
     }
 
--- | -- | The response status code.
-liprrsResponseStatus :: Lens' ListIdentityPoliciesResponse Int
-liprrsResponseStatus = lens _liprrsResponseStatus (\s a -> s {_liprrsResponseStatus = a})
+-- | The response's http status code.
+listIdentityPoliciesResponse_httpStatus :: Lens.Lens' ListIdentityPoliciesResponse Prelude.Int
+listIdentityPoliciesResponse_httpStatus = Lens.lens (\ListIdentityPoliciesResponse' {httpStatus} -> httpStatus) (\s@ListIdentityPoliciesResponse' {} a -> s {httpStatus = a} :: ListIdentityPoliciesResponse)
 
 -- | A list of names of policies that apply to the specified identity.
-liprrsPolicyNames :: Lens' ListIdentityPoliciesResponse [Text]
-liprrsPolicyNames = lens _liprrsPolicyNames (\s a -> s {_liprrsPolicyNames = a}) . _Coerce
+listIdentityPoliciesResponse_policyNames :: Lens.Lens' ListIdentityPoliciesResponse [Prelude.Text]
+listIdentityPoliciesResponse_policyNames = Lens.lens (\ListIdentityPoliciesResponse' {policyNames} -> policyNames) (\s@ListIdentityPoliciesResponse' {} a -> s {policyNames = a} :: ListIdentityPoliciesResponse) Prelude.. Prelude._Coerce
 
-instance NFData ListIdentityPoliciesResponse
+instance Prelude.NFData ListIdentityPoliciesResponse

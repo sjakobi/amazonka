@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,127 +23,152 @@
 --
 -- Provides the sending limits for the Amazon SES account.
 --
---
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.GetSendQuota
   ( -- * Creating a Request
-    getSendQuota,
-    GetSendQuota,
+    GetSendQuota (..),
+    newGetSendQuota,
 
     -- * Destructuring the Response
-    getSendQuotaResponse,
-    GetSendQuotaResponse,
+    GetSendQuotaResponse (..),
+    newGetSendQuotaResponse,
 
     -- * Response Lenses
-    gsqrrsMax24HourSend,
-    gsqrrsSentLast24Hours,
-    gsqrrsMaxSendRate,
-    gsqrrsResponseStatus,
+    getSendQuotaResponse_max24HourSend,
+    getSendQuotaResponse_sentLast24Hours,
+    getSendQuotaResponse_maxSendRate,
+    getSendQuotaResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | /See:/ 'getSendQuota' smart constructor.
+-- | /See:/ 'newGetSendQuota' smart constructor.
 data GetSendQuota = GetSendQuota'
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSendQuota' with the minimum fields required to make a request.
-getSendQuota ::
+-- |
+-- Create a value of 'GetSendQuota' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newGetSendQuota ::
   GetSendQuota
-getSendQuota = GetSendQuota'
+newGetSendQuota = GetSendQuota'
 
-instance AWSRequest GetSendQuota where
+instance Prelude.AWSRequest GetSendQuota where
   type Rs GetSendQuota = GetSendQuotaResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "GetSendQuotaResult"
       ( \s h x ->
           GetSendQuotaResponse'
-            <$> (x .@? "Max24HourSend")
-            <*> (x .@? "SentLast24Hours")
-            <*> (x .@? "MaxSendRate")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "Max24HourSend")
+            Prelude.<*> (x Prelude..@? "SentLast24Hours")
+            Prelude.<*> (x Prelude..@? "MaxSendRate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable GetSendQuota
+instance Prelude.Hashable GetSendQuota
 
-instance NFData GetSendQuota
+instance Prelude.NFData GetSendQuota
 
-instance ToHeaders GetSendQuota where
-  toHeaders = const mempty
+instance Prelude.ToHeaders GetSendQuota where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath GetSendQuota where
-  toPath = const "/"
+instance Prelude.ToPath GetSendQuota where
+  toPath = Prelude.const "/"
 
-instance ToQuery GetSendQuota where
+instance Prelude.ToQuery GetSendQuota where
   toQuery =
-    const
-      ( mconcat
-          [ "Action" =: ("GetSendQuota" :: ByteString),
-            "Version" =: ("2010-12-01" :: ByteString)
+    Prelude.const
+      ( Prelude.mconcat
+          [ "Action"
+              Prelude.=: ("GetSendQuota" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-12-01" :: Prelude.ByteString)
           ]
       )
 
--- | Represents your Amazon SES daily sending quota, maximum send rate, and the number of emails you have sent in the last 24 hours.
+-- | Represents your Amazon SES daily sending quota, maximum send rate, and
+-- the number of emails you have sent in the last 24 hours.
 --
---
---
--- /See:/ 'getSendQuotaResponse' smart constructor.
+-- /See:/ 'newGetSendQuotaResponse' smart constructor.
 data GetSendQuotaResponse = GetSendQuotaResponse'
-  { _gsqrrsMax24HourSend ::
-      !(Maybe Double),
-    _gsqrrsSentLast24Hours ::
-      !(Maybe Double),
-    _gsqrrsMaxSendRate ::
-      !(Maybe Double),
-    _gsqrrsResponseStatus :: !Int
+  { -- | The maximum number of emails the user is allowed to send in a 24-hour
+    -- interval. A value of -1 signifies an unlimited quota.
+    max24HourSend :: Prelude.Maybe Prelude.Double,
+    -- | The number of emails sent during the previous 24 hours.
+    sentLast24Hours :: Prelude.Maybe Prelude.Double,
+    -- | The maximum number of emails that Amazon SES can accept from the user\'s
+    -- account per second.
+    --
+    -- The rate at which Amazon SES accepts the user\'s messages might be less
+    -- than the maximum send rate.
+    maxSendRate :: Prelude.Maybe Prelude.Double,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'GetSendQuotaResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'GetSendQuotaResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'gsqrrsMax24HourSend' - The maximum number of emails the user is allowed to send in a 24-hour interval. A value of -1 signifies an unlimited quota.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'gsqrrsSentLast24Hours' - The number of emails sent during the previous 24 hours.
+-- 'max24HourSend', 'getSendQuotaResponse_max24HourSend' - The maximum number of emails the user is allowed to send in a 24-hour
+-- interval. A value of -1 signifies an unlimited quota.
 --
--- * 'gsqrrsMaxSendRate' - The maximum number of emails that Amazon SES can accept from the user's account per second.
+-- 'sentLast24Hours', 'getSendQuotaResponse_sentLast24Hours' - The number of emails sent during the previous 24 hours.
 --
--- * 'gsqrrsResponseStatus' - -- | The response status code.
-getSendQuotaResponse ::
-  -- | 'gsqrrsResponseStatus'
-  Int ->
+-- 'maxSendRate', 'getSendQuotaResponse_maxSendRate' - The maximum number of emails that Amazon SES can accept from the user\'s
+-- account per second.
+--
+-- The rate at which Amazon SES accepts the user\'s messages might be less
+-- than the maximum send rate.
+--
+-- 'httpStatus', 'getSendQuotaResponse_httpStatus' - The response's http status code.
+newGetSendQuotaResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   GetSendQuotaResponse
-getSendQuotaResponse pResponseStatus_ =
+newGetSendQuotaResponse pHttpStatus_ =
   GetSendQuotaResponse'
-    { _gsqrrsMax24HourSend =
-        Nothing,
-      _gsqrrsSentLast24Hours = Nothing,
-      _gsqrrsMaxSendRate = Nothing,
-      _gsqrrsResponseStatus = pResponseStatus_
+    { max24HourSend =
+        Prelude.Nothing,
+      sentLast24Hours = Prelude.Nothing,
+      maxSendRate = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The maximum number of emails the user is allowed to send in a 24-hour interval. A value of -1 signifies an unlimited quota.
-gsqrrsMax24HourSend :: Lens' GetSendQuotaResponse (Maybe Double)
-gsqrrsMax24HourSend = lens _gsqrrsMax24HourSend (\s a -> s {_gsqrrsMax24HourSend = a})
+-- | The maximum number of emails the user is allowed to send in a 24-hour
+-- interval. A value of -1 signifies an unlimited quota.
+getSendQuotaResponse_max24HourSend :: Lens.Lens' GetSendQuotaResponse (Prelude.Maybe Prelude.Double)
+getSendQuotaResponse_max24HourSend = Lens.lens (\GetSendQuotaResponse' {max24HourSend} -> max24HourSend) (\s@GetSendQuotaResponse' {} a -> s {max24HourSend = a} :: GetSendQuotaResponse)
 
 -- | The number of emails sent during the previous 24 hours.
-gsqrrsSentLast24Hours :: Lens' GetSendQuotaResponse (Maybe Double)
-gsqrrsSentLast24Hours = lens _gsqrrsSentLast24Hours (\s a -> s {_gsqrrsSentLast24Hours = a})
+getSendQuotaResponse_sentLast24Hours :: Lens.Lens' GetSendQuotaResponse (Prelude.Maybe Prelude.Double)
+getSendQuotaResponse_sentLast24Hours = Lens.lens (\GetSendQuotaResponse' {sentLast24Hours} -> sentLast24Hours) (\s@GetSendQuotaResponse' {} a -> s {sentLast24Hours = a} :: GetSendQuotaResponse)
 
--- | The maximum number of emails that Amazon SES can accept from the user's account per second.
-gsqrrsMaxSendRate :: Lens' GetSendQuotaResponse (Maybe Double)
-gsqrrsMaxSendRate = lens _gsqrrsMaxSendRate (\s a -> s {_gsqrrsMaxSendRate = a})
+-- | The maximum number of emails that Amazon SES can accept from the user\'s
+-- account per second.
+--
+-- The rate at which Amazon SES accepts the user\'s messages might be less
+-- than the maximum send rate.
+getSendQuotaResponse_maxSendRate :: Lens.Lens' GetSendQuotaResponse (Prelude.Maybe Prelude.Double)
+getSendQuotaResponse_maxSendRate = Lens.lens (\GetSendQuotaResponse' {maxSendRate} -> maxSendRate) (\s@GetSendQuotaResponse' {} a -> s {maxSendRate = a} :: GetSendQuotaResponse)
 
--- | -- | The response status code.
-gsqrrsResponseStatus :: Lens' GetSendQuotaResponse Int
-gsqrrsResponseStatus = lens _gsqrrsResponseStatus (\s a -> s {_gsqrrsResponseStatus = a})
+-- | The response's http status code.
+getSendQuotaResponse_httpStatus :: Lens.Lens' GetSendQuotaResponse Prelude.Int
+getSendQuotaResponse_httpStatus = Lens.lens (\GetSendQuotaResponse' {httpStatus} -> httpStatus) (\s@GetSendQuotaResponse' {} a -> s {httpStatus = a} :: GetSendQuotaResponse)
 
-instance NFData GetSendQuotaResponse
+instance Prelude.NFData GetSendQuotaResponse

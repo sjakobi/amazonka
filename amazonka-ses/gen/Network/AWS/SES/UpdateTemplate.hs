@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,115 +21,117 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an email template. Email templates enable you to send personalized email to one or more destinations in a single API operation. For more information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-personalized-email-api.html Amazon SES Developer Guide> .
---
+-- Updates an email template. Email templates enable you to send
+-- personalized email to one or more destinations in a single API
+-- operation. For more information, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-personalized-email-api.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.UpdateTemplate
   ( -- * Creating a Request
-    updateTemplate,
-    UpdateTemplate,
+    UpdateTemplate (..),
+    newUpdateTemplate,
 
     -- * Request Lenses
-    utTemplate,
+    updateTemplate_template,
 
     -- * Destructuring the Response
-    updateTemplateResponse,
-    UpdateTemplateResponse,
+    UpdateTemplateResponse (..),
+    newUpdateTemplateResponse,
 
     -- * Response Lenses
-    utrrsResponseStatus,
+    updateTemplateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | /See:/ 'updateTemplate' smart constructor.
-newtype UpdateTemplate = UpdateTemplate'
-  { _utTemplate ::
-      Template
+-- | /See:/ 'newUpdateTemplate' smart constructor.
+data UpdateTemplate = UpdateTemplate'
+  { template :: Template
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utTemplate' - Undocumented member.
-updateTemplate ::
-  -- | 'utTemplate'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'template', 'updateTemplate_template' - Undocumented member.
+newUpdateTemplate ::
+  -- | 'template'
   Template ->
   UpdateTemplate
-updateTemplate pTemplate_ =
-  UpdateTemplate' {_utTemplate = pTemplate_}
+newUpdateTemplate pTemplate_ =
+  UpdateTemplate' {template = pTemplate_}
 
 -- | Undocumented member.
-utTemplate :: Lens' UpdateTemplate Template
-utTemplate = lens _utTemplate (\s a -> s {_utTemplate = a})
+updateTemplate_template :: Lens.Lens' UpdateTemplate Template
+updateTemplate_template = Lens.lens (\UpdateTemplate' {template} -> template) (\s@UpdateTemplate' {} a -> s {template = a} :: UpdateTemplate)
 
-instance AWSRequest UpdateTemplate where
+instance Prelude.AWSRequest UpdateTemplate where
   type Rs UpdateTemplate = UpdateTemplateResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateTemplateResult"
       ( \s h x ->
-          UpdateTemplateResponse' <$> (pure (fromEnum s))
+          UpdateTemplateResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateTemplate
+instance Prelude.Hashable UpdateTemplate
 
-instance NFData UpdateTemplate
+instance Prelude.NFData UpdateTemplate
 
-instance ToHeaders UpdateTemplate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateTemplate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateTemplate where
-  toPath = const "/"
+instance Prelude.ToPath UpdateTemplate where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateTemplate where
+instance Prelude.ToQuery UpdateTemplate where
   toQuery UpdateTemplate' {..} =
-    mconcat
-      [ "Action" =: ("UpdateTemplate" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Template" =: _utTemplate
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UpdateTemplate" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Template" Prelude.=: template
       ]
 
--- | /See:/ 'updateTemplateResponse' smart constructor.
-newtype UpdateTemplateResponse = UpdateTemplateResponse'
-  { _utrrsResponseStatus ::
-      Int
+-- | /See:/ 'newUpdateTemplateResponse' smart constructor.
+data UpdateTemplateResponse = UpdateTemplateResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'utrrsResponseStatus' - -- | The response status code.
-updateTemplateResponse ::
-  -- | 'utrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateTemplateResponse_httpStatus' - The response's http status code.
+newUpdateTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateTemplateResponse
-updateTemplateResponse pResponseStatus_ =
-  UpdateTemplateResponse'
-    { _utrrsResponseStatus =
-        pResponseStatus_
-    }
+newUpdateTemplateResponse pHttpStatus_ =
+  UpdateTemplateResponse' {httpStatus = pHttpStatus_}
 
--- | -- | The response status code.
-utrrsResponseStatus :: Lens' UpdateTemplateResponse Int
-utrrsResponseStatus = lens _utrrsResponseStatus (\s a -> s {_utrrsResponseStatus = a})
+-- | The response's http status code.
+updateTemplateResponse_httpStatus :: Lens.Lens' UpdateTemplateResponse Prelude.Int
+updateTemplateResponse_httpStatus = Lens.lens (\UpdateTemplateResponse' {httpStatus} -> httpStatus) (\s@UpdateTemplateResponse' {} a -> s {httpStatus = a} :: UpdateTemplateResponse)
 
-instance NFData UpdateTemplateResponse
+instance Prelude.NFData UpdateTemplateResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,104 +21,100 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deprecated. Use the @VerifyEmailIdentity@ operation to verify a new email address.
+-- Deprecated. Use the @VerifyEmailIdentity@ operation to verify a new
+-- email address.
 module Network.AWS.SES.VerifyEmailAddress
   ( -- * Creating a Request
-    verifyEmailAddress,
-    VerifyEmailAddress,
+    VerifyEmailAddress (..),
+    newVerifyEmailAddress,
 
     -- * Request Lenses
-    veaEmailAddress,
+    verifyEmailAddress_emailAddress,
 
     -- * Destructuring the Response
-    verifyEmailAddressResponse,
-    VerifyEmailAddressResponse,
+    VerifyEmailAddressResponse (..),
+    newVerifyEmailAddressResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to begin email address verification with Amazon SES. For information about email address verification, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html Amazon SES Developer Guide> .
+-- | Represents a request to begin email address verification with Amazon
+-- SES. For information about email address verification, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'verifyEmailAddress' smart constructor.
-newtype VerifyEmailAddress = VerifyEmailAddress'
-  { _veaEmailAddress ::
-      Text
+-- /See:/ 'newVerifyEmailAddress' smart constructor.
+data VerifyEmailAddress = VerifyEmailAddress'
+  { -- | The email address to be verified.
+    emailAddress :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyEmailAddress' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyEmailAddress' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'veaEmailAddress' - The email address to be verified.
-verifyEmailAddress ::
-  -- | 'veaEmailAddress'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'emailAddress', 'verifyEmailAddress_emailAddress' - The email address to be verified.
+newVerifyEmailAddress ::
+  -- | 'emailAddress'
+  Prelude.Text ->
   VerifyEmailAddress
-verifyEmailAddress pEmailAddress_ =
-  VerifyEmailAddress'
-    { _veaEmailAddress =
-        pEmailAddress_
-    }
+newVerifyEmailAddress pEmailAddress_ =
+  VerifyEmailAddress' {emailAddress = pEmailAddress_}
 
 -- | The email address to be verified.
-veaEmailAddress :: Lens' VerifyEmailAddress Text
-veaEmailAddress = lens _veaEmailAddress (\s a -> s {_veaEmailAddress = a})
+verifyEmailAddress_emailAddress :: Lens.Lens' VerifyEmailAddress Prelude.Text
+verifyEmailAddress_emailAddress = Lens.lens (\VerifyEmailAddress' {emailAddress} -> emailAddress) (\s@VerifyEmailAddress' {} a -> s {emailAddress = a} :: VerifyEmailAddress)
 
-instance AWSRequest VerifyEmailAddress where
+instance Prelude.AWSRequest VerifyEmailAddress where
   type
     Rs VerifyEmailAddress =
       VerifyEmailAddressResponse
-  request = postQuery ses
-  response = receiveNull VerifyEmailAddressResponse'
+  request = Request.postQuery defaultService
+  response =
+    Response.receiveNull VerifyEmailAddressResponse'
 
-instance Hashable VerifyEmailAddress
+instance Prelude.Hashable VerifyEmailAddress
 
-instance NFData VerifyEmailAddress
+instance Prelude.NFData VerifyEmailAddress
 
-instance ToHeaders VerifyEmailAddress where
-  toHeaders = const mempty
+instance Prelude.ToHeaders VerifyEmailAddress where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath VerifyEmailAddress where
-  toPath = const "/"
+instance Prelude.ToPath VerifyEmailAddress where
+  toPath = Prelude.const "/"
 
-instance ToQuery VerifyEmailAddress where
+instance Prelude.ToQuery VerifyEmailAddress where
   toQuery VerifyEmailAddress' {..} =
-    mconcat
-      [ "Action" =: ("VerifyEmailAddress" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "EmailAddress" =: _veaEmailAddress
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("VerifyEmailAddress" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "EmailAddress" Prelude.=: emailAddress
       ]
 
--- | /See:/ 'verifyEmailAddressResponse' smart constructor.
+-- | /See:/ 'newVerifyEmailAddressResponse' smart constructor.
 data VerifyEmailAddressResponse = VerifyEmailAddressResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyEmailAddressResponse' with the minimum fields required to make a request.
-verifyEmailAddressResponse ::
+-- |
+-- Create a value of 'VerifyEmailAddressResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newVerifyEmailAddressResponse ::
   VerifyEmailAddressResponse
-verifyEmailAddressResponse =
+newVerifyEmailAddressResponse =
   VerifyEmailAddressResponse'
 
-instance NFData VerifyEmailAddressResponse
+instance Prelude.NFData VerifyEmailAddressResponse

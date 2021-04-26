@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,146 +23,149 @@
 --
 -- Reorders the receipt rules within a receipt rule set.
 --
+-- All of the rules in the rule set must be represented in this request.
+-- That is, this API will return an error if the reorder request doesn\'t
+-- explicitly position all of the rules.
 --
--- For information about managing receipt rule sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-managing-receipt-rule-sets.html Amazon SES Developer Guide> .
+-- For information about managing receipt rule sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-managing-receipt-rule-sets.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.ReorderReceiptRuleSet
   ( -- * Creating a Request
-    reorderReceiptRuleSet,
-    ReorderReceiptRuleSet,
+    ReorderReceiptRuleSet (..),
+    newReorderReceiptRuleSet,
 
     -- * Request Lenses
-    rrrsRuleSetName,
-    rrrsRuleNames,
+    reorderReceiptRuleSet_ruleSetName,
+    reorderReceiptRuleSet_ruleNames,
 
     -- * Destructuring the Response
-    reorderReceiptRuleSetResponse,
-    ReorderReceiptRuleSetResponse,
+    ReorderReceiptRuleSetResponse (..),
+    newReorderReceiptRuleSetResponse,
 
     -- * Response Lenses
-    rrrsrrsResponseStatus,
+    reorderReceiptRuleSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to reorder the receipt rules within a receipt rule set. You use receipt rule sets to receive email with Amazon SES. For more information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide> .
+-- | Represents a request to reorder the receipt rules within a receipt rule
+-- set. You use receipt rule sets to receive email with Amazon SES. For
+-- more information, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'reorderReceiptRuleSet' smart constructor.
+-- /See:/ 'newReorderReceiptRuleSet' smart constructor.
 data ReorderReceiptRuleSet = ReorderReceiptRuleSet'
-  { _rrrsRuleSetName ::
-      !Text,
-    _rrrsRuleNames :: ![Text]
+  { -- | The name of the receipt rule set to reorder.
+    ruleSetName :: Prelude.Text,
+    -- | A list of the specified receipt rule set\'s receipt rules in the order
+    -- that you want to put them.
+    ruleNames :: [Prelude.Text]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReorderReceiptRuleSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReorderReceiptRuleSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrrsRuleSetName' - The name of the receipt rule set to reorder.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrrsRuleNames' - A list of the specified receipt rule set's receipt rules in the order that you want to put them.
-reorderReceiptRuleSet ::
-  -- | 'rrrsRuleSetName'
-  Text ->
+-- 'ruleSetName', 'reorderReceiptRuleSet_ruleSetName' - The name of the receipt rule set to reorder.
+--
+-- 'ruleNames', 'reorderReceiptRuleSet_ruleNames' - A list of the specified receipt rule set\'s receipt rules in the order
+-- that you want to put them.
+newReorderReceiptRuleSet ::
+  -- | 'ruleSetName'
+  Prelude.Text ->
   ReorderReceiptRuleSet
-reorderReceiptRuleSet pRuleSetName_ =
+newReorderReceiptRuleSet pRuleSetName_ =
   ReorderReceiptRuleSet'
-    { _rrrsRuleSetName =
-        pRuleSetName_,
-      _rrrsRuleNames = mempty
+    { ruleSetName = pRuleSetName_,
+      ruleNames = Prelude.mempty
     }
 
 -- | The name of the receipt rule set to reorder.
-rrrsRuleSetName :: Lens' ReorderReceiptRuleSet Text
-rrrsRuleSetName = lens _rrrsRuleSetName (\s a -> s {_rrrsRuleSetName = a})
+reorderReceiptRuleSet_ruleSetName :: Lens.Lens' ReorderReceiptRuleSet Prelude.Text
+reorderReceiptRuleSet_ruleSetName = Lens.lens (\ReorderReceiptRuleSet' {ruleSetName} -> ruleSetName) (\s@ReorderReceiptRuleSet' {} a -> s {ruleSetName = a} :: ReorderReceiptRuleSet)
 
--- | A list of the specified receipt rule set's receipt rules in the order that you want to put them.
-rrrsRuleNames :: Lens' ReorderReceiptRuleSet [Text]
-rrrsRuleNames = lens _rrrsRuleNames (\s a -> s {_rrrsRuleNames = a}) . _Coerce
+-- | A list of the specified receipt rule set\'s receipt rules in the order
+-- that you want to put them.
+reorderReceiptRuleSet_ruleNames :: Lens.Lens' ReorderReceiptRuleSet [Prelude.Text]
+reorderReceiptRuleSet_ruleNames = Lens.lens (\ReorderReceiptRuleSet' {ruleNames} -> ruleNames) (\s@ReorderReceiptRuleSet' {} a -> s {ruleNames = a} :: ReorderReceiptRuleSet) Prelude.. Prelude._Coerce
 
-instance AWSRequest ReorderReceiptRuleSet where
+instance Prelude.AWSRequest ReorderReceiptRuleSet where
   type
     Rs ReorderReceiptRuleSet =
       ReorderReceiptRuleSetResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ReorderReceiptRuleSetResult"
       ( \s h x ->
           ReorderReceiptRuleSetResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ReorderReceiptRuleSet
+instance Prelude.Hashable ReorderReceiptRuleSet
 
-instance NFData ReorderReceiptRuleSet
+instance Prelude.NFData ReorderReceiptRuleSet
 
-instance ToHeaders ReorderReceiptRuleSet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ReorderReceiptRuleSet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ReorderReceiptRuleSet where
-  toPath = const "/"
+instance Prelude.ToPath ReorderReceiptRuleSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery ReorderReceiptRuleSet where
+instance Prelude.ToQuery ReorderReceiptRuleSet where
   toQuery ReorderReceiptRuleSet' {..} =
-    mconcat
-      [ "Action" =: ("ReorderReceiptRuleSet" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "RuleSetName" =: _rrrsRuleSetName,
-        "RuleNames" =: toQueryList "member" _rrrsRuleNames
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ReorderReceiptRuleSet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "RuleSetName" Prelude.=: ruleSetName,
+        "RuleNames"
+          Prelude.=: Prelude.toQueryList "member" ruleNames
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'reorderReceiptRuleSetResponse' smart constructor.
-newtype ReorderReceiptRuleSetResponse = ReorderReceiptRuleSetResponse'
-  { _rrrsrrsResponseStatus ::
-      Int
+-- /See:/ 'newReorderReceiptRuleSetResponse' smart constructor.
+data ReorderReceiptRuleSetResponse = ReorderReceiptRuleSetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReorderReceiptRuleSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReorderReceiptRuleSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrrsrrsResponseStatus' - -- | The response status code.
-reorderReceiptRuleSetResponse ::
-  -- | 'rrrsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'reorderReceiptRuleSetResponse_httpStatus' - The response's http status code.
+newReorderReceiptRuleSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ReorderReceiptRuleSetResponse
-reorderReceiptRuleSetResponse pResponseStatus_ =
+newReorderReceiptRuleSetResponse pHttpStatus_ =
   ReorderReceiptRuleSetResponse'
-    { _rrrsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-rrrsrrsResponseStatus :: Lens' ReorderReceiptRuleSetResponse Int
-rrrsrrsResponseStatus = lens _rrrsrrsResponseStatus (\s a -> s {_rrrsrrsResponseStatus = a})
+-- | The response's http status code.
+reorderReceiptRuleSetResponse_httpStatus :: Lens.Lens' ReorderReceiptRuleSetResponse Prelude.Int
+reorderReceiptRuleSetResponse_httpStatus = Lens.lens (\ReorderReceiptRuleSetResponse' {httpStatus} -> httpStatus) (\s@ReorderReceiptRuleSetResponse' {} a -> s {httpStatus = a} :: ReorderReceiptRuleSetResponse)
 
-instance NFData ReorderReceiptRuleSetResponse
+instance Prelude.NFData ReorderReceiptRuleSetResponse

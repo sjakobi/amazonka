@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,62 +19,82 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.ReceiptRuleSetMetadata where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
 -- | Information about a receipt rule set.
 --
+-- A receipt rule set is a collection of rules that specify what Amazon SES
+-- should do with mail it receives on behalf of your account\'s verified
+-- domains.
 --
--- A receipt rule set is a collection of rules that specify what Amazon SES should do with mail it receives on behalf of your account's verified domains.
+-- For information about setting up receipt rule sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rule-set.html Amazon SES Developer Guide>.
 --
--- For information about setting up receipt rule sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rule-set.html Amazon SES Developer Guide> .
---
---
--- /See:/ 'receiptRuleSetMetadata' smart constructor.
+-- /See:/ 'newReceiptRuleSetMetadata' smart constructor.
 data ReceiptRuleSetMetadata = ReceiptRuleSetMetadata'
-  { _rrsmCreatedTimestamp ::
-      !(Maybe ISO8601),
-    _rrsmName ::
-      !(Maybe Text)
+  { -- | The date and time the receipt rule set was created.
+    createdTimestamp :: Prelude.Maybe Prelude.ISO8601,
+    -- | The name of the receipt rule set. The name must:
+    --
+    -- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+    --     underscores (_), or dashes (-).
+    --
+    -- -   Start and end with a letter or number.
+    --
+    -- -   Contain less than 64 characters.
+    name :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReceiptRuleSetMetadata' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReceiptRuleSetMetadata' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rrsmCreatedTimestamp' - The date and time the receipt rule set was created.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rrsmName' - The name of the receipt rule set. The name must:     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).     * Start and end with a letter or number.     * Contain less than 64 characters.
-receiptRuleSetMetadata ::
+-- 'createdTimestamp', 'receiptRuleSetMetadata_createdTimestamp' - The date and time the receipt rule set was created.
+--
+-- 'name', 'receiptRuleSetMetadata_name' - The name of the receipt rule set. The name must:
+--
+-- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+--     underscores (_), or dashes (-).
+--
+-- -   Start and end with a letter or number.
+--
+-- -   Contain less than 64 characters.
+newReceiptRuleSetMetadata ::
   ReceiptRuleSetMetadata
-receiptRuleSetMetadata =
+newReceiptRuleSetMetadata =
   ReceiptRuleSetMetadata'
-    { _rrsmCreatedTimestamp =
-        Nothing,
-      _rrsmName = Nothing
+    { createdTimestamp =
+        Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The date and time the receipt rule set was created.
-rrsmCreatedTimestamp :: Lens' ReceiptRuleSetMetadata (Maybe UTCTime)
-rrsmCreatedTimestamp = lens _rrsmCreatedTimestamp (\s a -> s {_rrsmCreatedTimestamp = a}) . mapping _Time
+receiptRuleSetMetadata_createdTimestamp :: Lens.Lens' ReceiptRuleSetMetadata (Prelude.Maybe Prelude.UTCTime)
+receiptRuleSetMetadata_createdTimestamp = Lens.lens (\ReceiptRuleSetMetadata' {createdTimestamp} -> createdTimestamp) (\s@ReceiptRuleSetMetadata' {} a -> s {createdTimestamp = a} :: ReceiptRuleSetMetadata) Prelude.. Lens.mapping Prelude._Time
 
--- | The name of the receipt rule set. The name must:     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).     * Start and end with a letter or number.     * Contain less than 64 characters.
-rrsmName :: Lens' ReceiptRuleSetMetadata (Maybe Text)
-rrsmName = lens _rrsmName (\s a -> s {_rrsmName = a})
+-- | The name of the receipt rule set. The name must:
+--
+-- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+--     underscores (_), or dashes (-).
+--
+-- -   Start and end with a letter or number.
+--
+-- -   Contain less than 64 characters.
+receiptRuleSetMetadata_name :: Lens.Lens' ReceiptRuleSetMetadata (Prelude.Maybe Prelude.Text)
+receiptRuleSetMetadata_name = Lens.lens (\ReceiptRuleSetMetadata' {name} -> name) (\s@ReceiptRuleSetMetadata' {} a -> s {name = a} :: ReceiptRuleSetMetadata)
 
-instance FromXML ReceiptRuleSetMetadata where
+instance Prelude.FromXML ReceiptRuleSetMetadata where
   parseXML x =
     ReceiptRuleSetMetadata'
-      <$> (x .@? "CreatedTimestamp") <*> (x .@? "Name")
+      Prelude.<$> (x Prelude..@? "CreatedTimestamp")
+      Prelude.<*> (x Prelude..@? "Name")
 
-instance Hashable ReceiptRuleSetMetadata
+instance Prelude.Hashable ReceiptRuleSetMetadata
 
-instance NFData ReceiptRuleSetMetadata
+instance Prelude.NFData ReceiptRuleSetMetadata

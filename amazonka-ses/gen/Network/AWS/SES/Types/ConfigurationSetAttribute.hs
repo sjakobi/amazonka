@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,64 +19,62 @@
 module Network.AWS.SES.Types.ConfigurationSetAttribute
   ( ConfigurationSetAttribute
       ( ..,
-        DeliveryOptions,
-        EventDestinations,
-        ReputationOptions,
-        TrackingOptions
+        ConfigurationSetAttributeDeliveryOptions,
+        ConfigurationSetAttributeEventDestinations,
+        ConfigurationSetAttributeReputationOptions,
+        ConfigurationSetAttributeTrackingOptions
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data ConfigurationSetAttribute
-  = ConfigurationSetAttribute'
-      ( CI
-          Text
-      )
+newtype ConfigurationSetAttribute = ConfigurationSetAttribute'
+  { fromConfigurationSetAttribute ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DeliveryOptions :: ConfigurationSetAttribute
-pattern DeliveryOptions = ConfigurationSetAttribute' "deliveryOptions"
+pattern ConfigurationSetAttributeDeliveryOptions :: ConfigurationSetAttribute
+pattern ConfigurationSetAttributeDeliveryOptions = ConfigurationSetAttribute' "deliveryOptions"
 
-pattern EventDestinations :: ConfigurationSetAttribute
-pattern EventDestinations = ConfigurationSetAttribute' "eventDestinations"
+pattern ConfigurationSetAttributeEventDestinations :: ConfigurationSetAttribute
+pattern ConfigurationSetAttributeEventDestinations = ConfigurationSetAttribute' "eventDestinations"
 
-pattern ReputationOptions :: ConfigurationSetAttribute
-pattern ReputationOptions = ConfigurationSetAttribute' "reputationOptions"
+pattern ConfigurationSetAttributeReputationOptions :: ConfigurationSetAttribute
+pattern ConfigurationSetAttributeReputationOptions = ConfigurationSetAttribute' "reputationOptions"
 
-pattern TrackingOptions :: ConfigurationSetAttribute
-pattern TrackingOptions = ConfigurationSetAttribute' "trackingOptions"
+pattern ConfigurationSetAttributeTrackingOptions :: ConfigurationSetAttribute
+pattern ConfigurationSetAttributeTrackingOptions = ConfigurationSetAttribute' "trackingOptions"
 
 {-# COMPLETE
-  DeliveryOptions,
-  EventDestinations,
-  ReputationOptions,
-  TrackingOptions,
+  ConfigurationSetAttributeDeliveryOptions,
+  ConfigurationSetAttributeEventDestinations,
+  ConfigurationSetAttributeReputationOptions,
+  ConfigurationSetAttributeTrackingOptions,
   ConfigurationSetAttribute'
   #-}
 
-instance FromText ConfigurationSetAttribute where
-  parser = (ConfigurationSetAttribute' . mk) <$> takeText
+instance Prelude.FromText ConfigurationSetAttribute where
+  parser = ConfigurationSetAttribute' Prelude.<$> Prelude.takeText
 
-instance ToText ConfigurationSetAttribute where
-  toText (ConfigurationSetAttribute' ci) = original ci
+instance Prelude.ToText ConfigurationSetAttribute where
+  toText (ConfigurationSetAttribute' x) = x
 
-instance Hashable ConfigurationSetAttribute
+instance Prelude.Hashable ConfigurationSetAttribute
 
-instance NFData ConfigurationSetAttribute
+instance Prelude.NFData ConfigurationSetAttribute
 
-instance ToByteString ConfigurationSetAttribute
+instance Prelude.ToByteString ConfigurationSetAttribute
 
-instance ToQuery ConfigurationSetAttribute
+instance Prelude.ToQuery ConfigurationSetAttribute
 
-instance ToHeader ConfigurationSetAttribute
+instance Prelude.ToHeader ConfigurationSetAttribute

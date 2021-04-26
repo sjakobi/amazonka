@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,135 +23,137 @@
 --
 -- Sets the specified receipt rule set as the active receipt rule set.
 --
+-- To disable your email-receiving through Amazon SES completely, you can
+-- call this API with RuleSetName set to null.
 --
--- For information about managing receipt rule sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-managing-receipt-rule-sets.html Amazon SES Developer Guide> .
+-- For information about managing receipt rule sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-managing-receipt-rule-sets.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.SetActiveReceiptRuleSet
   ( -- * Creating a Request
-    setActiveReceiptRuleSet,
-    SetActiveReceiptRuleSet,
+    SetActiveReceiptRuleSet (..),
+    newSetActiveReceiptRuleSet,
 
     -- * Request Lenses
-    sarrsRuleSetName,
+    setActiveReceiptRuleSet_ruleSetName,
 
     -- * Destructuring the Response
-    setActiveReceiptRuleSetResponse,
-    SetActiveReceiptRuleSetResponse,
+    SetActiveReceiptRuleSetResponse (..),
+    newSetActiveReceiptRuleSetResponse,
 
     -- * Response Lenses
-    sarrsrrsResponseStatus,
+    setActiveReceiptRuleSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to set a receipt rule set as the active receipt rule set. You use receipt rule sets to receive email with Amazon SES. For more information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide> .
+-- | Represents a request to set a receipt rule set as the active receipt
+-- rule set. You use receipt rule sets to receive email with Amazon SES.
+-- For more information, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'setActiveReceiptRuleSet' smart constructor.
-newtype SetActiveReceiptRuleSet = SetActiveReceiptRuleSet'
-  { _sarrsRuleSetName ::
-      Maybe Text
+-- /See:/ 'newSetActiveReceiptRuleSet' smart constructor.
+data SetActiveReceiptRuleSet = SetActiveReceiptRuleSet'
+  { -- | The name of the receipt rule set to make active. Setting this value to
+    -- null disables all email receiving.
+    ruleSetName :: Prelude.Maybe Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetActiveReceiptRuleSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetActiveReceiptRuleSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarrsRuleSetName' - The name of the receipt rule set to make active. Setting this value to null disables all email receiving.
-setActiveReceiptRuleSet ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleSetName', 'setActiveReceiptRuleSet_ruleSetName' - The name of the receipt rule set to make active. Setting this value to
+-- null disables all email receiving.
+newSetActiveReceiptRuleSet ::
   SetActiveReceiptRuleSet
-setActiveReceiptRuleSet =
+newSetActiveReceiptRuleSet =
   SetActiveReceiptRuleSet'
-    { _sarrsRuleSetName =
-        Nothing
+    { ruleSetName =
+        Prelude.Nothing
     }
 
--- | The name of the receipt rule set to make active. Setting this value to null disables all email receiving.
-sarrsRuleSetName :: Lens' SetActiveReceiptRuleSet (Maybe Text)
-sarrsRuleSetName = lens _sarrsRuleSetName (\s a -> s {_sarrsRuleSetName = a})
+-- | The name of the receipt rule set to make active. Setting this value to
+-- null disables all email receiving.
+setActiveReceiptRuleSet_ruleSetName :: Lens.Lens' SetActiveReceiptRuleSet (Prelude.Maybe Prelude.Text)
+setActiveReceiptRuleSet_ruleSetName = Lens.lens (\SetActiveReceiptRuleSet' {ruleSetName} -> ruleSetName) (\s@SetActiveReceiptRuleSet' {} a -> s {ruleSetName = a} :: SetActiveReceiptRuleSet)
 
-instance AWSRequest SetActiveReceiptRuleSet where
+instance Prelude.AWSRequest SetActiveReceiptRuleSet where
   type
     Rs SetActiveReceiptRuleSet =
       SetActiveReceiptRuleSetResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "SetActiveReceiptRuleSetResult"
       ( \s h x ->
           SetActiveReceiptRuleSetResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable SetActiveReceiptRuleSet
+instance Prelude.Hashable SetActiveReceiptRuleSet
 
-instance NFData SetActiveReceiptRuleSet
+instance Prelude.NFData SetActiveReceiptRuleSet
 
-instance ToHeaders SetActiveReceiptRuleSet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders SetActiveReceiptRuleSet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath SetActiveReceiptRuleSet where
-  toPath = const "/"
+instance Prelude.ToPath SetActiveReceiptRuleSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery SetActiveReceiptRuleSet where
+instance Prelude.ToQuery SetActiveReceiptRuleSet where
   toQuery SetActiveReceiptRuleSet' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("SetActiveReceiptRuleSet" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "RuleSetName" =: _sarrsRuleSetName
+          Prelude.=: ("SetActiveReceiptRuleSet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "RuleSetName" Prelude.=: ruleSetName
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'setActiveReceiptRuleSetResponse' smart constructor.
-newtype SetActiveReceiptRuleSetResponse = SetActiveReceiptRuleSetResponse'
-  { _sarrsrrsResponseStatus ::
-      Int
+-- /See:/ 'newSetActiveReceiptRuleSetResponse' smart constructor.
+data SetActiveReceiptRuleSetResponse = SetActiveReceiptRuleSetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetActiveReceiptRuleSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetActiveReceiptRuleSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sarrsrrsResponseStatus' - -- | The response status code.
-setActiveReceiptRuleSetResponse ::
-  -- | 'sarrsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'setActiveReceiptRuleSetResponse_httpStatus' - The response's http status code.
+newSetActiveReceiptRuleSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetActiveReceiptRuleSetResponse
-setActiveReceiptRuleSetResponse pResponseStatus_ =
+newSetActiveReceiptRuleSetResponse pHttpStatus_ =
   SetActiveReceiptRuleSetResponse'
-    { _sarrsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-sarrsrrsResponseStatus :: Lens' SetActiveReceiptRuleSetResponse Int
-sarrsrrsResponseStatus = lens _sarrsrrsResponseStatus (\s a -> s {_sarrsrrsResponseStatus = a})
+-- | The response's http status code.
+setActiveReceiptRuleSetResponse_httpStatus :: Lens.Lens' SetActiveReceiptRuleSetResponse Prelude.Int
+setActiveReceiptRuleSetResponse_httpStatus = Lens.lens (\SetActiveReceiptRuleSetResponse' {httpStatus} -> httpStatus) (\s@SetActiveReceiptRuleSetResponse' {} a -> s {httpStatus = a} :: SetActiveReceiptRuleSetResponse)
 
-instance NFData SetActiveReceiptRuleSetResponse
+instance
+  Prelude.NFData
+    SetActiveReceiptRuleSetResponse

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SES.Types.InvocationType
   ( InvocationType
       ( ..,
-        Event,
-        RequestResponse
+        InvocationTypeEvent,
+        InvocationTypeRequestResponse
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data InvocationType = InvocationType' (CI Text)
+newtype InvocationType = InvocationType'
+  { fromInvocationType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Event :: InvocationType
-pattern Event = InvocationType' "Event"
+pattern InvocationTypeEvent :: InvocationType
+pattern InvocationTypeEvent = InvocationType' "Event"
 
-pattern RequestResponse :: InvocationType
-pattern RequestResponse = InvocationType' "RequestResponse"
+pattern InvocationTypeRequestResponse :: InvocationType
+pattern InvocationTypeRequestResponse = InvocationType' "RequestResponse"
 
 {-# COMPLETE
-  Event,
-  RequestResponse,
+  InvocationTypeEvent,
+  InvocationTypeRequestResponse,
   InvocationType'
   #-}
 
-instance FromText InvocationType where
-  parser = (InvocationType' . mk) <$> takeText
+instance Prelude.FromText InvocationType where
+  parser = InvocationType' Prelude.<$> Prelude.takeText
 
-instance ToText InvocationType where
-  toText (InvocationType' ci) = original ci
+instance Prelude.ToText InvocationType where
+  toText (InvocationType' x) = x
 
-instance Hashable InvocationType
+instance Prelude.Hashable InvocationType
 
-instance NFData InvocationType
+instance Prelude.NFData InvocationType
 
-instance ToByteString InvocationType
+instance Prelude.ToByteString InvocationType
 
-instance ToQuery InvocationType
+instance Prelude.ToQuery InvocationType
 
-instance ToHeader InvocationType
+instance Prelude.ToHeader InvocationType
 
-instance FromXML InvocationType where
-  parseXML = parseXMLText "InvocationType"
+instance Prelude.FromXML InvocationType where
+  parseXML = Prelude.parseXMLText "InvocationType"

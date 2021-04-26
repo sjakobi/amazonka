@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,137 +23,140 @@
 --
 -- Updates a receipt rule.
 --
---
--- For information about managing receipt rules, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-managing-receipt-rules.html Amazon SES Developer Guide> .
+-- For information about managing receipt rules, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-managing-receipt-rules.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.UpdateReceiptRule
   ( -- * Creating a Request
-    updateReceiptRule,
-    UpdateReceiptRule,
+    UpdateReceiptRule (..),
+    newUpdateReceiptRule,
 
     -- * Request Lenses
-    urrRuleSetName,
-    urrRule,
+    updateReceiptRule_ruleSetName,
+    updateReceiptRule_rule,
 
     -- * Destructuring the Response
-    updateReceiptRuleResponse,
-    UpdateReceiptRuleResponse,
+    UpdateReceiptRuleResponse (..),
+    newUpdateReceiptRuleResponse,
 
     -- * Response Lenses
-    urrrrsResponseStatus,
+    updateReceiptRuleResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to update a receipt rule. You use receipt rules to receive email with Amazon SES. For more information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide> .
+-- | Represents a request to update a receipt rule. You use receipt rules to
+-- receive email with Amazon SES. For more information, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'updateReceiptRule' smart constructor.
+-- /See:/ 'newUpdateReceiptRule' smart constructor.
 data UpdateReceiptRule = UpdateReceiptRule'
-  { _urrRuleSetName ::
-      !Text,
-    _urrRule :: !ReceiptRule
+  { -- | The name of the receipt rule set that the receipt rule belongs to.
+    ruleSetName :: Prelude.Text,
+    -- | A data structure that contains the updated receipt rule information.
+    rule :: ReceiptRule
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateReceiptRule' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateReceiptRule' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrRuleSetName' - The name of the receipt rule set that the receipt rule belongs to.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'urrRule' - A data structure that contains the updated receipt rule information.
-updateReceiptRule ::
-  -- | 'urrRuleSetName'
-  Text ->
-  -- | 'urrRule'
+-- 'ruleSetName', 'updateReceiptRule_ruleSetName' - The name of the receipt rule set that the receipt rule belongs to.
+--
+-- 'rule', 'updateReceiptRule_rule' - A data structure that contains the updated receipt rule information.
+newUpdateReceiptRule ::
+  -- | 'ruleSetName'
+  Prelude.Text ->
+  -- | 'rule'
   ReceiptRule ->
   UpdateReceiptRule
-updateReceiptRule pRuleSetName_ pRule_ =
+newUpdateReceiptRule pRuleSetName_ pRule_ =
   UpdateReceiptRule'
-    { _urrRuleSetName = pRuleSetName_,
-      _urrRule = pRule_
+    { ruleSetName = pRuleSetName_,
+      rule = pRule_
     }
 
 -- | The name of the receipt rule set that the receipt rule belongs to.
-urrRuleSetName :: Lens' UpdateReceiptRule Text
-urrRuleSetName = lens _urrRuleSetName (\s a -> s {_urrRuleSetName = a})
+updateReceiptRule_ruleSetName :: Lens.Lens' UpdateReceiptRule Prelude.Text
+updateReceiptRule_ruleSetName = Lens.lens (\UpdateReceiptRule' {ruleSetName} -> ruleSetName) (\s@UpdateReceiptRule' {} a -> s {ruleSetName = a} :: UpdateReceiptRule)
 
 -- | A data structure that contains the updated receipt rule information.
-urrRule :: Lens' UpdateReceiptRule ReceiptRule
-urrRule = lens _urrRule (\s a -> s {_urrRule = a})
+updateReceiptRule_rule :: Lens.Lens' UpdateReceiptRule ReceiptRule
+updateReceiptRule_rule = Lens.lens (\UpdateReceiptRule' {rule} -> rule) (\s@UpdateReceiptRule' {} a -> s {rule = a} :: UpdateReceiptRule)
 
-instance AWSRequest UpdateReceiptRule where
+instance Prelude.AWSRequest UpdateReceiptRule where
   type Rs UpdateReceiptRule = UpdateReceiptRuleResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateReceiptRuleResult"
       ( \s h x ->
-          UpdateReceiptRuleResponse' <$> (pure (fromEnum s))
+          UpdateReceiptRuleResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable UpdateReceiptRule
+instance Prelude.Hashable UpdateReceiptRule
 
-instance NFData UpdateReceiptRule
+instance Prelude.NFData UpdateReceiptRule
 
-instance ToHeaders UpdateReceiptRule where
-  toHeaders = const mempty
+instance Prelude.ToHeaders UpdateReceiptRule where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateReceiptRule where
-  toPath = const "/"
+instance Prelude.ToPath UpdateReceiptRule where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateReceiptRule where
+instance Prelude.ToQuery UpdateReceiptRule where
   toQuery UpdateReceiptRule' {..} =
-    mconcat
-      [ "Action" =: ("UpdateReceiptRule" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "RuleSetName" =: _urrRuleSetName,
-        "Rule" =: _urrRule
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("UpdateReceiptRule" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "RuleSetName" Prelude.=: ruleSetName,
+        "Rule" Prelude.=: rule
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'updateReceiptRuleResponse' smart constructor.
-newtype UpdateReceiptRuleResponse = UpdateReceiptRuleResponse'
-  { _urrrrsResponseStatus ::
-      Int
+-- /See:/ 'newUpdateReceiptRuleResponse' smart constructor.
+data UpdateReceiptRuleResponse = UpdateReceiptRuleResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateReceiptRuleResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateReceiptRuleResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'urrrrsResponseStatus' - -- | The response status code.
-updateReceiptRuleResponse ::
-  -- | 'urrrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateReceiptRuleResponse_httpStatus' - The response's http status code.
+newUpdateReceiptRuleResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateReceiptRuleResponse
-updateReceiptRuleResponse pResponseStatus_ =
+newUpdateReceiptRuleResponse pHttpStatus_ =
   UpdateReceiptRuleResponse'
-    { _urrrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-urrrrsResponseStatus :: Lens' UpdateReceiptRuleResponse Int
-urrrrsResponseStatus = lens _urrrrsResponseStatus (\s a -> s {_urrrrsResponseStatus = a})
+-- | The response's http status code.
+updateReceiptRuleResponse_httpStatus :: Lens.Lens' UpdateReceiptRuleResponse Prelude.Int
+updateReceiptRuleResponse_httpStatus = Lens.lens (\UpdateReceiptRuleResponse' {httpStatus} -> httpStatus) (\s@UpdateReceiptRuleResponse' {} a -> s {httpStatus = a} :: UpdateReceiptRuleResponse)
 
-instance NFData UpdateReceiptRuleResponse
+instance Prelude.NFData UpdateReceiptRuleResponse

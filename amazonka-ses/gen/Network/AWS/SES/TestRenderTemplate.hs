@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,143 +21,159 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a preview of the MIME content of an email when provided with a template and a set of replacement data.
---
+-- Creates a preview of the MIME content of an email when provided with a
+-- template and a set of replacement data.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.TestRenderTemplate
   ( -- * Creating a Request
-    testRenderTemplate,
-    TestRenderTemplate,
+    TestRenderTemplate (..),
+    newTestRenderTemplate,
 
     -- * Request Lenses
-    trtTemplateName,
-    trtTemplateData,
+    testRenderTemplate_templateName,
+    testRenderTemplate_templateData,
 
     -- * Destructuring the Response
-    testRenderTemplateResponse,
-    TestRenderTemplateResponse,
+    TestRenderTemplateResponse (..),
+    newTestRenderTemplateResponse,
 
     -- * Response Lenses
-    trtrrsRenderedTemplate,
-    trtrrsResponseStatus,
+    testRenderTemplateResponse_renderedTemplate,
+    testRenderTemplateResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | /See:/ 'testRenderTemplate' smart constructor.
+-- | /See:/ 'newTestRenderTemplate' smart constructor.
 data TestRenderTemplate = TestRenderTemplate'
-  { _trtTemplateName ::
-      !Text,
-    _trtTemplateData :: !Text
+  { -- | The name of the template that you want to render.
+    templateName :: Prelude.Text,
+    -- | A list of replacement values to apply to the template. This parameter is
+    -- a JSON object, typically consisting of key-value pairs in which the keys
+    -- correspond to replacement tags in the email template.
+    templateData :: Prelude.Text
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestRenderTemplate' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestRenderTemplate' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trtTemplateName' - The name of the template that you want to render.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trtTemplateData' - A list of replacement values to apply to the template. This parameter is a JSON object, typically consisting of key-value pairs in which the keys correspond to replacement tags in the email template.
-testRenderTemplate ::
-  -- | 'trtTemplateName'
-  Text ->
-  -- | 'trtTemplateData'
-  Text ->
+-- 'templateName', 'testRenderTemplate_templateName' - The name of the template that you want to render.
+--
+-- 'templateData', 'testRenderTemplate_templateData' - A list of replacement values to apply to the template. This parameter is
+-- a JSON object, typically consisting of key-value pairs in which the keys
+-- correspond to replacement tags in the email template.
+newTestRenderTemplate ::
+  -- | 'templateName'
+  Prelude.Text ->
+  -- | 'templateData'
+  Prelude.Text ->
   TestRenderTemplate
-testRenderTemplate pTemplateName_ pTemplateData_ =
+newTestRenderTemplate pTemplateName_ pTemplateData_ =
   TestRenderTemplate'
-    { _trtTemplateName =
-        pTemplateName_,
-      _trtTemplateData = pTemplateData_
+    { templateName = pTemplateName_,
+      templateData = pTemplateData_
     }
 
 -- | The name of the template that you want to render.
-trtTemplateName :: Lens' TestRenderTemplate Text
-trtTemplateName = lens _trtTemplateName (\s a -> s {_trtTemplateName = a})
+testRenderTemplate_templateName :: Lens.Lens' TestRenderTemplate Prelude.Text
+testRenderTemplate_templateName = Lens.lens (\TestRenderTemplate' {templateName} -> templateName) (\s@TestRenderTemplate' {} a -> s {templateName = a} :: TestRenderTemplate)
 
--- | A list of replacement values to apply to the template. This parameter is a JSON object, typically consisting of key-value pairs in which the keys correspond to replacement tags in the email template.
-trtTemplateData :: Lens' TestRenderTemplate Text
-trtTemplateData = lens _trtTemplateData (\s a -> s {_trtTemplateData = a})
+-- | A list of replacement values to apply to the template. This parameter is
+-- a JSON object, typically consisting of key-value pairs in which the keys
+-- correspond to replacement tags in the email template.
+testRenderTemplate_templateData :: Lens.Lens' TestRenderTemplate Prelude.Text
+testRenderTemplate_templateData = Lens.lens (\TestRenderTemplate' {templateData} -> templateData) (\s@TestRenderTemplate' {} a -> s {templateData = a} :: TestRenderTemplate)
 
-instance AWSRequest TestRenderTemplate where
+instance Prelude.AWSRequest TestRenderTemplate where
   type
     Rs TestRenderTemplate =
       TestRenderTemplateResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "TestRenderTemplateResult"
       ( \s h x ->
           TestRenderTemplateResponse'
-            <$> (x .@? "RenderedTemplate") <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "RenderedTemplate")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable TestRenderTemplate
+instance Prelude.Hashable TestRenderTemplate
 
-instance NFData TestRenderTemplate
+instance Prelude.NFData TestRenderTemplate
 
-instance ToHeaders TestRenderTemplate where
-  toHeaders = const mempty
+instance Prelude.ToHeaders TestRenderTemplate where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath TestRenderTemplate where
-  toPath = const "/"
+instance Prelude.ToPath TestRenderTemplate where
+  toPath = Prelude.const "/"
 
-instance ToQuery TestRenderTemplate where
+instance Prelude.ToQuery TestRenderTemplate where
   toQuery TestRenderTemplate' {..} =
-    mconcat
-      [ "Action" =: ("TestRenderTemplate" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "TemplateName" =: _trtTemplateName,
-        "TemplateData" =: _trtTemplateData
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("TestRenderTemplate" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "TemplateName" Prelude.=: templateName,
+        "TemplateData" Prelude.=: templateData
       ]
 
--- | /See:/ 'testRenderTemplateResponse' smart constructor.
+-- | /See:/ 'newTestRenderTemplateResponse' smart constructor.
 data TestRenderTemplateResponse = TestRenderTemplateResponse'
-  { _trtrrsRenderedTemplate ::
-      !(Maybe Text),
-    _trtrrsResponseStatus ::
-      !Int
+  { -- | The complete MIME message rendered by applying the data in the
+    -- TemplateData parameter to the template specified in the TemplateName
+    -- parameter.
+    renderedTemplate :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'TestRenderTemplateResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'TestRenderTemplateResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'trtrrsRenderedTemplate' - The complete MIME message rendered by applying the data in the TemplateData parameter to the template specified in the TemplateName parameter.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'trtrrsResponseStatus' - -- | The response status code.
-testRenderTemplateResponse ::
-  -- | 'trtrrsResponseStatus'
-  Int ->
+-- 'renderedTemplate', 'testRenderTemplateResponse_renderedTemplate' - The complete MIME message rendered by applying the data in the
+-- TemplateData parameter to the template specified in the TemplateName
+-- parameter.
+--
+-- 'httpStatus', 'testRenderTemplateResponse_httpStatus' - The response's http status code.
+newTestRenderTemplateResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   TestRenderTemplateResponse
-testRenderTemplateResponse pResponseStatus_ =
+newTestRenderTemplateResponse pHttpStatus_ =
   TestRenderTemplateResponse'
-    { _trtrrsRenderedTemplate =
-        Nothing,
-      _trtrrsResponseStatus = pResponseStatus_
+    { renderedTemplate =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The complete MIME message rendered by applying the data in the TemplateData parameter to the template specified in the TemplateName parameter.
-trtrrsRenderedTemplate :: Lens' TestRenderTemplateResponse (Maybe Text)
-trtrrsRenderedTemplate = lens _trtrrsRenderedTemplate (\s a -> s {_trtrrsRenderedTemplate = a})
+-- | The complete MIME message rendered by applying the data in the
+-- TemplateData parameter to the template specified in the TemplateName
+-- parameter.
+testRenderTemplateResponse_renderedTemplate :: Lens.Lens' TestRenderTemplateResponse (Prelude.Maybe Prelude.Text)
+testRenderTemplateResponse_renderedTemplate = Lens.lens (\TestRenderTemplateResponse' {renderedTemplate} -> renderedTemplate) (\s@TestRenderTemplateResponse' {} a -> s {renderedTemplate = a} :: TestRenderTemplateResponse)
 
--- | -- | The response status code.
-trtrrsResponseStatus :: Lens' TestRenderTemplateResponse Int
-trtrrsResponseStatus = lens _trtrrsResponseStatus (\s a -> s {_trtrrsResponseStatus = a})
+-- | The response's http status code.
+testRenderTemplateResponse_httpStatus :: Lens.Lens' TestRenderTemplateResponse Prelude.Int
+testRenderTemplateResponse_httpStatus = Lens.lens (\TestRenderTemplateResponse' {httpStatus} -> httpStatus) (\s@TestRenderTemplateResponse' {} a -> s {httpStatus = a} :: TestRenderTemplateResponse)
 
-instance NFData TestRenderTemplateResponse
+instance Prelude.NFData TestRenderTemplateResponse

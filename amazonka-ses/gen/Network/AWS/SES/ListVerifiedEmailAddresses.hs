@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,128 +21,127 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deprecated. Use the @ListIdentities@ operation to list the email addresses and domains associated with your account.
+-- Deprecated. Use the @ListIdentities@ operation to list the email
+-- addresses and domains associated with your account.
 module Network.AWS.SES.ListVerifiedEmailAddresses
   ( -- * Creating a Request
-    listVerifiedEmailAddresses,
-    ListVerifiedEmailAddresses,
+    ListVerifiedEmailAddresses (..),
+    newListVerifiedEmailAddresses,
 
     -- * Destructuring the Response
-    listVerifiedEmailAddressesResponse,
-    ListVerifiedEmailAddressesResponse,
+    ListVerifiedEmailAddressesResponse (..),
+    newListVerifiedEmailAddressesResponse,
 
     -- * Response Lenses
-    lvearrsVerifiedEmailAddresses,
-    lvearrsResponseStatus,
+    listVerifiedEmailAddressesResponse_verifiedEmailAddresses,
+    listVerifiedEmailAddressesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | /See:/ 'listVerifiedEmailAddresses' smart constructor.
+-- | /See:/ 'newListVerifiedEmailAddresses' smart constructor.
 data ListVerifiedEmailAddresses = ListVerifiedEmailAddresses'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListVerifiedEmailAddresses' with the minimum fields required to make a request.
-listVerifiedEmailAddresses ::
+-- |
+-- Create a value of 'ListVerifiedEmailAddresses' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newListVerifiedEmailAddresses ::
   ListVerifiedEmailAddresses
-listVerifiedEmailAddresses =
+newListVerifiedEmailAddresses =
   ListVerifiedEmailAddresses'
 
-instance AWSRequest ListVerifiedEmailAddresses where
+instance
+  Prelude.AWSRequest
+    ListVerifiedEmailAddresses
+  where
   type
     Rs ListVerifiedEmailAddresses =
       ListVerifiedEmailAddressesResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListVerifiedEmailAddressesResult"
       ( \s h x ->
           ListVerifiedEmailAddressesResponse'
-            <$> ( x .@? "VerifiedEmailAddresses" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> ( x Prelude..@? "VerifiedEmailAddresses"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListVerifiedEmailAddresses
+instance Prelude.Hashable ListVerifiedEmailAddresses
 
-instance NFData ListVerifiedEmailAddresses
+instance Prelude.NFData ListVerifiedEmailAddresses
 
-instance ToHeaders ListVerifiedEmailAddresses where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListVerifiedEmailAddresses where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListVerifiedEmailAddresses where
-  toPath = const "/"
+instance Prelude.ToPath ListVerifiedEmailAddresses where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListVerifiedEmailAddresses where
+instance Prelude.ToQuery ListVerifiedEmailAddresses where
   toQuery =
-    const
-      ( mconcat
+    Prelude.const
+      ( Prelude.mconcat
           [ "Action"
-              =: ("ListVerifiedEmailAddresses" :: ByteString),
-            "Version" =: ("2010-12-01" :: ByteString)
+              Prelude.=: ("ListVerifiedEmailAddresses" :: Prelude.ByteString),
+            "Version"
+              Prelude.=: ("2010-12-01" :: Prelude.ByteString)
           ]
       )
 
--- | A list of email addresses that you have verified with Amazon SES under your AWS account.
+-- | A list of email addresses that you have verified with Amazon SES under
+-- your AWS account.
 --
---
---
--- /See:/ 'listVerifiedEmailAddressesResponse' smart constructor.
+-- /See:/ 'newListVerifiedEmailAddressesResponse' smart constructor.
 data ListVerifiedEmailAddressesResponse = ListVerifiedEmailAddressesResponse'
-  { _lvearrsVerifiedEmailAddresses ::
-      !( Maybe
-           [Text]
-       ),
-    _lvearrsResponseStatus ::
-      !Int
+  { -- | A list of email addresses that have been verified.
+    verifiedEmailAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListVerifiedEmailAddressesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListVerifiedEmailAddressesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lvearrsVerifiedEmailAddresses' - A list of email addresses that have been verified.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lvearrsResponseStatus' - -- | The response status code.
-listVerifiedEmailAddressesResponse ::
-  -- | 'lvearrsResponseStatus'
-  Int ->
+-- 'verifiedEmailAddresses', 'listVerifiedEmailAddressesResponse_verifiedEmailAddresses' - A list of email addresses that have been verified.
+--
+-- 'httpStatus', 'listVerifiedEmailAddressesResponse_httpStatus' - The response's http status code.
+newListVerifiedEmailAddressesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListVerifiedEmailAddressesResponse
-listVerifiedEmailAddressesResponse pResponseStatus_ =
+newListVerifiedEmailAddressesResponse pHttpStatus_ =
   ListVerifiedEmailAddressesResponse'
-    { _lvearrsVerifiedEmailAddresses =
-        Nothing,
-      _lvearrsResponseStatus =
-        pResponseStatus_
+    { verifiedEmailAddresses =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
 -- | A list of email addresses that have been verified.
-lvearrsVerifiedEmailAddresses :: Lens' ListVerifiedEmailAddressesResponse [Text]
-lvearrsVerifiedEmailAddresses = lens _lvearrsVerifiedEmailAddresses (\s a -> s {_lvearrsVerifiedEmailAddresses = a}) . _Default . _Coerce
+listVerifiedEmailAddressesResponse_verifiedEmailAddresses :: Lens.Lens' ListVerifiedEmailAddressesResponse (Prelude.Maybe [Prelude.Text])
+listVerifiedEmailAddressesResponse_verifiedEmailAddresses = Lens.lens (\ListVerifiedEmailAddressesResponse' {verifiedEmailAddresses} -> verifiedEmailAddresses) (\s@ListVerifiedEmailAddressesResponse' {} a -> s {verifiedEmailAddresses = a} :: ListVerifiedEmailAddressesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lvearrsResponseStatus :: Lens' ListVerifiedEmailAddressesResponse Int
-lvearrsResponseStatus = lens _lvearrsResponseStatus (\s a -> s {_lvearrsResponseStatus = a})
+-- | The response's http status code.
+listVerifiedEmailAddressesResponse_httpStatus :: Lens.Lens' ListVerifiedEmailAddressesResponse Prelude.Int
+listVerifiedEmailAddressesResponse_httpStatus = Lens.lens (\ListVerifiedEmailAddressesResponse' {httpStatus} -> httpStatus) (\s@ListVerifiedEmailAddressesResponse' {} a -> s {httpStatus = a} :: ListVerifiedEmailAddressesResponse)
 
-instance NFData ListVerifiedEmailAddressesResponse
+instance
+  Prelude.NFData
+    ListVerifiedEmailAddressesResponse

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,183 +21,214 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides a list of the configuration sets associated with your Amazon SES account in the current AWS Region. For information about using configuration sets, see <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Monitoring Your Amazon SES Sending Activity> in the /Amazon SES Developer Guide./
+-- Provides a list of the configuration sets associated with your Amazon
+-- SES account in the current AWS Region. For information about using
+-- configuration sets, see
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Monitoring Your Amazon SES Sending Activity>
+-- in the /Amazon SES Developer Guide./
 --
---
--- You can execute this operation no more than once per second. This operation will return up to 1,000 configuration sets each time it is run. If your Amazon SES account has more than 1,000 configuration sets, this operation will also return a NextToken element. You can then execute the @ListConfigurationSets@ operation again, passing the @NextToken@ parameter and the value of the NextToken element to retrieve additional results.
---
+-- You can execute this operation no more than once per second. This
+-- operation will return up to 1,000 configuration sets each time it is
+-- run. If your Amazon SES account has more than 1,000 configuration sets,
+-- this operation will also return a NextToken element. You can then
+-- execute the @ListConfigurationSets@ operation again, passing the
+-- @NextToken@ parameter and the value of the NextToken element to retrieve
+-- additional results.
 --
 -- This operation returns paginated results.
 module Network.AWS.SES.ListConfigurationSets
   ( -- * Creating a Request
-    listConfigurationSets,
-    ListConfigurationSets,
+    ListConfigurationSets (..),
+    newListConfigurationSets,
 
     -- * Request Lenses
-    lcsNextToken,
-    lcsMaxItems,
+    listConfigurationSets_nextToken,
+    listConfigurationSets_maxItems,
 
     -- * Destructuring the Response
-    listConfigurationSetsResponse,
-    ListConfigurationSetsResponse,
+    ListConfigurationSetsResponse (..),
+    newListConfigurationSetsResponse,
 
     -- * Response Lenses
-    lcsrrsNextToken,
-    lcsrrsConfigurationSets,
-    lcsrrsResponseStatus,
+    listConfigurationSetsResponse_nextToken,
+    listConfigurationSetsResponse_configurationSets,
+    listConfigurationSetsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
+import Network.AWS.SES.Types.ConfigurationSet
 
--- | Represents a request to list the configuration sets associated with your AWS account. Configuration sets enable you to publish email sending events. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
+-- | Represents a request to list the configuration sets associated with your
+-- AWS account. Configuration sets enable you to publish email sending
+-- events. For information about using configuration sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'listConfigurationSets' smart constructor.
+-- /See:/ 'newListConfigurationSets' smart constructor.
 data ListConfigurationSets = ListConfigurationSets'
-  { _lcsNextToken ::
-      !(Maybe Text),
-    _lcsMaxItems ::
-      !(Maybe Int)
+  { -- | A token returned from a previous call to @ListConfigurationSets@ to
+    -- indicate the position of the configuration set in the configuration set
+    -- list.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The number of configuration sets to return.
+    maxItems :: Prelude.Maybe Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConfigurationSets' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConfigurationSets' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcsNextToken' - A token returned from a previous call to @ListConfigurationSets@ to indicate the position of the configuration set in the configuration set list.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcsMaxItems' - The number of configuration sets to return.
-listConfigurationSets ::
+-- 'nextToken', 'listConfigurationSets_nextToken' - A token returned from a previous call to @ListConfigurationSets@ to
+-- indicate the position of the configuration set in the configuration set
+-- list.
+--
+-- 'maxItems', 'listConfigurationSets_maxItems' - The number of configuration sets to return.
+newListConfigurationSets ::
   ListConfigurationSets
-listConfigurationSets =
+newListConfigurationSets =
   ListConfigurationSets'
-    { _lcsNextToken = Nothing,
-      _lcsMaxItems = Nothing
+    { nextToken = Prelude.Nothing,
+      maxItems = Prelude.Nothing
     }
 
--- | A token returned from a previous call to @ListConfigurationSets@ to indicate the position of the configuration set in the configuration set list.
-lcsNextToken :: Lens' ListConfigurationSets (Maybe Text)
-lcsNextToken = lens _lcsNextToken (\s a -> s {_lcsNextToken = a})
+-- | A token returned from a previous call to @ListConfigurationSets@ to
+-- indicate the position of the configuration set in the configuration set
+-- list.
+listConfigurationSets_nextToken :: Lens.Lens' ListConfigurationSets (Prelude.Maybe Prelude.Text)
+listConfigurationSets_nextToken = Lens.lens (\ListConfigurationSets' {nextToken} -> nextToken) (\s@ListConfigurationSets' {} a -> s {nextToken = a} :: ListConfigurationSets)
 
 -- | The number of configuration sets to return.
-lcsMaxItems :: Lens' ListConfigurationSets (Maybe Int)
-lcsMaxItems = lens _lcsMaxItems (\s a -> s {_lcsMaxItems = a})
+listConfigurationSets_maxItems :: Lens.Lens' ListConfigurationSets (Prelude.Maybe Prelude.Int)
+listConfigurationSets_maxItems = Lens.lens (\ListConfigurationSets' {maxItems} -> maxItems) (\s@ListConfigurationSets' {} a -> s {maxItems = a} :: ListConfigurationSets)
 
-instance AWSPager ListConfigurationSets where
+instance Pager.AWSPager ListConfigurationSets where
   page rq rs
-    | stop (rs ^. lcsrrsNextToken) = Nothing
-    | stop (rs ^. lcsrrsConfigurationSets) = Nothing
-    | otherwise =
-      Just $ rq & lcsNextToken .~ rs ^. lcsrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listConfigurationSetsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listConfigurationSetsResponse_configurationSets
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listConfigurationSets_nextToken
+          Lens..~ rs
+          Lens.^? listConfigurationSetsResponse_nextToken
+            Prelude.. Lens._Just
 
-instance AWSRequest ListConfigurationSets where
+instance Prelude.AWSRequest ListConfigurationSets where
   type
     Rs ListConfigurationSets =
       ListConfigurationSetsResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListConfigurationSetsResult"
       ( \s h x ->
           ListConfigurationSetsResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "ConfigurationSets" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+            Prelude.<*> ( x Prelude..@? "ConfigurationSets"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable ListConfigurationSets
+instance Prelude.Hashable ListConfigurationSets
 
-instance NFData ListConfigurationSets
+instance Prelude.NFData ListConfigurationSets
 
-instance ToHeaders ListConfigurationSets where
-  toHeaders = const mempty
+instance Prelude.ToHeaders ListConfigurationSets where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListConfigurationSets where
-  toPath = const "/"
+instance Prelude.ToPath ListConfigurationSets where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListConfigurationSets where
+instance Prelude.ToQuery ListConfigurationSets where
   toQuery ListConfigurationSets' {..} =
-    mconcat
-      [ "Action" =: ("ListConfigurationSets" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "NextToken" =: _lcsNextToken,
-        "MaxItems" =: _lcsMaxItems
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("ListConfigurationSets" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MaxItems" Prelude.=: maxItems
       ]
 
--- | A list of configuration sets associated with your AWS account. Configuration sets enable you to publish email sending events. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
+-- | A list of configuration sets associated with your AWS account.
+-- Configuration sets enable you to publish email sending events. For
+-- information about using configuration sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'listConfigurationSetsResponse' smart constructor.
+-- /See:/ 'newListConfigurationSetsResponse' smart constructor.
 data ListConfigurationSetsResponse = ListConfigurationSetsResponse'
-  { _lcsrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lcsrrsConfigurationSets ::
-      !( Maybe
-           [ConfigurationSet]
-       ),
-    _lcsrrsResponseStatus ::
-      !Int
+  { -- | A token indicating that there are additional configuration sets
+    -- available to be listed. Pass this token to successive calls of
+    -- @ListConfigurationSets@.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of configuration sets.
+    configurationSets :: Prelude.Maybe [ConfigurationSet],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListConfigurationSetsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListConfigurationSetsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcsrrsNextToken' - A token indicating that there are additional configuration sets available to be listed. Pass this token to successive calls of @ListConfigurationSets@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcsrrsConfigurationSets' - A list of configuration sets.
+-- 'nextToken', 'listConfigurationSetsResponse_nextToken' - A token indicating that there are additional configuration sets
+-- available to be listed. Pass this token to successive calls of
+-- @ListConfigurationSets@.
 --
--- * 'lcsrrsResponseStatus' - -- | The response status code.
-listConfigurationSetsResponse ::
-  -- | 'lcsrrsResponseStatus'
-  Int ->
+-- 'configurationSets', 'listConfigurationSetsResponse_configurationSets' - A list of configuration sets.
+--
+-- 'httpStatus', 'listConfigurationSetsResponse_httpStatus' - The response's http status code.
+newListConfigurationSetsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListConfigurationSetsResponse
-listConfigurationSetsResponse pResponseStatus_ =
+newListConfigurationSetsResponse pHttpStatus_ =
   ListConfigurationSetsResponse'
-    { _lcsrrsNextToken =
-        Nothing,
-      _lcsrrsConfigurationSets = Nothing,
-      _lcsrrsResponseStatus = pResponseStatus_
+    { nextToken =
+        Prelude.Nothing,
+      configurationSets = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | A token indicating that there are additional configuration sets available to be listed. Pass this token to successive calls of @ListConfigurationSets@ .
-lcsrrsNextToken :: Lens' ListConfigurationSetsResponse (Maybe Text)
-lcsrrsNextToken = lens _lcsrrsNextToken (\s a -> s {_lcsrrsNextToken = a})
+-- | A token indicating that there are additional configuration sets
+-- available to be listed. Pass this token to successive calls of
+-- @ListConfigurationSets@.
+listConfigurationSetsResponse_nextToken :: Lens.Lens' ListConfigurationSetsResponse (Prelude.Maybe Prelude.Text)
+listConfigurationSetsResponse_nextToken = Lens.lens (\ListConfigurationSetsResponse' {nextToken} -> nextToken) (\s@ListConfigurationSetsResponse' {} a -> s {nextToken = a} :: ListConfigurationSetsResponse)
 
 -- | A list of configuration sets.
-lcsrrsConfigurationSets :: Lens' ListConfigurationSetsResponse [ConfigurationSet]
-lcsrrsConfigurationSets = lens _lcsrrsConfigurationSets (\s a -> s {_lcsrrsConfigurationSets = a}) . _Default . _Coerce
+listConfigurationSetsResponse_configurationSets :: Lens.Lens' ListConfigurationSetsResponse (Prelude.Maybe [ConfigurationSet])
+listConfigurationSetsResponse_configurationSets = Lens.lens (\ListConfigurationSetsResponse' {configurationSets} -> configurationSets) (\s@ListConfigurationSetsResponse' {} a -> s {configurationSets = a} :: ListConfigurationSetsResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcsrrsResponseStatus :: Lens' ListConfigurationSetsResponse Int
-lcsrrsResponseStatus = lens _lcsrrsResponseStatus (\s a -> s {_lcsrrsResponseStatus = a})
+-- | The response's http status code.
+listConfigurationSetsResponse_httpStatus :: Lens.Lens' ListConfigurationSetsResponse Prelude.Int
+listConfigurationSetsResponse_httpStatus = Lens.lens (\ListConfigurationSetsResponse' {httpStatus} -> httpStatus) (\s@ListConfigurationSetsResponse' {} a -> s {httpStatus = a} :: ListConfigurationSetsResponse)
 
-instance NFData ListConfigurationSetsResponse
+instance Prelude.NFData ListConfigurationSetsResponse

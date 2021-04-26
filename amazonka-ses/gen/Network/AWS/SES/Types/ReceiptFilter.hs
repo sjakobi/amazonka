@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,60 +19,93 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.ReceiptFilter where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.SES.Types.ReceiptIPFilter
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import Network.AWS.SES.Types.ReceiptIpFilter
 
--- | A receipt IP address filter enables you to specify whether to accept or reject mail originating from an IP address or range of IP addresses.
+-- | A receipt IP address filter enables you to specify whether to accept or
+-- reject mail originating from an IP address or range of IP addresses.
 --
+-- For information about setting up IP address filters, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-ip-filters.html Amazon SES Developer Guide>.
 --
--- For information about setting up IP address filters, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-ip-filters.html Amazon SES Developer Guide> .
---
---
--- /See:/ 'receiptFilter' smart constructor.
+-- /See:/ 'newReceiptFilter' smart constructor.
 data ReceiptFilter = ReceiptFilter'
-  { _rfName :: !Text,
-    _rfIPFilter :: !ReceiptIPFilter
+  { -- | The name of the IP address filter. The name must:
+    --
+    -- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+    --     underscores (_), or dashes (-).
+    --
+    -- -   Start and end with a letter or number.
+    --
+    -- -   Contain less than 64 characters.
+    name :: Prelude.Text,
+    -- | A structure that provides the IP addresses to block or allow, and
+    -- whether to block or allow incoming mail from them.
+    ipFilter :: ReceiptIpFilter
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ReceiptFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ReceiptFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'rfName' - The name of the IP address filter. The name must:     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).     * Start and end with a letter or number.     * Contain less than 64 characters.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'rfIPFilter' - A structure that provides the IP addresses to block or allow, and whether to block or allow incoming mail from them.
-receiptFilter ::
-  -- | 'rfName'
-  Text ->
-  -- | 'rfIPFilter'
-  ReceiptIPFilter ->
+-- 'name', 'receiptFilter_name' - The name of the IP address filter. The name must:
+--
+-- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+--     underscores (_), or dashes (-).
+--
+-- -   Start and end with a letter or number.
+--
+-- -   Contain less than 64 characters.
+--
+-- 'ipFilter', 'receiptFilter_ipFilter' - A structure that provides the IP addresses to block or allow, and
+-- whether to block or allow incoming mail from them.
+newReceiptFilter ::
+  -- | 'name'
+  Prelude.Text ->
+  -- | 'ipFilter'
+  ReceiptIpFilter ->
   ReceiptFilter
-receiptFilter pName_ pIPFilter_ =
+newReceiptFilter pName_ pIpFilter_ =
   ReceiptFilter'
-    { _rfName = pName_,
-      _rfIPFilter = pIPFilter_
+    { name = pName_,
+      ipFilter = pIpFilter_
     }
 
--- | The name of the IP address filter. The name must:     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).     * Start and end with a letter or number.     * Contain less than 64 characters.
-rfName :: Lens' ReceiptFilter Text
-rfName = lens _rfName (\s a -> s {_rfName = a})
+-- | The name of the IP address filter. The name must:
+--
+-- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+--     underscores (_), or dashes (-).
+--
+-- -   Start and end with a letter or number.
+--
+-- -   Contain less than 64 characters.
+receiptFilter_name :: Lens.Lens' ReceiptFilter Prelude.Text
+receiptFilter_name = Lens.lens (\ReceiptFilter' {name} -> name) (\s@ReceiptFilter' {} a -> s {name = a} :: ReceiptFilter)
 
--- | A structure that provides the IP addresses to block or allow, and whether to block or allow incoming mail from them.
-rfIPFilter :: Lens' ReceiptFilter ReceiptIPFilter
-rfIPFilter = lens _rfIPFilter (\s a -> s {_rfIPFilter = a})
+-- | A structure that provides the IP addresses to block or allow, and
+-- whether to block or allow incoming mail from them.
+receiptFilter_ipFilter :: Lens.Lens' ReceiptFilter ReceiptIpFilter
+receiptFilter_ipFilter = Lens.lens (\ReceiptFilter' {ipFilter} -> ipFilter) (\s@ReceiptFilter' {} a -> s {ipFilter = a} :: ReceiptFilter)
 
-instance FromXML ReceiptFilter where
+instance Prelude.FromXML ReceiptFilter where
   parseXML x =
     ReceiptFilter'
-      <$> (x .@ "Name") <*> (x .@ "IpFilter")
+      Prelude.<$> (x Prelude..@ "Name")
+      Prelude.<*> (x Prelude..@ "IpFilter")
 
-instance Hashable ReceiptFilter
+instance Prelude.Hashable ReceiptFilter
 
-instance NFData ReceiptFilter
+instance Prelude.NFData ReceiptFilter
 
-instance ToQuery ReceiptFilter where
+instance Prelude.ToQuery ReceiptFilter where
   toQuery ReceiptFilter' {..} =
-    mconcat
-      ["Name" =: _rfName, "IpFilter" =: _rfIPFilter]
+    Prelude.mconcat
+      [ "Name" Prelude.=: name,
+        "IpFilter" Prelude.=: ipFilter
+      ]

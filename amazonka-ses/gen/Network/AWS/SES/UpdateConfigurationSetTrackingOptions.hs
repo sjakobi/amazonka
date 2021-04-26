@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,169 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Modifies an association between a configuration set and a custom domain for open and click event tracking.
+-- Modifies an association between a configuration set and a custom domain
+-- for open and click event tracking.
 --
---
--- By default, images and links used for tracking open and click events are hosted on domains operated by Amazon SES. You can configure a subdomain of your own to handle these events. For information about using custom domains, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/configure-custom-open-click-domains.html Amazon SES Developer Guide> .
+-- By default, images and links used for tracking open and click events are
+-- hosted on domains operated by Amazon SES. You can configure a subdomain
+-- of your own to handle these events. For information about using custom
+-- domains, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/configure-custom-open-click-domains.html Amazon SES Developer Guide>.
 module Network.AWS.SES.UpdateConfigurationSetTrackingOptions
   ( -- * Creating a Request
-    updateConfigurationSetTrackingOptions,
-    UpdateConfigurationSetTrackingOptions,
+    UpdateConfigurationSetTrackingOptions (..),
+    newUpdateConfigurationSetTrackingOptions,
 
     -- * Request Lenses
-    ucstoConfigurationSetName,
-    ucstoTrackingOptions,
+    updateConfigurationSetTrackingOptions_configurationSetName,
+    updateConfigurationSetTrackingOptions_trackingOptions,
 
     -- * Destructuring the Response
-    updateConfigurationSetTrackingOptionsResponse,
-    UpdateConfigurationSetTrackingOptionsResponse,
+    UpdateConfigurationSetTrackingOptionsResponse (..),
+    newUpdateConfigurationSetTrackingOptionsResponse,
 
     -- * Response Lenses
-    ucstorrsResponseStatus,
+    updateConfigurationSetTrackingOptionsResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to update the tracking options for a configuration set.
+-- | Represents a request to update the tracking options for a configuration
+-- set.
 --
---
---
--- /See:/ 'updateConfigurationSetTrackingOptions' smart constructor.
+-- /See:/ 'newUpdateConfigurationSetTrackingOptions' smart constructor.
 data UpdateConfigurationSetTrackingOptions = UpdateConfigurationSetTrackingOptions'
-  { _ucstoConfigurationSetName ::
-      !Text,
-    _ucstoTrackingOptions ::
-      !TrackingOptions
+  { -- | The name of the configuration set for which you want to update the
+    -- custom tracking domain.
+    configurationSetName :: Prelude.Text,
+    trackingOptions :: TrackingOptions
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConfigurationSetTrackingOptions' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConfigurationSetTrackingOptions' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucstoConfigurationSetName' - The name of the configuration set for which you want to update the custom tracking domain.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ucstoTrackingOptions' - Undocumented member.
-updateConfigurationSetTrackingOptions ::
-  -- | 'ucstoConfigurationSetName'
-  Text ->
-  -- | 'ucstoTrackingOptions'
+-- 'configurationSetName', 'updateConfigurationSetTrackingOptions_configurationSetName' - The name of the configuration set for which you want to update the
+-- custom tracking domain.
+--
+-- 'trackingOptions', 'updateConfigurationSetTrackingOptions_trackingOptions' - Undocumented member.
+newUpdateConfigurationSetTrackingOptions ::
+  -- | 'configurationSetName'
+  Prelude.Text ->
+  -- | 'trackingOptions'
   TrackingOptions ->
   UpdateConfigurationSetTrackingOptions
-updateConfigurationSetTrackingOptions
+newUpdateConfigurationSetTrackingOptions
   pConfigurationSetName_
   pTrackingOptions_ =
     UpdateConfigurationSetTrackingOptions'
-      { _ucstoConfigurationSetName =
+      { configurationSetName =
           pConfigurationSetName_,
-        _ucstoTrackingOptions =
-          pTrackingOptions_
+        trackingOptions = pTrackingOptions_
       }
 
--- | The name of the configuration set for which you want to update the custom tracking domain.
-ucstoConfigurationSetName :: Lens' UpdateConfigurationSetTrackingOptions Text
-ucstoConfigurationSetName = lens _ucstoConfigurationSetName (\s a -> s {_ucstoConfigurationSetName = a})
+-- | The name of the configuration set for which you want to update the
+-- custom tracking domain.
+updateConfigurationSetTrackingOptions_configurationSetName :: Lens.Lens' UpdateConfigurationSetTrackingOptions Prelude.Text
+updateConfigurationSetTrackingOptions_configurationSetName = Lens.lens (\UpdateConfigurationSetTrackingOptions' {configurationSetName} -> configurationSetName) (\s@UpdateConfigurationSetTrackingOptions' {} a -> s {configurationSetName = a} :: UpdateConfigurationSetTrackingOptions)
 
 -- | Undocumented member.
-ucstoTrackingOptions :: Lens' UpdateConfigurationSetTrackingOptions TrackingOptions
-ucstoTrackingOptions = lens _ucstoTrackingOptions (\s a -> s {_ucstoTrackingOptions = a})
+updateConfigurationSetTrackingOptions_trackingOptions :: Lens.Lens' UpdateConfigurationSetTrackingOptions TrackingOptions
+updateConfigurationSetTrackingOptions_trackingOptions = Lens.lens (\UpdateConfigurationSetTrackingOptions' {trackingOptions} -> trackingOptions) (\s@UpdateConfigurationSetTrackingOptions' {} a -> s {trackingOptions = a} :: UpdateConfigurationSetTrackingOptions)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     UpdateConfigurationSetTrackingOptions
   where
   type
     Rs UpdateConfigurationSetTrackingOptions =
       UpdateConfigurationSetTrackingOptionsResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "UpdateConfigurationSetTrackingOptionsResult"
       ( \s h x ->
           UpdateConfigurationSetTrackingOptionsResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     UpdateConfigurationSetTrackingOptions
 
-instance NFData UpdateConfigurationSetTrackingOptions
+instance
+  Prelude.NFData
+    UpdateConfigurationSetTrackingOptions
 
 instance
-  ToHeaders
+  Prelude.ToHeaders
     UpdateConfigurationSetTrackingOptions
   where
-  toHeaders = const mempty
-
-instance ToPath UpdateConfigurationSetTrackingOptions where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    UpdateConfigurationSetTrackingOptions
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     UpdateConfigurationSetTrackingOptions
   where
   toQuery UpdateConfigurationSetTrackingOptions' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "UpdateConfigurationSetTrackingOptions" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "ConfigurationSetName" =: _ucstoConfigurationSetName,
-        "TrackingOptions" =: _ucstoTrackingOptions
+          Prelude.=: ( "UpdateConfigurationSetTrackingOptions" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName"
+          Prelude.=: configurationSetName,
+        "TrackingOptions" Prelude.=: trackingOptions
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'updateConfigurationSetTrackingOptionsResponse' smart constructor.
-newtype UpdateConfigurationSetTrackingOptionsResponse = UpdateConfigurationSetTrackingOptionsResponse'
-  { _ucstorrsResponseStatus ::
-      Int
+-- /See:/ 'newUpdateConfigurationSetTrackingOptionsResponse' smart constructor.
+data UpdateConfigurationSetTrackingOptionsResponse = UpdateConfigurationSetTrackingOptionsResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateConfigurationSetTrackingOptionsResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateConfigurationSetTrackingOptionsResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ucstorrsResponseStatus' - -- | The response status code.
-updateConfigurationSetTrackingOptionsResponse ::
-  -- | 'ucstorrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'updateConfigurationSetTrackingOptionsResponse_httpStatus' - The response's http status code.
+newUpdateConfigurationSetTrackingOptionsResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   UpdateConfigurationSetTrackingOptionsResponse
-updateConfigurationSetTrackingOptionsResponse
-  pResponseStatus_ =
+newUpdateConfigurationSetTrackingOptionsResponse
+  pHttpStatus_ =
     UpdateConfigurationSetTrackingOptionsResponse'
-      { _ucstorrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-ucstorrsResponseStatus :: Lens' UpdateConfigurationSetTrackingOptionsResponse Int
-ucstorrsResponseStatus = lens _ucstorrsResponseStatus (\s a -> s {_ucstorrsResponseStatus = a})
+-- | The response's http status code.
+updateConfigurationSetTrackingOptionsResponse_httpStatus :: Lens.Lens' UpdateConfigurationSetTrackingOptionsResponse Prelude.Int
+updateConfigurationSetTrackingOptionsResponse_httpStatus = Lens.lens (\UpdateConfigurationSetTrackingOptionsResponse' {httpStatus} -> httpStatus) (\s@UpdateConfigurationSetTrackingOptionsResponse' {} a -> s {httpStatus = a} :: UpdateConfigurationSetTrackingOptionsResponse)
 
 instance
-  NFData
+  Prelude.NFData
     UpdateConfigurationSetTrackingOptionsResponse

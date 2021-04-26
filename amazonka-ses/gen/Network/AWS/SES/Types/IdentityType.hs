@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,50 +19,52 @@
 module Network.AWS.SES.Types.IdentityType
   ( IdentityType
       ( ..,
-        Domain,
-        EmailAddress
+        IdentityTypeDomain,
+        IdentityTypeEmailAddress
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data IdentityType = IdentityType' (CI Text)
+newtype IdentityType = IdentityType'
+  { fromIdentityType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern Domain :: IdentityType
-pattern Domain = IdentityType' "Domain"
+pattern IdentityTypeDomain :: IdentityType
+pattern IdentityTypeDomain = IdentityType' "Domain"
 
-pattern EmailAddress :: IdentityType
-pattern EmailAddress = IdentityType' "EmailAddress"
+pattern IdentityTypeEmailAddress :: IdentityType
+pattern IdentityTypeEmailAddress = IdentityType' "EmailAddress"
 
 {-# COMPLETE
-  Domain,
-  EmailAddress,
+  IdentityTypeDomain,
+  IdentityTypeEmailAddress,
   IdentityType'
   #-}
 
-instance FromText IdentityType where
-  parser = (IdentityType' . mk) <$> takeText
+instance Prelude.FromText IdentityType where
+  parser = IdentityType' Prelude.<$> Prelude.takeText
 
-instance ToText IdentityType where
-  toText (IdentityType' ci) = original ci
+instance Prelude.ToText IdentityType where
+  toText (IdentityType' x) = x
 
-instance Hashable IdentityType
+instance Prelude.Hashable IdentityType
 
-instance NFData IdentityType
+instance Prelude.NFData IdentityType
 
-instance ToByteString IdentityType
+instance Prelude.ToByteString IdentityType
 
-instance ToQuery IdentityType
+instance Prelude.ToQuery IdentityType
 
-instance ToHeader IdentityType
+instance Prelude.ToHeader IdentityType

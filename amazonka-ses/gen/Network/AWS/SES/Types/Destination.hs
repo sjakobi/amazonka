@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,63 +19,86 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.Destination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 
--- | Represents the destination of the message, consisting of To:, CC:, and BCC: fields.
+-- | Represents the destination of the message, consisting of To:, CC:, and
+-- BCC: fields.
 --
+-- Amazon SES does not support the SMTPUTF8 extension, as described in
+-- <https://tools.ietf.org/html/rfc6531 RFC6531>. For this reason, the
+-- /local part/ of a destination email address (the part of the email
+-- address that precedes the \@ sign) may only contain
+-- <https://en.wikipedia.org/wiki/Email_address#Local-part 7-bit ASCII characters>.
+-- If the /domain part/ of an address (the part after the \@ sign) contains
+-- non-ASCII characters, they must be encoded using Punycode, as described
+-- in <https://tools.ietf.org/html/rfc3492.html RFC3492>.
 --
---
--- /See:/ 'destination' smart constructor.
+-- /See:/ 'newDestination' smart constructor.
 data Destination = Destination'
-  { _dToAddresses ::
-      !(Maybe [Text]),
-    _dCCAddresses :: !(Maybe [Text]),
-    _dBCCAddresses :: !(Maybe [Text])
+  { -- | The recipients to place on the To: line of the message.
+    toAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | The recipients to place on the CC: line of the message.
+    ccAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | The recipients to place on the BCC: line of the message.
+    bccAddresses :: Prelude.Maybe [Prelude.Text]
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'Destination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'Destination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dToAddresses' - The recipients to place on the To: line of the message.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dCCAddresses' - The recipients to place on the CC: line of the message.
+-- 'toAddresses', 'destination_toAddresses' - The recipients to place on the To: line of the message.
 --
--- * 'dBCCAddresses' - The recipients to place on the BCC: line of the message.
-destination ::
+-- 'ccAddresses', 'destination_ccAddresses' - The recipients to place on the CC: line of the message.
+--
+-- 'bccAddresses', 'destination_bccAddresses' - The recipients to place on the BCC: line of the message.
+newDestination ::
   Destination
-destination =
+newDestination =
   Destination'
-    { _dToAddresses = Nothing,
-      _dCCAddresses = Nothing,
-      _dBCCAddresses = Nothing
+    { toAddresses = Prelude.Nothing,
+      ccAddresses = Prelude.Nothing,
+      bccAddresses = Prelude.Nothing
     }
 
 -- | The recipients to place on the To: line of the message.
-dToAddresses :: Lens' Destination [Text]
-dToAddresses = lens _dToAddresses (\s a -> s {_dToAddresses = a}) . _Default . _Coerce
+destination_toAddresses :: Lens.Lens' Destination (Prelude.Maybe [Prelude.Text])
+destination_toAddresses = Lens.lens (\Destination' {toAddresses} -> toAddresses) (\s@Destination' {} a -> s {toAddresses = a} :: Destination) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The recipients to place on the CC: line of the message.
-dCCAddresses :: Lens' Destination [Text]
-dCCAddresses = lens _dCCAddresses (\s a -> s {_dCCAddresses = a}) . _Default . _Coerce
+destination_ccAddresses :: Lens.Lens' Destination (Prelude.Maybe [Prelude.Text])
+destination_ccAddresses = Lens.lens (\Destination' {ccAddresses} -> ccAddresses) (\s@Destination' {} a -> s {ccAddresses = a} :: Destination) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The recipients to place on the BCC: line of the message.
-dBCCAddresses :: Lens' Destination [Text]
-dBCCAddresses = lens _dBCCAddresses (\s a -> s {_dBCCAddresses = a}) . _Default . _Coerce
+destination_bccAddresses :: Lens.Lens' Destination (Prelude.Maybe [Prelude.Text])
+destination_bccAddresses = Lens.lens (\Destination' {bccAddresses} -> bccAddresses) (\s@Destination' {} a -> s {bccAddresses = a} :: Destination) Prelude.. Lens.mapping Prelude._Coerce
 
-instance Hashable Destination
+instance Prelude.Hashable Destination
 
-instance NFData Destination
+instance Prelude.NFData Destination
 
-instance ToQuery Destination where
+instance Prelude.ToQuery Destination where
   toQuery Destination' {..} =
-    mconcat
+    Prelude.mconcat
       [ "ToAddresses"
-          =: toQuery (toQueryList "member" <$> _dToAddresses),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> toAddresses
+            ),
         "CcAddresses"
-          =: toQuery (toQueryList "member" <$> _dCCAddresses),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> ccAddresses
+            ),
         "BccAddresses"
-          =: toQuery (toQueryList "member" <$> _dBCCAddresses)
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> bccAddresses
+            )
       ]

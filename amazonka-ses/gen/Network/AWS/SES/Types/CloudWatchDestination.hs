@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,61 +19,64 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.CloudWatchDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SES.Types.CloudWatchDimensionConfiguration
 
--- | Contains information associated with an Amazon CloudWatch event destination to which email sending events are published.
+-- | Contains information associated with an Amazon CloudWatch event
+-- destination to which email sending events are published.
 --
+-- Event destinations, such as Amazon CloudWatch, are associated with
+-- configuration sets, which enable you to publish email sending events.
+-- For information about using configuration sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
--- Event destinations, such as Amazon CloudWatch, are associated with configuration sets, which enable you to publish email sending events. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
---
---
--- /See:/ 'cloudWatchDestination' smart constructor.
-newtype CloudWatchDestination = CloudWatchDestination'
-  { _cwdDimensionConfigurations ::
-      [CloudWatchDimensionConfiguration]
+-- /See:/ 'newCloudWatchDestination' smart constructor.
+data CloudWatchDestination = CloudWatchDestination'
+  { -- | A list of dimensions upon which to categorize your emails when you
+    -- publish email sending events to Amazon CloudWatch.
+    dimensionConfigurations :: [CloudWatchDimensionConfiguration]
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CloudWatchDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CloudWatchDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'cwdDimensionConfigurations' - A list of dimensions upon which to categorize your emails when you publish email sending events to Amazon CloudWatch.
-cloudWatchDestination ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'dimensionConfigurations', 'cloudWatchDestination_dimensionConfigurations' - A list of dimensions upon which to categorize your emails when you
+-- publish email sending events to Amazon CloudWatch.
+newCloudWatchDestination ::
   CloudWatchDestination
-cloudWatchDestination =
+newCloudWatchDestination =
   CloudWatchDestination'
-    { _cwdDimensionConfigurations =
-        mempty
+    { dimensionConfigurations =
+        Prelude.mempty
     }
 
--- | A list of dimensions upon which to categorize your emails when you publish email sending events to Amazon CloudWatch.
-cwdDimensionConfigurations :: Lens' CloudWatchDestination [CloudWatchDimensionConfiguration]
-cwdDimensionConfigurations = lens _cwdDimensionConfigurations (\s a -> s {_cwdDimensionConfigurations = a}) . _Coerce
+-- | A list of dimensions upon which to categorize your emails when you
+-- publish email sending events to Amazon CloudWatch.
+cloudWatchDestination_dimensionConfigurations :: Lens.Lens' CloudWatchDestination [CloudWatchDimensionConfiguration]
+cloudWatchDestination_dimensionConfigurations = Lens.lens (\CloudWatchDestination' {dimensionConfigurations} -> dimensionConfigurations) (\s@CloudWatchDestination' {} a -> s {dimensionConfigurations = a} :: CloudWatchDestination) Prelude.. Prelude._Coerce
 
-instance FromXML CloudWatchDestination where
+instance Prelude.FromXML CloudWatchDestination where
   parseXML x =
     CloudWatchDestination'
-      <$> ( x .@? "DimensionConfigurations" .!@ mempty
-              >>= parseXMLList "member"
-          )
+      Prelude.<$> ( x Prelude..@? "DimensionConfigurations"
+                      Prelude..!@ Prelude.mempty
+                      Prelude.>>= Prelude.parseXMLList "member"
+                  )
 
-instance Hashable CloudWatchDestination
+instance Prelude.Hashable CloudWatchDestination
 
-instance NFData CloudWatchDestination
+instance Prelude.NFData CloudWatchDestination
 
-instance ToQuery CloudWatchDestination where
+instance Prelude.ToQuery CloudWatchDestination where
   toQuery CloudWatchDestination' {..} =
-    mconcat
+    Prelude.mconcat
       [ "DimensionConfigurations"
-          =: toQueryList "member" _cwdDimensionConfigurations
+          Prelude.=: Prelude.toQueryList "member" dimensionConfigurations
       ]

@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,57 +19,55 @@
 module Network.AWS.SES.Types.BehaviorOnMXFailure
   ( BehaviorOnMXFailure
       ( ..,
-        RejectMessage,
-        UseDefaultValue
+        BehaviorOnMXFailureRejectMessage,
+        BehaviorOnMXFailureUseDefaultValue
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BehaviorOnMXFailure
-  = BehaviorOnMXFailure'
-      ( CI
-          Text
-      )
+newtype BehaviorOnMXFailure = BehaviorOnMXFailure'
+  { fromBehaviorOnMXFailure ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern RejectMessage :: BehaviorOnMXFailure
-pattern RejectMessage = BehaviorOnMXFailure' "RejectMessage"
+pattern BehaviorOnMXFailureRejectMessage :: BehaviorOnMXFailure
+pattern BehaviorOnMXFailureRejectMessage = BehaviorOnMXFailure' "RejectMessage"
 
-pattern UseDefaultValue :: BehaviorOnMXFailure
-pattern UseDefaultValue = BehaviorOnMXFailure' "UseDefaultValue"
+pattern BehaviorOnMXFailureUseDefaultValue :: BehaviorOnMXFailure
+pattern BehaviorOnMXFailureUseDefaultValue = BehaviorOnMXFailure' "UseDefaultValue"
 
 {-# COMPLETE
-  RejectMessage,
-  UseDefaultValue,
+  BehaviorOnMXFailureRejectMessage,
+  BehaviorOnMXFailureUseDefaultValue,
   BehaviorOnMXFailure'
   #-}
 
-instance FromText BehaviorOnMXFailure where
-  parser = (BehaviorOnMXFailure' . mk) <$> takeText
+instance Prelude.FromText BehaviorOnMXFailure where
+  parser = BehaviorOnMXFailure' Prelude.<$> Prelude.takeText
 
-instance ToText BehaviorOnMXFailure where
-  toText (BehaviorOnMXFailure' ci) = original ci
+instance Prelude.ToText BehaviorOnMXFailure where
+  toText (BehaviorOnMXFailure' x) = x
 
-instance Hashable BehaviorOnMXFailure
+instance Prelude.Hashable BehaviorOnMXFailure
 
-instance NFData BehaviorOnMXFailure
+instance Prelude.NFData BehaviorOnMXFailure
 
-instance ToByteString BehaviorOnMXFailure
+instance Prelude.ToByteString BehaviorOnMXFailure
 
-instance ToQuery BehaviorOnMXFailure
+instance Prelude.ToQuery BehaviorOnMXFailure
 
-instance ToHeader BehaviorOnMXFailure
+instance Prelude.ToHeader BehaviorOnMXFailure
 
-instance FromXML BehaviorOnMXFailure where
-  parseXML = parseXMLText "BehaviorOnMXFailure"
+instance Prelude.FromXML BehaviorOnMXFailure where
+  parseXML = Prelude.parseXMLText "BehaviorOnMXFailure"

@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,70 +19,89 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.BulkEmailDestination where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SES.Types.Destination
 import Network.AWS.SES.Types.MessageTag
 
--- | An array that contains one or more Destinations, as well as the tags and replacement data associated with each of those Destinations.
+-- | An array that contains one or more Destinations, as well as the tags and
+-- replacement data associated with each of those Destinations.
 --
---
---
--- /See:/ 'bulkEmailDestination' smart constructor.
+-- /See:/ 'newBulkEmailDestination' smart constructor.
 data BulkEmailDestination = BulkEmailDestination'
-  { _bedReplacementTags ::
-      !(Maybe [MessageTag]),
-    _bedReplacementTemplateData ::
-      !(Maybe Text),
-    _bedDestination ::
-      !Destination
+  { -- | A list of tags, in the form of name\/value pairs, to apply to an email
+    -- that you send using @SendBulkTemplatedEmail@. Tags correspond to
+    -- characteristics of the email that you define, so that you can publish
+    -- email sending events.
+    replacementTags :: Prelude.Maybe [MessageTag],
+    -- | A list of replacement values to apply to the template. This parameter is
+    -- a JSON object, typically consisting of key-value pairs in which the keys
+    -- correspond to replacement tags in the email template.
+    replacementTemplateData :: Prelude.Maybe Prelude.Text,
+    destination :: Destination
   }
-  deriving (Eq, Read, Show, Data, Typeable, Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'BulkEmailDestination' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'BulkEmailDestination' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'bedReplacementTags' - A list of tags, in the form of name/value pairs, to apply to an email that you send using @SendBulkTemplatedEmail@ . Tags correspond to characteristics of the email that you define, so that you can publish email sending events.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'bedReplacementTemplateData' - A list of replacement values to apply to the template. This parameter is a JSON object, typically consisting of key-value pairs in which the keys correspond to replacement tags in the email template.
+-- 'replacementTags', 'bulkEmailDestination_replacementTags' - A list of tags, in the form of name\/value pairs, to apply to an email
+-- that you send using @SendBulkTemplatedEmail@. Tags correspond to
+-- characteristics of the email that you define, so that you can publish
+-- email sending events.
 --
--- * 'bedDestination' - Undocumented member.
-bulkEmailDestination ::
-  -- | 'bedDestination'
+-- 'replacementTemplateData', 'bulkEmailDestination_replacementTemplateData' - A list of replacement values to apply to the template. This parameter is
+-- a JSON object, typically consisting of key-value pairs in which the keys
+-- correspond to replacement tags in the email template.
+--
+-- 'destination', 'bulkEmailDestination_destination' - Undocumented member.
+newBulkEmailDestination ::
+  -- | 'destination'
   Destination ->
   BulkEmailDestination
-bulkEmailDestination pDestination_ =
+newBulkEmailDestination pDestination_ =
   BulkEmailDestination'
-    { _bedReplacementTags =
-        Nothing,
-      _bedReplacementTemplateData = Nothing,
-      _bedDestination = pDestination_
+    { replacementTags =
+        Prelude.Nothing,
+      replacementTemplateData = Prelude.Nothing,
+      destination = pDestination_
     }
 
--- | A list of tags, in the form of name/value pairs, to apply to an email that you send using @SendBulkTemplatedEmail@ . Tags correspond to characteristics of the email that you define, so that you can publish email sending events.
-bedReplacementTags :: Lens' BulkEmailDestination [MessageTag]
-bedReplacementTags = lens _bedReplacementTags (\s a -> s {_bedReplacementTags = a}) . _Default . _Coerce
+-- | A list of tags, in the form of name\/value pairs, to apply to an email
+-- that you send using @SendBulkTemplatedEmail@. Tags correspond to
+-- characteristics of the email that you define, so that you can publish
+-- email sending events.
+bulkEmailDestination_replacementTags :: Lens.Lens' BulkEmailDestination (Prelude.Maybe [MessageTag])
+bulkEmailDestination_replacementTags = Lens.lens (\BulkEmailDestination' {replacementTags} -> replacementTags) (\s@BulkEmailDestination' {} a -> s {replacementTags = a} :: BulkEmailDestination) Prelude.. Lens.mapping Prelude._Coerce
 
--- | A list of replacement values to apply to the template. This parameter is a JSON object, typically consisting of key-value pairs in which the keys correspond to replacement tags in the email template.
-bedReplacementTemplateData :: Lens' BulkEmailDestination (Maybe Text)
-bedReplacementTemplateData = lens _bedReplacementTemplateData (\s a -> s {_bedReplacementTemplateData = a})
+-- | A list of replacement values to apply to the template. This parameter is
+-- a JSON object, typically consisting of key-value pairs in which the keys
+-- correspond to replacement tags in the email template.
+bulkEmailDestination_replacementTemplateData :: Lens.Lens' BulkEmailDestination (Prelude.Maybe Prelude.Text)
+bulkEmailDestination_replacementTemplateData = Lens.lens (\BulkEmailDestination' {replacementTemplateData} -> replacementTemplateData) (\s@BulkEmailDestination' {} a -> s {replacementTemplateData = a} :: BulkEmailDestination)
 
 -- | Undocumented member.
-bedDestination :: Lens' BulkEmailDestination Destination
-bedDestination = lens _bedDestination (\s a -> s {_bedDestination = a})
+bulkEmailDestination_destination :: Lens.Lens' BulkEmailDestination Destination
+bulkEmailDestination_destination = Lens.lens (\BulkEmailDestination' {destination} -> destination) (\s@BulkEmailDestination' {} a -> s {destination = a} :: BulkEmailDestination)
 
-instance Hashable BulkEmailDestination
+instance Prelude.Hashable BulkEmailDestination
 
-instance NFData BulkEmailDestination
+instance Prelude.NFData BulkEmailDestination
 
-instance ToQuery BulkEmailDestination where
+instance Prelude.ToQuery BulkEmailDestination where
   toQuery BulkEmailDestination' {..} =
-    mconcat
+    Prelude.mconcat
       [ "ReplacementTags"
-          =: toQuery
-            (toQueryList "member" <$> _bedReplacementTags),
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> replacementTags
+            ),
         "ReplacementTemplateData"
-          =: _bedReplacementTemplateData,
-        "Destination" =: _bedDestination
+          Prelude.=: replacementTemplateData,
+        "Destination" Prelude.=: destination
       ]

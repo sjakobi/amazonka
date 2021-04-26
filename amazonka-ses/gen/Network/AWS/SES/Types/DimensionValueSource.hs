@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,62 +19,60 @@
 module Network.AWS.SES.Types.DimensionValueSource
   ( DimensionValueSource
       ( ..,
-        EmailHeader,
-        LinkTag,
-        MessageTag
+        DimensionValueSourceEmailHeader,
+        DimensionValueSourceLinkTag,
+        DimensionValueSourceMessageTag
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DimensionValueSource
-  = DimensionValueSource'
-      ( CI
-          Text
-      )
+newtype DimensionValueSource = DimensionValueSource'
+  { fromDimensionValueSource ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern EmailHeader :: DimensionValueSource
-pattern EmailHeader = DimensionValueSource' "emailHeader"
+pattern DimensionValueSourceEmailHeader :: DimensionValueSource
+pattern DimensionValueSourceEmailHeader = DimensionValueSource' "emailHeader"
 
-pattern LinkTag :: DimensionValueSource
-pattern LinkTag = DimensionValueSource' "linkTag"
+pattern DimensionValueSourceLinkTag :: DimensionValueSource
+pattern DimensionValueSourceLinkTag = DimensionValueSource' "linkTag"
 
-pattern MessageTag :: DimensionValueSource
-pattern MessageTag = DimensionValueSource' "messageTag"
+pattern DimensionValueSourceMessageTag :: DimensionValueSource
+pattern DimensionValueSourceMessageTag = DimensionValueSource' "messageTag"
 
 {-# COMPLETE
-  EmailHeader,
-  LinkTag,
-  MessageTag,
+  DimensionValueSourceEmailHeader,
+  DimensionValueSourceLinkTag,
+  DimensionValueSourceMessageTag,
   DimensionValueSource'
   #-}
 
-instance FromText DimensionValueSource where
-  parser = (DimensionValueSource' . mk) <$> takeText
+instance Prelude.FromText DimensionValueSource where
+  parser = DimensionValueSource' Prelude.<$> Prelude.takeText
 
-instance ToText DimensionValueSource where
-  toText (DimensionValueSource' ci) = original ci
+instance Prelude.ToText DimensionValueSource where
+  toText (DimensionValueSource' x) = x
 
-instance Hashable DimensionValueSource
+instance Prelude.Hashable DimensionValueSource
 
-instance NFData DimensionValueSource
+instance Prelude.NFData DimensionValueSource
 
-instance ToByteString DimensionValueSource
+instance Prelude.ToByteString DimensionValueSource
 
-instance ToQuery DimensionValueSource
+instance Prelude.ToQuery DimensionValueSource
 
-instance ToHeader DimensionValueSource
+instance Prelude.ToHeader DimensionValueSource
 
-instance FromXML DimensionValueSource where
-  parseXML = parseXMLText "DimensionValueSource"
+instance Prelude.FromXML DimensionValueSource where
+  parseXML = Prelude.parseXMLText "DimensionValueSource"

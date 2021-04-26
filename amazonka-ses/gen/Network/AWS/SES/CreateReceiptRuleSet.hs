@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,136 +23,149 @@
 --
 -- Creates an empty receipt rule set.
 --
---
--- For information about setting up receipt rule sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rule-set.html Amazon SES Developer Guide> .
+-- For information about setting up receipt rule sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-receipt-rule-set.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.CreateReceiptRuleSet
   ( -- * Creating a Request
-    createReceiptRuleSet,
-    CreateReceiptRuleSet,
+    CreateReceiptRuleSet (..),
+    newCreateReceiptRuleSet,
 
     -- * Request Lenses
-    crrsRuleSetName,
+    createReceiptRuleSet_ruleSetName,
 
     -- * Destructuring the Response
-    createReceiptRuleSetResponse,
-    CreateReceiptRuleSetResponse,
+    CreateReceiptRuleSetResponse (..),
+    newCreateReceiptRuleSetResponse,
 
     -- * Response Lenses
-    crrsrrsResponseStatus,
+    createReceiptRuleSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to create an empty receipt rule set. You use receipt rule sets to receive email with Amazon SES. For more information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide> .
+-- | Represents a request to create an empty receipt rule set. You use
+-- receipt rule sets to receive email with Amazon SES. For more
+-- information, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'createReceiptRuleSet' smart constructor.
-newtype CreateReceiptRuleSet = CreateReceiptRuleSet'
-  { _crrsRuleSetName ::
-      Text
+-- /See:/ 'newCreateReceiptRuleSet' smart constructor.
+data CreateReceiptRuleSet = CreateReceiptRuleSet'
+  { -- | The name of the rule set to create. The name must:
+    --
+    -- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+    --     underscores (_), or dashes (-).
+    --
+    -- -   Start and end with a letter or number.
+    --
+    -- -   Contain less than 64 characters.
+    ruleSetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReceiptRuleSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReceiptRuleSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crrsRuleSetName' - The name of the rule set to create. The name must:     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).     * Start and end with a letter or number.     * Contain less than 64 characters.
-createReceiptRuleSet ::
-  -- | 'crrsRuleSetName'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'ruleSetName', 'createReceiptRuleSet_ruleSetName' - The name of the rule set to create. The name must:
+--
+-- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+--     underscores (_), or dashes (-).
+--
+-- -   Start and end with a letter or number.
+--
+-- -   Contain less than 64 characters.
+newCreateReceiptRuleSet ::
+  -- | 'ruleSetName'
+  Prelude.Text ->
   CreateReceiptRuleSet
-createReceiptRuleSet pRuleSetName_ =
-  CreateReceiptRuleSet'
-    { _crrsRuleSetName =
-        pRuleSetName_
-    }
+newCreateReceiptRuleSet pRuleSetName_ =
+  CreateReceiptRuleSet' {ruleSetName = pRuleSetName_}
 
--- | The name of the rule set to create. The name must:     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).     * Start and end with a letter or number.     * Contain less than 64 characters.
-crrsRuleSetName :: Lens' CreateReceiptRuleSet Text
-crrsRuleSetName = lens _crrsRuleSetName (\s a -> s {_crrsRuleSetName = a})
+-- | The name of the rule set to create. The name must:
+--
+-- -   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9),
+--     underscores (_), or dashes (-).
+--
+-- -   Start and end with a letter or number.
+--
+-- -   Contain less than 64 characters.
+createReceiptRuleSet_ruleSetName :: Lens.Lens' CreateReceiptRuleSet Prelude.Text
+createReceiptRuleSet_ruleSetName = Lens.lens (\CreateReceiptRuleSet' {ruleSetName} -> ruleSetName) (\s@CreateReceiptRuleSet' {} a -> s {ruleSetName = a} :: CreateReceiptRuleSet)
 
-instance AWSRequest CreateReceiptRuleSet where
+instance Prelude.AWSRequest CreateReceiptRuleSet where
   type
     Rs CreateReceiptRuleSet =
       CreateReceiptRuleSetResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateReceiptRuleSetResult"
       ( \s h x ->
           CreateReceiptRuleSetResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateReceiptRuleSet
+instance Prelude.Hashable CreateReceiptRuleSet
 
-instance NFData CreateReceiptRuleSet
+instance Prelude.NFData CreateReceiptRuleSet
 
-instance ToHeaders CreateReceiptRuleSet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateReceiptRuleSet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateReceiptRuleSet where
-  toPath = const "/"
+instance Prelude.ToPath CreateReceiptRuleSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateReceiptRuleSet where
+instance Prelude.ToQuery CreateReceiptRuleSet where
   toQuery CreateReceiptRuleSet' {..} =
-    mconcat
-      [ "Action" =: ("CreateReceiptRuleSet" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "RuleSetName" =: _crrsRuleSetName
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateReceiptRuleSet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "RuleSetName" Prelude.=: ruleSetName
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'createReceiptRuleSetResponse' smart constructor.
-newtype CreateReceiptRuleSetResponse = CreateReceiptRuleSetResponse'
-  { _crrsrrsResponseStatus ::
-      Int
+-- /See:/ 'newCreateReceiptRuleSetResponse' smart constructor.
+data CreateReceiptRuleSetResponse = CreateReceiptRuleSetResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReceiptRuleSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReceiptRuleSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crrsrrsResponseStatus' - -- | The response status code.
-createReceiptRuleSetResponse ::
-  -- | 'crrsrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createReceiptRuleSetResponse_httpStatus' - The response's http status code.
+newCreateReceiptRuleSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateReceiptRuleSetResponse
-createReceiptRuleSetResponse pResponseStatus_ =
+newCreateReceiptRuleSetResponse pHttpStatus_ =
   CreateReceiptRuleSetResponse'
-    { _crrsrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-crrsrrsResponseStatus :: Lens' CreateReceiptRuleSetResponse Int
-crrsrrsResponseStatus = lens _crrsrrsResponseStatus (\s a -> s {_crrsrrsResponseStatus = a})
+-- | The response's http status code.
+createReceiptRuleSetResponse_httpStatus :: Lens.Lens' CreateReceiptRuleSetResponse Prelude.Int
+createReceiptRuleSetResponse_httpStatus = Lens.lens (\CreateReceiptRuleSetResponse' {httpStatus} -> httpStatus) (\s@CreateReceiptRuleSetResponse' {} a -> s {httpStatus = a} :: CreateReceiptRuleSetResponse)
 
-instance NFData CreateReceiptRuleSetResponse
+instance Prelude.NFData CreateReceiptRuleSetResponse

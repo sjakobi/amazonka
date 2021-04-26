@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,221 +21,224 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the details of the specified configuration set. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
---
+-- Returns the details of the specified configuration set. For information
+-- about using configuration sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.DescribeConfigurationSet
   ( -- * Creating a Request
-    describeConfigurationSet,
-    DescribeConfigurationSet,
+    DescribeConfigurationSet (..),
+    newDescribeConfigurationSet,
 
     -- * Request Lenses
-    dcsConfigurationSetAttributeNames,
-    dcsConfigurationSetName,
+    describeConfigurationSet_configurationSetAttributeNames,
+    describeConfigurationSet_configurationSetName,
 
     -- * Destructuring the Response
-    describeConfigurationSetResponse,
-    DescribeConfigurationSetResponse,
+    DescribeConfigurationSetResponse (..),
+    newDescribeConfigurationSetResponse,
 
     -- * Response Lenses
-    dcsrrsTrackingOptions,
-    dcsrrsDeliveryOptions,
-    dcsrrsReputationOptions,
-    dcsrrsEventDestinations,
-    dcsrrsConfigurationSet,
-    dcsrrsResponseStatus,
+    describeConfigurationSetResponse_trackingOptions,
+    describeConfigurationSetResponse_deliveryOptions,
+    describeConfigurationSetResponse_reputationOptions,
+    describeConfigurationSetResponse_eventDestinations,
+    describeConfigurationSetResponse_configurationSet,
+    describeConfigurationSetResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
+import Network.AWS.SES.Types.ConfigurationSet
+import Network.AWS.SES.Types.DeliveryOptions
+import Network.AWS.SES.Types.EventDestination
+import Network.AWS.SES.Types.ReputationOptions
+import Network.AWS.SES.Types.TrackingOptions
 
--- | Represents a request to return the details of a configuration set. Configuration sets enable you to publish email sending events. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
+-- | Represents a request to return the details of a configuration set.
+-- Configuration sets enable you to publish email sending events. For
+-- information about using configuration sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'describeConfigurationSet' smart constructor.
+-- /See:/ 'newDescribeConfigurationSet' smart constructor.
 data DescribeConfigurationSet = DescribeConfigurationSet'
-  { _dcsConfigurationSetAttributeNames ::
-      !( Maybe
-           [ConfigurationSetAttribute]
-       ),
-    _dcsConfigurationSetName ::
-      !Text
+  { -- | A list of configuration set attributes to return.
+    configurationSetAttributeNames :: Prelude.Maybe [ConfigurationSetAttribute],
+    -- | The name of the configuration set to describe.
+    configurationSetName :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConfigurationSet' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConfigurationSet' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsConfigurationSetAttributeNames' - A list of configuration set attributes to return.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsConfigurationSetName' - The name of the configuration set to describe.
-describeConfigurationSet ::
-  -- | 'dcsConfigurationSetName'
-  Text ->
+-- 'configurationSetAttributeNames', 'describeConfigurationSet_configurationSetAttributeNames' - A list of configuration set attributes to return.
+--
+-- 'configurationSetName', 'describeConfigurationSet_configurationSetName' - The name of the configuration set to describe.
+newDescribeConfigurationSet ::
+  -- | 'configurationSetName'
+  Prelude.Text ->
   DescribeConfigurationSet
-describeConfigurationSet pConfigurationSetName_ =
+newDescribeConfigurationSet pConfigurationSetName_ =
   DescribeConfigurationSet'
-    { _dcsConfigurationSetAttributeNames =
-        Nothing,
-      _dcsConfigurationSetName = pConfigurationSetName_
+    { configurationSetAttributeNames =
+        Prelude.Nothing,
+      configurationSetName = pConfigurationSetName_
     }
 
 -- | A list of configuration set attributes to return.
-dcsConfigurationSetAttributeNames :: Lens' DescribeConfigurationSet [ConfigurationSetAttribute]
-dcsConfigurationSetAttributeNames = lens _dcsConfigurationSetAttributeNames (\s a -> s {_dcsConfigurationSetAttributeNames = a}) . _Default . _Coerce
+describeConfigurationSet_configurationSetAttributeNames :: Lens.Lens' DescribeConfigurationSet (Prelude.Maybe [ConfigurationSetAttribute])
+describeConfigurationSet_configurationSetAttributeNames = Lens.lens (\DescribeConfigurationSet' {configurationSetAttributeNames} -> configurationSetAttributeNames) (\s@DescribeConfigurationSet' {} a -> s {configurationSetAttributeNames = a} :: DescribeConfigurationSet) Prelude.. Lens.mapping Prelude._Coerce
 
 -- | The name of the configuration set to describe.
-dcsConfigurationSetName :: Lens' DescribeConfigurationSet Text
-dcsConfigurationSetName = lens _dcsConfigurationSetName (\s a -> s {_dcsConfigurationSetName = a})
+describeConfigurationSet_configurationSetName :: Lens.Lens' DescribeConfigurationSet Prelude.Text
+describeConfigurationSet_configurationSetName = Lens.lens (\DescribeConfigurationSet' {configurationSetName} -> configurationSetName) (\s@DescribeConfigurationSet' {} a -> s {configurationSetName = a} :: DescribeConfigurationSet)
 
-instance AWSRequest DescribeConfigurationSet where
+instance Prelude.AWSRequest DescribeConfigurationSet where
   type
     Rs DescribeConfigurationSet =
       DescribeConfigurationSetResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "DescribeConfigurationSetResult"
       ( \s h x ->
           DescribeConfigurationSetResponse'
-            <$> (x .@? "TrackingOptions")
-            <*> (x .@? "DeliveryOptions")
-            <*> (x .@? "ReputationOptions")
-            <*> ( x .@? "EventDestinations" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (x .@? "ConfigurationSet")
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "TrackingOptions")
+            Prelude.<*> (x Prelude..@? "DeliveryOptions")
+            Prelude.<*> (x Prelude..@? "ReputationOptions")
+            Prelude.<*> ( x Prelude..@? "EventDestinations"
+                            Prelude..!@ Prelude.mempty
+                            Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                        )
+            Prelude.<*> (x Prelude..@? "ConfigurationSet")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable DescribeConfigurationSet
+instance Prelude.Hashable DescribeConfigurationSet
 
-instance NFData DescribeConfigurationSet
+instance Prelude.NFData DescribeConfigurationSet
 
-instance ToHeaders DescribeConfigurationSet where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DescribeConfigurationSet where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DescribeConfigurationSet where
-  toPath = const "/"
+instance Prelude.ToPath DescribeConfigurationSet where
+  toPath = Prelude.const "/"
 
-instance ToQuery DescribeConfigurationSet where
+instance Prelude.ToQuery DescribeConfigurationSet where
   toQuery DescribeConfigurationSet' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DescribeConfigurationSet" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
+          Prelude.=: ("DescribeConfigurationSet" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
         "ConfigurationSetAttributeNames"
-          =: toQuery
-            ( toQueryList "member"
-                <$> _dcsConfigurationSetAttributeNames
+          Prelude.=: Prelude.toQuery
+            ( Prelude.toQueryList "member"
+                Prelude.<$> configurationSetAttributeNames
             ),
-        "ConfigurationSetName" =: _dcsConfigurationSetName
+        "ConfigurationSetName"
+          Prelude.=: configurationSetName
       ]
 
--- | Represents the details of a configuration set. Configuration sets enable you to publish email sending events. For information about using configuration sets, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide> .
+-- | Represents the details of a configuration set. Configuration sets enable
+-- you to publish email sending events. For information about using
+-- configuration sets, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'describeConfigurationSetResponse' smart constructor.
+-- /See:/ 'newDescribeConfigurationSetResponse' smart constructor.
 data DescribeConfigurationSetResponse = DescribeConfigurationSetResponse'
-  { _dcsrrsTrackingOptions ::
-      !( Maybe
-           TrackingOptions
-       ),
-    _dcsrrsDeliveryOptions ::
-      !( Maybe
-           DeliveryOptions
-       ),
-    _dcsrrsReputationOptions ::
-      !( Maybe
-           ReputationOptions
-       ),
-    _dcsrrsEventDestinations ::
-      !( Maybe
-           [EventDestination]
-       ),
-    _dcsrrsConfigurationSet ::
-      !( Maybe
-           ConfigurationSet
-       ),
-    _dcsrrsResponseStatus ::
-      !Int
+  { -- | The name of the custom open and click tracking domain associated with
+    -- the configuration set.
+    trackingOptions :: Prelude.Maybe TrackingOptions,
+    deliveryOptions :: Prelude.Maybe DeliveryOptions,
+    -- | An object that represents the reputation settings for the configuration
+    -- set.
+    reputationOptions :: Prelude.Maybe ReputationOptions,
+    -- | A list of event destinations associated with the configuration set.
+    eventDestinations :: Prelude.Maybe [EventDestination],
+    -- | The configuration set object associated with the specified configuration
+    -- set.
+    configurationSet :: Prelude.Maybe ConfigurationSet,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DescribeConfigurationSetResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DescribeConfigurationSetResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dcsrrsTrackingOptions' - The name of the custom open and click tracking domain associated with the configuration set.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'dcsrrsDeliveryOptions' - Undocumented member.
+-- 'trackingOptions', 'describeConfigurationSetResponse_trackingOptions' - The name of the custom open and click tracking domain associated with
+-- the configuration set.
 --
--- * 'dcsrrsReputationOptions' - An object that represents the reputation settings for the configuration set.
+-- 'deliveryOptions', 'describeConfigurationSetResponse_deliveryOptions' - Undocumented member.
 --
--- * 'dcsrrsEventDestinations' - A list of event destinations associated with the configuration set.
+-- 'reputationOptions', 'describeConfigurationSetResponse_reputationOptions' - An object that represents the reputation settings for the configuration
+-- set.
 --
--- * 'dcsrrsConfigurationSet' - The configuration set object associated with the specified configuration set.
+-- 'eventDestinations', 'describeConfigurationSetResponse_eventDestinations' - A list of event destinations associated with the configuration set.
 --
--- * 'dcsrrsResponseStatus' - -- | The response status code.
-describeConfigurationSetResponse ::
-  -- | 'dcsrrsResponseStatus'
-  Int ->
+-- 'configurationSet', 'describeConfigurationSetResponse_configurationSet' - The configuration set object associated with the specified configuration
+-- set.
+--
+-- 'httpStatus', 'describeConfigurationSetResponse_httpStatus' - The response's http status code.
+newDescribeConfigurationSetResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   DescribeConfigurationSetResponse
-describeConfigurationSetResponse pResponseStatus_ =
+newDescribeConfigurationSetResponse pHttpStatus_ =
   DescribeConfigurationSetResponse'
-    { _dcsrrsTrackingOptions =
-        Nothing,
-      _dcsrrsDeliveryOptions = Nothing,
-      _dcsrrsReputationOptions = Nothing,
-      _dcsrrsEventDestinations = Nothing,
-      _dcsrrsConfigurationSet = Nothing,
-      _dcsrrsResponseStatus = pResponseStatus_
+    { trackingOptions =
+        Prelude.Nothing,
+      deliveryOptions = Prelude.Nothing,
+      reputationOptions = Prelude.Nothing,
+      eventDestinations = Prelude.Nothing,
+      configurationSet = Prelude.Nothing,
+      httpStatus = pHttpStatus_
     }
 
--- | The name of the custom open and click tracking domain associated with the configuration set.
-dcsrrsTrackingOptions :: Lens' DescribeConfigurationSetResponse (Maybe TrackingOptions)
-dcsrrsTrackingOptions = lens _dcsrrsTrackingOptions (\s a -> s {_dcsrrsTrackingOptions = a})
+-- | The name of the custom open and click tracking domain associated with
+-- the configuration set.
+describeConfigurationSetResponse_trackingOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe TrackingOptions)
+describeConfigurationSetResponse_trackingOptions = Lens.lens (\DescribeConfigurationSetResponse' {trackingOptions} -> trackingOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {trackingOptions = a} :: DescribeConfigurationSetResponse)
 
 -- | Undocumented member.
-dcsrrsDeliveryOptions :: Lens' DescribeConfigurationSetResponse (Maybe DeliveryOptions)
-dcsrrsDeliveryOptions = lens _dcsrrsDeliveryOptions (\s a -> s {_dcsrrsDeliveryOptions = a})
+describeConfigurationSetResponse_deliveryOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe DeliveryOptions)
+describeConfigurationSetResponse_deliveryOptions = Lens.lens (\DescribeConfigurationSetResponse' {deliveryOptions} -> deliveryOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {deliveryOptions = a} :: DescribeConfigurationSetResponse)
 
--- | An object that represents the reputation settings for the configuration set.
-dcsrrsReputationOptions :: Lens' DescribeConfigurationSetResponse (Maybe ReputationOptions)
-dcsrrsReputationOptions = lens _dcsrrsReputationOptions (\s a -> s {_dcsrrsReputationOptions = a})
+-- | An object that represents the reputation settings for the configuration
+-- set.
+describeConfigurationSetResponse_reputationOptions :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe ReputationOptions)
+describeConfigurationSetResponse_reputationOptions = Lens.lens (\DescribeConfigurationSetResponse' {reputationOptions} -> reputationOptions) (\s@DescribeConfigurationSetResponse' {} a -> s {reputationOptions = a} :: DescribeConfigurationSetResponse)
 
 -- | A list of event destinations associated with the configuration set.
-dcsrrsEventDestinations :: Lens' DescribeConfigurationSetResponse [EventDestination]
-dcsrrsEventDestinations = lens _dcsrrsEventDestinations (\s a -> s {_dcsrrsEventDestinations = a}) . _Default . _Coerce
+describeConfigurationSetResponse_eventDestinations :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe [EventDestination])
+describeConfigurationSetResponse_eventDestinations = Lens.lens (\DescribeConfigurationSetResponse' {eventDestinations} -> eventDestinations) (\s@DescribeConfigurationSetResponse' {} a -> s {eventDestinations = a} :: DescribeConfigurationSetResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | The configuration set object associated with the specified configuration set.
-dcsrrsConfigurationSet :: Lens' DescribeConfigurationSetResponse (Maybe ConfigurationSet)
-dcsrrsConfigurationSet = lens _dcsrrsConfigurationSet (\s a -> s {_dcsrrsConfigurationSet = a})
+-- | The configuration set object associated with the specified configuration
+-- set.
+describeConfigurationSetResponse_configurationSet :: Lens.Lens' DescribeConfigurationSetResponse (Prelude.Maybe ConfigurationSet)
+describeConfigurationSetResponse_configurationSet = Lens.lens (\DescribeConfigurationSetResponse' {configurationSet} -> configurationSet) (\s@DescribeConfigurationSetResponse' {} a -> s {configurationSet = a} :: DescribeConfigurationSetResponse)
 
--- | -- | The response status code.
-dcsrrsResponseStatus :: Lens' DescribeConfigurationSetResponse Int
-dcsrrsResponseStatus = lens _dcsrrsResponseStatus (\s a -> s {_dcsrrsResponseStatus = a})
+-- | The response's http status code.
+describeConfigurationSetResponse_httpStatus :: Lens.Lens' DescribeConfigurationSetResponse Prelude.Int
+describeConfigurationSetResponse_httpStatus = Lens.lens (\DescribeConfigurationSetResponse' {httpStatus} -> httpStatus) (\s@DescribeConfigurationSetResponse' {} a -> s {httpStatus = a} :: DescribeConfigurationSetResponse)
 
-instance NFData DescribeConfigurationSetResponse
+instance
+  Prelude.NFData
+    DescribeConfigurationSetResponse

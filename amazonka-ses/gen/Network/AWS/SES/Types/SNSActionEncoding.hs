@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,53 +19,55 @@
 module Network.AWS.SES.Types.SNSActionEncoding
   ( SNSActionEncoding
       ( ..,
-        BASE64,
-        Utf8
+        SNSActionEncodingBASE64,
+        SNSActionEncodingUTF8
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data SNSActionEncoding = SNSActionEncoding' (CI Text)
+newtype SNSActionEncoding = SNSActionEncoding'
+  { fromSNSActionEncoding ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BASE64 :: SNSActionEncoding
-pattern BASE64 = SNSActionEncoding' "Base64"
+pattern SNSActionEncodingBASE64 :: SNSActionEncoding
+pattern SNSActionEncodingBASE64 = SNSActionEncoding' "Base64"
 
-pattern Utf8 :: SNSActionEncoding
-pattern Utf8 = SNSActionEncoding' "UTF-8"
+pattern SNSActionEncodingUTF8 :: SNSActionEncoding
+pattern SNSActionEncodingUTF8 = SNSActionEncoding' "UTF-8"
 
 {-# COMPLETE
-  BASE64,
-  Utf8,
+  SNSActionEncodingBASE64,
+  SNSActionEncodingUTF8,
   SNSActionEncoding'
   #-}
 
-instance FromText SNSActionEncoding where
-  parser = (SNSActionEncoding' . mk) <$> takeText
+instance Prelude.FromText SNSActionEncoding where
+  parser = SNSActionEncoding' Prelude.<$> Prelude.takeText
 
-instance ToText SNSActionEncoding where
-  toText (SNSActionEncoding' ci) = original ci
+instance Prelude.ToText SNSActionEncoding where
+  toText (SNSActionEncoding' x) = x
 
-instance Hashable SNSActionEncoding
+instance Prelude.Hashable SNSActionEncoding
 
-instance NFData SNSActionEncoding
+instance Prelude.NFData SNSActionEncoding
 
-instance ToByteString SNSActionEncoding
+instance Prelude.ToByteString SNSActionEncoding
 
-instance ToQuery SNSActionEncoding
+instance Prelude.ToQuery SNSActionEncoding
 
-instance ToHeader SNSActionEncoding
+instance Prelude.ToHeader SNSActionEncoding
 
-instance FromXML SNSActionEncoding where
-  parseXML = parseXMLText "SNSActionEncoding"
+instance Prelude.FromXML SNSActionEncoding where
+  parseXML = Prelude.parseXMLText "SNSActionEncoding"

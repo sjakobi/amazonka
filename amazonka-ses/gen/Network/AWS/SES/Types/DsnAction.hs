@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,65 +19,67 @@
 module Network.AWS.SES.Types.DsnAction
   ( DsnAction
       ( ..,
-        DADelayed,
-        DADelivered,
-        DAExpanded,
-        DAFailed,
-        DARelayed
+        DsnActionDelayed,
+        DsnActionDelivered,
+        DsnActionExpanded,
+        DsnActionFailed,
+        DsnActionRelayed
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data DsnAction = DsnAction' (CI Text)
+newtype DsnAction = DsnAction'
+  { fromDsnAction ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern DADelayed :: DsnAction
-pattern DADelayed = DsnAction' "delayed"
+pattern DsnActionDelayed :: DsnAction
+pattern DsnActionDelayed = DsnAction' "delayed"
 
-pattern DADelivered :: DsnAction
-pattern DADelivered = DsnAction' "delivered"
+pattern DsnActionDelivered :: DsnAction
+pattern DsnActionDelivered = DsnAction' "delivered"
 
-pattern DAExpanded :: DsnAction
-pattern DAExpanded = DsnAction' "expanded"
+pattern DsnActionExpanded :: DsnAction
+pattern DsnActionExpanded = DsnAction' "expanded"
 
-pattern DAFailed :: DsnAction
-pattern DAFailed = DsnAction' "failed"
+pattern DsnActionFailed :: DsnAction
+pattern DsnActionFailed = DsnAction' "failed"
 
-pattern DARelayed :: DsnAction
-pattern DARelayed = DsnAction' "relayed"
+pattern DsnActionRelayed :: DsnAction
+pattern DsnActionRelayed = DsnAction' "relayed"
 
 {-# COMPLETE
-  DADelayed,
-  DADelivered,
-  DAExpanded,
-  DAFailed,
-  DARelayed,
+  DsnActionDelayed,
+  DsnActionDelivered,
+  DsnActionExpanded,
+  DsnActionFailed,
+  DsnActionRelayed,
   DsnAction'
   #-}
 
-instance FromText DsnAction where
-  parser = (DsnAction' . mk) <$> takeText
+instance Prelude.FromText DsnAction where
+  parser = DsnAction' Prelude.<$> Prelude.takeText
 
-instance ToText DsnAction where
-  toText (DsnAction' ci) = original ci
+instance Prelude.ToText DsnAction where
+  toText (DsnAction' x) = x
 
-instance Hashable DsnAction
+instance Prelude.Hashable DsnAction
 
-instance NFData DsnAction
+instance Prelude.NFData DsnAction
 
-instance ToByteString DsnAction
+instance Prelude.ToByteString DsnAction
 
-instance ToQuery DsnAction
+instance Prelude.ToQuery DsnAction
 
-instance ToHeader DsnAction
+instance Prelude.ToHeader DsnAction

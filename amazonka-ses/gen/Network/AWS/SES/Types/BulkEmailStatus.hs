@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,113 +19,115 @@
 module Network.AWS.SES.Types.BulkEmailStatus
   ( BulkEmailStatus
       ( ..,
-        BESAccountDailyQuotaExceeded,
-        BESAccountSendingPaused,
-        BESAccountSuspended,
-        BESAccountThrottled,
-        BESConfigurationSetDoesNotExist,
-        BESConfigurationSetSendingPaused,
-        BESFailed,
-        BESInvalidParameterValue,
-        BESInvalidSendingPoolName,
-        BESMailFromDomainNotVerified,
-        BESMessageRejected,
-        BESSuccess,
-        BESTemplateDoesNotExist,
-        BESTransientFailure
+        BulkEmailStatusAccountDailyQuotaExceeded,
+        BulkEmailStatusAccountSendingPaused,
+        BulkEmailStatusAccountSuspended,
+        BulkEmailStatusAccountThrottled,
+        BulkEmailStatusConfigurationSetDoesNotExist,
+        BulkEmailStatusConfigurationSetSendingPaused,
+        BulkEmailStatusFailed,
+        BulkEmailStatusInvalidParameterValue,
+        BulkEmailStatusInvalidSendingPoolName,
+        BulkEmailStatusMailFromDomainNotVerified,
+        BulkEmailStatusMessageRejected,
+        BulkEmailStatusSuccess,
+        BulkEmailStatusTemplateDoesNotExist,
+        BulkEmailStatusTransientFailure
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BulkEmailStatus = BulkEmailStatus' (CI Text)
+newtype BulkEmailStatus = BulkEmailStatus'
+  { fromBulkEmailStatus ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BESAccountDailyQuotaExceeded :: BulkEmailStatus
-pattern BESAccountDailyQuotaExceeded = BulkEmailStatus' "AccountDailyQuotaExceeded"
+pattern BulkEmailStatusAccountDailyQuotaExceeded :: BulkEmailStatus
+pattern BulkEmailStatusAccountDailyQuotaExceeded = BulkEmailStatus' "AccountDailyQuotaExceeded"
 
-pattern BESAccountSendingPaused :: BulkEmailStatus
-pattern BESAccountSendingPaused = BulkEmailStatus' "AccountSendingPaused"
+pattern BulkEmailStatusAccountSendingPaused :: BulkEmailStatus
+pattern BulkEmailStatusAccountSendingPaused = BulkEmailStatus' "AccountSendingPaused"
 
-pattern BESAccountSuspended :: BulkEmailStatus
-pattern BESAccountSuspended = BulkEmailStatus' "AccountSuspended"
+pattern BulkEmailStatusAccountSuspended :: BulkEmailStatus
+pattern BulkEmailStatusAccountSuspended = BulkEmailStatus' "AccountSuspended"
 
-pattern BESAccountThrottled :: BulkEmailStatus
-pattern BESAccountThrottled = BulkEmailStatus' "AccountThrottled"
+pattern BulkEmailStatusAccountThrottled :: BulkEmailStatus
+pattern BulkEmailStatusAccountThrottled = BulkEmailStatus' "AccountThrottled"
 
-pattern BESConfigurationSetDoesNotExist :: BulkEmailStatus
-pattern BESConfigurationSetDoesNotExist = BulkEmailStatus' "ConfigurationSetDoesNotExist"
+pattern BulkEmailStatusConfigurationSetDoesNotExist :: BulkEmailStatus
+pattern BulkEmailStatusConfigurationSetDoesNotExist = BulkEmailStatus' "ConfigurationSetDoesNotExist"
 
-pattern BESConfigurationSetSendingPaused :: BulkEmailStatus
-pattern BESConfigurationSetSendingPaused = BulkEmailStatus' "ConfigurationSetSendingPaused"
+pattern BulkEmailStatusConfigurationSetSendingPaused :: BulkEmailStatus
+pattern BulkEmailStatusConfigurationSetSendingPaused = BulkEmailStatus' "ConfigurationSetSendingPaused"
 
-pattern BESFailed :: BulkEmailStatus
-pattern BESFailed = BulkEmailStatus' "Failed"
+pattern BulkEmailStatusFailed :: BulkEmailStatus
+pattern BulkEmailStatusFailed = BulkEmailStatus' "Failed"
 
-pattern BESInvalidParameterValue :: BulkEmailStatus
-pattern BESInvalidParameterValue = BulkEmailStatus' "InvalidParameterValue"
+pattern BulkEmailStatusInvalidParameterValue :: BulkEmailStatus
+pattern BulkEmailStatusInvalidParameterValue = BulkEmailStatus' "InvalidParameterValue"
 
-pattern BESInvalidSendingPoolName :: BulkEmailStatus
-pattern BESInvalidSendingPoolName = BulkEmailStatus' "InvalidSendingPoolName"
+pattern BulkEmailStatusInvalidSendingPoolName :: BulkEmailStatus
+pattern BulkEmailStatusInvalidSendingPoolName = BulkEmailStatus' "InvalidSendingPoolName"
 
-pattern BESMailFromDomainNotVerified :: BulkEmailStatus
-pattern BESMailFromDomainNotVerified = BulkEmailStatus' "MailFromDomainNotVerified"
+pattern BulkEmailStatusMailFromDomainNotVerified :: BulkEmailStatus
+pattern BulkEmailStatusMailFromDomainNotVerified = BulkEmailStatus' "MailFromDomainNotVerified"
 
-pattern BESMessageRejected :: BulkEmailStatus
-pattern BESMessageRejected = BulkEmailStatus' "MessageRejected"
+pattern BulkEmailStatusMessageRejected :: BulkEmailStatus
+pattern BulkEmailStatusMessageRejected = BulkEmailStatus' "MessageRejected"
 
-pattern BESSuccess :: BulkEmailStatus
-pattern BESSuccess = BulkEmailStatus' "Success"
+pattern BulkEmailStatusSuccess :: BulkEmailStatus
+pattern BulkEmailStatusSuccess = BulkEmailStatus' "Success"
 
-pattern BESTemplateDoesNotExist :: BulkEmailStatus
-pattern BESTemplateDoesNotExist = BulkEmailStatus' "TemplateDoesNotExist"
+pattern BulkEmailStatusTemplateDoesNotExist :: BulkEmailStatus
+pattern BulkEmailStatusTemplateDoesNotExist = BulkEmailStatus' "TemplateDoesNotExist"
 
-pattern BESTransientFailure :: BulkEmailStatus
-pattern BESTransientFailure = BulkEmailStatus' "TransientFailure"
+pattern BulkEmailStatusTransientFailure :: BulkEmailStatus
+pattern BulkEmailStatusTransientFailure = BulkEmailStatus' "TransientFailure"
 
 {-# COMPLETE
-  BESAccountDailyQuotaExceeded,
-  BESAccountSendingPaused,
-  BESAccountSuspended,
-  BESAccountThrottled,
-  BESConfigurationSetDoesNotExist,
-  BESConfigurationSetSendingPaused,
-  BESFailed,
-  BESInvalidParameterValue,
-  BESInvalidSendingPoolName,
-  BESMailFromDomainNotVerified,
-  BESMessageRejected,
-  BESSuccess,
-  BESTemplateDoesNotExist,
-  BESTransientFailure,
+  BulkEmailStatusAccountDailyQuotaExceeded,
+  BulkEmailStatusAccountSendingPaused,
+  BulkEmailStatusAccountSuspended,
+  BulkEmailStatusAccountThrottled,
+  BulkEmailStatusConfigurationSetDoesNotExist,
+  BulkEmailStatusConfigurationSetSendingPaused,
+  BulkEmailStatusFailed,
+  BulkEmailStatusInvalidParameterValue,
+  BulkEmailStatusInvalidSendingPoolName,
+  BulkEmailStatusMailFromDomainNotVerified,
+  BulkEmailStatusMessageRejected,
+  BulkEmailStatusSuccess,
+  BulkEmailStatusTemplateDoesNotExist,
+  BulkEmailStatusTransientFailure,
   BulkEmailStatus'
   #-}
 
-instance FromText BulkEmailStatus where
-  parser = (BulkEmailStatus' . mk) <$> takeText
+instance Prelude.FromText BulkEmailStatus where
+  parser = BulkEmailStatus' Prelude.<$> Prelude.takeText
 
-instance ToText BulkEmailStatus where
-  toText (BulkEmailStatus' ci) = original ci
+instance Prelude.ToText BulkEmailStatus where
+  toText (BulkEmailStatus' x) = x
 
-instance Hashable BulkEmailStatus
+instance Prelude.Hashable BulkEmailStatus
 
-instance NFData BulkEmailStatus
+instance Prelude.NFData BulkEmailStatus
 
-instance ToByteString BulkEmailStatus
+instance Prelude.ToByteString BulkEmailStatus
 
-instance ToQuery BulkEmailStatus
+instance Prelude.ToQuery BulkEmailStatus
 
-instance ToHeader BulkEmailStatus
+instance Prelude.ToHeader BulkEmailStatus
 
-instance FromXML BulkEmailStatus where
-  parseXML = parseXMLText "BulkEmailStatus"
+instance Prelude.FromXML BulkEmailStatus where
+  parseXML = Prelude.parseXMLText "BulkEmailStatus"

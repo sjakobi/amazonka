@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,106 +21,108 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deprecated. Use the @DeleteIdentity@ operation to delete email addresses and domains.
+-- Deprecated. Use the @DeleteIdentity@ operation to delete email addresses
+-- and domains.
 module Network.AWS.SES.DeleteVerifiedEmailAddress
   ( -- * Creating a Request
-    deleteVerifiedEmailAddress,
-    DeleteVerifiedEmailAddress,
+    DeleteVerifiedEmailAddress (..),
+    newDeleteVerifiedEmailAddress,
 
     -- * Request Lenses
-    dveaEmailAddress,
+    deleteVerifiedEmailAddress_emailAddress,
 
     -- * Destructuring the Response
-    deleteVerifiedEmailAddressResponse,
-    DeleteVerifiedEmailAddressResponse,
+    DeleteVerifiedEmailAddressResponse (..),
+    newDeleteVerifiedEmailAddressResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to delete an email address from the list of email addresses you have attempted to verify under your AWS account.
+-- | Represents a request to delete an email address from the list of email
+-- addresses you have attempted to verify under your AWS account.
 --
---
---
--- /See:/ 'deleteVerifiedEmailAddress' smart constructor.
-newtype DeleteVerifiedEmailAddress = DeleteVerifiedEmailAddress'
-  { _dveaEmailAddress ::
-      Text
+-- /See:/ 'newDeleteVerifiedEmailAddress' smart constructor.
+data DeleteVerifiedEmailAddress = DeleteVerifiedEmailAddress'
+  { -- | An email address to be removed from the list of verified addresses.
+    emailAddress :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVerifiedEmailAddress' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'DeleteVerifiedEmailAddress' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'dveaEmailAddress' - An email address to be removed from the list of verified addresses.
-deleteVerifiedEmailAddress ::
-  -- | 'dveaEmailAddress'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'emailAddress', 'deleteVerifiedEmailAddress_emailAddress' - An email address to be removed from the list of verified addresses.
+newDeleteVerifiedEmailAddress ::
+  -- | 'emailAddress'
+  Prelude.Text ->
   DeleteVerifiedEmailAddress
-deleteVerifiedEmailAddress pEmailAddress_ =
+newDeleteVerifiedEmailAddress pEmailAddress_ =
   DeleteVerifiedEmailAddress'
-    { _dveaEmailAddress =
+    { emailAddress =
         pEmailAddress_
     }
 
 -- | An email address to be removed from the list of verified addresses.
-dveaEmailAddress :: Lens' DeleteVerifiedEmailAddress Text
-dveaEmailAddress = lens _dveaEmailAddress (\s a -> s {_dveaEmailAddress = a})
+deleteVerifiedEmailAddress_emailAddress :: Lens.Lens' DeleteVerifiedEmailAddress Prelude.Text
+deleteVerifiedEmailAddress_emailAddress = Lens.lens (\DeleteVerifiedEmailAddress' {emailAddress} -> emailAddress) (\s@DeleteVerifiedEmailAddress' {} a -> s {emailAddress = a} :: DeleteVerifiedEmailAddress)
 
-instance AWSRequest DeleteVerifiedEmailAddress where
+instance
+  Prelude.AWSRequest
+    DeleteVerifiedEmailAddress
+  where
   type
     Rs DeleteVerifiedEmailAddress =
       DeleteVerifiedEmailAddressResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveNull DeleteVerifiedEmailAddressResponse'
+    Response.receiveNull
+      DeleteVerifiedEmailAddressResponse'
 
-instance Hashable DeleteVerifiedEmailAddress
+instance Prelude.Hashable DeleteVerifiedEmailAddress
 
-instance NFData DeleteVerifiedEmailAddress
+instance Prelude.NFData DeleteVerifiedEmailAddress
 
-instance ToHeaders DeleteVerifiedEmailAddress where
-  toHeaders = const mempty
+instance Prelude.ToHeaders DeleteVerifiedEmailAddress where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath DeleteVerifiedEmailAddress where
-  toPath = const "/"
+instance Prelude.ToPath DeleteVerifiedEmailAddress where
+  toPath = Prelude.const "/"
 
-instance ToQuery DeleteVerifiedEmailAddress where
+instance Prelude.ToQuery DeleteVerifiedEmailAddress where
   toQuery DeleteVerifiedEmailAddress' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("DeleteVerifiedEmailAddress" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "EmailAddress" =: _dveaEmailAddress
+          Prelude.=: ("DeleteVerifiedEmailAddress" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "EmailAddress" Prelude.=: emailAddress
       ]
 
--- | /See:/ 'deleteVerifiedEmailAddressResponse' smart constructor.
+-- | /See:/ 'newDeleteVerifiedEmailAddressResponse' smart constructor.
 data DeleteVerifiedEmailAddressResponse = DeleteVerifiedEmailAddressResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'DeleteVerifiedEmailAddressResponse' with the minimum fields required to make a request.
-deleteVerifiedEmailAddressResponse ::
+-- |
+-- Create a value of 'DeleteVerifiedEmailAddressResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newDeleteVerifiedEmailAddressResponse ::
   DeleteVerifiedEmailAddressResponse
-deleteVerifiedEmailAddressResponse =
+newDeleteVerifiedEmailAddressResponse =
   DeleteVerifiedEmailAddressResponse'
 
-instance NFData DeleteVerifiedEmailAddressResponse
+instance
+  Prelude.NFData
+    DeleteVerifiedEmailAddressResponse

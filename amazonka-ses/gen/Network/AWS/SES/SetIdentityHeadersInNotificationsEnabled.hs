@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,190 +21,213 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Given an identity (an email address or a domain), sets whether Amazon SES includes the original email headers in the Amazon Simple Notification Service (Amazon SNS) notifications of a specified type.
---
+-- Given an identity (an email address or a domain), sets whether Amazon
+-- SES includes the original email headers in the Amazon Simple
+-- Notification Service (Amazon SNS) notifications of a specified type.
 --
 -- You can execute this operation no more than once per second.
 --
--- For more information about using notifications with Amazon SES, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html Amazon SES Developer Guide> .
+-- For more information about using notifications with Amazon SES, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html Amazon SES Developer Guide>.
 module Network.AWS.SES.SetIdentityHeadersInNotificationsEnabled
   ( -- * Creating a Request
-    setIdentityHeadersInNotificationsEnabled,
-    SetIdentityHeadersInNotificationsEnabled,
+    SetIdentityHeadersInNotificationsEnabled (..),
+    newSetIdentityHeadersInNotificationsEnabled,
 
     -- * Request Lenses
-    sihineIdentity,
-    sihineNotificationType,
-    sihineEnabled,
+    setIdentityHeadersInNotificationsEnabled_identity,
+    setIdentityHeadersInNotificationsEnabled_notificationType,
+    setIdentityHeadersInNotificationsEnabled_enabled,
 
     -- * Destructuring the Response
-    setIdentityHeadersInNotificationsEnabledResponse,
-    SetIdentityHeadersInNotificationsEnabledResponse,
+    SetIdentityHeadersInNotificationsEnabledResponse (..),
+    newSetIdentityHeadersInNotificationsEnabledResponse,
 
     -- * Response Lenses
-    sihinerrsResponseStatus,
+    setIdentityHeadersInNotificationsEnabledResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to set whether Amazon SES includes the original email headers in the Amazon SNS notifications of a specified type. For information about notifications, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-sns.html Amazon SES Developer Guide> .
+-- | Represents a request to set whether Amazon SES includes the original
+-- email headers in the Amazon SNS notifications of a specified type. For
+-- information about notifications, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-sns.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'setIdentityHeadersInNotificationsEnabled' smart constructor.
+-- /See:/ 'newSetIdentityHeadersInNotificationsEnabled' smart constructor.
 data SetIdentityHeadersInNotificationsEnabled = SetIdentityHeadersInNotificationsEnabled'
-  { _sihineIdentity ::
-      !Text,
-    _sihineNotificationType ::
-      !NotificationType,
-    _sihineEnabled ::
-      !Bool
+  { -- | The identity for which to enable or disable headers in notifications.
+    -- Examples: @user\@example.com@, @example.com@.
+    identity :: Prelude.Text,
+    -- | The notification type for which to enable or disable headers in
+    -- notifications.
+    notificationType :: NotificationType,
+    -- | Sets whether Amazon SES includes the original email headers in Amazon
+    -- SNS notifications of the specified notification type. A value of @true@
+    -- specifies that Amazon SES will include headers in notifications, and a
+    -- value of @false@ specifies that Amazon SES will not include headers in
+    -- notifications.
+    --
+    -- This value can only be set when @NotificationType@ is already set to use
+    -- a particular Amazon SNS topic.
+    enabled :: Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetIdentityHeadersInNotificationsEnabled' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetIdentityHeadersInNotificationsEnabled' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sihineIdentity' - The identity for which to enable or disable headers in notifications. Examples: @user@example.com@ , @example.com@ .
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'sihineNotificationType' - The notification type for which to enable or disable headers in notifications.
+-- 'identity', 'setIdentityHeadersInNotificationsEnabled_identity' - The identity for which to enable or disable headers in notifications.
+-- Examples: @user\@example.com@, @example.com@.
 --
--- * 'sihineEnabled' - Sets whether Amazon SES includes the original email headers in Amazon SNS notifications of the specified notification type. A value of @true@ specifies that Amazon SES will include headers in notifications, and a value of @false@ specifies that Amazon SES will not include headers in notifications. This value can only be set when @NotificationType@ is already set to use a particular Amazon SNS topic.
-setIdentityHeadersInNotificationsEnabled ::
-  -- | 'sihineIdentity'
-  Text ->
-  -- | 'sihineNotificationType'
+-- 'notificationType', 'setIdentityHeadersInNotificationsEnabled_notificationType' - The notification type for which to enable or disable headers in
+-- notifications.
+--
+-- 'enabled', 'setIdentityHeadersInNotificationsEnabled_enabled' - Sets whether Amazon SES includes the original email headers in Amazon
+-- SNS notifications of the specified notification type. A value of @true@
+-- specifies that Amazon SES will include headers in notifications, and a
+-- value of @false@ specifies that Amazon SES will not include headers in
+-- notifications.
+--
+-- This value can only be set when @NotificationType@ is already set to use
+-- a particular Amazon SNS topic.
+newSetIdentityHeadersInNotificationsEnabled ::
+  -- | 'identity'
+  Prelude.Text ->
+  -- | 'notificationType'
   NotificationType ->
-  -- | 'sihineEnabled'
-  Bool ->
+  -- | 'enabled'
+  Prelude.Bool ->
   SetIdentityHeadersInNotificationsEnabled
-setIdentityHeadersInNotificationsEnabled
+newSetIdentityHeadersInNotificationsEnabled
   pIdentity_
   pNotificationType_
   pEnabled_ =
     SetIdentityHeadersInNotificationsEnabled'
-      { _sihineIdentity =
+      { identity =
           pIdentity_,
-        _sihineNotificationType =
+        notificationType =
           pNotificationType_,
-        _sihineEnabled = pEnabled_
+        enabled = pEnabled_
       }
 
--- | The identity for which to enable or disable headers in notifications. Examples: @user@example.com@ , @example.com@ .
-sihineIdentity :: Lens' SetIdentityHeadersInNotificationsEnabled Text
-sihineIdentity = lens _sihineIdentity (\s a -> s {_sihineIdentity = a})
+-- | The identity for which to enable or disable headers in notifications.
+-- Examples: @user\@example.com@, @example.com@.
+setIdentityHeadersInNotificationsEnabled_identity :: Lens.Lens' SetIdentityHeadersInNotificationsEnabled Prelude.Text
+setIdentityHeadersInNotificationsEnabled_identity = Lens.lens (\SetIdentityHeadersInNotificationsEnabled' {identity} -> identity) (\s@SetIdentityHeadersInNotificationsEnabled' {} a -> s {identity = a} :: SetIdentityHeadersInNotificationsEnabled)
 
--- | The notification type for which to enable or disable headers in notifications.
-sihineNotificationType :: Lens' SetIdentityHeadersInNotificationsEnabled NotificationType
-sihineNotificationType = lens _sihineNotificationType (\s a -> s {_sihineNotificationType = a})
+-- | The notification type for which to enable or disable headers in
+-- notifications.
+setIdentityHeadersInNotificationsEnabled_notificationType :: Lens.Lens' SetIdentityHeadersInNotificationsEnabled NotificationType
+setIdentityHeadersInNotificationsEnabled_notificationType = Lens.lens (\SetIdentityHeadersInNotificationsEnabled' {notificationType} -> notificationType) (\s@SetIdentityHeadersInNotificationsEnabled' {} a -> s {notificationType = a} :: SetIdentityHeadersInNotificationsEnabled)
 
--- | Sets whether Amazon SES includes the original email headers in Amazon SNS notifications of the specified notification type. A value of @true@ specifies that Amazon SES will include headers in notifications, and a value of @false@ specifies that Amazon SES will not include headers in notifications. This value can only be set when @NotificationType@ is already set to use a particular Amazon SNS topic.
-sihineEnabled :: Lens' SetIdentityHeadersInNotificationsEnabled Bool
-sihineEnabled = lens _sihineEnabled (\s a -> s {_sihineEnabled = a})
+-- | Sets whether Amazon SES includes the original email headers in Amazon
+-- SNS notifications of the specified notification type. A value of @true@
+-- specifies that Amazon SES will include headers in notifications, and a
+-- value of @false@ specifies that Amazon SES will not include headers in
+-- notifications.
+--
+-- This value can only be set when @NotificationType@ is already set to use
+-- a particular Amazon SNS topic.
+setIdentityHeadersInNotificationsEnabled_enabled :: Lens.Lens' SetIdentityHeadersInNotificationsEnabled Prelude.Bool
+setIdentityHeadersInNotificationsEnabled_enabled = Lens.lens (\SetIdentityHeadersInNotificationsEnabled' {enabled} -> enabled) (\s@SetIdentityHeadersInNotificationsEnabled' {} a -> s {enabled = a} :: SetIdentityHeadersInNotificationsEnabled)
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     SetIdentityHeadersInNotificationsEnabled
   where
   type
     Rs SetIdentityHeadersInNotificationsEnabled =
       SetIdentityHeadersInNotificationsEnabledResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "SetIdentityHeadersInNotificationsEnabledResult"
       ( \s h x ->
           SetIdentityHeadersInNotificationsEnabledResponse'
-            <$> (pure (fromEnum s))
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     SetIdentityHeadersInNotificationsEnabled
 
 instance
-  NFData
+  Prelude.NFData
     SetIdentityHeadersInNotificationsEnabled
 
 instance
-  ToHeaders
-    SetIdentityHeadersInNotificationsEnabled
-  where
-  toHeaders = const mempty
-
-instance
-  ToPath
+  Prelude.ToHeaders
     SetIdentityHeadersInNotificationsEnabled
   where
-  toPath = const "/"
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  ToQuery
+  Prelude.ToPath
+    SetIdentityHeadersInNotificationsEnabled
+  where
+  toPath = Prelude.const "/"
+
+instance
+  Prelude.ToQuery
     SetIdentityHeadersInNotificationsEnabled
   where
   toQuery SetIdentityHeadersInNotificationsEnabled' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "SetIdentityHeadersInNotificationsEnabled" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Identity" =: _sihineIdentity,
-        "NotificationType" =: _sihineNotificationType,
-        "Enabled" =: _sihineEnabled
+          Prelude.=: ( "SetIdentityHeadersInNotificationsEnabled" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Identity" Prelude.=: identity,
+        "NotificationType" Prelude.=: notificationType,
+        "Enabled" Prelude.=: enabled
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'setIdentityHeadersInNotificationsEnabledResponse' smart constructor.
-newtype SetIdentityHeadersInNotificationsEnabledResponse = SetIdentityHeadersInNotificationsEnabledResponse'
-  { _sihinerrsResponseStatus ::
-      Int
+-- /See:/ 'newSetIdentityHeadersInNotificationsEnabledResponse' smart constructor.
+data SetIdentityHeadersInNotificationsEnabledResponse = SetIdentityHeadersInNotificationsEnabledResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'SetIdentityHeadersInNotificationsEnabledResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'SetIdentityHeadersInNotificationsEnabledResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'sihinerrsResponseStatus' - -- | The response status code.
-setIdentityHeadersInNotificationsEnabledResponse ::
-  -- | 'sihinerrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'setIdentityHeadersInNotificationsEnabledResponse_httpStatus' - The response's http status code.
+newSetIdentityHeadersInNotificationsEnabledResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   SetIdentityHeadersInNotificationsEnabledResponse
-setIdentityHeadersInNotificationsEnabledResponse
-  pResponseStatus_ =
+newSetIdentityHeadersInNotificationsEnabledResponse
+  pHttpStatus_ =
     SetIdentityHeadersInNotificationsEnabledResponse'
-      { _sihinerrsResponseStatus =
-          pResponseStatus_
+      { httpStatus =
+          pHttpStatus_
       }
 
--- | -- | The response status code.
-sihinerrsResponseStatus :: Lens' SetIdentityHeadersInNotificationsEnabledResponse Int
-sihinerrsResponseStatus = lens _sihinerrsResponseStatus (\s a -> s {_sihinerrsResponseStatus = a})
+-- | The response's http status code.
+setIdentityHeadersInNotificationsEnabledResponse_httpStatus :: Lens.Lens' SetIdentityHeadersInNotificationsEnabledResponse Prelude.Int
+setIdentityHeadersInNotificationsEnabledResponse_httpStatus = Lens.lens (\SetIdentityHeadersInNotificationsEnabledResponse' {httpStatus} -> httpStatus) (\s@SetIdentityHeadersInNotificationsEnabledResponse' {} a -> s {httpStatus = a} :: SetIdentityHeadersInNotificationsEnabledResponse)
 
 instance
-  NFData
+  Prelude.NFData
     SetIdentityHeadersInNotificationsEnabledResponse

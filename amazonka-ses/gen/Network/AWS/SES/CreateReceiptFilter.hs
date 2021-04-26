@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -19,132 +23,134 @@
 --
 -- Creates a new IP address filter.
 --
---
--- For information about setting up IP address filters, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-ip-filters.html Amazon SES Developer Guide> .
+-- For information about setting up IP address filters, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-ip-filters.html Amazon SES Developer Guide>.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.CreateReceiptFilter
   ( -- * Creating a Request
-    createReceiptFilter,
-    CreateReceiptFilter,
+    CreateReceiptFilter (..),
+    newCreateReceiptFilter,
 
     -- * Request Lenses
-    crfFilter,
+    createReceiptFilter_filter,
 
     -- * Destructuring the Response
-    createReceiptFilterResponse,
-    CreateReceiptFilterResponse,
+    CreateReceiptFilterResponse (..),
+    newCreateReceiptFilterResponse,
 
     -- * Response Lenses
-    crfrrsResponseStatus,
+    createReceiptFilterResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to create a new IP address filter. You use IP address filters when you receive email with Amazon SES. For more information, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide> .
+-- | Represents a request to create a new IP address filter. You use IP
+-- address filters when you receive email with Amazon SES. For more
+-- information, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'createReceiptFilter' smart constructor.
-newtype CreateReceiptFilter = CreateReceiptFilter'
-  { _crfFilter ::
-      ReceiptFilter
+-- /See:/ 'newCreateReceiptFilter' smart constructor.
+data CreateReceiptFilter = CreateReceiptFilter'
+  { -- | A data structure that describes the IP address filter to create, which
+    -- consists of a name, an IP address range, and whether to allow or block
+    -- mail from it.
+    filter' :: ReceiptFilter
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReceiptFilter' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReceiptFilter' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crfFilter' - A data structure that describes the IP address filter to create, which consists of a name, an IP address range, and whether to allow or block mail from it.
-createReceiptFilter ::
-  -- | 'crfFilter'
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'filter'', 'createReceiptFilter_filter' - A data structure that describes the IP address filter to create, which
+-- consists of a name, an IP address range, and whether to allow or block
+-- mail from it.
+newCreateReceiptFilter ::
+  -- | 'filter''
   ReceiptFilter ->
   CreateReceiptFilter
-createReceiptFilter pFilter_ =
-  CreateReceiptFilter' {_crfFilter = pFilter_}
+newCreateReceiptFilter pFilter_ =
+  CreateReceiptFilter' {filter' = pFilter_}
 
--- | A data structure that describes the IP address filter to create, which consists of a name, an IP address range, and whether to allow or block mail from it.
-crfFilter :: Lens' CreateReceiptFilter ReceiptFilter
-crfFilter = lens _crfFilter (\s a -> s {_crfFilter = a})
+-- | A data structure that describes the IP address filter to create, which
+-- consists of a name, an IP address range, and whether to allow or block
+-- mail from it.
+createReceiptFilter_filter :: Lens.Lens' CreateReceiptFilter ReceiptFilter
+createReceiptFilter_filter = Lens.lens (\CreateReceiptFilter' {filter'} -> filter') (\s@CreateReceiptFilter' {} a -> s {filter' = a} :: CreateReceiptFilter)
 
-instance AWSRequest CreateReceiptFilter where
+instance Prelude.AWSRequest CreateReceiptFilter where
   type
     Rs CreateReceiptFilter =
       CreateReceiptFilterResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "CreateReceiptFilterResult"
       ( \s h x ->
-          CreateReceiptFilterResponse' <$> (pure (fromEnum s))
+          CreateReceiptFilterResponse'
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Hashable CreateReceiptFilter
+instance Prelude.Hashable CreateReceiptFilter
 
-instance NFData CreateReceiptFilter
+instance Prelude.NFData CreateReceiptFilter
 
-instance ToHeaders CreateReceiptFilter where
-  toHeaders = const mempty
+instance Prelude.ToHeaders CreateReceiptFilter where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath CreateReceiptFilter where
-  toPath = const "/"
+instance Prelude.ToPath CreateReceiptFilter where
+  toPath = Prelude.const "/"
 
-instance ToQuery CreateReceiptFilter where
+instance Prelude.ToQuery CreateReceiptFilter where
   toQuery CreateReceiptFilter' {..} =
-    mconcat
-      [ "Action" =: ("CreateReceiptFilter" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Filter" =: _crfFilter
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("CreateReceiptFilter" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Filter" Prelude.=: filter'
       ]
 
 -- | An empty element returned on a successful request.
 --
---
---
--- /See:/ 'createReceiptFilterResponse' smart constructor.
-newtype CreateReceiptFilterResponse = CreateReceiptFilterResponse'
-  { _crfrrsResponseStatus ::
-      Int
+-- /See:/ 'newCreateReceiptFilterResponse' smart constructor.
+data CreateReceiptFilterResponse = CreateReceiptFilterResponse'
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'CreateReceiptFilterResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'CreateReceiptFilterResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'crfrrsResponseStatus' - -- | The response status code.
-createReceiptFilterResponse ::
-  -- | 'crfrrsResponseStatus'
-  Int ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'httpStatus', 'createReceiptFilterResponse_httpStatus' - The response's http status code.
+newCreateReceiptFilterResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   CreateReceiptFilterResponse
-createReceiptFilterResponse pResponseStatus_ =
+newCreateReceiptFilterResponse pHttpStatus_ =
   CreateReceiptFilterResponse'
-    { _crfrrsResponseStatus =
-        pResponseStatus_
+    { httpStatus =
+        pHttpStatus_
     }
 
--- | -- | The response status code.
-crfrrsResponseStatus :: Lens' CreateReceiptFilterResponse Int
-crfrrsResponseStatus = lens _crfrrsResponseStatus (\s a -> s {_crfrrsResponseStatus = a})
+-- | The response's http status code.
+createReceiptFilterResponse_httpStatus :: Lens.Lens' CreateReceiptFilterResponse Prelude.Int
+createReceiptFilterResponse_httpStatus = Lens.lens (\CreateReceiptFilterResponse' {httpStatus} -> httpStatus) (\s@CreateReceiptFilterResponse' {} a -> s {httpStatus = a} :: CreateReceiptFilterResponse)
 
-instance NFData CreateReceiptFilterResponse
+instance Prelude.NFData CreateReceiptFilterResponse

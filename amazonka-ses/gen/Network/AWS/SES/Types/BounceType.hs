@@ -3,6 +3,8 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -17,70 +19,72 @@
 module Network.AWS.SES.Types.BounceType
   ( BounceType
       ( ..,
-        BTContentRejected,
-        BTDoesNotExist,
-        BTExceededQuota,
-        BTMessageTooLarge,
-        BTTemporaryFailure,
-        BTUndefined
+        BounceTypeContentRejected,
+        BounceTypeDoesNotExist,
+        BounceTypeExceededQuota,
+        BounceTypeMessageTooLarge,
+        BounceTypeTemporaryFailure,
+        BounceTypeUndefined
       ),
   )
 where
 
-import Data.CaseInsensitive
-import Network.AWS.Prelude
+import qualified Network.AWS.Prelude as Prelude
 
-data BounceType = BounceType' (CI Text)
+newtype BounceType = BounceType'
+  { fromBounceType ::
+      Prelude.Text
+  }
   deriving
-    ( Eq,
-      Ord,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
+    ( Prelude.Eq,
+      Prelude.Ord,
+      Prelude.Read,
+      Prelude.Show,
+      Prelude.Data,
+      Prelude.Typeable,
+      Prelude.Generic
     )
 
-pattern BTContentRejected :: BounceType
-pattern BTContentRejected = BounceType' "ContentRejected"
+pattern BounceTypeContentRejected :: BounceType
+pattern BounceTypeContentRejected = BounceType' "ContentRejected"
 
-pattern BTDoesNotExist :: BounceType
-pattern BTDoesNotExist = BounceType' "DoesNotExist"
+pattern BounceTypeDoesNotExist :: BounceType
+pattern BounceTypeDoesNotExist = BounceType' "DoesNotExist"
 
-pattern BTExceededQuota :: BounceType
-pattern BTExceededQuota = BounceType' "ExceededQuota"
+pattern BounceTypeExceededQuota :: BounceType
+pattern BounceTypeExceededQuota = BounceType' "ExceededQuota"
 
-pattern BTMessageTooLarge :: BounceType
-pattern BTMessageTooLarge = BounceType' "MessageTooLarge"
+pattern BounceTypeMessageTooLarge :: BounceType
+pattern BounceTypeMessageTooLarge = BounceType' "MessageTooLarge"
 
-pattern BTTemporaryFailure :: BounceType
-pattern BTTemporaryFailure = BounceType' "TemporaryFailure"
+pattern BounceTypeTemporaryFailure :: BounceType
+pattern BounceTypeTemporaryFailure = BounceType' "TemporaryFailure"
 
-pattern BTUndefined :: BounceType
-pattern BTUndefined = BounceType' "Undefined"
+pattern BounceTypeUndefined :: BounceType
+pattern BounceTypeUndefined = BounceType' "Undefined"
 
 {-# COMPLETE
-  BTContentRejected,
-  BTDoesNotExist,
-  BTExceededQuota,
-  BTMessageTooLarge,
-  BTTemporaryFailure,
-  BTUndefined,
+  BounceTypeContentRejected,
+  BounceTypeDoesNotExist,
+  BounceTypeExceededQuota,
+  BounceTypeMessageTooLarge,
+  BounceTypeTemporaryFailure,
+  BounceTypeUndefined,
   BounceType'
   #-}
 
-instance FromText BounceType where
-  parser = (BounceType' . mk) <$> takeText
+instance Prelude.FromText BounceType where
+  parser = BounceType' Prelude.<$> Prelude.takeText
 
-instance ToText BounceType where
-  toText (BounceType' ci) = original ci
+instance Prelude.ToText BounceType where
+  toText (BounceType' x) = x
 
-instance Hashable BounceType
+instance Prelude.Hashable BounceType
 
-instance NFData BounceType
+instance Prelude.NFData BounceType
 
-instance ToByteString BounceType
+instance Prelude.ToByteString BounceType
 
-instance ToQuery BounceType
+instance Prelude.ToQuery BounceType
 
-instance ToHeader BounceType
+instance Prelude.ToHeader BounceType

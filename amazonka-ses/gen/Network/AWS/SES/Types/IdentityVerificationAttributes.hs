@@ -1,7 +1,11 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
@@ -15,65 +19,71 @@
 -- Portability : non-portable (GHC extensions)
 module Network.AWS.SES.Types.IdentityVerificationAttributes where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
 import Network.AWS.SES.Types.VerificationStatus
 
 -- | Represents the verification attributes of a single identity.
 --
---
---
--- /See:/ 'identityVerificationAttributes' smart constructor.
+-- /See:/ 'newIdentityVerificationAttributes' smart constructor.
 data IdentityVerificationAttributes = IdentityVerificationAttributes'
-  { _ivaVerificationToken ::
-      !( Maybe
-           Text
-       ),
-    _ivaVerificationStatus ::
-      !VerificationStatus
+  { -- | The verification token for a domain identity. Null for email address
+    -- identities.
+    verificationToken :: Prelude.Maybe Prelude.Text,
+    -- | The verification status of the identity: \"Pending\", \"Success\",
+    -- \"Failed\", or \"TemporaryFailure\".
+    verificationStatus :: VerificationStatus
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'IdentityVerificationAttributes' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'IdentityVerificationAttributes' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'ivaVerificationToken' - The verification token for a domain identity. Null for email address identities.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'ivaVerificationStatus' - The verification status of the identity: "Pending", "Success", "Failed", or "TemporaryFailure".
-identityVerificationAttributes ::
-  -- | 'ivaVerificationStatus'
+-- 'verificationToken', 'identityVerificationAttributes_verificationToken' - The verification token for a domain identity. Null for email address
+-- identities.
+--
+-- 'verificationStatus', 'identityVerificationAttributes_verificationStatus' - The verification status of the identity: \"Pending\", \"Success\",
+-- \"Failed\", or \"TemporaryFailure\".
+newIdentityVerificationAttributes ::
+  -- | 'verificationStatus'
   VerificationStatus ->
   IdentityVerificationAttributes
-identityVerificationAttributes pVerificationStatus_ =
-  IdentityVerificationAttributes'
-    { _ivaVerificationToken =
-        Nothing,
-      _ivaVerificationStatus =
-        pVerificationStatus_
-    }
+newIdentityVerificationAttributes
+  pVerificationStatus_ =
+    IdentityVerificationAttributes'
+      { verificationToken =
+          Prelude.Nothing,
+        verificationStatus = pVerificationStatus_
+      }
 
--- | The verification token for a domain identity. Null for email address identities.
-ivaVerificationToken :: Lens' IdentityVerificationAttributes (Maybe Text)
-ivaVerificationToken = lens _ivaVerificationToken (\s a -> s {_ivaVerificationToken = a})
+-- | The verification token for a domain identity. Null for email address
+-- identities.
+identityVerificationAttributes_verificationToken :: Lens.Lens' IdentityVerificationAttributes (Prelude.Maybe Prelude.Text)
+identityVerificationAttributes_verificationToken = Lens.lens (\IdentityVerificationAttributes' {verificationToken} -> verificationToken) (\s@IdentityVerificationAttributes' {} a -> s {verificationToken = a} :: IdentityVerificationAttributes)
 
--- | The verification status of the identity: "Pending", "Success", "Failed", or "TemporaryFailure".
-ivaVerificationStatus :: Lens' IdentityVerificationAttributes VerificationStatus
-ivaVerificationStatus = lens _ivaVerificationStatus (\s a -> s {_ivaVerificationStatus = a})
+-- | The verification status of the identity: \"Pending\", \"Success\",
+-- \"Failed\", or \"TemporaryFailure\".
+identityVerificationAttributes_verificationStatus :: Lens.Lens' IdentityVerificationAttributes VerificationStatus
+identityVerificationAttributes_verificationStatus = Lens.lens (\IdentityVerificationAttributes' {verificationStatus} -> verificationStatus) (\s@IdentityVerificationAttributes' {} a -> s {verificationStatus = a} :: IdentityVerificationAttributes)
 
-instance FromXML IdentityVerificationAttributes where
+instance
+  Prelude.FromXML
+    IdentityVerificationAttributes
+  where
   parseXML x =
     IdentityVerificationAttributes'
-      <$> (x .@? "VerificationToken")
-      <*> (x .@ "VerificationStatus")
+      Prelude.<$> (x Prelude..@? "VerificationToken")
+      Prelude.<*> (x Prelude..@ "VerificationStatus")
 
-instance Hashable IdentityVerificationAttributes
+instance
+  Prelude.Hashable
+    IdentityVerificationAttributes
 
-instance NFData IdentityVerificationAttributes
+instance
+  Prelude.NFData
+    IdentityVerificationAttributes

@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,148 +21,172 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds a domain to the list of identities for your Amazon SES account in the current AWS Region and attempts to verify it. For more information about verifying domains, see <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html Verifying Email Addresses and Domains> in the /Amazon SES Developer Guide./
---
+-- Adds a domain to the list of identities for your Amazon SES account in
+-- the current AWS Region and attempts to verify it. For more information
+-- about verifying domains, see
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html Verifying Email Addresses and Domains>
+-- in the /Amazon SES Developer Guide./
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.VerifyDomainIdentity
   ( -- * Creating a Request
-    verifyDomainIdentity,
-    VerifyDomainIdentity,
+    VerifyDomainIdentity (..),
+    newVerifyDomainIdentity,
 
     -- * Request Lenses
-    vdiDomain,
+    verifyDomainIdentity_domain,
 
     -- * Destructuring the Response
-    verifyDomainIdentityResponse,
-    VerifyDomainIdentityResponse,
+    VerifyDomainIdentityResponse (..),
+    newVerifyDomainIdentityResponse,
 
     -- * Response Lenses
-    vdirrsResponseStatus,
-    vdirrsVerificationToken,
+    verifyDomainIdentityResponse_httpStatus,
+    verifyDomainIdentityResponse_verificationToken,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to begin Amazon SES domain verification and to generate the TXT records that you must publish to the DNS server of your domain to complete the verification. For information about domain verification, see the <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-domains.html Amazon SES Developer Guide> .
+-- | Represents a request to begin Amazon SES domain verification and to
+-- generate the TXT records that you must publish to the DNS server of your
+-- domain to complete the verification. For information about domain
+-- verification, see the
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-domains.html Amazon SES Developer Guide>.
 --
---
---
--- /See:/ 'verifyDomainIdentity' smart constructor.
-newtype VerifyDomainIdentity = VerifyDomainIdentity'
-  { _vdiDomain ::
-      Text
+-- /See:/ 'newVerifyDomainIdentity' smart constructor.
+data VerifyDomainIdentity = VerifyDomainIdentity'
+  { -- | The domain to be verified.
+    domain :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyDomainIdentity' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyDomainIdentity' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vdiDomain' - The domain to be verified.
-verifyDomainIdentity ::
-  -- | 'vdiDomain'
-  Text ->
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'domain', 'verifyDomainIdentity_domain' - The domain to be verified.
+newVerifyDomainIdentity ::
+  -- | 'domain'
+  Prelude.Text ->
   VerifyDomainIdentity
-verifyDomainIdentity pDomain_ =
-  VerifyDomainIdentity' {_vdiDomain = pDomain_}
+newVerifyDomainIdentity pDomain_ =
+  VerifyDomainIdentity' {domain = pDomain_}
 
 -- | The domain to be verified.
-vdiDomain :: Lens' VerifyDomainIdentity Text
-vdiDomain = lens _vdiDomain (\s a -> s {_vdiDomain = a})
+verifyDomainIdentity_domain :: Lens.Lens' VerifyDomainIdentity Prelude.Text
+verifyDomainIdentity_domain = Lens.lens (\VerifyDomainIdentity' {domain} -> domain) (\s@VerifyDomainIdentity' {} a -> s {domain = a} :: VerifyDomainIdentity)
 
-instance AWSRequest VerifyDomainIdentity where
+instance Prelude.AWSRequest VerifyDomainIdentity where
   type
     Rs VerifyDomainIdentity =
       VerifyDomainIdentityResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "VerifyDomainIdentityResult"
       ( \s h x ->
           VerifyDomainIdentityResponse'
-            <$> (pure (fromEnum s)) <*> (x .@ "VerificationToken")
+            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Prelude..@ "VerificationToken")
       )
 
-instance Hashable VerifyDomainIdentity
+instance Prelude.Hashable VerifyDomainIdentity
 
-instance NFData VerifyDomainIdentity
+instance Prelude.NFData VerifyDomainIdentity
 
-instance ToHeaders VerifyDomainIdentity where
-  toHeaders = const mempty
+instance Prelude.ToHeaders VerifyDomainIdentity where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath VerifyDomainIdentity where
-  toPath = const "/"
+instance Prelude.ToPath VerifyDomainIdentity where
+  toPath = Prelude.const "/"
 
-instance ToQuery VerifyDomainIdentity where
+instance Prelude.ToQuery VerifyDomainIdentity where
   toQuery VerifyDomainIdentity' {..} =
-    mconcat
-      [ "Action" =: ("VerifyDomainIdentity" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Domain" =: _vdiDomain
+    Prelude.mconcat
+      [ "Action"
+          Prelude.=: ("VerifyDomainIdentity" :: Prelude.ByteString),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Domain" Prelude.=: domain
       ]
 
--- | Returns a TXT record that you must publish to the DNS server of your domain to complete domain verification with Amazon SES.
+-- | Returns a TXT record that you must publish to the DNS server of your
+-- domain to complete domain verification with Amazon SES.
 --
---
---
--- /See:/ 'verifyDomainIdentityResponse' smart constructor.
+-- /See:/ 'newVerifyDomainIdentityResponse' smart constructor.
 data VerifyDomainIdentityResponse = VerifyDomainIdentityResponse'
-  { _vdirrsResponseStatus ::
-      !Int,
-    _vdirrsVerificationToken ::
-      !Text
+  { -- | The response's http status code.
+    httpStatus :: Prelude.Int,
+    -- | A TXT record that you must place in the DNS settings of the domain to
+    -- complete domain verification with Amazon SES.
+    --
+    -- As Amazon SES searches for the TXT record, the domain\'s verification
+    -- status is \"Pending\". When Amazon SES detects the record, the domain\'s
+    -- verification status changes to \"Success\". If Amazon SES is unable to
+    -- detect the record within 72 hours, the domain\'s verification status
+    -- changes to \"Failed.\" In that case, if you still want to verify the
+    -- domain, you must restart the verification process from the beginning.
+    verificationToken :: Prelude.Text
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'VerifyDomainIdentityResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'VerifyDomainIdentityResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'vdirrsResponseStatus' - -- | The response status code.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'vdirrsVerificationToken' - A TXT record that you must place in the DNS settings of the domain to complete domain verification with Amazon SES. As Amazon SES searches for the TXT record, the domain's verification status is "Pending". When Amazon SES detects the record, the domain's verification status changes to "Success". If Amazon SES is unable to detect the record within 72 hours, the domain's verification status changes to "Failed." In that case, if you still want to verify the domain, you must restart the verification process from the beginning.
-verifyDomainIdentityResponse ::
-  -- | 'vdirrsResponseStatus'
-  Int ->
-  -- | 'vdirrsVerificationToken'
-  Text ->
+-- 'httpStatus', 'verifyDomainIdentityResponse_httpStatus' - The response's http status code.
+--
+-- 'verificationToken', 'verifyDomainIdentityResponse_verificationToken' - A TXT record that you must place in the DNS settings of the domain to
+-- complete domain verification with Amazon SES.
+--
+-- As Amazon SES searches for the TXT record, the domain\'s verification
+-- status is \"Pending\". When Amazon SES detects the record, the domain\'s
+-- verification status changes to \"Success\". If Amazon SES is unable to
+-- detect the record within 72 hours, the domain\'s verification status
+-- changes to \"Failed.\" In that case, if you still want to verify the
+-- domain, you must restart the verification process from the beginning.
+newVerifyDomainIdentityResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  -- | 'verificationToken'
+  Prelude.Text ->
   VerifyDomainIdentityResponse
-verifyDomainIdentityResponse
-  pResponseStatus_
+newVerifyDomainIdentityResponse
+  pHttpStatus_
   pVerificationToken_ =
     VerifyDomainIdentityResponse'
-      { _vdirrsResponseStatus =
-          pResponseStatus_,
-        _vdirrsVerificationToken =
-          pVerificationToken_
+      { httpStatus =
+          pHttpStatus_,
+        verificationToken = pVerificationToken_
       }
 
--- | -- | The response status code.
-vdirrsResponseStatus :: Lens' VerifyDomainIdentityResponse Int
-vdirrsResponseStatus = lens _vdirrsResponseStatus (\s a -> s {_vdirrsResponseStatus = a})
+-- | The response's http status code.
+verifyDomainIdentityResponse_httpStatus :: Lens.Lens' VerifyDomainIdentityResponse Prelude.Int
+verifyDomainIdentityResponse_httpStatus = Lens.lens (\VerifyDomainIdentityResponse' {httpStatus} -> httpStatus) (\s@VerifyDomainIdentityResponse' {} a -> s {httpStatus = a} :: VerifyDomainIdentityResponse)
 
--- | A TXT record that you must place in the DNS settings of the domain to complete domain verification with Amazon SES. As Amazon SES searches for the TXT record, the domain's verification status is "Pending". When Amazon SES detects the record, the domain's verification status changes to "Success". If Amazon SES is unable to detect the record within 72 hours, the domain's verification status changes to "Failed." In that case, if you still want to verify the domain, you must restart the verification process from the beginning.
-vdirrsVerificationToken :: Lens' VerifyDomainIdentityResponse Text
-vdirrsVerificationToken = lens _vdirrsVerificationToken (\s a -> s {_vdirrsVerificationToken = a})
+-- | A TXT record that you must place in the DNS settings of the domain to
+-- complete domain verification with Amazon SES.
+--
+-- As Amazon SES searches for the TXT record, the domain\'s verification
+-- status is \"Pending\". When Amazon SES detects the record, the domain\'s
+-- verification status changes to \"Success\". If Amazon SES is unable to
+-- detect the record within 72 hours, the domain\'s verification status
+-- changes to \"Failed.\" In that case, if you still want to verify the
+-- domain, you must restart the verification process from the beginning.
+verifyDomainIdentityResponse_verificationToken :: Lens.Lens' VerifyDomainIdentityResponse Prelude.Text
+verifyDomainIdentityResponse_verificationToken = Lens.lens (\VerifyDomainIdentityResponse' {verificationToken} -> verificationToken) (\s@VerifyDomainIdentityResponse' {} a -> s {verificationToken = a} :: VerifyDomainIdentityResponse)
 
-instance NFData VerifyDomainIdentityResponse
+instance Prelude.NFData VerifyDomainIdentityResponse

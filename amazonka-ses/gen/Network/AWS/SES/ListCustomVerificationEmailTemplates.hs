@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,213 +21,246 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the existing custom verification email templates for your account in the current AWS Region.
+-- Lists the existing custom verification email templates for your account
+-- in the current AWS Region.
 --
---
--- For more information about custom verification email templates, see <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html Using Custom Verification Email Templates> in the /Amazon SES Developer Guide/ .
+-- For more information about custom verification email templates, see
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html Using Custom Verification Email Templates>
+-- in the /Amazon SES Developer Guide/.
 --
 -- You can execute this operation no more than once per second.
---
 --
 -- This operation returns paginated results.
 module Network.AWS.SES.ListCustomVerificationEmailTemplates
   ( -- * Creating a Request
-    listCustomVerificationEmailTemplates,
-    ListCustomVerificationEmailTemplates,
+    ListCustomVerificationEmailTemplates (..),
+    newListCustomVerificationEmailTemplates,
 
     -- * Request Lenses
-    lcvetNextToken,
-    lcvetMaxResults,
+    listCustomVerificationEmailTemplates_nextToken,
+    listCustomVerificationEmailTemplates_maxResults,
 
     -- * Destructuring the Response
-    listCustomVerificationEmailTemplatesResponse,
-    ListCustomVerificationEmailTemplatesResponse,
+    ListCustomVerificationEmailTemplatesResponse (..),
+    newListCustomVerificationEmailTemplatesResponse,
 
     -- * Response Lenses
-    lcvetrrsNextToken,
-    lcvetrrsCustomVerificationEmailTemplates,
-    lcvetrrsResponseStatus,
+    listCustomVerificationEmailTemplatesResponse_nextToken,
+    listCustomVerificationEmailTemplatesResponse_customVerificationEmailTemplates,
+    listCustomVerificationEmailTemplatesResponse_httpStatus,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Pager
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Pager as Pager
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
+import Network.AWS.SES.Types.CustomVerificationEmailTemplate
 
--- | Represents a request to list the existing custom verification email templates for your account.
+-- | Represents a request to list the existing custom verification email
+-- templates for your account.
 --
+-- For more information about custom verification email templates, see
+-- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html Using Custom Verification Email Templates>
+-- in the /Amazon SES Developer Guide/.
 --
--- For more information about custom verification email templates, see <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html Using Custom Verification Email Templates> in the /Amazon SES Developer Guide/ .
---
---
--- /See:/ 'listCustomVerificationEmailTemplates' smart constructor.
+-- /See:/ 'newListCustomVerificationEmailTemplates' smart constructor.
 data ListCustomVerificationEmailTemplates = ListCustomVerificationEmailTemplates'
-  { _lcvetNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lcvetMaxResults ::
-      !( Maybe
-           Nat
-       )
+  { -- | An array the contains the name and creation time stamp for each template
+    -- in your Amazon SES account.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of custom verification email templates to return.
+    -- This value must be at least 1 and less than or equal to 50. If you do
+    -- not specify a value, or if you specify a value less than 1 or greater
+    -- than 50, the operation will return up to 50 results.
+    maxResults :: Prelude.Maybe Prelude.Nat
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCustomVerificationEmailTemplates' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCustomVerificationEmailTemplates' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcvetNextToken' - An array the contains the name and creation time stamp for each template in your Amazon SES account.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcvetMaxResults' - The maximum number of custom verification email templates to return. This value must be at least 1 and less than or equal to 50. If you do not specify a value, or if you specify a value less than 1 or greater than 50, the operation will return up to 50 results.
-listCustomVerificationEmailTemplates ::
+-- 'nextToken', 'listCustomVerificationEmailTemplates_nextToken' - An array the contains the name and creation time stamp for each template
+-- in your Amazon SES account.
+--
+-- 'maxResults', 'listCustomVerificationEmailTemplates_maxResults' - The maximum number of custom verification email templates to return.
+-- This value must be at least 1 and less than or equal to 50. If you do
+-- not specify a value, or if you specify a value less than 1 or greater
+-- than 50, the operation will return up to 50 results.
+newListCustomVerificationEmailTemplates ::
   ListCustomVerificationEmailTemplates
-listCustomVerificationEmailTemplates =
+newListCustomVerificationEmailTemplates =
   ListCustomVerificationEmailTemplates'
-    { _lcvetNextToken =
-        Nothing,
-      _lcvetMaxResults = Nothing
+    { nextToken =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing
     }
 
--- | An array the contains the name and creation time stamp for each template in your Amazon SES account.
-lcvetNextToken :: Lens' ListCustomVerificationEmailTemplates (Maybe Text)
-lcvetNextToken = lens _lcvetNextToken (\s a -> s {_lcvetNextToken = a})
+-- | An array the contains the name and creation time stamp for each template
+-- in your Amazon SES account.
+listCustomVerificationEmailTemplates_nextToken :: Lens.Lens' ListCustomVerificationEmailTemplates (Prelude.Maybe Prelude.Text)
+listCustomVerificationEmailTemplates_nextToken = Lens.lens (\ListCustomVerificationEmailTemplates' {nextToken} -> nextToken) (\s@ListCustomVerificationEmailTemplates' {} a -> s {nextToken = a} :: ListCustomVerificationEmailTemplates)
 
--- | The maximum number of custom verification email templates to return. This value must be at least 1 and less than or equal to 50. If you do not specify a value, or if you specify a value less than 1 or greater than 50, the operation will return up to 50 results.
-lcvetMaxResults :: Lens' ListCustomVerificationEmailTemplates (Maybe Natural)
-lcvetMaxResults = lens _lcvetMaxResults (\s a -> s {_lcvetMaxResults = a}) . mapping _Nat
+-- | The maximum number of custom verification email templates to return.
+-- This value must be at least 1 and less than or equal to 50. If you do
+-- not specify a value, or if you specify a value less than 1 or greater
+-- than 50, the operation will return up to 50 results.
+listCustomVerificationEmailTemplates_maxResults :: Lens.Lens' ListCustomVerificationEmailTemplates (Prelude.Maybe Prelude.Natural)
+listCustomVerificationEmailTemplates_maxResults = Lens.lens (\ListCustomVerificationEmailTemplates' {maxResults} -> maxResults) (\s@ListCustomVerificationEmailTemplates' {} a -> s {maxResults = a} :: ListCustomVerificationEmailTemplates) Prelude.. Lens.mapping Prelude._Nat
 
 instance
-  AWSPager
+  Pager.AWSPager
     ListCustomVerificationEmailTemplates
   where
   page rq rs
-    | stop (rs ^. lcvetrrsNextToken) = Nothing
-    | stop
-        (rs ^. lcvetrrsCustomVerificationEmailTemplates) =
-      Nothing
-    | otherwise =
-      Just $ rq & lcvetNextToken .~ rs ^. lcvetrrsNextToken
+    | Pager.stop
+        ( rs
+            Lens.^? listCustomVerificationEmailTemplatesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Pager.stop
+        ( rs
+            Lens.^? listCustomVerificationEmailTemplatesResponse_customVerificationEmailTemplates
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Lens.& listCustomVerificationEmailTemplates_nextToken
+          Lens..~ rs
+            Lens.^? listCustomVerificationEmailTemplatesResponse_nextToken
+              Prelude.. Lens._Just
 
 instance
-  AWSRequest
+  Prelude.AWSRequest
     ListCustomVerificationEmailTemplates
   where
   type
     Rs ListCustomVerificationEmailTemplates =
       ListCustomVerificationEmailTemplatesResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveXMLWrapper
+    Response.receiveXMLWrapper
       "ListCustomVerificationEmailTemplatesResult"
       ( \s h x ->
           ListCustomVerificationEmailTemplatesResponse'
-            <$> (x .@? "NextToken")
-            <*> ( x .@? "CustomVerificationEmailTemplates" .!@ mempty
-                    >>= may (parseXMLList "member")
-                )
-            <*> (pure (fromEnum s))
+            Prelude.<$> (x Prelude..@? "NextToken")
+              Prelude.<*> ( x Prelude..@? "CustomVerificationEmailTemplates"
+                              Prelude..!@ Prelude.mempty
+                              Prelude.>>= Prelude.may (Prelude.parseXMLList "member")
+                          )
+              Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance
-  Hashable
+  Prelude.Hashable
     ListCustomVerificationEmailTemplates
-
-instance NFData ListCustomVerificationEmailTemplates
 
 instance
-  ToHeaders
+  Prelude.NFData
+    ListCustomVerificationEmailTemplates
+
+instance
+  Prelude.ToHeaders
     ListCustomVerificationEmailTemplates
   where
-  toHeaders = const mempty
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath ListCustomVerificationEmailTemplates where
-  toPath = const "/"
+instance
+  Prelude.ToPath
+    ListCustomVerificationEmailTemplates
+  where
+  toPath = Prelude.const "/"
 
-instance ToQuery ListCustomVerificationEmailTemplates where
+instance
+  Prelude.ToQuery
+    ListCustomVerificationEmailTemplates
+  where
   toQuery ListCustomVerificationEmailTemplates' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ( "ListCustomVerificationEmailTemplates" ::
-                 ByteString
-             ),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "NextToken" =: _lcvetNextToken,
-        "MaxResults" =: _lcvetMaxResults
+          Prelude.=: ( "ListCustomVerificationEmailTemplates" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "NextToken" Prelude.=: nextToken,
+        "MaxResults" Prelude.=: maxResults
       ]
 
 -- | A paginated list of custom verification email templates.
 --
---
---
--- /See:/ 'listCustomVerificationEmailTemplatesResponse' smart constructor.
+-- /See:/ 'newListCustomVerificationEmailTemplatesResponse' smart constructor.
 data ListCustomVerificationEmailTemplatesResponse = ListCustomVerificationEmailTemplatesResponse'
-  { _lcvetrrsNextToken ::
-      !( Maybe
-           Text
-       ),
-    _lcvetrrsCustomVerificationEmailTemplates ::
-      !( Maybe
-           [CustomVerificationEmailTemplate]
-       ),
-    _lcvetrrsResponseStatus ::
-      !Int
+  { -- | A token indicating that there are additional custom verification email
+    -- templates available to be listed. Pass this token to a subsequent call
+    -- to @ListTemplates@ to retrieve the next 50 custom verification email
+    -- templates.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the custom verification email templates that exist in your
+    -- account.
+    customVerificationEmailTemplates :: Prelude.Maybe [CustomVerificationEmailTemplate],
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'ListCustomVerificationEmailTemplatesResponse' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'ListCustomVerificationEmailTemplatesResponse' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'lcvetrrsNextToken' - A token indicating that there are additional custom verification email templates available to be listed. Pass this token to a subsequent call to @ListTemplates@ to retrieve the next 50 custom verification email templates.
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
 --
--- * 'lcvetrrsCustomVerificationEmailTemplates' - A list of the custom verification email templates that exist in your account.
+-- 'nextToken', 'listCustomVerificationEmailTemplatesResponse_nextToken' - A token indicating that there are additional custom verification email
+-- templates available to be listed. Pass this token to a subsequent call
+-- to @ListTemplates@ to retrieve the next 50 custom verification email
+-- templates.
 --
--- * 'lcvetrrsResponseStatus' - -- | The response status code.
-listCustomVerificationEmailTemplatesResponse ::
-  -- | 'lcvetrrsResponseStatus'
-  Int ->
+-- 'customVerificationEmailTemplates', 'listCustomVerificationEmailTemplatesResponse_customVerificationEmailTemplates' - A list of the custom verification email templates that exist in your
+-- account.
+--
+-- 'httpStatus', 'listCustomVerificationEmailTemplatesResponse_httpStatus' - The response's http status code.
+newListCustomVerificationEmailTemplatesResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
   ListCustomVerificationEmailTemplatesResponse
-listCustomVerificationEmailTemplatesResponse
-  pResponseStatus_ =
+newListCustomVerificationEmailTemplatesResponse
+  pHttpStatus_ =
     ListCustomVerificationEmailTemplatesResponse'
-      { _lcvetrrsNextToken =
-          Nothing,
-        _lcvetrrsCustomVerificationEmailTemplates =
-          Nothing,
-        _lcvetrrsResponseStatus =
-          pResponseStatus_
+      { nextToken =
+          Prelude.Nothing,
+        customVerificationEmailTemplates =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_
       }
 
--- | A token indicating that there are additional custom verification email templates available to be listed. Pass this token to a subsequent call to @ListTemplates@ to retrieve the next 50 custom verification email templates.
-lcvetrrsNextToken :: Lens' ListCustomVerificationEmailTemplatesResponse (Maybe Text)
-lcvetrrsNextToken = lens _lcvetrrsNextToken (\s a -> s {_lcvetrrsNextToken = a})
+-- | A token indicating that there are additional custom verification email
+-- templates available to be listed. Pass this token to a subsequent call
+-- to @ListTemplates@ to retrieve the next 50 custom verification email
+-- templates.
+listCustomVerificationEmailTemplatesResponse_nextToken :: Lens.Lens' ListCustomVerificationEmailTemplatesResponse (Prelude.Maybe Prelude.Text)
+listCustomVerificationEmailTemplatesResponse_nextToken = Lens.lens (\ListCustomVerificationEmailTemplatesResponse' {nextToken} -> nextToken) (\s@ListCustomVerificationEmailTemplatesResponse' {} a -> s {nextToken = a} :: ListCustomVerificationEmailTemplatesResponse)
 
--- | A list of the custom verification email templates that exist in your account.
-lcvetrrsCustomVerificationEmailTemplates :: Lens' ListCustomVerificationEmailTemplatesResponse [CustomVerificationEmailTemplate]
-lcvetrrsCustomVerificationEmailTemplates = lens _lcvetrrsCustomVerificationEmailTemplates (\s a -> s {_lcvetrrsCustomVerificationEmailTemplates = a}) . _Default . _Coerce
+-- | A list of the custom verification email templates that exist in your
+-- account.
+listCustomVerificationEmailTemplatesResponse_customVerificationEmailTemplates :: Lens.Lens' ListCustomVerificationEmailTemplatesResponse (Prelude.Maybe [CustomVerificationEmailTemplate])
+listCustomVerificationEmailTemplatesResponse_customVerificationEmailTemplates = Lens.lens (\ListCustomVerificationEmailTemplatesResponse' {customVerificationEmailTemplates} -> customVerificationEmailTemplates) (\s@ListCustomVerificationEmailTemplatesResponse' {} a -> s {customVerificationEmailTemplates = a} :: ListCustomVerificationEmailTemplatesResponse) Prelude.. Lens.mapping Prelude._Coerce
 
--- | -- | The response status code.
-lcvetrrsResponseStatus :: Lens' ListCustomVerificationEmailTemplatesResponse Int
-lcvetrrsResponseStatus = lens _lcvetrrsResponseStatus (\s a -> s {_lcvetrrsResponseStatus = a})
+-- | The response's http status code.
+listCustomVerificationEmailTemplatesResponse_httpStatus :: Lens.Lens' ListCustomVerificationEmailTemplatesResponse Prelude.Int
+listCustomVerificationEmailTemplatesResponse_httpStatus = Lens.lens (\ListCustomVerificationEmailTemplatesResponse' {httpStatus} -> httpStatus) (\s@ListCustomVerificationEmailTemplatesResponse' {} a -> s {httpStatus = a} :: ListCustomVerificationEmailTemplatesResponse)
 
 instance
-  NFData
+  Prelude.NFData
     ListCustomVerificationEmailTemplatesResponse

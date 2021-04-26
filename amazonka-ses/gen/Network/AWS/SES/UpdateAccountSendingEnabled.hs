@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# OPTIONS_GHC -fno-warn-unused-binds #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-unused-matches #-}
@@ -17,107 +21,119 @@
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables or disables email sending across your entire Amazon SES account in the current AWS Region. You can use this operation in conjunction with Amazon CloudWatch alarms to temporarily pause email sending across your Amazon SES account in a given AWS Region when reputation metrics (such as your bounce or complaint rates) reach certain thresholds.
---
+-- Enables or disables email sending across your entire Amazon SES account
+-- in the current AWS Region. You can use this operation in conjunction
+-- with Amazon CloudWatch alarms to temporarily pause email sending across
+-- your Amazon SES account in a given AWS Region when reputation metrics
+-- (such as your bounce or complaint rates) reach certain thresholds.
 --
 -- You can execute this operation no more than once per second.
 module Network.AWS.SES.UpdateAccountSendingEnabled
   ( -- * Creating a Request
-    updateAccountSendingEnabled,
-    UpdateAccountSendingEnabled,
+    UpdateAccountSendingEnabled (..),
+    newUpdateAccountSendingEnabled,
 
     -- * Request Lenses
-    uaseEnabled,
+    updateAccountSendingEnabled_enabled,
 
     -- * Destructuring the Response
-    updateAccountSendingEnabledResponse,
-    UpdateAccountSendingEnabledResponse,
+    UpdateAccountSendingEnabledResponse (..),
+    newUpdateAccountSendingEnabledResponse,
   )
 where
 
-import Network.AWS.Lens
-import Network.AWS.Prelude
-import Network.AWS.Request
-import Network.AWS.Response
+import qualified Network.AWS.Lens as Lens
+import qualified Network.AWS.Prelude as Prelude
+import qualified Network.AWS.Request as Request
+import qualified Network.AWS.Response as Response
 import Network.AWS.SES.Types
 
--- | Represents a request to enable or disable the email sending capabilities for your entire Amazon SES account.
+-- | Represents a request to enable or disable the email sending capabilities
+-- for your entire Amazon SES account.
 --
---
---
--- /See:/ 'updateAccountSendingEnabled' smart constructor.
-newtype UpdateAccountSendingEnabled = UpdateAccountSendingEnabled'
-  { _uaseEnabled ::
-      Maybe Bool
+-- /See:/ 'newUpdateAccountSendingEnabled' smart constructor.
+data UpdateAccountSendingEnabled = UpdateAccountSendingEnabled'
+  { -- | Describes whether email sending is enabled or disabled for your Amazon
+    -- SES account in the current AWS Region.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAccountSendingEnabled' with the minimum fields required to make a request.
+-- |
+-- Create a value of 'UpdateAccountSendingEnabled' with all optional fields omitted.
 --
--- Use one of the following lenses to modify other fields as desired:
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
 --
--- * 'uaseEnabled' - Describes whether email sending is enabled or disabled for your Amazon SES account in the current AWS Region.
-updateAccountSendingEnabled ::
+-- The following record fields are available, with the corresponding lenses provided
+-- for backwards compatibility:
+--
+-- 'enabled', 'updateAccountSendingEnabled_enabled' - Describes whether email sending is enabled or disabled for your Amazon
+-- SES account in the current AWS Region.
+newUpdateAccountSendingEnabled ::
   UpdateAccountSendingEnabled
-updateAccountSendingEnabled =
+newUpdateAccountSendingEnabled =
   UpdateAccountSendingEnabled'
-    { _uaseEnabled =
-        Nothing
+    { enabled =
+        Prelude.Nothing
     }
 
--- | Describes whether email sending is enabled or disabled for your Amazon SES account in the current AWS Region.
-uaseEnabled :: Lens' UpdateAccountSendingEnabled (Maybe Bool)
-uaseEnabled = lens _uaseEnabled (\s a -> s {_uaseEnabled = a})
+-- | Describes whether email sending is enabled or disabled for your Amazon
+-- SES account in the current AWS Region.
+updateAccountSendingEnabled_enabled :: Lens.Lens' UpdateAccountSendingEnabled (Prelude.Maybe Prelude.Bool)
+updateAccountSendingEnabled_enabled = Lens.lens (\UpdateAccountSendingEnabled' {enabled} -> enabled) (\s@UpdateAccountSendingEnabled' {} a -> s {enabled = a} :: UpdateAccountSendingEnabled)
 
-instance AWSRequest UpdateAccountSendingEnabled where
+instance
+  Prelude.AWSRequest
+    UpdateAccountSendingEnabled
+  where
   type
     Rs UpdateAccountSendingEnabled =
       UpdateAccountSendingEnabledResponse
-  request = postQuery ses
+  request = Request.postQuery defaultService
   response =
-    receiveNull UpdateAccountSendingEnabledResponse'
+    Response.receiveNull
+      UpdateAccountSendingEnabledResponse'
 
-instance Hashable UpdateAccountSendingEnabled
+instance Prelude.Hashable UpdateAccountSendingEnabled
 
-instance NFData UpdateAccountSendingEnabled
+instance Prelude.NFData UpdateAccountSendingEnabled
 
-instance ToHeaders UpdateAccountSendingEnabled where
-  toHeaders = const mempty
+instance
+  Prelude.ToHeaders
+    UpdateAccountSendingEnabled
+  where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance ToPath UpdateAccountSendingEnabled where
-  toPath = const "/"
+instance Prelude.ToPath UpdateAccountSendingEnabled where
+  toPath = Prelude.const "/"
 
-instance ToQuery UpdateAccountSendingEnabled where
+instance Prelude.ToQuery UpdateAccountSendingEnabled where
   toQuery UpdateAccountSendingEnabled' {..} =
-    mconcat
+    Prelude.mconcat
       [ "Action"
-          =: ("UpdateAccountSendingEnabled" :: ByteString),
-        "Version" =: ("2010-12-01" :: ByteString),
-        "Enabled" =: _uaseEnabled
+          Prelude.=: ( "UpdateAccountSendingEnabled" ::
+                         Prelude.ByteString
+                     ),
+        "Version"
+          Prelude.=: ("2010-12-01" :: Prelude.ByteString),
+        "Enabled" Prelude.=: enabled
       ]
 
--- | /See:/ 'updateAccountSendingEnabledResponse' smart constructor.
+-- | /See:/ 'newUpdateAccountSendingEnabledResponse' smart constructor.
 data UpdateAccountSendingEnabledResponse = UpdateAccountSendingEnabledResponse'
-  deriving
-    ( Eq,
-      Read,
-      Show,
-      Data,
-      Typeable,
-      Generic
-    )
+  {
+  }
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Data, Prelude.Typeable, Prelude.Generic)
 
--- | Creates a value of 'UpdateAccountSendingEnabledResponse' with the minimum fields required to make a request.
-updateAccountSendingEnabledResponse ::
+-- |
+-- Create a value of 'UpdateAccountSendingEnabledResponse' with all optional fields omitted.
+--
+-- Use <https://hackage.haskell.org/package/generic-lens generic-lens> or <https://hackage.haskell.org/package/optics optics> to modify other optional fields.
+newUpdateAccountSendingEnabledResponse ::
   UpdateAccountSendingEnabledResponse
-updateAccountSendingEnabledResponse =
+newUpdateAccountSendingEnabledResponse =
   UpdateAccountSendingEnabledResponse'
 
-instance NFData UpdateAccountSendingEnabledResponse
+instance
+  Prelude.NFData
+    UpdateAccountSendingEnabledResponse

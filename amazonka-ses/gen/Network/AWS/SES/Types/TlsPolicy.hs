@@ -10,24 +10,25 @@
 -- Derived from AWS service descriptions, licensed under Apache 2.0.
 
 -- |
--- Module      : Network.AWS.SES.Types.StopScope
+-- Module      : Network.AWS.SES.Types.TlsPolicy
 -- Copyright   : (c) 2013-2021 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
-module Network.AWS.SES.Types.StopScope
-  ( StopScope
+module Network.AWS.SES.Types.TlsPolicy
+  ( TlsPolicy
       ( ..,
-        StopScopeRuleSet
+        TlsPolicyOptional,
+        TlsPolicyRequire
       ),
   )
 where
 
 import qualified Network.AWS.Prelude as Prelude
 
-newtype StopScope = StopScope'
-  { fromStopScope ::
+newtype TlsPolicy = TlsPolicy'
+  { fromTlsPolicy ::
       Prelude.Text
   }
   deriving
@@ -40,29 +41,33 @@ newtype StopScope = StopScope'
       Prelude.Generic
     )
 
-pattern StopScopeRuleSet :: StopScope
-pattern StopScopeRuleSet = StopScope' "RuleSet"
+pattern TlsPolicyOptional :: TlsPolicy
+pattern TlsPolicyOptional = TlsPolicy' "Optional"
+
+pattern TlsPolicyRequire :: TlsPolicy
+pattern TlsPolicyRequire = TlsPolicy' "Require"
 
 {-# COMPLETE
-  StopScopeRuleSet,
-  StopScope'
+  TlsPolicyOptional,
+  TlsPolicyRequire,
+  TlsPolicy'
   #-}
 
-instance Prelude.FromText StopScope where
-  parser = StopScope' Prelude.<$> Prelude.takeText
+instance Prelude.FromText TlsPolicy where
+  parser = TlsPolicy' Prelude.<$> Prelude.takeText
 
-instance Prelude.ToText StopScope where
-  toText (StopScope' x) = x
+instance Prelude.ToText TlsPolicy where
+  toText (TlsPolicy' x) = x
 
-instance Prelude.Hashable StopScope
+instance Prelude.Hashable TlsPolicy
 
-instance Prelude.NFData StopScope
+instance Prelude.NFData TlsPolicy
 
-instance Prelude.ToByteString StopScope
+instance Prelude.ToByteString TlsPolicy
 
-instance Prelude.ToQuery StopScope
+instance Prelude.ToQuery TlsPolicy
 
-instance Prelude.ToHeader StopScope
+instance Prelude.ToHeader TlsPolicy
 
-instance Prelude.FromXML StopScope where
-  parseXML = Prelude.parseXMLText "StopScope"
+instance Prelude.FromXML TlsPolicy where
+  parseXML = Prelude.parseXMLText "TlsPolicy"
