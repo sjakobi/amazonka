@@ -20,12 +20,9 @@ module Network.AWS.Data.Text
     , fromText
     , fromTextError
     , takeLowerText
-    , takeText
 
     -- * Serialisation
     , ToText   (..)
-    , toTextCI
-    , showText
     ) where
 
 import           Data.Attoparsec.Text              (Parser)
@@ -35,7 +32,6 @@ import qualified Data.ByteString.Char8             as BS8
 import           Data.CaseInsensitive              (CI)
 import qualified Data.CaseInsensitive              as CI
 import           Data.Int
-import           Data.Monoid
 import           Data.Scientific
 import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
@@ -62,9 +58,6 @@ fromText = A.parseOnly parser
 
 takeLowerText :: Parser Text
 takeLowerText = Text.toLower <$> A.takeText
-
-takeText :: Parser Text
-takeText = A.takeText
 
 class FromText a where
     parser :: Parser a
@@ -108,14 +101,6 @@ instance FromText Bool where
         "false" -> pure False
         e       -> fromTextError $ "Failure parsing Bool from '" <> e <> "'."
 
-instance FromText StdMethod where
-    parser = do
-        bs <- Text.encodeUtf8 <$> A.takeText
-        either (fail . BS8.unpack) pure (parseMethod bs)
-
-showText :: ToText a => a -> String
-showText = Text.unpack . toText
-
 class ToText a where
     toText :: a -> Text
 
@@ -132,7 +117,6 @@ instance ToText Integer    where toText = shortText . Build.decimal
 instance ToText Natural    where toText = shortText . Build.decimal
 instance ToText Scientific where toText = shortText . Build.scientificBuilder
 instance ToText Double     where toText = toText . ($ "") . showFFloat Nothing
-instance ToText StdMethod  where toText = toText . renderStdMethod
 instance ToText (Digest a) where toText = toText . digestToBase Base16
 
 instance ToText Bool where
@@ -141,6 +125,3 @@ instance ToText Bool where
 
 shortText :: Builder -> Text
 shortText = LText.toStrict . Build.toLazyTextWith 32
-
-toTextCI :: ToText a => a -> CI Text
-toTextCI = CI.mk . toText
