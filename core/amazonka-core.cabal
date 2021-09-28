@@ -41,7 +41,13 @@ library
         -funbox-strict-fields
 
     exposed-modules:
-          Network.AWS.Compat.Locale
+          Network.AWS.Prelude
+        , Network.AWS.Lens
+
+    other-modules:
+          Network.AWS.Sign.V4.Base
+        , Network.AWS.Sign.V4.Chunked
+        , Network.AWS.Compat.Locale
         , Network.AWS.Compat.Time
         , Network.AWS.Data.Base64
         , Network.AWS.Data.Body
@@ -61,9 +67,7 @@ library
         , Network.AWS.Data.XML
         , Network.AWS.Endpoint
         , Network.AWS.Error
-        , Network.AWS.Lens
         , Network.AWS.Pager
-        , Network.AWS.Prelude
         , Network.AWS.Request
         , Network.AWS.Response
         , Network.AWS.Sign.V2Header
@@ -72,10 +76,6 @@ library
         , Network.AWS.Sign.V4
         , Network.AWS.Types
         , Network.AWS.Waiter
-
-    other-modules:
-          Network.AWS.Sign.V4.Base
-        , Network.AWS.Sign.V4.Chunked
 
     build-depends:
           aeson                >= 0.8
