@@ -22,16 +22,10 @@
 module Network.AWS.Data.Time
     (
     -- * Time
-      Format (..)
-    , Time   (..)
-    , _Time
+      _Time
     -- ** Formats
     , UTCTime
-    , RFC822
     , ISO8601
-    , BasicTime
-    , AWSTime
-    , POSIX
     ) where
 
 import           Control.Applicative
