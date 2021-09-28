@@ -30,14 +30,11 @@ module Network.AWS.Data.Time
 
 import           Control.Applicative
 import           Control.DeepSeq
-import           Data.Aeson
-import qualified Data.Aeson.Types            as Aeson
 import           Data.Attoparsec.Text        (Parser)
 import qualified Data.Attoparsec.Text        as AText
 import qualified Data.ByteString.Char8       as BS
 import           Data.Data                   (Data, Typeable)
 import           Data.Hashable
-import           Data.Scientific
 import           Data.Tagged
 import qualified Data.Text                   as Text
 import           Data.Time                   (Day (..), UTCTime (..))
@@ -47,7 +44,6 @@ import           GHC.Generics                (Generic)
 import           Network.AWS.Compat.Locale
 import           Network.AWS.Compat.Time
 import           Network.AWS.Data.ByteString
-import           Network.AWS.Data.JSON
 import           Network.AWS.Data.Query
 import           Network.AWS.Data.Text
 import           Network.AWS.Data.XML
@@ -77,9 +73,6 @@ instance Hashable (Time a) where
 
 _Time :: Iso' (Time a) UTCTime
 _Time = iso fromTime Time
-
-convert :: Time a -> Time b
-convert = Time . fromTime
 
 type RFC822    = Time 'RFC822Format
 type ISO8601   = Time 'ISO8601Format
@@ -150,29 +143,6 @@ instance FromXML ISO8601   where parseXML = parseXMLText "ISO8601"
 instance FromXML AWSTime   where parseXML = parseXMLText "AWSTime"
 instance FromXML BasicTime where parseXML = parseXMLText "BasicTime"
 
-instance FromJSON RFC822    where parseJSON = parseJSONText "RFC822"
-instance FromJSON ISO8601   where parseJSON = parseJSONText "ISO8601"
-instance FromJSON AWSTime   where parseJSON = parseJSONText "AWSTime"
-instance FromJSON BasicTime where parseJSON = parseJSONText "BasicTime"
-
--- This is a somewhat unfortunate hack to support the bizzare apigateway
--- occurence of returning ISO8601 or POSIX timestamps in unknown scenarios.
---
--- See: https://github.com/brendanhay/amazonka/issues/291
-instance FromJSON POSIX where
-    parseJSON o = fmap convert (str o) <|> num o
-      where
-        str :: Value -> Aeson.Parser ISO8601
-        str = parseJSON
-
-        num :: Value -> Aeson.Parser POSIX
-        num = withScientific "POSIX"
-            ( pure
-            . Time
-            . posixSecondsToUTCTime
-            . realToFrac
-            )
-
 instance ToByteString RFC822    where toBS = BS.pack . renderFormattedTime
 instance ToByteString ISO8601   where toBS = BS.pack . renderFormattedTime
 instance ToByteString BasicTime where toBS = BS.pack . renderFormattedTime
@@ -185,12 +155,3 @@ instance ToQuery AWSTime   where toQuery = toQuery . toBS
 
 instance ToQuery POSIX where
     toQuery (Time t) = toQuery (truncate (utcTimeToPOSIXSeconds t) :: Integer)
-
-instance ToJSON RFC822    where toJSON = toJSONText
-instance ToJSON ISO8601   where toJSON = toJSONText
-instance ToJSON AWSTime   where toJSON = toJSONText
-instance ToJSON BasicTime where toJSON = toJSONText
-
-instance ToJSON POSIX where
-    toJSON (Time t) =
-        Number $ scientific (truncate (utcTimeToPOSIXSeconds t) :: Integer) 0

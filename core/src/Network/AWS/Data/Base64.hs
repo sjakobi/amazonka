@@ -16,7 +16,6 @@ module Network.AWS.Data.Base64
     ) where
 
 import           Control.DeepSeq
-import           Data.Aeson.Types
 import qualified Data.Attoparsec.Text        as AText
 import qualified Data.ByteArray.Encoding     as BA
 import           Data.Data                   (Data, Typeable)
@@ -24,7 +23,6 @@ import           Data.Hashable
 import qualified Data.Text.Encoding          as Text
 import           GHC.Generics                (Generic)
 import           Network.AWS.Data.ByteString
-import           Network.AWS.Data.JSON
 import           Network.AWS.Data.Query
 import           Network.AWS.Data.Text
 import           Network.AWS.Data.XML
@@ -58,5 +56,3 @@ instance Show         Base64 where show      = show . toBS
 instance ToText       Base64 where toText    = Text.decodeUtf8 . toBS
 instance ToQuery      Base64 where toQuery   = toQuery . toBS
 instance FromXML      Base64 where parseXML  = parseXMLText "Base64"
-instance FromJSON     Base64 where parseJSON = parseJSONText "Base64"
-instance ToJSON       Base64 where toJSON    = toJSONText

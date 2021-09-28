@@ -51,7 +51,6 @@ library
         , Network.AWS.Data.ByteString
         , Network.AWS.Data.Crypto
         , Network.AWS.Data.Headers
-        , Network.AWS.Data.JSON
         , Network.AWS.Data.List1
         , Network.AWS.Data.Query
         , Network.AWS.Data.Text
