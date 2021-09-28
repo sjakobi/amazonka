@@ -49,7 +49,6 @@ library
         , Network.AWS.Compat.Time
         , Network.AWS.Data.Base64
         , Network.AWS.Data.ByteString
-        , Network.AWS.Data.Crypto
         , Network.AWS.Data.Headers
         , Network.AWS.Data.List1
         , Network.AWS.Data.Query
