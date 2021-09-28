@@ -17,7 +17,12 @@
 --
 module Network.AWS.EC2.Types.Sum where
 
-import Network.AWS.Prelude
+import Network.AWS.Prelude (NFData, Hashable, FromXML(..), Text, Generic, Typeable, Data,
+        UTCTime, ISO8601, ToQuery(..), NonEmpty, List1, ByteString, Base64, (.@?), parseXMLList,
+        may, (.!@), _Coerce, _Default, _Time, (=:), (.@), toQueryList, parseXMLList1, _List1, _Base64,
+        ToHeader(..), ToByteString(..), ToText(..), FromText(..), parseXMLText, fromTextError,
+        takeLowerText
+       )
 
 data AccountAttributeName
   = DefaultVPC

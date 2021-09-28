@@ -18,8 +18,11 @@
 module Network.AWS.EC2.Types.Product where
 
 import Network.AWS.EC2.Types.Sum
-import Network.AWS.Lens
-import Network.AWS.Prelude
+import Network.AWS.Lens (Lens', lens, mapping, (#))
+import Network.AWS.Prelude (NFData, Hashable, FromXML(..), Text, Generic, Typeable, Data,
+        UTCTime, ISO8601, ToQuery(..), NonEmpty, List1, ByteString, Base64, (.@?), parseXMLList,
+        may, (.!@), _Coerce, _Default, _Time, (=:), (.@), toQueryList, parseXMLList1, _List1, _Base64
+       )
 
 -- | Describes an account attribute.
 --
