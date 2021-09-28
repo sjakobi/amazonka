@@ -45,9 +45,7 @@ library
         , Network.AWS.Lens
 
     other-modules:
-          Network.AWS.Sign.V4.Base
-        , Network.AWS.Sign.V4.Chunked
-        , Network.AWS.Compat.Locale
+          Network.AWS.Compat.Locale
         , Network.AWS.Compat.Time
         , Network.AWS.Data.Base64
         , Network.AWS.Data.Body
@@ -65,12 +63,6 @@ library
         , Network.AWS.Data.Text
         , Network.AWS.Data.Time
         , Network.AWS.Data.XML
-        , Network.AWS.Request
-        , Network.AWS.Response
-        , Network.AWS.Sign.V2Header
-        , Network.AWS.Sign.V2Header.Base
-        , Network.AWS.Sign.V2
-        , Network.AWS.Sign.V4
         , Network.AWS.Types
 
     build-depends:
