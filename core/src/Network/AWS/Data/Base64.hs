@@ -59,7 +59,6 @@ instance Show         Base64 where show      = show . toBS
 instance ToText       Base64 where toText    = Text.decodeUtf8 . toBS
 instance ToQuery      Base64 where toQuery   = toQuery . toBS
 instance FromXML      Base64 where parseXML  = parseXMLText "Base64"
-instance ToXML        Base64 where toXML     = toXMLText
 instance FromJSON     Base64 where parseJSON = parseJSONText "Base64"
 instance ToJSON       Base64 where toJSON    = toJSONText
 instance ToHashedBody Base64 where toHashed  = toHashed . toBS

@@ -186,11 +186,6 @@ instance ToQuery AWSTime   where toQuery = toQuery . toBS
 instance ToQuery POSIX where
     toQuery (Time t) = toQuery (truncate (utcTimeToPOSIXSeconds t) :: Integer)
 
-instance ToXML RFC822    where toXML = toXMLText
-instance ToXML ISO8601   where toXML = toXMLText
-instance ToXML AWSTime   where toXML = toXMLText
-instance ToXML BasicTime where toXML = toXMLText
-
 instance ToJSON RFC822    where toJSON = toJSONText
 instance ToJSON ISO8601   where toJSON = toJSONText
 instance ToJSON AWSTime   where toJSON = toJSONText
