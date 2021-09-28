@@ -28,11 +28,7 @@ module Network.AWS.Data.Text
 import           Data.Attoparsec.Text              (Parser)
 import qualified Data.Attoparsec.Text              as A
 import           Data.ByteString                   (ByteString)
-import qualified Data.ByteString.Char8             as BS8
-import           Data.CaseInsensitive              (CI)
-import qualified Data.CaseInsensitive              as CI
 import           Data.Int
-import           Data.Scientific
 import           Data.Text                         (Text)
 import qualified Data.Text                         as Text
 import qualified Data.Text.Encoding                as Text
@@ -40,9 +36,6 @@ import qualified Data.Text.Lazy                    as LText
 import           Data.Text.Lazy.Builder            (Builder)
 import qualified Data.Text.Lazy.Builder            as Build
 import qualified Data.Text.Lazy.Builder.Int        as Build
-import qualified Data.Text.Lazy.Builder.Scientific as Build
-import           Network.AWS.Data.Crypto
-import           Network.HTTP.Types
 import           Numeric
 import           Numeric.Natural
 
@@ -71,9 +64,6 @@ instance FromText String where
 instance FromText ByteString where
     parser = Text.encodeUtf8 <$> A.takeText
 
-instance (CI.FoldCase a, FromText a) => FromText (CI a) where
-    parser = CI.mk <$> parser
-
 instance FromText Char where
     parser = A.anyChar <* A.endOfInput
 
@@ -85,9 +75,6 @@ instance FromText Int64 where
 
 instance FromText Integer where
     parser = A.signed A.decimal <* A.endOfInput
-
-instance FromText Scientific where
-    parser = A.signed A.scientific <* A.endOfInput
 
 instance FromText Natural where
     parser = A.decimal <* A.endOfInput
@@ -104,9 +91,6 @@ instance FromText Bool where
 class ToText a where
     toText :: a -> Text
 
-instance ToText a => ToText (CI a) where
-    toText = toText . CI.original
-
 instance ToText Text       where toText = id
 instance ToText ByteString where toText = Text.decodeUtf8
 instance ToText Char       where toText = Text.singleton
@@ -115,9 +99,7 @@ instance ToText Int        where toText = shortText . Build.decimal
 instance ToText Int64      where toText = shortText . Build.decimal
 instance ToText Integer    where toText = shortText . Build.decimal
 instance ToText Natural    where toText = shortText . Build.decimal
-instance ToText Scientific where toText = shortText . Build.scientificBuilder
 instance ToText Double     where toText = toText . ($ "") . showFFloat Nothing
-instance ToText (Digest a) where toText = toText . digestToBase Base16
 
 instance ToText Bool where
     toText True  = "true"
