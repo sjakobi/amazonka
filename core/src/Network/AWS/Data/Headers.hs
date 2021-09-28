@@ -19,7 +19,10 @@ module Network.AWS.Data.Headers
 import qualified Data.Text.Encoding          as Text
 import           Network.AWS.Data.ByteString
 import           Network.AWS.Data.Text
-import           Network.HTTP.Types          (HeaderName, Header) -- TODO: Inline these types
+
+type Header = (HeaderName, ByteString)
+
+type HeaderName = ByteString
 
 class ToHeader a where
     toHeader :: HeaderName -> a -> [Header]

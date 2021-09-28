@@ -65,7 +65,6 @@ library
         , containers
         , deepseq              >= 1.4
         , hashable             >= 1.2
-        , http-types           >= 0.8 && (<0.11 || >=0.12)
         , text                 >= 1.1
         , transformers         >= 0.2
         , time       >= 1.5
