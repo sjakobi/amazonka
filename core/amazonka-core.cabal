@@ -57,7 +57,6 @@ library
         , Network.AWS.Data.Log
         , Network.AWS.Data.Path
         , Network.AWS.Data.Query
-        , Network.AWS.Data.Sensitive
         , Network.AWS.Data.Text
         , Network.AWS.Data.Time
         , Network.AWS.Data.XML
