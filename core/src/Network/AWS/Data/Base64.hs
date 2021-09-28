@@ -23,7 +23,6 @@ import           Data.Data                   (Data, Typeable)
 import           Data.Hashable
 import qualified Data.Text.Encoding          as Text
 import           GHC.Generics                (Generic)
-import           Network.AWS.Data.Body       (ToBody(..), ToHashedBody(..))
 import           Network.AWS.Data.ByteString
 import           Network.AWS.Data.JSON
 import           Network.AWS.Data.Query
@@ -61,5 +60,3 @@ instance ToQuery      Base64 where toQuery   = toQuery . toBS
 instance FromXML      Base64 where parseXML  = parseXMLText "Base64"
 instance FromJSON     Base64 where parseJSON = parseJSONText "Base64"
 instance ToJSON       Base64 where toJSON    = toJSONText
-instance ToHashedBody Base64 where toHashed  = toHashed . toBS
-instance ToBody       Base64

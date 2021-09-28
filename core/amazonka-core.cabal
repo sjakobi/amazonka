@@ -48,7 +48,6 @@ library
           Network.AWS.Compat.Locale
         , Network.AWS.Compat.Time
         , Network.AWS.Data.Base64
-        , Network.AWS.Data.Body
         , Network.AWS.Data.ByteString
         , Network.AWS.Data.Crypto
         , Network.AWS.Data.Headers
