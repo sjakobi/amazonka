@@ -17,7 +17,6 @@ module Network.AWS.Data.Base64
 
 import           Control.DeepSeq
 import qualified Data.Attoparsec.Text        as AText
-import qualified Data.ByteArray.Encoding     as BA
 import           Data.Data                   (Data, Typeable)
 import           Data.Hashable
 import qualified Data.Text.Encoding          as Text
@@ -46,11 +45,11 @@ _Base64 = iso unBase64 Base64
 instance FromText Base64 where
     parser = AText.takeText >>=
         either fail (pure . Base64)
-            . BA.convertFromBase BA.Base64
+            . undefined
             . Text.encodeUtf8
 
 instance ToByteString Base64 where
-    toBS = BA.convertToBase BA.Base64 . unBase64
+    toBS = unBase64
 
 instance Show         Base64 where show      = show . toBS
 instance ToText       Base64 where toText    = Text.decodeUtf8 . toBS
