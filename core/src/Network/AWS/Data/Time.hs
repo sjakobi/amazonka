@@ -82,7 +82,7 @@ class TimeFormat a where
     format :: Tagged a String
 
 instance TimeFormat RFC822    where format = Tagged "%a, %d %b %Y %H:%M:%S GMT"
-instance TimeFormat ISO8601   where format = Tagged (undefined (Just "%XZ"))
+instance TimeFormat ISO8601   where format = Tagged (undefined (Just ("%XZ" :: String)))
 instance TimeFormat BasicTime where format = Tagged "%Y%m%d"
 instance TimeFormat AWSTime   where format = Tagged "%Y%m%dT%H%M%SZ"
 
@@ -112,7 +112,7 @@ parseFormattedTime = do
         <|> parse (format :: Tagged BasicTime String)
         <|> parse (format :: Tagged AWSTime   String)
         -- Deprecated ISO8601 format exhibited in the AWS-supplied examples.
-        <|> parse (Tagged $ undefined (Just "%X%Q%Z"))
+        <|> parse (Tagged $ undefined (Just ("%X%Q%Z" :: String)))
         -- Exhaustive Failure
         <|> fail ("Failure parsing Time from value: " ++ show s)
 
