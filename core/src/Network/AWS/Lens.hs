@@ -12,7 +12,7 @@
 --
 module Network.AWS.Lens (Iso', Lens', iso, lens, mapping, ( # )) where
 
-import Data.Tagged
+import Data.Tagged (Tagged(..), retag)
 import Data.Functor.Identity
 import Data.Coerce
 import GHC.Exts (TYPE)

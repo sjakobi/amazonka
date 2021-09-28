@@ -35,7 +35,7 @@ import qualified Data.Attoparsec.Text        as AText
 import qualified Data.ByteString.Char8       as BS
 import           Data.Data                   (Data, Typeable)
 import           Data.Hashable
-import           Data.Tagged
+import           Data.Tagged                 (Tagged(..), untag)
 import qualified Data.Text                   as Text
 import           Data.Time                   (Day (..), UTCTime (..))
 import           Data.Time.Clock.POSIX

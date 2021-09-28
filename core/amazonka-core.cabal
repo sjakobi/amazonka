@@ -45,7 +45,9 @@ library
         , Network.AWS.Lens
 
     other-modules:
-          Network.AWS.Data.Base64
+          Data.Tagged
+
+        , Network.AWS.Data.Base64
         , Network.AWS.Data.ByteString
         , Network.AWS.Data.Headers
         , Network.AWS.Data.List1
@@ -62,7 +64,6 @@ library
         , deepseq              >= 1.4
         , hashable             >= 1.2
         , http-types           >= 0.8 && (<0.11 || >=0.12)
-        , tagged               >= 0.7
         , text                 >= 1.1
         , transformers         >= 0.2
         , xml-conduit          >= 1.7.0.1
