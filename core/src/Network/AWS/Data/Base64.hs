@@ -23,7 +23,7 @@ import           Data.Data                   (Data, Typeable)
 import           Data.Hashable
 import qualified Data.Text.Encoding          as Text
 import           GHC.Generics                (Generic)
-import           Network.AWS.Data.Body
+import           Network.AWS.Data.Body       (ToBody(..), ToHashedBody(..))
 import           Network.AWS.Data.ByteString
 import           Network.AWS.Data.JSON
 import           Network.AWS.Data.Query
