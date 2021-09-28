@@ -18,7 +18,7 @@
 -- Stability   : provisional
 -- Portability : non-portable (GHC extensions)
 --
-module Network.AWS.Data.Query where
+module Network.AWS.Data.Query (toQueryList, ToQuery(..), (=:)) where
 
 import           Data.ByteString.Builder     (Builder)
 import qualified Data.ByteString.Builder     as Build
@@ -27,14 +27,11 @@ import qualified Data.ByteString.Lazy        as LBS
 import           Data.Data
 import           Data.List                   (sort)
 import           Data.Maybe                  (fromMaybe)
-import           Data.Monoid                 (Monoid)
-import           Data.Semigroup              (Semigroup, (<>))
 import           Data.String
 import qualified Data.Text.Encoding          as Text
 import           GHC.Exts
 import           Network.AWS.Data.ByteString
 import           Network.AWS.Data.Text
-import           Network.HTTP.Types.URI      (urlEncode)
 import           Numeric.Natural
 
 data QueryString
@@ -93,11 +90,11 @@ instance ToByteString QueryString where
         enc p = \case
             QList xs          -> concatMap (enc p) xs
 
-            QPair (urlEncode True -> k) x
+            QPair (undefined True -> k) x
                 | Just n <- p -> enc (Just (n <> kdelim <> k)) x -- <prev>.key <recur>
                 | otherwise   -> enc (Just k)                  x -- key <recur>
 
-            QValue (Just (urlEncode True -> v))
+            QValue (Just (undefined True -> v))
                 | Just n <- p -> [n <> vsep <> v] -- key=value
                 | otherwise   -> [v <> vsep]      -- value= -- note: required for signing.
 
@@ -113,9 +110,6 @@ instance ToByteString QueryString where
         kdelim = "."
         ksep   = "&"
         vsep   = "="
-
-pair :: ToQuery a => ByteString -> a -> QueryString -> QueryString
-pair k v = mappend (QPair k (toQuery v))
 
 infixr 7 =:
 
