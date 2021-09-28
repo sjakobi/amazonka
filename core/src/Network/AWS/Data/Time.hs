@@ -41,7 +41,6 @@ import           Data.Time                   (Day (..), UTCTime (..))
 import           Data.Time.Clock.POSIX
 import           Data.Time.Format            (formatTime)
 import           GHC.Generics                (Generic)
-import           Network.AWS.Compat.Locale
 import           Network.AWS.Compat.Time
 import           Network.AWS.Data.ByteString
 import           Network.AWS.Data.Query
@@ -100,7 +99,7 @@ parseFormattedTime = do
 
     let parse :: Tagged b String -> Parser (Time a)
         parse (untag -> fmt) =
-            case parseTime defaultTimeLocale fmt s of
+            case parseTime undefined fmt s of
                 Just x  -> pure (Time x)
                 Nothing ->
                     fail ( "Unable to parse Time format "
@@ -133,7 +132,7 @@ instance ToText POSIX where
     toText (Time t) = toText (truncate (utcTimeToPOSIXSeconds t) :: Integer)
 
 renderFormattedTime :: forall a. TimeFormat (Time a) => Time a -> String
-renderFormattedTime (Time t) = formatTime defaultTimeLocale (untag f) t
+renderFormattedTime (Time t) = formatTime undefined (untag f) t
   where
     f :: Tagged (Time a) String
     f = format

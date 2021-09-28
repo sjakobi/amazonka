@@ -45,8 +45,7 @@ library
         , Network.AWS.Lens
 
     other-modules:
-          Network.AWS.Compat.Locale
-        , Network.AWS.Compat.Time
+          Network.AWS.Compat.Time
         , Network.AWS.Data.Base64
         , Network.AWS.Data.ByteString
         , Network.AWS.Data.Headers
