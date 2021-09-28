@@ -46,6 +46,7 @@ library
 
     other-modules:
           Data.Tagged
+        , Text.XML
 
         , Network.AWS.Data.Base64
         , Network.AWS.Data.ByteString
@@ -61,10 +62,10 @@ library
           attoparsec           >= 0.11.3
         , base                 >= 4.7 && < 5
         , bytestring           >= 0.9
+        , containers
         , deepseq              >= 1.4
         , hashable             >= 1.2
         , http-types           >= 0.8 && (<0.11 || >=0.12)
         , text                 >= 1.1
         , transformers         >= 0.2
-        , xml-conduit          >= 1.7.0.1
         , time       >= 1.5
