@@ -52,31 +52,3 @@ library
     build-depends:
           amazonka-core == 1.6.1.*
         , base          >= 4.7     && < 5
-
-test-suite amazonka-ec2-test
-    type:              exitcode-stdio-1.0
-    default-language:  Haskell2010
-    hs-source-dirs:    test
-    main-is:           Main.hs
-
-    ghc-options:       -Wall -threaded
-
-    -- This section is encoded by the template and any modules added by
-    -- hand outside these namespaces will not correctly be added to the
-    -- distribution package.
-    other-modules:
-          Test.AWS.EC2
-        , Test.AWS.Gen.EC2
-        , Test.AWS.EC2.Internal
-
-    build-depends:
-          amazonka-core == 1.6.1.*
-        , amazonka-test == 1.6.1.*
-        , amazonka-ec2
-        , base
-        , bytestring
-        , tasty
-        , tasty-hunit
-        , text
-        , time
-        , unordered-containers
