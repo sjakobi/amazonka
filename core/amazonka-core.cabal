@@ -55,7 +55,6 @@ library
         , Network.AWS.Data.JSON
         , Network.AWS.Data.List1
         , Network.AWS.Data.Log
-        , Network.AWS.Data.Numeric
         , Network.AWS.Data.Path
         , Network.AWS.Data.Query
         , Network.AWS.Data.Sensitive
