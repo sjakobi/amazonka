@@ -41,7 +41,6 @@ import           Data.Time                   (Day (..), UTCTime (..))
 import           Data.Time.Clock.POSIX
 import           Data.Time.Format            (formatTime)
 import           GHC.Generics                (Generic)
-import           Network.AWS.Compat.Time
 import           Network.AWS.Data.ByteString
 import           Network.AWS.Data.Query
 import           Network.AWS.Data.Text
@@ -83,7 +82,7 @@ class TimeFormat a where
     format :: Tagged a String
 
 instance TimeFormat RFC822    where format = Tagged "%a, %d %b %Y %H:%M:%S GMT"
-instance TimeFormat ISO8601   where format = Tagged (iso8601DateFormat (Just "%XZ"))
+instance TimeFormat ISO8601   where format = Tagged (undefined (Just "%XZ"))
 instance TimeFormat BasicTime where format = Tagged "%Y%m%d"
 instance TimeFormat AWSTime   where format = Tagged "%Y%m%dT%H%M%SZ"
 
@@ -99,7 +98,7 @@ parseFormattedTime = do
 
     let parse :: Tagged b String -> Parser (Time a)
         parse (untag -> fmt) =
-            case parseTime undefined fmt s of
+            case undefined fmt s of
                 Just x  -> pure (Time x)
                 Nothing ->
                     fail ( "Unable to parse Time format "
@@ -113,7 +112,7 @@ parseFormattedTime = do
         <|> parse (format :: Tagged BasicTime String)
         <|> parse (format :: Tagged AWSTime   String)
         -- Deprecated ISO8601 format exhibited in the AWS-supplied examples.
-        <|> parse (Tagged $ iso8601DateFormat (Just "%X%Q%Z"))
+        <|> parse (Tagged $ undefined (Just "%X%Q%Z"))
         -- Exhaustive Failure
         <|> fail ("Failure parsing Time from value: " ++ show s)
 
