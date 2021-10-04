@@ -31,7 +31,7 @@ module Network.AWS.Data.Time
 import           Control.Applicative
 import           Control.DeepSeq
 import           Data.Attoparsec.Text        (Parser)
-import qualified Data.Attoparsec.Text        as AText
+import qualified Data.Attoparsec.Text        as AText (endOfInput, double, takeText)
 import qualified Data.ByteString.Char8       as BS
 import           Data.Data                   (Data, Typeable)
 import           Data.Hashable

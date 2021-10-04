@@ -16,7 +16,7 @@ module Network.AWS.Data.Base64
     ) where
 
 import           Control.DeepSeq
-import qualified Data.Attoparsec.Text        as AText
+import qualified Data.Attoparsec.Text        as AText (takeText)
 import           Data.Data                   (Data, Typeable)
 import           Data.Hashable
 import qualified Data.Text.Encoding          as Text

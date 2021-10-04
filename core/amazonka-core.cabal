@@ -45,7 +45,17 @@ library
         , Network.AWS.Lens
 
     other-modules:
-          Data.Tagged
+          Data.Attoparsec.Text
+        , Data.Attoparsec.ByteString.Buffer
+        , Data.Attoparsec.Combinator
+        , Data.Attoparsec.Internal
+        , Data.Attoparsec.Internal.Compat
+        , Data.Attoparsec.Internal.Fhthagn
+        , Data.Attoparsec.Internal.Types
+        , Data.Attoparsec.Text.Buffer
+        , Data.Attoparsec.Text.Internal
+        , Data.Attoparsec.Zepto
+        , Data.Tagged
         , Text.XML
 
         , Network.AWS.Data.Base64
@@ -59,7 +69,7 @@ library
         , Network.AWS.Types
 
     build-depends:
-          attoparsec           >= 0.11.3
+          array
         , base                 >= 4.7 && < 5
         , bytestring           >= 0.9
         , containers

@@ -26,7 +26,7 @@ module Network.AWS.Data.Text
     ) where
 
 import           Data.Attoparsec.Text              (Parser)
-import qualified Data.Attoparsec.Text              as A
+import qualified Data.Attoparsec.Text              as A (signed, rational, endOfInput, decimal, anyChar, takeText, parseOnly)
 import           Data.ByteString                   (ByteString)
 import           Data.Int
 import           Data.Text                         (Text)
