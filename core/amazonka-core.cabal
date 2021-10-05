@@ -45,16 +45,15 @@ library
         , Network.AWS.Lens
 
     other-modules:
-          Data.Attoparsec.Text
-        , Data.Attoparsec.ByteString.Buffer
+          Data.Attoparsec.ByteString.Buffer
         , Data.Attoparsec.Combinator
         , Data.Attoparsec.Internal
         , Data.Attoparsec.Internal.Compat
         , Data.Attoparsec.Internal.Fhthagn
         , Data.Attoparsec.Internal.Types
+        , Data.Attoparsec.Text
         , Data.Attoparsec.Text.Buffer
         , Data.Attoparsec.Text.Internal
-        , Data.Attoparsec.Zepto
         , Data.Tagged
         , Text.XML
 
