@@ -44,13 +44,9 @@
 module Data.Attoparsec.ByteString.Buffer
     (
       Buffer
-    , buffer
-    , unbuffer
     , pappend
     , length
     , unsafeIndex
-    , substring
-    , unsafeDrop
     ) where
 
 import Control.Exception (assert)
@@ -141,16 +137,3 @@ unsafeIndex :: Buffer -> Int -> Word8
 unsafeIndex (Buf fp off len _ _) i = assert (i >= 0 && i < len) .
     inlinePerformIO . withForeignPtr fp $ flip peekByteOff (off+i)
 {-# INLINE unsafeIndex #-}
-
-substring :: Int -> Int -> Buffer -> ByteString
-substring s l (Buf fp off len _ _) =
-  assert (s >= 0 && s <= len) .
-  assert (l >= 0 && l <= len-s) $
-  mkPS fp (off+s) l
-{-# INLINE substring #-}
-
-unsafeDrop :: Int -> Buffer -> ByteString
-unsafeDrop s (Buf fp off len _ _) =
-  assert (s >= 0 && s <= len) $
-  mkPS fp (off+s) (len-s)
-{-# INLINE unsafeDrop #-}
