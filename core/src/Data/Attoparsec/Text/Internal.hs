@@ -16,7 +16,6 @@
 module Data.Attoparsec.Text.Internal (Parser, takeWhile1, char, satisfy, takeWhile, parseOnly, anyChar, takeText) where
 
 import Control.Monad (when)
-import Data.Attoparsec.Combinator ((<?>))
 import Data.Attoparsec.Internal
 import Data.Attoparsec.Internal.Types hiding (Parser, Failure, Success)
 import qualified Data.Attoparsec.Text.Buffer as Buf
@@ -275,3 +274,13 @@ lengthOf = Pos . Buf.length
 
 size :: Text -> Pos
 size (Text _ _ l) = Pos l
+
+-- | Name the parser, in case failure occurs.
+(<?>) :: T.Parser i a
+      -> String                 -- ^ the name to use if parsing fails
+      -> T.Parser i a
+p <?> msg0 = T.Parser $ \t pos more lose succ ->
+             let lose' t' pos' more' strs msg = lose t' pos' more' (msg0:strs) msg
+             in T.runParser p t pos more lose' succ
+{-# INLINE (<?>) #-}
+infix 0 <?>

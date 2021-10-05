@@ -46,7 +46,6 @@ library
 
     other-modules:
           Data.Attoparsec.ByteString.Buffer
-        , Data.Attoparsec.Combinator
         , Data.Attoparsec.Internal
         , Data.Attoparsec.Internal.Compat
         , Data.Attoparsec.Internal.Fhthagn
