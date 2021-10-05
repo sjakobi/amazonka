@@ -69,8 +69,7 @@ library
         , Network.AWS.Types
 
     build-depends:
-          array
-        , base                 >= 4.7 && < 5
+          base                 >= 4.7 && < 5
         , bytestring           >= 0.9
         , containers
         , deepseq              >= 1.4
