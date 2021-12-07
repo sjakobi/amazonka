@@ -19,7 +19,7 @@ module Network.AWS.EC2.Types.Product where
 
 import Network.AWS.EC2.Types.Sum
 import Network.AWS.Lens (Lens', lens, mapping, (#))
-import Network.AWS.Prelude (NFData, Hashable, FromXML(..), Text, Generic, Typeable, Data,
+import Network.AWS.Prelude (NFData, FromXML(..), Text, Generic, Typeable, Data,
         UTCTime, ISO8601, ToQuery(..), NonEmpty, List1, ByteString, Base64, (.@?), parseXMLList,
         may, (.!@), _Coerce, _Default, _Time, (=:), (.@), toQueryList, parseXMLList1, _List1, _Base64
        )
@@ -63,8 +63,6 @@ instance FromXML AccountAttribute where
                  may (parseXMLList "item"))
                 <*> (x .@? "attributeName")
 
-instance Hashable AccountAttribute where
-
 instance NFData AccountAttribute where
 
 -- | Describes a value of an account attribute.
@@ -94,8 +92,6 @@ aavAttributeValue = lens _aavAttributeValue (\ s a -> s{_aavAttributeValue = a})
 instance FromXML AccountAttributeValue where
         parseXML x
           = AccountAttributeValue' <$> (x .@? "attributeValue")
-
-instance Hashable AccountAttributeValue where
 
 instance NFData AccountAttributeValue where
 
@@ -156,8 +152,6 @@ instance FromXML ActiveInstance where
               (x .@? "instanceId") <*> (x .@? "instanceHealth") <*>
                 (x .@? "instanceType")
                 <*> (x .@? "spotInstanceRequestId")
-
-instance Hashable ActiveInstance where
 
 instance NFData ActiveInstance where
 
@@ -266,8 +260,6 @@ instance FromXML Address where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable Address where
-
 instance NFData Address where
 
 -- | Describes a principal.
@@ -307,8 +299,6 @@ instance FromXML AllowedPrincipal where
           = AllowedPrincipal' <$>
               (x .@? "principalType") <*> (x .@? "principal")
 
-instance Hashable AllowedPrincipal where
-
 instance NFData AllowedPrincipal where
 
 -- | Describes a value for a resource attribute that is a Boolean value.
@@ -338,8 +328,6 @@ abvValue = lens _abvValue (\ s a -> s{_abvValue = a})
 instance FromXML AttributeBooleanValue where
         parseXML x
           = AttributeBooleanValue' <$> (x .@? "value")
-
-instance Hashable AttributeBooleanValue where
 
 instance NFData AttributeBooleanValue where
 
@@ -373,8 +361,6 @@ avValue = lens _avValue (\ s a -> s{_avValue = a})
 
 instance FromXML AttributeValue where
         parseXML x = AttributeValue' <$> (x .@? "value")
-
-instance Hashable AttributeValue where
 
 instance NFData AttributeValue where
 
@@ -442,8 +428,6 @@ instance FromXML AvailabilityZone where
                 (x .@? "messageSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable AvailabilityZone where
-
 instance NFData AvailabilityZone where
 
 -- | Describes a message about an Availability Zone.
@@ -473,8 +457,6 @@ azmMessage = lens _azmMessage (\ s a -> s{_azmMessage = a})
 instance FromXML AvailabilityZoneMessage where
         parseXML x
           = AvailabilityZoneMessage' <$> (x .@? "message")
-
-instance Hashable AvailabilityZoneMessage where
 
 instance NFData AvailabilityZoneMessage where
 
@@ -518,8 +500,6 @@ instance FromXML AvailableCapacity where
                  may (parseXMLList "item"))
                 <*> (x .@? "availableVCpus")
 
-instance Hashable AvailableCapacity where
-
 instance NFData AvailableCapacity where
 
 -- | /See:/ 'blobAttributeValue' smart constructor.
@@ -541,8 +521,6 @@ blobAttributeValue = BlobAttributeValue' {_bavValue = Nothing}
 -- | Undocumented member.-- /Note:/ This 'Lens' automatically encodes and decodes Base64 data. The underlying isomorphism will encode to Base64 representation during serialisation, and decode from Base64 representation during deserialisation. This 'Lens' accepts and returns only raw unencoded data.
 bavValue :: Lens' BlobAttributeValue (Maybe ByteString)
 bavValue = lens _bavValue (\ s a -> s{_bavValue = a}) . mapping _Base64
-
-instance Hashable BlobAttributeValue where
 
 instance NFData BlobAttributeValue where
 
@@ -608,8 +586,6 @@ instance FromXML BlockDeviceMapping where
               (x .@? "virtualName") <*> (x .@? "noDevice") <*>
                 (x .@? "ebs")
                 <*> (x .@ "deviceName")
-
-instance Hashable BlockDeviceMapping where
 
 instance NFData BlockDeviceMapping where
 
@@ -721,8 +697,6 @@ instance FromXML BundleTask where
                 <*> (x .@ "storage")
                 <*> (x .@ "updateTime")
 
-instance Hashable BundleTask where
-
 instance NFData BundleTask where
 
 -- | Describes an error for 'BundleInstance' .
@@ -760,8 +734,6 @@ instance FromXML BundleTaskError where
         parseXML x
           = BundleTaskError' <$>
               (x .@? "code") <*> (x .@? "message")
-
-instance Hashable BundleTaskError where
 
 instance NFData BundleTaskError where
 
@@ -801,8 +773,6 @@ instance FromXML CPUOptions where
           = CPUOptions' <$>
               (x .@? "coreCount") <*> (x .@? "threadsPerCore")
 
-instance Hashable CPUOptions where
-
 instance NFData CPUOptions where
 
 -- | The CPU options for the instance. Both the core count and threads per core must be specified in the request.
@@ -836,8 +806,6 @@ corCoreCount = lens _corCoreCount (\ s a -> s{_corCoreCount = a})
 -- | The number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify a value of @1@ . Otherwise, specify the default value of @2@ .
 corThreadsPerCore :: Lens' CPUOptionsRequest (Maybe Int)
 corThreadsPerCore = lens _corThreadsPerCore (\ s a -> s{_corThreadsPerCore = a})
-
-instance Hashable CPUOptionsRequest where
 
 instance NFData CPUOptionsRequest where
 
@@ -886,8 +854,6 @@ instance FromXML CancelSpotFleetRequestsError where
           = CancelSpotFleetRequestsError' <$>
               (x .@ "code") <*> (x .@ "message")
 
-instance Hashable CancelSpotFleetRequestsError where
-
 instance NFData CancelSpotFleetRequestsError where
 
 -- | Describes a Spot Fleet request that was not successfully canceled.
@@ -930,9 +896,6 @@ instance FromXML CancelSpotFleetRequestsErrorItem
         parseXML x
           = CancelSpotFleetRequestsErrorItem' <$>
               (x .@ "error") <*> (x .@ "spotFleetRequestId")
-
-instance Hashable CancelSpotFleetRequestsErrorItem
-         where
 
 instance NFData CancelSpotFleetRequestsErrorItem
          where
@@ -991,9 +954,6 @@ instance FromXML CancelSpotFleetRequestsSuccessItem
                 (x .@ "previousSpotFleetRequestState")
                 <*> (x .@ "spotFleetRequestId")
 
-instance Hashable CancelSpotFleetRequestsSuccessItem
-         where
-
 instance NFData CancelSpotFleetRequestsSuccessItem
          where
 
@@ -1035,8 +995,6 @@ instance FromXML CancelledSpotInstanceRequest where
           = CancelledSpotInstanceRequest' <$>
               (x .@? "state") <*> (x .@? "spotInstanceRequestId")
 
-instance Hashable CancelledSpotInstanceRequest where
-
 instance NFData CancelledSpotInstanceRequest where
 
 -- | Describes an IPv4 CIDR block.
@@ -1065,8 +1023,6 @@ cbCidrBlock = lens _cbCidrBlock (\ s a -> s{_cbCidrBlock = a})
 
 instance FromXML CidrBlock where
         parseXML x = CidrBlock' <$> (x .@? "cidrBlock")
-
-instance Hashable CidrBlock where
 
 instance NFData CidrBlock where
 
@@ -1107,8 +1063,6 @@ instance FromXML ClassicLinkDNSSupport where
         parseXML x
           = ClassicLinkDNSSupport' <$>
               (x .@? "vpcId") <*> (x .@? "classicLinkDnsSupported")
-
-instance Hashable ClassicLinkDNSSupport where
 
 instance NFData ClassicLinkDNSSupport where
 
@@ -1174,8 +1128,6 @@ instance FromXML ClassicLinkInstance where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable ClassicLinkInstance where
-
 instance NFData ClassicLinkInstance where
 
 -- | Describes a Classic Load Balancer.
@@ -1205,8 +1157,6 @@ clbName = lens _clbName (\ s a -> s{_clbName = a})
 
 instance FromXML ClassicLoadBalancer where
         parseXML x = ClassicLoadBalancer' <$> (x .@ "name")
-
-instance Hashable ClassicLoadBalancer where
 
 instance NFData ClassicLoadBalancer where
 
@@ -1246,8 +1196,6 @@ instance FromXML ClassicLoadBalancersConfig where
           = ClassicLoadBalancersConfig' <$>
               (x .@? "classicLoadBalancers" .!@ mempty >>=
                  parseXMLList1 "item")
-
-instance Hashable ClassicLoadBalancersConfig where
 
 instance NFData ClassicLoadBalancersConfig where
 
@@ -1307,8 +1255,6 @@ cdUploadEnd = lens _cdUploadEnd (\ s a -> s{_cdUploadEnd = a}) . mapping _Time
 -- | A user-defined comment about the disk upload.
 cdComment :: Lens' ClientData (Maybe Text)
 cdComment = lens _cdComment (\ s a -> s{_cdComment = a})
-
-instance Hashable ClientData where
 
 instance NFData ClientData where
 
@@ -1407,8 +1353,6 @@ instance FromXML ConnectionNotification where
                 <*> (x .@? "connectionNotificationId")
                 <*> (x .@? "connectionNotificationArn")
 
-instance Hashable ConnectionNotification where
-
 instance NFData ConnectionNotification where
 
 -- | Describes a conversion task.
@@ -1498,8 +1442,6 @@ instance FromXML ConversionTask where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable ConversionTask where
-
 instance NFData ConversionTask where
 
 -- | Describes the user or group to be added or removed from the permissions for a volume.
@@ -1538,8 +1480,6 @@ instance FromXML CreateVolumePermission where
         parseXML x
           = CreateVolumePermission' <$>
               (x .@? "group") <*> (x .@? "userId")
-
-instance Hashable CreateVolumePermission where
 
 instance NFData CreateVolumePermission where
 
@@ -1581,9 +1521,6 @@ cvpmRemove = lens _cvpmRemove (\ s a -> s{_cvpmRemove = a}) . _Default . _Coerce
 cvpmAdd :: Lens' CreateVolumePermissionModifications [CreateVolumePermission]
 cvpmAdd = lens _cvpmAdd (\ s a -> s{_cvpmAdd = a}) . _Default . _Coerce
 
-instance Hashable CreateVolumePermissionModifications
-         where
-
 instance NFData CreateVolumePermissionModifications
          where
 
@@ -1622,8 +1559,6 @@ instance FromXML CreditSpecification where
         parseXML x
           = CreditSpecification' <$> (x .@? "cpuCredits")
 
-instance Hashable CreditSpecification where
-
 instance NFData CreditSpecification where
 
 -- | The credit option for CPU usage of a T2 instance.
@@ -1651,8 +1586,6 @@ creditSpecificationRequest pCPUCredits_ =
 -- | The credit option for CPU usage of a T2 instance. Valid values are @standard@ and @unlimited@ .
 csrCPUCredits :: Lens' CreditSpecificationRequest Text
 csrCPUCredits = lens _csrCPUCredits (\ s a -> s{_csrCPUCredits = a})
-
-instance Hashable CreditSpecificationRequest where
 
 instance NFData CreditSpecificationRequest where
 
@@ -1743,8 +1676,6 @@ instance FromXML CustomerGateway where
                 <*> (x .@ "state")
                 <*> (x .@ "type")
 
-instance Hashable CustomerGateway where
-
 instance NFData CustomerGateway where
 
 -- | Describes a DHCP configuration option.
@@ -1784,8 +1715,6 @@ instance FromXML DHCPConfiguration where
               (x .@? "valueSet" .!@ mempty >>=
                  may (parseXMLList "item"))
                 <*> (x .@? "key")
-
-instance Hashable DHCPConfiguration where
 
 instance NFData DHCPConfiguration where
 
@@ -1842,8 +1771,6 @@ instance FromXML DHCPOptions where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable DHCPOptions where
-
 instance NFData DHCPOptions where
 
 -- | Describes a DNS entry.
@@ -1881,8 +1808,6 @@ instance FromXML DNSEntry where
         parseXML x
           = DNSEntry' <$>
               (x .@? "hostedZoneId") <*> (x .@? "dnsName")
-
-instance Hashable DNSEntry where
 
 instance NFData DNSEntry where
 
@@ -1922,8 +1847,6 @@ instance FromXML DeleteFleetError where
           = DeleteFleetError' <$>
               (x .@? "code") <*> (x .@? "message")
 
-instance Hashable DeleteFleetError where
-
 instance NFData DeleteFleetError where
 
 -- | Describes an EC2 Fleet that was not successfully deleted.
@@ -1962,8 +1885,6 @@ instance FromXML DeleteFleetErrorItem where
         parseXML x
           = DeleteFleetErrorItem' <$>
               (x .@? "error") <*> (x .@? "fleetId")
-
-instance Hashable DeleteFleetErrorItem where
 
 instance NFData DeleteFleetErrorItem where
 
@@ -2016,8 +1937,6 @@ instance FromXML DeleteFleetSuccessItem where
               (x .@? "currentFleetState") <*>
                 (x .@? "previousFleetState")
                 <*> (x .@? "fleetId")
-
-instance Hashable DeleteFleetSuccessItem where
 
 instance NFData DeleteFleetSuccessItem where
 
@@ -2082,10 +2001,6 @@ instance FromXML
                 <*> (x .@? "versionNumber")
                 <*> (x .@? "responseError")
 
-instance Hashable
-           DeleteLaunchTemplateVersionsResponseErrorItem
-         where
-
 instance NFData
            DeleteLaunchTemplateVersionsResponseErrorItem
          where
@@ -2143,10 +2058,6 @@ instance FromXML
                 (x .@? "launchTemplateId")
                 <*> (x .@? "versionNumber")
 
-instance Hashable
-           DeleteLaunchTemplateVersionsResponseSuccessItem
-         where
-
 instance NFData
            DeleteLaunchTemplateVersionsResponseSuccessItem
          where
@@ -2189,8 +2100,6 @@ diVolume = lens _diVolume (\ s a -> s{_diVolume = a})
 -- | A description of the disk image.
 diDescription :: Lens' DiskImage (Maybe Text)
 diDescription = lens _diDescription (\ s a -> s{_diDescription = a})
-
-instance Hashable DiskImage where
 
 instance NFData DiskImage where
 
@@ -2258,8 +2167,6 @@ instance FromXML DiskImageDescription where
                 (x .@? "format")
                 <*> (x .@? "importManifestUrl")
 
-instance Hashable DiskImageDescription where
-
 instance NFData DiskImageDescription where
 
 -- | Describes a disk image.
@@ -2308,8 +2215,6 @@ didFormat = lens _didFormat (\ s a -> s{_didFormat = a})
 didImportManifestURL :: Lens' DiskImageDetail Text
 didImportManifestURL = lens _didImportManifestURL (\ s a -> s{_didImportManifestURL = a})
 
-instance Hashable DiskImageDetail where
-
 instance NFData DiskImageDetail where
 
 instance ToQuery DiskImageDetail where
@@ -2354,8 +2259,6 @@ instance FromXML DiskImageVolumeDescription where
         parseXML x
           = DiskImageVolumeDescription' <$>
               (x .@? "size") <*> (x .@? "id")
-
-instance Hashable DiskImageVolumeDescription where
 
 instance NFData DiskImageVolumeDescription where
 
@@ -2445,8 +2348,6 @@ instance FromXML EBSBlockDevice where
                 <*> (x .@? "volumeType")
                 <*> (x .@? "snapshotId")
 
-instance Hashable EBSBlockDevice where
-
 instance NFData EBSBlockDevice where
 
 instance ToQuery EBSBlockDevice where
@@ -2517,8 +2418,6 @@ instance FromXML EBSInstanceBlockDevice where
                 <*> (x .@? "volumeId")
                 <*> (x .@? "attachTime")
 
-instance Hashable EBSInstanceBlockDevice where
-
 instance NFData EBSInstanceBlockDevice where
 
 -- | Describes information used to set up an EBS volume specified in a block device mapping.
@@ -2553,9 +2452,6 @@ eibdsDeleteOnTermination = lens _eibdsDeleteOnTermination (\ s a -> s{_eibdsDele
 -- | The ID of the EBS volume.
 eibdsVolumeId :: Lens' EBSInstanceBlockDeviceSpecification (Maybe Text)
 eibdsVolumeId = lens _eibdsVolumeId (\ s a -> s{_eibdsVolumeId = a})
-
-instance Hashable EBSInstanceBlockDeviceSpecification
-         where
 
 instance NFData EBSInstanceBlockDeviceSpecification
          where
@@ -2606,8 +2502,6 @@ instance FromXML EgressOnlyInternetGateway where
               (x .@? "egressOnlyInternetGatewayId") <*>
                 (x .@? "attachmentSet" .!@ mempty >>=
                    may (parseXMLList "item"))
-
-instance Hashable EgressOnlyInternetGateway where
 
 instance NFData EgressOnlyInternetGateway where
 
@@ -2670,8 +2564,6 @@ instance FromXML ElasticGpuAssociation where
                 <*> (x .@? "elasticGpuAssociationTime")
                 <*> (x .@? "elasticGpuAssociationState")
 
-instance Hashable ElasticGpuAssociation where
-
 instance NFData ElasticGpuAssociation where
 
 -- | Describes the status of an Elastic GPU.
@@ -2701,8 +2593,6 @@ eghStatus = lens _eghStatus (\ s a -> s{_eghStatus = a})
 instance FromXML ElasticGpuHealth where
         parseXML x = ElasticGpuHealth' <$> (x .@? "status")
 
-instance Hashable ElasticGpuHealth where
-
 instance NFData ElasticGpuHealth where
 
 -- | A specification for an Elastic GPU.
@@ -2729,8 +2619,6 @@ elasticGpuSpecification pType_ = ElasticGpuSpecification' {_egsType = pType_}
 -- | The type of Elastic GPU.
 egsType :: Lens' ElasticGpuSpecification Text
 egsType = lens _egsType (\ s a -> s{_egsType = a})
-
-instance Hashable ElasticGpuSpecification where
 
 instance NFData ElasticGpuSpecification where
 
@@ -2767,9 +2655,6 @@ instance FromXML ElasticGpuSpecificationResponse
          where
         parseXML x
           = ElasticGpuSpecificationResponse' <$> (x .@? "type")
-
-instance Hashable ElasticGpuSpecificationResponse
-         where
 
 instance NFData ElasticGpuSpecificationResponse where
 
@@ -2849,8 +2734,6 @@ instance FromXML ElasticGpus where
                 <*> (x .@? "elasticGpuHealth")
                 <*> (x .@? "availabilityZone")
 
-instance Hashable ElasticGpus where
-
 instance NFData ElasticGpus where
 
 -- | Describes a Spot Fleet event.
@@ -2901,8 +2784,6 @@ instance FromXML EventInformation where
           = EventInformation' <$>
               (x .@? "instanceId") <*> (x .@? "eventDescription")
                 <*> (x .@? "eventSubType")
-
-instance Hashable EventInformation where
 
 instance NFData EventInformation where
 
@@ -2988,8 +2869,6 @@ instance FromXML ExportTask where
                 <*> (x .@ "state")
                 <*> (x .@ "statusMessage")
 
-instance Hashable ExportTask where
-
 instance NFData ExportTask where
 
 -- | Describes the format and location for an instance export task.
@@ -3050,8 +2929,6 @@ instance FromXML ExportToS3Task where
                 (x .@? "s3Bucket")
                 <*> (x .@? "diskImageFormat")
 
-instance Hashable ExportToS3Task where
-
 instance NFData ExportToS3Task where
 
 -- | Describes an instance export task.
@@ -3104,8 +2981,6 @@ etstsS3Bucket = lens _etstsS3Bucket (\ s a -> s{_etstsS3Bucket = a})
 -- | The format for the exported image.
 etstsDiskImageFormat :: Lens' ExportToS3TaskSpecification (Maybe DiskImageFormat)
 etstsDiskImageFormat = lens _etstsDiskImageFormat (\ s a -> s{_etstsDiskImageFormat = a})
-
-instance Hashable ExportToS3TaskSpecification where
 
 instance NFData ExportToS3TaskSpecification where
 
@@ -3170,8 +3045,6 @@ fValues = lens _fValues (\ s a -> s{_fValues = a}) . _Default . _Coerce
 -- | The name of the filter. Filter names are case-sensitive.
 fName :: Lens' Filter Text
 fName = lens _fName (\ s a -> s{_fName = a})
-
-instance Hashable Filter where
 
 instance NFData Filter where
 
@@ -3361,8 +3234,6 @@ instance FromXML FleetData where
                    may (parseXMLList "item"))
                 <*> (x .@? "activityStatus")
 
-instance Hashable FleetData where
-
 instance NFData FleetData where
 
 -- | Describes a launch template and overrides.
@@ -3405,8 +3276,6 @@ instance FromXML FleetLaunchTemplateConfig where
                  may (parseXMLList "item"))
                 <*> (x .@? "launchTemplateSpecification")
 
-instance Hashable FleetLaunchTemplateConfig where
-
 instance NFData FleetLaunchTemplateConfig where
 
 -- | Describes a launch template and overrides.
@@ -3441,9 +3310,6 @@ fltcrOverrides = lens _fltcrOverrides (\ s a -> s{_fltcrOverrides = a}) . _Defau
 -- | The launch template to use. You must specify either the launch template ID or launch template name in the request.
 fltcrLaunchTemplateSpecification :: Lens' FleetLaunchTemplateConfigRequest (Maybe FleetLaunchTemplateSpecificationRequest)
 fltcrLaunchTemplateSpecification = lens _fltcrLaunchTemplateSpecification (\ s a -> s{_fltcrLaunchTemplateSpecification = a})
-
-instance Hashable FleetLaunchTemplateConfigRequest
-         where
 
 instance NFData FleetLaunchTemplateConfigRequest
          where
@@ -3524,8 +3390,6 @@ instance FromXML FleetLaunchTemplateOverrides where
                 <*> (x .@? "availabilityZone")
                 <*> (x .@? "maxPrice")
 
-instance Hashable FleetLaunchTemplateOverrides where
-
 instance NFData FleetLaunchTemplateOverrides where
 
 -- | Describes overrides for a launch template.
@@ -3586,9 +3450,6 @@ fltorAvailabilityZone = lens _fltorAvailabilityZone (\ s a -> s{_fltorAvailabili
 -- | The maximum price per unit hour that you are willing to pay for a Spot Instance.
 fltorMaxPrice :: Lens' FleetLaunchTemplateOverridesRequest (Maybe Text)
 fltorMaxPrice = lens _fltorMaxPrice (\ s a -> s{_fltorMaxPrice = a})
-
-instance Hashable FleetLaunchTemplateOverridesRequest
-         where
 
 instance NFData FleetLaunchTemplateOverridesRequest
          where
@@ -3654,9 +3515,6 @@ instance FromXML FleetLaunchTemplateSpecification
                 (x .@? "launchTemplateId")
                 <*> (x .@? "version")
 
-instance Hashable FleetLaunchTemplateSpecification
-         where
-
 instance NFData FleetLaunchTemplateSpecification
          where
 
@@ -3710,10 +3568,6 @@ fltsrLaunchTemplateId = lens _fltsrLaunchTemplateId (\ s a -> s{_fltsrLaunchTemp
 -- | The version number of the launch template.
 fltsrVersion :: Lens' FleetLaunchTemplateSpecificationRequest (Maybe Text)
 fltsrVersion = lens _fltsrVersion (\ s a -> s{_fltsrVersion = a})
-
-instance Hashable
-           FleetLaunchTemplateSpecificationRequest
-         where
 
 instance NFData
            FleetLaunchTemplateSpecificationRequest
@@ -3830,8 +3684,6 @@ instance FromXML FlowLog where
                 <*> (x .@? "logGroupName")
                 <*> (x .@? "deliverLogsPermissionArn")
                 <*> (x .@? "flowLogId")
-
-instance Hashable FlowLog where
 
 instance NFData FlowLog where
 
@@ -3987,8 +3839,6 @@ instance FromXML FpgaImage where
                 <*> (x .@? "public")
                 <*> (x .@? "fpgaImageGlobalId")
 
-instance Hashable FpgaImage where
-
 instance NFData FpgaImage where
 
 -- | Describes an Amazon FPGA image (AFI) attribute.
@@ -4061,8 +3911,6 @@ instance FromXML FpgaImageAttribute where
                 (x .@? "loadPermissions" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable FpgaImageAttribute where
-
 instance NFData FpgaImageAttribute where
 
 -- | Describes the state of the bitstream generation process for an Amazon FPGA image (AFI).
@@ -4100,8 +3948,6 @@ instance FromXML FpgaImageState where
         parseXML x
           = FpgaImageState' <$>
               (x .@? "code") <*> (x .@? "message")
-
-instance Hashable FpgaImageState where
 
 instance NFData FpgaImageState where
 
@@ -4141,8 +3987,6 @@ instance FromXML GroupIdentifier where
         parseXML x
           = GroupIdentifier' <$>
               (x .@? "groupId") <*> (x .@? "groupName")
-
-instance Hashable GroupIdentifier where
 
 instance NFData GroupIdentifier where
 
@@ -4204,8 +4048,6 @@ instance FromXML HistoryRecord where
               (x .@ "eventInformation") <*> (x .@ "eventType") <*>
                 (x .@ "timestamp")
 
-instance Hashable HistoryRecord where
-
 instance NFData HistoryRecord where
 
 -- | Describes an event in the history of the EC2 Fleet.
@@ -4256,8 +4098,6 @@ instance FromXML HistoryRecordEntry where
           = HistoryRecordEntry' <$>
               (x .@? "eventType") <*> (x .@? "eventInformation")
                 <*> (x .@? "timestamp")
-
-instance Hashable HistoryRecordEntry where
 
 instance NFData HistoryRecordEntry where
 
@@ -4384,8 +4224,6 @@ instance FromXML Host where
                 <*> (x .@? "allocationTime")
                 <*> (x .@? "autoPlacement")
 
-instance Hashable Host where
-
 instance NFData Host where
 
 -- | Describes an instance running on a Dedicated Host.
@@ -4424,8 +4262,6 @@ instance FromXML HostInstance where
         parseXML x
           = HostInstance' <$>
               (x .@? "instanceId") <*> (x .@? "instanceType")
-
-instance Hashable HostInstance where
 
 instance NFData HostInstance where
 
@@ -4514,8 +4350,6 @@ instance FromXML HostOffering where
                 <*> (x .@? "duration")
                 <*> (x .@? "paymentOption")
 
-instance Hashable HostOffering where
-
 instance NFData HostOffering where
 
 -- | Describes properties of a Dedicated Host.
@@ -4575,8 +4409,6 @@ instance FromXML HostProperties where
               (x .@? "instanceType") <*> (x .@? "totalVCpus") <*>
                 (x .@? "cores")
                 <*> (x .@? "sockets")
-
-instance Hashable HostProperties where
 
 instance NFData HostProperties where
 
@@ -4721,8 +4553,6 @@ instance FromXML HostReservation where
                 <*> (x .@? "duration")
                 <*> (x .@? "paymentOption")
 
-instance Hashable HostReservation where
-
 instance NFData HostReservation where
 
 -- | Describes an IAM instance profile.
@@ -4760,8 +4590,6 @@ instance FromXML IAMInstanceProfile where
         parseXML x
           = IAMInstanceProfile' <$>
               (x .@? "arn") <*> (x .@? "id")
-
-instance Hashable IAMInstanceProfile where
 
 instance NFData IAMInstanceProfile where
 
@@ -4832,8 +4660,6 @@ instance FromXML IAMInstanceProfileAssociation where
                 <*> (x .@? "iamInstanceProfile")
                 <*> (x .@? "timestamp")
 
-instance Hashable IAMInstanceProfileAssociation where
-
 instance NFData IAMInstanceProfileAssociation where
 
 -- | Describes an IAM instance profile.
@@ -4873,9 +4699,6 @@ instance FromXML IAMInstanceProfileSpecification
         parseXML x
           = IAMInstanceProfileSpecification' <$>
               (x .@? "arn") <*> (x .@? "name")
-
-instance Hashable IAMInstanceProfileSpecification
-         where
 
 instance NFData IAMInstanceProfileSpecification where
 
@@ -4918,8 +4741,6 @@ itcType = lens _itcType (\ s a -> s{_itcType = a})
 instance FromXML ICMPTypeCode where
         parseXML x
           = ICMPTypeCode' <$> (x .@? "code") <*> (x .@? "type")
-
-instance Hashable ICMPTypeCode where
 
 instance NFData ICMPTypeCode where
 
@@ -5021,8 +4842,6 @@ instance FromXML IPPermission where
                    may (parseXMLList "item"))
                 <*> (x .@ "ipProtocol")
 
-instance Hashable IPPermission where
-
 instance NFData IPPermission where
 
 instance ToQuery IPPermission where
@@ -5075,8 +4894,6 @@ instance FromXML IPRange where
           = IPRange' <$>
               (x .@? "description") <*> (x .@ "cidrIp")
 
-instance Hashable IPRange where
-
 instance NFData IPRange where
 
 instance ToQuery IPRange where
@@ -5112,8 +4929,6 @@ icbIPv6CidrBlock = lens _icbIPv6CidrBlock (\ s a -> s{_icbIPv6CidrBlock = a})
 instance FromXML IPv6CidrBlock where
         parseXML x
           = IPv6CidrBlock' <$> (x .@? "ipv6CidrBlock")
-
-instance Hashable IPv6CidrBlock where
 
 instance NFData IPv6CidrBlock where
 
@@ -5152,8 +4967,6 @@ instance FromXML IPv6Range where
         parseXML x
           = IPv6Range' <$>
               (x .@? "cidrIpv6") <*> (x .@? "description")
-
-instance Hashable IPv6Range where
 
 instance NFData IPv6Range where
 
@@ -5208,8 +5021,6 @@ instance FromXML IdFormat where
           = IdFormat' <$>
               (x .@? "useLongIds") <*> (x .@? "deadline") <*>
                 (x .@? "resource")
-
-instance Hashable IdFormat where
 
 instance NFData IdFormat where
 
@@ -5467,8 +5278,6 @@ instance FromXML Image where
                 <*> (x .@ "virtualizationType")
                 <*> (x .@ "hypervisor")
 
-instance Hashable Image where
-
 instance NFData Image where
 
 -- | Describes the disk container object for an import image task.
@@ -5537,8 +5346,6 @@ idcDescription = lens _idcDescription (\ s a -> s{_idcDescription = a})
 -- | The ID of the EBS snapshot to be used for importing the snapshot.
 idcSnapshotId :: Lens' ImageDiskContainer (Maybe Text)
 idcSnapshotId = lens _idcSnapshotId (\ s a -> s{_idcSnapshotId = a})
-
-instance Hashable ImageDiskContainer where
 
 instance NFData ImageDiskContainer where
 
@@ -5674,8 +5481,6 @@ instance FromXML ImportImageTask where
                 <*> (x .@? "architecture")
                 <*> (x .@? "description")
 
-instance Hashable ImportImageTask where
-
 instance NFData ImportImageTask where
 
 -- | Describes the launch specification for VM import.
@@ -5785,9 +5590,6 @@ iilsArchitecture = lens _iilsArchitecture (\ s a -> s{_iilsArchitecture = a})
 iilsPlacement :: Lens' ImportInstanceLaunchSpecification (Maybe Placement)
 iilsPlacement = lens _iilsPlacement (\ s a -> s{_iilsPlacement = a})
 
-instance Hashable ImportInstanceLaunchSpecification
-         where
-
 instance NFData ImportInstanceLaunchSpecification
          where
 
@@ -5867,8 +5669,6 @@ instance FromXML ImportInstanceTaskDetails where
                 (x .@? "volumes" .!@ mempty >>=
                    may (parseXMLList "item"))
                 <*> (x .@? "description")
-
-instance Hashable ImportInstanceTaskDetails where
 
 instance NFData ImportInstanceTaskDetails where
 
@@ -5962,9 +5762,6 @@ instance FromXML ImportInstanceVolumeDetailItem where
                 <*> (x .@ "status")
                 <*> (x .@ "volume")
 
-instance Hashable ImportInstanceVolumeDetailItem
-         where
-
 instance NFData ImportInstanceVolumeDetailItem where
 
 -- | Describes an import snapshot task.
@@ -6016,8 +5813,6 @@ instance FromXML ImportSnapshotTask where
               (x .@? "snapshotTaskDetail") <*>
                 (x .@? "importTaskId")
                 <*> (x .@? "description")
-
-instance Hashable ImportSnapshotTask where
 
 instance NFData ImportSnapshotTask where
 
@@ -6087,8 +5882,6 @@ instance FromXML ImportVolumeTaskDetails where
                 (x .@? "volume")
                 <*> (x .@? "availabilityZone")
                 <*> (x .@? "description")
-
-instance Hashable ImportVolumeTaskDetails where
 
 instance NFData ImportVolumeTaskDetails where
 
@@ -6497,8 +6290,6 @@ instance FromXML Instance where
                 <*> (x .@ "hypervisor")
                 <*> (x .@ "instanceState")
 
-instance Hashable Instance where
-
 instance NFData Instance where
 
 -- | Describes a block device mapping.
@@ -6537,8 +6328,6 @@ instance FromXML InstanceBlockDeviceMapping where
         parseXML x
           = InstanceBlockDeviceMapping' <$>
               (x .@? "ebs") <*> (x .@? "deviceName")
-
-instance Hashable InstanceBlockDeviceMapping where
 
 instance NFData InstanceBlockDeviceMapping where
 
@@ -6592,10 +6381,6 @@ ibdmsEBS = lens _ibdmsEBS (\ s a -> s{_ibdmsEBS = a})
 -- | The device name (for example, @/dev/sdh@ or @xvdh@ ).
 ibdmsDeviceName :: Lens' InstanceBlockDeviceMappingSpecification (Maybe Text)
 ibdmsDeviceName = lens _ibdmsDeviceName (\ s a -> s{_ibdmsDeviceName = a})
-
-instance Hashable
-           InstanceBlockDeviceMappingSpecification
-         where
 
 instance NFData
            InstanceBlockDeviceMappingSpecification
@@ -6660,8 +6445,6 @@ instance FromXML InstanceCapacity where
                 (x .@? "instanceType")
                 <*> (x .@? "totalCapacity")
 
-instance Hashable InstanceCapacity where
-
 instance NFData InstanceCapacity where
 
 -- | Describes a Reserved Instance listing state.
@@ -6699,8 +6482,6 @@ instance FromXML InstanceCount where
         parseXML x
           = InstanceCount' <$>
               (x .@? "state") <*> (x .@? "instanceCount")
-
-instance Hashable InstanceCount where
 
 instance NFData InstanceCount where
 
@@ -6742,8 +6523,6 @@ instance FromXML InstanceCreditSpecification where
           = InstanceCreditSpecification' <$>
               (x .@? "instanceId") <*> (x .@? "cpuCredits")
 
-instance Hashable InstanceCreditSpecification where
-
 instance NFData InstanceCreditSpecification where
 
 -- | Describes the credit option for CPU usage of a T2 instance.
@@ -6778,9 +6557,6 @@ icsrInstanceId = lens _icsrInstanceId (\ s a -> s{_icsrInstanceId = a})
 -- | The credit option for CPU usage of the instance. Valid values are @standard@ and @unlimited@ .
 icsrCPUCredits :: Lens' InstanceCreditSpecificationRequest (Maybe Text)
 icsrCPUCredits = lens _icsrCPUCredits (\ s a -> s{_icsrCPUCredits = a})
-
-instance Hashable InstanceCreditSpecificationRequest
-         where
 
 instance NFData InstanceCreditSpecificationRequest
          where
@@ -6830,8 +6606,6 @@ instance FromXML InstanceExportDetails where
           = InstanceExportDetails' <$>
               (x .@? "targetEnvironment") <*> (x .@? "instanceId")
 
-instance Hashable InstanceExportDetails where
-
 instance NFData InstanceExportDetails where
 
 -- | Describes an IPv6 address.
@@ -6861,8 +6635,6 @@ iiaIPv6Address = lens _iiaIPv6Address (\ s a -> s{_iiaIPv6Address = a})
 instance FromXML InstanceIPv6Address where
         parseXML x
           = InstanceIPv6Address' <$> (x .@? "ipv6Address")
-
-instance Hashable InstanceIPv6Address where
 
 instance NFData InstanceIPv6Address where
 
@@ -6894,8 +6666,6 @@ instanceIPv6AddressRequest =
 -- | The IPv6 address.
 iiarIPv6Address :: Lens' InstanceIPv6AddressRequest (Maybe Text)
 iiarIPv6Address = lens _iiarIPv6Address (\ s a -> s{_iiarIPv6Address = a})
-
-instance Hashable InstanceIPv6AddressRequest where
 
 instance NFData InstanceIPv6AddressRequest where
 
@@ -6935,8 +6705,6 @@ imorMarketType = lens _imorMarketType (\ s a -> s{_imorMarketType = a})
 -- | The options for Spot Instances.
 imorSpotOptions :: Lens' InstanceMarketOptionsRequest (Maybe SpotMarketOptions)
 imorSpotOptions = lens _imorSpotOptions (\ s a -> s{_imorSpotOptions = a})
-
-instance Hashable InstanceMarketOptionsRequest where
 
 instance NFData InstanceMarketOptionsRequest where
 
@@ -6982,8 +6750,6 @@ instance FromXML InstanceMonitoring where
         parseXML x
           = InstanceMonitoring' <$>
               (x .@? "instanceId") <*> (x .@? "monitoring")
-
-instance Hashable InstanceMonitoring where
 
 instance NFData InstanceMonitoring where
 
@@ -7150,8 +6916,6 @@ instance FromXML InstanceNetworkInterface where
                 (x .@? "ipv6AddressesSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable InstanceNetworkInterface where
-
 instance NFData InstanceNetworkInterface where
 
 -- | Describes association information for an Elastic IP address (IPv4).
@@ -7203,9 +6967,6 @@ instance FromXML InstanceNetworkInterfaceAssociation
           = InstanceNetworkInterfaceAssociation' <$>
               (x .@? "publicDnsName") <*> (x .@? "ipOwnerId") <*>
                 (x .@? "publicIp")
-
-instance Hashable InstanceNetworkInterfaceAssociation
-         where
 
 instance NFData InstanceNetworkInterfaceAssociation
          where
@@ -7277,9 +7038,6 @@ instance FromXML InstanceNetworkInterfaceAttachment
                 <*> (x .@? "attachmentId")
                 <*> (x .@? "attachTime")
                 <*> (x .@? "deviceIndex")
-
-instance Hashable InstanceNetworkInterfaceAttachment
-         where
 
 instance NFData InstanceNetworkInterfaceAttachment
          where
@@ -7422,10 +7180,6 @@ instance FromXML
                 (x .@? "ipv6AddressesSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable
-           InstanceNetworkInterfaceSpecification
-         where
-
 instance NFData InstanceNetworkInterfaceSpecification
          where
 
@@ -7511,8 +7265,6 @@ instance FromXML InstancePrivateIPAddress where
                 (x .@? "privateDnsName")
                 <*> (x .@? "association")
 
-instance Hashable InstancePrivateIPAddress where
-
 instance NFData InstancePrivateIPAddress where
 
 -- | Describes the current state of an instance.
@@ -7552,8 +7304,6 @@ isCode = lens _isCode (\ s a -> s{_isCode = a})
 instance FromXML InstanceState where
         parseXML x
           = InstanceState' <$> (x .@ "name") <*> (x .@ "code")
-
-instance Hashable InstanceState where
 
 instance NFData InstanceState where
 
@@ -7605,8 +7355,6 @@ instance FromXML InstanceStateChange where
           = InstanceStateChange' <$>
               (x .@? "instanceId") <*> (x .@? "currentState") <*>
                 (x .@? "previousState")
-
-instance Hashable InstanceStateChange where
 
 instance NFData InstanceStateChange where
 
@@ -7687,8 +7435,6 @@ instance FromXML InstanceStatus where
                 <*> (x .@? "instanceStatus")
                 <*> (x .@? "instanceState")
 
-instance Hashable InstanceStatus where
-
 instance NFData InstanceStatus where
 
 -- | Describes the instance status.
@@ -7736,8 +7482,6 @@ instance FromXML InstanceStatusDetails where
           = InstanceStatusDetails' <$>
               (x .@? "status") <*> (x .@? "impairedSince") <*>
                 (x .@? "name")
-
-instance Hashable InstanceStatusDetails where
 
 instance NFData InstanceStatusDetails where
 
@@ -7799,8 +7543,6 @@ instance FromXML InstanceStatusEvent where
                 (x .@? "description")
                 <*> (x .@? "notAfter")
 
-instance Hashable InstanceStatusEvent where
-
 instance NFData InstanceStatusEvent where
 
 -- | Describes the status of an instance.
@@ -7842,8 +7584,6 @@ instance FromXML InstanceStatusSummary where
               (x .@? "details" .!@ mempty >>=
                  may (parseXMLList "item"))
                 <*> (x .@ "status")
-
-instance Hashable InstanceStatusSummary where
 
 instance NFData InstanceStatusSummary where
 
@@ -7901,8 +7641,6 @@ instance FromXML InternetGateway where
                    may (parseXMLList "item"))
                 <*> (x .@ "internetGatewayId")
 
-instance Hashable InternetGateway where
-
 instance NFData InternetGateway where
 
 -- | Describes the attachment of a VPC to an Internet gateway or an egress-only Internet gateway.
@@ -7944,8 +7682,6 @@ instance FromXML InternetGatewayAttachment where
           = InternetGatewayAttachment' <$>
               (x .@ "state") <*> (x .@ "vpcId")
 
-instance Hashable InternetGatewayAttachment where
-
 instance NFData InternetGatewayAttachment where
 
 -- | Describes a key pair.
@@ -7983,8 +7719,6 @@ instance FromXML KeyPairInfo where
         parseXML x
           = KeyPairInfo' <$>
               (x .@? "keyFingerprint") <*> (x .@? "keyName")
-
-instance Hashable KeyPairInfo where
 
 instance NFData KeyPairInfo where
 
@@ -8024,8 +7758,6 @@ instance FromXML LaunchPermission where
           = LaunchPermission' <$>
               (x .@? "group") <*> (x .@? "userId")
 
-instance Hashable LaunchPermission where
-
 instance NFData LaunchPermission where
 
 instance ToQuery LaunchPermission where
@@ -8063,8 +7795,6 @@ lRemove = lens _lRemove (\ s a -> s{_lRemove = a}) . _Default . _Coerce
 -- | The AWS account ID to add to the list of launch permissions for the AMI.
 lAdd :: Lens' LaunchPermissionModifications [LaunchPermission]
 lAdd = lens _lAdd (\ s a -> s{_lAdd = a}) . _Default . _Coerce
-
-instance Hashable LaunchPermissionModifications where
 
 instance NFData LaunchPermissionModifications where
 
@@ -8237,8 +7967,6 @@ instance FromXML LaunchSpecification where
                    may (parseXMLList "item"))
                 <*> (x .@? "placement")
 
-instance Hashable LaunchSpecification where
-
 instance NFData LaunchSpecification where
 
 -- | Describes a launch template.
@@ -8329,8 +8057,6 @@ instance FromXML LaunchTemplate where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable LaunchTemplate where
-
 instance NFData LaunchTemplate where
 
 -- | Describes a block device mapping.
@@ -8392,9 +8118,6 @@ instance FromXML LaunchTemplateBlockDeviceMapping
                 (x .@? "ebs")
                 <*> (x .@? "deviceName")
 
-instance Hashable LaunchTemplateBlockDeviceMapping
-         where
-
 instance NFData LaunchTemplateBlockDeviceMapping
          where
 
@@ -8449,10 +8172,6 @@ ltbdmrEBS = lens _ltbdmrEBS (\ s a -> s{_ltbdmrEBS = a})
 ltbdmrDeviceName :: Lens' LaunchTemplateBlockDeviceMappingRequest (Maybe Text)
 ltbdmrDeviceName = lens _ltbdmrDeviceName (\ s a -> s{_ltbdmrDeviceName = a})
 
-instance Hashable
-           LaunchTemplateBlockDeviceMappingRequest
-         where
-
 instance NFData
            LaunchTemplateBlockDeviceMappingRequest
          where
@@ -8505,8 +8224,6 @@ instance FromXML LaunchTemplateConfig where
               (x .@? "overrides" .!@ mempty >>=
                  may (parseXMLList "item"))
                 <*> (x .@? "launchTemplateSpecification")
-
-instance Hashable LaunchTemplateConfig where
 
 instance NFData LaunchTemplateConfig where
 
@@ -8603,8 +8320,6 @@ instance FromXML LaunchTemplateEBSBlockDevice where
                 <*> (x .@? "volumeType")
                 <*> (x .@? "snapshotId")
 
-instance Hashable LaunchTemplateEBSBlockDevice where
-
 instance NFData LaunchTemplateEBSBlockDevice where
 
 -- | The parameters for a block device for an EBS volume.
@@ -8682,9 +8397,6 @@ ltebdrVolumeType = lens _ltebdrVolumeType (\ s a -> s{_ltebdrVolumeType = a})
 ltebdrSnapshotId :: Lens' LaunchTemplateEBSBlockDeviceRequest (Maybe Text)
 ltebdrSnapshotId = lens _ltebdrSnapshotId (\ s a -> s{_ltebdrSnapshotId = a})
 
-instance Hashable LaunchTemplateEBSBlockDeviceRequest
-         where
-
 instance NFData LaunchTemplateEBSBlockDeviceRequest
          where
 
@@ -8740,10 +8452,6 @@ instance FromXML
           = LaunchTemplateIAMInstanceProfileSpecification' <$>
               (x .@? "arn") <*> (x .@? "name")
 
-instance Hashable
-           LaunchTemplateIAMInstanceProfileSpecification
-         where
-
 instance NFData
            LaunchTemplateIAMInstanceProfileSpecification
          where
@@ -8780,10 +8488,6 @@ ltiapsrARN = lens _ltiapsrARN (\ s a -> s{_ltiapsrARN = a})
 -- | The name of the instance profile.
 ltiapsrName :: Lens' LaunchTemplateIAMInstanceProfileSpecificationRequest (Maybe Text)
 ltiapsrName = lens _ltiapsrName (\ s a -> s{_ltiapsrName = a})
-
-instance Hashable
-           LaunchTemplateIAMInstanceProfileSpecificationRequest
-         where
 
 instance NFData
            LaunchTemplateIAMInstanceProfileSpecificationRequest
@@ -8836,9 +8540,6 @@ instance FromXML LaunchTemplateInstanceMarketOptions
           = LaunchTemplateInstanceMarketOptions' <$>
               (x .@? "marketType") <*> (x .@? "spotOptions")
 
-instance Hashable LaunchTemplateInstanceMarketOptions
-         where
-
 instance NFData LaunchTemplateInstanceMarketOptions
          where
 
@@ -8874,10 +8575,6 @@ ltimorMarketType = lens _ltimorMarketType (\ s a -> s{_ltimorMarketType = a})
 -- | The options for Spot Instances.
 ltimorSpotOptions :: Lens' LaunchTemplateInstanceMarketOptionsRequest (Maybe LaunchTemplateSpotMarketOptionsRequest)
 ltimorSpotOptions = lens _ltimorSpotOptions (\ s a -> s{_ltimorSpotOptions = a})
-
-instance Hashable
-           LaunchTemplateInstanceMarketOptionsRequest
-         where
 
 instance NFData
            LaunchTemplateInstanceMarketOptionsRequest
@@ -9031,10 +8728,6 @@ instance FromXML
                 (x .@? "ipv6AddressesSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable
-           LaunchTemplateInstanceNetworkInterfaceSpecification
-         where
-
 instance NFData
            LaunchTemplateInstanceNetworkInterfaceSpecification
          where
@@ -9154,10 +8847,6 @@ ltinisrDeviceIndex = lens _ltinisrDeviceIndex (\ s a -> s{_ltinisrDeviceIndex = 
 ltinisrIPv6Addresses :: Lens' LaunchTemplateInstanceNetworkInterfaceSpecificationRequest [InstanceIPv6AddressRequest]
 ltinisrIPv6Addresses = lens _ltinisrIPv6Addresses (\ s a -> s{_ltinisrIPv6Addresses = a}) . _Default . _Coerce
 
-instance Hashable
-           LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
-         where
-
 instance NFData
            LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
          where
@@ -9255,8 +8944,6 @@ instance FromXML LaunchTemplateOverrides where
                 <*> (x .@? "instanceType")
                 <*> (x .@? "availabilityZone")
 
-instance Hashable LaunchTemplateOverrides where
-
 instance NFData LaunchTemplateOverrides where
 
 instance ToQuery LaunchTemplateOverrides where
@@ -9344,8 +9031,6 @@ instance FromXML LaunchTemplatePlacement where
                 <*> (x .@? "tenancy")
                 <*> (x .@? "groupName")
 
-instance Hashable LaunchTemplatePlacement where
-
 instance NFData LaunchTemplatePlacement where
 
 -- | The placement for the instance.
@@ -9415,9 +9100,6 @@ ltprTenancy = lens _ltprTenancy (\ s a -> s{_ltprTenancy = a})
 ltprGroupName :: Lens' LaunchTemplatePlacementRequest (Maybe Text)
 ltprGroupName = lens _ltprGroupName (\ s a -> s{_ltprGroupName = a})
 
-instance Hashable LaunchTemplatePlacementRequest
-         where
-
 instance NFData LaunchTemplatePlacementRequest where
 
 instance ToQuery LaunchTemplatePlacementRequest where
@@ -9472,8 +9154,6 @@ ltsLaunchTemplateId = lens _ltsLaunchTemplateId (\ s a -> s{_ltsLaunchTemplateId
 -- | The version number of the launch template. Default: The default version for the launch template.
 ltsVersion :: Lens' LaunchTemplateSpecification (Maybe Text)
 ltsVersion = lens _ltsVersion (\ s a -> s{_ltsVersion = a})
-
-instance Hashable LaunchTemplateSpecification where
 
 instance NFData LaunchTemplateSpecification where
 
@@ -9553,9 +9233,6 @@ instance FromXML LaunchTemplateSpotMarketOptions
                 <*> (x .@? "spotInstanceType")
                 <*> (x .@? "maxPrice")
 
-instance Hashable LaunchTemplateSpotMarketOptions
-         where
-
 instance NFData LaunchTemplateSpotMarketOptions where
 
 -- | The options for Spot Instances.
@@ -9617,10 +9294,6 @@ ltsmorSpotInstanceType = lens _ltsmorSpotInstanceType (\ s a -> s{_ltsmorSpotIns
 ltsmorMaxPrice :: Lens' LaunchTemplateSpotMarketOptionsRequest (Maybe Text)
 ltsmorMaxPrice = lens _ltsmorMaxPrice (\ s a -> s{_ltsmorMaxPrice = a})
 
-instance Hashable
-           LaunchTemplateSpotMarketOptionsRequest
-         where
-
 instance NFData
            LaunchTemplateSpotMarketOptionsRequest
          where
@@ -9678,9 +9351,6 @@ instance FromXML LaunchTemplateTagSpecification where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable LaunchTemplateTagSpecification
-         where
-
 instance NFData LaunchTemplateTagSpecification where
 
 -- | The tags specification for the launch template.
@@ -9715,10 +9385,6 @@ lttsrResourceType = lens _lttsrResourceType (\ s a -> s{_lttsrResourceType = a})
 -- | The tags to apply to the resource.
 lttsrTags :: Lens' LaunchTemplateTagSpecificationRequest [Tag]
 lttsrTags = lens _lttsrTags (\ s a -> s{_lttsrTags = a}) . _Default . _Coerce
-
-instance Hashable
-           LaunchTemplateTagSpecificationRequest
-         where
 
 instance NFData LaunchTemplateTagSpecificationRequest
          where
@@ -9826,8 +9492,6 @@ instance FromXML LaunchTemplateVersion where
                 <*> (x .@? "launchTemplateData")
                 <*> (x .@? "createTime")
 
-instance Hashable LaunchTemplateVersion where
-
 instance NFData LaunchTemplateVersion where
 
 -- | Describes the monitoring for the instance.
@@ -9858,8 +9522,6 @@ instance FromXML LaunchTemplatesMonitoring where
         parseXML x
           = LaunchTemplatesMonitoring' <$> (x .@? "enabled")
 
-instance Hashable LaunchTemplatesMonitoring where
-
 instance NFData LaunchTemplatesMonitoring where
 
 -- | Describes the monitoring for the instance.
@@ -9886,9 +9548,6 @@ launchTemplatesMonitoringRequest =
 -- | Specify @true@ to enable detailed monitoring. Otherwise, basic monitoring is enabled.
 ltmrEnabled :: Lens' LaunchTemplatesMonitoringRequest (Maybe Bool)
 ltmrEnabled = lens _ltmrEnabled (\ s a -> s{_ltmrEnabled = a})
-
-instance Hashable LaunchTemplatesMonitoringRequest
-         where
 
 instance NFData LaunchTemplatesMonitoringRequest
          where
@@ -9937,8 +9596,6 @@ instance FromXML LoadBalancersConfig where
               (x .@? "classicLoadBalancersConfig") <*>
                 (x .@? "targetGroupsConfig")
 
-instance Hashable LoadBalancersConfig where
-
 instance NFData LoadBalancersConfig where
 
 instance ToQuery LoadBalancersConfig where
@@ -9984,8 +9641,6 @@ instance FromXML LoadPermission where
           = LoadPermission' <$>
               (x .@? "group") <*> (x .@? "userId")
 
-instance Hashable LoadPermission where
-
 instance NFData LoadPermission where
 
 -- | Describes modifications to the load permissions of an Amazon FPGA image (AFI).
@@ -10019,8 +9674,6 @@ lpmRemove = lens _lpmRemove (\ s a -> s{_lpmRemove = a}) . _Default . _Coerce
 -- | The load permissions to add.
 lpmAdd :: Lens' LoadPermissionModifications [LoadPermissionRequest]
 lpmAdd = lens _lpmAdd (\ s a -> s{_lpmAdd = a}) . _Default . _Coerce
-
-instance Hashable LoadPermissionModifications where
 
 instance NFData LoadPermissionModifications where
 
@@ -10062,8 +9715,6 @@ lprGroup = lens _lprGroup (\ s a -> s{_lprGroup = a})
 lprUserId :: Lens' LoadPermissionRequest (Maybe Text)
 lprUserId = lens _lprUserId (\ s a -> s{_lprUserId = a})
 
-instance Hashable LoadPermissionRequest where
-
 instance NFData LoadPermissionRequest where
 
 instance ToQuery LoadPermissionRequest where
@@ -10097,8 +9748,6 @@ mState = lens _mState (\ s a -> s{_mState = a})
 
 instance FromXML Monitoring where
         parseXML x = Monitoring' <$> (x .@? "state")
-
-instance Hashable Monitoring where
 
 instance NFData Monitoring where
 
@@ -10138,8 +9787,6 @@ instance FromXML MovingAddressStatus where
         parseXML x
           = MovingAddressStatus' <$>
               (x .@? "moveStatus") <*> (x .@? "publicIp")
-
-instance Hashable MovingAddressStatus where
 
 instance NFData MovingAddressStatus where
 
@@ -10268,8 +9915,6 @@ instance FromXML NatGateway where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable NatGateway where
-
 instance NFData NatGateway where
 
 -- | Describes the IP addresses and network interface associated with a NAT gateway.
@@ -10329,8 +9974,6 @@ instance FromXML NatGatewayAddress where
               (x .@? "privateIp") <*> (x .@? "allocationId") <*>
                 (x .@? "networkInterfaceId")
                 <*> (x .@? "publicIp")
-
-instance Hashable NatGatewayAddress where
 
 instance NFData NatGatewayAddress where
 
@@ -10416,8 +10059,6 @@ instance FromXML NetworkACL where
                    may (parseXMLList "item"))
                 <*> (x .@? "default")
 
-instance Hashable NetworkACL where
-
 instance NFData NetworkACL where
 
 -- | Describes an association between a network ACL and a subnet.
@@ -10468,8 +10109,6 @@ instance FromXML NetworkACLAssociation where
           = NetworkACLAssociation' <$>
               (x .@? "networkAclId") <*> (x .@? "subnetId") <*>
                 (x .@? "networkAclAssociationId")
-
-instance Hashable NetworkACLAssociation where
 
 instance NFData NetworkACLAssociation where
 
@@ -10566,8 +10205,6 @@ instance FromXML NetworkACLEntry where
                 <*> (x .@? "portRange")
                 <*> (x .@? "cidrBlock")
                 <*> (x .@? "egress")
-
-instance Hashable NetworkACLEntry where
 
 instance NFData NetworkACLEntry where
 
@@ -10781,8 +10418,6 @@ instance FromXML NetworkInterface where
                 (x .@? "ipv6AddressesSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable NetworkInterface where
-
 instance NFData NetworkInterface where
 
 -- | Describes association information for an Elastic IP address (IPv4 only).
@@ -10851,8 +10486,6 @@ instance FromXML NetworkInterfaceAssociation where
                 <*> (x .@? "allocationId")
                 <*> (x .@? "ipOwnerId")
                 <*> (x .@? "publicIp")
-
-instance Hashable NetworkInterfaceAssociation where
 
 instance NFData NetworkInterfaceAssociation where
 
@@ -10941,8 +10574,6 @@ instance FromXML NetworkInterfaceAttachment where
                 <*> (x .@? "attachTime")
                 <*> (x .@? "deviceIndex")
 
-instance Hashable NetworkInterfaceAttachment where
-
 instance NFData NetworkInterfaceAttachment where
 
 -- | Describes an attachment change.
@@ -10977,9 +10608,6 @@ niacDeleteOnTermination = lens _niacDeleteOnTermination (\ s a -> s{_niacDeleteO
 -- | The ID of the network interface attachment.
 niacAttachmentId :: Lens' NetworkInterfaceAttachmentChanges (Maybe Text)
 niacAttachmentId = lens _niacAttachmentId (\ s a -> s{_niacAttachmentId = a})
-
-instance Hashable NetworkInterfaceAttachmentChanges
-         where
 
 instance NFData NetworkInterfaceAttachmentChanges
          where
@@ -11020,8 +10648,6 @@ instance FromXML NetworkInterfaceIPv6Address where
         parseXML x
           = NetworkInterfaceIPv6Address' <$>
               (x .@? "ipv6Address")
-
-instance Hashable NetworkInterfaceIPv6Address where
 
 instance NFData NetworkInterfaceIPv6Address where
 
@@ -11102,8 +10728,6 @@ instance FromXML NetworkInterfacePermission where
                 <*> (x .@? "awsService")
                 <*> (x .@? "permission")
 
-instance Hashable NetworkInterfacePermission where
-
 instance NFData NetworkInterfacePermission where
 
 -- | Describes the state of a network interface permission.
@@ -11144,9 +10768,6 @@ instance FromXML NetworkInterfacePermissionState
         parseXML x
           = NetworkInterfacePermissionState' <$>
               (x .@? "state") <*> (x .@? "statusMessage")
-
-instance Hashable NetworkInterfacePermissionState
-         where
 
 instance NFData NetworkInterfacePermissionState where
 
@@ -11209,9 +10830,6 @@ instance FromXML NetworkInterfacePrivateIPAddress
                 (x .@? "privateDnsName")
                 <*> (x .@? "association")
 
-instance Hashable NetworkInterfacePrivateIPAddress
-         where
-
 instance NFData NetworkInterfacePrivateIPAddress
          where
 
@@ -11242,8 +10860,6 @@ ndcValues = lens _ndcValues (\ s a -> s{_ndcValues = a}) . _Default . _Coerce
 -- | Undocumented member.
 ndcKey :: Lens' NewDHCPConfiguration (Maybe Text)
 ndcKey = lens _ndcKey (\ s a -> s{_ndcKey = a})
-
-instance Hashable NewDHCPConfiguration where
 
 instance NFData NewDHCPConfiguration where
 
@@ -11311,8 +10927,6 @@ instance FromXML PciId where
                 (x .@? "SubsystemVendorId")
                 <*> (x .@? "VendorId")
 
-instance Hashable PciId where
-
 instance NFData PciId where
 
 -- | Describes the VPC peering connection options.
@@ -11366,8 +10980,6 @@ instance FromXML PeeringConnectionOptions where
                 (x .@? "allowEgressFromLocalClassicLinkToRemoteVpc")
                 <*> (x .@? "allowDnsResolutionFromRemoteVpc")
 
-instance Hashable PeeringConnectionOptions where
-
 instance NFData PeeringConnectionOptions where
 
 -- | The VPC peering connection options.
@@ -11412,9 +11024,6 @@ pcorAllowEgressFromLocalClassicLinkToRemoteVPC = lens _pcorAllowEgressFromLocalC
 -- | If true, enables a local VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the peer VPC.
 pcorAllowDNSResolutionFromRemoteVPC :: Lens' PeeringConnectionOptionsRequest (Maybe Bool)
 pcorAllowDNSResolutionFromRemoteVPC = lens _pcorAllowDNSResolutionFromRemoteVPC (\ s a -> s{_pcorAllowDNSResolutionFromRemoteVPC = a})
-
-instance Hashable PeeringConnectionOptionsRequest
-         where
 
 instance NFData PeeringConnectionOptionsRequest where
 
@@ -11505,8 +11114,6 @@ instance FromXML Placement where
                 <*> (x .@? "tenancy")
                 <*> (x .@? "groupName")
 
-instance Hashable Placement where
-
 instance NFData Placement where
 
 instance ToQuery Placement where
@@ -11563,8 +11170,6 @@ instance FromXML PlacementGroup where
               (x .@? "state") <*> (x .@? "strategy") <*>
                 (x .@? "groupName")
 
-instance Hashable PlacementGroup where
-
 instance NFData PlacementGroup where
 
 -- | Describes a range of ports.
@@ -11601,8 +11206,6 @@ prFrom = lens _prFrom (\ s a -> s{_prFrom = a})
 instance FromXML PortRange where
         parseXML x
           = PortRange' <$> (x .@? "to") <*> (x .@? "from")
-
-instance Hashable PortRange where
 
 instance NFData PortRange where
 
@@ -11658,8 +11261,6 @@ instance FromXML PrefixList where
                 <*> (x .@? "prefixListId")
                 <*> (x .@? "prefixListName")
 
-instance Hashable PrefixList where
-
 instance NFData PrefixList where
 
 -- | [EC2-VPC only] The ID of the prefix.
@@ -11698,8 +11299,6 @@ instance FromXML PrefixListId where
         parseXML x
           = PrefixListId' <$>
               (x .@? "prefixListId") <*> (x .@? "description")
-
-instance Hashable PrefixListId where
 
 instance NFData PrefixListId where
 
@@ -11767,8 +11366,6 @@ instance FromXML PriceSchedule where
                 (x .@? "active")
                 <*> (x .@? "price")
 
-instance Hashable PriceSchedule where
-
 instance NFData PriceSchedule where
 
 -- | Describes the price for a Reserved Instance.
@@ -11810,8 +11407,6 @@ pssTerm = lens _pssTerm (\ s a -> s{_pssTerm = a})
 -- | The fixed price for the term.
 pssPrice :: Lens' PriceScheduleSpecification (Maybe Double)
 pssPrice = lens _pssPrice (\ s a -> s{_pssPrice = a})
-
-instance Hashable PriceScheduleSpecification where
 
 instance NFData PriceScheduleSpecification where
 
@@ -11857,8 +11452,6 @@ instance FromXML PricingDetail where
           = PricingDetail' <$>
               (x .@? "count") <*> (x .@? "price")
 
-instance Hashable PricingDetail where
-
 instance NFData PricingDetail where
 
 -- | PrincipalIdFormat description
@@ -11900,8 +11493,6 @@ instance FromXML PrincipalIdFormat where
                 (x .@? "statusSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable PrincipalIdFormat where
-
 instance NFData PrincipalIdFormat where
 
 -- | Describes a secondary private IPv4 address for a network interface.
@@ -11942,8 +11533,6 @@ instance FromXML PrivateIPAddressSpecification where
         parseXML x
           = PrivateIPAddressSpecification' <$>
               (x .@? "primary") <*> (x .@ "privateIpAddress")
-
-instance Hashable PrivateIPAddressSpecification where
 
 instance NFData PrivateIPAddressSpecification where
 
@@ -11990,8 +11579,6 @@ instance FromXML ProductCode where
           = ProductCode' <$>
               (x .@? "type") <*> (x .@? "productCode")
 
-instance Hashable ProductCode where
-
 instance NFData ProductCode where
 
 -- | Describes a virtual private gateway propagating route.
@@ -12020,8 +11607,6 @@ pvGatewayId = lens _pvGatewayId (\ s a -> s{_pvGatewayId = a})
 
 instance FromXML PropagatingVGW where
         parseXML x = PropagatingVGW' <$> (x .@? "gatewayId")
-
-instance Hashable PropagatingVGW where
 
 instance NFData PropagatingVGW where
 
@@ -12091,8 +11676,6 @@ instance FromXML ProvisionedBandwidth where
                 (x .@? "provisioned")
                 <*> (x .@? "requestTime")
                 <*> (x .@? "provisionTime")
-
-instance Hashable ProvisionedBandwidth where
 
 instance NFData ProvisionedBandwidth where
 
@@ -12192,8 +11775,6 @@ instance FromXML Purchase where
                 <*> (x .@? "duration")
                 <*> (x .@? "paymentOption")
 
-instance Hashable Purchase where
-
 instance NFData Purchase where
 
 -- | Describes a request to purchase Scheduled Instances.
@@ -12230,8 +11811,6 @@ prInstanceCount = lens _prInstanceCount (\ s a -> s{_prInstanceCount = a})
 -- | The purchase token.
 prPurchaseToken :: Lens' PurchaseRequest Text
 prPurchaseToken = lens _prPurchaseToken (\ s a -> s{_prPurchaseToken = a})
-
-instance Hashable PurchaseRequest where
 
 instance NFData PurchaseRequest where
 
@@ -12277,8 +11856,6 @@ instance FromXML RecurringCharge where
           = RecurringCharge' <$>
               (x .@? "amount") <*> (x .@? "frequency")
 
-instance Hashable RecurringCharge where
-
 instance NFData RecurringCharge where
 
 -- | Describes a region.
@@ -12316,8 +11893,6 @@ instance FromXML RegionInfo where
         parseXML x
           = RegionInfo' <$>
               (x .@? "regionName") <*> (x .@? "regionEndpoint")
-
-instance Hashable RegionInfo where
 
 instance NFData RegionInfo where
 
@@ -12499,8 +12074,6 @@ rltdBlockDeviceMappings = lens _rltdBlockDeviceMappings (\ s a -> s{_rltdBlockDe
 -- | The placement for the instance.
 rltdPlacement :: Lens' RequestLaunchTemplateData (Maybe LaunchTemplatePlacementRequest)
 rltdPlacement = lens _rltdPlacement (\ s a -> s{_rltdPlacement = a})
-
-instance Hashable RequestLaunchTemplateData where
 
 instance NFData RequestLaunchTemplateData where
 
@@ -12690,9 +12263,6 @@ rslsBlockDeviceMappings = lens _rslsBlockDeviceMappings (\ s a -> s{_rslsBlockDe
 rslsPlacement :: Lens' RequestSpotLaunchSpecification (Maybe SpotPlacement)
 rslsPlacement = lens _rslsPlacement (\ s a -> s{_rslsPlacement = a})
 
-instance Hashable RequestSpotLaunchSpecification
-         where
-
 instance NFData RequestSpotLaunchSpecification where
 
 instance ToQuery RequestSpotLaunchSpecification where
@@ -12796,8 +12366,6 @@ instance FromXML Reservation where
                 <*> (x .@ "reservationId")
                 <*> (x .@ "ownerId")
 
-instance Hashable Reservation where
-
 instance NFData Reservation where
 
 -- | The cost associated with the Reserved Instance.
@@ -12850,8 +12418,6 @@ instance FromXML ReservationValue where
                 (x .@? "remainingTotalValue")
                 <*> (x .@? "remainingUpfrontValue")
 
-instance Hashable ReservationValue where
-
 instance NFData ReservationValue where
 
 -- | Describes the limit price of a Reserved Instance offering.
@@ -12886,8 +12452,6 @@ rilpAmount = lens _rilpAmount (\ s a -> s{_rilpAmount = a})
 -- | The currency in which the @limitPrice@ amount is specified. At this time, the only supported currency is @USD@ .
 rilpCurrencyCode :: Lens' ReservedInstanceLimitPrice (Maybe CurrencyCodeValues)
 rilpCurrencyCode = lens _rilpCurrencyCode (\ s a -> s{_rilpCurrencyCode = a})
-
-instance Hashable ReservedInstanceLimitPrice where
 
 instance NFData ReservedInstanceLimitPrice where
 
@@ -12936,9 +12500,6 @@ instance FromXML ReservedInstanceReservationValue
           = ReservedInstanceReservationValue' <$>
               (x .@? "reservationValue") <*>
                 (x .@? "reservedInstanceId")
-
-instance Hashable ReservedInstanceReservationValue
-         where
 
 instance NFData ReservedInstanceReservationValue
          where
@@ -13131,8 +12692,6 @@ instance FromXML ReservedInstances where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable ReservedInstances where
-
 instance NFData ReservedInstances where
 
 -- | Describes the configuration settings for the modified Reserved Instances.
@@ -13202,9 +12761,6 @@ instance FromXML ReservedInstancesConfiguration where
                 <*> (x .@? "availabilityZone")
                 <*> (x .@? "scope")
 
-instance Hashable ReservedInstancesConfiguration
-         where
-
 instance NFData ReservedInstancesConfiguration where
 
 instance ToQuery ReservedInstancesConfiguration where
@@ -13244,8 +12800,6 @@ instance FromXML ReservedInstancesId where
         parseXML x
           = ReservedInstancesId' <$>
               (x .@? "reservedInstancesId")
-
-instance Hashable ReservedInstancesId where
 
 instance NFData ReservedInstancesId where
 
@@ -13367,8 +12921,6 @@ instance FromXML ReservedInstancesListing where
                    may (parseXMLList "item"))
                 <*> (x .@? "reservedInstancesListingId")
 
-instance Hashable ReservedInstancesListing where
-
 instance NFData ReservedInstancesListing where
 
 -- | Describes a Reserved Instance modification.
@@ -13478,8 +13030,6 @@ instance FromXML ReservedInstancesModification where
                 (x .@? "reservedInstancesSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable ReservedInstancesModification where
-
 instance NFData ReservedInstancesModification where
 
 -- | Describes the modification request/s.
@@ -13521,9 +13071,6 @@ instance FromXML ReservedInstancesModificationResult
           = ReservedInstancesModificationResult' <$>
               (x .@? "reservedInstancesId") <*>
                 (x .@? "targetConfiguration")
-
-instance Hashable ReservedInstancesModificationResult
-         where
 
 instance NFData ReservedInstancesModificationResult
          where
@@ -13689,8 +13236,6 @@ instance FromXML ReservedInstancesOffering where
                 <*> (x .@? "offeringClass")
                 <*> (x .@? "duration")
 
-instance Hashable ReservedInstancesOffering where
-
 instance NFData ReservedInstancesOffering where
 
 -- | Describes the error that's returned when you cannot delete a launch template version.
@@ -13728,8 +13273,6 @@ instance FromXML ResponseError where
         parseXML x
           = ResponseError' <$>
               (x .@? "code") <*> (x .@? "message")
-
-instance Hashable ResponseError where
 
 instance NFData ResponseError where
 
@@ -13947,8 +13490,6 @@ instance FromXML ResponseLaunchTemplateData where
                    may (parseXMLList "item"))
                 <*> (x .@? "placement")
 
-instance Hashable ResponseLaunchTemplateData where
-
 instance NFData ResponseLaunchTemplateData where
 
 -- | Describes a route in a route table.
@@ -14082,8 +13623,6 @@ instance FromXML Route where
                 <*> (x .@? "destinationPrefixListId")
                 <*> (x .@? "destinationCidrBlock")
 
-instance Hashable Route where
-
 instance NFData Route where
 
 -- | Describes a route table.
@@ -14170,8 +13709,6 @@ instance FromXML RouteTable where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable RouteTable where
-
 instance NFData RouteTable where
 
 -- | Describes an association between a route table and a subnet.
@@ -14233,8 +13770,6 @@ instance FromXML RouteTableAssociation where
                 <*> (x .@? "main")
                 <*> (x .@? "subnetId")
 
-instance Hashable RouteTableAssociation where
-
 instance NFData RouteTableAssociation where
 
 -- | Describes the monitoring of an instance.
@@ -14266,8 +13801,6 @@ rimeEnabled = lens _rimeEnabled (\ s a -> s{_rimeEnabled = a})
 instance FromXML RunInstancesMonitoringEnabled where
         parseXML x
           = RunInstancesMonitoringEnabled' <$> (x .@ "enabled")
-
-instance Hashable RunInstancesMonitoringEnabled where
 
 instance NFData RunInstancesMonitoringEnabled where
 
@@ -14341,8 +13874,6 @@ instance FromXML S3Storage where
                 (x .@? "bucket")
                 <*> (x .@? "uploadPolicySignature")
                 <*> (x .@? "AWSAccessKeyId")
-
-instance Hashable S3Storage where
 
 instance NFData S3Storage where
 
@@ -14512,8 +14043,6 @@ instance FromXML ScheduledInstance where
                 <*> (x .@? "nextSlotStartTime")
                 <*> (x .@? "networkPlatform")
 
-instance Hashable ScheduledInstance where
-
 instance NFData ScheduledInstance where
 
 -- | Describes a schedule that is available for your Scheduled Instances.
@@ -14656,8 +14185,6 @@ instance FromXML ScheduledInstanceAvailability where
                 <*> (x .@? "firstSlotStartTime")
                 <*> (x .@? "networkPlatform")
 
-instance Hashable ScheduledInstanceAvailability where
-
 instance NFData ScheduledInstanceAvailability where
 
 -- | Describes the recurring schedule for a Scheduled Instance.
@@ -14730,8 +14257,6 @@ instance FromXML ScheduledInstanceRecurrence where
                 (x .@? "occurrenceDaySet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable ScheduledInstanceRecurrence where
-
 instance NFData ScheduledInstanceRecurrence where
 
 -- | Describes the recurring schedule for a Scheduled Instance.
@@ -14792,9 +14317,6 @@ sirrOccurrenceUnit = lens _sirrOccurrenceUnit (\ s a -> s{_sirrOccurrenceUnit = 
 -- | The interval quantity. The interval unit depends on the value of @Frequency@ . For example, every 2 weeks or every 2 months.
 sirrInterval :: Lens' ScheduledInstanceRecurrenceRequest (Maybe Int)
 sirrInterval = lens _sirrInterval (\ s a -> s{_sirrInterval = a})
-
-instance Hashable ScheduledInstanceRecurrenceRequest
-         where
 
 instance NFData ScheduledInstanceRecurrenceRequest
          where
@@ -14862,10 +14384,6 @@ sibdmEBS = lens _sibdmEBS (\ s a -> s{_sibdmEBS = a})
 -- | The device name (for example, @/dev/sdh@ or @xvdh@ ).
 sibdmDeviceName :: Lens' ScheduledInstancesBlockDeviceMapping (Maybe Text)
 sibdmDeviceName = lens _sibdmDeviceName (\ s a -> s{_sibdmDeviceName = a})
-
-instance Hashable
-           ScheduledInstancesBlockDeviceMapping
-         where
 
 instance NFData ScheduledInstancesBlockDeviceMapping
          where
@@ -14945,8 +14463,6 @@ sieVolumeType = lens _sieVolumeType (\ s a -> s{_sieVolumeType = a})
 sieSnapshotId :: Lens' ScheduledInstancesEBS (Maybe Text)
 sieSnapshotId = lens _sieSnapshotId (\ s a -> s{_sieSnapshotId = a})
 
-instance Hashable ScheduledInstancesEBS where
-
 instance NFData ScheduledInstancesEBS where
 
 instance ToQuery ScheduledInstancesEBS where
@@ -14991,10 +14507,6 @@ siiapARN = lens _siiapARN (\ s a -> s{_siiapARN = a})
 siiapName :: Lens' ScheduledInstancesIAMInstanceProfile (Maybe Text)
 siiapName = lens _siiapName (\ s a -> s{_siiapName = a})
 
-instance Hashable
-           ScheduledInstancesIAMInstanceProfile
-         where
-
 instance NFData ScheduledInstancesIAMInstanceProfile
          where
 
@@ -15027,8 +14539,6 @@ scheduledInstancesIPv6Address =
 -- | The IPv6 address.
 siiaIPv6Address :: Lens' ScheduledInstancesIPv6Address (Maybe Text)
 siiaIPv6Address = lens _siiaIPv6Address (\ s a -> s{_siiaIPv6Address = a})
-
-instance Hashable ScheduledInstancesIPv6Address where
 
 instance NFData ScheduledInstancesIPv6Address where
 
@@ -15170,10 +14680,6 @@ silsPlacement = lens _silsPlacement (\ s a -> s{_silsPlacement = a})
 silsImageId :: Lens' ScheduledInstancesLaunchSpecification Text
 silsImageId = lens _silsImageId (\ s a -> s{_silsImageId = a})
 
-instance Hashable
-           ScheduledInstancesLaunchSpecification
-         where
-
 instance NFData ScheduledInstancesLaunchSpecification
          where
 
@@ -15227,8 +14733,6 @@ scheduledInstancesMonitoring =
 -- | Indicates whether monitoring is enabled.
 simEnabled :: Lens' ScheduledInstancesMonitoring (Maybe Bool)
 simEnabled = lens _simEnabled (\ s a -> s{_simEnabled = a})
-
-instance Hashable ScheduledInstancesMonitoring where
 
 instance NFData ScheduledInstancesMonitoring where
 
@@ -15351,9 +14855,6 @@ siniDeviceIndex = lens _siniDeviceIndex (\ s a -> s{_siniDeviceIndex = a})
 siniIPv6Addresses :: Lens' ScheduledInstancesNetworkInterface [ScheduledInstancesIPv6Address]
 siniIPv6Addresses = lens _siniIPv6Addresses (\ s a -> s{_siniIPv6Addresses = a}) . _Default . _Coerce
 
-instance Hashable ScheduledInstancesNetworkInterface
-         where
-
 instance NFData ScheduledInstancesNetworkInterface
          where
 
@@ -15412,8 +14913,6 @@ sipAvailabilityZone = lens _sipAvailabilityZone (\ s a -> s{_sipAvailabilityZone
 sipGroupName :: Lens' ScheduledInstancesPlacement (Maybe Text)
 sipGroupName = lens _sipGroupName (\ s a -> s{_sipGroupName = a})
 
-instance Hashable ScheduledInstancesPlacement where
-
 instance NFData ScheduledInstancesPlacement where
 
 instance ToQuery ScheduledInstancesPlacement where
@@ -15454,10 +14953,6 @@ sipiacPrimary = lens _sipiacPrimary (\ s a -> s{_sipiacPrimary = a})
 -- | The IPv4 address.
 sipiacPrivateIPAddress :: Lens' ScheduledInstancesPrivateIPAddressConfig (Maybe Text)
 sipiacPrivateIPAddress = lens _sipiacPrivateIPAddress (\ s a -> s{_sipiacPrivateIPAddress = a})
-
-instance Hashable
-           ScheduledInstancesPrivateIPAddressConfig
-         where
 
 instance NFData
            ScheduledInstancesPrivateIPAddressConfig
@@ -15575,8 +15070,6 @@ instance FromXML SecurityGroup where
                 <*> (x .@ "groupName")
                 <*> (x .@ "groupDescription")
 
-instance Hashable SecurityGroup where
-
 instance NFData SecurityGroup where
 
 -- | Describes a security group.
@@ -15615,8 +15108,6 @@ instance FromXML SecurityGroupIdentifier where
         parseXML x
           = SecurityGroupIdentifier' <$>
               (x .@? "groupId") <*> (x .@? "groupName")
-
-instance Hashable SecurityGroupIdentifier where
 
 instance NFData SecurityGroupIdentifier where
 
@@ -15670,8 +15161,6 @@ instance FromXML SecurityGroupReference where
           = SecurityGroupReference' <$>
               (x .@? "vpcPeeringConnectionId") <*> (x .@ "groupId")
                 <*> (x .@ "referencingVpcId")
-
-instance Hashable SecurityGroupReference where
 
 instance NFData SecurityGroupReference where
 
@@ -15786,8 +15275,6 @@ instance FromXML ServiceConfiguration where
                 <*> (x .@? "serviceId")
                 <*> (x .@? "privateDnsName")
 
-instance Hashable ServiceConfiguration where
-
 instance NFData ServiceConfiguration where
 
 -- | Describes a VPC endpoint service.
@@ -15890,8 +15377,6 @@ instance FromXML ServiceDetail where
                 <*> (x .@? "acceptanceRequired")
                 <*> (x .@? "privateDnsName")
 
-instance Hashable ServiceDetail where
-
 instance NFData ServiceDetail where
 
 -- | Describes the type of service for a VPC endpoint.
@@ -15921,8 +15406,6 @@ stdServiceType = lens _stdServiceType (\ s a -> s{_stdServiceType = a})
 instance FromXML ServiceTypeDetail where
         parseXML x
           = ServiceTypeDetail' <$> (x .@? "serviceType")
-
-instance Hashable ServiceTypeDetail where
 
 instance NFData ServiceTypeDetail where
 
@@ -15962,8 +15445,6 @@ sdtrrEarliestTime = lens _sdtrrEarliestTime (\ s a -> s{_sdtrrEarliestTime = a})
 -- | The latest date and time, in UTC, for the Scheduled Instance to start. This value must be later than or equal to the earliest date and at most three months in the future.
 sdtrrLatestTime :: Lens' SlotDateTimeRangeRequest UTCTime
 sdtrrLatestTime = lens _sdtrrLatestTime (\ s a -> s{_sdtrrLatestTime = a}) . _Time
-
-instance Hashable SlotDateTimeRangeRequest where
 
 instance NFData SlotDateTimeRangeRequest where
 
@@ -16005,8 +15486,6 @@ sstrrLatestTime = lens _sstrrLatestTime (\ s a -> s{_sstrrLatestTime = a}) . map
 -- | The earliest date and time, in UTC, for the Scheduled Instance to start.
 sstrrEarliestTime :: Lens' SlotStartTimeRangeRequest (Maybe UTCTime)
 sstrrEarliestTime = lens _sstrrEarliestTime (\ s a -> s{_sstrrEarliestTime = a}) . mapping _Time
-
-instance Hashable SlotStartTimeRangeRequest where
 
 instance NFData SlotStartTimeRangeRequest where
 
@@ -16175,8 +15654,6 @@ instance FromXML Snapshot where
                 <*> (x .@ "status")
                 <*> (x .@ "encrypted")
 
-instance Hashable Snapshot where
-
 instance NFData Snapshot where
 
 -- | Describes the snapshot created from the imported disk.
@@ -16291,8 +15768,6 @@ instance FromXML SnapshotDetail where
                 <*> (x .@? "description")
                 <*> (x .@? "snapshotId")
 
-instance Hashable SnapshotDetail where
-
 instance NFData SnapshotDetail where
 
 -- | The disk container object for the import snapshot request.
@@ -16345,8 +15820,6 @@ sdcUserBucket = lens _sdcUserBucket (\ s a -> s{_sdcUserBucket = a})
 -- | The description of the disk image being imported.
 sdcDescription :: Lens' SnapshotDiskContainer (Maybe Text)
 sdcDescription = lens _sdcDescription (\ s a -> s{_sdcDescription = a})
-
-instance Hashable SnapshotDiskContainer where
 
 instance NFData SnapshotDiskContainer where
 
@@ -16460,8 +15933,6 @@ instance FromXML SnapshotTaskDetail where
                 <*> (x .@? "description")
                 <*> (x .@? "snapshotId")
 
-instance Hashable SnapshotTaskDetail where
-
 instance NFData SnapshotTaskDetail where
 
 -- | Describes the data feed for a Spot Instance.
@@ -16530,8 +16001,6 @@ instance FromXML SpotDatafeedSubscription where
                 (x .@? "bucket")
                 <*> (x .@? "ownerId")
                 <*> (x .@? "fault")
-
-instance Hashable SpotDatafeedSubscription where
 
 instance NFData SpotDatafeedSubscription where
 
@@ -16727,8 +16196,6 @@ instance FromXML SpotFleetLaunchSpecification where
                    may (parseXMLList "item"))
                 <*> (x .@? "placement")
 
-instance Hashable SpotFleetLaunchSpecification where
-
 instance NFData SpotFleetLaunchSpecification where
 
 instance ToQuery SpotFleetLaunchSpecification where
@@ -16787,8 +16254,6 @@ sfmEnabled = lens _sfmEnabled (\ s a -> s{_sfmEnabled = a})
 instance FromXML SpotFleetMonitoring where
         parseXML x
           = SpotFleetMonitoring' <$> (x .@? "enabled")
-
-instance Hashable SpotFleetMonitoring where
 
 instance NFData SpotFleetMonitoring where
 
@@ -16866,8 +16331,6 @@ instance FromXML SpotFleetRequestConfig where
                 (x .@ "spotFleetRequestConfig")
                 <*> (x .@ "spotFleetRequestId")
                 <*> (x .@ "spotFleetRequestState")
-
-instance Hashable SpotFleetRequestConfig where
 
 instance NFData SpotFleetRequestConfig where
 
@@ -17062,8 +16525,6 @@ instance FromXML SpotFleetRequestConfigData where
                 <*> (x .@ "iamFleetRole")
                 <*> (x .@ "targetCapacity")
 
-instance Hashable SpotFleetRequestConfigData where
-
 instance NFData SpotFleetRequestConfigData where
 
 instance ToQuery SpotFleetRequestConfigData where
@@ -17135,8 +16596,6 @@ instance FromXML SpotFleetTagSpecification where
               (x .@? "resourceType") <*>
                 (x .@? "tag" .!@ mempty >>=
                    may (parseXMLList "item"))
-
-instance Hashable SpotFleetTagSpecification where
 
 instance NFData SpotFleetTagSpecification where
 
@@ -17341,8 +16800,6 @@ instance FromXML SpotInstanceRequest where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable SpotInstanceRequest where
-
 instance NFData SpotInstanceRequest where
 
 -- | Describes a Spot Instance state change.
@@ -17381,8 +16838,6 @@ instance FromXML SpotInstanceStateFault where
         parseXML x
           = SpotInstanceStateFault' <$>
               (x .@? "code") <*> (x .@? "message")
-
-instance Hashable SpotInstanceStateFault where
 
 instance NFData SpotInstanceStateFault where
 
@@ -17431,8 +16886,6 @@ instance FromXML SpotInstanceStatus where
           = SpotInstanceStatus' <$>
               (x .@? "updateTime") <*> (x .@? "code") <*>
                 (x .@? "message")
-
-instance Hashable SpotInstanceStatus where
 
 instance NFData SpotInstanceStatus where
 
@@ -17495,8 +16948,6 @@ smoSpotInstanceType = lens _smoSpotInstanceType (\ s a -> s{_smoSpotInstanceType
 smoMaxPrice :: Lens' SpotMarketOptions (Maybe Text)
 smoMaxPrice = lens _smoMaxPrice (\ s a -> s{_smoMaxPrice = a})
 
-instance Hashable SpotMarketOptions where
-
 instance NFData SpotMarketOptions where
 
 instance ToQuery SpotMarketOptions where
@@ -17548,8 +16999,6 @@ instance FromXML SpotOptions where
               (x .@? "instanceInterruptionBehavior") <*>
                 (x .@? "allocationStrategy")
 
-instance Hashable SpotOptions where
-
 instance NFData SpotOptions where
 
 -- | Describes the configuration of Spot Instances in an EC2 Fleet request.
@@ -17586,8 +17035,6 @@ sorInstanceInterruptionBehavior = lens _sorInstanceInterruptionBehavior (\ s a -
 -- | Indicates how to allocate the target capacity across the Spot pools specified by the Spot Fleet request. The default is @lowestPrice@ .
 sorAllocationStrategy :: Lens' SpotOptionsRequest (Maybe SpotAllocationStrategy)
 sorAllocationStrategy = lens _sorAllocationStrategy (\ s a -> s{_sorAllocationStrategy = a})
-
-instance Hashable SpotOptionsRequest where
 
 instance NFData SpotOptionsRequest where
 
@@ -17646,8 +17093,6 @@ instance FromXML SpotPlacement where
           = SpotPlacement' <$>
               (x .@? "availabilityZone") <*> (x .@? "tenancy") <*>
                 (x .@? "groupName")
-
-instance Hashable SpotPlacement where
 
 instance NFData SpotPlacement where
 
@@ -17723,8 +17168,6 @@ instance FromXML SpotPrice where
                 <*> (x .@? "instanceType")
                 <*> (x .@? "availabilityZone")
                 <*> (x .@? "timestamp")
-
-instance Hashable SpotPrice where
 
 instance NFData SpotPrice where
 
@@ -17810,8 +17253,6 @@ instance FromXML StaleIPPermission where
                 (x .@? "ipRanges" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable StaleIPPermission where
-
 instance NFData StaleIPPermission where
 
 -- | Describes a stale security group (a security group that contains stale rules).
@@ -17894,8 +17335,6 @@ instance FromXML StaleSecurityGroup where
                 <*> (x .@? "description")
                 <*> (x .@ "groupId")
 
-instance Hashable StaleSecurityGroup where
-
 instance NFData StaleSecurityGroup where
 
 -- | Describes a state change.
@@ -17934,8 +17373,6 @@ instance FromXML StateReason where
           = StateReason' <$>
               (x .@? "code") <*> (x .@? "message")
 
-instance Hashable StateReason where
-
 instance NFData StateReason where
 
 -- | Describes the storage location for an instance store-backed AMI.
@@ -17964,8 +17401,6 @@ sS3 = lens _sS3 (\ s a -> s{_sS3 = a})
 
 instance FromXML Storage where
         parseXML x = Storage' <$> (x .@? "S3")
-
-instance Hashable Storage where
 
 instance NFData Storage where
 
@@ -18002,8 +17437,6 @@ slBucket = lens _slBucket (\ s a -> s{_slBucket = a})
 -- | The key.
 slKey :: Lens' StorageLocation (Maybe Text)
 slKey = lens _slKey (\ s a -> s{_slKey = a})
-
-instance Hashable StorageLocation where
 
 instance NFData StorageLocation where
 
@@ -18142,8 +17575,6 @@ instance FromXML Subnet where
                 <*> (x .@ "subnetId")
                 <*> (x .@ "vpcId")
 
-instance Hashable Subnet where
-
 instance NFData Subnet where
 
 -- | Describes the state of a CIDR block.
@@ -18182,8 +17613,6 @@ instance FromXML SubnetCidrBlockState where
         parseXML x
           = SubnetCidrBlockState' <$>
               (x .@? "state") <*> (x .@? "statusMessage")
-
-instance Hashable SubnetCidrBlockState where
 
 instance NFData SubnetCidrBlockState where
 
@@ -18236,9 +17665,6 @@ instance FromXML SubnetIPv6CidrBlockAssociation where
               (x .@? "associationId") <*> (x .@? "ipv6CidrBlock")
                 <*> (x .@? "ipv6CidrBlockState")
 
-instance Hashable SubnetIPv6CidrBlockAssociation
-         where
-
 instance NFData SubnetIPv6CidrBlockAssociation where
 
 -- | Describes the T2 instance whose credit option for CPU usage was successfully modified.
@@ -18272,10 +17698,6 @@ instance FromXML
         parseXML x
           = SuccessfulInstanceCreditSpecificationItem' <$>
               (x .@? "instanceId")
-
-instance Hashable
-           SuccessfulInstanceCreditSpecificationItem
-         where
 
 instance NFData
            SuccessfulInstanceCreditSpecificationItem
@@ -18316,8 +17738,6 @@ tagValue = lens _tagValue (\ s a -> s{_tagValue = a})
 
 instance FromXML Tag where
         parseXML x = Tag' <$> (x .@ "key") <*> (x .@ "value")
-
-instance Hashable Tag where
 
 instance NFData Tag where
 
@@ -18387,8 +17807,6 @@ instance FromXML TagDescription where
                 (x .@ "key")
                 <*> (x .@ "value")
 
-instance Hashable TagDescription where
-
 instance NFData TagDescription where
 
 -- | The tags to apply to a resource when the resource is being created.
@@ -18422,8 +17840,6 @@ tsResourceType = lens _tsResourceType (\ s a -> s{_tsResourceType = a})
 -- | The tags to apply to the resource.
 tsTags :: Lens' TagSpecification [Tag]
 tsTags = lens _tsTags (\ s a -> s{_tsTags = a}) . _Default . _Coerce
-
-instance Hashable TagSpecification where
 
 instance NFData TagSpecification where
 
@@ -18492,8 +17908,6 @@ instance FromXML TargetCapacitySpecification where
                 <*> (x .@? "totalTargetCapacity")
                 <*> (x .@? "spotTargetCapacity")
 
-instance Hashable TargetCapacitySpecification where
-
 instance NFData TargetCapacitySpecification where
 
 -- | The number of units to request. You can choose to set the target capacity in terms of instances or a performance characteristic that is important to your application workload, such as vCPUs, memory, or I/O. If the request type is @maintain@ , you can specify a target capacity of 0 and add capacity later.
@@ -18548,9 +17962,6 @@ tcsrSpotTargetCapacity = lens _tcsrSpotTargetCapacity (\ s a -> s{_tcsrSpotTarge
 tcsrTotalTargetCapacity :: Lens' TargetCapacitySpecificationRequest Int
 tcsrTotalTargetCapacity = lens _tcsrTotalTargetCapacity (\ s a -> s{_tcsrTotalTargetCapacity = a})
 
-instance Hashable TargetCapacitySpecificationRequest
-         where
-
 instance NFData TargetCapacitySpecificationRequest
          where
 
@@ -18602,8 +18013,6 @@ instance FromXML TargetConfiguration where
           = TargetConfiguration' <$>
               (x .@? "instanceCount") <*> (x .@? "offeringId")
 
-instance Hashable TargetConfiguration where
-
 instance NFData TargetConfiguration where
 
 -- | Details about the target configuration.
@@ -18639,8 +18048,6 @@ tcrInstanceCount = lens _tcrInstanceCount (\ s a -> s{_tcrInstanceCount = a})
 -- | The Convertible Reserved Instance offering ID.
 tcrOfferingId :: Lens' TargetConfigurationRequest Text
 tcrOfferingId = lens _tcrOfferingId (\ s a -> s{_tcrOfferingId = a})
-
-instance Hashable TargetConfigurationRequest where
 
 instance NFData TargetConfigurationRequest where
 
@@ -18678,8 +18085,6 @@ tgARN = lens _tgARN (\ s a -> s{_tgARN = a})
 instance FromXML TargetGroup where
         parseXML x = TargetGroup' <$> (x .@ "arn")
 
-instance Hashable TargetGroup where
-
 instance NFData TargetGroup where
 
 instance ToQuery TargetGroup where
@@ -18716,8 +18121,6 @@ instance FromXML TargetGroupsConfig where
           = TargetGroupsConfig' <$>
               (x .@? "targetGroups" .!@ mempty >>=
                  parseXMLList1 "item")
-
-instance Hashable TargetGroupsConfig where
 
 instance NFData TargetGroupsConfig where
 
@@ -18765,8 +18168,6 @@ instance FromXML TargetReservationValue where
               (x .@? "reservationValue") <*>
                 (x .@? "targetConfiguration")
 
-instance Hashable TargetReservationValue where
-
 instance NFData TargetReservationValue where
 
 -- | Describes the T2 instance whose credit option for CPU usage was not modified.
@@ -18808,10 +18209,6 @@ instance FromXML
         parseXML x
           = UnsuccessfulInstanceCreditSpecificationItem' <$>
               (x .@? "instanceId") <*> (x .@? "error")
-
-instance Hashable
-           UnsuccessfulInstanceCreditSpecificationItem
-         where
 
 instance NFData
            UnsuccessfulInstanceCreditSpecificationItem
@@ -18857,10 +18254,6 @@ instance FromXML
           = UnsuccessfulInstanceCreditSpecificationItemError'
               <$> (x .@? "code") <*> (x .@? "message")
 
-instance Hashable
-           UnsuccessfulInstanceCreditSpecificationItemError
-         where
-
 instance NFData
            UnsuccessfulInstanceCreditSpecificationItemError
          where
@@ -18903,8 +18296,6 @@ instance FromXML UnsuccessfulItem where
           = UnsuccessfulItem' <$>
               (x .@? "resourceId") <*> (x .@ "error")
 
-instance Hashable UnsuccessfulItem where
-
 instance NFData UnsuccessfulItem where
 
 -- | Information about the error that occurred. For more information about errors, see <http://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html Error Codes> .
@@ -18946,8 +18337,6 @@ instance FromXML UnsuccessfulItemError where
           = UnsuccessfulItemError' <$>
               (x .@ "code") <*> (x .@ "message")
 
-instance Hashable UnsuccessfulItemError where
-
 instance NFData UnsuccessfulItemError where
 
 -- | Describes the S3 bucket for the disk image.
@@ -18980,8 +18369,6 @@ ubS3Key = lens _ubS3Key (\ s a -> s{_ubS3Key = a})
 -- | The name of the S3 bucket where the disk image is located.
 ubS3Bucket :: Lens' UserBucket (Maybe Text)
 ubS3Bucket = lens _ubS3Bucket (\ s a -> s{_ubS3Bucket = a})
-
-instance Hashable UserBucket where
 
 instance NFData UserBucket where
 
@@ -19027,8 +18414,6 @@ instance FromXML UserBucketDetails where
           = UserBucketDetails' <$>
               (x .@? "s3Key") <*> (x .@? "s3Bucket")
 
-instance Hashable UserBucketDetails where
-
 instance NFData UserBucketDetails where
 
 -- | Describes the user data for an instance.
@@ -19054,8 +18439,6 @@ userData = UserData' {_udData = Nothing}
 -- | The user data. If you are using an AWS SDK or command line tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide Base64-encoded text.
 udData :: Lens' UserData (Maybe Text)
 udData = lens _udData (\ s a -> s{_udData = a})
-
-instance Hashable UserData where
 
 instance NFData UserData where
 
@@ -19147,8 +18530,6 @@ instance FromXML UserIdGroupPair where
                 <*> (x .@? "description")
                 <*> (x .@? "peeringStatus")
 
-instance Hashable UserIdGroupPair where
-
 instance NFData UserIdGroupPair where
 
 instance ToQuery UserIdGroupPair where
@@ -19228,8 +18609,6 @@ instance FromXML VGWTelemetry where
                 (x .@? "lastStatusChange")
                 <*> (x .@? "acceptedRouteCount")
                 <*> (x .@? "statusMessage")
-
-instance Hashable VGWTelemetry where
 
 instance NFData VGWTelemetry where
 
@@ -19347,8 +18726,6 @@ instance FromXML VPC where
                 <*> (x .@ "state")
                 <*> (x .@ "vpcId")
 
-instance Hashable VPC where
-
 instance NFData VPC where
 
 -- | Describes an attachment between a virtual private gateway and a VPC.
@@ -19386,8 +18763,6 @@ instance FromXML VPCAttachment where
         parseXML x
           = VPCAttachment' <$>
               (x .@? "state") <*> (x .@? "vpcId")
-
-instance Hashable VPCAttachment where
 
 instance NFData VPCAttachment where
 
@@ -19440,8 +18815,6 @@ instance FromXML VPCCidrBlockAssociation where
               (x .@? "associationId") <*> (x .@? "cidrBlockState")
                 <*> (x .@? "cidrBlock")
 
-instance Hashable VPCCidrBlockAssociation where
-
 instance NFData VPCCidrBlockAssociation where
 
 -- | Describes the state of a CIDR block.
@@ -19480,8 +18853,6 @@ instance FromXML VPCCidrBlockState where
         parseXML x
           = VPCCidrBlockState' <$>
               (x .@? "state") <*> (x .@? "statusMessage")
-
-instance Hashable VPCCidrBlockState where
 
 instance NFData VPCCidrBlockState where
 
@@ -19532,8 +18903,6 @@ instance FromXML VPCClassicLink where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
                 <*> (x .@? "classicLinkEnabled")
-
-instance Hashable VPCClassicLink where
 
 instance NFData VPCClassicLink where
 
@@ -19686,8 +19055,6 @@ instance FromXML VPCEndpoint where
                 (x .@? "routeTableIdSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable VPCEndpoint where
-
 instance NFData VPCEndpoint where
 
 -- | Describes a VPC endpoint connection to a service.
@@ -19758,8 +19125,6 @@ instance FromXML VPCEndpointConnection where
                 <*> (x .@? "serviceId")
                 <*> (x .@? "vpcEndpointId")
 
-instance Hashable VPCEndpointConnection where
-
 instance NFData VPCEndpointConnection where
 
 -- | Describes an IPv6 CIDR block associated with a VPC.
@@ -19810,8 +19175,6 @@ instance FromXML VPCIPv6CidrBlockAssociation where
           = VPCIPv6CidrBlockAssociation' <$>
               (x .@? "associationId") <*> (x .@? "ipv6CidrBlock")
                 <*> (x .@? "ipv6CidrBlockState")
-
-instance Hashable VPCIPv6CidrBlockAssociation where
 
 instance NFData VPCIPv6CidrBlockAssociation where
 
@@ -19893,8 +19256,6 @@ instance FromXML VPCPeeringConnection where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable VPCPeeringConnection where
-
 instance NFData VPCPeeringConnection where
 
 -- | Describes the VPC peering connection options.
@@ -19950,10 +19311,6 @@ instance FromXML
                 (x .@? "allowEgressFromLocalClassicLinkToRemoteVpc")
                 <*> (x .@? "allowDnsResolutionFromRemoteVpc")
 
-instance Hashable
-           VPCPeeringConnectionOptionsDescription
-         where
-
 instance NFData
            VPCPeeringConnectionOptionsDescription
          where
@@ -19996,9 +19353,6 @@ instance FromXML VPCPeeringConnectionStateReason
         parseXML x
           = VPCPeeringConnectionStateReason' <$>
               (x .@? "code") <*> (x .@? "message")
-
-instance Hashable VPCPeeringConnectionStateReason
-         where
 
 instance NFData VPCPeeringConnectionStateReason where
 
@@ -20090,8 +19444,6 @@ instance FromXML VPCPeeringConnectionVPCInfo where
                 <*>
                 (x .@? "ipv6CidrBlockSet" .!@ mempty >>=
                    may (parseXMLList "item"))
-
-instance Hashable VPCPeeringConnectionVPCInfo where
 
 instance NFData VPCPeeringConnectionVPCInfo where
 
@@ -20226,8 +19578,6 @@ instance FromXML VPNConnection where
                 <*> (x .@ "state")
                 <*> (x .@ "type")
 
-instance Hashable VPNConnection where
-
 instance NFData VPNConnection where
 
 -- | Describes VPN connection options.
@@ -20258,8 +19608,6 @@ instance FromXML VPNConnectionOptions where
         parseXML x
           = VPNConnectionOptions' <$>
               (x .@? "staticRoutesOnly")
-
-instance Hashable VPNConnectionOptions where
 
 instance NFData VPNConnectionOptions where
 
@@ -20295,9 +19643,6 @@ vcosTunnelOptions = lens _vcosTunnelOptions (\ s a -> s{_vcosTunnelOptions = a})
 -- | Indicate whether the VPN connection uses static routes only. If you are creating a VPN connection for a device that does not support BGP, you must specify @true@ . Use 'CreateVpnConnectionRoute' to create a static route. Default: @false@
 vcosStaticRoutesOnly :: Lens' VPNConnectionOptionsSpecification (Maybe Bool)
 vcosStaticRoutesOnly = lens _vcosStaticRoutesOnly (\ s a -> s{_vcosStaticRoutesOnly = a})
-
-instance Hashable VPNConnectionOptionsSpecification
-         where
 
 instance NFData VPNConnectionOptionsSpecification
          where
@@ -20399,8 +19744,6 @@ instance FromXML VPNGateway where
                 (x .@? "tagSet" .!@ mempty >>=
                    may (parseXMLList "item"))
 
-instance Hashable VPNGateway where
-
 instance NFData VPNGateway where
 
 -- | Describes a static route for a VPN connection.
@@ -20452,8 +19795,6 @@ instance FromXML VPNStaticRoute where
               (x .@? "state") <*> (x .@? "source") <*>
                 (x .@? "destinationCidrBlock")
 
-instance Hashable VPNStaticRoute where
-
 instance NFData VPNStaticRoute where
 
 -- | The tunnel options for a VPN connection.
@@ -20488,8 +19829,6 @@ vtosTunnelInsideCidr = lens _vtosTunnelInsideCidr (\ s a -> s{_vtosTunnelInsideC
 -- | The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and customer gateway. Constraints: Allowed characters are alphanumeric characters and ._. Must be between 8 and 64 characters in length and cannot start with zero (0).
 vtosPreSharedKey :: Lens' VPNTunnelOptionsSpecification (Maybe Text)
 vtosPreSharedKey = lens _vtosPreSharedKey (\ s a -> s{_vtosPreSharedKey = a})
-
-instance Hashable VPNTunnelOptionsSpecification where
 
 instance NFData VPNTunnelOptionsSpecification where
 
@@ -20641,8 +19980,6 @@ instance FromXML Volume where
                 <*> (x .@ "volumeId")
                 <*> (x .@ "volumeType")
 
-instance Hashable Volume where
-
 instance NFData Volume where
 
 -- | Describes volume attachment details.
@@ -20722,8 +20059,6 @@ instance FromXML VolumeAttachment where
                 <*> (x .@? "volumeId")
                 <*> (x .@? "attachTime")
 
-instance Hashable VolumeAttachment where
-
 instance NFData VolumeAttachment where
 
 -- | Describes an EBS volume.
@@ -20750,8 +20085,6 @@ volumeDetail pSize_ = VolumeDetail' {_vdSize = pSize_}
 -- | The size of the volume, in GiB.
 vdSize :: Lens' VolumeDetail Integer
 vdSize = lens _vdSize (\ s a -> s{_vdSize = a})
-
-instance Hashable VolumeDetail where
 
 instance NFData VolumeDetail where
 
@@ -20891,8 +20224,6 @@ instance FromXML VolumeModification where
                 <*> (x .@? "endTime")
                 <*> (x .@? "volumeId")
 
-instance Hashable VolumeModification where
-
 instance NFData VolumeModification where
 
 -- | Describes a volume status operation code.
@@ -20953,8 +20284,6 @@ instance FromXML VolumeStatusAction where
                 (x .@? "description")
                 <*> (x .@? "eventId")
 
-instance Hashable VolumeStatusAction where
-
 instance NFData VolumeStatusAction where
 
 -- | Describes a volume status.
@@ -20993,8 +20322,6 @@ instance FromXML VolumeStatusDetails where
         parseXML x
           = VolumeStatusDetails' <$>
               (x .@? "status") <*> (x .@? "name")
-
-instance Hashable VolumeStatusDetails where
 
 instance NFData VolumeStatusDetails where
 
@@ -21065,8 +20392,6 @@ instance FromXML VolumeStatusEvent where
                 <*> (x .@? "notAfter")
                 <*> (x .@? "eventId")
 
-instance Hashable VolumeStatusEvent where
-
 instance NFData VolumeStatusEvent where
 
 -- | Describes the status of a volume.
@@ -21107,8 +20432,6 @@ instance FromXML VolumeStatusInfo where
               (x .@? "status") <*>
                 (x .@? "details" .!@ mempty >>=
                    may (parseXMLList "item"))
-
-instance Hashable VolumeStatusInfo where
 
 instance NFData VolumeStatusInfo where
 
@@ -21182,7 +20505,5 @@ instance FromXML VolumeStatusItem where
                    may (parseXMLList "item"))
                 <*> (x .@? "availabilityZone")
                 <*> (x .@? "volumeId")
-
-instance Hashable VolumeStatusItem where
 
 instance NFData VolumeStatusItem where

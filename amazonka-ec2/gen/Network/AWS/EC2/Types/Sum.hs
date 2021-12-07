@@ -17,7 +17,7 @@
 --
 module Network.AWS.EC2.Types.Sum where
 
-import Network.AWS.Prelude (NFData, Hashable, FromXML(..), Text, Generic, Typeable, Data,
+import Network.AWS.Prelude (NFData, FromXML(..), Text, Generic, Typeable, Data,
         UTCTime, ISO8601, ToQuery(..), NonEmpty, List1, ByteString, Base64, (.@?), parseXMLList,
         may, (.!@), _Coerce, _Default, _Time, (=:), (.@), toQueryList, parseXMLList1, _List1, _Base64,
         ToHeader(..), ToByteString(..), ToText(..), FromText(..), parseXMLText, fromTextError,
@@ -42,7 +42,6 @@ instance ToText AccountAttributeName where
         DefaultVPC -> "default-vpc"
         SupportedPlatforms -> "supported-platforms"
 
-instance Hashable     AccountAttributeName
 instance NFData       AccountAttributeName
 instance ToByteString AccountAttributeName
 instance ToQuery      AccountAttributeName
@@ -72,7 +71,6 @@ instance ToText ActivityStatus where
         ASPendingFulfillment -> "pending_fulfillment"
         ASPendingTermination -> "pending_termination"
 
-instance Hashable     ActivityStatus
 instance NFData       ActivityStatus
 instance ToByteString ActivityStatus
 instance ToQuery      ActivityStatus
@@ -102,7 +100,6 @@ instance ToText AddressStatus where
         InVPC -> "InVpc"
         MoveInProgress -> "MoveInProgress"
 
-instance Hashable     AddressStatus
 instance NFData       AddressStatus
 instance ToByteString AddressStatus
 instance ToQuery      AddressStatus
@@ -129,7 +126,6 @@ instance ToText Affinity where
         ADefault -> "default"
         AHost -> "host"
 
-instance Hashable     Affinity
 instance NFData       Affinity
 instance ToByteString Affinity
 instance ToQuery      Affinity
@@ -162,7 +158,6 @@ instance ToText AllocationState where
         ASReleasedPermanentFailure -> "released-permanent-failure"
         ASUnderAssessment -> "under-assessment"
 
-instance Hashable     AllocationState
 instance NFData       AllocationState
 instance ToByteString AllocationState
 instance ToQuery      AllocationState
@@ -189,7 +184,6 @@ instance ToText AllocationStrategy where
         ASDiversified -> "diversified"
         ASLowestPrice -> "lowestPrice"
 
-instance Hashable     AllocationStrategy
 instance NFData       AllocationStrategy
 instance ToByteString AllocationStrategy
 instance ToQuery      AllocationStrategy
@@ -216,7 +210,6 @@ instance ToText ArchitectureValues where
         I386 -> "i386"
         X86_64 -> "x86_64"
 
-instance Hashable     ArchitectureValues
 instance NFData       ArchitectureValues
 instance ToByteString ArchitectureValues
 instance ToQuery      ArchitectureValues
@@ -255,7 +248,6 @@ instance ToText AttachmentStatus where
         ADetached -> "detached"
         ADetaching -> "detaching"
 
-instance Hashable     AttachmentStatus
 instance NFData       AttachmentStatus
 instance ToByteString AttachmentStatus
 instance ToQuery      AttachmentStatus
@@ -282,7 +274,6 @@ instance ToText AutoPlacement where
         ON -> "on"
         Off -> "off"
 
-instance Hashable     AutoPlacement
 instance NFData       AutoPlacement
 instance ToByteString AutoPlacement
 instance ToQuery      AutoPlacement
@@ -315,7 +306,6 @@ instance ToText AvailabilityZoneState where
         AZSInformation -> "information"
         AZSUnavailable -> "unavailable"
 
-instance Hashable     AvailabilityZoneState
 instance NFData       AvailabilityZoneState
 instance ToByteString AvailabilityZoneState
 instance ToQuery      AvailabilityZoneState
@@ -357,7 +347,6 @@ instance ToText BatchState where
         BSModifying -> "modifying"
         BSSubmitted -> "submitted"
 
-instance Hashable     BatchState
 instance NFData       BatchState
 instance ToByteString BatchState
 instance ToQuery      BatchState
@@ -399,7 +388,6 @@ instance ToText BundleTaskState where
         BTSStoring -> "storing"
         BTSWaitingForShutdown -> "waiting-for-shutdown"
 
-instance Hashable     BundleTaskState
 instance NFData       BundleTaskState
 instance ToByteString BundleTaskState
 instance ToQuery      BundleTaskState
@@ -432,7 +420,6 @@ instance ToText CancelBatchErrorCode where
         CBECFleetRequestNotInCancellableState -> "fleetRequestNotInCancellableState"
         CBECUnexpectedError -> "unexpectedError"
 
-instance Hashable     CancelBatchErrorCode
 instance NFData       CancelBatchErrorCode
 instance ToByteString CancelBatchErrorCode
 instance ToQuery      CancelBatchErrorCode
@@ -468,7 +455,6 @@ instance ToText CancelSpotInstanceRequestState where
         CSIRSCompleted -> "completed"
         CSIRSOpen -> "open"
 
-instance Hashable     CancelSpotInstanceRequestState
 instance NFData       CancelSpotInstanceRequestState
 instance ToByteString CancelSpotInstanceRequestState
 instance ToQuery      CancelSpotInstanceRequestState
@@ -495,7 +481,6 @@ instance ToText ConnectionNotificationState where
         Disabled -> "Disabled"
         Enabled -> "Enabled"
 
-instance Hashable     ConnectionNotificationState
 instance NFData       ConnectionNotificationState
 instance ToByteString ConnectionNotificationState
 instance ToQuery      ConnectionNotificationState
@@ -519,7 +504,6 @@ instance ToText ConnectionNotificationType where
     toText = \case
         Topic -> "Topic"
 
-instance Hashable     ConnectionNotificationType
 instance NFData       ConnectionNotificationType
 instance ToByteString ConnectionNotificationType
 instance ToQuery      ConnectionNotificationType
@@ -543,7 +527,6 @@ instance ToText ContainerFormat where
     toText = \case
         Ova -> "ova"
 
-instance Hashable     ContainerFormat
 instance NFData       ContainerFormat
 instance ToByteString ContainerFormat
 instance ToQuery      ContainerFormat
@@ -576,7 +559,6 @@ instance ToText ConversionTaskState where
         CTSCancelling -> "cancelling"
         CTSCompleted -> "completed"
 
-instance Hashable     ConversionTaskState
 instance NFData       ConversionTaskState
 instance ToByteString ConversionTaskState
 instance ToQuery      ConversionTaskState
@@ -600,7 +582,6 @@ instance ToText CurrencyCodeValues where
     toText = \case
         Usd -> "USD"
 
-instance Hashable     CurrencyCodeValues
 instance NFData       CurrencyCodeValues
 instance ToByteString CurrencyCodeValues
 instance ToQuery      CurrencyCodeValues
@@ -627,7 +608,6 @@ instance ToText DatafeedSubscriptionState where
         DSSActive -> "Active"
         DSSInactive -> "Inactive"
 
-instance Hashable     DatafeedSubscriptionState
 instance NFData       DatafeedSubscriptionState
 instance ToByteString DatafeedSubscriptionState
 instance ToQuery      DatafeedSubscriptionState
@@ -654,7 +634,6 @@ instance ToText DefaultTargetCapacityType where
         DTCTOnDemand -> "on-demand"
         DTCTSpot -> "spot"
 
-instance Hashable     DefaultTargetCapacityType
 instance NFData       DefaultTargetCapacityType
 instance ToByteString DefaultTargetCapacityType
 instance ToQuery      DefaultTargetCapacityType
@@ -687,7 +666,6 @@ instance ToText DeleteFleetErrorCode where
         DFECFleetNotInDeletableState -> "fleetNotInDeletableState"
         DFECUnexpectedError -> "unexpectedError"
 
-instance Hashable     DeleteFleetErrorCode
 instance NFData       DeleteFleetErrorCode
 instance ToByteString DeleteFleetErrorCode
 instance ToQuery      DeleteFleetErrorCode
@@ -714,7 +692,6 @@ instance ToText DeviceType where
         EBS -> "ebs"
         InstanceStore -> "instance-store"
 
-instance Hashable     DeviceType
 instance NFData       DeviceType
 instance ToByteString DeviceType
 instance ToQuery      DeviceType
@@ -744,7 +721,6 @@ instance ToText DiskImageFormat where
         VHD -> "VHD"
         VMDK -> "VMDK"
 
-instance Hashable     DiskImageFormat
 instance NFData       DiskImageFormat
 instance ToByteString DiskImageFormat
 instance ToQuery      DiskImageFormat
@@ -771,7 +747,6 @@ instance ToText DomainType where
         DTStandard -> "standard"
         DTVPC -> "vpc"
 
-instance Hashable     DomainType
 instance NFData       DomainType
 instance ToByteString DomainType
 instance ToQuery      DomainType
@@ -795,7 +770,6 @@ instance ToText ElasticGpuState where
     toText = \case
         Attached -> "ATTACHED"
 
-instance Hashable     ElasticGpuState
 instance NFData       ElasticGpuState
 instance ToByteString ElasticGpuState
 instance ToQuery      ElasticGpuState
@@ -822,7 +796,6 @@ instance ToText ElasticGpuStatus where
         EGSImpaired -> "IMPAIRED"
         EGSOK -> "OK"
 
-instance Hashable     ElasticGpuStatus
 instance NFData       ElasticGpuStatus
 instance ToByteString ElasticGpuStatus
 instance ToQuery      ElasticGpuStatus
@@ -858,7 +831,6 @@ instance ToText EventCode where
         SystemMaintenance -> "system-maintenance"
         SystemReboot -> "system-reboot"
 
-instance Hashable     EventCode
 instance NFData       EventCode
 instance ToByteString EventCode
 instance ToQuery      EventCode
@@ -888,7 +860,6 @@ instance ToText EventType where
         ETFleetRequestChange -> "fleetRequestChange"
         ETInstanceChange -> "instanceChange"
 
-instance Hashable     EventType
 instance NFData       EventType
 instance ToByteString EventType
 instance ToQuery      EventType
@@ -915,7 +886,6 @@ instance ToText ExcessCapacityTerminationPolicy where
         ECTPDefault -> "default"
         ECTPNoTermination -> "noTermination"
 
-instance Hashable     ExcessCapacityTerminationPolicy
 instance NFData       ExcessCapacityTerminationPolicy
 instance ToByteString ExcessCapacityTerminationPolicy
 instance ToQuery      ExcessCapacityTerminationPolicy
@@ -945,7 +915,6 @@ instance ToText ExportEnvironment where
         Microsoft -> "microsoft"
         VMware -> "vmware"
 
-instance Hashable     ExportEnvironment
 instance NFData       ExportEnvironment
 instance ToByteString ExportEnvironment
 instance ToQuery      ExportEnvironment
@@ -978,7 +947,6 @@ instance ToText ExportTaskState where
         ETSCancelling -> "cancelling"
         ETSCompleted -> "completed"
 
-instance Hashable     ExportTaskState
 instance NFData       ExportTaskState
 instance ToByteString ExportTaskState
 instance ToQuery      ExportTaskState
@@ -1011,7 +979,6 @@ instance ToText FleetActivityStatus where
         PendingFulfillment -> "pending-fulfillment"
         PendingTermination -> "pending-termination"
 
-instance Hashable     FleetActivityStatus
 instance NFData       FleetActivityStatus
 instance ToByteString FleetActivityStatus
 instance ToQuery      FleetActivityStatus
@@ -1041,7 +1008,6 @@ instance ToText FleetEventType where
         FETInstanceChange -> "instance-change"
         FETServiceError -> "service-error"
 
-instance Hashable     FleetEventType
 instance NFData       FleetEventType
 instance ToByteString FleetEventType
 instance ToQuery      FleetEventType
@@ -1068,7 +1034,6 @@ instance ToText FleetExcessCapacityTerminationPolicy where
         NoTermination -> "no-termination"
         Termination -> "termination"
 
-instance Hashable     FleetExcessCapacityTerminationPolicy
 instance NFData       FleetExcessCapacityTerminationPolicy
 instance ToByteString FleetExcessCapacityTerminationPolicy
 instance ToQuery      FleetExcessCapacityTerminationPolicy
@@ -1110,7 +1075,6 @@ instance ToText FleetStateCode where
         FSCModifying -> "modifying"
         FSCSubmitted -> "submitted"
 
-instance Hashable     FleetStateCode
 instance NFData       FleetStateCode
 instance ToByteString FleetStateCode
 instance ToQuery      FleetStateCode
@@ -1137,7 +1101,6 @@ instance ToText FleetType where
         FTMaintain -> "maintain"
         FTRequest -> "request"
 
-instance Hashable     FleetType
 instance NFData       FleetType
 instance ToByteString FleetType
 instance ToQuery      FleetType
@@ -1167,7 +1130,6 @@ instance ToText FlowLogsResourceType where
         FLRTSubnet -> "Subnet"
         FLRTVPC -> "VPC"
 
-instance Hashable     FlowLogsResourceType
 instance NFData       FlowLogsResourceType
 instance ToByteString FlowLogsResourceType
 instance ToQuery      FlowLogsResourceType
@@ -1197,7 +1159,6 @@ instance ToText FpgaImageAttributeName where
         FIANName -> "name"
         FIANProductCodes -> "productCodes"
 
-instance Hashable     FpgaImageAttributeName
 instance NFData       FpgaImageAttributeName
 instance ToByteString FpgaImageAttributeName
 instance ToQuery      FpgaImageAttributeName
@@ -1227,7 +1188,6 @@ instance ToText FpgaImageStateCode where
         FISCPending -> "pending"
         FISCUnavailable -> "unavailable"
 
-instance Hashable     FpgaImageStateCode
 instance NFData       FpgaImageStateCode
 instance ToByteString FpgaImageStateCode
 instance ToQuery      FpgaImageStateCode
@@ -1251,7 +1211,6 @@ instance ToText GatewayType where
     toText = \case
         IPsec_1 -> "ipsec.1"
 
-instance Hashable     GatewayType
 instance NFData       GatewayType
 instance ToByteString GatewayType
 instance ToQuery      GatewayType
@@ -1278,7 +1237,6 @@ instance ToText HostTenancy where
         HTDedicated -> "dedicated"
         HTHost -> "host"
 
-instance Hashable     HostTenancy
 instance NFData       HostTenancy
 instance ToByteString HostTenancy
 instance ToQuery      HostTenancy
@@ -1302,7 +1260,6 @@ instance ToText HypervisorType where
         Ovm -> "ovm"
         Xen -> "xen"
 
-instance Hashable     HypervisorType
 instance NFData       HypervisorType
 instance ToByteString HypervisorType
 instance ToQuery      HypervisorType
@@ -1335,7 +1292,6 @@ instance ToText IAMInstanceProfileAssociationState where
         Disassociated -> "disassociated"
         Disassociating -> "disassociating"
 
-instance Hashable     IAMInstanceProfileAssociationState
 instance NFData       IAMInstanceProfileAssociationState
 instance ToByteString IAMInstanceProfileAssociationState
 instance ToQuery      IAMInstanceProfileAssociationState
@@ -1377,7 +1333,6 @@ instance ToText ImageAttributeName where
         RAMDisk -> "ramdisk"
         SRIOVNetSupport -> "sriovNetSupport"
 
-instance Hashable     ImageAttributeName
 instance NFData       ImageAttributeName
 instance ToByteString ImageAttributeName
 instance ToQuery      ImageAttributeName
@@ -1416,7 +1371,6 @@ instance ToText ImageState where
         ISPending -> "pending"
         ISTransient -> "transient"
 
-instance Hashable     ImageState
 instance NFData       ImageState
 instance ToByteString ImageState
 instance ToQuery      ImageState
@@ -1446,7 +1400,6 @@ instance ToText ImageTypeValues where
         ITVMachine -> "machine"
         ITVRAMDisk -> "ramdisk"
 
-instance Hashable     ImageTypeValues
 instance NFData       ImageTypeValues
 instance ToByteString ImageTypeValues
 instance ToQuery      ImageTypeValues
@@ -1509,7 +1462,6 @@ instance ToText InstanceAttributeName where
         IANSourceDestCheck -> "sourceDestCheck"
         IANUserData -> "userData"
 
-instance Hashable     InstanceAttributeName
 instance NFData       InstanceAttributeName
 instance ToByteString InstanceAttributeName
 instance ToQuery      InstanceAttributeName
@@ -1533,7 +1485,6 @@ instance ToText InstanceHealthStatus where
         Healthy -> "healthy"
         Unhealthy -> "unhealthy"
 
-instance Hashable     InstanceHealthStatus
 instance NFData       InstanceHealthStatus
 instance ToByteString InstanceHealthStatus
 instance ToQuery      InstanceHealthStatus
@@ -1563,7 +1514,6 @@ instance ToText InstanceInterruptionBehavior where
         Stop -> "stop"
         Terminate -> "terminate"
 
-instance Hashable     InstanceInterruptionBehavior
 instance NFData       InstanceInterruptionBehavior
 instance ToByteString InstanceInterruptionBehavior
 instance ToQuery      InstanceInterruptionBehavior
@@ -1590,7 +1540,6 @@ instance ToText InstanceLifecycleType where
         ILTScheduled -> "scheduled"
         ILTSpot -> "spot"
 
-instance Hashable     InstanceLifecycleType
 instance NFData       InstanceLifecycleType
 instance ToByteString InstanceLifecycleType
 instance ToQuery      InstanceLifecycleType
@@ -1629,7 +1578,6 @@ instance ToText InstanceStateName where
         ISNStopping -> "stopping"
         ISNTerminated -> "terminated"
 
-instance Hashable     InstanceStateName
 instance NFData       InstanceStateName
 instance ToByteString InstanceStateName
 instance ToQuery      InstanceStateName
@@ -1965,7 +1913,6 @@ instance ToText InstanceType where
         X1e_8XLarge -> "x1e.8xlarge"
         X1e_XLarge -> "x1e.xlarge"
 
-instance Hashable     InstanceType
 instance NFData       InstanceType
 instance ToByteString InstanceType
 instance ToQuery      InstanceType
@@ -1992,7 +1939,6 @@ instance ToText InterfacePermissionType where
         EIPAssociate -> "EIP-ASSOCIATE"
         InstanceAttach -> "INSTANCE-ATTACH"
 
-instance Hashable     InterfacePermissionType
 instance NFData       InterfacePermissionType
 instance ToByteString InterfacePermissionType
 instance ToQuery      InterfacePermissionType
@@ -2031,7 +1977,6 @@ instance ToText LaunchTemplateErrorCode where
         LaunchTemplateVersionDoesNotExist -> "launchTemplateVersionDoesNotExist"
         UnexpectedError -> "unexpectedError"
 
-instance Hashable     LaunchTemplateErrorCode
 instance NFData       LaunchTemplateErrorCode
 instance ToByteString LaunchTemplateErrorCode
 instance ToQuery      LaunchTemplateErrorCode
@@ -2064,7 +2009,6 @@ instance ToText ListingState where
         LPending -> "pending"
         LSold -> "sold"
 
-instance Hashable     ListingState
 instance NFData       ListingState
 instance ToByteString ListingState
 instance ToQuery      ListingState
@@ -2097,7 +2041,6 @@ instance ToText ListingStatus where
         LSClosed -> "closed"
         LSPending -> "pending"
 
-instance Hashable     ListingStatus
 instance NFData       ListingStatus
 instance ToByteString ListingStatus
 instance ToQuery      ListingStatus
@@ -2121,7 +2064,6 @@ instance ToText MarketType where
     toText = \case
         Spot -> "spot"
 
-instance Hashable     MarketType
 instance NFData       MarketType
 instance ToByteString MarketType
 instance ToQuery      MarketType
@@ -2154,7 +2096,6 @@ instance ToText MonitoringState where
         MSEnabled -> "enabled"
         MSPending -> "pending"
 
-instance Hashable     MonitoringState
 instance NFData       MonitoringState
 instance ToByteString MonitoringState
 instance ToQuery      MonitoringState
@@ -2181,7 +2122,6 @@ instance ToText MoveStatus where
         MovingToVPC -> "movingToVpc"
         RestoringToClassic -> "restoringToClassic"
 
-instance Hashable     MoveStatus
 instance NFData       MoveStatus
 instance ToByteString MoveStatus
 instance ToQuery      MoveStatus
@@ -2217,7 +2157,6 @@ instance ToText NatGatewayState where
         NGSFailed -> "failed"
         NGSPending -> "pending"
 
-instance Hashable     NatGatewayState
 instance NFData       NatGatewayState
 instance ToByteString NatGatewayState
 instance ToQuery      NatGatewayState
@@ -2250,7 +2189,6 @@ instance ToText NetworkInterfaceAttribute where
         NIAGroupSet -> "groupSet"
         NIASourceDestCheck -> "sourceDestCheck"
 
-instance Hashable     NetworkInterfaceAttribute
 instance NFData       NetworkInterfaceAttribute
 instance ToByteString NetworkInterfaceAttribute
 instance ToQuery      NetworkInterfaceAttribute
@@ -2280,7 +2218,6 @@ instance ToText NetworkInterfacePermissionStateCode where
         NIPSCRevoked -> "revoked"
         NIPSCRevoking -> "revoking"
 
-instance Hashable     NetworkInterfacePermissionStateCode
 instance NFData       NetworkInterfacePermissionStateCode
 instance ToByteString NetworkInterfacePermissionStateCode
 instance ToQuery      NetworkInterfacePermissionStateCode
@@ -2316,7 +2253,6 @@ instance ToText NetworkInterfaceStatus where
         NISDetaching -> "detaching"
         NISInUse -> "in-use"
 
-instance Hashable     NetworkInterfaceStatus
 instance NFData       NetworkInterfaceStatus
 instance ToByteString NetworkInterfaceStatus
 instance ToQuery      NetworkInterfaceStatus
@@ -2343,7 +2279,6 @@ instance ToText NetworkInterfaceType where
         NITInterface -> "interface"
         NITNatGateway -> "natGateway"
 
-instance Hashable     NetworkInterfaceType
 instance NFData       NetworkInterfaceType
 instance ToByteString NetworkInterfaceType
 instance ToQuery      NetworkInterfaceType
@@ -2370,7 +2305,6 @@ instance ToText OfferingClassType where
         OCTConvertible -> "convertible"
         OCTStandard -> "standard"
 
-instance Hashable     OfferingClassType
 instance NFData       OfferingClassType
 instance ToByteString OfferingClassType
 instance ToQuery      OfferingClassType
@@ -2409,7 +2343,6 @@ instance ToText OfferingTypeValues where
         NoUpfront -> "No Upfront"
         PartialUpfront -> "Partial Upfront"
 
-instance Hashable     OfferingTypeValues
 instance NFData       OfferingTypeValues
 instance ToByteString OfferingTypeValues
 instance ToQuery      OfferingTypeValues
@@ -2436,7 +2369,6 @@ instance ToText OperationType where
         Add -> "add"
         Remove -> "remove"
 
-instance Hashable     OperationType
 instance NFData       OperationType
 instance ToByteString OperationType
 instance ToQuery      OperationType
@@ -2463,7 +2395,6 @@ instance ToText PaymentOption where
         PONoUpfront -> "NoUpfront"
         POPartialUpfront -> "PartialUpfront"
 
-instance Hashable     PaymentOption
 instance NFData       PaymentOption
 instance ToByteString PaymentOption
 instance ToQuery      PaymentOption
@@ -2487,7 +2418,6 @@ instance ToText PermissionGroup where
     toText = \case
         All -> "all"
 
-instance Hashable     PermissionGroup
 instance NFData       PermissionGroup
 instance ToByteString PermissionGroup
 instance ToQuery      PermissionGroup
@@ -2520,7 +2450,6 @@ instance ToText PlacementGroupState where
         Deleting -> "deleting"
         Pending -> "pending"
 
-instance Hashable     PlacementGroupState
 instance NFData       PlacementGroupState
 instance ToByteString PlacementGroupState
 instance ToQuery      PlacementGroupState
@@ -2547,7 +2476,6 @@ instance ToText PlacementStrategy where
         Cluster -> "cluster"
         Spread -> "spread"
 
-instance Hashable     PlacementStrategy
 instance NFData       PlacementStrategy
 instance ToByteString PlacementStrategy
 instance ToQuery      PlacementStrategy
@@ -2571,7 +2499,6 @@ instance ToText PlatformValues where
     toText = \case
         Windows -> "Windows"
 
-instance Hashable     PlatformValues
 instance NFData       PlatformValues
 instance ToByteString PlatformValues
 instance ToQuery      PlatformValues
@@ -2610,7 +2537,6 @@ instance ToText PrincipalType where
         PTService -> "Service"
         PTUser -> "User"
 
-instance Hashable     PrincipalType
 instance NFData       PrincipalType
 instance ToByteString PrincipalType
 instance ToQuery      PrincipalType
@@ -2637,7 +2563,6 @@ instance ToText ProductCodeValues where
         Devpay -> "devpay"
         Marketplace -> "marketplace"
 
-instance Hashable     ProductCodeValues
 instance NFData       ProductCodeValues
 instance ToByteString ProductCodeValues
 instance ToQuery      ProductCodeValues
@@ -2670,7 +2595,6 @@ instance ToText RIProductDescription where
         RIDWindows -> "Windows"
         RIDWindowsAmazonVPC -> "Windows (Amazon VPC)"
 
-instance Hashable     RIProductDescription
 instance NFData       RIProductDescription
 instance ToByteString RIProductDescription
 instance ToQuery      RIProductDescription
@@ -2694,7 +2618,6 @@ instance ToText RecurringChargeFrequency where
     toText = \case
         Hourly -> "Hourly"
 
-instance Hashable     RecurringChargeFrequency
 instance NFData       RecurringChargeFrequency
 instance ToByteString RecurringChargeFrequency
 instance ToQuery      RecurringChargeFrequency
@@ -2742,7 +2665,6 @@ instance ToText ReportInstanceReasonCodes where
         PerformanceOther -> "performance-other"
         Unresponsive -> "unresponsive"
 
-instance Hashable     ReportInstanceReasonCodes
 instance NFData       ReportInstanceReasonCodes
 instance ToByteString ReportInstanceReasonCodes
 instance ToQuery      ReportInstanceReasonCodes
@@ -2766,7 +2688,6 @@ instance ToText ReportStatusType where
         RSTImpaired -> "impaired"
         RSTOK -> "ok"
 
-instance Hashable     ReportStatusType
 instance NFData       ReportStatusType
 instance ToByteString ReportStatusType
 instance ToQuery      ReportStatusType
@@ -2796,7 +2717,6 @@ instance ToText ReservationState where
         RSPaymentPending -> "payment-pending"
         RSRetired -> "retired"
 
-instance Hashable     ReservationState
 instance NFData       ReservationState
 instance ToByteString ReservationState
 instance ToQuery      ReservationState
@@ -2829,7 +2749,6 @@ instance ToText ReservedInstanceState where
         PaymentPending -> "payment-pending"
         Retired -> "retired"
 
-instance Hashable     ReservedInstanceState
 instance NFData       ReservedInstanceState
 instance ToByteString ReservedInstanceState
 instance ToQuery      ReservedInstanceState
@@ -2853,7 +2772,6 @@ instance ToText ResetFpgaImageAttributeName where
     toText = \case
         LoadPermission -> "loadPermission"
 
-instance Hashable     ResetFpgaImageAttributeName
 instance NFData       ResetFpgaImageAttributeName
 instance ToByteString ResetFpgaImageAttributeName
 instance ToQuery      ResetFpgaImageAttributeName
@@ -2874,7 +2792,6 @@ instance ToText ResetImageAttributeName where
     toText = \case
         RIANLaunchPermission -> "launchPermission"
 
-instance Hashable     ResetImageAttributeName
 instance NFData       ResetImageAttributeName
 instance ToByteString ResetImageAttributeName
 instance ToQuery      ResetImageAttributeName
@@ -2943,7 +2860,6 @@ instance ToText ResourceType where
         VPNGateway -> "vpn-gateway"
         Volume -> "volume"
 
-instance Hashable     ResourceType
 instance NFData       ResourceType
 instance ToByteString ResourceType
 instance ToQuery      ResourceType
@@ -2973,7 +2889,6 @@ instance ToText RouteOrigin where
         CreateRouteTable -> "CreateRouteTable"
         EnableVGWRoutePropagation -> "EnableVgwRoutePropagation"
 
-instance Hashable     RouteOrigin
 instance NFData       RouteOrigin
 instance ToByteString RouteOrigin
 instance ToQuery      RouteOrigin
@@ -3000,7 +2915,6 @@ instance ToText RouteState where
         RActive -> "active"
         RBlackhole -> "blackhole"
 
-instance Hashable     RouteState
 instance NFData       RouteState
 instance ToByteString RouteState
 instance ToQuery      RouteState
@@ -3027,7 +2941,6 @@ instance ToText RuleAction where
         Allow -> "allow"
         Deny -> "deny"
 
-instance Hashable     RuleAction
 instance NFData       RuleAction
 instance ToByteString RuleAction
 instance ToQuery      RuleAction
@@ -3054,7 +2967,6 @@ instance ToText Scope where
         AvailabilityZone -> "Availability Zone"
         Region -> "Region"
 
-instance Hashable     Scope
 instance NFData       Scope
 instance ToByteString Scope
 instance ToQuery      Scope
@@ -3090,7 +3002,6 @@ instance ToText ServiceState where
         SerFailed -> "Failed"
         SerPending -> "Pending"
 
-instance Hashable     ServiceState
 instance NFData       ServiceState
 instance ToByteString ServiceState
 instance ToQuery      ServiceState
@@ -3117,7 +3028,6 @@ instance ToText ServiceType where
         Gateway -> "Gateway"
         Interface -> "Interface"
 
-instance Hashable     ServiceType
 instance NFData       ServiceType
 instance ToByteString ServiceType
 instance ToQuery      ServiceType
@@ -3144,7 +3054,6 @@ instance ToText ShutdownBehavior where
         SBStop -> "stop"
         SBTerminate -> "terminate"
 
-instance Hashable     ShutdownBehavior
 instance NFData       ShutdownBehavior
 instance ToByteString ShutdownBehavior
 instance ToQuery      ShutdownBehavior
@@ -3171,7 +3080,6 @@ instance ToText SnapshotAttributeName where
         SANCreateVolumePermission -> "createVolumePermission"
         SANProductCodes -> "productCodes"
 
-instance Hashable     SnapshotAttributeName
 instance NFData       SnapshotAttributeName
 instance ToByteString SnapshotAttributeName
 instance ToQuery      SnapshotAttributeName
@@ -3198,7 +3106,6 @@ instance ToText SnapshotState where
         SSError' -> "error"
         SSPending -> "pending"
 
-instance Hashable     SnapshotState
 instance NFData       SnapshotState
 instance ToByteString SnapshotState
 instance ToQuery      SnapshotState
@@ -3225,7 +3132,6 @@ instance ToText SpotAllocationStrategy where
         Diversified -> "diversified"
         LowestPrice -> "lowest-price"
 
-instance Hashable     SpotAllocationStrategy
 instance NFData       SpotAllocationStrategy
 instance ToByteString SpotAllocationStrategy
 instance ToQuery      SpotAllocationStrategy
@@ -3255,7 +3161,6 @@ instance ToText SpotInstanceInterruptionBehavior where
         SIIBStop -> "stop"
         SIIBTerminate -> "terminate"
 
-instance Hashable     SpotInstanceInterruptionBehavior
 instance NFData       SpotInstanceInterruptionBehavior
 instance ToByteString SpotInstanceInterruptionBehavior
 instance ToQuery      SpotInstanceInterruptionBehavior
@@ -3291,7 +3196,6 @@ instance ToText SpotInstanceState where
         SISFailed -> "failed"
         SISOpen -> "open"
 
-instance Hashable     SpotInstanceState
 instance NFData       SpotInstanceState
 instance ToByteString SpotInstanceState
 instance ToQuery      SpotInstanceState
@@ -3318,7 +3222,6 @@ instance ToText SpotInstanceType where
         OneTime -> "one-time"
         Persistent -> "persistent"
 
-instance Hashable     SpotInstanceType
 instance NFData       SpotInstanceType
 instance ToByteString SpotInstanceType
 instance ToQuery      SpotInstanceType
@@ -3363,7 +3266,6 @@ instance ToText State where
         SPendingAcceptance -> "PendingAcceptance"
         SRejected -> "Rejected"
 
-instance Hashable     State
 instance NFData       State
 instance ToByteString State
 instance ToQuery      State
@@ -3387,7 +3289,6 @@ instance ToText StatusName where
     toText = \case
         Reachability -> "reachability"
 
-instance Hashable     StatusName
 instance NFData       StatusName
 instance ToByteString StatusName
 instance ToQuery      StatusName
@@ -3420,7 +3321,6 @@ instance ToText StatusType where
         STInsufficientData -> "insufficient-data"
         STPassed -> "passed"
 
-instance Hashable     StatusType
 instance NFData       StatusType
 instance ToByteString StatusType
 instance ToQuery      StatusType
@@ -3459,7 +3359,6 @@ instance ToText SubnetCidrBlockStateCode where
         SCBSCFailed -> "failed"
         SCBSCFailing -> "failing"
 
-instance Hashable     SubnetCidrBlockStateCode
 instance NFData       SubnetCidrBlockStateCode
 instance ToByteString SubnetCidrBlockStateCode
 instance ToQuery      SubnetCidrBlockStateCode
@@ -3486,7 +3385,6 @@ instance ToText SubnetState where
         SubAvailable -> "available"
         SubPending -> "pending"
 
-instance Hashable     SubnetState
 instance NFData       SubnetState
 instance ToByteString SubnetState
 instance ToQuery      SubnetState
@@ -3522,7 +3420,6 @@ instance ToText SummaryStatus where
         SSNotApplicable -> "not-applicable"
         SSOK -> "ok"
 
-instance Hashable     SummaryStatus
 instance NFData       SummaryStatus
 instance ToByteString SummaryStatus
 instance ToQuery      SummaryStatus
@@ -3549,7 +3446,6 @@ instance ToText TelemetryStatus where
         Down -> "DOWN"
         UP -> "UP"
 
-instance Hashable     TelemetryStatus
 instance NFData       TelemetryStatus
 instance ToByteString TelemetryStatus
 instance ToQuery      TelemetryStatus
@@ -3579,7 +3475,6 @@ instance ToText Tenancy where
         Default -> "default"
         Host -> "host"
 
-instance Hashable     Tenancy
 instance NFData       Tenancy
 instance ToByteString Tenancy
 instance ToQuery      Tenancy
@@ -3609,7 +3504,6 @@ instance ToText TrafficType where
         TTAll -> "ALL"
         TTReject -> "REJECT"
 
-instance Hashable     TrafficType
 instance NFData       TrafficType
 instance ToByteString TrafficType
 instance ToQuery      TrafficType
@@ -3642,7 +3536,6 @@ instance ToText UnsuccessfulInstanceCreditSpecificationErrorCode where
         InvalidInstanceId_Malformed -> "InvalidInstanceID.Malformed"
         InvalidInstanceId_NotFound -> "InvalidInstanceID.NotFound"
 
-instance Hashable     UnsuccessfulInstanceCreditSpecificationErrorCode
 instance NFData       UnsuccessfulInstanceCreditSpecificationErrorCode
 instance ToByteString UnsuccessfulInstanceCreditSpecificationErrorCode
 instance ToQuery      UnsuccessfulInstanceCreditSpecificationErrorCode
@@ -3669,7 +3562,6 @@ instance ToText VPCAttributeName where
         EnableDNSHostnames -> "enableDnsHostnames"
         EnableDNSSupport -> "enableDnsSupport"
 
-instance Hashable     VPCAttributeName
 instance NFData       VPCAttributeName
 instance ToByteString VPCAttributeName
 instance ToQuery      VPCAttributeName
@@ -3705,7 +3597,6 @@ instance ToText VPCCidrBlockStateCode where
         VCBSCFailed -> "failed"
         VCBSCFailing -> "failing"
 
-instance Hashable     VPCCidrBlockStateCode
 instance NFData       VPCCidrBlockStateCode
 instance ToByteString VPCCidrBlockStateCode
 instance ToQuery      VPCCidrBlockStateCode
@@ -3732,7 +3623,6 @@ instance ToText VPCEndpointType where
         VETGateway -> "Gateway"
         VETInterface -> "Interface"
 
-instance Hashable     VPCEndpointType
 instance NFData       VPCEndpointType
 instance ToByteString VPCEndpointType
 instance ToQuery      VPCEndpointType
@@ -3780,7 +3670,6 @@ instance ToText VPCPeeringConnectionStateReasonCode where
         VPCSRCProvisioning -> "provisioning"
         VPCSRCRejected -> "rejected"
 
-instance Hashable     VPCPeeringConnectionStateReasonCode
 instance NFData       VPCPeeringConnectionStateReasonCode
 instance ToByteString VPCPeeringConnectionStateReasonCode
 instance ToQuery      VPCPeeringConnectionStateReasonCode
@@ -3807,7 +3696,6 @@ instance ToText VPCState where
         VPCSAvailable -> "available"
         VPCSPending -> "pending"
 
-instance Hashable     VPCState
 instance NFData       VPCState
 instance ToByteString VPCState
 instance ToQuery      VPCState
@@ -3831,7 +3719,6 @@ instance ToText VPCTenancy where
     toText = \case
         VTDefault -> "default"
 
-instance Hashable     VPCTenancy
 instance NFData       VPCTenancy
 instance ToByteString VPCTenancy
 instance ToQuery      VPCTenancy
@@ -3861,7 +3748,6 @@ instance ToText VPNState where
         VSDeleting -> "deleting"
         VSPending -> "pending"
 
-instance Hashable     VPNState
 instance NFData       VPNState
 instance ToByteString VPNState
 instance ToQuery      VPNState
@@ -3885,7 +3771,6 @@ instance ToText VPNStaticRouteSource where
     toText = \case
         Static -> "Static"
 
-instance Hashable     VPNStaticRouteSource
 instance NFData       VPNStaticRouteSource
 instance ToByteString VPNStaticRouteSource
 instance ToQuery      VPNStaticRouteSource
@@ -3912,7 +3797,6 @@ instance ToText VirtualizationType where
         HVM -> "hvm"
         Paravirtual -> "paravirtual"
 
-instance Hashable     VirtualizationType
 instance NFData       VirtualizationType
 instance ToByteString VirtualizationType
 instance ToQuery      VirtualizationType
@@ -3948,7 +3832,6 @@ instance ToText VolumeAttachmentState where
         VDetached -> "detached"
         VDetaching -> "detaching"
 
-instance Hashable     VolumeAttachmentState
 instance NFData       VolumeAttachmentState
 instance ToByteString VolumeAttachmentState
 instance ToQuery      VolumeAttachmentState
@@ -3975,7 +3858,6 @@ instance ToText VolumeAttributeName where
         VANAutoEnableIO -> "autoEnableIO"
         VANProductCodes -> "productCodes"
 
-instance Hashable     VolumeAttributeName
 instance NFData       VolumeAttributeName
 instance ToByteString VolumeAttributeName
 instance ToQuery      VolumeAttributeName
@@ -4005,7 +3887,6 @@ instance ToText VolumeModificationState where
         Modifying -> "modifying"
         Optimizing -> "optimizing"
 
-instance Hashable     VolumeModificationState
 instance NFData       VolumeModificationState
 instance ToByteString VolumeModificationState
 instance ToQuery      VolumeModificationState
@@ -4044,7 +3925,6 @@ instance ToText VolumeState where
         VError' -> "error"
         VInUse -> "in-use"
 
-instance Hashable     VolumeState
 instance NFData       VolumeState
 instance ToByteString VolumeState
 instance ToQuery      VolumeState
@@ -4074,7 +3954,6 @@ instance ToText VolumeStatusInfoStatus where
         InsufficientData -> "insufficient-data"
         OK -> "ok"
 
-instance Hashable     VolumeStatusInfoStatus
 instance NFData       VolumeStatusInfoStatus
 instance ToByteString VolumeStatusInfoStatus
 instance ToQuery      VolumeStatusInfoStatus
@@ -4101,7 +3980,6 @@ instance ToText VolumeStatusName where
         IOEnabled -> "io-enabled"
         IOPerformance -> "io-performance"
 
-instance Hashable     VolumeStatusName
 instance NFData       VolumeStatusName
 instance ToByteString VolumeStatusName
 instance ToQuery      VolumeStatusName
@@ -4137,7 +4015,6 @@ instance ToText VolumeType where
         ST1 -> "st1"
         Standard -> "standard"
 
-instance Hashable     VolumeType
 instance NFData       VolumeType
 instance ToByteString VolumeType
 instance ToQuery      VolumeType
