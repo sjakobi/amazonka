@@ -18,7 +18,6 @@ module Network.AWS.Data.Base64
 import           Control.DeepSeq
 import qualified Data.Attoparsec.Text        as AText (takeText)
 import           Data.Data                   (Data, Typeable)
-import           Data.Hashable
 import qualified Data.Text.Encoding          as Text
 import           GHC.Generics                (Generic)
 import           Network.AWS.Data.ByteString
@@ -34,7 +33,6 @@ import           Network.AWS.Lens            (Iso', iso)
 newtype Base64 = Base64 { unBase64 :: ByteString }
     deriving (Eq, Read, Ord, Data, Typeable, Generic)
 
-instance Hashable Base64
 instance NFData   Base64
 
 _Base64 :: Iso' Base64 ByteString

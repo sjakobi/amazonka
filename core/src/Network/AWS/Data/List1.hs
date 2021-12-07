@@ -19,7 +19,6 @@ import           Control.DeepSeq
 import           Control.Monad
 import           Data.Coerce
 import           Data.Data            (Data, Typeable)
-import           Data.Hashable
 import           Data.List.NonEmpty   (NonEmpty (..))
 import qualified Data.List.NonEmpty   as NonEmpty
 import           Data.Text            (Text)
@@ -56,8 +55,6 @@ instance IsList (List1 a) where
 
    fromList = List1 . NonEmpty.fromList
    toList   = NonEmpty.toList . toNonEmpty
-
-instance Hashable a => Hashable (List1 a)
 
 parseXMLList1 :: FromXML a
               => Text

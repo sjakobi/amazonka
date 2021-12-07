@@ -13,7 +13,6 @@ module Network.AWS.Prelude
 
 import Control.DeepSeq           as Export (NFData)
 import Data.Data                 as Export (Data, Typeable)
-import Data.Hashable             as Export (Hashable)
 import Data.List.NonEmpty        as Export (NonEmpty)
 import Data.Maybe                (fromMaybe)
 import GHC.Generics              as Export (Generic)

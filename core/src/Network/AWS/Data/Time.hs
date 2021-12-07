@@ -34,10 +34,9 @@ import           Data.Attoparsec.Text        (Parser)
 import qualified Data.Attoparsec.Text        as AText (endOfInput, double, takeText)
 import qualified Data.ByteString.Char8       as BS
 import           Data.Data                   (Data, Typeable)
-import           Data.Hashable
 import           Data.Tagged                 (Tagged(..), untag)
 import qualified Data.Text                   as Text
-import           Data.Time                   (Day (..), UTCTime (..))
+import           Data.Time                   (UTCTime (..))
 import           Data.Time.Clock.POSIX
 import           Data.Time.Format            (formatTime)
 import           GHC.Generics                (Generic)
@@ -63,11 +62,6 @@ deriving instance Typeable 'POSIXFormat
 
 newtype Time (a :: Format) = Time { fromTime :: UTCTime }
     deriving (Show, Read, Eq, Ord, Data, Typeable, Generic, NFData)
-
-instance Hashable (Time a) where
-    hashWithSalt salt (Time (UTCTime (ModifiedJulianDay d) t)) =
-        salt `hashWithSalt` d
-             `hashWithSalt` toRational t
 
 _Time :: Iso' (Time a) UTCTime
 _Time = iso fromTime Time
